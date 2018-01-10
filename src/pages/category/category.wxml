@@ -1,0 +1,36 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+	<scroll-view class="mainCategory">
+    <view
+      class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}"
+      wx:for="{{ categories }}"
+      wx:key="id"
+      data-index="{{ index }}"
+      bindtap="onMainCategoryItemClick"
+    >{{ item.name }}</view>
+  </scroll-view>
+  <scroll-view class="subCategory">
+    <image
+      class="subCategoryBanner"
+      src="{{ categories[selectedIndex].banner }}"
+      mode="aspectFill"
+    />
+    <view class="categoryTitle">{{ categories[selectedIndex].name }}分类</view>
+
+    <view class="subCategoryItems">
+      <navigator
+        class="subCategoryItem"
+        wx:for="{{ categories[selectedIndex].children }}"
+        wx:key="id"
+        url="/pages/productList/productList?categoryId={{ item.id }}&categoryParent={{ item.parent || item.id }}"
+      >
+        <image
+          class="subCategoryItemThumb"
+          src="{{ item.thumbnail }}"
+          mode="aspectFit"
+        />
+        <view class="subCategoryName">{{ item.name }}</view>
+      </navigator>
+    </view >
+  </scroll-view>
+</view>

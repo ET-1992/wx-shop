@@ -1,0 +1,81 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <view class="header">
+    <image class="avatar" src="{{ user.avatarurl }}" class="avatar" mode="aspectFill" wx:if="{{ user.avatarurl }}" />
+    <view class="name" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
+    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">立即登录</button>
+  </view>
+
+  <view class="section orders">
+    <navigator class="orderHeader" url="/pages/orderList/orderList">
+      <view>我的订单</view>
+      <view class="viewAll">
+        查看全部
+        <image class="rightIcon" src="../../icons/right.png" />
+      </view>
+    </navigator>
+
+    <view class="orderItems">
+      <navigator class="orderItem" url="/pages/orderList/orderList?status=1">
+        <view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
+        <image class="statusIcon" src="../../icons/wallet.png" />
+        <view>待付款</view>
+      </navigator>
+
+      <navigator class="orderItem" url="/pages/orderList/orderList?status=2">
+        <view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
+        <image class="statusIcon" src="../../icons/truck.png" />
+        <view>待发货</view>
+      </navigator>
+      <navigator class="orderItem" url="/pages/orderList/orderList?status=3">
+        <view class="orderItemValue" wx:if="{{ orderCount['3'] }}">{{ orderCount['3'] }}</view>
+        <image class="statusIcon" src="../../icons/confirm.png" />
+        <view>待收货</view>
+      </navigator>
+      <navigator class="orderItem" url="/pages/orderList/orderList?status=5">
+        <view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
+        <image class="statusIcon" src="../../icons/finish.png" />
+        <view>已完成</view>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="section">
+    <view bindtap="onItemClick" class="sectionItem" data-name="address">
+      <image class="itemIcon" src="../../icons/truck.png" />
+      <view class="itemTitle">收货地址</view>
+      <image class="rightIcon" src="../../icons/right.png" />
+    </view>
+    <view bindtap="onItemClick" class="sectionItem" data-name="coupon" wx:if="{{ false }}">
+      <image class="itemIcon" src="../../icons/truck.png" />
+      <view class="itemTitle">优惠券</view>
+      <image class="rightIcon" src="../../icons/right.png" />
+    </view>
+  </view>
+	<view class="section">
+	<navigator  url="/pages/orderList/orderList?status=10">
+	<view class="sectionItem">
+		<image class="itemIcon" src="../../icons/my.png" />
+		<view class="itemTitle">我的拼团</view>
+		<image class="rightIcon" src="../../icons/right.png" />
+	</view>
+	</navigator>
+
+	</view>
+  <view class="section">
+    <view bindtap="onItemClick" class="sectionItem" data-name="notice" wx:if="{{ false }}">
+      <image class="itemIcon" src="../../icons/truck.png" />
+      <view class="itemTitle">系统通知</view>
+      <image class="rightIcon" src="../../icons/right.png" />
+    </view>
+
+
+
+
+    <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact">
+      <image class="itemIcon" src="../../icons/contact.png" />
+      <view class="itemTitle">联系客服</view>
+      <image class="rightIcon" src="../../icons/right.png" />
+    </button>
+  </view>
+</view>

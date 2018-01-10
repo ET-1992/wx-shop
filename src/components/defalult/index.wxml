@@ -1,0 +1,5 @@
+<import src="/templates/marketList/marketList.wxml"/>
+
+<view class="container">
+  {{ title }}
+</view>

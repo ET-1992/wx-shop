@@ -1,0 +1,20 @@
+import { PRODUCT_LIST_STYLE } from 'constants/index';
+
+const app = getApp();
+
+Component({
+	properties: {
+		products: {
+			type: Array,
+			value: [],
+		},
+		productListStyle: {
+			type: String,
+			value: PRODUCT_LIST_STYLE[0],
+		},
+		nextCursor: {
+			type: Number,
+			value: 0,
+		},
+	},
+});

@@ -1,0 +1,102 @@
+.container {
+	background-color: #fff;
+
+	.categoryName {
+		text-align: center;
+		font-size: 10pt;
+	}
+}
+
+.bigCard, .smallCard {
+	.category {
+		position: relative;
+	}
+
+	.categoryName {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #fff;
+	}
+}
+
+.bigCard {
+	$height: 270rpx;
+
+	.category {
+		margin-bottom: 10rpx;
+	}
+
+	.categoryImage {
+		width: 100%;
+		height: $height;
+	}
+
+	.categoryName {
+		line-height: $height;
+		font-size: 12pt;
+	}
+}
+
+.smallCard {
+	$size: 150rpx;
+
+	font-size: 10pt;
+	padding: 35rpx 30rpx 5rpx 0;
+
+	.category {
+		width: $size;
+		margin-left: 30rpx;
+		margin-bottom: 30rpx;
+		display: inline-block;
+	}
+
+	.categoryImage {
+		height: $size;
+		width: $size;
+	}
+
+	.categoryName {
+		line-height: $size;
+	}
+}
+
+.textCard {
+	$size: 110rpx;
+
+	padding: 50rpx 60rpx 40rpx 0;
+
+	.category {
+		width: $size;
+		display: inline-block;
+		margin-left: 60rpx;
+		margin-bottom: 10rpx;
+	}
+
+	.categoryImage {
+		height: $size;
+		width: $size;
+	}
+
+	.categoryName {
+		width: $size;
+	}
+}
+
+.text {
+	$size: 80rpx;
+
+	padding: 55rpx 80rpx 15rpx 0;
+
+	.category {
+		width: $size;
+		display: inline-block;
+		margin-left: 80rpx;
+		margin-bottom: 40rpx;
+	}
+
+	.categoryName {
+		width: $size;
+	}
+}

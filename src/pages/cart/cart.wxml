@@ -1,0 +1,132 @@
+<import src="/templates/loading/loading.wxml"/>
+
+<view class="container">
+
+  <template is="loading" wx:if="{{ isLoading }}"/>
+
+  <view wx:if="{{ !isLogin && !isLoading }}" class="emptyHint">
+    <view>未登录</view>
+    <view
+      bindtap="onLogin"
+      class="onGotoBuy"
+    >微信登录</view>
+  </view>
+
+
+  <view wx:if="{{ !items.length && !isLoading && isLogin }}" class="emptyHint">
+    <view>购物车空空如也~</view>
+    <navigator
+      open-type="switchTab"
+      class="onGotoBuy"
+      url="/pages/home/home"
+    >去选购</navigator>
+  </view>
+
+  <view class="cartList" wx:if="{{ items.length && !isLoading }}">
+    <navigator
+      class="cartItem"
+      wx:for="{{ items }}"
+      wx:key="id"
+      url="/pages/productDetail/productDetail?id={{ item.post_id }}"
+    >
+      <view
+        class="radio {{ item.isSelected ? 'selected' : '' }}"
+        catchtap="onHandleItemSelect"
+        data-index="{{ index }}"
+      >
+        <image
+          src="/icons/selected.png"
+          mode="aspectFit"
+          class="radioIcon"
+          wx:if="{{ item.isSelected }}"
+        />
+      </view>
+
+      <image
+        src="{{ item.thumbnail }}"
+        class="itemImage"
+        mode="aspectFill"
+      />
+
+      <view class="info">
+        <view class="title">{{ item.title }}</view>
+        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+        <view class="meta">
+          <view>
+            <view class="price" >￥{{ (item.miaosha_end_timestamp  - timestamp > 0) ? item.miaosha_price : item.price }}</view>
+          </view>
+
+          <view class="metaRight">
+            <numberInput
+              value="{{ item.quantity }}"
+              postId="{{ item.post_id }}"
+              skuId="{{ item.sku_id }}"
+              max="{{ item.stock }}"
+              bindquantityChangeEvent="updateCart"
+            />
+            <view
+              class="delete"
+              data-post-id="{{ item.post_id }}"
+              data-sku-id="{{ item.sku_id }}"
+              data-index="{{ index }}"
+              catchtap="onDelete"
+            >删除</view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <view
+      class="clearCart"
+      bindtap="onClearCart"
+    >清空购物车</view>
+  </view>
+
+
+
+  <view class="footer" wx:if="{{ items.length && !isLoading }}">
+    <image
+      src="/icons/radio.png"
+      class="radioIcon"
+      wx:if="{{ !isAllSelected && flase }}"
+      bindtap="onSelectAll"
+    />
+    <image
+      src="/icons/radioSelected.png"
+      class="radioIcon"
+      wx:if="{{ isAllSelected && false }}"
+      bindtap="onSelectAll"
+    />
+
+    <view
+      class="radio {{ isAllSelected ? 'selected' : '' }}"
+      bindtap="onSelectAll"
+    >
+      <image
+        src="/icons/selected.png"
+        mode="aspectFit"
+        class="radioIcon"
+        wx:if="{{ isAllSelected }}"
+      />
+    </view>
+
+    <view>全选</view>
+
+    <view class="priceCount">
+      <view
+        class="priceMeta"
+      >
+        <text class="postage"
+        >运费：￥{{ postagePrice }}</text>
+        <text
+        >已节省：￥{{ savePrice }}</text>
+      </view>
+      <view>合计：<text class="totalPrice">￥{{ totalPrice }}</text></view>
+    </view>
+
+    <button
+      class="normalizeBt createOrderBt"
+      bindtap="onCreateOrder"
+      disabled="{{ !totalPrice }}"
+    >去结算</button>
+  </view>
+</view>

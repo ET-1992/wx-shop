@@ -1,0 +1,341 @@
+<import src="../../templates/mock/mock.wxml"/>
+<import src="../../templates/loading/loading.wxml"/>
+
+<template is="loading" wx:if="{{ isLoading }}"/>
+
+<view class="container" wx:if="{{ !isLoading }}">
+  <view class="header" >
+    <swiper
+      indicator-dots
+      autoplay="{{autoplay}}"
+      class="swiper"
+      wx:if="{{ headerType === 'images' }}"
+     bindchange="currentIndex">
+      <swiper-item>
+
+        <view wx:if="{{product.video}}" bindtap="clickMe" >
+          <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;"></image>
+        </view>
+        <video id="myVideo" wx:if="{{activeIndex==1}}" src="{{product.video}}" bindpause="pause" bindfullscreenchange="fullScreen" bindended="end" bindplay="startPlay" autoplay></video>
+        <image mode="aspectFill" src="{{product.images[0]}}"></image>
+
+      </swiper-item>
+
+      <swiper-item wx:if="{{index!=0}}"
+        wx:for="{{ product.images }}"
+        wx:key="id"
+        wx:for-item="image"
+      >
+      <image
+        src="{{ image }}"
+        mode="aspectFill"
+      />
+
+      </swiper-item>
+    </swiper>
+
+    <view class="videoWrapper" wx:if="{{ headerType === 'video' }}">
+      <video
+        src="{{ product.video }}"
+        hidden="{{ isShowAcitonSheet }}"
+      />
+    </view>
+  </view>
+
+  <view class="flashCountdown" wx:if="{{ product.miaosha_enable === '1' }}">
+    <view class="title">限时购</view>
+    <view class="desc" wx:if="{{ !hasEnd }}">抢购中</view>
+    <view class="timeLimit">
+      <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+      <view wx:if="{{ !hasStart }}">距开始</view>
+      <view wx:if="{{ hasEnd }}">已结束</view>
+      <view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
+      <view wx:if="{{ !hasEnd }}">:</view>
+      <view class="minute" wx:if="{{ !hasEnd }}">{{ remainTime.minute }}</view>
+      <view wx:if="{{ !hasEnd }}">:</view>
+      <view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
+    </view>
+  </view>
+
+  <view class="info">
+    <view class="title">{{ product.title }}</view>
+    <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+    <view class="meta">
+      <view>
+        <view class="price">
+          ￥
+          <text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
+          <text wx:elif="{{ product.miaosha_enable === '1' }}">{{ product.miaosha_price }}</text>
+          <text wx:else="{{ product.miaosha_enable === '1' }}">{{ product.price }}</text>
+        </view>
+        <view class="originalPrice">￥{{ product.original_price }}</view>
+      </view>
+      <view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
+      <view class="sales">已售：{{ product.sales }}</view>
+    </view>
+    <view class="tag" wx:if="{{ product.miaosha_enable === '1' }}">
+      限时购
+    </view>
+    <view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
+      {{ product.groupon_member_limit + '人团' }}
+    </view>
+  </view>
+
+  <view class="comment" wx:if="{{ false }}">
+    评论({{ comments.length }})
+    <view class="line" />
+  </view>
+
+  <view
+    class="pendingGroupons"
+    wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}"
+  >
+    <view class="title">正在开团, 可直接参团</view>
+    <view
+      wx:for="{{ product.pending_groupons }}"
+      wx:key="id"
+      class="pendingGrouponWrapper"
+    >
+      <pendingGrouponItem
+        groupon="{{ item }}"
+        bindgroupEvent="grouponListener"
+      />
+    </view>
+
+  </view>
+
+
+  <view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
+    <view class="title">拼团流程</view>
+    <image
+      class="grouponHintImage"
+      src="../../icons/grouponHint.png"
+    />
+  </view>
+
+  <view class="video" wx:if="{{ false }}">
+    <view class="videoTitle">商品视频</view>
+    <video
+      src="{{ product.video }}"
+      wx:if="{{ product.video }}"
+    />
+  </view>
+
+
+  <view class="detail">
+    <view class="detailTitle">商品详情</view>
+    <rich-text
+      class="content"
+      type="text"
+      nodes="{{ product.content }}"
+    />
+  </view>
+  <view class="footer">
+    <navigator
+      class="shop"
+      open-type="switchTab"
+      hover-class="navigator-hover"
+      url="/pages/home/home"
+    >
+      <image class="icon" src="../../icons/store.png"/>
+      店铺
+    </navigator>
+    <navigator
+      class="cart"
+      open-type="switchTab"
+      hover-class="navigator-hover"
+      url="/pages/cart/cart"
+    >
+      <image class="icon" src="../../icons/shopcart.png"/>
+      购物车
+    </navigator>
+    <button open-type="contact" class="cart">
+    <image class="icon" src="../../icons/context.png"/>
+    客服
+    </button>
+
+    <block wx:if="{{ (product.groupon_enable !== '1' && product.miaosha_enable !== '1') }}">
+
+      <view
+              class="addCart"
+              bindtap="onShowSku"
+              data-actions="{{ [{ type: 'addCart', text: '加入购物车', isSingle:true }] }}"
+      >加入购物车</view>
+      <view
+              class="buy"
+              bindtap="onShowSku"
+              data-actions="{{ [{ type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+      >立即购买</view>
+    </block>
+    <block wx:if="{{ ( product.groupon_enable !== '1' && product.miaosha_enable === '1') }}">
+
+      <view
+              class="addCart"
+              bindtap="onShowSku"
+              data-actions="{{ [{ type: 'addCart', text: '加入购物车',isMiaosha: true }] }}"
+      >加入购物车</view>
+      <view
+              class="buy"
+              bindtap="onShowSku"
+              data-actions="{{ [{ type: 'onBuy', text: '立即购买',isMiaosha: true }] }}"
+      >立即购买</view>
+    </block>
+
+
+
+    <view
+      wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
+      class="addCart multi"
+      bindtap="onShowSku"
+      data-single="0"
+      data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+    >
+      <view>￥{{ product.price }}</view>
+      <view>单独购买</view>
+    </view>
+    <view
+      wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
+      class="buy multi"
+      bindtap="onShowSku"
+      data-single="1"
+      data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
+    >
+      <view>￥{{ product.groupon_price }}</view>
+      <view>{{ product.groupon_member_limit }}人团</view>
+    </view>
+    <view
+      wx:if="{{ product.groupon_enable === '1' && grouponId }}"
+      class="buy multi"
+      bindtap="onShowSku"
+      data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
+    >
+      <view>立即参团</view>
+    </view>
+  </view>
+
+  <view
+    class="actionSheet"
+  >
+    <template
+      is="mock"
+      data="{{ isShow: isShowAcitonSheet }}"
+    />
+    <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }}">
+      <view class="head">
+        <image
+          src="{{ product.images[0] }}"
+          class="skuImg"
+          mode="aspectFill"
+        />
+        <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
+          <view class="skuInfo">
+          <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
+            <view class="price" >￥{{ (product.miaosha_end_timestamp  - timestamp > 0) ? product.miaosha_price : product.price }}</view>
+            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+          </view>
+          <view wx:if="{{ (!actions[0].isMiaosha && actions[0].isGroupon) }}">
+            <view class="price">￥{{ product.groupon_price }}</view>
+            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+          </view>
+          </view>
+
+          <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
+            <view
+              class="skuGroup"
+              wx:for="{{ skuSplitProperties }}"
+              wx:for-item="property"
+              wx:for-index="propertyIndex"
+              wx:key="key"
+            >
+              <view class="title"
+              >{{ property.key }}</view>
+              <view
+                class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }}"
+                wx:for="{{ property.values }}"
+                wx:key="index"
+                data-value="{{ item }}"
+                data-key="{{ property.key }}"
+                data-property-index="{{ propertyIndex }}"
+                bindtap="onSkuItem"
+              >{{ item }}</view>
+            </view>
+          </view>
+          <view class="quantity">
+            <view class="title">数量</view>
+            <numberInput
+              value="{{ quantity }}"
+              postId="{{ product.id }}"
+              skuId="{{ selectedSku.id }}"
+              max="{{ selectedSku.stock || product.stock }}"
+              bindquantityChangeEvent="updateQuantity"
+            />
+          </view>
+          <view class="actionSheetBtGroup">
+            <button
+              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+              wx:for="{{ actions }}"
+              wx:key="text"
+              disabled="{{ product.skus.length && !selectedSku.id }}"
+              data-action-type="{{ item.type }}"
+              bindtap="onSkuConfirm"
+            >{{ item.text }}</button>
+          </view>
+        </view>
+        <view wx:else  style="width:100%">
+          <view class="skuInfo">
+            <view class="price">￥{{ selectedSku.price || product.price }}</view>
+            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+          </view>
+          <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
+            <view
+              class="skuGroup"
+              wx:for="{{ skuSplitProperties }}"
+              wx:for-item="property"
+              wx:for-index="propertyIndex"
+              wx:key="key"
+            >
+              <view class="title"
+              >{{ property.key }}</view>
+              <view
+                class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }}"
+                wx:for="{{ property.values }}"
+                wx:key="index"
+                data-value="{{ item }}"
+                data-key="{{ property.key }}"
+                data-property-index="{{ propertyIndex }}"
+                bindtap="onSkuItem"
+              >{{ item }}</view>
+            </view>
+          </view>
+          <view class="quantity">
+            <view class="title">数量</view>
+            <numberInput
+              value="{{ quantity }}"
+              postId="{{ product.id }}"
+              skuId="{{ selectedSku.id }}"
+              max="{{ selectedSku.stock || product.stock }}"
+              bindquantityChangeEvent="updateQuantity"
+            />
+          </view>
+          <view class="actionSheetBtGroup">
+            <button
+              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+              wx:for="{{ actions }}"
+              wx:key="text"
+              disabled="{{ product.skus.length && !selectedSku.id }}"
+              data-action-type="{{ item.type }}"
+              bindtap="onSkuConfirm"
+            >{{ item.text }}</button>
+          </view>
+        </view>
+
+
+
+
+      </view>
+    </view>
+  </view>
+</view>

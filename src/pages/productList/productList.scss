@@ -1,0 +1,90 @@
+@import "~templates/loading/loading";
+@import "~styles/color";
+
+page{
+	background: #fff;
+}
+.noHint {
+	text-align: center;
+	color: $originalPriceColor;
+	width: 100%;
+	margin-top: 200rpx;
+}
+
+.scrollSegmentcontrol {
+	background-color: $mainColor;
+	color: #fff;
+	font-size: 10pt;
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	.categories {
+		display: flex;
+
+	}
+
+	.category {
+		flex-shrink: 0;
+		padding:13px 16rpx;
+		margin:21rpx;
+		margin-bottom:0;
+		// display: inline-block;
+
+		&.selected {
+			border-bottom: 4px solid #fff;
+		}
+	}
+
+}
+
+
+.sortOptions {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-top:136rpx;
+
+	.sortOption {
+		width: 50%;
+		justify-content: center;
+		height: 60rpx;
+		line-height: 60rpx;
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+		color: $originalPriceColor;
+
+		&.selected {
+			color: $titleColor;
+		}
+	}
+
+
+	.indicators {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		height: 24rpx;
+		justify-content: center;
+		margin-left: 14rpx;
+		margin-top: -6rpx;
+	}
+
+	.triangleIcon {
+		width: 16rpx;
+		height: 9rpx;
+	}
+
+	.triangleIconUp {
+		margin-bottom: 6rpx;
+	}
+}
+
+.m-attrList{
+	padding:0;
+	margin: 0;
+}
+.m-attrList img{
+	width: 750rpx;
+}

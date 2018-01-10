@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "numberInput": "../../components/numberInput/index",
+    "pendingGrouponItem": "../../components/pendingGrouponItem/index"
+  }
+}

@@ -1,0 +1,23 @@
+<view class="productItemList">
+  <image
+    src="{{ product.thumbnail }}"
+    class="productItemImage"
+    mode="aspectFit"
+  />
+  <view class="productItemInfo">
+    <view class="prodcutItemName">
+      {{ product.title }}
+    </view>
+    <view
+      class="productItemTag"
+      wx:if="{{ product.tag }}"
+    >{{ product.tag }}</view>
+    <view class="productItemMeta">
+      <view class="productItemPrice">￥{{ product.price }}</view>
+      <view class="productItemOriginPrice"
+      >￥{{ product.original_price }}</view>
+      <view class="productItemSold">已售：{{ product.sales }}</view>
+    </view>
+  </view>
+</view>
+

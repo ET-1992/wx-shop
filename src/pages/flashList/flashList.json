@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "限时购",
+  "usingComponents": {
+    "flashItem": "../../components/flashItem/index"
+  }
+}

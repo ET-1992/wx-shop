@@ -1,0 +1,146 @@
+@import '~styles/color';
+
+.productItemMeta {
+	display: flex;
+	align-items: center;
+	margin-top: 14rpx;
+}
+
+.prodcutItemName {
+	color: $titleColor;
+	font-size: 13px;
+}
+
+.productItemTag {
+	color: #fff;
+	background-color: $tagColor;
+	padding: 4rpx 16rpx;
+	margin-left: 16rpx;
+}
+
+.productItemPrice {
+	color: $priceColor;
+	font-size: 14pt;
+}
+
+.productItemOriginPrice {
+	color: $originalPriceColor;
+	text-decoration: line-through;
+	margin-left: 10rpx;
+	font-size: 10pt;
+}
+
+.productItemSold {
+	flex-grow: 1;
+	text-align: right;
+	font-size: 8pt;
+	color: #9fa0a0;
+}
+
+.productItemBigCard {
+	background-color: #fff;
+	margin-bottom: 10rpx;
+
+	.prodcutItemName {
+		font-size: 12pt
+	}
+
+	.productItemPrice {
+		font-size: 16pt;
+	}
+
+	.productItemOriginPrice {
+		font-size: 12pt;
+	}
+
+	.productItemImage {
+		width: 100%;
+		height: 340rpx;
+	}
+
+	.productItemInfo {
+		padding: 20rpx 40rpx;
+	}
+
+	.prodcutItemName {
+		color: $titleColor;
+		font-size: 12pt
+	}
+}
+
+.productItemSmallCard {
+	width: 340rpx;
+	background-color: #fff;
+	margin-bottom: 10rpx;
+	height: 500rpx;
+
+	.prodcutItemName {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2; //文本行数
+		overflow: hidden;
+		text-overflow: ellipsis;
+		min-height: 64rpx;
+	}
+
+	.productItemImage {
+		width: 340rpx;
+		height: 340rpx;
+	}
+
+	.productItemInfo {
+		padding:0 20rpx;
+	}
+
+	.productItemPrice {
+		font-size: 11pt;
+	}
+
+	.productItemOriginPrice {
+		font-size: 7pt;
+	}
+
+	.productItemSold {
+		font-size: 7pt;
+	}
+
+	.tagWrapper {
+		flex-grow: 1;
+		text-align: right;
+	}
+
+	.tag {
+		display: inline-block;
+		font-size: 8pt;
+		background-color: $priceColor;
+		padding: 4rpx 10rpx;
+		color: #fff;
+
+	}
+}
+
+.productItemList {
+	display: flex;
+	background-color: #fff;
+	margin-bottom: 10rpx;
+
+	.productItemInfo {
+		flex-grow: 1;
+	}
+
+	.productItemImage {
+		width: 280rpx;
+		height: 280rpx;
+		flex-shrink: 0;
+	}
+
+	.productItemTag {
+		display: inline-block;
+		margin-left: 0;
+		margin-top: 10rpx;
+	}
+
+	.productItemInfo {
+		padding: 40rpx;
+	}
+}

@@ -1,0 +1,135 @@
+@import '~styles/color';
+
+.header {
+	padding: 20rpx;
+	text-align: center;
+	background-color: $mainColor;
+	color: #fff;
+
+	.avatar {
+		$size: 130rpx;
+
+		width: $size;
+		height: $size;
+		border-radius: 50%;
+		border: 1px solid #fff;
+		margin-bottom: 10rpx;
+	}
+
+	.loginBt {
+		width: 200rpx;
+		padding: 10rpx 0;
+		border: 1px solid #ccc;
+		margin: 0;
+		display: inline-block;
+		color: #fff;
+	}
+}
+
+.section {
+	background-color: #fff;
+	margin-bottom: 10rpx;
+	padding: 0 20rpx;
+}
+
+.orders {
+	padding: 20rpx;
+}
+
+.sectionItem {
+	padding: 30rpx 0;
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	align-items: center;
+
+	.itemIcon {
+		$size: 40rpx;
+
+		width: $size;
+		height: $size;
+		flex-shrink: 0;
+		margin-right: 10rpx;
+	}
+
+	.rightIcon {
+		flex-shrink: 0;
+	}
+
+	.itemTitle {
+		flex-grow: 1;
+	}
+
+}
+
+.sectionItem:last-child {
+	border: none;
+}
+
+.orderHeader {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20rpx;
+
+	.viewAll {
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+	}
+}
+
+.orderItems {
+	display: flex;
+	margin-top: 20rpx;
+
+	.orderItem {
+		flex-grow: 1;
+		width: 25%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		left: 0;
+		top: 0;
+		font-size: 10pt;
+	}
+
+
+	.statusIcon {
+		$size: 60rpx;
+
+		height: $size;
+		width: $size;
+		margin-bottom: 10rpx;
+	}
+
+	.orderItemValue {
+		$size: 30rpx;
+
+		width: $size;
+		height: $size;
+		border-radius: 50%;
+		font-size: 8pt;
+		color: #fff;
+		text-align: center;
+		line-height: $size;
+		background-color: $priceColor;
+		position: absolute;
+		right: 48rpx;
+		top: 0;
+		z-index: 2;
+	}
+}
+
+.rightIcon {
+	width: 16rpx;
+	height: 26rpx;
+	margin-left: 10rpx;
+}
+
+.contactBt {
+	text-align: left;
+	font-size: 12pt;
+	line-height: 1.4;
+}

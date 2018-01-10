@@ -1,0 +1,155 @@
+@import '~styles/color';
+
+$footerHeight: 100rpx;
+
+.emptyHint {
+	color: #ccc;
+	font-size: 14pt;
+	margin-top: 320rpx;
+	text-align: center;
+	.onGotoBuy {
+		width: 600rpx;
+		background-color: #000;
+		color: #fff;
+		margin: 40rpx auto 0 auto;
+		padding: 20rpx 0;
+	}
+}
+
+
+.cartList {
+	margin-top: 40rpx;
+	margin-bottom: $footerHeight + 40rpx;
+}
+
+.radio {
+	$size: 32rpx;
+
+	height: $size;
+	width: $size;
+	margin-right: 20rpx;
+	flex-shrink: 0;
+	border: 1px solid $mainColor;
+	border-radius: 50%;
+	line-height: $size;
+	text-align: center;
+
+	&.selected {
+		background-color: $mainColor;
+	}
+
+	.radioIcon {
+		$iconSize: 24rpx;
+
+		height: $iconSize;
+		width: $iconSize;
+	}
+}
+
+.cartItem {
+	$imageSize: 180rpx;
+
+	display: flex;
+	align-items: center;
+	padding: 20rpx;
+	margin-bottom: 1px solid #eee;
+	background-color: #fff;
+	margin-bottom: 5rpx;
+
+	.itemImage {
+		height: $imageSize;
+		width: $imageSize;
+		margin-right: 60rpx;
+		flex-shrink: 0;
+	}
+
+	.propertyNames {
+		color: $originalPriceColor;
+		font-size: 8pt;
+		margin: 10rpx 0;
+	}
+
+	.price {
+		color: $priceColor;
+		font-size: 12pt;
+	}
+
+	.info {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 10pt;
+		width: 100%;
+		min-height: $imageSize;
+		align-self: flex-start;
+	}
+
+	.meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.metaRight {
+		display: flex;
+		align-items: flex-end;
+	}
+
+	.delete {
+		margin-left: 10rpx;
+		line-height: 1;
+		color: #ccc;
+	}
+}
+
+.clearCart {
+	padding: 40rpx 20rpx;
+	text-align: right;
+	color: #ccc;
+	font-size: 10pt;
+}
+
+.footer {
+	height: $footerHeight;
+	display: flex;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #fff;
+	border-top: 1px solid #eee;
+	padding-left: 20rpx;
+
+
+	.priceCount {
+		width: 320rpx;
+		flex-grow: 1;
+		text-align: right;
+		padding-right: 20rpx;
+
+		.totalPrice {
+			color: $priceColor;
+			font-size: 12pt;
+		}
+
+		.priceMeta {
+			font-size: 8pt;
+			color: $originalPriceColor;
+			.postage {
+				margin-right: 40rpx;
+			}
+		}
+	}
+
+	.createOrderBt {
+		width: 240rpx;
+		background-color: $mainColor;
+		color: #fff;
+		text-align: center;
+		line-height: $footerHeight;
+		border-radius: 0;
+		font-size: 12pt;
+	}
+}

@@ -1,0 +1,16 @@
+<view class="container">
+	<image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" wx:if="{{ false }}"/>
+  <view
+    class="itemWrapper"
+    wx:for="{{ products }}"
+    wx:key="id"
+  >
+    <flashItem
+      product="{{ item }}"
+    />
+  </view>
+  <view
+    class="bottomHint"
+    wx:if="{{ products.length && !next_cursor }}"
+  >-这是一条底线-</view>
+</view>

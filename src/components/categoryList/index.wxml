@@ -1,0 +1,24 @@
+<view
+    class="container {{ categoryListStyle }}"
+  >
+  <navigator
+    class="category"
+    wx:for="{{ categories }}"
+    wx:key="id"
+    wx:for-item="category"
+    wx:for-index="categoryIndex"
+    hover-class="navigator-hover"
+    url="/pages/productList/productList?categoryId={{ category.id }}"
+  >
+    <image
+      wx:if="{{ categoryListStyle !== 'text' }}"
+      class="categoryImage"
+      src="{{ category.thumbnail }}"
+      mode="aspectFill"
+    />
+    <view
+      wx:if="{{ categoryListStyle !== 'smallCard' }}"
+      class="categoryName"
+    >{{ category.name }}</view>
+  </navigator>
+</view>

@@ -1,0 +1,94 @@
+<import src="/templates/grouponItem/grouponItem.wxml"/>
+<import src="/templates/loading/loading.wxml"/>
+
+<template is="loading" wx:if="{{ isLoading }}"/>
+
+<view class="container">
+  <navigator
+    class="searchWrapper"
+    url="/pages/search/search"
+  >
+
+    <view class="search">
+      <image src="/icons/search.png" class="searchIcon"/>
+      <text>搜索商品，共有{{ total }}款好物</text>
+    </view>
+  </navigator>
+
+  <view class="main">
+    <swiper
+      indicator-dots
+      autoplay
+      circular
+      wx:if="{{ sliders.length }}"
+      class="banner section" style="padding-bottom:0"
+    >
+      <swiper-item
+        wx:for="{{ sliders }}"
+        wx:key="id"
+      >
+        <navigator url="{{ item.path }}">
+          <image src="{{ item.image }}" mode="aspectFill"/>
+        </navigator>
+      </swiper-item>
+    </swiper>
+
+    <categoryList
+      wx:if="{{ product_categories.length }}"
+      categories="{{ product_categories }}"
+      categoryListStyle="{{ categoryListStyle }}"
+      wx:if="{{ false }}"
+    />
+
+    <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
+      <flashItem
+        isList="{{ miaoshas.length > 1 }}"
+        product="{{ miaoshas[0] }}"
+      />
+    </view>
+
+    <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
+      <view class="sectionTitle">拼团专区</view>
+
+      <view
+        wx:for="{{ groupons }}"
+        wx:key="id"
+        class="grouponItemWrapper"
+      >
+        <template
+          is="grouponItem"
+          data="{{ product: item }}"
+        />
+      </view>
+      <navigator class="sectionMore" url="/pages/grouponList/grouponList">
+        <text>更多拼团</text>
+        <image class="rightIcon" src="/icons/right.png"/>
+      </navigator>
+    </view>
+
+    <view class="section section3" wx:if="{{ featured_products && featured_products.length }}">
+      <view class="sectionTitle">明星产品</view>
+      <navigator
+        url="/pages/productDetail/productDetail?id={{ item.product.id }}"
+        wx:for="{{ featured_products }}"
+        wx:key="item.product.id"
+      >
+        <image
+          class="starProductItem"
+          src="{{ item.banner }}"
+          mode="aspectFill"
+        />
+      </navigator>
+    </view>
+
+
+    <view class="section">
+      <view class="sectionTitle">最新上架</view>
+      <productList
+        products="{{ products }}"
+        productListStyle="{{ productListStyle }}"
+        nextCursor="{{next_cursor}}"
+      />
+    </view>
+  </view>
+</view>

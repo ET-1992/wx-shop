@@ -1,0 +1,83 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<form
+  class="container"
+  report-submit
+  bindsubmit="onPay"
+>
+	<view class="itemList">
+   <view
+    class="item"
+    wx:for="{{ items }}"
+    wx:key="id"
+    >
+      <image
+        src="{{ item.image_url }}"
+        class="itemImage"
+        mode="aspectFill"
+      />
+      <view class="itemInfo">
+        <view class="itemName">{{ item.title }}</view>
+        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+        <view class="itemMeta">
+          <view class="itemPrice">￥{{ item.price }}</view>
+          <view class="itemQuantity">x{{ item.quantity }}</view>
+        </view>
+      </view>
+   </view>
+  </view>
+
+  <view class="textareaWrapper">
+    <textarea
+      class="textarea"
+      maxlength="{{ 30 }}"
+      bindinput="onInput"
+      placeholder="买家留言"
+      placeholder-class="textarea-placeholder"
+    />
+  </view>
+
+
+  <view bindtap="onAddress" class="address">
+    <image class="addressIcon" src="/icons/address.png"/>
+    <view wx:if="{{ !address.userName }}" class="addressValue">
+      添加地址
+    </view>
+    <view wx:if="{{ address.userName }}" class="addressValue addressInfo">
+      <view>
+        <view>
+            <text>收货人：{{ address.userName }} </text>
+            <text class="phone"> {{ address.telNumber }}</text>
+        </view>
+        <view>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</view>
+      </view>
+    </view>
+    <image class="rightIcon" src="/icons/right.png"/>
+  </view>
+
+  <view class="priceInfo">
+    <view class="priceInfoItem">
+      <view class="priceInoItemTitle">商品金额</view>
+      <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
+    </view>
+    <view class="priceInfoItem">
+      <view class="priceInoItemTitle">优惠券</view>
+      <view class="priceInfoItemValue">-￥{{ couponPrice }}</view>
+    </view>
+    <view class="priceInfoItem">
+      <view class="priceInoItemTitle">运费</view>
+      <view class="priceInfoItemValue">￥{{ totalPostage }}</view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="totalPrice">
+      <text class="totalPriceTitle">实付款：</text>
+      <text class="totalPriceValue">￥{{ totalPrice + totalPostage - couponPrice }}</text>
+    </view>
+      <button
+          class="normalizeBt payBt"
+          style="background-color: {{!address.userName ? '#cccccc' : '#45424e'}}"
+          form-type="submit"
+      >去支付</button>
+  </view>
+</form>

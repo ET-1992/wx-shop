@@ -1,0 +1,19 @@
+<import src="/templates/grouponItem/grouponItem.wxml"/>
+
+<view class="container">  
+  <view wx:if="{{ miaosha_banner  && miaosha_banner.length}}">
+    <image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" />
+  </view>
+  
+
+  <view wx:for="{{products}}">
+    <flashItem
+      isList="{{ true }}"
+      product="{{ item }}"
+    />
+  </view>
+  <view
+    class="bottomHint"
+    wx:if="{{ products.length && !next_cursor }}"
+  >-这是一条底线-</view>
+</view>

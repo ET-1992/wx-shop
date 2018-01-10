@@ -1,0 +1,22 @@
+<import src="/templates/grouponItem/grouponItem.wxml"/>
+
+<view class="container">
+  <view class="banner" wx:if="{{ groupon_banner  && groupon_banner.length}}">
+  <image src="{{ groupon_banner }}" mode="aspectFill" />
+  </view>
+  
+  <view
+    class="itemWrapper"
+    wx:for="{{ products }}"
+    wx:key="id"
+  >
+    <template
+      is="grouponItem"
+      data="{{ product: item }}"
+    />
+  </view>
+  <view
+    class="bottomHint"
+    wx:if="{{ products.length && !next_cursor }}"
+  >-这是一条底线-</view>
+</view>

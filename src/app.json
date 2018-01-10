@@ -1,0 +1,64 @@
+{
+	"pages": [
+		"pages/home/home",
+		"pages/cart/cart",
+		"pages/me/me",
+		"pages/miaoshaList/miaoshaList",
+		"pages/productDetail/productDetail",
+		"pages/productList/productList",
+		"pages/orderCreate/orderCreate",
+		"pages/orderList/orderList",
+		"pages/orderDetail/orderDetail",
+		"pages/logistics/logistics",
+		"pages/refund/refund",
+		"pages/category/category",
+		"pages/search/search",
+		"pages/grouponList/grouponList",
+		"pages/flashList/flashList"
+	],
+	"window": {
+		"backgroundTextStyle": "white",
+		"navigationBarBackgroundColor": "#45424e",
+		"navigationBarBackgroundColorRed": "#d74657",
+		"navigationBarBackgroundColorBlue": "#245e74",
+		"navigationBarBackgroundColorGreen": "#22926c",
+		"navigationBarTitleText": "小嘿店",
+		"navigationBarTextStyle": "white",
+		"backgroundColor": "#f4f7f9"
+	},
+	"tabBar": {
+		"color": "#a39896",
+		"selectedColor": "#45424e",
+		"backgroundColor": "#eee",
+		"backgroundColorRed": "#eb7581",
+		"backgroundColorBlue": "#1e8aa6",
+		"backgroundColorGreen": "#71bca8",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"iconPath": "icons/home.png",
+				"text": "首页",
+				"selectedIconPath": "icons/homeSelected.png"
+			},
+			{
+				"pagePath": "pages/category/category",
+				"iconPath": "icons/category.png",
+				"text": "分类",
+				"selectedIconPath": "icons/categorySelected.png"
+			},
+			{
+				"pagePath": "pages/cart/cart",
+				"iconPath": "icons/cart.png",
+				"text": "购物车",
+				"selectedIconPath": "icons/cartSelected.png"
+			},
+			{
+				"pagePath": "pages/me/me",
+				"iconPath": "icons/me.png",
+				"text": "我",
+				"selectedIconPath": "icons/meSelected.png"
+			}
+		]
+	}
+}

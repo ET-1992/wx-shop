@@ -1,0 +1,65 @@
+@import '~styles/color';
+
+.pendingGroupon {
+	$avatarSize: 100rpx;
+
+	display: flex;
+	padding: 20rpx 0;
+
+	.userAvatar {
+		width: $avatarSize;
+		height: $avatarSize;
+		background-color: $mainColor;
+		border-radius: 50%;
+		margin-right: 40rpx;
+		overflow: hidden;
+	}
+
+	.middle, .right {
+		height: avatarSize;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.middle {
+		flex-grow: 1;
+
+		.userName {
+			font-size: 12pt;
+		}
+
+		.status {
+			font-size: 10pt;
+		}
+	}
+
+	.timeLimit {
+		display: flex;
+		align-items: center;
+		font-size: 9pt;
+
+		.remainTime {
+			color: $priceColor;
+			margin: 0 6rpx;
+		}
+
+		.hour {
+			margin-left: 20rpx;
+		}
+	}
+
+	.rightBottom {
+		font-size: 9pt;
+		display: flex;
+		align-items: flex-end;
+
+		.tag {
+			color: #fff;
+			background-color: $priceColor;
+			padding: 4rpx 16rpx;
+			margin-left: 20rpx
+		}
+	}
+}
+

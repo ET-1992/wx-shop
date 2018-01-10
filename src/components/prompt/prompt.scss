@@ -1,0 +1,48 @@
+@import '~templates/mock/mock';
+
+.container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 560rpx;
+	border-radius: 20rpx;
+	color: #ccc;
+	margin-left: -280rpx;
+	margin-top: -238rpx;
+	background-color: #fff;
+}
+
+.main {
+	padding: 40rpx;
+	border-bottom: 1px solid #eee;
+}
+
+.title {
+	margin-bottom: 40rpx;
+}
+
+.placeholder {
+	color: #ccc;
+}
+
+.input {
+	border: 1px solid #ddd;
+	height: 60rpx;
+	padding: 10rpx;
+}
+
+.btGroup {
+	display: flex;
+}
+
+.cancelBt, .saveBt {
+	width: 50%;
+	height: 100rpx;
+	line-height: 100rpx;
+	text-align: center;
+}
+
+.saveBt {
+	color: #1AAD19;
+}
+

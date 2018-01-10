@@ -1,0 +1,44 @@
+@import "~styles/color";
+
+.container {
+	padding-top: 20rpx;
+	text-align: right;
+
+	.contactBt {
+		float: left;
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+		margin-top: 8rpx;
+		border: none;
+		background-color: transparent;
+		line-height: 1.4;
+	}
+
+	.contactBt::after{
+		display: none;
+	}
+
+	.contactIcon {
+		$size: 36rpx;
+
+		height: $size;
+		width: $size;
+		margin-right: 10rpx;
+	}
+
+	.statusBt {
+		padding: 10rpx 30rpx;
+		border: 1px solid $originalPriceColor;
+		font-size: 8pt;
+		margin-left: 20rpx;
+		display: inline-block;
+		color: $titleColor;
+	}
+
+	.confirmBt, .payBt {
+		background-color: $priceColor;
+		border: 1px solid $priceColor;
+		color: #fff;
+	}
+}

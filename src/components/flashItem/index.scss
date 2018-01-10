@@ -1,0 +1,99 @@
+@import '~styles/color';
+
+.flashItem {
+	display: flex;
+	background-color: #fff;
+	padding: 20rpx 0;
+	align-items: center;
+
+	.meta {
+		padding-left: 30rpx;
+		width: 470rpx;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.name {
+		overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    color: $titleColor;
+    font-size: 12pt;
+	}
+
+	.desc {
+		color: $originalPriceColor;
+		font-size: 9pt;
+		margin-top: 10rpx;
+	}
+
+	.timeLimit {
+		display: flex;
+		align-items: center;
+		font-size: 10pt;
+		margin-top: 30rpx;
+		margin-bottom: 30rpx;
+
+		.hour, .minute, .second {
+			color: #fff;
+			width: 50rpx;
+			height: 40rpx;
+			line-height: 40rpx;
+			text-align: center;
+			background-color: $mainColor;
+			margin: 0 10rpx;
+		}
+
+		.hour {
+			margin-left: 20rpx;
+		}
+	}
+
+	.footer {
+		display: flex;
+		align-items: flex-end;
+		flex-grow: 1;
+
+		.flashPriceTitle {
+			font-size: 9pt;
+			color: $titleColor;
+			margin-right: 10rpx;
+		}
+
+		.flashPrice {
+			font-size: 12pt;
+			color: $priceColor;
+		}
+
+		.originalPriceTitle, .originalPrice {
+			font-size: 8pt;
+			color: $originalPriceColor;
+			margin-right: 10rpx;
+		}
+
+		.originalPrice {
+			text-decoration: line-through;
+		}
+
+		.right {
+			flex-grow: 1;
+		}
+
+		.buy {
+			float: right;
+			font-size: 10pt;
+			color: #fff;
+			background-color: $mainColor;
+			padding: 10rpx 20rpx;
+			margin-right: 20rpx;
+		}
+	}
+
+	.productImage {
+		$size: 280rpx;
+
+		width: $size;
+		height: $size;
+		flex-shrink: 0;
+	}
+}

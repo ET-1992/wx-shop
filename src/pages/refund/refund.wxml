@@ -1,0 +1,146 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <view class="section head">
+    <view>订单编号：{{ order.order_no }}</view>
+    <view>下单时间：{{ order.formatTime }}</view>
+  </view>
+  <view class="section list" wx:if="{{ order.items.length }}">
+    <view class="listHead" wx:if="{{ order.items.length }}">
+      <view>选择商品</view>
+
+      <view class="sellectAll">
+        <view
+          class="radio {{ isAllSelected ? 'selected' : '' }}"
+          bindtap="onSelectAll"
+        >
+          <image
+            src="/icons/selected.png"
+            mode="aspectFit"
+            class="radioIcon"
+            wx:if="{{ isAllSelected }}"
+          />
+        </view>
+        <view>全选</view>
+      </view>
+    </view>
+    <view
+      class="productItem"
+      wx:for="{{ order.items }}"
+      wx:key="id"
+    >
+      <view
+        class="radio {{ item.isSelected ? 'selected' : '' }}"
+        bindtap="onHandleItemSelect"
+        data-index="{{ index }}"
+      >
+        <image
+          src="/icons/selected.png"
+          mode="aspectFit"
+          class="radioIcon"
+          wx:if="{{ item.isSelected }}"
+        />
+      </view>
+
+      <image
+        src="{{ item.image_url }}"
+        class="itemImage"
+        mode="aspectFill"
+      />
+
+      <view class="info">
+        <view class="title">{{ item.title }}</view>
+        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+        <view class="price">￥{{ item.price }}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section refundType">
+    <view class="refundTitle">选择退款类型</view>
+    <view class="refundTypeItem">
+      <view
+        data-type="{{ 1 }}"
+        bindtap="onRefundTypeSelect"
+        class="radioWrapper"
+      >
+        <view
+          class="radio {{ selectedRefundType === 1 ? 'selected' : '' }}"
+        >
+          <image
+            src="/icons/selected.png"
+            mode="aspectFit"
+            class="radioIcon"
+            wx:if="{{ selectedRefundType === 1 }}"
+          />
+        </view>
+      </view>
+      <view>仅退款</view>
+    </view>
+    <view class="refundTypeItem">
+      <view
+        data-type="{{ 0 }}"
+        bindtap="onRefundTypeSelect"
+        class="radioWrapper"
+      >
+        <view
+          class="radio {{ selectedRefundType === 0 ? 'selected' : '' }}"
+        >
+          <image
+            src="/icons/selected.png"
+            mode="aspectFit"
+            class="radioIcon"
+            wx:if="{{ selectedRefundType === 0 }}"
+          />
+        </view>
+      </view>
+      <view>退货退款</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="sectionTitle">
+      退款原因
+    </view>
+    <textarea
+      class="textarea"
+      placeholder="请在此输入退款原因"
+      bindinput="onInput"
+    />
+  </view>
+
+  <view class="section">
+    <view class="sectionTitle">
+      上传凭证
+    </view>
+    <view class="uploadGroup">
+      <view
+        class="uploadItem"
+        wx:for="{{ refundImages }}"
+        wx:key="item"
+      >
+        <image class="imageItem" src="{{ item }}" mode="aspectFill"/>
+        <image
+          src="/icons/delete.png"
+          class="deleteIcon"
+          data-index="{{ index }}"
+          bindtap="onDeleteImage"
+          mode="aspectFill"
+        />
+      </view>
+
+      <view
+        class="uploadItem addImage"
+        wx:if="{{ refundImages.length < 5 }}"
+        bindtap="onUpload"
+      >
+        <view>上传照片</view>
+        <view>(最多5张)</view>
+      </view>
+    </view>
+  </view>
+
+  <view
+    class="footer"
+    bindtap="onRefund"
+  >提交</view>
+</view>

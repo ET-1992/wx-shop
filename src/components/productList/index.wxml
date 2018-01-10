@@ -1,0 +1,21 @@
+<view>
+  <view class="container {{ productListStyle }}">
+    <navigator
+      wx:for="{{ products }}"
+      wx:key="id"
+      wx:for-item="product"
+      wx:for-index="productIndex"
+      hover-class="navigator-hover"
+      url="/pages/productDetail/productDetail?id={{ product.id }}"
+    >
+      <include wx:if="{{ productListStyle === 'bigCard' }}" src="/templates/productItem/bigCard.wxml"/>
+      <include wx:if="{{ productListStyle === 'smallCard' }}" src="/templates/productItem/smallCard.wxml"/>
+      <include wx:if="{{ productListStyle === 'list' }}" src="/templates/productItem/list.wxml"/>
+    </navigator>
+  </view>
+  <view
+    class="bottomHint"
+    wx:if="{{ products.length && !next_cursor }}"
+  >-这是一条底线-</view>
+</view>
+

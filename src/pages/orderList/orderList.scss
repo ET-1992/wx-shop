@@ -1,0 +1,118 @@
+@import "~styles/color";
+
+.container {
+	// padding: 20rpx;
+}
+
+.emptyHint {
+	padding-top: 300rpx;
+	text-align: center;
+	color: $originalPriceColor;
+}
+
+.statusBar {
+	$height: 80rpx;
+
+	background-color: $mainColor;
+	color: #fff;
+	font-size: 10pt;
+	height: $height;
+
+	.statusItem {
+		width: 16%;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.statusItemName {
+		margin: 0 auto;
+		height: $height;
+		line-height: $height;
+		display: inline-block;
+
+		&.selected {
+			border-bottom: 4px solid #fff;
+		}
+	}
+}
+
+.order {
+	background-color: #fff;
+	margin-bottom: 10rpx;
+	padding: 20rpx;
+	font-size: 10pt;
+
+	.item, .orderMeta {
+		border-bottom: 1px solid #eee;
+	}
+
+	.item {
+		display: flex;
+		padding: 20rpx 0;
+	}
+
+	.itemImage {
+		$size: 140rpx;
+
+		width: $size;
+		height: $size;
+		flex-shrink: 0;
+		margin-right: 20rpx;
+	}
+
+	// .itemTitle {
+	// 	font-size: 10
+	// },
+
+	.itemInfo {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.property {
+		color: $originalPriceColor;
+		font-size: 8pt;
+		padding: 10rpx 0;
+	}
+
+	.itemPirceInfo {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.orderMeta {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		padding: 14rpx 0;
+		font-size: 10pt;
+		color: $originalPriceColor;
+
+		.status {
+			color: $priceColor;
+		}
+
+		.count {
+			display: flex;
+			text-align: right;
+			align-items: flex-end;
+		}
+
+		.orderPrice {
+			margin-left: 10rpx;
+		}
+
+		.orderPriceValue {
+			font-size: 12pt;
+		}
+	}
+}
+
+.bottomHint {
+	text-align: center;
+	color: #ccc;
+	font-size: 10pt;
+	margin-bottom: 20rpx;
+}

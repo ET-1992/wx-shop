@@ -1,0 +1,137 @@
+@import '~styles/color';
+
+.header {
+	display: flex;
+	align-items: flex-end;
+
+	.logisticsInfo {
+		font-size: 9pt;
+	}
+
+	.status {
+		color: $priceColor;
+	}
+
+	.prodcuctImage {
+		$size: 140rpx;
+
+		height: $size;
+		width: $size;
+		margin-right: 20rpx;
+		position: relative;
+		left: 0;
+		top: 0;
+		flex-shrink: 0;
+	}
+
+	.productCount {
+		font-size: 8pt;
+		background-color: rgba(0, 0, 0, 0.6);
+		text-align: center;
+		padding: 4rpx 0;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		color: #fff;
+	}
+}
+
+.section {
+	background-color: #fff;
+	padding: 20rpx;
+	margin-bottom: 10rpx;
+	font-size: 11pt;
+}
+
+
+
+.address {
+	padding: 20rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20rpx;
+	font-size: 10pt;
+
+	.addressIcon {
+		width: 30rpx;
+		height: 38rpx;
+		flex-shrink: 0;
+		margin-right: 10rpx;
+	}
+
+	.addressInfo {
+		font-size: 10pt;
+		padding: 0 10rpx;
+		flex-grow: 1;
+	}
+
+	.phone {
+		float: right;
+	}
+}
+
+.item {
+	display: flex;
+	padding: 0 20rpx;
+	min-height: 100rpx;
+
+	.decorator {
+		margin-right: 20rpx;
+		margin-top: 10rpx;
+
+		.code {
+			width: 10rpx;
+			height: 10rpx;
+			border-radius: 50%;
+			background-color: $originalPriceColor;
+		}
+		.line {
+			border-left: 1px solid $originalPriceColor;
+			height: 100%;
+			margin-left: 4rpx;
+		}
+	}
+
+	&:first-child {
+		color: $priceColor;
+		.line {
+			border-color: $priceColor;
+		};
+		.code {
+			background-color: $priceColor;
+			width: 20rpx;
+			height: 20rpx;
+			margin-left: -4rpx;
+		}
+	}
+
+	&:last-child {
+		.line {
+			border: none;
+		};
+	}
+
+	.itemContent {
+		padding: 0 30rpx 20rpx;
+	}
+
+	.datetime {
+		flex-shrink: 0;
+		width: 100rpx;
+		font-size: 9pt;
+		padding-top: 4rpx;
+
+		.time {
+			font-size: 8pt;
+		}
+	}
+}
+
+.emptyHint {
+	height: 100rpx;
+	line-height: 100rpx;
+	text-align: center;
+	color: $originalPriceColor;
+}

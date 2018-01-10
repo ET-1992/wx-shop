@@ -1,0 +1,37 @@
+<view class="flashItem" bindtap="onClick">
+  <view class="meta">
+    <view class="name">{{ product.title }}</view>
+    <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+    <view class="timeLimit">
+      <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+      <view wx:if="{{ !hasStart }}">距开始</view>
+      <view wx:if="{{ hasEnd }}">已结束</view>
+      <view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
+      <view wx:if="{{ !hasEnd }}">:</view>
+      <view class="minute" wx:if="{{ !hasEnd }}">{{ remainTime.minute }}</view>
+      <view wx:if="{{ !hasEnd }}">:</view>
+      <view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
+    </view>
+    <view class="footer">
+      <view>
+        <view class="flashPrice">
+          <text class="flashPriceTitle">限时购</text>
+          <text class="flashPrice">￥{{ product.miaosha_price }}</text>
+        </view>
+        <view>
+          <text class="originalPriceTitle">原价</text>
+          <text class="originalPrice">{{ product.original_price }}</text>
+        </view>
+      </view>
+
+      <view class="right" wx:if="{{ !hasEnd }}">
+        <view class="buy">马上抢</view>
+      </view>
+    </view>
+  </view>
+  <image
+    class="productImage"
+    mode="apsectFit"
+    src="{{ product.thumbnail }}"
+  />
+</view>

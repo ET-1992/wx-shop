@@ -1,0 +1,21 @@
+<view class="pendingGroupon" bindtap="onGroupon">
+  <image class="userAvatar" src="{{ groupon.user.avatarurl }}"/>
+  <view class="middle">
+    <view class="userName">{{ groupon.user.nickname }}</view>
+    <view class="status">正在开团中</view>
+  </view>
+
+  <view class="right">
+    <view class="timeLimit">
+      <view>剩余</view>
+      <view class="remainTime">{{ remainTime.hour }}:{{ remainTime.minute }}:{{ remainTime.second }}</view>
+      <view>结束</view>
+    </view>
+    <view class="rightBottom">
+      <view>还差{{ groupon.member_limit - groupon.member_count }}人成团</view>
+      <view class="tag">去参团</view>
+    </view>
+  </view>
+
+</view>
+

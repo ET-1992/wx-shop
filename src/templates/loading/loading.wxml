@@ -1,0 +1,6 @@
+<template name="loading">
+	<image
+    class="loadingIcon"
+    src="/icons/loading.png"
+  />
+</template>

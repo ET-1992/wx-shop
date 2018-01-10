@@ -1,0 +1,32 @@
+<import src="/templates/loading/loading.wxml"/>
+
+<template is="loading" wx:if="{{ isLoading }}"/>
+
+<view class="container" wx:if="{{ !isLoading }}">
+  <view class="header" wx:if="{{ order.id && order.statusCode !== 10 }}">
+    <view>订单状态：<text class="orderStatus">{{ order.statusText }}</text>
+    </view>
+    <view
+      wx:if="{{ remainSecond > 0 }}"
+    >还剩{{ remainTime }}自动确认</view>
+  </view>
+
+  <view class="header" wx:if="{{ order.groupon_id && order.statusCode === 10 }}">
+    <view>订单状态：还剩{{ order.groupon.member_limit - order.groupon.member_count ? '还剩' + (order.groupon.member_limit - order.groupon.member_count) + '人成团' : '已成团' }}</view>
+    <view wx:if="{{ order.groupon.member_limit - order.groupon.member_count }}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
+  </view>
+
+  <view class="header" wx:if="{{ groupon.id }}">
+    <view>订单状态：{{ groupon.member_limit - groupon.member_count ? '还剩' + (groupon.member_limit - groupon.member_count) + '人成团' : '已成团'}}</view>
+    <view wx:if="{{ groupon.member_limit - groupon.member_count }}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
+  </view>
+
+  <include
+    wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"
+    src="/templates/order/grouponOrder.wxml"
+  />
+  <include
+    wx:else
+    src="/templates/order/normalOrder.wxml"
+  />
+</view>

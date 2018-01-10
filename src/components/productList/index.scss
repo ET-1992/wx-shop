@@ -1,0 +1,21 @@
+@import '~templates/productItem/productItem';
+@import '~styles/color';
+
+
+.container.bigCard {
+	padding: 40rpx;
+}
+
+.container.smallCard {
+	display: flex;
+	padding:0 20rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.bottomHint {
+	text-align: center;
+	color: #ccc;
+	font-size: 10pt;
+	margin-bottom: 20rpx;
+}

@@ -1,0 +1,50 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+	<view class="section header">
+    <image class="prodcuctImage" src="{{ order.items[0].image_url }}">
+      <view
+        class="productCount"
+      >共{{ order.productCount }}件商品</view>
+    </image>
+    <view class="logisticsInfo">
+      <view class="status">{{ logistics.status == 1 ? '已签收' : '运送中' }}</view>
+      <view class="company">快递公司：{{ logistics.company }}</view>
+      <view class="no">快递单号：{{ logistics.no }}</view>
+    </view>
+
+  </view>
+
+  <view class="section address">
+    <image class="addressIcon" src="/icons/address.png"/>
+    <view class="addressInfo">
+      <view>
+          <text>收货人：{{ order.receiver_name }} </text>
+          <text class="phone"> {{ order.receiver_phone }}</text>
+      </view>
+      <view>收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view
+      class="emptyHint"
+      wx:if="{{ !logistics.list.length }}"
+    >暂无信息</view>
+    <view
+      class="item"
+      wx:if="{{ logistics.list.length }}"
+      wx:for="{{ logistics.list }}"
+      wx:key="datetime"
+    >
+      <view class="datetime">
+        <view>{{ item.date }}</view>
+        <view class="time">{{ item.time }}</view>
+      </view>
+      <view class="decorator">
+        <view class="code" />
+        <view class="line" />
+      </view>
+      <view class="itemContent">{{ item.remark }}</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<view class="container">
+  <button
+    class="normalizeBt contactBt"
+    wx:if="{{ isShowContact }}"
+    open-type="contact"
+  >
+    <image class="contactIcon" src="/icons/contact.png"/>
+    <text>联系客服</text>
+  </button>
+  <view class="statusBt refundBt" bindtap="onRefund" wx:if="{{ statusCode > 1 && statusCode < 5 }}">申请退款</view>
+  <view class="statusBt" bindtap="onCloseOrder" wx:if="{{ statusCode === 1 }}">取消订单</view>
+  <view class="statusBt payBt" bindtap="onPayOrder" wx:if="{{ statusCode === 1 }}">去支付</view>
+  <navigator
+    class="statusBt"
+    url="/pages/logistics/logistics?orderNo={{orderNo}}"
+    wx:if="{{ statusCode > 2 && statusCode < 5 }}"
+  >查看物流</navigator>
+  <view class="statusBt confirmBt" bindtap="onConfirmOrder" wx:if="{{ statusCode === 3 }}">确认收货</view>
+  <view class="statusBt" bindtap="onComment" wx:if="{{ statusCode === 4 && flase }}">发表评价</view>
+</view>

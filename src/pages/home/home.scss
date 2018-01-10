@@ -1,0 +1,93 @@
+@import '~styles/color';
+@import '~templates/grouponItem/grouponItem';
+@import '~templates/loading/loading';
+
+swiper{
+	margin-bottom: 15rpx;
+}
+.searchWrapper {
+	background-color: $backgroundColor;
+	padding: 12rpx 40rpx;
+	border-bottom: 1px solid #ddd;
+	position: fixed;
+	left: 0;
+	width: 100%;
+	top: 0;
+	z-index: 9;
+
+	.searchIcon {
+		$size: 36rpx;
+
+		width: $size;
+		height: $size;
+		line-height:$size;
+		margin-right: 20rpx;
+	}
+
+	.search {
+		height: 70rpx;
+		text-align: center;
+		font-size: 9pt;
+		color: $titleColor;
+		background-color: #fff;
+		border-radius: 100rpx;
+		line-height: 70rpx;
+		border: 1px solid #ddd;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.main {
+	margin-top: 96rpx;
+}
+
+.banner, .banner image {
+	width: 100%;
+	height: 400rpx;
+}
+.flashItem .meta{
+	padding:40rpx;
+}
+.section3{
+	box-sizing: border-box;
+	padding:0 20rpx;
+}
+.section {
+	padding-bottom: 15rpx;
+	background-color: #fff;
+	margin:20rpx 0;
+
+	.sectionTitle {
+		text-align: center;
+		padding:36rpx;
+		color: $titleColor;
+		font-size: 18px;
+	}
+.grouponItemWrapper{
+	padding-bottom: 30rpx;
+}
+	.sectionMore {
+		justify-content: center;
+		font-size: 10pt;
+		height: 80rpx;
+		line-height: 80rpx;
+		color: $titleColor;
+		display: flex;
+		align-items: center;
+	}
+
+	.rightIcon {
+		width: 10rpx;
+		height: 14rpx;
+		margin-left: 10rpx;
+	}
+}
+
+
+.starProductItem {
+	margin-bottom: 15rpx;
+	width: 100%;
+	height: 280rpx;
+}

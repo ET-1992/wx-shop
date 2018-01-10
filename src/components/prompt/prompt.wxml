@@ -1,0 +1,30 @@
+<import src="/templates/marketList/marketList.wxml"/>
+
+<view class="container">
+  <view class="main">
+    <view class="title">
+      {{ title }}
+    </view>
+    <input
+      class="input"
+      type="{{ inputType }}"
+      placeholder="{{placeholder}}"
+      bindinput="onInput"
+      placeholder-class="placeholder"
+    />
+  </view>
+  <view class="btGroup">
+    <view
+      class="cancelBt"
+      bindtap="onCancel"
+    >取消</view>
+    <view
+      class="saveBt"
+      bindtap="onSave"
+    >保存</view>
+  </view>
+  <template
+    is="mock"
+    data="{{isShow: isShowMock}}"
+  />
+</view>

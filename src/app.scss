@@ -1,0 +1,53 @@
+@import '~styles/color';
+@import '~templates/loading/loading';
+
+page {
+	font-size: 12px;
+	font-family: -apple-system, "Avenir Next",  "helvetica neue", "helvetica", "arial", "hiragino sans gb", "stheiti";
+	background-color: $backgroundColor;
+	font-size: 12pt;
+	color: $titleColor;
+}
+
+view, image, swiper, textarea, scroll-view, input, navigator, video {
+	box-sizing: border-box;
+}
+
+.container {
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+.j-item{
+	width:100%;
+	overflow: hidden;
+}
+.img-lazyloaded{
+	width: 100%;
+	overflow: hidden;
+	display: block;
+}
+.content img{
+	width: 750rpx;
+	overflow: hidden;
+	margin-left: 5px;
+}
+.normalizeBt {
+	border: none;
+	background-color: transparent;
+	display: block;
+	font-size: 20rpx;
+	color: $titleColor;
+}
+
+.normalizeBt::after{
+	display: none;
+}
+
+.normalizeBt-hover {
+	opacity: 0.5;
+}
+
+.navigator-hover {
+	background-color: transparent;
+}

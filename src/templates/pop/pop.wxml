@@ -1,0 +1,32 @@
+<template name="pop">
+	<view class="popContainer" bindtap="onClose">
+		<view class="popMain">
+			<view class="head">
+				<text
+					class="close"
+					bindtap="onClose"
+					wx:if="{{ isShowClose }}"
+				>x</text>
+			  <text class="title">{{ title }}</text>
+			</view>
+
+			<view class="main">
+				<image
+					src="{{ image }}"
+					class="popImage"
+					mode="aspectFit"
+					wx:if="{{ image }}"
+				/>
+				<view>{{ desc }}</view>
+			</view>
+			<button
+				type="warn"
+				open-type="{{ openType || 'default' }}"
+				bindtap="onPopBtClick"
+				wx:if="{{ isShowBt }}"
+				class="popBt"
+				size="{{ btSize || 'mini' }}"
+			>{{ btText || '确定' }}</button>
+		</view>
+	</view>
+</template>

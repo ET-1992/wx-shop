@@ -1,0 +1,87 @@
+@import '~styles/color';
+
+.grouponItem {
+	display: flex;
+	background-color: #fff;
+	padding-right: 10rpx;
+
+	.productImage {
+		$size: 280rpx;
+
+		height: $size;
+		width: $size;
+		margin:0 20rpx;
+		flex-shrink: 0;
+	}
+
+	.meta {
+		padding: 10rpx;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.name {
+		font-size: 14px;
+		color: $titleColor;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2; //文本行数
+		overflow: hidden;
+    text-overflow:ellipsis;
+    line-height: 1.2;
+	}
+
+	.desc {
+		font-size: 12px;
+		color: $originalPriceColor;
+		overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    margin-top: 10rpx;
+	}
+
+	.grouponInfo {
+		display: flex;
+		font-size: 9pt;
+		color: $titleColor;
+		align-items: flex-end;
+		margin: 20rpx 0;
+	}
+
+	.grouponPrice {
+		color: $priceColor;
+		margin-left: 10rpx;
+		margin-right: 20rpx;
+		font-size: 12pt;
+
+	}
+
+	.price {
+		text-decoration: line-through;
+	}
+
+	.footer {
+		display: flex;
+		align-items: flex-end;
+		flex-grow: 1;
+		margin-bottom: 10rpx;
+	}
+
+	.groupNumber {
+		font-size: 9pt;
+		color: $titleColor;
+		flex-grow: 1;
+		padding-bottom:30rpx;
+	}
+
+	.groupBt {
+		float: right;
+		font-size: 10pt;
+		color: #fff;
+		background-color: $mainColor;
+		padding: 12rpx 30rpx;
+		display: inline-block;
+		margin-bottom: 20rpx;
+	}
+}

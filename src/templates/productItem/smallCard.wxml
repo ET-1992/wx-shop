@@ -1,0 +1,29 @@
+<view class="productItemSmallCard">
+  <image
+    src="{{ product.thumbnail }}"
+    class="productItemImage"
+    mode="aspectFit"
+  />
+  <view class="productItemInfo">
+    <view class="prodcutItemName">
+      {{ product.title }}
+    </view>
+    <view class="productItemMeta">
+      <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.price }}</view>
+      <view class="productItemOriginPrice"
+      ><text style="font-size:10px">￥</text>{{ product.original_price }}</view>
+      <view
+        class="productItemSold"
+        wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}"
+      >已售：{{ product.sales }}</view>
+      <view class="tagWrapper">
+        <view
+          class="tag"
+          wx:if="{{ product.groupon_enable === '1' || product.miaosha_enable === '1' }}"
+        >
+          {{ product.groupon_enable === '1' ? product.groupon_member_limit + '人团' : '限时购' }}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

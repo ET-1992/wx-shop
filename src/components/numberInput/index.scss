@@ -1,0 +1,22 @@
+.quantity {
+	display: flex;
+
+	.value, .bt {
+		$size: 40rpx;
+
+		width: $size;
+		height: $size;
+		line-height: $size;
+		box-sizing: border-box;
+		min-height: 40rpx;
+		text-align: center;
+		background-color: #d9e2eb;
+	}
+
+	.value {
+		margin: 0 6rpx;
+		width: 60rpx;
+		font-size: 8pt;
+	}
+
+}
