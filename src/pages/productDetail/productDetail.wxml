@@ -14,7 +14,7 @@
       <swiper-item>
 
         <view wx:if="{{product.video}}" bindtap="clickMe" >
-          <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;"></image>
+          <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;" />
         </view>
         <video id="myVideo" wx:if="{{activeIndex==1}}" src="{{product.video}}" bindpause="pause" bindfullscreenchange="fullScreen" bindended="end" bindplay="startPlay" autoplay></video>
         <image mode="aspectFill" src="{{product.images[0]}}"></image>
@@ -81,9 +81,19 @@
     </view>
   </view>
 
-  <view class="comment" wx:if="{{ false }}">
-    评论({{ comments.length }})
-    <view class="line" />
+  <view
+    class="coupons"
+    bindtap="onShowCoupons"
+    wx:if="{{ product.coupons && product.coupons.length }}"
+  >
+    <text>领券</text>
+    <view
+      class="coupon"
+      wx:for="{{ product.coupons }}"
+      wx:key="{{ item.id }}"
+      wx:if="{{ index < 3 }}"
+    >{{ item.title }}</view>
+    <image class="rightIcon" src="/icons/right.png" />
   </view>
 
   <view
@@ -91,6 +101,7 @@
     wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}"
   >
     <view class="title">正在开团, 可直接参团</view>
+    <!-- 只显示三个  -->
     <view
       wx:for="{{ product.pending_groupons }}"
       wx:key="id"

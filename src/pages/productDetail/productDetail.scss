@@ -9,6 +9,7 @@ $footerHeight: 100rpx;
 	color: $titleColor;
 	overflow-x: hidden;
 }
+
 video{
 	height: 750rpx;
 	width: 100%;
@@ -55,7 +56,29 @@ video{
 	}
 }
 
+.coupons {
+	margin-top: 10rpx;
+	margin-bottom: 10rpx;
+	padding: 20rpx 40rpx;
+	color: $originalPriceColor;
+	font-size: 8pt;
+	background-color: #fff;
 
+	.coupon {
+		background-color: $couponMainColor;
+		color: #fff;
+		padding: 4rpx 10rpx;
+		margin-left: 20rpx;
+		display: inline-block;
+	}
+
+	.rightIcon {
+		width: 16rpx;
+		height: 26rpx;
+		float: right;
+		margin-top: 6rpx;
+	}
+}
 
 .flashCountdown {
 	background-color: $mainColor;
