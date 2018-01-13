@@ -46,31 +46,34 @@
       <view class="itemTitle">收货地址</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
-    <view bindtap="onItemClick" class="sectionItem" data-name="coupon" wx:if="{{ false }}">
-      <image class="itemIcon" src="../../icons/truck.png" />
-      <view class="itemTitle">优惠券</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </view>
   </view>
-	<view class="section">
-	<navigator  url="/pages/orderList/orderList?status=10">
-	<view class="sectionItem">
-		<image class="itemIcon" src="../../icons/my.png" />
-		<view class="itemTitle">我的拼团</view>
-		<image class="rightIcon" src="../../icons/right.png" />
-	</view>
-	</navigator>
 
+	<view class="section">
+  	<navigator  url="/pages/orderList/orderList?status=10">
+    	<view class="sectionItem">
+    		<image class="itemIcon" src="../../icons/my.png" />
+    		<view class="itemTitle">我的拼团</view>
+    		<image class="rightIcon" src="../../icons/right.png" />
+    	</view>
+  	</navigator>
 	</view>
+
+  <view class="section">
+    <navigator  url="/pages/myCoupon/myCoupon">
+      <view bindtap="onItemClick" class="sectionItem" data-name="address">
+        <image class="itemIcon" src="../../icons/coupon.png" />
+        <view class="itemTitle">我的优惠券</view>
+        <image class="rightIcon" src="../../icons/right.png" />
+      </view>
+    </navigator>
+  </view>
+
   <view class="section">
     <view bindtap="onItemClick" class="sectionItem" data-name="notice" wx:if="{{ false }}">
       <image class="itemIcon" src="../../icons/truck.png" />
       <view class="itemTitle">系统通知</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
-
-
-
 
     <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact">
       <image class="itemIcon" src="../../icons/contact.png" />
