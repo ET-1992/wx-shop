@@ -3,7 +3,7 @@
 
 <template is="loading" wx:if="{{ isLoading }}"/>
 
-<view class="container">
+<view class="container" wx:if="{{ !isLoading }}">
   <navigator
     class="searchWrapper"
     url="/pages/search/search"
