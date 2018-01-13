@@ -1,7 +1,8 @@
 import { APPID } from 'constants/index';
 import { API } from './core';
 
-const host = 'https://shenghuogou.wpweixin.com/';
+// const host = 'https://shenghuogou.wpweixin.com/';
+const host = 'https://hei.wpweixin.com/';
 
 /**
  * path: 接口路径
@@ -107,7 +108,18 @@ const apis = {
 		isForceToken: true
 	},
 	fetchGroupon: {
-		path: '/api/mag.groupon.get.json',
+		path: 'api/mag.groupon.get.json',
+		isForceToken: true,
+	},
+	fetchCouponList: {
+		path: 'api/mag.coupon.list.json',
+	},
+	fetchMyCouponList: {
+		path: 'api/mag.coupon.my.json',
+		isForceToken: true,
+	},
+	receiveCoupon: {
+		path: 'api/mag.coupon.receive.json',
 		isForceToken: true,
 	},
 	upload: {
