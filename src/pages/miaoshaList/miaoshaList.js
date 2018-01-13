@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_STYLE,CATEGORY_LIST_STYLE } from 'constants/index';
+import { PRODUCT_LIST_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
@@ -33,7 +33,7 @@ Page({
 		const newProducts = isRefresh ? data.products : products.concat(data.products);
 		wx.setNavigationBarTitle({
 			title: data.page_title
-		  })
+		});
 		this.setData({
 			products: newProducts,
 			isRefresh: false,

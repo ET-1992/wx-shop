@@ -1,12 +1,12 @@
 <import src="/templates/grouponItem/grouponItem.wxml"/>
 
-<view class="container">  
+<view class="container">
   <view wx:if="{{ miaosha_banner  && miaosha_banner.length}}">
     <image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" />
   </view>
-  
 
-  <view wx:for="{{products}}">
+
+  <view wx:for="{{ products }}" wx:key="{{ item.id }}">
     <flashItem
       isList="{{ true }}"
       product="{{ item }}"
