@@ -1,0 +1,31 @@
+<import src="/templates/couponItem/couponItem.wxml"/>
+
+<view class="container">
+	<view class="statusBar">
+    <view
+      class="statusItem"
+      wx:for="{{ status }}"
+      wx:key="name"
+      bindtap="onStautsItemClick"
+      data-value="{{ item.value }}"
+    >
+      <view
+        class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
+      >{{ item.name }}</view>
+    </view>
+  </view>
+
+  <view class="couponList">
+    <view
+      class="couponItemWrapper"
+      wx:for="{{ coupons }}"
+      wx:key="id"
+    >
+      <template
+        is="couponItem"
+        data="{{ coupon: item }}"
+      />
+    </view>
+  </view>
+
+</view>

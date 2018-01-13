@@ -14,7 +14,9 @@
 		"pages/category/category",
 		"pages/search/search",
 		"pages/grouponList/grouponList",
-		"pages/flashList/flashList"
+		"pages/flashList/flashList",
+		"pages/myCoupons/myCoupons",
+		"pages/couponProducts/couponProducts"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

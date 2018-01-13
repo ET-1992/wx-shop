@@ -120,6 +120,7 @@ const apis = {
 	},
 	receiveCoupon: {
 		path: 'api/mag.coupon.receive.json',
+		method: 'POST',
 		isForceToken: true,
 	},
 	upload: {

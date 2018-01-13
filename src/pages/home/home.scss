@@ -50,10 +50,62 @@ swiper{
 .flashItem .meta{
 	padding:40rpx;
 }
+
+.couponsWrapper {
+	padding: 0 10rpx;
+	font-size: 0;
+
+	.coupons {
+		display: flex;
+	}
+
+	.coupon {
+		width: 250rpx;
+		height: 117rpx;
+		position: relative;
+		left: 0;
+		top: 0;
+		line-height: 1.2;
+		margin-right: 20rpx;
+	}
+
+	.couponInfo {
+		position: absolute;
+		z-index: 2;
+		color: #fff;
+		font-size: 9pt;
+		height: 117rpx;
+		width: 170rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+
+		.reduceCost {
+			font-size: 18pt;
+		}
+
+		.title {
+			font-size: 8pt;
+		}
+	}
+
+
+	.bg {
+		width: 250rpx;
+		height: 117rpx;
+		position: relative;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+}
+
 .section3{
 	box-sizing: border-box;
 	padding:0 20rpx;
 }
+
 .section {
 	padding-bottom: 15rpx;
 	background-color: #fff;

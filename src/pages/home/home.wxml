@@ -40,6 +40,35 @@
       wx:if="{{ false }}"
     />
 
+    <scroll-view
+      class="couponsWrapper"
+      wx:if="{{ coupons.length }}"
+      scroll-x
+    >
+      <view class="coupons">
+        <view
+          class="coupon"
+          wx:for="{{ coupons }}"
+          wx:key="id"
+          bindtap="onCouponClick"
+          data-id="{{ item.id }}"
+          data-status="{{ item.status }}"
+          data-index="{{ index }}"
+        >
+          <view class="couponInfo">
+            <view class="reduce">
+              <text wx:if="{{ item.type == 1 }}">￥</text>
+              <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+              <text wx:if="{{ item.type == 2 }}">折</text>
+            </view>
+            <view class="title">{{ item.title }}</view>
+          </view>
+          <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 }}"/>
+          <image class="bg" src="/icons/homeCouponGot.png" wx:if="{{item.status == 4 }}"/>
+        </view>
+      </view>
+    </scroll-view>
+
     <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
       <flashItem
         isList="{{ miaoshas.length > 1 }}"

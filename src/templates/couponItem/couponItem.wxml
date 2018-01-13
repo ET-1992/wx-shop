@@ -1,0 +1,22 @@
+<template name="couponItem">
+  <view class="couponItem">
+    <view class="couponInfo">
+      <view class="left">
+        <view class="reduce">
+          <text wx:if="{{ coupon.type == 1 }}">￥</text>
+          <text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
+          <text wx:if="{{ coupon.type == 2 }}">折</text>
+        </view>
+        <view class="title">{{ coupon.title }}</view>
+      </view>
+      <view class="right">
+        <view class="desc">{{ coupon.description }}</view>
+        <view class="date">{{ coupon.start_time }}至{{ coupon.end_time }}</view>
+      </view>
+    </view>
+    <image
+      class="bg"
+      src="../../icons/couponItem.png"
+    />
+  </view>
+</template>

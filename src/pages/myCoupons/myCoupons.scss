@@ -1,0 +1,40 @@
+@import '~styles/color';
+@import '~templates/couponItem/couponItem';
+
+.container {
+	// padding: 20rpx;
+}
+
+.statusBar {
+	$height: 80rpx;
+
+	background-color: $mainColor;
+	color: #fff;
+	font-size: 10pt;
+	height: $height;
+
+	.statusItem {
+		width: 33%;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.statusItemName {
+		margin: 0 auto;
+		height: $height;
+		line-height: $height;
+		display: inline-block;
+
+		&.selected {
+			border-bottom: 4px solid #fff;
+		}
+	}
+}
+
+.couponList {
+	padding: 25rpx;
+
+	.couponItemWrapper {
+		margin-bottom: 25rpx;
+	}
+}

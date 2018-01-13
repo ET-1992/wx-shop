@@ -19,14 +19,14 @@ Page({
 		productListStyle: PRODUCT_LIST_STYLE[1],
 
 		sortType: 'defalut',
-		sortSales : 'default',
+		sortSales: 'default',
 
 		priceSort: {
-			orderby:  'price',
+			orderby: 'price',
 			order: 'desc',
 		},
 		saleSort: {
-			orderby:'sale',
+			orderby: 'sale',
 			order: 'desc',
 		},
 
@@ -125,7 +125,7 @@ Page({
 		switch (index) {
 			case '0':
 					updateData = {
-						activeIdx:index,
+						activeIdx: index,
 						sortType: 'defalut',
 						sortSales: 'defalut',
 						isRefresh: true,
@@ -135,7 +135,7 @@ Page({
 				break;
 			case '1':
 					updateData = {
-						activeIdx:index,
+						activeIdx: index,
 						sortType: this.data.priceSort.order,
 						sortSales: 'defalut',
 						isRefresh: true,
@@ -144,7 +144,7 @@ Page({
 				break;
 			case '2':
 					updateData = {
-						activeIdx:index,
+						activeIdx: index,
 						sortType: 'defalut',
 						sortSales: this.data.saleSort.order,
 						isRefresh: true,

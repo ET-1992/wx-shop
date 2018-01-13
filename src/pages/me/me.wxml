@@ -59,12 +59,10 @@
 	</view>
 
   <view class="section">
-    <navigator  url="/pages/myCoupon/myCoupon">
-      <view bindtap="onItemClick" class="sectionItem" data-name="address">
-        <image class="itemIcon" src="../../icons/coupon.png" />
-        <view class="itemTitle">我的优惠券</view>
-        <image class="rightIcon" src="../../icons/right.png" />
-      </view>
+    <navigator  class="sectionItem"  url="/pages/myCoupons/myCoupons">
+      <image class="itemIcon" src="../../icons/coupon.png" />
+      <view class="itemTitle">我的优惠券</view>
+      <image class="rightIcon" src="../../icons/right.png" />
     </navigator>
   </view>
 
