@@ -1,3 +1,5 @@
+@import '~styles/color';
+
 .couponItem {
 	width: 700rpx;
 	height: 180rpx;
@@ -16,7 +18,7 @@
 		.left {
 			width: 270rpx;
 			height: 180rpx;
-			border-right: 1px solid blue;
+			// border-right: 1px solid blue;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -29,10 +31,50 @@
 			}
 		}
 
-		.right {
-			padding: 20rpx;
+		.center {
+			padding: 20rpx 0 20rpx 20rpx;
 			color: #000;
-			width: 100%;
+			width: 300rpx;
+			font-size: 7pt;
+			display: flex;
+			flex-direction: column;
+			flex-shrink: 0;
+
+			.desc {
+				height: 80rpx;
+				flex-grow: 1;
+			}
+
+			.date {
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.right {
+			flex-shrink: 0;
+			padding: 20rpx 20rpx 20rpx 0;
+			font-size: 7pt;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+
+			&.center {
+				justify-content: center;
+			}
+
+			.useBt {
+				padding: 4rpx 10rpx;
+				color: $priceColor;
+				border: 1px solid $priceColor;
+				border-radius: 100rpx;
+			}
+
+			.getBt {
+				padding: 4rpx 10rpx;
+				background-color: $priceColor;
+				color: #fff;
+			}
 		}
 
 

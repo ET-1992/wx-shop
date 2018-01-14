@@ -116,6 +116,7 @@ const apis = {
 	},
 	fetchMyCouponList: {
 		path: 'api/mag.coupon.my.json',
+		method: 'POST',
 		isForceToken: true,
 	},
 	receiveCoupon: {

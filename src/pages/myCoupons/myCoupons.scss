@@ -31,6 +31,21 @@
 	}
 }
 
+.emptyHint {
+	padding-top: 320rpx;
+	color: #ccc;
+	font-size: 12pt;
+	text-align: center;
+
+	.couponBt {
+		width: 600rpx;
+		background-color: $mainColor;
+		color: #fff;
+		margin: 40rpx auto 0 auto;
+		padding: 20rpx 0;
+	}
+}
+
 .couponList {
 	padding: 25rpx;
 

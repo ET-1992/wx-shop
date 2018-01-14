@@ -1,24 +1,60 @@
 import api from 'utils/api';
 
+
+
 // 创建页面实例对象
 Page({
 	// 页面的初始数据
 	data: {
 		status: [
-			{ name: '可使用', value: '4' },
-			{ name: '已使用', value: '5' },
-			{ name: '已过期', value: '3' },
+			{ name: '可使用', value: 'available' },
+			{ name: '已使用', value: 'used' },
+			{ name: '已过期', value: 'expired' },
 		],
-		selectedStatus: '4',
+		selectedStatus: 'available',
+		coupons: {
+			'available': [],
+			'used': [],
+			'expired': [],
+		}
 	},
 
 	// 生命周期函数--监听页面加载
 
 
 	async onLoad () {
-		const data = await api.hei.fetchMyCouponList();
-		this.setData(data);
-		console.log(data);
+		try {
+			const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
+
+			available.forEach((coupon) => {
+				coupon.description = coupon.description.replace(/\n/g, '<br/>');
+			});
+
+			const { used, expired } = unavailable.reduce((coupons, coupon) => {
+				const { used, expired } = coupons;
+				coupon.description = coupon.description.replace(/\n/g, '<br/>');
+				if (+coupon.status === 3) {
+					expired.push(coupon);
+				}
+				else {
+					used.push(coupon);
+				}
+				return coupons;
+			}, { used: [], expired: [] });
+
+			this.setData({
+				'coupons.available': available,
+				'coupons.used': used,
+				'coupons.expired': expired,
+				// 'coupons.used': available,
+				// 'coupons.expired': available,
+			});
+			console.log(this.data);
+		}
+		catch (err) {
+			console.log(err);
+		}
+
 	},
 
 	onStautsItemClick(ev) {

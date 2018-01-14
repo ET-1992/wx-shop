@@ -9,14 +9,50 @@
         </view>
         <view class="title">{{ coupon.title }}</view>
       </view>
-      <view class="right">
-        <view class="desc">{{ coupon.description }}</view>
-        <view class="date">{{ coupon.start_time }}至{{ coupon.end_time }}</view>
+      <view class="center">
+        <rich-text
+          class="desc"
+          nodes="{{ coupon.description }}"
+          type="text"
+        />
+        <view class="date">
+          <text>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
+        </view>
       </view>
+      <view class="right">
+        <navigator
+          class="useBt"
+          wx:if="{{ status === 'available' }}"
+          url="/pages/"
+        >可用商品</navigator>
+
+        <view
+          class="getBt"
+          wx:if="{{ status === 'receivable' }}"
+          bindtap="onReceiveCoupon"
+        >点击领取</view>
+      </view>
+
     </view>
     <image
       class="bg"
       src="../../icons/couponItem.png"
+      wx:if="{{ status === 'available'}}"
+    />
+    <image
+      class="bg"
+      src="../../icons/couponItemUsed.png"
+      wx:if="{{ status === 'used' }}"
+    />
+    <image
+      class="bg"
+      src="../../icons/couponItemUseless.png"
+      wx:if="{{ status === 'expired' }}"
+    />
+    <image
+      class="bg"
+      src="../../icons/couponItemGot.png"
+      wx:if="{{ status === 'got' }}"
     />
   </view>
 </template>
