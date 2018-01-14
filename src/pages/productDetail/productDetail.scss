@@ -1,5 +1,6 @@
 @import '~templates/mock/mock';
 @import '~templates/loading/loading';
+@import '~templates/couponItem/couponItem';
 @import '~styles/color';
 
 $footerHeight: 100rpx;
@@ -338,6 +339,7 @@ button {
 
 .actionSheetContent {
 	$buttonHeight: 90rpx;
+
 	background-color: #fff;
 	position: fixed;
 	width: 100%;
@@ -351,8 +353,6 @@ button {
 	&.show {
 		transform: translateY(0);
 	}
-
-
 
 	.head {
 		display: flex;
@@ -454,6 +454,31 @@ button {
 			background-color: $secondColor;
 		}
 
+	}
+}
+
+.couponActionSheet {
+	padding: 20rpx;
+	background-color: $backgroundColor;
+
+	.couponList {
+		height: 800rpx;
+	}
+
+	.title {
+		text-align: center;
+		color: $titleColor;
+	}
+
+	.couponListTitle {
+		font-size: 9pt;
+		margin-top: 40rpx;
+		margin-bottom: 10rpx;
+	}
+
+	.couponItemWrapper {
+		padding: 0 5rpx;
+		margin-bottom: 10rpx;
 	}
 }
 

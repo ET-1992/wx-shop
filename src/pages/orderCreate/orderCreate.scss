@@ -124,9 +124,28 @@ $footerHeight: 100rpx;
 
 	.priceInfoItemValue {
 		color: $priceColor;
+		display: flex;
+		align-items: center;
+	}
+
+	.recommendCouponHint {
+		color: $couponMainColor;
+		border: 1px solid $couponMainColor;
+		padding: 4rpx 10rpx;
+		display: inline-block;
+		font-size: 8pt;
+		margin-left: 20rpx;
+	}
+
+	.rightIcon {
+		height: 26rpx;
+		width: 16rpx;
+		margin-left: 10rpx;
+		flex-shrink: 0;
 	}
 
 }
+
 
 .footer {
 	height: $footerHeight;

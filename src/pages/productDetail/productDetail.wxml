@@ -1,5 +1,6 @@
 <import src="../../templates/mock/mock.wxml"/>
 <import src="../../templates/loading/loading.wxml"/>
+<import src="../../templates/couponItem/couponItem.wxml"/>
 
 <template is="loading" wx:if="{{ isLoading }}"/>
 
@@ -83,7 +84,7 @@
 
   <view
     class="coupons"
-    bindtap="onShowCoupons"
+    bindtap="onShowCouponList"
     wx:if="{{ product.coupons && product.coupons.length }}"
   >
     <text>领券</text>
@@ -224,9 +225,7 @@
     </view>
   </view>
 
-  <view
-    class="actionSheet"
-  >
+  <view class="actionSheet">
     <template
       is="mock"
       data="{{ isShow: isShowAcitonSheet }}"
@@ -342,11 +341,36 @@
             >{{ item.text }}</button>
           </view>
         </view>
-
-
-
-
       </view>
+    </view>
+  </view>
+  <view class="actionSheet" >
+    <template
+      is="mock"
+      data="{{ isShow: isShowCouponList }}"
+    />
+    <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }}">
+      <scroll-view class="couponList" scroll-y>
+        <view class="title">优惠券</view>
+        <view class="availableCoupon">
+          <view class="couponListTitle">可领取优惠券</view>
+          <view
+            class="couponItemWrapper"
+            wx:for="{{ product.coupons }}"
+            wx:key="id"
+          >
+            <template is="couponItem" data="{{ coupon: item, status: 'receivable' }}"/>
+          </view>
+          <view class="couponListTitle">已领取优惠券</view>
+          <view
+            class="couponItemWrapper"
+            wx:for="{{ product.coupons }}"
+            wx:key="id"
+          >
+            <template is="couponItem" data="{{ coupon: item, status: 'got' }}"/>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
 </view>

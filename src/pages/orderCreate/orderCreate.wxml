@@ -59,9 +59,19 @@
       <view class="priceInoItemTitle">商品金额</view>
       <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
     </view>
-    <view class="priceInfoItem">
-      <view class="priceInoItemTitle">优惠券</view>
-      <view class="priceInfoItemValue">-￥{{ couponPrice }}</view>
+    <view class="priceInfoItem" bindtap="onCoupon">
+      <view class="priceInoItemTitle">
+        <text>优惠券</text>
+        <text
+          wx:if="{{ coupons.recommend }}"
+          class="recommendCouponHint"
+        >已选推荐优惠券</text>
+      </view>
+      <view class="priceInfoItemValue">
+        <text>-￥{{ couponPrice }}</text>
+        <image class="rightIcon" src="../../icons/right.png"/>
+      </view>
+
     </view>
     <view class="priceInfoItem">
       <view class="priceInoItemTitle">运费</view>

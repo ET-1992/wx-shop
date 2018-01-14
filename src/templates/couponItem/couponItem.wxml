@@ -7,15 +7,15 @@
           <text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
           <text wx:if="{{ coupon.type == 2 }}">折</text>
         </view>
-        <view class="title">{{ coupon.title }}</view>
+        <view class="couponTitle">{{ coupon.title }}</view>
       </view>
       <view class="center">
         <rich-text
-          class="desc"
+          class="couponDesc"
           nodes="{{ coupon.description }}"
           type="text"
         />
-        <view class="date">
+        <view class="couponDate">
           <text>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
         </view>
       </view>
@@ -37,7 +37,7 @@
     <image
       class="bg"
       src="../../icons/couponItem.png"
-      wx:if="{{ status === 'available'}}"
+      wx:if="{{ status === 'available' || status === 'receivable' }}"
     />
     <image
       class="bg"

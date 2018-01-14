@@ -27,6 +27,11 @@ App({
 		},
 		orderDetail: {
 			items: []
+		},
+		currentOrderCoupons: {
+			available: [],
+			unavailable: [],
+			isActive: false,
 		}
 	},
 

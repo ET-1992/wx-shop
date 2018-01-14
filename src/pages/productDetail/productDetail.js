@@ -42,6 +42,7 @@ Page({
 		timeLimit: 0,
 		timestamp: +new Date() / 1000 | 0,
 		isShowAcitonSheet: false,
+		isShowCouponList: false,
 		selectedProperties: [],
 		selectedSku: {},
 		skuSplitProperties: [],
@@ -296,7 +297,9 @@ Page({
 
 	onMockCancel() {
 		this.onSkuCancel();
+		this.onHideCouponList();
 	},
+
 	onReady() {
 		this.videoContext = wx.createVideoContext('myVideo')
 	},
@@ -323,8 +326,17 @@ Page({
 		}
 	},
 
-	onShowCoupons() {
+	onHideCouponList() {
+		this.setData({
+			isShowCouponList: false
+		});
+	},
+
+	onShowCouponList() {
 		console.log('onShowCoupons');
+		this.setData({
+			isShowCouponList: true
+		});
 	},
 
 	onSkuCancel() {
@@ -339,7 +351,6 @@ Page({
 
 	onSkuConfirm(ev) {
 		const {actionType} = ev.currentTarget.dataset;
-
 		this.setData({
 			isShowAcitonSheet: false,
 		});

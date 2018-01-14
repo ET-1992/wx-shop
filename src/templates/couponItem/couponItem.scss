@@ -40,14 +40,9 @@
 			flex-direction: column;
 			flex-shrink: 0;
 
-			.desc {
+			.couponDesc {
 				height: 80rpx;
 				flex-grow: 1;
-			}
-
-			.date {
-				display: flex;
-				align-items: center;
 			}
 		}
 
@@ -65,14 +60,14 @@
 
 			.useBt {
 				padding: 4rpx 10rpx;
-				color: $priceColor;
-				border: 1px solid $priceColor;
+				color: $couponMainColor;
+				border: 1px solid $couponMainColor;
 				border-radius: 100rpx;
 			}
 
 			.getBt {
 				padding: 4rpx 10rpx;
-				background-color: $priceColor;
+				background-color: $couponMainColor;
 				color: #fff;
 			}
 		}
