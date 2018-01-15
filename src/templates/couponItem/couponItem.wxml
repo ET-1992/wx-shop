@@ -19,12 +19,23 @@
           <text>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
         </view>
       </view>
-      <view class="right">
-        <navigator
+      <view class="right {{ canChoice ? 'rightCenter' : '' }}">
+        <view
+          class="radio {{ isSelected ? 'selected' : '' }}"
+          wx:if="{{ canChoice }}"
+        >
+          <image
+            src="/icons/selected.png"
+            mode="aspectFit"
+            class="radioIcon"
+            wx:if="{{ isSelected }}"
+          />
+        </view>
+
+        <view
           class="useBt"
-          wx:if="{{ status === 'available' }}"
-          url="/pages/"
-        >可用商品</navigator>
+          wx:if="{{ status === 'available' && !canChoice }}"
+        >可用商品</view>
 
         <view
           class="getBt"
@@ -47,7 +58,7 @@
     <image
       class="bg"
       src="../../icons/couponItemUseless.png"
-      wx:if="{{ status === 'expired' }}"
+      wx:if="{{ status === 'expired' || status === 'unavailable' }}"
     />
     <image
       class="bg"

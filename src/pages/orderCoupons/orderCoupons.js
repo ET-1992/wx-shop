@@ -14,18 +14,22 @@ Page({
 		],
 		selectedStatus: 'available',
 		coupons: {
-			'available': [],
-			'unavailable': [],
-		}
+			available: [],
+			unavailable: [],
+			recommend: {},
+			selected: {}
+		},
 	},
 
 	// 生命周期函数--监听页面加载
 
 
 	async onLoad () {
-		const { currentOrderCoupons } = app.globalData;
-		this.setData({ coupons: currentOrderCoupons });
-
+		console.log(app.globalData.currentOrder);
+		const { coupons } = app.globalData.currentOrder;
+		this.setData({ coupons });
+		// const data = await api.hei.fetchMyCouponList();
+		// this.setData({ coupons: data })
 	},
 
 	onStautsItemClick(ev) {
@@ -35,6 +39,23 @@ Page({
 			selectedStatus: value,
 			// activeIndex: this.getIndex(value),
 			isRefresh: true,
+		});
+	},
+
+	onCouponClick(ev) {
+		const { coupon, index } = ev.currentTarget.dataset;
+		const { selected } = this.data.coupons;
+		this.setData({
+			'coupons.selected': selected.id === coupon.id ? {} : coupon
+	 	});
+	},
+
+	onComfirm() {
+		const { coupons } = this.data;
+		app.globalData.currentOrder.coupons = coupons;
+		console.log(app.globalData.currentOrder);
+		wx.navigateBack({
+			delta: 1
 		});
 	},
 });

@@ -4,6 +4,7 @@
         "standard",
         "plugin:promise/recommended",
         "plugin:import/recommended",
+        "prettier",
     ],
     "env": {
         "browser": true,
@@ -42,7 +43,7 @@
             "ignoreUrls": true,
             "ignoreRegExpLiterals": true,
         }],
-        "brace-style": 0,
+        "brace-style": "stroustrup", { "allowSingleLine": true },
         "operator-linebreak": [1, "after"],
         "camelcase": 0,
         "no-multiple-empty-lines": [1, {

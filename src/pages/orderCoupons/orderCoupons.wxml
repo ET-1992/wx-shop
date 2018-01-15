@@ -17,16 +17,7 @@
 
   <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length }}">
     <view wx:if="{{ selectedStatus === 'available' }}">暂无可使用优惠券</view>
-    <view wx:if="{{ selectedStatus === 'used' }}">暂无已使用优惠券</view>
-    <view wx:if="{{ selectedStatus === 'expired' }}">暂无已过期优惠券</view>
-    <navigator
-      open-type="switchTab"
-      wx:if="{{ selectedStatus === 'available' }}"
-      url="/pages/home/home"
-      class="couponBt"
-    >
-      获取优惠券
-    </navigator>
+    <view wx:if="{{ selectedStatus === 'unavailable' }}">无不可用优惠券</view>
   </view>
 
   <view class="couponList">
@@ -34,11 +25,21 @@
       class="couponItemWrapper"
       wx:for="{{ coupons[selectedStatus] }}"
       wx:key="id"
+      bindtap="onCouponClick"
+      data-coupon="{{ item }}"
+      data-index="{{ index }}"
     >
       <template
         is="couponItem"
-        data="{{ coupon: item, status: selectedStatus }}"
+        data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.selected.id === item.id }}"
       />
     </view>
   </view>
+
+
+  <button
+    class="normalizeBt cofirmBt"
+    bindtap="onComfirm"
+    wx:if="{{ selectedStatus === 'available' && coupons.available.length }}"
+  >确认</button>
 </view>

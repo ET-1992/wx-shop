@@ -1,20 +1,22 @@
 import api from 'utils/api';
-import {createCurrentOrder, onDefaultShareAppMessage} from 'utils/pageShare';
+import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import getRemainTime from 'utils/getRemainTime';
 
 const app = getApp();
 
 const findSelectedSku = (skus, selectedProperties) => {
-	const selectedPropertiesNames = selectedProperties.reduce((propertyNames, sku) => {
-		return propertyNames + sku.key + ':' + sku.value + ';';
-	}, '');
+	const selectedPropertiesNames = selectedProperties.reduce(
+		(propertyNames, sku) => {
+			return propertyNames + sku.key + ':' + sku.value + ';';
+		},
+		''
+	);
 	console.log(selectedPropertiesNames);
-	const sku = skus.find((sku) => {
+	const sku = skus.find(sku => {
 		return sku.property_names === selectedPropertiesNames;
 	});
 	return sku || {};
 };
-
 
 Page({
 	data: {
@@ -35,42 +37,47 @@ Page({
 		remainTime: {
 			hour: '00',
 			minute: '00',
-			second: '00',
+			second: '00'
 		},
 		hasStart: true,
 		hasEnd: false,
 		timeLimit: 0,
-		timestamp: +new Date() / 1000 | 0,
+		timestamp: (+new Date() / 1000) | 0,
 		isShowAcitonSheet: false,
 		isShowCouponList: false,
 		selectedProperties: [],
 		selectedSku: {},
 		skuSplitProperties: [],
 		quantity: 1,
-		actions: [{
-			type: 'onBuy',
-			text: '立即购买',
-			isGroupon: false,
-			isMiaosha: false,
-			isSingle: false
-		}],
+		actions: [
+			{
+				type: 'onBuy',
+				text: '立即购买',
+				isGroupon: false,
+				isMiaosha: false,
+				isSingle: false
+			}
+		],
 		single: false
 	},
 
 	onShowSku(ev) {
-		const updateData = {isShowAcitonSheet: true};
+		const updateData = { isShowAcitonSheet: true };
 		if (ev) {
-			const {actions, single} = ev.currentTarget.dataset;
+			const { actions, single } = ev.currentTarget.dataset;
 			updateData.actions = actions;
 			// updateData.single = (single === '0' ? true : false);
 			updateData.single = single === '0';
 		}
-		updateData.timestamp = +new Date() / 1000 | 0;
+		updateData.timestamp = (+new Date() / 1000) | 0;
 		this.setData(updateData);
 	},
 
 	countDown() {
-		const {miaosha_end_timestamp, miaosha_start_timestamp} = this.data.product;
+		const {
+			miaosha_end_timestamp,
+			miaosha_start_timestamp
+		} = this.data.product;
 		const now = Math.round(Date.now() / 1000);
 		let timeLimit = miaosha_end_timestamp - now;
 		let hasStart = true;
@@ -92,14 +99,14 @@ Page({
 
 		if (timeLimit) {
 			this.intervalId = setInterval(() => {
-				const {timeLimit} = this.data;
+				const { timeLimit } = this.data;
 				const [hour, minute, second] = getRemainTime(timeLimit);
 				this.setData({
-					'timeLimit': timeLimit - 1,
+					timeLimit: timeLimit - 1,
 					remainTime: {
 						hour,
 						minute,
-						second,
+						second
 					}
 				});
 			}, 1000);
@@ -114,65 +121,67 @@ Page({
 			skuSplitProperties: []
 		});
 
-		this.setData({isLoading: true});
+		this.setData({ isLoading: true });
 
-		const {id, grouponId} = this.data.indexparams;
+		const { id, grouponId } = this.data.indexparams;
 
 		try {
-			const data = await api.hei.fetchProduct({id});
-			const {skus} = data.product;
+			const data = await api.hei.fetchProduct({ id });
+			const { skus } = data.product;
 			wx.getBackgroundAudioManager({
 				success(res) {
-					console.log(res)
+					console.log(res);
 				}
-			})
+			});
 			wx.setNavigationBarTitle({
 				title: data.page_title
-			})
+			});
 
-			const skuSplitProperties = skus.reduce((skuSplitProperties, sku, index) => {
-				const {properties} = sku;
-				// const properties = JSON.parse(properties);
-				const isInit = !index;
+			const skuSplitProperties = skus.reduce(
+				(skuSplitProperties, sku, index) => {
+					const { properties } = sku;
+					// const properties = JSON.parse(properties);
+					const isInit = !index;
 
-				sku.properties = properties;
+					sku.properties = properties;
 
-				properties.forEach((property, propertyInex) => {
-					const {k, v} = property;
-					if (isInit) {
-						skuSplitProperties.push({key: k, values: [v]});
-					}
-					else {
-						const isExits = skuSplitProperties[propertyInex].values.findIndex(value => value === v) >= 0;
-						if (!isExits) {
-							skuSplitProperties[propertyInex].values.push(v);
+					properties.forEach((property, propertyInex) => {
+						const { k, v } = property;
+						if (isInit) {
+							skuSplitProperties.push({ key: k, values: [v] });
+						} else {
+							const isExits =
+								skuSplitProperties[propertyInex].values.findIndex(
+									value => value === v
+								) >= 0;
+							if (!isExits) {
+								skuSplitProperties[propertyInex].values.push(v);
+							}
 						}
-					}
-				});
+					});
 
-				return skuSplitProperties;
-
-			}, []);
+					return skuSplitProperties;
+				},
+				[]
+			);
 			this.setData({
 				skuSplitProperties,
 				grouponId: grouponId || '',
 				...data
 			});
 			this.countDown();
-		}
-
-		catch (err) {
+		} catch (err) {
 			console.log(err);
 		}
-		this.setData({isLoading: false});
+		this.setData({ isLoading: false });
 	},
 
 	currentIndex(e) {
-		this.setData({current: e.detail.current})
+		this.setData({ current: e.detail.current });
 	},
 
-	async onLoad ({id, grouponId}) {
-		this.setData({indexparams: {id, grouponId}});
+	async onLoad({ id, grouponId }) {
+		this.setData({ indexparams: { id, grouponId } });
 	},
 
 	onUnload() {
@@ -181,25 +190,25 @@ Page({
 		}
 	},
 
-	grouponListener({detail}) {
-		const {grouponId} = detail;
-		this.setData({pendingGrouponId: grouponId});
+	grouponListener({ detail }) {
+		const { grouponId } = detail;
+		this.setData({ pendingGrouponId: grouponId });
 		this.onShowSku();
 	},
 
 	async addCart() {
 		console.log('addCart');
-		const {vendor} = app.globalData;
-		const {product: {id}, selectedSku, quantity} = this.data;
+		const { vendor } = app.globalData;
+		const { product: { id }, selectedSku, quantity } = this.data;
 		const data = await api.hei.addCart({
 			post_id: id,
 			sku_id: selectedSku.id || 0,
 			quantity,
-			vendor,
+			vendor
 		});
 		if (!data.errcode) {
 			wx.showToast({
-				title: '成功添加到购物车',
+				title: '成功添加到购物车'
 			});
 		}
 	},
@@ -220,7 +229,7 @@ Page({
 			product.price = product.groupon_price;
 			wx.setStorageSync('orderCreate', {
 				isGroupon: 1,
-				grouponId: grouponId || pendingGrouponId,
+				grouponId: grouponId || pendingGrouponId
 			});
 
 			// url = url;
@@ -231,39 +240,36 @@ Page({
 		// original_price = product.original_price
 
 		if (product.groupon_enable === '1') {
-
 			if (single) {
 				currentOrder = createCurrentOrder({
-					selectedSku: Object.assign({quantity}, selectedSku),
+					selectedSku: Object.assign({ quantity }, selectedSku),
 					items: [product]
 				});
 			} else {
 				currentOrder = createCurrentOrder({
-					selectedSku: Object.assign({quantity, price}, selectedSku),
-					items: [product],
+					selectedSku: Object.assign({ quantity, price }, selectedSku),
+					items: [product]
 				});
 			}
 		} else if (product.miaosha_enable === '1') {
-			if (product.miaosha_end_timestamp - (Date.now() / 1000 | 0) > 0) {
+			if (product.miaosha_end_timestamp - ((Date.now() / 1000) | 0) > 0) {
 				currentOrder = createCurrentOrder({
-					selectedSku: Object.assign({quantity}, selectedSku, {price: (product.miaosha_price - 0)}),
-					items: [product],
+					selectedSku: Object.assign({ quantity }, selectedSku, {
+						price: product.miaosha_price - 0
+					}),
+					items: [product]
 				});
 			} else {
 				currentOrder = createCurrentOrder({
-					selectedSku: Object.assign({quantity}, selectedSku),
-					items: [product],
+					selectedSku: Object.assign({ quantity }, selectedSku),
+					items: [product]
 				});
-
 			}
-
 		} else {
-
 			currentOrder = createCurrentOrder({
-				selectedSku: Object.assign({quantity}, selectedSku),
-				items: [product],
+				selectedSku: Object.assign({ quantity }, selectedSku),
+				items: [product]
 			});
-
 		}
 
 		app.globalData.currentOrder = currentOrder;
@@ -272,27 +278,32 @@ Page({
 	},
 
 	onSkuItem(ev) {
-		const {key, value, propertyIndex} = ev.currentTarget.dataset;
-		const {selectedProperties} = this.data;
-		const exValue = selectedProperties[propertyIndex] && selectedProperties[propertyIndex].value;
+		const { key, value, propertyIndex } = ev.currentTarget.dataset;
+		const { selectedProperties } = this.data;
+		const exValue =
+			selectedProperties[propertyIndex] &&
+			selectedProperties[propertyIndex].value;
 
 		// const sku = this.data.product.skus[index];
 		const updateData = {};
 		const updatekey = `selectedProperties[${propertyIndex}]`;
-		const updateValue = exValue === value ? {} : {key, value};
+		const updateValue = exValue === value ? {} : { key, value };
 		updateData[updatekey] = updateValue;
 		this.setData(updateData);
 
-		const {selectedProperties: newSelectedProperties, product: {skus}} = this.data;
+		const {
+			selectedProperties: newSelectedProperties,
+			product: { skus }
+		} = this.data;
 		const selectedSku = findSelectedSku(skus, newSelectedProperties);
 		console.log('selectedSku', selectedSku);
-		this.setData({selectedSku, quantity: 1});
+		this.setData({ selectedSku, quantity: 1 });
 		console.log(this.data.selectedSku);
 	},
 
-	updateQuantity({detail}) {
-		const {value} = detail;
-		this.setData({quantity: value});
+	updateQuantity({ detail }) {
+		const { value } = detail;
+		this.setData({ quantity: value });
 	},
 
 	onMockCancel() {
@@ -301,28 +312,28 @@ Page({
 	},
 
 	onReady() {
-		this.videoContext = wx.createVideoContext('myVideo')
+		this.videoContext = wx.createVideoContext('myVideo');
 	},
 	clickMe() {
 		const that = this;
-		that.setData({autoplay: false, activeIndex: 1})
+		that.setData({ autoplay: false, activeIndex: 1 });
 		this.videoContext.requestFullScreen({
 			direction: 0
-		})
+		});
 	},
 	startPlay() {
-		this.setData({autoplay: false})
+		this.setData({ autoplay: false });
 	},
 	pause() {
-		this.setData({autoplay: true});
+		this.setData({ autoplay: true });
 	},
 	end() {
-		this.setData({autoplay: true});
+		this.setData({ autoplay: true });
 	},
 	fullScreen(e) {
-		console.log(e.detail.fullScreen)
+		console.log(e.detail.fullScreen);
 		if (e.detail.fullScreen === false) {
-			this.setData({autoplay: true, activeIndex: -1})
+			this.setData({ autoplay: true, activeIndex: -1 });
 		}
 	},
 
@@ -345,17 +356,17 @@ Page({
 			selectedSku: {},
 			selectedProperties: [],
 			quantity: 1,
-			pendingGrouponId: '',
+			pendingGrouponId: ''
 		});
 	},
 
 	onSkuConfirm(ev) {
-		const {actionType} = ev.currentTarget.dataset;
+		const { actionType } = ev.currentTarget.dataset;
 		this.setData({
-			isShowAcitonSheet: false,
+			isShowAcitonSheet: false
 		});
 		this[actionType]();
 	},
 
-	onShareAppMessage: onDefaultShareAppMessage,
+	onShareAppMessage: onDefaultShareAppMessage
 });

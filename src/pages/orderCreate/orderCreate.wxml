@@ -63,7 +63,7 @@
       <view class="priceInoItemTitle">
         <text>优惠券</text>
         <text
-          wx:if="{{ coupons.recommend }}"
+          wx:if="{{ coupons.recommend && coupons.recommend.id === coupons.selected.id  }}"
           class="recommendCouponHint"
         >已选推荐优惠券</text>
       </view>

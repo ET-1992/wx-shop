@@ -1,66 +1,73 @@
-import api from 'utils/api';
-import {chooseAddress, showModal} from 'utils/wxp';
-import {wxPay} from 'utils/pageShare';
-import {ADDRESS_KEY} from 'constants/index';
+import api from "utils/api";
+import { chooseAddress, showModal } from "utils/wxp";
+import { wxPay } from "utils/pageShare";
+import { ADDRESS_KEY } from "constants/index";
 
 const app = getApp();
 
 Page({
 	data: {
-		title: 'orderCreate',
+		title: "orderCreate",
 
 		savePrice: 0,
 		totalPrice: 0,
 		items: [],
 
 		isGroupon: 0,
-		grouponId: '',
-		skuId: '',
+		grouponId: "",
+		skuId: "",
 		quantity: 1,
 		address: {
-			userName: ''
+			userName: ""
 		},
-		buyerMessage: '',
+		buyerMessage: "",
 		totalPostage: 0,
 		couponPrice: 0,
-		// orderPrcie: 0,
 		coupons: {
 			recommend: {},
 			available: [],
 			unavailable: [],
-			selected: {},
+			selected: {}
 		}
 	},
 
-
 	async onShow() {
-		//TODO 选择优惠券之后的处理
-		const {isGroupon, grouponId, skuId, quantity} = wx.getStorageSync('orderCreateObj');
-		const { currentOrder, currentOrderCoupons } = app.globalData;
+		const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
+			"orderCreateObj"
+		);
+		const { currentOrder } = app.globalData;
 		const { items, totalPrice } = currentOrder;
-		console.log(app.globalData);
 		const address = wx.getStorageSync(ADDRESS_KEY) || {};
 		let totalPostage = 0;
-		let couponPrice = 0;
-		if (!isGroupon && !currentOrderCoupons.isActive) {
-			const { recommend, unavailable, available } = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
+		// let couponPrice = 0;
 
-			if (recommend) {
-				const { type, reduce_cost, discount } = recommend;
-				couponPrice = +type === 1 ? reduce_cost : totalPrice * discount / 100;
-				console.log(couponPrice);
+		//currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
+		if (!isGroupon && !currentOrder.coupons) {
+			const {
+				recommend,
+				unavailable,
+				available
+			} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
+			currentOrder.coupons = {
+				recommend,
+				unavailable,
+				available,
+				selected: recommend
 			}
-			this.setData({
-				'coupons.recommend': recommend || {},
-				'coupons.selected': recommend || {},
-				'coupons.unavailable': unavailable,
-				'coupons.available': available,
-				couponPrice,
-			});
 		}
 
-		currentOrder.items.forEach((item) => {
-			const {postage} = item;
+		if (currentOrder.coupons.selected.id) {
+			const { type, reduce_cost, discount } = currentOrder.coupons.selected;
+			currentOrder.couponPrice = +type === 1 ? reduce_cost : totalPrice * discount / 100;
+			// console.log(couponPrice);
+		}
+		else {
+			currentOrder.couponPrice = 0;
+		}
+
+
+		currentOrder.items.forEach(item => {
+			const { postage } = item;
 			if (postage > totalPostage) {
 				totalPostage = postage;
 			}
@@ -72,6 +79,8 @@ Page({
 		currentOrder.quantity = quantity;
 		currentOrder.address = address;
 		// currentOrder.orderPrcie = totalPrice + totalPostage - couponPrice;
+		//
+		console.log('orderCreate', currentOrder);
 		this.setData(currentOrder);
 	},
 
@@ -80,46 +89,65 @@ Page({
 	},
 
 	onInput(ev) {
-		const {value} = ev.detail;
-		this.setData({buyerMessage: value});
+		const { value } = ev.detail;
+		this.setData({ buyerMessage: value });
 	},
 
 	async onAddress() {
 		const address = await chooseAddress();
 		wx.setStorageSync(ADDRESS_KEY, address);
-		this.setData({address});
+		this.setData({ address });
 	},
 
 	async onCoupon() {
 		const { coupons } = this.data;
-		app.globalData.currentOrderCoupons = coupons;
+		// app.globalData.currentOrderCoupons = coupons;
+		app.globalData.currentOrder = this.data;
 		wx.navigateTo({
-			url: '/pages/orderCoupon/orderCoupon'
-		})
+			url: "/pages/orderCoupons/orderCoupons"
+		});
 	},
 
 	async onPay(ev) {
-		const {formId} = ev.detail;
-		const {address, items, buyerMessage, grouponId, isGroupon, skuId, quantity, coupons} = this.data;
-		const {userName, telNumber, provinceName, cityName, countyName, postalCode, nationalCode, detailInfo} = address;
-		const {vendor} = app.globalData;
+		const { formId } = ev.detail;
+		const {
+			address,
+			items,
+			buyerMessage,
+			grouponId,
+			isGroupon,
+			skuId,
+			quantity,
+			coupons
+		} = this.data;
+		const {
+			userName,
+			telNumber,
+			provinceName,
+			cityName,
+			countyName,
+			postalCode,
+			nationalCode,
+			detailInfo
+		} = address;
+		const { vendor } = app.globalData;
 		const couponId = coupons.selected.id;
 
 		if (!userName) {
 			wx.showModal({
-				title: '提示',
-				content: '请先填写地址',
-				showCancel: false,
+				title: "提示",
+				content: "请先填写地址",
+				showCancel: false
 			});
 			return;
 		}
 
 		wx.setStorageSync(ADDRESS_KEY, address);
 
-		let method = 'createOrderAndPay';
+		let method = "createOrderAndPay";
 		wx.showLoading({
-			title: '处理订单中',
-			mark: true,
+			title: "处理订单中",
+			mark: true
 		});
 		const requestData = {
 			receiver_name: userName,
@@ -132,31 +160,29 @@ Page({
 			receiver_zipcode: postalCode,
 			buyer_message: buyerMessage,
 			form_id: formId,
-			vendor,
+			vendor
 		};
 
-		// if (couponId) {
-		// 	requestData.coupon_id = couponId;
-		// }
+		if (couponId) {
+			requestData.coupon_id = couponId;
+		}
 
 		if (isGroupon) {
 			requestData.sku_id = skuId;
 			requestData.quantity = quantity;
 			if (grouponId) {
 				requestData.id = grouponId;
-				method = 'joinGroupon';
-			}
-			else {
+				method = "joinGroupon";
+			} else {
 				requestData.post_id = items[0].id;
-				method = 'createGroupon';
+				method = "createGroupon";
 			}
-		}
-		else {
+		} else {
 			requestData.posts = JSON.stringify(items);
 		}
 
 		try {
-			const {order_no, pay_sign} = await api.hei[method](requestData);
+			const { order_no, pay_sign } = await api.hei[method](requestData);
 			wx.hideLoading();
 			if (pay_sign) {
 				await wxPay(pay_sign);
@@ -164,13 +190,12 @@ Page({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`
 				});
 			}
-		}
-		catch (err) {
+		} catch (err) {
 			wx.hideLoading();
 			showModal({
-				title: '温馨提示',
+				title: "温馨提示",
 				content: err.errMsg,
-				showCancel: false,
+				showCancel: false
 			});
 		}
 	}

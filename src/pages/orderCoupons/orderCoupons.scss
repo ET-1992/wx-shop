@@ -14,7 +14,7 @@
 	height: $height;
 
 	.statusItem {
-		width: 33%;
+		width: 50%;
 		display: inline-block;
 		text-align: center;
 	}
@@ -52,4 +52,15 @@
 	.couponItemWrapper {
 		margin-bottom: 25rpx;
 	}
+}
+
+.cofirmBt {
+	margin-top: 100rpx;
+	width: 240rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 9pt;
+	color: #fff;
+	border-radius: 0;
+	background-color: $couponMainColor;
 }

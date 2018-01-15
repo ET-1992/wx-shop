@@ -14,6 +14,7 @@
 		font-size: 9pt;
 		color: #fff;
 		display: flex;
+		width: 100%;
 
 		.left {
 			width: 270rpx;
@@ -53,13 +54,15 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-end;
+			flex-grow: 1;
 
-			&.center {
+			&.rightCenter {
 				justify-content: center;
+				align-items: flex-end;
 			}
 
 			.useBt {
-				padding: 4rpx 10rpx;
+				padding: 4rpx 10rpx 4rpx 16rpx;
 				color: $couponMainColor;
 				border: 1px solid $couponMainColor;
 				border-radius: 100rpx;
@@ -70,9 +73,33 @@
 				background-color: $couponMainColor;
 				color: #fff;
 			}
+
+			.radio {
+				$size: 32rpx;
+
+				height: $size;
+				width: $size;
+				margin-right: 20rpx;
+				flex-shrink: 0;
+				border: 1px solid #ccc;
+				border-radius: 50%;
+				line-height: $size;
+				text-align: center;
+
+				&.selected {
+					background-color: $couponMainColor;
+					border-color: $couponMainColor;
+				}
+
+				.radioIcon {
+					$iconSize: 24rpx;
+
+					height: $iconSize;
+					width: $iconSize;
+					margin-top: 2rpx;
+				}
+			}
 		}
-
-
 	}
 
 	.bg {
