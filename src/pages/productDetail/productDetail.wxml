@@ -355,20 +355,27 @@
         <view class="availableCoupon">
           <view class="couponListTitle">可领取优惠券</view>
           <view
+            wx:if="{{ item.status === 2 }}"
             class="couponItemWrapper"
             wx:for="{{ product.coupons }}"
             wx:key="id"
+            data-id="{{ item.id }}"
+            data-status="{{ item.status }}"
+            data-index="{{ index }}"
+            catchtap="onCouponClick"
           >
             <template is="couponItem" data="{{ coupon: item, status: 'receivable' }}"/>
           </view>
           <view class="couponListTitle">已领取优惠券</view>
-          <view
+          <navigator
+            wx:if="{{ item.status !== 2 }}"
             class="couponItemWrapper"
             wx:for="{{ product.coupons }}"
             wx:key="id"
+            url="/pages/couponProducts/couponProducts?couponId={{ item.id }}"
           >
-            <template is="couponItem" data="{{ coupon: item, status: 'got' }}"/>
-          </view>
+            <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
+          </navigator>
         </view>
       </scroll-view>
     </view>

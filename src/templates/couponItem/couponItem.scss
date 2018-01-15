@@ -62,16 +62,26 @@
 			}
 
 			.useBt {
-				padding: 4rpx 10rpx 4rpx 16rpx;
 				color: $couponMainColor;
 				border: 1px solid $couponMainColor;
 				border-radius: 100rpx;
+				width: 110rpx;
+				height: 40rpx;
+				line-height: 40rpx;
+				text-align: center;
+				margin-top: 10rpx;
+				margin-bottom:-4rpx;
+
 			}
 
 			.getBt {
-				padding: 4rpx 10rpx;
 				background-color: $couponMainColor;
 				color: #fff;
+				width: 110rpx;
+				height: 40rpx;
+				line-height: 40rpx;
+				text-align: center;
+				margin-bottom:-4rpx;
 			}
 
 			.radio {

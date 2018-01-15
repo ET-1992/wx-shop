@@ -127,7 +127,13 @@ Page({
 
 		try {
 			const data = await api.hei.fetchProduct({ id });
-			const { skus } = data.product;
+			const { skus, coupons } = data.product;
+
+			//format coupon description
+			coupons.forEach((coupon) => {
+				coupon.description = coupon.description.replace(/\n/g, '<br/>');
+			});
+
 			wx.getBackgroundAudioManager({
 				success(res) {
 					console.log(res);
@@ -341,6 +347,33 @@ Page({
 		this.setData({
 			isShowCouponList: false
 		});
+	},
+
+	async onReceiveCoupon(id, index) {
+		const data = await api.hei.receiveCoupon({
+			coupon_id: id
+		});
+		const { errcode } = data;
+		if (!errcode) {
+			showToast({ title: '领取成功' });
+			const updateData = {};
+			const key = `coupons[${index}].status`;
+			updateData[key] = '4';
+			this.setData(updateData);
+		}
+	},
+
+	async onCouponClick(ev) {
+		const { id, index, status } = ev.currentTarget.dataset;
+		console.log(ev.currentTarget.dataset);
+		if (+status === 2) {
+			await this.onReceiveCoupon(id, index);
+		}
+		else {
+			wx.navigateTo({
+				url: `/pages/couponProducts/couponProducts?couponId=${id}`
+			})
+		}
 	},
 
 	onShowCouponList() {
