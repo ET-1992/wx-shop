@@ -1,3 +1,81 @@
-.container {
-	padding: 20rpx;
+@import '~styles/color';
+
+page {
+	background-color: #fff;
+}
+
+.header {
+	border-bottom: 1px solid #ddd;
+	position: fixed;
+	left: 0;
+	width: 100%;
+	top: 0;
+
+
+	.couponTitle {
+		text-align: center;
+		padding: 14rpx 0;
+		font-size: 9pt;
+		background-color: $backgroundColor;
+		border-bottom: 1px solid #ddd;
+		color: $titleColor;
+	}
+}
+
+.sortOptions {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	background: #fff;
+
+	.sortOption {
+		width: 50%;
+		justify-content: center;
+		height: 60rpx;
+		line-height: 60rpx;
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+		color: $originalPriceColor;
+
+		&.selected {
+			color: $titleColor;
+		}
+	}
+
+
+	.indicators {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		height: 24rpx;
+		justify-content: center;
+		margin-left: 14rpx;
+		margin-top: -6rpx;
+	}
+
+	.triangleIcon {
+		width: 16rpx;
+		height: 9rpx;
+	}
+
+	.triangleIconUp {
+		margin-bottom: 6rpx;
+	}
+}
+
+.main {
+	margin-top: 100rpx;
+	padding: 0 40rpx;
+
+	&.indicators {
+		margin-top: 160rpx;
+	}
+}
+
+.noHint {
+	text-align: center;
+	font-size: 10pt;
+	padding-top: 100rpx;
+	color: $originalPriceColor;
 }

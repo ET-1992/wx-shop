@@ -88,6 +88,7 @@
     wx:if="{{ product.coupons && product.coupons.length }}"
   >
     <text>领券</text>
+    <!-- 只显示三个  -->
     <view
       class="coupon"
       wx:for="{{ product.coupons }}"
@@ -102,7 +103,6 @@
     wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}"
   >
     <view class="title">正在开团, 可直接参团</view>
-    <!-- 只显示三个  -->
     <view
       wx:for="{{ product.pending_groupons }}"
       wx:key="id"
@@ -143,85 +143,91 @@
     />
   </view>
   <view class="footer">
-    <navigator
-      class="shop"
-      open-type="switchTab"
-      hover-class="navigator-hover"
-      url="/pages/home/home"
-    >
-      <image class="icon" src="../../icons/store.png"/>
-      店铺
-    </navigator>
-    <navigator
-      class="cart"
-      open-type="switchTab"
-      hover-class="navigator-hover"
-      url="/pages/cart/cart"
-    >
-      <image class="icon" src="../../icons/shopcart.png"/>
-      购物车
-    </navigator>
-    <button open-type="contact" class="cart">
-    <image class="icon" src="../../icons/context.png"/>
-    客服
-    </button>
-
-    <block wx:if="{{ (product.groupon_enable !== '1' && product.miaosha_enable !== '1') }}">
-
-      <view
-              class="addCart"
-              bindtap="onShowSku"
-              data-actions="{{ [{ type: 'addCart', text: '加入购物车', isSingle:true }] }}"
-      >加入购物车</view>
-      <view
-              class="buy"
-              bindtap="onShowSku"
-              data-actions="{{ [{ type: 'onBuy', text: '立即购买', isSingle:true }] }}"
-      >立即购买</view>
-    </block>
-    <block wx:if="{{ ( product.groupon_enable !== '1' && product.miaosha_enable === '1') }}">
-
-      <view
-              class="addCart"
-              bindtap="onShowSku"
-              data-actions="{{ [{ type: 'addCart', text: '加入购物车',isMiaosha: true }] }}"
-      >加入购物车</view>
-      <view
-              class="buy"
-              bindtap="onShowSku"
-              data-actions="{{ [{ type: 'onBuy', text: '立即购买',isMiaosha: true }] }}"
-      >立即购买</view>
-    </block>
-
-
-
     <view
-      wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
-      class="addCart multi"
-      bindtap="onShowSku"
-      data-single="0"
-      data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买', isSingle:true }] }}"
-    >
-      <view>￥{{ product.price }}</view>
-      <view>单独购买</view>
-    </view>
+      class="soldOutHint"
+      wx:if="{{ product.post_status === 'sold_out' }}"
+    >商品已经卖光啦~</view>
     <view
-      wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
-      class="buy multi"
-      bindtap="onShowSku"
-      data-single="1"
-      data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
-    >
-      <view>￥{{ product.groupon_price }}</view>
-      <view>{{ product.groupon_member_limit }}人团</view>
-    </view>
-    <view
-      wx:if="{{ product.groupon_enable === '1' && grouponId }}"
-      class="buy multi"
-      bindtap="onShowSku"
-      data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
-    >
-      <view>立即参团</view>
+      class="unpublishedHint"
+      wx:if="{{ product.post_status === 'unpublished' }}"
+    >商品已经下架啦~</view>
+    <view class="footerMain {{ product.post_status === 'unpublished' || product.post_status === 'sold_out' ? 'disabledBuy' : '' }}">
+      <navigator
+        class="shop"
+        open-type="switchTab"
+        hover-class="navigator-hover"
+        url="/pages/home/home"
+      >
+        <image class="icon" src="../../icons/store.png"/>
+        店铺
+      </navigator>
+      <navigator
+        class="cart"
+        open-type="switchTab"
+        hover-class="navigator-hover"
+        url="/pages/cart/cart"
+      >
+        <image class="icon" src="../../icons/shopcart.png"/>
+        购物车
+      </navigator>
+      <button open-type="contact" class="cart">
+      <image class="icon" src="../../icons/context.png"/>
+      客服
+      </button>
+
+      <block wx:if="{{ (product.groupon_enable !== '1' && product.miaosha_enable !== '1') }}">
+        <view
+          class="addCart"
+          bindtap="onShowSku"
+          data-actions="{{ [{ type: 'addCart', text: '加入购物车', isSingle:true }] }}"
+        >加入购物车</view>
+        <view
+          class="buy"
+          bindtap="onShowSku"
+          data-actions="{{ [{ type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+        >立即购买</view>
+      </block>
+      <block wx:if="{{ ( product.groupon_enable !== '1' && product.miaosha_enable === '1') }}">
+        <view
+          class="addCart"
+          bindtap="onShowSku"
+          data-actions="{{ [{ type: 'addCart', text: '加入购物车',isMiaosha: true }] }}"
+        >加入购物车</view>
+        <view
+          class="buy"
+          bindtap="onShowSku"
+          data-actions="{{ [{ type: 'onBuy', text: '立即购买',isMiaosha: true }] }}"
+        >立即购买</view>
+      </block>
+
+      <view
+        wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
+        class="addCart multi"
+        bindtap="onShowSku"
+        data-single="0"
+        data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+      >
+        <view>￥{{ product.price }}</view>
+        <view>单独购买</view>
+      </view>
+      <view
+        wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
+        class="buy multi"
+        bindtap="onShowSku"
+        data-single="1"
+        data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
+      >
+        <view>￥{{ product.groupon_price }}</view>
+        <view>{{ product.groupon_member_limit }}人团</view>
+      </view>
+      <view
+        wx:if="{{ product.groupon_enable === '1' && grouponId }}"
+        class="buy multi"
+        bindtap="onShowSku"
+        data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
+      >
+        <view>立即参团</view>
+      </view>
     </view>
   </view>
 
@@ -355,28 +361,36 @@
         <view class="availableCoupon">
           <view class="couponListTitle">可领取优惠券</view>
           <view
-            wx:if="{{ item.status === 2 }}"
+            class="noCouponHint"
+            wx:if="{{ !receivableCoupons.length }}"
+          >暂无可领取优惠券</view>
+          <view
             class="couponItemWrapper"
-            wx:for="{{ product.coupons }}"
+            wx:for="{{ receivableCoupons }}"
             wx:key="id"
             data-id="{{ item.id }}"
             data-status="{{ item.status }}"
+            data-title="{{ item.title }}"
             data-index="{{ index }}"
             catchtap="onCouponClick"
           >
-            <template is="couponItem" data="{{ coupon: item, status: 'receivable' }}"/>
+            <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
           </view>
           <view class="couponListTitle">已领取优惠券</view>
+          <view
+            class="noCouponHint"
+            wx:if="{{ !receivedCoupons.length }}"
+          >暂无可领取优惠券</view>
           <navigator
-            wx:if="{{ item.status !== 2 }}"
             class="couponItemWrapper"
-            wx:for="{{ product.coupons }}"
+            wx:for="{{ receivedCoupons }}"
             wx:key="id"
-            url="/pages/couponProducts/couponProducts?couponId={{ item.id }}"
+            url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
           >
             <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
           </navigator>
         </view>
+        <view class="gap" />
       </scroll-view>
     </view>
   </view>

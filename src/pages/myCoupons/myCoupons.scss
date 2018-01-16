@@ -1,9 +1,7 @@
 @import '~styles/color';
 @import '~templates/couponItem/couponItem';
+@import '~templates/loading/loading';
 
-.container {
-	// padding: 20rpx;
-}
 
 .statusBar {
 	$height: 80rpx;

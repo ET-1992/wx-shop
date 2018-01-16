@@ -1,15 +1,18 @@
-import api from 'utils/api';
-import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import getRemainTime from 'utils/getRemainTime';
+import api from "utils/api";
+import { createCurrentOrder, onDefaultShareAppMessage } from "utils/pageShare";
+import { showToast, showModal } from "utils/wxp";
+import getRemainTime from "utils/getRemainTime";
+import getToken from 'utils/getToken';
+import login from 'utils/login';
 
 const app = getApp();
 
 const findSelectedSku = (skus, selectedProperties) => {
 	const selectedPropertiesNames = selectedProperties.reduce(
 		(propertyNames, sku) => {
-			return propertyNames + sku.key + ':' + sku.value + ';';
+			return propertyNames + sku.key + ":" + sku.value + ";";
 		},
-		''
+		""
 	);
 	console.log(selectedPropertiesNames);
 	const sku = skus.find(sku => {
@@ -20,24 +23,24 @@ const findSelectedSku = (skus, selectedProperties) => {
 
 Page({
 	data: {
-		title: 'productDetail',
+		title: "productDetail",
 		autoplay: false,
 		product: {
 			skus: []
 		},
 		current: 0,
 
-		output: 'product',
-		page_title: '',
-		share_title: '',
+		output: "product",
+		page_title: "",
+		share_title: "",
 		activeIndex: 0,
 		isLoading: false,
-		headerType: 'images',
-		grouponId: '',
+		headerType: "images",
+		grouponId: "",
 		remainTime: {
-			hour: '00',
-			minute: '00',
-			second: '00'
+			hour: "00",
+			minute: "00",
+			second: "00"
 		},
 		hasStart: true,
 		hasEnd: false,
@@ -51,23 +54,31 @@ Page({
 		quantity: 1,
 		actions: [
 			{
-				type: 'onBuy',
-				text: '立即购买',
+				type: "onBuy",
+				text: "立即购买",
 				isGroupon: false,
 				isMiaosha: false,
 				isSingle: false
 			}
 		],
-		single: false
+		single: false,
+		receivableCoupons: [],
+		receivedCoupons: [],
 	},
 
 	onShowSku(ev) {
+		const { post_status } = this.data.product;
+
+		if ( post_status === 'unpublished' || post_status === 'sold_out') {
+			return;
+		}
+
 		const updateData = { isShowAcitonSheet: true };
 		if (ev) {
 			const { actions, single } = ev.currentTarget.dataset;
 			updateData.actions = actions;
 			// updateData.single = (single === '0' ? true : false);
-			updateData.single = single === '0';
+			updateData.single = single === "0";
 		}
 		updateData.timestamp = (+new Date() / 1000) | 0;
 		this.setData(updateData);
@@ -113,12 +124,12 @@ Page({
 		}
 	},
 
-	async onShow() {
+	async initPage() {
 		this.setData({
-			pendingGrouponId: '',
+			pendingGrouponId: "",
 			selectedProperties: [],
 			selectedSku: {},
-			skuSplitProperties: []
+			skuSplitProperties: [],
 		});
 
 		this.setData({ isLoading: true });
@@ -130,9 +141,20 @@ Page({
 			const { skus, coupons } = data.product;
 
 			//format coupon description
-			coupons.forEach((coupon) => {
-				coupon.description = coupon.description.replace(/\n/g, '<br/>');
-			});
+			const { receivableCoupons, receivedCoupons } = coupons.reduce(
+				(classifyCoupons, coupon) => {
+					const { receivableCoupons, receivedCoupons } = classifyCoupons;
+					coupon.description = coupon.description.replace(/\n/g, "<br/>");
+					if (+coupon.status === 2) {
+						receivableCoupons.push(coupon);
+					}
+					else {
+						receivedCoupons.push(coupon);
+					}
+					return classifyCoupons;
+				},
+				{ receivableCoupons: [], receivedCoupons: [] }
+			);
 
 			wx.getBackgroundAudioManager({
 				success(res) {
@@ -155,7 +177,8 @@ Page({
 						const { k, v } = property;
 						if (isInit) {
 							skuSplitProperties.push({ key: k, values: [v] });
-						} else {
+						}
+						else {
 							const isExits =
 								skuSplitProperties[propertyInex].values.findIndex(
 									value => value === v
@@ -172,14 +195,21 @@ Page({
 			);
 			this.setData({
 				skuSplitProperties,
-				grouponId: grouponId || '',
+				grouponId: grouponId || "",
+				receivedCoupons,
+				receivableCoupons,
 				...data
 			});
 			this.countDown();
-		} catch (err) {
+		}
+		catch (err) {
 			console.log(err);
 		}
 		this.setData({ isLoading: false });
+	},
+
+	async onShow() {
+		await this.initPage();
 	},
 
 	currentIndex(e) {
@@ -203,7 +233,7 @@ Page({
 	},
 
 	async addCart() {
-		console.log('addCart');
+		console.log("addCart");
 		const { vendor } = app.globalData;
 		const { product: { id }, selectedSku, quantity } = this.data;
 		const data = await api.hei.addCart({
@@ -214,7 +244,7 @@ Page({
 		});
 		if (!data.errcode) {
 			wx.showToast({
-				title: '成功添加到购物车'
+				title: "成功添加到购物车"
 			});
 		}
 	},
@@ -229,11 +259,11 @@ Page({
 			actions,
 			single
 		} = this.data;
-		let url = '/pages/orderCreate/orderCreate';
+		let url = "/pages/orderCreate/orderCreate";
 		if (grouponId || pendingGrouponId || actions[0].isGroupon) {
 			selectedSku.price = product.groupon_price;
 			product.price = product.groupon_price;
-			wx.setStorageSync('orderCreate', {
+			wx.setStorageSync("orderCreate", {
 				isGroupon: 1,
 				grouponId: grouponId || pendingGrouponId
 			});
@@ -245,19 +275,21 @@ Page({
 		price = product.price;
 		// original_price = product.original_price
 
-		if (product.groupon_enable === '1') {
+		if (product.groupon_enable === "1") {
 			if (single) {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity }, selectedSku),
 					items: [product]
 				});
-			} else {
+			}
+			else {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity, price }, selectedSku),
 					items: [product]
 				});
 			}
-		} else if (product.miaosha_enable === '1') {
+		}
+		else if (product.miaosha_enable === "1") {
 			if (product.miaosha_end_timestamp - ((Date.now() / 1000) | 0) > 0) {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity }, selectedSku, {
@@ -265,13 +297,15 @@ Page({
 					}),
 					items: [product]
 				});
-			} else {
+			}
+			else {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity }, selectedSku),
 					items: [product]
 				});
 			}
-		} else {
+		}
+		else {
 			currentOrder = createCurrentOrder({
 				selectedSku: Object.assign({ quantity }, selectedSku),
 				items: [product]
@@ -302,7 +336,7 @@ Page({
 			product: { skus }
 		} = this.data;
 		const selectedSku = findSelectedSku(skus, newSelectedProperties);
-		console.log('selectedSku', selectedSku);
+		console.log("selectedSku", selectedSku);
 		this.setData({ selectedSku, quantity: 1 });
 		console.log(this.data.selectedSku);
 	},
@@ -318,7 +352,7 @@ Page({
 	},
 
 	onReady() {
-		this.videoContext = wx.createVideoContext('myVideo');
+		this.videoContext = wx.createVideoContext("myVideo");
 	},
 	clickMe() {
 		const that = this;
@@ -353,31 +387,45 @@ Page({
 		const data = await api.hei.receiveCoupon({
 			coupon_id: id
 		});
-		const { errcode } = data;
-		if (!errcode) {
-			showToast({ title: '领取成功' });
+		if (!data.errcode) {
+			showToast({ title: "领取成功" });
 			const updateData = {};
-			const key = `coupons[${index}].status`;
-			updateData[key] = '4';
+			const key = `receivableCoupons[${index}].status`;
+			updateData[key] = 4;
 			this.setData(updateData);
 		}
 	},
 
 	async onCouponClick(ev) {
-		const { id, index, status } = ev.currentTarget.dataset;
-		console.log(ev.currentTarget.dataset);
+		const { id, index, status, title } = ev.currentTarget.dataset;
+		const token = getToken();
+
+		if (!token) {
+			const { confirm } = await showModal({
+				title: '未登录',
+				content: '请先登录，再领取优惠券',
+				confirmText: '登录'
+			});
+			if (confirm) {
+				this.setData({ isShowCouponList: false });
+				await login();
+				await this.initPage();
+			}
+			return;
+		}
+
 		if (+status === 2) {
 			await this.onReceiveCoupon(id, index);
 		}
 		else {
 			wx.navigateTo({
-				url: `/pages/couponProducts/couponProducts?couponId=${id}`
-			})
+				url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`
+			});
 		}
 	},
 
 	onShowCouponList() {
-		console.log('onShowCoupons');
+		console.log("onShowCoupons");
 		this.setData({
 			isShowCouponList: true
 		});
@@ -389,7 +437,7 @@ Page({
 			selectedSku: {},
 			selectedProperties: [],
 			quantity: 1,
-			pendingGrouponId: ''
+			pendingGrouponId: ""
 		});
 	},
 

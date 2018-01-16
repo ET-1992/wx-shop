@@ -53,6 +53,7 @@
           bindtap="onCouponClick"
           data-id="{{ item.id }}"
           data-status="{{ item.status }}"
+          data-title="{{ item.title }}"
           data-index="{{ index }}"
         >
           <view class="couponInfo">
@@ -64,7 +65,7 @@
             <view class="title">{{ item.title }}</view>
           </view>
           <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 }}"/>
-          <image class="bg" src="/icons/homeCouponGot.png" wx:if="{{item.status == 4 }}"/>
+          <image class="bg" src="/icons/homeCouponReceived.png" wx:if="{{item.status == 4 }}"/>
         </view>
       </view>
     </scroll-view>

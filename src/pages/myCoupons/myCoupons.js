@@ -16,7 +16,8 @@ Page({
 			'available': [],
 			'used': [],
 			'expired': [],
-		}
+		},
+		isLoading: true,
 	},
 
 	// 生命周期函数--监听页面加载
@@ -24,6 +25,7 @@ Page({
 
 	async onLoad () {
 		try {
+			this.setData({ isLoading: true });
 			const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
 
 			available.forEach((coupon) => {
@@ -46,15 +48,22 @@ Page({
 				'coupons.available': available,
 				'coupons.used': used,
 				'coupons.expired': expired,
-				// 'coupons.used': available,
-				// 'coupons.expired': available,
 			});
-			console.log(this.data);
+			this.setData({ isLoading: false });
 		}
 		catch (err) {
 			console.log(err);
 		}
 
+	},
+
+	async onCouponClick(ev) {
+		const { selectedStatus } = this.data;
+		const { id, title } = ev.currentTarget.dataset;
+		if (selectedStatus !== 'available' ) { return; }
+		wx.navigateTo({
+			url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`
+		});
 	},
 
 	onStautsItemClick(ev) {

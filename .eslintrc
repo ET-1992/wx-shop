@@ -43,7 +43,7 @@
             "ignoreUrls": true,
             "ignoreRegExpLiterals": true,
         }],
-        "brace-style": "stroustrup", { "allowSingleLine": true },
+        "brace-style": [1, 'stroustrup', { "allowSingleLine": true }],
         "operator-linebreak": [1, "after"],
         "camelcase": 0,
         "no-multiple-empty-lines": [1, {

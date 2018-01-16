@@ -1,4 +1,5 @@
 <import src="/templates/couponItem/couponItem.wxml"/>
+<import src="/templates/loading/loading.wxml"/>
 
 <view class="container">
 	<view class="statusBar">
@@ -15,7 +16,9 @@
     </view>
   </view>
 
-  <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length }}">
+  <template is="loading" wx:if="{{ isLoading }}"/>
+
+  <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
     <view wx:if="{{ selectedStatus === 'available' }}">暂无可使用优惠券</view>
     <view wx:if="{{ selectedStatus === 'used' }}">暂无已使用优惠券</view>
     <view wx:if="{{ selectedStatus === 'expired' }}">暂无已过期优惠券</view>
@@ -29,11 +32,15 @@
     </navigator>
   </view>
 
-  <view class="couponList">
+  <view class="couponList" wx:if="{{ !isLoading }}">
     <view
       class="couponItemWrapper"
       wx:for="{{ coupons[selectedStatus] }}"
       wx:key="id"
+      bindtap="onCouponClick"
+      data-id="{{ item.id }}"
+      data-status="{{ item.status }}"
+      data-title="{{ item.title }}"
     >
       <template
         is="couponItem"

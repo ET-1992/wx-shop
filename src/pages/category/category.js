@@ -15,7 +15,7 @@ Page({
 		const data = await api.hei.fetchCategory();
 
 		data.categories.forEach((category) => {
-			const { children } = category;
+			const { children = [] } = category;
 			children.unshift({
 				id: category.id,
 				thumbnail: category.thumbnail,

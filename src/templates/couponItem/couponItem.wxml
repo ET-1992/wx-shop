@@ -40,7 +40,6 @@
         <view
           class="getBt"
           wx:if="{{ status === 'receivable' }}"
-          bindtap="onReceiveCoupon"
         >点击领取</view>
       </view>
 
@@ -62,8 +61,8 @@
     />
     <image
       class="bg"
-      src="../../icons/couponItemGot.png"
-      wx:if="{{ status === 'got' }}"
+      src="../../icons/couponItemReceived.png"
+      wx:if="{{ status === 'received' }}"
     />
   </view>
 </template>

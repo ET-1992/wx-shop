@@ -1,3 +1,5 @@
 {
-  "enablePullDownRefresh": true
+  "usingComponents": {
+    "productList": "../../components/productList/index"
+  }
 }

@@ -284,11 +284,31 @@ button {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	display: flex;
-	height: $footerHeight;
-	text-align: center;
-	background-color: #fff;
-	border-top: 1px solid #eee;
+	// border-top: 1px solid #eee;
+
+	.soldOutHint, .unpublishedHint {
+		padding: 8rpx 0;
+		color: #fff;
+		text-align: center;
+		font-size: 9pt;
+		opacity: 0.9;
+	}
+
+	.soldOutHint {
+		background-color: $couponMainColor;
+	}
+
+	.unpublishedHint {
+		background-color: #666;
+	}
+
+	.footerMain {
+		display: flex;
+		height: $footerHeight;
+		text-align: center;
+		background-color: #fff;
+		width: 100%;
+	}
 
 	.shop, .cart {
 		width: 100rpx;
@@ -331,7 +351,12 @@ button {
 
 	.buy {
 		background-color: $mainColor;
+	}
 
+	.disabledBuy {
+		.addCart, .buy {
+			color: rgba(256, 256, 256, 0.2);
+		}
 	}
 }
 
@@ -458,27 +483,43 @@ button {
 }
 
 .couponActionSheet {
-	padding: 20rpx 20rpx 0;
+	padding: 0;
 	background-color: $backgroundColor;
 
 	.couponList {
 		height: 800rpx;
+
+		.noCouponHint {
+			color: #ddd;
+			text-align: center;
+			padding: 20rpx;
+			border: 1px dashed #ddd;
+			margin: 0 25rpx;
+		}
 	}
 
 	.title {
 		text-align: center;
 		color: $titleColor;
+		margin-bottom: 20rpx;
+		font-size: 11pt;
+		margin-top: 20rpx;
 	}
 
 	.couponListTitle {
 		font-size: 9pt;
 		margin-top: 40rpx;
-		margin-bottom: 10rpx;
+		margin-bottom: 20rpx;
+		padding:0 25rpx;
 	}
 
 	.couponItemWrapper {
-		padding: 0 5rpx;
+		padding: 0 25rpx;
 		margin-bottom: 10rpx;
+	}
+
+	.gap {
+		height: 40rpx;
 	}
 }
 
