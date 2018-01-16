@@ -67,9 +67,9 @@ Page({
 	},
 
 	onShowSku(ev) {
-		const { post_status } = this.data.product;
+		const { status } = this.data.product;
 
-		if ( post_status === 'unpublished' || post_status === 'sold_out') {
+		if ( status === 'unpublished' || status === 'sold_out') {
 			return;
 		}
 

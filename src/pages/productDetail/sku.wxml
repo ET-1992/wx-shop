@@ -1,3 +1,6 @@
+<!-- 未启用 -->
+<!-- TODO 应该把productDetail中actionSheet分离出来 -->
+
 <view class="head">
   <image
     src="{{ product.images[0] }}"

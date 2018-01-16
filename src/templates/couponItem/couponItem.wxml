@@ -34,7 +34,7 @@
 
         <view
           class="useBt"
-          wx:if="{{ status === 'available' && !canChoice }}"
+          wx:if="{{ (status === 'available' || status === 'received') && !canChoice }}"
         >可用商品</view>
 
         <view

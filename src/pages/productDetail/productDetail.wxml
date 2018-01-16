@@ -145,13 +145,13 @@
   <view class="footer">
     <view
       class="soldOutHint"
-      wx:if="{{ product.post_status === 'sold_out' }}"
+      wx:if="{{ product.status === 'sold_out' }}"
     >商品已经卖光啦~</view>
     <view
       class="unpublishedHint"
-      wx:if="{{ product.post_status === 'unpublished' }}"
+      wx:if="{{ product.status === 'unpublished' }}"
     >商品已经下架啦~</view>
-    <view class="footerMain {{ product.post_status === 'unpublished' || product.post_status === 'sold_out' ? 'disabledBuy' : '' }}">
+    <view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
       <navigator
         class="shop"
         open-type="switchTab"
