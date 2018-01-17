@@ -108,7 +108,7 @@ Page({
 			hasEnd
 		});
 
-		if (timeLimit) {
+		if (timeLimit && !this.intervalId) {
 			this.intervalId = setInterval(() => {
 				const { timeLimit } = this.data;
 				const [hour, minute, second] = getRemainTime(timeLimit);

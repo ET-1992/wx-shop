@@ -35,8 +35,8 @@ Component({
 					hasEnd
 				});
 
-				if (timeLimit) {
-					this.intervalId = setInterval(() => {
+				if (timeLimit && !this.intervalId) {
+					const intervalId = setInterval(() => {
 						const { timeLimit } = this.data;
 						const [hour, minute, second] = getRemainTime(timeLimit);
 						this.setData({
@@ -48,6 +48,8 @@ Component({
 							}
 						});
 					}, 1000);
+					console.log('------', intervalId);
+					this.intervalId = intervalId;
 				}
 			},
 		}
@@ -65,10 +67,11 @@ Component({
 	},
 
 	attached() {
-		console.log('attached');
+		console.log('attached', this.intervalId);
 	},
 
 	detached() {
+		console.log('detached', this.intervalId);
 		clearInterval(this.intervalId);
 	},
 

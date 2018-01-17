@@ -33,57 +33,63 @@ Page({
 	},
 
 	async onShow() {
-		const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-			"orderCreateObj"
-		);
-		const { currentOrder } = app.globalData;
-		const { items, totalPrice } = currentOrder;
-		const address = wx.getStorageSync(ADDRESS_KEY) || {};
-		let totalPostage = 0;
-		// let couponPrice = 0;
+		try {
+			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
+				"orderCreateObj"
+			);
+			const { currentOrder } = app.globalData;
+			const { items, totalPrice } = currentOrder;
+			const address = wx.getStorageSync(ADDRESS_KEY) || {};
+			let totalPostage = 0;
+			// let couponPrice = 0;
 
-		//currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-		if (!isGroupon && !currentOrder.coupons) {
-			const {
-				recommend,
-				unavailable,
-				available
-			} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
-			currentOrder.coupons = {
-				recommend,
-				unavailable,
-				available,
-				selected: recommend
-			};
-		}
+			//currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
 
-		if (currentOrder.coupons.selected.id) {
-			const { type, reduce_cost, discount } = currentOrder.coupons.selected;
-			currentOrder.couponPrice = +type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
-		}
-		else {
-			currentOrder.couponPrice = 0;
-		}
+			if (!isGroupon && !currentOrder.coupons) {
+				const {
+					recommend,
+					unavailable,
+					available
+				} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
 
-
-
-
-		currentOrder.items.forEach(item => {
-			const { postage } = item;
-			if (postage > totalPostage) {
-				totalPostage = postage;
+				currentOrder.coupons = {
+					recommend,
+					unavailable,
+					available,
+					selected: recommend
+				};
 			}
-		});
-		currentOrder.totalPostage = totalPostage;
-		currentOrder.isGroupon = isGroupon;
-		currentOrder.grouponId = grouponId;
-		currentOrder.skuId = skuId;
-		currentOrder.quantity = quantity;
-		currentOrder.address = address;
-		currentOrder.orderPrcie = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
 
-		console.log('orderCreate', currentOrder);
-		this.setData(currentOrder);
+			if (currentOrder.coupons.selected && currentOrder.coupons.selected.id) {
+				const { type, reduce_cost, discount } = currentOrder.coupons.selected;
+				currentOrder.couponPrice = +type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
+			}
+			else {
+				currentOrder.couponPrice = 0;
+			}
+
+
+			currentOrder.items.forEach(item => {
+				const { postage } = item;
+				if (postage > totalPostage) {
+					totalPostage = postage;
+				}
+			});
+			currentOrder.totalPostage = totalPostage;
+			currentOrder.isGroupon = isGroupon;
+			currentOrder.grouponId = grouponId;
+			currentOrder.skuId = skuId;
+			currentOrder.quantity = quantity;
+			currentOrder.address = address;
+			currentOrder.orderPrcie = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
+
+			console.log('orderCreate', currentOrder);
+			this.setData(currentOrder);
+		}
+		catch (err) {
+			console.log(err);
+		}
+
 	},
 
 	onUnLoad() {
