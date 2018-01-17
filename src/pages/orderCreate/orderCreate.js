@@ -23,6 +23,7 @@ Page({
 		buyerMessage: "",
 		totalPostage: 0,
 		couponPrice: 0,
+		orderPrcie: 0,
 		coupons: {
 			recommend: {},
 			available: [],
@@ -53,17 +54,18 @@ Page({
 				unavailable,
 				available,
 				selected: recommend
-			}
+			};
 		}
 
 		if (currentOrder.coupons.selected.id) {
 			const { type, reduce_cost, discount } = currentOrder.coupons.selected;
-			currentOrder.couponPrice = +type === 1 ? reduce_cost : totalPrice * discount / 100;
-			// console.log(couponPrice);
+			currentOrder.couponPrice = +type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
 		}
 		else {
 			currentOrder.couponPrice = 0;
 		}
+
+
 
 
 		currentOrder.items.forEach(item => {
@@ -78,8 +80,8 @@ Page({
 		currentOrder.skuId = skuId;
 		currentOrder.quantity = quantity;
 		currentOrder.address = address;
-		// currentOrder.orderPrcie = totalPrice + totalPostage - couponPrice;
-		//
+		currentOrder.orderPrcie = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
+
 		console.log('orderCreate', currentOrder);
 		this.setData(currentOrder);
 	},
