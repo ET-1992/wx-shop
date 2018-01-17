@@ -1,4 +1,7 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<import src="/templates/loading/loading.wxml"/>
+
+<template is="loading" wx:if="{{ isLoading }}"/>
+
 <view class="container">
 	<scroll-view class="mainCategory">
     <view
