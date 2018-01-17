@@ -64,7 +64,8 @@
             </view>
             <view class="title">{{ item.title }}</view>
           </view>
-          <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 }}"/>
+          <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 && item.stock_qty }}"/>
+          <image class="bg" src="/icons/homeCouponOut.png" wx:if="{{item.status == 2 && !item.stock_qty }}"/>
           <image class="bg" src="/icons/homeCouponReceived.png" wx:if="{{item.status == 4 }}"/>
         </view>
       </view>

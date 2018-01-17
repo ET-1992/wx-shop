@@ -59,16 +59,29 @@ Page({
 	},
 
 	async onReceiveCoupon(id, index) {
-		const data = await api.hei.receiveCoupon({
-			coupon_id: id
-		});
-		const { errcode } = data;
-		if (!errcode) {
-			showToast({ title: '领取成功' });
-			const updateData = {};
-			const key = `coupons[${index}].status`;
-			updateData[key] = 4;
-			this.setData(updateData);
+		const { coupons } = this.data;
+
+		if (!coupons[index].stock_qty) { return; }
+
+		try {
+			const data = await api.hei.receiveCoupon({
+				coupon_id: id
+			});
+			const { errcode } = data;
+			if (!errcode) {
+				showToast({ title: '领取成功' });
+				const updateData = {};
+				const key = `coupons[${index}].status`;
+				updateData[key] = 4;
+				this.setData(updateData);
+			}
+		}
+		catch (err) {
+			await showModal({
+				title: '温馨提示',
+				content: err.errMsg,
+				showCancel: false
+			});
 		}
 	},
 
