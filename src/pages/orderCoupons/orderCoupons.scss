@@ -1,8 +1,10 @@
 @import '~styles/color';
 @import '~templates/couponItem/couponItem';
 
+$footerHeight: 100rpx;
+
 .container {
-	// padding: 20rpx;
+	padding-bottom: $footerHeight + 40rpx;
 }
 
 .statusBar {
@@ -54,13 +56,28 @@
 	}
 }
 
-.cofirmBt {
-	margin-top: 100rpx;
-	width: 240rpx;
-	height: 60rpx;
-	line-height: 60rpx;
-	font-size: 9pt;
-	color: #fff;
-	border-radius: 0;
-	background-color: $couponMainColor;
+.footer {
+	height: $footerHeight;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #eee;
+	z-index: 2;
+	border-top: 1px solid #eee;
+
+	.cofirmBt {
+		width: 240rpx;
+		height: 60rpx;
+		line-height: 60rpx;
+		font-size: 9pt;
+		color: #fff;
+		border-radius: 0;
+		background-color: $couponMainColor;
+	}
 }
+
+

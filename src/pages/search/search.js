@@ -7,7 +7,7 @@ import { showModal } from 'utils/wxp';
 Page({
 	// 页面的初始数据
 	data: {
-		searchKeys: ['Nike', '运动', '跑步鞋'],
+		searchKeys: [],
 		searchKey: '',
 
 		currentPage: 0,
@@ -18,7 +18,7 @@ Page({
 		isSearch: false,
 		productListStyle: PRODUCT_LIST_STYLE[1],
 
-		sortType: 'defalut',
+		sortType: 'default',
 		sortSales: 'default',
 
 		priceSort: {
@@ -41,7 +41,7 @@ Page({
 		};
 
 
-		// if(sortType !== 'defalut') {
+		// if(sortType !== 'default') {
 		// 	Object.assign(options, priceSort);
 		// }else {
 		// 	console.log(this.data);
@@ -56,7 +56,7 @@ Page({
 		}
 
 
-		// if(sortType !== 'defalut' && sortType2 !== 'saleSort'){
+		// if(sortType !== 'default' && sortType2 !== 'saleSort'){
 		// 	console.log('222')
 		// 	Object.assign(options, saleSort);
 		// }
@@ -126,8 +126,8 @@ Page({
 			case '0':
 					updateData = {
 						activeIdx: index,
-						sortType: 'defalut',
-						sortSales: 'defalut',
+						sortType: 'default',
+						sortSales: 'default',
 						isRefresh: true,
 						currentPage: 0,
 					}
@@ -137,7 +137,7 @@ Page({
 					updateData = {
 						activeIdx: index,
 						sortType: this.data.priceSort.order,
-						sortSales: 'defalut',
+						sortSales: 'default',
 						isRefresh: true,
 						currentPage: 0,
 					}
@@ -145,7 +145,7 @@ Page({
 			case '2':
 					updateData = {
 						activeIdx: index,
-						sortType: 'defalut',
+						sortType: 'default',
 						sortSales: this.data.saleSort.order,
 						isRefresh: true,
 						currentPage: 0,
@@ -160,7 +160,7 @@ Page({
 		console.log(index);
 		console.log(sortType);
 		console.log(sortSales);
-		if (index === '1' && sortType === 'priceUp' || index === '1' && sortType === 'defalut') {
+		if (index === '1' && sortType === 'priceUp' || index === '1' && sortType === 'default') {
 			updateData.sortType = 'priceDown';
 			updateData['priceSort.order'] = 'desc';
 		}
@@ -168,7 +168,7 @@ Page({
 			updateData.sortType = 'priceUp';
 			updateData['priceSort.order'] = 'asc';
 		}
-		if (index === '2' && sortSales === 'saleUp' || index === '2' && sortSales === 'defalut') {
+		if (index === '2' && sortSales === 'saleUp' || index === '2' && sortSales === 'default') {
 			updateData.sortSales = 'saleDown';
 			updateData['saleSort.order'] = 'desc';
 		}
@@ -212,9 +212,12 @@ Page({
 		wx.stopPullDownRefresh();
 	},
 
+	// 翻页有bug
 	async onReachBottom() {
 		const { currentPage, totalPages } = this.data;
-		if (currentPage === totalPages) { return; }
+		console.log(currentPage >= totalPages);
+		if (currentPage >= totalPages) { return; }
+		console.log('sth');
 		this.loadProducts();
 	},
 

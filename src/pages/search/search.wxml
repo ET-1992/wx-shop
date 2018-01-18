@@ -118,7 +118,7 @@
   <productList
     products="{{ products }}"
     productListStyle="{{ productListStyle }}"
-    nextCursor="{{!currentPage === totalPages}}"
+    nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
     wx:if="{{ products.length && isSearch }}"
   />
 

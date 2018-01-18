@@ -15,7 +15,7 @@
   </view>
   <view
     class="bottomHint"
-    wx:if="{{ products.length && !next_cursor }}"
+    wx:if="{{ products.length && !nextCursor }}"
   >-这是一条底线-</view>
 </view>
 

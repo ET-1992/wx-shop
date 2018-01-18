@@ -68,16 +68,19 @@
     </view>
   </view>
 
-  <productList
-    products="{{ products }}"
-    productListStyle="{{ productListStyle }}"
-    nextCursor="{{!currentPage === totalPages}}"
-    wx:if="{{ products.length && isSearch }}"
-  />
+  <view class="main">
+    <productList
+      products="{{ products }}"
+      productListStyle="{{ productListStyle }}"
+      nextCursor="{{!currentPage === totalPages}}"
+      wx:if="{{ products.length && isSearch }}"
+    />
 
-  <view
-    class="noHint"
-    wx:if="{{ !products.length  }}"
-  >暂无商品</view>
+    <view
+      class="noHint"
+      wx:if="{{ !products.length  }}"
+    >暂无商品</view>
+  </view>
+
 
 </view>

@@ -29,12 +29,12 @@ Page({
 		const { coupons } = app.globalData.currentOrder;
 		const { available, unavailable } = coupons;
 
-		available.forEach((coupon) => {
-			coupon.description = coupon.description.replace(/\n/g, '<br/>');
-		});
-		unavailable.forEach((coupon) => {
-			coupon.description = coupon.description.replace(/\n/g, '<br/>');
-		});
+		// available.forEach((coupon) => {
+		// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
+		// });
+		// unavailable.forEach((coupon) => {
+		// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
+		// });
 
 		this.setData({ coupons });
 		// const data = await api.hei.fetchMyCouponList();

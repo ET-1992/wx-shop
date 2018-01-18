@@ -35,7 +35,7 @@ Page({
 	async onShow() {
 		try {
 			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-				"orderCreateObj"
+				"orderCreate"
 			);
 			const { currentOrder } = app.globalData;
 			const { items, totalPrice } = currentOrder;
@@ -60,7 +60,7 @@ Page({
 				};
 			}
 
-			if (currentOrder.coupons.selected && currentOrder.coupons.selected.id) {
+			if (currentOrder.coupons && currentOrder.coupons.selected && currentOrder.coupons.selected.id) {
 				const { type, reduce_cost, discount } = currentOrder.coupons.selected;
 				currentOrder.couponPrice = +type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
 			}
@@ -92,9 +92,16 @@ Page({
 
 	},
 
-	onUnLoad() {
+	onUnload() {
+		console.log('--- onUnLoad ----');
 		app.globalData.currentOrder = {};
+		wx.removeStorageSync('orderCreate');
 	},
+
+	// onHide() {
+	// 	console.log('--- onHide ----');
+	// 	wx.clearStorageSync('orderCreate');
+	// },
 
 	onInput(ev) {
 		const { value } = ev.detail;

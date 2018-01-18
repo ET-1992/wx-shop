@@ -62,7 +62,7 @@
               <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
               <text wx:if="{{ item.type == 2 }}">折</text>
             </view>
-            <view class="title">{{ item.title }}</view>
+            <view class="title">满{{ item.least_cost }}元使用</view>
           </view>
           <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 && item.stock_qty }}"/>
           <image class="bg" src="/icons/homeCouponOut.png" wx:if="{{item.status == 2 && !item.stock_qty }}"/>

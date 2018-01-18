@@ -23,7 +23,7 @@
   <view class="couponList">
     <view
       class="couponItemWrapper"
-      wx:for="{{ coupons[selectedStatus] }}"
+      wx:for="{{ coupons.unavailable }}"
       wx:key="id"
       bindtap="onCouponClick"
       data-coupon="{{ item }}"
@@ -37,9 +37,11 @@
   </view>
 
 
-  <button
-    class="normalizeBt cofirmBt"
-    bindtap="onComfirm"
-    wx:if="{{ selectedStatus === 'available' && coupons.available.length }}"
-  >确认</button>
+  <view class="footer">
+    <button
+      class="normalizeBt cofirmBt"
+      bindtap="onComfirm"
+      wx:if="{{ selectedStatus === 'available' && coupons.available.length }}"
+    >确认</button>
+  </view>
 </view>

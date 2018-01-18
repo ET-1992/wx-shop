@@ -66,15 +66,15 @@
         <view class="price">
           ￥
           <text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
-          <text wx:elif="{{ product.miaosha_enable === '1' }}">{{ product.miaosha_price }}</text>
-          <text wx:else="{{ product.miaosha_enable === '1' }}">{{ product.price }}</text>
+          <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd }}">{{ product.miaosha_price }}</text>
+          <text wx:else>{{ product.price }}</text>
         </view>
         <view class="originalPrice">￥{{ product.original_price }}</view>
       </view>
       <view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
       <view class="sales">已售：{{ product.sales }}</view>
     </view>
-    <view class="tag" wx:if="{{ product.miaosha_enable === '1' }}">
+    <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">
       限时购
     </view>
     <view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
@@ -246,13 +246,14 @@
         <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
           <view class="skuInfo">
           <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
-            <view class="price" >￥{{ (product.miaosha_end_timestamp  - timestamp > 0) ? product.miaosha_price : product.price }}</view>
-            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="price" wx:if="{{ hasEnd }}">￥{{ selectedSku.id ? selectedSku.price : product.price }}</view>
+            <view class="price" wx:if="{{ !hasEnd }}">￥{{ product.miaosha_price }}</view>
+            <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
             <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
           </view>
           <view wx:if="{{ (!actions[0].isMiaosha && actions[0].isGroupon) }}">
             <view class="price">￥{{ product.groupon_price }}</view>
-            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
             <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
           </view>
           </view>
@@ -284,7 +285,7 @@
               value="{{ quantity }}"
               postId="{{ product.id }}"
               skuId="{{ selectedSku.id }}"
-              max="{{ selectedSku.stock || product.stock }}"
+              max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
               bindquantityChangeEvent="updateQuantity"
             />
           </view>
@@ -302,7 +303,7 @@
         <view wx:else  style="width:100%">
           <view class="skuInfo">
             <view class="price">￥{{ selectedSku.price || product.price }}</view>
-            <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
+            <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
             <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
           </view>
           <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
@@ -332,7 +333,7 @@
               value="{{ quantity }}"
               postId="{{ product.id }}"
               skuId="{{ selectedSku.id }}"
-              max="{{ selectedSku.stock || product.stock }}"
+              max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
               bindquantityChangeEvent="updateQuantity"
             />
           </view>

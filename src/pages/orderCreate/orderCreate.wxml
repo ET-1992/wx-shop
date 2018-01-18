@@ -58,7 +58,7 @@
         <view class="priceInoItemTitle">商品金额</view>
         <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
       </view>
-      <view class="priceInfoItem" bindtap="onCoupon">
+      <view class="priceInfoItem" bindtap="onCoupon" wx:if="{{ !isGroupon }}">
         <view class="priceInoItemTitle">
           <text>优惠券</text>
           <text

@@ -97,7 +97,7 @@
     <productList
       products="{{ products }}"
       productListStyle="{{ productListStyle }}"
-      nextCursor="{{next_cursor}}"
+      nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
       bind:touchstart="onTouchStart"
       bind:touchmove="onTouchMove"
       bind:touchend="onTouchEnd"

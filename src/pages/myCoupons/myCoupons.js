@@ -28,13 +28,13 @@ Page({
 			this.setData({ isLoading: true });
 			const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
 
-			available.forEach((coupon) => {
-				coupon.description = coupon.description.replace(/\n/g, '<br/>');
-			});
+			// available.forEach((coupon) => {
+			// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
+			// });
 
 			const { used, expired } = unavailable.reduce((coupons, coupon) => {
 				const { used, expired } = coupons;
-				coupon.description = coupon.description.replace(/\n/g, '<br/>');
+				// coupon.description = coupon.description.replace(/\n/g, '<br/>');
 				if (+coupon.status === 3) {
 					expired.push(coupon);
 				}

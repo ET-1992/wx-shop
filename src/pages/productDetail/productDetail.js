@@ -140,11 +140,10 @@ Page({
 			const data = await api.hei.fetchProduct({ id });
 			const { skus, coupons } = data.product;
 
-			//format coupon description
 			const { receivableCoupons, receivedCoupons } = coupons.reduce(
 				(classifyCoupons, coupon) => {
 					const { receivableCoupons, receivedCoupons } = classifyCoupons;
-					coupon.description = coupon.description.replace(/\n/g, "<br/>");
+					// coupon.fomatedTitle = coupon.title.split('-')[1];
 					if (+coupon.status === 2) {
 						receivableCoupons.push(coupon);
 					}
@@ -236,6 +235,15 @@ Page({
 		console.log("addCart");
 		const { vendor } = app.globalData;
 		const { product: { id }, selectedSku, quantity } = this.data;
+
+		if (selectedSku.stock === 0) {
+			await showModal({
+				title: '温馨提示',
+				content: '无法购买库存为0的商品'
+			});
+			return;
+		}
+
 		const data = await api.hei.addCart({
 			post_id: id,
 			sku_id: selectedSku.id || 0,
@@ -250,6 +258,7 @@ Page({
 	},
 
 	async onBuy() {
+		const token = getToken();
 		const {
 			product,
 			quantity,
@@ -259,13 +268,28 @@ Page({
 			actions,
 			single
 		} = this.data;
+
+		if (!token) {
+			await login();
+		}
+
+		if (selectedSku.stock === 0) {
+			await showModal({
+				title: '温馨提示',
+				content: '无法购买库存为0的商品'
+			});
+			return;
+		}
+
 		let url = "/pages/orderCreate/orderCreate";
 		if (grouponId || pendingGrouponId || actions[0].isGroupon) {
 			selectedSku.price = product.groupon_price;
 			product.price = product.groupon_price;
 			wx.setStorageSync("orderCreate", {
 				isGroupon: 1,
-				grouponId: grouponId || pendingGrouponId
+				grouponId: grouponId || pendingGrouponId,
+				skuId: selectedSku.id,
+				quantity
 			});
 
 			// url = url;

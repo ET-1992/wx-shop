@@ -15,6 +15,9 @@ Component({
 		nextCursor: {
 			type: Number,
 			value: 0,
+			observer(newVal) {
+				console.log(newVal);
+			}
 		},
 	},
 });
