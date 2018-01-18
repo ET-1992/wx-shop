@@ -81,7 +81,7 @@
     <view class="footer">
       <view class="totalPrice">
         <text class="totalPriceTitle">实付款：</text>
-        <text class="totalPriceValue">￥{{ orderPrcie }}</text>
+        <text class="totalPriceValue">￥{{ orderPrice }}</text>
       </view>
         <button
             class="normalizeBt payBt"

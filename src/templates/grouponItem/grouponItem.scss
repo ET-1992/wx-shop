@@ -18,7 +18,8 @@
 		padding: 10rpx;
 		display: flex;
 		flex-direction: column;
-		width: 100%;
+		width: 100rpx;
+		flex-grow: 1;
 	}
 
 	.name {

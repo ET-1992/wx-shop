@@ -23,7 +23,7 @@ Page({
 		buyerMessage: "",
 		totalPostage: 0,
 		couponPrice: 0,
-		orderPrcie: 0,
+		orderPrice: 0,
 		coupons: {
 			recommend: {},
 			available: [],
@@ -81,7 +81,7 @@ Page({
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrcie = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
+			currentOrder.orderPrice = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
 
 			console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);

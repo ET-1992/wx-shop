@@ -25,6 +25,9 @@
 		color: $originalPriceColor;
 		font-size: 9pt;
 		margin-top: 10rpx;
+		white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 	}
 
 	.timeLimit {
