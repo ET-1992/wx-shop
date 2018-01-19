@@ -63,9 +63,9 @@
     <view class="priceInoItemTitle">订单总价</view>
     <view class="priceInfoItemValue">￥{{ (order.total_fee - 0) + ((order.postage - 0) || 0) }}</view>
   </view>
-  <view class="priceInfoItem" wx:if="{{ false }}">
+  <view class="priceInfoItem">
     <view class="priceInoItemTitle">优惠券</view>
-    <view class="priceInfoItemValue">-￥{{ order.discount_fee || 0 }}</view>
+    <view class="priceInfoItemValue">-￥{{ order.coupon_discount_fee || 0 }}</view>
   </view>
   <view class="priceInfoItem priceTotal">
     <view class="priceInoItemTitle">实付款</view>

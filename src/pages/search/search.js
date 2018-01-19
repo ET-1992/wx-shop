@@ -10,7 +10,7 @@ Page({
 		searchKeys: [],
 		searchKey: '',
 
-		currentPage: 0,
+		currentPage: 1,
 		products: [],
 
 		isRefresh: false,
@@ -36,7 +36,7 @@ Page({
 	async loadProducts() {
 		const { currentPage, searchKey, isRefresh, products, sortType, priceSort,activeIdx,saleSort } = this.data;
 		const options = {
-			cursor: currentPage,
+			paged: currentPage,
 			s: searchKey,
 		};
 
@@ -103,7 +103,7 @@ Page({
 		this.setData({
 			isRefresh: true,
 			isSearch: true,
-			currentPage: 0,
+			currentPage: 1,
 		});
 		if (!isHistroy && searchKey) {
 			const result = searchKeys.find((key) => searchKey === key);
@@ -129,7 +129,7 @@ Page({
 						sortType: 'default',
 						sortSales: 'default',
 						isRefresh: true,
-						currentPage: 0,
+						currentPage: 1,
 					}
 					console.log(updateData);
 				break;
@@ -139,7 +139,7 @@ Page({
 						sortType: this.data.priceSort.order,
 						sortSales: 'default',
 						isRefresh: true,
-						currentPage: 0,
+						currentPage: 1,
 					}
 				break;
 			case '2':
@@ -148,7 +148,7 @@ Page({
 						sortType: 'default',
 						sortSales: this.data.saleSort.order,
 						isRefresh: true,
-						currentPage: 0,
+						currentPage: 1,
 					}
 				break;
 
@@ -205,7 +205,7 @@ Page({
 	async onPullDownRefresh() {
 		this.setData({
 			isRefresh: true,
-			currentPage: 0,
+			currentPage: 1,
 			isSearch: false,
 		});
 		await this.loadProducts();
@@ -217,7 +217,7 @@ Page({
 		const { currentPage, totalPages } = this.data;
 		console.log(currentPage >= totalPages);
 		if (currentPage >= totalPages) { return; }
-		console.log('sth');
+		this.setData({ currentPage: currentPage + 1 });
 		this.loadProducts();
 	},
 

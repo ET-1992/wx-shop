@@ -17,7 +17,7 @@ Page({
 		isRefresh: false,
 		isLoading: false,
 
-		currentPage: 0,
+		currentPage: 1,
 
 		page_title: "",
 		share_title: "",
@@ -55,7 +55,7 @@ Page({
 			saleSort
 		} = this.data;
 		let options = {
-			cursor: currentPage,
+			paged: currentPage,
 			product_category_id: categoryId,
 			product_category_parent: categoryParent
 		};
@@ -123,7 +123,7 @@ Page({
 					sortType: "default",
 					sortSales: "default",
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1
 				};
 				break;
 			case "1":
@@ -131,7 +131,7 @@ Page({
 					sortType: this.data.priceSort.order,
 					sortSales: "default",
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1
 				};
 				break;
 			case "2":
@@ -139,7 +139,7 @@ Page({
 					sortType: "default",
 					sortSales: this.data.saleSort.order,
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1
 				};
 				break;
 		}
@@ -279,7 +279,7 @@ Page({
 	async onPullDownRefresh() {
 		this.setData({
 			isRefresh: true,
-			currentPage: 0,
+			currentPage: 1,
 		});
 		await this.loadProducts();
 		wx.stopPullDownRefresh();
@@ -296,6 +296,7 @@ Page({
 		console.log(currentPage >= totalPages);
 		if (currentPage >= totalPages) { return; }
 		console.log('sth');
+		this.setData({ currentPage: currentPage + 1 });
 		this.loadProducts();
 	},
 
