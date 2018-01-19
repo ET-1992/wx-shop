@@ -61,7 +61,7 @@
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">订单总价</view>
-    <view class="priceInfoItemValue">￥{{ order.total_fee + (order.postage || 0) }}</view>
+    <view class="priceInfoItemValue">￥{{ (order.total_fee - 0) + ((order.postage - 0) || 0) }}</view>
   </view>
   <view class="priceInfoItem" wx:if="{{ false }}">
     <view class="priceInoItemTitle">优惠券</view>

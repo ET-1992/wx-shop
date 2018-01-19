@@ -23,7 +23,7 @@
   <view class="couponList">
     <view
       class="couponItemWrapper"
-      wx:for="{{ coupons.unavailable }}"
+      wx:for="{{ coupons[selectedStatus] }}"
       wx:key="id"
       bindtap="onCouponClick"
       data-coupon="{{ item }}"
