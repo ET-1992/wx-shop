@@ -83,7 +83,7 @@ Page({
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice = (totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
+			currentOrder.orderPrice = (+totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
 
 			console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
@@ -126,81 +126,76 @@ Page({
 	},
 
 	async onPay(ev) {
-		try {
-			const { formId } = ev.detail;
-			const {
-				address,
-				items,
-				buyerMessage,
-				grouponId,
-				isGroupon,
-				skuId,
-				quantity,
-				coupons
-			} = this.data;
-			const {
-				userName,
-				telNumber,
-				provinceName,
-				cityName,
-				countyName,
-				postalCode,
-				nationalCode,
-				detailInfo
-			} = address;
-			const { vendor } = app.globalData;
-			const couponId = coupons.selected && coupons.selected.id;
+		const { formId } = ev.detail;
+		const {
+			address,
+			items,
+			buyerMessage,
+			grouponId,
+			isGroupon,
+			skuId,
+			quantity,
+			coupons
+		} = this.data;
+		const {
+			userName,
+			telNumber,
+			provinceName,
+			cityName,
+			countyName,
+			postalCode,
+			nationalCode,
+			detailInfo
+		} = address;
+		const { vendor } = app.globalData;
+		const couponId = coupons.selected && coupons.selected.id;
 
-			if (!userName) {
-				wx.showModal({
-					title: "提示",
-					content: "请先填写地址",
-					showCancel: false
-				});
-				return;
-			}
-
-			wx.setStorageSync(ADDRESS_KEY, address);
-
-			let method = "createOrderAndPay";
-			wx.showLoading({
-				title: "处理订单中",
-				mark: true
+		if (!userName) {
+			wx.showModal({
+				title: "提示",
+				content: "请先填写地址",
+				showCancel: false
 			});
-			const requestData = {
-				receiver_name: userName,
-				receiver_phone: telNumber,
-				receiver_country: nationalCode,
-				receiver_state: provinceName,
-				receiver_city: cityName,
-				receiver_district: countyName,
-				receiver_address: detailInfo,
-				receiver_zipcode: postalCode,
-				buyer_message: buyerMessage,
-				form_id: formId,
-				vendor
-			};
-
-			if (couponId) {
-				requestData.coupon_id = couponId;
-			}
-
-			if (isGroupon) {
-				requestData.sku_id = skuId;
-				requestData.quantity = quantity;
-				if (grouponId) {
-					requestData.id = grouponId;
-					method = "joinGroupon";
-				} else {
-					requestData.post_id = items[0].id;
-					method = "createGroupon";
-				}
-			} else {
-				requestData.posts = JSON.stringify(items);
-			}
+			return;
 		}
-		catch (err) {
-			console.log(err);
+
+		wx.setStorageSync(ADDRESS_KEY, address);
+
+		let method = "createOrderAndPay";
+		wx.showLoading({
+			title: "处理订单中",
+			mark: true
+		});
+		const requestData = {
+			receiver_name: userName,
+			receiver_phone: telNumber,
+			receiver_country: nationalCode,
+			receiver_state: provinceName,
+			receiver_city: cityName,
+			receiver_district: countyName,
+			receiver_address: detailInfo,
+			receiver_zipcode: postalCode,
+			buyer_message: buyerMessage,
+			form_id: formId,
+			vendor
+		};
+
+		if (couponId) {
+			requestData.coupon_id = couponId;
+		}
+
+		if (isGroupon) {
+			requestData.sku_id = skuId;
+			requestData.quantity = quantity;
+			if (grouponId) {
+				requestData.id = grouponId;
+				method = "joinGroupon";
+			} else {
+				requestData.post_id = items[0].id;
+				method = "createGroupon";
+			}
+		} else {
+			requestData.posts = JSON.stringify(items);
 		}
 
 
@@ -214,6 +209,8 @@ Page({
 				});
 			}
 		} catch (err) {
+			console.log(err);
+
 			wx.hideLoading();
 			showModal({
 				title: "温馨提示",
