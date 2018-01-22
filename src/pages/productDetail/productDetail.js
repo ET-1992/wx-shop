@@ -3,7 +3,7 @@ import { createCurrentOrder, onDefaultShareAppMessage } from "utils/pageShare";
 import { showToast, showModal } from "utils/wxp";
 import getRemainTime from "utils/getRemainTime";
 import getToken from 'utils/getToken';
-import login from 'utils/login';
+import login from 'utils/login'
 
 const app = getApp();
 

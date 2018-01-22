@@ -11,5 +11,8 @@
 			"regenerator": true,
 		}],
 		"lodash",
+		["module-resolver", {
+			"root": ["./src"],
+		}]
 	]
 }
