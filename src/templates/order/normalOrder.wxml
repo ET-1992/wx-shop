@@ -53,7 +53,7 @@
 <view class="section priceInfo">
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">￥{{ total_all}}</view>
+    <view class="priceInfoItemValue">￥{{ totalPrice}}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">运费</view>

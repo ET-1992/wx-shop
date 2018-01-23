@@ -139,7 +139,7 @@ Page({
 
 	onTouchEnd(e) {
 		var val,idx;
-		if(this.data.clientX_move - this.data.clientX > 30) { // prev
+		if(this.data.clientX_move - this.data.clientX > 60) { // prev
 			if(this.data.activeIndex === 0) {
 				idx = this.data.status.length- 1
 				val = this.data.status[idx].value
@@ -152,7 +152,7 @@ Page({
 			this.loadOrders();
 		}
 
-		if(this.data.clientX_move - this.data.clientX < -30) {
+		if(this.data.clientX_move - this.data.clientX < -60) {
 			if(this.data.activeIndex === (this.data.status.length- 1)) {
 				val = this.data.status[0].value
 				this.setData({ selectedStatus:val ,activeIndex: 0,isRefresh: true});

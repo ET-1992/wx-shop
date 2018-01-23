@@ -70,10 +70,19 @@ Page({
 		else {
 			wx.hideShareMenu();
 		}
+		
 		this.setData(data);
-		const total_order = (order.total_fee -order.discount_fee).toFixed(2);
-		const total_all =(order.total_fee -order.discount_fee - (order.postage-0)+(order.coupon_discount_fee-0)).toFixed(2);
-		this.setData({total_all:total_all,total_order:total_order})
+		const {items} = order;
+		let totalPrice = 0;
+		items.forEach((item) => {
+			const {
+				price,
+				quantity
+			} = item;
+			totalPrice = totalPrice + price * quantity;
+			console.log(totalPrice)	
+		});
+		this.setData({totalPrice:totalPrice})
 	},
 
 	async loadGroupon(id) {
