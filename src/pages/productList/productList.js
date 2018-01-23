@@ -35,7 +35,7 @@ Page({
 			order: "desc"
 		},
 		saleSort: {
-			orderby: "sale",
+			orderby: "total_sales",
 			order: "desc"
 		},
 

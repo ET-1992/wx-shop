@@ -87,7 +87,7 @@
     <image
       src="/icons/radio.png"
       class="radioIcon"
-      wx:if="{{ !isAllSelected && flase }}"
+      wx:if="{{ !isAllSelected && false }}"
       bindtap="onSelectAll"
     />
     <image

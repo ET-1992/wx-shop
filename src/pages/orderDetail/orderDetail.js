@@ -38,8 +38,6 @@ Page({
 		const data = { order };
 		const statusCode = +order.status;
 
-
-
 		order.statusText = STATUS_TEXT[statusCode];
 		order.statusCode = statusCode;
 		order.buyer_message = order.buyer_message || '买家未留言';
@@ -47,7 +45,9 @@ Page({
 		order.payDate = formatTime(new Date(order.paytime * 1000));
 		order.consignDate = formatTime(new Date(order.consign_time * 1000));
 		order.refundDate = formatTime(new Date(order.refund_time * 1000));
-
+		order.total_fee = (order.total_fee-0).toFixed(2);
+		order.discount_fee = (order.discount_fee-0).toFixed(2);
+		
 		if (statusCode > 2 && statusCode < 5) {
 			const { logistics } = await api.hei.fetchLogistics({ order_no: id });
 			data.logistics = logistics;
@@ -70,10 +70,10 @@ Page({
 		else {
 			wx.hideShareMenu();
 		}
-
-
-
 		this.setData(data);
+		const total_order = (order.total_fee -order.discount_fee).toFixed(2);
+		const total_all =(order.total_fee -order.discount_fee - (order.postage-0)+(order.coupon_discount_fee-0)).toFixed(2);
+		this.setData({total_all:total_all,total_order:total_order})
 	},
 
 	async loadGroupon(id) {

@@ -44,7 +44,7 @@
           <view class="price">￥{{ item.price }}</view>
           <view class="originalPrice">￥{{ item.original_price }}</view>
         </view>
-        <view class="itemQuantity">x{{ item.quantity }}</view>
+        <view class="itemQuantity">x{{ item.quantity }}</view> 
       </view>
     </view>
  </view>
@@ -53,15 +53,11 @@
 <view class="section priceInfo">
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">￥{{ order.total_fee }}</view>
+    <view class="priceInfoItemValue">￥{{ total_all}}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">运费</view>
-    <view class="priceInfoItemValue">￥{{ order.postage || 0 }}</view>
-  </view>
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">订单总价</view>
-    <view class="priceInfoItemValue">￥{{ (order.total_fee - 0) + ((order.postage - 0) || 0) }}</view>
+    <view class="priceInfoItemValue">+￥{{ order.postage || 0 }}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">优惠券</view>
