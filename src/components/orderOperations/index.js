@@ -40,24 +40,43 @@ Component({
 		},
 
 		async onConfirmOrder() {
-			const { orderNo, orderIndex } = this.data;
-			try {
-				await api.hei.confirmOrder({
-					order_no: orderNo
-				});
-				await showToast({ title: '确认收货成功' });
-				// wx.redirectTo({
-				// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
-				// });
-				this.triggerEvent('confirmOrder', { orderNo, orderIndex });
+			const { confirm } = await showModal({
+				title: '确定收货？',
+			});
+			if (confirm) {
+				const { orderNo, orderIndex } = this.data;
+				try {
+					await api.hei.confirmOrder({
+						order_no: orderNo
+					});
+					this.triggerEvent('confirmOrder', { orderNo, orderIndex });
+				}
+				catch (err) {
+					showModal({
+						title: '收货失败',
+						content: err.errMsg,
+						showCancel: false,
+					});
+				}
 			}
-			catch (err) {
-				showModal({
-					title: '确认收货失败',
-					content: err.errMsg,
-					showCancel: false,
-				});
-			}
+			// const { orderNo, orderIndex } = this.data;
+			// try {
+			// 	await api.hei.confirmOrder({
+			// 		order_no: orderNo
+			// 	});
+			// 	await showToast({ title: '确认收货成功' });
+			// 	// wx.redirectTo({
+			// 	// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
+			// 	// });
+			// 	this.triggerEvent('confirmOrder', { orderNo, orderIndex });
+			// }
+			// catch (err) {
+			// 	showModal({
+			// 		title: '确认收货失败',
+			// 		content: err.errMsg,
+			// 		showCancel: false,
+			// 	});
+			// }
 		},
 
 		async onCloseOrder() {
