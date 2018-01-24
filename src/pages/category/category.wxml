@@ -18,7 +18,7 @@
       src="{{ categories[selectedIndex].banner }}"
       mode="aspectFill"
     />
-    <view class="categoryTitle">{{ categories[selectedIndex].name }}分类</view>
+    <view class="categoryTitle">{{ categories[selectedIndex].name }}</view>
 
     <view class="subCategoryItems">
       <navigator

@@ -1,23 +1,23 @@
 <view class="container">
-  <view class="statusBar">
-    <view
+  <view class="statusBar" style="{{newIndex==1?'display:none':''}}">
+     <view
       class="statusItem"
       wx:for="{{ status }}"
       wx:key="name"
       bindtap="onStautsItemClick"
       data-value="{{ item.value }}"
     >
+  <view>
+    
       <view
         class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
       >{{ item.name }}</view>
     </view>
   </view>
+  </view>
+   
 
   <view class="emptyHint"
-
-        bind:touchstart="onTouchStart"
-        bind:touchmove="onTouchMove"
-        bind:touchend="onTouchEnd"
         wx:if="{{ !orders.length && !isRefresh }}">
     暂无内容
   </view>
@@ -29,10 +29,6 @@
     wx:key="id"
     wx:for-item="order"
     wx:for-index="orderIndex"
-
-      bind:touchstart="onTouchStart"
-      bind:touchmove="onTouchMove"
-      bind:touchend="onTouchEnd"
   >
     <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
       <view class="item">

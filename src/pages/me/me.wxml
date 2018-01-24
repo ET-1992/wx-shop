@@ -35,7 +35,7 @@
       <navigator class="orderItem" url="/pages/orderList/orderList?status=5">
         <view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
         <image class="statusIcon" src="../../icons/finish.png" />
-        <view>已完成</view>
+        <view>退款中</view>
       </navigator>
     </view>
   </view>

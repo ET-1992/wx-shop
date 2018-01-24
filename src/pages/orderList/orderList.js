@@ -17,12 +17,10 @@ Page({
 			{ name: '待成团', value: '10' },
 			{ name: '待发货', value: '2' },
 			{ name: '待收货', value: '3' },
-			{ name: '已完成', value: '5' },
+			{ name: '已完成', value: '4' },
 
 		],
-		selectedStatus: null,
-		clientX: 0,
-		clientX_move: 0
+		selectedStatus: null
 	},
 
 	async loadOrders() {
@@ -57,8 +55,6 @@ Page({
 
 	onStautsItemClick(ev) {
 		const { value } = ev.currentTarget.dataset;
-		console.log(ev.currentTarget.dataset.value)
-		console.log(this.data)
 		if (value === this.data.activeId) { return; }
 		this.setData({
 			selectedStatus: value,
@@ -72,6 +68,12 @@ Page({
 		// const selectedStatus = status || '1,2,3';
 		const state = status ? status : null;
 		var index = this.getIndex(state);
+		if(status==5 ) {
+			this.setData({newIndex:1})
+			wx.setNavigationBarTitle({
+				title: '退款中'
+			  })
+		}
 		this.setData({ selectedStatus: state,activeIndex: index });
 		this.loadOrders();
 	},
@@ -128,44 +130,6 @@ Page({
 		updateData[`orders[${orderIndex}].statusText`] = STATUS_TEXT[2];
 		this.setData(updateData);
 	},
-
-	onTouchStart(e) {
-		this.data.clientX = e.touches[0].clientX;
-	},
-
-	onTouchMove(e){
-		this.data.clientX_move = e.touches[0].clientX;
-	},
-
-	onTouchEnd(e) {
-		var val,idx;
-		if(this.data.clientX_move - this.data.clientX > 60) { // prev
-			if(this.data.activeIndex === 0) {
-				idx = this.data.status.length- 1
-				val = this.data.status[idx].value
-				this.setData({ selectedStatus:val ,activeIndex: idx,isRefresh: true });
-			}else {
-				idx = this.data.activeIndex - 1
-				val = this.data.status[idx].value
-				this.setData({ selectedStatus:val ,activeIndex: idx,isRefresh: true });
-			}
-			this.loadOrders();
-		}
-
-		if(this.data.clientX_move - this.data.clientX < -60) {
-			if(this.data.activeIndex === (this.data.status.length- 1)) {
-				val = this.data.status[0].value
-				this.setData({ selectedStatus:val ,activeIndex: 0,isRefresh: true});
-			}else {
-				idx = this.data.activeIndex + 1
-				val = this.data.status[idx].value
-				this.setData({ selectedStatus:val ,activeIndex: idx,isRefresh: true});
-			}
-			this.loadOrders();
-		}
-
-	},
-
 	onCloseOrder(ev) {
 		const { orderNo, orderIndex } = ev.detail;
 		console.log(orderIndex);

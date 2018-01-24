@@ -185,7 +185,7 @@ Page({
 
 	onTouchEnd(e) {
 		let val, idx, ev;
-		if (this.data.clientX_move - this.data.clientX > 30) {
+		if (this.data.clientX_move - this.data.clientX >90) {
 			// prev
 			if (this.data.activeIndex === 0) {
 				ev = {
@@ -231,7 +231,7 @@ Page({
 			this.onSegmentItemClick(ev);
 		}
 
-		if (this.data.clientX_move - this.data.clientX < -30) {
+		if (this.data.clientX_move - this.data.clientX < -90) {
 			// next
 
 			if (this.data.activeIndex === this.data.categories[0].children.length) {
