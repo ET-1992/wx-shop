@@ -22,7 +22,7 @@ Component({
 				let hasEnd = false;
 				if (now < miaosha_start_timestamp) {
 					hasStart = false;
-					timeLimit = now - miaosha_start_timestamp;
+					timeLimit = miaosha_start_timestamp - now;
 				}
 
 				if (now > miaosha_end_timestamp) {

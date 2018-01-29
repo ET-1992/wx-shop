@@ -38,8 +38,8 @@ Page({
 					miaosha_end_timestamp,
 					miaosha_price,
 				} = item;
-				let discountFee = 0,
-					_price = 0;
+				let discountFee = 0;
+				let _price = 0;
 
 				if (miaosha_end_timestamp - this.data.timestamp > 0) {
 					_price = miaosha_price;
@@ -236,6 +236,7 @@ Page({
 		const selectdItems = items.filter((item) => item.isSelected);
 		this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
 		app.globalData.currentOrder = this.data;
+		console.log('onCreateOrder', JSON.stringify(app.globalData.currentOrder));
 		wx.navigateTo({
 			url: '/pages/orderCreate/orderCreate',
 		});

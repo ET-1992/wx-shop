@@ -13,7 +13,7 @@
         <view>单独购买<text class="price">￥{{ product.price }}</text></view>
       </view>
       <view class="footer">
-        <view class="groupNumber">已团{{ product.groupon_reduce_stock || 0 }}件</view>
+        <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
         <view class="groupBt">去开团</view>
       </view>
     </view>

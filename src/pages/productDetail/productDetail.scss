@@ -393,6 +393,7 @@ button {
 			position: relative;
 			top: -80rpx;
 			left: 0;
+			flex-shrink: 0;
 			box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
 
 		}

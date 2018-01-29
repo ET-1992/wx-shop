@@ -1,26 +1,26 @@
-import api from "utils/api";
-import { chooseAddress, showModal } from "utils/wxp";
-import { wxPay } from "utils/pageShare";
-import { ADDRESS_KEY } from "constants/index";
+import api from 'utils/api';
+import { chooseAddress, showModal } from 'utils/wxp';
+import { wxPay } from 'utils/pageShare';
+import { ADDRESS_KEY } from 'constants/index';
 
 const app = getApp();
 
 Page({
 	data: {
-		title: "orderCreate",
+		title: 'orderCreate',
 
 		savePrice: 0,
 		totalPrice: 0,
 		items: [],
 
 		isGroupon: 0,
-		grouponId: "",
-		skuId: "",
+		grouponId: '',
+		skuId: '',
 		quantity: 1,
 		address: {
-			userName: ""
+			userName: '',
 		},
-		buyerMessage: "",
+		buyerMessage: '',
 		totalPostage: 0,
 		couponPrice: 0,
 		orderPrice: 0,
@@ -28,50 +28,56 @@ Page({
 			recommend: {},
 			available: [],
 			unavailable: [],
-			selected: {}
-		}
+			selected: {},
+		},
 	},
 
 	async onShow() {
 		try {
 			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-				"orderCreate"
+				'orderCreate',
 			);
 			const { currentOrder } = app.globalData;
 			const { items, totalPrice } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			let totalPostage = 0;
+
+			console.log('orderCreate onShow', JSON.stringify(currentOrder));
+
 			// let couponPrice = 0;
 
-			//currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
+			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
 
 			if (!isGroupon && !currentOrder.coupons) {
 				const {
 					recommend,
 					unavailable,
-					available
+					available,
 				} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
 
 				currentOrder.coupons = {
 					recommend,
 					unavailable,
 					available,
-					selected: recommend
+					selected: recommend,
 				};
 			}
 
-			const hasSelectedCoupon = currentOrder.coupons && currentOrder.coupons.selected && currentOrder.coupons.selected.id;
+			const hasSelectedCoupon =
+				currentOrder.coupons &&
+				currentOrder.coupons.selected &&
+				currentOrder.coupons.selected.id;
 
 			if (hasSelectedCoupon) {
 				const { type, reduce_cost, discount } = currentOrder.coupons.selected;
-				currentOrder.couponPrice = +type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
+				currentOrder.couponPrice =
+					+type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
 			}
 			else {
 				currentOrder.couponPrice = 0;
 			}
 
-
-			currentOrder.items.forEach(item => {
+			currentOrder.items.forEach((item) => {
 				const { postage } = item;
 				if (postage > totalPostage) {
 					totalPostage = postage;
@@ -83,7 +89,11 @@ Page({
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice = (+totalPrice + totalPostage - currentOrder.couponPrice).toFixed(2);
+			currentOrder.orderPrice = (
+				+totalPrice +
+				totalPostage -
+				currentOrder.couponPrice
+			).toFixed(2);
 
 			console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
@@ -91,7 +101,6 @@ Page({
 		catch (err) {
 			console.log(err);
 		}
-
 	},
 
 	onUnload() {
@@ -118,10 +127,11 @@ Page({
 
 	async onCoupon() {
 		const { coupons } = this.data;
+
 		// app.globalData.currentOrderCoupons = coupons;
 		app.globalData.currentOrder = this.data;
 		wx.navigateTo({
-			url: "/pages/orderCoupons/orderCoupons"
+			url: '/pages/orderCoupons/orderCoupons',
 		});
 	},
 
@@ -135,7 +145,7 @@ Page({
 			isGroupon,
 			skuId,
 			quantity,
-			coupons
+			coupons,
 		} = this.data;
 		const {
 			userName,
@@ -145,26 +155,26 @@ Page({
 			countyName,
 			postalCode,
 			nationalCode,
-			detailInfo
+			detailInfo,
 		} = address;
 		const { vendor } = app.globalData;
 		const couponId = coupons.selected && coupons.selected.id;
 
 		if (!userName) {
 			wx.showModal({
-				title: "提示",
-				content: "请先填写地址",
-				showCancel: false
+				title: '提示',
+				content: '请先填写地址',
+				showCancel: false,
 			});
 			return;
 		}
 
 		wx.setStorageSync(ADDRESS_KEY, address);
 
-		let method = "createOrderAndPay";
+		let method = 'createOrderAndPay';
 		wx.showLoading({
-			title: "处理订单中",
-			mark: true
+			title: '处理订单中',
+			mark: true,
 		});
 		const requestData = {
 			receiver_name: userName,
@@ -177,7 +187,7 @@ Page({
 			receiver_zipcode: postalCode,
 			buyer_message: buyerMessage,
 			form_id: formId,
-			vendor
+			vendor,
 		};
 
 		if (couponId) {
@@ -189,15 +199,16 @@ Page({
 			requestData.quantity = quantity;
 			if (grouponId) {
 				requestData.id = grouponId;
-				method = "joinGroupon";
-			} else {
-				requestData.post_id = items[0].id;
-				method = "createGroupon";
+				method = 'joinGroupon';
 			}
-		} else {
+			else {
+				requestData.post_id = items[0].id;
+				method = 'createGroupon';
+			}
+		}
+		else {
 			requestData.posts = JSON.stringify(items);
 		}
-
 
 		try {
 			const { order_no, pay_sign } = await api.hei[method](requestData);
@@ -205,18 +216,19 @@ Page({
 			if (pay_sign) {
 				await wxPay(pay_sign);
 				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`
+					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
 				});
 			}
-		} catch (err) {
+		}
+		catch (err) {
 			console.log(err);
 
 			wx.hideLoading();
 			showModal({
-				title: "温馨提示",
+				title: '温馨提示',
 				content: err.errMsg,
-				showCancel: false
+				showCancel: false,
 			});
 		}
-	}
+	},
 });
