@@ -18,11 +18,12 @@ Page({
 		postagePrice: 0,
 		isLoading: false,
 		isLogin: false,
-		timestamp: (+new Date() / 1000) | 0,
+		// timestamp: (+new Date() / 1000) | 0,
 	},
 
 	calculatePrice() {
 		const { items } = this.data;
+		const now = Date.now() / 1000;
 		let totalPrice = 0;
 		let savePrice = 0;
 		let postagePrice = 0;
@@ -38,17 +39,10 @@ Page({
 					miaosha_end_timestamp,
 					miaosha_price,
 				} = item;
-				let discountFee = 0;
-				let _price = 0;
 
-				if (miaosha_end_timestamp - this.data.timestamp > 0) {
-					_price = miaosha_price;
-				}
-				else {
-					_price = price;
-				}
+				const _price = miaosha_end_timestamp - now > 0 ? miaosha_price : price;
+				const discountFee = (original_price - _price) * quantity;
 
-				discountFee = (original_price - _price) * quantity;
 
 				totalPrice = totalPrice + _price * quantity;
 				savePrice = savePrice + discountFee;
@@ -174,19 +168,19 @@ Page({
 			quantity: value,
 			vendor,
 		});
-		const index = items.findIndex((item) => item.post_id === postId);
+		const index = items.findIndex((item) => item.post_id === postId && item.sku_id === skuId);
 		const updateData = {};
 		const quantitykey = `items[${index}].quantity`;
 		updateData[quantitykey] = value;
 		this.setData(updateData);
 		this.calculatePrice();
-		this.onItemSelect({
-			currentTarget: {
-				dataset: {
-					index,
-				},
-			},
-		});
+		// this.onItemSelect({
+		// 	currentTarget: {
+		// 		dataset: {
+		// 			index,
+		// 		},
+		// 	},
+		// });
 		console.log(data);
 	},
 
