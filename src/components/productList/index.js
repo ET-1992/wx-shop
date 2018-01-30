@@ -20,4 +20,7 @@ Component({
 			}
 		},
 	},
+	data: {
+		nowTS: Date.now() / 1000,
+	}
 });

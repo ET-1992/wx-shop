@@ -7,11 +7,22 @@
   <view class="productItemInfo">
     <view class="prodcutItemName">
       {{ product.title }}
+      <text>{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp }}</text>
     </view>
     <view class="productItemMeta">
-      <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.price }}</view>
+      <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
+        <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.miaosha_price }}</view>
+      </block>
+      <block wx:elif="{{ product.groupon_enable == 1}}">
+        <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.groupon_price }}</view>
+      </block>
+      <block wx:else>
+        <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.price }}</view>
+      </block>
       <view class="productItemOriginPrice"
-      ><text style="font-size:10px">￥</text>{{ product.original_price }}</view>
+      >
+        <text style="font-size:10px">￥</text>{{ product.original_price }}
+      </view>
       <view
         class="productItemSold"
         wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}"
