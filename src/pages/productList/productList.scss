@@ -4,6 +4,7 @@
 page{
 	background: #fff;
 }
+
 .noHint {
 	text-align: center;
 	color: $originalPriceColor;
@@ -22,7 +23,6 @@ page{
 
 	.categories {
 		display: flex;
-
 	}
 
 	.category {
@@ -36,7 +36,6 @@ page{
 			border-bottom: 4px solid #fff;
 		}
 	}
-
 }
 
 
@@ -44,7 +43,11 @@ page{
 	width: 100%;
 	display: flex;
 	align-items: center;
-	margin-top:136rpx;
+	position: fixed;
+	left: 0;
+	top: 122rpx;
+	padding-top: 14rpx;
+	background-color: #fff;
 
 	.sortOption {
 		width: 50%;
@@ -80,6 +83,10 @@ page{
 	.triangleIconUp {
 		margin-bottom: 6rpx;
 	}
+}
+
+.listWrapper {
+	margin-top: 220rpx;
 }
 
 .m-attrList{

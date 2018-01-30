@@ -64,25 +64,15 @@
       <text>销量</text>
       <view class="indicators">
         <image
-          class='triangleIcon triangleIconUp'
-          src="/icons/triangleUp.png"
-          wx:if="{{ sortSales !== 'saleUp' }}"
-          />
-        <image
-          class='triangleIcon triangleIconUp'
-          src="/icons/triangleUpActive.png"
-          wx:if="{{ sortSales === 'saleUp' }}"
-          />
-        <image
           class='triangleIcon'
           src="/icons/triangleDown.png"
-          wx:if="{{sortSales !== 'saleDown' }}"
-          />
+          wx:if="{{ activeIdx !== '2' }}"
+        />
         <image
           class='triangleIcon'
-          wx:if="{{sortSales === 'saleDown' }}"
+          wx:if="{{ activeIdx === '2' }}"
           src="/icons/triangleDownActive.png"
-          />
+        />
       </view>
     </view>
   </view>

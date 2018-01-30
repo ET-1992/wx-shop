@@ -230,7 +230,6 @@ Page({
 		const selectdItems = items.filter((item) => item.isSelected);
 		this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
 		app.globalData.currentOrder = this.data;
-		console.log('onCreateOrder', JSON.stringify(app.globalData.currentOrder));
 		wx.navigateTo({
 			url: '/pages/orderCreate/orderCreate',
 		});

@@ -28,7 +28,7 @@ Page({
 		activeIndex: 0,
 
 		sortType: "default",
-		sortSales: "default",
+		sortSales: "saleDown",
 
 		priceSort: {
 			orderby: "price",
@@ -68,9 +68,6 @@ Page({
 				Object.assign(options, saleSort);
 				break;
 		}
-		console.log("-00-0000000000000");
-		console.log(options);
-		console.log("-00-0000000000000");
 
 		const data = await api.hei.fetchProductList(options);
 		const newProducts = isRefresh ?
@@ -144,7 +141,7 @@ Page({
 				break;
 		}
 
-		if (activeIdx === index && index === "0") {
+		if (activeIdx === index && (index === '0' || index === '2')) {
 			return;
 		}
 
@@ -159,17 +156,17 @@ Page({
 			updateData.sortType = "priceUp";
 			updateData["priceSort.order"] = "asc";
 		}
-		if (
-			(index === "2" && sortSales === "saleUp") ||
-			(index === "2" && sortSales === "default")
-		) {
-			updateData.sortSales = "saleDown";
-			updateData["saleSort.order"] = "desc";
-		}
-		if (index === "2" && sortSales === "saleDown") {
-			updateData.sortSales = "saleUp";
-			updateData["saleSort.order"] = "asc";
-		}
+		// if (
+		// 	(index === "2" && sortSales === "saleUp") ||
+		// 	(index === "2" && sortSales === "default")
+		// ) {
+		// 	updateData.sortSales = "saleDown";
+		// 	updateData["saleSort.order"] = "desc";
+		// }
+		// if (index === "2" && sortSales === "saleDown") {
+		// 	updateData.sortSales = "saleUp";
+		// 	updateData["saleSort.order"] = "asc";
+		// }
 		updateData.activeIdx = index;
 		this.setData(updateData);
 		this.loadProducts();

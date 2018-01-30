@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { chooseAddress, showModal } from 'utils/wxp';
+import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
 
@@ -41,8 +41,6 @@ Page({
 			const { items, totalPrice } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			let totalPostage = 0;
-
-			console.log('orderCreate onShow', JSON.stringify(currentOrder));
 
 			// let couponPrice = 0;
 
@@ -120,6 +118,14 @@ Page({
 	},
 
 	async onAddress() {
+		const { authSetting } = await getSetting();
+		console.log(authSetting);
+		//authSetting['scope.address']可能值：
+		//没有值  初始化状态 系统会自动弹框询问授权
+		//false  此时需要使用openSetting
+		if (authSetting['scope.address'] === false) {
+			await openSetting();
+		}
 		const address = await chooseAddress();
 		wx.setStorageSync(ADDRESS_KEY, address);
 		this.setData({ address });

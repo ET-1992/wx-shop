@@ -42,6 +42,14 @@ export const openSetting = (options) => new Promise((resolve, reject) => {
 	wx.openSetting({ success: resolve, fail: reject, ...options });
 });
 
+export const getSetting = (options) => new Promise((resolve, reject) => {
+	wx.getSetting({ success: resolve, fail: reject, ...options });
+});
+
+// export const getSetting = (options) => new Promise((resolve, reject) => {
+// 	wx.getSetting({ success: resolve, fail: reject, ...options });
+// });
+
 
 //
 

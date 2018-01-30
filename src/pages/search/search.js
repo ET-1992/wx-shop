@@ -19,14 +19,14 @@ Page({
 		productListStyle: PRODUCT_LIST_STYLE[1],
 
 		sortType: 'default',
-		sortSales: 'default',
+		sortSales: 'saleDown',
 
 		priceSort: {
 			orderby: 'price',
 			order: 'desc',
 		},
 		saleSort: {
-			orderby: 'sale',
+			orderby: 'total_sales',
 			order: 'desc',
 		},
 
@@ -34,7 +34,7 @@ Page({
 	},
 
 	async loadProducts() {
-		const { currentPage, searchKey, isRefresh, products, sortType, priceSort,activeIdx,saleSort } = this.data;
+		const { currentPage, searchKey, isRefresh, products, sortType, priceSort, activeIdx, saleSort } = this.data;
 		const options = {
 			paged: currentPage,
 			s: searchKey,
@@ -119,8 +119,9 @@ Page({
 	},
 
 	onSort(ev) {
-		const { type,index } = ev.currentTarget.dataset;
-		const { sortType,activeIdx,sortSales } = this.data;
+		const { type, index } = ev.currentTarget.dataset;
+		const { sortType, activeIdx, sortSales } = this.data;
+		//TODO 优化处理排序逻辑
 		let updateData = {};
 		switch (index) {
 			case '0':
@@ -146,7 +147,7 @@ Page({
 					updateData = {
 						activeIdx: index,
 						sortType: 'default',
-						sortSales: this.data.saleSort.order,
+						sortSales: 'saleDown',
 						isRefresh: true,
 						currentPage: 1,
 					}
@@ -154,7 +155,7 @@ Page({
 
 		}
 
-		if (activeIdx === index && index === '0') { return; }
+		if (activeIdx === index && (index === '0' || index === '2')) { return; }
 
 
 		console.log(index);
@@ -168,14 +169,14 @@ Page({
 			updateData.sortType = 'priceUp';
 			updateData['priceSort.order'] = 'asc';
 		}
-		if (index === '2' && sortSales === 'saleUp' || index === '2' && sortSales === 'default') {
-			updateData.sortSales = 'saleDown';
-			updateData['saleSort.order'] = 'desc';
-		}
-		if (index === '2' && sortSales === 'saleDown') {
-			updateData.sortSales = 'saleUp';
-			updateData['saleSort.order'] = 'asc';
-		}
+		// if (index === '2' && sortSales === 'saleUp' || index === '2' && sortSales === 'default') {
+		// 	updateData.sortSales = 'saleDown';
+		// 	updateData['saleSort.order'] = 'desc';
+		// }
+		// if (index === '2' && sortSales === 'saleDown') {
+		// 	updateData.sortSales = 'saleUp';
+		// 	updateData['saleSort.order'] = 'asc';
+		// }
 
 		this.setData(updateData);
 		this.loadProducts();

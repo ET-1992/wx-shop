@@ -7,7 +7,6 @@
   <view class="productItemInfo">
     <view class="prodcutItemName">
       {{ product.title }}
-      <text>{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp }}</text>
     </view>
     <view class="productItemMeta">
       <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
