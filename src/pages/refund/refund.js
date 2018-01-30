@@ -131,19 +131,25 @@ Page({
 			}
 			else {
 				const itemsId = selectdItems.map(item => item.id);
-				await api.hei.refund({
+				const data = await api.hei.refund({
 					order_no,
 					items: JSON.stringify(itemsId),
 					reason: refundReason,
 					type: selectedRefundType,
 					images: refundImages
 				});
-				await showToast({
-					title: '提交成功',
-				});
-				wx.navigateTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`
-				});
+				const { result } = data;
+				if (result) {
+					await showToast({
+						title: '提交成功',
+					});
+					wx.navigateTo({
+						url: `/pages/orderDetail/orderDetail?id=${order_no}`
+					});
+				}
+				else {
+					throw new Error(`错误代码：${errcode}`);
+				}
 			}
 		}
 		catch (err) {
