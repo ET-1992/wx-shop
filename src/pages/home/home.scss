@@ -63,8 +63,6 @@ swiper{
 		width: 250rpx;
 		height: 117rpx;
 		position: relative;
-		left: 0;
-		top: 0;
 		line-height: 1.2;
 		margin-right: 20rpx;
 	}
@@ -94,9 +92,7 @@ swiper{
 	.bg {
 		width: 250rpx;
 		height: 117rpx;
-		position: relative;
-		left: 0;
-		top: 0;
+		position: absolute;
 		z-index: 1;
 	}
 }

@@ -41,7 +41,8 @@ Page({
 				title: data.page_title
 			});
 		}
-
+		var Width = data.coupons.length * 250 + 20 * data.coupons.length;
+		console.log(Width)
 		// delete data.coupons;
 
 		// const { shop_setting: { category_style, product_list_style } } = data;
@@ -50,6 +51,7 @@ Page({
 
 		this.setData({
 			isLoading: false,
+			conWidth:Width,
 			...data
 		});
 	},

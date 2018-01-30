@@ -45,7 +45,7 @@
       wx:if="{{ coupons.length }}"
       scroll-x
     >
-      <view class="coupons">
+      <view class="coupons"  style="width:{{conWidth}}rpx">
         <view
           class="coupon"
           wx:for="{{ coupons }}"
