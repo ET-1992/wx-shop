@@ -23,32 +23,30 @@
   </view>
 
   <view class="cartList" wx:if="{{ items.length && !isLoading }}">
-    <navigator
+    <view
       class="cartItem"
       wx:for="{{ items }}"
       wx:key="id"
-      url="/pages/productDetail/productDetail?id={{ item.post_id }}"
     >
-      <view
-        class="radio {{ item.isSelected ? 'selected' : '' }}"
-        catchtap="onHandleItemSelect"
-        data-index="{{ index }}"
-      >
-        <image
-          src="/icons/selected.png"
-          mode="aspectFit"
-          class="radioIcon"
-          wx:if="{{ item.isSelected }}"
-        />
+      <view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}">
+        <view
+          class="radio {{ item.isSelected ? 'selected' : '' }}"
+        >
+          <image
+            src="/icons/selected.png"
+            mode="aspectFit"
+            class="radioIcon"
+            wx:if="{{ item.isSelected }}"
+          />
+        </view>
       </view>
-
       <image
         src="{{ item.thumbnail }}"
         class="itemImage"
         mode="aspectFill"
       />
 
-      <view class="info">
+      <navigator class="info" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
         <view class="title">{{ item.title }}</view>
         <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
         <view class="meta">
@@ -73,8 +71,8 @@
             >删除</view>
           </view>
         </view>
-      </view>
-    </navigator>
+      </navigator>
+    </view>
     <view
       class="clearCart"
       bindtap="onClearCart"

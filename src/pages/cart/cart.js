@@ -2,6 +2,7 @@ import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import login from 'utils/login';
+import { cloneDeep } from 'lodash';
 
 const app = getApp();
 
@@ -230,6 +231,7 @@ Page({
 		const selectdItems = items.filter((item) => item.isSelected);
 		this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
 		app.globalData.currentOrder = this.data;
+		app.globalData.currentOrder = cloneDeep(this.data);
 		wx.navigateTo({
 			url: '/pages/orderCreate/orderCreate',
 		});

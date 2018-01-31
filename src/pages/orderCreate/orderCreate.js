@@ -45,7 +45,7 @@ Page({
 			// let couponPrice = 0;
 
 			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-
+			// console.log('currentOrder', JSON.stringify(currentOrder));
 			if (!isGroupon && !currentOrder.coupons) {
 				const {
 					recommend,
@@ -93,7 +93,7 @@ Page({
 				currentOrder.couponPrice
 			).toFixed(2);
 
-			console.log('orderCreate', currentOrder);
+			// console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
 		}
 		catch (err) {
@@ -104,13 +104,14 @@ Page({
 	onUnload() {
 		console.log('--- onUnLoad ----');
 		app.globalData.currentOrder = {};
+		// console.log(JSON.stringify(app.globalData.currentOrder));
 		wx.removeStorageSync('orderCreate');
 	},
 
-	// onHide() {
-	// 	console.log('--- onHide ----');
-	// 	wx.clearStorageSync('orderCreate');
-	// },
+	onHide() {
+		console.log('--- onHide ----');
+		// wx.clearStorageSync('orderCreate');
+	},
 
 	onInput(ev) {
 		const { value } = ev.detail;
@@ -119,7 +120,7 @@ Page({
 
 	async onAddress() {
 		const { authSetting } = await getSetting();
-		console.log(authSetting);
+		// console.log(authSetting);
 		//authSetting['scope.address']可能值：
 		//没有值  初始化状态 系统会自动弹框询问授权
 		//false  此时需要使用openSetting
@@ -135,6 +136,8 @@ Page({
 		const { coupons } = this.data;
 
 		// app.globalData.currentOrderCoupons = coupons;
+		//
+		// WARNING globalData若是指向this.data对象，若在其他页面改动，会导致这个页面的this.data有问题！！！
 		app.globalData.currentOrder = this.data;
 		wx.navigateTo({
 			url: '/pages/orderCoupons/orderCoupons',

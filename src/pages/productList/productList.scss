@@ -20,17 +20,18 @@ page{
 	position: fixed;
 	left: 0;
 	top: 0;
+	white-space: nowrap;
 
-	.categories {
-		display: flex;
-	}
+	// .categories {
+	// 	display: flex;
+	// }
 
 	.category {
 		flex-shrink: 0;
 		padding:13px 16rpx;
 		margin:21rpx;
 		margin-bottom:0;
-		// display: inline-block;
+		display: inline-block;
 
 		&.selected {
 			border-bottom: 4px solid #fff;

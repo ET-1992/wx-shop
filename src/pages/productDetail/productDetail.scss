@@ -4,11 +4,17 @@
 @import '~styles/color';
 
 $footerHeight: 100rpx;
+$iphoneXBottomGap: 40rpx;
+
 
 .container {
 	padding-bottom: $footerHeight + 20rpx;
 	color: $titleColor;
 	overflow-x: hidden;
+
+	&.iphoneXTrick {
+		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+	}
 }
 
 video{
@@ -284,6 +290,11 @@ button {
 	left: 0;
 	bottom: 0;
 	width: 100%;
+
+	&.iphoneXTrick {
+		padding-bottom: $iphoneXBottomGap;
+		background-color: #fff;
+	}
 	// border-top: 1px solid #eee;
 
 	.soldOutHint, .unpublishedHint {
@@ -361,7 +372,6 @@ button {
 }
 
 
-
 .actionSheetContent {
 	$buttonHeight: 90rpx;
 
@@ -375,9 +385,14 @@ button {
 	transform: translateY(120%);
 	transition: transform 0.4s ease;
 
+  &.iphoneXTrick {
+  	padding-bottom: $buttonHeight + 40rpx + $iphoneXBottomGap;
+  }
+
 	&.show {
 		transform: translateY(0);
 	}
+
 
 	.head {
 		display: flex;
@@ -458,6 +473,10 @@ button {
 		font-size: 0;
 		display: flex;
 
+		&.iphoneXTrick {
+			bottom: 40rpx;
+		}
+
 		.confirmBt {
 			width: 100%;
 			display: inline-block;
@@ -486,6 +505,10 @@ button {
 .couponActionSheet {
 	padding: 0;
 	background-color: $backgroundColor;
+
+	&.iphoneXTrick {
+		padding-bottom: 40rpx;
+	}
 
 	.couponList {
 		height: 800rpx;
@@ -524,24 +547,6 @@ button {
 	}
 }
 
-	img {
-			width: 100%;
-	}
-
-@keyframes showin {
-	from {
-		transform: translateY(120%);
-	}
-	to {
-		transform: translateY(0);
-	}
-}
-
-@keyframes showout {
-	from {
-		transform: translateY(0);
-	}
-	to {
-		transform: translateY(120%);
-	}
+img, .__bg_gif {
+		width: 100%;
 }

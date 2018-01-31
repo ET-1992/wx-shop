@@ -1,13 +1,13 @@
 <import src="/templates/loading/loading.wxml"/>
 
 <view class="container">
-  <scroll-view class="scrollSegmentcontrol" scroll-x="true">
-    <view class="categories">
+  <scroll-view class="scrollSegmentcontrol" scroll-x="true" scroll-into-view="{{ toView }}">
       <view
         class="category {{ selectedCategoryId === categories[0].id ? 'selected' : '' }}"
         data-category-id="{{ categories[0].id }}"
         data-index="0"
         bindtap="onSegmentItemClick"
+        id="taball"
       >全部</view>
       <view
         wx:for="{{ categories[0].children }}"
@@ -16,9 +16,8 @@
         data-category-id="{{ item.id }}"
         data-index="{{(index + 1)}}"
         bindtap="onSegmentItemClick"
+        id="tab{{ item.id }}"
       >{{ item.name }}</view>
-    </view>
-
   </scroll-view>
 
   <view class="sortOptions" wx:if="{{ products.length }}">

@@ -219,7 +219,9 @@ Page({
 	},
 
 	async onLoad({ id, grouponId }) {
-		this.setData({ indexparams: { id, grouponId } });
+		const systemInfo = wx.getSystemInfoSync();
+		const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+		this.setData({ indexparams: { id, grouponId }, isIphoneX });
 	},
 
 	onUnload() {

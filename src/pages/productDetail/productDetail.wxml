@@ -4,7 +4,7 @@
 
 <template is="loading" wx:if="{{ isLoading }}"/>
 
-<view class="container" wx:if="{{ !isLoading }}">
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
   <view class="header" >
     <swiper
       indicator-dots
@@ -142,7 +142,7 @@
       nodes="{{ product.content }}"
     />
   </view>
-  <view class="footer">
+  <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <view
       class="soldOutHint"
       wx:if="{{ product.status === 'sold_out' }}"
@@ -236,10 +236,10 @@
       is="mock"
       data="{{ isShow: isShowAcitonSheet }}"
     />
-    <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }}">
+    <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
       <view class="head">
         <image
-          src="{{ product.images[0] }}"
+          src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"
           class="skuImg"
           mode="aspectFill"
         />
@@ -289,7 +289,7 @@
               bindquantityChangeEvent="updateQuantity"
             />
           </view>
-          <view class="actionSheetBtGroup">
+          <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
             <button
               class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
               wx:for="{{ actions }}"
@@ -356,7 +356,7 @@
       is="mock"
       data="{{ isShow: isShowCouponList }}"
     />
-    <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }}">
+    <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
       <scroll-view class="couponList" scroll-y>
         <view class="title">优惠券</view>
         <view class="availableCoupon">

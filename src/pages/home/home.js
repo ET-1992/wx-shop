@@ -33,6 +33,22 @@ Page({
 		page_title: ''
 	},
 
+	async loadProducts() {
+		// this.setData({ isLoading: true });
+		const { next_cursor, products } = this.data;
+
+		const data = await api.hei.fetchProductList({
+			cursor: next_cursor
+		});
+		const newProducts = products.concat(data.products);
+		this.setData({
+			products: newProducts,
+			next_cursor: data.next_cursor,
+		});
+		// this.setData({ isLoading: false });
+		// return data;
+	},
+
 	async loadHome() {
 		this.setData({ isLoading: true });
 		const data = await api.hei.fetchHome();
@@ -117,6 +133,14 @@ Page({
 	async onPullDownRefresh() {
 		await this.loadHome();
 		wx.stopPullDownRefresh();
+	},
+
+	async onReachBottom() {
+		const { next_cursor } = this.data;
+		if (!next_cursor) {
+			return;
+		}
+		this.loadProducts();
 	},
 
 	onShareAppMessage: onDefaultShareAppMessage,
