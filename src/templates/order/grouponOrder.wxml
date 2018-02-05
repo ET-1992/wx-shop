@@ -28,7 +28,7 @@
   </view>
 
   <button
-    wx:if="{{ order.id }}"
+    wx:if="{{ order.id || groupon.status === 2 }}"
     class="normalizeBt button"
     bindtap="onShare"
     open-type="share"
@@ -45,7 +45,7 @@
     url="/pages/home/home"
   >
     <button
-      wx:if="{{ groupon.id && !(groupon.member_limit - groupon.member_count) }}"
+      wx:if="{{ groupon.id }}"
       class="normalizeBt button"
     >浏览更多商品</button>
   </navigator>

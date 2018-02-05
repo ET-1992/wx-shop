@@ -12,13 +12,13 @@
   </view>
 
   <view class="header" wx:if="{{ order.groupon_id && order.statusCode === 10 }}">
-    <view>订单状态：还剩{{ order.groupon.member_limit - order.groupon.member_count ? '还剩' + (order.groupon.member_limit - order.groupon.member_count) + '人成团' : '已成团' }}</view>
-    <view wx:if="{{ order.groupon.member_limit - order.groupon.member_count }}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
+    <view>订单状态：{{ order.groupon.status === 2 ? '还剩' + (order.groupon.member_limit - order.groupon.member_count) + '人成团' : '已成团' }}</view>
+    <view wx:if="{{ order.groupon.status === 2 }}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
   </view>
 
   <view class="header" wx:if="{{ groupon.id }}">
-    <view>订单状态：{{ groupon.member_limit - groupon.member_count ? '还剩' + (groupon.member_limit - groupon.member_count) + '人成团' : '已成团'}}</view>
-    <view wx:if="{{ groupon.member_limit - groupon.member_count }}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
+    <view>订单状态：{{ groupon.status === 2 ? '还剩' + (groupon.member_limit - groupon.member_count) + '人成团' : '已成团'}}</view>
+    <view wx:if="{{ groupon.status === 2}}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
   </view>
 
   <include

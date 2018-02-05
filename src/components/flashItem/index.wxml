@@ -25,7 +25,7 @@
       </view>
 
       <view class="right" wx:if="{{ !hasEnd }}">
-        <view class="buy">马上抢</view>
+        <view class="buy">{{ hasStart ? '马上抢' : '去看看' }}</view>
       </view>
     </view>
   </view>

@@ -66,7 +66,7 @@
         <view class="price">
           ￥
           <text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
-          <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd }}">{{ product.miaosha_price }}</text>
+          <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</text>
           <text wx:else>{{ product.price }}</text>
         </view>
         <view class="originalPrice">￥{{ product.original_price }}</view>
@@ -224,7 +224,7 @@
         wx:if="{{ product.groupon_enable === '1' && grouponId }}"
         class="buy multi"
         bindtap="onShowSku"
-        data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
+        data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
       >
         <view>立即参团</view>
       </view>
@@ -246,8 +246,8 @@
         <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
           <view class="skuInfo">
           <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
-            <view class="price" wx:if="{{ hasEnd }}">￥{{ selectedSku.id ? selectedSku.price : product.price }}</view>
-            <view class="price" wx:if="{{ !hasEnd }}">￥{{ product.miaosha_price }}</view>
+            <view class="price" wx:if="{{ hasEnd || !hasStart }}">￥{{ selectedSku.id ? selectedSku.price : product.price }}</view>
+            <view class="price" wx:if="{{ !hasEnd && hasStart }}">￥{{ product.miaosha_price }}</view>
             <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
             <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
           </view>

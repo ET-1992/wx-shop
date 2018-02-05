@@ -45,9 +45,9 @@ Page({
 		order.payDate = formatTime(new Date(order.paytime * 1000));
 		order.consignDate = formatTime(new Date(order.consign_time * 1000));
 		order.refundDate = formatTime(new Date(order.refund_time * 1000));
-		order.total_fee = (order.total_fee-0).toFixed(2);
-		order.discount_fee = (order.discount_fee-0).toFixed(2);
-		
+		order.total_fee = (order.total_fee - 0).toFixed(2);
+		order.discount_fee = (order.discount_fee - 0).toFixed(2);
+
 		if (statusCode > 2 && statusCode < 5) {
 			const { logistics } = await api.hei.fetchLogistics({ order_no: id });
 			data.logistics = logistics;
@@ -70,7 +70,7 @@ Page({
 		else {
 			wx.hideShareMenu();
 		}
-		
+
 		this.setData(data);
 		const {items} = order;
 		let totalPrice = 0;
@@ -80,7 +80,7 @@ Page({
 				quantity
 			} = item;
 			totalPrice = totalPrice + price * quantity;
-			console.log(totalPrice)	
+			console.log(totalPrice)
 		});
 		this.setData({totalPrice:totalPrice})
 	},
