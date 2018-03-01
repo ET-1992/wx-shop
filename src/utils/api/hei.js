@@ -13,7 +13,8 @@ const host = 'https://hei.wpweixin.com/';
  **/
 const apis = {
 	login: {
-		path: `api2/auth.signon.json?appid=${APPID}`,
+		// path: `api2/auth.signon.json?appid=${APPID}`,
+		path: 'api2/auth.signon.json',
 		method: 'POST',
 	},
 	fetchHome: {
