@@ -149,14 +149,15 @@ Page({
 
 	onShareAppMessage() {
 		const { nickname } = wx.getStorageSync(USER_KEY);
-		const { groupon, order } = this.data;
+		const { groupon = {}, order = {} } = this.data;
 		const grouponId = groupon.id || order.groupon_id;
 		let shareMsg = {
 			title: '小嘿店',
 			path: '/pages/home/home',
 			imageUrl: groupon.image_url || (order.items && order.items[0].image_url)
 		};
-		if (grouponId && order.statusCode === 10) {
+		// if (grouponId && (order.statusCode === 10 || groupon.status === 2)) {
+		if (order.id || groupon.status === 2) {
 			shareMsg = {
 				title: `${nickname}邀请你一起拼团`,
 				path: `/pages/orderDetail/orderDetail?grouponId=${grouponId}`,

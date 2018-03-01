@@ -232,7 +232,16 @@ Page({
 
 	grouponListener({ detail }) {
 		const { grouponId } = detail;
-		this.setData({ pendingGrouponId: grouponId });
+		console.log('grouponId', grouponId);
+
+		this.setData({
+			pendingGrouponId: grouponId,
+			actions: [{
+				type: 'onBuy',
+				text: '立即购买',
+				isGroupon: true
+			}]
+		});
 		this.onShowSku();
 	},
 
