@@ -1,7 +1,7 @@
 import { APPID } from 'constants/index';
 import { API } from './core';
 
-const host = 'https://hei.wpweixin.com/';
+const host = 'https://api.wpweixin.com/';
 // const host = 'https://shenghuogou.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
 
