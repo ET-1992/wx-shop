@@ -89,6 +89,7 @@ export const wxPay = async (options = {}) => {
 			paySign,
 		});
 		console.log(res);
+		await showToast({ title: '支付成功' });
 		return res;
 	}
 	catch (err) {

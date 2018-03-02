@@ -31,12 +31,17 @@ Component({
 				order_nos: JSON.stringify([orderNo])
 			});
 			// console.log(payRes);
-			await wxPay(pay_sign);
-			await showToast({ title: '支付成功' });
+
+			const res = await wxPay(pay_sign);
+
+			// await showToast({ title: '支付成功' });
+			if (res) {
+				this.triggerEvent('payOrder', { orderNo, orderIndex });
+			}
+
 			// wx.redirectTo({
 			// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
 			// });
-			this.triggerEvent('payOrder', { orderNo, orderIndex });
 		},
 
 		async onConfirmOrder() {
