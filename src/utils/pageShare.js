@@ -3,7 +3,7 @@
 
 import api from 'utils/api';
 import { SHARE_TITLE } from 'constants/index';
-import { showModal, requestPayment } from 'utils/wxp';
+import { showModal, showToast, requestPayment } from 'utils/wxp';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
