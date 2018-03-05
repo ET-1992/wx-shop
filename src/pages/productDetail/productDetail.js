@@ -329,7 +329,10 @@ Page({
 			}
 		}
 		else if (product.miaosha_enable === '1') {
-			if (product.miaosha_end_timestamp - ((Date.now() / 1000) | 0) > 0) {
+			const now = Date.now() / 1000;
+			const hasStart = now - product.miaosha_start_timestamp > 0;
+			const hasEnd = product.miaosha_end_timestamp - now > 0
+			if (hasStart && !hasEnd) {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity }, selectedSku, {
 						price: product.miaosha_price - 0,

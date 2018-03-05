@@ -38,10 +38,14 @@ Page({
 					quantity,
 					postage,
 					miaosha_end_timestamp,
+					miaosha_start_timestamp,
 					miaosha_price,
 				} = item;
 
-				const _price = miaosha_end_timestamp - now > 0 ? miaosha_price : price;
+				const isMiaoshaStart = now - miaosha_start_timestamp > 0;
+				const isMiaoshaEnd = miaosha_end_timestamp - now > 0;
+
+				const _price = !isMiaoshaEnd && isMiaoshaStart? miaosha_price : price;
 				const discountFee = (original_price - _price) * quantity;
 
 

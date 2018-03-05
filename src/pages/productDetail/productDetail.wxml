@@ -45,7 +45,7 @@
 
   <view class="flashCountdown" wx:if="{{ product.miaosha_enable === '1' }}">
     <view class="title">限时购</view>
-    <view class="desc" wx:if="{{ !hasEnd }}">抢购中</view>
+    <view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
     <view class="timeLimit">
       <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
       <view wx:if="{{ !hasStart }}">距开始</view>
