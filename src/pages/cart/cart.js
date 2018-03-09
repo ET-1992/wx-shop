@@ -42,10 +42,10 @@ Page({
 					miaosha_price,
 				} = item;
 
-				const isMiaoshaStart = now - miaosha_start_timestamp > 0;
-				const isMiaoshaEnd = miaosha_end_timestamp - now > 0;
+				const isMiaoshaStart = now >= miaosha_start_timestamp;
+				const isMiaoshaEnd = now >= miaosha_end_timestamp;
 
-				const _price = !isMiaoshaEnd && isMiaoshaStart? miaosha_price : price;
+				const _price = !isMiaoshaEnd && isMiaoshaStart ? miaosha_price : price;
 				const discountFee = (original_price - _price) * quantity;
 
 
