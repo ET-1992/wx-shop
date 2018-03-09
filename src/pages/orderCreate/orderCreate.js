@@ -30,6 +30,7 @@ Page({
 			unavailable: [],
 			selected: {},
 		},
+		nowTS: Date.now() / 1000,
 	},
 
 	async onShow() {

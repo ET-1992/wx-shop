@@ -19,11 +19,12 @@ Page({
 		postagePrice: 0,
 		isLoading: false,
 		isLogin: false,
+		nowTS: Date.now() / 1000,
 		// timestamp: (+new Date() / 1000) | 0,
 	},
 
 	calculatePrice() {
-		const { items } = this.data;
+		const { items, nowTS } = this.data;
 		const now = Date.now() / 1000;
 		let totalPrice = 0;
 		let savePrice = 0;
@@ -42,8 +43,8 @@ Page({
 					miaosha_price,
 				} = item;
 
-				const isMiaoshaStart = now >= miaosha_start_timestamp;
-				const isMiaoshaEnd = now >= miaosha_end_timestamp;
+				const isMiaoshaStart = nowTS >= miaosha_start_timestamp;
+				const isMiaoshaEnd = nowTS >= miaosha_end_timestamp;
 
 				const _price = !isMiaoshaEnd && isMiaoshaStart ? miaosha_price : price;
 				const discountFee = (original_price - _price) * quantity;
