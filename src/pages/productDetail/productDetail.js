@@ -331,7 +331,7 @@ Page({
 		else if (product.miaosha_enable === '1') {
 			const now = Date.now() / 1000;
 			const hasStart = now - product.miaosha_start_timestamp > 0;
-			const hasEnd = product.miaosha_end_timestamp - now > 0
+			const hasEnd = now - product.miaosha_end_timestamp >= 0;
 			if (hasStart && !hasEnd) {
 				currentOrder = createCurrentOrder({
 					selectedSku: Object.assign({ quantity }, selectedSku, {
