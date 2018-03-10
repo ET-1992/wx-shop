@@ -295,11 +295,9 @@ Page({
 
 	async onReachBottom() {
 		const { currentPage, totalPages } = this.data;
-		console.log(currentPage >= totalPages);
 		if (currentPage >= totalPages) {
 			return;
 		}
-		console.log('sth');
 		this.setData({ currentPage: currentPage + 1 });
 		this.loadProducts();
 	},

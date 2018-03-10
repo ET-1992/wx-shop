@@ -1,16 +1,12 @@
-import api from "utils/api";
-import { SEARCH_KEY, PRODUCT_LIST_STYLE } from "constants/index";
-import { showModal } from "utils/wxp";
+import api from 'utils/api';
+import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
+import { showModal } from 'utils/wxp';
 // const app = getApp()
 
 // 创建页面实例对象
 Page({
-	// 页面的初始数据
 	data: {
-		searchKeys: [],
-		searchKey: "",
-
-		currentPage: 0,
+		currentPage: 1,
 		products: [],
 
 		isRefresh: false,
@@ -18,24 +14,24 @@ Page({
 		isSearch: false,
 		productListStyle: PRODUCT_LIST_STYLE[1],
 
-		sortType: "defalut",
-		sortSales: "default",
+		sortType: 'default',
+		sortSales: 'saleDown',
 
 		priceSort: {
-			orderby: "price",
-			order: "desc"
+			orderby: 'price',
+			order: 'desc',
 		},
 		saleSort: {
-			orderby: "sale",
-			order: "desc"
+			orderby: 'total_sales',
+			order: 'desc',
 		},
 
-		activeIdx: "0",
+		activeIdx: '0',
 
 		indexParams: {
 			couponId: '',
 			couponTitle: '',
-		}
+		},
 	},
 
 	async loadProducts() {
@@ -50,7 +46,7 @@ Page({
 			indexParams
 		} = this.data;
 		const options = {
-			cursor: currentPage,
+			paged: currentPage,
 			coupon_id: indexParams.couponId
 		};
 
@@ -60,10 +56,10 @@ Page({
 		// 	console.log(this.data);
 		// }
 		switch (activeIdx) {
-			case "1":
+			case '1':
 				Object.assign(options, priceSort);
 				break;
-			case "2":
+			case '2':
 				Object.assign(options, saleSort);
 				break;
 		}
@@ -76,9 +72,9 @@ Page({
 		this.setData({ isLoading: true });
 
 		const data = await api.hei.fetchProductList(options);
-		const newProducts = isRefresh ?
-			data.products :
-			products.concat(data.products);
+		const newProducts = isRefresh
+			? data.products
+			: products.concat(data.products);
 		this.setData({
 			products: newProducts,
 			isRefresh: false,
@@ -93,77 +89,63 @@ Page({
 		this.setData({
 			isRefresh: true,
 			isSearch: true,
-			indexParams: params,
+			indexParams: params
 		});
 		this.loadProducts();
 	},
 
-
 	onSort(ev) {
 		const { type, index } = ev.currentTarget.dataset;
+		console.log(index);
 		const { sortType, activeIdx, sortSales } = this.data;
 		let updateData = {};
 		switch (index) {
-			case "0":
+			case '0':
 				updateData = {
-					activeIdx: index,
-					sortType: "defalut",
-					sortSales: "defalut",
+					sortType: 'default',
+					sortSales: 'default',
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1,
 				};
-				console.log(updateData);
 				break;
-			case "1":
+			case '1':
 				updateData = {
-					activeIdx: index,
 					sortType: this.data.priceSort.order,
-					sortSales: "defalut",
+					sortSales: 'default',
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1,
 				};
 				break;
-			case "2":
+			case '2':
 				updateData = {
-					activeIdx: index,
-					sortType: "defalut",
+					sortType: 'default',
 					sortSales: this.data.saleSort.order,
 					isRefresh: true,
-					currentPage: 0
+					currentPage: 1,
 				};
 				break;
 		}
 
-		if (activeIdx === index && index === "0") {
+		console.log('index', index);
+		console.log('sortType', sortType);
+
+		if (activeIdx === index && (index === '0' || index === '2')) {
 			return;
 		}
 
-		console.log(index);
-		console.log(sortType);
-		console.log(sortSales);
 		if (
-			(index === "1" && sortType === "priceUp") ||
-			(index === "1" && sortType === "defalut")
+			(index === '1' && sortType === 'priceUp') ||
+			(index === '1' && sortType === 'default')
 		) {
-			updateData.sortType = "priceDown";
-			updateData["priceSort.order"] = "desc";
+			updateData.sortType = 'priceDown';
+			updateData['priceSort.order'] = 'desc';
 		}
-		if (index === "1" && sortType === "priceDown") {
-			updateData.sortType = "priceUp";
-			updateData["priceSort.order"] = "asc";
+		if (index === '1' && sortType === 'priceDown') {
+			updateData.sortType = 'priceUp';
+			updateData['priceSort.order'] = 'asc';
 		}
-		if (
-			(index === "2" && sortSales === "saleUp") ||
-			(index === "2" && sortSales === "defalut")
-		) {
-			updateData.sortSales = "saleDown";
-			updateData["saleSort.order"] = "desc";
-		}
-		if (index === "2" && sortSales === "saleDown") {
-			updateData.sortSales = "saleUp";
-			updateData["saleSort.order"] = "asc";
-		}
-
+		console.log(updateData);
+		updateData.activeIdx = index;
 		this.setData(updateData);
 		this.loadProducts();
 	},
@@ -171,8 +153,7 @@ Page({
 	async onPullDownRefresh() {
 		this.setData({
 			isRefresh: true,
-			currentPage: 0,
-			isSearch: false
+			currentPage: 1,
 		});
 		await this.loadProducts();
 		wx.stopPullDownRefresh();
@@ -180,17 +161,11 @@ Page({
 
 	async onReachBottom() {
 		const { currentPage, totalPages } = this.data;
-		if (currentPage === totalPages) {
+		if (currentPage >= totalPages) {
 			return;
 		}
+		this.setData({ currentPage: currentPage + 1 });
 		this.loadProducts();
 	},
 
-	// 页面分享设置
-	onShareAppMessage() {
-		return {
-			title: "share title",
-			path: "/pages/search/search"
-		};
-	}
 });
