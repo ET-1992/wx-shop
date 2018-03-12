@@ -29,16 +29,17 @@ Component({
 			if (isDecrease && !(value > 1)) {
 				wx.showModal({
 					title: '温馨提示',
-					content: `数量不能小于1`,
+					content: '数量不能小于1',
 					showCancel: false,
 				});
 				return;
 			}
 
-			if (value > max) {
+			if (value >= max) {
 				wx.showModal({
 					title: '温馨提示',
-					content: `不能超过最大值${max}`,
+					// content: `不能超过最大值${max}`,
+					content: `库存不足，不能超过最大值${max}`,
 					showCancel: false,
 				});
 				return;
@@ -48,7 +49,7 @@ Component({
 			const updateData = {
 				value: value + addNum,
 				postId,
-				skuId
+				skuId,
 			};
 			this.setData({ value: value + addNum });
 			this.triggerEvent('quantityChangeEvent', updateData);
