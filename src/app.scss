@@ -51,3 +51,19 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 .navigator-hover {
 	background-color: transparent;
 }
+.logo{
+	display: flex;
+	align-items: center;
+	margin: 50rpx auto;
+	font-size: 14px;
+	width: 64%;
+	color: #999;
+	flex-direction: row;
+	justify-content: center;
+}
+.logo image{
+	width: 60rpx;
+	height: 60rpx;
+	margin-right: 30rpx;
+	margin-bottom: 0;
+}

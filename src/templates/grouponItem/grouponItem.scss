@@ -20,6 +20,7 @@
 		flex-direction: column;
 		width: 100rpx;
 		flex-grow: 1;
+		margin-top:10rpx;
 	}
 
 	.name {
@@ -45,7 +46,7 @@
 	.grouponInfo {
 		display: flex;
 		font-size: 9pt;
-		color: $titleColor;
+		color: $tagColor;
 		align-items: flex-end;
 		margin: 20rpx 0;
 	}
@@ -71,7 +72,7 @@
 
 	.groupNumber {
 		font-size: 9pt;
-		color: $titleColor;
+		color: $tagColor;
 		flex-grow: 1;
 		padding-bottom:30rpx;
 	}
@@ -84,5 +85,6 @@
 		padding: 12rpx 30rpx;
 		display: inline-block;
 		margin-bottom: 20rpx;
+		margin-right:10rpx;
 	}
 }

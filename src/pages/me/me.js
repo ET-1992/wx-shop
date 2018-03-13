@@ -16,6 +16,7 @@ Page({
 	// 页面的初始数据
 	data: {
 		user: {},
+		active:0,
 		orderCount: {
 			1: 0,
 			2: 0,
@@ -46,11 +47,21 @@ Page({
 	async onLogin() {
 		const { user } = await login();
 		this.setData({ user });
+		console.log(user)
 		if (user.openid) {
 			this.loadOrderCount();
 		}
 	},
-
+	free() {
+		this.setData({
+			active:1
+		})
+	},
+	close() {
+		this.setData({
+			active:0
+		})
+	},
 	onItemClick(ev) {
 		const { name } = ev.currentTarget.dataset;
 		const action = itemActions[name];

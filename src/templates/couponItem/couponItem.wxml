@@ -34,23 +34,16 @@
             wx:if="{{ isSelected }}"
           />
         </view>
-
         <view
           class="useBt"
           wx:if="{{ (status === 'available' || status === 'received') && !canChoice }}"
         >可用商品</view>
-
-        <view
-          class="getBt"
-          wx:if="{{ status === 'receivable' }}"
-        >点击领取</view>
       </view>
-
     </view>
     <image
       class="bg"
       src="../../icons/couponItem.png"
-      wx:if="{{ status === 'available' || status === 'receivable' }}"
+      wx:if="{{ status === 'available' || !canChoice }}"
     />
     <image
       class="bg"
@@ -65,7 +58,7 @@
     <image
       class="bg"
       src="../../icons/couponItemReceived.png"
-      wx:if="{{ status === 'received' }}"
+      wx:if="{{status === 'receivable' }}"
     />
   </view>
 </template>

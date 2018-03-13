@@ -2,8 +2,10 @@
 <view class="container">
   <view class="header">
     <image class="avatar" src="{{ user.avatarurl }}" class="avatar" mode="aspectFill" wx:if="{{ user.avatarurl }}" />
-    <view class="name" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
-    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">立即登录</button>
+    <image  class="avatar unlogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}"></image>
+    <view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
+
+    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button>
   </view>
 
   <view class="section orders">
@@ -42,7 +44,7 @@
 
   <view class="section">
     <view bindtap="onItemClick" class="sectionItem" data-name="address">
-      <image class="itemIcon" src="../../icons/truck.png" />
+      <image class="itemIcon" src="../../icons/address.png" />
       <view class="itemTitle">收货地址</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
@@ -78,5 +80,33 @@
       <view class="itemTitle">联系客服</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </button>
+  </view>
+  <view class="section">
+      <view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
+  </view>
+</view>
+<view class="logo">
+  <image src="../../icons/hausheng.png">
+  </image>
+  <text>花生小店提供技术和电商支持</text>
+</view>
+<view class="mask" wx:if="{{active==1}}">
+  <view class="con">
+    <view class="cont">
+      <view class="title">
+        <image src="../../icons/huasheng.png"></image>
+        <text>花生小店</text>
+      </view>
+      <view>
+        <text>1. 由于微信规则限制，无法直接在微信内申请开店，请用电脑浏览器访问网址：97866.com 或搜索“花生小店”官网，即可一键开通。</text>
+        <text>2. 花生小店功能强大，包含多店管理、用户画像，支持红包、拼团、限时购、优惠券、群发通知等社交营销工具。从裂变拉新到商品促销到用户留存，多维度触达用户。</text>
+        <text>
+        3. 花生小店承诺，全部功能永久免费开放给商户使用，0门槛、0成本、无需开发，5分钟内免审通过。
+        </text>
+      </view>
+    </view>
+  </view>
+  <view class="close" bindtap="close">
+    <image src="../../icons/close.png"></image>
   </view>
 </view>

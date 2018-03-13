@@ -60,6 +60,7 @@ Page({
 	async onCouponClick(ev) {
 		const { selectedStatus } = this.data;
 		const { id, title } = ev.currentTarget.dataset;
+		console.log(selectedStatus)
 		if (selectedStatus !== 'available' ) { return; }
 		wx.navigateTo({
 			url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`

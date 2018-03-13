@@ -19,16 +19,15 @@ page {
 		width: 20%;
 		background-color: #fff;
 		font-size: 10pt;
-		color: $secondColor;
+		color: $tagColor;
 		border-right: 1px solid #ccc;
 
 		.mainCategoryItem {
 			height: 100rpx;
-			line-height: 100rpx;
-
+			margin-bottom:20rpx;
 			&.selected {
 				font-size: 12pt;
-				color: $mainColor;
+				color: $titleColor;
 			}
 		}
 	}

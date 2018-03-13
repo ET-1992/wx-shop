@@ -111,7 +111,7 @@ swiper{
 		text-align: center;
 		padding:36rpx;
 		color: $titleColor;
-		font-size: 18px;
+		font-size: 17px;
 	}
 .grouponItemWrapper{
 	padding-bottom: 30rpx;
@@ -124,6 +124,8 @@ swiper{
 		color: $titleColor;
 		display: flex;
 		align-items: center;
+		border-top:1px solid #eee;
+		padding-top:20rpx;
 	}
 
 	.rightIcon {
