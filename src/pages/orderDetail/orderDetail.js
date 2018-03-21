@@ -120,7 +120,7 @@ Page({
 		this.setData({ isLoading: false });
 		this.countDown();
 	},
-
+	
 	onUnload() {
 		clearInterval(this.intervalId);
 	},

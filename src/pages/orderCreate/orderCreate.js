@@ -220,11 +220,47 @@ Page({
 			requestData.posts = JSON.stringify(items);
 		}
 
-		try {
-			const { order_no, pay_sign } = await api.hei[method](requestData);
-			wx.hideLoading();
-			if (pay_sign) {
+			try {
+			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
+			if (status == 2) {
+				wx.hideLoading();
+				wx.redirectTo({
+					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+				});
+			}
+			else if (pay_sign) {
+				console.log('自主支付')
+				wx.hideLoading();
 				await wxPay(pay_sign);
+				wx.redirectTo({
+					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+				});
+			}
+			else if (pay_appid) {
+				console.log('平台支付')
+				await wx.navigateToMiniProgram({
+					appId: pay_appid,
+				  	path: `/pages/peanutPay/index?order_no=${order_no}`,
+				  	extraData: {
+				    	order_no: order_no
+				  	},
+				  	envVersion: 'develop',
+					success(res) {
+					    console.log('success: ' + res.errMsg)
+					},
+					fail(res) {
+						console.log('fail: ' + res.errMsg)	
+					},
+					complete(res) {
+						console.log('complete: ' + res.errMsg)	
+					}
+				})
+				wx.redirectTo({
+					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+				});
+			}
+			else {
+				wx.hideLoading();
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
 				});
