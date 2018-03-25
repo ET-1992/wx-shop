@@ -82,17 +82,22 @@ Page({
 					totalPostage = postage;
 				}
 			});
+
+			const orderPrice = +totalPrice + totalPostage - currentOrder.couponPrice;
+
 			currentOrder.totalPostage = totalPostage;
 			currentOrder.isGroupon = isGroupon;
 			currentOrder.grouponId = grouponId;
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice = (
-				+totalPrice +
-				totalPostage -
-				currentOrder.couponPrice
-			).toFixed(2);
+			currentOrder.orderPrice = orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
+			// currentOrder.orderPrice = (
+			// 	+totalPrice +
+			// 	totalPostage -
+			// 	currentOrder.couponPrice
+			// ).toFixed(2);
+			//
 
 			// console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
@@ -220,7 +225,7 @@ Page({
 			requestData.posts = JSON.stringify(items);
 		}
 
-			try {
+		try {
 			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
 			if (status == 2) {
 				wx.hideLoading();
@@ -249,10 +254,10 @@ Page({
 					    console.log('success: ' + res.errMsg)
 					},
 					fail(res) {
-						console.log('fail: ' + res.errMsg)	
+						console.log('fail: ' + res.errMsg)
 					},
 					complete(res) {
-						console.log('complete: ' + res.errMsg)	
+						console.log('complete: ' + res.errMsg)
 					}
 				})
 				wx.redirectTo({
