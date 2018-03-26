@@ -27,9 +27,9 @@
         wx:for="{{ sliders }}"
         wx:key="id"
       >
-        <navigator url="{{ item.path }}">
+        <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
           <image src="{{ item.image }}" mode="aspectFill"/>
-        </navigator>
+        </button>
       </swiper-item>
     </swiper>
 

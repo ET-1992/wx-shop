@@ -4,6 +4,8 @@ import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import login from 'utils/login';
+import autoRedirect from 'utils/autoRedirect';
+
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -47,6 +49,13 @@ Page({
 		});
 		// this.setData({ isLoading: false });
 		// return data;
+	},
+
+	onBannerClick(ev) {
+		const { path } = ev.currentTarget.dataset;
+		if (path) {
+			autoRedirect({ url: path });
+		}
 	},
 
 	async loadHome() {
