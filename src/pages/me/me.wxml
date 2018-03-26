@@ -75,7 +75,12 @@
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
 
-    <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact">
+    <button
+      class="normalizeBt sectionItem contactBt"
+      data-name="contact"
+      open-type="contact"
+      session-from="profile"
+    >
       <image class="itemIcon" src="../../icons/contact.png" />
       <view class="itemTitle">联系客服</view>
       <image class="rightIcon" src="../../icons/right.png" />

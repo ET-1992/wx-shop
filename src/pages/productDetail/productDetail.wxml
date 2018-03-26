@@ -11,7 +11,7 @@
       autoplay="{{autoplay}}"
       class="swiper"
       wx:if="{{ headerType === 'images' }}"
-     bindchange="currentIndex"  indicator-color="#56A2B8"> 
+     bindchange="currentIndex"  indicator-color="#56A2B8">
       <swiper-item>
 
         <view wx:if="{{product.video}}" bindtap="clickMe" >
@@ -170,7 +170,7 @@
         <image class="icon" src="../../icons/shopcart.png"/>
         购物车
       </navigator>
-      <button open-type="contact" class="cart">
+      <button open-type="contact" class="cart" session-from="{{ 'product-' + product.id  }}">
       <image class="icon" src="../../icons/context.png"/>
       客服
       </button>
