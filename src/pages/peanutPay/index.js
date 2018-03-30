@@ -31,11 +31,12 @@ Page({
 			const { pay_sign } = await api.hei.peanutPayOrder({
 				order_no: orderNo
 			});
-			
-			await wxPay(pay_sign);
+
+			const { isCancel } = await wxPay(pay_sign);
 			wx.navigateBackMiniProgram({
 				extraData: {
-					order_no: this.data.orderNo
+					order_no: this.data.orderNo,
+					isCancel
 				},
 				success(res) {
 					console.log('成功')
@@ -44,6 +45,6 @@ Page({
 		}catch(err) {
 			console.log(err)
 		}
-		
+
 	}
 });

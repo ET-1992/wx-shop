@@ -41,7 +41,15 @@ Page({
 			const { currentOrder } = app.globalData;
 			const { items, totalPrice } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
+			const { isCancel, order_no } = this.options;
 			let totalPostage = 0;
+
+			//跳转支付后返回 取消支付状态isCanecl为true
+			if (isCancel) {
+				wx.redirectTo({
+					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+				});
+			}
 
 			// let couponPrice = 0;
 
@@ -257,8 +265,8 @@ Page({
 				console.log(this.data)
 
 				console.log(this.data.items);
-				
-				
+
+
 				await wx.navigateToMiniProgram({
 					envVersion: 'develop',
 					appId: pay_appid,

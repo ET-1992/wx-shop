@@ -55,14 +55,17 @@ export const createCurrentOrder = ({ items, selectedSku }) => {
 	console.log('selectedSku', selectedSku);
 	if (selectedSku) {
 		const item = items[0];
-		const { price, id: skuId, property_names, image_url, original_price, quantity } = selectedSku;
+		const { price, id: skuId, property_names, properties, original_price, quantity } = selectedSku;
+		const { sku_images } = item;
+		const firstSelectedSkuPropValue = properties && properties[0].v;
+		const selectedSkuImage = properties ? sku_images[firstSelectedSkuPropValue].thumbnail : null;
 		item.post_id = item.id;
 		item.quantity = quantity;
 		item.sku_id = skuId;
 		item.sku_property_names = property_names;
 		item.price = price || items[0].price;
 		item.original_price = original_price || items[0].original_price;
-		item.image_url = image_url || item.images[0];
+		item.image_url = selectedSkuImage || item.images[0];
 	};
 
 	order.items = items;
@@ -88,7 +91,6 @@ export const wxPay = async (options = {}) => {
 			signType,
 			paySign,
 		});
-		console.log(res);
 		await showToast({ title: '支付成功' });
 		return res;
 	}
@@ -101,6 +103,7 @@ export const wxPay = async (options = {}) => {
 				content: '请尽快完成付款',
 				showCancel: false,
 			});
+			return { isCancel: true };
 		}
 		else {
 			await showModal({
