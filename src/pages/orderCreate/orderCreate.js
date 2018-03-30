@@ -82,17 +82,24 @@ Page({
 					totalPostage = postage;
 				}
 			});
+
+			const orderPrice = +totalPrice + totalPostage - currentOrder.couponPrice;
+
 			currentOrder.totalPostage = totalPostage;
 			currentOrder.isGroupon = isGroupon;
 			currentOrder.grouponId = grouponId;
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice = (
-				+totalPrice +
-				totalPostage -
-				currentOrder.couponPrice
-			).toFixed(2);
+			currentOrder.orderPrice =
+				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
+
+			// currentOrder.orderPrice = (
+			// 	+totalPrice +
+			// 	totalPostage -
+			// 	currentOrder.couponPrice
+			// ).toFixed(2);
+			//
 
 			// console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
@@ -105,12 +112,14 @@ Page({
 	onUnload() {
 		console.log('--- onUnLoad ----');
 		app.globalData.currentOrder = {};
+
 		// console.log(JSON.stringify(app.globalData.currentOrder));
 		wx.removeStorageSync('orderCreate');
 	},
 
 	onHide() {
 		console.log('--- onHide ----');
+
 		// wx.clearStorageSync('orderCreate');
 	},
 
@@ -121,10 +130,11 @@ Page({
 
 	async onAddress() {
 		const { authSetting } = await getSetting();
+
 		// console.log(authSetting);
-		//authSetting['scope.address']可能值：
-		//没有值  初始化状态 系统会自动弹框询问授权
-		//false  此时需要使用openSetting
+		// authSetting['scope.address']可能值：
+		// 没有值  初始化状态 系统会自动弹框询问授权
+		// false  此时需要使用openSetting
 		if (authSetting['scope.address'] === false) {
 			await openSetting();
 		}
@@ -222,16 +232,23 @@ Page({
 		}
 
 		try {
+<<<<<<< HEAD
 			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
 			if (status == 2) {
 				console.log('status == 2');
+=======
+			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
+				requestData,
+			);
+			if (+status === 2) {
+>>>>>>> 4decea26bc287ac0e5e66d9e16490663b4f76ec9
 				wx.hideLoading();
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
 				});
 			}
 			else if (pay_sign) {
-				console.log('自主支付')
+				console.log('自主支付');
 				wx.hideLoading();
 				await wxPay(pay_sign);
 				wx.redirectTo({
@@ -239,6 +256,7 @@ Page({
 				});
 			}
 			else if (pay_appid) {
+<<<<<<< HEAD
 				console.log('平台支付')
 				console.log(this.data)
 
@@ -262,16 +280,26 @@ Page({
 						orderPrice:this.data.orderPrice
 				  	},
 				  	envVersion: 'develop',
+=======
+				console.log('平台支付');
+				await wx.navigateToMiniProgram({
+					appId: pay_appid,
+					path: `/pages/peanutPay/index?order_no=${order_no}`,
+					extraData: {
+						order_no: order_no,
+					},
+					envVersion: 'develop',
+>>>>>>> 4decea26bc287ac0e5e66d9e16490663b4f76ec9
 					success(res) {
-					    console.log('success: ' + res.errMsg)
+						console.log('success: ' + res.errMsg);
 					},
 					fail(res) {
-						console.log('fail: ' + res.errMsg)	
+						console.log('fail: ' + res.errMsg);
 					},
 					complete(res) {
-						console.log('complete: ' + res.errMsg)	
-					}
-				})
+						console.log('complete: ' + res.errMsg);
+					},
+				});
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
 				});

@@ -75,7 +75,12 @@
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
 
-    <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact">
+    <button
+      class="normalizeBt sectionItem contactBt"
+      data-name="contact"
+      open-type="contact"
+      session-from="profile"
+    >
       <image class="itemIcon" src="../../icons/contact.png" />
       <view class="itemTitle">联系客服</view>
       <image class="rightIcon" src="../../icons/right.png" />
@@ -109,4 +114,8 @@
   <view class="close" bindtap="close">
     <image src="../../icons/close.png"></image>
   </view>
+<<<<<<< HEAD
 </view> -->
+=======
+</view>
+>>>>>>> 4decea26bc287ac0e5e66d9e16490663b4f76ec9
