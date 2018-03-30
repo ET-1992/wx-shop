@@ -12,17 +12,22 @@ Page({
 	},
 
 	onLoad: function (options) {
-		console.log('pay on load')
-		console.log(options)
-		this.setData({orderNo:options.order_no})
-		console.log(this.data)
+		this.setData({
+			orderNo:options.order_no,
+			order:app.globalData.extraData.items,
+			totalPrice:app.globalData.extraData.totalPrice,
+			postage:app.globalData.extraData.postage,
+			address:app.globalData.extraData.address,
+			buyer_message:app.globalData.extraData.buyer_message,
+			couponPrice:app.globalData.extraData.couponPrice,
+			orderPrice:app.globalData.extraData.orderPrice
+		})
 	},
 
 	async onShow() {
-		
+		console.log(this.data)
 		const { orderNo } = this.data;
 		try {
-			console.log(orderNo)
 			const { pay_sign } = await api.hei.peanutPayOrder({
 				order_no: orderNo
 			});
@@ -33,7 +38,7 @@ Page({
 					order_no: this.data.orderNo
 				},
 				success(res) {
-
+					console.log('成功')
 				}
 			})
 		}catch(err) {

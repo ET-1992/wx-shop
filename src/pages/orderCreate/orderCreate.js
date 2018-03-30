@@ -146,6 +146,7 @@ Page({
 	},
 
 	async onPay(ev) {
+
 		const { formId } = ev.detail;
 		const {
 			address,
@@ -220,9 +221,10 @@ Page({
 			requestData.posts = JSON.stringify(items);
 		}
 
-			try {
+		try {
 			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
 			if (status == 2) {
+				console.log('status == 2');
 				wx.hideLoading();
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
@@ -238,11 +240,26 @@ Page({
 			}
 			else if (pay_appid) {
 				console.log('平台支付')
+				console.log(this.data)
+
+				console.log(this.data.items);
+				
+				
 				await wx.navigateToMiniProgram({
 					appId: pay_appid,
 				  	path: `/pages/peanutPay/index?order_no=${order_no}`,
 				  	extraData: {
-				    	order_no: order_no
+				    	order_no: order_no,
+				    	address:this.data.address,
+						items:this.data.items,
+						totalPrice:this.data.totalPrice,
+						totalPostage:this.data.totalPostage,
+						quantity:this.data.quantity,
+						orderPrice:this.data.orderPrice,
+						coupons:this.data.coupons,
+						buyerMessage:this.data.buyerMessage,
+						couponPrice:this.data.couponPrice,
+						orderPrice:this.data.orderPrice
 				  	},
 				  	envVersion: 'develop',
 					success(res) {

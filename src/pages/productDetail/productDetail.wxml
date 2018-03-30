@@ -11,7 +11,7 @@
       autoplay="{{autoplay}}"
       class="swiper"
       wx:if="{{ headerType === 'images' }}"
-     bindchange="currentIndex"  indicator-color="#56A2B8"> 
+     bindchange="currentIndex"  indicator-color="#47414D"> 
       <swiper-item>
 
         <view wx:if="{{product.video}}" bindtap="clickMe" >

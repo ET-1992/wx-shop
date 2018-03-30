@@ -3,7 +3,7 @@
 <template is="loading" wx:if="{{ isLoading }}"/>
 
 <view class="container">
-	<scroll-view class="mainCategory">
+	<scroll-view class="mainCategory" scroll-y>
     <view
       class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}"
       wx:for="{{ categories }}"
@@ -12,7 +12,7 @@
       bindtap="onMainCategoryItemClick"
     >{{ item.name }}</view>
   </scroll-view>
-  <scroll-view class="subCategory">
+  <scroll-view class="subCategory" scroll-y>
     <image
       class="subCategoryBanner"
       src="{{ categories[selectedIndex].banner }}"

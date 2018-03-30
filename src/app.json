@@ -15,18 +15,19 @@
 		"pages/search/search",
 		"pages/grouponList/grouponList",
 		"pages/flashList/flashList",
+		"pages/peanutPay/index",
 		"pages/myCoupons/myCoupons",
 		"pages/couponProducts/couponProducts",
 		"pages/orderCoupons/orderCoupons"
 	],
 	"window": {
 		"backgroundTextStyle": "white",
-		"navigationBarBackgroundColor": "#729153",
+		"navigationBarBackgroundColor": "#47414D",
 		"navigationBarBackgroundColorRed": "#3B89D8",
 		"navigationBarBackgroundColorBlue": "#245e74",
 		"navigationBarBackgroundColorGreen": "#22926c",
 		"navigationBarTextStyle": "white",
-		"backgroundColor": "#f4f7f9"
+		"backgroundColor": "#f4f4f4"
 	},
 	"tabBar": {
 		"color": "#a39896",
@@ -35,7 +36,7 @@
 		"backgroundColorRed": "#eb7581",
 		"backgroundColorBlue": "#1e8aa6",
 		"backgroundColorGreen": "#71bca8",
-		"borderStyle": "white",
+		"borderStyle": "black",
 		"list": [
 			{
 				"pagePath": "pages/home/home",

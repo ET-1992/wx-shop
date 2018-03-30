@@ -109,7 +109,20 @@ Page({
 		}
 	},
 
-	async onLoad ({ id, grouponId }) {
+	// async onLoad ({ id, grouponId }) {
+	// 	this.setData({ isLoading: true });
+	// 	console.log(id)
+	// 	if (id) {
+	// 		await this.loadOrder(id);
+	// 	}
+	// 	else {
+	// 		await this.loadGroupon(grouponId);
+	// 	}
+	// 	this.setData({ isLoading: false });
+	// 	this.countDown();
+	// },
+	async onShow() {
+		const { id, grouponId } = this.options;
 		this.setData({ isLoading: true });
 		if (id) {
 			await this.loadOrder(id);

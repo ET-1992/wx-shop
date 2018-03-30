@@ -8,7 +8,9 @@ App({
 	},
 
 	async onShow(options) {
-		console.log('App On Show: ', options);
+		
+	
+		this.globalData.extraData = options.referrerInfo.extraData
 		const { query = {} } = options;
 		if (query.vendor) {
 			this.globalData.vendor = query.vendor;

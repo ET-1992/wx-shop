@@ -21,7 +21,7 @@
       autoplay
       circular
       wx:if="{{ sliders.length }}"
-      class="banner section" style="padding-bottom:0" indicator-color="#56A2B8"
+      class="banner section" style="padding-bottom:0" indicator-color="#47414D"
     >
       <swiper-item
         wx:for="{{ sliders }}"

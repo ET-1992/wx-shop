@@ -42,7 +42,7 @@ Component({
 				});
 			}
 			else if (pay_sign) {
-				console.log('自主支付')
+				console.log('自主支付2')
 				wx.hideLoading();
 				await wxPay(pay_sign);
 				wx.redirectTo({
@@ -50,18 +50,32 @@ Component({
 				});
 			}
 			else if (pay_appid) {
-				console.log('平台支付')
+				console.log('平台支付2')
 				 wx.navigateToMiniProgram({
 					appId: pay_appid,
 				  	path: `/pages/peanutPay/index?order_no=${orderNo}`,
 				  	extraData: {
-				    	order_no: orderNo
+				    	order_no: orderNo,
+				    	address:this.data.address,
+						items:this.data.items,
+						totalPrice:this.data.totalPrice,
+						totalPostage:this.data.totalPostage,
+						quantity:this.data.quantity,
+						orderPrice:this.data.orderPrice,
+						coupons:this.data.coupons,
+						buyerMessage:this.data.buyerMessage,
+						couponPrice:this.data.couponPrice,
+						orderPrice:this.data.orderPrice
 				  	},
 				  	envVersion: 'develop',
 					success(res) {
 					    console.log('success: ' + res.errMsg)
 					},
 					fail(res) {
+						
+					wx.redirectTo({
+						url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+					});
 						console.log('fail: ' + res.errMsg)	
 					},
 					complete(res) {

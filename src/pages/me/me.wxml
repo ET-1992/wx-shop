@@ -81,16 +81,16 @@
       <image class="rightIcon" src="../../icons/right.png" />
     </button>
   </view>
-  <view class="section">
-      <view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
-  </view>
+<!--  <view class="section">
+    <view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
+</view> -->
 </view>
 <view class="logo">
   <image src="../../icons/hausheng.png">
   </image>
   <text>花生小店提供技术和电商支持</text>
 </view>
-<view class="mask" wx:if="{{active==1}}">
+<!-- <view class="mask" wx:if="{{active==1}}">
   <view class="con">
     <view class="cont">
       <view class="title">
@@ -109,4 +109,4 @@
   <view class="close" bindtap="close">
     <image src="../../icons/close.png"></image>
   </view>
-</view>
+</view> -->
