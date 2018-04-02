@@ -35,7 +35,21 @@ export const chooseAddress = (options) => new Promise((resolve, reject) => {
 });
 
 export const requestPayment = (options) => new Promise((resolve, reject) => {
-	wx.requestPayment({ success: resolve, fail: reject, ...options });
+	wx.requestPayment({
+		success: resolve,
+		fail: reject,
+		complete: (res) => {
+			console.log('complete res', res);
+			const { platform } = wx.getSystemInfoSync();
+
+			const isAndroid = platform === 'android';
+			const isError = res.errMsg.indexOf('cancel') >= 0;
+			if (isError && isAndroid) {
+				reject(res);
+			}
+		},
+		...options,
+	});
 });
 
 export const openSetting = (options) => new Promise((resolve, reject) => {
@@ -69,4 +83,3 @@ export const getSetting = (options) => new Promise((resolve, reject) => {
 // 		};
 // 	}
 // });
-

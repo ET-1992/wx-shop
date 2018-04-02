@@ -92,10 +92,11 @@ export const wxPay = async (options = {}) => {
 			paySign,
 		});
 		await showToast({ title: '支付成功' });
+		console.log('requestPayment res', res);
 		return res;
 	}
 	catch (err) {
-		console.log(err);
+		console.log('requestPayment err', err);
 		const { errMsg } = err;
 		if (errMsg.indexOf('cancel') >= 0) {
 			await showModal({

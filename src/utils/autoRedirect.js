@@ -1,11 +1,6 @@
 import { tabBar } from '!json-loader!app.json'; // eslint-ignore
 
-// const tabBarUrls = ['pages/home/home', 'pages/news/news', 'pages/calendar/calendar', 'pages/my/my'];
-
 const tabBarUrls = tabBar.list.map(({ pagePath }) => pagePath);
-
-console.log(tabBarUrls);
-
 
 export default ({ url, type }) => {
 	let isTabBar = false;
