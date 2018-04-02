@@ -34,11 +34,14 @@ Page({
 	},
 
 	async onShow() {
+		
 		try {
 			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
 				'orderCreate',
 			);
+
 			const { currentOrder } = app.globalData;
+			console.log(currentOrder)
 			const { items, totalPrice } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			const { isCancel, order_no } = this.options;
@@ -111,6 +114,11 @@ Page({
 
 			// console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
+			var single = wx.getStorageSync('single')
+			console.log(single);
+			this.setData({
+				single:single
+			})
 		}
 		catch (err) {
 			console.log(err);
@@ -262,13 +270,8 @@ Page({
 			}
 			else if (pay_appid) {
 				console.log('平台支付')
-				console.log(this.data)
-
-				console.log(this.data.items);
-
-
 				await wx.navigateToMiniProgram({
-					envVersion: 'develop',
+					envVersion: 'trial',
 					appId: pay_appid,
 				  	path: `/pages/peanutPay/index?order_no=${order_no}`,
 				  	extraData: {

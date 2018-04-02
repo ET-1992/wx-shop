@@ -11,7 +11,7 @@
       autoplay="{{autoplay}}"
       class="swiper"
       wx:if="{{ headerType === 'images' }}"
-     bindchange="currentIndex"  indicator-color="#47414D"> 
+     bindchange="currentIndex"  indicator-color="#56A2B8"> 
       <swiper-item>
 
         <view wx:if="{{product.video}}" bindtap="clickMe" >
@@ -207,7 +207,8 @@
         data-single="0"
         data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买', isSingle:true }] }}"
       >
-        <view>￥{{ product.price }}</view>
+        <view wx:if="{{product.groupon_enable === '1' && product.miaosha_enable === '1'}}">￥{{ product.miaosha_price }}</view>
+        <view wx:else>￥{{ product.price }}</view>
         <view>单独购买</view>
       </view>
       <view
@@ -302,7 +303,10 @@
         </view>
         <view wx:else  style="width:100%">
           <view class="skuInfo">
-            <view class="price">￥{{ selectedSku.price || product.price }}</view>
+            <view class="price" wx:if="{{product.groupon_enable === '1' && product.miaosha_enable === '1'}}">
+              {{product.miaosha_price}}
+            </view>
+            <view wx:else class="price">￥{{ selectedSku.price || product.price }}</view>
             <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
             <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
           </view>

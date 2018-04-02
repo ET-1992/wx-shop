@@ -62,6 +62,7 @@
       statusCode="{{ order.statusCode }}"
       orderNo="{{ order.order_no }}"
       orderIndex="{{ orderIndex }}"
+      orders="{{orders}}"
       bindconfirmOrder="onConfirmOrder"
       bindpayOrder="onPayOrder"
       bindcloseOrder="onCloseOrder"

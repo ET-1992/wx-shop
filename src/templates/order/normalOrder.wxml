@@ -106,6 +106,7 @@
   <orderOperations
     statusCode="{{ order.statusCode }}"
     orderNo="{{ order.order_no }}"
+     order="{{order}}"
     isShowContact="{{ true }}"
     bindconfirmOrder="onRelaodOrder"
     bindpayOrder="onRelaodOrder"

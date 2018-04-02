@@ -313,7 +313,21 @@ Page({
 		price = product.price;
 
 		// original_price = product.original_price
-
+		if(product.groupon_enable === '1' && product.miaosha_enable === '1') {
+			if(single) {
+				const now = Date.now() / 1000;
+				const hasStart = now >= product.miaosha_start_timestamp;
+				const hasEnd = now >= product.miaosha_end_timestamp;
+				if (hasStart && !hasEnd) {
+					currentOrder = createCurrentOrder({
+						selectedSku: Object.assign({ quantity }, selectedSku, {
+							price: product.miaosha_price - 0,
+						}),
+						items: [product],
+					});
+				}
+			}
+		}
 		if (product.groupon_enable === '1') {
 			if (single) {
 				currentOrder = createCurrentOrder({
@@ -357,6 +371,7 @@ Page({
 		app.globalData.currentOrder = currentOrder;
 
 		wx.navigateTo({ url });
+		wx.setStorageSync('single',this.data.single)
 	},
 
 	onSkuItem(ev) {

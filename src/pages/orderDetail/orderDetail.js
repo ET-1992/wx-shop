@@ -72,6 +72,7 @@ Page({
 		}
 
 		this.setData(data);
+		console.log('测试',data)
 		const {items} = order;
 		let totalPrice = 0;
 		items.forEach((item) => {

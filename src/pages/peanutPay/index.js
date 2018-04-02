@@ -12,6 +12,7 @@ Page({
 	},
 
 	onLoad: function (options) {
+		console.log('peanutPay',options)
 		this.setData({
 			orderNo:options.order_no,
 			order:app.globalData.extraData.items,
