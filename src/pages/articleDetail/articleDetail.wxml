@@ -1,0 +1,108 @@
+
+<view class="header" >
+	<swiper
+	  indicator-dots
+	   autoplay="{{autoplay}}"
+	  class="swiper"
+	  wx:if="{{ article.video && article.images && article.images.length>0}}"
+	 bindchange="currentIndex"  indicator-color="#47414D"> 
+	  <swiper-item>
+
+
+	    <view wx:if="{{article.video}}" bindtap="clickMe" >
+	      <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;" />
+	    </view>
+	    <video id="myVideo" wx:if="{{activeIndex==1}}" src="{{article.video}}" bindpause="pause" bindfullscreenchange="fullScreen" bindended="end" bindplay="startPlay" autoplay></video>
+
+	    <image src="{{article.images[0]}}" class="slide-image" mode="widthFix"></image>
+	  </swiper-item>
+
+	  <swiper-item wx:if="{{index!=0}}"
+	    wx:for="{{ article.images }}"
+	    wx:key="id"
+	    wx:for-item="image"
+	  >
+	  <image
+	    src="{{ image }}"
+	    mode="aspectFill"
+	  />
+
+	  </swiper-item>
+	</swiper>
+
+	<video wx:elif="{{article.video}}" class="poster" poster="{{article.banner}}" src="{{article.video}}"></video>
+	<swiper wx:elif="{{article.images && article.images.length>0}}" indicator-dots="#47414D" indicator-dots autoplay circular>
+	  <block wx:for="{{article.images}}">
+	    <swiper-item>
+	      <image src="{{item}}" class="slide-image" mode="widthFix"/>
+	    </swiper-item>
+	   </block>
+	</swiper>
+</view>
+<view class="p-single">
+	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
+		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
+		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
+		<view class="borderLine"></view>
+		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
+	</view>
+	
+	<import src="../../utils/wxParse/wxParse.wxml"/>
+	<view class="{{article.full ==1 ?'':'pad-30'}}">
+		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+	</view>
+	
+	<view wx:if="{{article.label && article.products.length}}" class="label"><view class="dash"></view>{{article.label}}<view class="dash"></view></view>
+	<view class="relateShop">
+		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
+			<image src="{{item.thumbnail}}"></image>
+			<view class="meta">
+				<view class="name">{{item.title}}</view>
+				<view class="desc">{{item.excerpt}}</view>
+			</view>
+			<view class="price">
+				<view  class="originalPrice">￥{{item.price}}</view>
+				
+					<view class="toBuy">立即购买</view>
+				
+			</view>
+		</navigator>
+	</view>
+</view>
+
+<!-- 底部评论栏 -->
+<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+	<view class="footerItem">
+		<navigator class="returnIndex" url="/pages/home/home" wx:if="{{pageSize==1}}" open-type="switchTab">
+			<image src="../../icons/goIndex.png"></image>
+			<text>首页</text>
+		</navigator>
+		<!-- 分享 -->
+		<view class="share">
+			<button class="shareIcon btn_no_style" open-type="share">
+				<image src="../../icons/share.png">
+				</image>
+				<text>分享</text>
+			</button>
+		</view>
+	</view>
+
+	<view class="footerItem">
+			<!-- 收藏 -->
+		<view class="fav">
+			<view wx:if="{{is_faved}}" class="favItem" >
+		    <view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="unfav"></view>
+		    <text> {{fav_count}}</text>
+			</view>
+			<view class="favItem" wx:else>
+				<view class="faved"  bindtap="fav" data-index="{{idx}}" id="{{article.id}}"></view>
+				<text> {{fav_count}}</text>
+			</view>
+		</view>
+		<!-- 评论 -->
+		<navigator url="/pages/commentList/commentList?id={{article.id}}" class="comment">
+			<view class="commentIcon"></view>{{article.reply_count}}
+		</navigator>
+	</view>
+	
+</view>

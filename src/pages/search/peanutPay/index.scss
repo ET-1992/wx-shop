@@ -1,0 +1,30 @@
+@import "~styles/color";
+@import "~templates/order/normalOrder";
+@import "~templates/order/grouponOrder";
+@import "~templates/loading/loading";
+
+$footerHeight: 100rpx;
+
+.container {
+	padding-bottom: $footerHeight + 40rpx;
+}
+
+.header {
+	background-color: $mainColor;
+	color: #fff;
+	font-size: 10pt;
+	padding: 60rpx 40rpx;
+
+	.orderStatus {
+		font-size: 12pt;
+		margin-bottom: 8rpx;
+	}
+}
+
+.button {
+	margin: 40rpx 20rpx;
+	color: #fff;
+	font-size: 12pt;
+	background-color: $mainColor;
+}
+

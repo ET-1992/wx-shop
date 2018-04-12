@@ -39,9 +39,11 @@ Page({
 				'orderCreate',
 			);
 			const { currentOrder } = app.globalData;
-			const { items, totalPrice } = currentOrder;
+			const { items } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			const { isCancel, order_no } = this.options;
+			const totalPrice = currentOrder.totalPrice.toFixed(2) 
+			console.log(totalPrice);
 			let totalPostage = 0;
 
 			//跳转支付后返回 取消支付状态isCanecl为true
@@ -99,18 +101,18 @@ Page({
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice =
-				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
-
+			currentOrder.orderPrice = orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
+			currentOrder.totalPrice = currentOrder.totalPrice.toFixed(2)
 			// currentOrder.orderPrice = (
 			// 	+totalPrice +
 			// 	totalPostage -
 			// 	currentOrder.couponPrice
 			// ).toFixed(2);
 			//
-
-			// console.log('orderCreate', currentOrder);
 			this.setData(currentOrder);
+			this.setData({
+				totalPrice:this.data.totalPrice
+			})
 		}
 		catch (err) {
 			console.log(err);
@@ -246,6 +248,12 @@ Page({
 			// 	const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
 			// 		requestData,
 			// 	);
+			
+			if(this.data.orderPrice<=0){
+				wx.redirectTo({
+					url:`../orderDetail/orderDetail?id=${order_no}`
+				})
+			}
 			if (+status === 2) {
 				wx.hideLoading();
 				wx.redirectTo({

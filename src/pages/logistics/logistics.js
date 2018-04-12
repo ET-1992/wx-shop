@@ -98,4 +98,21 @@ Page({
 		this.setData(updateData);
 
 	},
+	setClipboard(){
+		console.log(this.data.logistics.no);
+		wx.setClipboardData({
+		  data: this.data.logistics.no,
+		  success: function(res) {
+		    wx.getClipboardData({
+		      success: function(res) {
+		        wx.showToast({
+				  title: '复制成功！',
+				  icon: 'success',
+				  duration: 2400
+				})
+		      }
+		    })
+		  }
+		})
+	},
 });

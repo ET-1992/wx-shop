@@ -1,6 +1,7 @@
 @import '~styles/color';
 @import '~templates/grouponItem/grouponItem';
 @import '~templates/loading/loading';
+@import '~templates/articleItem/articleItem';
 
 swiper{
 	margin-bottom: 15rpx;
@@ -43,9 +44,9 @@ swiper{
 	margin-top: 96rpx;
 }
 
-.banner, .banner image {
+.banner,.banner button, .banner image {
 	width: 100%;
-	height: 400rpx;
+	height: 100%;
 }
 .flashItem .meta{
 	padding:40rpx;
@@ -67,26 +68,37 @@ swiper{
 		margin-right: 20rpx;
 	}
 
-	.couponInfo {
+	.couponInfoList {
 		position: absolute;
 		z-index: 2;
 		color: #fff;
 		font-size: 9pt;
 		height: 117rpx;
-		width: 170rpx;
+		width: 250rpx;
 		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+		line-height: 1.4;
+		.couponInfo {
+			position: absolute;
+			z-index: 2;
+			color: #fff;
+			font-size: 9pt;
+			height: 117rpx;
+			width: 170rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
 
-		.reduceCost {
-			font-size: 18pt;
-		}
+			.reduceCost {
+				font-size: 18pt;
+			}
 
-		.title {
-			font-size: 8pt;
+			.title {
+				font-size: 8pt;
+			}
 		}
 	}
+	
 
 
 	.bg {
@@ -99,13 +111,12 @@ swiper{
 
 .section3{
 	box-sizing: border-box;
-	padding:0 20rpx;
 }
 
 .section {
-	padding-bottom: 15rpx;
+	
 	background-color: #fff;
-	margin:20rpx 0;
+	margin-bottom:20rpx;
 
 	.sectionTitle {
 		text-align: center;
@@ -114,23 +125,26 @@ swiper{
 		font-size: 17px;
 	}
 .grouponItemWrapper{
-	padding-bottom: 30rpx;
+	padding-bottom: 10rpx;
 }
 	.sectionMore {
 		justify-content: center;
-		font-size: 10pt;
 		height: 80rpx;
 		line-height: 80rpx;
 		color: $titleColor;
 		display: flex;
 		align-items: center;
 		border-top:1px solid #eee;
-		padding-top:20rpx;
+		padding:10rpx 0;
+		button{
+			font-size:26rpx;
+			background:none;
+		}
 	}
 
 	.rightIcon {
-		width: 10rpx;
-		height: 14rpx;
+		width: 14rpx;
+		height: 20rpx;
 		margin-left: 10rpx;
 	}
 }
@@ -139,5 +153,25 @@ swiper{
 .starProductItem {
 	margin-bottom: 15rpx;
 	width: 100%;
-	height: 280rpx;
+	height: 100%;
+}
+button{
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	border-radius: 0;
+}
+
+button::after{
+	outline: 0;
+	border-radius: 0;
+	border: 0;
+}
+.bottomHint {
+	text-align: center;
+	color: #ccc;
+	font-size: 10pt;
+	padding:40rpx 0 0 20rpx;
+	margin-bottom: 20rpx;
 }

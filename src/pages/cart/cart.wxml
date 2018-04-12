@@ -4,25 +4,43 @@
 
   <template is="loading" wx:if="{{ isLoading }}"/>
 
-  <view wx:if="{{ !isLogin && !isLoading }}" class="emptyHint">
-    <view class="empty">未登录</view>
-    <view
-      bindtap="onLogin"
-      class="onGotoBuy"
-    >
-    <image src="../../icons/webchat.png"></image>
-    <text>微信用户快速登录</text>
+  <view wx:if="{{ !isLogin && !isLoading }}">
+    <image class="emptyHint" src="../../icons/bigCart.png" mode="widthFix"></image>
+    <view class="goBuyDesc">
+        <view class="empty">未登录</view>
+        <view
+          bindtap="onLogin"
+          class="onGotoBuy"
+        >
+          <image src="../../icons/webchat.png"></image>
+          <text>微信用户快速登录</text>
+        </view>
+       <view class="logo">
+        <image src="../../icons/hausheng.png">
+        </image>
+        <text>花生小店提供技术和电商支持</text>
+      </view>
     </view>
+  
   </view>
 
 
-  <view wx:if="{{ !items.length && !isLoading && isLogin }}" class="emptyHint">
-    <view class="empty">购物车空空如也~</view>
-    <navigator
-      open-type="switchTab"
-      class="onGotoBuy buy"
-      url="/pages/home/home"
-    >去选购</navigator>
+  <view wx:if="{{ !items.length && !isLoading && isLogin }}">
+    <image class="emptyHint" src="../../icons/bigCart.png"></image>
+    <view class="goBuyDesc">
+        <view class="empty">购物车空空如也~</view>
+        <navigator
+          open-type="switchTab"
+          class="onGotoBuy buy"
+          url="/pages/home/home"
+        >去选购</navigator>
+        <view class="logo">
+          <image src="../../icons/hausheng.png">
+          </image>
+          <text>花生小店提供技术和电商支持</text>
+        </view>
+    </view>
+     
   </view>
 
   <view class="cartList" wx:if="{{ items.length && !isLoading }}">
@@ -130,11 +148,11 @@
       disabled="{{ !totalPrice }}"
     >去结算</button>
   </view>
-  <view class="logo">
-  <image src="../../icons/hausheng.png">
-  </image>
-  <text>花生小店提供技术和电商支持</text>
-</view>
+  <view class="logo" wx:if="{{ items.length && isLogin }}">
+    <image src="../../icons/hausheng.png">
+    </image>
+    <text>花生小店提供技术和电商支持</text>
+  </view>
 </view>
 
 

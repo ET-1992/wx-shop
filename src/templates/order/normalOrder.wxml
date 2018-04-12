@@ -22,7 +22,7 @@
       <view>收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}</view>
     </view>
   </view>
-</view>
+</view> 
 <view class="itemList">
  <view
   class="item"
@@ -102,10 +102,12 @@
   class="viewProduct"
 >浏览更多商品</navigator>
 
+
 <view class="footer">
   <orderOperations
     statusCode="{{ order.statusCode }}"
     orderNo="{{ order.order_no }}"
+     order="{{order}}"
     isShowContact="{{ true }}"
     bindconfirmOrder="onRelaodOrder"
     bindpayOrder="onRelaodOrder"

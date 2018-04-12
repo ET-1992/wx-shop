@@ -8,6 +8,10 @@ Component({
 			type: Array,
 			value: [],
 		},
+		modules:{
+			type: Object,
+			value: {},
+		},
 		productListStyle: {
 			type: String,
 			value: PRODUCT_LIST_STYLE[0],

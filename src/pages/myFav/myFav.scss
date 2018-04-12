@@ -1,0 +1,53 @@
+/* pages/myFav/myFav.wxss */
+page{
+	background: #fff;
+}
+.favList navigator{
+	width: 100%;
+	display: flex;
+	padding-left: 30rpx;
+	margin: 10rpx 0;
+	align-items:center;
+}
+.favList .avatar{
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 50%;
+
+}
+.favDetail{
+	width: 83%;
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid #eee;
+	margin-left: 40rpx;
+	padding: 20rpx 0;
+}
+.m-tt{
+	color: #333;
+	text-overflow:ellipsis; 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.m-desc{
+	color: #999;
+	font-size: 14px;
+	margin-bottom: 10rpx;
+	text-overflow:ellipsis; 
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.favBg{
+	width:191rpx;
+	height:293rpx;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 100px;
+	position: absolute;
+}

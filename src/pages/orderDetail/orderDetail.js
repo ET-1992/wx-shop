@@ -47,10 +47,11 @@ Page({
 		order.refundDate = formatTime(new Date(order.refund_time * 1000));
 		order.total_fee = (order.total_fee - 0).toFixed(2);
 		order.discount_fee = (order.discount_fee - 0).toFixed(2);
-
+		
+		console.log(order.logistics_info);
 		if (statusCode > 2 && statusCode < 5) {
-			const { logistics } = await api.hei.fetchLogistics({ order_no: id });
-			data.logistics = logistics;
+			data.logistics = order.logistics_info
+		
 		}
 
 		if (statusCode === 3) {
@@ -72,6 +73,7 @@ Page({
 		}
 
 		this.setData(data);
+		console.log('测试',data)
 		const {items} = order;
 		let totalPrice = 0;
 		items.forEach((item) => {
@@ -84,7 +86,6 @@ Page({
 		});
 		this.setData({totalPrice:totalPrice})
 	},
-
 	async loadGroupon(id) {
 		console.log('grouponId', id);
 		const data = await api.hei.fetchGroupon({ id });

@@ -3,10 +3,23 @@
 .header {
 	display: flex;
 	align-items: flex-end;
-
+	.logistics{
+		display: flex;
+		justify-content: space-between;
+		width: 600rpx;
+	}
 	.logisticsInfo {
 		font-size: 9pt;
 	}
+	.setClipboard{
+		font-size:26rpx;
+		padding:10rpx 20rpx;
+		margin:0;
+		line-height:2;
+		height:70rpx;
+		align-self:flex-end;
+	}
+
 
 	.status {
 		color: $priceColor;
@@ -114,7 +127,9 @@
 	}
 
 	.itemContent {
-		padding: 0 30rpx 20rpx;
+		padding:0 30rpx 50rpx;
+		font-size:28rpx;
+		line-height:1.7;
 	}
 
 	.datetime {

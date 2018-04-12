@@ -3,11 +3,11 @@
 .flashItem {
 	display: flex;
 	background-color: #fff;
-	padding: 20rpx 0;
+	padding:10rpx 0;
 	align-items: center;
 
 	.meta {
-		padding-left: 30rpx;
+		padding-left:30rpx;
 		width: 470rpx;
 		display: flex;
 		flex-direction: column;
@@ -18,12 +18,12 @@
     white-space: nowrap;
     text-overflow:ellipsis;
     color: $titleColor;
-    font-size: 12pt;
+    font-size: 32rpx;
 	}
 
 	.desc {
-		color: $originalPriceColor;
-		font-size: 9pt;
+		color: $tagColor;
+		font-size: 26rpx;
 		margin-top: 10rpx;
 		white-space: nowrap;
     text-overflow: ellipsis;
@@ -33,7 +33,7 @@
 	.timeLimit {
 		display: flex;
 		align-items: center;
-		font-size: 10pt;
+		font-size: 26rpx;
 		margin-top: 30rpx;
 		margin-bottom: 30rpx;
 
@@ -45,6 +45,7 @@
 			text-align: center;
 			background-color: $mainColor;
 			margin: 0 10rpx;
+			font-size:26rpx;
 		}
 
 		.hour {
@@ -58,18 +59,18 @@
 		flex-grow: 1;
 
 		.flashPriceTitle {
-			font-size: 9pt;
+			font-size: 26rpx;
 			color: $titleColor;
 			margin-right: 10rpx;
 		}
 
 		.flashPrice {
-			font-size: 12pt;
+			font-size: 36rpx;
 			color: $priceColor;
 		}
 
 		.originalPriceTitle, .originalPrice {
-			font-size: 8pt;
+			font-size:22rpx;
 			color: $originalPriceColor;
 			margin-right: 10rpx;
 		}
@@ -84,11 +85,15 @@
 
 		.buy {
 			float: right;
-			font-size: 10pt;
+			font-size: 26rpx;
 			color: #fff;
 			background-color: $mainColor;
-			padding: 10rpx 20rpx;
-			margin-right: 20rpx;
+			margin-right:20rpx;
+			width:110rpx;
+			height:48rpx;
+			text-align:center;
+			line-height:48rpx;
+
 		}
 	}
 
@@ -99,4 +104,8 @@
 		height: $size;
 		flex-shrink: 0;
 	}
+}
+.price{
+	font-size: 26rpx;
+	color: $priceColor;
 }

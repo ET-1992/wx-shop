@@ -17,12 +17,17 @@
 		"pages/flashList/flashList",
 		"pages/peanutPay/index",
 		"pages/myCoupons/myCoupons",
+		"pages/articleDetail/articleDetail",
+		"pages/articleList/articleList",
 		"pages/couponProducts/couponProducts",
-		"pages/orderCoupons/orderCoupons"
+		"pages/orderCoupons/orderCoupons",
+		"pages/commentList/commentList",
+		"pages/loadProduct/loadProduct",  
+		"pages/myFav/myFav"
 	],
 	"window": {
 		"backgroundTextStyle": "white",
-		"navigationBarBackgroundColor": "#47414D",
+		"navigationBarBackgroundColor": "#56A2B8",
 		"navigationBarBackgroundColorRed": "#3B89D8",
 		"navigationBarBackgroundColorBlue": "#245e74",
 		"navigationBarBackgroundColorGreen": "#22926c",
@@ -32,7 +37,7 @@
 	"tabBar": {
 		"color": "#a39896",
 		"selectedColor": "#45424e",
-		"backgroundColor": "#eee",
+		"backgroundColor": "#fff",
 		"backgroundColorRed": "#eb7581",
 		"backgroundColorBlue": "#1e8aa6",
 		"backgroundColorGreen": "#71bca8",

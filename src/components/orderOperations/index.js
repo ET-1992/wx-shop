@@ -22,11 +22,20 @@ Component({
 			type: Number,
 			value: 0,
 		},
+		orders:{
+			type: Array,
+			value:[]
+		},
+		order:{
+			type: Object,
+			value:{}
+		}
 	},
 
 	methods: {
 		async onPayOrder() {
-			const { orderNo, orderIndex } = this.data;
+			console.log(this.data)
+			const { orderNo, orderIndex,orders,order } = this.data;
 			const { status,pay_sign,pay_appid } = await api.hei.payOrder({
 				order_nos: JSON.stringify([orderNo])
 			});
@@ -50,29 +59,52 @@ Component({
 				});
 			}
 			else if (pay_appid) {
-				console.log('平台支付2')
-				 wx.navigateToMiniProgram({
+			console.log('平台支付2')
+			
+
+				if(orders.length<1){
+					
+					this.setData({
+						orderList:order
+					})
+				}else{
+
+					this.setData({
+						orderList:orders[orderIndex]
+					})
+				}
+				// console.log('外面',orderList);
+				 const address = {
+					userName:this.data.orderList.receiver_name,
+					receiver_phone:this.data.orderList.receiver_phone,
+                    provinceName:this.data.orderList.receiver_state,
+                    cityName:this.data.orderList.receiver_city,
+                    countyName:this.data.orderList.receiver_district,
+                    detailInfo:this.data.orderList.receiver_address,
+				}
+				console.log(this.data)
+				wx.navigateToMiniProgram({
 					appId: pay_appid,
 				  	path: `/pages/peanutPay/index?order_no=${orderNo}`,
 				  	extraData: {
-				    	order_no: orderNo,
-				    	address:this.data.address,
-						items:this.data.items,
-						totalPrice:this.data.totalPrice,
-						totalPostage:this.data.totalPostage,
-						quantity:this.data.quantity,
-						orderPrice:this.data.orderPrice,
-						coupons:this.data.coupons,
-						buyerMessage:this.data.buyerMessage,
-						couponPrice:this.data.couponPrice,
-						orderPrice:this.data.orderPrice
+				    	// order_no: orderNo,
+				    	address:address,
+						items:this.data.orderList.items,
+						totalPrice:this.data.orderList.amount,
+						totalPostage:this.data.orderList.postage,
+						quantity:this.data.orderList.quantity,
+						orderPrice:this.data.orderList.orderPrice,
+						coupons:this.data.orderList.coupons,
+						buyerMessage:this.data.orderList.buyerMessage,
+						couponPrice:this.data.orderList.couponPrice,
+						orderPrice:this.data.orderList.amount
 				  	},
-				  	envVersion: 'develop',
+				  	envVersion: 'release',
 					success(res) {
 					    console.log('success: ' + res.errMsg)
 					},
 					fail(res) {
-						
+						console.log(res)
 					wx.redirectTo({
 						url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
 					});

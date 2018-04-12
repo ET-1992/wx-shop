@@ -10,12 +10,15 @@
     wx:for="{{ products }}"
     wx:key="id"
   >
+   <navigator url="/pages/productDetail/productDetail?id={{ item.id }}" >
     <template
       is="grouponItem"
       data="{{ product: item }}"
     />
+     </navigator>
+
   </view>
-  <view
+   <view
     class="bottomHint"
     wx:if="{{ products.length && !next_cursor }}"
   >-这是一条底线-</view>

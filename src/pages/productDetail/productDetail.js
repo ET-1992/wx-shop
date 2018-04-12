@@ -499,6 +499,11 @@ Page({
 		});
 		this[actionType]();
 	},
-
+	async submit(e){
+		const data = await api.hei.bindSubmit({
+			form_id:e.detail.formId
+		});
+		console.log(data);
+	},
 	onShareAppMessage: onDefaultShareAppMessage,
 });

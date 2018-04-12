@@ -137,6 +137,50 @@ const apis = {
         method: 'POST',
         requestType: 'uploadFile',
     },
+    // 文章详情
+    articleDetail:{
+        path:'api/mag.article.get.json',
+        method:'GET'
+    },
+    // 文章列表
+    articleList:{
+        path:'api/mag.article.list.json',
+        method:'GET'
+    },
+    // 收藏
+    fav:{
+        path:'api/mag.article.fav.json',
+        method:'POST',
+        isForceToken: true,
+    },
+    // 取消收藏
+    unfav:{
+        path:'api/mag.article.unfav.json',
+        method:'POST',
+        isForceToken: true,
+    },
+    // 收藏列表
+    queryFavList:{
+        path:'api/mag.article.fav.list.json',
+        method:'GET',
+        isForceToken: true,
+    },
+    // 评论
+    createReply:{
+        path:'api/mag.article.reply.json',
+        method:'POST',
+        isForceToken: true
+
+    }, 
+    deleteReply:{
+        path:'api/mag.article.reply.delete.json',
+        method:'POST',
+        isForceToken: true
+    },
+    bindSubmit:{
+        path:'api2/form_id.json',
+        method:'POST',
+    }
 };
 
 export default new API({ apis, host });

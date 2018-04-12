@@ -1,6 +1,6 @@
 <template name="mock">
   <view
-    bindtap="onMockCancel"
+    catchtap="onMockCancel"
     class="mock {{ isShow ? 'mockShow' : '' }}"
     />
 </template>

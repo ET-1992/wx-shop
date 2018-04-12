@@ -1,21 +1,22 @@
 <template name="grouponItem">
-  <navigator
-    class="grouponItem"
-    url="/pages/productDetail/productDetail?id={{ product.id }}"
-  >
+  <view class="grouponItem" >
     <image class="productImage" src="{{ product.thumbnail }}"/>
     <view class="meta">
       <view class="name">{{ product.title }}</view>
       <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
       <view class="grouponInfo">
         <view class="grouponLimit">{{ product.groupon_member_limit }}人团</view>
-        <view class="grouponPrice">￥{{ product.groupon_price }}</view>
+        <view class="grouponPrice"><text class="aloneBuy">￥</text>{{ product.groupon_price }}</view>
         <view>单独购买<text class="price">￥{{ product.price }}</text></view>
       </view>
       <view class="footer">
         <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
-        <view class="groupBt">去开团</view>
+        <form bindsubmit="submit" report-submit="true">
+          <button  class="groupBt" formType="submit">去开团</button>
+        </form>
+        
       </view>
     </view>
-  </navigator>
+  </view>
 </template>
+ 

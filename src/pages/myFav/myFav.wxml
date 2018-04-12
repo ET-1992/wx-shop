@@ -1,0 +1,20 @@
+<block wx:if="{{topics.length}}">
+	<view class="favList" wx:for="{{topics}}" wx:key="id">
+		<navigator url="../articleDetail/articleDetail?id={{item.id}}">
+			<image class="avatar" src="{{item.banner}}"></image>
+			<view class="favDetail">
+				<view class="m-tt">{{item.title}}</view>
+				<view class="m-desc">{{item.excerpt}}</view>
+			</view>
+
+			</navigator>
+		
+	</view>
+</block>
+
+<block wx:else>
+	<view class="favList">
+		<image class="favBg" src="../../icons/favBg.png"></image>
+	</view>
+</block>
+

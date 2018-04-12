@@ -9,13 +9,16 @@ App({
 
 	async onShow(options) {
 		
-	
-		this.globalData.extraData = options.referrerInfo.extraData
 		const { query = {} } = options;
 		if (query.vendor) {
 			this.globalData.vendor = query.vendor;
 		}
+		console.log(this.globalData);
 		// await login();
+		if(options.referrerInfo) {
+			this.globalData.extraData = options.referrerInfo.extraData
+		}
+		console.log(this.globalData);
 	},
 
 	onError(err) {

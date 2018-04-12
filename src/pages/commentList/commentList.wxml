@@ -1,0 +1,5 @@
+<view class="container {{topic.reply_count?'' : 'commentBg'}}">
+
+	<include src="../../templates/common/comments.wxml" />
+	<include src="../../templates/common/comment-form.wxml" />
+</view>

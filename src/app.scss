@@ -67,3 +67,14 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	margin-right: 30rpx;
 	margin-bottom: 0;
 }
+button{
+	border:0;
+	outline: 0;
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+}
+button::after{
+	border:0;
+	outline: 0;
+}

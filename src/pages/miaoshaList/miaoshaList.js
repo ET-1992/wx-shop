@@ -46,7 +46,7 @@ Page({
 	async onLoad () {
 		this.loadProducts();
 	},
-
+	
 	async onPullDownRefresh() {
 		this.setData({ isRefresh: true, next_cursor: 0 });
 		await this.loadProducts();

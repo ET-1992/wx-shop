@@ -1,0 +1,44 @@
+@import '~styles/color';
+
+.m-list{
+    /*border: 1px solid #c9c9c9;*/
+    border-radius: 10rpx;
+    width: 694rpx;
+    margin: auto;
+    margin-bottom: 20rpx;
+    $f-fs-15: 30rpx;
+    $f-fs-18: 36rpx;
+    >.m-desc{
+      padding-top: 26rpx;
+      width: 100%;
+      .m-tt{
+         font-size:$f-fs-18;
+         color:$titleColor; 
+          width: 100%;
+          overflow:hidden; 
+          text-overflow:ellipsis;
+          display:-webkit-box; 
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2; 
+      } 
+      .m-toe{
+          margin: 10rpx 0rpx 32rpx 0rpx;
+          font-size:  $f-fs-15;
+          color: $tagColor;
+          .f-toe{
+            width: 100%;
+            overflow:hidden; 
+            text-overflow:ellipsis;
+            display:-webkit-box; 
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2; 
+          }
+      }
+    }
+  image{
+    width: 690rpx;
+    height: 400rpx;
+    border-radius: 10rpx;
+  }
+}
+

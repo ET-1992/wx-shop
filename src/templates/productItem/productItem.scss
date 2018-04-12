@@ -8,7 +8,7 @@
 
 .prodcutItemName {
 	color: $titleColor;
-	font-size: 13px;
+	font-size: 32rpx;
 }
 
 .productItemTag {
@@ -27,13 +27,13 @@
 	color: $originalPriceColor;
 	text-decoration: line-through;
 	margin-left: 10rpx;
-	font-size: 10pt;
+	font-size: 22rpx;
 }
 
 .productItemSold {
 	flex-grow: 1;
 	text-align: right;
-	font-size: 8pt;
+	font-size: 22rpx;
 	color: #9fa0a0;
 }
 
@@ -50,7 +50,7 @@
 	}
 
 	.productItemOriginPrice {
-		font-size: 12pt;
+		font-size: 22rpx;
 	}
 
 	.productItemImage {
@@ -80,7 +80,7 @@
 		-webkit-line-clamp: 2; //文本行数
 		overflow: hidden;
 		text-overflow: ellipsis;
-		min-height: 64rpx;
+		
 	}
 
 	.productItemImage {
@@ -89,19 +89,25 @@
 	}
 
 	.productItemInfo {
-		padding:0 20rpx;
+		padding:0 8rpx;
+		height:130rpx;
+		display:flex;
+		flex-direction:column;
+		justify-content:space-between;
+		margin-top:10rpx;
+
 	}
 
 	.productItemPrice {
-		font-size: 11pt;
+		font-size: 32rpx;
 	}
 
 	.productItemOriginPrice {
-		font-size: 7pt;
+		font-size: 22rpx;
 	}
 
 	.productItemSold {
-		font-size: 7pt;
+		font-size: 22rpx;
 	}
 
 	.tagWrapper {

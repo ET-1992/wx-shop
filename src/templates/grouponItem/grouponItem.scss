@@ -3,59 +3,60 @@
 .grouponItem {
 	display: flex;
 	background-color: #fff;
-	padding-right: 10rpx;
+	padding-right: 34rpx;
 
 	.productImage {
 		$size: 280rpx;
 
 		height: $size;
 		width: $size;
-		margin:0 20rpx;
 		flex-shrink: 0;
 	}
 
 	.meta {
-		padding: 10rpx;
-		display: flex;
-		flex-direction: column;
-		width: 100rpx;
-		flex-grow: 1;
-		margin-top:10rpx;
+		padding: 6rpx;
+	    display: flex;
+	    padding-left: 38rpx;
+	    flex-direction: column;
+	    width: 100rpx;
+	    flex-grow: 1;
+	    margin: 16rpx 0 10rpx 0;
+	    padding-bottom: 0;
 	}
 
 	.name {
-		font-size: 14px;
+		font-size: 32rpx;
 		color: $titleColor;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2; //文本行数
+		-webkit-line-clamp: 1; //文本行数
 		overflow: hidden;
     text-overflow:ellipsis;
     line-height: 1.2;
 	}
 
 	.desc {
-		font-size: 12px;
+		font-size: 26rpx;
 		color: $originalPriceColor;
 		overflow: hidden;
-    white-space: nowrap;
-    text-overflow:ellipsis;
-    margin-top: 10rpx;
-	}
+	    white-space: nowrap;
+	    text-overflow:ellipsis;
+	    margin-top: 10rpx;
+		}
 
 	.grouponInfo {
-		display: flex;
-		font-size: 9pt;
+		display:flex;
+		font-size:26rpx;
 		color: $tagColor;
-		align-items: flex-end;
-		margin: 20rpx 0;
+		align-items:flex-end;
+		margin:54rpx 0 0rpx 0;
 	}
 
 	.grouponPrice {
 		color: $priceColor;
 		margin-left: 10rpx;
 		margin-right: 20rpx;
-		font-size: 12pt;
+		font-size: 36rpx;
 
 	}
 
@@ -67,24 +68,29 @@
 		display: flex;
 		align-items: flex-end;
 		flex-grow: 1;
-		margin-bottom: 10rpx;
 	}
 
 	.groupNumber {
-		font-size: 9pt;
+		font-size: 26rpx;
 		color: $tagColor;
 		flex-grow: 1;
-		padding-bottom:30rpx;
+		padding-bottom:6rpx;
 	}
 
 	.groupBt {
 		float: right;
-		font-size: 10pt;
+		font-size: 26rpx;
 		color: #fff;
 		background-color: $mainColor;
-		padding: 12rpx 30rpx;
 		display: inline-block;
-		margin-bottom: 20rpx;
-		margin-right:10rpx;
+		width:110rpx;
+		height:48rpx;
+		line-height:48rpx;
+		text-align:center;
 	}
+}
+
+.aloneBuy{
+	color: $priceColor;
+	font-size:26rpx;
 }

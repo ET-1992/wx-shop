@@ -1,0 +1,34 @@
+<import src="/templates/articleItem/articleItem.wxml"/>
+<view class="container">
+	<scroll-view scroll-x class="scrollSegmentcontrol">
+		<view catchtap="handleArticleList" class="category {{current==0 ? 'navSelected':''}}" id="0">全部</view>
+			<view catchtap="handleArticleList" data-index="{{index}}" class="category {{current==item.id?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}"  wx:key="id" >
+			    {{item.name}}
+			</view>
+			</scroll-view>
+
+	<view class="articleList">
+		<navigator class="m-list" wx:for="{{ articleList }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+		  	<image src='{{item.banner}}' style="height: {{article_banner_height}}rpx"></image>
+			<template is="articleItem" data="{{ article: item}}" />
+		</navigator>
+	</view>
+	
+</view>
+<!-- <view class="container">
+	<scroll-view scroll-x>
+		<view class="navbar" style="width:{{scrollWidth}}px">
+		
+			<view catchtap="handleArticleList" data-index="{{index}}" class="{{current==item.id?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}"  wx:key="id" >
+			    {{item.name}}
+			</view>
+		</view>
+	</scroll-view>
+	<swiper autoplay="{{false}}" current="" bindchange="changeCurrent">
+    <swiper-item wx:for="{{articleList}}"  wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+      	<image src='{{item.banner}}' mode="widthFix"></image>
+		  <template is="articleItem" data="{{ article: item}}" />
+    </swiper-item>
+	</swiper>
+</view> -->
+	<!-- <view catchtap="handleArticleList" class="{{current==0 ? 'navSelected':''}}" id="0">全部</view> -->

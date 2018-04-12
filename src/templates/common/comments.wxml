@@ -1,0 +1,25 @@
+<view class="s-comments">
+	<view class="s-comments__content">
+		<view class="c-commentList">
+			<view class="c-comment" wx:for="{{topic.replies}}" wx:key="item.id" bindtap="replyTo" data-openid="{{item.user.openid}}" data-id="{{item.id}}" data-user="{{item.user.nickname}}">
+				<image src="{{item.user.avatarurl}}" class="c-comment__avatar" background-size="cover"></image>
+				<view class="c-comment__content">
+					<view class="c-comment__header">
+						<view class="c-comment__user">{{item.user.nickname}}</view>
+						<view class="c-comment__time">{{item.time}}</view>
+					</view>
+					<view class="c-comment__body">
+						<block wx:if="{{item.reply_to.user}}">
+							回复<view class="c-comment__replyto">{{item.reply_to.user ? item.reply_to.user.nickname + ': ' : ''}}</view>
+						</block>
+						{{item.text}}
+					</view>
+				</view>
+			</view>
+			<!-- END .c-comment -->
+		</view>
+		<!-- END .c-commentList -->
+	</view>
+	<!-- END .s-comments__content -->
+</view>
+<!-- END .s-comments -->

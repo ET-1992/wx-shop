@@ -70,11 +70,16 @@ video{
 	color: $originalPriceColor;
 	font-size: 8pt;
 	background-color: #fff;
-
+	button{
+		color: $originalPriceColor;
+		font-size: 8pt;
+		background-color: #fff;
+		text-align:left;
+		}
 	.coupon {
 		background-color: $couponMainColor;
 		color: #fff;
-		padding: 4rpx 10rpx;
+		padding: 10rpx 10rpx;
 		margin-left: 20rpx;
 		display: inline-block;
 	}
@@ -375,14 +380,14 @@ button {
 
 .actionSheetContent {
 	$buttonHeight: 90rpx;
-
+	
 	background-color: #fff;
 	position: fixed;
 	width: 100%;
 	left: 0;
 	bottom: 0;
 	z-index: 11;
-	padding: 20rpx 40rpx $buttonHeight+40rpx;
+	padding: 20rpx 62rpx $buttonHeight+40rpx;
 	transform: translateY(120%);
 	transition: transform 0.4s ease;
 
@@ -394,11 +399,14 @@ button {
 		transform: translateY(0);
 	}
 
-
+	
 	.head {
 		display: flex;
 		font-size: 10pt;
-
+		.skuDescribe{
+			margin-bottom: 24rpx;
+			display: flex;
+		}
 		.skuImg {
 			$size: 180rpx;
 
@@ -407,9 +415,6 @@ button {
 			border: 1px solid #fff;
 			margin-right: 40rpx;
 			position: relative;
-			top: -80rpx;
-			left: 0;
-			flex-shrink: 0;
 			box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
 
 		}
@@ -421,12 +426,16 @@ button {
 
 		.skuInfo {
 			color: $originalPriceColor;
+			display:flex;
+			flex-direction:column;
+			justify-content:flex-end;
 		}
 	}
-
+	.stock,.price,.property{
+		margin-bottom: 5rpx;
+	}
 	.skuGroup {
-		border-bottom: 1px solid #eee;
-		padding: 10rpx 0;
+		padding: 24rpx 0;
 	}
 
 	.sku {
@@ -434,8 +443,8 @@ button {
 	}
 
 	.title {
-		margin-bottom: 5rpx;
-		font-size: 10pt;
+		margin-bottom: 20rpx;
+		font-size: 28rpx;
 	}
 
 	.titleHint {
@@ -444,23 +453,28 @@ button {
 	}
 
 	.skuItem {
-		font-size: 9pt;
-		display: inline-block;
-		padding: 10rpx 30rpx;
-		background-color: #eee;
-		margin-right: 20rpx;
-		margin-bottom: 20rpx;
+		display:inline-block;
+		padding:0rpx 32rpx;
+		margin-right:20rpx;
+		margin-bottom:20rpx;
+		border:1px solid #999;
+		font-size:28rpx;
+		color:#333;
+		height:60rpx;
+		line-height:60rpx;
+		color: $titleColor;
 	}
 
 	.skuItem.selected {
-		background-color: $priceColor;
+		background-color: $mainColor;
 		color: #fff;
+		border:1px solid $mainColor;
 	}
 
 	.quantity {
-		display: flex;
+		/*display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: space-between;*/
 	}
 
 
@@ -550,4 +564,9 @@ button {
 
 img, .__bg_gif {
 		width: 100%;
+}
+
+.skuScroll{
+	height:360rpx;
+	
 }

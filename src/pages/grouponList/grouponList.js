@@ -45,7 +45,11 @@ Page({
 	async onLoad () {
 		this.loadProducts();
 	},
-
+	async submit(e){
+		const data = await api.hei.bindSubmit({
+			form_id:e.detail.formId
+		});
+	},
 	async onPullDownRefresh() {
 		this.setData({ isRefresh: true, next_cursor: 0 });
 		await this.loadProducts();

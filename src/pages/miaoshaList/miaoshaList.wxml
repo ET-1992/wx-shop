@@ -7,10 +7,12 @@
 
 
   <view wx:for="{{ products }}" wx:key="{{ item.id }}">
+    <navigator url="/pages/productDetail/productDetail?id={{ item.id }}" >
     <flashItem
       isList="{{ true }}"
       product="{{ item }}"
     />
+    </navigator>
   </view>
   <view
     class="bottomHint"

@@ -16,14 +16,14 @@ Page({
 
 		products: [],
 		product_categories: [],
-		home_sliders: {
+		home_sliders: { 
 			home_sliders: [],
 		},
 		miaoshas: [],
 		groupons: [],
 		featured_products: [],
 		coupons: [],
-
+			
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		categoryListStyle: CATEGORY_LIST_STYLE[2],
 		isRefresh: false,
@@ -32,32 +32,40 @@ Page({
 		post_type_title: '',
 		taxonomy_title: '',
 		share_title: '',
-		page_title: ''
+		page_title: '',
+		type:''
 	},
 
-	async loadProducts() {
-		// this.setData({ isLoading: true });
-		const { next_cursor, products } = this.data;
+	// async loadProducts() {
+	// 	// this.setData({ isLoading: true });
+	// 	const { next_cursor, products } = this.data;
 
-		const data = await api.hei.fetchProductList({
-			cursor: next_cursor
-		});
-		const newProducts = products.concat(data.products);
-		this.setData({
-			products: newProducts,
-			next_cursor: data.next_cursor,
-		});
-		// this.setData({ isLoading: false });
-		// return data;
-	},
+	// 	const data = await api.hei.fetchProductList({
+	// 		cursor: next_cursor
+	// 	});
+
+	// 	const newProducts = products.concat(data.products);
+	// 	this.setData({
+	// 		products: newProducts,
+	// 		next_cursor: data.next_cursor
+	// 	});
+	// 	// this.setData({ isLoading: false });
+	// 	// return data;
+	// },
 
 	onBannerClick(ev) {
 		const { path } = ev.currentTarget.dataset;
-		if (path) {
-			autoRedirect({ url: path });
+		const type = 'navigate'
+		if (path,type) {
+			autoRedirect({ url: path,type:type });
 		}
 	},
-
+	async submit(e){
+		const data = await api.hei.bindSubmit({
+			form_id:e.detail.formId
+		});
+		console.log(data);
+	},
 	async loadHome() {
 		this.setData({ isLoading: true });
 		const data = await api.hei.fetchHome();

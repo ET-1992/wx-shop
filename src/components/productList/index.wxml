@@ -13,9 +13,5 @@
       <include wx:if="{{ productListStyle === 'list' }}" src="/templates/productItem/list.wxml"/>
     </navigator>
   </view>
-  <view
-    class="bottomHint"
-    wx:if="{{ products.length && !nextCursor }}"
-  >-这是一条底线-</view>
 </view>
 
