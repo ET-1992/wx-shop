@@ -12,11 +12,12 @@
 
 .statusBar {
 	$height: 80rpx;
-
+	position: fixed;
 	background-color: $mainColor;
 	color: #fff;
 	font-size: 10pt;
 	height: $height;
+	width: 100%;
 
 	.statusItem {
 		width: 16%;
@@ -35,7 +36,9 @@
 		}
 	}
 }
-
+.orderItem{
+	padding-top: 80rpx;
+}
 .order {
 	background-color: #fff;
 	margin-bottom: 10rpx;

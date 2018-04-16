@@ -42,8 +42,7 @@ Page({
 			const { items } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			const { isCancel, order_no } = this.options;
-			const totalPrice = currentOrder.totalPrice.toFixed(2) 
-			console.log(totalPrice);
+			const totalPrice = currentOrder.totalPrice 
 			let totalPostage = 0;
 
 			//跳转支付后返回 取消支付状态isCanecl为true
@@ -102,7 +101,9 @@ Page({
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
 			currentOrder.orderPrice = orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
-			currentOrder.totalPrice = currentOrder.totalPrice.toFixed(2)
+			// currentOrder.totalPrice = totalPrice >= 0 ? totalPrice.toFixed(2) : '0.00';
+			// console.log(currentOrder.totalPrice)
+			// console.log(totalPrice)
 			// currentOrder.orderPrice = (
 			// 	+totalPrice +
 			// 	totalPostage -
@@ -110,9 +111,7 @@ Page({
 			// ).toFixed(2);
 			//
 			this.setData(currentOrder);
-			this.setData({
-				totalPrice:this.data.totalPrice
-			})
+			
 		}
 		catch (err) {
 			console.log(err);

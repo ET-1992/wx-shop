@@ -22,8 +22,8 @@
     暂无内容
   </view>
 
-
-  <view
+<view class="orderItem">
+     <view
     class="order"
     wx:for="{{ orders }}"
     wx:key="id"
@@ -68,6 +68,8 @@
       bindcloseOrder="onCloseOrder"
     />
   </view>
+</view>
+ 
   <view
     class="bottomHint"
     wx:if="{{ orders.length && !next_cursor }}"

@@ -25,7 +25,7 @@ Component({
 			const { type } = ev.currentTarget.dataset;
 			const { value, postId, skuId, max } = this.data;
 			const isDecrease = type === 'decrease';
-
+			const isAdd = type === 'add'
 			if (isDecrease && !(value > 1)) {
 				wx.showModal({
 					title: '温馨提示',
@@ -33,9 +33,11 @@ Component({
 					showCancel: false,
 				});
 				return;
+
 			}
 
-			if (value >= max) {
+			if (isAdd &&value >= max) {
+				console.log('222')
 				wx.showModal({
 					title: '温馨提示',
 					// content: `不能超过最大值${max}`,
@@ -44,6 +46,9 @@ Component({
 				});
 				return;
 			}
+				
+
+		
 
 			const addNum = isDecrease ? -1 : 1;
 			const updateData = {
