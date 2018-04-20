@@ -56,7 +56,6 @@ Page({
 				console.log(savePrice);
 			}
 		});
-
 		totalPrice = totalPrice.toFixed(2);
 		savePrice = savePrice.toFixed(2);
 		postagePrice = postagePrice.toFixed(2);

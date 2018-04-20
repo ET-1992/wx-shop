@@ -11,37 +11,38 @@ page{
 .articleList{
 	padding-top:120rpx;
 }
-.container .navbar{
-	background: $mainColor;
-	width: 100%;
-	color: #fff;
-	height: 60rpx;
-	line-height: 54rpx;
-	
-}
+
 .navSelected{
 	border-bottom: 6rpx solid #fff;
 }
 .conc{
 	margin-top:62rpx;
 }
+.scrollView{
+	z-index:1;
+	margin-top:150rpx;
+	height:100%;
+	padding-bottom:170rpx;
 
+}
 .scrollSegmentcontrol{
+	z-index:100;
 	position: fixed;
 	top: 0;
 	background-color: $mainColor;
 	color: #fff;
 	left: 0;
 	white-space: nowrap;
-	.category{
-		/*padding:10rpx 24rpx;
-		flex-shrink: 0;
-		float: left;
-		display: inline-block;*/
-		flex-shrink: 0;
-		padding:20rpx 16rpx;
-		margin:0rpx 20rpx;
+
+}
+.category{
+		flex-shrink:0;
+		padding:14rpx 16rpx;
+		margin:21rpx;
+		marign-top:0;
 		margin-bottom:0;
-		display: inline-block;
+		display:inline-block
 	}
+swiper{
+	height: 100vh;
 }

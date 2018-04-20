@@ -84,7 +84,7 @@ Page({
 			totalPrice = totalPrice + price * quantity;
 			console.log(totalPrice)
 		});
-		this.setData({totalPrice:totalPrice})
+		this.setData({totalPrice:Number(totalPrice).toFixed(2)})
 	},
 	async loadGroupon(id) {
 		console.log('grouponId', id);

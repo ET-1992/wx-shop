@@ -42,8 +42,9 @@ Page({
 			const { items } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			const { isCancel, order_no } = this.options;
-			const totalPrice = currentOrder.totalPrice 
+			const totalPrice = Number(currentOrder.totalPrice).toFixed(2)
 			let totalPostage = 0;
+
 
 			//跳转支付后返回 取消支付状态isCanecl为true
 			if (isCancel) {
@@ -101,6 +102,7 @@ Page({
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
 			currentOrder.orderPrice = orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
+
 			// currentOrder.totalPrice = totalPrice >= 0 ? totalPrice.toFixed(2) : '0.00';
 			// console.log(currentOrder.totalPrice)
 			// console.log(totalPrice)
@@ -275,7 +277,7 @@ Page({
 
 
 				await wx.navigateToMiniProgram({
-					envVersion: 'develop',
+					envVersion: 'release',
 					appId: pay_appid,
 				  	path: `/pages/peanutPay/index?order_no=${order_no}`,
 				  	extraData: {

@@ -39,7 +39,7 @@
 	   </block>
 	</swiper>
 </view>
-<view class="p-single">
+<view class="p-single  {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
 		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
 		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
@@ -53,18 +53,18 @@
 	</view>
 	
 	<view wx:if="{{article.label && article.products.length}}" class="label"><view class="dash"></view>{{article.label}}<view class="dash"></view></view>
-	<view class="relateShop">
+	<view class="relateShop" wx:if="{{product.length}}">
 		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
 			<image src="{{item.thumbnail}}"></image>
 			<view class="meta">
 				<view class="name">{{item.title}}</view>
 				<view class="desc">{{item.excerpt}}</view>
 			</view>
-			<view class="price">
-				<view  class="originalPrice">￥{{item.price}}</view>
-				
-					<view class="toBuy">立即购买</view>
-				
+			<view class="price">	
+				<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥{{item.miaosha_price}}</view>
+				<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥{{item.groupon_price}}</view>
+				<view class="originalPrice" wx:else>￥{{item.price}}</view>
+				<view class="toBuy">立即购买</view>			
 			</view>
 		</navigator>
 	</view>

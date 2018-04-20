@@ -56,7 +56,6 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	align-items: center;
 	margin: 50rpx auto;
 	font-size: 14px;
-	width: 64%;
 	color: #999;
 	flex-direction: row;
 	justify-content: center;
@@ -77,4 +76,71 @@ button{
 button::after{
 	border:0;
 	outline: 0;
+}
+/*卡片*/
+.alignnone{
+	display: block;
+	width: 100%;
+}
+.product-card{
+	width:90%;
+	color:#333;
+	padding:20rpx;
+	line-height:1.4;
+	margin:70rpx auto;
+	box-shadow:2px 2px 12px #ccc;
+	border-radius:4px;
+	height:278rpx;
+
+}
+.product-card-thumbnail{
+	width: 220rpx;
+	height: 220rpx;
+	float: left;
+}
+.product-card-title .wxParse-inline{
+ 	overflow: hidden;/*超出部分隐藏*/
+    white-space: nowrap;/*不换行*/
+    text-overflow:ellipsis;/*超出部分文字以...显示*/
+	font-size: 16px;
+	font-weight: normal;
+	color: $titleColor;
+	padding-left: 20rpx;
+	margin-top: 0;
+	width:380rpx;
+
+}
+.product-card-except .wxParse-inline{
+	overflow: hidden;/*超出部分隐藏*/
+    white-space: nowrap;/*不换行*/
+    text-overflow:ellipsis;/*超出部分文字以...显示*/
+	font-size: 13px;
+	color:$tagColor;
+	padding-left: 20rpx;
+	margin-bottom:40rpx;
+	width:380rpx;
+	}
+.product-card-meta{
+	float: right;
+	display: flex;
+	padding-left: 20rpx;
+	padding-top: 25rpx;
+}
+.product-card-price{
+	color:$priceColor;
+	font-size:18px;
+	width:240rpx;
+	margin-top:10rpx;
+	padding-top:30rpx;
+
+}
+.product-card-button{
+	padding:0rpx 20rpx;
+	color: #fff;
+	background:$mainColor;
+	font-size: 14px;
+	height:56rpx;
+	line-height:56rpx;
+	margin-top:34rpx;
+
 }

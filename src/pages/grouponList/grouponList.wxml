@@ -7,7 +7,7 @@
   
   <view
     class="itemWrapper"
-    wx:for="{{ products }}"
+    wx:for="{{ products }}" wx:if="{{item.groupon_enable=='1'}}"
     wx:key="id"
   >
    <navigator url="/pages/productDetail/productDetail?id={{ item.id }}" >

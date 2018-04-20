@@ -42,6 +42,7 @@ Page({
 			}, 0);
 			return order;
 		});
+
 		const newOrders = isRefresh ? formatedOrders : orders.concat(formatedOrders);
 		this.setData({
 			orders: newOrders,

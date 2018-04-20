@@ -18,7 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     this.getFavList()
       wx.setNavigationBarTitle({
         title: '我的收藏'
@@ -54,7 +54,34 @@ Page({
       args.isPull = false;
       this.setData(args)
   },
+  async unfav(e) {
+     
+      wx.showModal({
+        title:'确定取消收藏吗？',
+        async success(){
+          const data = await api.hei.unfav({
+              post_id: e.currentTarget.id
+          }).then(function(res){
+              wx.redirectTo({
+                url:'/pages/myFav/myFav',
+                success:function(res){
+                  wx.showToast({
+                    title: '取消收藏成功！',
+                    icon: 'success',
+                    duration: 2000
+                  })
+                },
+                fail(res){
+                     console.log(res)
+                }
+              })
+            
+          })
+        
+        }
 
+      })
+  },
   /** 
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -62,12 +89,8 @@ Page({
   
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+
+
 
   /**
    * 生命周期函数--监听页面隐藏

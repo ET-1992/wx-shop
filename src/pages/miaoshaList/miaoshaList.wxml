@@ -6,7 +6,7 @@
   </view>
 
 
-  <view wx:for="{{ products }}" wx:key="{{ item.id }}">
+  <view wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.miaosha_enable=='1'}}">
     <navigator url="/pages/productDetail/productDetail?id={{ item.id }}" >
     <flashItem
       isList="{{ true }}"

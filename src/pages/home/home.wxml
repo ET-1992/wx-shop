@@ -21,7 +21,7 @@
     <view wx:for="{{modules}}"  wx:for-item="modules">
      <!-- 幻灯片 -->
       <view wx:if="{{modules.key=='sliders'}}">
-       <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="#56A2B8" indicator-color="#fff">
+       <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="#729153" indicator-color="#fff">
           <swiper-item wx:for="{{ sliders }}" wx:key="id">
             <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
               <image src="{{ item.image }}"/>

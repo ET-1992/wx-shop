@@ -25,7 +25,6 @@ page{
 }
 .goBuyDesc{
 	position:absolute;
-	width:600rpx;
 	left:0;
 	top:50%;
 	bottom:20%;
@@ -89,7 +88,6 @@ page{
 
 .cartItem {
 	$imageSize: 180rpx;
-
 	display: flex;
 	align-items: center;
 	padding: 20rpx;
@@ -102,6 +100,8 @@ page{
 		width: $imageSize;
 		margin-right: 60rpx;
 		flex-shrink: 0;
+		border-radius: 6rpx;
+		border: 1px solid #ccc;
 	}
 
 	.propertyNames {
@@ -149,6 +149,9 @@ page{
 	text-align: right;
 	color: #ccc;
 	font-size: 10pt;
+	width:200rpx;
+	float:right;
+
 }
 
 .footer {
@@ -196,4 +199,30 @@ page{
 }
 .logo{
 	padding-bottom:110rpx;
+}
+/*已下架*/
+.itemImageList{
+	position: relative;
+}
+.stock0{
+	position: absolute;
+	width: 120rpx;
+	height: 120rpx;
+	left: 0;
+	right: 60rpx;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+.opacityBg{
+	background: rgba(255,255,255,0.6);
+	width: 180rpx;
+	height: 180rpx;
+}
+.stock0Radio{
+	width: 32rpx;
+	height: 32rpx;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	margin-right: 20rpx;
 }

@@ -472,9 +472,11 @@ button {
 	}
 
 	.quantity {
-		/*display: flex;
+		display: flex;
+		justify-content: space-between;
+		border-top: 1px solid #ddd;
+		padding-top: 40rpx;
 		align-items: center;
-		justify-content: space-between;*/
 	}
 
 
@@ -569,4 +571,16 @@ img, .__bg_gif {
 .skuScroll{
 	height:360rpx;
 	
+}
+.wxParse-img{
+	width: 750rpx;
+}
+.scrollSkus{
+	min-height:200rpx;
+	max-height: 800rpx;
+}
+.product-card-thumbnail{
+	width: 220rpx;
+	height: 220rpx;
+	float: left;
 }

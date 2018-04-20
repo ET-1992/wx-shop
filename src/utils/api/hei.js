@@ -1,15 +1,15 @@
 import { APPID } from 'constants/index';
 import { API } from './core';
-
 const host = 'https://api.wpweixin.com/';
+
 // const host = 'https://shenghuogou.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
 
 /**
- * path: 鎺ュ彛璺緞
- * method: 璇锋眰鏂规硶锛岄粯璁ET
- * isForceToken: 鏄惁闇�瑕佸甫token锛岄粯璁alse
- * requestType: 榛樿request, [request, uploadFile]
+ * path: 接口路径
+ * method: 请求方法，默认GET
+ * isForceToken: 是否需要带token，默认false
+ * requestType: 默认request, [request, uploadFile]
  **/
 const apis = {
     login: {
@@ -137,35 +137,35 @@ const apis = {
         method: 'POST',
         requestType: 'uploadFile',
     },
-    // 鏂囩珷璇︽儏
+    // 文章详情
     articleDetail:{
         path:'api/mag.article.get.json',
         method:'GET'
     },
-    // 鏂囩珷鍒楄〃
+    // 文章列表
     articleList:{
         path:'api/mag.article.list.json',
         method:'GET'
     },
-    // 鏀惰棌
+    // 收藏
     fav:{
         path:'api/mag.article.fav.json',
         method:'POST',
         isForceToken: true,
     },
-    // 鍙栨秷鏀惰棌
+    // 取消收藏
     unfav:{
         path:'api/mag.article.unfav.json',
         method:'POST',
         isForceToken: true,
     },
-    // 鏀惰棌鍒楄〃
+    // 收藏列表
     queryFavList:{
         path:'api/mag.article.fav.list.json',
         method:'GET',
         isForceToken: true,
     },
-    // 璇勮
+    // 评论
     createReply:{
         path:'api/mag.article.reply.json',
         method:'POST',

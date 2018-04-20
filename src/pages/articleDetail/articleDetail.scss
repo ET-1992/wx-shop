@@ -58,7 +58,7 @@ page{
 .p-single{
 	width:100%;
 	box-sizing: border-box;
-	padding:0rpx 0rpx 180rpx;
+	padding:0rpx 0rpx 50rpx;
 	line-height:1.8;
 	.m-header{
 		padding: 30rpx;
@@ -107,7 +107,7 @@ swiper image{
     text-overflow:ellipsis;/*超出部分文字以...显示*/
 	font-size: 16px;
 	font-weight: normal;
-	font-size: $titleColor;
+	color: $titleColor;
 	padding-left: 20rpx;
 	margin-top: 0;
 	width:380rpx;

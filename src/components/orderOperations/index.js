@@ -34,7 +34,6 @@ Component({
 
 	methods: {
 		async onPayOrder() {
-			console.log(this.data)
 			const { orderNo, orderIndex,orders,order } = this.data;
 			const { status,pay_sign,pay_appid } = await api.hei.payOrder({
 				order_nos: JSON.stringify([orderNo])

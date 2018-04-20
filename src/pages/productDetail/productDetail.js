@@ -4,7 +4,7 @@ import { showToast, showModal } from 'utils/wxp';
 import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
 import login from 'utils/login';
-
+const WxParse = require('../../utils/wxParse/wxParse.js');
 const app = getApp();
 
 const findSelectedSku = (skus, selectedProperties) => {
@@ -42,6 +42,7 @@ Page({
 			minute: '00',
 			second: '00',
 		},
+		contentList:{},
 		hasStart: true,
 		hasEnd: false,
 		timeLimit: 0,
@@ -126,6 +127,8 @@ Page({
 	},
 
 	async initPage() {
+		// var createSelectorQuery = wx.createSelectorQuery().select('.content>img')
+		// console.log(createSelectorQuery)
 		this.setData({
 			pendingGrouponId: '',
 			selectedProperties: [],
@@ -200,8 +203,11 @@ Page({
 				grouponId: grouponId || '',
 				receivedCoupons,
 				receivableCoupons,
+				
 				...data,
+				contentList:WxParse.wxParse('contentList', 'html', data.product.content, this, 5),
 			});
+			console.log(this.data.contentList);
 			this.countDown();
 		}
 		catch (err) {
@@ -217,7 +223,14 @@ Page({
 	currentIndex(e) {
 		this.setData({ current: e.detail.current });
 	},
-
+	wxParseTagATap(e) {
+        wx.navigateTo({
+            url: '/' + e.currentTarget.dataset.src,
+            success: function(res) {
+                console.log('跳转成功')
+            }
+        })
+    },
 	async onLoad({ id, grouponId }) {
 		const systemInfo = wx.getSystemInfoSync();
 		const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -400,7 +413,7 @@ Page({
 		const that = this;
 		that.setData({ autoplay: false, activeIndex: 1 });
 		this.videoContext.requestFullScreen({
-			direction: 0,
+			// direction: 0,
 		});
 	},
 	startPlay() {

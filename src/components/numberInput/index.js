@@ -18,6 +18,10 @@ Component({
 			type: Number,
 			value: 0,
 		},
+		status:{
+			type: Number,
+			value: 0,
+		}
 	},
 
 	methods: {
@@ -37,11 +41,10 @@ Component({
 			}
 
 			if (isAdd &&value >= max) {
-				console.log('222')
 				wx.showModal({
 					title: '温馨提示',
 					// content: `不能超过最大值${max}`,
-					content: `库存不足，不能超过最大值${max}`,
+					content: `库存不足，请重新选择`,
 					showCancel: false,
 				});
 				return;
