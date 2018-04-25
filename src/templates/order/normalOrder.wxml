@@ -22,7 +22,7 @@
       <view>收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}</view>
     </view>
   </view>
-</view> 
+</view>
 <view class="itemList">
  <view
   class="item"
@@ -44,7 +44,7 @@
           <view class="price">￥{{ item.price }}</view>
           <view class="originalPrice">￥{{ item.original_price }}</view>
         </view>
-        <view class="itemQuantity">x{{ item.quantity }}</view> 
+        <view class="itemQuantity">x{{ item.quantity }}</view>
       </view>
     </view>
  </view>
@@ -107,8 +107,9 @@
   <orderOperations
     statusCode="{{ order.statusCode }}"
     orderNo="{{ order.order_no }}"
-     order="{{order}}"
+    order="{{ order }}"
     isShowContact="{{ true }}"
+    user="{{ user }}"
     bindconfirmOrder="onRelaodOrder"
     bindpayOrder="onRelaodOrder"
     bindcloseOrder="onRelaodOrder"

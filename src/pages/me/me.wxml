@@ -85,7 +85,7 @@
       class="normalizeBt sectionItem contactBt"
       data-name="contact"
       open-type="contact"
-      session-from="profile"
+      session-from='{"nickName":"{{ user.nickname }}" ,"avatarUrl":"{{ user.avatarurl }}", "from": "profile"}'
     >
       <image class="itemIcon" src="../../icons/contact.png" />
       <view class="itemTitle">联系客服</view>
@@ -120,6 +120,5 @@
   <view class="close" bindtap="close">
     <image src="../../icons/close.png"></image>
   </view>
-<<<<<<< HEAD
 </view> -->
 

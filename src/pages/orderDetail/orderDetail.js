@@ -47,11 +47,11 @@ Page({
 		order.refundDate = formatTime(new Date(order.refund_time * 1000));
 		order.total_fee = (order.total_fee - 0).toFixed(2);
 		order.discount_fee = (order.discount_fee - 0).toFixed(2);
-		
+
 		console.log(order.logistics_info);
 		if (statusCode > 2 && statusCode < 5) {
 			data.logistics = order.logistics_info
-		
+
 		}
 
 		if (statusCode === 3) {
@@ -73,7 +73,7 @@ Page({
 		}
 
 		this.setData(data);
-		console.log('测试',data)
+		console.log('测试', data)
 		const {items} = order;
 		let totalPrice = 0;
 		items.forEach((item) => {
@@ -84,7 +84,7 @@ Page({
 			totalPrice = totalPrice + price * quantity;
 			console.log(totalPrice)
 		});
-		this.setData({totalPrice:Number(totalPrice).toFixed(2)})
+		this.setData({totalPrice: Number(totalPrice).toFixed(2)})
 	},
 	async loadGroupon(id) {
 		console.log('grouponId', id);
@@ -124,7 +124,8 @@ Page({
 	// },
 	async onShow() {
 		const { id, grouponId } = this.options;
-		this.setData({ isLoading: true });
+		const user = wx.getStorageSync(USER_KEY);
+		this.setData({ isLoading: true, user });
 		if (id) {
 			await this.loadOrder(id);
 		}
@@ -134,7 +135,7 @@ Page({
 		this.setData({ isLoading: false });
 		this.countDown();
 	},
-	
+
 	onUnload() {
 		clearInterval(this.intervalId);
 	},
@@ -162,7 +163,7 @@ Page({
 	},
 
 	onShareAppMessage() {
-		const { nickname } = wx.getStorageSync(USER_KEY);
+		const { nickname } = this.data.user;
 		const { groupon = {}, order = {} } = this.data;
 		const grouponId = groupon.id || order.groupon_id;
 		let shareMsg = {

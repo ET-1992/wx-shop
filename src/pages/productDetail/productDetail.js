@@ -4,7 +4,12 @@ import { showToast, showModal } from 'utils/wxp';
 import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
 import login from 'utils/login';
-const WxParse = require('../../utils/wxParse/wxParse.js');
+import { USER_KEY } from 'constants/index';
+
+// import { wxParse } from 'utils/wxParse/wxParse';
+
+const WxParse = require('utils/wxParse/wxParse.js');
+
 const app = getApp();
 
 const findSelectedSku = (skus, selectedProperties) => {
@@ -23,6 +28,7 @@ const findSelectedSku = (skus, selectedProperties) => {
 
 Page({
 	data: {
+		user: {},
 		title: 'productDetail',
 		autoplay: false,
 		product: {
@@ -42,7 +48,7 @@ Page({
 			minute: '00',
 			second: '00',
 		},
-		contentList:{},
+		contentList: {},
 		hasStart: true,
 		hasEnd: false,
 		timeLimit: 0,
@@ -127,6 +133,7 @@ Page({
 	},
 
 	async initPage() {
+
 		// var createSelectorQuery = wx.createSelectorQuery().select('.content>img')
 		// console.log(createSelectorQuery)
 		this.setData({
@@ -203,9 +210,14 @@ Page({
 				grouponId: grouponId || '',
 				receivedCoupons,
 				receivableCoupons,
-				
+				contentList: WxParse.wxParse(
+					'contentList',
+					'html',
+					data.product.content,
+					this,
+					5,
+				),
 				...data,
-				contentList:WxParse.wxParse('contentList', 'html', data.product.content, this, 5),
 			});
 			console.log(this.data.contentList);
 			this.countDown();
@@ -223,18 +235,20 @@ Page({
 	currentIndex(e) {
 		this.setData({ current: e.detail.current });
 	},
+
 	wxParseTagATap(e) {
-        wx.navigateTo({
-            url: '/' + e.currentTarget.dataset.src,
-            success: function(res) {
-                console.log('跳转成功')
-            }
-        })
-    },
+		wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
+	},
+
 	async onLoad({ id, grouponId }) {
 		const systemInfo = wx.getSystemInfoSync();
+		const user = wx.getStorageSync(USER_KEY);
 		const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-		this.setData({ indexparams: { id, grouponId }, isIphoneX });
+		this.setData({
+			indexparams: { id, grouponId },
+			isIphoneX,
+			user
+		});
 	},
 
 	onUnload() {
@@ -249,11 +263,13 @@ Page({
 
 		this.setData({
 			pendingGrouponId: grouponId,
-			actions: [{
-				type: 'onBuy',
-				text: '立即购买',
-				isGroupon: true
-			}]
+			actions: [
+				{
+					type: 'onBuy',
+					text: '立即购买',
+					isGroupon: true,
+				},
+			],
 		});
 		this.onShowSku();
 	},
@@ -413,6 +429,7 @@ Page({
 		const that = this;
 		that.setData({ autoplay: false, activeIndex: 1 });
 		this.videoContext.requestFullScreen({
+
 			// direction: 0,
 		});
 	},
@@ -512,9 +529,9 @@ Page({
 		});
 		this[actionType]();
 	},
-	async submit(e){
+	async submit(e) {
 		const data = await api.hei.bindSubmit({
-			form_id:e.detail.formId
+			form_id: e.detail.formId,
 		});
 		console.log(data);
 	},

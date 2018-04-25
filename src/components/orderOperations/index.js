@@ -29,7 +29,11 @@ Component({
 		order:{
 			type: Object,
 			value:{}
-		}
+		},
+		user:{
+			type: Object,
+			value:{}
+		},
 	},
 
 	methods: {
@@ -40,8 +44,8 @@ Component({
 			});
 			// console.log(payRes);
 
-		
-		
+
+
 			// await showToast({ title: '支付成功' });
 			if (status == 2) {
 				wx.hideLoading();
@@ -59,10 +63,10 @@ Component({
 			}
 			else if (pay_appid) {
 			console.log('平台支付2')
-			
+
 
 				if(orders.length<1){
-					
+
 					this.setData({
 						orderList:order
 					})
@@ -107,21 +111,21 @@ Component({
 					wx.redirectTo({
 						url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
 					});
-						console.log('fail: ' + res.errMsg)	
+						console.log('fail: ' + res.errMsg)
 					},
 					complete(res) {
-						console.log('complete: ' + res.errMsg)	
+						console.log('complete: ' + res.errMsg)
 					}
-					
+
 
 				})
-				
+
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
 				});
 			}
 			else {
-			
+
 				wx.hideLoading();
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,

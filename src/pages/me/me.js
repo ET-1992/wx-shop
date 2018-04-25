@@ -13,26 +13,27 @@ const itemActions = {
 
 // 创建页面实例对象
 Page({
+
 	// 页面的初始数据
 	data: {
 		user: {},
-		active:0,
+		active: 0,
 		orderCount: {
 			1: 0,
 			2: 0,
 			3: 0,
-			10: 0
+			10: 0,
 		},
 	},
 
 	async loadOrderCount() {
 		const data = await api.hei.fetchOrderCount({
-			status: '1,2,3,10'
+			status: '1,2,3,10',
 		});
 		this.setData({ orderCount: data.counts });
 	},
 
-	onLoad () {
+	onLoad() {
 		const user = wx.getStorageSync(USER_KEY);
 		this.setData({ user });
 	},
@@ -47,20 +48,20 @@ Page({
 	async onLogin() {
 		const { user } = await login();
 		this.setData({ user });
-		console.log(user)
+		console.log(user);
 		if (user.openid) {
 			this.loadOrderCount();
 		}
 	},
 	free() {
 		this.setData({
-			active:1
-		})
+			active: 1,
+		});
 	},
 	close() {
 		this.setData({
-			active:0
-		})
+			active: 0,
+		});
 	},
 	onItemClick(ev) {
 		const { name } = ev.currentTarget.dataset;
