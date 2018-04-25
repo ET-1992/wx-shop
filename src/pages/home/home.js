@@ -6,7 +6,6 @@ import getToken from 'utils/getToken';
 import login from 'utils/login';
 import autoRedirect from 'utils/autoRedirect';
 
-
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
 
@@ -16,14 +15,14 @@ Page({
 
 		products: [],
 		product_categories: [],
-		home_sliders: { 
+		home_sliders: {
 			home_sliders: [],
 		},
 		miaoshas: [],
 		groupons: [],
 		featured_products: [],
 		coupons: [],
-			
+
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		categoryListStyle: CATEGORY_LIST_STYLE[2],
 		isRefresh: false,
@@ -33,7 +32,7 @@ Page({
 		taxonomy_title: '',
 		share_title: '',
 		page_title: '',
-		type:''
+		type: '',
 	},
 
 	// async loadProducts() {
@@ -55,14 +54,15 @@ Page({
 
 	onBannerClick(ev) {
 		const { path } = ev.currentTarget.dataset;
-		const type = 'navigate'
-		if (path,type) {
-			autoRedirect({ url: path,type:type });
+		const type = 'navigate';
+		if ((path, type)) {
+			autoRedirect({ url: path, type: type });
 		}
 	},
-	async submit(e){
-		const data = await api.hei.bindSubmit({
-			form_id:e.detail.formId
+	async submit(e) {
+		console.log('fork');
+		const data = await api.hei.submitFormId({
+			form_id: e.detail.formId,
 		});
 		console.log(data);
 	},
@@ -71,13 +71,14 @@ Page({
 		const data = await api.hei.fetchHome();
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
-				title: data.page_title
+				title: data.page_title,
 			});
 		}
-		var Width
-		if(data.coupons && data.coupons.length) {
-			 Width = data.coupons.length * 250 + 20 * data.coupons.length;
+		var Width;
+		if (data.coupons && data.coupons.length) {
+			Width = data.coupons.length * 250 + 20 * data.coupons.length;
 		}
+
 		// delete data.coupons;
 
 		// const { shop_setting: { category_style, product_list_style } } = data;
@@ -86,8 +87,8 @@ Page({
 
 		this.setData({
 			isLoading: false,
-			conWidth:  Width ? Width : '',
-			...data
+			conWidth: Width || '',
+			...data,
 		});
 	},
 
@@ -98,11 +99,13 @@ Page({
 	async onReceiveCoupon(id, index) {
 		const { coupons } = this.data;
 
-		if (!coupons[index].stock_qty) { return; }
+		if (!coupons[index].stock_qty) {
+			return;
+		}
 
 		try {
 			const data = await api.hei.receiveCoupon({
-				coupon_id: id
+				coupon_id: id,
 			});
 			const { errcode } = data;
 			if (!errcode) {
@@ -117,7 +120,7 @@ Page({
 			await showModal({
 				title: '温馨提示',
 				content: err.errMsg,
-				showCancel: false
+				showCancel: false,
 			});
 		}
 	},
@@ -130,7 +133,7 @@ Page({
 			const { confirm } = await showModal({
 				title: '未登录',
 				content: '请先登录，再领取优惠券',
-				confirmText: '登录'
+				confirmText: '登录',
 			});
 			if (confirm) {
 				await login();
@@ -144,7 +147,7 @@ Page({
 		}
 		else {
 			wx.navigateTo({
-				url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`
+				url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
 			});
 		}
 	},
@@ -163,6 +166,7 @@ Page({
 	},
 
 	onShareAppMessage: onDefaultShareAppMessage,
+
 	// onShareAppMessage:function(res) {
 	// 	console.log(this.data)
 	// 	return {
@@ -172,4 +176,3 @@ Page({
 	// 	}
 	// }
 });
-

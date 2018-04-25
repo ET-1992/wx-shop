@@ -530,7 +530,7 @@ Page({
 		this[actionType]();
 	},
 	async submit(e) {
-		const data = await api.hei.bindSubmit({
+		const data = await api.hei.submitFormId({
 			form_id: e.detail.formId,
 		});
 		console.log(data);
