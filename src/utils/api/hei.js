@@ -7,14 +7,13 @@ const host = 'https://api.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
 
 /**
- * path: ½Ó¿ÚÂ·¾¶
- * method: ÇëÇó·½·¨£¬Ä¬ÈÏGET
- * isForceToken: ÊÇ·ñÐèÒª´øtoken£¬Ä¬ÈÏfalse
- * requestType: Ä¬ÈÏrequest, [request, uploadFile]
+ * path: 接口路径
+ * method: 请求方法，默认GET
+ * isForceToken: 是否需要带token，默认false
+ * requestType: 默认request, [request, uploadFile]
  **/
 const apis = {
 	login: {
-
 		// path: `api2/auth.signon.json?appid=${APPID}`,
 		path: 'api2/auth.signon.json',
 		method: 'POST',
@@ -140,44 +139,43 @@ const apis = {
 		requestType: 'uploadFile',
 	},
 
-	// ÎÄÕÂÏêÇé
+	// 文章详情
 	articleDetail: {
 		path: 'api/mag.article.get.json',
 		method: 'GET',
 	},
 
-	// ÎÄÕÂÁÐ±í
+	// 文章列表
 	articleList: {
 		path: 'api/mag.article.list.json',
 		method: 'GET',
 	},
 
-	// ÊÕ²Ø
+	// 收藏
 	fav: {
 		path: 'api/mag.article.fav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
-	// È¡ÏûÊÕ²Ø
+	// 取消收藏
 	unfav: {
 		path: 'api/mag.article.unfav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
-
-	// ÊÕ²ØÁÐ±í
+	// 收藏列表
 	queryFavList: {
 		path: 'api/mag.article.fav.list.json',
 		method: 'GET',
 		isForceToken: true,
 	},
-
-	// ÆÀÂÛ
+	// 评论
 	createReply: {
 		path: 'api/mag.article.reply.json',
 		method: 'POST',
 		isForceToken: true,
 	},
+	// 删除评论
 	deleteReply: {
 		path: 'api/mag.article.reply.delete.json',
 		method: 'POST',
