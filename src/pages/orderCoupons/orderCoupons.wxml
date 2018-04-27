@@ -1,7 +1,10 @@
 <import src="/templates/couponItem/couponItem.wxml"/>
 
 <view class="container">
-  <view class="statusBar">
+  <view
+    class="statusBar"
+    style="background-color: {{ themeColor.primaryColor }}"
+  >
     <view
       class="statusItem"
       wx:for="{{ status }}"
@@ -42,6 +45,7 @@
       class="normalizeBt cofirmBt"
       bindtap="onComfirm"
       wx:if="{{ selectedStatus === 'available' && coupons.available.length }}"
+      style="background-color: {{ themeColor.primaryColor }}"
     >确认</button>
   </view>
 </view>

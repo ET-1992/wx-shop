@@ -93,6 +93,8 @@ Page({
 	},
 
 	async onLoad() {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
 		this.loadHome();
 	},
 

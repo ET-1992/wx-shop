@@ -32,34 +32,12 @@ video{
 		height: 750rpx;
 	}
 
-.desc{
-	color: #9fa0a0;
-	 font-size: 10pt;
-}
+	.desc{
+		color: #9fa0a0;
+		font-size: 10pt;
+	}
 	.videoWrapper {
 		background-color: #000;
-	}
-
-	.switch {
-		display: flex;
-		justify-content: center;
-		margin-top: 20rpx;
-
-		.switchItem {
-			color: #fff;
-			border-radius: 100rpx;
-			font-size: 8pt;
-			height: 40rpx;
-			line-height: 40rpx;
-			width: 80rpx;
-			text-align: center;
-			margin-right: 10rpx;
-			background-color: rgba(0, 0, 0, 0.2);
-
-			&.selected {
-				background-color: $mainColor;
-			}
-		}
 	}
 }
 
@@ -380,7 +358,7 @@ button {
 
 .actionSheetContent {
 	$buttonHeight: 90rpx;
-	
+
 	background-color: #fff;
 	position: fixed;
 	width: 100%;
@@ -399,7 +377,7 @@ button {
 		transform: translateY(0);
 	}
 
-	
+
 	.head {
 		display: flex;
 		font-size: 10pt;
@@ -501,21 +479,17 @@ button {
 			height: $buttonHeight;
 			line-height: $buttonHeight;
 			font-size: 10pt;
-		}
-
-		.confirmBt {
 			background-color: $mainColor;
 			color: #fff;
 		}
 
 		.confirmBt[disabled] {
-			background-color: #ccc;
+			background-color: #ccc !important;
 		}
 
 		.secondaryBt {
 			background-color: $secondColor;
 		}
-
 	}
 }
 
@@ -570,7 +544,7 @@ img, .__bg_gif {
 
 .skuScroll{
 	height:360rpx;
-	
+
 }
 .wxParse-img{
 	width: 750rpx;

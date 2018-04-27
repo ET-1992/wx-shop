@@ -6,11 +6,23 @@
       <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
       <view wx:if="{{ !hasStart }}">距开始</view>
       <view wx:if="{{ hasEnd }}">已结束</view>
-      <view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
+      <view
+        class="hour"
+        style="background-color: {{ themeColor.primaryColor }}"
+        wx:if="{{ !hasEnd }}"
+      >{{ remainTime.hour }}</view>
       <view wx:if="{{ !hasEnd }}">:</view>
-      <view class="minute" wx:if="{{ !hasEnd }}">{{ remainTime.minute }}</view>
+      <view
+        class="minute"
+        wx:if="{{ !hasEnd }}"
+        style="background-color: {{ themeColor.primaryColor }}"
+      >{{ remainTime.minute }}</view>
       <view wx:if="{{ !hasEnd }}">:</view>
-      <view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
+      <view
+        class="second"
+        wx:if="{{ !hasEnd }}"
+        style="background-color: {{ themeColor.primaryColor }}"
+      >{{ remainTime.second }}</view>
     </view>
     <view class="footer">
       <view>
@@ -26,7 +38,11 @@
 
       <view class="right" wx:if="{{ !hasEnd }}">
         <form bindsubmit="submit" report-submit="true">
-          <button class="buy"formType="submit">{{ hasStart ? '马上抢' : '去看看' }}</button>
+          <button
+            class="buy"
+            formType="submit"
+            style="background-color: {{ themeColor.primaryColor }}"
+          >{{ hasStart ? '马上抢' : '去看看' }}</button>
         </form>
       </view>
     </view>

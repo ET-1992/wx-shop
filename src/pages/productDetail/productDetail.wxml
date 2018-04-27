@@ -44,7 +44,11 @@
     </view>
   </view>
 
-  <view class="flashCountdown" wx:if="{{ product.miaosha_enable === '1' }}">
+  <view
+    class="flashCountdown"
+    wx:if="{{ product.miaosha_enable === '1' }}"
+    style="background-color: {{ themeColor.primaryColor }}"
+  >
     <view class="title">限时购</view>
     <view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
     <view class="timeLimit">
@@ -185,11 +189,13 @@
           class="addCart"
           catchtap="onShowSku"
           data-actions="{{ [{ type: 'addCart', text: '加入购物车', isSingle:true }] }}"
+          style="background-color: {{ themeColor.secondaryColor }}"
         >加入购物车</view>
         <view
           class="buy"
           catchtap="onShowSku"
           data-actions="{{ [{ type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+          style="background-color: {{ themeColor.primaryColor }}"
         >立即购买</view>
       </block>
       <block wx:if="{{ ( product.groupon_enable !== '1' && product.miaosha_enable === '1') }}">
@@ -197,11 +203,13 @@
           class="addCart"
           catchtap="onShowSku"
           data-actions="{{ [{ type: 'addCart', text: '加入购物车',isMiaosha: true }] }}"
+          style="background-color: {{ themeColor.secondaryColor }}"
         >加入购物车</view>
         <view
           class="buy"
           catchtap="onShowSku"
           data-actions="{{ [{ type: 'onBuy', text: '立即购买',isMiaosha: true }] }}"
+          style="background-color: {{ themeColor.primaryColor }}"
         >立即购买</view>
       </block>
 
@@ -211,6 +219,7 @@
         catchtap="onShowSku"
         data-single="0"
         data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买', isSingle:true }] }}"
+        style="background-color: {{ themeColor.secondaryColor }}"
       >
         <view>￥{{ product.price }}</view>
         <view>单独购买</view>
@@ -221,6 +230,7 @@
         catchtap="onShowSku"
         data-single="1"
         data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
+        style="background-color: {{ themeColor.primaryColor }}"
       >
         <view>￥{{ product.groupon_price }}</view>
         <view>{{ product.groupon_member_limit }}人团</view>
@@ -230,6 +240,7 @@
         class="buy multi"
         catchtap="onShowSku"
         data-actions="{{ [{ type: 'onBuy', text: '立即购买', isGroupon: true }] }}"
+        style="background-color: {{ themeColor.primaryColor }}"
       >
         <view>立即参团</view>
       </view>
@@ -279,6 +290,7 @@
                     data-key="{{ property.key }}"
                     data-property-index="{{ propertyIndex }}"
                     catchtap="onSkuItem"
+                    style="{{ selectedProperties[propertyIndex].value === item ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
                   >{{ item }}</view>
                 </view>
               </view>
@@ -301,6 +313,7 @@
               disabled="{{ product.skus.length && !selectedSku.id }}"
               data-action-type="{{ item.type }}"
               catchtap="onSkuConfirm"
+              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
             >{{ item.text }}</button>
           </view>
         </view>
@@ -333,6 +346,7 @@
                   data-key="{{ property.key }}"
                   data-property-index="{{ propertyIndex }}"
                   catchtap="onSkuItem"
+                  style="{{ selectedProperties[propertyIndex].value === item ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
                 >{{ item }}</view>
               </view>
             </view>
@@ -350,12 +364,13 @@
           </view>
           <view class="actionSheetBtGroup">
             <button
-              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ product.skus.length && !selectedSku.id ? 'confirmDisabledBt' : '' }}"
               wx:for="{{ actions }}"
               wx:key="text"
               disabled="{{ product.skus.length && !selectedSku.id }}"
               data-action-type="{{ item.type }}"
               catchtap="onSkuConfirm"
+              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
             >{{ item.text }}</button>
           </view>
         </view>

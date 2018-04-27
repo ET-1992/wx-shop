@@ -98,6 +98,11 @@ Page({
 		this.calculatePrice();
 	},
 
+	onLoad() {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
+	},
+
 	async onShow() {
 		const token = getToken();
 

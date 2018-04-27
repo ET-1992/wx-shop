@@ -1,7 +1,11 @@
 <import src="/templates/articleItem/articleItem.wxml"/>
 <view class="container">
-	<scroll-view scroll-x class="scrollSegmentcontrol">
-			<view catchtap="handleArticleList" data-index="{{index}}" class="category {{getIndex==index?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}"  wx:key="id" > 
+	<scroll-view
+    scroll-x
+    class="scrollSegmentcontrol"
+    style="background-color: {{ themeColor.primaryColor  }}"
+  >
+			<view catchtap="handleArticleList" data-index="{{index}}" class="category {{getIndex==index?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}"  wx:key="id" >
 			    {{item.name}}
 		</view>
 	</scroll-view>
@@ -17,7 +21,7 @@
 				</swiper-item>
 		</block>
 	</swiper>
-	 
+
 </view>
 	<!-- 第一种方法 -->
    <!--  <swiper-item wx:for="{{articles}}" item-id="{{item.id}}" wx:key="id">
@@ -28,6 +32,6 @@
 				  	<template is="articleItem" data="{{ article: item}}" />
 	    	</navigator>
     		</view>
-				
+
     	</scroll-view>
     </swiper-item> -->

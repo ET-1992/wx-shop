@@ -3,7 +3,7 @@ import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -87,7 +87,8 @@ Page({
 	},
 
 	async onLoad({ categoryId, categoryParent }) {
-		this.setData({ categoryId, categoryParent });
+		const { themeColor } = app.globalData;
+		this.setData({ categoryId, categoryParent, themeColor });
 		const { page_title } = await this.loadProducts();
 		wx.setNavigationBarTitle({
 			title: this.data.categories[0].name,

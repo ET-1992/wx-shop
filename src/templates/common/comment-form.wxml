@@ -3,7 +3,12 @@
 		<view class="c-commentBar__form">
 			<input name="text" class="c-commentBar__input" placeholder="{{placeholder}}" focus="{{reply_focus}}" bindfocus="onRepleyFocus" value="{{text}}" bindblur="onReplyBlur" hidden="{{!user}}" cursor-spacing="14" />
 			<view class="c-commentBar__disabled" wx:if="{{!user}}" bindtap="needAuth">登陆后才能评论</view>
-			<button class="c-commentBar__btn" formType="submit" hidden="{{!user}}">提交</button>
+			<button
+        class="c-commentBar__btn"
+        formType="submit"
+        hidden="{{!user}}"
+        style="background-color: {{ themeColor.primaryColor }}"
+      >提交</button>
 		</view>
 	</form>
-</view> 
+</view>

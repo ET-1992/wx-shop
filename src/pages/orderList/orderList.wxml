@@ -1,5 +1,8 @@
 <view class="container">
-  <view class="statusBar" style="{{newIndex==1?'display:none':''}}">
+  <view
+    class="statusBar"
+    style="{{ newIndex == 1 ? 'display:none' : '' }}; background-color: {{ themeColor.primaryColor }}"
+  >
      <view
       class="statusItem"
       wx:for="{{ status }}"
@@ -8,14 +11,14 @@
       data-value="{{ item.value }}"
     >
   <view>
-    
+
       <view
         class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
       >{{ item.name }}</view>
     </view>
   </view>
   </view>
-   
+
 
   <view class="emptyHint"
         wx:if="{{ !orders.length && !isRefresh }}">
@@ -69,7 +72,7 @@
     />
   </view>
 </view>
- 
+
   <view
     class="bottomHint"
     wx:if="{{ orders.length && !next_cursor }}"

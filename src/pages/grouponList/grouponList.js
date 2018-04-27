@@ -3,7 +3,7 @@ import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -43,6 +43,8 @@ Page({
 	},
 
 	async onLoad () {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
 		this.loadProducts();
 	},
 	async submit(e){

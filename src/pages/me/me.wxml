@@ -1,6 +1,9 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <view class="header">
+  <view
+    class="header"
+    style="background-color: {{ themeColor.primaryColor }}"
+  >
     <image class="avatar" src="{{ user.avatarurl }}" class="avatar" mode="aspectFill" wx:if="{{ user.avatarurl }}" />
     <image  class="avatar unlogin" bindtap="onLogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}"></image>
     <view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>

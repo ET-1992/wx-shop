@@ -33,6 +33,11 @@ Page({
 		nowTS: Date.now() / 1000,
 	},
 
+	onLoad() {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
+	},
+
 	async onShow() {
 		try {
 			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
@@ -113,7 +118,7 @@ Page({
 			// ).toFixed(2);
 			//
 			this.setData(currentOrder);
-			
+
 		}
 		catch (err) {
 			console.log(err);
@@ -249,7 +254,7 @@ Page({
 			// 	const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
 			// 		requestData,
 			// 	);
-			
+
 			if(this.data.orderPrice<=0){
 				wx.redirectTo({
 					url:`../orderDetail/orderDetail?id=${order_no}`

@@ -25,8 +25,7 @@ Page({
 
 
 	async onLoad () {
-		console.log(app.globalData.currentOrder);
-		const { coupons } = app.globalData.currentOrder;
+		const { currentOrder: { coupons }, themeColor } = app.globalData;
 		const { available, unavailable } = coupons;
 
 		// available.forEach((coupon) => {
@@ -36,7 +35,7 @@ Page({
 		// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
 		// });
 
-		this.setData({ coupons });
+		this.setData({ coupons, themeColor });
 		// const data = await api.hei.fetchMyCouponList();
 		// this.setData({ coupons: data })
 	},

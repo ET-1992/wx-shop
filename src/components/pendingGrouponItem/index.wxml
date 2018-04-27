@@ -1,5 +1,8 @@
 <view class="pendingGroupon" bindtap="onGroupon">
-  <image class="userAvatar" src="{{ groupon.user.avatarurl }}"/>
+  <image
+    class="userAvatar"
+    src="{{ groupon.user.avatarurl }}"
+  />
   <view class="middle">
     <view class="userName">{{ groupon.user.nickname }}</view>
     <view class="status">正在开团中</view>
@@ -18,4 +21,3 @@
   </view>
 
 </view>
-

@@ -32,28 +32,6 @@
 		font-size: 9pt;
 	}
 
-	.timeLimit {
-		display: flex;
-		align-items: center;
-		font-size: 10pt;
-		margin-top: 30rpx;
-		margin-bottom: 30rpx;
-
-		.hour, .minute, .second {
-			color: #fff;
-			width: 50rpx;
-			height: 40rpx;
-			line-height: 40rpx;
-			text-align: center;
-			background-color: $mainColor;
-			margin: 0 10rpx;
-		}
-
-		.hour {
-			margin-left: 20rpx;
-		}
-	}
-
 	.footer {
 		display: flex;
 		align-items: flex-end;
@@ -84,11 +62,4 @@
 			flex-grow: 1;
 		}
 
-		.buy {
-			float: right;
-			font-size: 10pt;
-			color: #fff;
-			background-color: $mainColor;
-			padding: 16rpx 30rpx;
-		}
 	}

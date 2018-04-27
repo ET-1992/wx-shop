@@ -2,7 +2,10 @@
 <import src="/templates/loading/loading.wxml"/>
 
 <view class="container">
-	<view class="statusBar">
+	<view
+    class="statusBar"
+    style="background-color: {{ themeColor.primaryColor }}"
+  >
     <view
       class="statusItem"
       wx:for="{{ status }}"
@@ -27,6 +30,7 @@
       wx:if="{{ selectedStatus === 'available' }}"
       url="/pages/home/home"
       class="couponBt"
+      style="background-color: {{ themeColor.primaryColor }}"
     >
       获取优惠券
     </navigator>

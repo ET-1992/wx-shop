@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { STATUS_TEXT } from 'constants/index';
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 Page({
 	data: {
@@ -68,6 +68,7 @@ Page({
 	async onLoad({ status }) {
 		// const selectedStatus = status || '1,2,3';
 		const state = status ? status : null;
+		const { themeColor } = app.globalData;
 		var index = this.getIndex(state);
 		if(status==5 ) {
 			this.setData({newIndex:1})
@@ -75,7 +76,11 @@ Page({
 				title: '退款中'
 			  })
 		}
-		this.setData({ selectedStatus: state,activeIndex: index });
+		this.setData({
+			selectedStatus: state,
+			activeIndex: index,
+			themeColor
+		});
 		this.loadOrders();
 	},
 

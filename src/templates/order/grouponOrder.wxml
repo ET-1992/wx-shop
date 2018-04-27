@@ -32,12 +32,14 @@
     class="normalizeBt button"
     bindtap="onShare"
     open-type="share"
+    style="background-color: {{ themeColor.primaryColor }}"
   >邀请朋友参团</button>
   <button
     wx:if="{{ !order.groupon_id && !has_joined && groupon.member_limit - groupon.member_count }}"
     class="normalizeBt button"
     bindtap="onJoin"
     disable="{{ remainSecond }}"
+    style="background-color: {{ themeColor.primaryColor }}"
   >马上参团</button>
 
   <navigator
@@ -47,6 +49,7 @@
     <button
       wx:if="{{ groupon.id }}"
       class="normalizeBt button"
+      style="background-color: {{ themeColor.primaryColor }}"
     >浏览更多商品</button>
   </navigator>
 

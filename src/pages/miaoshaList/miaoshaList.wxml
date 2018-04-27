@@ -1,5 +1,3 @@
-<import src="/templates/grouponItem/grouponItem.wxml"/>
-
 <view class="container">
   <view wx:if="{{ miaosha_banner  && miaosha_banner.length}}">
     <image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" />

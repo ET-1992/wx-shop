@@ -1,6 +1,8 @@
 // pages/articleList/articleList.js
-import api from 'utils/api'
-import { onDefaultShareAppMessage } from 'utils/pageShare'
+import api from 'utils/api';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
+
+const app = getApp();
 
 Page({
 
@@ -13,15 +15,17 @@ Page({
 		isRefresh: false,
 		currentPages: 1,
 		articleList: [],
-		totalPages: 1
+		totalPages: 1,
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad(options) {
-		this.getArticleList()
-  //    this.setData(data)
+		const { themeColor } = app.globalData;
+		this.getArticleList();
+		this.setData({ themeColor });
+		//    this.setData(data)
 		// 第一种方法
 		// this.getArticleList()
 		//   this.setData({
@@ -29,6 +33,7 @@ Page({
 		//      getIndex: 0,
 		//   })
 	},
+
 	// async getArticleList(id) {
 	//   const {currentPage,isRefresh} = this.data
 	//   const data = await api.hei.articleList({
@@ -55,25 +60,26 @@ Page({
 	// },
 	async changeCurrent(e) {
 		this.setData({
-			getIndex: e.detail.current
-		})
-    wx.setNavigationBarTitle({
-      title:this.data.categories[e.detail.current].page_title
-    })
+			getIndex: e.detail.current,
+		});
+		wx.setNavigationBarTitle({
+			title: this.data.categories[e.detail.current].page_title,
+		});
 	},
 
 	handleArticleList(e) {
-		const { index } = e.currentTarget.dataset
-		const { id } = e.currentTarget
+		const { index } = e.currentTarget.dataset;
+		const { id } = e.currentTarget;
 		this.setData({
 			isRefresh: true,
 			current: index,
-		})
-   
-    wx.setNavigationBarTitle({
-      title:this.data.categories[index].page_title
-    })
+		});
+
+		wx.setNavigationBarTitle({
+			title: this.data.categories[index].page_title,
+		});
 	},
+
 	// onPullDownRefresh(){
 	//   console.log('下拉刷新')
 	// },
@@ -96,70 +102,77 @@ Page({
 	//    return order;
 	//  });
 	async getArticleList() {
-		const { currentPage, getIndex, isLoading } = this.data
-		if (isLoading) return
-		else this.data.isLoading = true
+		const { currentPage, getIndex, isLoading } = this.data;
+		if (isLoading) return;
+		else this.data.isLoading = true;
 		const data = await api.hei.articleList({
 			article_category_id: 0,
-			paged: 1
-		})
+			paged: 1,
+		});
 		const categoriesId = data.categories.map(function (item, index) {
-			return item.id
-		})
+			return item.id;
+		});
 
-		const articleList = []
-		let totalPages = [data.total_pages], currentPages = [data.current_page]
+		const articleList = [];
+		let totalPages = [data.total_pages],
+			currentPages = [data.current_page];
 		for (var i = 0; i < categoriesId.length; i++) {
 			const data2 = await api.hei.articleList({
 				article_category_id: categoriesId[i] || 0,
-				paged: 1
-			})
-			articleList.push(data2.articles)
-			currentPages.push(data.current_page)
-			totalPages.push(data2.total_pages)
+				paged: 1,
+			});
+			articleList.push(data2.articles);
+			currentPages.push(data.current_page);
+			totalPages.push(data2.total_pages);
 		}
-		articleList.unshift(data.articles)
+		articleList.unshift(data.articles);
+
 		// const articleLists = isRefresh ? data.articles:this.data.articleList.concat(data.articles)
 
-		const categories = data.categories.unshift({ name: '全部', id: 0,page_title:data.page_title })
+		const categories = data.categories.unshift({
+			name: '全部',
+			id: 0,
+			page_title: data.page_title,
+		});
 		this.setData({
 			articles: articleList,
 			categories: data.categories,
 			isLoading: false,
 			currentPages,
-			totalPages
-		})
+			totalPages,
+		});
 		wx.setNavigationBarTitle({
-			title:data.page_title 
-		})
+			title: data.page_title,
+		});
 	},
 	async onReachBottom() {
-		const { currentPages, totalPages, getIndex, isLoading } = this.data
+		const { currentPages, totalPages, getIndex, isLoading } = this.data;
 		if (currentPages[getIndex] >= totalPages[getIndex] || isLoading) {
-			return
+			return;
 		}
-		this.data.isLoading = true
-		const article_category_id = this.data.categories[this.data.getIndex].id
+		this.data.isLoading = true;
+		const article_category_id = this.data.categories[this.data.getIndex].id;
 		const data = await api.hei.articleList({
 			article_category_id: article_category_id,
-			paged: currentPages[getIndex] + 1
-		})
-		const newArticleList = data.articles
-		const newArticle = this.data.articles[this.data.getIndex]
-		let data3 = []
+			paged: currentPages[getIndex] + 1,
+		});
+		const newArticleList = data.articles;
+		const newArticle = this.data.articles[this.data.getIndex];
+		let data3 = [];
 		data3 = newArticleList.map(function (item, index) {
-			newArticle.push(item)
-		})
+			newArticle.push(item);
+		});
 
 		this.setData({
-			articles: this.data.articles
-		})
-		this.data.totalPages[getIndex] = data.total_pages
-		this.data.currentPages[getIndex] = data.current_page
+			articles: this.data.articles,
+		});
+		this.data.totalPages[getIndex] = data.total_pages;
+		this.data.currentPages[getIndex] = data.current_page;
 		this.setData({
-			isLoading: false
-		})
+			isLoading: false,
+		});
 	},
+
 	/* async onReachBottom() {
      // console.log('111');
        console.log(this.data);
@@ -182,33 +195,25 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {
-
-	},
+	onReady: function () {},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function () {
-
-	},
+	onShow: function () {},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () {
-
-	},
+	onHide: function () {},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function () {
-
-	},
+	onUnload: function () {},
 
 	/**
 	 * 用户点击右上角分享
 	 */
 	onShareAppMessage: onDefaultShareAppMessage,
-})
+});

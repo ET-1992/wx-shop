@@ -85,7 +85,8 @@
       </view>
         <button
             class="normalizeBt payBt"
-            style="background-color: {{!address.userName ? '#cccccc' : '#729153'}}"
+            disabled="{{!address.userName}}"
+            style="background-color: {{ themeColor.primaryColor }}"
             form-type="submit"
         >去支付</button>
     </view>

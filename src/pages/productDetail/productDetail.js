@@ -244,10 +244,12 @@ Page({
 		const systemInfo = wx.getSystemInfoSync();
 		const user = wx.getStorageSync(USER_KEY);
 		const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+		const { themeColor } = app.globalData;
 		this.setData({
 			indexparams: { id, grouponId },
 			isIphoneX,
-			user
+			user,
+			themeColor,
 		});
 	},
 

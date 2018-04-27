@@ -1,6 +1,6 @@
 import api from 'utils/api';
 
-
+const app = getApp();
 
 // 创建页面实例对象
 Page({
@@ -25,7 +25,8 @@ Page({
 
 	async onLoad () {
 		try {
-			this.setData({ isLoading: true });
+			const { themeColor } = app.globalData;
+			this.setData({ isLoading: true, themeColor });
 			const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
 
 			// available.forEach((coupon) => {

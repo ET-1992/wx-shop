@@ -3,7 +3,7 @@ import { STATUS_TEXT, USER_KEY } from 'constants/index';
 import { formatTime } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 
-// const app = getApp();
+const app = getApp();
 
 const formatConfirmTime = (seconds) => {
 	let remainSeconds = seconds;
@@ -108,6 +108,11 @@ Page({
 				});
 			}, 1000);
 		}
+	},
+
+	onLoad() {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
 	},
 
 	// async onLoad ({ id, grouponId }) {

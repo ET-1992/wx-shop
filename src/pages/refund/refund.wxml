@@ -12,6 +12,7 @@
         <view
           class="radio {{ isAllSelected ? 'selected' : '' }}"
           bindtap="onSelectAll"
+          style="border-color: {{ themeColor.primaryColor }}; {{ isAllSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}"
         >
           <image
             src="/icons/selected.png"
@@ -32,6 +33,7 @@
         class="radio {{ item.isSelected ? 'selected' : '' }}"
         bindtap="onHandleItemSelect"
         data-index="{{ index }}"
+        style="border-color: {{ themeColor.primaryColor }}; {{ item.isSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}"
       >
         <image
           src="/icons/selected.png"
@@ -65,6 +67,7 @@
       >
         <view
           class="radio {{ selectedRefundType === 1 ? 'selected' : '' }}"
+          style="border-color: {{ themeColor.primaryColor }}; {{ selectedRefundType === 1 ? 'background-color: ' + themeColor.primaryColor : ''  }}"
         >
           <image
             src="/icons/selected.png"
@@ -84,6 +87,7 @@
       >
         <view
           class="radio {{ selectedRefundType === 0 ? 'selected' : '' }}"
+          style="border-color: {{ themeColor.primaryColor }}; {{ selectedRefundType === 0 ? 'background-color: ' + themeColor.primaryColor : ''  }}"
         >
           <image
             src="/icons/selected.png"
@@ -142,5 +146,6 @@
   <view
     class="footer"
     bindtap="onRefund"
+    style="background-color: {{ themeColor.primaryColor }}"
   >提交</view>
 </view>

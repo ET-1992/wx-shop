@@ -1,7 +1,12 @@
 <import src="/templates/loading/loading.wxml"/>
 
 <view class="container">
-  <scroll-view class="scrollSegmentcontrol" scroll-x="true" scroll-into-view="{{ toView }}">
+  <scroll-view
+    class="scrollSegmentcontrol"
+    scroll-x="true"
+    scroll-into-view="{{ toView }}"
+    style="background-color: {{ themeColor.primaryColor }}"
+  >
       <view
         class="category {{ selectedCategoryId === categories[0].id ? 'selected' : '' }}"
         data-category-id="{{ categories[0].id }}"

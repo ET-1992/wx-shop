@@ -1,5 +1,7 @@
 import getRemainTime from 'utils/getRemainTime';
 
+const app = getApp();
+
 Component({
 	properties: {
 		isList: {
@@ -67,6 +69,8 @@ Component({
 	},
 
 	attached() {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
 		console.log('attached', this.intervalId);
 	},
 

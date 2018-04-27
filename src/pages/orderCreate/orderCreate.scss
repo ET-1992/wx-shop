@@ -181,6 +181,9 @@ $footerHeight: 100rpx;
 		color: #fff;
 		text-align: center;
 		line-height: $footerHeight;
+		&[disabled] {
+			background-color: #ccc !important;
+		}
 	}
 
 }

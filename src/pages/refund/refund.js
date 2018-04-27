@@ -79,6 +79,9 @@ Page({
 	},
 
 	async onLoad({ id }) {
+		const { themeColor } = app.globalData;
+		this.setData({ themeColor });
+
 		const { order } = await api.hei.fetchOrder({ order_no: id });
 		order.formatTime = formatTime(new Date(order.time * 1000));
 		// const { orderDetail } = app.globalData;

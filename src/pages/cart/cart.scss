@@ -195,6 +195,9 @@ page{
 		line-height: $footerHeight;
 		border-radius: 0;
 		font-size: 12pt;
+		&[disabled] {
+			background-color: #ccc !important;
+		}
 	}
 }
 .logo{

@@ -21,7 +21,7 @@
     <view wx:for="{{modules}}"  wx:for-item="modules">
      <!-- 幻灯片 -->
       <view wx:if="{{modules.key=='sliders'}}">
-       <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="#729153" indicator-color="#fff">
+       <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
           <swiper-item wx:for="{{ sliders }}" wx:key="id">
             <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
               <image src="{{ item.image }}"/>
@@ -34,11 +34,11 @@
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-              <template is="grouponItem" data="{{ product: groupons[0] }}" />
+              <template is="grouponItem" data="{{ product: groupons[0], themeColor }}" />
             </navigator>
           <block wx:else>
             <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-             <template is="grouponItem" data="{{ product: item }}"  />
+             <template is="grouponItem" data="{{ product: item, themeColor }}"  />
             </navigator>
           </block>
           <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
@@ -103,7 +103,7 @@
             <view  class="coupon" wx:for="{{ coupons }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}"  data-index="{{ index }}"
             >
         <form bindsubmit="submit" report-submit="true">
-          <button class="couponInfoList" formType="submit" class="moreButton">
+          <button class="couponInfoList" formType="submit">
              <view class="couponInfo">
                 <view class="reduce">
                   <text wx:if="{{ item.type == 1 }}">￥</text>

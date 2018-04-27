@@ -1,24 +1,22 @@
-import login from 'utils/login';
-// import getToken from 'utils/getToken';
-
 App({
 	onLaunch() {
 		const { windowWidth, pixelRatio, screenWidth } = wx.getSystemInfoSync();
 		this.systemInfo = { windowWidth, ratio: pixelRatio, screenWidth };
+
+		const extConfig = wx.getExtConfigSync() || {};
+		// const extConfig = { primaryColor: 'red', secondaryColor: 'blue' };
+		const { primaryColor, secondaryColor } = extConfig;
+		this.globalData.themeColor = { primaryColor, secondaryColor };
 	},
 
 	async onShow(options) {
-		
 		const { query = {} } = options;
 		if (query.vendor) {
 			this.globalData.vendor = query.vendor;
 		}
-		console.log(this.globalData);
-		// await login();
-		if(options.referrerInfo) {
-			this.globalData.extraData = options.referrerInfo.extraData
+		if (options.referrerInfo) {
+			this.globalData.extraData = options.referrerInfo.extraData;
 		}
-		console.log(this.globalData);
 	},
 
 	onError(err) {
