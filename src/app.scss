@@ -135,12 +135,12 @@ button::after{
 
 }
 .product-card-button{
-	padding:0rpx 20rpx;
+	padding: 0rpx 20rpx !important;
 	color: #fff;
 	background:$mainColor;
 	font-size: 14px;
 	height:56rpx;
 	line-height:56rpx;
-	margin-top:34rpx;
+	margin-top:34rpx !important;
 
 }

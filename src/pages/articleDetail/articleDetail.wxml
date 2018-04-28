@@ -5,7 +5,7 @@
 	   autoplay="{{autoplay}}"
 	  class="swiper"
 	  wx:if="{{ article.video && article.images && article.images.length>0}}"
-	 bindchange="currentIndex"  indicator-color="#47414D"> 
+	 bindchange="currentIndex"  indicator-color="#47414D">
 	  <swiper-item>
 
 
@@ -46,12 +46,12 @@
 		<view class="borderLine"></view>
 		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
 	</view>
-	
+
 	<import src="../../utils/wxParse/wxParse.wxml"/>
 	<view class="{{article.full ==1 ?'':'pad-30'}}">
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
-	
+
 	<view wx:if="{{article.label && article.products.length}}" class="label"><view class="dash"></view>{{article.label}}<view class="dash"></view></view>
 	<view class="relateShop" wx:if="{{product.length}}">
 		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
@@ -60,11 +60,14 @@
 				<view class="name">{{item.title}}</view>
 				<view class="desc">{{item.excerpt}}</view>
 			</view>
-			<view class="price">	
+			<view class="price">
 				<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥{{item.miaosha_price}}</view>
 				<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥{{item.groupon_price}}</view>
 				<view class="originalPrice" wx:else>￥{{item.price}}</view>
-				<view class="toBuy">立即购买</view>			
+				<view
+          class="toBuy"
+          style="background-color: {{ themeColor.primaryColor }}"
+        >立即购买</view>
 			</view>
 		</navigator>
 	</view>
@@ -104,5 +107,5 @@
 			<view class="commentIcon"></view>{{article.reply_count}}
 		</navigator>
 	</view>
-	
+
 </view>

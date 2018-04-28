@@ -12,7 +12,10 @@
       autoplay="{{autoplay}}"
       class="swiper"
       wx:if="{{ headerType === 'images' }}"
-     bindchange="currentIndex"  indicator-active-color="#729153" indicator-color="#fff">
+      bindchange="currentIndex"
+      indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
+      indicator-color="#fff"
+    >
       <swiper-item>
 
         <view wx:if="{{product.video}}" catchtap="clickMe" >

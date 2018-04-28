@@ -1,7 +1,12 @@
 App({
 	onLaunch() {
-		const { windowWidth, pixelRatio, screenWidth } = wx.getSystemInfoSync();
-		this.systemInfo = { windowWidth, ratio: pixelRatio, screenWidth };
+		const { windowWidth, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
+		this.systemInfo = {
+			windowWidth,
+			ratio: pixelRatio,
+			screenWidth,
+			isIphoneX: model.indexOf('iPhone X') >= 0,
+		};
 
 		const extConfig = wx.getExtConfigSync() || {};
 		// const extConfig = { primaryColor: 'red', secondaryColor: 'blue' };
