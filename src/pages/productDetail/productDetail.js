@@ -25,7 +25,7 @@ const findSelectedSku = (skus, selectedProperties) => {
 	});
 	return sku || {};
 };
-
+ 
 Page({
 	data: {
 		user: {},

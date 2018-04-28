@@ -23,7 +23,9 @@
 		"pages/orderCoupons/orderCoupons",
 		"pages/commentList/commentList",
 		"pages/loadProduct/loadProduct",  
-		"pages/myFav/myFav"
+		"pages/myFav/myFav",
+		"pages/couponList/couponList"
+
 	],
 	"window": {
 		"backgroundTextStyle": "white",
