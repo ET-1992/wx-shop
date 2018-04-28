@@ -11,7 +11,6 @@
       class="searchWrapper"
       url="/pages/search/search"
    wx:if="{{modules[0].key=='search_box'}}" >
-
       <view class="search">
         <image src="/icons/search.png" class="searchIcon"/>
         <text>搜索商品，共有{{ total }}款好物</text>
@@ -136,15 +135,7 @@
     
 
     <!-- 商品列表 -->
- <!--    <categoryList
-      wx:if="{{ product_categories.length }}"
-      categories="{{ product_categories }}"
-      categoryListStyle="{{ categoryListStyle }}"
-      wx:if="{{ false }}"
-    /> -->
-
   </view>
-    
   </view>
   <!-- <view class="bottomHint">-这是一条底线-</view> -->
 </view>
@@ -153,3 +144,30 @@
   </image>
   <text>花生小店提供技术和电商支持</text>
 </view>
+<!-- 新用戶优惠券弹框 -->
+
+  <view wx:if="{{newUser=='1' && current_user.new_user=='1'}}" class="newUserCoupon">
+    <view class="couponContainer">
+      <scroll-view class="couponScroll" scroll-y>
+          <view class="couponItem" wx:for="{{coupons}}" wx:if="{{item.target_user_type==2 }}" data-status="{{item.status}}">
+              <view class="newCouponInfo">
+                <view class="couponType">
+                  <view class="newUser">新用户专享</view>
+                  <view>{{item.title}}</view>
+                </view>
+                <view class="reduce">
+                  <text wx:if="{{ item.type == 1 }}">￥</text>
+                  <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+                  <text wx:if="{{ item.type == 2 }}">折</text>
+                </view>
+              </view>
+            
+              <view class="deadline">{{item.start_time}}-{{item.end_time}}</view>
+          </view>
+      </scroll-view>
+      <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
+    </view>
+    <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon">
+    </image>
+  </view>
+

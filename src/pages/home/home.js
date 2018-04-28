@@ -36,23 +36,6 @@ Page({
 		type:''
 	},
 
-	// async loadProducts() {
-	// 	// this.setData({ isLoading: true });
-	// 	const { next_cursor, products } = this.data;
-
-	// 	const data = await api.hei.fetchProductList({
-	// 		cursor: next_cursor
-	// 	});
-
-	// 	const newProducts = products.concat(data.products);
-	// 	this.setData({
-	// 		products: newProducts,
-	// 		next_cursor: data.next_cursor
-	// 	});
-	// 	// this.setData({ isLoading: false });
-	// 	// return data;
-	// },
-
 	onBannerClick(ev) {
 		const { path } = ev.currentTarget.dataset;
 		const type = 'navigate'
@@ -68,7 +51,9 @@ Page({
 	},
 	async loadHome() {
 		this.setData({ isLoading: true });
+
 		const data = await api.hei.fetchHome();
+		console.log(data)
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
 				title: data.page_title
@@ -87,6 +72,7 @@ Page({
 		this.setData({
 			isLoading: false,
 			conWidth:  Width ? Width : '',
+			newUser:data.current_user.new_user,
 			...data
 		});
 	},
@@ -94,7 +80,6 @@ Page({
 	async onLoad() {
 		this.loadHome();
 	},
-
 	async onReceiveCoupon(id, index) {
 		const { coupons } = this.data;
 
@@ -121,7 +106,21 @@ Page({
 			});
 		}
 	},
-
+	async receiveCouponAll(e) {
+		const {id} = e.currentTarget.dataset
+		let  result = [];
+		id.map(({id,target_user_type},index)=>{
+		  if(target_user_type == '2') result.push(id)
+		})
+		const allResult = result.join(',')
+		const data = await api.hei.receiveCouponAll({
+			coupon_ids: allResult
+		});
+		showToast({ title: '领取成功' });
+		this.setData({
+			newUser:2
+		})
+	},
 	async onCouponClick(ev) {
 		const { id, index, status, title } = ev.currentTarget.dataset;
 		const token = getToken();
@@ -148,7 +147,11 @@ Page({
 			});
 		}
 	},
-
+	closeCoupon(){
+		this.setData({
+			newUser:2
+		})
+	},
 	async onPullDownRefresh() {
 		await this.loadHome();
 		wx.stopPullDownRefresh();
