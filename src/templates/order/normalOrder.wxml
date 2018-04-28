@@ -104,7 +104,7 @@
 >浏览更多商品</navigator>
 
 
-<view class="footer">
+<view class="footer {{ systemInfo.isIphoneX ? 'iphoneXTrick' : '' }}">
   <orderOperations
     statusCode="{{ order.statusCode }}"
     orderNo="{{ order.order_no }}"

@@ -36,6 +36,11 @@ Component({
 		},
 	},
 
+	attached() {
+		const { isIphoneX } = app.systemInfo;
+		this.setData({ isIphoneX });
+	},
+
 	methods: {
 		async onPayOrder() {
 			const { orderNo, orderIndex, orders, order } = this.data;

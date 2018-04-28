@@ -111,8 +111,8 @@ Page({
 	},
 
 	onLoad() {
-		const { themeColor } = app.globalData;
-		this.setData({ themeColor });
+		const { globalData: { themeColor }, systemInfo } = app;
+		this.setData({ themeColor, systemInfo });
 	},
 
 	// async onLoad ({ id, grouponId }) {

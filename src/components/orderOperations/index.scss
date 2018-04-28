@@ -4,6 +4,10 @@
 	padding-top: 20rpx;
 	text-align: right;
 
+	&.iphoneXTrick {
+		padding-bootom: 20rpx;
+	}
+
 	.contactBt {
 		float: left;
 		font-size: 10pt;
@@ -34,7 +38,11 @@
 		margin-left: 20rpx;
 		display: inline-block;
 		color: $titleColor;
-		line-height:1;
+		line-height: 1;
+
+		&.iphoneXTrick {
+			padding: 15rpx 30rpx;
+		}
 	}
 
 	.confirmBt, .payBt {
