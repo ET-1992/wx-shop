@@ -162,7 +162,7 @@
 </view>
 <!-- 新用戶优惠券弹框 -->
 
-  <view wx:if="{{newUser=='1' && current_user.new_user=='1'}}" class="newUserCoupon">
+  <view wx:if="{{newUser=='1' && hasCoupons}}" class="newUserCoupon">
     <view class="couponContainer">
       <scroll-view class="couponScroll" scroll-y>
           <view class="couponItem" wx:for="{{coupons}}" wx:if="{{item.target_user_type==2 }}" data-status="{{item.status}}">

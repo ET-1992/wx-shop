@@ -20,7 +20,7 @@ const apis = {
 	},
 	fetchHome: {
 		path: 'api/mag.shop.home.json',
-		isForceToken: true,
+		// isForceToken: true,
 	},
 	fetchProductList: {
 		path: 'api/mag.product.list.json',

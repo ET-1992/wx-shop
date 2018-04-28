@@ -22,6 +22,7 @@ Page({
 		groupons: [],
 		featured_products: [],
 		coupons: [],
+		hasCoupons: false,
 
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		categoryListStyle: CATEGORY_LIST_STYLE[2],
@@ -53,7 +54,25 @@ Page({
 		this.setData({ isLoading: true });
 
 		const data = await api.hei.fetchHome();
-		console.log(data);
+		if(data.current_user) {
+			this.setData({
+				newUser: data.current_user.new_user
+			})
+			
+		}else{
+			this.setData({
+				newUser:1
+			})
+		}
+
+		data.coupons.forEach(item=> {
+			if(item.target_user_type == '2') {
+				this.setData({
+					hasCoupons: true
+				})
+			}
+		})
+
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
 				title: data.page_title,
@@ -73,7 +92,7 @@ Page({
 		this.setData({
 			isLoading: false,
 			conWidth: width || '',
-			newUser: data.current_user.new_user,
+			// newUser: data.current_user.new_user,
 			...data,
 		});
 	},
@@ -112,6 +131,9 @@ Page({
 		}
 	},
 	async receiveCouponAll(e) {
+		if(!this.data.current_user) {
+			this.needAuth()
+		}
 		const { id } = e.currentTarget.dataset;
 		let result = [];
 		id.map(({ id, target_user_type }, index) => {
@@ -170,7 +192,13 @@ Page({
 		}
 		this.loadProducts();
 	},
-
+ 	async needAuth(e) {
+        const user = await login();
+        console.log(user)
+        this.setData({
+            user: user
+        })
+    },
 	onShareAppMessage: onDefaultShareAppMessage,
 
 	// onShareAppMessage:function(res) {
