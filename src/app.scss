@@ -38,6 +38,11 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	display: block;
 	font-size: 20rpx;
 	color: $titleColor;
+
+	&.disabledBt {
+		background-color: #ccc !important;
+		color: #fff;
+	}
 }
 
 .normalizeBt::after{
