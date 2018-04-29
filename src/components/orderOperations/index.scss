@@ -5,7 +5,7 @@
 	text-align: right;
 
 	&.iphoneXTrick {
-		padding-bootom: 20rpx;
+		padding-bottom: 20rpx;
 	}
 
 	.contactBt {
@@ -19,7 +19,7 @@
 		line-height: 1.4;
 	}
 
-	.contactBt::after{
+	.contactBt::after {
 		display: none;
 	}
 
@@ -32,7 +32,7 @@
 	}
 
 	.statusBt {
-		padding: 10rpx 20rpx;
+		padding: 15rpx 30rpx;
 		border: 1px solid $originalPriceColor;
 		font-size: 8pt;
 		margin-left: 20rpx;
@@ -41,7 +41,7 @@
 		line-height: 1;
 
 		&.iphoneXTrick {
-			padding: 15rpx 30rpx;
+			padding: 20rpx 35rpx;
 		}
 	}
 

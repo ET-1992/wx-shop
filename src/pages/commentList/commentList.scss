@@ -13,6 +13,11 @@
   border-top: 1rpx solid #ccc;
   background-color: #fff;
   z-index: 99;
+
+  &.iphoneXTtrick {
+  	height: 146rpx;
+  	padding-bottom: 66rpx;
+  }
 }
 
 .c-commentBar__form {

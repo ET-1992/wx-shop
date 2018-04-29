@@ -1,4 +1,4 @@
-<view class="c-commentBar">
+<view class="c-commentBar {{ systemInfo.isIphoneX ? 'iphoneXTrick' : '' }}">
 	<form bindsubmit="formSubmit" report-submit="true">
 		<view class="c-commentBar__form">
 			<input name="text" class="c-commentBar__input" placeholder="{{placeholder}}" focus="{{reply_focus}}" bindfocus="onRepleyFocus" value="{{text}}" bindblur="onReplyBlur" hidden="{{!user}}" cursor-spacing="14" />
