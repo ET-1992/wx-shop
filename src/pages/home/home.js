@@ -43,7 +43,7 @@ Page({
 			autoRedirect({ url: path, type: type });
 		}
 	},
-	async submit(e) {
+	async submitFormId(e) {
 		console.log('fork');
 		const data = await api.hei.submitFormId({
 			form_id: e.detail.formId,
@@ -54,24 +54,24 @@ Page({
 		this.setData({ isLoading: true });
 
 		const data = await api.hei.fetchHome();
-		if(data.current_user) {
+		if (data.current_user) {
 			this.setData({
-				newUser: data.current_user.new_user
-			})
-			
-		}else{
+				newUser: data.current_user.new_user,
+			});
+		}
+		else {
 			this.setData({
-				newUser:1
-			})
+				newUser: 1,
+			});
 		}
 
-		data.coupons.forEach(item=> {
-			if(item.target_user_type == '2') {
+		data.coupons.forEach((item) => {
+			if (item.target_user_type == '2') {
 				this.setData({
-					hasCoupons: true
-				})
+					hasCoupons: true,
+				});
 			}
-		})
+		});
 
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
@@ -88,18 +88,21 @@ Page({
 		// const { shop_setting: { category_style, product_list_style } } = data;
 		// data.productListStyle = PRODUCT_LIST_STYLE[+product_list_style - 1];
 		// data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
-
+		// const newUser = data.current_user ? data.current_user.new_user : null;
 		this.setData({
 			isLoading: false,
 			conWidth: width || '',
+
 			// newUser: data.current_user.new_user,
 			...data,
 		});
 	},
 
 	async onLoad() {
+		console.log(1);
 		const { themeColor } = app.globalData;
 		this.setData({ themeColor });
+		console.log(2);
 		this.loadHome();
 	},
 	async onReceiveCoupon(id, index) {
@@ -131,8 +134,8 @@ Page({
 		}
 	},
 	async receiveCouponAll(e) {
-		if(!this.data.current_user) {
-			this.needAuth()
+		if (!this.data.current_user) {
+			this.needAuth();
 		}
 		const { id } = e.currentTarget.dataset;
 		let result = [];
@@ -192,13 +195,13 @@ Page({
 		}
 		this.loadProducts();
 	},
- 	async needAuth(e) {
-        const user = await login();
-        console.log(user)
-        this.setData({
-            user: user
-        })
-    },
+	async needAuth(e) {
+		const user = await login();
+		console.log(user);
+		this.setData({
+			user: user,
+		});
+	},
 	onShareAppMessage: onDefaultShareAppMessage,
 
 	// onShareAppMessage:function(res) {

@@ -95,7 +95,7 @@
     catchtap="onShowCouponList"
     wx:if="{{ product.coupons && product.coupons.length }}"
   >
-  <form bindsubmit="submit" report-submit="true">
+  <form bindsubmit="submitFormId" report-submit="true">
   <button formType="submit">
 
       <text>领券</text>
@@ -308,17 +308,22 @@
               bindquantityChangeEvent="updateQuantity"
             />
           </view>
-          <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-            <button
-              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
-              wx:for="{{ actions }}"
-              wx:key="text"
-              disabled="{{ product.skus.length && !selectedSku.id }}"
-              data-action-type="{{ item.type }}"
-              catchtap="onSkuConfirm"
-              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
-            >{{ item.text }}</button>
-          </view>
+          <form
+            catchsubmit="onSkuConfirm"
+            report-submit="true"
+          >
+            <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+              <button
+                class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+                wx:for="{{ actions }}"
+                wx:key="text"
+                disabled="{{ product.skus.length && !selectedSku.id }}"
+                data-action-type="{{ item.type }}"
+                formType="submit"
+                style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+              >{{ item.text }}</button>
+            </view>
+          </form>
         </view>
         <view wx:else  style="width:100%">
           <scroll-view scroll-y class="scrollSkus">
@@ -365,17 +370,22 @@
               bindquantityChangeEvent="updateQuantity"
             />
           </view>
-          <view class="actionSheetBtGroup">
-            <button
-              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ product.skus.length && !selectedSku.id ? 'confirmDisabledBt' : '' }}"
-              wx:for="{{ actions }}"
-              wx:key="text"
-              disabled="{{ product.skus.length && !selectedSku.id }}"
-              data-action-type="{{ item.type }}"
-              catchtap="onSkuConfirm"
-              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
-            >{{ item.text }}</button>
-          </view>
+          <form
+            catchsubmit="onSkuConfirm"
+            report-submit="true"
+          >
+            <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+              <button
+                class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ product.skus.length && !selectedSku.id ? 'confirmDisabledBt' : '' }}"
+                wx:for="{{ actions }}"
+                wx:key="text"
+                disabled="{{ product.skus.length && !selectedSku.id }}"
+                data-action-type="{{ item.type }}"
+                formType="submit"
+                style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+              >{{ item.text }}</button>
+            </view>
+          </form>
         </view>
       </view>
     </view>

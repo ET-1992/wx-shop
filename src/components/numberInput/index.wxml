@@ -1,11 +1,7 @@
 <view class="quantity">
-  
-  <view class="bt" wx:if="{{status==0}}" data-type="decrease">-</view>
-  <view class="bt" catchtap="onChange" data-type="decrease" wx:else>-</view>
+  <view class="bt" catchtap="onChange" data-type="decrease">-</view>
   <view
     class="value"
   >{{ value }}</view>
-  <view class="bt" wx:if="{{status==0}}" data-type="add">+</view>
-  <view class="bt" catchtap="onChange" data-type="add" wx:else>+</view>
-
+  <view class="bt" catchtap="onChange" data-type="add">+</view>
 </view>

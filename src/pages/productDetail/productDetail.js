@@ -25,7 +25,7 @@ const findSelectedSku = (skus, selectedProperties) => {
 	});
 	return sku || {};
 };
- 
+
 Page({
 	data: {
 		user: {},
@@ -219,7 +219,7 @@ Page({
 				),
 				...data,
 			});
-			console.log(this.data.contentList);
+			console.log('contentList', this.data.contentList);
 			this.countDown();
 		}
 		catch (err) {
@@ -276,8 +276,9 @@ Page({
 		this.onShowSku();
 	},
 
-	async addCart() {
+	async addCart(ev) {
 		console.log('addCart');
+		const { formId } = ev.detail;
 		const { vendor } = app.globalData;
 		const { product: { id }, selectedSku, quantity } = this.data;
 
@@ -294,6 +295,7 @@ Page({
 			sku_id: selectedSku.id || 0,
 			quantity,
 			vendor,
+			form_id: formId
 		});
 		if (!data.errcode) {
 			wx.showToast({
@@ -525,13 +527,15 @@ Page({
 	},
 
 	onSkuConfirm(ev) {
-		const { actionType } = ev.currentTarget.dataset;
+		console.log(ev);
+		const { actionType } = ev.detail.target.dataset;
 		this.setData({
 			isShowAcitonSheet: false,
 		});
-		this[actionType]();
+		this[actionType](ev);
 	},
-	async submit(e) {
+
+	async submitFormId(e) {
 		const data = await api.hei.submitFormId({
 			form_id: e.detail.formId,
 		});
