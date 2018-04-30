@@ -16,6 +16,7 @@
         "scss/operator-no-unspaced": true,
         "scss/selector-no-redundant-nesting-selector": true,
 
+        "selector-list-comma-newline-after": "always-multi-line",
         "indentation": "tab",
         "at-rule-no-unknown": [true, {
             "ignoreAtRules": ["mixin", "extend", "include"],
