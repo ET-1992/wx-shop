@@ -8,14 +8,15 @@
     <image class="emptyHint" src="../../icons/bigCart.png" mode="widthFix"></image>
     <view class="goBuyDesc">
         <view class="empty">未登录</view>
-        <view
-          bindtap="onLogin"
-          class="onGotoBuy"
+        <button
+          class="normalizeBt onGotoBuy"
           style="background-color: {{ themeColor.primaryColor  }}"
+          open-type="getUserInfo"
+          bindgetuserinfo="onLogin"
         >
           <image src="../../icons/webchat.png"></image>
           <text>微信用户快速登录</text>
-        </view>
+        </button>
        <view class="logo">
         <image src="../../icons/hausheng.png">
         </image>
@@ -66,7 +67,6 @@
         >
           <image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ item.isSelected }}"/>
         </view>
-
       </view>
        <view class="itemImageList">
         <view wx:if="{{ item.status === 0 }}" class="opacityBg stock0"></view>

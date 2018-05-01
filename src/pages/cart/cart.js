@@ -68,13 +68,14 @@ Page({
 		const data = await api.hei.fetchCartList();
 		let isAllSelected = true;
 
+
 		// 初次默认全部选中, 再次进入读取storage的信息
 		const cartList = wx.getStorageSync(CART_LIST_KEY);
+
 		if (data.items && data.items.length) {
 			data.items.forEach((item) => {
 				const { id, status } = item;
-				const cartListItem = cartList.find((listItem) => listItem.id === id);
-
+				const cartListItem = cartList && cartList.find((listItem) => listItem.id === id);
 				// item.status === 0 为售罄或者下架
 				if (status === 0) {
 					item.isSelected = false;
@@ -111,6 +112,7 @@ Page({
 		// }
 
 		this.setData({
+
 			// totalPrice: 0,
 			// savePrice: 0,
 			// postagePrice: 0,
@@ -138,11 +140,16 @@ Page({
 		}
 	},
 
-	async onLogin() {
-		const { user } = await login();
-		if (user.openid) {
-			this.setData({ isLogin: true });
-			await this.loadCart();
+	async onLogin(ev) {
+		console.log('onLogin', ev);
+		const { errMsg, iv, encryptedData } = ev.detail;
+		const isDenied = errMsg.indexOf('deny') >= 0;
+		if (!isDenied) {
+			const { user } = await login({ iv, encryptedData });
+			if (user.openid) {
+				this.setData({ isLogin: true });
+				await this.loadCart();
+			}
 		}
 	},
 
