@@ -50,7 +50,7 @@
       <view
         class="radioWrapper"
         data-index="{{ index }}"
-        wx:if="{{ item.status === 0}}"
+        wx:if="{{ item.status === 0 }}"
       >
          <view class="stock0Radio" />
       </view>

@@ -4,6 +4,7 @@ export const UID_KEY = 'uid';
 export const USER_KEY = 'user';
 export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
+export const CART_LIST_KEY = 'cartList';
 
 export const SHARE_TITLE = '小黑店';
 

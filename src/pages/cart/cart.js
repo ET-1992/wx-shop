@@ -3,6 +3,7 @@ import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import login from 'utils/login';
 import { cloneDeep } from 'lodash';
+import { CART_LIST_KEY } from 'constants/index';
 
 const app = getApp();
 
@@ -20,7 +21,6 @@ Page({
 		isLoading: false,
 		isLogin: false,
 		nowTS: Date.now() / 1000,
-		// timestamp: (+new Date() / 1000) | 0,
 	},
 
 	calculatePrice() {
@@ -66,32 +66,55 @@ Page({
 	async loadCart() {
 		this.setData({ isLoading: true });
 		const data = await api.hei.fetchCartList();
+		let isAllSelected = true;
+
+		// 初次默认全部选中, 再次进入读取storage的信息
+		const cartList = wx.getStorageSync(CART_LIST_KEY);
 		if (data.items && data.items.length) {
-			data.items.map((item) => {
-				item.isSelected = true;
-				return item;
+			data.items.forEach((item) => {
+				const { id, status } = item;
+				const cartListItem = cartList.find((listItem) => listItem.id === id);
+
+				// item.status === 0 为售罄或者下架
+				if (status === 0) {
+					item.isSelected = false;
+				}
+				else {
+					item.isSelected = cartListItem ? cartListItem.isSelected : true;
+					if (!cartListItem.isSelected) {
+						isAllSelected = false;
+					}
+				}
 			});
 		}
 
-		const cartList = wx.getStorageSync('cartList');
-		let isTrue = true;
+		// 初次默认全部选中
+		// if (data.items && data.items.length) {
+		// 	data.items.forEach((item) => {
+		// 		item.isSelected = true;
+		// 	});
+		// }
 
-		if (cartList) {
-			for (let i = 0; i < cartList.length; i++) {
-				data.items.map((item) => {
-					if (cartList[i].id === item.id) {
-						if (cartList[i].isSelected !== true) isTrue = false;
-						Object.assign(item, { isSelected: cartList[i].isSelected });
-					}
-				});
-			}
-		}
+		// 再次进入读取storage的信息
+		// const cartList = wx.getStorageSync(CART_LIST_KEY);
+		// let isTrue = true;
+
+		// if (cartList) {
+		// 	for (let i = 0; i < cartList.length; i++) {
+		// 		data.items.map((item) => {
+		// 			if (cartList[i].id === item.id) {
+		// 				if (cartList[i].isSelected !== true) isTrue = false;
+		// 				Object.assign(item, { isSelected: cartList[i].isSelected });
+		// 			}
+		// 		});
+		// 	}
+		// }
 
 		this.setData({
-			isAllSelected: isTrue,
-			totalPrice: 0,
-			savePrice: 0,
-			postagePrice: 0,
+			// totalPrice: 0,
+			// savePrice: 0,
+			// postagePrice: 0,
+			isAllSelected,
 			...data,
 		});
 		this.setData({ isLoading: false });
@@ -144,28 +167,31 @@ Page({
 		this.calculatePrice();
 	},
 
-	// onItemUnSelect(ev) {
-	// 	const { index } = ev.currentTarget.dataset;
-	// 	const updateData = { isAllSelected: false };
-	// 	const key = `items[${index}].isSelected`;
-	// 	updateData[key] = false;
-	// 	this.setData(updateData);
-	// 	this.calculatePrice();
-	// },
-
 	onSelectAll() {
 		const { isAllSelected } = this.data;
 		const { items } = this.data;
+		let isAllSoldout = true;
+
 		const newItems = items.map((item) => {
-			item.isSelected = !isAllSelected;
+			const isSoldOut = item.status === 0;
+			if (!isSoldOut) {
+				isAllSoldout = false;
+			}
+			item.isSelected = isSoldOut ? false : !isAllSelected;
 			return item;
 		});
-		this.setData({
-			items: newItems,
-			isAllSelected: !isAllSelected,
-		});
-		this.saveCartAction();
-		this.calculatePrice();
+
+		if (isAllSoldout) {
+			wx.showToast('购物车的商品均已售罄');
+		}
+		else {
+			this.setData({
+				items: newItems,
+				isAllSelected: !isAllSelected,
+			});
+			this.calculatePrice();
+			this.saveCartAction();
+		}
 	},
 
 	async updateCart({ detail }) {
@@ -184,14 +210,6 @@ Page({
 		updateData[quantitykey] = value;
 		this.setData(updateData);
 		this.calculatePrice();
-		// this.onItemSelect({
-		// 	currentTarget: {
-		// 		dataset: {
-		// 			index,
-		// 		},
-		// 	},
-		// });
-		console.log(data);
 	},
 
 	async onDelete(ev) {
@@ -232,6 +250,7 @@ Page({
 			});
 			this.setData({ items: [] });
 			this.calculatePrice();
+			this.saveCartAction();
 		}
 	},
 
@@ -248,6 +267,6 @@ Page({
 
 	saveCartAction() {
 		const { items } = this.data;
-		wx.setStorageSync('cartList', items);
+		wx.setStorageSync(CART_LIST_KEY, items);
 	},
 });
