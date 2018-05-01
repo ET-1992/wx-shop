@@ -187,6 +187,7 @@
       客服
       </button>
 
+      <!-- !!!需要重构 这里不应该有那么的多block -->
       <block wx:if="{{ (product.groupon_enable !== '1' && product.miaosha_enable !== '1') }}">
         <view
           class="addCart"
@@ -254,96 +255,36 @@
 </view>
 </view>
 
-  <view class="actionSheet">
-    <template
-      is="mock"
-      data="{{ isShow: isShowAcitonSheet }}"
-    />
-    <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-      <view class="head">
+<view class="actionSheet">
+  <template
+    is="mock"
+    data="{{ isShow: isShowAcitonSheet }}"
+  />
+  <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <view class="head">
 
-        <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
-          <scroll-view scroll-y class="scrollSkus">
-              <view class="skuDescribe">
-                 <image  src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"  class="skuImg"  mode="aspectFill" />
-                  <view class="skuInfo">
-                    <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
-                      <view class="price" wx:if="{{ hasEnd || !hasStart }}">￥{{ selectedSku.id ? selectedSku.price : product.price }}</view>
-                      <view class="price" wx:if="{{ !hasEnd && hasStart }}">￥{{ product.miaosha_price }}</view>
-                      <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
-                      <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
-                    </view>
-                    <view wx:if="{{ (!actions[0].isMiaosha && actions[0].isGroupon) }}">
-                      <view class="price">￥{{ product.groupon_price }}</view>
-                      <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
-                      <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
-                    </view>
+      <!-- !!!需要重构  -->
+      <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
+        <scroll-view scroll-y class="scrollSkus">
+            <view class="skuDescribe">
+               <image  src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"  class="skuImg"  mode="aspectFill" />
+                <view class="skuInfo">
+                  <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
+                    <view class="price" wx:if="{{ hasEnd || !hasStart }}">￥{{ selectedSku.id ? selectedSku.price : product.price }}</view>
+                    <view class="price" wx:if="{{ !hasEnd && hasStart }}">￥{{ product.miaosha_price }}</view>
+                    <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
+                    <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
                   </view>
-              </view>
-
-              <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
-                <view class="skuGroup"  wx:for="{{ skuSplitProperties }}"  wx:for-item="property"  wx:for-index="propertyIndex"  wx:key="key"  >
-                  <view class="title"
-                  >{{ property.key }}</view>
-                  <view
-                    class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }}"
-                    wx:for="{{ property.values }}"
-                    wx:key="index"
-                    data-value="{{ item }}"
-                    data-key="{{ property.key }}"
-                    data-property-index="{{ propertyIndex }}"
-                    catchtap="onSkuItem"
-                    style="{{ selectedProperties[propertyIndex].value === item ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
-                  >{{ item }}</view>
+                  <view wx:if="{{ (!actions[0].isMiaosha && actions[0].isGroupon) }}">
+                    <view class="price">￥{{ product.groupon_price }}</view>
+                    <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
+                    <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+                  </view>
                 </view>
-              </view>
-          </scroll-view>
-          <view class="quantity">
-            <view class="title">数量</view>
-            <numberInput
-              value="{{ quantity }}"
-              postId="{{ product.id }}"
-              skuId="{{ selectedSku.id }}"
-              max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
-              bindquantityChangeEvent="updateQuantity"
-            />
-          </view>
-          <form
-            catchsubmit="onSkuConfirm"
-            report-submit="true"
-          >
-            <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-              <button
-                class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
-                wx:for="{{ actions }}"
-                wx:key="text"
-                disabled="{{ product.skus.length && !selectedSku.id }}"
-                data-action-type="{{ item.type }}"
-                formType="submit"
-                style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
-              >{{ item.text }}</button>
             </view>
-          </form>
-        </view>
-        <view wx:else  style="width:100%">
-          <scroll-view scroll-y class="scrollSkus">
-          <view class="skuDescribe">
 
-            <image  src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"  class="skuImg"  mode="aspectFill" />
-            <view class="skuInfo">
-              <view class="price">￥{{ selectedSku.price || product.price }}</view>
-              <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
-              <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
-            </view>
-          </view>
             <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
-              <view
-                class="skuGroup"
-                wx:for="{{ skuSplitProperties }}"
-                wx:for-item="property"
-                wx:for-index="propertyIndex"
-                wx:key="key"
-              >
+              <view class="skuGroup"  wx:for="{{ skuSplitProperties }}"  wx:for-item="property"  wx:for-index="propertyIndex"  wx:key="key"  >
                 <view class="title"
                 >{{ property.key }}</view>
                 <view
@@ -358,79 +299,142 @@
                 >{{ item }}</view>
               </view>
             </view>
-          </scroll-view>
-
-          <view class="quantity">
-            <view class="title">数量</view>
-            <numberInput
-              value="{{ quantity }}"
-              postId="{{ product.id }}"
-              skuId="{{ selectedSku.id }}"
-              max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
-              bindquantityChangeEvent="updateQuantity"
-            />
-          </view>
-          <form
-            catchsubmit="onSkuConfirm"
-            report-submit="true"
-          >
-            <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-              <button
-                class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ product.skus.length && !selectedSku.id ? 'confirmDisabledBt' : '' }}"
-                wx:for="{{ actions }}"
-                wx:key="text"
-                disabled="{{ product.skus.length && !selectedSku.id }}"
-                data-action-type="{{ item.type }}"
-                formType="submit"
-                style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
-              >{{ item.text }}</button>
-            </view>
-          </form>
+        </scroll-view>
+        <view class="quantity">
+          <view class="title">数量</view>
+          <numberInput
+            value="{{ quantity }}"
+            postId="{{ product.id }}"
+            skuId="{{ selectedSku.id }}"
+            max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
+            bindquantityChangeEvent="updateQuantity"
+          />
         </view>
+        <form
+          catchsubmit="onSkuConfirm"
+          report-submit="true"
+        >
+          <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+            <button
+              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+              wx:for="{{ actions }}"
+              wx:key="text"
+              disabled="{{ product.skus.length && !selectedSku.id }}"
+              data-action-type="{{ item.type }}"
+              formType="submit"
+              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+            >{{ item.text }}</button>
+          </view>
+        </form>
+      </view>
+      <view wx:else  style="width:100%">
+        <scroll-view scroll-y class="scrollSkus">
+        <view class="skuDescribe">
+
+          <image  src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"  class="skuImg"  mode="aspectFill" />
+          <view class="skuInfo">
+            <view class="price">￥{{ selectedSku.price || product.price }}</view>
+            <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
+            <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+          </view>
+        </view>
+          <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
+            <view
+              class="skuGroup"
+              wx:for="{{ skuSplitProperties }}"
+              wx:for-item="property"
+              wx:for-index="propertyIndex"
+              wx:key="key"
+            >
+              <view class="title"
+              >{{ property.key }}</view>
+              <view
+                class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }}"
+                wx:for="{{ property.values }}"
+                wx:key="index"
+                data-value="{{ item }}"
+                data-key="{{ property.key }}"
+                data-property-index="{{ propertyIndex }}"
+                catchtap="onSkuItem"
+                style="{{ selectedProperties[propertyIndex].value === item ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
+              >{{ item }}</view>
+            </view>
+          </view>
+        </scroll-view>
+
+        <view class="quantity">
+          <view class="title">数量</view>
+          <numberInput
+            value="{{ quantity }}"
+            postId="{{ product.id }}"
+            skuId="{{ selectedSku.id }}"
+            max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
+            bindquantityChangeEvent="updateQuantity"
+          />
+        </view>
+        <form
+          catchsubmit="onSkuConfirm"
+          report-submit="true"
+        >
+          <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+            <button
+              class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ product.skus.length && !selectedSku.id ? 'confirmDisabledBt' : '' }}"
+              wx:for="{{ actions }}"
+              wx:key="text"
+              disabled="{{ product.skus.length && !selectedSku.id }}"
+              data-action-type="{{ item.type }}"
+              formType="submit"
+              style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+            >{{ item.text }}</button>
+          </view>
+        </form>
       </view>
     </view>
   </view>
-  <view class="actionSheet" >
-    <template
-      is="mock"
-      data="{{ isShow: isShowCouponList }}"
-    />
-    <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-      <scroll-view class="couponList" scroll-y>
-        <view class="title">优惠券</view>
-        <view class="availableCoupon">
-          <view class="couponListTitle">可领取优惠券</view>
-          <view
-            class="noCouponHint"
-            wx:if="{{ !receivableCoupons.length }}"
-          >暂无可领取优惠券</view>
-          <view
-            class="couponItemWrapper"
-            wx:for="{{ receivableCoupons }}"
-            wx:key="id"
-            data-id="{{ item.id }}"
-            data-status="{{ item.status }}"
-            data-title="{{ item.title }}"
-            data-index="{{ index }}"
-            catchtap="onCouponClick"
-          >
-            <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
-          </view>
-          <view class="couponListTitle">已领取优惠券</view>
-          <view
-            class="noCouponHint"
-            wx:if="{{ !receivedCoupons.length }}"
-          >暂无可领取优惠券</view>
-          <navigator
-            class="couponItemWrapper"
-            wx:for="{{ receivedCoupons }}"
-            wx:key="id"
-            url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
-          >
-            <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
-          </navigator>
+</view>
+
+
+<view class="actionSheet" >
+  <template
+    is="mock"
+    data="{{ isShow: isShowCouponList }}"
+  />
+  <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <scroll-view class="couponList" scroll-y>
+      <view class="title">优惠券</view>
+      <view class="availableCoupon">
+        <view class="couponListTitle">可领取优惠券</view>
+        <view
+          class="noCouponHint"
+          wx:if="{{ !receivableCoupons.length }}"
+        >暂无可领取优惠券</view>
+        <view
+          class="couponItemWrapper"
+          wx:for="{{ receivableCoupons }}"
+          wx:key="id"
+          data-id="{{ item.id }}"
+          data-status="{{ item.status }}"
+          data-title="{{ item.title }}"
+          data-index="{{ index }}"
+          catchtap="onCouponClick"
+        >
+          <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
         </view>
-        <view class="gap" />
-      </scroll-view>
-    </view>
+        <view class="couponListTitle">已领取优惠券</view>
+        <view
+          class="noCouponHint"
+          wx:if="{{ !receivedCoupons.length }}"
+        >暂无可领取优惠券</view>
+        <navigator
+          class="couponItemWrapper"
+          wx:for="{{ receivedCoupons }}"
+          wx:key="id"
+          url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
+        >
+          <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
+        </navigator>
+      </view>
+      <view class="gap" />
+    </scroll-view>
   </view>
+</view>

@@ -1,15 +1,22 @@
-@import '~styles/color';
-@import '~templates/loading/loading';
+@import "~styles/color";
+@import "~templates/loading/loading";
 
 page {
-	font-size: 12px;
-	font-family: -apple-system, "Avenir Next",  "helvetica neue", "helvetica", "arial", "hiragino sans gb", "stheiti";
+	font-family: -apple-system, "Avenir Next", "helvetica neue", "helvetica",
+		"arial", "hiragino sans gb", "stheiti";
 	background-color: $backgroundColor;
 	font-size: 12pt;
 	color: $titleColor;
 }
 
-view, image, swiper, textarea, scroll-view, input, navigator, video {
+view,
+image,
+swiper,
+textarea,
+scroll-view,
+input,
+navigator,
+video {
 	box-sizing: border-box;
 }
 
@@ -18,16 +25,16 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	width: 100%;
 	box-sizing: border-box;
 }
-.j-item{
-	width:100%;
+.j-item {
+	width: 100%;
 	overflow: hidden;
 }
-.img-lazyloaded{
+.img-lazyloaded {
 	width: 100%;
 	overflow: hidden;
 	display: block;
 }
-.content img{
+.content img {
 	width: 750rpx;
 	overflow: hidden;
 	margin-left: 5px;
@@ -45,7 +52,7 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	}
 }
 
-.normalizeBt::after{
+.normalizeBt::after {
 	display: none;
 }
 
@@ -56,7 +63,7 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 .navigator-hover {
 	background-color: transparent;
 }
-.logo{
+.logo {
 	display: flex;
 	align-items: center;
 	margin: 50rpx auto;
@@ -65,87 +72,83 @@ view, image, swiper, textarea, scroll-view, input, navigator, video {
 	flex-direction: row;
 	justify-content: center;
 }
-.logo image{
+.logo image {
 	width: 60rpx;
 	height: 60rpx;
 	margin-right: 30rpx;
 	margin-bottom: 0;
 }
-button{
-	border:0;
+button {
+	border: 0;
 	outline: 0;
 	margin: 0;
 	padding: 0;
 	border-radius: 0;
 }
-button::after{
-	border:0;
+button::after {
+	border: 0;
 	outline: 0;
 }
 /*卡片*/
-.alignnone{
+.alignnone {
 	display: block;
 	width: 100%;
 }
-.product-card{
-	width:90%;
-	color:#333;
-	padding:20rpx;
-	line-height:1.4;
-	margin:70rpx auto;
-	box-shadow:2px 2px 12px #ccc;
-	border-radius:4px;
-	height:278rpx;
-
+.product-card {
+	width: 90%;
+	color: #333;
+	padding: 20rpx;
+	line-height: 1.4;
+	margin: 70rpx auto;
+	box-shadow: 2px 2px 12px #ccc;
+	border-radius: 4px;
+	height: 278rpx;
 }
-.product-card-thumbnail{
+.product-card-thumbnail {
 	width: 220rpx;
 	height: 220rpx;
 	float: left;
 }
-.product-card-title .wxParse-inline{
- 	overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+.product-card-title .wxParse-inline {
+	overflow: hidden; /*超出部分隐藏*/
+	white-space: nowrap; /*不换行*/
+	text-overflow: ellipsis; /*超出部分文字以...显示*/
 	font-size: 16px;
 	font-weight: normal;
 	color: $titleColor;
 	padding-left: 20rpx;
 	margin-top: 0;
-	width:380rpx;
-
+	width: 380rpx;
 }
-.product-card-except .wxParse-inline{
-	overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+.product-card-except .wxParse-inline {
+	overflow: hidden; /*超出部分隐藏*/
+	white-space: nowrap; /*不换行*/
+	text-overflow: ellipsis; /*超出部分文字以...显示*/
 	font-size: 13px;
-	color:$tagColor;
+	color: $tagColor;
 	padding-left: 20rpx;
-	margin-bottom:40rpx;
-	width:380rpx;
-	}
-.product-card-meta{
+	margin-bottom: 40rpx;
+	width: 380rpx;
+}
+.product-card-meta {
 	float: right;
 	display: flex;
 	padding-left: 20rpx;
 	padding-top: 25rpx;
 }
-.product-card-price{
-	color:$priceColor;
-	font-size:18px;
-	width:240rpx;
-	margin-top:10rpx;
-	padding-top:30rpx;
-
+.product-card-price {
+	color: $priceColor;
+	font-size: 18px;
+	width: 240rpx;
+	margin-top: 10rpx;
+	padding-top: 30rpx;
 }
-.product-card-button{
+.product-card-button {
 	padding: 0rpx 20rpx !important;
 	color: #fff;
-	background:$mainColor;
+	background: $mainColor;
 	font-size: 14px;
-	height:56rpx;
-	line-height:56rpx;
-	margin-top:34rpx !important;
-
+	height: 56rpx;
+	line-height: 56rpx;
+	margin-top: 34rpx !important;
 }

@@ -6,18 +6,21 @@
 
 <view class="container" wx:if="{{ !isLoading }}">
 
-
   <navigator
-      class="searchWrapper"
-      url="/pages/search/search"
-   wx:if="{{modules[0].key=='search_box'}}" >
+    class="searchWrapper"
+    url="/pages/search/search"
+    wx:if="{{modules[0].key=='search_box'}}" >
       <view class="search">
         <image src="/icons/search.png" class="searchIcon"/>
         <text>搜索商品，共有{{ total }}款好物</text>
       </view>
-    </navigator>
-  <view class="{{modules[0].key=='search_box'?'main':''}}">
+  </navigator>
+
+  <view
+    class="{{ modules[0].key === 'search_box' ? 'main': '' }}"
+  >
     <view wx:for="{{modules}}"  wx:for-item="modules">
+
      <!-- 幻灯片 -->
       <view wx:if="{{modules.key=='sliders'}}">
        <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
@@ -28,6 +31,7 @@
           </swiper-item>
         </swiper>
       </view>
+
       <!-- 拼团专区 -->
       <view wx:if="{{modules.key=='groupons'}}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
@@ -50,9 +54,10 @@
           </navigator>
         </view>
       </view>
+
       <!-- 最新推荐 -->
       <view wx:if="{{modules.key=='articles'}}">
-        <view class="section section3" wx:if="{{ articles && articles.length }}">
+        <view class="section" wx:if="{{ articles && articles.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
           <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
             <image src='{{articles[0].banner}}' style="height: {{modules.height}}rpx;"></image>
@@ -74,7 +79,8 @@
           </navigator>
         </view>
       </view>
-        <!-- 限时购 -->
+
+      <!-- 限时购 -->
       <view wx:if="{{modules.key=='miaoshas'}}">
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
@@ -126,7 +132,7 @@
       <!-- 明星产品 -->
       <view wx:if="{{modules.key=='featured_products'}}">
 
-        <view class="section section3" wx:if="{{ featured_products && featured_products.length }}">
+        <view class="section" wx:if="{{ featured_products && featured_products.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
 
            <navigator style="height: {{modules.height}}rpx;margin-bottom:15rpx;" url="/pages/productDetail/productDetail?id={{ item.product.id }}" wx:for="{{ featured_products }}" wx:key="item.product.id" >
@@ -139,6 +145,8 @@
       <view wx:if="{{modules.key=='products'}}">
         <view class="section" wx:if="{{ products && products.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
+
+          <!-- 商品列表 -->
           <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{next_cursor}}" />
           <navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
            <form bindsubmit="submitFormId" report-submit="true">
@@ -150,7 +158,7 @@
          </navigator>
         </view>
       </view>
-    <!-- 商品列表 -->
+
     </view>
   </view>
   <!-- <view class="bottomHint">-这是一条底线-</view> -->
@@ -160,30 +168,30 @@
   </image>
   <text>花生小店提供技术和电商支持</text>
 </view>
+
 <!-- 新用戶优惠券弹框 -->
-
-  <view wx:if="{{newUser=='1' && hasCoupons}}" class="newUserCoupon">
-    <view class="couponContainer">
-      <scroll-view class="couponScroll" scroll-y>
-          <view class="couponItem" wx:for="{{coupons}}" wx:if="{{item.target_user_type==2 }}" data-status="{{item.status}}">
-              <view class="newCouponInfo">
-                <view class="couponType">
-                  <view class="newUser">新用户专享</view>
-                  <view>{{item.title}}</view>
-                </view>
-                <view class="reduce">
-                  <text wx:if="{{ item.type == 1 }}">￥</text>
-                  <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
-                  <text wx:if="{{ item.type == 2 }}">折</text>
-                </view>
+<view wx:if="{{newUser=='1' && hasCoupons}}" class="newUserCoupon">
+  <view class="couponContainer">
+    <scroll-view class="couponScroll" scroll-y>
+        <view class="couponItem" wx:for="{{coupons}}" wx:if="{{item.target_user_type==2 }}" data-status="{{item.status}}">
+            <view class="newCouponInfo">
+              <view class="couponType">
+                <view class="newUser">新用户专享</view>
+                <view>{{item.title}}</view>
               </view>
+              <view class="reduce">
+                <text wx:if="{{ item.type == 1 }}">￥</text>
+                <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+                <text wx:if="{{ item.type == 2 }}">折</text>
+              </view>
+            </view>
 
-              <view class="deadline">{{item.start_time}}-{{item.end_time}}</view>
-          </view>
-      </scroll-view>
-      <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
-    </view>
-    <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon">
-    </image>
+            <view class="deadline">{{item.start_time}}-{{item.end_time}}</view>
+        </view>
+    </scroll-view>
+    <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
   </view>
+  <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon">
+  </image>
+</view>
 
