@@ -1,5 +1,9 @@
 <import src="../../templates/couponItem/couponItem.wxml"/>
-<image class="vendorImage" src="{{vendor.image_url}}" mode="widthFix"></image>
+<image
+  class="vendorImage"
+  src="{{vendor.image_url}}"
+  mode="widthFix"
+/>
 <view class="couponsList">
 	 <view class="couponItemWrapper"  wx:for="{{ coupons }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}">
 	        <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>

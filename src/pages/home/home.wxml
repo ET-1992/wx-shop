@@ -195,7 +195,7 @@
               </view>
             </view>
 
-            <view class="deadline">{{item.start_time}}-{{item.end_time}}</view>
+            <view class="deadline">{{item.start_time}}至{{item.end_time}}</view>
         </view>
     </scroll-view>
     <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
