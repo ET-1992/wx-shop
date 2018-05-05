@@ -19,10 +19,14 @@
   <view
     class="{{ modules[0].key === 'search_box' ? 'main': '' }}"
   >
-    <view wx:for="{{modules}}"  wx:for-item="modules">
+    <view
+      wx:for="{{modules}}"
+      wx:for-item="modules"
+      wx:key="key"
+    >
 
      <!-- 幻灯片 -->
-      <view wx:if="{{modules.key=='sliders'}}">
+      <view wx:if="{{ modules.key === 'sliders' }}">
        <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{modules.height}}rpx"  indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
           <swiper-item wx:for="{{ sliders }}" wx:key="id">
             <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
@@ -33,7 +37,7 @@
       </view>
 
       <!-- 拼团专区 -->
-      <view wx:if="{{modules.key=='groupons'}}">
+      <view wx:if="{{ modules.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
@@ -56,7 +60,7 @@
       </view>
 
       <!-- 最新推荐 -->
-      <view wx:if="{{modules.key=='articles'}}">
+      <view wx:if="{{ modules.key === 'articles' }}">
         <view class="section" wx:if="{{ articles && articles.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
           <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
@@ -81,7 +85,7 @@
       </view>
 
       <!-- 限时购 -->
-      <view wx:if="{{modules.key=='miaoshas'}}">
+      <view wx:if="{{ modules.key === 'miaoshas' }}">
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
           <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
@@ -102,7 +106,7 @@
       </view>
 
       <!-- 优惠券 -->
-      <view wx:if="{{modules.key=='coupons'}}">
+      <view wx:if="{{ modules.key === 'coupons' }}">
         <scroll-view class="couponsWrapper" wx:if="{{ coupons.length }}" scroll-x>
           <view class="coupons"  style="width:{{conWidth}}rpx">
             <view  class="coupon" wx:for="{{ coupons }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}"  data-index="{{ index }}"
@@ -130,19 +134,24 @@
       </view>
 
       <!-- 明星产品 -->
-      <view wx:if="{{modules.key=='featured_products'}}">
+      <view wx:if="{{ modules.key === 'featured_products' }}">
 
         <view class="section" wx:if="{{ featured_products && featured_products.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
 
-           <navigator style="height: {{modules.height}}rpx;margin-bottom:15rpx;" url="/pages/productDetail/productDetail?id={{ item.product.id }}" wx:for="{{ featured_products }}" wx:key="item.product.id" >
+           <navigator
+              style="height: {{modules.height}}rpx;margin-bottom:15rpx;"
+              url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}"
+              wx:for="{{ featured }}"
+              wx:key="id"
+            >
               <image class="starProductItem" src="{{ item.banner }}" />
             </navigator>
         </view>
       </view>
 
       <!-- 最新上架 -->
-      <view wx:if="{{modules.key=='products'}}">
+      <view wx:if="{{ modules.key === 'products' }}">
         <view class="section" wx:if="{{ products && products.length }}">
           <view class="sectionTitle" wx:if="{{modules.title}}">{{modules.title}}</view>
 
@@ -186,7 +195,7 @@
               </view>
             </view>
 
-            <view class="deadline">{{item.start_time}}-{{item.end_time}}</view>
+            <view class="deadline">{{item.start_time}}至{{item.end_time}}</view>
         </view>
     </scroll-view>
     <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>

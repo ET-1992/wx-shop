@@ -380,13 +380,13 @@ button {
 	}
 
 	.head {
-		margin-bottom: 24rpx;
 		display: flex;
-		// .skuDescribe {
-		// 	margin-bottom: 24rpx;
-		// 	display: flex;
-		// }
-		.productImage {
+		font-size: 10pt;
+		.skuDescribe {
+			margin-bottom: 24rpx;
+			display: flex;
+		}
+		.skuImg {
 			$size: 180rpx;
 
 			width: $size;
@@ -397,23 +397,23 @@ button {
 			box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
 		}
 
-		.productInfo {
+		.price {
+			color: $priceColor;
+			font-size: 14pt;
+		}
+
+		.skuInfo {
 			color: $originalPriceColor;
-			// display: flex;
-			// flex-direction: column;
-			// justify-content: flex-end;
-
-			.stock, .price, .property {
-				margin-bottom: 5rpx;
-			}
-
-			.price {
-				color: $priceColor;
-				font-size: 14pt;
-			}
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
 		}
 	}
-
+	.stock,
+	.price,
+	.property {
+		margin-bottom: 5rpx;
+	}
 	.skuGroup {
 		padding: 24rpx 0;
 	}

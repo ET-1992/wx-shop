@@ -3,7 +3,7 @@
     class="normalizeBt contactBt"
     wx:if="{{ isShowContact }}"
     open-type="contact"
-    session-from='{"nickName":"{{ user.nickname }}" ,"avatarUrl":"{{ user.avatarurl }}", "from": "order", "orderId": {{ order.id }}}'
+    session-from='{"nickname":"{{ user.nickname }}", "avatarurl":"{{ user.avatarurl }}", "from": "order", "orderId": {{ order.id }}}'
   >
     <image class="contactIcon" src="/icons/contact.png"/>
     <text>联系客服</text>
