@@ -6,7 +6,10 @@ import getToken from 'utils/getToken';
 import login from 'utils/login';
 import { USER_KEY } from 'constants/index';
 
+// import { wxParse } from 'utils/wxParse/wxParse';
+
 const WxParse = require('utils/wxParse/wxParse.js');
+
 const app = getApp();
 
 const findSelectedSku = (skus, selectedProperties) => {
@@ -22,7 +25,6 @@ const findSelectedSku = (skus, selectedProperties) => {
 	});
 	return sku || {};
 };
-
 
 Page({
 	data: {
@@ -61,25 +63,30 @@ Page({
 			{
 				type: 'onBuy',
 				text: '立即购买',
+				isGroupon: false,
+				isMiaosha: false,
+				isSingle: false,
 			},
 		],
-		isGrouponBuy: false,
+		single: false,
 		receivableCoupons: [],
 		receivedCoupons: [],
 	},
 
 	onShowSku(ev) {
 		const { status } = this.data.product;
+
 		if (status === 'unpublished' || status === 'sold_out') {
 			return;
 		}
+
 		const updateData = { isShowAcitonSheet: true };
 		if (ev) {
-			const { actions, isGrouponBuy = false } = ev.currentTarget.dataset;
-			console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
+			const { actions, single } = ev.currentTarget.dataset;
 			updateData.actions = actions;
-			updateData.isGrouponBuy = isGrouponBuy;
 
+			// updateData.single = (single === '0' ? true : false);
+			updateData.single = single === '0';
 		}
 		updateData.timestamp = (+new Date() / 1000) | 0;
 		this.setData(updateData);
@@ -126,8 +133,9 @@ Page({
 	},
 
 	async initPage() {
-		const { id, grouponId } = this.options;
 
+		// var createSelectorQuery = wx.createSelectorQuery().select('.content>img')
+		// console.log(createSelectorQuery)
 		this.setData({
 			pendingGrouponId: '',
 			selectedProperties: [],
@@ -137,6 +145,7 @@ Page({
 
 		this.setData({ isLoading: true });
 
+		const { id, grouponId } = this.data.indexparams;
 
 		try {
 			const data = await api.hei.fetchProduct({ id });
@@ -196,23 +205,21 @@ Page({
 				},
 				[],
 			);
-
-			WxParse.wxParse(
-				'contentList',
-				'html',
-				data.product.content,
-				this,
-				5,
-			);
-
 			this.setData({
 				skuSplitProperties,
 				grouponId: grouponId || '',
 				receivedCoupons,
 				receivableCoupons,
+				contentList: WxParse.wxParse(
+					'contentList',
+					'html',
+					data.product.content,
+					this,
+					5,
+				),
 				...data,
 			});
-
+			console.log('contentList', this.data.contentList);
 			this.countDown();
 		}
 		catch (err) {
@@ -233,16 +240,16 @@ Page({
 		wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
 	},
 
-	async onLoad({ grouponId }) {
+	async onLoad({ id, grouponId }) {
 		const systemInfo = wx.getSystemInfoSync();
 		const user = wx.getStorageSync(USER_KEY);
 		const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
 		const { themeColor } = app.globalData;
 		this.setData({
+			indexparams: { id, grouponId },
 			isIphoneX,
 			user,
 			themeColor,
-			isGrouponBuy: !!grouponId,
 		});
 	},
 
@@ -254,15 +261,17 @@ Page({
 
 	grouponListener({ detail }) {
 		const { grouponId } = detail;
+		console.log('grouponId', grouponId);
+
 		this.setData({
 			pendingGrouponId: grouponId,
 			actions: [
 				{
 					type: 'onBuy',
 					text: '立即购买',
+					isGroupon: true,
 				},
 			],
-			isGrouponBuy: true,
 		});
 		this.onShowSku();
 	},
@@ -303,19 +312,10 @@ Page({
 			selectedSku,
 			grouponId,
 			pendingGrouponId,
-			isGrouponBuy,
+			actions,
+			single,
 		} = this.data;
 
-		let isMiaoshaBuy = false;
-
-		if (product.miaosha_enable === '1') {
-			const now = Date.now() / 1000;
-			const hasStart = now >= product.miaosha_start_timestamp;
-			const hasEnd = now >= product.miaosha_end_timestamp;
-			isMiaoshaBuy = hasStart && !hasEnd;
-		}
-
-		//TODO 处理新版本不支持wx.getUserInfo
 		if (!token) {
 			await login();
 		}
@@ -328,28 +328,68 @@ Page({
 			return;
 		}
 
-		// if (isGrouponBuy) {
-		// 	selectedSku.price = product.groupon_price;
-		// 	product.price = product.groupon_price;
-		// 	wx.setStorageSync('orderCreate', {
-		// 		isGroupon: 1, // 检查是用来干什么的
-		// 		grouponId: grouponId || pendingGrouponId,
-		// 		skuId: selectedSku.id,
-		// 		quantity,
-		// 	});
-		// }
+		let url = '/pages/orderCreate/orderCreate';
+		if (grouponId || pendingGrouponId || actions[0].isGroupon) {
+			selectedSku.price = product.groupon_price;
+			product.price = product.groupon_price;
+			wx.setStorageSync('orderCreate', {
+				isGroupon: 1,
+				grouponId: grouponId || pendingGrouponId,
+				skuId: selectedSku.id,
+				quantity,
+			});
 
-		const currentOrder = createCurrentOrder({
-			selectedSku,
-			quantity,
-			product,
-			isGrouponBuy,
-			isMiaoshaBuy,
-		});
+			// url = url;
+		}
+
+		let currentOrder, price;
+		price = product.price;
+
+		// original_price = product.original_price
+
+		if (product.groupon_enable === '1') {
+			if (single) {
+				currentOrder = createCurrentOrder({
+					selectedSku: Object.assign({ quantity }, selectedSku),
+					items: [product],
+				});
+			}
+			else {
+				currentOrder = createCurrentOrder({
+					selectedSku: Object.assign({ quantity, price }, selectedSku),
+					items: [product],
+				});
+			}
+		}
+		else if (product.miaosha_enable === '1') {
+			const now = Date.now() / 1000;
+			const hasStart = now >= product.miaosha_start_timestamp;
+			const hasEnd = now >= product.miaosha_end_timestamp;
+			if (hasStart && !hasEnd) {
+				currentOrder = createCurrentOrder({
+					selectedSku: Object.assign({ quantity }, selectedSku, {
+						price: product.miaosha_price - 0,
+					}),
+					items: [product],
+				});
+			}
+			else {
+				currentOrder = createCurrentOrder({
+					selectedSku: Object.assign({ quantity }, selectedSku),
+					items: [product],
+				});
+			}
+		}
+		else {
+			currentOrder = createCurrentOrder({
+				selectedSku: Object.assign({ quantity }, selectedSku),
+				items: [product],
+			});
+		}
 
 		app.globalData.currentOrder = currentOrder;
 
-		wx.navigateTo({ url: '/pages/orderCreate/orderCreate' });
+		wx.navigateTo({ url });
 	},
 
 	onSkuItem(ev) {
@@ -393,6 +433,7 @@ Page({
 		const that = this;
 		that.setData({ autoplay: false, activeIndex: 1 });
 		this.videoContext.requestFullScreen({
+
 			// direction: 0,
 		});
 	},

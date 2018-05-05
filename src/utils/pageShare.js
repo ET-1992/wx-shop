@@ -45,41 +45,103 @@ export const onDefaultShareAppMessage = function () {
 	return shareMsg;
 };
 
-export const createCurrentOrder = ({ items, selectedSku }) => {
+export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy, isMiaoshaBuy }) => {
+
+	console.log('selectedSku', selectedSku);
+
+	const item = {
+		post_id: product.id,
+		title: product.title,
+		original_price: product.original_price,
+		image_url: product.images[0],
+		price: product.price,
+		id: product.id,
+		quantity,
+	};
+
 	const order = {
 		items: [],
 		totalPrice: 0,
 		savePrice: 0,
+		totalPostage: 0,
 	};
 
-	console.log('selectedSku', selectedSku);
-	if (selectedSku) {
-		const item = items[0];
-		const { price, id: skuId, property_names, properties, original_price, quantity } = selectedSku;
-		const { sku_images } = item;
+
+	if (selectedSku.id) {
+		const { price, id: skuId, property_names, properties, original_price } = selectedSku;
+		const { sku_images } = product;
 		const firstSelectedSkuPropValue = properties && properties[0].v;
 		const selectedSkuImage = properties ? sku_images[firstSelectedSkuPropValue].thumbnail : null;
-		item.post_id = item.id;
-		item.quantity = quantity;
+
 		item.sku_id = skuId;
 		item.sku_property_names = property_names;
-		item.price = price || items[0].price;
-		item.original_price = original_price || items[0].original_price;
-		item.image_url = selectedSkuImage || item.images[0];
+
+		if (original_price) {
+			item.original_price = original_price;
+		}
+
+		if (price) {
+			item.price = price;
+		}
+
+		if (selectedSkuImage) {
+			item.image_url = selectedSkuImage;
+		}
 	};
 
-	order.items = items;
-	console.log('items', items);
+	if (isGrouponBuy) {
+		item.price = product.groupon_price;
+	}
+	else if (isMiaoshaBuy) {
+		item.price = product.miaosha_price;
+	}
 
-	items.forEach((item) => {
-		const { price, original_price, quantity } = item;
-		console.log(original_price, price);
-		order.totalPrice = order.totalPrice + (price * quantity);
-		order.savePrice = order.savePrice + ((original_price - price) * quantity);
-	});
+	order.items = [item];
+	order.totalPrice = item.price * quantity;
+	order.savePrice = (item.original_price - item.price) * quantity;
+	order.totalPostage = product.postage;
+
+	console.log('createCurrentOrder order: ', order);
 
 	return order;
 };
+
+// export const createCurrentOrder = ({ items, selectedSku }) => {
+// 	const order = {
+// 		items: [],
+// 		totalPrice: 0,
+// 		savePrice: 0,
+// 	};
+
+// 	console.log('selectedSku', selectedSku);
+
+// 	if (selectedSku) {
+// 		const item = items[0];
+// 		const { price, id: skuId, property_names, properties, original_price, quantity } = selectedSku;
+// 		const { sku_images } = item;
+// 		const firstSelectedSkuPropValue = properties && properties[0].v;
+// 		const selectedSkuImage = properties ? sku_images[firstSelectedSkuPropValue].thumbnail : null;
+// 		item.post_id = item.id;
+// 		item.quantity = quantity;
+// 		item.sku_id = skuId;
+// 		item.sku_property_names = property_names;
+// 		item.price = price || items[0].price;
+// 		item.original_price = original_price || items[0].original_price;
+// 		item.image_url = selectedSkuImage || item.images[0];
+// 	};
+
+// 	order.items = items;
+// 	console.log('items', items);
+
+// 	items.forEach((item) => {
+// 		const { price, original_price, quantity } = item;
+// 		console.log(original_price, price);
+// 		order.totalPrice = order.totalPrice + (price * quantity);
+// 		order.savePrice = order.savePrice + ((original_price - price) * quantity);
+// 	});
+
+// 	return order;
+// };
 
 export const wxPay = async (options = {}) => {
 	const { timeStamp, nonceStr, package: pkg, signType, paySign } = options;

@@ -40,18 +40,17 @@ Page({
 
 	async onShow() {
 		try {
+			// isCancle 仅在跳转支付后返回 标识是否取消支付
+			const { isCancel, order_no } = this.options;
 			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
 				'orderCreate',
 			);
 			const { currentOrder } = app.globalData;
 			const { items } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
-			const { isCancel, order_no } = this.options;
-			const totalPrice = Number(currentOrder.totalPrice).toFixed(2)
+			const totalPrice = Number(currentOrder.totalPrice).toFixed(2);
 			let totalPostage = 0;
 
-
-			//跳转支付后返回 取消支付状态isCanecl为true
 			if (isCancel) {
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
@@ -61,7 +60,6 @@ Page({
 			// let couponPrice = 0;
 
 			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-			// console.log('currentOrder', JSON.stringify(currentOrder));
 			if (!isGroupon && !currentOrder.coupons) {
 				const {
 					recommend,
@@ -91,6 +89,7 @@ Page({
 				currentOrder.couponPrice = 0;
 			}
 
+			// 使用reduce 或者不需要再次计算总运费, 直接传过来
 			currentOrder.items.forEach((item) => {
 				const { postage } = item;
 				if (postage > totalPostage) {
@@ -106,19 +105,9 @@ Page({
 			currentOrder.skuId = skuId;
 			currentOrder.quantity = quantity;
 			currentOrder.address = address;
-			currentOrder.orderPrice = orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
-
-			// currentOrder.totalPrice = totalPrice >= 0 ? totalPrice.toFixed(2) : '0.00';
-			// console.log(currentOrder.totalPrice)
-			// console.log(totalPrice)
-			// currentOrder.orderPrice = (
-			// 	+totalPrice +
-			// 	totalPostage -
-			// 	currentOrder.couponPrice
-			// ).toFixed(2);
-			//
+			currentOrder.orderPrice =
+				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
 			this.setData(currentOrder);
-
 		}
 		catch (err) {
 			console.log(err);
@@ -172,7 +161,6 @@ Page({
 	},
 
 	async onPay(ev) {
-
 		const { formId } = ev.detail;
 		const {
 			address,
@@ -180,8 +168,8 @@ Page({
 			buyerMessage,
 			grouponId,
 			isGroupon,
-			skuId,
-			quantity,
+			skuId, // 应该从items获取
+			quantity, // 应该从items获取
 			coupons,
 		} = this.data;
 		const {
@@ -231,6 +219,7 @@ Page({
 			requestData.coupon_id = couponId;
 		}
 
+		// 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
 		if (isGroupon) {
 			requestData.sku_id = skuId;
 			requestData.quantity = quantity;
@@ -248,17 +237,20 @@ Page({
 		}
 
 		try {
-			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
+			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
+				requestData,
+			);
+
 			// if (status == 2) {
 			// 	console.log('status == 2');
 			// 	const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
 			// 		requestData,
 			// 	);
 
-			if(this.data.orderPrice<=0){
+			if (this.data.orderPrice <= 0) {
 				wx.redirectTo({
-					url:`../orderDetail/orderDetail?id=${order_no}`
-				})
+					url: `../orderDetail/orderDetail?id=${order_no}`,
+				});
 			}
 			if (+status === 2) {
 				wx.hideLoading();
@@ -275,29 +267,27 @@ Page({
 				});
 			}
 			else if (pay_appid) {
-				console.log('平台支付')
-				console.log(this.data)
+				console.log('平台支付');
+				console.log(this.data);
 
 				console.log(this.data.items);
-
 
 				await wx.navigateToMiniProgram({
 					envVersion: 'release',
 					appId: pay_appid,
-				  	path: `/pages/peanutPay/index?order_no=${order_no}`,
-				  	extraData: {
-				    	order_no: order_no,
-				    	address:this.data.address,
-						items:this.data.items,
-						totalPrice:this.data.totalPrice,
-						totalPostage:this.data.totalPostage,
-						quantity:this.data.quantity,
-						orderPrice:this.data.orderPrice,
-						coupons:this.data.coupons,
-						buyerMessage:this.data.buyerMessage,
-						couponPrice:this.data.couponPrice,
-						orderPrice:this.data.orderPrice
-				  	},
+					path: `/pages/peanutPay/index?order_no=${order_no}`,
+					extraData: {
+						order_no: order_no,
+						address: this.data.address,
+						items: this.data.items,
+						totalPrice: this.data.totalPrice,
+						totalPostage: this.data.totalPostage,
+						quantity: this.data.quantity,
+						orderPrice: this.data.orderPrice,
+						coupons: this.data.coupons,
+						buyerMessage: this.data.buyerMessage,
+						couponPrice: this.data.couponPrice,
+					},
 				});
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
