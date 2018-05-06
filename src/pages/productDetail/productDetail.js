@@ -50,7 +50,6 @@ Page({
 		hasStart: true,
 		hasEnd: false,
 		timeLimit: 0,
-		timestamp: (+new Date() / 1000) | 0,
 		isShowAcitonSheet: false,
 		isShowCouponList: false,
 		selectedProperties: [],
@@ -81,7 +80,6 @@ Page({
 			updateData.isGrouponBuy = isGrouponBuy;
 
 		}
-		updateData.timestamp = (+new Date() / 1000) | 0;
 		this.setData(updateData);
 	},
 
@@ -306,6 +304,7 @@ Page({
 			isGrouponBuy,
 		} = this.data;
 
+		let url = '/pages/orderCreate/orderCreate';
 		let isMiaoshaBuy = false;
 
 		if (product.miaosha_enable === '1') {
@@ -326,6 +325,18 @@ Page({
 				content: '无法购买库存为0的商品',
 			});
 			return;
+		}
+
+		if (isGrouponBuy) {
+			url = url + '?isGrouponBuy=true';
+
+			// 参团，跳转到orderCreate需要带上grouponId
+			if (grouponId) {
+				url = url + `&grouponId=${grouponId}`;
+			}
+			else if (pendingGrouponId) {
+				url = url + `&grouponId=${pendingGrouponId}`;
+			}
 		}
 
 		// if (isGrouponBuy) {
@@ -349,7 +360,7 @@ Page({
 
 		app.globalData.currentOrder = currentOrder;
 
-		wx.navigateTo({ url: '/pages/orderCreate/orderCreate' });
+		wx.navigateTo({ url });
 	},
 
 	onSkuItem(ev) {

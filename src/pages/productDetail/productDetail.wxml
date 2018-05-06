@@ -19,13 +19,24 @@
         indicator-color="#fff"
       >
         <swiper-item>
-
           <view wx:if="{{product.video}}" catchtap="clickMe" >
-            <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;" />
+            <image
+              src="/icons/player.png"
+              class="player"
+              style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;"
+            />
           </view>
-          <video id="myVideo" wx:if="{{activeIndex==1}}" src="{{product.video}}" bindpause="pause" bindfullscreenchange="fullScreen" bindended="end" bindplay="startPlay" autoplay></video>
-          <image mode="aspectFill" src="{{product.images[0]}}"></image>
-
+          <video
+            id="myVideo"
+            wx:if="{{ activeIndex == 1}}"
+            src="{{product.video}}"
+            bindpause="pause"
+            bindfullscreenchange="fullScreen"
+            bindended="end"
+            bindplay="startPlay"
+            autoplay
+          />
+          <image mode="aspectFill" src="{{product.images[0]}}"/>
         </swiper-item>
 
         <swiper-item wx:if="{{index!=0}}"
@@ -33,15 +44,17 @@
           wx:key="id"
           wx:for-item="image"
         >
-        <image
-          src="{{ image }}"
-          mode="aspectFill"
-        />
-
+          <image
+            src="{{ image }}"
+            mode="aspectFill"
+          />
         </swiper-item>
       </swiper>
 
-      <view class="videoWrapper" wx:if="{{ headerType === 'video' }}">
+      <view
+        wx:if="{{ headerType === 'video' }}"
+        class="videoWrapper"
+      >
         <video
           src="{{ product.video }}"
           hidden="{{ isShowAcitonSheet }}"
@@ -218,6 +231,7 @@
           <view
             class="buy multi"
             catchtap="onShowSku"
+            data-is-groupon-buy
             data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
             style="background-color: {{ themeColor.primaryColor }}"
           >

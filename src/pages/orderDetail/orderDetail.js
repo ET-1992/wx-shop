@@ -146,7 +146,6 @@ Page({
 	},
 
 	onShare() {
-		console.log('onShare');
 		wx.showShareMenu();
 	},
 
@@ -154,7 +153,6 @@ Page({
 		const { groupon, order } = this.data;
 		const id = groupon.post_id || order.items[0].post_id;
 		const grouponId = groupon.id || order.groupon.id;
-		console.log('id');
 		wx.navigateTo({
 			url: `/pages/productDetail/productDetail?id=${id}&grouponId=${grouponId}`
 		});

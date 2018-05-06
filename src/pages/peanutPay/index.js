@@ -1,50 +1,46 @@
 import api from 'utils/api';
-import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY } from 'constants/index';
 
 const app = getApp();
 
 Page({
-
 	data: {
-		orderNo: ''
+		orderNo: '',
 	},
 
-	onLoad: function (options) {
+	onLoad: function () {
+		const { items, totalPrice, postage, address, buyer_message, couponPrice, orderPrice, order_no } = app.globalData.extraData;
 		this.setData({
-			orderNo:options.order_no,
-			order:app.globalData.extraData.items,
-			totalPrice:app.globalData.extraData.totalPrice,
-			postage:app.globalData.extraData.postage,
-			address:app.globalData.extraData.address,
-			buyer_message:app.globalData.extraData.buyer_message,
-			couponPrice:app.globalData.extraData.couponPrice,
-			orderPrice:app.globalData.extraData.orderPrice
-		})
+			orderNo: order_no,
+			order: items,
+			totalPrice,
+			postage,
+			address,
+			buyer_message,
+			couponPrice,
+			orderPrice,
+		});
 	},
 
 	async onShow() {
-		console.log(this.data)
+		console.log(this.data);
 		const { orderNo } = this.data;
 		try {
 			const { pay_sign } = await api.hei.peanutPayOrder({
-				order_no: orderNo
+				order_no: orderNo,
 			});
 
 			const { isCancel } = await wxPay(pay_sign);
+
 			wx.navigateBackMiniProgram({
 				extraData: {
 					order_no: this.data.orderNo,
-					isCancel
-				},
-				success(res) {
-					console.log('成功')
+					isCancel,
 				}
-			})
-		}catch(err) {
-			console.log(err)
+			});
 		}
-
-	}
+		catch (err) {
+			console.log(err);
+		}
+	},
 });

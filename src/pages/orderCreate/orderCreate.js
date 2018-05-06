@@ -13,10 +13,10 @@ Page({
 		totalPrice: 0,
 		items: [],
 
-		isGroupon: 0,
+		isGrouponBuy: false,
 		grouponId: '',
-		skuId: '',
-		quantity: 1,
+		isCancel: false,
+
 		address: {
 			userName: '',
 		},
@@ -40,11 +40,11 @@ Page({
 
 	async onShow() {
 		try {
-			// isCancle 仅在跳转支付后返回 标识是否取消支付
-			const { isCancel, order_no } = this.options;
-			const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-				'orderCreate',
-			);
+			// isCancel 仅在跳转支付后返回 标识是否取消支付
+			const { isCancel, order_no, grouponId, isGrouponBuy } = this.options;
+			// const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
+			// 	'orderCreate',
+			// );
 			const { currentOrder } = app.globalData;
 			const { items } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -60,7 +60,7 @@ Page({
 			// let couponPrice = 0;
 
 			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-			if (!isGroupon && !currentOrder.coupons) {
+			if (!isGrouponBuy && !currentOrder.coupons) {
 				const {
 					recommend,
 					unavailable,
@@ -100,10 +100,8 @@ Page({
 			const orderPrice = +totalPrice + totalPostage - currentOrder.couponPrice;
 
 			currentOrder.totalPostage = totalPostage;
-			currentOrder.isGroupon = isGroupon;
+			currentOrder.isGrouponBuy = isGrouponBuy;
 			currentOrder.grouponId = grouponId;
-			currentOrder.skuId = skuId;
-			currentOrder.quantity = quantity;
 			currentOrder.address = address;
 			currentOrder.orderPrice =
 				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
@@ -136,7 +134,6 @@ Page({
 	async onAddress() {
 		const { authSetting } = await getSetting();
 
-		// console.log(authSetting);
 		// authSetting['scope.address']可能值：
 		// 没有值  初始化状态 系统会自动弹框询问授权
 		// false  此时需要使用openSetting
@@ -167,9 +164,7 @@ Page({
 			items,
 			buyerMessage,
 			grouponId,
-			isGroupon,
-			skuId, // 应该从items获取
-			quantity, // 应该从items获取
+			isGrouponBuy,
 			coupons,
 		} = this.data;
 		const {
@@ -197,10 +192,12 @@ Page({
 		wx.setStorageSync(ADDRESS_KEY, address);
 
 		let method = 'createOrderAndPay';
+
 		wx.showLoading({
 			title: '处理订单中',
 			mark: true,
 		});
+
 		const requestData = {
 			receiver_name: userName,
 			receiver_phone: telNumber,
@@ -220,9 +217,9 @@ Page({
 		}
 
 		// 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
-		if (isGroupon) {
-			requestData.sku_id = skuId;
-			requestData.quantity = quantity;
+		if (isGrouponBuy) {
+			requestData.sku_id = items[0].sku_id;
+			requestData.quantity = items[0].quantity;
 			if (grouponId) {
 				requestData.id = grouponId;
 				method = 'joinGroupon';
@@ -237,40 +234,25 @@ Page({
 		}
 
 		try {
-			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
-				requestData,
-			);
 
-			// if (status == 2) {
-			// 	console.log('status == 2');
-			// 	const { order_no, status, pay_sign, pay_appid } = await api.hei[method](
-			// 		requestData,
-			// 	);
+
+			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
+			console.log('status:', status);
+			wx.hideLoading();
 
 			if (this.data.orderPrice <= 0) {
 				wx.redirectTo({
-					url: `../orderDetail/orderDetail?id=${order_no}`,
-				});
-			}
-			if (+status === 2) {
-				wx.hideLoading();
-				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
 				});
 			}
-			else if (pay_sign) {
+
+			if (pay_sign) {
 				console.log('自主支付');
-				wx.hideLoading();
 				await wxPay(pay_sign);
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
-				});
+
 			}
 			else if (pay_appid) {
 				console.log('平台支付');
-				console.log(this.data);
-
-				console.log(this.data.items);
 
 				await wx.navigateToMiniProgram({
 					envVersion: 'release',
@@ -282,27 +264,20 @@ Page({
 						items: this.data.items,
 						totalPrice: this.data.totalPrice,
 						totalPostage: this.data.totalPostage,
-						quantity: this.data.quantity,
 						orderPrice: this.data.orderPrice,
 						coupons: this.data.coupons,
 						buyerMessage: this.data.buyerMessage,
 						couponPrice: this.data.couponPrice,
 					},
 				});
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
-				});
 			}
-			else {
-				wx.hideLoading();
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
-				});
-			}
+
+			wx.redirectTo({
+				url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+			});
 		}
 		catch (err) {
 			console.log(err);
-
 			wx.hideLoading();
 			showModal({
 				title: '温馨提示',

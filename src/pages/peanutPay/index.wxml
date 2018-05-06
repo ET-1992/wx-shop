@@ -1,7 +1,7 @@
 <import src="/templates/loading/loading.wxml"/>
 
 <template is="loading" wx:if="{{ isLoading }}"/>
-  
+
 <view class="container" wx:if="{{ !isLoading }}">
   <view
     wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}">
@@ -60,7 +60,7 @@
           <view class="price">￥{{ item.price }}</view>
           <view class="originalPrice">￥{{ item.original_price }}</view>
         </view>
-        <view class="itemQuantity">x{{ item.quantity }}</view> 
+        <view class="itemQuantity">x{{ item.quantity }}</view>
       </view>
     </view>
  </view>
@@ -69,7 +69,7 @@
 <view class="section priceInfo">
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">￥{{ totalPrice}}</view>
+    <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">运费</view>
