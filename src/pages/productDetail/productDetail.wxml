@@ -305,9 +305,10 @@
             <view class="title"
             >{{ property.key }}</view>
             <view
-              class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }}"
+              class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }} {{ disableSkuItems[item] ? 'disabled' : '' }}"
               wx:for="{{ property.values }}"
               wx:key="index"
+              data-is-disabled="{{ disableSkuItems[item] }}"
               data-value="{{ item }}"
               data-key="{{ property.key }}"
               data-property-index="{{ propertyIndex }}"
@@ -344,5 +345,50 @@
         </view>
       </form>
     </view>
+  </view>
+</view>
+
+<view class="actionSheet" >
+  <template
+    is="mock"
+    data="{{ isShow: isShowCouponList }}"
+  />
+  <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <scroll-view class="couponList" scroll-y>
+      <view class="title">优惠券</view>
+      <view class="availableCoupon">
+        <view class="couponListTitle">可领取优惠券</view>
+        <view
+          class="noCouponHint"
+          wx:if="{{ !receivableCoupons.length }}"
+        >暂无可领取优惠券</view>
+        <view
+          class="couponItemWrapper"
+          wx:for="{{ receivableCoupons }}"
+          wx:key="id"
+          data-id="{{ item.id }}"
+          data-status="{{ item.status }}"
+          data-title="{{ item.title }}"
+          data-index="{{ index }}"
+          catchtap="onCouponClick"
+        >
+          <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
+        </view>
+        <view class="couponListTitle">已领取优惠券</view>
+        <view
+          class="noCouponHint"
+          wx:if="{{ !receivedCoupons.length }}"
+        >暂无可领取优惠券</view>
+        <navigator
+          class="couponItemWrapper"
+          wx:for="{{ receivedCoupons }}"
+          wx:key="id"
+          url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
+        >
+          <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
+        </navigator>
+      </view>
+      <view class="gap" />
+    </scroll-view>
   </view>
 </view>

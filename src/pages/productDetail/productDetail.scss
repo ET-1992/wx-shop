@@ -439,17 +439,23 @@ button {
 		margin-bottom: 20rpx;
 		border: 1px solid #999;
 		font-size: 28rpx;
-		color: #333;
 		height: 60rpx;
 		line-height: 60rpx;
 		color: $titleColor;
+
+		&.selected {
+			background-color: $mainColor;
+			color: #fff;
+			border: 1px solid $mainColor;
+		}
+
+		&.disabled {
+			border-color: #ccc;
+			color: #eee;
+		}
 	}
 
-	.skuItem.selected {
-		background-color: $mainColor;
-		color: #fff;
-		border: 1px solid $mainColor;
-	}
+
 
 	.quantity {
 		display: flex;

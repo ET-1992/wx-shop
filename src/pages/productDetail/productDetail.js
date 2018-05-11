@@ -16,11 +16,34 @@ const findSelectedSku = (skus, selectedProperties) => {
 		},
 		'',
 	);
-	console.log(selectedPropertiesNames);
 	const sku = skus.find((sku) => {
 		return sku.property_names === selectedPropertiesNames;
 	});
 	return sku || {};
+};
+
+const generateDisableSkuItem = ({ skuSplitProperties, skus, selectedProperties }) => {
+	console.log('find disableSkuItems');
+	const disableSkuItems = {};
+	skus.forEach((sku) => {
+		const { stock, properties } = sku;
+		const value = properties[0].v;
+		if (!stock) {
+			if (skuSplitProperties.length === 1) {
+				disableSkuItems[value] = true;
+			}
+			if (skuSplitProperties.length === 2 && selectedProperties) {
+				selectedProperties.forEach((selectedProperty, selectedIndex) => {
+					if (selectedProperty.value === properties[selectedIndex].v) {
+						const anotherIndex = selectedIndex === 0 ? 1 : 0;
+						const anotherValue = properties[anotherIndex].v;
+						disableSkuItems[anotherValue] = true;
+					}
+				});
+			}
+		}
+	});
+	return disableSkuItems;
 };
 
 
@@ -55,6 +78,7 @@ Page({
 		selectedProperties: [],
 		selectedSku: {},
 		skuSplitProperties: [],
+		disableSkuItems: {},
 		quantity: 1,
 		actions: [
 			{
@@ -168,11 +192,9 @@ Page({
 			const skuSplitProperties = skus.reduce(
 				(skuSplitProperties, sku, index) => {
 					const { properties } = sku;
-
-					// const properties = JSON.parse(properties);
 					const isInit = !index;
 
-					sku.properties = properties;
+					// sku.properties = properties;
 
 					properties.forEach((property, propertyInex) => {
 						const { k, v } = property;
@@ -189,11 +211,35 @@ Page({
 							}
 						}
 					});
-
 					return skuSplitProperties;
 				},
 				[],
 			);
+
+			let defalutSelectedProperties;
+			let selectedSku = {};
+
+			skus.forEach((sku) => {
+				const { stock, properties } = sku;
+				const value = properties[0].v;
+
+				// 生成 defalutSelectedProperties 和 selectedSku
+				if (stock && !defalutSelectedProperties) {
+					console.log('defalutSelectedProperties');
+					defalutSelectedProperties = properties.map((property) => {
+						const { k, v } = property;
+						return { key: k, value: v };
+					});
+					selectedSku = findSelectedSku(skus, defalutSelectedProperties);
+				}
+			});
+
+			const disableSkuItems = generateDisableSkuItem({
+				skus,
+				skuSplitProperties,
+				selectedProperties: defalutSelectedProperties,
+			})
+
 
 			WxParse.wxParse(
 				'contentList',
@@ -208,6 +254,9 @@ Page({
 				grouponId: grouponId || '',
 				receivedCoupons,
 				receivableCoupons,
+				disableSkuItems,
+				selectedProperties: defalutSelectedProperties,
+				selectedSku,
 				...data,
 			});
 
@@ -284,7 +333,7 @@ Page({
 			sku_id: selectedSku.id || 0,
 			quantity,
 			vendor,
-			form_id: formId
+			form_id: formId,
 		});
 		if (!data.errcode) {
 			wx.showToast({
@@ -363,17 +412,25 @@ Page({
 		wx.navigateTo({ url });
 	},
 
-	onSkuItem(ev) {
-		const { key, value, propertyIndex } = ev.currentTarget.dataset;
-		const { selectedProperties } = this.data;
+	async onSkuItem(ev) {
+		const { key, value, propertyIndex, isDisabled } = ev.currentTarget.dataset;
+
+		if (isDisabled) {
+			await showModal({
+				title: '温馨提示',
+				content: 'sku库存为0',
+			});
+			return;
+		}
+
+		const { selectedProperties, skuSplitProperties } = this.data;
 		const exValue =
 			selectedProperties[propertyIndex] &&
 			selectedProperties[propertyIndex].value;
-
-		// const sku = this.data.product.skus[index];
 		const updateData = {};
 		const updatekey = `selectedProperties[${propertyIndex}]`;
-		const updateValue = exValue === value ? {} : { key, value };
+		const isSameValue = exValue === value
+		const updateValue = isSameValue ? {} : { key, value };
 		updateData[updatekey] = updateValue;
 		this.setData(updateData);
 
@@ -381,10 +438,21 @@ Page({
 			selectedProperties: newSelectedProperties,
 			product: { skus },
 		} = this.data;
+
 		const selectedSku = findSelectedSku(skus, newSelectedProperties);
-		console.log('selectedSku', selectedSku);
-		this.setData({ selectedSku, quantity: 1 });
-		console.log(this.data.selectedSku);
+
+
+		const disableSkuItems = generateDisableSkuItem({
+			skus,
+			skuSplitProperties,
+			selectedProperties: newSelectedProperties
+		});
+
+		this.setData({
+			selectedSku,
+			quantity: 1,
+			disableSkuItems,
+		});
 	},
 
 	updateQuantity({ detail }) {
@@ -489,9 +557,9 @@ Page({
 	onSkuCancel() {
 		this.setData({
 			isShowAcitonSheet: false,
-			selectedSku: {},
-			selectedProperties: [],
-			quantity: 1,
+			// selectedSku: {},
+			// selectedProperties: [],
+			// quantity: 1,
 			pendingGrouponId: '',
 		});
 	},

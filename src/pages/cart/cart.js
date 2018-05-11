@@ -25,7 +25,6 @@ Page({
 
 	calculatePrice() {
 		const { items, nowTS } = this.data;
-		const now = Date.now() / 1000;
 		let totalPrice = 0;
 		let savePrice = 0;
 		let postagePrice = 0;
