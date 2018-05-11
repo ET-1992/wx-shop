@@ -1,7 +1,6 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
-import login from 'utils/login';
 import { cloneDeep } from 'lodash';
 import { CART_LIST_KEY } from 'constants/index';
 
@@ -140,16 +139,17 @@ Page({
 	},
 
 	async onLogin(ev) {
-		console.log('onLogin', ev);
-		const { errMsg, iv, encryptedData } = ev.detail;
-		const isDenied = errMsg.indexOf('deny') >= 0;
-		if (!isDenied) {
-			const { user } = await login({ iv, encryptedData });
-			if (user.openid) {
-				this.setData({ isLogin: true });
-				await this.loadCart();
-			}
-		}
+		// const { code } = this.data;
+		// const { errMsg, iv, encryptedData } = ev.detail;
+		// const isDenied = errMsg.indexOf('deny') >= 0;
+		// if (!isDenied) {
+		// 	const { user } = await login({ iv, encryptedData });
+		// 	if (user.openid) {
+		// 		this.setData({ isLogin: true });
+		// 		await this.loadCart();
+		// 	}
+		// }
+		wx.navigateTo({ url: '/pages/login/login' });
 	},
 
 	onHandleItemSelect(ev) {

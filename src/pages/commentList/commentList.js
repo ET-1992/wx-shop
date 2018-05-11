@@ -1,9 +1,8 @@
-// pages/articleDetail/index.js
-const WxParse = require('../../utils/wxParse/wxParse.js');
+import api from 'utils/api';
+import { USER_KEY } from 'constants/index';
+// import login from 'utils/login';
 
 const app = getApp();
-import api from 'utils/api';
-import login from 'utils/login';
 
 let isSubmiting = false;
 let isFocusing = false;
@@ -32,9 +31,22 @@ Page({
 	 */
 	onLoad: function (options) {
 		const { globalData: { themeColor }, systemInfo } = app;
-		this.setData({ themeColor, systemInfo });
-		this.getDetail(options.id);
-		this.needAuth();
+		const user = wx.getStorageSync(USER_KEY);
+		const updateData = { themeColor, systemInfo };
+		if (user) {
+			updateData.user = user;
+		}
+		this.setData(updateData);
+
+	},
+
+	onShow() {
+		const { id } = this.options;
+		const user = wx.getStorageSync(USER_KEY);
+		if (user) {
+			this.setData({ user });
+		}
+		this.getDetail(id);
 	},
 
 	/**
@@ -63,12 +75,6 @@ Page({
 				console.log('跳转成功');
 			},
 		});
-	},
-
-	async needAuth(e) {
-		const user = await login();
-		console.log(user);
-		this.setData({ user: user });
 	},
 
 	async formSubmit(e) {
@@ -123,8 +129,8 @@ Page({
 		const comment_id = e.currentTarget.dataset.id;
 		const username = e.currentTarget.dataset.user;
 		const openid = e.currentTarget.dataset.openid;
-		let userForm,
-			user = this.data.user.user;
+		let userForm;
+		let user = this.data.user.user;
 
 		if (!user || !user.openid) {
 			console.log(user);
@@ -192,24 +198,9 @@ Page({
 			this.setData({ reply_focus: true });
 		}
 	},
-	async fav(e) {
-		console.log(this.data);
-		const data = await api.hei.fav({
-			post_id: e.currentTarget.id,
-		});
-		this.setData({
-			is_faved: true,
-			fav_count: this.data.fav_count + 1,
-		});
+
+	reLoad() {
+		const user = wx.getStorageSync(USER_KEY);
+		this.setData({ user });
 	},
-	async unfav(e) {
-		const data = await api.hei.unfav({
-			post_id: e.currentTarget.id,
-		});
-		console.log(data);
-		this.setData({
-			is_faved: false,
-			fav_count: this.data.fav_count - 1,
-		});
-	}
 });

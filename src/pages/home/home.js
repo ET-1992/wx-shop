@@ -3,7 +3,6 @@ import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
-import login from 'utils/login';
 import autoRedirect from 'utils/autoRedirect';
 
 // 获取应用实例
@@ -54,9 +53,10 @@ Page({
 		this.setData({ isLoading: true });
 
 		const data = await api.hei.fetchHome();
-		if (data.current_user) {
+		const { current_user = {} } = data;
+		if (current_user) {
 			this.setData({
-				newUser: data.current_user.new_user,
+				newUser: current_user.new_user,
 			});
 		}
 		else {
@@ -66,7 +66,8 @@ Page({
 		}
 
 		data.coupons.forEach((item) => {
-			if (item.target_user_type == '2') {
+			const { status, target_user_type } = item;
+			if (target_user_type === '2' && status === '2') {
 				this.setData({
 					hasCoupons: true,
 				});
@@ -134,13 +135,25 @@ Page({
 		}
 	},
 	async receiveCouponAll(e) {
-		if (!this.data.current_user) {
-			this.needAuth();
+		const token = getToken();
+
+		if (!token) {
+			const { confirm } = await showModal({
+				title: '未登录',
+				content: '请先登录，再领取优惠券',
+				confirmText: '登录',
+			});
+			if (confirm) {
+				// await login();
+				wx.navigateTo({ url: '/pages/login/login' });
+			}
+			return;
 		}
+
 		const { id } = e.currentTarget.dataset;
 		let result = [];
 		id.map(({ id, target_user_type }, index) => {
-			if (target_user_type == '2') result.push(id);
+			if (target_user_type === '2') result.push(id);
 		});
 		const allResult = result.join(',');
 		const data = await api.hei.receiveCouponAll({
@@ -162,8 +175,8 @@ Page({
 				confirmText: '登录',
 			});
 			if (confirm) {
-				await login();
-				await this.loadHome();
+				// await login();
+				wx.navigateTo({ url: '/pages/login/login' });
 			}
 			return;
 		}
@@ -195,21 +208,18 @@ Page({
 		}
 		this.loadProducts();
 	},
-	async needAuth(e) {
-		const user = await login();
-		console.log(user);
-		this.setData({
-			user: user,
-		});
-	},
+
+	// async needAuth(e) {
+	// 	const user = await login();
+	// 	console.log(user);
+	// 	this.setData({
+	// 		user: user,
+	// 	});
+	// },
+
 	onShareAppMessage: onDefaultShareAppMessage,
 
-	// onShareAppMessage:function(res) {
-	// 	console.log(this.data)
-	// 	return {
-	// 		title: this.data.share_title,
-	// 		imageUrl:this.data.share_image,
-	// 		path:'/pages/home/home'
-	// 	}
-	// }
+	reLoad() {
+		this.loadHome();
+	},
 });

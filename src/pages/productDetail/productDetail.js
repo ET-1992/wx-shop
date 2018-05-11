@@ -3,8 +3,8 @@ import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
-import login from 'utils/login';
 import { USER_KEY } from 'constants/index';
+// import login from 'utils/login';
 
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
@@ -363,9 +363,9 @@ Page({
 			isMiaoshaBuy = hasStart && !hasEnd;
 		}
 
-		//TODO 处理新版本不支持wx.getUserInfo
 		if (!token) {
-			await login();
+			// await login();
+			wx.navigateTo({ url: '/pages/login/login' });
 		}
 
 		if (selectedSku.stock === 0) {
@@ -527,12 +527,14 @@ Page({
 			const { confirm } = await showModal({
 				title: '未登录',
 				content: '请先登录，再领取优惠券',
-				confirmText: '登录',
+				confirmText: '前往登录',
 			});
 			if (confirm) {
 				this.setData({ isShowCouponList: false });
-				await login();
-				await this.initPage();
+				wx.navigateTo({ url: '/pages/login/login' });
+
+				// await login();
+				// await this.initPage();
 			}
 			return;
 		}
@@ -578,6 +580,10 @@ Page({
 			form_id: e.detail.formId,
 		});
 		console.log(data);
+	},
+
+	async reload() {
+		await this.initPage();
 	},
 	onShareAppMessage: onDefaultShareAppMessage,
 });

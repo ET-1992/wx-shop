@@ -196,12 +196,6 @@ const apis = {
 		path: 'api2/form_id.json',
 		method: 'POST',
 	},
-	// 优惠券渠道管理
-	couponList: {
-		path: 'api/mag.coupon.list.json',
-		method: 'GET',
-		isForceToken: true,
-	},
 	receiveCouponAll: {
 		path: 'api/mag.coupon.batch.receive.json',
 		method: 'POST',

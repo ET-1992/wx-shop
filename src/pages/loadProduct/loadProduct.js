@@ -1,97 +1,81 @@
 import { PRODUCT_LIST_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
 import api from 'utils/api';
-import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import getToken from 'utils/getToken';
-import login from 'utils/login';
-import autoRedirect from 'utils/autoRedirect';
-
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
 
 Page({
-  data: {
-    pageName: 'home',
+	data: {
+		pageName: 'home',
 
-    products: [],
-    product_categories: [],
-    home_sliders: { 
-      home_sliders: [],
-    },
-    miaoshas: [],
-    groupons: [],
-    featured_products: [],
-    coupons: [],
-      
-    productListStyle: PRODUCT_LIST_STYLE[1],
-    categoryListStyle: CATEGORY_LIST_STYLE[2],
-    isRefresh: false,
-    isLoading: false,
+		products: [],
+		product_categories: [],
+		home_sliders: {
+			home_sliders: [],
+		},
+		miaoshas: [],
+		groupons: [],
+		featured_products: [],
+		coupons: [],
 
-    post_type_title: '',
-    taxonomy_title: '',
-    share_title: '',
-    page_title: '',
-    type:''
-  },
+		productListStyle: PRODUCT_LIST_STYLE[1],
+		categoryListStyle: CATEGORY_LIST_STYLE[2],
+		isRefresh: false,
+		isLoading: false,
 
-  async loadProducts() {
-   // this.setData({ isLoading: true });
-   const { next_cursor, products } = this.data;
-  
-   const data = await api.hei.fetchProductList({
-     cursor: next_cursor
-   });
-   console.log(data)
+		post_type_title: '',
+		taxonomy_title: '',
+		share_title: '',
+		page_title: '',
+		type: '',
+	},
 
-   const newProducts = products.concat(data.products);
-   this.setData({
-     products: newProducts,
-     next_cursor: data.next_cursor
-   });
-   if (data.page_title) {
-      wx.setNavigationBarTitle({
-        title: data.page_title
-      });
+	async loadProducts() {
 
-    }
-   // this.setData({ isLoading: false });
-   // return data;
-  },
+		this.setData({ isLoading: true });
+		const { next_cursor, products } = this.data;
 
-  async loadHome() {
-    this.setData({ isLoading: true });
-    const data = await api.hei.fetchHome();
-    
-  },
+		const data = await api.hei.fetchProductList({
+			cursor: next_cursor,
+		});
 
+		const newProducts = products.concat(data.products);
+		this.setData({
+			products: newProducts,
+			next_cursor: data.next_cursor,
+		});
 
-  async onLoad() {
-    this.loadProducts();
-  },
+		this.setData({ isLoading: false });
+		return data;
+	},
 
-  async onPullDownRefresh() {
-    await this.loadHome();
-    wx.stopPullDownRefresh();
-  },
+	async onLoad() {
+		const data = await this.loadProducts();
+		if (data.page_title) {
+			wx.setNavigationBarTitle({
+				title: data.page_title,
+			});
+		}
+	},
 
-  async onReachBottom() {
-    const { next_cursor } = this.data;
-    if (!next_cursor) {
-      return;
-    }
-    this.loadProducts();
-  },
+	async onPullDownRefresh() {
+		this.setData({
+			isRefresh: true,
+			next_cursor: 0,
+		});
+		await this.loadProducts();
+		wx.stopPullDownRefresh();
+	},
 
-  onShareAppMessage: onDefaultShareAppMessage,
-  // onShareAppMessage:function(res) {
-  //  console.log(this.data)
-  //  return {
-  //    title: this.data.share_title,
-  //    imageUrl:this.data.share_image,
-  //    path:'/pages/home/home'
-  //  }
-  // }
+	async onReachBottom() {
+		const { next_cursor } = this.data;
+		if (!next_cursor) {
+			return;
+		}
+		this.loadProducts();
+	},
+
+	onShareAppMessage: onDefaultShareAppMessage,
+
 });
-

@@ -1,22 +1,24 @@
-import { authFail } from './errorHandler';
 import getToken from 'utils/getToken';
-import login from 'utils/login';
-import { TOKEN_KEY, EXPIRED_KEY } from 'constants/index';
-// 获取应用实例
+import checkPermission from 'utils/checkPermission';
+import { showModal } from 'utils/wxp';
 
-const onRequestSuccess = (resolve, reject, res) => {
+const onRequestSuccess = async (resolve, reject, res) => {
 	const { data, statusCode, errMsg } = res;
 	const { errcode, errmsg } = data;
-	if (errcode === 'illegal_access_token') {
-		wx.removeStorageSync(TOKEN_KEY);
-		wx.removeStorageSync(EXPIRED_KEY);
-		login();
-	}
-	else if (statusCode !== 200 || errcode) {
+	if (statusCode.toString().slice(0, 2) !== '20' || errcode) {
 		const err = {
 			errMsg: errmsg || errMsg,
-			code: errcode || statusCode
+			code: errcode || statusCode,
 		};
+		if (errcode === 'bad_authentication') {
+			await showModal({
+				title: '用户认证失败',
+				content: '认证信息失效，请重新登录',
+				showCancel: false,
+				confirmText: '前往登录',
+			});
+			wx.navigateTo({ url: '/pages/login/login' });
+		}
 		console.error(err);
 		return reject(err);
 	}
@@ -26,20 +28,26 @@ const onRequestSuccess = (resolve, reject, res) => {
 };
 
 export default async (path, data, options = {}) => {
-	const { method = 'GET', header = {}, isForceToken, requestType = 'request', pathParam } = options;
+	const {
+		method = 'GET',
+		header = {},
+		isForceToken,
+		isForceRegister,
+		pathParam,
+		requestType = 'request',
+		tokenKey = 'access_token',
+	} = options;
+
+	const isPermit = await checkPermission({ isForceToken, isForceRegister });
+	if (!isPermit) { return; }
+
 	header['Content-Type'] = 'application/x-www-form-urlencoded';
+	const token = await getToken();
 	let url = path;
-	// let wxMethod = 'request';
 	let restParams = {
 		header,
-		data
+		data,
 	};
-
-	if (isForceToken && !getToken()) {
-		await login();
-	}
-
-	const token = getToken();
 
 	if (pathParam) {
 		url = url + `/${pathParam}`;
@@ -48,26 +56,24 @@ export default async (path, data, options = {}) => {
 	if (token) {
 		const hasQuery = url.indexOf('?') >= 0;
 		const joinSymbol = hasQuery ? '&' : '?';
-		url = url + `${joinSymbol}access_token=${token}`;
+		url = url + `${joinSymbol}${tokenKey}=${token}`;
 	}
+
 	if (requestType === 'uploadFile') {
-		// header['Content-Type'] = 'multipart/form-data';
 		restParams = {
-			// formData: {
-			// 	access_token: token,
-			// },
 			filePath: data.filePath,
 			name: 'media',
-			header
+			header,
 		};
 	}
+
 	return new Promise((resolve, reject) => {
 		wx[requestType]({
 			url,
 			success: (res) => onRequestSuccess(resolve, reject, res),
 			fail: reject,
 			method,
-			...restParams
+			...restParams,
 		});
 	});
 };

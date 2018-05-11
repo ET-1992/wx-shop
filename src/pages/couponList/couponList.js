@@ -1,39 +1,29 @@
 // pages/couponList/couponList.js
 import api from 'utils/api';
-import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import { showToast, showModal } from 'utils/wxp';
-import login from 'utils/login';
-import { USER_KEY } from 'constants/index';
+// import { onDefaultShareAppMessage } from 'utils/pageShare';
+// import login from 'utils/login';
+// import { USER_KEY } from 'constants/index';
 
 const app = getApp();
 Page({
-
-	/**
-	 * 页面的初始数据
-	 */
 	data: {
 		coupons: [],
 	},
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
 	async onLoad(options) {
 		this.loadCoupon();
 	},
+
 	async loadCoupon() {
 		const { vendor } = app.globalData;
-		const data = await api.hei.couponList({
-			vendor,
-		});
-		this.setData({
-			...data,
-		});
+		const data = await api.hei.fetchCouponList({ vendor });
+		this.setData(data);
 	},
+
 	async onReceiveCoupon(id, index) {
 		const { coupons } = this.data;
-
 		try {
 			const data = await api.hei.receiveCoupon({
 				coupon_id: id,
@@ -58,6 +48,7 @@ Page({
 			});
 		}
 	},
+
 	async onCouponClick(ev) {
 		console.log(ev);
 		const { id, index, status, title } = ev.currentTarget.dataset;
@@ -67,11 +58,10 @@ Page({
 			const { confirm } = await showModal({
 				title: '未登录',
 				content: '请先登录，再领取优惠券',
-				confirmText: '登录',
+				confirmText: '前往登录',
 			});
 			if (confirm) {
-				await login();
-				await this.loadHome();
+				wx.navigateTo({ url: '/pages/login/login' });
 			}
 			return;
 		}
@@ -86,38 +76,8 @@ Page({
 		}
 	},
 
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {},
+	reLoad() {
+		this.loadCoupon();
+	},
 
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {},
 });

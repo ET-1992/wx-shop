@@ -76,7 +76,12 @@
 <!-- 底部评论栏 -->
 <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<view class="footerItem">
-		<navigator class="returnIndex" url="/pages/home/home" wx:if="{{pageSize==1}}" open-type="switchTab">
+		<navigator
+      class="returnIndex"
+      url="/pages/home/home"
+      wx:if="{{ currentPageLength === 1 }}"
+      open-type="switchTab"
+    >
 			<image src="../../icons/goIndex.png"></image>
 			<text>首页</text>
 		</navigator>
@@ -94,11 +99,11 @@
 			<!-- 收藏 -->
 		<view class="fav">
 			<view wx:if="{{is_faved}}" class="favItem" >
-		    <view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="unfav"></view>
+		    <view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
 		    <text> {{fav_count}}</text>
 			</view>
 			<view class="favItem" wx:else>
-				<view class="faved"  bindtap="fav" data-index="{{idx}}" id="{{article.id}}"></view>
+				<view class="faved"  bindtap="onToggleFav" data-index="{{idx}}" id="{{article.id}}"></view>
 				<text> {{fav_count}}</text>
 			</view>
 		</view>

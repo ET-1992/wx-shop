@@ -1,15 +1,12 @@
-// pages/articleDetail/index.js
-//
 import api from 'utils/api';
-import login from 'utils/login';
+// import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+// import getToken from 'utils/getToken';
+// import login from 'utils/login';
 
 const WxParse = require('../../utils/wxParse/wxParse.js');
 
 const app = getApp();
-
-let isSubmiting = false;
-let isFocusing = false;
 
 Page({
 
@@ -18,46 +15,33 @@ Page({
 	 */
 	data: {
 		id: 0,
-		is_single: true,
 		isLoading: true,
 		type: 'topic',
 		topic: null,
 		user: null,
-		text: '',
-		reply_to: 0,
 		page_title: '',
 		share_title: '',
-		reply_focus: false,
-		placeholder: '发布评论',
 		headerType: 'images',
-		pageSize: 1,
+		currentPageLength: 0,
 	},
 
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad: function (options) {
+	onLoad({ id }) {
 		const { globalData: { themeColor }, systemInfo: { isIphoneX } } = app;
 		this.setData({ themeColor });
 		const pages = getCurrentPages();
-		console.log(pages.length);
-		this.getDetail(options.id);
-		this.needAuth();
+		this.getDetail(id);
 		this.setData({
 			isIphoneX,
-			pageSize: pages.length,
+			currentPageLength: pages.length,
 		});
 	},
 
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
 	async getDetail(id) {
 		const { article, share_title, page_title } = await api.hei.articleDetail({
 			id: id,
 		});
 		const { themeColor } = this.data;
-		const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${ themeColor.primaryColor }"`);
+		const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
 		this.setData({
 			id,
 			article: article,
@@ -88,41 +72,55 @@ Page({
 			url: '/' + e.currentTarget.dataset.src,
 		});
 	},
-	async needAuth(e) {
-		const user = await login();
-		this.setData({
-			user: user,
+	// async onFav(e) {
+	// 	console.log(this.data);
+	// 	const data = await api.hei.fav({
+	// 		post_id: e.currentTarget.id,
+	// 	});
+	// 	this.setData({
+	// 		is_faved: true,
+	// 		fav_count: this.data.fav_count + 1,
+	// 	});
+	// 	wx.showToast({
+	// 		title: data.errmsg,
+	// 		icon: 'success',
+	// 		duration: 2000,
+	// 	});
+	// },
+	// async onUnfav(e) {
+	// 	const data = await api.hei.unfav({
+	// 		post_id: e.currentTarget.id,
+	// 	});
+	// 	this.setData({
+	// 		is_faved: false,
+	// 		fav_count: this.data.fav_count - 1,
+	// 	});
+	// 	wx.showToast({
+	// 		title: data.errmsg,
+	// 		icon: 'success',
+	// 		duration: 2000,
+	// 	});
+	// },
+
+	async onToggleFav() {
+		const { is_faved, article: { id }, fav_count } = this.data;
+		const favMethod = is_faved ? 'unfav' : 'fav';
+		const data = await api.hei[favMethod]({
+			post_id: id,
 		});
+		if (data) {
+			const nextFavCount = is_faved ? fav_count - 1 : fav_count + 1;
+			this.setData({
+				is_faved: !is_faved,
+				fav_count: nextFavCount,
+			});
+			wx.showToast({
+				title: data.errmsg,
+				icon: 'success',
+			});
+		}
 	},
-	async fav(e) {
-		console.log(this.data);
-		const data = await api.hei.fav({
-			post_id: e.currentTarget.id,
-		});
-		this.setData({
-			is_faved: true,
-			fav_count: this.data.fav_count + 1,
-		});
-		wx.showToast({
-			title: data.errmsg,
-			icon: 'success',
-			duration: 2000,
-		});
-	},
-	async unfav(e) {
-		const data = await api.hei.unfav({
-			post_id: e.currentTarget.id,
-		});
-		this.setData({
-			is_faved: false,
-			fav_count: this.data.fav_count - 1,
-		});
-		wx.showToast({
-			title: data.errmsg,
-			icon: 'success',
-			duration: 2000,
-		});
-	},
+
 	onReady() {
 		this.videoContext = wx.createVideoContext('myVideo');
 	},
@@ -172,59 +170,18 @@ Page({
 		});
 	},
 
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {},
+	async reLoad() {
+		const { id } = this.data;
+		const { article } = await api.hei.articleDetail({ id });
+		const { fav_count, is_faved, replies } = article;
+		this.setData({
+			fav_count,
+			is_faved,
+			topic: {
+				reply_count: replies ? replies.length : 0,
+			},
+		});
+	},
 
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {},
-
-	// onShareAppMessage: function (res) {
-	//  console.log(this.data)
-	//  if (res.from === 'button') {
-	//     return {
-	//        title: this.data.share_title,
-	//        path: '/page/articleDetail/articleDetail?id={{this.data.id}}',
-	//        success: function(res) {
-	//          // 转发成功
-	//        },
-	//        fail: function(res) {
-	//          // 转发失败
-	//        }
-	//      }
-	//  }else{
-	//    return {
-	//        title: this.data.share_title,
-	//        path: '/page/articleDetail/articleDetail?id={{this.data.id}}',
-	//        success: function(res) {
-	//          // 转发成功
-	//        },
-	//        fail: function(res) {
-	//          // 转发失败
-	//        }
-	//      }
-	//  }
-	// },
-	/**
-	 * 用户点击右上角分享
-	 */
 	onShareAppMessage: onDefaultShareAppMessage,
 });
