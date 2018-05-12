@@ -1,0 +1,56 @@
+@import '~templates/mock/mock';
+
+.container {
+	$width: 298px;
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: $width;
+	// margin-left: -$width / 2;
+	// margin-top: 50%;
+	background-color: #fff;
+	border-radius: 5px;
+	overflow: hidden;
+	color: #000;
+	z-index: 100;
+	transform: translate(-50%, -50%);
+}
+
+.main {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #999;
+	text-align: center;
+
+	.imageIcon {
+		width: 139px;
+		height: 134px;
+		margin: 0 auto;
+	}
+
+	.title {
+		margin-top: 20px;
+		font-size: 12pt;
+		font-weight: 600;
+	}
+
+	.content {
+		font-size: 10pt;
+	}
+}
+
+.btGroup {
+	display: flex;
+
+	.cancelBt, .confirmBt {
+		background-color: #fff;
+		width: 50%;
+		height: 100rpx;
+		line-height: 100rpx;
+		text-align: center;
+	}
+
+	.cancelBt {
+		border-right: 1px solid #999;
+	}
+}

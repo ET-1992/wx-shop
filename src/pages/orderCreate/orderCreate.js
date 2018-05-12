@@ -53,7 +53,7 @@ Page({
 
 			if (isCancel) {
 				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});
 			}
 
@@ -242,7 +242,7 @@ Page({
 
 			if (this.data.orderPrice <= 0) {
 				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});
 			}
 
@@ -273,7 +273,7 @@ Page({
 			}
 
 			wx.redirectTo({
-				url: `/pages/orderDetail/orderDetail?id=${order_no}`,
+				url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 			});
 		}
 		catch (err) {

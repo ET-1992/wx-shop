@@ -1,0 +1,33 @@
+<import src="/templates/loading/loading.wxml"/>
+
+<view class="container {{ isFinished ? 'finishedBgImage' : 'normalBgImage' }}">
+  <view
+    class="coupon couponBgImage"
+    wx:if="{{ !isFinished }}"
+  >
+    <view class="title">{{ redpacket.item.title }}</view>
+    <view class="price">￥{{ redpacket.item.reduceValue }}</view>
+    <view class="date">有效期: {{redpacket.item.start_time}}至{{redpacket.item.end_time}}</view>
+  </view>
+  <view class="btGroup" wx:if="{{ !isFinished }}">
+    <button
+      class="normalizeBt useBt"
+      bindtap="onUse"
+    >
+      <image class="btBg" src="/icons/redpacketUseBt.png"/>
+    </button>
+    <button
+      class="normalizeBt shareBt"
+      open-type="share"
+    >
+      <image class="btBg" src="/icons/redpacketShrareBt.png"/>
+    </button>
+  </view>
+  <view class="products" >
+    <view class="title">好货推荐</view>
+    <productList
+      products="{{ products }}"
+      productListStyle="{{ productListStyle }}"
+    />
+  </view>
+</view>

@@ -29,6 +29,8 @@ Page({
 		order: {},
 		groupon: {},
 		logistics: {},
+		redpacket: {},
+		isFromCreate: false,
 
 		isLoading: false,
 	},
@@ -97,6 +99,11 @@ Page({
 		this.setData(data);
 	},
 
+	async loadRedpacket(id) {
+		const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
+		this.setData({ redpacket });
+	},
+
 	countDown() {
 		const { remainSecond } = this.data;
 		if (remainSecond) {
@@ -110,33 +117,24 @@ Page({
 		}
 	},
 
-	onLoad() {
+	onLoad({ isFromCreate = false }) {
 		const { globalData: { themeColor }, systemInfo } = app;
-		this.setData({ themeColor, systemInfo });
+		this.setData({ themeColor, systemInfo, isFromCreate });
 	},
 
-	// async onLoad ({ id, grouponId }) {
-	// 	this.setData({ isLoading: true });
-	// 	console.log(id)
-	// 	if (id) {
-	// 		await this.loadOrder(id);
-	// 	}
-	// 	else {
-	// 		await this.loadGroupon(grouponId);
-	// 	}
-	// 	this.setData({ isLoading: false });
-	// 	this.countDown();
-	// },
 	async onShow() {
 		const { id, grouponId } = this.options;
 		const user = wx.getStorageSync(USER_KEY);
 		this.setData({ isLoading: true, user });
+
 		if (id) {
 			await this.loadOrder(id);
+			this.loadRedpacket(id);
 		}
 		else {
 			await this.loadGroupon(grouponId);
 		}
+
 		this.setData({ isLoading: false });
 		this.countDown();
 	},
@@ -165,24 +163,39 @@ Page({
 		});
 	},
 
-	onShareAppMessage() {
+
+	onShareAppMessage({ target }) {
+		const { isModal, isShareGroupon } = target.dataset;
 		const { nickname } = this.data.user;
-		const { groupon = {}, order = {} } = this.data;
-		const grouponId = groupon.id || order.groupon_id;
-		let shareMsg = {
-			title: '小嘿店',
-			path: '/pages/home/home',
-			imageUrl: groupon.image_url || (order.items && order.items[0].image_url)
-		};
-		// if (grouponId && (order.statusCode === 10 || groupon.status === 2)) {
-		if (order.id || groupon.status === 2) {
-			shareMsg = {
-				title: `${nickname}邀请你一起拼团`,
-				path: `/pages/orderDetail/orderDetail?grouponId=${grouponId}`,
-				imageUrl: groupon.image_url || order.groupon.image_url
+		const { groupon = {}, order = {}, redpacket = {} } = this.data;
+
+		console.log('target', target);
+
+		if (isShareGroupon) {
+
+			const grouponId = groupon.id || order.groupon_id;
+			let shareMsg = {
+				title: '小嘿店',
+				path: '/pages/home/home',
+				imageUrl: groupon.image_url || (order.items && order.items[0].image_url)
 			};
+			if (order.id || groupon.status === 2) {
+				shareMsg = {
+					title: `${nickname}邀请你一起拼团`,
+					path: `/pages/orderDetail/orderDetail?grouponId=${grouponId}`,
+					imageUrl: groupon.image_url || order.groupon.image_url
+				};
+			}
+			console.log(shareMsg);
+			return shareMsg;
 		}
-		console.log(shareMsg);
-		return shareMsg;
+		else if (isModal) {
+			console.log(`/pages/redpackek/redpackek?orderNo=${order.id}`);
+			return {
+				title: `好友${nickname}给你发来了一个红包，快去领取吧`,
+				path: `/pages/redpackek/redpackek?id=${redpacket.id}`,
+				imageUrl: '/icons/redpacketShare.jpg'
+			}
+		}
 	}
 });

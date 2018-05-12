@@ -41,4 +41,14 @@
     wx:else
     src="/templates/order/normalOrder.wxml"
   />
+  <modal
+    title="【送你一个拼手气红包】"
+    content="快叫小伙帮一起来拆红包"
+    confirmText="发红包"
+    confirmColor="#ffad00"
+    iconUrl="/icons/redpacketIcon.png"
+    isShow="{{ redpacket.pakcet_no && isFromCreate }}"
+    bindmodalConfirm="onModalConfirm"
+    confirmButtonType="share"
+  />
 </view>

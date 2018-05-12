@@ -184,20 +184,22 @@ const apis = {
 		method: 'POST',
 		isForceToken: true,
 	},
-	bindSubmit: {
-		path: 'api2/form_id.json',
-		method: 'POST',
-	},
-	bindSubmit: {
-		path: 'api2/form_id.json',
-		method: 'POST',
-	},
 	submitFormId: {
 		path: 'api2/form_id.json',
 		method: 'POST',
 	},
 	receiveCouponAll: {
 		path: 'api/mag.coupon.batch.receive.json',
+		method: 'POST',
+		isForceToken: true,
+	},
+	fetchRedpacket: {
+		path: 'api/mag.redpacket.share.json',
+		method: 'POST',
+		isForceToken: true,
+	},
+	receiveRedpacket: {
+		path: 'api/mag.redpacket.receive.json',
 		method: 'POST',
 		isForceToken: true,
 	},

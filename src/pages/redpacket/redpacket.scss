@@ -1,0 +1,82 @@
+@import './bg';
+
+$mainColor: #f34353;
+
+.container {
+	background-color: $mainColor;
+	padding-bottom: 40px;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: contain;
+	padding-top: 620rpx;
+
+	.coupon {
+		width: 300px;
+		height: 100px;
+		margin: 20rpx auto 100rpx;
+
+		.title {
+			color: #ec0023;
+			font-size: 18px;
+			padding-top: 36px;
+			margin-left: 22px;
+		}
+
+		.price {
+			font-size: 30px;
+			float: right;
+			margin-right: 20px;
+			color: #ec0023;
+			margin-top: -45px;
+		}
+
+		.date {
+			color: #333;
+			font-size: 12px;
+			margin-top: 14px;
+			margin-left: 38px;
+		}
+	}
+
+	.btGroup {
+		display: flex;
+		justify-content: center;
+		text-align: center;
+
+		.btBg {
+			width: 158px;
+			height: 58px;
+		}
+	}
+
+	.products {
+		margin-top: 28px;
+
+		.title {
+			text-align: center;
+			color: #fff;
+			margin-bottom: 28px;
+			vertical-align: middle;
+			display: flex;
+			align-items: center;
+			width: 100%;
+			justify-content: center;
+
+			&::before {
+				content: '';
+				display: inline-block;
+				border-bottom: 2px solid #fff;
+				width: 20px;
+				margin-right: 5px;
+			}
+
+			&::after {
+				content: '';
+				display: inline-block;
+				border-bottom: 2px solid #fff;
+				width: 20px;
+				margin-left: 5px;
+			}
+		}
+	}
+}

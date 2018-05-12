@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "红包",
+  "usingComponents": {
+    "productList": "../../components/productList/index"
+  }
+}

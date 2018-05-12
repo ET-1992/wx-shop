@@ -24,9 +24,9 @@
 		"pages/commentList/commentList",
 		"pages/loadProduct/loadProduct",
 		"pages/myFav/myFav",
-    "pages/couponList/couponList",
-		"pages/login/login"
-
+		"pages/couponList/couponList",
+		"pages/login/login",
+		"pages/redpacket/redpacket"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

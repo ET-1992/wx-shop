@@ -366,7 +366,7 @@ button {
 	width: 100%;
 	left: 0;
 	bottom: 0;
-	z-index: 11;
+	z-index: 100;
 	padding: 20rpx 62rpx $buttonHeight+40rpx;
 	transform: translateY(120%);
 	transition: transform 0.4s ease;
@@ -471,7 +471,7 @@ button {
 		width: 100%;
 		left: 0;
 		bottom: 0;
-		z-index: 12;
+		z-index: 100;
 		font-size: 0;
 		display: flex;
 

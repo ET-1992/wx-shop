@@ -1603,13 +1603,17 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-wxapp-page@^1.0.1:
-  version "1.1.0"
-  resolved "http://registry.npm.taobao.org/create-wxapp-page/download/create-wxapp-page-1.1.0.tgz#75c92413c9aed105d1a71582b44f0d7c0c88d98f"
+create-wxapp-page@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/create-wxapp-page/-/create-wxapp-page-2.0.6.tgz#895d74b53435d9510a5a19a9b280b2ce0351d320"
   dependencies:
+    fs-extra "^4.0.3"
     inquirer "^3.0.6"
+    lodash "^4.17.4"
     mkdirp "^0.5.1"
+    opn "^5.1.0"
     update-notifier "^2.2.0"
+    xdg-basedir "^3.0.0"
     yargs "^7.0.2"
 
 cross-env@^5.0.1:
@@ -2558,6 +2562,14 @@ fs-extra@^4.0.2:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
+fs-extra@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/fs.realpath/download/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -3242,6 +3254,10 @@ is-windows@^0.2.0:
 is-windows@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/is-windows/download/is-windows-1.0.1.tgz#310db70f742d259a16a369202b51af84233310d9"
+
+is-wsl@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/is-wsl/-/is-wsl-1.1.0.tgz#1f16e4aa22b04d1336b66188a66af3c600c3a66d"
 
 isarray@0.0.1:
   version "0.0.1"
@@ -4378,6 +4394,12 @@ onetime@^2.0.0:
   resolved "http://registry.npm.taobao.org/onetime/download/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
   dependencies:
     mimic-fn "^1.0.0"
+
+opn@^5.1.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/opn/-/opn-5.3.0.tgz#64871565c863875f052cfdf53d3e3cb5adb53b1c"
+  dependencies:
+    is-wsl "^1.1.0"
 
 optimist@^0.6.1:
   version "0.6.1"

@@ -1,0 +1,41 @@
+<import src="../../templates/mock/mock.wxml"/>
+
+<view>
+  <view class="container" wx:if="{{ isShow }}">
+    <view class="main">
+      <icon
+        wx:if="{{ !iconUrl }}"
+        type="{{ iconType }}"
+        size="{{60}}"
+      />
+      <image
+        wx:if="{{ iconUrl }}"
+        src="{{ iconUrl }}"
+        class="imageIcon"
+        mode="aspectFit"
+      />
+
+      <view class="title">{{ title }}</view>
+      <view class="content">{{ content }}</view>
+    </view>
+    <view class="btGroup">
+      <button
+        class="cancelBt"
+        wx:if="showCancel"
+        style="color: {{ cancelColor }}"
+        bindtap="onCancel"
+      >{{ cancelText }}</button>
+      <button
+        class="confirmBt"
+        open-type="{{ confirmButtonType }}"
+        data-is-modal="{{ true }}"
+        style="color: {{ confirmColor }}"
+        bindtap="onConfirm"
+      >{{ confirmText }}</button>
+    </view>
+  </view>
+  <template
+      is="mock"
+      data="{{ isShow }}"
+    />
+</view>

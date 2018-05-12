@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "订单详情",
   "usingComponents": {
-    "orderOperations": "../../components/orderOperations/index"
+    "orderOperations": "../../components/orderOperations/index",
+    "modal": "../../components/modal/modal"
   }
 }
