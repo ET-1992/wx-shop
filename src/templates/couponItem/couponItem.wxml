@@ -19,7 +19,8 @@
           >- {{ desc }}</view>
         </view>
         <view class="couponDate">
-          <text>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
+          <text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
+          <text wx:else>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
         </view>
       </view>
       <view class="right {{ canChoice ? 'rightCenter' : '' }}">

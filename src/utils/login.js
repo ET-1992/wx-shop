@@ -40,7 +40,7 @@ export default async (options = {}) => {
 
 		wx.hideToast();
 		wx.showToast({
-			title: '登陆成功',
+			title: '登录成功',
 			icon: 'success'
 		});
 		return loginData;
@@ -57,7 +57,7 @@ export default async (options = {}) => {
 		}
 		else {
 			wx.showModal({
-				title: '登陆失败',
+				title: '登录失败',
 				content: err.errMsg,
 				showCancel: false
 			});

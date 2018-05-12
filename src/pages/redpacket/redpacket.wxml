@@ -7,7 +7,11 @@
   >
     <view class="title">{{ redpacket.item.title }}</view>
     <view class="price">￥{{ redpacket.item.reduceValue }}</view>
-    <view class="date">有效期: {{redpacket.item.start_time}}至{{redpacket.item.end_time}}</view>
+
+    <view class="date" >
+      <text wx:if="{{ redpacket.item.date_type === '2' }}">领券当日起{{ coupon.fixed_term }}日内可用</text>
+      <text wx:else>有效期: {{redpacket.item.start_time}}至{{redpacket.item.end_time}}</text>
+    </view>
   </view>
   <view class="btGroup" wx:if="{{ !isFinished }}">
     <button

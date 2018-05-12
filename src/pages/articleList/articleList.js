@@ -62,9 +62,9 @@ Page({
 		this.setData({
 			getIndex: e.detail.current,
 		});
-		wx.setNavigationBarTitle({
-			title: this.data.categories[e.detail.current].page_title,
-		});
+		// wx.setNavigationBarTitle({
+		// 	title: this.data.categories[e.detail.current].page_title,
+		// });
 	},
 
 	handleArticleList(e) {
@@ -114,8 +114,8 @@ Page({
 		});
 
 		const articleList = [];
-		let totalPages = [data.total_pages],
-			currentPages = [data.current_page];
+		let totalPages = [data.total_pages];
+		let currentPages = [data.current_page];
 		for (var i = 0; i < categoriesId.length; i++) {
 			const data2 = await api.hei.articleList({
 				article_category_id: categoriesId[i] || 0,
@@ -138,6 +138,7 @@ Page({
 			articles: articleList,
 			categories: data.categories,
 			isLoading: false,
+			articleBannerHeight: data.article_banner_height,
 			currentPages,
 			totalPages,
 		});
@@ -172,48 +173,5 @@ Page({
 			isLoading: false,
 		});
 	},
-
-	/* async onReachBottom() {
-     // console.log('111');
-       console.log(this.data);
-       const { currentPage, totalPages } = this.data;
-       console.log(this.data);
-       // let getIndex = this.data.getIndex ? this.data.getIndex : 0
-       // // const {id} = this.data.current_article_category
-       // if (currentPage >= totalPages) {
-       //     return;
-       // }
-       // this.setData({ isRefresh: false,currentPage: currentPage + 1 });
-       // await this.getArticleList(getIndex)
-       // this.setData({
-       //   getIndex,
-
-       // });
-
-   },*/
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {},
-
-	/**
-	 * 用户点击右上角分享
-	 */
 	onShareAppMessage: onDefaultShareAppMessage,
 });

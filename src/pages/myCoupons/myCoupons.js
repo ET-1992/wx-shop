@@ -7,7 +7,7 @@ Page({
 	// 页面的初始数据
 	data: {
 		status: [
-			{ name: '可使用', value: 'available' },
+			{ name: '未使用', value: 'available' },
 			{ name: '已使用', value: 'used' },
 			{ name: '已过期', value: 'expired' },
 		],

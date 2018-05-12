@@ -247,7 +247,11 @@ button::after {
 	.deadline{
 		font-size: 22rpx;
 		color: $titleColor;
-		padding: 24rpx 70rpx;
+		padding-left: 70rpx;
+		height: 54rpx;
+		line-height: 54rpx;
+		// padding-top: 14rpx;
+
 		// padding: 14rpx 70rpx;
 	}
 }

@@ -10,11 +10,23 @@
 		</view>
 	</scroll-view>
 	<swiper autoplay="{{false}}" current='{{current}}' bindchange="changeCurrent">
-		<block wx:for='{{articles}}' wx:for-item="article">
+		<block
+      wx:for='{{articles}}'
+      wx:for-item="article"
+      wx:key="id"
+    >
 				<swiper-item>
 				 	<scroll-view scroll-y class="scrollView" bindscrolltolower="onReachBottom">
-				 		<navigator class="m-list" wx:for="{{article}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-			    		<image src='{{item.banner}}'></image>
+				 		<navigator
+              class="m-list"
+              wx:for="{{article}}"
+              url="/pages/articleDetail/articleDetail?id={{ item.id }}"
+            >
+			    		<image
+                src='{{item.banner}}'
+                style="height: {{articleBannerHeight}}rpx;"
+                mode="aspectFill"
+              />
 					  	<template is="articleItem" data="{{ article: item}}" />
 		    		</navigator>
 		    	</scroll-view>

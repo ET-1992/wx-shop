@@ -204,7 +204,10 @@
               </view>
             </view>
 
-            <view class="deadline">{{item.start_time}}至{{item.end_time}}</view>
+            <view class="deadline">
+              <text wx:if="{{ coupon.date_type === '2' }}">领券当日起{{ item.fixed_term }}日内可用</text>
+              <text wx:else>{{ item.start_time }}至{{ item.end_time }}</text>
+            </view>
         </view>
     </scroll-view>
     <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
