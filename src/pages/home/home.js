@@ -56,9 +56,7 @@ Page({
 		const { current_user = {} } = data;
 		if (current_user) {
 			this.setData({
-				// newUser: current_user.new_user,
-				// TODO FOR DEBUG ONLY
-				newUser: 1,
+				newUser: current_user.new_user,
 			});
 		}
 		else {
@@ -74,11 +72,6 @@ Page({
 					hasCoupons: true,
 				});
 			}
-		});
-
-		// TODO FOR DEBUG ONLY
-		this.setData({
-			hasCoupons: true,
 		});
 
 		if (data.page_title) {
