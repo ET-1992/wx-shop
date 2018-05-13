@@ -36,8 +36,8 @@ Page({
 	},
 
 	async loadOrder(id) {
-		const { order } = await api.hei.fetchOrder({ order_no: id });
-		const data = { order };
+		const { order, redpacket = {} } = await api.hei.fetchOrder({ order_no: id });
+		const data = { order, redpacket };
 		const statusCode = +order.status;
 
 		order.statusText = STATUS_TEXT[statusCode];
@@ -99,10 +99,10 @@ Page({
 		this.setData(data);
 	},
 
-	async loadRedpacket(id) {
-		const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
-		this.setData({ redpacket });
-	},
+	// async loadRedpacket(id) {
+	// 	const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
+	// 	this.setData({ redpacket });
+	// },
 
 	countDown() {
 		const { remainSecond } = this.data;
@@ -129,7 +129,7 @@ Page({
 
 		if (id) {
 			await this.loadOrder(id);
-			this.loadRedpacket(id);
+			// this.loadRedpacket(id);
 		}
 		else {
 			await this.loadGroupon(grouponId);

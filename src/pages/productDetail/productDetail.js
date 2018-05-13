@@ -237,7 +237,7 @@ Page({
 			const disableSkuItems = generateDisableSkuItem({
 				skus,
 				skuSplitProperties,
-				selectedProperties: defalutSelectedProperties,
+				selectedProperties: defalutSelectedProperties || [],
 			})
 
 
