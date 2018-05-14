@@ -16,8 +16,8 @@ Page({
 		const { encryptedData, iv } = ev.detail;
 		const { code } = this.data;
 		try {
-			const { isForceRegister } = this.options;
-			const user = await login({ encryptedData, iv, code });
+			const { isForceRegister, isForce } = this.options;
+			const user = await login({ encryptedData, iv, code, isForce });
 			if (user) {
 
 				if (isForceRegister) {

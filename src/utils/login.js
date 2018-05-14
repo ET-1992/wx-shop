@@ -4,7 +4,8 @@ import api from 'utils/api';
 import getToken from 'utils/getToken';
 
 export default async (options = {}) => {
-	const { encryptedData, iv, code } = options;
+	const { encryptedData, iv, code, isForce } = options;
+	const token = isForce ? null : await getToken();
 	wx.showToast({
 		title: '加载中',
 		icon: 'loading',
@@ -12,11 +13,12 @@ export default async (options = {}) => {
 		mask: false
 	});
 	try {
-		if (getToken()) {
+		if (token) {
 			const user = wx.getStorageSync(USER_KEY);
 			wx.hideToast();
 			return { user };
 		}
+
 		const data = {
 			code,
 			iv,

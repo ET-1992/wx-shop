@@ -53,6 +53,7 @@ Page({
 		this.setData({ isLoading: true });
 
 		const data = await api.hei.fetchHome();
+		console.log('home data:', data);
 		const { current_user = {} } = data;
 		if (current_user) {
 			this.setData({

@@ -10,14 +10,14 @@ const onRequestSuccess = async (resolve, reject, res) => {
 			errMsg: errmsg || errMsg,
 			code: errcode || statusCode,
 		};
-		if (errcode === 'bad_authentication') {
+		if (errcode === 'bad_authentication' || errcode === 'illegal_access_token') {
 			await showModal({
 				title: '用户认证失败',
 				content: '认证信息失效，请重新登录',
 				showCancel: false,
 				confirmText: '前往登录',
 			});
-			wx.navigateTo({ url: '/pages/login/login' });
+			wx.navigateTo({ url: '/pages/login/login?isForce=true' });
 		}
 		console.error(err);
 		return reject(err);
