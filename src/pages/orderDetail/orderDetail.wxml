@@ -47,7 +47,7 @@
     confirmText="发红包"
     confirmColor="#ffad00"
     iconUrl="/icons/redpacketIcon.png"
-    isShow="{{ redpacket.pakcet_no && isFromCreate }}"
+    isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}"
     bindmodalConfirm="onModalConfirm"
     confirmButtonType="share"
   />

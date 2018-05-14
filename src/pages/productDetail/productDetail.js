@@ -366,6 +366,7 @@ Page({
 		if (!token) {
 			// await login();
 			wx.navigateTo({ url: '/pages/login/login' });
+			return;
 		}
 
 		if (selectedSku.stock === 0) {

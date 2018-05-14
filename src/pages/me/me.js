@@ -1,5 +1,6 @@
 import { USER_KEY } from 'constants/index';
 import api from 'utils/api';
+import getToken from 'utils/getToken';
 
 const itemActions = {
 	address: wx.chooseAddress,
@@ -35,13 +36,14 @@ Page({
 	onLoad() {
 		const { themeColor } = app.globalData;
 		this.setData({ themeColor });
-		const user = wx.getStorageSync(USER_KEY);
-		this.setData({ user });
 	},
 
 	async onShow() {
-		const { openid } = this.data.user;
-		if (openid) {
+		const user = wx.getStorageSync(USER_KEY);
+		this.setData({ user });
+
+		const token = getToken();
+		if (token) {
 			this.loadOrderCount();
 		}
 	},
@@ -63,12 +65,4 @@ Page({
 		const action = itemActions[name];
 		action();
 	},
-
-	reLoad() {
-		const user = wx.getStorageSync(USER_KEY);
-		this.setData({ user });
-		if (user.openid) {
-			this.loadOrderCount();
-		}
-	}
 });

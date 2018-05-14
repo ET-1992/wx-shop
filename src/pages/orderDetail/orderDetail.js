@@ -190,10 +190,10 @@ Page({
 			return shareMsg;
 		}
 		else if (isModal) {
-			console.log(`/pages/redpacket/redpacket?orderNo=${order.id}`);
+			this.setData({ isShared: true });
 			return {
 				title: `好友${nickname}给你发来了一个红包，快去领取吧`,
-				path: `/pages/redpacket/redpacket?id=${redpacket.id}`,
+				path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
 				imageUrl: '/icons/redpacketShare.jpg'
 			}
 		}

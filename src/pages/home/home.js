@@ -67,7 +67,7 @@ Page({
 
 		data.coupons.forEach((item) => {
 			const { status, target_user_type } = item;
-			if (target_user_type === '2' && status === '2') {
+			if (target_user_type === '2' && status === 2) {
 				this.setData({
 					hasCoupons: true,
 				});

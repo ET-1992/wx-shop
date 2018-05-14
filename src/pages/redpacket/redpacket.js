@@ -9,7 +9,8 @@ Page({
 		products: [],
 	},
 
-	async onLoad({ id }) {
+	async loadRepacket() {
+		const { id } = this.options;
 		const { errmsg, products = [], received_redpacket = {} } = await api.hei.receiveRedpacket({ packet_no: id });
 		received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
 		this.setData({
@@ -20,9 +21,17 @@ Page({
 		});
 	},
 
+	async onShow() {
+		await this.loadRepacket();
+	},
+
 	onUse() {
 		wx.switchTab({ url: '/pages/home/home' });
 	},
+
+	// async reLoad() {
+	// 	await this.loadRepacket();
+	// },
 
 	onShareAppMessage({ target }) {
 		const { user = {} } = this.data.redpacket;
@@ -32,7 +41,7 @@ Page({
 
 		return {
 			title: `好友${name}给你发来了一个红包，快去领取吧`,
-			path: `/pages/redpackek/redpackek?id=${id}`,
+			path: `/pages/redpacket/redpacket?id=${id}`,
 			imageUrl: '/icons/redpacketShare.jpg'
 		}
 	}
