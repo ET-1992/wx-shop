@@ -1,5 +1,6 @@
 {
 	"navigationBarTitleText": "红包",
+  "navigationBarBackgroundColor": "#f34353",
   "usingComponents": {
     "productList": "../../components/productList/index"
   }
