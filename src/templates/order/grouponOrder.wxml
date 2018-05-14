@@ -28,6 +28,18 @@
   </view>
 
   <button
+    class="nomalizeBt redpacketBannerBt"
+    data-is-redpocket-share="{{ true }}"
+    wx:if="{{ redpacket.pakcet_no && order.id }}"
+    open-type="share"
+  >
+    <image
+      class="redpacketBanner"
+      src="/images/orderRedpacketBanner.jpg"
+    />
+  </button>
+
+  <button
     wx:if="{{ order.id || groupon.status === 2 }}"
     class="normalizeBt button"
     bindtap="onShare"

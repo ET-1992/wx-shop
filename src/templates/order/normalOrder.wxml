@@ -96,6 +96,18 @@
   >退款时间: {{ order.refundDate }}</view>
 </view>
 
+<button
+  class="nomalizeBt redpacketBannerBt"
+  data-is-redpocket-share="{{ true }}"
+  wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}"
+  open-type="share"
+>
+  <image
+    class="redpacketBanner"
+    src="/images/orderRedpacketBanner.jpg"
+  />
+</button>
+
 <navigator
   open-type="switchTab"
   url="/pages/home/home"
@@ -109,7 +121,9 @@
     statusCode="{{ order.statusCode }}"
     orderNo="{{ order.order_no }}"
     order="{{ order }}"
-    isShowContact="{{ true }}"
+    isShowContact="{{ !order.isDone }}"
+    isShowService="{{ order.isDone }}"
+    isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3  }}"
     user="{{ user }}"
     bindconfirmOrder="onRelaodOrder"
     bindpayOrder="onRelaodOrder"

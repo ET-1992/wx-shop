@@ -21,7 +21,7 @@ Page({
 		groupons: [],
 		featured_products: [],
 		coupons: [],
-		hasCoupons: false,
+		hasNewUserCoupons: false,
 
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		categoryListStyle: CATEGORY_LIST_STYLE[2],
@@ -54,26 +54,22 @@ Page({
 
 		const data = await api.hei.fetchHome();
 		console.log('home data:', data);
-		const { current_user = {} } = data;
-		if (current_user) {
-			this.setData({
-				newUser: current_user.new_user,
-			});
-		}
-		else {
-			this.setData({
-				newUser: 1,
-			});
-		}
+		const { current_user = {}, coupons } = data;
+		// if (current_user) {
+		// 	this.setData({
+		// 		newUser: current_user.new_user,
+		// 	});
+		// }
+		// else {
+		// 	this.setData({
+		// 		newUser: 1,
+		// 	});
+		// }
 
-		data.coupons.forEach((item) => {
-			const { status, target_user_type } = item;
-			if (target_user_type === '2' && status === 2) {
-				this.setData({
-					hasCoupons: true,
-				});
-			}
-		});
+		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type }) => target_user_type === '2' && status === 2);
+		console.log(newUserCouponIndex);
+		const hasNewUserCoupons = newUserCouponIndex >= 0;
+
 
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
@@ -94,17 +90,15 @@ Page({
 		this.setData({
 			isLoading: false,
 			conWidth: width || '',
-
-			// newUser: data.current_user.new_user,
+			hasNewUserCoupons,
+			newUser: current_user ? current_user.new_user : 1,
 			...data,
 		});
 	},
 
 	async onLoad() {
-		console.log(1);
 		const { themeColor } = app.globalData;
 		this.setData({ themeColor });
-		console.log(2);
 		this.loadHome();
 	},
 	async onReceiveCoupon(id, index) {

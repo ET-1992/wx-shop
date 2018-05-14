@@ -221,7 +221,7 @@ Page({
 
 			skus.forEach((sku) => {
 				const { stock, properties } = sku;
-				const value = properties[0].v;
+				// const value = properties[0].v;
 
 				// 生成 defalutSelectedProperties 和 selectedSku
 				if (stock && !defalutSelectedProperties) {
@@ -233,6 +233,7 @@ Page({
 					selectedSku = findSelectedSku(skus, defalutSelectedProperties);
 				}
 			});
+			console.log('defalutSelectedProperties', defalutSelectedProperties);
 
 			const disableSkuItems = generateDisableSkuItem({
 				skus,

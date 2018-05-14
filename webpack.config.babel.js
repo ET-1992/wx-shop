@@ -121,6 +121,7 @@ export default (env = {}) => {
 			}),
 			new CopyPlugin([
 				{ from: 'src/icons', to: 'icons' },
+				{ from: 'src/images', to: 'images' },
 			]),
 			new optimize.ModuleConcatenationPlugin(),
 			shouldLint && new StylelintPlugin(),

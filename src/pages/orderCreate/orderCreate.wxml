@@ -84,9 +84,9 @@
         <text class="totalPriceValue">￥{{ orderPrice }}</text>
       </view>
         <button
-            class="normalizeBt payBt {{ !address.userName ? 'disabledBt' : '' }}"
-            style="background-color: {{ themeColor.primaryColor }}"
-            form-type="submit"
+          class="normalizeBt payBt"
+          style="background-color: {{ themeColor.primaryColor }}"
+          form-type="submit"
         >去支付</button>
     </view>
   </view>

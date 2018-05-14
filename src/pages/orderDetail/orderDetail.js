@@ -50,6 +50,10 @@ Page({
 		order.total_fee = (order.total_fee - 0).toFixed(2);
 		order.discount_fee = (order.discount_fee - 0).toFixed(2);
 
+		if (statusCode === 4 || statusCode === 6 || statusCode === 7 || statusCode === 8) {
+			order.isDone = true;
+		}
+
 		console.log(order.logistics_info);
 		if (statusCode > 2 && statusCode < 5) {
 			data.logistics = order.logistics_info
@@ -165,7 +169,7 @@ Page({
 
 
 	onShareAppMessage({ target }) {
-		const { isModal, isShareGroupon } = target.dataset;
+		const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
 		const { nickname } = this.data.user;
 		const { groupon = {}, order = {}, redpacket = {} } = this.data;
 
@@ -189,7 +193,7 @@ Page({
 			console.log(shareMsg);
 			return shareMsg;
 		}
-		else if (isModal) {
+		else if (isModal || isRedpocketShare) {
 			this.setData({ isShared: true });
 			return {
 				title: `好友${nickname}给你发来了一个红包，快去领取吧`,

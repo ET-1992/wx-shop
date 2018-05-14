@@ -11,8 +11,14 @@
   <view
     class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     bindtap="onRefund"
-    wx:if="{{ statusCode > 1 && statusCode < 5 }}"
+    wx:if="{{ isShowRefund }}"
   >申请退款</view>
+  <button
+    class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+    wx:if="{{ isShowService }}"
+    open-type="contact"
+    session-from='{"nickname":"{{ user.nickname }}", "avatarurl":"{{ user.avatarurl }}", "from": "order", "orderId": {{ order.id }}}'
+  >申请售后</button>
   <view
     class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     bindtap="onCloseOrder"

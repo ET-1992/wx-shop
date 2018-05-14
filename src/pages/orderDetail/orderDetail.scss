@@ -21,6 +21,15 @@ $footerHeight: 100rpx;
 	}
 }
 
+.redpacketBannerBt {
+	font-size: 0;
+
+	.redpacketBanner {
+		width: 750rpx;
+		height: 140rpx;
+	}
+}
+
 .button {
 	margin: 40rpx 20rpx;
 	color: #fff;

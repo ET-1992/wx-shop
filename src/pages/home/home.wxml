@@ -180,7 +180,7 @@
 
 <!-- 新用戶优惠券弹框 -->
 <view
-  wx:if="{{ newUser == 1 && hasCoupons }}"
+  wx:if="{{ newUser == 1 && hasNewUserCoupons }}"
   class="newUserCoupon"
 >
   <view class="couponContainer">

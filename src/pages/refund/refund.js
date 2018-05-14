@@ -46,7 +46,7 @@ Page({
 		this.setData(updateData);
 
 		if (!isSelected) {
-			const selectdItems = items.filter(item => item.isSelected);
+			const selectdItems = items.filter((item) => item.isSelected);
 			if (selectdItems.length === items.length) {
 				this.setData({ isAllSelected: true });
 			}
@@ -120,7 +120,7 @@ Page({
 	async onRefund() {
 		const { order, selectedRefundType, refundReason, refundImages } = this.data;
 		const { items, order_no } = order;
-		const selectdItems = items.filter(item => item.isSelected);
+		const selectdItems = items.filter((item) => item.isSelected);
 		console.log('selectedRefundType', selectedRefundType);
 		try {
 			if (!selectdItems.length) {
@@ -133,7 +133,7 @@ Page({
 				throw new Error('必须填写退款原因');
 			}
 			else {
-				const itemsId = selectdItems.map(item => item.id);
+				const itemsId = selectdItems.map((item) => item.id);
 				const data = await api.hei.refund({
 					order_no,
 					items: JSON.stringify(itemsId),
@@ -141,12 +141,12 @@ Page({
 					type: selectedRefundType,
 					images: refundImages
 				});
-				const { result } = data;
+				const { result, errcode } = data;
 				if (result) {
 					await showToast({
 						title: '提交成功',
 					});
-					wx.navigateTo({
+					wx.redirectTo({
 						url: `/pages/orderDetail/orderDetail?id=${order_no}`
 					});
 				}

@@ -18,6 +18,14 @@ Component({
 			type: Boolean,
 			value: false,
 		},
+		isShowService: {
+			type: Boolean,
+			value: false,
+		},
+		isShowRefund: {
+			type: Boolean,
+			value: false,
+		},
 		orderIndex: {
 			type: Number,
 			value: 0,
