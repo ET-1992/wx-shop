@@ -3,7 +3,9 @@ import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
+import getSKUMap from 'utils/getSKUMap';
 import { USER_KEY } from 'constants/index';
+
 // import login from 'utils/login';
 
 const WxParse = require('utils/wxParse/wxParse.js');
@@ -42,6 +44,28 @@ const generateDisableSkuItem = ({ skuSplitProperties, skus, selectedProperties }
 				});
 			}
 		}
+	});
+	return disableSkuItems;
+};
+
+const generateDisableSkuItemV2 = ({ properties, skuMap, selectedProperties }) => {
+	console.log('find disableSkuItems v2');
+	const disableSkuItems = {};
+	properties.forEach((property = {}, propertyIndex) => {
+		const { name, items } = property;
+		items.forEach((item) => {
+			const itemName = item.name;
+			const nextSelectedPropertyNames = selectedProperties.reduce((names, selectedProperty, selectedIndex) => {
+				const { key, value } = selectedProperty;
+				const selectedNames = key ? `${key}:${value};` : '';
+				const currentNames = selectedIndex === propertyIndex ? `${name}:${itemName};` : selectedNames;
+				return names + currentNames;
+			}, '');
+			if (skuMap[nextSelectedPropertyNames].count === 0) {
+				disableSkuItems[itemName] = true;
+			}
+		});
+
 	});
 	return disableSkuItems;
 };
@@ -162,7 +186,14 @@ Page({
 
 		try {
 			const data = await api.hei.fetchProduct({ id });
-			const { skus, coupons } = data.product;
+			const { skus, coupons, properties: productProperties } = data.product;
+			const skuData = {};
+			skus.forEach((sku) => {
+				const { property_names, stock, price } = sku;
+				skuData[property_names] = { price, count: stock };
+			});
+
+			const skuMap = getSKUMap.init(skuData);
 
 			const { receivableCoupons, receivedCoupons } = coupons.reduce(
 				(classifyCoupons, coupon) => {
@@ -235,12 +266,17 @@ Page({
 			});
 			console.log('defalutSelectedProperties', defalutSelectedProperties);
 
-			const disableSkuItems = generateDisableSkuItem({
-				skus,
-				skuSplitProperties,
-				selectedProperties: defalutSelectedProperties || [],
-			})
+			// const disableSkuItems = generateDisableSkuItem({
+			// 	skus,
+			// 	skuSplitProperties,
+			// 	selectedProperties: defalutSelectedProperties || [],
+			// })
 
+			const disableSkuItems = generateDisableSkuItemV2({
+				properties: productProperties,
+				skuMap,
+				selectedProperties: defalutSelectedProperties || [],
+			});
 
 			WxParse.wxParse(
 				'contentList',
@@ -258,6 +294,7 @@ Page({
 				disableSkuItems,
 				selectedProperties: defalutSelectedProperties,
 				selectedSku,
+				skuMap,
 				...data,
 			});
 
@@ -425,7 +462,7 @@ Page({
 			return;
 		}
 
-		const { selectedProperties, skuSplitProperties } = this.data;
+		const { selectedProperties, skuSplitProperties, product: { properties }, skuMap } = this.data;
 		const exValue =
 			selectedProperties[propertyIndex] &&
 			selectedProperties[propertyIndex].value;
@@ -444,10 +481,16 @@ Page({
 		const selectedSku = findSelectedSku(skus, newSelectedProperties);
 
 
-		const disableSkuItems = generateDisableSkuItem({
-			skus,
-			skuSplitProperties,
-			selectedProperties: newSelectedProperties
+		// const disableSkuItems = generateDisableSkuItem({
+		// 	skus,
+		// 	skuSplitProperties,
+		// 	selectedProperties: newSelectedProperties
+		// });
+		//
+		const disableSkuItems = generateDisableSkuItemV2({
+			properties,
+			skuMap,
+			selectedProperties: newSelectedProperties,
 		});
 
 		this.setData({
