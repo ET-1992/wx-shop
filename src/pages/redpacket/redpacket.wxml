@@ -1,9 +1,9 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container {{ isFinished ? 'finishedBgImage' : 'normalBgImage' }}">
+<view class="container {{ isFinished && hasRecived ? 'finishedBgImage' : 'normalBgImage' }} {{ hasRecived ? '' : 'unRecivedBgImage' }}">
   <view
     class="coupon couponBgImage"
-    wx:if="{{ !isFinished }}"
+    wx:if="{{ !isFinished && hasRecived }}"
   >
     <view class="title">{{ redpacket.item.title || '--' }}</view>
     <view class="price">￥{{ redpacket.item.reduceValue || '--' }}</view>
@@ -13,7 +13,14 @@
       <text wx:else>有效期: {{redpacket.item.start_time || '--'}}至{{redpacket.item.end_time || '--'}}</text>
     </view>
   </view>
-  <view class="btGroup" wx:if="{{ !isFinished }}">
+  <button
+      class="normalizeBt"
+      bindtap="onRecive"
+      wx:if="{{ !hasRecived }}"
+    >
+    <image class="receiveRedpacketBg" src="/icons/receiveRedpacketBt.png"/>
+  </button>
+  <view class="btGroup" wx:if="{{ !isFinished && hasRecived }}">
     <button
       class="normalizeBt useBt"
       bindtap="onUse"

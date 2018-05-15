@@ -8,12 +8,12 @@ $mainColor: #f34353;
 	width: 100%;
 	background-repeat: no-repeat;
 	background-size: contain;
-	padding-top: 620rpx;
+	padding-top: 560rpx;
 
 	.coupon {
 		width: 300px;
 		height: 100px;
-		margin: 20rpx auto 100rpx;
+		margin: 20rpx auto 80rpx;
 
 		.title {
 			color: #ec0023;
@@ -38,6 +38,11 @@ $mainColor: #f34353;
 		}
 	}
 
+	.receiveRedpacketBg {
+		width: 238px;
+		height: 58px;
+	}
+
 	.btGroup {
 		display: flex;
 		justify-content: center;
@@ -50,12 +55,12 @@ $mainColor: #f34353;
 	}
 
 	.products {
-		margin-top: 28px;
+		margin-top: 20px;
 
 		.title {
 			text-align: center;
 			color: #fff;
-			margin-bottom: 28px;
+			margin-bottom: 20px;
 			vertical-align: middle;
 			display: flex;
 			align-items: center;

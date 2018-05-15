@@ -194,9 +194,7 @@ const apis = {
 		isForceToken: true,
 	},
 	fetchRedpacket: {
-		path: 'api/mag.redpacket.share.json',
-		method: 'POST',
-		isForceToken: true,
+		path: 'api/mag.redpacket.shared.get.json',
 	},
 	receiveRedpacket: {
 		path: 'api/mag.redpacket.receive.json',

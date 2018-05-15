@@ -1,5 +1,6 @@
 import { PRODUCT_LIST_STYLE, USER_KEY } from 'constants/index';
 import api from 'utils/api';
+import { showToast } from 'utils/wxp';
 
 Page({
 	data: {
@@ -7,18 +8,49 @@ Page({
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		redpacket: {},
 		products: [],
+		hasRecived: false,
+		isFinished: false,
 	},
 
 	async loadRepacket() {
 		const { id } = this.options;
-		const { errmsg, products = [], received_redpacket = {} } = await api.hei.receiveRedpacket({ packet_no: id });
-		received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+		const { products = [], received_redpacket, shared_redpacket } = await api.hei.fetchRedpacket({ packet_no: id });
+		console.log(products);
+		// const { stock_qty } = shared_redpacket;
+		if (received_redpacket) {
+			received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+		}
 		this.setData({
-			isFinished: !!errmsg,
-			// isFinished: true,
 			products,
 			redpacket: received_redpacket,
+			hasRecived: !!received_redpacket
 		});
+	},
+
+	async onRecive() {
+		// wx.showLoading();
+		const { id } = this.options;
+		const res = await api.hei.receiveRedpacket({ packet_no: id });
+		// wx.hideLoading();
+		if (res) {
+			const { errmsg, products = [], received_redpacket = {} } = res;
+			received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+
+			if (errmsg) {
+				await showToast({ title: errmsg });
+			}
+			else {
+				await showToast({ icon: 'success', title: '领取成功' });
+			}
+			this.setData({
+				isFinished: !!errmsg,
+				hasRecived: true,
+				// isFinished: true,
+				products,
+				redpacket: received_redpacket,
+			});
+		}
+
 	},
 
 	async onShow() {

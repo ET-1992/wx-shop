@@ -30,6 +30,10 @@ export const showToast = (options) => new Promise((resolve, reject) => {
 	wx.showToast({ success: resolve, fail: reject, ...options });
 });
 
+export const showLoading = (options) => new Promise((resolve, reject) => {
+	wx.showLoading({ success: resolve, fail: reject, ...options });
+});
+
 export const chooseAddress = (options) => new Promise((resolve, reject) => {
 	wx.chooseAddress({ success: resolve, fail: reject, ...options });
 });
