@@ -297,24 +297,24 @@
         >
           <view
             class="skuGroup"
-            wx:for="{{ skuSplitProperties }}"
+            wx:for="{{ product.properties }}"
             wx:for-item="property"
             wx:for-index="propertyIndex"
             wx:key="key"
           >
             <view class="title"
-            >{{ property.key }}</view>
+            >{{ property.name }}</view>
             <view
-              class="skuItem {{ selectedProperties[propertyIndex].value === item ? 'selected' : '' }} {{ disableSkuItems[item] ? 'disabled' : '' }}"
-              wx:for="{{ property.values }}"
+              class="skuItem {{ selectedProperties[propertyIndex].value === item.name ? 'selected' : '' }} {{ disableSkuItems[item.name] ? 'disabled' : '' }}"
+              wx:for="{{ property.items }}"
               wx:key="index"
-              data-is-disabled="{{ disableSkuItems[item] }}"
-              data-value="{{ item }}"
-              data-key="{{ property.key }}"
+              data-is-disabled="{{ disableSkuItems[item.name] }}"
+              data-value="{{ item.name }}"
+              data-key="{{ property.name }}"
               data-property-index="{{ propertyIndex }}"
               catchtap="onSkuItem"
-              style="{{ selectedProperties[propertyIndex].value === item ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
-            >{{ item }}</view>
+              style="{{ selectedProperties[propertyIndex].value === item.name ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
+            >{{ item.name }}</view>
           </view>
         </view>
       </scroll-view>

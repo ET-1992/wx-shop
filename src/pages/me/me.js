@@ -39,14 +39,14 @@ Page({
 	},
 
 	async onShow() {
-		const user = wx.getStorageSync(USER_KEY);
-		this.setData({ user });
-
 		const token = getToken();
 		if (token) {
+			const user = wx.getStorageSync(USER_KEY);
+			this.setData({ user });
 			this.loadOrderCount();
 		}
 	},
+
 	onLogin() {
 		wx.navigateTo({ url: '/pages/login/login' });
 	},

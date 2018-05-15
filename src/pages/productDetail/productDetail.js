@@ -101,7 +101,7 @@ Page({
 		isShowCouponList: false,
 		selectedProperties: [],
 		selectedSku: {},
-		skuSplitProperties: [],
+		// skuSplitProperties: [],
 		disableSkuItems: {},
 		quantity: 1,
 		actions: [
@@ -178,7 +178,7 @@ Page({
 			pendingGrouponId: '',
 			selectedProperties: [],
 			selectedSku: {},
-			skuSplitProperties: [],
+			// skuSplitProperties: [],
 		});
 
 		this.setData({ isLoading: true });
@@ -220,32 +220,32 @@ Page({
 				title: data.page_title,
 			});
 
-			const skuSplitProperties = skus.reduce(
-				(skuSplitProperties, sku, index) => {
-					const { properties } = sku;
-					const isInit = !index;
+			// const skuSplitProperties = skus.reduce(
+			// 	(skuSplitProperties, sku, index) => {
+			// 		const { properties } = sku;
+			// 		const isInit = !index;
 
-					// sku.properties = properties;
+			// 		// sku.properties = properties;
 
-					properties.forEach((property, propertyInex) => {
-						const { k, v } = property;
-						if (isInit) {
-							skuSplitProperties.push({ key: k, values: [v] });
-						}
-						else {
-							const isExits =
-								skuSplitProperties[propertyInex].values.findIndex(
-									(value) => value === v,
-								) >= 0;
-							if (!isExits) {
-								skuSplitProperties[propertyInex].values.push(v);
-							}
-						}
-					});
-					return skuSplitProperties;
-				},
-				[],
-			);
+			// 		properties.forEach((property, propertyInex) => {
+			// 			const { k, v } = property;
+			// 			if (isInit) {
+			// 				skuSplitProperties.push({ key: k, values: [v] });
+			// 			}
+			// 			else {
+			// 				const isExits =
+			// 					skuSplitProperties[propertyInex].values.findIndex(
+			// 						(value) => value === v,
+			// 					) >= 0;
+			// 				if (!isExits) {
+			// 					skuSplitProperties[propertyInex].values.push(v);
+			// 				}
+			// 			}
+			// 		});
+			// 		return skuSplitProperties;
+			// 	},
+			// 	[],
+			// );
 
 			let defalutSelectedProperties;
 			let selectedSku = {};
@@ -287,7 +287,7 @@ Page({
 			);
 
 			this.setData({
-				skuSplitProperties,
+				// skuSplitProperties,
 				grouponId: grouponId || '',
 				receivedCoupons,
 				receivableCoupons,
@@ -462,7 +462,12 @@ Page({
 			return;
 		}
 
-		const { selectedProperties, skuSplitProperties, product: { properties }, skuMap } = this.data;
+		const {
+			selectedProperties,
+			// skuSplitProperties,
+			product: { properties },
+			skuMap
+		} = this.data;
 		const exValue =
 			selectedProperties[propertyIndex] &&
 			selectedProperties[propertyIndex].value;
