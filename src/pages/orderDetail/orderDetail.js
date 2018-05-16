@@ -123,13 +123,18 @@ Page({
 
 	onLoad({ isFromCreate = false }) {
 		const { globalData: { themeColor }, systemInfo } = app;
-		this.setData({ themeColor, systemInfo, isFromCreate });
+		this.setData({
+			themeColor,
+			systemInfo,
+			isFromCreate,
+			isLoading: true
+		});
 	},
 
 	async onShow() {
 		const { id, grouponId } = this.options;
 		const user = wx.getStorageSync(USER_KEY);
-		this.setData({ isLoading: true, user });
+		this.setData({ user });
 
 		if (id) {
 			await this.loadOrder(id);
