@@ -48,7 +48,7 @@ const generateDisableSkuItem = ({ skuSplitProperties, skus, selectedProperties }
 	return disableSkuItems;
 };
 
-const generateDisableSkuItemV2 = ({ properties, skuMap, selectedProperties }) => {
+const generateDisableSkuItemV2 = ({ properties = [], skuMap, selectedProperties }) => {
 	console.log('find disableSkuItems v2');
 	const disableSkuItems = {};
 	properties.forEach((property = {}, propertyIndex) => {
