@@ -66,7 +66,7 @@ Page({
 		// 	});
 		// }
 
-		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type }) => target_user_type === '2' && status === 2);
+		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
 		console.log(newUserCouponIndex);
 		const hasNewUserCoupons = newUserCouponIndex >= 0;
 

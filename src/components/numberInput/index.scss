@@ -16,6 +16,7 @@
 	.value {
 		margin: 0 6rpx;
 		font-size: 40rpx;
+		overflow-x: hidden;
+		overflow-y: scroll;
 	}
-
 }

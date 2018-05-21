@@ -173,6 +173,10 @@ Page({
 
 	async initPage() {
 		const { id, grouponId } = this.options;
+		const { product } = this.data;
+		if (!product.id) {
+			this.setData({ isLoading: true });
+		}
 
 		this.setData({
 			pendingGrouponId: '',
@@ -181,7 +185,8 @@ Page({
 			// skuSplitProperties: [],
 		});
 
-		this.setData({ isLoading: true });
+
+
 
 
 		try {
@@ -307,6 +312,7 @@ Page({
 	},
 
 	async onShow() {
+		console.log(this);
 		await this.initPage();
 	},
 
@@ -614,6 +620,10 @@ Page({
 			// quantity: 1,
 			pendingGrouponId: '',
 		});
+	},
+
+	wxParseImgTap() {
+		return;
 	},
 
 	onSkuConfirm(ev) {

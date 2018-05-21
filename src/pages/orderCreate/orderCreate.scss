@@ -1,10 +1,15 @@
 @import '~styles/color';
 
 $footerHeight: 100rpx;
+$iphoneXBottomGap: 40rpx;
 
 .container {
 	padding-top: 20rpx;
 	padding-bottom: $footerHeight + 100rpx;
+
+	&.iphoneXTrick {
+		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+	}
 }
 
 .itemList {
@@ -183,6 +188,11 @@ $footerHeight: 100rpx;
 		line-height: $footerHeight;
 	}
 
+	&.iphoneXTrick {
+		height: $footerHeight + $iphoneXBottomGap;
+		padding-bottom: $iphoneXBottomGap;
+		background-color: #fff;
+	}
 }
 
 .textarea-placeholder {

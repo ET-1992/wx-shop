@@ -39,7 +39,7 @@
 	   </block>
 	</swiper>
 </view>
-<view class="p-single  {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+<view class="p-single">
 	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
 		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
 		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>

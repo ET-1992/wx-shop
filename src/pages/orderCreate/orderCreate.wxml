@@ -3,7 +3,7 @@
   report-submit
   bindsubmit="onPay"
 >
-  <view class="container">
+  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
   	<view class="itemList">
      <view
       class="item"
@@ -78,7 +78,7 @@
       </view>
     </view>
 
-    <view class="footer">
+    <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
       <view class="totalPrice">
         <text class="totalPriceTitle">实付款：</text>
         <text class="totalPriceValue">￥{{ orderPrice }}</text>

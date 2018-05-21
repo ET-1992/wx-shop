@@ -20,36 +20,35 @@ Page({
 		isLoading: true,
 	},
 
-	// 生命周期函数--监听页面加载
+	async loadCoupons() {
+		const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
+		const { used, expired } = unavailable.reduce((coupons, coupon) => {
+			const { used, expired } = coupons;
+			if (+coupon.status === 3) {
+				expired.push(coupon);
+			}
+			else {
+				used.push(coupon);
+			}
+			return coupons;
+		}, { used: [], expired: [] });
+
+		this.setData({
+			'coupons.available': available,
+			'coupons.used': used,
+			'coupons.expired': expired,
+		});
+	},
 
 
-	async onLoad () {
+	async onLoad() {
 		try {
 			const { themeColor } = app.globalData;
 			this.setData({ isLoading: true, themeColor });
-			const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
 
-			// available.forEach((coupon) => {
-			// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
-			// });
 
-			const { used, expired } = unavailable.reduce((coupons, coupon) => {
-				const { used, expired } = coupons;
-				// coupon.description = coupon.description.replace(/\n/g, '<br/>');
-				if (+coupon.status === 3) {
-					expired.push(coupon);
-				}
-				else {
-					used.push(coupon);
-				}
-				return coupons;
-			}, { used: [], expired: [] });
+			await this.loadCoupons();
 
-			this.setData({
-				'coupons.available': available,
-				'coupons.used': used,
-				'coupons.expired': expired,
-			});
 			this.setData({ isLoading: false });
 		}
 		catch (err) {
@@ -62,7 +61,7 @@ Page({
 		const { selectedStatus } = this.data;
 		const { id, title } = ev.currentTarget.dataset;
 		console.log(selectedStatus)
-		if (selectedStatus !== 'available' ) { return; }
+		if (selectedStatus !== 'available') { return; }
 		wx.navigateTo({
 			url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`
 		});
@@ -76,6 +75,15 @@ Page({
 			// activeIndex: this.getIndex(value),
 			isRefresh: true,
 		});
+	},
+
+	async reLoad() {
+		await this.loadCoupons();
+	},
+
+	async onPullDownRefresh() {
+		await this.loadCoupons();
+		wx.stopPullDownRefresh();
 	},
 
 	// 页面分享设置

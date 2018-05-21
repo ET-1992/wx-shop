@@ -198,7 +198,7 @@ button::after {
 }
 
 .couponContainer{
-	padding: 40rpx;
+	padding: 40rpx 40rpx 0;
 	margin-bottom:60rpx;
 	width: 672rpx;
 	height: 773rpx;
@@ -215,8 +215,8 @@ button::after {
 	margin-top: 220rpx;
 }
 .couponItem{
-	width: 100%;
-	height: 160rpx;
+	width: 433rpx;
+	height: 137rpx;
 	background: url(data:image/png;base64,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) no-repeat;
 	background-size: contain;
 	margin-bottom: 10rpx;
@@ -225,7 +225,8 @@ button::after {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 16rpx 40rpx;
+		padding: 14rpx 40rpx;
+		height: 102rpx;
 		.couponType{
 			font-size: 28rpx;
 			color: $priceColor;
@@ -248,8 +249,8 @@ button::after {
 		font-size: 22rpx;
 		color: $titleColor;
 		padding-left: 70rpx;
-		height: 42rpx;
-		line-height: 42rpx;
+		height: 38rpx;
+		line-height: 38rpx;
 		// padding-top: 14rpx;
 
 		// padding: 14rpx 70rpx;
@@ -258,6 +259,7 @@ button::after {
 .affirm{
 	width: 240rpx;
 	height: 70rpx;
+	margin-top: 20rpx;
 }
 .closeCoupon{
 	width: 80rpx;

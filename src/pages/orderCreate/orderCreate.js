@@ -35,7 +35,8 @@ Page({
 
 	onLoad() {
 		const { themeColor } = app.globalData;
-		this.setData({ themeColor });
+		const { isIphoneX } = app.systemInfo;
+		this.setData({ themeColor, isIphoneX });
 	},
 
 	async onShow() {

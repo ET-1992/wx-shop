@@ -36,8 +36,10 @@ page{
 .p-single{
 	width:100%;
 	box-sizing: border-box;
-	padding:0rpx 0rpx 100rpx;
+	padding:0rpx 0rpx 180rpx;
 	line-height:1.8;
+	max-width: 750rpx;
+
 	.m-header{
 		padding: 30rpx;
 	}
@@ -317,9 +319,9 @@ button::after{
 	outline: none;
 }
 .iphoneXTrick{
-	padding-bottom: 80rpx;
+	padding-bottom: 100rpx;
 }
 
-.wxParse-img{
-	width: 750rpx;
-}
+// .size-full{
+// 	width: 750rpx;
+// }
