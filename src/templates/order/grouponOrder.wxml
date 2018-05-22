@@ -44,6 +44,7 @@
     class="normalizeBt button"
     bindtap="onShare"
     open-type="share"
+    data-is-share-groupon="{{ true }}"
     style="background-color: {{ themeColor.primaryColor }}"
   >邀请朋友参团</button>
   <button

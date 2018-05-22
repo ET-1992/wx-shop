@@ -138,7 +138,6 @@ Page({
 
 		if (id) {
 			await this.loadOrder(id);
-			// this.loadRedpacket(id);
 		}
 		else {
 			await this.loadGroupon(grouponId);
@@ -181,7 +180,6 @@ Page({
 		console.log('target', target);
 
 		if (isShareGroupon) {
-
 			const grouponId = groupon.id || order.groupon_id;
 			let shareMsg = {
 				title: '小嘿店',
