@@ -56,6 +56,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
 		image_url: product.images[0],
 		price: product.price,
 		id: product.id,
+		postage: product.postage,
 		quantity,
 	};
 

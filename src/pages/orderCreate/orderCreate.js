@@ -47,10 +47,10 @@ Page({
 			// 	'orderCreate',
 			// );
 			const { currentOrder } = app.globalData;
-			const { items } = currentOrder;
+			const { items, totalPostage } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
 			const totalPrice = Number(currentOrder.totalPrice).toFixed(2);
-			let totalPostage = 0;
+			// let totalPostage = 0;
 
 			if (isCancel) {
 				wx.redirectTo({
@@ -91,16 +91,16 @@ Page({
 			}
 
 			// 使用reduce 或者不需要再次计算总运费, 直接传过来
-			currentOrder.items.forEach((item) => {
-				const { postage } = item;
-				if (postage > totalPostage) {
-					totalPostage = postage;
-				}
-			});
+			// currentOrder.items.forEach((item) => {
+			// 	const { postage } = item;
+			// 	if (postage > totalPostage) {
+			// 		totalPostage = postage;
+			// 	}
+			// });
 
-			const orderPrice = +totalPrice + totalPostage - currentOrder.couponPrice;
+			const orderPrice = Number(totalPrice) + Number(totalPostage) - Number(currentOrder.couponPrice);
 
-			currentOrder.totalPostage = totalPostage;
+			// currentOrder.totalPostage = totalPostage;
 			currentOrder.isGrouponBuy = isGrouponBuy;
 			currentOrder.grouponId = grouponId;
 			currentOrder.address = address;

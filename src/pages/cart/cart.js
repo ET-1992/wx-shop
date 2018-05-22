@@ -16,7 +16,7 @@ Page({
 		isAllSelected: false,
 		totalPrice: 0,
 		savePrice: 0,
-		postagePrice: 0,
+		totalPostage: 0,
 		isLoading: false,
 		isLogin: false,
 		nowTS: Date.now() / 1000,
@@ -26,7 +26,7 @@ Page({
 		const { items, nowTS } = this.data;
 		let totalPrice = 0;
 		let savePrice = 0;
-		let postagePrice = 0;
+		let totalPostage = 0;
 		items.forEach((item) => {
 			if (item.isSelected) {
 
@@ -50,15 +50,15 @@ Page({
 
 				totalPrice = totalPrice + _price * quantity;
 				savePrice = savePrice + discountFee;
-				postagePrice = postage > postagePrice ? postage : postagePrice;
+				totalPostage = postage > totalPostage ? postage : totalPostage;
 				console.log(savePrice);
 			}
 		});
 		totalPrice = totalPrice.toFixed(2);
 		savePrice = savePrice.toFixed(2);
-		postagePrice = postagePrice.toFixed(2);
+		totalPostage = totalPostage.toFixed(2);
 
-		this.setData({ totalPrice, savePrice, postagePrice });
+		this.setData({ totalPrice, savePrice, totalPostage });
 	},
 
 	async loadCart() {
@@ -113,7 +113,7 @@ Page({
 
 			// totalPrice: 0,
 			// savePrice: 0,
-			// postagePrice: 0,
+			// totalPostage: 0,
 			isAllSelected,
 			...data,
 		});
