@@ -4,6 +4,7 @@ import { showToast, showModal } from 'utils/wxp';
 import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
+import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY } from 'constants/index';
 
 // import login from 'utils/login';
@@ -185,10 +186,6 @@ Page({
 			// skuSplitProperties: [],
 		});
 
-
-
-
-
 		try {
 			const data = await api.hei.fetchProduct({ id });
 			const { skus, coupons, properties: productProperties } = data.product;
@@ -261,7 +258,6 @@ Page({
 
 				// 生成 defalutSelectedProperties 和 selectedSku
 				if (stock && !defalutSelectedProperties) {
-					console.log('defalutSelectedProperties');
 					defalutSelectedProperties = properties.map((property) => {
 						const { k, v } = property;
 						return { key: k, value: v };
@@ -288,7 +284,6 @@ Page({
 				'html',
 				data.product.content,
 				this,
-				5,
 			);
 
 			this.setData({
@@ -312,7 +307,6 @@ Page({
 	},
 
 	async onShow() {
-		console.log(this);
 		await this.initPage();
 	},
 
@@ -358,11 +352,10 @@ Page({
 		this.onShowSku();
 	},
 
-	async addCart(ev) {
+	async addCart() {
 		console.log('addCart');
-		const { formId } = ev.detail;
 		const { vendor } = app.globalData;
-		const { product: { id }, selectedSku, quantity } = this.data;
+		const { product: { id }, selectedSku, quantity, formId } = this.data;
 
 		if (selectedSku.stock === 0) {
 			await showModal({
@@ -387,7 +380,8 @@ Page({
 	},
 
 	async onBuy() {
-		const token = getToken();
+		console.log('onBuy');
+		// const token = getToken();
 		const {
 			product,
 			quantity,
@@ -407,11 +401,11 @@ Page({
 			isMiaoshaBuy = hasStart && !hasEnd;
 		}
 
-		if (!token) {
-			// await login();
-			wx.navigateTo({ url: '/pages/login/login' });
-			return;
-		}
+		// if (!token) {
+		// 	// await login();
+		// 	wx.navigateTo({ url: '/pages/login/login' });
+		// 	return;
+		// }
 
 		if (selectedSku.stock === 0) {
 			await showModal({
@@ -622,24 +616,46 @@ Page({
 		});
 	},
 
+	// 覆盖wxParse中自动浏览图片的方法
 	wxParseImgTap() {
 		return;
 	},
 
-	onSkuConfirm(ev) {
-		console.log(ev);
-		const { actionType } = ev.detail.target.dataset;
+	onFormSubmit(ev) {
+		const {formId} = ev.detail;
+		this.setData({ formId });
+	},
+
+	onSkuConfirm(actionType) {
+		console.log('onSkuConfirm', actionType);
+		// const { actionType } = ev.detail.target.dataset;
 		this.setData({
 			isShowAcitonSheet: false,
 		});
-		this[actionType](ev);
+		// actionType [addCart, onBuy]
+		this[actionType]();
 	},
 
-	async submitFormId(e) {
-		const data = await api.hei.submitFormId({
-			form_id: e.detail.formId,
+	async submitFormId(ev) {
+		await api.hei.submitFormId({
+			form_id: ev.detail.formId,
 		});
-		console.log(data);
+	},
+
+	async onUserInfo(ev) {
+		console.log('onUserInfo', ev);
+		const { encryptedData, iv } = ev.detail;
+		if (iv && encryptedData) {
+			const { actionType } = ev.target.dataset;
+			await forceUserInfo({ encryptedData, iv });
+			this.onSkuConfirm(actionType);
+		}
+		else {
+			showModal({
+				title: '需授权后操作',
+				showCancel: false,
+			});
+		}
 	},
 
 	async reload() {

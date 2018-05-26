@@ -64,26 +64,9 @@ export const getSetting = (options) => new Promise((resolve, reject) => {
 	wx.getSetting({ success: resolve, fail: reject, ...options });
 });
 
-// export const getSetting = (options) => new Promise((resolve, reject) => {
-// 	wx.getSetting({ success: resolve, fail: reject, ...options });
-// });
+export const checkSession = (options) => new Promise((resolve, reject) => {
+	wx.checkSession({ success: resolve, fail: reject, ...options });
+});
 
 
-//
 
-// 仅能对wx API中，有success, fail方法的API进行Promise化，若没有，请直接使用wx, 不能使用wxp, 否则无法成功调用API
-
-// export default new Proxy(wx, {
-// 	get(target, name) {
-// 		return (options) => {
-// 			if (wx.canIUse(`${name}.success`)) {
-// 				return new Promise((resolve, reject) => {
-// 					wx[name]({ success: resolve, fail: reject, ...options });
-// 				});
-// 			}
-// 			else {
-// 				return wx[name];
-// 			}
-// 		};
-// 	}
-// });

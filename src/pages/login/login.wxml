@@ -5,6 +5,7 @@
     type="primary"
     bindgetuserinfo="onConfirm"
     open-type="getUserInfo"
+    lang="zh_CN"
     class="confirmBt"
   >确定</button>
   <button

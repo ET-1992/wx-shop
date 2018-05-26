@@ -329,7 +329,7 @@
         />
       </view>
       <form
-        catchsubmit="onSkuConfirm"
+        catchsubmit="onFormSubmit"
         report-submit="true"
       >
         <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -340,6 +340,9 @@
             disabled="{{ product.skus.length && !selectedSku.id }}"
             data-action-type="{{ item.type }}"
             form-type="submit"
+            bindgetuserinfo="onUserInfo"
+            open-type="getUserInfo"
+            lang="zh_CN"
             style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
           >{{ item.text }}</button>
         </view>

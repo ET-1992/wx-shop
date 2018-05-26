@@ -4,7 +4,7 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 // import getToken from 'utils/getToken';
 // import login from 'utils/login';
 
-const WxParse = require('../../utils/wxParse/wxParse.js');
+const WxParse = require('utils/wxParse/wxParse.js');
 
 const app = getApp();
 
@@ -42,6 +42,14 @@ Page({
 		});
 		const { themeColor } = this.data;
 		const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
+
+		WxParse.wxParse(
+			'article_content',
+			'html',
+			fomatedContent,
+			this,
+		);
+
 		this.setData({
 			id,
 			article: article,
@@ -49,13 +57,6 @@ Page({
 			is_faved: article.is_faved,
 			product: article.products,
 			share_title: share_title,
-			article_content: WxParse.wxParse(
-				'article_content',
-				'html',
-				fomatedContent,
-				this,
-				5,
-			),
 			topic: {
 				reply_count: article.replies ? article.replies.length : 0,
 				replies: article.replies,

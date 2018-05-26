@@ -32,13 +32,13 @@ export default async (path, data, options = {}) => {
 		method = 'GET',
 		header = {},
 		isForceToken,
-		isForceRegister,
+		isForceUserInfo,
 		pathParam,
 		requestType = 'request',
 		tokenKey = 'access_token',
 	} = options;
 
-	const isPermit = await checkPermission({ isForceToken, isForceRegister });
+	const isPermit = await checkPermission({ isForceToken, isForceUserInfo });
 	if (!isPermit) { return; }
 
 	header['Content-Type'] = 'application/x-www-form-urlencoded';

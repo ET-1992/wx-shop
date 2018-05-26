@@ -4,11 +4,29 @@
     class="header"
     style="background-color: {{ themeColor.primaryColor }}"
   >
-    <image class="avatar" src="{{ user.avatarurl }}" class="avatar" mode="aspectFill" wx:if="{{ user.avatarurl }}" />
-    <image  class="avatar unlogin" bindtap="onLogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}"></image>
-    <view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
+    <open-data
+      class="avatar"
+      src="{{ user.avatarurl }}"
+      type="userAvatarUrl"
+    />
+    <open-data
+      class="name"
+      type="userNickName"
+    />
+    <!-- 使用open-data组件显示头像和昵称
+    <image
+      class="avatar unlogin"
+      bindtap="onLogin"
+      src="../../icons/unlogin.png"
+      wx:if="{{ !user.avatarurl }}"
+    />
+    <view
+      class="name loginBt"
+      wx:if="{{ user.nickname }}"
+    >{{ user.nickname }}</view>
 
     <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button>
+    -->
   </view>
 
   <view class="section orders">

@@ -10,6 +10,7 @@ const host = 'https://api.wpweixin.com/';
  * path: 接口路径
  * method: 请求方法，默认GET
  * isForceToken: 是否需要带token，默认false
+ * isForceUserInfo: 是否需要微信userInfo授权
  * requestType: 默认request, [request, uploadFile]
  **/
 const apis = {
@@ -68,16 +69,19 @@ const apis = {
 		path: 'api/mag.order.create.json?pay&v2',
 		method: 'POST',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	createOrder: {
 		path: 'api/mag.order.create.json',
 		method: 'POST',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	payOrder: {
 		path: 'api/mag.order.pay.json?pay&v2',
 		method: 'POST',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	peanutPayOrder: {
 		path: 'api/mag.order.pay.peanut.json',
@@ -178,11 +182,13 @@ const apis = {
 		path: 'api/mag.article.reply.json',
 		method: 'POST',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	deleteReply: {
 		path: 'api/mag.article.reply.delete.json',
 		method: 'POST',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	submitFormId: {
 		path: 'api2/form_id.json',

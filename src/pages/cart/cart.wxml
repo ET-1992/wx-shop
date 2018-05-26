@@ -186,7 +186,9 @@
 
     <button
       class="normalizeBt createOrderBt"
-      bindtap="onCreateOrder"
+      bindgetuserinfo="onCreateOrder"
+      open-type="getUserInfo"
+      lang="zh_CN"
       disabled="{{ !(totalPrice - 0) }}"
       style="background-color: {{ themeColor.primaryColor  }}"
     >去结算</button>

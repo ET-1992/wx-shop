@@ -39,12 +39,7 @@ Page({
 	},
 
 	async onShow() {
-		const token = getToken();
-		if (token) {
-			const user = wx.getStorageSync(USER_KEY);
-			this.setData({ user });
-			this.loadOrderCount();
-		}
+		this.loadOrderCount();
 	},
 
 	onLogin() {

@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
+import forceUserInfo from 'utils/forceUserInfo';
 import { cloneDeep } from 'lodash';
 import { CART_LIST_KEY } from 'constants/index';
 
@@ -260,15 +261,27 @@ Page({
 		}
 	},
 
-	onCreateOrder() {
-		const { items } = this.data;
-		const selectdItems = items.filter((item) => item.isSelected);
-		this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
-		app.globalData.currentOrder = this.data;
-		app.globalData.currentOrder = cloneDeep(this.data);
-		wx.navigateTo({
-			url: '/pages/orderCreate/orderCreate',
-		});
+	async onCreateOrder(ev) {
+		const { encryptedData, iv } = ev.detail;
+
+		if (encryptedData && iv) {
+			await forceUserInfo({ encryptedData, iv });
+			const { items } = this.data;
+			const selectdItems = items.filter((item) => item.isSelected);
+			this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
+			app.globalData.currentOrder = this.data;
+			app.globalData.currentOrder = cloneDeep(this.data);
+			wx.navigateTo({
+				url: '/pages/orderCreate/orderCreate',
+			});
+		}
+		else {
+			showModal({
+				title: '需授权后操作',
+				showCancel: false,
+			});
+		}
+
 	},
 
 	saveCartAction() {

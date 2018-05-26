@@ -1,5 +1,7 @@
-import { login as wxLogin } from 'utils/wxp';
+import { login as wxLogin, checkSession } from 'utils/wxp';
 import api from 'utils/api';
+import getToken from 'utils/getToken';
+import { USER_KEY, TOKEN_KEY, EXPIRED_KEY } from 'constants/index';
 
 App({
 	onLaunch() {
@@ -17,6 +19,15 @@ App({
 		this.globalData.themeColor = { primaryColor, secondaryColor };
 	},
 
+	async silentLogin() {
+		const { code } = await wxLogin();
+		const { user, access_token, expired_in } = await api.hei.silentLogin({ code });
+		const expiredTime = expired_in * 1000 + Date.now();
+		wx.setStorageSync(USER_KEY, user);
+		wx.setStorageSync(TOKEN_KEY, access_token);
+		wx.setStorageSync(EXPIRED_KEY, expiredTime);
+	},
+
 	async onShow(options) {
 		const { query = {} } = options;
 		if (query.vendor) {
@@ -26,10 +37,16 @@ App({
 			this.globalData.extraData = options.referrerInfo.extraData;
 		}
 
-		const { code } = await wxLogin();
-		console.log(code);
-		const res = await api.hei.silentLogin({ code });
-		console.log(res);
+		try {
+			const token = getToken();
+			if (!token) {
+				throw new Error('token invalid');
+			}
+			await checkSession();
+		}
+		catch (err) {
+			await this.silentLogin();
+		}
 	},
 
 	onError(err) {

@@ -1,6 +1,7 @@
 import api from 'utils/api';
-import { USER_KEY } from 'constants/index';
-// import login from 'utils/login';
+import forceUserInfo from 'utils/forceUserInfo';
+import getUserInfo from 'utils/getUserInfo';
+import { showModal, showToast } from 'utils/wxp';
 
 const app = getApp();
 
@@ -31,21 +32,15 @@ Page({
 	 */
 	onLoad: function (options) {
 		const { globalData: { themeColor }, systemInfo } = app;
-		const user = wx.getStorageSync(USER_KEY);
 		const updateData = { themeColor, systemInfo };
-		if (user) {
-			updateData.user = user;
-		}
 		this.setData(updateData);
-
 	},
 
 	onShow() {
 		const { id } = this.options;
-		const user = wx.getStorageSync(USER_KEY);
-		if (user) {
-			this.setData({ user });
-		}
+		const user = getUserInfo();
+
+		this.setData({ user });
 		this.getDetail(id);
 	},
 
@@ -54,7 +49,6 @@ Page({
 	 */
 	async getDetail(id) {
 		const data = await api.hei.articleDetail({ id: id });
-		console.log(data);
 		this.setData({
 			id,
 			topic: {
@@ -77,16 +71,47 @@ Page({
 		});
 	},
 
-	async formSubmit(e) {
-		const text = e.detail.value.text.trim();
+	async onUserInfo(ev) {
+		if (this.data.user) {
+			await this.submitComment();
+		}
+		else {
+			const { encryptedData, iv } = ev.detail;
+			if (encryptedData && iv) {
+				const user = await forceUserInfo({ encryptedData, iv });
+				await showToast({
+					title: '授权成功',
+					icon: 'success',//仅支持success或者loading
+					duration: 1000,
+				});
+				this.setData({ user });
+			}
+			else {
+				showModal({
+					title: '需授权后操作',
+					showCancel: false,
+				});
+			}
+		}
+	},
+
+	async formSubmit(ev) {
+		console.log(ev);
+		const text = ev.detail.value.text.trim();
+		const formId = ev.detail.formId;
+		this.setData({ text, formId });
+	},
+
+	async submitComment() {
+		const { formId, text, reply_to } = this.data;
 		if (text === '' || isSubmiting) return;
 
 		isSubmiting = true;
 
 		let args = {
-			text: text,
-			reply_to: this.data.reply_to,
-			form_id: e.detail.formId,
+			text,
+			reply_to,
+			form_id: formId,
 		};
 
 		let res;
@@ -200,7 +225,7 @@ Page({
 	},
 
 	reLoad() {
-		const user = wx.getStorageSync(USER_KEY);
+		const user = getUserInfo;
 		this.setData({ user });
 	},
 });

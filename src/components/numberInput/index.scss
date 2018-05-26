@@ -3,6 +3,7 @@
 
 	.value, .bt {
 		$size: 60rpx;
+
 		border: 1px solid #999;
 		width: $size;
 		height: $size;
@@ -10,13 +11,13 @@
 		box-sizing: border-box;
 		min-height: 40rpx;
 		text-align: center;
-		font-size:40rpx;
+		font-size: 40rpx;
 	}
 
 	.value {
 		margin: 0 6rpx;
 		font-size: 40rpx;
-		overflow-x: hidden;
-		overflow-y: scroll;
+		overflow-y: hidden;
+		overflow-x: scroll;
 	}
 }
