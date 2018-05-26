@@ -257,6 +257,7 @@ Page({
 
 				await wx.navigateToMiniProgram({
 					envVersion: 'release',
+					// envVersion: 'develop',
 					appId: pay_appid,
 					path: `/pages/peanutPay/index?order_no=${order_no}`,
 					extraData: {

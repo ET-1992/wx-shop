@@ -34,12 +34,15 @@ Page({
 	},
 
 	onLoad() {
+		// user用户客服对接
+		const user = wx.getStorageSync(USER_KEY);
 		const { themeColor } = app.globalData;
-		this.setData({ themeColor });
+		this.setData({ themeColor, user });
 	},
 
 	async onShow() {
 		this.loadOrderCount();
+
 	},
 
 	onLogin() {

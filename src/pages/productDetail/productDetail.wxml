@@ -195,7 +195,7 @@
         <button
           open-type="contact"
           class="cart"
-          session-from='{"nickname":"{{ user.nickname }}", "avatarurl":"{{ user.avatarurl }}", "from": "product", "productId": {{ product.id }}}'
+          session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}|from=product|productId={{product.id}}"
         >
           <image class="icon" src="../../icons/context.png"/>
           <text>客服</text>
