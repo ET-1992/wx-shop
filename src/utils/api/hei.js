@@ -201,6 +201,15 @@ const apis = {
 		method: 'POST',
 		isForceToken: true,
 	},
+	silentLogin: {
+		path: 'api2/user.login.json',
+		method: 'POST',
+	},
+	getUserInfo: {
+		path: 'api2/user.info.json',
+		method: 'POST',
+		isForceToken: true,
+	},
 };
 
 export default new API({ apis, host });

@@ -1,3 +1,6 @@
+import { login as wxLogin } from 'utils/wxp';
+import api from 'utils/api';
+
 App({
 	onLaunch() {
 		const { windowWidth, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
@@ -22,6 +25,11 @@ App({
 		if (options.referrerInfo) {
 			this.globalData.extraData = options.referrerInfo.extraData;
 		}
+
+		const { code } = await wxLogin();
+		console.log(code);
+		const res = await api.hei.silentLogin({ code });
+		console.log(res);
 	},
 
 	onError(err) {
