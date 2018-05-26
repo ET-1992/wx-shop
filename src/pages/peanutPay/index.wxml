@@ -3,30 +3,9 @@
 <template is="loading" wx:if="{{ isLoading }}"/>
 
 <view class="container" wx:if="{{ !isLoading }}">
-  <view
-    wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}">
-     <view class="itemList">
-       <view
-        class="grouponItem"
-        >
-          <image
-            src="{{ groupon.thumbnail || order.groupon.thumbnail }}"
-            class="itemImage"
-            mode="aspectFill"
-          />
-          <view class="itemInfo">
-            <view class="itemName">{{ groupon.title || order.groupon.title }}</view>
-            <view class="itemMeta">
-              <view class="itemPrice">￥{{ groupon.price || order.groupon.price }}</view>
-              <view class="itemQuantity">x{{ groupon.quantity || order.groupon.quantity || 1 }}</view>
-              <view class="grouponLimit">{{ groupon.member_limit || order.groupon.member_limit }}人团</view>
-            </view>
-          </view>
-       </view>
-      </view>
-    </view>
 
-  <view wx:else>
+
+
 <view class="section">
   <view class="address">
     <image class="addressIcon" src="/icons/address.png"/>
@@ -46,7 +25,7 @@
   wx:key="id"
   >
     <image
-      src="{{ item.thumbnail }}"
+      src="{{ item.image_url }}"
       class="itemImage"
       mode="aspectFill"
     />
@@ -63,8 +42,8 @@
         <view class="itemQuantity">x{{ item.quantity }}</view>
       </view>
     </view>
- </view>
-</view>
+  </view>
+
 
 <view class="section priceInfo">
   <view class="priceInfoItem">
