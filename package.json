@@ -3,17 +3,16 @@
   "version": "0.0.0",
   "description": "shop-wxapp",
   "scripts": {
-    "start": "webpack --watch",
-    "start:alipay": "webpack --watch --env.target=Alipay",
+    "start": "cross-env NODE_ENV=production webpack --env.target=Wechat -p --progress --watch",
     "webpack": "webpack",
     "prestart": "rimraf dist",
     "prebuild": "rimraf dist",
-    "build:wechat": "cross-env NODE_ENV=production webpack --env.target=Wechat -p",
-    "build:alipay": "cross-env NODE_ENV=production webpack --env.target=Alipay -p",
+    "build:wechat": "cross-env NODE_ENV=production webpack --env.target=Wechat -p --progress",
     "build": "run-s build:*",
     "create-page": "create-wxapp-page --dir=src --indent=tab --style=scss",
     "create-component": "create-wxapp-page --type=component --dir=src --indent=tab --style=scss",
-    "test": "jest"
+    "test": "jest",
+    "fix": "eslint --fix *.js ./src"
   },
   "main": "dist/wechat/app.js",
   "author": "jc",
