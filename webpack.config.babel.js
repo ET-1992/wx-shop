@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { DefinePlugin, EnvironmentPlugin, optimize, IgnorePlugin } from 'webpack';
 import WXAppWebpackPlugin, { Targets } from 'wxapp-webpack-plugin';
-import StylelintPlugin from 'stylelint-webpack-plugin';
+// import StylelintPlugin from 'stylelint-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 
 const { NODE_ENV, LINT, NO_LINT } = process.env;
@@ -9,27 +9,35 @@ const isDev = NODE_ENV !== 'production';
 const shouldLint = (!isDev || (!!LINT && LINT !== 'false')) && !NO_LINT;
 
 const relativeFileLoader = (ext = '[ext]') => [
+	// {
+	// 	loader: 'file-loader',
+	// 	options: {
+	// 		// publicPath: '',
+	// 		publicPath: (file) => {
+	// 			return file.replace(/^\.\.\/mediaType\//, '../../templates/mediaType/');
+	// 		},
+	// 		useRelativePath: true,
+	// 		name: `[name].${ext}`,
+	// 		emitFile: false,
+	// 		context: resolve('src'),
+	// 	},
+	// },
+	// {
+	// 	loader: 'file-loader',
+	// 	options: {
+	// 		publicPath: '',
+	// 		context: resolve('src'),
+	// 		name: `[path][name].${ext}`,
+	// 	},
+	// },
 	{
 		loader: 'file-loader',
 		options: {
-			// publicPath: '',
-			publicPath: (file) => {
-				return file.replace(/^\.\.\/mediaType\//, '../../templates/mediaType/');
-			},
 			useRelativePath: true,
 			name: `[name].${ext}`,
-			emitFile: false,
-			context: resolve('src'),
-		},
-	},
-	{
-		loader: 'file-loader',
-		options: {
-			publicPath: '',
-			context: resolve('src'),
-			name: `[path][name].${ext}`,
-		},
-	},
+			context: resolve('src')
+		}
+	}
 ];
 
 export default (env = {}) => {
@@ -123,8 +131,7 @@ export default (env = {}) => {
 				{ from: 'src/icons', to: 'icons' },
 				{ from: 'src/images', to: 'images' },
 			]),
-			new optimize.ModuleConcatenationPlugin(),
-			shouldLint && new StylelintPlugin(),
+			new optimize.ModuleConcatenationPlugin()
 		].filter(Boolean),
 		devtool: isDev ? 'source-map' : false,
 		resolve: {
