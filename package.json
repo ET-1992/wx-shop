@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "shop-wxapp",
   "scripts": {
-    "start": "cross-env NODE_ENV=production webpack --env.target=Wechat -p --progress --watch",
+    "start": "webpack --watch --progress",
     "webpack": "webpack",
     "prestart": "rimraf dist",
     "prebuild": "rimraf dist",
