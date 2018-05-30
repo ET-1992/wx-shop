@@ -19,8 +19,7 @@ const relativeFileLoader = (ext = '[ext]') => [
 ];
 
 export default (env = {}) => {
-	const target = env.target || 'Wechat';
-	const isWechat = env.target === 'Wechat';
+	const target = 'Wechat';
 	return {
 		entry: {
 			app: [
@@ -32,7 +31,7 @@ export default (env = {}) => {
 		output: {
 			filename: '[name].js',
 			publicPath: '/',
-			path: resolve('dist', isWechat ? 'wechat' : 'alipay'),
+			path: resolve('dist', 'wechat'),
 		},
 		target: Targets[target],
 		module: {
@@ -101,8 +100,8 @@ export default (env = {}) => {
 			new IgnorePlugin(/vertx/),
 			new DefinePlugin({
 				__DEV__: isDev,
-				__WECHAT__: isWechat,
-				wx: isWechat ? 'wx' : 'my',
+				__WECHAT__: true,
+				wx: 'wx',
 			}),
 			new WXAppWebpackPlugin({
 				clear: !isDev,
