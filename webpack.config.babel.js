@@ -4,32 +4,10 @@ import WXAppWebpackPlugin, { Targets } from 'wxapp-webpack-plugin';
 // import StylelintPlugin from 'stylelint-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 
-const { NODE_ENV, LINT, NO_LINT } = process.env;
+const { NODE_ENV } = process.env;
 const isDev = NODE_ENV !== 'production';
-const shouldLint = (!isDev || (!!LINT && LINT !== 'false')) && !NO_LINT;
 
 const relativeFileLoader = (ext = '[ext]') => [
-	// {
-	// 	loader: 'file-loader',
-	// 	options: {
-	// 		// publicPath: '',
-	// 		publicPath: (file) => {
-	// 			return file.replace(/^\.\.\/mediaType\//, '../../templates/mediaType/');
-	// 		},
-	// 		useRelativePath: true,
-	// 		name: `[name].${ext}`,
-	// 		emitFile: false,
-	// 		context: resolve('src'),
-	// 	},
-	// },
-	// {
-	// 	loader: 'file-loader',
-	// 	options: {
-	// 		publicPath: '',
-	// 		context: resolve('src'),
-	// 		name: `[path][name].${ext}`,
-	// 	},
-	// },
 	{
 		loader: 'file-loader',
 		options: {
@@ -42,8 +20,7 @@ const relativeFileLoader = (ext = '[ext]') => [
 
 export default (env = {}) => {
 	const target = env.target || 'Wechat';
-	const isWechat = env.target !== 'Alipay';
-	const isAlipay = !isWechat;
+	const isWechat = env.target === 'Wechat';
 	return {
 		entry: {
 			app: [
@@ -61,11 +38,16 @@ export default (env = {}) => {
 		module: {
 			rules: [
 				{
+					enforce: "pre",
+					test: /\.js$/,
+					exclude: /wxParse|node_modules/,
+					loader: "eslint-loader",
+				  },
+				{
 					test: /\.js$/,
 					include: /src/,
 					use: [
 						'babel-loader',
-						shouldLint && 'eslint-loader',
 					].filter(Boolean),
 				},
 				{
@@ -73,8 +55,7 @@ export default (env = {}) => {
 					include: /src/,
 					use: [
 						...relativeFileLoader(),
-						'babel-loader',
-						shouldLint && 'eslint-loader',
+						'babel-loader'
 					].filter(Boolean),
 				},
 				{
@@ -102,7 +83,7 @@ export default (env = {}) => {
 					test: /\.wxml$/,
 					include: resolve('src'),
 					use: [
-						...relativeFileLoader(isWechat ? 'wxml' : 'axml'),
+						...relativeFileLoader('wxml'),
 						{
 							loader: 'wxml-loader',
 							options: {
@@ -121,7 +102,6 @@ export default (env = {}) => {
 			new DefinePlugin({
 				__DEV__: isDev,
 				__WECHAT__: isWechat,
-				__ALIPAY__: isAlipay,
 				wx: isWechat ? 'wx' : 'my',
 			}),
 			new WXAppWebpackPlugin({
