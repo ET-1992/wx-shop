@@ -1,0 +1,48 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper,
+.video,
+.poster,
+swiper,
+image,
+video {
+    width: 100%;
+    height: 100%;
+  }
+
+
+.player {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  left: 42%;
+  top: 42%;
+}
+
+
+.active {
+  background: #000;
+}
+
+.no-active {
+  background: #fff;
+}
+
+.icon {
+  position: absolute;
+  width: 72rpx;
+  height: 40rpx;
+  right: 30rpx;
+}
+
+.video-icon {
+  top: 325rpx;
+}
+
+.img-icon {
+  top: 385rpx;
+}

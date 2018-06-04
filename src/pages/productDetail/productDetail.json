@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "numberInput": "../../components/numberInput/index",
-    "pendingGrouponItem": "../../components/pendingGrouponItem/index"
+    "pendingGrouponItem": "../../components/pendingGrouponItem/index",
+    "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg"
   }
 }

@@ -25,14 +25,16 @@ video {
 
 .header {
 	background-color: #fff;
+	width: 100%;
+	height: 750rpx;
 
 	.swiper,
 	.videoWrapper,
 	.swiper image,
-	video {
-		width: 100%;
-		height: 750rpx;
-	}
+		video {
+			width: 100%;
+			height: 100%;
+		}
 
 	.desc {
 		color: #9fa0a0;
