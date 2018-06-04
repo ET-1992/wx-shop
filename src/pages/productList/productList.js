@@ -97,6 +97,7 @@ Page({
 	},
 
 	onSegmentItemClick(ev) {
+		this.setData({ currentPage: 1 });
 		const { selectedCategoryId } = this.data;
 		const { categoryId, index } = ev.currentTarget.dataset;
 		if (selectedCategoryId === categoryId) {

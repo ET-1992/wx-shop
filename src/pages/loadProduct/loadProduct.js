@@ -63,6 +63,7 @@ Page({
 		this.setData({
 			isRefresh: true,
 			next_cursor: 0,
+			products: [],
 		});
 		await this.loadProducts();
 		wx.stopPullDownRefresh();
@@ -74,6 +75,8 @@ Page({
 			return;
 		}
 		this.loadProducts();
+
+		console.log(this.data);
 	},
 
 	onShareAppMessage: onDefaultShareAppMessage,
