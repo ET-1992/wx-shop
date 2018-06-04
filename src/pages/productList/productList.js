@@ -108,6 +108,7 @@ Page({
 			isRefresh: true,
 			categoryId,
 			activeIndex: index,
+			currentPage: 1
 		});
 
 		this.loadProducts();
