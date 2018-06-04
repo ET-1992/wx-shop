@@ -107,12 +107,14 @@ Page({
 			})
 		}
 
-		let next_cursor = this.data.products[this.data.products.length-1].timestamp;
-		this.setData({
-			next_cursor: next_cursor
-		});
+		let products = this.data.products;
+		if( products && products[products.length-1]){
+			let next_cursor = products[products.length-1].timestamp;
+			this.setData({
+				next_cursor: next_cursor
+			});
+		}
 
-		console.log(this.data);
 	},
 
 	async onLoad() {
