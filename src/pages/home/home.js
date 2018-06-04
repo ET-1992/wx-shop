@@ -73,8 +73,14 @@ Page({
 		// 	});
 		// }
 
+		/**
+		*	target_user_type 1:所有人可领取, 2:新人专属
+		*	status 2 可使用
+		*/
 		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
+		const UserCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2' && status === 2 && stock_qty !== 0);
 		const hasNewUserCoupons = newUserCouponIndex >= 0;
+		console.log('ss' + UserCoupon);
 
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
@@ -94,6 +100,7 @@ Page({
 		// const newUser = data.current_user ? data.current_user.new_user : null;
 		
 		this.setData({
+			coupons: UserCoupon, 
 			isLoading: false,
 			conWidth: width || '',
 			hasNewUserCoupons,
