@@ -1,6 +1,11 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container">
+<view 
+  class="container"
+  bind:touchstart="onTouchStart"
+  bind:touchmove="onTouchMove"
+  bind:touchend="onTouchEnd"
+>
   <scroll-view
     class="scrollSegmentcontrol"
     scroll-x="true"
@@ -92,9 +97,6 @@
       products="{{ products }}"
       productListStyle="{{ productListStyle }}"
       nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
-      bind:touchstart="onTouchStart"
-      bind:touchmove="onTouchMove"
-      bind:touchend="onTouchEnd"
     />
   </view>
 
