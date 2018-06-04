@@ -63,10 +63,18 @@ Page({
 	},
 
 	async loadCart() {
-		this.setData({ isLoading: true });
+		var that = this;
+		wx.getSystemInfo({
+			success: function(res) {
+				that.setData({
+					phoneModel: res.model,
+					isLoading: true
+				});
+				console.log('手机型号：' + that.data.phoneModel)
+			}
+		});
 		const data = await api.hei.fetchCartList();
 		let isAllSelected = true;
-
 
 		// 初次默认全部选中, 再次进入读取storage的信息
 		const cartList = wx.getStorageSync(CART_LIST_KEY);

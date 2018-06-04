@@ -178,6 +178,10 @@ page{
 			color: $priceColor;
 			font-size: 12pt;
 		}
+		.totalPrice-ip5 {
+			color: $priceColor;			
+			font-size: 10pt;
+		}
 
 		.priceMeta {
 			font-size: 8pt;
@@ -229,4 +233,11 @@ page{
 	border: 1px solid #ccc;
 	border-radius: 50%;
 	margin-right: 20rpx;
+}
+/* 兼容iphone 5 */
+.suit-ip5{
+	font-size: 10pt;
+}
+.suit-ip5 button.createOrderBt{
+	width:195rpx
 }

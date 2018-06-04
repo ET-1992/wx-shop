@@ -143,7 +143,7 @@
 
 
 
-  <view class="footer" wx:if="{{ items.length && !isLoading }}">
+  <view class="footer {{phoneModel == 'iPhone 5'?'suit-ip5':''}}" wx:if="{{ items.length && !isLoading }}">
     <image
       src="/icons/radio.png"
       class="radioIcon"
@@ -181,7 +181,7 @@
         <text
         >已节省：￥{{ savePrice }}</text>
       </view>
-      <view>合计：<text class="totalPrice">￥{{ totalPrice }}</text></view>
+      <view>合计：<text class="{{phoneModel == 'iPhone 5'?'totalPrice-ip5':'totalPrice'}}">￥{{ totalPrice }}</text></view>
     </view>
 
     <button
