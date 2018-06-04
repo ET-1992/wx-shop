@@ -107,7 +107,7 @@
 
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
-        <scroll-view class="couponsWrapper" wx:if="{{ coupons.length }}" scroll-x>
+        <scroll-view class="couponsWrapper" wx:if="{{ userCoupon.length }}" scroll-x>
           <view class="coupons"  style="width:{{conWidth}}rpx">
             <view  class="coupon" wx:for="{{ userCoupon }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}"  data-index="{{ index }}"
             >
