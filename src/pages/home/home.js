@@ -1,6 +1,6 @@
 import { PRODUCT_LIST_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
 import api from 'utils/api';
-import { showToast, showModal } from 'utils/wxp';
+import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import autoRedirect from 'utils/autoRedirect';
@@ -33,6 +33,8 @@ Page({
 		share_title: '',
 		page_title: '',
 		type: '',
+
+		hasMask: false
 	},
 
 	onBannerClick(ev) {
@@ -49,11 +51,16 @@ Page({
 		});
 		console.log(data);
 	},
+
 	async loadHome() {
-		this.setData({ isLoading: true });
+
+		this.setData({ 
+			isLoading: true,
+			hasMask: false
+		});
 
 		const data = await api.hei.fetchHome();
-		console.log('home data:', data);
+		// console.log('home data:', data);
 		const { current_user = {}, coupons } = data;
 		// if (current_user) {
 		// 	this.setData({
@@ -67,9 +74,7 @@ Page({
 		// }
 
 		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
-		console.log(newUserCouponIndex);
 		const hasNewUserCoupons = newUserCouponIndex >= 0;
-
 
 		if (data.page_title) {
 			wx.setNavigationBarTitle({
@@ -87,6 +92,7 @@ Page({
 		// data.productListStyle = PRODUCT_LIST_STYLE[+product_list_style - 1];
 		// data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
 		// const newUser = data.current_user ? data.current_user.new_user : null;
+		
 		this.setData({
 			isLoading: false,
 			conWidth: width || '',
@@ -94,6 +100,19 @@ Page({
 			newUser: current_user ? current_user.new_user : 1,
 			...data,
 		});
+
+		if(this.data.newUser === 1 && this.data.hasNewUserCoupons){
+			this.setData({
+				hasMask: true
+			})
+		}
+
+		let next_cursor = this.data.products[this.data.products.length-1].timestamp;
+		this.setData({
+			next_cursor: next_cursor
+		});
+
+		console.log(this.data);
 	},
 
 	async onLoad() {
@@ -101,6 +120,7 @@ Page({
 		this.setData({ themeColor });
 		this.loadHome();
 	},
+
 	async onReceiveCoupon(id, index) {
 		const { coupons } = this.data;
 
@@ -157,6 +177,7 @@ Page({
 		showToast({ title: '领取成功' });
 		this.setData({
 			newUser: 2,
+			hasMask: false
 		});
 	},
 	async onCouponClick(ev) {
@@ -189,19 +210,16 @@ Page({
 	closeCoupon() {
 		this.setData({
 			newUser: 2,
+			hasMask: false
 		});
 	},
 	async onPullDownRefresh() {
+		this.setData({
+			isRefresh: true,
+			next_cursor: 0,
+		});
 		await this.loadHome();
 		wx.stopPullDownRefresh();
-	},
-
-	async onReachBottom() {
-		const { next_cursor } = this.data;
-		if (!next_cursor) {
-			return;
-		}
-		this.loadProducts();
 	},
 
 	// async needAuth(e) {
@@ -211,6 +229,72 @@ Page({
 	// 		user: user,
 	// 	});
 	// },
+
+	async loadProducts() {
+		const { next_cursor, products } = this.data;
+		const data = await api.hei.fetchProductList({
+			cursor: next_cursor,
+		});
+		const newProducts = products.concat(data.products);
+		this.setData({
+			products: newProducts,
+			next_cursor: data.next_cursor,
+		});
+		return data;
+	},
+
+	/* 触底加载 */
+	// async onReachBottom() {
+	// 	let modules = this.data.modules;
+	// 	if(modules[modules.length-1].key === 'products'){
+	// 		const { next_cursor } = this.data;
+	// 		if (!next_cursor) {
+	// 			console.log(next_cursor);
+	// 			return;
+	// 		}
+	// 		this.loadProducts();
+	// 		console.log('products在底部');
+	// 	}else{
+	// 		console.log('products不在底部');
+	// 	}
+	// },
+
+	/* 无限加载 */
+	showProducts(){
+		var that = this;
+		wx.getSystemInfo({
+			success: function(res) {
+				let windowHeight = res.windowHeight;
+				that.setData({
+					height: windowHeight
+				});
+				let height = that.data.height;  // 页面的可视高度
+				// console.log('页面的可视高度：'+ height);
+
+				wx.createSelectorQuery().select('#loadProducts').boundingClientRect((rect) => {
+					console.log('节点的上边界坐标：' + rect.top);
+					console.log('节点/高度：' + rect.top / height);
+					if (rect.top / height < 3  ) { //判断是否在显示范围内
+						const { next_cursor } = that.data;
+						if (!next_cursor) {
+							console.log('商品加载到底了' + next_cursor);
+							return;
+						}
+						that.loadProducts();
+						// console.log('products在底部');
+					}
+				}
+				).exec()
+			}
+		});
+		
+	},
+	onPageScroll(){ // 监听页面滚动事件
+		let modules = this.data.modules;
+		if(modules[modules.length-1].key === 'products'){
+			this.showProducts();
+		}
+	},
 
 	onShareAppMessage: onDefaultShareAppMessage,
 
