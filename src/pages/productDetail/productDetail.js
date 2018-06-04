@@ -129,7 +129,9 @@ Page({
 			updateData.isGrouponBuy = isGrouponBuy;
 
 		}
-		this.setData(updateData);
+		this.setData(updateData, () => {
+			this.setSwiperVideoImg();
+		});
 	},
 
 	countDown() {
@@ -639,4 +641,14 @@ Page({
 		await this.initPage();
 	},
 	onShareAppMessage: onDefaultShareAppMessage,
+
+	setSwiperVideoImg() { // 调起面板时 关闭组件视频
+		const swiperVideoImg = this.selectComponent('#swiperVideoImg');
+		if (swiperVideoImg && swiperVideoImg.data.type === 'video') {
+			swiperVideoImg.setData({
+				type: 'poster',
+				videoTime: 0
+			})
+		}
+	}
 });

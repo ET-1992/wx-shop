@@ -7,7 +7,7 @@
 <view>
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
     <view class="header" >
-      <swiperVideoImg wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
+      <swiperVideoImg id="swiperVideoImg" wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
       <swiper
         indicator-dots
         autoplay="{{autoplay}}"

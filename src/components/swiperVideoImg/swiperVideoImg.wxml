@@ -3,13 +3,13 @@
   <view wx:if="{{ type === 'poster' }}" bindtap="changeType" data-type="video" class="poster">
     <image mode="aspectFill" src="{{poster}}" style='width: 100%'></image>
     <image src="/icons/player.png" class="player" />
-		<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></cover-image>
-		<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-no.png" wx:if="{{ type !== 'video' }}"></cover-image>
-		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-yes.png" wx:if="{{ type === 'img' }}"></cover-image>
-		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-no.png" wx:if="{{ type !== 'img' }}"></cover-image>
+		<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></image>
+		<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-no.png" wx:if="{{ type !== 'video' }}"></image>
+		<image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-yes.png" wx:if="{{ type === 'img' }}"></image>
+		<image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-no.png" wx:if="{{ type !== 'img' }}"></image>
   </view>
 
-	<video wx:if="{{  type === 'video' }}" src="{{ video }}" class="video" autoplay controls bindtimeupdate="setVideoTime" initial-time="{{ videoTime }}" bindended="end" danmu-btn="{{true}}"
+	<video wx:if="{{  type === 'video' }}" src="{{ video }}" class="video" autoplay controls bindtimeupdate="setVideoTime" initial-time="{{ videoTime }}" bindended="end"
 		bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"
 	>
 			<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></cover-image>
@@ -33,9 +33,9 @@
 				</swiper-item>
 			</block>
 		</swiper>
-    	<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></cover-image>
-		<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-no.png" wx:if="{{ type !== 'video' }}"></cover-image>
-		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-yes.png" wx:if="{{ type === 'img' }}"></cover-image>
-		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-no.png" wx:if="{{ type !== 'img' }}"></cover-image>
+    	<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></image>
+		<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-no.png" wx:if="{{ type !== 'video' }}"></image>
+		<image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-yes.png" wx:if="{{ type === 'img' }}"></image>
+		<image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-no.png" wx:if="{{ type !== 'img' }}"></image>
 	</view>
 </view>
