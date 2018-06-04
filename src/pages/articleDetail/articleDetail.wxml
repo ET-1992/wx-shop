@@ -1,37 +1,8 @@
 
 <view class="header" >
-	<swiper
-	  indicator-dots
-	   autoplay="{{autoplay}}"
-	  class="swiper"
-	  wx:if="{{ article.video && article.images && article.images.length>0}}"
-	 bindchange="currentIndex"  indicator-color="#47414D">
-	  <swiper-item>
+<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 
-
-	    <view wx:if="{{article.video}}" bindtap="clickMe" >
-	      <image src="/icons/player.png" class="player" style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;" />
-	    </view>
-	    <video id="myVideo" wx:if="{{activeIndex==1}}" src="{{article.video}}" bindpause="pause" bindfullscreenchange="fullScreen" bindended="end" bindplay="startPlay" autoplay></video>
-
-	    <image src="{{article.images[0]}}" class="slide-image" mode="widthFix"></image>
-	  </swiper-item>
-
-	  <swiper-item wx:if="{{index!=0}}"
-	    wx:for="{{ article.images }}"
-	    wx:key="id"
-	    wx:for-item="image"
-	  >
-	  <image
-	    src="{{ image }}"
-	    mode="aspectFill"
-	  />
-
-	  </swiper-item>
-	</swiper>
-
-	<video wx:elif="{{article.video}}" class="poster" poster="{{article.banner}}" src="{{article.video}}"></video>
-	<swiper wx:elif="{{article.images && article.images.length>0}}" indicator-dots="#47414D" indicator-dots autoplay circular>
+	<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
 	  <block wx:for="{{article.images}}">
 	    <swiper-item>
 	      <image src="{{item}}" class="slide-image" mode="widthFix"/>
