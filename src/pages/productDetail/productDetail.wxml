@@ -5,41 +5,19 @@
 
 <template is="loading" wx:if="{{ isLoading }}"/>
 <view>
-  <view
-    class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}"
-  >
+  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
     <view class="header" >
+      <swiperVideoImg wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
       <swiper
         indicator-dots
         autoplay="{{autoplay}}"
         class="swiper"
-        wx:if="{{ headerType === 'images' }}"
+        wx:if="{{!product.video}}"
         bindchange="currentIndex"
         indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
         indicator-color="#fff"
       >
-        <swiper-item>
-          <view wx:if="{{product.video}}" catchtap="clickMe" >
-            <image
-              src="/icons/player.png"
-              class="player"
-              style="width: 100rpx;height: 100rpx;position: absolute;left: 42%;top: 42%;"
-            />
-          </view>
-          <video
-            id="myVideo"
-            wx:if="{{ activeIndex == 1}}"
-            src="{{product.video}}"
-            bindpause="pause"
-            bindfullscreenchange="fullScreen"
-            bindended="end"
-            bindplay="startPlay"
-            autoplay
-          />
-          <image mode="aspectFill" src="{{product.images[0]}}"/>
-        </swiper-item>
-
-        <swiper-item wx:if="{{index!=0}}"
+        <swiper-item
           wx:for="{{ product.images }}"
           wx:key="id"
           wx:for-item="image"
@@ -50,16 +28,6 @@
           />
         </swiper-item>
       </swiper>
-
-      <view
-        wx:if="{{ headerType === 'video' }}"
-        class="videoWrapper"
-      >
-        <video
-          src="{{ product.video }}"
-          hidden="{{ isShowAcitonSheet }}"
-        />
-      </view>
     </view>
 
     <view

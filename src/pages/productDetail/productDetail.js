@@ -518,29 +518,6 @@ Page({
 	onReady() {
 		this.videoContext = wx.createVideoContext('myVideo');
 	},
-	clickMe() {
-		const that = this;
-		that.setData({ autoplay: false, activeIndex: 1 });
-		this.videoContext.requestFullScreen({
-			// direction: 0,
-		});
-	},
-	startPlay() {
-		this.setData({ autoplay: false });
-	},
-	pause() {
-		this.setData({ autoplay: true });
-	},
-	end() {
-		this.setData({ autoplay: true });
-	},
-	fullScreen(e) {
-		console.log(e.detail.fullScreen);
-		if (e.detail.fullScreen === false) {
-			this.setData({ autoplay: true, activeIndex: -1 });
-		}
-	},
-
 	onHideCouponList() {
 		this.setData({
 			isShowCouponList: false,
