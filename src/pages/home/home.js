@@ -272,12 +272,12 @@ Page({
 				// console.log('页面的可视高度：'+ height);
 
 				wx.createSelectorQuery().select('#loadProducts').boundingClientRect((rect) => {
-					console.log('节点的上边界坐标：' + rect.top);
-					console.log('节点/高度：' + rect.top / height);
-					if (rect.top / height < 3  ) { //判断是否在显示范围内
+					// console.log('节点的上边界坐标：' + rect.top);
+					// console.log('节点/高度：' + rect.top / height);
+					if (rect.top / height < 3 ) { //判断是否在显示范围内
 						const { next_cursor } = that.data;
 						if (!next_cursor) {
-							console.log('商品加载到底了' + next_cursor);
+							// console.log('商品加载到底了' + next_cursor);
 							return;
 						}
 						that.loadProducts();
