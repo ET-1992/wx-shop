@@ -1,6 +1,6 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container">
+<view class="container {{ phoneModel + '-style' }}">
 
   <template is="loading" wx:if="{{ isLoading }}"/>
 
@@ -59,13 +59,14 @@
         class="radioWrapper"
         catchtap="onHandleItemSelect"
         data-index="{{ index }}"
+        data-item-id="{{ item.id }}"
         wx:else
       >
         <view
-          class="radio {{ item.isSelected ? 'selected' : '' }}"
-          style="border-color: {{ themeColor.primaryColor }}; {{ item.isSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}"
+          class="radio {{ isSelectedObject[item.id] ? 'selected' : '' }}"
+          style="border-color: {{ themeColor.primaryColor }}; {{ isSelectedObject[item.id] ? 'background-color: ' + themeColor.primaryColor : ''  }}"
         >
-          <image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ item.isSelected }}"/>
+          <image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelectedObject[item.id] }}"/>
         </view>
       </view>
        <view class="itemImageList">
@@ -143,20 +144,7 @@
 
 
 
-  <view class="footer {{phoneModel == 'iPhone 5'?'suit-ip5':''}}" wx:if="{{ items.length && !isLoading }}">
-    <image
-      src="/icons/radio.png"
-      class="radioIcon"
-      wx:if="{{ !isAllSelected && false }}"
-      bindtap="onSelectAll"
-    />
-    <image
-      src="/icons/radioSelected.png"
-      class="radioIcon"
-      wx:if="{{ isAllSelected && false }}"
-      bindtap="onSelectAll"
-    />
-
+  <view class="footer" wx:if="{{ items.length && !isLoading }}">
     <view
       class="radio {{ isAllSelected ? 'selected' : '' }}"
       bindtap="onSelectAll"
@@ -181,7 +169,7 @@
         <text
         >已节省：￥{{ savePrice }}</text>
       </view>
-      <view>合计：<text class="{{phoneModel == 'iPhone 5'?'totalPrice-ip5':'totalPrice'}}">￥{{ totalPrice }}</text></view>
+      <view>合计：<text class="{{totalPrice}}">￥{{ totalPrice }}</text></view>
     </view>
 
     <button
