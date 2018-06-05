@@ -1,10 +1,7 @@
 <import src="/templates/loading/loading.wxml"/>
-
+<scroll-view scroll-y scroll-top="0">
 <view 
   class="container"
-  bind:touchstart="onTouchStart"
-  bind:touchmove="onTouchMove"
-  bind:touchend="onTouchEnd"
 >
   <scroll-view
     class="scrollSegmentcontrol"
@@ -30,7 +27,7 @@
       >{{ item.name }}</view>
   </scroll-view>
 
-  <view class="sortOptions" wx:if="{{ products.length }}">
+  <view class="sortOptions">
     <view
       class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}"
       bindtap="onSort"
@@ -85,6 +82,9 @@
       </view>
     </view>
   </view>
+
+  <view style="margin-top:220rpx"></view>
+  
   <view
     class="noHint"
     wx:if="{{ !products.length && !isLoading }}"
@@ -92,7 +92,13 @@
     bind:touchmove="onTouchMove"
     bind:touchend="onTouchEnd"
   >暂无商品</view>
-  <view class="listWrapper">
+
+  <view 
+    class="listWrapper"
+    bind:touchstart="onTouchStart"
+    bind:touchmove="onTouchMove"
+    bind:touchend="onTouchEnd"
+  >
     <productList
       products="{{ products }}"
       productListStyle="{{ productListStyle }}"
@@ -100,7 +106,7 @@
     />
   </view>
 
-
   <template is="loading" wx:if="{{ isLoading }}"/>
 
 </view>
+</scroll-view>
