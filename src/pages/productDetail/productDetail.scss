@@ -562,8 +562,9 @@ img,
 	min-height: 200rpx;
 	max-height: 800rpx;
 }
+
 .product-card-thumbnail {
-	width: 220rpx;
-	height: 220rpx;
+	width: 220rpx !important;
+	height: 220rpx !important;
 	float: left;
 }

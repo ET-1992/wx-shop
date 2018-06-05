@@ -10,8 +10,8 @@ page{
 	text-align: center;
 	color: $originalPriceColor;
 	width: 100%;
-	margin-top: 200rpx;
-	height: 600px;
+	// margin-top: 200rpx;
+	height: 100%;
 }
 
 .scrollSegmentcontrol {
@@ -26,14 +26,13 @@ page{
 	// .categories {
 	// 	display: flex;
 	// }
-
+	z-index: 9999;
 	.category {
 		flex-shrink: 0;
 		padding:20rpx 16rpx;
 		margin:21rpx;
 		margin-bottom:0;
 		display: inline-block;
-
 		&.selected {
 			border-bottom: 4px solid #fff;
 		}
@@ -47,7 +46,7 @@ page{
 	align-items: center;
 	position: fixed;
 	left: 0;
-	top: 102rpx;
+	top: 101rpx;
 	padding-top: 14rpx;
 	background-color: #fff;
 	border-bottom:1px solid #ddd;
@@ -65,7 +64,7 @@ page{
 			color: $titleColor;
 		}
 	}
-
+	z-index: 999;
 
 	.indicators {
 		display: flex;
@@ -88,7 +87,8 @@ page{
 }
 
 .listWrapper {
-	margin-top: 220rpx;
+	// margin-top: 220rpx;
+	height: 100%;
 }
 
 .m-attrList{
