@@ -158,7 +158,7 @@
       />
     </view>
 
-    <view>全选</view>
+    <view bindtap="onSelectAll">全选</view>
 
     <view class="priceCount">
       <view
@@ -169,7 +169,7 @@
         <text
         >已节省：￥{{ savePrice }}</text>
       </view>
-      <view>合计：<text class="{{totalPrice}}">￥{{ totalPrice }}</text></view>
+      <view>合计：<text class="totalPrice">￥{{ totalPrice }}</text></view>
     </view>
 
     <button
