@@ -109,7 +109,11 @@ Page({
 			this.setData(currentOrder);
 		}
 		catch (err) {
-			console.log(err);
+			showModal({
+				title: '温馨提示',
+				content: err.errMsg,
+				showCancel: false,
+			});
 		}
 	},
 
