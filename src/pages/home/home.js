@@ -118,6 +118,10 @@ Page({
 			this.setData({
 				next_cursor: next_cursor
 			});
+		}else{
+			this.setData({
+				next_cursor: 0
+			});
 		}
 
 	},
