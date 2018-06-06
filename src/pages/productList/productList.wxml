@@ -93,6 +93,7 @@
     bind:touchstart="onTouchStart"
     bind:touchmove="onTouchMove"
     bind:touchend="onTouchEnd"
+    wx:else
   >
     <productList
       products="{{ products }}"
