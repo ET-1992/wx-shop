@@ -12,55 +12,6 @@ $iphoneXBottomGap: 40rpx;
 	}
 }
 
-.itemList {
-
-	.item {
-		display: flex;
-		padding: 20rpx;
-		margin-bottom: 10rpx;
-		font-size: 10pt;
-		background-color: #fff;
-
-		.itemImage {
-			$size: 140rpx;
-
-			height: $size;
-			width: $size;
-			margin-right: 20rpx;
-			flex-shrink: 0;
-		}
-
-		.itemInfo {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			width: 100%;
-		}
-
-		.itemMeta {
-			display: flex;
-			justify-content: space-between;
-			width: 100%;
-			align-items:flex-end;
-		}
-
-		.propertyNames {
-			color: $originalPriceColor;
-			font-size: 8pt;
-			margin: 10rpx 0;
-		}
-
-		.itemPrice {
-			font-size: 12pt;
-			color: $priceColor;
-		}
-
-		.itemQuantity {
-			font-size: 8pt;
-		}
-	}
-}
-
 .textareaWrapper {
 	width: 100%;
 	padding: 0 20rpx;
