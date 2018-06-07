@@ -294,6 +294,7 @@
           skuId="{{ selectedSku.id }}"
           max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
           bindquantityChangeEvent="updateQuantity"
+          quota="{{ product.quota }}"
         />
       </view>
       <form

@@ -47,6 +47,7 @@
         skuId="{{ selectedSku.id }}"
         max="{{ selectedSku.stock || product.stock }}"
         bindquantityChangeEvent="updateQuantity"
+        quota="{{product.quota}}"
       />
     </view>
     <view class="actionSheetBtGroup">
@@ -94,6 +95,7 @@
         skuId="{{ selectedSku.id }}"
         max="{{ selectedSku.stock || product.stock }}"
         bindquantityChangeEvent="updateQuantity"
+        quota="{{product.quota}}"
       />
     </view>
     <view class="actionSheetBtGroup">
