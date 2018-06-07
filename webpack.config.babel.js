@@ -74,7 +74,7 @@ export default (env = {}) => {
 					],
 				},
 				{
-					test: /\.(json|png|jpg|gif|wxss)$/,
+					test: /\.(json|png|jpg|gif|wxss|svg)$/,
 					include: /src/,
 					use: relativeFileLoader(),
 				},
