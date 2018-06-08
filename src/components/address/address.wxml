@@ -1,0 +1,17 @@
+	<view class="container">
+		<image class="address-icon" src="/icons/address.png"></image>
+
+		<view wx:if="{{ !address.userName }}" class="address">
+        	添加地址
+     	</view>
+		<view class="address" wx:if="{{ address.userName }}">
+			<view class="address-top">
+				<text style="margin-right: 30rpx">收货人：{{ address.username }}</text>
+				<text>{{ address.telNumber }}</text>
+			</view>
+			<view class="address-bottom">
+				<text>收获地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
+			</view>
+		</view>
+		<image src="/icons/right.png" class="right-arrow"></image>
+	</view>
