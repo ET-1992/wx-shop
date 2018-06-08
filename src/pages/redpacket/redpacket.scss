@@ -1,7 +1,7 @@
 @import './bg';
 
 $mainColor: #f34353;
-
+$textColor: #ec0023;
 .container {
 	background-color: $mainColor;
 	padding-bottom: 40px;
@@ -9,35 +9,66 @@ $mainColor: #f34353;
 	background-repeat: no-repeat;
 	background-size: contain;
 	padding-top: 560rpx;
+	font-family: "PingFang SC";
 
 	.coupon {
-		width: 300px;
-		height: 100px;
+		width: 600rpx;
+		height: 200rpx;
 		margin: 20rpx auto 80rpx;
+		flex-direction: column;
+		.middle{
+			padding: 35rpx 0 0 40rpx;
+			display: flex;
+			justify-content: space-between;
+			
+			.title {
+				color: $textColor;
+				font-size: 30rpx;
+				padding-top: 35rpx;
+				overflow : hidden;
+                text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+	
+			.price {
+				padding-right: 40rpx;
+				font-size: 72rpx;
+				color: $textColor;
+				text{
+					font-size: 50rpx
+				}
+			}
 
-		.title {
-			color: #ec0023;
-			font-size: 18px;
-			padding-top: 36px;
-			margin-left: 22px;
-		}
-
-		.price {
-			font-size: 30px;
-			float: right;
-			margin-right: 20px;
-			color: #ec0023;
-			margin-top: -45px;
 		}
 
 		.date {
-			color: #333;
-			font-size: 12px;
-			margin-top: 20px;
-			margin-left: 40px;
+			position: absolute;
+			color: #333333;
+			font-size: 22rpx;
+			bottom: 10rpx;
+			left: 80rpx;
 		}
 	}
-
+	.goldCoin{
+		text-align: center;
+		line-height: 80rpx;
+		.title{
+			font-size: 32rpx;
+			color: #FFFFFF;
+		}
+		.number{
+			color: #FDE166;
+			font-size: 80rpx;
+			text{
+				color: #FFFFFF;
+				font-size: 32rpx;
+			}
+		}
+		.price{
+			color: #FFFFFF;
+			font-size: 24rpx;
+		}
+	}
 	.receiveRedpacketBg {
 		width: 238px;
 		height: 58px;
@@ -84,4 +115,7 @@ $mainColor: #f34353;
 			}
 		}
 	}
+}
+.iphone5-style .date {
+	bottom: 15rpx !important;
 }
