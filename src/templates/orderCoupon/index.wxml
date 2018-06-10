@@ -1,0 +1,12 @@
+<template name="orderCoupon">
+    <view class="orderCoupon">
+        <view class="coupon">
+            <view>优惠劵</view>
+            <view>优惠 5.00 元 <text>已选推荐优惠劵</text> <text>修改</text></view>
+        </view>
+        <view class="gold">
+            <view>金币 （本单最多可使用2250个）</view>
+            <view>共3500金币,使用 2250 个</view>
+        </view>
+    </view>
+</template>

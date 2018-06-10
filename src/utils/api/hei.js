@@ -7,11 +7,11 @@ const host = 'https://api.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
 
 /**
- * path: ½Ó¿ÚÂ·¾¶
- * method: ÇëÇó·½·¨£¬Ä¬ÈÏGET
- * isForceToken: ÊÇ·ñÐèÒª´øtoken£¬Ä¬ÈÏfalse
- * isForceUserInfo: ÊÇ·ñÐèÒªÎ¢ÐÅuserInfoÊÚÈ¨
- * requestType: Ä¬ÈÏrequest, [request, uploadFile]
+ * path: ï¿½Ó¿ï¿½Â·ï¿½ï¿½
+ * method: ï¿½ï¿½ï¿½ó·½·ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½GET
+ * isForceToken: ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½tokenï¿½ï¿½Ä¬ï¿½ï¿½false
+ * isForceUserInfo: ï¿½Ç·ï¿½ï¿½ï¿½ÒªÎ¢ï¿½ï¿½userInfoï¿½ï¿½È¨
+ * requestType: Ä¬ï¿½ï¿½request, [request, uploadFile]
  **/
 const apis = {
 	login: {
@@ -73,6 +73,12 @@ const apis = {
 	},
 	createOrder: {
 		path: 'api/mag.order.create.json',
+		method: 'POST',
+		isForceToken: true,
+		isForceUserInfo: true,
+	},
+	orderPrepare: {
+		path: 'api/mag.order.prepare.json',
 		method: 'POST',
 		isForceToken: true,
 		isForceUserInfo: true,
@@ -144,40 +150,40 @@ const apis = {
 		requestType: 'uploadFile',
 	},
 
-	// ÎÄÕÂÏêÇé
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	articleDetail: {
 		path: 'api/mag.article.get.json',
 		method: 'GET',
 	},
 
-	// ÎÄÕÂÁÐ±í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 	articleList: {
 		path: 'api/mag.article.list.json',
 		method: 'GET',
 	},
 
-	// ÊÕ²Ø
+	// ï¿½Õ²ï¿½
 	fav: {
 		path: 'api/mag.article.fav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
 
-	// È¡ÏûÊÕ²Ø
+	// È¡ï¿½ï¿½ï¿½Õ²ï¿½
 	unfav: {
 		path: 'api/mag.article.unfav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
 
-	// ÊÕ²ØÁÐ±í
+	// ï¿½Õ²ï¿½ï¿½Ð±ï¿½
 	queryFavList: {
 		path: 'api/mag.article.fav.list.json',
 		method: 'GET',
 		isForceToken: true,
 	},
 
-	// ÆÀÂÛ
+	// ï¿½ï¿½ï¿½ï¿½
 	createReply: {
 		path: 'api/mag.article.reply.json',
 		method: 'POST',

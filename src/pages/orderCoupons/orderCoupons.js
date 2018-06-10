@@ -1,5 +1,4 @@
 import api from 'utils/api';
-
 const app = getApp();
 
 
@@ -25,7 +24,8 @@ Page({
 
 
 	async onLoad () {
-		const { currentOrder: { coupons }, themeColor } = app.globalData;
+		const { themeColor } = app.globalData;
+		const coupons = wx.getStorageSync('orderCoupon');
 		const { available, unavailable } = coupons;
 
 		// available.forEach((coupon) => {
@@ -60,7 +60,8 @@ Page({
 
 	onComfirm() {
 		const { coupons } = this.data;
-		app.globalData.currentOrder.coupons = coupons;
+		// app.globalData.currentOrder.coupons = coupons;
+		app.event.emit('toOrderCoupon', coupons);
 		console.log(app.globalData.currentOrder);
 		wx.navigateBack({
 			delta: 1

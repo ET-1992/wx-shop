@@ -1,3 +1,9 @@
 {
-  "navigationBarTitleText": "确认订单"
+  "navigationBarTitleText": "确认订单",
+  "usingComponents": {
+    "address": "../../components/address/address",
+    "orderCoupon": "./orderCoupon/index",
+    "orderInfo": "./orderInfo/index",
+    "orderPay": "./orderPay/index"
+  }
 }

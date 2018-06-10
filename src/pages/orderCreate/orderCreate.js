@@ -2,6 +2,7 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
+import Event from 'utils/event';
 
 const app = getApp();
 
@@ -12,11 +13,9 @@ Page({
 		savePrice: 0,
 		totalPrice: 0,
 		items: [],
-
 		isGrouponBuy: false,
 		grouponId: '',
 		isCancel: false,
-
 		address: {
 			userName: '',
 		},
@@ -31,6 +30,13 @@ Page({
 			selected: {},
 		},
 		nowTS: Date.now() / 1000,
+		wallet: {},
+		coin_in_order: {},
+		fee: {},
+		useCoin: 0, // 使用多少金币
+		shouldGoinDisplay: false, // 是否显示金币
+		maxUseCoin: 0, // 最多可使用金币
+		finalPay: 0
 	},
 
 	onLoad() {
@@ -43,13 +49,15 @@ Page({
 		try {
 			// isCancel 仅在跳转支付后返回 标识是否取消支付
 			const { isCancel, order_no, grouponId, isGrouponBuy } = this.options;
-			// const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-			// 	'orderCreate',
-			// );
 			const { currentOrder } = app.globalData;
+			console.log(this.options, 'this.options');
+			console.log(currentOrder, 'this.order');
 			const { items, totalPostage } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
+			console.log(currentOrder.totalPrice);
 			const totalPrice = Number(currentOrder.totalPrice).toFixed(2);
+			console.log(totalPrice);
+			let requestData = {};
 			// let totalPostage = 0;
 
 			if (isCancel) {
@@ -57,63 +65,24 @@ Page({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});
 			}
-
-			// let couponPrice = 0;
-
 			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-			if (!isGrouponBuy && !currentOrder.coupons) {
-				const {
-					recommend,
-					unavailable,
-					available,
-				} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
-
-				currentOrder.coupons = {
-					recommend,
-					unavailable,
-					available,
-					selected: recommend,
-				};
+			if (!isGrouponBuy) {
+				this.setData({
+					address,
+					totalPrice,
+					items
+				}, () => {
+					this.onLoadData()
+				})
 			}
-
-			const hasSelectedCoupon =
-				currentOrder.coupons &&
-				currentOrder.coupons.selected &&
-				currentOrder.coupons.selected.id;
-
-			if (hasSelectedCoupon) {
-				const { type, reduce_cost, discount } = currentOrder.coupons.selected;
-				currentOrder.couponPrice =
-					+type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
-			}
-			else {
-				currentOrder.couponPrice = 0;
-			}
-
-			// 使用reduce 或者不需要再次计算总运费, 直接传过来
-			// currentOrder.items.forEach((item) => {
-			// 	const { postage } = item;
-			// 	if (postage > totalPostage) {
-			// 		totalPostage = postage;
-			// 	}
-			// });
-
-			const orderPrice = Number(totalPrice) + Number(totalPostage) - Number(currentOrder.couponPrice);
-
-			// currentOrder.totalPostage = totalPostage;
-			currentOrder.isGrouponBuy = isGrouponBuy;
-			currentOrder.grouponId = grouponId;
-			currentOrder.address = address;
-			currentOrder.orderPrice =
-				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
-			this.setData(currentOrder);
-		}
+	}
 		catch (err) {
-			showModal({
-				title: '温馨提示',
-				content: err.errMsg,
-				showCancel: false,
-			});
+			console.log(err, err)
+			// wx.showModal({
+			// 	title: '温馨提示',
+			// 	content: err.errMsg,
+			// 	showCancel: false,
+			// });
 		}
 	},
 
@@ -137,17 +106,11 @@ Page({
 	},
 
 	async onAddress() {
-		const { authSetting } = await getSetting();
-
-		// authSetting['scope.address']可能值：
-		// 没有值  初始化状态 系统会自动弹框询问授权
-		// false  此时需要使用openSetting
-		if (authSetting['scope.address'] === false) {
-			await openSetting();
-		}
 		const address = await chooseAddress();
 		wx.setStorageSync(ADDRESS_KEY, address);
-		this.setData({ address });
+		this.setData({ address }, () => {
+			this.onLoadData();
+		});
 	},
 
 	async onCoupon() {
@@ -162,7 +125,58 @@ Page({
 		});
 	},
 
+	async onLoadData() {
+		const { address, items, totalPrice} = this.data;
+		console.log(totalPrice, 'totalPrice')
+		let requestData;
+		if (address) {
+			requestData = {
+				receiver_name: address.userName,
+				receiver_phone: address.telNumber,
+				receiver_country: address.nationalCode,
+				receiver_state: address.provinceName,
+				receiver_city: address.cityName,
+				receiver_district: address.countyName,
+				receiver_address: address.detailInfo,
+				receiver_zipcode: address.postalCode
+			};
+		}
+		requestData.posts = JSON.stringify(items);
+		const { coupons, wallet, coin_in_order, fee } = await api.hei.orderPrepare(requestData);
+		const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= totalPrice;
+		const maxUseCoin = Math.floor(totalPrice * coin_in_order.percent_in_order);
+		const goldInputBeginValue = Math.min(maxUseCoin, wallet.coins);
+		this.setData({
+			coupons,
+			wallet,
+			coin_in_order,
+			fee,
+			shouldGoinDisplay,
+			maxUseCoin,
+			goldInputBeginValue
+		}, () => {
+			this.computedFinalPay();
+		})
+	},
+
+	setUseCoin(e) {
+		this.setData({
+			useCoin: e.detail || 0
+		}, () => {
+			this.computedFinalPay();
+		})
+	},
+
+	computedFinalPay() {
+		const { useCoin, fee } = this.data;
+		const finalPay = Number(fee.amount - useCoin/100).toFixed(2);
+		this.setData({
+			finalPay
+		})
+	},
+
 	async onPay(ev) {
+		console.log(ev, 'ev');
 		const { formId } = ev.detail;
 		const {
 			address,
@@ -183,6 +197,7 @@ Page({
 			detailInfo,
 		} = address;
 		const { vendor } = app.globalData;
+		console.log(vendor);
 		const couponId = coupons.selected && coupons.selected.id;
 
 		if (!userName) {

@@ -1,21 +1,21 @@
 <view class="orderInfo">
     <view>
         <text class="text">商品金额</text>
-        <text class="money">￥50.00</text>
+        <text class="money">￥{{ totalPrice }}</text>
     </view>
 
     <view>
         <text class="text">优惠卷</text>
-        <text class="money">-￥5.00</text>
+        <text class="money">-￥{{ fee.coupon_fee }}</text>
     </view>
 
-    <view>
+    <view wx:if="{{ shouldGoinDisplay }}">
         <text class="text">金币</text>
-        <text class="money">-￥22.50</text>
+        <text class="money">-￥{{ coinForPay }}</text>
     </view>
 
     <view>
         <text class="text">运费</text>
-        <text class="money">+￥5.00</text>
+        <text class="money">+￥{{ fee.postage }}</text>
     </view>
 </view>

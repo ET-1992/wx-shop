@@ -1,10 +1,10 @@
  <view class="orderCoupon">
         <view class="coupon">
             <view class="coupon-title">优惠劵</view>
-            <view class="coupon-content">优惠 5.00 元 <text class="coupon-rec">已选推荐优惠劵</text> <text class="coupon-change" bindtap="couponChange">修改</text></view>
+            <view class="coupon-content">优惠 {{ fee.coupon_fee }}元 <text class="coupon-rec">已选推荐优惠劵</text> <text class="coupon-change" bindtap="couponChange">修改</text></view>
         </view>
-        <view class="gold">
-            <view class="gold-title">金币 （本单最多可使用2250个）</view>
-            <view class="gold-content">共 3500 金币,使用 2250 个</view>
+        <view class="gold"  wx:if="{{ shouldGoinDisplay }}">
+            <view class="gold-title">金币 （本单最多可使用 {{ maxUseCoin }} 个）</view>
+            <view class="gold-content">共 {{ coins }} 金币,使用 <input type="number" bindinput="bindInput" style="width: 70rpx;text-align: center" value="{{ goldInputBeginValue }}" />个</view>
         </view>
 </view>
