@@ -6,7 +6,7 @@
 <template is="loading" wx:if="{{ isLoading }}"/>
 <view>
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
-    <view class="header" >
+    <view class="header" wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}">
       <swiperVideoImg id="swiperVideoImg" wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
       <swiper
         indicator-dots

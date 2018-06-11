@@ -183,12 +183,11 @@ Page({
 	},
 
 	onTouchMove(e) {
-		this.data.clientX_move = e.touches[0].clientX;
 	},
 
 	onTouchEnd(e) {
 		let val, idx, ev;
-		if (this.data.clientX_move - this.data.clientX > 90) {
+		if (e.changedTouches[0].clientX - this.data.clientX > 90) {
 
 			// prev
 			if (this.data.activeIndex === 0) {
@@ -235,7 +234,7 @@ Page({
 			this.onSegmentItemClick(ev);
 		}
 
-		if (this.data.clientX_move - this.data.clientX < -90) {
+		if (e.changedTouches[0].clientX - this.data.clientX < -90) {
 
 			// next
 

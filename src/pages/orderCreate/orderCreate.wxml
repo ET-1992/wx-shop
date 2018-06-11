@@ -1,72 +1,15 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<form
-  report-submit
-  bindsubmit="onPay"
->
-  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-    <productItemSold items="{{ items }}" />
-    <view class="textareaWrapper">
-      <textarea
-        class="textarea"
-        maxlength="{{ 30 }}"
-        bindinput="onInput"
-        placeholder="买家留言"
-        placeholder-class="textarea-placeholder"
-      />
-    </view>
 
-    <view bindtap="onAddress" class="address">
-      <image class="addressIcon" src="/icons/address.png"/>
-      <view wx:if="{{ !address.userName }}" class="addressValue">
-        添加地址
-      </view>
-      <view wx:if="{{ address.userName }}" class="addressValue addressInfo">
-        <view>
-          <view>
-              <text>收货人：{{ address.userName }} </text>
-              <text class="phone"> {{ address.telNumber }}</text>
-          </view>
-          <view>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</view>
-        </view>
-      </view>
-      <image class="rightIcon" src="/icons/right.png"/>
-    </view>
+<view class="orderCreateWrap">
+  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
 
-    <view class="priceInfo">
-      <view class="priceInfoItem">
-        <view class="priceInoItemTitle">商品金额</view>
-        <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
-      </view>
-      <view class="priceInfoItem" bindtap="onCoupon" wx:if="{{ !isGroupon }}">
-        <view class="priceInoItemTitle">
-          <text>优惠券</text>
-          <text
-            wx:if="{{ coupons.recommend.id && coupons.recommend.id === coupons.selected.id  }}"
-            class="recommendCouponHint"
-          >已选推荐优惠券</text>
-        </view>
-        <view class="priceInfoItemValue">
-          <text>-￥{{ couponPrice }}</text>
-          <image class="rightIcon" src="../../icons/right.png"/>
-        </view>
+  <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
 
-      </view>
-      <view class="priceInfoItem">
-        <view class="priceInoItemTitle">运费</view>
-        <view class="priceInfoItemValue">￥{{ totalPostage }}</view>
-      </view>
-    </view>
-
-    <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-      <view class="totalPrice">
-        <text class="totalPriceTitle">实付款：</text>
-        <text class="totalPriceValue">￥{{ orderPrice }}</text>
-      </view>
-        <button
-          class="normalizeBt payBt"
-          style="background-color: {{ themeColor.primaryColor }}"
-          form-type="submit"
-        >去支付</button>
-    </view>
+  <view class="textareaWrapper">
+    <textarea class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
-</form>
+
+  <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin= "{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
+
+  <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
+</view>
+<orderPay finalPay="{{ finalPay }}" bindonpay="onPay"></orderPay>

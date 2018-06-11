@@ -2,6 +2,7 @@ import { login as wxLogin, checkSession } from 'utils/wxp';
 import api from 'utils/api';
 import getToken from 'utils/getToken';
 import { USER_KEY, TOKEN_KEY, EXPIRED_KEY } from 'constants/index';
+import Event from 'utils/event';
 
 App({
 	onLaunch() {
@@ -64,4 +65,6 @@ App({
 	},
 
 	systemInfo: {},
+
+	event: new Event()
 });

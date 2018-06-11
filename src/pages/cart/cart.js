@@ -2,7 +2,6 @@ import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import forceUserInfo from 'utils/forceUserInfo';
-import { cloneDeep } from 'lodash';
 import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 
 const app = getApp();
@@ -161,14 +160,13 @@ Page({
 	},
 
 	async onCreateOrder(e) {
+		console.log(e, 'e')
 		const { encryptedData, iv } = e.detail;
 		if (encryptedData && iv) {
-			await forceUserInfo({ encryptedData, iv });
 			const { items, isSelectedObject } = this.data;
 			const selectdItems = items.filter((item) => isSelectedObject[item.id]);
 			this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
 			app.globalData.currentOrder = this.data;
-			app.globalData.currentOrder = cloneDeep(this.data);
 			wx.navigateTo({
 				url: '/pages/orderCreate/orderCreate',
 			});

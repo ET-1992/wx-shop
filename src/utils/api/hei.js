@@ -77,6 +77,12 @@ const apis = {
 		isForceToken: true,
 		isForceUserInfo: true,
 	},
+	orderPrepare: {
+		path: 'api/mag.order.prepare.json',
+		method: 'POST',
+		isForceToken: true,
+		isForceUserInfo: true,
+	},
 	payOrder: {
 		path: 'api/mag.order.pay.json?pay&v2',
 		method: 'POST',
