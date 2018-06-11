@@ -94,6 +94,7 @@
               max="{{ item.stock }}"
               bindquantityChangeEvent="updateCart"
               isDisabled ="{{ true }}"
+              quota="{{ item.quota }}"
             />
             <view
               class="delete"
@@ -124,6 +125,7 @@
               skuId="{{ item.sku_id }}"
               max="{{ item.stock }}"
               bindquantityChangeEvent="updateCart"
+              quota="{{ item.quota }}"
             />
             <view
               class="delete"

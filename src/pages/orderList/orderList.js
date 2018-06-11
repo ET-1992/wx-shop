@@ -25,7 +25,7 @@ Page({
 
 	async loadOrders() {
 		const { next_cursor, isRefresh, orders, selectedStatus } = this.data;
-		const queryOption = { next_cursor };
+		const queryOption = { cursor: next_cursor };
 		if (selectedStatus) {
 			queryOption.status = selectedStatus;
 		}

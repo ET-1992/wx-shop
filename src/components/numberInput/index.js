@@ -22,12 +22,16 @@ Component({
 			type: Boolean,
 			value: 0,
 		},
+		quota: {
+			type: Number,
+			value: 0,
+		},
 	},
 
 	methods: {
 		onChange(ev) {
 			const { type } = ev.currentTarget.dataset;
-			const { value, postId, skuId, max, isDisabled } = this.data;
+			const { value, postId, skuId, max, isDisabled, quota } = this.data;
 
 			if (isDisabled) {
 				return;
@@ -41,6 +45,7 @@ Component({
 					content: '数量不能小于1',
 					showCancel: false,
 				});
+				console.log(this.data);
 				return;
 			}
 
@@ -48,6 +53,15 @@ Component({
 				wx.showModal({
 					title: '温馨提示',
 					content: '库存不足，请重新选择',
+					showCancel: false,
+				});
+				return;
+			}
+
+			if (isAdd && value >= quota) {
+				wx.showModal({
+					title: '温馨提示',
+					content: `每人限购${quota}件`,
 					showCancel: false,
 				});
 				return;

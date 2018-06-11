@@ -1,6 +1,8 @@
 
 <address address="{{ address }}" bindtap="onAddress"></address>
 
+<productItemSold items="{{ items }}" />
+
 <view class="textareaWrapper">
   <textarea class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
 </view>

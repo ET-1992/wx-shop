@@ -4,6 +4,7 @@
     "address": "../../components/address/address",
     "orderCoupon": "./orderCoupon/index",
     "orderInfo": "./orderInfo/index",
-    "orderPay": "./orderPay/index"
+    "orderPay": "./orderPay/index",
+    "productItemSold": "../../components/productItemSold/index"
   }
 }

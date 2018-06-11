@@ -1,0 +1,8 @@
+<view class="coinList" wx:for="{{coinList}}">
+    <view>
+        <view>{{item.title}}</view>
+        <view class="time">{{item.time}}</view>
+    </view>
+    <view wx:if="{{item.decreaseNum && item.decreaseNum>0}}" class="coinNum decreaseNum">-{{item.decreaseNum}}</view>
+    <view wx:if="{{item.increaseNum && item.increaseNum>0}}" class="coinNum">+{{item.increaseNum}}</view>
+</view>
