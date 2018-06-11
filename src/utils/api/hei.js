@@ -7,11 +7,11 @@ const host = 'https://api.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
 
 /**
- * path: 接口路径
- * method: 请求方法，默认GET
- * isForceToken: 是否需要带token，默认false
- * isForceUserInfo: 是否需要微信userInfo授权
- * requestType: 默认request, [request, uploadFile]
+ * path: 鎺ュ彛璺緞
+ * method: 璇锋眰鏂规硶锛岄粯璁ET
+ * isForceToken: 鏄惁闇�瑕佸甫token锛岄粯璁alse
+ * isForceUserInfo: 鏄惁闇�瑕佸井淇serInfo鎺堟潈
+ * requestType: 榛樿request, [request, uploadFile]
  **/
 const apis = {
 	login: {
@@ -144,40 +144,40 @@ const apis = {
 		requestType: 'uploadFile',
 	},
 
-	// 文章详情
+	// 鏂囩珷璇︽儏
 	articleDetail: {
 		path: 'api/mag.article.get.json',
 		method: 'GET',
 	},
 
-	// 文章列表
+	// 鏂囩珷鍒楄〃
 	articleList: {
 		path: 'api/mag.article.list.json',
 		method: 'GET',
 	},
 
-	// 收藏
+	// 鏀惰棌
 	fav: {
 		path: 'api/mag.article.fav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
 
-	// 取消收藏
+	// 鍙栨秷鏀惰棌
 	unfav: {
 		path: 'api/mag.article.unfav.json',
 		method: 'POST',
 		isForceToken: true,
 	},
 
-	// 收藏列表
+	// 鏀惰棌鍒楄〃
 	queryFavList: {
 		path: 'api/mag.article.fav.list.json',
 		method: 'GET',
 		isForceToken: true,
 	},
 
-	// 评论
+	// 璇勮
 	createReply: {
 		path: 'api/mag.article.reply.json',
 		method: 'POST',
@@ -216,6 +216,11 @@ const apis = {
 		method: 'POST',
 		isForceToken: true,
 	},
+	wallet: {
+		path: 'api/mag.wallet.logs.json',
+		method: 'GET',
+		isForceToken: true,
+	}
 };
 
 export default new API({ apis, host });
