@@ -2,7 +2,7 @@
 	<view class="favList" wx:for="{{topics}}" wx:key="id">
 		<navigator url="../articleDetail/articleDetail?id={{item.id}}">
 			<view class="favItem">
-				<image class="avatar" src="{{item.banner}}"></image>
+				<image class="avatar" src="{{item.banner}}" mode="aspectFill"></image>
 				<view class="favDetail">
 					<view class="m-tt">{{item.title}}</view>
 					<view class="m-desc">{{item.excerpt}}</view>
