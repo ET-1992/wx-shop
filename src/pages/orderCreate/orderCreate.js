@@ -13,7 +13,6 @@ Page({
 		savePrice: 0,
 		totalPrice: 0,
 		items: [],
-		isGrouponBuy: false,
 		grouponId: '',
 		isCancel: false,
 		address: {
@@ -36,28 +35,29 @@ Page({
 		useCoin: 0, // 使用多少金币
 		shouldGoinDisplay: false, // 是否显示金币
 		maxUseCoin: 0, // 最多可使用金币
-		finalPay: 0
+		finalPay: 0,
+		user_coupon_ids: '', //选择的优惠卷ID
+		isGrouponBuy: false // 是否拼团订单
 	},
 
-	onLoad() {
+	// onLoad() {
+	// 	const { themeColor } = app.globalData;
+	// 	const { isIphoneX } = app.systemInfo;
+	// 	this.setData({ themeColor, isIphoneX });
+	// },
+
+	async onLoad() {
+		console.log('90')
 		const { themeColor } = app.globalData;
 		const { isIphoneX } = app.systemInfo;
 		this.setData({ themeColor, isIphoneX });
-	},
-
-	async onShow() {
 		try {
 			// isCancel 仅在跳转支付后返回 标识是否取消支付
 			const { isCancel, order_no, grouponId, isGrouponBuy } = this.options;
 			const { currentOrder } = app.globalData;
-			console.log(this.options, 'this.options');
-			console.log(currentOrder, 'this.order');
 			const { items, totalPostage } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
-			console.log(currentOrder.totalPrice);
-			const totalPrice = Number(currentOrder.totalPrice).toFixed(2);
-			console.log(totalPrice);
-			let requestData = {};
+			const totalPrice = currentOrder.totalPrice;
 			// let totalPostage = 0;
 
 			if (isCancel) {
@@ -65,24 +65,29 @@ Page({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});
 			}
-			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-			if (!isGrouponBuy) {
-				this.setData({
-					address,
-					totalPrice,
-					items
-				}, () => {
-					this.onLoadData()
-				})
-			}
+
+			this.setData({
+				address,
+				totalPrice,
+				items,
+				isGrouponBuy: isGrouponBuy || null,
+				grouponId: grouponId || null,
+				totalPostage
+			}, () => {
+				if (!isGrouponBuy) {
+					app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
+					this.onLoadData();
+				} else {
+					this.computedFinalPay();
+				}
+			})
 	}
 		catch (err) {
-			console.log(err, err)
-			// wx.showModal({
-			// 	title: '温馨提示',
-			// 	content: err.errMsg,
-			// 	showCancel: false,
-			// });
+			wx.showModal({
+				title: '温馨提示',
+				content: err.errMsg,
+				showCancel: false,
+			});
 		}
 	},
 
@@ -92,6 +97,7 @@ Page({
 
 		// console.log(JSON.stringify(app.globalData.currentOrder));
 		wx.removeStorageSync('orderCreate');
+		app.event.off('getCouponIdEvent', this);
 	},
 
 	onHide() {
@@ -113,20 +119,24 @@ Page({
 		});
 	},
 
-	async onCoupon() {
+	async getCouponId() {
 		const { coupons } = this.data;
-
-		// app.globalData.currentOrderCoupons = coupons;
-		//
-		// WARNING globalData若是指向this.data对象，若在其他页面改动，会导致这个页面的this.data有问题！！！
-		app.globalData.currentOrder = this.data;
+		wx.setStorageSync('orderCoupon', coupons);
 		wx.navigateTo({
 			url: '/pages/orderCoupons/orderCoupons',
 		});
 	},
 
+	getCouponIdEvent(data) {
+		this.setData({
+			user_coupon_ids: data.user_coupon_id
+		}, () => {
+			this.onLoadData();
+		})
+	},
+
 	async onLoadData() {
-		const { address, items, totalPrice} = this.data;
+		const { address, items, totalPrice, user_coupon_ids} = this.data;
 		console.log(totalPrice, 'totalPrice')
 		let requestData;
 		if (address) {
@@ -141,11 +151,15 @@ Page({
 				receiver_zipcode: address.postalCode
 			};
 		}
+
+		if (user_coupon_ids) {
+			requestData.user_coupon_ids = user_coupon_ids;
+		}
 		requestData.posts = JSON.stringify(items);
 		const { coupons, wallet, coin_in_order, fee } = await api.hei.orderPrepare(requestData);
 		const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= totalPrice;
 		const maxUseCoin = Math.floor(totalPrice * coin_in_order.percent_in_order);
-		const goldInputBeginValue = Math.min(maxUseCoin, wallet.coins);
+		const useCoin = Math.min(maxUseCoin, wallet.coins);
 		this.setData({
 			coupons,
 			wallet,
@@ -153,7 +167,8 @@ Page({
 			fee,
 			shouldGoinDisplay,
 			maxUseCoin,
-			goldInputBeginValue
+			useCoin,
+			user_coupon_ids: coupons.recommend.user_coupon_id
 		}, () => {
 			this.computedFinalPay();
 		})
@@ -168,8 +183,18 @@ Page({
 	},
 
 	computedFinalPay() {
-		const { useCoin, fee } = this.data;
-		const finalPay = Number(fee.amount - useCoin/100).toFixed(2);
+		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice } = this.data;
+		let finalPay = 0;
+		if (!isGrouponBuy) {
+			finalPay = fee.amount - useCoin/100;
+			if (finalPay < 0) {
+				finalPay = 0;
+			}
+			finalPay = Number(finalPay).toFixed(2);
+		} else {
+			finalPay = Number(totalPostage + totalPrice).toFixed(2);
+		}
+
 		this.setData({
 			finalPay
 		})
@@ -184,7 +209,8 @@ Page({
 			buyerMessage,
 			grouponId,
 			isGrouponBuy,
-			coupons,
+			user_coupon_ids,
+			useCoin
 		} = this.data;
 		const {
 			userName,
@@ -198,7 +224,6 @@ Page({
 		} = address;
 		const { vendor } = app.globalData;
 		console.log(vendor);
-		const couponId = coupons.selected && coupons.selected.id;
 
 		if (!userName) {
 			wx.showModal({
@@ -232,8 +257,12 @@ Page({
 			vendor,
 		};
 
-		if (couponId) {
-			requestData.coupon_id = couponId;
+		if (user_coupon_ids) {
+			requestData.user_coupon_ids = user_coupon_ids;
+		}
+
+		if (useCoin) {
+			requestData.coins = useCoin;
 		}
 
 		// 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)

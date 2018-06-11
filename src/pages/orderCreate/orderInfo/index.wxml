@@ -1,21 +1,21 @@
 <view class="orderInfo">
     <view>
         <text class="text">商品金额</text>
-        <text class="money">￥{{ totalPrice }}</text>
+        <text class="money">￥{{ totalPriceDispaly }}</text>
     </view>
 
-    <view>
+    <view wx:if="{{ !isGrouponBuy }}">
         <text class="text">优惠卷</text>
-        <text class="money">-￥{{ fee.coupon_fee }}</text>
+        <text class="money">-￥{{ couponFeeDispaly }}</text>
     </view>
 
-    <view wx:if="{{ shouldGoinDisplay }}">
+    <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
         <text class="text">金币</text>
         <text class="money">-￥{{ coinForPay }}</text>
     </view>
 
     <view>
         <text class="text">运费</text>
-        <text class="money">+￥{{ fee.postage }}</text>
+        <text class="money">+￥{{ isGrouponBuy ? totalPostage : postageDispaly}}</text>
     </view>
 </view>

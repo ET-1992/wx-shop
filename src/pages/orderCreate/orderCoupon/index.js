@@ -2,11 +2,11 @@ const app = getApp();
 
 Component({
 	properties: {
-		coupons: {
-			type: Object,
-			value: {}
-		},
 		shouldGoinDisplay: {
+			type: Boolean,
+			value: false
+		},
+		isGrouponBuy: {
 			type: Boolean,
 			value: false
 		},
@@ -18,7 +18,7 @@ Component({
 			type: Number,
 			value: 0
 		},
-		goldInputBeginValue: {
+		useCoin: {
 			type: Number,
 			value: 0
 		},
@@ -29,12 +29,7 @@ Component({
 	},
 	methods: {
 		couponChange() {
-			const { coupons } = this.data;
-			wx.setStorageSync('orderCoupon', coupons);
-			app.event.on('toOrderCoupon', this.eventSetCoupon, this);
-			wx.navigateTo({
-				url: '/pages/orderCoupons/orderCoupons',
-			});
+			this.triggerEvent('getcouponid', {}, {bubbles: true})
 		},
 		bindInput(e) {
 			let { value } = e.detail;
@@ -45,13 +40,6 @@ Component({
 			}
 			this.triggerEvent('setusecoin', value, { bubbles: true });
 			return value;
-		},
-		eventSetCoupon(data) {
-			console.log(data, 'data');
 		}
-	},
-	detached() {
-		app.event.off('toOrderCoupon', this);
-		console.log(this.data, 'sas');
 	}
 });
