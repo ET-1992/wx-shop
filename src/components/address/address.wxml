@@ -6,7 +6,7 @@
      	</view>
 		<view class="address" wx:if="{{ address.userName }}">
 			<view class="address-top">
-				<text style="margin-right: 30rpx">收货人：{{ address.username }}</text>
+				<text style="margin-right: 30rpx">收货人：{{ address.userName }}</text>
 				<text>{{ address.telNumber }}</text>
 			</view>
 			<view class="address-bottom">
