@@ -19,8 +19,8 @@
   </view>
   <view class="coupon goldCoin" wx:if="{{ redpacket.item_type == 2 && !isFinished && hasRecived }}">
     <view class="title">恭喜获得金币</view>
-    <view class="number">999<text>个</text></view>
-    <view class="price">直接抵现￥9.99</view>
+    <view class="number">{{redpacket.item.amount*100 || '--'}}<text>个</text></view>
+    <view class="price">直接抵现￥{{redpacket.item.amount || '--'}}</view>
   </view>
   <button
       class="normalizeBt"
