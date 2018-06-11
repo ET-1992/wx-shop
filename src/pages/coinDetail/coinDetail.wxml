@@ -1,8 +1,9 @@
 <view class="coinList" wx:for="{{coinList}}">
     <view>
-        <view>{{item.title}}</view>
-        <view class="time">{{item.time}}</view>
+        <view wx:if="{{item.income && item.income>0}}">分享红包</view>
+        <view wx:if="{{item.expense && item.expense>0}}">订单抵扣</view>
+        <view class="time">{{item.formatTime}}</view>
     </view>
-    <view wx:if="{{item.decreaseNum && item.decreaseNum>0}}" class="coinNum decreaseNum">-{{item.decreaseNum}}</view>
-    <view wx:if="{{item.increaseNum && item.increaseNum>0}}" class="coinNum">+{{item.increaseNum}}</view>
+    <view wx:if="{{item.expense && item.expense>0}}" class="coinNum decreaseNum">-{{item.expense}}</view>
+    <view wx:if="{{item.income && item.income>0}}" class="coinNum">+{{item.income}}</view>
 </view>
