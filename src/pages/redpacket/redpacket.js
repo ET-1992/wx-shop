@@ -1,6 +1,7 @@
 import { PRODUCT_LIST_STYLE, USER_KEY } from 'constants/index';
 import api from 'utils/api';
 import { showToast } from 'utils/wxp';
+import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 
 Page({
 	data: {
@@ -13,6 +14,7 @@ Page({
 	},
 
 	async loadRepacket() {
+		this.checkPhoneModel();
 		const { id } = this.options;
 		const { products = [], received_redpacket, shared_redpacket } = await api.hei.fetchRedpacket({ packet_no: id });
 		console.log(products);
@@ -25,6 +27,7 @@ Page({
 			redpacket: received_redpacket,
 			hasRecived: !!received_redpacket
 		});
+		console.log(this.data);
 	},
 
 	async onRecive() {
@@ -76,5 +79,15 @@ Page({
 			path: `/pages/redpacket/redpacket?id=${id}`,
 			imageUrl: '/icons/redpacketShare.jpg'
 		}
-	}
+	},
+
+	checkPhoneModel() {
+		wx.getSystemInfo({
+			success: (res) => {
+				this.setData({
+					phoneModel: phoneStyle[res.model] || ''
+				});
+			}
+		});
+	},
 });

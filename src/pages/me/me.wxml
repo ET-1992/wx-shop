@@ -90,7 +90,7 @@
   </view>
   <view class="section">
     <navigator  class="sectionItem"  url="/pages/coinDetail/coinDetail">
-      <image class="itemIcon" src="../../icons/coin.svg" />
+      <image class="itemIcon" src="../../icons/coin.png" />
       <view class="itemTitle">我的金币</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </navigator>

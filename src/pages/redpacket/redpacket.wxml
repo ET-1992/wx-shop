@@ -2,16 +2,25 @@
 
 <view class="container {{ isFinished && hasRecived ? 'finishedBgImage' : 'normalBgImage' }} {{ hasRecived ? '' : 'unRecivedBgImage' }}">
   <view
-    class="coupon couponBgImage"
-    wx:if="{{ !isFinished && hasRecived }}"
+    class="coupon couponBgImage {{ phoneModel + '-style' }}"
+    wx:if="{{ redpacket.item_type == 1 && !isFinished && hasRecived }}"
   >
-    <view class="title">{{ redpacket.item.title || '--' }}</view>
-    <view class="price">￥{{ redpacket.item.reduceValue || '--' }}</view>
+  <view class="middle">
+    <view class="title">
+      <view>{{ redpacket.item.title || '--' }}</view>
+    </view>
+    <view class="price"><text>￥</text>{{ redpacket.item.reduceValue || '--' }}</view>
+  </view>
 
     <view class="date" >
       <text wx:if="{{ redpacket.item.date_type === '2' }}">领券当日起{{ redpacket.item.fixed_term }}日内可用</text>
       <text wx:else>有效期: {{redpacket.item.start_time || '--'}}至{{redpacket.item.end_time || '--'}}</text>
     </view>
+  </view>
+  <view class="coupon goldCoin" wx:if="{{ redpacket.item_type == 2 && !isFinished && hasRecived }}">
+    <view class="title">恭喜获得金币</view>
+    <view class="number">{{redpacket.item.amount*100 || '--'}}<text>个</text></view>
+    <view class="price">直接抵现￥{{redpacket.item.amount || '--'}}</view>
   </view>
   <button
       class="normalizeBt"

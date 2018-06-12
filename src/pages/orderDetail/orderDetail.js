@@ -33,12 +33,23 @@ Page({
 		isFromCreate: false,
 
 		isLoading: false,
+
+		address: {}
 	},
 
 	async loadOrder(id) {
 		const { order, redpacket = {} } = await api.hei.fetchOrder({ order_no: id });
 		const data = { order, redpacket };
 		const statusCode = +order.status;
+		let address = {};
+		address.userName = order.receiver_name;
+		address.telNumber = order.receiver_phone;
+		address.nationalCode = order.receiver_country;
+		address.provinceName = order.receiver_state;
+		address.cityName = order.receiver_city;
+		address.countyName = order.receiver_district;
+		address.detailInfo = order.receiver_address;
+		address.postalCode = order.receiver_zipcode;
 
 		order.statusText = STATUS_TEXT[statusCode];
 		order.statusCode = statusCode;
@@ -90,7 +101,7 @@ Page({
 			totalPrice = totalPrice + price * quantity;
 			console.log(totalPrice)
 		});
-		this.setData({totalPrice: Number(totalPrice).toFixed(2)})
+		this.setData({totalPrice: Number(totalPrice).toFixed(2), address})
 	},
 	async loadGroupon(id) {
 		console.log('grouponId', id);

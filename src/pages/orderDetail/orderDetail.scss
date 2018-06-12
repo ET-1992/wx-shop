@@ -12,13 +12,14 @@ $footerHeight: 100rpx;
 .header {
 	background-color: $mainColor;
 	color: #fff;
-	font-size: 10pt;
-	padding: 60rpx 40rpx;
-
-	.orderStatus {
-		font-size: 12pt;
-		margin-bottom: 8rpx;
-	}
+	font-size: 28rpx;
+	height: 120rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-items: center;
+	padding: 0 40rpx;
+	line-height: 40rpx;
 }
 
 .redpacketBannerBt {

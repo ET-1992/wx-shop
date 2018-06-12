@@ -33,6 +33,9 @@
     <view wx:if="{{ groupon.status === 2}}">{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}</view>
   </view>
 
+  <address address="{{ address }}"></address>
+  <productItemSold items="{{ order.items }}" class="productItemSoldWrapper" />
+
   <include
     wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"
     src="/templates/order/grouponOrder.wxml"
