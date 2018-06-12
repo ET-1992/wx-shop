@@ -558,6 +558,11 @@ img,
 .wxParse-img {
 	width: 750rpx;
 }
+.wxParse-section {
+	image {
+		max-width: 100% !important;
+	}
+}
 .scrollSkus {
 	min-height: 200rpx;
 	max-height: 800rpx;
