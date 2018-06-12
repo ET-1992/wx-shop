@@ -1,4 +1,6 @@
-<view class="coinList" wx:for="{{coinList}}">
+<import src="/templates/loading/loading.wxml"/>
+<template is="loading" wx:if="{{ isLoading }}"/>
+<view class="coinList" wx:for="{{coinList}}" wx:if="{{ !isLoading && coinList && coinList.length > 0}}">
     <view>
         <view wx:if="{{item.income && item.income>0}}">分享红包</view>
         <view wx:if="{{item.expense && item.expense>0}}">订单抵扣</view>
@@ -6,4 +8,7 @@
     </view>
     <view wx:if="{{item.expense && item.expense>0}}" class="coinNum decreaseNum">-{{item.expense}}</view>
     <view wx:if="{{item.income && item.income>0}}" class="coinNum">+{{item.income}}</view>
+</view>
+<view wx:if="{{coinList.length == 0}}" class="noHint">
+    暂无金币
 </view>
