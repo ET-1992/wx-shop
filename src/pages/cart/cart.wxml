@@ -166,8 +166,8 @@
       <view
         class="priceMeta"
       >
-        <text class="postage"
-        >运费：￥{{ totalPostage }}</text>
+        <!-- <text class="postage"
+        >运费：￥{{ totalPostage }}</text> -->
         <text
         >已节省：￥{{ savePrice }}</text>
       </view>
