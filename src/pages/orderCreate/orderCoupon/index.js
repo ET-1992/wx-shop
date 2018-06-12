@@ -25,6 +25,10 @@ Component({
 		fee: {
 			type: Object,
 			value: {}
+		},
+		isHaveUseCoupon: {
+			type: Boolean,
+			value: true
 		}
 	},
 	methods: {

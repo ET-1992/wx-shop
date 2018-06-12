@@ -1,24 +1,4 @@
 <view>
-  <view class="itemList">
-   <view
-    class="grouponItem"
-    >
-      <image
-        src="{{ groupon.thumbnail || order.groupon.thumbnail }}"
-        class="itemImage"
-        mode="aspectFill"
-      />
-      <view class="itemInfo">
-        <view class="itemName">{{ groupon.title || order.groupon.title }}</view>
-        <view class="itemMeta">
-          <view class="itemPrice">￥{{ groupon.price || order.groupon.price }}</view>
-          <view class="itemQuantity">x{{ groupon.quantity || order.groupon.quantity || 1 }}</view>
-          <view class="grouponLimit">{{ groupon.member_limit || order.groupon.member_limit }}人团</view>
-        </view>
-      </view>
-   </view>
-  </view>
-
   <view class="grouponHint">
     <view class="title">拼团流程</view>
     <image
