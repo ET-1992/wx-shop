@@ -1,16 +1,19 @@
 <view class="itemList">
-    <view class="item" wx:for="{{ items }}" wx:key="id" >
+    <view class="item" wx:for="{{ products }}" wx:key="id" >
        <image
-         src="{{ item.image_url }}"
+         src="{{ item.imageUrl }}"
          class="itemImage"
          mode="aspectFill"
        />
        <view class="itemInfo">
          <view class="itemName">{{ item.title }}</view>
-         <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+         <view class="propertyNames" wx:if="{{ item.property }}">{{ item.property }}</view>
          <view class="itemMeta">
-           <view class="itemPrice">￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
-           <view class="itemQuantity">x{{ item.quantity }}</view>
+           <view class="itemPrice">￥{{ item.price }}</view>
+           <view class="itemCount">
+            <view class="grouponLimit" wx:if="{{ item.memberlimit }}">{{ item.memberlimit }}人团</view>
+            <view class="itemQuantity">x{{ item.quantity }}</view>
+           </view>
          </view>
        </view>
     </view>

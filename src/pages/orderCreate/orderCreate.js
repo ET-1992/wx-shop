@@ -286,7 +286,7 @@ Page({
 
 
 			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
-			console.log('status:', status);
+			// console.log(order_no, status, pay_sign, pay_appid, 'pay');
 			wx.hideLoading();
 
 			if (this.data.orderPrice <= 0) {

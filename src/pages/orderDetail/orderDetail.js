@@ -33,12 +33,23 @@ Page({
 		isFromCreate: false,
 
 		isLoading: false,
+
+		address: {}
 	},
 
 	async loadOrder(id) {
 		const { order, redpacket = {} } = await api.hei.fetchOrder({ order_no: id });
 		const data = { order, redpacket };
 		const statusCode = +order.status;
+		let address = {};
+		address.userName = order.receiver_name;
+		address.telNumber = order.receiver_phone;
+		address.nationalCode = order.receiver_country;
+		address.provinceName = order.receiver_state;
+		address.cityName = order.receiver_city;
+		address.countyName = order.receiver_district;
+		address.detailInfo = order.receiver_address;
+		address.postalCode = order.receiver_zipcode;
 
 		order.statusText = STATUS_TEXT[statusCode];
 		order.statusCode = statusCode;
@@ -49,6 +60,26 @@ Page({
 		order.refundDate = formatTime(new Date(order.refund_time * 1000));
 		order.total_fee = (order.total_fee - 0).toFixed(2);
 		order.discount_fee = (order.discount_fee - 0).toFixed(2);
+
+
+		//-----------------处理价格显示
+		let info = {};
+
+		info.couponFeeDispaly = order.coupon_discount_fee; //优惠卷
+		info.couponFee = Number(order.coupon_discount_fee);
+
+		info.coinForPayDispaly = order.coins_fee; // 金币
+		info.coinForPay = Number(order.coins_fee);
+
+		info.postageDispaly = Number(order.postage).toFixed(2); // 运费
+		info.postage = order.postage;
+
+		info.totalPrice = Number(order.amount) - info.postage + info.couponFee + info.coinForPay;// 商品价格
+		info.totalPriceDispaly = Number(info.totalPrice).toFixed(2);
+
+		info.finalPay = Number(order.amount); // 付款价格
+		info.finalPayDispaly = Number(info.finalPay).toFixed(2);
+		//-----------------End
 
 		if (statusCode === 4 || statusCode === 6 || statusCode === 7 || statusCode === 8) {
 			order.isDone = true;
@@ -79,18 +110,7 @@ Page({
 		}
 
 		this.setData(data);
-		console.log('测试', data)
-		const {items} = order;
-		let totalPrice = 0;
-		items.forEach((item) => {
-			const {
-				price,
-				quantity
-			} = item;
-			totalPrice = totalPrice + price * quantity;
-			console.log(totalPrice)
-		});
-		this.setData({totalPrice: Number(totalPrice).toFixed(2)})
+		this.setData({ address, info })
 	},
 	async loadGroupon(id) {
 		console.log('grouponId', id);

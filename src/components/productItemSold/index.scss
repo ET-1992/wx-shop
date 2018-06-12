@@ -47,6 +47,13 @@
 			margin: 4rpx 0;
 		}
 
+		.itemCount {
+			display: flex;
+			width: 130rpx;
+			justify-content: space-between;
+			flex-direction: row-reverse;
+		}
+
 		.itemPrice {
 			font-size: 28rpx;
 			color: #F52D2D;
@@ -54,6 +61,13 @@
 
 		.itemQuantity {
 			font-size: 28rpx;
+		}
+
+		.grouponLimit {
+			background-color:#c81337;
+			font-size: 20rpx;
+			color:#fff;
+			padding:4rpx 10rpx;
 		}
 	}
 }
