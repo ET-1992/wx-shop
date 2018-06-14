@@ -24,28 +24,45 @@ export function formatTime(date) {
 }
 
 
-export async function getAgainTokenForInvalid() {
-	console.log('获取code');
-	const { code } = await login();
-	console.log('获取token');
-	const { user, access_token, expired_in } = await api.hei.silentLogin({ code });
-	const expiredTime = expired_in * 1000 + Date.now();
-	wx.setStorageSync(USER_KEY, user);
-	wx.setStorageSync(TOKEN_KEY, access_token);
-	wx.setStorageSync(EXPIRED_KEY, expiredTime);
-	return access_token;
+export function getAgainTokenForInvalid() {
+	return new Promise(async(resolve, reject) => {
+		try {
+			console.log('获取code');
+			const { code } = await login();
+			console.log('获取token');
+			const { user, access_token, expired_in } = await api.hei.silentLogin({ code });
+			const expiredTime = expired_in * 1000 + Date.now();
+			wx.setStorageSync(USER_KEY, user);
+			wx.setStorageSync(TOKEN_KEY, access_token);
+			wx.setStorageSync(EXPIRED_KEY, expiredTime);
+			resolve(access_token)
+		} catch(e) {
+			console.log(e, 'getAgainTokenForInvalid');
+			resolve(null);
+		}
+	})
 }
 
 export async function getAgainUserForInvalid({encryptedData, iv }) {
-	const data = await api.hei.getUserInfo({
-		encrypted_data: encryptedData,
-		iv,
-	});
-	if (data) {
-		wx.setStorageSync(USER_KEY, data.user);
-		return data.user;
-	}
-	return null;
+	return new Promise(async(resolve, reject) => {
+		const user = getUserInfo();
+		if (!user) {
+			try {
+				const data = await api.hei.getUserInfo({
+					encrypted_data: encryptedData,
+					iv,
+				});
+				if (data) {
+					wx.setStorageSync(USER_KEY, data.user);
+				}
+				resolve(user);
+			} catch(e) {
+				console.log(e, 'getAgainUserForInvalid');
+				resolve(null);
+			}
+		}
+		resolve(user);
+	})
 }
 
 export function getToken() {

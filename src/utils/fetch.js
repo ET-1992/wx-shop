@@ -2,6 +2,7 @@ import getToken from 'utils/getToken';
 import checkPermission from 'utils/checkPermission';
 import { getAgainTokenForInvalid } from 'utils/util';
 import { showModal } from 'utils/wxp';
+import { login, checkSession } from 'utils/wxp';
 
 const onRequestSuccess = async (resolve, reject, res, wxRequest, reTryTime) => {
 	const { data, statusCode, errMsg } = res;
@@ -12,13 +13,15 @@ const onRequestSuccess = async (resolve, reject, res, wxRequest, reTryTime) => {
 			code: errcode || statusCode,
 		};
 		if (errcode === 'bad_authentication' || errcode === 'illegal_access_token') {
-			if (reTryTime < 2) {
+			if (reTryTime < 3) {
 				console.log('token失效');
-				await getAgainTokenForInvalid();
 				try {
+					await getAgainTokenForInvalid();
 					const newData = await wxRequest();
+					console.log('重新请求结束');
 					return resolve(newData);
 				} catch (e) {
+					console.log(e)
 					return reject(e);
 				}
 			} else {

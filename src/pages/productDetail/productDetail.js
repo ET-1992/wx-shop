@@ -6,6 +6,7 @@ import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY } from 'constants/index';
+import { getAgainUserForInvalid } from 'utils/util';
 
 // import login from 'utils/login';
 
@@ -626,7 +627,7 @@ Page({
 		const { encryptedData, iv } = ev.detail;
 		if (iv && encryptedData) {
 			const { actionType } = ev.target.dataset;
-			await forceUserInfo({ encryptedData, iv });
+			await getAgainUserForInvalid({ encryptedData, iv });
 			this.onSkuConfirm(actionType);
 		}
 		else {

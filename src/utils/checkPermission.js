@@ -10,7 +10,7 @@ export default async (params = {}) => {
 	if (isForceToken && !token) {
 		console.log('token失效');
 		token = await getAgainTokenForInvalid();
-		consoel.log(token, '重新获取token');
+		console.log(token, '重新获取token');
 		isPermit = !!token;
 	}
 
