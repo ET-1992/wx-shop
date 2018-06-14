@@ -11,13 +11,13 @@
     }
 
     .coupon-title, .gold-title {
-        font-size: 22rpx;
+        font-size: 26rpx;
         line-height: 32rpx;
         margin-bottom: 8rpx;
     }
 
     .coupon-content, .gold-content {
-        font-size: 28rpx;
+        font-size: 26rpx;
         line-height: 40rpx;
         display: flex;
         flex-direction: row;
@@ -39,9 +39,19 @@
     }
 
     .coupon-change {
-        font-size: 18rpx;
+        font-size: 26rpx;
         line-height: 26rpx;
         color: #707070;
         margin-left: 30rpx;
+    }
+
+    .gold-number{
+        border:1px solid #ccc;
+        width:100rpx;
+        height: 20rpx;
+        box-sizing:border-box;
+        text-align:center;
+        color:#F52D2D;
+        border-radius:8rpx;
     }
 }
