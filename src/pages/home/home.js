@@ -48,7 +48,7 @@ Page({
 		const data = await api.hei.submitFormId({
 			form_id: e.detail.formId,
 		});
-		console.log(data);
+		console.log( data);
 	},
 
 	async loadHome() {
@@ -77,7 +77,7 @@ Page({
 		*	status 2 可使用
 		*/
 		const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
-		const userCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2' && stock_qty !== 0);
+		const userCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
 		const hasNewUserCoupons = newUserCouponIndex >= 0;
 
 		if (data.page_title) {
@@ -134,11 +134,12 @@ Page({
 
 	async onReceiveCoupon(id, index) {
 		const { coupons } = this.data;
-
 		if (!coupons[index].stock_qty) {
 			return;
 		}
-
+		console.log('第' + index +'个');
+		console.log('qty:'+coupons[index].stock_qty);
+		console.log(coupons[index]);
 		try {
 			const data = await api.hei.receiveCoupon({
 				coupon_id: id,
@@ -150,6 +151,7 @@ Page({
 				const key = `coupons[${index}].status`;
 				updateData[key] = 4;
 				this.setData(updateData);
+				await this.loadHome();
 			}
 		}
 		catch (err) {
