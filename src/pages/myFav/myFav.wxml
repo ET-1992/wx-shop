@@ -1,4 +1,6 @@
-<block wx:if="{{topics.length}}">
+<import src="/templates/loading/loading.wxml"/>
+<template is="loading" wx:if="{{ isLoading }}"/>
+<block wx:if="{{ !isLoading && topics.length }}">
 	<view class="favList" wx:for="{{topics}}" wx:key="id">
 		<navigator url="../articleDetail/articleDetail?id={{item.id}}">
 			<view class="favItem">
@@ -13,9 +15,12 @@
 	</view>
 
 </block>
-<block wx:else>
+<block wx:if="{{ !isLoading && topics.length == 0}}">
 	<view class="favList">
 		<image class="favBg" src="../../icons/favBg.png"></image>
 	</view>
 </block>
-
+<!-- <view
+    class="bottomHint"
+    wx:if="{{ topics.length && !next_cursor }}"
+  >-这是一条底线-</view> -->
