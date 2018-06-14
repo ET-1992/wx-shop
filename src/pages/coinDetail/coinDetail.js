@@ -4,30 +4,32 @@ Page({
     data:{
         next_cursor: 0,
         isLoading: true,
+        coinList:[]
     },
     async onLoad() {
         wx.setNavigationBarTitle({
-            title: '金币明细'
+            title: '花生米明细'
         });
-        await this.getCoinList();
-		this.setData({ isLoading: false });
+        this.getCoinList();
     },
     async getCoinList() {
 		const { next_cursor} = this.data;
-		const queryOption = { cursor: next_cursor };
-        const data = await api.hei.wallet(queryOption);
-        wx.hideLoading();
+        const data = await api.hei.wallet({
+			cursor: next_cursor,
+		});
         
         for(let item in data.data) {
             data.data[item].formatTime = formatTime(new Date(data.data[item].time * 1000));
         }
 
+        const newData = this.data.coinList.concat(data.data);
         this.setData({
-            coinList: data.data,
-            isRefresh: false,
+            coinList: newData,
+            isLoading: false,
             next_cursor: data.next_cursor,
         });
         console.log(this.data.coinList);
+        return data;
     },
     
     
@@ -35,7 +37,11 @@ Page({
     * 页面相关事件处理函数--监听用户下拉动作
     */
     async onPullDownRefresh() {
-        this.setData({ next_cursor: 0 });
+        this.setData({ 
+            next_cursor: 0,
+            coinList: [],
+            isLoading: true
+         });
         await this.getCoinList();
         wx.stopPullDownRefresh();
     },
@@ -44,8 +50,5 @@ Page({
         const { next_cursor } = this.data;
         if (!next_cursor) { return; }
         this.getCoinList();
-    },
-    onShareAppMessage: function() {
-        
     }
 })
