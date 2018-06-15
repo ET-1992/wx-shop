@@ -24,7 +24,12 @@ Component({
 		},
 		fee: {
 			type: Object,
-			value: {}
+			value: {},
+			observer(newValue) {
+				this.setData({
+					couponFeeDispaly: newValue.coupon_reduce_fee ? Number(newValue.coupon_reduce_fee).toFixed(2) : '0.00'
+				})
+			}
 		},
 		isHaveUseCoupon: {
 			type: Boolean,

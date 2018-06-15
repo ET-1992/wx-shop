@@ -36,7 +36,7 @@ Page({
 		shouldGoinDisplay: false, // 是否显示金币
 		maxUseCoin: 0, // 最多可使用金币
 		finalPay: 0,
-		user_coupon_ids: '', //选择的优惠卷ID
+		user_coupon_ids: '', //选择的优惠券ID
 		isGrouponBuy: false, // 是否拼团订单
 		isHaveUseCoupon: true
 	},
@@ -218,7 +218,8 @@ Page({
 			grouponId,
 			isGrouponBuy,
 			user_coupon_ids,
-			useCoin
+			useCoin,
+			shouldGoinDisplay
 		} = this.data;
 		const {
 			userName,
@@ -269,7 +270,7 @@ Page({
 			requestData.user_coupon_ids = user_coupon_ids;
 		}
 
-		if (useCoin) {
+		if (useCoin && shouldGoinDisplay) {
 			requestData.coins = useCoin;
 		}
 

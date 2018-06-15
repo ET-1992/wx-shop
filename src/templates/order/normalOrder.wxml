@@ -20,7 +20,7 @@
     </view>
 
     <view wx:if="{{ info.couponFee }}" class="row">
-        <text class="text">优惠卷</text>
+        <text class="text">优惠券</text>
         <text class="money">-￥{{ info.couponFeeDispaly }}</text>
     </view>
 
