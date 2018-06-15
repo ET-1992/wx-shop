@@ -158,8 +158,8 @@ Page({
 		}
 		requestData.posts = JSON.stringify(items);
 		const { coupons, wallet, coin_in_order, fee } = await api.hei.orderPrepare(requestData);
-		const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= totalPrice;
-		const maxUseCoin = Math.floor(totalPrice * coin_in_order.percent_in_order);
+		const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+		const maxUseCoin = Math.floor(fee.amount * coin_in_order.percent_in_order);
 		const useCoin = Math.min(maxUseCoin, wallet.coins);
 		this.setData({
 			coupons,
@@ -291,7 +291,7 @@ Page({
 			// console.log(order_no, status, pay_sign, pay_appid, 'pay');
 			wx.hideLoading();
 
-			if (this.data.orderPrice <= 0) {
+			if (this.data.finalPay <= 0) {
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});

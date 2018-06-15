@@ -64,6 +64,7 @@ const apis = {
 	fetchOrderCount: {
 		path: 'api/mag.order.counts.json',
 		isForceToken: true,
+		isForceUserInfo: true,
 	},
 	createOrderAndPay: {
 		path: 'api/mag.order.create.json?pay&v2',

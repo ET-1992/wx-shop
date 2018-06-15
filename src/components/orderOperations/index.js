@@ -1,6 +1,7 @@
 import { showModal, showToast } from 'utils/wxp';
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
+import { getAgainUserForInvalid } from 'utils/util';
 
 const app = getApp();
 
@@ -221,5 +222,14 @@ Component({
 				url: `/pages/refund/refund?id=${orderNo}`,
 			});
 		},
+
+		async bindGetUserInfo(e) {
+			const { encryptedData, iv } = e.detail;
+			console.log('来到支付这里')
+			const user = await getAgainUserForInvalid({ encryptedData, iv });
+			if (user) {
+				this.onPayOrder();
+			}
+		}
 	},
 });

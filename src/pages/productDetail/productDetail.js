@@ -6,6 +6,7 @@ import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY } from 'constants/index';
+import { getAgainUserForInvalid } from 'utils/util';
 
 // import login from 'utils/login';
 
@@ -550,23 +551,23 @@ Page({
 
 	async onCouponClick(ev) {
 		const { id, index, status, title } = ev.currentTarget.dataset;
-		const token = getToken();
+		// const token = getToken();
 
-		if (!token) {
-			const { confirm } = await showModal({
-				title: '未登录',
-				content: '请先登录，再领取优惠券',
-				confirmText: '前往登录',
-			});
-			if (confirm) {
-				this.setData({ isShowCouponList: false });
-				wx.navigateTo({ url: '/pages/login/login' });
+		// if (!token) {
+		// 	const { confirm } = await showModal({
+		// 		title: '未登录',
+		// 		content: '请先登录，再领取优惠券',
+		// 		confirmText: '前往登录',
+		// 	});
+		// 	if (confirm) {
+		// 		this.setData({ isShowCouponList: false });
+		// 		wx.navigateTo({ url: '/pages/login/login' });
 
-				// await login();
-				// await this.initPage();
-			}
-			return;
-		}
+		// 		// await login();
+		// 		// await this.initPage();
+		// 	}
+		// 	return;
+		// }
 
 		if (+status === 2) {
 			await this.onReceiveCoupon(id, index);
@@ -626,7 +627,7 @@ Page({
 		const { encryptedData, iv } = ev.detail;
 		if (iv && encryptedData) {
 			const { actionType } = ev.target.dataset;
-			await forceUserInfo({ encryptedData, iv });
+			await getAgainUserForInvalid({ encryptedData, iv });
 			this.onSkuConfirm(actionType);
 		}
 		else {

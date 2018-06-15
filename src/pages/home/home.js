@@ -165,18 +165,18 @@ Page({
 	async receiveCouponAll(e) {
 		const token = getToken();
 
-		if (!token) {
-			const { confirm } = await showModal({
-				title: '未登录',
-				content: '请先登录，再领取优惠券',
-				confirmText: '登录',
-			});
-			if (confirm) {
-				// await login();
-				wx.navigateTo({ url: '/pages/login/login' });
-			}
-			return;
-		}
+		// if (!token) {
+		// 	const { confirm } = await showModal({
+		// 		title: '未登录',
+		// 		content: '请先登录，再领取优惠券',
+		// 		confirmText: '登录',
+		// 	});
+		// 	if (confirm) {
+		// 		// await login();
+		// 		wx.navigateTo({ url: '/pages/login/login' });
+		// 	}
+		// 	return;
+		// }
 
 		const { id } = e.currentTarget.dataset;
 		let result = [];
@@ -195,20 +195,20 @@ Page({
 	},
 	async onCouponClick(ev) {
 		const { id, index, status, title } = ev.currentTarget.dataset;
-		const token = getToken();
+		// const token = getToken();
 
-		if (!token) {
-			const { confirm } = await showModal({
-				title: '未登录',
-				content: '请先登录，再领取优惠券',
-				confirmText: '登录',
-			});
-			if (confirm) {
-				// await login();
-				wx.navigateTo({ url: '/pages/login/login' });
-			}
-			return;
-		}
+		// if (!token) {
+		// 	const { confirm } = await showModal({
+		// 		title: '未登录',
+		// 		content: '请先登录，再领取优惠券',
+		// 		confirmText: '登录',
+		// 	});
+		// 	if (confirm) {
+		// 		// await login();
+		// 		wx.navigateTo({ url: '/pages/login/login' });
+		// 	}
+		// 	return;
+		// }
 
 		if (+status === 2) {
 			await this.onReceiveCoupon(id, index);

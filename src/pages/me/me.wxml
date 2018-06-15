@@ -4,15 +4,11 @@
     class="header"
     style="background-color: {{ themeColor.primaryColor }}"
   >
-    <open-data
-      class="avatar"
-      src="{{ user.avatarurl }}"
-      type="userAvatarUrl"
-    />
-    <open-data
-      class="name"
-      type="userNickName"
-    />
+
+    <button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+      <image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+      <text class="text">{{ !user.nickname ? '点击登陆' : user.nickname  }}</text>
+    </button>
     <!-- 使用open-data组件显示头像和昵称
     <image
       class="avatar unlogin"
