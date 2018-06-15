@@ -218,7 +218,8 @@ Page({
 			grouponId,
 			isGrouponBuy,
 			user_coupon_ids,
-			useCoin
+			useCoin,
+			shouldGoinDisplay
 		} = this.data;
 		const {
 			userName,
@@ -269,7 +270,7 @@ Page({
 			requestData.user_coupon_ids = user_coupon_ids;
 		}
 
-		if (useCoin) {
+		if (useCoin && shouldGoinDisplay) {
 			requestData.coins = useCoin;
 		}
 
