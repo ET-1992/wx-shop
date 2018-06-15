@@ -3,6 +3,10 @@ Component({
 		finalPay: {
             type: null,
             value: 0.00
+        },
+        phoneModel: {
+            type: String,
+            value: ''
         }
     },
     methods: {

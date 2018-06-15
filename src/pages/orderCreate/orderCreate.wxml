@@ -12,4 +12,4 @@
 
   <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
 </view>
-<orderPay finalPay="{{ finalPay }}" bindonpay="onPay"></orderPay>
+<orderPay finalPay="{{ finalPay }}" phoneModel="{{ phoneModel }}" bindonpay="onPay"></orderPay>

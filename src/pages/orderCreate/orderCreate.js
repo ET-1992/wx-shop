@@ -3,7 +3,7 @@ import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
 import Event from 'utils/event';
-
+import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
 Page({
@@ -48,7 +48,7 @@ Page({
 	// },
 
 	async onLoad() {
-		console.log('90')
+		this.checkPhoneModel();
 		const { themeColor } = app.globalData;
 		const { isIphoneX } = app.systemInfo;
 		this.setData({ themeColor, isIphoneX });
@@ -90,6 +90,8 @@ Page({
 				showCancel: false,
 			});
 		}
+
+		console.log(this.data);
 	},
 
 	onUnload() {
@@ -338,4 +340,14 @@ Page({
 			});
 		}
 	},
+
+	checkPhoneModel() {
+		wx.getSystemInfo({
+			success: (res) => {
+				this.setData({
+					phoneModel: phoneStyle[res.model] || ''
+				});
+			}
+		});
+	}
 });
