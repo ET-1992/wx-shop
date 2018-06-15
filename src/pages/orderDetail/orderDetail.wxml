@@ -45,7 +45,7 @@
     src="/templates/order/normalOrder.wxml"
   />
 
-  <!-- <modal
+  <modal
     title="【送你一个拼手气红包】"
     content="快叫小伙帮一起来拆红包"
     confirmText="发红包"
@@ -54,5 +54,6 @@
     isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}"
     bindmodalConfirm="onModalConfirm"
     confirmButtonType="share"
-  /> -->
+    wx:if="{{ !order.groupon_id }}"
+  />
 </view>

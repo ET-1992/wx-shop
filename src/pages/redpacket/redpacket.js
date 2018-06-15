@@ -28,7 +28,6 @@ Page({
 			isIphone5,
 			goldNumer: parseInt(received_redpacket.item.amount*100)
 		});
-		console.log('--loadRepacket()--');
 		console.log(this.data);
 	},
 
@@ -55,8 +54,6 @@ Page({
 				redpacket: received_redpacket,
 				goldNumer: parseInt(received_redpacket.item.amount*100)
 			});
-			console.log('--onRecive()--');
-			console.log( this.data );
 		}
 
 	},
