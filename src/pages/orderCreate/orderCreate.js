@@ -130,7 +130,7 @@ Page({
 
 	getCouponIdEvent(data) {
 		this.setData({
-			user_coupon_ids: data.user_coupon_id
+			user_coupon_ids: (data && data.user_coupon_id) || -1
 		}, () => {
 			this.onLoadData();
 		})

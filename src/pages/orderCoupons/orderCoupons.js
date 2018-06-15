@@ -43,7 +43,11 @@ Page({
 	onCouponClick(ev) {
 		const { index } = ev.currentTarget.dataset;
 		const { coupons } = this.data;
-		coupons.recommend = coupons.available[index];
+		if ( coupons.recommend === coupons.available[index] ) {
+			coupons.recommend = {};
+		} else {
+			coupons.recommend = coupons.available[index];
+		}
 		this.setData({
 			coupons
 	 	});

@@ -10,7 +10,7 @@
     </view>
 
     <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
-        <text class="text">金币</text>
+        <text class="text">花生米</text>
         <text class="money">-￥{{ coinForPay }}</text>
     </view>
 
