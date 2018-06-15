@@ -16,6 +16,6 @@
 
     <view>
         <text class="text">运费</text>
-        <text class="money">+￥{{ isGrouponBuy ? totalPostage : postageDispaly}}</text>
+        <text class="money">+￥{{ isGrouponBuy ? totalPostageDispaly : postageDispaly}}</text>
     </view>
 </view>

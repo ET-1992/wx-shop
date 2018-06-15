@@ -38,12 +38,18 @@ Component({
 		},
 		totalPostage: {
 			type: null,
-			value: '0.00'
+			value: '0.00',
+			observer(newValue) {
+				this.setData({
+					totalPostageDispaly: Number(newValue).toFixed(2)
+				})
+			}
 		}
 	},
 	data: {
 		coinForPay: '0.00',
 		totalPriceDispaly: '0.00',
-		couponFeeDispaly: '0.00'
+		couponFeeDispaly: '0.00',
+		totalPostageDispaly: '0.00'
 	}
 });

@@ -37,7 +37,8 @@ Page({
 		maxUseCoin: 0, // 最多可使用金币
 		finalPay: 0,
 		user_coupon_ids: '', //选择的优惠卷ID
-		isGrouponBuy: false // 是否拼团订单
+		isGrouponBuy: false, // 是否拼团订单
+		isHaveUseCoupon: true
 	},
 
 	// onLoad() {
@@ -168,7 +169,8 @@ Page({
 			shouldGoinDisplay,
 			maxUseCoin,
 			useCoin,
-			user_coupon_ids: coupons.recommend.user_coupon_id
+			user_coupon_ids: coupons.recommend.user_coupon_id,
+			isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false
 		}, () => {
 			this.computedFinalPay();
 		})
