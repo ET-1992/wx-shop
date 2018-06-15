@@ -188,23 +188,23 @@ Page({
 	onTouchEnd(e) {
 		let val, idx, ev;
 		if (e.changedTouches[0].clientX - this.data.clientX > 90) {
-
 			// prev
-			if (this.data.activeIndex === 0) {
-				ev = {
-					currentTarget: {
-						dataset: {
-							categoryId: this.data.categories[0].children[
-								this.data.categories[0].children.length - 1
-							].id,
-							index: this.getIndex(
-								this.data.categories[0].children[
-									this.data.categories[0].children.length - 1
-								].id,
-							),
-						},
-					},
-				};
+			if (Number(this.data.activeIndex) === 0) {
+				// ev = {
+				// 	currentTarget: {
+				// 		dataset: {
+				// 			categoryId: this.data.categories[0].children[
+				// 				this.data.categories[0].children.length - 1
+				// 			].id,
+				// 			index: this.getIndex(
+				// 				this.data.categories[0].children[
+				// 					this.data.categories[0].children.length - 1
+				// 				].id,
+				// 			),
+				// 		},
+				// 	},
+				// };
+				return;
 			}
 			else if (this.data.activeIndex === 1) {
 				ev = {

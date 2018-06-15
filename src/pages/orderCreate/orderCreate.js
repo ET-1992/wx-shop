@@ -132,7 +132,7 @@ Page({
 
 	getCouponIdEvent(data) {
 		this.setData({
-			user_coupon_ids: data.user_coupon_id
+			user_coupon_ids: (data && data.user_coupon_id) || -1
 		}, () => {
 			this.onLoadData();
 		})
@@ -187,10 +187,14 @@ Page({
 	},
 
 	computedFinalPay() {
-		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice } = this.data;
+		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
 		let finalPay = 0;
 		if (!isGrouponBuy) {
-			finalPay = fee.amount - useCoin/100;
+			if (shouldGoinDisplay) {
+				finalPay = fee.amount - useCoin/100;
+			} else {
+				finalPay = fee.amount;
+			}
 			if (finalPay < 0) {
 				finalPay = 0;
 			}

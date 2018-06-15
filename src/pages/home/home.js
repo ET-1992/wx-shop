@@ -133,13 +133,13 @@ Page({
 	},
 
 	async onReceiveCoupon(id, index) {
-		const { coupons } = this.data;
-		if (!coupons[index].stock_qty) {
+		const { userCoupon } = this.data;
+		console.log('第' + index +'个');
+		console.log('qty:'+userCoupon[index].stock_qty);
+		console.log(userCoupon[index]);
+		if (!userCoupon[index].stock_qty) {
 			return;
 		}
-		console.log('第' + index +'个');
-		console.log('qty:'+coupons[index].stock_qty);
-		console.log(coupons[index]);
 		try {
 			const data = await api.hei.receiveCoupon({
 				coupon_id: id,
@@ -148,7 +148,7 @@ Page({
 			if (!errcode) {
 				showToast({ title: '领取成功' });
 				const updateData = {};
-				const key = `coupons[${index}].status`;
+				const key = `userCoupon[${index}].status`;
 				updateData[key] = 4;
 				this.setData(updateData);
 				await this.loadHome();
