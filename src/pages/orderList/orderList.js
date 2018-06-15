@@ -61,6 +61,7 @@ Page({
 			selectedStatus: value,
 			activeIndex: this.getIndex(value),
 			isRefresh: true,
+			next_cursor: 0
 		});
 		this.loadOrders();
 	},
