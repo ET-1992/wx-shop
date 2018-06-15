@@ -4,9 +4,9 @@ Component({
             type: null,
             value: 0.00
         },
-        phoneModel: {
-            type: String,
-            value: ''
+        isIphoneX: {
+            type: Boolean,
+            value: false
         }
     },
     methods: {

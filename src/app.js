@@ -12,6 +12,7 @@ App({
 			ratio: pixelRatio,
 			screenWidth,
 			isIphoneX: model.indexOf('iPhone X') >= 0,
+			isIphone5: model.indexOf('iPhone 5') >= 0
 		};
 
 		const extConfig = wx.getExtConfigSync() || {};
