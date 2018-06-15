@@ -185,10 +185,14 @@ Page({
 	},
 
 	computedFinalPay() {
-		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice } = this.data;
+		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
 		let finalPay = 0;
 		if (!isGrouponBuy) {
-			finalPay = fee.amount - useCoin/100;
+			if (shouldGoinDisplay) {
+				finalPay = fee.amount - useCoin/100;
+			} else {
+				finalPay = fee.amount;
+			}
 			if (finalPay < 0) {
 				finalPay = 0;
 			}
