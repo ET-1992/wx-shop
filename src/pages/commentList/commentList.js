@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import forceUserInfo from 'utils/forceUserInfo';
+import { getAgainUserForInvalid } from 'utils/util';
 import getUserInfo from 'utils/getUserInfo';
 import { showModal, showToast } from 'utils/wxp';
 
@@ -78,7 +78,7 @@ Page({
 		else {
 			const { encryptedData, iv } = ev.detail;
 			if (encryptedData && iv) {
-				const user = await forceUserInfo({ encryptedData, iv });
+				const user = await getAgainUserForInvalid({ encryptedData, iv });
 				await showToast({
 					title: '授权成功',
 					icon: 'success',//仅支持success或者loading
