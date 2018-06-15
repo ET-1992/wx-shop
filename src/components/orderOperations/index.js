@@ -51,99 +51,92 @@ Component({
 
 	methods: {
 		async onPayOrder() {
-			const { orderNo, orderIndex, orders, order } = this.data;
+			const { orderNo, orders, orderIndex, order } = this.data;
+			const currentOrder = order.order_no ? order : orders[orderIndex];
 			const { status, pay_sign, pay_appid } = await api.hei.payOrder({
 				order_nos: JSON.stringify([orderNo]),
 			});
 
-			// console.log(payRes);
+			wx.hideLoading();
 
-			// await showToast({ title: '支付成功' });
-			if (status == 2) {
-				wx.hideLoading();
+			if (this.data.orderPrice <= 0) {
 				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+					url: `/pages/orderDetail/orderDetail?id=${orderNo}&isFromCreate=true`,
 				});
 			}
-			else if (pay_sign) {
-				console.log('自主支付2');
-				wx.hideLoading();
+
+			// if (+status === 2) {
+
+			// 	wx.redirectTo({
+			// 		url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+			// 	});
+			// }
+
+			if (pay_sign) {
+				console.log('orderOperations: 自主支付');
+
 				await wxPay(pay_sign);
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-				});
+
+				// wx.redirectTo({
+				// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+				// });
 			}
 			else if (pay_appid) {
-				console.log('平台支付2');
+				try {
+					console.log('orderOperations: 平台支付');
+					console.log(order);
+					const address = {
+						userName: currentOrder.receiver_name,
+						receiver_phone: currentOrder.receiver_phone,
+						provinceName: currentOrder.receiver_state,
+						cityName: currentOrder.receiver_city,
+						countyName: currentOrder.receiver_district,
+						detailInfo: currentOrder.receiver_address,
+					};
 
-				if (orders.length < 1) {
-					this.setData({
-						orderList: order,
+					console.log(this.data);
+					await wx.navigateToMiniProgram({
+						envVersion: 'develop',
+						appId: pay_appid,
+						path: `/pages/peanutPay/index?order_no=${orderNo}`,
+						extraData: {
+							address,
+							order_no: orderNo,
+							items: currentOrder.items,
+							totalPrice: currentOrder.amount,
+							totalPostage: currentOrder.postage,
+							// quantity: currentOrder.quantity,
+							orderPrice: currentOrder.orderPrice,
+							coupons: currentOrder.coupons,
+							buyerMessage: currentOrder.buyerMessage,
+							couponPrice: currentOrder.couponPrice,
+						},
+						fail(res) {
+							wx.redirectTo({
+								url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+							});
+							console.log('navigateToMiniProgram fail: ' + res);
+						},
 					});
 				}
-				else {
-					this.setData({
-						orderList: orders[orderIndex],
-					});
+				catch (err) {
+					console.log(err);
 				}
 
-				// console.log('外面',orderList);
-				const address = {
-					userName: this.data.orderList.receiver_name,
-					receiver_phone: this.data.orderList.receiver_phone,
-					provinceName: this.data.orderList.receiver_state,
-					cityName: this.data.orderList.receiver_city,
-					countyName: this.data.orderList.receiver_district,
-					detailInfo: this.data.orderList.receiver_address,
-				};
-				console.log(this.data);
-				wx.navigateToMiniProgram({
-					appId: pay_appid,
-					path: `/pages/peanutPay/index?order_no=${orderNo}`,
-					extraData: {
-
-						// order_no: orderNo,
-						address: address,
-						items: this.data.orderList.items,
-						totalPrice: this.data.orderList.amount,
-						totalPostage: this.data.orderList.postage,
-						quantity: this.data.orderList.quantity,
-						orderPrice: this.data.orderList.orderPrice,
-						coupons: this.data.orderList.coupons,
-						buyerMessage: this.data.orderList.buyerMessage,
-						couponPrice: this.data.orderList.couponPrice,
-						orderPrice: this.data.orderList.amount,
-					},
-					envVersion: 'release',
-					success(res) {
-						console.log('success: ' + res.errMsg);
-					},
-					fail(res) {
-						console.log(res);
-						wx.redirectTo({
-							url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-						});
-						console.log('fail: ' + res.errMsg);
-					},
-					complete(res) {
-						console.log('complete: ' + res.errMsg);
-					},
-				});
-
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-				});
-			}
-			else {
-				wx.hideLoading();
-				wx.redirectTo({
-					url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-				});
+				// wx.redirectTo({
+				// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+				// });
 			}
 
-			// wx.redirectTo({
-			// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
-			// });
+			// else {
+			// 	wx.redirectTo({
+			// 		url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+			// 	});
+			// }
+
+			wx.redirectTo({
+				url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+			});
 		},
 
 		async onConfirmOrder() {
@@ -166,25 +159,6 @@ Component({
 					});
 				}
 			}
-
-			// const { orderNo, orderIndex } = this.data;
-			// try {
-			// 	await api.hei.confirmOrder({
-			// 		order_no: orderNo
-			// 	});
-			// 	await showToast({ title: '确认收货成功' });
-			// 	// wx.redirectTo({
-			// 	// 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
-			// 	// });
-			// 	this.triggerEvent('confirmOrder', { orderNo, orderIndex });
-			// }
-			// catch (err) {
-			// 	showModal({
-			// 		title: '确认收货失败',
-			// 		content: err.errMsg,
-			// 		showCancel: false,
-			// 	});
-			// }
 		},
 
 		async onCloseOrder() {
@@ -215,8 +189,6 @@ Component({
 
 		async onRefund() {
 			const { orderNo } = this.data;
-
-			// this.triggerEvent('refund', orderNo);
 			wx.redirectTo({
 				url: `/pages/refund/refund?id=${orderNo}`,
 			});
