@@ -34,7 +34,7 @@
     >
       <template
         is="couponItem"
-        data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.selected.id === item.id }}"
+        data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.recommend.id === item.id }}"
       />
     </view>
   </view>

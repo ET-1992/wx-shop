@@ -43,13 +43,14 @@
     </view>
     </view>
     <view class="quantity">
-      <view class="title">数量</view>
+      <view class="title">数量{{ptroduct.quota}}</view>
       <numberInput
         value="{{ quantity }}"
         postId="{{ product.id }}"
         skuId="{{ selectedSku.id }}"
         max="{{ selectedSku.stock || product.stock }}"
         bindquantityChangeEvent="updateQuantity"
+        quota="{{product.quota}}"
       />
     </view>
     <view class="actionSheetBtGroup">
@@ -97,6 +98,7 @@
         skuId="{{ selectedSku.id }}"
         max="{{ selectedSku.stock || product.stock }}"
         bindquantityChangeEvent="updateQuantity"
+        quota="{{product.quota}}"
       />
     </view>
     <view class="actionSheetBtGroup">

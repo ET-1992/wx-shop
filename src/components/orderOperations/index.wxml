@@ -19,16 +19,16 @@
     open-type="contact"
     session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}|from=order|orderId={{ order.id }}"
   >申请售后</button>
-  <view
+  <button
     class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     bindtap="onCloseOrder"
     wx:if="{{ statusCode === 1 }}"
-  >取消订单</view>
-  <view
+  >取消订单</button>
+ <button
     class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-    bindtap="onPayOrder"
+    bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo"
     wx:if="{{ statusCode === 1 }}"
-  >去支付</view>
+  >去支付</button>
   <navigator
     class="statusBt"
     url="/pages/logistics/logistics?orderNo={{orderNo}}"

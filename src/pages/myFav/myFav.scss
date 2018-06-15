@@ -2,19 +2,16 @@
 page{
 	background: #fff;
 }
-.favList navigator{
-	width: 100%;
-	display: flex;
-	padding:0 30rpx;
-	justify-content: space-between;
-	align-items: center;
-}
+
 .favList{
 	border-bottom: 1px solid #eee;
+	margin: 0 30rpx;
 }
 .favItem{
+	width: 100%;
+	padding: 30rpx 0;
 	display: flex;
-	width: 600rpx;
+	justify-content: flex-start;
 	align-items: center;
 }
 button{
@@ -29,19 +26,23 @@ button{
 
 }
 .favList .avatar{
-	width: 80rpx;
-	height: 80rpx;
-	border-radius: 50%;
-
+	width: 200rpx;
+	height: 150rpx;
 }
 .favDetail{
 	display: flex;
 	flex-direction: column;
-	margin-left: 30rpx;
-	padding: 20rpx 0;
+	margin-left: 40rpx;
+	width: 65%;
+	button{
+		margin: 0 0 0 auto;
+	}
+	line-height:40rpx;
+
 }
 .m-tt{
 	color: #333;
+	font-size: 28rpx;
 	text-overflow:ellipsis; 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -50,7 +51,7 @@ button{
 }
 .m-desc{
 	color: #999;
-	font-size: 14px;
+	font-size: 24rpx;
 	margin-bottom: 10rpx;
 	text-overflow:ellipsis; 
     display: -webkit-box;
@@ -67,4 +68,12 @@ button{
 	top: 0;
 	bottom: 100px;
 	position: absolute;
+}
+
+.bottomHint {
+	text-align: center;
+	color: #ccc;
+	font-size: 10pt;
+    padding: 10rpx 0;
+    background-color: #f4f4f4;
 }

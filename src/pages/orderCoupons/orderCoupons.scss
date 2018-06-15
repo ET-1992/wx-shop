@@ -14,6 +14,7 @@ $footerHeight: 100rpx;
 	color: #fff;
 	font-size: 10pt;
 	height: $height;
+	z-index: 10000;
 
 	.statusItem {
 		width: 50%;

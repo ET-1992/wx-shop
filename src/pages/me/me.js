@@ -1,6 +1,5 @@
-import { USER_KEY } from 'constants/index';
 import api from 'utils/api';
-import getToken from 'utils/getToken';
+import { getUserInfo, getAgainUserForInvalid } from 'utils/util';
 
 const itemActions = {
 	address: wx.chooseAddress,
@@ -35,14 +34,14 @@ Page({
 
 	onLoad() {
 		// user用户客服对接
-		const user = wx.getStorageSync(USER_KEY);
 		const { themeColor } = app.globalData;
-		this.setData({ themeColor, user });
+		this.setData({ themeColor });
 	},
-
+	
 	async onShow() {
+		const user = getUserInfo();
+		this.setData({ user });
 		this.loadOrderCount();
-
 	},
 
 	onLogin() {
@@ -63,4 +62,12 @@ Page({
 		const action = itemActions[name];
 		action();
 	},
+
+	async bindGetUserInfo(e) {
+		const { encryptedData, iv } = e.detail;
+		const user = await getAgainUserForInvalid({ encryptedData, iv });
+		this.setData({
+			user
+		})
+	}
 });

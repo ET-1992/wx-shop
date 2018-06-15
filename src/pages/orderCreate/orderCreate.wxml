@@ -1,93 +1,15 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<form
-  report-submit
-  bindsubmit="onPay"
->
-  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-  	<view class="itemList">
-     <view
-      class="item"
-      wx:for="{{ items }}"
-      wx:key="id"
-      >
-        <image
-          src="{{ item.image_url }}"
-          class="itemImage"
-          mode="aspectFill"
-        />
-        <view class="itemInfo">
-          <view class="itemName">{{ item.title }}</view>
-          <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
-          <view class="itemMeta">
-            <view class="itemPrice">￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
-            <view class="itemQuantity">x{{ item.quantity }}</view>
-          </view>
-        </view>
-     </view>
-    </view>
 
-    <view class="textareaWrapper">
-      <textarea
-        class="textarea"
-        maxlength="{{ 30 }}"
-        bindinput="onInput"
-        placeholder="买家留言"
-        placeholder-class="textarea-placeholder"
-      />
-    </view>
+<view class="orderCreateWrap">
+  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
 
-    <view bindtap="onAddress" class="address">
-      <image class="addressIcon" src="/icons/address.png"/>
-      <view wx:if="{{ !address.userName }}" class="addressValue">
-        添加地址
-      </view>
-      <view wx:if="{{ address.userName }}" class="addressValue addressInfo">
-        <view>
-          <view>
-              <text>收货人：{{ address.userName }} </text>
-              <text class="phone"> {{ address.telNumber }}</text>
-          </view>
-          <view>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</view>
-        </view>
-      </view>
-      <image class="rightIcon" src="/icons/right.png"/>
-    </view>
+  <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
 
-    <view class="priceInfo">
-      <view class="priceInfoItem">
-        <view class="priceInoItemTitle">商品金额</view>
-        <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
-      </view>
-      <view class="priceInfoItem" bindtap="onCoupon" wx:if="{{ !isGroupon }}">
-        <view class="priceInoItemTitle">
-          <text>优惠券</text>
-          <text
-            wx:if="{{ coupons.recommend.id && coupons.recommend.id === coupons.selected.id  }}"
-            class="recommendCouponHint"
-          >已选推荐优惠券</text>
-        </view>
-        <view class="priceInfoItemValue">
-          <text>-￥{{ couponPrice }}</text>
-          <image class="rightIcon" src="../../icons/right.png"/>
-        </view>
-
-      </view>
-      <view class="priceInfoItem">
-        <view class="priceInoItemTitle">运费</view>
-        <view class="priceInfoItemValue">￥{{ totalPostage }}</view>
-      </view>
-    </view>
-
-    <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-      <view class="totalPrice">
-        <text class="totalPriceTitle">实付款：</text>
-        <text class="totalPriceValue">￥{{ orderPrice }}</text>
-      </view>
-        <button
-          class="normalizeBt payBt"
-          style="background-color: {{ themeColor.primaryColor }}"
-          form-type="submit"
-        >去支付</button>
-    </view>
+  <view class="textareaWrapper">
+    <textarea class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
-</form>
+
+  <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin= "{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
+
+  <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
+</view>
+<orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" bindonpay="onPay"></orderPay>

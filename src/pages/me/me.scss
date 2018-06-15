@@ -9,6 +9,13 @@
 	flex-direction: column;
 	align-items: center;
 
+	.head-button {
+		background-color: $mainColor;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
 	.avatar {
 		$size: 130rpx;
 
@@ -18,6 +25,13 @@
 		border: 1px solid #fff;
 		margin-bottom: 10rpx;
 		overflow: hidden;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.text {
+		color: #fff;
+		font-size: 14px;
 	}
 
 	.unlogin{

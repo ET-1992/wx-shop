@@ -1,5 +1,4 @@
 import api from 'utils/api';
-
 const app = getApp();
 
 
@@ -25,19 +24,10 @@ Page({
 
 
 	async onLoad () {
-		const { currentOrder: { coupons }, themeColor } = app.globalData;
+		const { themeColor } = app.globalData;
+		const coupons = wx.getStorageSync('orderCoupon');
 		const { available, unavailable } = coupons;
-
-		// available.forEach((coupon) => {
-		// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
-		// });
-		// unavailable.forEach((coupon) => {
-		// 	coupon.description = coupon.description.replace(/\n/g, '<br/>');
-		// });
-
 		this.setData({ coupons, themeColor });
-		// const data = await api.hei.fetchMyCouponList();
-		// this.setData({ coupons: data })
 	},
 
 	onStautsItemClick(ev) {
@@ -51,16 +41,22 @@ Page({
 	},
 
 	onCouponClick(ev) {
-		const { coupon, index } = ev.currentTarget.dataset;
-		const { selected } = this.data.coupons;
+		const { index } = ev.currentTarget.dataset;
+		const { coupons } = this.data;
+		if ( coupons.recommend === coupons.available[index] ) {
+			coupons.recommend = {};
+		} else {
+			coupons.recommend = coupons.available[index];
+		}
 		this.setData({
-			'coupons.selected': selected.id === coupon.id ? {} : coupon
+			coupons
 	 	});
 	},
 
 	onComfirm() {
 		const { coupons } = this.data;
-		app.globalData.currentOrder.coupons = coupons;
+		// app.globalData.currentOrder.coupons = coupons;
+		app.event.emit('getCouponIdEvent', coupons.recommend);
 		console.log(app.globalData.currentOrder);
 		wx.navigateBack({
 			delta: 1

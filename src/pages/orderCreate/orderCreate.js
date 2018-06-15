@@ -2,7 +2,8 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
-
+import Event from 'utils/event';
+// import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
 Page({
@@ -12,11 +13,8 @@ Page({
 		savePrice: 0,
 		totalPrice: 0,
 		items: [],
-
-		isGrouponBuy: false,
 		grouponId: '',
 		isCancel: false,
-
 		address: {
 			userName: '',
 		},
@@ -31,25 +29,36 @@ Page({
 			selected: {},
 		},
 		nowTS: Date.now() / 1000,
+		wallet: {},
+		coin_in_order: {},
+		fee: {},
+		useCoin: 0, // 使用多少金币
+		shouldGoinDisplay: false, // 是否显示金币
+		maxUseCoin: 0, // 最多可使用金币
+		finalPay: 0,
+		user_coupon_ids: '', //选择的优惠券ID
+		isGrouponBuy: false, // 是否拼团订单
+		isHaveUseCoupon: true
 	},
 
-	onLoad() {
+	// onLoad() {
+	// 	const { themeColor } = app.globalData;
+	// 	const { isIphoneX } = app.systemInfo;
+	// 	this.setData({ themeColor, isIphoneX });
+	// },
+
+	async onLoad() {
+		// this.checkPhoneModel();
 		const { themeColor } = app.globalData;
 		const { isIphoneX } = app.systemInfo;
 		this.setData({ themeColor, isIphoneX });
-	},
-
-	async onShow() {
 		try {
 			// isCancel 仅在跳转支付后返回 标识是否取消支付
 			const { isCancel, order_no, grouponId, isGrouponBuy } = this.options;
-			// const { isGroupon, grouponId, skuId, quantity } = wx.getStorageSync(
-			// 	'orderCreate',
-			// );
 			const { currentOrder } = app.globalData;
 			const { items, totalPostage } = currentOrder;
 			const address = wx.getStorageSync(ADDRESS_KEY) || {};
-			const totalPrice = Number(currentOrder.totalPrice).toFixed(2);
+			const totalPrice = currentOrder.totalPrice;
 			// let totalPostage = 0;
 
 			if (isCancel) {
@@ -58,63 +67,31 @@ Page({
 				});
 			}
 
-			// let couponPrice = 0;
-
-			// currentOrder.coupons为true时代表已经获取过可使用优惠券，手动选择优惠券后回到本页面的情况
-			if (!isGrouponBuy && !currentOrder.coupons) {
-				const {
-					recommend,
-					unavailable,
-					available,
-				} = await api.hei.fetchMyCouponList({ posts: JSON.stringify(items) });
-
-				currentOrder.coupons = {
-					recommend,
-					unavailable,
-					available,
-					selected: recommend,
-				};
-			}
-
-			const hasSelectedCoupon =
-				currentOrder.coupons &&
-				currentOrder.coupons.selected &&
-				currentOrder.coupons.selected.id;
-
-			if (hasSelectedCoupon) {
-				const { type, reduce_cost, discount } = currentOrder.coupons.selected;
-				currentOrder.couponPrice =
-					+type === 1 ? reduce_cost : (totalPrice * discount / 100).toFixed(2);
-			}
-			else {
-				currentOrder.couponPrice = 0;
-			}
-
-			// 使用reduce 或者不需要再次计算总运费, 直接传过来
-			// currentOrder.items.forEach((item) => {
-			// 	const { postage } = item;
-			// 	if (postage > totalPostage) {
-			// 		totalPostage = postage;
-			// 	}
-			// });
-
-			const orderPrice = Number(totalPrice) + Number(totalPostage) - Number(currentOrder.couponPrice);
-
-			// currentOrder.totalPostage = totalPostage;
-			currentOrder.isGrouponBuy = isGrouponBuy;
-			currentOrder.grouponId = grouponId;
-			currentOrder.address = address;
-			currentOrder.orderPrice =
-				orderPrice >= 0 ? orderPrice.toFixed(2) : '0.00';
-			this.setData(currentOrder);
-		}
+			this.setData({
+				address,
+				totalPrice,
+				items,
+				isGrouponBuy: isGrouponBuy || null,
+				grouponId: grouponId || null,
+				totalPostage
+			}, () => {
+				if (!isGrouponBuy) {
+					app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
+					this.onLoadData();
+				} else {
+					this.computedFinalPay();
+				}
+			})
+	}
 		catch (err) {
-			showModal({
+			wx.showModal({
 				title: '温馨提示',
 				content: err.errMsg,
 				showCancel: false,
 			});
 		}
+
+		console.log(this.data);
 	},
 
 	onUnload() {
@@ -123,6 +100,7 @@ Page({
 
 		// console.log(JSON.stringify(app.globalData.currentOrder));
 		wx.removeStorageSync('orderCreate');
+		app.event.off('getCouponIdEvent', this);
 	},
 
 	onHide() {
@@ -137,32 +115,101 @@ Page({
 	},
 
 	async onAddress() {
-		const { authSetting } = await getSetting();
-
-		// authSetting['scope.address']可能值：
-		// 没有值  初始化状态 系统会自动弹框询问授权
-		// false  此时需要使用openSetting
-		if (authSetting['scope.address'] === false) {
-			await openSetting();
-		}
 		const address = await chooseAddress();
 		wx.setStorageSync(ADDRESS_KEY, address);
-		this.setData({ address });
+		this.setData({ address }, () => {
+			this.onLoadData();
+		});
 	},
 
-	async onCoupon() {
+	async getCouponId() {
 		const { coupons } = this.data;
-
-		// app.globalData.currentOrderCoupons = coupons;
-		//
-		// WARNING globalData若是指向this.data对象，若在其他页面改动，会导致这个页面的this.data有问题！！！
-		app.globalData.currentOrder = this.data;
+		wx.setStorageSync('orderCoupon', coupons);
 		wx.navigateTo({
 			url: '/pages/orderCoupons/orderCoupons',
 		});
 	},
 
+	getCouponIdEvent(data) {
+		this.setData({
+			user_coupon_ids: (data && data.user_coupon_id) || -1
+		}, () => {
+			this.onLoadData();
+		})
+	},
+
+	async onLoadData() {
+		const { address, items, totalPrice, user_coupon_ids} = this.data;
+		console.log(totalPrice, 'totalPrice')
+		let requestData;
+		if (address) {
+			requestData = {
+				receiver_name: address.userName,
+				receiver_phone: address.telNumber,
+				receiver_country: address.nationalCode,
+				receiver_state: address.provinceName,
+				receiver_city: address.cityName,
+				receiver_district: address.countyName,
+				receiver_address: address.detailInfo,
+				receiver_zipcode: address.postalCode
+			};
+		}
+
+		if (user_coupon_ids) {
+			requestData.user_coupon_ids = user_coupon_ids;
+		}
+		requestData.posts = JSON.stringify(items);
+		const { coupons, wallet, coin_in_order, fee } = await api.hei.orderPrepare(requestData);
+		const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+		const maxUseCoin = Math.floor(fee.amount * coin_in_order.percent_in_order);
+		const useCoin = Math.min(maxUseCoin, wallet.coins);
+		this.setData({
+			coupons,
+			wallet,
+			coin_in_order,
+			fee,
+			shouldGoinDisplay,
+			maxUseCoin,
+			useCoin,
+			user_coupon_ids: coupons.recommend.user_coupon_id,
+			isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false
+		}, () => {
+			this.computedFinalPay();
+		})
+	},
+
+	setUseCoin(e) {
+		this.setData({
+			useCoin: e.detail || 0
+		}, () => {
+			this.computedFinalPay();
+		})
+	},
+
+	computedFinalPay() {
+		const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
+		let finalPay = 0;
+		if (!isGrouponBuy) {
+			if (shouldGoinDisplay) {
+				finalPay = fee.amount - useCoin/100;
+			} else {
+				finalPay = fee.amount;
+			}
+			if (finalPay < 0) {
+				finalPay = 0;
+			}
+			finalPay = Number(finalPay).toFixed(2);
+		} else {
+			finalPay = Number(totalPostage + totalPrice).toFixed(2);
+		}
+
+		this.setData({
+			finalPay
+		})
+	},
+
 	async onPay(ev) {
+		console.log(ev, 'ev');
 		const { formId } = ev.detail;
 		const {
 			address,
@@ -170,7 +217,9 @@ Page({
 			buyerMessage,
 			grouponId,
 			isGrouponBuy,
-			coupons,
+			user_coupon_ids,
+			useCoin,
+			shouldGoinDisplay
 		} = this.data;
 		const {
 			userName,
@@ -183,7 +232,7 @@ Page({
 			detailInfo,
 		} = address;
 		const { vendor } = app.globalData;
-		const couponId = coupons.selected && coupons.selected.id;
+		console.log(vendor);
 
 		if (!userName) {
 			wx.showModal({
@@ -217,8 +266,12 @@ Page({
 			vendor,
 		};
 
-		if (couponId) {
-			requestData.coupon_id = couponId;
+		if (user_coupon_ids) {
+			requestData.user_coupon_ids = user_coupon_ids;
+		}
+
+		if (useCoin && shouldGoinDisplay) {
+			requestData.coins = useCoin;
 		}
 
 		// 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
@@ -242,10 +295,10 @@ Page({
 
 
 			const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
-			console.log('status:', status);
+			// console.log(order_no, status, pay_sign, pay_appid, 'pay');
 			wx.hideLoading();
 
-			if (this.data.orderPrice <= 0) {
+			if (this.data.finalPay <= 0) {
 				wx.redirectTo({
 					url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
 				});
@@ -292,4 +345,15 @@ Page({
 			});
 		}
 	},
+
+	// checkPhoneModel() {
+	// 	wx.getSystemInfo({
+	// 		success: (res) => {
+	// 			this.setData({
+	// 				phoneModel: phoneStyle[res.model] || ''
+	// 			});
+	// 			console.log(res.model);
+	// 		}
+	// 	});
+	// }
 });

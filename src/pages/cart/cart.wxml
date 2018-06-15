@@ -1,6 +1,6 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container {{ phoneModel + '-style' }}">
+<view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
 
   <template is="loading" wx:if="{{ isLoading }}"/>
 
@@ -94,6 +94,7 @@
               max="{{ item.stock }}"
               bindquantityChangeEvent="updateCart"
               isDisabled ="{{ true }}"
+              quota="{{ item.quota }}"
             />
             <view
               class="delete"
@@ -124,6 +125,7 @@
               skuId="{{ item.sku_id }}"
               max="{{ item.stock }}"
               bindquantityChangeEvent="updateCart"
+              quota="{{ item.quota }}"
             />
             <view
               class="delete"
@@ -164,8 +166,8 @@
       <view
         class="priceMeta"
       >
-        <text class="postage"
-        >运费：￥{{ totalPostage }}</text>
+        <!-- <text class="postage"
+        >运费：￥{{ totalPostage }}</text> -->
         <text
         >已节省：￥{{ savePrice }}</text>
       </view>

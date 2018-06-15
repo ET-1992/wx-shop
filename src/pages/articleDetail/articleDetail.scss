@@ -42,6 +42,12 @@ page{
 	line-height:1.8;
 	max-width: 750rpx;
 
+	.wxParse-p {
+		image {
+			max-width: 100% !important;
+		}
+	}
+
 	.m-header{
 		padding: 30rpx;
 	}
@@ -72,7 +78,7 @@ swiper image{
 	color: #333;
 	padding: 20rpx;
 	line-height: 1.2;
-	margin:70rpx 0;
+	margin:70rpx auto;
 	box-shadow:2px 2px 12px #ccc;
 	border-radius:4px;
 	/*display: flex;

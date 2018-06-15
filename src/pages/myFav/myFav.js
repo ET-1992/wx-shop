@@ -7,55 +7,38 @@ Page({
    */
   data: {
     topics: [],
-        next_first: null,
-        next_cursor: null,
-        isLoading: false,
-        isPull: false,
-        share_title:'',
-        page_title:''
+    next_cursor: 0,
+    isLoading: true,
+    share_title:'',
+    page_title:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     this.getFavList()
       wx.setNavigationBarTitle({
         title: '我的收藏'
       });
   },
+
   async getFavList(){
-    if (this.data.isLoading) return;
+		const { next_cursor } = this.data;
+    const favData = await api.hei.queryFavList({
+      cursor: next_cursor,
+    });
+    const newData = this.data.topics.concat(favData.articles);
     this.setData({
-      isLoading: true
+      topics: newData,
+      isLoading: false,
+      next_cursor: favData.next_cursor,
     })
-    const res = await api.hei.queryFavList({
-      
-    })
-     let args = {};
-      if (res.next_first) {
-        args.next_first = res.next_first
-      }
-      if (this.data.isPull) {
-        if (res.next_cursor) {  // 下拉刷新数据超过一页
-          args.topics = res.articles
-          args.next_cursor = res.next_cursor
-        } else {
-          args.topics = [].concat(res.articles, this.data.topics)
-        }
-      } else {
-        args.topics = [].concat(this.data.topics, res.articles)
-        args.next_cursor = res.next_cursor
-      }
-      if (this.data.isPull) {
-        wx.stopPullDownRefresh()
-      }
-      args.isLoading = false;
-      args.isPull = false;
-      this.setData(args)
+    console.log(this.data.topics);
+    return data;
   },
+
   async unfav(e) {
-     
       wx.showModal({
         title:'确定取消收藏吗？',
         async success(){
@@ -75,54 +58,26 @@ Page({
                      console.log(res)
                 }
               })
-            
           })
-        
         }
-
       })
   },
-  /** 
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
   
-  },
-
-
-
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-        this.setData({isPull: true})
-        this.loadTopics({first: this.data.next_first})
-    },
-    onReachBottom: function() {
-        if(this.data.next_cursor){
-            this.loadTopics({cursor: this.data.next_cursor})
-        }
-    },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    this.setData({ 
+      next_cursor: 0,
+      topics: [],
+      isLoading: true
+    });
+    this.getFavList();
+    wx.stopPullDownRefresh();
+  },
+  onReachBottom: function() {
+    const { next_cursor } = this.data;
+    if (!next_cursor) { return; }
+    this.getFavList();
   }
 })
