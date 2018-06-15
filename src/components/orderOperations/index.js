@@ -96,7 +96,7 @@ Component({
 
 					console.log(this.data);
 					await wx.navigateToMiniProgram({
-						envVersion: 'develop',
+						envVersion: 'release',
 						appId: pay_appid,
 						path: `/pages/peanutPay/index?order_no=${orderNo}`,
 						extraData: {
