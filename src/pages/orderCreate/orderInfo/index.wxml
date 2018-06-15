@@ -5,7 +5,7 @@
     </view>
 
     <view wx:if="{{ !isGrouponBuy }}">
-        <text class="text">优惠卷</text>
+        <text class="text">优惠券</text>
         <text class="money">-￥{{ couponFeeDispaly }}</text>
     </view>
 

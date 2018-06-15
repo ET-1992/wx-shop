@@ -65,7 +65,7 @@ Page({
 		//-----------------处理价格显示
 		let info = {};
 
-		info.couponFeeDispaly = order.coupon_discount_fee; //优惠卷
+		info.couponFeeDispaly = order.coupon_discount_fee; //优惠券
 		info.couponFee = Number(order.coupon_discount_fee);
 
 		info.coinForPayDispaly = order.coins_fee; // 金币
