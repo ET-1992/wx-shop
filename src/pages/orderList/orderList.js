@@ -56,10 +56,12 @@ Page({
 
 	onStautsItemClick(ev) {
 		const { value } = ev.currentTarget.dataset;
-		if (value === this.data.activeId) { return; }
+		const index = this.getIndex(value);
+		console.log(index, this.data.activeIndex)
+		if (index === this.data.activeIndex) { return; }
 		this.setData({
 			selectedStatus: value,
-			activeIndex: this.getIndex(value),
+			activeIndex: index,
 			isRefresh: true,
 			next_cursor: 0
 		});
