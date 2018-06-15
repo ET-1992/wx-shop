@@ -39,7 +39,8 @@ Page({
 	},
 
     async loadCart() {
-		this.checkPhoneModel();
+		// this.checkPhoneModel();
+		const { isIphone5 } = app.systemInfo;
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
 		const data = await api.hei.fetchCartList();
 		const items = data && data.items || [];
@@ -56,7 +57,8 @@ Page({
             items,
             isSelectedObject,
 			isAllSelected,
-			isLoading: false
+			isLoading: false,
+			isIphone5
         });
         this.calculatePrice();
 	},
@@ -65,15 +67,15 @@ Page({
         return Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]) && !Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]).length > 0;
 	},
 	
-    checkPhoneModel() {
-		wx.getSystemInfo({
-			success: (res) => {
-				this.setData({
-					phoneModel: phoneStyle[res.model] || ''
-				});
-			}
-		});
-	},
+    // checkPhoneModel() {
+	// 	wx.getSystemInfo({
+	// 		success: (res) => {
+	// 			this.setData({
+	// 				phoneModel: phoneStyle[res.model] || ''
+	// 			});
+	// 		}
+	// 	});
+	// },
 	
 	onHandleItemSelect(e) {
 		let { itemId } = e.currentTarget.dataset;

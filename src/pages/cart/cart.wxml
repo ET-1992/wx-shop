@@ -1,6 +1,6 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container {{ phoneModel + '-style' }}">
+<view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
 
   <template is="loading" wx:if="{{ isLoading }}"/>
 

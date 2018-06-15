@@ -19,5 +19,6 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 export const STATUS_TEXT = ['', '等待买家付款', '等待卖家发货', '卖家已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭', '', '待成团'];
 
 export const phoneStyle = {
-	'iPhone 5': 'iphone5'
+	'iPhone 5': 'iphone5',
+	'iPhone X': 'iphoneX'
 }

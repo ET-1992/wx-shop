@@ -3,6 +3,10 @@ Component({
 		finalPay: {
             type: null,
             value: 0.00
+        },
+        isIphoneX: {
+            type: Boolean,
+            value: false
         }
     },
     methods: {
