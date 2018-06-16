@@ -58,7 +58,7 @@ Component({
 				return;
 			}
 
-			if (isAdd && value >= quota) {
+			if (quota > 0 && isAdd && value >= quota) {
 				wx.showModal({
 					title: '温馨提示',
 					content: `每人限购${quota}件`,
