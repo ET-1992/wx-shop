@@ -1,6 +1,6 @@
 <import src="/templates/loading/loading.wxml"/>
 
-<view class="container {{ ((isFinished && hasRecived) || !redpacket) ? 'finishedBgImage' : 'normalBgImage' }}">
+<view class="container {{ (isFinished && hasRecived) ? 'finishedBgImage' : 'normalBgImage' }}">
   <view
     class="coupon couponBgImage {{ isIphone5? 'iphone5-style' : '' }}"
     wx:if="{{ redpacket.item_type == 1 && !isFinished && hasRecived }}"
@@ -25,7 +25,7 @@
   <button
       class="normalizeBt"
       bindtap="onRecive"
-      wx:if="{{ !hasRecived && redpacket }}"
+      wx:if="{{ !isFinished && !hasRecived }}"
     >
     <image class="receiveRedpacketBg" src="/icons/receiveRedpacketBt.png"/>
   </button>
