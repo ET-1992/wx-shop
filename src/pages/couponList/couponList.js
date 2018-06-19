@@ -8,76 +8,76 @@ import { showToast, showModal } from 'utils/wxp';
 
 const app = getApp();
 Page({
-	data: {
-		coupons: [],
-	},
+    data: {
+        coupons: [],
+    },
 
-	async onLoad(options) {
-		this.loadCoupon();
-	},
+    async onLoad(options) {
+        this.loadCoupon();
+    },
 
-	async loadCoupon() {
-		const { vendor } = app.globalData;
-		const data = await api.hei.fetchCouponList({ vendor });
-		this.setData(data);
-	},
+    async loadCoupon() {
+        const { vendor } = app.globalData;
+        const data = await api.hei.fetchCouponList({ vendor });
+        this.setData(data);
+    },
 
-	async onReceiveCoupon(id, index) {
-		const { coupons } = this.data;
-		try {
-			const data = await api.hei.receiveCoupon({
-				coupon_id: id,
-			});
-			console.log(data);
-			const { errcode } = data;
+    async onReceiveCoupon(id, index) {
+        const { coupons } = this.data;
+        try {
+            const data = await api.hei.receiveCoupon({
+                coupon_id: id,
+            });
+            console.log(data);
+            const { errcode } = data;
 
-			if (!errcode) {
-				showToast({ title: '领取成功' });
-				const updateData = {};
-				const key = `coupons[${index}].status`;
-				updateData[key] = 4;
-				console.log(updateData);
-				this.setData(updateData);
-			}
-		}
-		catch (err) {
-			await showModal({
-				title: '温馨提示',
-				content: err.errMsg,
-				showCancel: false,
-			});
-		}
-	},
+            if (!errcode) {
+                showToast({ title: '领取成功' });
+                const updateData = {};
+                const key = `coupons[${index}].status`;
+                updateData[key] = 4;
+                console.log(updateData);
+                this.setData(updateData);
+            }
+        }
+        catch (err) {
+            await showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false,
+            });
+        }
+    },
 
-	async onCouponClick(ev) {
-		console.log(ev);
-		const { id, index, status, title } = ev.currentTarget.dataset;
-		// const token = getToken();
+    async onCouponClick(ev) {
+        console.log(ev);
+        const { id, index, status, title } = ev.currentTarget.dataset;
+        // const token = getToken();
 
-		// if (!token) {
-		// 	const { confirm } = await showModal({
-		// 		title: '未登录',
-		// 		content: '请先登录，再领取优惠券',
-		// 		confirmText: '前往登录',
-		// 	});
-		// 	if (confirm) {
-		// 		wx.navigateTo({ url: '/pages/login/login' });
-		// 	}
-		// 	return;
-		// }
+        // if (!token) {
+        // 	const { confirm } = await showModal({
+        // 		title: '未登录',
+        // 		content: '请先登录，再领取优惠券',
+        // 		confirmText: '前往登录',
+        // 	});
+        // 	if (confirm) {
+        // 		wx.navigateTo({ url: '/pages/login/login' });
+        // 	}
+        // 	return;
+        // }
 
-		if (+status === 2) {
-			await this.onReceiveCoupon(id, index);
-		}
-		else {
-			wx.navigateTo({
-				url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
-			});
-		}
-	},
+        if (Number(status) === 2) {
+            await this.onReceiveCoupon(id, index);
+        }
+        else {
+            wx.navigateTo({
+                url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
+            });
+        }
+    },
 
-	reLoad() {
-		this.loadCoupon();
-	},
+    reLoad() {
+        this.loadCoupon();
+    },
 
 });

@@ -1,6 +1,6 @@
 Component({
-	properties: {
-		finalPay: {
+    properties: {
+        finalPay: {
             type: null,
             value: 0.00
         },
@@ -12,7 +12,7 @@ Component({
     methods: {
         onPay(e) {
             const { formId } = e.detail;
-            this.triggerEvent('onpay', {formId}, { bubbles: true })
+            this.triggerEvent('onpay', { formId }, { bubbles: true });
         }
     }
 });

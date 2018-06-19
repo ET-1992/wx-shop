@@ -1,9 +1,9 @@
 Component({
-	properties: {
-		address: {
-			type: Object,
-			value: {},
-		}
-	}
+    properties: {
+        address: {
+            type: Object,
+            value: {},
+        }
+    }
 });
 
