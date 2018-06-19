@@ -177,9 +177,7 @@
   <!-- <view class="bottomHint">-这是一条底线-</view> -->
 </view>
 <view id="loadProducts" class="logo" hidden="{{hasMask}}">
-  <image src="../../icons/hausheng.png">
-  </image>
-  <text>花生小店提供技术和电商支持</text>
+  <image src="../../icons/logo.png"></image>
 </view>
 
 <!-- 新用戶优惠券弹框 -->

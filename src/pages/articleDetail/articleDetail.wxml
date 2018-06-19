@@ -23,18 +23,20 @@
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
 
-	<view wx:if="{{article.label && article.products.length}}" class="label"><view class="dash"></view>{{article.label}}<view class="dash"></view></view>
+	<view wx:if="{{article.label && article.products.length}}" class="label">
+		<view class="dash">·</view>{{article.label}}<view class="dash">·</view>
+	</view>
 	<view class="relateShop" wx:if="{{product.length}}">
 		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
 			<image src="{{item.thumbnail}}"></image>
 			<view class="meta">
 				<view class="name">{{item.title}}</view>
-				<view class="desc">{{item.excerpt}}</view>
+				<!-- <view class="desc">{{item.excerpt}}</view> -->
 			</view>
 			<view class="price">
-				<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥{{item.miaosha_price}}</view>
-				<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥{{item.groupon_price}}</view>
-				<view class="originalPrice" wx:else>￥{{item.price}}</view>
+				<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥<text>{{item.miaosha_price}}</text></view>
+				<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥<text>{{item.groupon_price}}</text></view>
+				<view class="originalPrice" wx:else>￥<text>{{item.price}}</text></view>
 				<view
           class="toBuy"
           style="background-color: {{ themeColor.primaryColor }}"
@@ -47,31 +49,24 @@
 <!-- 底部评论栏 -->
 <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<view class="footerItem">
-		<navigator
-      class="returnIndex"
-      url="/pages/home/home"
-      wx:if="{{ currentPageLength === 1 }}"
-      open-type="switchTab"
-    >
-			<image src="../../icons/goIndex.png"></image>
+		<!-- 返回首页 -->
+		<navigator class="favItem" url="/pages/home/home" open-type="switchTab">
+			<view class="homeIcon"></view>
 			<text>首页</text>
 		</navigator>
 		<!-- 分享 -->
-		<view class="share">
-			<button class="shareIcon btn_no_style" open-type="share">
-				<image src="../../icons/share.png">
-				</image>
-				<text>分享</text>
-			</button>
-		</view>
+		<navigator class="favItem" open-type="share">
+			<view class="shareIcon"></view>
+			<text>分享</text>
+		</navigator>
 	</view>
 
 	<view class="footerItem">
 			<!-- 收藏 -->
 		<view class="fav">
 			<view wx:if="{{is_faved}}" class="favItem" >
-		    <view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
-		    <text> {{fav_count}}</text>
+		    	<view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
+		    	<text> {{fav_count}}</text>
 			</view>
 			<view class="favItem" wx:else>
 				<view class="faved"  bindtap="onToggleFav" data-index="{{idx}}" id="{{article.id}}"></view>

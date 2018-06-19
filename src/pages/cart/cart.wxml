@@ -37,11 +37,7 @@
           url="/pages/home/home"
           style="background-color: {{ themeColor.primaryColor  }}"
         >去选购</navigator>
-        <view class="logo">
-          <image src="../../icons/hausheng.png">
-          </image>
-          <text>花生小店提供技术和电商支持</text>
-        </view>
+        <view class="logo"><image src="../../icons/logo.png"></image></view>
     </view>
 
   </view>

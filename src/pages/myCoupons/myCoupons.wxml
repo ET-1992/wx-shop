@@ -1,6 +1,5 @@
 <import src="/templates/couponItem/couponItem.wxml"/>
 <import src="/templates/loading/loading.wxml"/>
-
 <view class="container">
 	<view
     class="statusBar"
@@ -42,7 +41,7 @@
       wx:for="{{ coupons[selectedStatus] }}"
       wx:key="id"
       bindtap="onCouponClick"
-      data-id="{{ item.id }}"
+      data-usercouponid="{{ item.user_coupon_id }}"
       data-status="{{ item.status }}"
       data-title="{{ item.title }}"
     >
