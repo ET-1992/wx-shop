@@ -8,7 +8,8 @@ Page({
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		redpacket: {},
 		products: [],
-		hasRecived: false
+		hasRecived: false,
+		isFinished: false
 	},
 
 	async loadRepacket() {
@@ -24,7 +25,6 @@ Page({
 		this.setData({
 			products,
 			redpacket: received_redpacket,
-			hasRecived: !!received_redpacket,
 			isIphone5,
 			goldNumer: goldNumer
 		});
@@ -45,6 +45,7 @@ Page({
 			await showToast({ icon: 'success', title: '领取成功' });
 			this.setData({
 				hasRecived: true,
+				isFinished: false,
 				products,
 				redpacket: received_redpacket,
 				goldNumer: goldNumer
@@ -53,6 +54,10 @@ Page({
 		} catch (e) {
 			if (e && e.errMsg) {
 				await showToast({ title: e.errMsg, icon: 'none' });
+				this.setData({
+					hasRecived: true,
+					isFinished: true
+				})
 			}
 		}
 	},
