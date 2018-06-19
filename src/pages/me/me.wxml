@@ -1,10 +1,6 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <view
-    class="header"
-    style="background-color: {{ themeColor.primaryColor }}"
-  >
-
+  <view class="header" style="background-color: {{ themeColor.primaryColor }}">
     <button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
       <image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
       <text class="text">{{ !user.nickname ? '点击登陆' : user.nickname  }}</text>
@@ -21,10 +17,8 @@
       wx:if="{{ user.nickname }}"
     >{{ user.nickname }}</view>
 
-    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button>
-    -->
+    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button> -->
   </view>
-
   <view class="section orders">
     <navigator class="orderHeader" url="/pages/orderList/orderList">
       <view>我的订单</view>
@@ -33,14 +27,12 @@
         <image class="rightIcon" src="../../icons/right.png" />
       </view>
     </navigator>
-
     <view class="orderItems">
       <navigator class="orderItem" url="/pages/orderList/orderList?status=1">
         <view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
         <image class="statusIcon" src="../../icons/wallet.png" />
         <view>待付款</view>
       </navigator>
-
       <navigator class="orderItem" url="/pages/orderList/orderList?status=2">
         <view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
         <image class="statusIcon" src="../../icons/truck.png" />
@@ -58,7 +50,6 @@
       </navigator>
     </view>
   </view>
-
   <view class="section">
     <view bindtap="onItemClick" class="sectionItem" data-name="address">
       <image class="itemIcon" src="../../icons/address.png" />
@@ -66,33 +57,31 @@
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
   </view>
-
-	<view class="section">
-  	<navigator  url="/pages/orderList/orderList?status=10">
-    	<view class="sectionItem">
-    		<image class="itemIcon" src="../../icons/my.png" />
-    		<view class="itemTitle">我的拼团</view>
-    		<image class="rightIcon" src="../../icons/right.png" />
-    	</view>
-  	</navigator>
-	</view>
-
   <view class="section">
-    <navigator  class="sectionItem"  url="/pages/myCoupons/myCoupons">
+    <navigator url="/pages/orderList/orderList?status=10">
+      <view class="sectionItem">
+        <image class="itemIcon" src="../../icons/my.png" />
+        <view class="itemTitle">我的拼团</view>
+        <image class="rightIcon" src="../../icons/right.png" />
+      </view>
+    </navigator>
+  </view>
+  <view class="section">
+    <navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
       <image class="itemIcon" src="../../icons/coupon.png" />
       <view class="itemTitle">我的优惠券</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </navigator>
   </view>
   <view class="section">
-    <navigator  class="sectionItem"  url="/pages/coinDetail/coinDetail">
+    <navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
       <image class="itemIcon" src="../../icons/coin.png" />
       <view class="itemTitle">我的花生米</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </navigator>
   </view>
   <view class="section">
-    <navigator  class="sectionItem"  url="/pages/myFav/myFav">
+    <navigator class="sectionItem" url="/pages/myFav/myFav">
       <image class="itemIcon" src="../../icons/myfav.png" />
       <view class="itemTitle">我的收藏</view>
       <image class="rightIcon" src="../../icons/right.png" />
@@ -104,25 +93,18 @@
       <view class="itemTitle">系统通知</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </view>
-
-    <button
-      class="normalizeBt sectionItem contactBt"
-      data-name="contact"
-      open-type="contact"
-      session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}"
-    >
+    <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
       <image class="itemIcon" src="../../icons/contact.png" />
       <view class="itemTitle">联系客服</view>
       <image class="rightIcon" src="../../icons/right.png" />
     </button>
   </view>
-<!--  <view class="section">
+  <!-- <view class="section">
     <view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 </view> -->
 </view>
 <view class="logo">
-  <image src="../../icons/hausheng.png">
-  </image>
+  <image src="../../icons/hausheng.png"></image>
   <text>花生小店提供技术和电商支持</text>
 </view>
 <!-- <view class="mask" wx:if="{{active==1}}">
@@ -145,4 +127,3 @@
     <image src="../../icons/close.png"></image>
   </view>
 </view> -->
-

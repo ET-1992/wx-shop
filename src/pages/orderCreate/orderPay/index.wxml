@@ -1,6 +1,9 @@
 <form report-submit bindsubmit="onPay">
-    <view class="orderPay {{ isIphoneX ? 'iphoneX-style' : '' }}">
-        <text class="pay-text">实付款：<text> ￥{{ finalPay }} </text></text>
-        <button class="pay-button" form-type="submit">去支付</button>
-    </view>
+  <view class="orderPay {{ isIphoneX ? 'iphoneX-style' : '' }}">
+    <text class="pay-text">
+      实付款：
+      <text>￥{{ finalPay }}</text>
+    </text>
+    <button class="pay-button" form-type="submit">去支付</button>
+  </view>
 </form>

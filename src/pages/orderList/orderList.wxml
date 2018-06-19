@@ -1,81 +1,41 @@
 <view class="container">
-  <view
-    class="statusBar"
-    style="{{ newIndex == 1 ? 'display:none' : '' }}; background-color: {{ themeColor.primaryColor }}"
-  >
-     <view
-      class="statusItem"
-      wx:for="{{ status }}"
-      wx:key="name"
-      bindtap="onStautsItemClick"
-      data-value="{{ item.value }}"
-    >
-  <view>
-
-      <view
-        class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
-      >{{ item.name }}</view>
+  <view class="statusBar" style="{{ newIndex == 1 ? 'display:none' : '' }}; background-color: {{ themeColor.primaryColor }}">
+    <view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}">
+      <view>
+        <view class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}">
+          {{ item.name }}
+        </view>
+      </view>
     </view>
   </view>
-  </view>
-
-
-  <view class="emptyHint"
-        wx:if="{{ !orders.length && !isRefresh }}">
-    暂无内容
-  </view>
-
-<view class="orderItem {{newIndex==1?'refundItem' : ''}}" >
-     <view
-    class="order"
-    wx:for="{{ orders }}"
-    wx:key="id"
-    wx:for-item="order"
-    wx:for-index="orderIndex"
-  >
-    <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
-      <view class="item">
-        <image
-          class="itemImage"
-          src="{{ order.thumbnail }}"
-          mode="aspectFill"
-        />
-        <view class="itemInfo">
-          <view class="itemTitle">{{ order.items[0].title }}</view>
-          <view class="property">{{ order.items[0].sku_property_names }}</view>
-          <view class="itemPirceInfo">
-            <view>￥{{ order.items[0].price }}</view>
-            <view>x{{ order.items[0].quantity }}</view>
+  <view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}">暂无内容</view>
+  <view class="orderItem {{newIndex==1?'refundItem' : ''}}">
+    <view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
+      <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
+        <view class="item">
+          <image class="itemImage" src="{{ order.thumbnail }}" mode="aspectFill" />
+          <view class="itemInfo">
+            <view class="itemTitle">{{ order.items[0].title }}</view>
+            <view class="property">{{ order.items[0].sku_property_names }}</view>
+            <view class="itemPirceInfo">
+              <view>￥{{ order.items[0].price }}</view>
+              <view>x{{ order.items[0].quantity }}</view>
+            </view>
           </view>
         </view>
-      </view>
-      <view class="orderMeta">
-        <view
-          class="status"
-        >{{ order.statusText }}</view>
-        <view class="count">
-          <view>共{{ order.productCount }}件商品</view>
-          <view class="orderPrice">
-            实付款：<text class="orderPriceValue">￥{{ order.amount }}</text>
+        <view class="orderMeta">
+          <view class="status">{{ order.statusText }}</view>
+          <view class="count">
+            <view>共{{ order.productCount }}件商品</view>
+            <view class="orderPrice">
+              实付款：
+              <text class="orderPriceValue">￥{{ order.amount }}</text>
+            </view>
           </view>
         </view>
-      </view>
-    </navigator>
-    <orderOperations
-      statusCode="{{ order.statusCode }}"
-      orderNo="{{ order.order_no }}"
-      orderIndex="{{ orderIndex }}"
-      orders="{{orders}}"
-      bindconfirmOrder="onConfirmOrder"
-      bindpayOrder="onPayOrder"
-      bindcloseOrder="onCloseOrder"
-    />
+      </navigator>
+      <orderOperations statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" orderIndex="{{ orderIndex }}" orders="{{orders}}" bindconfirmOrder="onConfirmOrder" bindpayOrder="onPayOrder" bindcloseOrder="onCloseOrder" />
+    </view>
   </view>
-</view>
-
-  <view
-    class="bottomHint"
-    wx:if="{{ orders.length && !next_cursor }}"
-  >-这是一条底线-</view>
-
+  <view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
 </view>

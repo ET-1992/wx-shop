@@ -1,40 +1,19 @@
-<import src="../../templates/mock/mock.wxml"/>
-<import src="../../templates/loading/loading.wxml"/>
-<import src="../../templates/couponItem/couponItem.wxml"/>
-<import src="../../utils/wxParse/wxParse.wxml"/>
-
-<template is="loading" wx:if="{{ isLoading }}"/>
+<import src="../../templates/mock/mock.wxml" />
+<import src="../../templates/loading/loading.wxml" />
+<import src="../../templates/couponItem/couponItem.wxml" />
+<import src="../../utils/wxParse/wxParse.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
 <view>
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
     <view class="header" wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}">
       <swiperVideoImg id="swiperVideoImg" wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
-      <swiper
-        indicator-dots
-        autoplay="{{autoplay}}"
-        class="swiper"
-        wx:if="{{!product.video}}"
-        bindchange="currentIndex"
-        indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
-        indicator-color="#fff"
-      >
-        <swiper-item
-          wx:for="{{ product.images }}"
-          wx:key="id"
-          wx:for-item="image"
-        >
-          <image
-            src="{{ image }}"
-            mode="aspectFill"
-          />
+      <swiper indicator-dots autoplay="{{autoplay}}" class="swiper" wx:if="{{!product.video}}" bindchange="currentIndex" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
+        <swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
+          <image src="{{ image }}" mode="aspectFill" />
         </swiper-item>
       </swiper>
     </view>
-
-    <view
-      wx:if="{{ product.miaosha_enable === '1' }}"
-      class="flashCountdown"
-      style="background-color: {{ themeColor.primaryColor }}"
-    >
+    <view wx:if="{{ product.miaosha_enable === '1' }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
       <view class="title">限时购</view>
       <view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
       <view class="timeLimit">
@@ -48,7 +27,6 @@
         <view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
       </view>
     </view>
-
     <view class="info">
       <view class="title">{{ product.title }}</view>
       <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
@@ -57,7 +35,9 @@
           <view class="price">
             ￥
             <text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
-            <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</text>
+            <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">
+              {{ product.miaosha_price }}
+            </text>
             <text wx:else>{{ product.price}}</text>
           </view>
           <view class="originalPrice">￥{{ product.original_price }}</view>
@@ -65,299 +45,146 @@
         <view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
         <view class="sales">已售：{{ product.sales }}</view>
       </view>
-      <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">
-        限时购
-      </view>
+      <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view>
       <view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
         {{ product.groupon_member_limit + '人团' }}
       </view>
     </view>
-
-    <view
-      wx:if="{{ product.coupons && product.coupons.length }}"
-      class="coupons"
-      catchtap="onShowCouponList"
-    >
+    <view wx:if="{{ product.coupons && product.coupons.length }}" class="coupons" catchtap="onShowCouponList">
       <form bindsubmit="submitFormId" report-submit="true">
         <button formType="submit">
           <text>领券</text>
-        <!-- 只显示三个  -->
-          <view
-            class="coupon"
-            wx:for="{{ product.coupons }}"
-            wx:key="{{ item.id }}"
-            wx:if="{{ index < 3 }}"
-          >{{ item.title }}</view>
+          <!-- 只显示三个 -->
+          <view class="coupon" wx:for="{{ product.coupons }}" wx:key="{{ item.id }}" wx:if="{{ index < 3 }}">
+            {{ item.title }}
+          </view>
           <image class="rightIcon" src="/icons/right.png" />
         </button>
       </form>
     </view>
-
-    <view
-      wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}"
-      class="pendingGroupons"
-    >
+    <view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}" class="pendingGroupons">
       <view class="title">正在开团, 可直接参团</view>
-      <view
-        wx:for="{{ product.pending_groupons }}"
-        wx:key="id"
-        class="pendingGrouponWrapper"
-      >
-        <pendingGrouponItem
-          groupon="{{ item }}"
-          bindgroupEvent="grouponListener"
-        />
+      <view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
+        <pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" />
       </view>
     </view>
-
-    <view
-      class="grouponHint"
-      wx:if="{{ product.groupon_enable === '1' && !grouponId }}"
-    >
+    <view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
       <view class="title">拼团流程</view>
-      <image
-        class="grouponHintImage"
-        src="../../icons/grouponHint.png"
-      />
+      <image class="grouponHintImage" src="../../icons/grouponHint.png" />
     </view>
-
     <view class="detail">
       <view class="detailTitle">商品详情</view>
-      <template
-        is="wxParse"
-        data="{{ wxParseData:contentList.nodes }}"
-      />
+      <template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
     </view>
-
     <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-      <view
-        class="soldOutHint"
-        wx:if="{{ product.status === 'sold_out' }}"
-      >商品已经卖光啦~</view>
-      <view
-        class="unpublishedHint"
-        wx:if="{{ product.status === 'unpublished' }}"
-      >商品已经下架啦~</view>
-
-      <view
-        class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}"
-      >
-        <navigator
-          class="shop"
-          open-type="switchTab"
-          hover-class="navigator-hover"
-          url="/pages/home/home"
-        >
-          <image class="icon" src="../../icons/store.png"/>
+      <view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
+      <view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
+      <view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
+        <navigator class="shop" open-type="switchTab" hover-class="navigator-hover" url="/pages/home/home">
+          <image class="icon" src="../../icons/store.png" />
           店铺
         </navigator>
-        <navigator
-          class="cart"
-          open-type="switchTab"
-          hover-class="navigator-hover"
-          url="/pages/cart/cart"
-        >
-          <image class="icon" src="../../icons/shopcart.png"/>
+        <navigator class="cart" open-type="switchTab" hover-class="navigator-hover" url="/pages/cart/cart">
+          <image class="icon" src="../../icons/shopcart.png" />
           购物车
         </navigator>
-        <button
-          open-type="contact"
-          class="cart"
-          session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}|from=product|productId={{product.id}}"
-        >
-          <image class="icon" src="../../icons/context.png"/>
+        <button open-type="contact" class="cart" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}|from=product|productId={{product.id}}">
+          <image class="icon" src="../../icons/context.png" />
           <text>客服</text>
         </button>
-
-        <!-- 团购  -->
+        <!-- 团购 -->
         <block wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
-          <view
-            class="addCart multi"
-            catchtap="onShowSku"
-            data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买' }] }}"
-            style="background-color: {{ themeColor.secondaryColor }}"
-          >
+          <view class="addCart multi" catchtap="onShowSku" data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买' }] }}" style="background-color: {{ themeColor.secondaryColor }}">
             <view>￥{{ product.price }}</view>
             <view>单独购买</view>
           </view>
-          <view
-            class="buy multi"
-            catchtap="onShowSku"
-            data-is-groupon-buy
-            data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
-            style="background-color: {{ themeColor.primaryColor }}"
-          >
+          <view class="buy multi" catchtap="onShowSku" data-is-groupon-buy data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" style="background-color: {{ themeColor.primaryColor }}">
             <view>￥{{ product.groupon_price }}</view>
             <view>{{ product.groupon_member_limit }}人团</view>
           </view>
         </block>
-
-        <!-- 被邀请参团  -->
-        <block
-          wx:elif="{{ product.groupon_enable === '1' && grouponId }}"
-        >
-          <view
-            class="buy multi"
-            catchtap="onShowSku"
-            data-is-groupon-buy
-            data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
-            style="background-color: {{ themeColor.primaryColor }}"
-          >
+        <!-- 被邀请参团 -->
+        <block wx:elif="{{ product.groupon_enable === '1' && grouponId }}">
+          <view class="buy multi" catchtap="onShowSku" data-is-groupon-buy data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" style="background-color: {{ themeColor.primaryColor }}">
             <view>立即参团</view>
           </view>
         </block>
-
-        <!-- 秒杀或者普通商品  -->
+        <!-- 秒杀或者普通商品 -->
         <block wx:else>
-          <view
-            class="addCart"
-            catchtap="onShowSku"
-            data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}"
-            style="background-color: {{ themeColor.secondaryColor }}"
-          >加入购物车</view>
-          <view
-            class="buy"
-            catchtap="onShowSku"
-            data-actions="{{ [{ type: 'onBuy', text: '立即购买'}] }}"
-            style="background-color: {{ themeColor.primaryColor }}"
-          >立即购买</view>
+          <view class="addCart" catchtap="onShowSku" data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}" style="background-color: {{ themeColor.secondaryColor }}">
+            加入购物车
+          </view>
+          <view class="buy" catchtap="onShowSku" data-actions="{{ [{ type: 'onBuy', text: '立即购买'}] }}" style="background-color: {{ themeColor.primaryColor }}">
+            立即购买
+          </view>
         </block>
       </view>
     </view>
   </view>
 </view>
-
 <view class="actionSheet">
-  <template
-    is="mock"
-    data="{{ isShow: isShowAcitonSheet }}"
-  />
-  <view
-    class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-  >
+  <template is="mock" data="{{ isShow: isShowAcitonSheet }}" />
+  <view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <view style="width:100%">
       <scroll-view scroll-y class="scrollSkus">
         <view class="head">
-           <image
-            src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}"
-            class="productImage"
-            mode="aspectFill"
-          />
+          <image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" />
           <view class="productInfo">
             <view class="price">
-              <text
-                wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}"
-              >￥{{ product.groupon_price }}</text>
-              <text
-                wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}"
-              >￥{{ product.miaosha_price }}</text>
-              <text wx:else
-              >￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
+              <text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
+                ￥{{ product.groupon_price }}
+              </text>
+              <text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
+                ￥{{ product.miaosha_price }}
+              </text>
+              <text wx:else>￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
             </view>
-            <view class="stock">库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}</view>
-            <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
+            <view class="stock">
+              库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
+            </view>
+            <view class="property" wx:if="{{ product.skus.length }}">
+              已选择：{{ selectedSku.property_names || '--' }}
+            </view>
           </view>
         </view>
-
-        <view
-          class="sku"
-          wx:if="{{ product.skus && product.skus.length }}"
-        >
-          <view
-            class="skuGroup"
-            wx:for="{{ product.properties }}"
-            wx:for-item="property"
-            wx:for-index="propertyIndex"
-            wx:key="key"
-          >
-            <view class="title"
-            >{{ property.name }}</view>
-            <view
-              class="skuItem {{ selectedProperties[propertyIndex].value === item.name ? 'selected' : '' }} {{ disableSkuItems[item.name] ? 'disabled' : '' }}"
-              wx:for="{{ property.items }}"
-              wx:key="index"
-              data-is-disabled="{{ disableSkuItems[item.name] }}"
-              data-value="{{ item.name }}"
-              data-key="{{ property.name }}"
-              data-property-index="{{ propertyIndex }}"
-              catchtap="onSkuItem"
-              style="{{ selectedProperties[propertyIndex].value === item.name ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
-            >{{ item.name }}</view>
+        <view class="sku" wx:if="{{ product.skus && product.skus.length }}">
+          <view class="skuGroup" wx:for="{{ product.properties }}" wx:for-item="property" wx:for-index="propertyIndex" wx:key="key">
+            <view class="title">{{ property.name }}</view>
+            <view class="skuItem {{ selectedProperties[propertyIndex].value === item.name ? 'selected' : '' }} {{ disableSkuItems[item.name] ? 'disabled' : '' }}" wx:for="{{ property.items }}" wx:key="index" data-is-disabled="{{ disableSkuItems[item.name] }}" data-value="{{ item.name }}" data-key="{{ property.name }}" data-property-index="{{ propertyIndex }}" catchtap="onSkuItem" style="{{ selectedProperties[propertyIndex].value === item.name ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}">
+              {{ item.name }}
+            </view>
           </view>
         </view>
       </scroll-view>
       <view class="quantity">
         <view class="title">数量</view>
-        <numberInput
-          value="{{ quantity }}"
-          postId="{{ product.id }}"
-          skuId="{{ selectedSku.id }}"
-          max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
-          bindquantityChangeEvent="updateQuantity"
-          quota="{{ product.quota }}"
-        />
+        <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" />
       </view>
-      <form
-        catchsubmit="onFormSubmit"
-        report-submit="true"
-      >
+      <form catchsubmit="onFormSubmit" report-submit="true">
         <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-          <button
-            class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
-            wx:for="{{ actions }}"
-            wx:key="text"
-            disabled="{{ product.skus.length && !selectedSku.id }}"
-            data-action-type="{{ item.type }}"
-            form-type="submit"
-            bindgetuserinfo="onUserInfo"
-            open-type="getUserInfo"
-            lang="zh_CN"
-            style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
-          >{{ item.text }}</button>
+          <button class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" wx:for="{{ actions }}" wx:key="text" disabled="{{ product.skus.length && !selectedSku.id }}" data-action-type="{{ item.type }}" form-type="submit" bindgetuserinfo="onUserInfo" open-type="getUserInfo" lang="zh_CN" style="background-color: {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}">
+            {{ item.text }}
+          </button>
         </view>
       </form>
     </view>
   </view>
 </view>
-
-<view class="actionSheet" >
-  <template
-    is="mock"
-    data="{{ isShow: isShowCouponList }}"
-  />
+<view class="actionSheet">
+  <template is="mock" data="{{ isShow: isShowCouponList }}" />
   <view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <scroll-view class="couponList" scroll-y>
       <view class="title">优惠券</view>
       <view class="availableCoupon">
         <view class="couponListTitle">可领取优惠券</view>
-        <view
-          class="noCouponHint"
-          wx:if="{{ !receivableCoupons.length }}"
-        >暂无可领取优惠券</view>
-        <view
-          class="couponItemWrapper"
-          wx:for="{{ receivableCoupons }}"
-          wx:key="id"
-          data-id="{{ item.id }}"
-          data-status="{{ item.status }}"
-          data-title="{{ item.title }}"
-          data-index="{{ index }}"
-          catchtap="onCouponClick"
-        >
-          <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
+        <view class="noCouponHint" wx:if="{{ !receivableCoupons.length }}">暂无可领取优惠券</view>
+        <view class="couponItemWrapper" wx:for="{{ receivableCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" catchtap="onCouponClick">
+          <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}" />
         </view>
         <view class="couponListTitle">已领取优惠券</view>
-        <view
-          class="noCouponHint"
-          wx:if="{{ !receivedCoupons.length }}"
-        >暂无可领取优惠券</view>
-        <navigator
-          class="couponItemWrapper"
-          wx:for="{{ receivedCoupons }}"
-          wx:key="id"
-          url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
-        >
-          <template is="couponItem" data="{{ coupon: item, status: 'available' }}"/>
+        <view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">暂无可领取优惠券</view>
+        <navigator class="couponItemWrapper" wx:for="{{ receivedCoupons }}" wx:key="id" url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}">
+          <template is="couponItem" data="{{ coupon: item, status: 'available' }}" />
         </navigator>
       </view>
       <view class="gap" />

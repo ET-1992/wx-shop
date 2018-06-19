@@ -12,21 +12,19 @@
       </view>
       <button class="setClipboard" bindtap="setClipboard">复制单号</button>
     </view>
-
-
   </view>
-
   <view class="section address">
     <image class="addressIcon" src="/icons/address.png" />
     <view class="addressInfo">
       <view>
-        <text>收货人：{{ order.receiver_name }} </text>
-        <text class="phone"> {{ order.receiver_phone }}</text>
+        <text>收货人：{{ order.receiver_name }}</text>
+        <text class="phone">{{ order.receiver_phone }}</text>
       </view>
-      <view>收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}</view>
+      <view>
+        收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
+      </view>
     </view>
   </view>
-
   <view class="section">
     <view class="emptyHint" wx:if="{{ !logistics.list.length }}">暂无信息</view>
     <view class="item" wx:if="{{ logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">

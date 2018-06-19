@@ -1,79 +1,61 @@
-<import src="/templates/loading/loading.wxml"/>
-
-<template is="loading" wx:if="{{ isLoading }}"/>
-
+<import src="/templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
 <view class="container" wx:if="{{ !isLoading }}">
-
-
-
-<view class="section">
-  <view class="address">
-    <image class="addressIcon" src="/icons/address.png"/>
-    <view class="addressInfo">
-      <view>
-          <text>收货人：{{ address.userName }} </text>
-          <text class="phone"> {{ address.receiver_phone }}</text>
-      </view>
-      <view>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</view>
-    </view>
-  </view>
-</view>
-<view class="itemList">
- <view
-  class="item"
-  wx:for="{{ order }}"
-  wx:key="id"
-  >
-    <image
-      src="{{ item.image_url }}"
-      class="itemImage"
-      mode="aspectFill"
-    />
-    <view class="itemInfo">
-      <view class="left">
-        <view class="itemName">{{ item.title }}</view>
-        <view class="properties">{{ item.sku_property_names }}</view>
-      </view>
-      <view class="right">
+  <view class="section">
+    <view class="address">
+      <image class="addressIcon" src="/icons/address.png" />
+      <view class="addressInfo">
         <view>
-          <view class="price">￥{{ item.price }}</view>
-          <view class="originalPrice">￥{{ item.original_price }}</view>
+          <text>收货人：{{ address.userName }}</text>
+          <text class="phone">{{ address.receiver_phone }}</text>
         </view>
-        <view class="itemQuantity">x{{ item.quantity }}</view>
+        <view>
+          收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}
+        </view>
       </view>
     </view>
   </view>
-
-
-<view class="section priceInfo">
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
-  </view>
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">运费</view>
-    <view class="priceInfoItemValue">+￥{{ postage || 0 }}</view>
-  </view>
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">优惠券</view>
-    <view class="priceInfoItemValue">-￥{{ couponPrice || 0 }}</view>
-  </view>
-  <view class="priceInfoItem priceTotal">
-    <view class="priceInoItemTitle">实付款</view>
-    <view class="priceInfoItemValue">￥{{ orderPrice || 0 }}</view>
-  </view>
-</view>
-
-<view class="section buyerMessage">
-  <view class="buyerMessageContent">
-    买家留言：{{ buyer_message }}
-  </view>
-</view>
-
-<view class="section orderMeta">
-  <view class="item">支付方式: 微信支付</view>
-  <view class="item">订单编号: {{ orderNo }}</view>
-</view>
-
+  <view class="itemList">
+    <view class="item" wx:for="{{ order }}" wx:key="id">
+      <image src="{{ item.image_url }}" class="itemImage" mode="aspectFill" />
+      <view class="itemInfo">
+        <view class="left">
+          <view class="itemName">{{ item.title }}</view>
+          <view class="properties">{{ item.sku_property_names }}</view>
+        </view>
+        <view class="right">
+          <view>
+            <view class="price">￥{{ item.price }}</view>
+            <view class="originalPrice">￥{{ item.original_price }}</view>
+          </view>
+          <view class="itemQuantity">x{{ item.quantity }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="section priceInfo">
+      <view class="priceInfoItem">
+        <view class="priceInoItemTitle">商品总价</view>
+        <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
+      </view>
+      <view class="priceInfoItem">
+        <view class="priceInoItemTitle">运费</view>
+        <view class="priceInfoItemValue">+￥{{ postage || 0 }}</view>
+      </view>
+      <view class="priceInfoItem">
+        <view class="priceInoItemTitle">优惠券</view>
+        <view class="priceInfoItemValue">-￥{{ couponPrice || 0 }}</view>
+      </view>
+      <view class="priceInfoItem priceTotal">
+        <view class="priceInoItemTitle">实付款</view>
+        <view class="priceInfoItemValue">￥{{ orderPrice || 0 }}</view>
+      </view>
+    </view>
+    <view class="section buyerMessage">
+      <view class="buyerMessageContent">买家留言：{{ buyer_message }}</view>
+    </view>
+    <view class="section orderMeta">
+      <view class="item">支付方式: 微信支付</view>
+      <view class="item">订单编号: {{ orderNo }}</view>
+    </view>
   </view>
 </view>
