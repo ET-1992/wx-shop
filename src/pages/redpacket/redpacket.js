@@ -9,24 +9,24 @@ Page({
 		redpacket: {},
 		products: [],
 		hasRecived: false,
-		isFinished: false,
+		isFinished: false
 	},
 
 	async loadRepacket() {
 		const { isIphone5 } = app.systemInfo;
 		const { id } = this.options;
+		let goldNumer = 0;
 		const { products = [], received_redpacket, shared_redpacket } = await api.hei.fetchRedpacket({ packet_no: id });
-		console.log(products);
 		// const { stock_qty } = shared_redpacket;
 		if (received_redpacket) {
 			received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+			goldNumer = parseInt(received_redpacket.item.amount * 100);
 		}
 		this.setData({
 			products,
 			redpacket: received_redpacket,
-			hasRecived: !!received_redpacket,
 			isIphone5,
-			goldNumer: parseInt(received_redpacket.item.amount*100)
+			goldNumer: goldNumer
 		});
 		console.log(this.data);
 	},
@@ -34,28 +34,32 @@ Page({
 	async onRecive() {
 		// wx.showLoading();
 		const { id } = this.options;
-		const res = await api.hei.receiveRedpacket({ packet_no: id });
-		// wx.hideLoading();
-		if (res) {
-			const { errmsg, products = [], received_redpacket = {} } = res;
-			received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
-
-			if (errmsg) {
-				await showToast({ title: errmsg });
+		let goldNumer = 0;
+		try {
+			const res = await api.hei.receiveRedpacket({ packet_no: id });
+			const { products = [], received_redpacket = {} } = res;
+			if (received_redpacket) {
+				received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+				goldNumer = parseInt(received_redpacket.item.amount * 100);
 			}
-			else {
-				await showToast({ icon: 'success', title: '领取成功' });
-			}
+			await showToast({ icon: 'success', title: '领取成功' });
 			this.setData({
-				isFinished: !!errmsg,
 				hasRecived: true,
-				// isFinished: true,
+				isFinished: false,
 				products,
 				redpacket: received_redpacket,
-				goldNumer: parseInt(received_redpacket.item.amount*100)
-			});
-		}
+				goldNumer: goldNumer
+			})
 
+		} catch (e) {
+			if (e && e.errMsg) {
+				await showToast({ title: e.errMsg, icon: 'none' });
+				this.setData({
+					hasRecived: true,
+					isFinished: true
+				})
+			}
+		}
 	},
 
 	async onShow() {
