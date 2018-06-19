@@ -8,8 +8,7 @@ Page({
 		productListStyle: PRODUCT_LIST_STYLE[1],
 		redpacket: {},
 		products: [],
-		hasRecived: false,
-		isFinished: false
+		hasRecived: false
 	},
 
 	async loadRepacket() {
@@ -35,29 +34,27 @@ Page({
 	async onRecive() {
 		// wx.showLoading();
 		const { id } = this.options;
-		const res = await api.hei.receiveRedpacket({ packet_no: id });
 		let goldNumer = 0;
-		// wx.hideLoading();
-		if (res) {
-			const { errmsg, products = [], received_redpacket = {} } = res;
-			received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
-			goldNumer = parseInt(received_redpacket.item.amount * 100);
-			if (errmsg) {
-				await showToast({ title: errmsg });
+		try {
+			const res = await api.hei.receiveRedpacket({ packet_no: id });
+			const { products = [], received_redpacket = {} } = res;
+			if (received_redpacket) {
+				received_redpacket.item.reduceValue = +received_redpacket.item.reduce_cost;
+				goldNumer = parseInt(received_redpacket.item.amount * 100);
 			}
-			else {
-				await showToast({ icon: 'success', title: '领取成功' });
-			}
+			await showToast({ icon: 'success', title: '领取成功' });
 			this.setData({
-				isFinished: !!errmsg,
 				hasRecived: true,
-				// isFinished: true,
 				products,
 				redpacket: received_redpacket,
 				goldNumer: goldNumer
-			});
-		}
+			})
 
+		} catch (e) {
+			if (e && e.errMsg) {
+				await showToast({ title: e.errMsg, icon: 'none' });
+			}
+		}
 	},
 
 	async onShow() {
