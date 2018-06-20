@@ -121,9 +121,7 @@
 </view> -->
 </view>
 <view class="logo">
-  <image src="../../icons/hausheng.png">
-  </image>
-  <text>花生小店提供技术和电商支持</text>
+  <image src="../../icons/logo.png"></image>
 </view>
 <!-- <view class="mask" wx:if="{{active==1}}">
   <view class="con">

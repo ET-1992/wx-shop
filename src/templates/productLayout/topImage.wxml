@@ -1,5 +1,5 @@
 <template name="topImage">
-    <view class="relateShop" wx:if="{{!product.length}}">
+    <view class="relateShop" wx:if="{{product.length}}">
         <navigator  url='/pages/productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
             <image src="{{item.thumbnail}}"></image>
             <view class="meta">

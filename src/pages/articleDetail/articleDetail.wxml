@@ -1,4 +1,4 @@
-
+<import src="/templates/productLayout/topImage.wxml"/>
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
 <swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 
@@ -26,24 +26,7 @@
 	<view wx:if="{{article.label && article.products.length}}" class="label">
 		<view class="dash">·</view>{{article.label}}<view class="dash">·</view>
 	</view>
-	<view class="relateShop" wx:if="{{product.length}}">
-		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
-			<image src="{{item.thumbnail}}"></image>
-			<view class="meta">
-				<view class="name">{{item.title}}</view>
-				<!-- <view class="desc">{{item.excerpt}}</view> -->
-			</view>
-			<view class="price">
-				<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥<text>{{item.miaosha_price}}</text></view>
-				<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥<text>{{item.groupon_price}}</text></view>
-				<view class="originalPrice" wx:else>￥<text>{{item.price}}</text></view>
-				<view
-          class="toBuy"
-          style="background-color: {{ themeColor.primaryColor }}"
-        >立即购买</view>
-			</view>
-		</navigator>
-	</view>
+	<template is="topImage" data="{{ product }}"/>
 </view>
 
 <!-- 底部评论栏 -->
