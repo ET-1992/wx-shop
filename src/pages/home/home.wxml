@@ -97,9 +97,7 @@
                   <view class="couponInfo">
                     <view class="reduce">
                       <text wx:if="{{ item.type == 1 }}">￥</text>
-                      <text class="reduceCost">
-                        {{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}
-                      </text>
+                      <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
                       <text wx:if="{{ item.type == 2 }}">折</text>
                     </view>
                     <view class="title">满{{ item.least_cost }}元使用</view>
