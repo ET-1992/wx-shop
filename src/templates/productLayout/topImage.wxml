@@ -1,0 +1,16 @@
+<template name="topImage">
+    <view class="relateShop" wx:if="{{!product.length}}">
+        <navigator  url='/pages/productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
+            <image src="{{item.thumbnail}}"></image>
+            <view class="meta">
+                <view class="name">{{item.title}}</view>
+            </view>
+            <view class="price">
+                <view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">￥<text>{{item.miaosha_price}}</text></view>
+                <view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">￥<text>{{item.groupon_price}}</text></view>
+                <view class="originalPrice" wx:else>￥<text>{{item.price}}</text></view>
+                <view class="toBuy" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
+            </view>
+        </navigator>
+    </view>
+</template>
