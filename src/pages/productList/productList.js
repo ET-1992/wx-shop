@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_STYLE } from 'constants/index';
+import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
@@ -11,7 +11,7 @@ Page({
     // 页面的初始数据
     data: {
         products: [],
-        productListStyle: PRODUCT_LIST_STYLE[1],
+        productLayoutStyle: PRODUCT_LAYOUT_STYLE[0],
 
         categoryId: 0,
         categoryParent: 0,

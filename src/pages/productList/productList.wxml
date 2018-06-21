@@ -1,105 +1,104 @@
-<import src="/templates/loading/loading.wxml"/>
 <view class="container">
-  <scroll-view
-    class="scrollSegmentcontrol"
-    scroll-x="true"
-    scroll-into-view="{{ toView }}"
-    style="background-color: {{ themeColor.primaryColor }}"
-  >
-      <view
-        class="category {{ selectedCategoryId === categories[0].id ? 'selected' : '' }}"
-        data-category-id="{{ categories[0].id }}"
-        data-index="0"
-        bindtap="onSegmentItemClick"
-        id="taball"
-      >全部</view>
-      <view
-        wx:for="{{ categories[0].children }}"
-        wx:key="id"
-        class="category {{ selectedCategoryId === item.id ? 'selected' : '' }}"
-        data-category-id="{{ item.id }}"
-        data-index="{{(index + 1)}}"
-        bindtap="onSegmentItemClick"
-        id="tab{{ item.id }}"
-      >{{ item.name }}</view>
-  </scroll-view>
+	<scroll-view
+    	class="scrollSegmentcontrol"
+    	scroll-x="true"
+    	scroll-into-view="{{ toView }}"
+	>
+    	<view
+    	    class="category {{ selectedCategoryId === categories[0].id ? 'selected' : '' }}"
+    	    data-category-id="{{ categories[0].id }}"
+    	    data-index="0"
+    	    bindtap="onSegmentItemClick"
+			id="taball"
+			style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+    	  >全部</view>
+    	<view
+    	    wx:for="{{ categories[0].children }}"
+    	    wx:key="id"
+    	    class="category {{ selectedCategoryId === item.id ? 'selected' : '' }}"
+    	    data-category-id="{{ item.id }}"
+    	    data-index="{{(index + 1)}}"
+    	    bindtap="onSegmentItemClick"
+			id="tab{{ item.id }}"
+			style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+    	>{{ item.name }}</view>
+	</scroll-view>
 
-  <view class="sortOptions">
-    <view
-      class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}"
-      bindtap="onSort"
-      data-index="0"
-    >综合</view>
-    <view
-      class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}"
-      bindtap="onSort"
-      data-index="1"
-    >
-      <text>价格</text>
-      <view class="indicators">
-        <image
-          class='triangleIcon triangleIconUp'
-          src="/icons/triangleUp.png"
-          wx:if="{{sortType !== 'priceUp' }}"
-          />
-        <image
-          class='triangleIcon triangleIconUp'
-          src="/icons/triangleUpActive.png"
-          wx:if="{{sortType === 'priceUp' }}"
-          />
-        <image
-          class='triangleIcon'
-          src="/icons/triangleDown.png"
-          wx:if="{{sortType !== 'priceDown' }}"
-          />
-        <image
-          class='triangleIcon'
-          wx:if="{{sortType === 'priceDown' }}"
-          src="/icons/triangleDownActive.png"
-          />
-      </view>
-    </view>
-    <view
-      class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}"
-      bindtap="onSort"
-      data-index="2"
-    >
-      <text>销量</text>
-      <view class="indicators">
-        <image
-          class='triangleIcon'
-          src="/icons/triangleDown.png"
-          wx:if="{{ activeIdx !== '2' }}"
-        />
-        <image
-          class='triangleIcon'
-          wx:if="{{ activeIdx === '2' }}"
-          src="/icons/triangleDownActive.png"
-        />
-      </view>
-    </view>
-  </view>
+	<view class="sortOptions">
+    	<view
+    	  class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}"
+    	  bindtap="onSort"
+    	  data-index="0"
+    	>综合</view>
+    	<view
+    		class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}"
+    		bindtap="onSort"
+    		data-index="1"
+    	>
+    		<text>价格</text>
+    		<view class="indicators">
+    		    <image
+    		    	class='triangleIcon triangleIconUp'
+    		    	src="/icons/triangleUp.png"
+    		    	wx:if="{{sortType !== 'priceUp' }}"
+    		      />
+    		    <image
+    		    	class='triangleIcon triangleIconUp'
+    		    	src="/icons/triangleUpActive.png"
+    		    	wx:if="{{sortType === 'priceUp' }}"
+    		      />
+    		    <image
+    		    	class='triangleIcon'
+    		    	src="/icons/triangleDown.png"
+    		    	wx:if="{{sortType !== 'priceDown' }}"
+    		      />
+    		    <image
+    		    	class='triangleIcon'
+    		    	wx:if="{{sortType === 'priceDown' }}"
+    		    	src="/icons/triangleDownActive.png"
+    		    />
+    		</view>
+    	</view>
+    	<view
+    		class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}"
+    		bindtap="onSort"
+    		data-index="2"
+    	>
+    		<text>销量</text>
+    		<view class="indicators">
+    	    	<image
+    	    	  class='triangleIcon'
+    	    	  src="/icons/triangleDown.png"
+    	    	  wx:if="{{ activeIdx !== '2' }}"
+    	    	/>
+    	    	<image
+    	    	  class='triangleIcon'
+    	    	  wx:if="{{ activeIdx === '2' }}"
+    	    	  src="/icons/triangleDownActive.png"
+    	    	/>
+    	  </view>
+    	</view>
+	</view>
 
-  <view
-    class="noHint"
-    wx:if="{{ !products.length && !isLoading }}"
-    bind:touchstart="onTouchStart"
-    bind:touchmove="onTouchMove"
-    bind:touchend="onTouchEnd"
-  >暂无商品</view>
+	<view
+	  class="noHint"
+	  wx:if="{{ !products.length && !isLoading }}"
+	  bind:touchstart="onTouchStart"
+	  bind:touchmove="onTouchMove"
+	  bind:touchend="onTouchEnd"
+	>暂无商品</view>
 
-  <view 
-    class="listWrapper"
-    bind:touchstart="onTouchStart"
-    bind:touchmove="onTouchMove"
-    bind:touchend="onTouchEnd"
-    wx:else
-  >
-    <productList
-      products="{{ products }}"
-      productListStyle="{{ productListStyle }}"
-      nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
-    />
-  </view>
-  </view>
-<template is="loading" wx:if="{{ isLoading }}"/>
+	<view 
+	    class="listWrapper"
+	    bind:touchstart="onTouchStart"
+	    bind:touchmove="onTouchMove"
+	    bind:touchend="onTouchEnd"
+	    wx:else
+	>
+    	<productList
+    		products="{{ products }}"
+    		productLayoutStyle="{{ productLayoutStyle }}"
+    		nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
+    	/>
+	</view>
+</view>

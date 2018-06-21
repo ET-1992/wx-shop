@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
+import { SEARCH_KEY, PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
 
 // const app = getApp()
@@ -13,7 +13,7 @@ Page({
         isRefresh: false,
         isLoading: true,
         isSearch: false,
-        productListStyle: PRODUCT_LIST_STYLE[1],
+        productListStyle: PRODUCT_LAYOUT_STYLE[0],
 
         sortType: 'default',
         sortSales: 'saleDown',

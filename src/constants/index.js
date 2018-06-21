@@ -22,3 +22,5 @@ export const phoneStyle = {
     'iPhone 5': 'iphone5',
     'iPhone X': 'iphoneX'
 };
+/* 商品列表排版风格 */
+export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage'];
