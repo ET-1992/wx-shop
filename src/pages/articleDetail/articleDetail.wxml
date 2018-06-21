@@ -26,7 +26,7 @@
 	<view wx:if="{{article.label && article.products.length}}" class="label">
 		<view class="dash">·</view>{{article.label}}<view class="dash">·</view>
 	</view>
-	<template is="topImage" data="{{ product }}"/>
+	<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
 </view>
 
 <!-- 底部评论栏 -->

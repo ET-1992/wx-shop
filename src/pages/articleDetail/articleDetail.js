@@ -1,3 +1,4 @@
+import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import api from 'utils/api';
 // import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
@@ -23,6 +24,7 @@ Page({
         share_title: '',
         headerType: 'images',
         currentPageLength: 0,
+        productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
     },
 
     onLoad({ id }) {
