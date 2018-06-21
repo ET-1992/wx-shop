@@ -38,10 +38,10 @@
 			<text>首页</text>
 		</navigator>
 		<!-- 分享 -->
-		<navigator class="favItem" open-type="share">
+		<button class="favItem" open-type="share">
 			<view class="shareIcon"></view>
 			<text>分享</text>
-		</navigator>
+		</button>
 	</view>
 
 	<view class="footerItem">
