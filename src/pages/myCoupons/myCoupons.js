@@ -39,6 +39,9 @@ Page({
     },
 
     async onLoad() {
+        wx.setNavigationBarTitle({
+            title: '我的优惠券'
+        });
         try {
             const { themeColor } = app.globalData;
             this.setData({ isLoading: true, themeColor });

@@ -4,13 +4,18 @@
 
 
 .statusBar {
-	$height: 80rpx;
+	$height: 90rpx;
 
-	background-color: $mainColor;
-	color: #fff;
-	font-size: 10pt;
-	height: $height;
-	z-index: 10000;
+	background-color:#FFFFFF;
+	color:#707070;
+	font-size:28rpx;
+	position:fixed;
+	left:0;
+	top:0;
+	white-space:nowrap;
+	box-shadow:0 0 2rpx rgba(0, 0, 0, 0.16);
+	z-index:999;
+	width: 100%;
 
 	.statusItem {
 		width: 33%;
@@ -21,11 +26,13 @@
 	.statusItemName {
 		margin: 0 auto;
 		height: $height;
-		line-height: $height;
+		padding-top: 35rpx;
 		display: inline-block;
 
 		&.selected {
-			border-bottom: 4px solid #fff;
+			border-bottom: 8rpx solid $mainColor;
+			color: #000000;
+			font-weight: bold;
 		}
 	}
 }
@@ -42,13 +49,5 @@
 		color: #fff;
 		margin: 40rpx auto 0 auto;
 		padding: 20rpx 0;
-	}
-}
-
-.couponList {
-	padding: 25rpx;
-
-	.couponItemWrapper {
-		margin-bottom: 25rpx;
 	}
 }

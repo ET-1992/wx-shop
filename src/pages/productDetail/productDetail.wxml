@@ -329,11 +329,11 @@
     <scroll-view class="couponList" scroll-y>
       <view class="title">优惠券</view>
       <view class="availableCoupon">
-        <view class="couponListTitle">可领取优惠券</view>
-        <view
-          class="noCouponHint"
-          wx:if="{{ !receivableCoupons.length }}"
-        >暂无可领取优惠券</view>
+        <view class="couponListTitle" wx:if="{{ receivableCoupons.length }}">可领取优惠券</view>
+        <view class="noCoupon" wx:if="{{ !receivableCoupons.length }}" >
+			<image src="../../icons/noCoupon.png"></image>
+			<view>暂无可领取优惠券</view>
+		</view>
         <view
           class="couponItemWrapper"
           wx:for="{{ receivableCoupons }}"
@@ -347,10 +347,9 @@
           <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
         </view>
         <view class="couponListTitle">已领取优惠券</view>
-        <view
-          class="noCouponHint"
-          wx:if="{{ !receivedCoupons.length }}"
-        >暂无可领取优惠券</view>
+        <view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">
+			暂无可领取优惠券
+		</view>
         <navigator
           class="couponItemWrapper"
           wx:for="{{ receivedCoupons }}"

@@ -1,8 +1,15 @@
 @import '~styles/color';
+.couponList {
+	padding: 105rpx 25rpx;
 
+	.couponItemWrapper {
+		margin: 25rpx auto 0;
+		width: 650rpx;
+	}
+}
 .couponItem {
-	width: 700rpx;
-	height: 180rpx;
+	width: 650rpx;
+	height: 160rpx;
 	font-size: 0;
 	position: relative;
 	left: 0;
@@ -11,66 +18,73 @@
 	.couponInfo {
 		position: absolute;
 		z-index: 2;
-		font-size: 9pt;
 		color: #fff;
 		display: flex;
 		width: 100%;
 
 		.left {
-			width: 270rpx;
-			height: 180rpx;
-			// border-right: 1px solid blue;
+			width: 230rpx;
+			height: 160rpx;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			line-height: 1.2;
+			line-height: 1.3;
 			flex-shrink: 0;
-
+			.couponTitle{
+				font-size: 22rpx;
+			}
 			.reduceCost {
-				font-size: 20pt;
+				font-size: 46rpx;
 			}
 		}
 
 		.center {
-			padding: 20rpx 0 20rpx 20rpx;
-			color: #000;
+			padding-top: 40rpx;
 			width: 300rpx;
-			font-size: 7pt;
 			display: flex;
 			flex-direction: column;
 			flex-shrink: 0;
-
 			.couponDesc {
-				height: 80rpx;
-				flex-grow: 1;
+				font-size: 22rpx;
+			}
+			view{
+				line-height: 1.5;
+			}
+			text{
+				font-size: 18rpx;
+				position: absolute;
+				bottom: 15rpx;
 			}
 		}
 
 		.right {
+			position: relative;
 			flex-shrink: 0;
-			padding: 20rpx 20rpx 20rpx 0;
-			font-size: 7pt;
+			font-size: 24rpx;
 			display: flex;
 			flex-direction: column;
-			justify-content: flex-end;
+			justify-content: center;
 			flex-grow: 1;
 
 			&.rightCenter {
 				justify-content: center;
 				align-items: flex-end;
 			}
-
-			.useBt {
-				color: $couponMainColor;
-				border: 1px solid $couponMainColor;
-				border-radius: 100rpx;
-				width: 110rpx;
-				height: 40rpx;
-				line-height: 40rpx;
-				text-align: center;
-				margin-top: 10rpx;
-				margin-bottom:-4rpx;
+			.btn{
+				display: flex;
+				justify-content: flex-start;
+				.useBtn{
+					width: 50%;
+					position:absolute;
+					top:29%;
+					left:15%;
+				}
+				.arrow{
+					position:absolute;
+					left:67%;
+					top:40%;
+				}
 
 			}
 
@@ -113,8 +127,8 @@
 	}
 
 	.bg {
-		width: 700rpx;
-		height: 180rpx;
+		width: 650rpx;
+		height: 160rpx;
 		position: absolute;
 		left: 0;
 		top: 0;
