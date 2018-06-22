@@ -19,9 +19,18 @@
 <template is="loading" wx:if="{{ isLoading }}"/>
 
 <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
-    <view wx:if="{{ selectedStatus === 'available' }}">暂无可使用优惠券</view>
-    <view wx:if="{{ selectedStatus === 'used' }}">暂无已使用优惠券</view>
-    <view wx:if="{{ selectedStatus === 'expired' }}">暂无已过期优惠券</view>
+    <view wx:if="{{ selectedStatus === 'available' }}">
+		<image class="noHint" src="../../icons/noCoupon.png"></image>
+		<view>还没有优惠券</view>
+	</view>
+    <view wx:if="{{ selectedStatus === 'used' }}">
+		<image class="noHint" src="../../icons/noCoupon.png"></image>
+		<view>暂无已使用优惠券</view>
+	</view>
+    <view wx:if="{{ selectedStatus === 'expired' }}">
+		<image class="noHint" src="../../icons/noCoupon.png"></image>
+		<view>暂无已过期优惠券</view>
+	</view>
     <navigator
     	open-type="switchTab"
     	wx:if="{{ selectedStatus === 'available' }}"

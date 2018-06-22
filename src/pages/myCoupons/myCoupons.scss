@@ -39,15 +39,22 @@
 
 .emptyHint {
 	padding-top: 320rpx;
-	color: #ccc;
-	font-size: 12pt;
+	color: #707070;
+	font-size: 28rpx;
 	text-align: center;
-
+	.noHint{
+		text-align:center;
+        width:190rpx;
+		height:157rpx;
+		margin:0 0 30rpx;
+	}
 	.couponBt {
-		width: 600rpx;
+		width:320rpx;
 		background-color: $mainColor;
-		color: #fff;
-		margin: 40rpx auto 0 auto;
-		padding: 20rpx 0;
+		color:#fff;
+		margin: 115rpx auto 0 auto;
+		height:75rpx;
+		line-height:75rpx;
+		border-radius: 40rpx;
 	}
 }
