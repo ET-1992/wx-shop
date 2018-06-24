@@ -347,8 +347,9 @@
           <template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}"/>
         </view>
         <view class="couponListTitle">已领取优惠券</view>
-        <view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">
-			暂无可领取优惠券
+		<view class="noCoupon" wx:if="{{ !receivedCoupons.length }}">
+			<image src="../../icons/noCoupon.png"></image>
+			<view>暂无已领取优惠券</view>
 		</view>
         <navigator
           class="couponItemWrapper"
