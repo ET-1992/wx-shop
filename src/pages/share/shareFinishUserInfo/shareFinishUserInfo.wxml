@@ -1,0 +1,26 @@
+<view class="container">
+	<view class="item">
+		<text class="item-text">姓名</text>
+		<input class="item-input" placeholder="请输入姓名" placeholder-class="placeholder" type="text"/>
+	</view>
+	<view class="item">
+		<text class="item-text">手机号</text>
+		<input class="item-input" placeholder="请输入手机号" placeholder-class="placeholder" type="number" bindblur="check" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" bindfocus="reset" />
+	</view>
+	<view class="item">	
+		<text class="item-text">微信号</text>
+		<input class="item-input" placeholder="请输入微信号" placeholder-class="placeholder" type="text" />
+	</view>
+	<view class="item">	
+		<text class="item-text">银行卡号</text>
+		<input class="item-input" placeholder="请输入银行卡号" placeholder-class="placeholder" type="number" />
+	</view>
+	<view class="item">	
+		<text class="item-text">开户行</text>
+		<input class="item-input" placeholder="请输入开户行" placeholder-class="placeholder" type="text" />
+	</view>
+
+	<view class="saveBtnWrap">
+		<view class="saveBtn">保存</view>
+	</view>
+</view>
