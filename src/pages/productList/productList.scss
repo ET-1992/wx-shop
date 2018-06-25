@@ -15,13 +15,14 @@ page{
 }
 
 .scrollSegmentcontrol {
-	background-color: $mainColor;
-	color: #fff;
-	font-size: 10pt;
+	background-color: #FFFFFF;
+	color: #707070;
+	font-size: 28rpx;
 	position: fixed;
 	left: 0;
 	top: 0;
 	white-space: nowrap;
+	box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.16);
 
 	// .categories {
 	// 	display: flex;
@@ -29,12 +30,16 @@ page{
 	z-index: 999;
 	.category {
 		flex-shrink: 0;
-		padding:20rpx 16rpx;
-		margin:21rpx;
+		padding: 35rpx 16rpx;
+		margin: 0 21rpx;
 		margin-bottom:0;
+		font-size: 28rpx;
 		display: inline-block;
+		height: 90rpx;
 		&.selected {
-			border-bottom: 4px solid #fff;
+			border-bottom: 8rpx solid $mainColor;
+			color: #000000;
+			font-weight: bold;
 		}
 	}
 }
@@ -46,16 +51,16 @@ page{
 	align-items: center;
 	position: fixed;
 	left: 0;
-	top: 101rpx;
-	padding-top: 14rpx;
+	top: 90rpx;
 	background-color: #fff;
-	border-bottom:1px solid #ddd;
+	border-top: 1rpx solid #C2C2C2;
+	border-bottom: 1rpx solid #C2C2C2;
 	.sortOption {
 		width: 50%;
 		justify-content: center;
-		height: 60rpx;
-		line-height: 60rpx;
-		font-size: 10pt;
+		height: 70rpx;
+		line-height: 70rpx;
+		font-size: 24rpx;
 		display: flex;
 		align-items: center;
 		color: $originalPriceColor;
@@ -87,7 +92,7 @@ page{
 }
 
 .listWrapper {
-	padding-top: 220rpx;
+	padding-top: 160rpx;
 	height: 100%;
 }
 

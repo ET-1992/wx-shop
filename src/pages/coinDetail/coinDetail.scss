@@ -1,42 +1,45 @@
 page{background: #FFFFFF}
-.coinList{
-    display: flex;
-    justify-content: space-between;
-    padding: 20rpx 40rpx;
-    border-bottom: 1rpx solid #E0E0E0;
-    background: #FFFFFF;
-    font-size: 28rpx;
-
-    .time{
-        font-size: 24rpx;
-        padding-top: 10rpx;
+.container{
+    padding: 0 40rpx 50rpx;
+    .coinList{
+        display: flex;
+        justify-content: space-between;
+        padding: 20rpx 20rpx 20rpx 0;
+        border-bottom: 1rpx solid #E0E0E0;
+        background: #FFFFFF;
+        font-size: 28rpx;
+    
+        .time{
+            font-size: 24rpx;
+            padding-top: 10rpx;
+        }
+       
+        .coinNum{
+            height: 80rpx;
+            line-height: 80rpx;
+            color: #F52D2D;
+            font-size: 24rpx;
+        }
+        .decreaseNum{ color: green}
     }
-   
-    .coinNum{
-        height: 80rpx;
-        line-height: 80rpx;
-        color: #F52D2D;
-        font-size: 24rpx;
+    
+    .noHint {
+        text-align: center;
+        color: #9fa0a0;
+        width: 100%;
+        padding-top: 200rpx;
+        height: 100%; 
     }
-    .decreaseNum{ color: green}
-}
-
-.noHint {
-    text-align: center;
-    color: #9fa0a0;
-    width: 100%;
-    padding-top: 200rpx;
-    height: 100%; 
-}
-
-.bottomHint {
-	text-align: center;
-	color: #ccc;
-	font-size: 10pt;
-    padding: 10rpx 0;
-    background-color: #f4f4f4;
-}
-.Bg{
-	width:250rpx;
-    height:240rpx;
+    
+    .bottomHint {
+        text-align: center;
+        color: #ccc;
+        font-size: 10pt;
+        padding: 10rpx 0;
+        background-color: #f4f4f4;
+    }
+    .Bg{
+        width:250rpx;
+        height:240rpx;
+    }
 }

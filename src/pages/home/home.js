@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
+import { PRODUCT_LAYOUT_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
 import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
@@ -23,7 +23,7 @@ Page({
         coupons: [],
         hasNewUserCoupons: false,
 
-        productListStyle: PRODUCT_LIST_STYLE[1],
+        productListStyle: PRODUCT_LAYOUT_STYLE[0],
         categoryListStyle: CATEGORY_LIST_STYLE[2],
         isRefresh: false,
         isLoading: false,

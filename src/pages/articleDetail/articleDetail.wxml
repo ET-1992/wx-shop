@@ -1,3 +1,4 @@
+<import src="/templates/productLayout/topImage.wxml"/>
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
 		<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 		<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
@@ -9,72 +10,49 @@
 		</swiper>
 </view>
 <view class="p-single">
-		<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
-				<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
-				<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
-				<view class="borderLine"></view>
-				<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
-		</view>
-		<import src="../../utils/wxParse/wxParse.wxml" />
-		<view class="{{article.full ==1 ?'':'pad-30'}}">
-				<template is="wxParse" data="{{wxParseData:article_content.nodes}}" />
-		</view>
-		<view wx:if="{{article.label && article.products.length}}" class="label">
-				<view class="dash"></view>
-				{{article.label}}
-				<view class="dash"></view>
-		</view>
-		<view class="relateShop" wx:if="{{product.length}}">
-				<navigator url="../productDetail/productDetail?id={{item.id}}" class="relateShopItem" wx:for="{{product}}">
-						<image src="{{item.thumbnail}}"></image>
-						<view class="meta">
-								<view class="name">{{item.title}}</view>
-								<view class="desc">{{item.excerpt}}</view>
-						</view>
-						<view class="price">
-								<view class="originalPrice" wx:if="{{item.miaosha_enable === '1'}}">
-										￥{{item.miaosha_price}}
-								</view>
-								<view class="originalPrice" wx:elif="{{item.groupon_enable === '1'}}">
-										￥{{item.groupon_price}}
-								</view>
-								<view class="originalPrice" wx:else>￥{{item.price}}</view>
-								<view class="toBuy" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
-						</view>
-				</navigator>
-		</view>
+	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
+		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
+		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
+		<view class="borderLine"></view>
+		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
+	</view>
+
+	<import src="../../utils/wxParse/wxParse.wxml"/>
+	<view class="{{article.full ==1 ?'':'pad-30'}}">
+		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+	</view>
+
+	<view wx:if="{{article.label && article.products.length}}" class="label">
+		<view class="dash">·</view>{{article.label}}<view class="dash">·</view>
+	</view>
+	<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
 </view>
 <!-- 底部评论栏 -->
 <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view class="footerItem">
-				<navigator class="returnIndex" url="/pages/home/home" wx:if="{{ currentPageLength === 1 }}" open-type="switchTab">
-						<image src="../../icons/goIndex.png"></image>
-						<text>首页</text>
-				</navigator>
-				<!-- 分享 -->
-				<view class="share">
-						<button class="shareIcon btn_no_style" open-type="share">
-								<image src="../../icons/share.png"></image>
-								<text>分享</text>
-						</button>
-				</view>
+	<view class="footerItem">
+		<!-- 返回首页 -->
+		<navigator class="favItem" url="/pages/home/home" open-type="switchTab">
+			<view class="homeIcon"></view>
+			<text>首页</text>
+		</navigator>
+		<!-- 分享 -->
+		<button class="favItem" open-type="share">
+			<view class="shareIcon"></view>
+			<text>分享</text>
+		</button>
+	</view>
+
+	<view class="footerItem">
+			<!-- 收藏 -->
+		<view class="fav">
+			<view wx:if="{{is_faved}}" class="favItem" >
+		    	<view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
+		    	<text> {{fav_count}}</text>
+			</view>
+			<view class="favItem" wx:else>
+				<view class="faved"  bindtap="onToggleFav" data-index="{{idx}}" id="{{article.id}}"></view>
+				<text> {{fav_count}}</text>
+			</view>
 		</view>
-		<view class="footerItem">
-				<!-- 收藏 -->
-				<view class="fav">
-						<view wx:if="{{is_faved}}" class="favItem">
-								<view class="faved is_faved" id="{{article.id}}" data-index="{{idx}}" bindtap="onToggleFav"></view>
-								<text>{{fav_count}}</text>
-						</view>
-						<view class="favItem" wx:else>
-								<view class="faved" bindtap="onToggleFav" data-index="{{idx}}" id="{{article.id}}"></view>
-								<text>{{fav_count}}</text>
-						</view>
-				</view>
-				<!-- 评论 -->
-				<navigator url="/pages/commentList/commentList?id={{article.id}}" class="comment">
-						<view class="commentIcon"></view>
-						{{article.reply_count}}
-				</navigator>
-		</view>
+	</view>
 </view>

@@ -1,19 +1,19 @@
-<import src="/templates/loading/loading.wxml" />
-<template is="loading" wx:if="{{ isLoading }}" />
-<view class="coinList" wx:for="{{coinList}}" wx:if="{{ !isLoading && coinList.length }}" hidden="{{item.amount == 0}}">
-		<view>
-				<view wx:if="{{item.status == 0 && item.expense}}">订单抵扣</view>
-				<view wx:if="{{item.status && item.income}}">分享红包</view>
-				<view class="time">{{item.formatTime}}</view>
-		</view>
-		<view wx:if="{{item.status == 0 && item.expense}}" class="coinNum decreaseNum">
-				{{item.amount}}
-		</view>
-		<view wx:if="{{item.status && item.income}}" class="coinNum">+{{item.amount}}</view>
-</view>
-<view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
-		<image class="Bg" src="../../icons/nocoin.png"></image>
-		<view>还没有花生米</view>
+<import src="/templates/loading/loading.wxml"/>
+<template is="loading" wx:if="{{ isLoading }}"/>
+<view class="container">
+    <view class="coinList" wx:for="{{coinList}}" wx:if="{{ !isLoading && coinList.length }}" hidden="{{ item.amount == 0 || item.expense == item.income }}">
+        <view>
+            <view wx:if="{{item.expense}}">订单抵扣</view>
+            <view wx:if="{{item.income}}">分享红包</view>
+            <view class="time">{{item.formatTime}}</view>
+        </view>
+        <view wx:if="{{item.expense}}" class="coinNum decreaseNum">{{item.amount}}</view>
+        <view wx:if="{{item.income}}" class="coinNum">+{{item.amount}}</view>
+    </view>
+    <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
+        <image class="Bg" src="../../icons/nocoin.png"></image>
+        <view>还没有花生米</view>
+    </view>
 </view>
 <!-- <view
     class="bottomHint"

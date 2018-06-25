@@ -51,14 +51,15 @@ Page({
         });
 
         wx.hideLoading();
-        return data;
+        // return data;
+        console.log(this.data);
     },
 
     onStautsItemClick(ev) {
         const { value } = ev.currentTarget.dataset;
         const index = this.getIndex(value);
         console.log(index, this.data.activeIndex);
-        if (index === this.data.activeIndex) { return }
+        // if (index === this.data.activeIndex) { return }
         this.setData({
             selectedStatus: value,
             activeIndex: index,

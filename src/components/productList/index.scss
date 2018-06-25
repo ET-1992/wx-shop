@@ -1,14 +1,7 @@
-@import '~templates/productItem/productItem';
-@import '~styles/color';
-
-
-.container.bigCard {
-	padding: 40rpx;
-}
-
-.container.smallCard {
+@import '~templates/productLayout/productLayout';
+.container {
 	display: flex;
-	padding:0 30rpx;
+	padding: 21rpx 30rpx;
 	flex-wrap: wrap;
 	justify-content: space-between;
 }

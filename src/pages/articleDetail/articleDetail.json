@@ -1,5 +1,6 @@
 {
     "usingComponents": {
-        "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg"
+        "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
+        "productList": "../../components/productList/index"
     }
 }

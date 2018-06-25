@@ -1,111 +1,140 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <view class="header" style="background-color: {{ themeColor.primaryColor }}">
-    <button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
-      <image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
-      <text class="text">{{ !user.nickname ? '点击登陆' : user.nickname  }}</text>
-    </button>
-    <!-- 使用open-data组件显示头像和昵称
-    <image
-      class="avatar unlogin"
-      bindtap="onLogin"
-      src="../../icons/unlogin.png"
-      wx:if="{{ !user.avatarurl }}"
-    />
-    <view
-      class="name loginBt"
-      wx:if="{{ user.nickname }}"
-    >{{ user.nickname }}</view>
+	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
+		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
+		</button>
+		<block>
+			<navigator class="welfare" url="/pages/coinDetail/coinDetail">
+				<view class="number">876</view>
+				<view class="title">花生米</view>
+			</navigator>
+			<navigator class="welfare" url="/pages/myCoupons/myCoupons">
+				<view class="number">8</view>
+				<view class="title">优惠券</view>
+			</navigator>
+		</block>
+		 <!-- 使用open-data组件显示头像和昵称
+		<image class="avatar unlogin" bindtap="onLogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}" />
+		<view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
+		
+		<button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button> -->
+	</view>
 
-    <button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button> -->
-  </view>
-  <view class="section orders">
-    <navigator class="orderHeader" url="/pages/orderList/orderList">
-      <view>我的订单</view>
-      <view class="viewAll">
-        查看全部
-        <image class="rightIcon" src="../../icons/right.png" />
-      </view>
-    </navigator>
-    <view class="orderItems">
-      <navigator class="orderItem" url="/pages/orderList/orderList?status=1">
-        <view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
-        <image class="statusIcon" src="../../icons/wallet.png" />
-        <view>待付款</view>
-      </navigator>
-      <navigator class="orderItem" url="/pages/orderList/orderList?status=2">
-        <view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
-        <image class="statusIcon" src="../../icons/truck.png" />
-        <view>待发货</view>
-      </navigator>
-      <navigator class="orderItem" url="/pages/orderList/orderList?status=3">
-        <view class="orderItemValue" wx:if="{{ orderCount['3'] }}">{{ orderCount['3'] }}</view>
-        <image class="statusIcon" src="../../icons/confirm.png" />
-        <view>待收货</view>
-      </navigator>
-      <navigator class="orderItem" url="/pages/orderList/orderList?status=5">
-        <view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
-        <image class="statusIcon" src="../../icons/finish.png" />
-        <view>退款中</view>
-      </navigator>
-    </view>
-  </view>
-  <view class="section">
-    <view bindtap="onItemClick" class="sectionItem" data-name="address">
-      <image class="itemIcon" src="../../icons/address.png" />
-      <view class="itemTitle">收货地址</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </view>
-  </view>
-  <view class="section">
-    <navigator url="/pages/orderList/orderList?status=10">
-      <view class="sectionItem">
-        <image class="itemIcon" src="../../icons/my.png" />
-        <view class="itemTitle">我的拼团</view>
-        <image class="rightIcon" src="../../icons/right.png" />
-      </view>
-    </navigator>
-  </view>
-  <view class="section">
-    <navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
-      <image class="itemIcon" src="../../icons/coupon.png" />
-      <view class="itemTitle">我的优惠券</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </navigator>
-  </view>
-  <view class="section">
-    <navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
-      <image class="itemIcon" src="../../icons/coin.png" />
-      <view class="itemTitle">我的花生米</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </navigator>
-  </view>
-  <view class="section">
-    <navigator class="sectionItem" url="/pages/myFav/myFav">
-      <image class="itemIcon" src="../../icons/myfav.png" />
-      <view class="itemTitle">我的收藏</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </navigator>
-  </view>
-  <view class="section">
-    <view bindtap="onItemClick" class="sectionItem" data-name="notice" wx:if="{{ false }}">
-      <image class="itemIcon" src="../../icons/truck.png" />
-      <view class="itemTitle">系统通知</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </view>
-    <button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
-      <image class="itemIcon" src="../../icons/contact.png" />
-      <view class="itemTitle">联系客服</view>
-      <image class="rightIcon" src="../../icons/right.png" />
-    </button>
-  </view>
-  <!-- <view class="section">
-    <view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
-</view> -->
+	<view class="section orders">
+		<!-- <navigator class="orderHeader" url="/pages/orderList/orderList">
+			<view>我的订单</view>
+			<view class="viewAll">
+				查看全部
+				<image class="rightIcon" src="../../icons/right.png" />
+			</view>
+		</navigator> -->
+
+		<view class="orderItems">
+			<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
+				<view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
+				<image class="statusIcon" src="../../icons/wallet.png" />
+				<view>待付款</view>
+			</navigator>
+
+			<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
+				<view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
+				<image class="statusIcon" src="../../icons/truck.png" />
+				<view>待发货</view>
+			</navigator>
+			<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
+				<view class="orderItemValue" wx:if="{{ orderCount['3'] }}">{{ orderCount['3'] }}</view>
+				<image class="statusIcon" src="../../icons/confirm.png" />
+				<view>待收货</view>
+			</navigator>
+			<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
+				<view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
+				<image class="statusIcon" src="../../icons/finish.png" />
+				<view>退款售后</view>
+			</navigator>
+			<navigator class="orderItem" url="/pages/orderList/orderList">
+				<view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
+				<image class="statusIcon" src="../../icons/orders.png" />
+				<view>所有订单</view>
+			</navigator>
+		</view>
+	</view>
+
+	<view class="section">
+		<view bindtap="onItemClick" class="sectionItem" data-name="address">
+			<image class="itemIcon" src="../../icons/address.png" />
+			<view class="itemTitle">收货地址</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</view>
+	</view>
+
+	<view class="section">
+		<navigator url="/pages/orderList/orderList?status=10">
+			<view class="sectionItem">
+				<image class="itemIcon" src="../../icons/my.png" />
+				<view class="itemTitle">我的拼团</view>
+				<image class="rightIcon" src="../../icons/right.png" />
+			</view>
+		</navigator>
+	</view>
+
+	<view class="section">
+		<navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
+			<image class="itemIcon" src="../../icons/coupon.png" />
+			<view class="itemTitle">我的优惠券</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</navigator>
+	</view>
+
+	<!-- <view class="section">
+		<navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
+			<image class="itemIcon" src="../../icons/coin.png" />
+			<view class="itemTitle">我的花生米</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</navigator>
+	</view> -->
+
+	<view class="section">
+		<navigator class="sectionItem" url="/pages/myFav/myFav">
+			<image class="itemIcon" src="../../icons/myfav.png" />
+			<view class="itemTitle">我的收藏</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</navigator>
+	</view>
+
+	<view class="section">
+		<navigator class="sectionItem" url="">
+			<image class="itemIcon" src="../../icons/shareCenter.png" />
+			<view class="itemTitle">分享中心</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</navigator>
+	</view>
+
+	<view class="section contact">
+		<view bindtap="onItemClick" class="sectionItem" data-name="notice" wx:if="{{ false }}">
+			<!-- <image class="itemIcon" src="../../icons/truck.png" /> -->
+			<view class="itemTitle">系统通知</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</view>
+
+		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
+			<image class="itemIcon" src="../../icons/contact.png" />
+			<view class="itemTitle">联系客服</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</button>
+	</view>
+	<!-- <view class="section">
+		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
+	</view> -->
+	<view class="section">
+		<navigator class="sectionItem" url="">
+			<view class="itemTitle">花生分享计划 >></view>
+		</navigator>
+	</view>
 </view>
 <view class="logo">
-  <image src="../../icons/hausheng.png"></image>
-  <text>花生小店提供技术和电商支持</text>
+	<image src="../../icons/logo.png"></image>
 </view>
 <!-- <view class="mask" wx:if="{{active==1}}">
   <view class="con">

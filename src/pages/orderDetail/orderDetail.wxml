@@ -25,8 +25,26 @@
     </view>
   </view>
   <address address="{{ address }}"></address>
-  <productItemSold items="{{ !order.groupon_id ? order.items : order.groupon }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" class="productItemSoldWrapper" />
-  <include wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}" src="/templates/order/grouponOrder.wxml" />
-  <include wx:else src="/templates/order/normalOrder.wxml" />
-  <modal title="【送你一个拼手气红包】" content="快叫小伙帮一起来拆红包" confirmText="发红包" confirmColor="#ffad00" iconUrl="/icons/redpacketIcon.png" isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}" bindmodalConfirm="onModalConfirm" confirmButtonType="share" wx:if="{{ !order.groupon_id }}" />
+  <productItemSold items="{{ !order.groupon_id ? order.items : order.groupon }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}"  class="productItemSoldWrapper" />
+
+  <include
+    wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"
+    src="/templates/order/grouponOrder.wxml"
+  />
+  <include
+    wx:else
+    src="/templates/order/normalOrder.wxml"
+  />
+
+  <modal
+    title="【恭喜你获得一个现金红包】"
+    content="越多好友拆红包奖励越大喔"
+    confirmText="发红包"
+    confirmColor="#ffad00"
+    iconUrl="/icons/redpacketIcon.png"
+    isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}"
+    bindmodalConfirm="onModalConfirm"
+    confirmButtonType="share"
+    wx:if="{{ !order.groupon_id }}"
+  />
 </view>

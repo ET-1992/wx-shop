@@ -512,34 +512,40 @@ button {
 
 	.couponList {
 		height: 800rpx;
+		padding: 20rpx 0;
 
-		.noCouponHint {
-			color: #ddd;
-			text-align: center;
-			padding: 20rpx;
-			border: 1px dashed #ddd;
-			margin: 0 25rpx;
+		.noCoupon {
+			image{
+				width: 165rpx;
+				height: 118rpx;
+				margin: 100rpx auto 0;
+				display: block;
+			}
+			view{
+				color:#707070;
+				font-size: 24rpx;
+				height:80%;
+				text-align:center;
+				width:100%;
+				padding: 30rpx 0;
+			}
 		}
 	}
 
 	.title {
 		text-align: center;
-		color: $titleColor;
+		color:#000000;
 		margin-bottom: 20rpx;
-		font-size: 11pt;
+		font-size: 28rpx;
 		margin-top: 20rpx;
 	}
 
 	.couponListTitle {
-		font-size: 9pt;
+		font-size: 24rpx;
+		color: #000000;
 		margin-top: 40rpx;
 		margin-bottom: 20rpx;
 		padding: 0 25rpx;
-	}
-
-	.couponItemWrapper {
-		padding: 0 25rpx;
-		margin-bottom: 10rpx;
 	}
 
 	.gap {

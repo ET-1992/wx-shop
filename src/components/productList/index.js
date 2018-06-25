@@ -1,7 +1,4 @@
-import { PRODUCT_LIST_STYLE } from 'constants/index';
-
-const app = getApp();
-
+import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 Component({
     properties: {
         products: {
@@ -12,9 +9,9 @@ Component({
             type: Object,
             value: {},
         },
-        productListStyle: {
+        productLayoutStyle: {
             type: String,
-            value: PRODUCT_LIST_STYLE[0],
+            value: PRODUCT_LAYOUT_STYLE[0],
         },
         nextCursor: {
             type: Number,

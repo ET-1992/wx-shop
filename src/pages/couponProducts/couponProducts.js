@@ -1,6 +1,7 @@
 import api from 'utils/api';
-import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
+import { SEARCH_KEY, PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
+
 // const app = getApp()
 
 // 创建页面实例对象
@@ -10,9 +11,9 @@ Page({
         products: [],
 
         isRefresh: false,
-        isLoading: false,
+        isLoading: true,
         isSearch: false,
-        productListStyle: PRODUCT_LIST_STYLE[1],
+        productListStyle: PRODUCT_LAYOUT_STYLE[0],
 
         sortType: 'default',
         sortSales: 'saleDown',
@@ -29,7 +30,7 @@ Page({
         activeIdx: '0',
 
         indexParams: {
-            couponId: '',
+            user_coupon_id: '',
             couponTitle: '',
         },
     },
@@ -47,7 +48,7 @@ Page({
         } = this.data;
         const options = {
             paged: currentPage,
-            coupon_id: indexParams.couponId
+            user_coupon_id: indexParams.userCouponId
         };
 
         // if(sortType !== 'defalut') {
@@ -69,8 +70,6 @@ Page({
         // 	Object.assign(options, saleSort);
         // }
 
-        this.setData({ isLoading: true });
-
         const data = await api.hei.fetchProductList(options);
         const newProducts = isRefresh
             ? data.products
@@ -89,7 +88,8 @@ Page({
         this.setData({
             isRefresh: true,
             isSearch: true,
-            indexParams: params
+            indexParams: params,
+            isLoading: true
         });
         this.loadProducts();
     },
