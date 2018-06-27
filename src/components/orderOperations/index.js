@@ -77,10 +77,9 @@ Component({
                 console.log('orderOperations: 自主支付');
 
                 await wxPay(pay_sign);
-
-                // wx.redirectTo({
-                // 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-                // });
+                wx.redirectTo({
+                    url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
+                });
             }
             else if (pay_appid) {
                 try {
@@ -96,48 +95,37 @@ Component({
                     };
 
                     console.log(this.data);
-                    await wx.navigateToMiniProgram({
-                        envVersion: 'release',
-                        appId: pay_appid,
-                        path: `/pages/peanutPay/index?order_no=${orderNo}`,
-                        extraData: {
-                            address,
-                            order_no: orderNo,
-                            items: currentOrder.items,
-                            totalPrice: currentOrder.amount,
-                            totalPostage: currentOrder.postage,
-                            // quantity: currentOrder.quantity,
-                            orderPrice: currentOrder.orderPrice,
-                            coupons: currentOrder.coupons,
-                            buyerMessage: currentOrder.buyerMessage,
-                            couponPrice: currentOrder.couponPrice,
-                        },
-                        fail(res) {
-                            wx.redirectTo({
-                                url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-                            });
-                            console.log('navigateToMiniProgram fail: ' + res);
-                        },
+
+                    this.setData({
+                        modal: {
+                            title: '温馨提示',
+                            isShowModal: true,
+                            body: '确定要支付当前订单吗？',
+                            type: 'navigate',
+                            navigateData: {
+                                url: `/pages/peanutPay/index?order_no=${orderNo}`,
+                                appId: pay_appid,
+                                target: 'miniProgram',
+                                version: 'develop',
+                                extraData: {
+                                    address,
+                                    order_no: orderNo,
+                                    items: currentOrder.items,
+                                    totalPrice: currentOrder.amount,
+                                    totalPostage: currentOrder.postage,
+                                    coinPrice: currentOrder.coins_fee,
+                                    orderPrice: currentOrder.amount,
+                                    buyerMessage: currentOrder.buyerMessage,
+                                    couponPrice: currentOrder.coupon_discount_fee,
+                                }
+                            }
+                        }
                     });
                 }
                 catch (err) {
                     console.log(err);
                 }
-
-                // wx.redirectTo({
-                // 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-                // });
             }
-
-            // else {
-            // 	wx.redirectTo({
-            // 		url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-            // 	});
-            // }
-
-            wx.redirectTo({
-                url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-            });
         },
 
         async onConfirmOrder() {

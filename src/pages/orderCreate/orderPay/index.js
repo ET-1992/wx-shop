@@ -7,6 +7,14 @@ Component({
         isIphoneX: {
             type: Boolean,
             value: false
+        },
+        isPeanutPay: {
+            type: Boolean,
+            value: false
+        },
+        isDisablePay: {
+            type: Boolean,
+            value: true
         }
     },
     methods: {

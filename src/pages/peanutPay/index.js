@@ -9,7 +9,7 @@ Page({
     },
 
     onLoad: function () {
-        const { items, totalPrice, postage, address, buyer_message, couponPrice, orderPrice, order_no } = app.globalData.extraData;
+        const { items, totalPrice, postage, address, buyer_message, couponPrice, orderPrice, order_no, coinPrice } = app.globalData.extraData;
         this.setData({
             orderNo: order_no,
             order: items,
@@ -19,6 +19,7 @@ Page({
             buyer_message,
             couponPrice,
             orderPrice,
+            coinPrice
         });
     },
 
@@ -36,6 +37,7 @@ Page({
                 extraData: {
                     order_no: this.data.orderNo,
                     isCancel,
+                    isPeanutPayOk: true
                 }
             });
         }
