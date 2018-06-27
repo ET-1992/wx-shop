@@ -6,6 +6,11 @@
 swiper{
 	margin-bottom: 15rpx;
 }
+.container {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box; }
+  
 .searchWrapper {
 	background-color: $backgroundColor;
 	padding: 12rpx 40rpx;
@@ -264,4 +269,31 @@ button::after {
 .closeCoupon{
 	width: 80rpx;
 	height: 80rpx;
+}
+
+/* 首页分类 */
+.categoryBox{
+	padding: 0 15rpx 39rpx;
+	width: 100%;
+	display: flex;
+  	justify-content: flex-start;
+	flex-flow: row wrap;
+	align-items: center;
+	text-align: center;
+	.homeCategory{
+		flex-direction: column;
+		.categoryItem{
+			padding: 42rpx 35rpx 0;
+			.categoryImg{
+				width: 110rpx;
+				height: 110rpx;
+				border-radius: 5rpx;
+			}
+		}
+		.categoryTitle{
+			padding-top: 12rpx;
+			font-size: 24rpx;
+			color: #333333;
+		}
+	}
 }
