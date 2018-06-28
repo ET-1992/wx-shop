@@ -1,0 +1,74 @@
+<view class="container" style="margin-top: {{ isMarginTopZero ? 0 : '20rpx' }}">
+	<view class="sectionTitle" wx:if="{{ magicImgData.title }}">{{ magicImgData.title }}</view>
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '1-1' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{1}}">
+			<template is="rowImgItem" data="{{magicImgData, index}}"></template>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '2-1' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{2}}">
+			<template is="rowImgItem" data="{{magicImgData, index}}"></template>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-1' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{3}}">
+			<template is="rowImgItem" data="{{magicImgData, index}}"></template>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '4-1' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{4}}">
+			<template is="rowImgItem" data="{{magicImgData, index}}"></template>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '2-2' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{2}}">
+			<navigator class="rowImgItem {{ magicImgData.images[index].image ? '' : 'imgbg' }}" url="{{magicImgData.images[index].path}}" style="background-image: url({{ magicImgData.images[index].image }}); flex: {{ index === 0 ? 2 : 1 }}" hover-class="none"></navigator>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '2-3' }}" style="height: {{magicImgData.height}}rpx">
+		<block wx:for="{{2}}">
+			<navigator class="rowImgItem {{ magicImgData.images[index].image ? '' : 'imgbg1' }}" url="{{magicImgData.images[index].path}}" style="background-image: url({{ magicImgData.images[index].image }}); flex: {{ index === 0 ? 1 : 2 }}" hover-class="none"></navigator>
+		</block>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-2' }}" style="height: {{magicImgData.height}}rpx">
+		<template is="rowImgItem" data="{{magicImgData, index: 0}}"></template>
+		<view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
+			<template is="columnImgItem" data="{{magicImgData, index: 1}}"></template>
+			<template is="columnImgItem" data="{{magicImgData, index: 2}}"></template>
+		</view>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-3' }}" style="height: {{magicImgData.height}}rpx">
+		<view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
+			<template is="columnImgItem" data="{{magicImgData, index: 0}}"></template>
+			<template is="columnImgItem" data="{{magicImgData, index: 1}}"></template>
+		</view>
+		<template is="rowImgItem" data="{{magicImgData, index: 2}}"></template>
+	</view>
+
+	<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '4-2' }}" style="height: {{magicImgData.height}}rpx">
+		<view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
+			<template is="columnImgItem" data="{{magicImgData, index: 0}}"></template>
+			<template is="columnImgItem" data="{{magicImgData, index: 1}}"></template>
+		</view>
+		<view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
+			<template is="columnImgItem" data="{{magicImgData, index: 2}}"></template>
+			<template is="columnImgItem" data="{{magicImgData, index: 3}}"></template>
+		</view>
+	</view>
+</view>
+
+
+<template name="columnImgItem">
+	<navigator class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" url="{{  magicImgData.images[index].path }}" style="background-image: url({{  magicImgData.images[index].image }})" target="{{  magicImgData.images[index].type === 'mini_program' ? 'miniProgram' : '' }}" app-id="{{  magicImgData.images[index].appid }}" path="{{  magicImgData.images[index].path }}" hover-class="none"></navigator>
+</template>
+
+<template name="rowImgItem">
+	<navigator class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" url="{{  magicImgData.images[index].path }}" style="background-image: url({{  magicImgData.images[index].image }})" target="{{  magicImgData.images[index].type === 'mini_program' ? 'miniProgram' : '' }}" app-id="{{  magicImgData.images[index].appid }}" path="{{  magicImgData.images[index].path }}" hover-class="none"></navigator>
+</template>
