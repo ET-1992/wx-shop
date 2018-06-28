@@ -1,0 +1,76 @@
+.container{
+    margin: 10rpx 0;
+    background: #fff;
+    color: #333333;
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+        font-size: 27rpx;
+        border-bottom: 0.5rpx solid #C9C9C9;
+        padding:18rpx 40rpx 18rpx 30rpx;
+
+        .orderNumber{
+            color: #333333;
+        }
+        .orderStatus{
+            color: #FF0000;
+        }
+        .activeColor{
+            color: #4D8D22;
+        }
+    }
+
+    .middle{
+        display: flex;
+        justify-content: flex-start;
+        padding: 20rpx 40rpx 20rpx 30rpx;
+
+        .itemImage{
+            width: 120rpx;
+            height: 120rpx;
+            border: 1rpx solid #333333;
+        }
+        .middleRight{
+            width: 82%;
+            display: flex;
+            flex-direction: column;
+            height: 120rpx;
+            padding-left: 38rpx;
+
+            .title{
+                width: 100%;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2;
+                height:90rpx;
+
+            }
+            .rightBottom{
+                display: flex;
+                justify-content: space-between;
+                
+                .orderDate{
+                    font-size: 24rpx;
+                }
+                .orderCount{
+                    font-size: 26rpx;
+                }
+            }
+        }
+    }
+
+    .bottom{
+        display: flex;
+        justify-content: space-between;
+        font-size: 28rpx;
+        border-top: 0.5rpx solid #C9C9C9;
+        padding: 11rpx 40rpx 11rpx 30rpx;
+
+        .income{
+            color: #FF0000;
+        }
+    }
+}

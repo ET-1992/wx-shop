@@ -177,7 +177,7 @@
         <view class="section categoryBox" wx:if="{{ links && links.length }}">
           <view class="homeCategory" wx:for="{{ links }}" wx:key="id">
             <navigator 
-              wx:if="{{item.appid}}"
+              wx:if="{{ item.type === 'mini_program'}}"
               app-id="{{item.appid}}" 
               path="{{item.path}}"
               target="miniProgram" 
@@ -186,7 +186,20 @@
             >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
-            <navigator wx:else url="{{ item.path }}" class="categoryItem">
+
+            <navigator 
+              wx:elif="{{ item.type === 'web_view' }}" 
+              url="/pages/webPages/webPages?src={{item.src}}"
+              class="categoryItem"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+            
+            <navigator 
+              wx:else
+              url="{{ item.path }}" 
+              class="categoryItem"
+            >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
             <view class="categoryTitle">{{item.title}}</view>
