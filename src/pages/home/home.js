@@ -248,6 +248,7 @@ Page({
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
         });
+        this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);
         this.setData({
             products: newProducts,
@@ -278,8 +279,9 @@ Page({
     async showProducts() {
         const { windowHeight } = app.systemInfo;
         const rect = await this.getDomRect('loadProducts');
-        if (rect.top && (rect.top <= windowHeight)) {
+        if (rect.top && (rect.top <= windowHeight) && !this.data.isProductBottom) {
             const { next_cursor } = this.data;
+            this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             if (next_cursor !== 0) {
                 this.loadProducts();
             }
