@@ -294,6 +294,11 @@ button::after {
 			padding-top: 12rpx;
 			font-size: 24rpx;
 			color: #333333;
+			width: 180rpx;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			font-weight: normal;
 		}
 	}
 }
