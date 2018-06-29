@@ -67,7 +67,12 @@
 			background-color:#c81337;
 			font-size: 20rpx;
 			color:#fff;
-			padding:4rpx 10rpx;
+			// padding:4rpx 10rpx;
+			width: 80rpx;
+			height: 40rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }
