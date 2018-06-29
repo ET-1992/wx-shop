@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "shop-wxapp",
   "scripts": {
-    "start": "webpack --watch --progress",
+    "start": "npm run build:wechat",
     "webpack": "webpack",
     "prestart": "rimraf dist",
     "prebuild": "rimraf dist",

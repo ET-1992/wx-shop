@@ -18,7 +18,6 @@ Component({
                     newValue.defineType = 'oneLine';
                     newValue.eachNum = Number(newValue.layout.charAt(0));
                 }
-                console.log(newValue, 'fd');
                 this.setData({
                     magicImgData: newValue
                 });
