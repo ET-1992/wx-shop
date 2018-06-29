@@ -1,4 +1,4 @@
-<import src="/templates/grouponItem/grouponItem.wxml"/>
+<import src="/templates/productLayout/leftImage.wxml"/>
 <import src="/templates/loading/loading.wxml"/>
 <import src="/templates/articleItem/articleItem.wxml"/>
 
@@ -41,11 +41,11 @@
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-              <template is="grouponItem" data="{{ product: groupons[0], themeColor }}" />
+              <template is="leftImage" data="{{ product: groupons[0], themeColor }}" />
             </navigator>
           <block wx:else>
             <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-             <template is="grouponItem" data="{{ product: item, themeColor }}"  />
+             <template is="leftImage" data="{{ product: item, themeColor }}"  />
             </navigator>
           </block>
           <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
