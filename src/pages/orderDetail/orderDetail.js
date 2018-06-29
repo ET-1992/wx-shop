@@ -115,11 +115,13 @@ Page({
     async loadGroupon(id) {
         console.log('grouponId', id);
         const data = await api.hei.fetchGroupon({ id });
+        console.log(data, 'grouponData');
         const { time_expired } = data.groupon;
         const now = Math.round(Date.now() / 1000);
         const remainSecond = time_expired - now;
         data.remainSecond = remainSecond;
         data.remainTime = getRemainTime(remainSecond).join(':');
+        data.otherPeopleGroupon = true;
         this.setData(data);
     },
 
