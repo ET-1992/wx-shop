@@ -166,3 +166,111 @@
 		margin-top: 10rpx;
 	}
 }
+
+/* leftImage */
+.leftItem {
+	display: flex;
+	background-color: #fff;
+	padding-right: 34rpx;
+
+	.productImage {
+		$size: 280rpx;
+
+		height: $size;
+		width: $size;
+		flex-shrink: 0;
+	}
+
+	.meta {
+		padding: 6rpx;
+	    display: flex;
+	    padding-left: 38rpx;
+	    flex-direction: column;
+	    width: 100rpx;
+	    flex-grow: 1;
+	    margin: 16rpx 0 10rpx 0;
+		padding-bottom: 0;
+		
+		.name {
+			font-size: 30rpx;
+			color: $titleColor;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1; //文本行数
+			overflow: hidden;
+			text-overflow:ellipsis;
+			line-height: 1.2;
+		}
+	
+		.desc {
+			font-size: 24rpx;
+			color: $originalPriceColor;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow:ellipsis;
+			margin-top: 10rpx;
+		}
+
+		.grouponInfo {
+			display:flex;
+			font-size:26rpx;
+			color: $tagColor;
+			align-items:center;
+			margin: 30rpx 0 0 0;
+	
+			.grouponLimit{
+				color: #333333;
+				font-size: 24rpx;
+			}
+			
+			.grouponPrice {
+				color: $priceColor;
+				margin-left: 10rpx;
+				margin-right: 20rpx;
+				font-size: 36rpx;
+				display: flex;
+				align-items:center;
+				
+				.activeBuy{
+					color: $priceColor;
+					font-size:24rpx;
+				}
+			}
+		}
+
+		.singleBuy{
+			font-size: 24rpx;
+			color:#707070;
+
+			.price {
+				text-decoration: line-through;
+			}
+		}
+
+		.footer {
+			display: flex;
+			align-items: flex-end;
+			flex-grow: 1;
+
+			.groupNumber {
+				font-size: 24rpx;
+				color: #707070;
+				flex-grow: 1;
+				padding-bottom: 6rpx;
+			}
+
+			.groupBt {
+				float: right;
+				font-size: 24rpx;
+				color: #fff;
+				background-color: $mainColor;
+				display: inline-block;
+				width: 120rpx;
+				height: 48rpx;
+				line-height: 48rpx;
+				text-align: center;
+				border-radius: 5rpx;
+			}
+		}
+	}
+}

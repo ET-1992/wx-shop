@@ -25,18 +25,18 @@
 	}
 
 	.name {
-		font-size: 32rpx;
+		font-size: 30rpx;
 		color: $titleColor;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 1; //文本行数
 		overflow: hidden;
-    text-overflow:ellipsis;
-    line-height: 1.2;
+    	text-overflow:ellipsis;
+    	line-height: 1.2;
 	}
 
 	.desc {
-		font-size: 26rpx;
+		font-size: 24rpx;
 		color: $originalPriceColor;
 		overflow: hidden;
 	    white-space: nowrap;
@@ -48,17 +48,24 @@
 		display:flex;
 		font-size:26rpx;
 		color: $tagColor;
-		align-items:flex-end;
-		margin:54rpx 0 0rpx 0;
+		align-items:center;
+		margin: 30rpx 0 0 0;
+
+		.grouponLimit{
+			color: #333333;
+			font-size: 24rpx;
+		}
+
+		.grouponPrice {
+			color: $priceColor;
+			margin-left: 10rpx;
+			margin-right: 20rpx;
+			font-size: 36rpx;
+			display: flex;
+			align-items:center;
+		}
 	}
 
-	.grouponPrice {
-		color: $priceColor;
-		margin-left: 10rpx;
-		margin-right: 20rpx;
-		font-size: 36rpx;
-
-	}
 
 	.price {
 		text-decoration: line-through;
@@ -71,26 +78,32 @@
 	}
 
 	.groupNumber {
-		font-size: 26rpx;
-		color: $tagColor;
+		font-size: 24rpx;
+		color: #707070;
 		flex-grow: 1;
-		padding-bottom:6rpx;
+		padding-bottom: 6rpx;
 	}
 
 	.groupBt {
 		float: right;
-		font-size: 26rpx;
+		font-size: 24rpx;
 		color: #fff;
 		background-color: $mainColor;
 		display: inline-block;
-		width:110rpx;
-		height:48rpx;
-		line-height:48rpx;
-		text-align:center;
+		width: 120rpx;
+		height: 48rpx;
+		line-height: 48rpx;
+		text-align: center;
+		border-radius: 5rpx;
 	}
 }
 
-.aloneBuy{
+.activeBuy{
 	color: $priceColor;
 	font-size:26rpx;
+}
+
+.singleBuy{
+	font-size: 24rpx;
+	color:#707070;
 }
