@@ -134,9 +134,9 @@
       </view>
 
       <!-- 明星产品 -->
-      <view wx:if="{{ module.key === 'featured_products' }}">
+      <view wx:if="{{ module.key === 'featured' }}">
 
-        <view class="section" wx:if="{{ featured_products && featured_products.length }}">
+        <view class="section" wx:if="{{ featured && featured.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
 
            <navigator

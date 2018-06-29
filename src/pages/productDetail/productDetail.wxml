@@ -77,6 +77,7 @@
       wx:if="{{ product.coupons && product.coupons.length }}"
       class="coupons"
       catchtap="onShowCouponList"
+      style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}}"
     >
       <form bindsubmit="submitFormId" report-submit="true">
         <button formType="submit">
@@ -203,7 +204,7 @@
             data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
             style="background-color: {{ themeColor.primaryColor }}"
           >
-            <view>立即参团</view>
+            <view class="joinGroup">立即参团</view>
           </view>
         </block>
 
