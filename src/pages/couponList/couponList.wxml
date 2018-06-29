@@ -1,7 +1,10 @@
 <import src="../../templates/couponItem/couponItem.wxml" />
-<image wx:if="{{ vendor.image_url }}" class="vendorImage" src="{{ vendor.image_url }}" mode="widthFix"/>
+<import src="/templates/loading/loading.wxml"/>
+<template is="loading" wx:if="{{ isLoading }}"/>
+<image wx:if="{{ !isLoading && vendor.image_url }}" class="vendorImage" src="{{ vendor.image_url }}" mode="widthFix"/>
 <view class="couponsList">
 	<view 
+		wx:if="{{ !isLoading && coupons.length}}"
 		class="couponItemWrapper" 
 		wx:for="{{ coupons }}" 
 		wx:key="id" 
@@ -13,7 +16,7 @@
 	>
 		<template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}" />
 	</view>
-	<view class="noCouponHint" wx:if="{{ !coupons.length }}">暂无可领取优惠券</view>
+	<view class="noCouponHint" wx:if="{{ !isLoading && !coupons.length }}">暂无可领取优惠券</view>
 </view>
 
 
