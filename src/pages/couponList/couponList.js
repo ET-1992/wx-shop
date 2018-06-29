@@ -13,6 +13,9 @@ Page({
     },
 
     async onLoad(options) {
+        wx.setNavigationBarTitle({
+            title: '优惠券'
+        });
         this.loadCoupon();
     },
 
