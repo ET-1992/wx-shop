@@ -207,6 +207,12 @@
         </view>
       </view>
 
+      <!-- 魔方 -->
+
+      <view wx:if="{{ module.type === 'cube' }}" class="cube">
+        <magicImg magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
+      </view>
+
     </view>
   </view>
   <!-- <view class="bottomHint">-这是一条底线-</view> -->
