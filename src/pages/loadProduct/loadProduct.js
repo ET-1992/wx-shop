@@ -6,79 +6,79 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 const app = getApp(); // eslint-disable-line no-undef
 
 Page({
-	data: {
-		pageName: 'home',
+    data: {
+        pageName: 'home',
 
-		products: [],
-		product_categories: [],
-		home_sliders: {
-			home_sliders: [],
-		},
-		miaoshas: [],
-		groupons: [],
-		featured_products: [],
-		coupons: [],
+        products: [],
+        product_categories: [],
+        home_sliders: {
+            home_sliders: [],
+        },
+        miaoshas: [],
+        groupons: [],
+        featured_products: [],
+        coupons: [],
 
-		productListStyle: PRODUCT_LIST_STYLE[1],
-		categoryListStyle: CATEGORY_LIST_STYLE[2],
-		isRefresh: false,
-		isLoading: false,
+        productListStyle: PRODUCT_LIST_STYLE[1],
+        categoryListStyle: CATEGORY_LIST_STYLE[2],
+        isRefresh: false,
+        isLoading: false,
 
-		post_type_title: '',
-		taxonomy_title: '',
-		share_title: '',
-		page_title: '',
-		type: '',
-	},
+        post_type_title: '',
+        taxonomy_title: '',
+        share_title: '',
+        page_title: '',
+        type: '',
+    },
 
-	async loadProducts() {
+    async loadProducts() {
 
-		this.setData({ isLoading: true });
-		const { next_cursor, products } = this.data;
+        this.setData({ isLoading: true });
+        const { next_cursor, products } = this.data;
 
-		const data = await api.hei.fetchProductList({
-			cursor: next_cursor,
-		});
+        const data = await api.hei.fetchProductList({
+            cursor: next_cursor,
+        });
 
-		const newProducts = products.concat(data.products);
-		this.setData({
-			products: newProducts,
-			next_cursor: data.next_cursor,
-		});
+        const newProducts = products.concat(data.products);
+        this.setData({
+            products: newProducts,
+            next_cursor: data.next_cursor,
+        });
 
-		this.setData({ isLoading: false });
-		return data;
-	},
+        this.setData({ isLoading: false });
+        return data;
+    },
 
-	async onLoad() {
-		const data = await this.loadProducts();
-		if (data.page_title) {
-			wx.setNavigationBarTitle({
-				title: data.page_title,
-			});
-		}
-	},
+    async onLoad() {
+        const data = await this.loadProducts();
+        if (data.page_title) {
+            wx.setNavigationBarTitle({
+                title: data.page_title,
+            });
+        }
+    },
 
-	async onPullDownRefresh() {
-		this.setData({
-			isRefresh: true,
-			next_cursor: 0,
-			products: [],
-		});
-		await this.loadProducts();
-		wx.stopPullDownRefresh();
-	},
+    async onPullDownRefresh() {
+        this.setData({
+            isRefresh: true,
+            next_cursor: 0,
+            products: [],
+        });
+        await this.loadProducts();
+        wx.stopPullDownRefresh();
+    },
 
-	async onReachBottom() {
-		const { next_cursor } = this.data;
-		if (!next_cursor) {
-			return;
-		}
-		this.loadProducts();
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) {
+            return;
+        }
+        this.loadProducts();
 
-		console.log(this.data);
-	},
+        console.log(this.data);
+    },
 
-	onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage: onDefaultShareAppMessage,
 
 });

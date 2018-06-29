@@ -27,7 +27,8 @@
 		"pages/couponList/couponList",
 		"pages/login/login",
 		"pages/redpacket/redpacket",
-		"pages/coinDetail/coinDetail"
+		"pages/coinDetail/coinDetail",
+		"pages/webPages/webPages"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

@@ -1,8 +1,7 @@
 module.exports = {
-  extends: ['cantonjs-resolver'],
-  // rules: {
-  // 	"comma-dangle": ["error", "only-multiline"],
-  // },
+  extends: [
+    'eslint-config-alloy',
+  ],
   "globals": {
     "__DEV__": true,
     "__WECHAT__": true,
@@ -14,4 +13,19 @@ module.exports = {
     "getCurrentPages": true,
     "Component": true
   },
+  rules: {
+    'no-tabs': 0,
+    'no-unused-vars': [
+      'warn',
+      {
+          vars: 'all',
+          args: 'none',
+          caughtErrors: 'none',
+          ignoreRestSiblings: true
+      }
+    ],
+    'one-var': 0,
+    'array-callback-return': 1,
+    'guard-for-in': 0,
+  }
 };
