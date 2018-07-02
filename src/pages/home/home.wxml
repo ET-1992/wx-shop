@@ -15,9 +15,18 @@
       <view wx:if="{{ module.key === 'sliders' }}">
         <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
           <swiper-item wx:for="{{ sliders }}" wx:key="id">
-            <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
-              <image src="{{ item.image }}" />
-            </button>
+            <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
+              <image src="{{ item.image }}"/>
+            </button> -->
+            <navigator 
+              app-id="{{item.appid}}" 
+              path="{{item.path}}"
+              target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+              url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+              style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+              hover-class="none"
+            >
+            </navigator>
           </swiper-item>
         </swiper>
       </view>
@@ -113,8 +122,9 @@
         </scroll-view>
       </view>
       <!-- 明星产品 -->
-      <view wx:if="{{ module.key === 'featured_products' }}">
-        <view class="section" wx:if="{{ featured_products && featured_products.length }}">
+      <view wx:if="{{ module.key === 'featured' }}">
+
+        <view class="section" wx:if="{{ featured && featured.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}" wx:for="{{ featured }}" wx:key="id">
             <image class="starProductItem" src="{{ item.banner }}" />
@@ -139,6 +149,48 @@
           </view>
         </view>
       </view>
+
+      <!-- 首页分类 -->
+      <view wx:if="{{ module.key === 'links' }}">
+        <view class="section categoryBox" wx:if="{{ links && links.length }}">
+          <view class="homeCategory" wx:for="{{ links }}" wx:key="id">
+            <navigator 
+              wx:if="{{ item.type === 'mini_program'}}"
+              app-id="{{item.appid}}" 
+              path="{{item.path}}"
+              target="miniProgram" 
+              open-type="navigate" 
+              class="categoryItem"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+
+            <navigator 
+              wx:elif="{{ item.type === 'web_view' }}" 
+              url="/pages/webPages/webPages?src={{item.src}}"
+              class="categoryItem"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+            
+            <navigator 
+              wx:else
+              url="{{ item.path }}" 
+              class="categoryItem"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+            <view class="categoryTitle">{{item.title}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 魔方 -->
+
+      <view wx:if="{{ module.type === 'cube' }}" class="cube">
+        <magicImg magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
+      </view>
+
     </view>
   </view>
   <!-- <view class="bottomHint">-这是一条底线-</view> -->

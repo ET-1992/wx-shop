@@ -1,0 +1,56 @@
+.modal {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
+
+	.content {
+		width: 650rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+		padding-top: 54rpx;
+		padding-left: 60rpx;
+		padding-right: 60rpx;
+		padding-bottom: 30rpx;
+
+
+		.content-header {
+			font-size: 40rpx;
+			line-height: 56rpx;
+		}
+
+		.content-footer {
+			display: flex;
+			justify-content: flex-end;
+			font-size: 36rpx;
+			line-height: 50rpx;
+			height: 50rpx;
+			align-items: center;
+			.content-footer-cancel {
+				color: #707070;
+				margin-right: 50rpx;
+			}
+
+			.content-footer-confirm {
+				color: #21C11F;
+				border: none;
+				height: 50rpx;
+				line-height: 50rpx;
+			}
+		}
+
+		.content-body {
+			padding: 30rpx 0 50rpx 0;
+			font-size: 36rpx;
+			line-height: 50rpx;
+		}
+	}
+}

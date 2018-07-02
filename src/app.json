@@ -33,7 +33,8 @@
 		"pages/share/shareCenter/shareCenter",
 		"pages/share/shareMoney/shareMoney",
 		"pages/share/shareFinishUserInfo/shareFinishUserInfo",
-		"pages/share/sharePoster/sharePoster"
+		"pages/share/sharePoster/sharePoster",
+		"pages/webPages/webPages"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

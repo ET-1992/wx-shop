@@ -50,7 +50,13 @@
         {{ product.groupon_member_limit + '人团' }}
       </view>
     </view>
-    <view wx:if="{{ product.coupons && product.coupons.length }}" class="coupons" catchtap="onShowCouponList">
+
+    <view
+      wx:if="{{ product.coupons && product.coupons.length }}"
+      class="coupons"
+      catchtap="onShowCouponList"
+      style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}}"
+    >
       <form bindsubmit="submitFormId" report-submit="true">
         <button formType="submit">
           <text>领券</text>
@@ -103,10 +109,19 @@
             <view>{{ product.groupon_member_limit }}人团</view>
           </view>
         </block>
-        <!-- 被邀请参团 -->
-        <block wx:elif="{{ product.groupon_enable === '1' && grouponId }}">
-          <view class="buy multi" catchtap="onShowSku" data-is-groupon-buy data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" style="background-color: {{ themeColor.primaryColor }}">
-            <view>立即参团</view>
+
+        <!-- 被邀请参团  -->
+        <block
+          wx:elif="{{ product.groupon_enable === '1' && grouponId }}"
+        >
+          <view
+            class="buy multi"
+            catchtap="onShowSku"
+            data-is-groupon-buy
+            data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}"
+            style="background-color: {{ themeColor.primaryColor }}"
+          >
+            <view class="joinGroup">立即参团</view>
           </view>
         </block>
         <!-- 秒杀或者普通商品 -->
