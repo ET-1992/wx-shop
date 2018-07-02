@@ -23,6 +23,11 @@
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
 
+	<!-- 魔方 -->
+	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
+		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
+    </view>
+
 	<view wx:if="{{article.label && article.products.length}}" class="label"><view class="dash"></view>{{article.label}}<view class="dash"></view></view>
 	<view class="relateShop" wx:if="{{product.length}}">
 		<navigator  url='../productDetail/productDetail?id={{item.id}}' class="relateShopItem" wx:for="{{product}}">
