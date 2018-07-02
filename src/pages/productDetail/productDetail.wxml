@@ -33,8 +33,7 @@
       <view class="meta">
         <view>
           <view class="price">
-            ￥
-            <text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
+            ￥<text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
             <text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">
               {{ product.miaosha_price }}
             </text>
