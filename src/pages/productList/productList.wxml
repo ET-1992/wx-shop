@@ -1,4 +1,7 @@
-<view class="container">
+<import src="/templates/loading/loading.wxml"/>
+<template is="loading" wx:if="{{ isLoading }}"/>
+
+<view class="container" wx:if="{{ !isLoading }}">
 	<scroll-view
     	class="scrollSegmentcontrol"
     	scroll-x="true"
