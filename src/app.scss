@@ -158,3 +158,12 @@ button::after {
 	width: 120rpx;
 	text-align: center;
 }
+
+.displayNone {
+	display: none !important;
+}
+
+
+.borderBottom {
+	border-bottom: 4rpx solid $mainColor !important;
+}

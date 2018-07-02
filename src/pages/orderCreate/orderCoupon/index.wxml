@@ -1,12 +1,18 @@
- <view class="orderCoupon" wx:if="{{!isGrouponBuy}}">
-        <view class="coupon">
-            <view class="coupon-title">优惠劵</view>
-            <view class="coupon-content">优惠 {{ couponFeeDispaly }}元 <text class="coupon-rec">{{ isHaveUseCoupon ? '已选推荐优惠劵' : '暂无可用优惠券'}}</text> <text class="coupon-change" bindtap="couponChange">修改</text></view>
-        </view>
-        <view class="gold"  wx:if="{{ shouldGoinDisplay }}">
-            <view class="gold-title">花生米（本单最多可使用 {{ maxUseCoin }} 个）</view>
-            <view class="gold-content">共 {{ coins }} 花生米,使用 
-                <input type="number" bindinput="bindInput" class="gold-number" value="{{ useCoin }}" />
-                个</view>
-        </view>
+<view class="orderCoupon" wx:if="{{!isGrouponBuy}}">
+  <view class="coupon">
+    <view class="coupon-title">优惠劵</view>
+    <view class="coupon-content">
+      优惠 {{ couponFeeDispaly }}元
+      <text class="coupon-rec">{{ isHaveUseCoupon ? '已选推荐优惠劵' : '暂无可用优惠券'}}</text>
+      <text class="coupon-change" bindtap="couponChange">修改</text>
+    </view>
+  </view>
+  <view class="gold" wx:if="{{ shouldGoinDisplay }}">
+    <view class="gold-title">花生米（本单最多可使用 {{ maxUseCoin }} 个）</view>
+    <view class="gold-content">
+      共 {{ coins }} 花生米,使用
+      <input type="number" bindinput="bindInput" class="gold-number" value="{{ useCoin }}" />
+      个
+    </view>
+  </view>
 </view>

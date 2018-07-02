@@ -7,16 +7,7 @@
 
 
 <view class="section">
-  <view class="address">
-    <image class="addressIcon" src="/icons/address.png"/>
-    <view class="addressInfo">
-      <view>
-          <text>收货人：{{ address.userName }} </text>
-          <text class="phone"> {{ address.receiver_phone }}</text>
-      </view>
-      <view>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</view>
-    </view>
-  </view>
+  <address address="{{ address }}" class="addressWrapper"></address>
 </view>
 <view class="itemList">
  <view
@@ -57,6 +48,10 @@
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">优惠券</view>
     <view class="priceInfoItemValue">-￥{{ couponPrice || 0 }}</view>
+  </view>
+   <view class="priceInfoItem">
+    <view class="priceInoItemTitle">金币</view>
+    <view class="priceInfoItemValue">-￥{{ coinPrice || 0 }}</view>
   </view>
   <view class="priceInfoItem priceTotal">
     <view class="priceInoItemTitle">实付款</view>

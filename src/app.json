@@ -27,7 +27,14 @@
 		"pages/couponList/couponList",
 		"pages/login/login",
 		"pages/redpacket/redpacket",
-		"pages/coinDetail/coinDetail"
+		"pages/coinDetail/coinDetail",
+		"pages/share/shareProductList/shareProductList",
+		"pages/share/shareApply/shareApply",
+		"pages/share/shareCenter/shareCenter",
+		"pages/share/shareMoney/shareMoney",
+		"pages/share/shareFinishUserInfo/shareFinishUserInfo",
+		"pages/share/sharePoster/sharePoster",
+		"pages/webPages/webPages"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

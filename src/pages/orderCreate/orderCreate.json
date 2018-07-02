@@ -5,6 +5,7 @@
     "orderCoupon": "./orderCoupon/index",
     "orderInfo": "./orderInfo/index",
     "orderPay": "./orderPay/index",
-    "productItemSold": "../../components/productItemSold/index"
+    "productItemSold": "../../components/productItemSold/index",
+    "myModal": "../../components/myModal/myModal"
   }
 }

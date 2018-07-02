@@ -41,7 +41,7 @@ export default (env = {}) => {
                     test: /\.js$/,
                     exclude: /wxParse|node_modules/,
                     loader: 'eslint-loader',
-				  },
+                },
                 {
                     test: /\.js$/,
                     include: /src/,

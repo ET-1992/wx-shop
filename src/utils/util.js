@@ -82,3 +82,24 @@ export function getUserInfo() {
     }
     return user;
 }
+
+export function checkPhone(value) {
+    const reg = /^((1[3-8][0-9])+\d{8})$/;
+    return reg.test(value);
+}
+
+export function getNodeInfo(id, obj = {}) {
+    return new Promise((resolve, reject) => {
+        const defaultObj = {
+            dataset: true,
+            size: true,
+            scrollOffset: true,
+            rect: true,
+            ...obj
+        };
+        const query = wx.createSelectorQuery();
+        query.select(`#${id}`).fields(defaultObj, (res) => {
+            resolve(res);
+        }).exec();
+    });
+}

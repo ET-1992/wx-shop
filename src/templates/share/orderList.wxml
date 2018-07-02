@@ -1,0 +1,22 @@
+<template name="orderList">
+    <view wx:for="{{ orderData }}" class="container">
+        <view class="top">
+            <view class="orderNumber">所属单号：{{ item.number }}</view>
+            <view class="orderStatus {{ item.status == '待支付' ||  item.status == '已支付' || item.status == '已确认' ? '' : 'activeColor' }}">{{ item.status }}</view>
+        </view>
+        <view class="middle">
+            <image class="itemImage" mode="aspectFill" src="{{ item.thumbnail }}"></image>
+            <view class="middleRight">
+                <view class="title">{{ item.title }}</view>
+                <view class="rightBottom">
+                    <view class="orderDate">{{ item.date }}</view>
+                    <view class="orderCount">X{{ item.count }}</view>
+                </view>
+            </view>
+        </view>
+        <view class="bottom">
+            <view>商品总价：￥{{ item.amount }}</view>
+            <view class="income">{{ item.status == '已确认' || item.status == '已退款' ? '收益：' : '预计收益：'}} {{ item.income }}</view>
+        </view>
+    </view>
+</template>

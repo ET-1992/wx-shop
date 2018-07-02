@@ -1,16 +1,8 @@
 <view class="container">
-	<icon type="waiting" size="80"/>
+  <icon type="waiting" size="80" />
   <view class="text">确认要登录小程序?</view>
-  <button
-    type="primary"
-    bindgetuserinfo="onConfirm"
-    open-type="getUserInfo"
-    lang="zh_CN"
-    class="confirmBt"
-  >确定</button>
-  <button
-    type="default"
-    bindtap="onCancel"
-    class="cancelBt"
-  >取消</button>
+  <button type="primary" bindgetuserinfo="onConfirm" open-type="getUserInfo" lang="zh_CN" class="confirmBt">
+    确定
+  </button>
+  <button type="default" bindtap="onCancel" class="cancelBt">取消</button>
 </view>

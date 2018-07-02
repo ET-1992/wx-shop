@@ -1,0 +1,12 @@
+<template name="orderShareItem">
+    <view class="orderShareItem">
+        <image class="itemLeft"></image>
+        <view class="itemCenter">
+            <view class="itemCenter-t">品名：复古黄铜折页玻璃相框相框凑字铜折页玻璃相框相框凑字铜折页玻璃相框相框凑字</view>
+            <view class="itemCenter-t">所属订单号：99922222222222222222221212121212121</view>
+            <view class="itemCenter-t">确认时间：898989898989</view>
+            <view class="itemCenter-t">支付金额：￥88  佣金比例：10%</view>
+        </view>
+        <view class="itemRight">+￥8.8</view>
+    </view>
+</template>

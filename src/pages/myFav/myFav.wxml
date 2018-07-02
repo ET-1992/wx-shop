@@ -1,24 +1,23 @@
-<import src="/templates/loading/loading.wxml"/>
-<template is="loading" wx:if="{{ isLoading }}"/>
+<import src="/templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
 <block wx:if="{{ !isLoading && topics.length }}">
-	<view class="favList" wx:for="{{topics}}" wx:key="id">
-		<navigator url="../articleDetail/articleDetail?id={{item.id}}">
-			<view class="favItem">
-				<image class="avatar" src="{{item.banner}}" mode="aspectFill"></image>
-				<view class="favDetail">
-					<view class="m-tt">{{item.title}}</view>
-					<view class="m-desc">{{item.excerpt}}</view>
-					<button catchtap="unfav" id="{{item.id}}">取消收藏</button>
-				</view>
-			</view>
-		</navigator>
-	</view>
-
+		<view class="favList" wx:for="{{topics}}" wx:key="id">
+				<navigator url="../articleDetail/articleDetail?id={{item.id}}">
+						<view class="favItem">
+								<image class="avatar" src="{{item.banner}}" mode="aspectFill"></image>
+								<view class="favDetail">
+										<view class="m-tt">{{item.title}}</view>
+										<view class="m-desc">{{item.excerpt}}</view>
+										<button catchtap="unfav" id="{{item.id}}">取消收藏</button>
+								</view>
+						</view>
+				</navigator>
+		</view>
 </block>
 <block wx:if="{{ !isLoading && topics.length == 0}}">
-	<view class="favList">
-		<image class="favBg" src="../../icons/favBg.png"></image>
-	</view>
+		<view class="favList">
+				<image class="favBg" src="../../icons/favBg.png"></image>
+		</view>
 </block>
 <!-- <view
     class="bottomHint"

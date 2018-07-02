@@ -60,12 +60,15 @@
         wx:if="{{ item.status === 0 }}"
     >
         <view class="title">{{ item.title }}</view>
-        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
+          {{ item.sku_property_names }}
+        </view>
         <view class="meta">
           <view>
-            <view class="price" >￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
+            <view class="price">
+              ￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}
+            </view>
           </view>
-
           <view class="metaRight">
             <numberInput
             	value="{{ item.quantity }}"
@@ -92,7 +95,9 @@
         wx:else
     >
         <view class="title">{{ item.title }}</view>
-        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">{{ item.sku_property_names }}</view>
+        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
+          {{ item.sku_property_names }}
+        </view>
         <view class="meta">
         	<view>
             	<view class="price" >￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
@@ -137,18 +142,17 @@
         wx:if="{{ isAllSelected }}"
       />
     </view>
-
     <view bindtap="onSelectAll">全选</view>
     <view class="priceCount">
-      <view
-        class="priceMeta"
-      >
+      <view class="priceMeta">
         <!-- <text class="postage"
         >运费：￥{{ totalPostage }}</text> -->
-        <text
-        >已节省：￥{{ savePrice }}</text>
+        <text>已节省：￥{{ savePrice }}</text>
       </view>
-      <view>合计：<text class="totalPrice">￥{{ totalPrice }}</text></view>
+      <view>
+        合计：
+        <text class="totalPrice">￥{{ totalPrice }}</text>
+      </view>
     </view>
 
     <button

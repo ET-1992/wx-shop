@@ -1,102 +1,53 @@
 <view class="section">
-  <navigator
-    class="logistics"
-    url="/pages/logistics/logistics?orderNo={{order.order_no}}"
-    wx:if="{{ order.statusCode > 2 && order.statusCode < 5 && logistics.no}}"
-  >
-    <image class="truckIcon" src="/icons/truck.png"/>
+  <navigator class="logistics" url="/pages/logistics/logistics?orderNo={{order.order_no}}" wx:if="{{ order.statusCode > 2 && order.statusCode < 5 && logistics.no}}">
+    <image class="truckIcon" src="/icons/truck.png" />
     <view class="info">
       <view class="remark">{{ logistics.list[logistics.list.length - 1].remark }}</view>
       <view class="dateTime">{{ logistics.list[logistics.list.length - 1].datetime }}</view>
     </view>
-    <image class="rightIcon" src="/icons/right.png"/>
+    <image class="rightIcon" src="/icons/right.png" />
   </navigator>
 </view>
-
 <view class="orderInfo">
-    <view class="row">
-        <text class="text">商品金额</text>
-        <text class="money">￥{{ info.totalPriceDispaly }}</text>
-    </view>
-
-    <view wx:if="{{ info.couponFee }}" class="row">
-        <text class="text">优惠券</text>
-        <text class="money">-￥{{ info.couponFeeDispaly }}</text>
-    </view>
-
-    <view wx:if="{{ info.coinForPay }}" class="row">
-        <text class="text">花生米</text>
-        <text class="money">-￥{{ info.coinForPayDispaly }}</text>
-    </view>
-
-    <view class="row">
-        <text class="text">运费</text>
-        <text class="money">+￥{{ info.postageDispaly }}</text>
-    </view>
-
-    <view class="line"></view>
-
-    <view class="finalPay">实付款：<text class="finalPayText">￥{{  info.finalPayDispaly  }}</text></view>
-</view>
-
-<view class="section buyerMessage">
-  <view class="buyerMessageContent">
-    买家留言：{{ order.buyer_message }}
+  <view class="row">
+    <text class="text">商品金额</text>
+    <text class="money">￥{{ info.totalPriceDispaly }}</text>
+  </view>
+  <view wx:if="{{ info.couponFee }}" class="row">
+    <text class="text">优惠券</text>
+    <text class="money">-￥{{ info.couponFeeDispaly }}</text>
+  </view>
+  <view wx:if="{{ info.coinForPay }}" class="row">
+    <text class="text">花生米</text>
+    <text class="money">-￥{{ info.coinForPayDispaly }}</text>
+  </view>
+  <view class="row">
+    <text class="text">运费</text>
+    <text class="money">+￥{{ info.postageDispaly }}</text>
+  </view>
+  <view class="line"></view>
+  <view class="finalPay">
+    实付款：
+    <text class="finalPayText">￥{{  info.finalPayDispaly  }}</text>
   </view>
 </view>
-
+<view class="section buyerMessage">
+  <view class="buyerMessageContent">买家留言：{{ order.buyer_message }}</view>
+</view>
 <view class="section orderMeta">
   <view class="item">支付方式: 微信支付</view>
   <view class="item">订单编号: {{ order.order_no }}</view>
-  <view
-    class="item"
-    wx:if="{{ order.time }}"
-  >下单时间: {{ order.createDate }}</view>
-  <view
-    class="item"
-    wx:if="{{ order.paytime }}"
-  >付款时间: {{ order.payDate }}</view>
-  <view
-    class="item"
-    wx:if="{{ order.consign_time }}"
-  >发货时间: {{ order.consignDate }}</view>
-  <view
-    class="item"
-    wx:if="{{ order.refund_time }}"
-  >退款时间: {{ order.refundDate }}</view>
+  <view class="item" wx:if="{{ order.time }}">下单时间: {{ order.createDate }}</view>
+  <view class="item" wx:if="{{ order.paytime }}">付款时间: {{ order.payDate }}</view>
+  <view class="item" wx:if="{{ order.consign_time }}">发货时间: {{ order.consignDate }}</view>
+  <view class="item" wx:if="{{ order.refund_time }}">退款时间: {{ order.refundDate }}</view>
 </view>
-
-<button
-  class="nomalizeBt redpacketBannerBt"
-  data-is-redpocket-share="{{ true }}"
-  wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}"
-  open-type="share"
->
-  <image
-    class="redpacketBanner"
-    src="/images/orderRedpacketBanner.jpg"
-  />
+<button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}" open-type="share">
+  <image class="redpacketBanner" src="/images/orderRedpacketBanner.jpg" />
 </button>
-
-<navigator
-  open-type="switchTab"
-  url="/pages/home/home"
-  class="viewProduct"
-  style="background-color: {{ themeColor.primaryColor }}"
->浏览更多商品</navigator>
-
-
+<navigator open-type="switchTab" url="/pages/home/home" class="viewProduct" style="background-color: {{ themeColor.primaryColor }}">
+  浏览更多商品
+</navigator>
 <view class="footer {{ systemInfo.isIphoneX ? 'iphoneXTrick' : '' }}">
-  <orderOperations
-    statusCode="{{ order.statusCode }}"
-    orderNo="{{ order.order_no }}"
-    order="{{ order }}"
-    isShowContact="{{ !order.isDone }}"
-    isShowService="{{ order.isDone }}"
-    isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3  }}"
-    user="{{ user }}"
-    bindconfirmOrder="onRelaodOrder"
-    bindpayOrder="onRelaodOrder"
-    bindcloseOrder="onRelaodOrder"
-  />
+  <orderOperations statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" order="{{ order }}" isShowContact="{{ !order.isDone }}" isShowService="{{ order.isDone }}" isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3  }}" user="{{ user }}" bindconfirmOrder="onRelaodOrder" bindpayOrder="onRelaodOrder" bindcloseOrder="onRelaodOrder" />
 </view>
