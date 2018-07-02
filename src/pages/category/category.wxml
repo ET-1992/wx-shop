@@ -2,7 +2,7 @@
 
 <template is="loading" wx:if="{{ isLoading }}"/>
 
-<view class="container">
+<view class="container" wx:if="{{ !isLoading }}">
 	<scroll-view class="mainCategory" scroll-y>
     <view
       class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}"
