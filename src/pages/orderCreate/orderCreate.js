@@ -172,8 +172,9 @@ Page({
         requestData.posts = JSON.stringify(items);
         const { coupons, wallet, coin_in_order, fee, use_platform_pay } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
-        const maxUseCoin = Math.floor(fee.amount * coin_in_order.percent_in_order);
+        const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
         const useCoin = Math.min(maxUseCoin, wallet.coins);
+        console.log(useCoin);
         this.setData({
             coupons,
             wallet,
