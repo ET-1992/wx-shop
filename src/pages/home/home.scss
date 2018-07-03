@@ -9,7 +9,8 @@ swiper{
 .container {
 	height: auto;
 	width: 100%;
-	box-sizing: border-box; }
+	box-sizing: border-box; 
+}
   
 .searchWrapper {
 	background-color: $backgroundColor;
@@ -54,11 +55,11 @@ swiper{
 	height: 100%;
 }
 .flashItem .meta{
-	padding:40rpx;
+	padding: 40rpx;
 }
 
 .couponsWrapper {
-	padding: 0 10rpx;
+	padding-right: 10rpx;
 	font-size: 0;
 	z-index: 9;
 	margin-bottom: 20rpx;
@@ -68,11 +69,27 @@ swiper{
 	}
 
 	.coupon {
-		width: 250rpx;
-		height: 117rpx;
+		width: 300rpx;
+		height: 136rpx;
 		position: relative;
 		line-height: 1.2;
-		margin-right: 20rpx;
+		margin-left: 20rpx;
+	}
+	
+	.moreCoupon{
+		width: 30rpx;
+		height: 136rpx;
+		position: relative;
+		line-height: 1.2;
+
+		.moreBtn{
+			position: absolute;
+			width:33%;
+			color:#707070;
+			font-size:20rpx;
+			left: 45rpx;
+			top: 27rpx;
+		}
 	}
 
 	.couponInfoList {
@@ -80,8 +97,8 @@ swiper{
 		z-index: 2;
 		color: #fff;
 		font-size: 9pt;
-		height: 117rpx;
-		width: 250rpx;
+		height: 136rpx;
+		width: 300rpx;
 		display: flex;
 		line-height: 1.4;
 
@@ -90,8 +107,8 @@ swiper{
 			z-index: 2;
 			color: #fff;
 			font-size: 9pt;
-			height: 117rpx;
-			width: 170rpx;
+			height: 136rpx;
+			width: 180rpx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -108,8 +125,8 @@ swiper{
 	}
 
 	.bg {
-		width: 250rpx;
-		height: 117rpx;
+		width: 300rpx;
+		height: 136rpx;
 		position: absolute;
 		z-index: 1;
 	}
@@ -121,7 +138,7 @@ swiper{
 
 .section {
 	background-color: #fff;
-	margin-top: 20rpx;
+	margin-bottom: 20rpx;
 
 	.sectionTitle {
 		text-align: center;
