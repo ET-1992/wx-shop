@@ -155,8 +155,7 @@ Page({
         const username = e.currentTarget.dataset.user;
         const openid = e.currentTarget.dataset.openid;
         let userForm;
-        let user = this.data.user.user;
-
+        let user = this.data.user;
         if (!user || !user.openid) {
             console.log(user);
             userForm = await api.user.login();
