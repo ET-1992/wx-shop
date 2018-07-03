@@ -11,8 +11,12 @@
             <view wx:if="{{item.income}}">分享红包</view>
             <view class="time">{{item.formatTime}}</view>
         </view>
-        <view wx:if="{{item.expense}}" class="coinNum decreaseNum">{{item.amount}}</view>
-        <view wx:if="{{item.income}}" class="coinNum">+{{item.amount}}</view>
+        <view wx:if="{{item.expense}}" class="coinNum decreaseNum">
+            -<text>{{item.expense}}</text>
+        </view>
+        <view wx:if="{{item.income}}" class="coinNum">
+            +<text>{{item.income}}</text>
+        </view>
     </view>
     <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
         <image class="Bg" src="../../icons/nocoin.png"></image>
