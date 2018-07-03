@@ -32,9 +32,8 @@
 		<view>暂无已过期优惠券</view>
 	</view>
     <navigator
-    	open-type="switchTab"
     	wx:if="{{ selectedStatus === 'available' }}"
-    	url="/pages/home/home"
+    	url="/pages/couponList/couponList"
     	class="couponBt"
     	style="background-color: {{ themeColor.primaryColor }}"
     >获取优惠券

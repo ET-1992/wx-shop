@@ -1,7 +1,11 @@
 <import src="/templates/loading/loading.wxml"/>
 <template is="loading" wx:if="{{ isLoading }}"/>
 <view class="container">
-    <view class="coinList" wx:for="{{coinList}}" wx:if="{{ !isLoading && coinList.length }}" hidden="{{ item.amount == 0 || item.expense == item.income }}">
+    <view 
+        class="coinList" 
+        wx:for="{{coinList}}" 
+        wx:if="{{ !isLoading && coinList.length }}" 
+        style="{{ item.amount == 0 || item.expense == item.income ? 'display: none' : ''}}">
         <view>
             <view wx:if="{{item.expense}}">订单抵扣</view>
             <view wx:if="{{item.income}}">分享红包</view>
