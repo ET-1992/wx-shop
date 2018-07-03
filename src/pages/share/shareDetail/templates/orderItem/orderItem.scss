@@ -1,0 +1,45 @@
+.orderShareItem {
+    width: 100%;
+    background: #ffffff;
+    padding: 20rpx 0rpx;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1rpx solid #c9c9c9;
+    height: 171rpx;
+    font-size: 24rpx;
+    line-height: 33rpx;
+
+    .itemLeft {
+        width: 130rpx;
+        height: 130rpx;
+        background-color: #c9c9c9;
+        margin-right: 20rpx
+    }
+
+    .itemCenter {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        justify-content: space-between;
+
+        .itemCenter-t {
+            flex-wrap: nowrap;
+            margin-right: 10rpx;
+            -webkit-line-clamp: 1;
+            white-space: nowrap;  
+            text-overflow:ellipsis; 
+            overflow:hidden;
+            width: 100%;
+        }
+    }
+
+    .itemRight {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 80rpx;
+    }
+}
