@@ -59,7 +59,7 @@ swiper{
 }
 
 .couponsWrapper {
-	padding-right: 10rpx;
+	padding-left: 10rpx;
 	font-size: 0;
 	z-index: 9;
 	margin-bottom: 20rpx;
@@ -77,18 +77,18 @@ swiper{
 	}
 	
 	.moreCoupon{
-		width: 30rpx;
+		width: 101rpx;
 		height: 136rpx;
 		position: relative;
 		line-height: 1.2;
 
 		.moreBtn{
-			position: absolute;
-			width:33%;
+			position:absolute;
+			width:20rpx;
 			color:#707070;
 			font-size:20rpx;
-			left: 45rpx;
-			top: 27rpx;
+			left:40rpx;
+			top:26rpx;
 		}
 	}
 
@@ -120,6 +120,30 @@ swiper{
 
 			.title {
 				font-size: 8pt;
+			}
+		}
+
+		.couponBtn{
+			position:absolute;
+			z-index:2;
+			color:#fff;
+			font-size: 23rpx;
+			height:136rpx;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			flex-direction:column;
+			right:50rpx;
+
+			.couponUnuse{
+				width: 46rpx;
+				line-height: 1.2;
+			}
+
+			.arrow{
+				position:absolute;
+				z-index:2;
+				right:-25rpx;
 			}
 		}
 	}
