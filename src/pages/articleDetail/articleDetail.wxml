@@ -1,4 +1,7 @@
+<import src="../../templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
 <import src="/templates/productLayout/topImage.wxml"/>
+<view wx:if="{{ !isLoading }}">
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
 		<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 		<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
@@ -64,4 +67,5 @@
 		</navigator>
 
 	</view>
+</view>
 </view>

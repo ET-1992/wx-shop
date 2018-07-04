@@ -55,6 +55,7 @@ Page({
                 reply_count: data.article.replies ? data.article.replies.length : 0,
                 replies: data.article.replies,
             },
+            isLoading: false
         });
         if (data.page_title) {
             wx.setNavigationBarTitle({
