@@ -10,8 +10,12 @@
 		<view class="shareMoneyGet-btn">立即提现</view>
 	</view>
 	<view class="finishUserInfo">
+		<view class="finishUserInfo-left">收入明细</view>
+		<image class="finishUserInfo-right" src="/icons/right.png"></image>
+	</view>
+	<view class="finishUserInfo">
 		<text class="finishUserInfo-left">完善个人资料</text>
-		<text class="finishUserInfo-right">></text>
+		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view>
 	<view class="userInfoDisplay">
 		<view class="userInfoDisplay-item">

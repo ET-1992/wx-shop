@@ -1,0 +1,99 @@
+@import "./templates/orderItem/orderItem.scss";
+@import "./templates/moneyItem/moneyItem.scss";
+@import "./templates/moneyGetItem/moneyGetItem.scss";
+
+.container {
+	padding-top: 10rpx;
+	color: #000;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+
+	.moneyDisplay {
+		width: 100%;
+		height: 260rpx;
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		padding: 25rpx 0;
+
+		.moneyDisplay-h {
+			font-size: 30rpx;
+			line-height: 42rpx;
+		}
+
+		.moneyDisplay-b {
+			color: #FF0000;
+			font-size: 60rpx;
+			line-height: 84rpx;
+		}
+
+		.moneyDisplay-f {
+			width: 300rpx;
+			height: 70rpx;
+			display: flex;
+			border-radius: 10rpx;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			background-color: #FF0000;
+			font-size: 32rpx;
+		}
+	}
+	
+
+	.moneyInfo {
+		width: 100%;
+		//margin-top: 20rpx;
+		// margin-top: 290rpx;
+		position: absolute;
+		top: 0;
+		bottom:0;
+		height: 100%;
+		
+		.moneyInfoHeader {
+			width: 100%;
+			height: 90rpx;
+			background: #fff;
+			display: flex;
+			
+			.moneyInfoHeader-text {
+				flex: 1;	
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.moneyInfoHeader-border {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					height: 100%;
+				}
+			}
+			
+		}
+		.moneyInfoBody {
+			margin-top: 10rpx;
+			padding: 30rpx;
+			background-color: #fff;
+			height: 100%;
+			
+			.moneyInfoBodySearch {
+				width: 100%;
+				padding-bottom: 20rpx;
+				border-bottom: 1rpx solid #c9c9c9;
+				
+				.moneyInfoBodySearch-i {
+					width: 100%;
+					height: 50rpx;
+				}
+			}
+			
+			.moneyInfoBodyList {
+				overflow: auto;
+				height: 100%;
+			}
+		}
+	}
+}

@@ -60,7 +60,7 @@ Page({
 
         const data = await api.hei.fetchHome();
         // console.log('home data:', data);
-        const { current_user = {}, coupons } = data;
+        const { current_user = {}, coupons = [] } = data;
         // if (current_user) {
         // 	this.setData({
         // 		newUser: current_user.new_user,
