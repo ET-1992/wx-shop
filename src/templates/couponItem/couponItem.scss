@@ -72,18 +72,16 @@
 				align-items: flex-end;
 			}
 			.btn{
-				display: flex;
-				justify-content: flex-start;
+				display:flex;
+				justify-content:center;
+				align-items:center;
 				.useBtn{
-					width: 50%;
-					position:absolute;
-					top:29%;
-					left:15%;
+					font-size: 24rpx;
+					width: 48rpx;
+					line-height: 1.2;
 				}
 				.arrow{
-					position:absolute;
-					left:67%;
-					top:40%;
+					padding: 0 10rpx;
 				}
 
 			}
