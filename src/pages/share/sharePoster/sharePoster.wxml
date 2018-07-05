@@ -6,3 +6,5 @@
 		<button class="btn" bindtap="saveCanvasToImg">保存分享到朋友圈</button>
 	</view>
 </view>
+
+<myModal modal="{{modal}}"/>

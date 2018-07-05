@@ -103,3 +103,34 @@ export function getNodeInfo(id, obj = {}) {
         }).exec();
     });
 }
+
+// 绘制文本 返回数组 控制文本换行
+export function autoDrawText(opt = {}) {
+    const { ctx, text, maxWidth, maxLine } = opt;
+    let textRow = [];
+    let n = 0;
+
+    for (let i = 0; i < text.length; i++) {
+        const text_ = text.substring(n, i);
+        if (ctx.measureText(text_).width > maxWidth) {
+            textRow.push(text_);
+            n = i;
+        }
+    }
+    textRow.push(text.substring(n, text.length));
+    if (maxLine) {
+        if (textRow.length > maxLine) {
+            textRow = textRow.slice(0, maxLine);
+            let text__ = textRow[maxLine - 1];
+            text__ = text__.substring(0, text__.length - 2) + '...';
+            textRow[maxLine - 1] = text__;
+        }
+    }
+    return textRow;
+}
+
+export function imgToHttps(url = '') {
+    const httpsHost = 'https://cdn.97866.com';
+    const httpHost = 'http://cdn2.wpweixin.com';
+    return url.replace(httpHost, httpsHost);
+}

@@ -19,7 +19,7 @@ Component({
     },
     data: {
         defineModal: {
-            title: '提示', // 弹窗标题
+            title: '温馨提示', // 弹窗标题
             body: '', // 弹窗身体
             isShowCanel: true, // 是否有取消按钮
             type: 'button', // 按钮 button 或者 跳转 navigator
