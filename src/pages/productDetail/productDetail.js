@@ -651,5 +651,13 @@ Page({
                 videoTime: 0
             });
         }
+    },
+
+    shareProductDetail() {
+        console.log('来哦时间哦');
+        const { product } = this.data;
+        wx.navigateTo({
+            url: `/pages/share/sharePoster/sharePoster?productTitle=${product.title}&productImg=${product.images && product.images[0]}`
+        });
     }
 });

@@ -28,8 +28,13 @@
       </view>
     </view>
     <view class="info">
-      <view class="title">{{ product.title }}</view>
-      <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+    <view class="wrap">
+      <view class="titleWrap">
+        <view class="title">{{ product.title }}</view>
+        <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+      </view>
+      <!-- <view class="shareWrap" bindtap="shareProductDetail"><image src="/icons/shareProductDetail.png" /></view> -->
+    </view>
       <view class="meta">
         <view>
           <view class="price">
