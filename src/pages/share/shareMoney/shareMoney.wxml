@@ -39,6 +39,7 @@
                 bindblur="check" 
                 style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
                 bindfocus="reset"
+                bindinput='getUserIdCardPhoneNumber'
             />
         </view>
         <view class="item">
@@ -46,7 +47,9 @@
             <input 
                 class="item-input" 
                 placeholder="请输入微信号" 
-                type="text" />
+                type="text"
+                bindinput='getUserWechatId' 
+            />
         </view>
     </view>
     <view wx:else>
@@ -85,19 +88,15 @@
         </view>
         <view class="item">	
             <text class="item-text">开户行</text>
-            <picker  bindchange="bindPickerChange" value="{{bankNameList.text}}" range="{{ bankNameList[0] }}">
-                <input 
-                    class="item-input" 
-                    placeholder="请选择开户行"
-                    bindblur='getUserIdCardBankType'
-                    value='{{ bankNameList.text[index] || bankName }}'
-                    type="text" /> 
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{ bankNameList }}" range-key="text">
+                <input wx:if="{{ bankName }}" class="item-input" placeholder="请选择开户行" value='{{ bankName }}' disabled /> 
+                <input wx:else class="item-input" placeholder="请选择开户行" value='{{bankNameList[index].text}}' disabled /> 
             </picker>
         </view>
     </view>
 </view>
 
-<view class="saveBtnWrap">
-	<view class="saveBtn" bindtap='submitInfos'>申请提现</view>
+<view class="saveBtnWrap" >
+	<view class="saveBtn" bindtap="{{ payStyle == 1 ? 'submitWechat' : 'submitBank'}}">申请提现</view>
 </view>
     

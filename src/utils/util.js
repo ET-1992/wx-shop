@@ -18,12 +18,8 @@ export function formatTime(date) {
     const minute = date.getMinutes();
     const second = date.getSeconds();
 
-    return [year, month, day]
-        .map(formatNumber)
-        .join('-') + ' ' +
-			[hour, minute, second].map(formatNumber).join(':');
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
 }
-
 
 export function getAgainTokenForInvalid() {
     return new Promise(async (resolve, reject) => {
@@ -107,17 +103,10 @@ export function getNodeInfo(id, obj = {}) {
 
 /* 银行 */
 export function bankCardAttribution(bankCard) {
-    let cardTypeMap = {
-        DC: '储蓄卡',
-        CC: '信用卡',
-        SCC: '准贷记卡',
-        PC: '预付费卡'
-    };
+    let cardTypeMap = { DC: '储蓄卡', CC: '信用卡', SCC: '准贷记卡', PC: '预付费卡' };
     function extend(target, source) {
         let result = {};
         let key;
-        // target = target || {};
-        // source = source || {};
         for (key in target) {
             if (target.hasOwnProperty(key)) {
                 result[key] = target[key];
