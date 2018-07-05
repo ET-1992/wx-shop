@@ -5,7 +5,7 @@
 <import src="../../templates/couponItem/couponItem.wxml" />
 <import src="../../utils/wxParse/wxParse.wxml" />
 <view wx:if="{{ !isLoading }}">
-  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
+  <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <view class="header" wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}">
       <swiperVideoImg id="swiperVideoImg" wx:if="{{product.video}}" video="{{product.video}}" images="{{product.images}}" poster="{{product.images[0]}}"></swiperVideoImg>
       <swiper indicator-dots autoplay="{{autoplay}}" class="swiper" wx:if="{{!product.video}}" bindchange="currentIndex" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
@@ -55,70 +55,6 @@
         {{ product.groupon_member_limit + '人团' }}
       </view>
     </view>
-
-<view wx:if="{{ !isLoading }}">
-	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view 
-			class="header" 
-			wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}"
-		>
-			<swiperVideoImg 
-				id="swiperVideoImg" 
-				wx:if="{{product.video}}" 
-				video="{{product.video}}" 
-				images="{{product.images}}" 
-				poster="{{product.images[0]}}" />
-			<swiper 
-				indicator-dots 
-				autoplay="{{autoplay}}" 
-				class="swiper"
-				wx:if="{{!product.video}}" 
-				bindchange="currentIndex" 
-				indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
-				indicator-color="#fff"
-			>
-				<swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
-					<image src="{{ image }}" mode="aspectFill" />
-				</swiper-item>
-			</swiper>
-		</view>
-		<view wx:if="{{ product.miaosha_enable === '1' }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
-			<view class="title">限时购</view>
-			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
-			<view class="timeLimit">
-				<view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
-				<view wx:if="{{ !hasStart }}">距开始</view>
-				<view wx:if="{{ hasEnd }}">已结束</view>
-				<view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
-				<view wx:if="{{ !hasEnd }}">:</view>
-				<view class="minute" wx:if="{{ !hasEnd }}">{{ remainTime.minute }}</view>
-				<view wx:if="{{ !hasEnd }}">:</view>
-				<view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
-			</view>
-		</view>
-		<view class="info">
-			<view class="title">{{ product.title }}</view>
-			<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
-			<view class="meta">
-				<view>
-					<view class="price">
-						￥
-						<text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
-						<text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">
-							{{ product.miaosha_price }}
-						</text>
-						<text wx:else>{{ product.price}}</text>
-					</view>
-					<view class="originalPrice">￥{{ product.original_price }}</view>
-				</view>
-				<view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
-				<view class="sales">已售：{{ product.sales }}</view>
-			</view>
-			<view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view>
-			<view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
-				{{ product.groupon_member_limit + '人团' }}
-			</view>
-		</view>
 
 		<view 
 			wx:if="{{ product.coupons && product.coupons.length }}" 
