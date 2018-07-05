@@ -85,12 +85,14 @@
         </view>
         <view class="item">	
             <text class="item-text">开户行</text>
-            <input 
-                class="item-input" 
-                placeholder="请选择开户行"
-                bindblur='getUserIdCardBankType'
-                value='{{ bankName }}'
-                type="text" /> 
+            <picker  bindchange="bindPickerChange" value="{{bankNameList.text}}" range="{{ bankNameList[0] }}">
+                <input 
+                    class="item-input" 
+                    placeholder="请选择开户行"
+                    bindblur='getUserIdCardBankType'
+                    value='{{ bankNameList.text[index] || bankName }}'
+                    type="text" /> 
+            </picker>
         </view>
     </view>
 </view>
@@ -98,3 +100,4 @@
 <view class="saveBtnWrap">
 	<view class="saveBtn" bindtap='submitInfos'>申请提现</view>
 </view>
+    

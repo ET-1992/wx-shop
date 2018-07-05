@@ -378,7 +378,7 @@ Page({
         });
         if (!data.errcode) {
             wx.showToast({
-                title: '成功添加到购物车',
+                title: '成功添加'
             });
         }
     },

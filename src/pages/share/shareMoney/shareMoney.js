@@ -1,4 +1,5 @@
 import { checkPhone, bankCardAttribution } from 'utils/util';
+import { BANK_NAME_LIST } from 'utils/bank';
 // import { USER_KEY } from 'constants/index';
 const app = getApp();
 Page({
@@ -15,7 +16,6 @@ Page({
             card: false
         },
 
-        cardType: '',   // 卡类型
         username: '',   // 用户名
         phoneNumber: '',    // 手机号
         bankName: '',   // 银行
@@ -31,8 +31,11 @@ Page({
         this.setData({
             // user,
             isIphoneX,
-            themeColor
+            themeColor,
+            bankNameList: BANK_NAME_LIST
         });
+
+        console.log(this.data.bankNameList);
     },
 
     /* radio选择改变触发 */
