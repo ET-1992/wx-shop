@@ -1,60 +1,59 @@
 <import src="/templates/couponItem/couponItem.wxml"/>
 <import src="/templates/loading/loading.wxml"/>
-<view class="container">
-	<view class="statusBar">
-    <view
-    	class="statusItem"
-    	wx:for="{{ status }}"
-    	wx:key="name"
-    	bindtap="onStautsItemClick"
-    	data-value="{{ item.value }}"
-    >
-		<view 
-			class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
-			style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
-		>{{ item.name }}</view>
-    </view>
-</view>
-
 <template is="loading" wx:if="{{ isLoading }}"/>
 
-<view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
-    <view wx:if="{{ selectedStatus === 'available' }}">
-		<image class="noHint" src="../../icons/noCoupon.png"></image>
-		<view>还没有优惠券</view>
+<view class="container" wx:if="{{ !isLoading }}">
+	<view class="statusBar">
+    	<view
+    		class="statusItem"
+    		wx:for="{{ status }}"
+    		wx:key="name"
+    		bindtap="onStautsItemClick"
+    		data-value="{{ item.value }}"
+    	>
+			<view 
+				class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
+				style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+			>{{ item.name }}</view>
+    	</view>
 	</view>
-    <view wx:if="{{ selectedStatus === 'used' }}">
-		<image class="noHint" src="../../icons/noCoupon.png"></image>
-		<view>暂无已使用优惠券</view>
-	</view>
-    <view wx:if="{{ selectedStatus === 'expired' }}">
-		<image class="noHint" src="../../icons/noCoupon.png"></image>
-		<view>暂无已过期优惠券</view>
-	</view>
-    <navigator
-    	open-type="switchTab"
-    	wx:if="{{ selectedStatus === 'available' }}"
-    	url="/pages/home/home"
-    	class="couponBt"
-    	style="background-color: {{ themeColor.primaryColor }}"
-    >获取优惠券
-    </navigator>
-</view>
 
-<view class="couponList" wx:if="{{ !isLoading }}">
-    <view
-    	class="couponItemWrapper"
-    	wx:for="{{ coupons[selectedStatus] }}"
-    	wx:key="id"
-    	bindtap="onCouponClick"
-    	data-usercouponid="{{ item.user_coupon_id }}"
-    	data-status="{{ item.status }}"
-    	data-title="{{ item.title }}"
-    >
-    <template
-        is="couponItem"
-        data="{{ coupon: item, status: selectedStatus }}"
-    />
-    </view>
-  </view>
+	<view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
+	    <view wx:if="{{ selectedStatus === 'available' }}">
+			<image class="noHint" src="../../icons/noCoupon.png"></image>
+			<view>还没有优惠券</view>
+		</view>
+	    <view wx:if="{{ selectedStatus === 'used' }}">
+			<image class="noHint" src="../../icons/noCoupon.png"></image>
+			<view>暂无已使用优惠券</view>
+		</view>
+	    <view wx:if="{{ selectedStatus === 'expired' }}">
+			<image class="noHint" src="../../icons/noCoupon.png"></image>
+			<view>暂无已过期优惠券</view>
+		</view>
+	    <navigator
+    		wx:if="{{ selectedStatus === 'available' }}"
+    		url="/pages/couponList/couponList"
+    		class="couponBt"
+    		style="background-color: {{ themeColor.primaryColor }}"
+    	>去领券
+	    </navigator>
+	</view>
+
+	<view class="couponList" wx:if="{{ !isLoading }}">
+    	<view
+    		class="couponItemWrapper"
+    		wx:for="{{ coupons[selectedStatus] }}"
+    		wx:key="id"
+    		bindtap="onCouponClick"
+    		data-usercouponid="{{ item.user_coupon_id }}"
+    		data-status="{{ item.status }}"
+    		data-title="{{ item.title }}"
+    	>
+    		<template
+        		is="couponItem"
+        		data="{{ coupon: item, status: selectedStatus }}"
+    		/>
+    	</view>
+  	</view>
 </view>

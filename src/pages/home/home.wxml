@@ -1,7 +1,9 @@
-<import src="/templates/grouponItem/grouponItem.wxml" />
-<import src="/templates/loading/loading.wxml" />
-<import src="/templates/articleItem/articleItem.wxml" />
-<template is="loading" wx:if="{{ isLoading }}" />
+<import src="/templates/productLayout/leftImage.wxml"/>
+<import src="/templates/loading/loading.wxml"/>
+<import src="/templates/articleItem/articleItem.wxml"/>
+
+<template is="loading" wx:if="{{ isLoading }}"/>
+
 <view class="container" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
   <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">
     <view class="search">
@@ -34,12 +36,12 @@
       <view wx:if="{{ module.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-            <template is="grouponItem" data="{{ product: groupons[0], themeColor }}" />
-          </navigator>
+            <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
+              <template is="leftImage" data="{{ product: groupons[0], themeColor }}" />
+            </navigator>
           <block wx:else>
             <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-              <template is="grouponItem" data="{{ product: item, themeColor }}" />
+             <template is="leftImage" data="{{ product: item, themeColor }}"  />
             </navigator>
           </block>
           <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
@@ -98,9 +100,18 @@
       </view>
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
-        <scroll-view class="couponsWrapper" wx:if="{{ userCoupon.length }}" scroll-x>
-          <view class="coupons" style="width:{{conWidth}}rpx">
-            <view class="coupon" wx:for="{{ userCoupon }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}">
+        <view class="couponsWrapper" wx:if="{{ userCoupon.length }}">
+          <view class="coupons">
+            <view class="coupon" 
+              wx:for="{{ userCoupon }}" 
+              wx:key="id" 
+              bindtap="onCouponClick" 
+              data-id="{{ item.id }}" 
+              data-status="{{ item.status }}" 
+              data-title="{{ item.title }}" 
+              data-index="{{ index }}"
+              wx:if="{{ index < 2 }}"
+            >
               <form bindsubmit="submitFormId" report-submit="true">
                 <button class="couponInfoList" formType="submit">
                   <view class="couponInfo">
@@ -111,15 +122,25 @@
                     </view>
                     <view class="title">满{{ item.least_cost }}元使用</view>
                   </view>
-                  <image class="bg" src="/icons/homeCoupon.png" wx:if="{{item.status == 2 && item.stock_qty }}" />
-                  <image class="bg" src="/icons/homeCouponOut.png" wx:if="{{item.status == 2 && !item.stock_qty }}" />
-                  <image class="bg" src="/icons/homeCouponReceived.png" wx:if="{{item.status == 4 }}" />
-                  <image class="bg" src="/icons/homeCouponUsed.png" wx:if="{{item.status == 5 }}" />
+                  <view class="couponBtn">
+                    <text class="couponUnuse" wx:if="{{ item.status == 2 && item.stock_qty }}" >立即领取</text>
+                    <text class="couponUnuse" wx:if="{{ item.status == 4 }}" >立即使用</text>
+                    <text class="couponUsed" wx:if="{{ item.status == 5 }}" >已使用</text>
+                    <text class="couponUsed" wx:if="{{ item.status == 2 && !item.stock_qty }}" >已抢光</text>
+                    <text class="arrow" wx:if="{{ item.status == 2 && item.stock_qty || item.status == 4 }}"> > </text>
+                  </view>
+                  <image class="bg" src="/icons/homeCoupon.png" wx:if="{{ item.status == 2 && item.stock_qty }}" /> <!-- 待领取 -->
+                  <image class="bg" src="/icons/homeCouponReceived.png" wx:if="{{ item.status == 4 }}" /> <!-- 已领取 -->
+                  <image class="bg" src="/icons/homeCouponOut.png" wx:if="{{ item.status == 2 && !item.stock_qty }}" /> <!-- 已抢光 -->
+                  <image class="bg" src="/icons/homeCouponOut.png" wx:if="{{ item.status == 5 }}" /> <!-- 已使用 -->
                 </button>
               </form>
             </view>
+            <navigator class="moreCoupon" url="/pages/couponList/couponList" wx:if="{{ userCoupon.length > 1 }}">
+              <view class="moreBtn">查看更多</view>
+            </navigator>
           </view>
-        </scroll-view>
+        </view>
       </view>
       <!-- 明星产品 -->
       <view wx:if="{{ module.key === 'featured' }}">
@@ -209,11 +230,7 @@
             <view>{{item.title}}</view>
           </view>
           <view class="reduce">
-            <text wx:if="{{ item.type == 1 }}">￥</text>
-            <text class="reduceCost">
-              {{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}
-            </text>
-            <text wx:if="{{ item.type == 2 }}">折</text>
+            <text wx:if="{{ item.type == 1 }}">￥</text><text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text><text wx:if="{{ item.type == 2 }}">折</text>
           </view>
         </view>
         <view class="deadline">

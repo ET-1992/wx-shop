@@ -10,6 +10,7 @@ $iphoneXBottomGap: 40rpx;
 	padding-bottom: $footerHeight + 20rpx;
 	color: $titleColor;
 	overflow-x: hidden;
+	position: fixed;
 
 	&.iphoneXTrick {
 		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
@@ -538,6 +539,22 @@ button {
 				width: 165rpx;
 				height: 118rpx;
 				margin: 100rpx auto 0;
+				display: block;
+			}
+			view{
+				color:#707070;
+				font-size: 24rpx;
+				height:80%;
+				text-align:center;
+				width:100%;
+				padding: 30rpx 0;
+			}
+		}
+		.noCouponHint{
+			image{
+				width: 165rpx;
+				height: 118rpx;
+				margin: 0 auto;
 				display: block;
 			}
 			view{

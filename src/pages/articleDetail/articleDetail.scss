@@ -101,7 +101,7 @@ swiper image{
 	padding: 18rpx 0 0 25rpx;
 	margin-top: 0;
 	width:380rpx;
-
+	height: 110rpx;
 }
 .product-card-except{
 	overflow: hidden;/*超出部分隐藏*/
@@ -111,7 +111,8 @@ swiper image{
 	color:$tagColor;
 	padding-left: 20rpx;
 	width: 380rpx;
-	}
+	height: 30rpx;
+}
 .product-card-meta{
 	display: flex;
 	padding: 30rpx 0 0 20rpx;
