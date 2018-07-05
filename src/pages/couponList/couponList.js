@@ -10,16 +10,23 @@ const app = getApp();
 Page({
     data: {
         coupons: [],
+        isLoading: true
     },
 
     async onLoad(options) {
+        wx.setNavigationBarTitle({
+            title: '优惠券'
+        });
         this.loadCoupon();
     },
 
     async loadCoupon() {
         const { vendor } = app.globalData;
         const data = await api.hei.fetchCouponList({ vendor });
-        this.setData(data);
+        this.setData({
+            ...data,
+            isLoading: false
+        });
     },
 
     async onReceiveCoupon(id, index) {
@@ -79,5 +86,16 @@ Page({
     reLoad() {
         this.loadCoupon();
     },
+
+    /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+    onPullDownRefresh: function() {
+        this.setData({
+            isLoading: true
+        });
+        this.loadCoupon();
+        wx.stopPullDownRefresh();
+    }
 
 });

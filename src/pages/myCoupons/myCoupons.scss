@@ -2,7 +2,9 @@
 @import '~templates/couponItem/couponItem';
 @import '~templates/loading/loading';
 
-
+page{
+	background: #F4F4F4;
+}
 .statusBar {
 	$height: 90rpx;
 
@@ -43,6 +45,7 @@
 	font-size: 28rpx;
 	text-align: center;
 	.noHint{
+		transform:rotate(-15deg);
 		text-align:center;
         width:190rpx;
 		height:157rpx;

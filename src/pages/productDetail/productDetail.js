@@ -87,7 +87,7 @@ Page({
         page_title: '',
         share_title: '',
         activeIndex: 0,
-        isLoading: false,
+        isLoading: true,
         headerType: 'images',
         grouponId: '',
         remainTime: {
@@ -177,10 +177,10 @@ Page({
 
     async initPage() {
         const { id, grouponId } = this.options;
-        const { product } = this.data;
-        if (!product.id) {
-            this.setData({ isLoading: true });
-        }
+        // const { product } = this.data;
+        // if (!product.id) {
+        //     this.setData({ isLoading: true });
+        // }
 
         this.setData({
             pendingGrouponId: '',
@@ -310,6 +310,7 @@ Page({
     },
 
     async onShow() {
+        this.setData({ isLoading: true });
         await this.initPage();
     },
 
@@ -377,7 +378,7 @@ Page({
         });
         if (!data.errcode) {
             wx.showToast({
-                title: '成功添加到购物车',
+                title: '成功添加'
             });
         }
     },

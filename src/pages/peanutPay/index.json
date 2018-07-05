@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "支付",
   "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle":"black"
+  "navigationBarTextStyle":"black",
+  "usingComponents": {
+    "address": "../../components/address/address"
+  }
 }

@@ -1,9 +1,10 @@
 /* pages/couponList/couponList.wxss */
 @import '~templates/couponItem/couponItem';
 .couponsList{
-	padding: 40rpx 20rpx;
+	padding: 40rpx 25rpx;
 	.couponItemWrapper{
-		margin-bottom: 30rpx;
+		margin:25rpx auto 0;
+		width:650rpx;
 	}
 }
 .vendorImage{

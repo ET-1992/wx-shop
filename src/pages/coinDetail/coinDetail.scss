@@ -1,6 +1,7 @@
 page{background: #FFFFFF}
 .container{
     padding: 0 40rpx 50rpx;
+
     .coinList{
         display: flex;
         justify-content: space-between;
@@ -10,15 +11,20 @@ page{background: #FFFFFF}
         font-size: 28rpx;
     
         .time{
-            font-size: 24rpx;
+            font-size: 20rpx;
             padding-top: 10rpx;
+            color: #707070;
         }
        
         .coinNum{
             height: 80rpx;
             line-height: 80rpx;
             color: #F52D2D;
-            font-size: 24rpx;
+            font-size: 25rpx;
+            font-weight: bold;
+            text{
+                font-size: 28rpx;
+            }
         }
         .decreaseNum{ color: green}
     }

@@ -48,6 +48,10 @@ Page({
         } = this.data;
         const options = {
             paged: currentPage,
+            coupon_id: indexParams.couponId
+        };
+        const userOptions = {
+            paged: currentPage,
             user_coupon_id: indexParams.userCouponId
         };
 
@@ -69,19 +73,29 @@ Page({
         // 	console.log('222')
         // 	Object.assign(options, saleSort);
         // }
-
-        const data = await api.hei.fetchProductList(options);
-        const newProducts = isRefresh
-            ? data.products
-            : products.concat(data.products);
-        this.setData({
-            products: newProducts,
-            isRefresh: false,
-            currentPage: data.current_page,
-            totalPages: data.total_pages,
-            isLoading: false
-        });
-        return data;
+        if (indexParams.userCouponId) {
+            const data = await api.hei.fetchProductList(userOptions);
+            const newProducts = isRefresh ? data.products : products.concat(data.products);
+            this.setData({
+                products: newProducts,
+                isRefresh: false,
+                currentPage: data.current_page,
+                totalPages: data.total_pages,
+                isLoading: false
+            });
+            return data;
+        } else {
+            const data = await api.hei.fetchProductList(options);
+            const newProducts = isRefresh ? data.products : products.concat(data.products);
+            this.setData({
+                products: newProducts,
+                isRefresh: false,
+                currentPage: data.current_page,
+                totalPages: data.total_pages,
+                isLoading: false
+            });
+            return data;
+        }
     },
 
     onLoad(params) {
@@ -153,6 +167,7 @@ Page({
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
+            isLoading: true,
             currentPage: 1,
         });
         await this.loadProducts();

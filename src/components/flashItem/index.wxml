@@ -2,7 +2,7 @@
   <view class="meta">
     <view class="name">{{ product.title }}</view>
     <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
-    <view class="timeLimit">
+    <!-- <view class="timeLimit">
       <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
       <view wx:if="{{ !hasStart }}">距开始</view>
       <view wx:if="{{ hasEnd }}">已结束</view>
@@ -23,7 +23,7 @@
         wx:if="{{ !hasEnd }}"
         style="background-color: {{ themeColor.primaryColor }}"
       >{{ remainTime.second }}</view>
-    </view>
+    </view> -->
     <view class="footer">
       <view>
         <view class="flashPrice">

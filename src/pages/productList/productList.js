@@ -16,7 +16,7 @@ Page({
         categoryId: 0,
         categoryParent: 0,
         isRefresh: false,
-        isLoading: false,
+        isLoading: true,
 
         currentPage: 1,
 
@@ -44,7 +44,7 @@ Page({
     },
 
     async loadProducts() {
-        this.setData({ isLoading: true });
+        // this.setData({ isLoading: true });
         const {
             currentPage,
             categoryId,
@@ -71,18 +71,17 @@ Page({
         }
 
         const data = await api.hei.fetchProductList(options);
-        const newProducts = isRefresh ?
-            data.products :
-            products.concat(data.products);
+        const newProducts = isRefresh ? data.products : products.concat(data.products);
         this.setData({
             products: newProducts,
             isRefresh: false,
+            isLoading: false,
             currentPage: data.current_page,
             totalPages: data.total_pages,
             categories: data.categories,
             selectedCategoryId: data.current_product_category.id,
         });
-        this.setData({ isLoading: false });
+        // this.setData({ isLoading: false });
         return data;
     },
 
@@ -97,7 +96,7 @@ Page({
     },
 
     onSegmentItemClick(ev) {
-        this.setData({ currentPage: 1 });
+        // this.setData({ currentPage: 1 });
         const { selectedCategoryId } = this.data;
         const { categoryId, index } = ev.currentTarget.dataset;
         if (selectedCategoryId === categoryId) {
@@ -281,6 +280,7 @@ Page({
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
+            isLoading: true,
             currentPage: 1,
         });
         await this.loadProducts();

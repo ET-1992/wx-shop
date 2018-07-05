@@ -1,0 +1,33 @@
+.container{
+    padding: 0 30rpx;
+    color: #707070;
+    font-size: 24rpx;
+    background: #FFFFFF;
+
+    .item{
+        padding: 30rpx 0;
+        border-top: 1rpx solid #E0E0E0;
+        display: flex;
+        justify-content: flex-start;
+
+        .left{
+            width: 90rpx;
+            height: 90rpx;
+            border-radius: 5rpx;
+            border: 1rpx solid #707070;
+            
+        }
+
+        .right{
+            flex-direction: column;
+            padding: 0 0 0 36rpx;
+            width: 87%;
+            line-height: 2;
+
+            .rightBottom{
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}

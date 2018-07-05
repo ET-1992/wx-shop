@@ -38,7 +38,11 @@ Page({
         finalPay: 0,
         user_coupon_ids: '', // 选择的优惠券ID
         isGrouponBuy: false, // 是否拼团订单
-        isHaveUseCoupon: true
+        isHaveUseCoupon: true,
+        isPeanutPay: false, // 是否第三方支付
+        modal: {}, // 弹窗数据
+        isShouldRedirect: false,
+        isDisablePay: true
     },
 
     // onLoad() {
@@ -47,6 +51,16 @@ Page({
     // 	this.setData({ themeColor, isIphoneX });
     // },
 
+    onShow() {
+        console.log(this.options);
+        console.log(app.globalData);
+        if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
+            wx.redirectTo({
+                url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
+            });
+        }
+    },
+
     async onLoad() {
         // this.checkPhoneModel();
         const { themeColor } = app.globalData;
@@ -54,18 +68,12 @@ Page({
         this.setData({ themeColor, isIphoneX });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
-            const { isCancel, order_no, grouponId, isGrouponBuy } = this.options;
+            const { grouponId, isGrouponBuy } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
             const totalPrice = currentOrder.totalPrice;
             // let totalPostage = 0;
-
-            if (isCancel) {
-                wx.redirectTo({
-                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                });
-            }
 
             this.setData({
                 address,
@@ -73,14 +81,13 @@ Page({
                 items,
                 isGrouponBuy: isGrouponBuy || null,
                 grouponId: grouponId || null,
-                totalPostage
+                totalPostage,
+                isShouldRedirect: false
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
-                    this.onLoadData();
-                } else {
-                    this.computedFinalPay();
                 }
+                this.onLoadData();
             });
         }
         catch (err) {
@@ -139,7 +146,7 @@ Page({
     },
 
     async onLoadData() {
-        const { address, items, totalPrice, user_coupon_ids } = this.data;
+        const { address, items, totalPrice, user_coupon_ids, isGrouponBuy } = this.data;
         console.log(totalPrice, 'totalPrice');
         let requestData;
         if (address) {
@@ -155,14 +162,19 @@ Page({
             };
         }
 
-        if (user_coupon_ids) {
+        if (user_coupon_ids && !requestData) { // 团购无优惠卷
             requestData.user_coupon_ids = user_coupon_ids;
         }
+
+        if (isGrouponBuy) {
+            requestData.order_type = 'groupon';
+        }
         requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee } = await api.hei.orderPrepare(requestData);
+        const { coupons, wallet, coin_in_order, fee, use_platform_pay } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
-        const maxUseCoin = Math.floor(fee.amount * coin_in_order.percent_in_order);
+        const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
         const useCoin = Math.min(maxUseCoin, wallet.coins);
+        console.log(useCoin);
         this.setData({
             coupons,
             wallet,
@@ -171,8 +183,10 @@ Page({
             shouldGoinDisplay,
             maxUseCoin,
             useCoin,
-            user_coupon_ids: coupons.recommend.user_coupon_id,
-            isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false
+            user_coupon_ids: coupons.recommend && coupons.recommend.user_coupon_id || '',
+            isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
+            isPeanutPay: use_platform_pay,
+            isDisablePay: false
         }, () => {
             this.computedFinalPay();
         });
@@ -292,8 +306,6 @@ Page({
         }
 
         try {
-
-
             const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
             // console.log(order_no, status, pay_sign, pay_appid, 'pay');
             wx.hideLoading();
@@ -307,33 +319,40 @@ Page({
             if (pay_sign) {
                 console.log('自主支付');
                 await wxPay(pay_sign);
-
+                wx.redirectTo({
+                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
+                });
             }
             else if (pay_appid) {
                 console.log('平台支付');
 
-                await wx.navigateToMiniProgram({
-                    envVersion: 'release',
-                    // envVersion: 'develop',
-                    appId: pay_appid,
-                    path: `/pages/peanutPay/index?order_no=${order_no}`,
-                    extraData: {
-                        order_no: order_no,
-                        address: this.data.address,
-                        items: this.data.items,
-                        totalPrice: this.data.totalPrice,
-                        totalPostage: this.data.totalPostage,
-                        orderPrice: this.data.orderPrice,
-                        coupons: this.data.coupons,
-                        buyerMessage: this.data.buyerMessage,
-                        couponPrice: this.data.couponPrice,
+                this.setData({
+                    modal: {
+                        isFatherControl: true,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: '确定要提交订单吗？',
+                        type: 'navigate',
+                        navigateData: {
+                            url: `/pages/peanutPay/index?order_no=${order_no}`,
+                            appId: pay_appid,
+                            target: 'miniProgram',
+                            version: 'develop',
+                            extraData: {
+                                order_no: order_no,
+                                address: this.data.address,
+                                items: this.data.items,
+                                totalPrice: this.data.totalPrice,
+                                totalPostage: this.data.fee.postage,
+                                orderPrice: this.data.finalPay,
+                                coupons: this.data.fee.coupon_reduce_fee,
+                                buyerMessage: this.data.buyerMessage,
+                                coinPrice: this.data.useCoin,
+                            }
+                        }
                     },
                 });
             }
-
-            wx.redirectTo({
-                url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-            });
         }
         catch (err) {
             console.log(err);
@@ -345,6 +364,20 @@ Page({
             });
         }
     },
+
+    onCancel() {
+        this.setData({
+            'modal.isShowModal': false,
+            isShouldRedirect: false
+        });
+    },
+
+    onConfirm() {
+        this.setData({
+            'modal.isShowModal': false,
+            isShouldRedirect: true
+        });
+    }
 
     // checkPhoneModel() {
     // 	wx.getSystemInfo({

@@ -1,14 +1,16 @@
+<import src="../../templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
 <import src="/templates/productLayout/topImage.wxml"/>
+<view wx:if="{{ !isLoading }}">
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
-<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
-
-	<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
-	  <block wx:for="{{article.images}}">
-	    <swiper-item>
-	      <image src="{{item}}" class="slide-image" mode="widthFix"/>
-	    </swiper-item>
-	   </block>
-	</swiper>
+		<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
+		<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
+				<block wx:for="{{article.images}}">
+						<swiper-item>
+								<image src="{{item}}" class="slide-image" mode="widthFix" />
+						</swiper-item>
+				</block>
+		</swiper>
 </view>
 <view class="p-single">
 	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
@@ -21,6 +23,9 @@
 	<import src="../../utils/wxParse/wxParse.wxml"/>
 	<view class="{{article.full ==1 ?'':'pad-30'}}">
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+	</view>
+	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
+			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 	</view>
 
 	<view wx:if="{{article.label && article.products.length}}" class="label">
@@ -45,7 +50,7 @@
 	</view>
 
 	<view class="footerItem">
-			<!-- 收藏 -->
+		<!-- 收藏 -->
 		<view class="fav">
 			<view wx:if="{{is_faved}}" class="favItem" >
 		    	<view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
@@ -60,6 +65,7 @@
 		<navigator url="/pages/commentList/commentList?id={{article.id}}" class="comment">
 			<view class="commentIcon"></view>{{article.reply_count}}
 		</navigator>
-	</view>
 
+	</view>
+</view>
 </view>

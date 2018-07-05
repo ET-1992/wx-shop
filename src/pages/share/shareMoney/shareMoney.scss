@@ -1,0 +1,122 @@
+@import "~styles/color";
+page{
+	background: #F4F4F4;
+}
+.container {
+	margin-top: 15rpx;
+	background: #fff;
+	padding: 20rpx 75rpx;
+
+	.item {
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		font-size: 28rpx;
+
+		.item-text {
+			line-height: 40rpx;
+			width: 200rpx;
+		}
+
+		.item-input {
+			padding-left: 100rpx;
+			width: 400rpx;
+		}
+		
+		.placeholder {
+			margin-left: 100rpx;
+		}
+	}
+
+	.payName{
+		font-size: 28rpx;
+		padding: 10rpx 79rpx 10rpx 10rpx;
+	}
+}
+
+.saveBtnWrap {
+	width: 100%;
+	margin-top: 100rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.saveBtn {
+	width: 300rpx;
+	height: 70rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	font-size: 32rpx;
+	line-height: 45rpx;
+	background-color: #FF0000;
+	border-radius: 10rpx;
+}
+
+/*  重写 radio 样式  */
+/* 未选中的 背景样式 */
+radio .wx-radio-input{
+	border-radius: 50%;/* 圆角 */
+	width: 36rpx;
+	height: 36rpx;
+ }
+ /* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+ radio .wx-radio-input.wx-radio-input-checked{
+	border: none;
+	background: $mainColor;
+	width: 40rpx;
+	height: 40rpx;
+ }
+ /* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+ radio .wx-radio-input.wx-radio-input-checked::before{
+	border-radius: 50%;/* 圆角 */
+	width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+	height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+	line-height: 40rpx;
+	text-align: center;
+	font-size: 30rpx; /* 对勾大小 30rpx */
+	color:#fff; /* 对勾颜色 白色 */
+	background: transparent;
+	transform:translate(-50%, -50%) scale(1);
+	-webkit-transform:translate(-50%, -50%) scale(1);
+ }
+
+.top{
+	margin-top: 0;
+	background: #F4F4F4;
+	.item {
+		font-size: 30rpx;
+		height: 70rpx;
+		display: flex;
+		justify-content: flex-start;
+
+		.amount{
+			font-size: 30rpx;
+			padding-left: 240rpx;
+		}
+	}
+}
+
+.middle{
+	padding-top: 25rpx;
+	padding-right: 0;
+	margin-top: 0;
+	.item {
+		font-size: 30rpx;
+		display: flex;
+		justify-content: flex-start;
+
+		.input{
+			font-size: 48rpx;
+			font-weight: bold;
+			width: 180rpx;
+		}
+	}
+	.price{
+		padding-left: 220rpx;
+		font-size: 48rpx;
+		font-weight: bold;
+	}
+
+}

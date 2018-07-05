@@ -6,9 +6,10 @@ import Event from 'utils/event';
 
 App({
     onLaunch() {
-        const { windowWidth, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
+        const { windowWidth, windowHeight, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
         this.systemInfo = {
             windowWidth,
+            windowHeight,
             ratio: pixelRatio,
             screenWidth,
             isIphoneX: model.indexOf('iPhone X') >= 0,

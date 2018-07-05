@@ -37,3 +37,5 @@
   <view class="statusBt confirmBt" bindtap="onConfirmOrder" wx:if="{{ statusCode === 3 }}">确认收货</view>
   <view class="statusBt" bindtap="onComment" wx:if="{{ statusCode === 4 && flase }}">发表评价</view>
 </view>
+
+<myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>

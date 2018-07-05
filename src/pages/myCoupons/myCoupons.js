@@ -35,6 +35,7 @@ Page({
             'coupons.available': available,
             'coupons.used': used,
             'coupons.expired': expired,
+            isLoading: false
         });
     },
 
@@ -46,7 +47,6 @@ Page({
             const { themeColor } = app.globalData;
             this.setData({ isLoading: true, themeColor });
             await this.loadCoupons();
-            this.setData({ isLoading: false });
         }
         catch (err) {
             console.log(err);

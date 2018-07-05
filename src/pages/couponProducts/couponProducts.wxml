@@ -1,6 +1,6 @@
 <import src="/templates/loading/loading.wxml" />
 	<template is="loading" wx:if="{{ isLoading }}" />
-	<view class="header">
+	<view class="header" wx:if="{{ !isLoading }}" >
 		<view class="couponTitle">以下商品可以使用{{ indexParams.couponTitle }}优惠券</view>
 		<view class="sortOptions" wx:if="{{ products.length }}">
 			<view class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}" bindtap="onSort" data-index="0">综合</view>

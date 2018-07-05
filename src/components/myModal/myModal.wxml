@@ -1,0 +1,13 @@
+<view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove"> 
+	<view class="content">
+		<view class="content-header">{{ defineModal.title }}</view>
+		<view class="content-body">
+			{{ defineModal.body }}
+		</view>
+		<view class="content-footer">
+			<view class="content-footer-cancel" bindtap="onCancel">{{ defineModal.cancelText }}</view>
+			<button class="content-footer-confirm" bindtap="onConfirm" wx:if="{{ defineModal.type === 'button' }}" type="default" plain="{{true}}">{{ defineModal.confirmText }}</button>
+			<navigator class="content-footer-confirm" bindtap="onConfirm" wx:if="{{ defineModal.type === 'navigate' }}" path="{{ defineModal.navigateData.url }}" target="{{ defineModal.navigateData.target }}" app-id="{{ defineModal.navigateData.appId }}" extra-data="{{ defineModal.navigateData.extraData }}" version="{{ defineModal.navigateData.version }}">{{ defineModal.confirmText }}</navigator>
+		</view>
+	</view>
+</view>

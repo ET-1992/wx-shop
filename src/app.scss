@@ -131,7 +131,7 @@ button::after {
 	font-size: 24rpx;
 	color: $tagColor;
 	// padding-left: 20rpx;
-	margin-bottom: 40rpx;
+	// margin-bottom: 40rpx;
 	width: 380rpx;
 }
 .product-card-meta {
@@ -157,4 +157,13 @@ button::after {
 	border-radius: 10rpx;
 	width: 120rpx;
 	text-align: center;
+}
+
+.displayNone {
+	display: none !important;
+}
+
+
+.borderBottom {
+	border-bottom: 4rpx solid $mainColor !important;
 }

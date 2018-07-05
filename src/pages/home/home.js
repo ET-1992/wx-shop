@@ -60,7 +60,7 @@ Page({
 
         const data = await api.hei.fetchHome();
         // console.log('home data:', data);
-        const { current_user = {}, coupons } = data;
+        const { current_user = {}, coupons = [] } = data;
         // if (current_user) {
         // 	this.setData({
         // 		newUser: current_user.new_user,
@@ -248,18 +248,21 @@ Page({
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
         });
+        this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);
         this.setData({
             products: newProducts,
             next_cursor: data.next_cursor,
+            last_coursor: this.data.next_cursor
         });
+        console.log(this.data);
         return data;
     },
 
     /* 触底加载 */
     // async onReachBottom() {
     // 	let modules = this.data.modules;
-    // 	if(modules[modules.length-1].key === 'products'){
+    // 	if (modules[modules.length - 1].key === 'products') {
     // 		const { next_cursor } = this.data;
     // 		if (!next_cursor) {
     // 			console.log(next_cursor);
@@ -267,42 +270,24 @@ Page({
     // 		}
     // 		this.loadProducts();
     // 		console.log('products在底部');
-    // 	}else{
+    // 	} else {
     // 		console.log('products不在底部');
     // 	}
     // },
 
     /* 无限加载 */
-    showProducts() {
-        let that = this;
-        wx.getSystemInfo({
-            success: function(res) {
-                let windowHeight = res.windowHeight;
-                that.setData({
-                    height: windowHeight
-                });
-                let height = that.data.height;  // 页面的可视高度
-                // console.log('页面的可视高度：'+ height);
-
-                wx.createSelectorQuery().select('#loadProducts').boundingClientRect((rect) => {
-                    // console.log('节点的上边界坐标：' + rect.top);
-                    // console.log('节点/高度：' + rect.top / height);
-                    if (rect.top / height < 3) { // 判断是否在显示范围内
-                        const { next_cursor } = that.data;
-                        if (!next_cursor) {
-                            // console.log('商品加载到底了' + next_cursor);
-                            return;
-                        }
-                        that.loadProducts();
-                        // console.log('products在底部');
-                    }
-                }
-                ).exec();
+    async showProducts() {
+        const { windowHeight } = app.systemInfo;
+        const rect = await this.getDomRect('loadProducts');
+        if (rect.top && (rect.top <= windowHeight) && !this.data.isProductBottom) {
+            const { next_cursor } = this.data;
+            this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
+            if (next_cursor !== 0) {
+                this.loadProducts();
             }
-        });
-
+        }
     },
-    onPageScroll() { // 监听页面滚动事件
+    onPageScroll() {
         let modules = this.data.modules;
         if (modules[modules.length - 1].key === 'products') {
             this.showProducts();
@@ -314,4 +299,12 @@ Page({
     reLoad() {
         this.loadHome();
     },
+
+    getDomRect(id) {
+        return new Promise((resolve, reject) => {
+            wx.createSelectorQuery().select(`#${id}`).boundingClientRect((rect) => {
+                resolve(rect);
+            }).exec();
+        });
+    }
 });
