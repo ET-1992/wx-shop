@@ -105,7 +105,6 @@ export function getNodeInfo(id, obj = {}) {
     });
 }
 
-<<<<<<< HEAD
 // 绘制文本 返回数组 控制文本换行
 export function autoDrawText(opt = {}) {
     const { ctx, text, maxWidth, maxLine } = opt;
@@ -135,7 +134,8 @@ export function imgToHttps(url = '') {
     const httpsHost = 'https://cdn.97866.com';
     const httpHost = 'http://cdn2.wpweixin.com';
     return url.replace(httpHost, httpsHost);
-=======
+}
+
 /* 银行 */
 export function bankCardAttribution(bankCard) {
     let cardTypeMap = {
@@ -186,5 +186,4 @@ export function bankCardAttribution(bankCard) {
         return 'error';
     }
     return _getBankInfoByCardNo(bankCard);
->>>>>>> c2d44ee432a5305f65226957f671c400413a8b6a
 }
