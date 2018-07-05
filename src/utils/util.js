@@ -1,6 +1,7 @@
 import { TOKEN_KEY, EXPIRED_KEY, USER_KEY } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession } from 'utils/wxp';
+import { bankcardList } from 'utils/bank';
 
 function formatNumber(n) {
     let x;
@@ -102,4 +103,56 @@ export function getNodeInfo(id, obj = {}) {
             resolve(res);
         }).exec();
     });
+}
+
+/* 银行 */
+export function bankCardAttribution(bankCard) {
+    let cardTypeMap = {
+        DC: '储蓄卡',
+        CC: '信用卡',
+        SCC: '准贷记卡',
+        PC: '预付费卡'
+    };
+    function extend(target, source) {
+        let result = {};
+        let key;
+        // target = target || {};
+        // source = source || {};
+        for (key in target) {
+            if (target.hasOwnProperty(key)) {
+                result[key] = target[key];
+            }
+        }
+        for (key in source) {
+            if (source.hasOwnProperty(key)) {
+                result[key] = source[key];
+            }
+        }
+        return result;
+    }
+    function getCardTypeName(cardType) {
+        if (cardTypeMap[cardType]) {
+            return cardTypeMap[cardType];
+        }
+        return 'error';
+    }
+
+    function _getBankInfoByCardNo(cardNo) {
+        for (let i = 0, len = bankcardList.length; i < len; i++) {
+            let bankcard = bankcardList[i];
+            let patterns = bankcard.patterns;
+            for (let j = 0, jLen = patterns.length; j < jLen; j++) {
+                let pattern = patterns[j];
+                if ((new RegExp(pattern.reg)).test(cardNo)) {
+                    let info = extend(bankcard, pattern);
+                    delete info.patterns;
+                    delete info.reg;
+                    info['cardTypeName'] = getCardTypeName(info['cardType']);
+                    return info;
+                }
+            }
+        }
+        return 'error';
+    }
+    return _getBankInfoByCardNo(bankCard);
 }
