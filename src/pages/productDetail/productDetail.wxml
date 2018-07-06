@@ -46,17 +46,19 @@
 			</view>
 		</view>
 		<view class="info">
-			<view class="title">{{ product.title }}</view>
-			<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+			<view class="top">
+				<view class="left">
+					<view class="title">{{ product.title }}</view>
+					<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+				</view>
+				<view class="right">
+					<image class="shareIcon" src="../../icons/shareIcon.png"></image>
+				</view>
+			</view>
 			<view class="meta">
 				<view>
 					<view class="price">
-						￥
-						<text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text>
-						<text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">
-							{{ product.miaosha_price }}
-						</text>
-						<text wx:else>{{ product.price}}</text>
+						￥<text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text><text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</text><text wx:else>{{ product.price}}</text>
 					</view>
 					<view class="originalPrice">￥{{ product.original_price }}</view>
 				</view>
@@ -68,24 +70,40 @@
 				{{ product.groupon_member_limit + '人团' }}
 			</view>
 		</view>
-
-		<view 
-			wx:if="{{ product.coupons && product.coupons.length }}" 
-			class="coupons" 
-			catchtap="onShowCouponList" 
-			style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}}"
-		>
-			<form bindsubmit="submitFormId" report-submit="true">
-				<button formType="submit">
-					<text>领券</text>
-					<!-- 只显示三个 -->
-					<view class="coupon" wx:for="{{ product.coupons }}" wx:key="{{ item.id }}" wx:if="{{ index < 3 }}">
-						{{ item.title }}
-					</view>
-					<image class="rightIcon" src="/icons/right.png" />
-				</button>
-			</form>
+		<!-- 领券&服务说明 -->
+		<view class="sevice-coupon">
+			<view 
+				wx:if="{{ product.coupons && product.coupons.length }}" 
+				class="coupons" 
+				catchtap="onShowCouponList" 
+				style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}}"
+			>
+				<form bindsubmit="submitFormId" report-submit="true">
+					<button formType="submit">
+						<text class="couponBtn">领券</text>
+						<!-- 只显示三个 -->
+						<view 
+							class="coupon" 
+							wx:for="{{ product.coupons }}" 
+							wx:key="{{ item.id }}" 
+							wx:if="{{ index < 3 }}"
+						>{{ item.title }}
+						</view>
+						<!-- <image class="rightIcon" src="/icons/right.png" /> -->
+					</button>
+				</form>
+			</view>
+			<view 
+				wx:if="{{ product.service_instructions && product.service_instructions.length}}"
+				class="service"
+			>
+				<view class="text">服务</view>
+				<view class="desc">
+					<view class="service-item" wx:for="{{ product.service_instructions }}">• {{ item }}</view>
+				</view>
+			</view>
 		</view>
+		<!-- end -->
 		<view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}" class="pendingGroupons">
 			<view class="title">正在开团, 可直接参团</view>
 			<view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
@@ -97,7 +115,7 @@
 			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
 		</view>
 		<view class="detail">
-			<view class="detailTitle">商品详情</view>
+			<view class="detailTitle"> • 商品详情 • </view>
 			<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
 		</view>
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -175,6 +193,9 @@
 	<view class="actionSheet">
 		<template is="mock" data="{{ isShow: isShowAcitonSheet }}" />
 		<view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="close" catchtap="onMockCancel">
+				<image src="../../icons/clear.png"></image>
+			</view>
 			<view style="width:100%">
 				<scroll-view scroll-y class="scrollSkus">
 					<view class="head">
@@ -249,6 +270,9 @@
 	<view class="actionSheet">
 		<template is="mock" data="{{ isShow: isShowCouponList }}" />
 		<view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="close" catchtap="onMockCancel">
+				<image src="../../icons/clear.png"></image>
+			</view>
 			<scroll-view class="couponList" scroll-y>
 				<view class="title">优惠券</view>
 				<view class="availableCoupon">
