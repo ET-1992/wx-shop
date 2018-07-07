@@ -56,16 +56,19 @@
 				</view>
 			</view>
 			<view class="meta">
-				<view>
-					<view class="price">
-						￥<text wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</text><text wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</text><text wx:else>{{ product.price}}</text>
+				<view class="price">
+					<view class="nowPrice">
+						<view>￥</view>
+						<view class="priceStyle" wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</view>
+						<view class="priceStyle" wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</view>
+						<view class="priceStyle" wx:else>{{ product.price}}</view>
 					</view>
 					<view class="originalPrice">￥{{ product.original_price }}</view>
 				</view>
 				<view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
-			<view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view>
+			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
 			<view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
 				{{ product.groupon_member_limit + '人团' }}
 			</view>

@@ -633,7 +633,8 @@ Page({
         }
         else {
             showModal({
-                title: '需授权后操作',
+                title: '温馨提示',
+                content: '需授权后操作',
                 showCancel: false,
             });
         }
