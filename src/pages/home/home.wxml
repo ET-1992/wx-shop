@@ -100,7 +100,10 @@
       </view>
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
-        <view class="couponsWrapper" wx:if="{{ userCoupon.length }}">
+        <view 
+          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 ? 'secondCoupon' : 'firstCoupon' }}" 
+          wx:if="{{ userCoupon.length }}"
+        >
           <view class="coupons">
             <view class="coupon" 
               wx:for="{{ userCoupon }}" 
@@ -158,7 +161,7 @@
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <!-- 商品列表 -->
           <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{next_cursor}}" />
-          <view hidden="{{ index === modules.length-1 }}">
+          <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">
             <navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
               <form bindsubmit="submitFormId" report-submit="true">
                 <button formType="submit" class="moreButton">

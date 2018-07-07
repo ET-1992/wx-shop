@@ -13,6 +13,7 @@ swiper{
 }
   
 .searchWrapper {
+	height: 97rpx;
 	background-color: $backgroundColor;
 	padding: 12rpx 40rpx;
 	border-bottom: 1px solid #ddd;
@@ -153,6 +154,12 @@ swiper{
 		position: absolute;
 		z-index: 1;
 	}
+}
+.firstCoupon{
+	margin: 20rpx 0;
+}
+.secondCoupon{
+	margin: 117rpx 0 20rpx;
 }
 
 // .section3 {
