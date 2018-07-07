@@ -1,5 +1,8 @@
 <view class="orderCreateWrap">
-  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
+  <button class="addressBtn" wx:if="{{ refuseAddress }}" open-type="openSetting">
+    <address address="{{ address }}" class="addressWrapper"></address>
+  </button>
+  <address wx:else address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
   <view class="textareaWrapper">
     <textarea class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />

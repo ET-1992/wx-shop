@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { chooseAddress, showModal, getSetting, openSetting } from 'utils/wxp';
+import { chooseAddress, showModal, getSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
 import Event from 'utils/event';
@@ -42,7 +42,8 @@ Page({
         isPeanutPay: false, // 是否第三方支付
         modal: {}, // 弹窗数据
         isShouldRedirect: false,
-        isDisablePay: true
+        isDisablePay: true,
+        refuseAddress: false
     },
 
     // onLoad() {
@@ -51,12 +52,22 @@ Page({
     // 	this.setData({ themeColor, isIphoneX });
     // },
 
-    onShow() {
+    async onShow() {
         console.log(this.options);
         console.log(app.globalData);
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
                 url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
+            });
+        }
+
+        const setting = await getSetting();
+        console.log(setting);
+        if (setting.authSetting['scope.address']) {
+            this.setData({
+                refuseAddress: false
+            }, () => {
+                this.onLoadData();
             });
         }
     },
@@ -122,11 +133,35 @@ Page({
     },
 
     async onAddress() {
-        const address = await chooseAddress();
-        wx.setStorageSync(ADDRESS_KEY, address);
-        this.setData({ address }, () => {
-            this.onLoadData();
-        });
+
+        try {
+            const address = await chooseAddress();
+            wx.setStorageSync(ADDRESS_KEY, address);
+            this.setData({
+                address,
+                refuseAddress: false
+            }, () => {
+                this.onLoadData();
+            });
+
+        } catch (err) {
+            console.log(err.errMsg);
+
+            const setting = await getSetting();
+            console.log(setting);
+            if (!setting.authSetting['scope.address']) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '请授权通讯地址',
+                    showCancel: false,
+                });
+                this.setData({
+                    refuseAddress: true
+                }, () => {
+                    this.onLoadData();
+                });
+            }
+        }
     },
 
     async getCouponId() {
