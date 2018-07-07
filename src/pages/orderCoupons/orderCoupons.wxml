@@ -16,7 +16,7 @@
       <template is="couponItem" data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.recommend.id === item.id }}" />
     </view>
   </view>
-  <view class="footer">
+  <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <button class="normalizeBt cofirmBt" bindtap="onComfirm" wx:if="{{ selectedStatus === 'available' && coupons.available.length }}" style="background-color: {{ themeColor.primaryColor }}">
       确认
     </button>
