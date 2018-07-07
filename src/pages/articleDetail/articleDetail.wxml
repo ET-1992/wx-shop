@@ -28,9 +28,7 @@
 			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 	</view>
 
-	<view wx:if="{{article.label && article.products.length}}" class="label">
-		<view class="dash">·</view>{{article.label}}<view class="dash">·</view>
-	</view>
+	<view wx:if="{{article.label && article.products.length}}" class="label"> • {{article.label}} • </view>
 	<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
 </view>
 

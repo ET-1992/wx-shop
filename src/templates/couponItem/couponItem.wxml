@@ -16,7 +16,7 @@
 				wx:for="{{ coupon.description }}"
 				wx:for-item="desc"
 				class="couponDesc"
-		    > ·{{ desc }}</view>
+		    > • {{ desc }}</view>
 			<text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
 			<text wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</text>
 		</view>
