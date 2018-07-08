@@ -146,15 +146,16 @@ Page({
 
         } catch (err) {
             console.log(err.errMsg);
-
+            const addressStorage = wx.getStorageSync(ADDRESS_KEY);
             const setting = await getSetting();
             console.log(setting);
-            if (!setting.authSetting['scope.address']) {
+            if (!addressStorage && !setting.authSetting['scope.address']) {
                 wx.showModal({
                     title: '温馨提示',
                     content: '请授权通讯地址',
                     showCancel: false,
                 });
+
                 this.setData({
                     refuseAddress: true
                 }, () => {
