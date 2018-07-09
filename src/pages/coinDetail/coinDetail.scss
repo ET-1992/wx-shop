@@ -11,15 +11,20 @@ page{background: #FFFFFF}
         font-size: 28rpx;
     
         .time{
-            font-size: 24rpx;
+            font-size: 20rpx;
             padding-top: 10rpx;
+            color: #707070;
         }
        
         .coinNum{
             height: 80rpx;
             line-height: 80rpx;
             color: #F52D2D;
-            font-size: 24rpx;
+            font-size: 25rpx;
+            font-weight: bold;
+            text{
+                font-size: 28rpx;
+            }
         }
         .decreaseNum{ color: green}
     }
@@ -32,15 +37,15 @@ page{background: #FFFFFF}
         height: 100%; 
     }
     
+    .bottomHint {
+        text-align: center;
+        color: #ccc;
+        font-size: 10pt;
+        padding: 10rpx 0;
+        background-color: #f4f4f4;
+    }
     .Bg{
         width:250rpx;
         height:240rpx;
     }
-}
-.bottomHint {
-    text-align: center;
-    color: #ccc;
-    font-size: 10pt;
-    padding: 10rpx 0;
-    background-color: #f4f4f4;
 }

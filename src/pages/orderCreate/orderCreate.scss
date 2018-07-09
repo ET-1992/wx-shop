@@ -3,6 +3,10 @@
 $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
 
+.addressBtn{
+	text-align: left;
+}
+
 .container {
 	padding-top: 20rpx;
 	padding-bottom: $footerHeight + 100rpx;

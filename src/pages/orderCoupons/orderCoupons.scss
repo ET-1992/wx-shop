@@ -58,7 +58,7 @@ $footerHeight: 100rpx;
 }
 
 .footer {
-	height: $footerHeight;
+	// height: $footerHeight;
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -69,6 +69,11 @@ $footerHeight: 100rpx;
 	background: #eee;
 	z-index: 2;
 	border-top: 1px solid #eee;
+	padding: 20rpx 0;
+
+	&.iphoneXTrick {
+		padding-bottom: 60rpx;
+	}
 
 	.cofirmBt {
 		width: 240rpx;
@@ -76,7 +81,7 @@ $footerHeight: 100rpx;
 		line-height: 60rpx;
 		font-size: 9pt;
 		color: #fff;
-		border-radius: 0;
+		border-radius: 5rpx;
 		background-color: $couponMainColor;
 	}
 }

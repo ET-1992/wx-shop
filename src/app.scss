@@ -73,10 +73,13 @@ video {
 	justify-content: center;
 }
 .logo image {
-	width: 60rpx;
-	height: 60rpx;
-	margin-right: 30rpx;
-	margin-bottom: 0;
+	// width: 60rpx;
+	// height: 60rpx;
+	// margin-right: 30rpx;
+	// margin-bottom: 0;
+	width:40%;
+	height:42rpx;
+	margin:0 auto;
 }
 button {
 	border: 0;
@@ -99,24 +102,25 @@ button::after {
 	color: #333;
 	padding: 20rpx;
 	line-height: 1.4;
-	margin: 70rpx auto;
+	margin: 40rpx auto;
 	box-shadow: 2px 2px 12px #ccc;
 	border-radius: 4px;
-	height: 278rpx;
+	height:280rpx;
 }
 .product-card-thumbnail {
-	width: 220rpx;
-	height: 220rpx;
+	width: 240rpx;
+	height: 240rpx;
 	float: left;
 }
 .product-card-title .wxParse-inline {
 	overflow: hidden; /*超出部分隐藏*/
-	white-space: nowrap; /*不换行*/
+	// white-space: nowrap; /*不换行*/
+	-webkit-line-clamp: 2;
 	text-overflow: ellipsis; /*超出部分文字以...显示*/
-	font-size: 16px;
+	font-size: 30rpx;
 	font-weight: normal;
 	color: $titleColor;
-	padding-left: 20rpx;
+	// padding-left: 20rpx;
 	margin-top: 0;
 	width: 380rpx;
 }
@@ -124,14 +128,14 @@ button::after {
 	overflow: hidden; /*超出部分隐藏*/
 	white-space: nowrap; /*不换行*/
 	text-overflow: ellipsis; /*超出部分文字以...显示*/
-	font-size: 13px;
+	font-size: 24rpx;
 	color: $tagColor;
-	padding-left: 20rpx;
-	margin-bottom: 40rpx;
+	// padding-left: 20rpx;
+	// margin-bottom: 40rpx;
 	width: 380rpx;
 }
 .product-card-meta {
-	float: right;
+	// float: left;
 	display: flex;
 	padding-left: 20rpx;
 	padding-top: 25rpx;
@@ -144,11 +148,22 @@ button::after {
 	padding-top: 30rpx;
 }
 .product-card-button {
-	padding: 0rpx 20rpx !important;
 	color: #fff;
 	background: $mainColor;
-	font-size: 14px;
-	height: 56rpx;
-	line-height: 56rpx;
-	margin-top: 34rpx !important;
+	font-size: 24rpx;
+	height: 48rpx;
+	line-height: 48rpx;
+	margin-top: 10rpx !important;
+	border-radius: 10rpx;
+	width: 120rpx;
+	text-align: center;
+}
+
+.displayNone {
+	display: none !important;
+}
+
+
+.borderBottom {
+	border-bottom: 4rpx solid $mainColor !important;
 }

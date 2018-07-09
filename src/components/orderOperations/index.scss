@@ -1,8 +1,11 @@
 @import "~styles/color";
 
 .container {
-	padding-top: 20rpx;
-	text-align: right;
+	margin-top:15rpx;
+	text-align:right;
+	border-top:2rpx solid #eee;
+	padding-top:15rpx;
+	line-height:0rpx;
 
 	&.iphoneXTrick {
 		padding-bottom: 20rpx;
@@ -32,18 +35,17 @@
 	}
 
 	.statusBt {
-		padding: 15rpx 30rpx;
-		border: 1px solid $originalPriceColor;
-		font-size: 8pt;
+		border: 1px solid rgba(112, 112, 112, 1);
+		border-radius: 10rpx;
+		font-size: 24rpx;
 		margin-left: 20rpx;
 		display: inline-block;
 		color: $titleColor;
-		line-height: 1;
+		height: 50rpx;
+		line-height: 50rpx;
+		width: 120rpx;
 		background-color: #fff;
-
-		&.iphoneXTrick {
-			padding: 20rpx 35rpx;
-		}
+		text-align:center;
 	}
 
 	.confirmBt, .payBt {

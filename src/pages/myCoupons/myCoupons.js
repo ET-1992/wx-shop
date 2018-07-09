@@ -1,7 +1,5 @@
 import api from 'utils/api';
-
 const app = getApp();
-
 // 创建页面实例对象
 Page({
     // 页面的初始数据
@@ -37,34 +35,33 @@ Page({
             'coupons.available': available,
             'coupons.used': used,
             'coupons.expired': expired,
+            isLoading: false
         });
     },
 
-
     async onLoad() {
+        wx.setNavigationBarTitle({
+            title: '我的优惠券'
+        });
         try {
             const { themeColor } = app.globalData;
             this.setData({ isLoading: true, themeColor });
-
-
             await this.loadCoupons();
-
-            this.setData({ isLoading: false });
         }
         catch (err) {
             console.log(err);
         }
-
     },
 
     async onCouponClick(ev) {
         const { selectedStatus } = this.data;
-        const { id, title } = ev.currentTarget.dataset;
+        const { usercouponid, title } = ev.currentTarget.dataset;
         console.log(selectedStatus);
         if (selectedStatus !== 'available') { return }
         wx.navigateTo({
-            url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`
+            url: `/pages/couponProducts/couponProducts?userCouponId=${usercouponid}&couponTitle=${title}`
         });
+        console.log(usercouponid);
     },
 
     onStautsItemClick(ev) {

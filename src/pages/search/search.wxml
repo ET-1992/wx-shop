@@ -2,119 +2,47 @@
   <view class="header">
     <view class="searchWrapper">
       <view class="inputWrapper">
-        <input
-          type="text"
-          class="input"
-          placeholder="请输入商品关键字"
-          placeholder-class="input-placeholder"
-          confirm-type="search"
-          value="{{ searchKey }}"
-          bindconfirm="onSearch"
-          bindinput="onInput"
-        />
-        <image
-          src="/icons/clear.png"
-          class="clearIncon"
-          wx:if="{{ searchKey }}"
-          bindtap="onClearSearch"
-        />
+        <input type="text" class="input" placeholder="请输入商品关键字" placeholder-class="input-placeholder" confirm-type="search" value="{{ searchKey }}" bindconfirm="onSearch" bindinput="onInput" />
+        <image src="/icons/clear.png" class="clearIncon" wx:if="{{ searchKey }}" bindtap="onClearSearch" />
       </view>
-      <view
-        class="searchBt"
-        bindtap="onSearch"
-      >搜索</view>
+      <view class="searchBt" bindtap="onSearch">搜索</view>
     </view>
     <view class="sortOptions" wx:if="{{ products.length }}">
-      <view
-        class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}"
-        bindtap="onSort"
-        data-index="0"
-      >综合</view>
-      <view
-        class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}"
-        bindtap="onSort"
-        data-index="1"
-      >
+      <view class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}" bindtap="onSort" data-index="0">
+        综合
+      </view>
+      <view class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}" bindtap="onSort" data-index="1">
         <text>价格</text>
         <view class="indicators">
-          <image
-            class='triangleIcon triangleIconUp'
-            src="/icons/triangleUp.png"
-            wx:if="{{sortType !== 'priceUp' }}"
-            />
-          <image
-            class='triangleIcon triangleIconUp'
-            src="/icons/triangleUpActive.png"
-            wx:if="{{sortType === 'priceUp' }}"
-            />
-          <image
-            class='triangleIcon'
-            src="/icons/triangleDown.png"
-            wx:if="{{sortType !== 'priceDown' }}"
-            />
-          <image
-            class='triangleIcon'
-            wx:if="{{sortType === 'priceDown' }}"
-            src="/icons/triangleDownActive.png"
-            />
+          <image class="triangleIcon triangleIconUp" src="/icons/triangleUp.png" wx:if="{{sortType !== 'priceUp' }}" />
+          <image class="triangleIcon triangleIconUp" src="/icons/triangleUpActive.png" wx:if="{{sortType === 'priceUp' }}" />
+          <image class="triangleIcon" src="/icons/triangleDown.png" wx:if="{{sortType !== 'priceDown' }}" />
+          <image class="triangleIcon" wx:if="{{sortType === 'priceDown' }}" src="/icons/triangleDownActive.png" />
         </view>
       </view>
-      <view
-        class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}"
-        bindtap="onSort"
-        data-index="2"
-      >
+      <view class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}" bindtap="onSort" data-index="2">
         <text>销量</text>
         <view class="indicators">
-          <image
-            class='triangleIcon'
-            src="/icons/triangleDown.png"
-            wx:if="{{ activeIdx !== '2' }}"
-          />
-          <image
-            class='triangleIcon'
-            wx:if="{{ activeIdx === '2' }}"
-            src="/icons/triangleDownActive.png"
-          />
+          <image class="triangleIcon" src="/icons/triangleDown.png" wx:if="{{ activeIdx !== '2' }}" />
+          <image class="triangleIcon" wx:if="{{ activeIdx === '2' }}" src="/icons/triangleDownActive.png" />
         </view>
       </view>
     </view>
   </view>
-
-
   <view class="main {{ products.length ? 'indicators' : '' }}">
     <view class="noSearch" wx:if="{{ !products.length && !isSearch }}">
       <view class="searchHintTitle">
         <text>历史搜索</text>
         <text class="clearHistory" bindtap="onClearHistory">清空历史</text>
       </view>
-      <view class="noSearchKey" wx:if="{{ !searchKeys || !searchKeys.length }}">
-        暂无历史搜索
-      </view>
+      <view class="noSearchKey" wx:if="{{ !searchKeys || !searchKeys.length }}">暂无历史搜索</view>
       <view class="searchKeys" wx:if="{{ searchKeys && searchKeys.length }}">
-        <view
-          class="searchKey"
-          wx:for="{{ searchKeys }}"
-          wx:key="index"
-          data-search="{{ item }}"
-          bindtap="onSearchKeyClick"
-        >
+        <view class="searchKey" wx:for="{{ searchKeys }}" wx:key="index" data-search="{{ item }}" bindtap="onSearchKeyClick">
           {{ item }}
         </view>
       </view>
     </view>
   </view>
-
-  <productList
-    products="{{ products }}"
-    productListStyle="{{ productListStyle }}"
-    nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
-    wx:if="{{ products.length && isSearch }}"
-  />
-
-  <view
-    class="noHint"
-    wx:if="{{ !products.length && isSearch }}"
-  >无搜索结果</view>
-
+  <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}" wx:if="{{ products.length && isSearch }}" />
+  <view class="noHint" wx:if="{{ !products.length && isSearch }}">无搜索结果</view>
 </view>

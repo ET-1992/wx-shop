@@ -1,5 +1,6 @@
-<view class="container {{topic.reply_count?'' : 'commentBg'}}">
-
-	<include src="../../templates/common/comments.wxml" />
-	<include src="../../templates/common/comment-form.wxml" />
+<import src="../../templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
+<view class="container {{topic.reply_count?'' : 'commentBg'}}" wx:if="{{ !isLoading }}">
+  <include src="../../templates/common/comments.wxml" />
+  <include src="../../templates/common/comment-form.wxml" />
 </view>

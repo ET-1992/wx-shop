@@ -27,7 +27,13 @@ Page({
         const { themeColor } = app.globalData;
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
-        this.setData({ coupons, themeColor });
+        const systemInfo = wx.getSystemInfoSync();
+        const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+        this.setData({
+            coupons,
+            themeColor,
+            isIphoneX
+        });
     },
 
     onStautsItemClick(ev) {

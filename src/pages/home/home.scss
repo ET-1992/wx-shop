@@ -1,5 +1,5 @@
 @import '~styles/color';
-@import '~templates/grouponItem/grouponItem';
+@import '~templates/productLayout/productLayout';
 @import '~templates/loading/loading';
 @import '~templates/articleItem/articleItem';
 
@@ -9,9 +9,11 @@ swiper{
 .container {
 	height: auto;
 	width: 100%;
-	box-sizing: border-box; }
+	box-sizing: border-box; 
+}
   
 .searchWrapper {
+	height: 97rpx;
 	background-color: $backgroundColor;
 	padding: 12rpx 40rpx;
 	border-bottom: 1px solid #ddd;
@@ -58,11 +60,11 @@ swiper{
 	height: 100%;
 }
 .flashItem .meta{
-	padding:40rpx;
+	padding: 40rpx;
 }
 
 .couponsWrapper {
-	padding: 0 10rpx;
+	padding-left: 10rpx;
 	font-size: 0;
 	z-index: 9;
 	margin-bottom: 20rpx;
@@ -72,11 +74,27 @@ swiper{
 	}
 
 	.coupon {
-		width: 250rpx;
-		height: 117rpx;
+		width: 300rpx;
+		height: 136rpx;
 		position: relative;
 		line-height: 1.2;
-		margin-right: 20rpx;
+		margin-left: 20rpx;
+	}
+	
+	.moreCoupon{
+		width: 101rpx;
+		height: 136rpx;
+		position: relative;
+		line-height: 1.2;
+
+		.moreBtn{
+			position:absolute;
+			width:20rpx;
+			color:#707070;
+			font-size:20rpx;
+			left:40rpx;
+			top:26rpx;
+		}
 	}
 
 	.couponInfoList {
@@ -84,8 +102,8 @@ swiper{
 		z-index: 2;
 		color: #fff;
 		font-size: 9pt;
-		height: 117rpx;
-		width: 250rpx;
+		height: 136rpx;
+		width: 300rpx;
 		display: flex;
 		line-height: 1.4;
 
@@ -94,8 +112,8 @@ swiper{
 			z-index: 2;
 			color: #fff;
 			font-size: 9pt;
-			height: 117rpx;
-			width: 170rpx;
+			height: 136rpx;
+			width: 180rpx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -109,14 +127,43 @@ swiper{
 				font-size: 8pt;
 			}
 		}
+
+		.couponBtn{
+			position:absolute;
+			z-index:2;
+			color:#fff;
+			font-size: 23rpx;
+			height:136rpx;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+			flex-direction:column;
+			right: 43rpx;
+
+			.couponUnuse{
+				width: 46rpx;
+				line-height: 1.2;
+			}
+			.arrow{
+				position:absolute;
+				z-index:2;
+				right:-25rpx;
+			}
+		}
 	}
 
 	.bg {
-		width: 250rpx;
-		height: 117rpx;
+		width: 300rpx;
+		height: 136rpx;
 		position: absolute;
 		z-index: 1;
 	}
+}
+.firstCoupon{
+	margin: 20rpx 0;
+}
+.secondCoupon{
+	margin: 117rpx 0 20rpx;
 }
 
 // .section3 {
@@ -125,7 +172,7 @@ swiper{
 
 .section {
 	background-color: #fff;
-	margin-top: 20rpx;
+	margin-bottom: 20rpx;
 
 	.sectionTitle {
 		text-align: center;

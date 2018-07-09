@@ -1,0 +1,3 @@
+<view>
+  <filterList filterListData="{{ filterListData }}"></filterList>
+</view>

@@ -28,6 +28,13 @@
 		"pages/login/login",
 		"pages/redpacket/redpacket",
 		"pages/coinDetail/coinDetail",
+		"pages/share/shareProductList/shareProductList",
+		"pages/share/shareApply/shareApply",
+		"pages/share/shareCenter/shareCenter",
+		"pages/share/shareDetail/shareDetail",
+		"pages/share/shareFinishUserInfo/shareFinishUserInfo",
+		"pages/share/sharePoster/sharePoster",
+		"pages/share/shareMoney/shareMoney",
 		"pages/webPages/webPages"
 	],
 	"window": {

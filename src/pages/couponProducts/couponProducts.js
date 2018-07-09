@@ -1,6 +1,7 @@
 import api from 'utils/api';
-import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
+import { SEARCH_KEY, PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
+
 // const app = getApp()
 
 // 创建页面实例对象
@@ -10,9 +11,9 @@ Page({
         products: [],
 
         isRefresh: false,
-        isLoading: false,
+        isLoading: true,
         isSearch: false,
-        productListStyle: PRODUCT_LIST_STYLE[1],
+        productListStyle: PRODUCT_LAYOUT_STYLE[0],
 
         sortType: 'default',
         sortSales: 'saleDown',
@@ -29,7 +30,7 @@ Page({
         activeIdx: '0',
 
         indexParams: {
-            couponId: '',
+            user_coupon_id: '',
             couponTitle: '',
         },
     },
@@ -48,6 +49,10 @@ Page({
         const options = {
             paged: currentPage,
             coupon_id: indexParams.couponId
+        };
+        const userOptions = {
+            paged: currentPage,
+            user_coupon_id: indexParams.userCouponId
         };
 
         // if(sortType !== 'defalut') {
@@ -68,28 +73,37 @@ Page({
         // 	console.log('222')
         // 	Object.assign(options, saleSort);
         // }
-
-        this.setData({ isLoading: true });
-
-        const data = await api.hei.fetchProductList(options);
-        const newProducts = isRefresh
-            ? data.products
-            : products.concat(data.products);
-        this.setData({
-            products: newProducts,
-            isRefresh: false,
-            currentPage: data.current_page,
-            totalPages: data.total_pages,
-            isLoading: false
-        });
-        return data;
+        if (indexParams.userCouponId) {
+            const data = await api.hei.fetchProductList(userOptions);
+            const newProducts = isRefresh ? data.products : products.concat(data.products);
+            this.setData({
+                products: newProducts,
+                isRefresh: false,
+                currentPage: data.current_page,
+                totalPages: data.total_pages,
+                isLoading: false
+            });
+            return data;
+        } else {
+            const data = await api.hei.fetchProductList(options);
+            const newProducts = isRefresh ? data.products : products.concat(data.products);
+            this.setData({
+                products: newProducts,
+                isRefresh: false,
+                currentPage: data.current_page,
+                totalPages: data.total_pages,
+                isLoading: false
+            });
+            return data;
+        }
     },
 
     onLoad(params) {
         this.setData({
             isRefresh: true,
             isSearch: true,
-            indexParams: params
+            indexParams: params,
+            isLoading: true
         });
         this.loadProducts();
     },
@@ -153,6 +167,7 @@ Page({
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
+            isLoading: true,
             currentPage: 1,
         });
         await this.loadProducts();

@@ -2,7 +2,6 @@
 page{
 	background: #fff;
 }
-
 .favList{
 	border-bottom: 1px solid #eee;
 	margin: 0 30rpx;
@@ -59,15 +58,23 @@ button{
     -webkit-line-clamp: 1;
     overflow: hidden;
 }
-.favBg{
-	width:191rpx;
-	height:293rpx;
-	margin: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 100px;
-	position: absolute;
+
+.noHint{
+	text-align: center;
+	color: #9fa0a0;
+	width: 100%;
+	padding-top: 45%;
+	height: 100%; 
+
+	.favBg{
+		width: 230rpx;
+		height: 225rpx;
+	}
+	view{
+		font-size: 30rpx;
+		color: #707070;
+		padding-top: 70rpx;
+	}
 }
 
 .bottomHint {

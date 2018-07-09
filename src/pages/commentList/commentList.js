@@ -55,6 +55,7 @@ Page({
                 reply_count: data.article.replies ? data.article.replies.length : 0,
                 replies: data.article.replies,
             },
+            isLoading: false
         });
         if (data.page_title) {
             wx.setNavigationBarTitle({
@@ -88,7 +89,8 @@ Page({
             }
             else {
                 showModal({
-                    title: '需授权后操作',
+                    title: '温馨提示',
+                    content: '需授权后操作',
                     showCancel: false,
                 });
             }
@@ -155,8 +157,7 @@ Page({
         const username = e.currentTarget.dataset.user;
         const openid = e.currentTarget.dataset.openid;
         let userForm;
-        let user = this.data.user.user;
-
+        let user = this.data.user;
         if (!user || !user.openid) {
             console.log(user);
             userForm = await api.user.login();

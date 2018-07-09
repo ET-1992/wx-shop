@@ -1,51 +1,24 @@
-<import src="/templates/couponItem/couponItem.wxml"/>
-
+<import src="/templates/couponItem/couponItem.wxml" />
 <view class="container">
-  <view
-    class="statusBar"
-    style="background-color: {{ themeColor.primaryColor }}"
-  >
-    <view
-      class="statusItem"
-      wx:for="{{ status }}"
-      wx:key="name"
-      bindtap="onStautsItemClick"
-      data-value="{{ item.value }}"
-    >
-      <view
-        class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
-      >{{ item.name }}</view>
+  <view class="statusBar" style="background-color: {{ themeColor.primaryColor }}">
+    <view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}">
+      <view class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}">
+        {{ item.name }}
+      </view>
     </view>
   </view>
-
   <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length }}">
     <view wx:if="{{ selectedStatus === 'available' }}">暂无可使用优惠券</view>
     <view wx:if="{{ selectedStatus === 'unavailable' }}">无不可用优惠券</view>
   </view>
-
   <view class="couponList">
-    <view
-      class="couponItemWrapper"
-      wx:for="{{ coupons[selectedStatus] }}"
-      wx:key="id"
-      bindtap="onCouponClick"
-      data-coupon="{{ item }}"
-      data-index="{{ index }}"
-    >
-      <template
-        is="couponItem"
-        data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.recommend.id === item.id }}"
-      />
+    <view class="couponItemWrapper" wx:for="{{ coupons[selectedStatus] }}" wx:key="id" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
+      <template is="couponItem" data="{{ coupon: item, status: selectedStatus, canChoice: selectedStatus === 'available', isSelected: coupons.recommend.id === item.id }}" />
     </view>
   </view>
-
-
-  <view class="footer">
-    <button
-      class="normalizeBt cofirmBt"
-      bindtap="onComfirm"
-      wx:if="{{ selectedStatus === 'available' && coupons.available.length }}"
-      style="background-color: {{ themeColor.primaryColor }}"
-    >确认</button>
+  <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <button class="normalizeBt cofirmBt" bindtap="onComfirm" wx:if="{{ selectedStatus === 'available' && coupons.available.length }}" style="background-color: {{ themeColor.primaryColor }}">
+      确认
+    </button>
   </view>
 </view>

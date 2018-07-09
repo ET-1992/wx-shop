@@ -219,6 +219,16 @@ const apis = {
         path: 'api/mag.wallet.logs.json',
         method: 'GET',
         isForceToken: true,
+    },
+    shareUserInfo: {
+        path: 'api/mag.affiliate.member.get.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    joinShareUser: {
+        path: 'api/mag.affiliate.join.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 

@@ -1,65 +1,72 @@
 <template name="couponItem">
-  <view class="couponItem">
-    <view class="couponInfo">
-      <view class="left">
-        <view class="reduce">
-          <text wx:if="{{ coupon.type == 1 }}">￥</text>
-          <text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
-          <text wx:if="{{ coupon.type == 2 }}">折</text>
-        </view>
-        <view class="couponTitle">满{{ coupon.least_cost }}元使用</view>
-      </view>
-      <view class="center">
-        <view class="couponDesc">
-          <view
-            wx:if="{{ coupon.description && coupon.description.length }}"
-            wx:key="index"
-            wx:for="{{ coupon.description }}"
-            wx:for-item="desc"
-          >- {{ desc }}</view>
-        </view>
-        <view class="couponDate">
-          <text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
-          <text wx:else>{{ coupon.start_time }}至{{ coupon.end_time }}</text>
-        </view>
-      </view>
-      <view class="right {{ canChoice ? 'rightCenter' : '' }}">
-        <view
-          class="radio {{ isSelected ? 'selected' : '' }}"
-          wx:if="{{ canChoice }}"
-        >
-          <image
-            src="/icons/selected.png"
-            mode="aspectFit"
-            class="radioIcon"
-            wx:if="{{ isSelected }}"
-          />
-        </view>
-        <view
-          class="useBt"
-          wx:if="{{ (status === 'available' || status === 'received') && !canChoice }}"
-        >可用商品</view>
-      </view>
-    </view>
-    <image
-      class="bg"
-      src="../../icons/couponItem.png"
-      wx:if="{{ status === 'available' || !canChoice }}"
-    />
-    <image
-      class="bg"
-      src="../../icons/couponItemUsed.png"
-      wx:if="{{ status === 'used' }}"
-    />
-    <image
-      class="bg"
-      src="../../icons/couponItemUseless.png"
-      wx:if="{{ status === 'expired' || status === 'unavailable' }}"
-    />
-    <image
-      class="bg"
-      src="../../icons/couponItemReceived.png"
-      wx:if="{{status === 'receivable' }}"
-    />
-  </view>
+	<view class="couponItem">
+		<view class="couponInfo">
+			<view class="left">
+		    	<view class="reduce">
+		    		<text wx:if="{{ coupon.type == 1 }}">￥</text>
+		    		<text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
+		    		<text wx:if="{{ coupon.type == 2 }}">折</text>
+		    	</view>
+		    <view class="couponTitle">满{{ coupon.least_cost }}元使用</view>
+		</view>
+		<view class="center">
+		    <view
+				wx:if="{{ coupon.description && coupon.description.length }}"
+				wx:key="index"
+				wx:for="{{ coupon.description }}"
+				wx:for-item="desc"
+				class="couponDesc"
+		    > • {{ desc }}</view>
+			<text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
+			<text wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</text>
+		</view>
+		<view class="right {{ canChoice ? 'rightCenter' : '' }}">
+		    <view
+		    	class="radio {{ isSelected ? 'selected' : '' }}"
+		    	wx:if="{{ canChoice }}"
+		    >
+		    <image
+		        src="/icons/selected.png"
+		        mode="aspectFit"
+		        class="radioIcon"
+		        wx:if="{{ isSelected }}"
+		    />
+		    </view>
+		    <view class="btn" wx:if="{{ (status === 'available' || status === 'received') && !canChoice }}">
+				<view class="useBtn">立即使用</view>
+				<view class="arrow"> > </view>
+			</view>
+		    <view class="btn" wx:if="{{status === 'receivable' }}">
+				<view class="useBtn">立即领取</view>
+				<view class="arrow"> > </view>
+			</view>
+		    <view class="btn" wx:if="{{ status === 'used' }}">
+				<view>已使用</view>
+			</view>
+		    <view class="btn" wx:if="{{ status === 'expired' || status === 'unavailable' }}">
+				<view>已过期</view>
+			</view>
+		</view>
+		</view>
+		<image
+			class="bg"
+			src="../../icons/couponItem.png"
+			wx:if="{{ status === 'available' || !canChoice }}"
+		/>
+		<image
+			class="bg"
+			src="../../icons/unableCoupon.png"
+			wx:if="{{ status === 'used' }}"
+		/>
+		<image
+			class="bg"
+			src="../../icons/unableCoupon.png"
+			wx:if="{{ status === 'expired' || status === 'unavailable' }}"
+		/>
+		<image
+			class="bg"
+			src="../../icons/couponItemReceived.png"
+			wx:if="{{status === 'receivable' }}"
+		/>
+	</view>
 </template>

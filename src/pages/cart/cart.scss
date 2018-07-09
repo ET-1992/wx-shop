@@ -2,16 +2,16 @@
 
 $footerHeight: 100rpx;
 page{
-	background: #fff;
+	background: #F4F4F4;
 	position:relative;
-	height:86%;
 }
 .empty{
 	color:#ccc;
-	font-size:12pt;
+	font-size: 28rpx;
 	height:80%;
 	text-align:center;
 	width:100%;
+	padding-top:20rpx;
 }
 .container{
 	height:80%;
@@ -20,43 +20,36 @@ page{
 	width: 400rpx;
 	height:262rpx;
 	/*text-align:center;*/
-	margin:200rpx auto;
+	margin: 100rpx auto 0;
 	display: block;
 }
-.goBuyDesc{
-	position:absolute;
-	left:0;
-	top:50%;
-	bottom:20%;
-	top:0;
-	margin:auto;
-	height:40rpx;
-	right:0;
-	.logo{
-		width: 80%;
-	}
+.unloginHint {
+	margin: 40% auto 0;
 }
+
 .onGotoBuy {
-		display: flex;
-		width: 500rpx;
-		background-color: $mainColor;
-		color: #fff;
-		margin: 40rpx auto 0 auto;
-		padding: 14rpx 0;
-		align-items: center;
-		justify-content: center;
-		font-size: 12pt;
-	}
-	.buy{
-		width: 200rpx;
-	}
-	.onGotoBuy image{
+	display: flex;
+	width: 320rpx;
+	height: 75rpx;
+	background-color: $mainColor;
+	color: #fff;
+	margin: 80rpx auto;
+	padding: 14rpx 0;
+	align-items: center;
+	justify-content: center;
+	font-size: 32rpx;
+	border-radius: 40rpx;
+}
+.onGotoLogin {
+	width: 450rpx;
+}
+	.onGotoLogin image{
 		width: 60rpx;
 		height: 60rpx;
 		margin-right: 10rpx;
 	}
 .cartList {
-	margin-bottom: $footerHeight + 40rpx;
+	margin-bottom: $footerHeight + 125rpx;
 }
 
 .radioWrapper {
