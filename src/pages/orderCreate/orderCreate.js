@@ -2,7 +2,6 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
-import Event from 'utils/event';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -66,8 +65,6 @@ Page({
         if (setting.authSetting['scope.address']) {
             this.setData({
                 refuseAddress: false
-            }, () => {
-                this.onLoadData();
             });
         }
     },
