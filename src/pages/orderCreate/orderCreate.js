@@ -65,7 +65,10 @@ Page({
         console.log(setting);
         if (setting.authSetting['scope.address']) {
             this.setData({
-                refuseAddress: false
+                refuseAddress: false,
+                addressModal: {
+                    isFatherControl: false,
+                },
             }, () => {
                 this.onLoadData();
             });
@@ -146,23 +149,33 @@ Page({
 
         } catch (err) {
             console.log(err.errMsg);
-            const addressStorage = wx.getStorageSync(ADDRESS_KEY);
+            // const addressStorage = wx.getStorageSync(ADDRESS_KEY);
             const setting = await getSetting();
             console.log(setting);
-            if (!addressStorage && !setting.authSetting['scope.address']) {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '请授权通讯地址',
-                    showCancel: false,
-                });
-
+            if (!setting.authSetting['scope.address']) {
                 this.setData({
                     refuseAddress: true
                 }, () => {
+                    this.onModal();
                     this.onLoadData();
                 });
             }
         }
+    },
+
+    onModal() {
+        this.setData({
+            addressModal: {
+                isFatherControl: true,
+                title: '温馨提示',
+                isShowModal: true,
+                body: '请授权地址信息',
+                type: 'button',
+                buttonData: {
+                    opentype: 'openSetting'
+                }
+            },
+        });
     },
 
     async getCouponId() {
@@ -411,6 +424,19 @@ Page({
     onConfirm() {
         this.setData({
             'modal.isShowModal': false,
+            isShouldRedirect: true
+        });
+    },
+    onAddressCancel() {
+        this.setData({
+            'addressModal.isShowModal': false,
+            isShouldRedirect: false
+        });
+    },
+
+    onAddressConfirm() {
+        this.setData({
+            'addressModal.isShowModal': false,
             isShouldRedirect: true
         });
     }
