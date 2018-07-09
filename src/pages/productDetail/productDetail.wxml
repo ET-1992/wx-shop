@@ -4,7 +4,6 @@
 <import src="../../templates/mock/mock.wxml" />
 <import src="../../templates/couponItem/couponItem.wxml" />
 <import src="../../utils/wxParse/wxParse.wxml" />
-
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view 

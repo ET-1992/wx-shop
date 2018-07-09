@@ -3,10 +3,13 @@
 .container {
 	padding: 20rpx 50rpx 70rpx 50rpx;
 	background-color: #F4F4F4;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 .canvasWrap {
-	width: 100%;
+	width: 540rpx;
 	height: 900rpx;
 	background-color: #fff;
 	border-radius: 10rpx;
@@ -16,6 +19,7 @@
 	margin-top: 100rpx;
 	display: flex;
 	justify-content: space-between;
+	width: 100%;
 }
 
 .btn {

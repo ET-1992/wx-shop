@@ -1,3 +1,6 @@
 {
-	"navigationBarTitleText": "推广海报"
+	"navigationBarTitleText": "推广海报",
+	"usingComponents": {
+		"myModal": "../../../components/myModal/myModal"
+  }
 }
