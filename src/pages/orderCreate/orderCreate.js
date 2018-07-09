@@ -184,7 +184,7 @@ Page({
     async onLoadData() {
         const { address, items, totalPrice, user_coupon_ids, isGrouponBuy } = this.data;
         console.log(totalPrice, 'totalPrice');
-        let requestData;
+        let requestData = {};
         if (address) {
             requestData = {
                 receiver_name: address.userName,
@@ -198,7 +198,7 @@ Page({
             };
         }
 
-        if (user_coupon_ids && !requestData) { // 团购无优惠卷
+        if (user_coupon_ids) { // 团购无优惠卷
             requestData.user_coupon_ids = user_coupon_ids;
         }
 
