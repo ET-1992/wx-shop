@@ -310,7 +310,7 @@ Page({
     },
 
     async onShow() {
-        this.setData({ isLoading: true });
+        // this.setData({ isLoading: true });
         await this.initPage();
     },
 
