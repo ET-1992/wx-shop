@@ -1,11 +1,12 @@
 import api from 'utils/api';
 import { getUserInfo, getAgainUserForInvalid } from 'utils/util';
+import { chooseAddress, getSetting } from 'utils/wxp';
+import { ADDRESS_KEY } from 'constants/index';
 
-const itemActions = {
-    address: wx.chooseAddress,
-    coupon: () => console.log('coupon'),
-    notice: () => console.log('notice'),
-};
+// const itemActions = {
+//     coupon: () => console.log('coupon'),
+//     notice: () => console.log('notice'),
+// };
 
 // 获取全局应用程序实例对象
 const app = getApp();
@@ -42,6 +43,17 @@ Page({
         const user = getUserInfo();
         this.setData({ user });
         this.loadOrderCount();
+
+        const setting = await getSetting();
+        console.log(setting);
+        if (setting.authSetting['scope.address']) {
+            this.setData({
+                refuseAddress: false,
+                addressModal: {
+                    isFatherControl: false,
+                },
+            });
+        }
     },
 
     onLogin() {
@@ -57,10 +69,61 @@ Page({
     // 		active: 0,
     // 	});
     // },
-    onItemClick(ev) {
-        const { name } = ev.currentTarget.dataset;
-        const action = itemActions[name];
-        action();
+    // onItemClick(ev) {
+    //     const { name } = ev.currentTarget.dataset;
+    //     const action = itemActions[name];
+    //     action();
+    // },
+
+    async onAddress() {
+        try {
+            const address = await chooseAddress();
+            wx.setStorageSync(ADDRESS_KEY, address);
+            this.setData({
+                address,
+                refuseAddress: false
+            });
+
+        } catch (err) {
+            console.log(err.errMsg);
+            // const addressStorage = wx.getStorageSync(ADDRESS_KEY);
+            const setting = await getSetting();
+            console.log(setting);
+            if (!setting.authSetting['scope.address']) {
+                this.setData({
+                    refuseAddress: true
+                }, () => {
+                    this.onModal();
+                });
+            }
+        }
+    },
+    onModal() {
+        this.setData({
+            addressModal: {
+                isFatherControl: true,
+                title: '温馨提示',
+                isShowModal: true,
+                body: '请授权地址信息',
+                type: 'button',
+                buttonData: {
+                    opentype: 'openSetting'
+                }
+            },
+        });
+    },
+    onAddressCancel() {
+        this.setData({
+            'addressModal.isShowModal': false,
+            isShouldRedirect: false
+        });
+    },
+
+    onAddressConfirm() {
+        this.setData({
+            'addressModal.isShowModal': false,
+            isShouldRedirect: true
+        });
     },
 
     async bindGetUserInfo(e) {
