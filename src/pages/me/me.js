@@ -27,10 +27,18 @@ Page({
     },
 
     async loadOrderCount() {
-        const data = await api.hei.fetchOrderCount({
-            status: '1,2,3,10',
+        // const data = await api.hei.fetchOrderCount({
+        //     status: '1,2,3,10',
+        // });
+        const data = await api.hei.myFare();
+
+        this.setData({
+            orderCount: data.order_counts,
+            coupons: data.coupons,
+            wallet: data.wallet
         });
-        this.setData({ orderCount: data.counts });
+
+        console.log(this.data);
     },
 
     onLoad() {
