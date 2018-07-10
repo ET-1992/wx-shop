@@ -95,6 +95,7 @@
 							wx:if="{{ index < 3 }}"
 						>{{ item.title }}
 						</view>
+						<!-- <view wx:if="{{ !(item.status == 2 && item.stock_qty) }}" class="nullCoupon">暂无可领取优惠券</view> -->
 						<!-- <image class="rightIcon" src="/icons/right.png" /> -->
 					</button>
 				</form>
@@ -298,7 +299,8 @@
 						data-index="{{ index }}" 
 						catchtap="onCouponClick"
 					>
-						<template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}" />
+					<template is="couponItem" wx:if="{{ item.status == 2 && item.stock_qty }}" data="{{ coupon: item, status: 'receivable' }}" /> <!-- 未领取 -->
+					<template is="couponItem" wx:if="{{ item.status == 4 }}" data="{{ coupon: item, status: 'received' }}" />	<!-- 已领取 -->
 					</view>
 
 					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
@@ -313,7 +315,7 @@
 							wx:key="id" 
 							url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
 						>
-							<template is="couponItem" data="{{ coupon: item, status: 'available' }}" />
+						<template is="couponItem" wx:if="{{ item.status == 4 }}" data="{{ coupon: item, status: 'received' }}" />	<!-- 已领取 -->
 						</navigator>
 					</block>
 				</view>
