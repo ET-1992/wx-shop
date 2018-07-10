@@ -1,7 +1,7 @@
 <import src="../../templates/loading/loading.wxml" />
 <template is="loading" wx:if="{{ isLoading }}" />
 <import src="/templates/productLayout/topImage.wxml"/>
-<view wx:if="{{ !isLoading }}">
+<view class="peanut-wxParse" wx:if="{{ !isLoading }}">
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
 		<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 		<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
@@ -21,11 +21,11 @@
 	</view>
 
 	<import src="../../utils/wxParse/wxParse.wxml"/>
-	<view class="{{article.full ==1 ?'':'pad-30'}}">
+	<view class=" {{article.full ==1 ?'':'pad-30'}}">
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
 	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
-			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
+		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 	</view>
 
 	<view wx:if="{{article.label && article.products.length}}" class="label"> • {{article.label}} • </view>
