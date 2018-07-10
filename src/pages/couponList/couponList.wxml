@@ -14,9 +14,11 @@
 		data-title="{{ item.title }}" 
 		data-index="{{ index }}"
 	>
-		<template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}" />
+		<template is="couponItem" wx:if="{{ item.status == 2 && item.stock_qty }}" data="{{ coupon: item, status: 'receivable' }}" /> <!-- 未领取 -->
+		<template is="couponItem" wx:if="{{ item.status == 4 }}" data="{{ coupon: item, status: 'received' }}" />	<!-- 已领取 -->
+		<template is="couponItem" wx:if="{{ item.status == 2 && !item.stock_qty }}" data="{{ coupon: item, status: 'nullCoupon' }}" /> <!-- 已抢光 -->
+		<template is="couponItem" wx:if="{{ item.status == 5 }}" data="{{ coupon: item, status: 'used' }}" />	<!-- 已使用 -->
+		<template is="couponItem" wx:if="{{ item.status == 3 }}" data="{{ coupon: item, status: 'expired' }}" />	<!-- 已过期 -->
 	</view>
 	<view class="noCouponHint" wx:if="{{ !isLoading && !coupons.length }}">暂无可领取优惠券</view>
 </view>
-
-

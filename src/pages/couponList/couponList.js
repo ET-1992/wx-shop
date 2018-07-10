@@ -27,6 +27,8 @@ Page({
             ...data,
             isLoading: false
         });
+
+        console.log(this.data);
     },
 
     async onReceiveCoupon(id, index) {

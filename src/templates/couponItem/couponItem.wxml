@@ -3,9 +3,9 @@
 		<view class="couponInfo">
 			<view class="left">
 		    	<view class="reduce">
-		    		<text wx:if="{{ coupon.type == 1 }}">￥</text>
+		    		<text class="yuan" wx:if="{{ coupon.type == 1 }}">￥</text>
 		    		<text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
-		    		<text wx:if="{{ coupon.type == 2 }}">折</text>
+		    		<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
 		    	</view>
 		    <view class="couponTitle">满{{ coupon.least_cost }}元使用</view>
 		</view>
@@ -46,6 +46,9 @@
 		    <view class="btn" wx:if="{{ status === 'expired' || status === 'unavailable' }}">
 				<view>已过期</view>
 			</view>
+		    <view class="btn" wx:if="{{ status === 'nullCoupon' }}">
+				<view>已抢光</view>
+			</view>
 		</view>
 		</view>
 		<image
@@ -62,6 +65,11 @@
 			class="bg"
 			src="../../icons/unableCoupon.png"
 			wx:if="{{ status === 'expired' || status === 'unavailable' }}"
+		/>
+		<image
+			class="bg"
+			src="../../icons/unableCoupon.png"
+			wx:if="{{ status === 'nullCoupon' }}"
 		/>
 		<image
 			class="bg"

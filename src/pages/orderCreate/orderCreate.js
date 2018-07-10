@@ -69,8 +69,6 @@ Page({
                 addressModal: {
                     isFatherControl: false,
                 },
-            }, () => {
-                this.onLoadData();
             });
         }
     },
@@ -157,7 +155,6 @@ Page({
                     refuseAddress: true
                 }, () => {
                     this.onModal();
-                    this.onLoadData();
                 });
             }
         }

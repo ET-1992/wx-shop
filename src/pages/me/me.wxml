@@ -128,6 +128,7 @@
 	<!-- <view class="section">
 		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 	</view> -->
+	
 	<!-- <view class="section">
 		<navigator class="sectionItem" url="">
 			<view class="itemTitle">花生分享计划 >></view>

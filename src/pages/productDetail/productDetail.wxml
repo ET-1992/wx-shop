@@ -51,9 +51,12 @@
 					<view class="title">{{ product.title }}</view>
 					<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
 				</view>
-				<view class="right">
+
+				<!-- 图片分享 -->
+				<!-- <view class="right">
 					<image class="shareIcon" src="../../icons/shareIcon.png"></image>
-				</view>
+				</view> -->
+
 			</view>
 			<view class="meta">
 				<view class="price">
@@ -280,27 +283,39 @@
 				<view class="title">优惠券</view>
 				<view class="availableCoupon">
 					<view class="couponListTitle" wx:if="{{ receivableCoupons.length }}">可领取优惠券</view>
-					<view class="noCoupon" wx:if="{{ !receivableCoupons.length }}">
+					<view class="noCoupon" wx:else>
 						<image src="../../icons/noCoupon.png"></image>
 						<view>暂无可领取优惠券</view>
 					</view>
-					<view class="couponItemWrapper" wx:for="{{ receivableCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}"
-					 data-title="{{ item.title }}" data-index="{{ index }}" catchtap="onCouponClick">
+					<view 
+						wx:if="{{ receivableCoupons.length }}" 
+						class="couponItemWrapper" 
+						wx:for="{{ receivableCoupons }}" 
+						wx:key="id" 
+						data-id="{{ item.id }}" 
+						data-status="{{ item.status }}"
+						data-title="{{ item.title }}" 
+						data-index="{{ index }}" 
+						catchtap="onCouponClick"
+					>
 						<template is="couponItem" data="{{ coupon: item, status: item.status === 2 ? 'receivable' : 'received' }}" />
 					</view>
-					<view class="couponListTitle">已领取优惠券</view>
-					<view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">
-						<image src="../../icons/noCoupon.png"></image>
-						<view>暂无已领取优惠券</view>
-					</view>
-					<navigator 
-						class="couponItemWrapper" 
-						wx:for="{{ receivedCoupons }}" 
-						wx:key="id" 
-						url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
-					>
-						<template is="couponItem" data="{{ coupon: item, status: 'available' }}" />
-					</navigator>
+
+					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
+						<view class="couponListTitle">已领取优惠券</view>
+						<!-- <view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">
+							<image src="../../icons/noCoupon.png"></image>
+							<view>暂无已领取优惠券</view>
+						</view> -->
+						<navigator 
+							class="couponItemWrapper" 
+							wx:for="{{ receivedCoupons }}" 
+							wx:key="id" 
+							url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
+						>
+							<template is="couponItem" data="{{ coupon: item, status: 'available' }}" />
+						</navigator>
+					</block>
 				</view>
 				<view class="gap" />
 			</scroll-view>
