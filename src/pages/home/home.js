@@ -129,6 +129,9 @@ Page({
     async onLoad() {
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
+    },
+
+    async onShow() {
         this.loadHome();
     },
 
