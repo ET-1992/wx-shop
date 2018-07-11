@@ -1,6 +1,6 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY } from 'constants/index';
-import { formatTime } from 'utils/util';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT } from 'constants/index';
+import { formatTime, valueToText } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 
 const app = getApp();
@@ -51,7 +51,7 @@ Page({
         address.detailInfo = order.receiver_address;
         address.postalCode = order.receiver_zipcode;
 
-        order.statusText = STATUS_TEXT[statusCode];
+        order.statusText = valueToText(ORDER_STATUS_TEXT, statusCode);
         order.statusCode = statusCode;
         order.buyer_message = order.buyer_message || '买家未留言';
         order.createDate = formatTime(new Date(order.time * 1000));
@@ -85,11 +85,26 @@ Page({
             order.isDone = true;
         }
 
-        console.log(order.logistics_info);
-        if (statusCode > 2 && statusCode < 5) {
-            data.logistics = order.logistics_info;
+        // console.log(order.logistics_info);
+        // if (statusCode > 2 && statusCode < 5) {
+        //     data.logistics = order.logistics_info;
 
-        }
+        // }
+        console.log(order);
+
+        let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
+        order.logistics && order.logistics.forEach((item) => {
+            item.logisticsItems = this.filterItemsForLogistics(order.items, item.item_ids);
+            console.log(item, 'item');
+            logisticsForItem = logisticsForItem.concat(item.item_ids);
+            item.logisticsText = valueToText(LOGISTICS_STATUS_TEXT, item.status);
+            item.defineTime = formatTime(new Date(item.consign_time * 1000));
+        });
+
+
+        order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
+            return logisticsForItem.indexOf(item.id) === -1;
+        });
 
         if (statusCode === 3) {
             const { remainTime, remainSecond } = formatConfirmTime(order.auto_confirm_in_seconds);
@@ -108,7 +123,7 @@ Page({
         else {
             wx.hideShareMenu();
         }
-
+        console.log(data, 'data');
         this.setData(data);
         this.setData({ address, info });
     },
@@ -173,6 +188,10 @@ Page({
         clearInterval(this.intervalId);
     },
 
+    onHide() {
+        clearInterval(this.intervalId);
+    },
+
     onShare() {
         wx.showShareMenu();
     },
@@ -226,5 +245,24 @@ Page({
                 imageUrl: '/icons/redpacketShare.jpg'
             };
         }
+    },
+
+    filterItemsForLogistics(items = [], logistics = []) {
+        const filterItems = items.filter((item) => {
+            return logistics.indexOf(item.id) > -1;
+        });
+        return filterItems;
+    },
+
+    toLogisticsDetail(e) {
+        const { index } = e.currentTarget.dataset;
+        const { order } = this.data;
+        // app.globalData.logisticsDetail = {
+        //     logistics: order && order.logistics && order.logistics[index],
+        //     items: order.items
+        // };
+        wx.navigateTo({
+            url: `/pages/logistics/logistics?orderNo=${order.order_no}&logisticsIndex=${index}&logisticId=${order.logistics && order.logistics[index] && order.logistics[index].id}`
+        });
     }
 });

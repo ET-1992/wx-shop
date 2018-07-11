@@ -1,4 +1,4 @@
-<view class="section">
+<!-- <view class="section">
   <navigator class="logistics" url="/pages/logistics/logistics?orderNo={{order.order_no}}" wx:if="{{ order.statusCode > 2 && order.statusCode < 5 && logistics.no}}">
     <image class="truckIcon" src="/icons/truck.png" />
     <view class="info">
@@ -7,7 +7,7 @@
     </view>
     <image class="rightIcon" src="/icons/right.png" />
   </navigator>
-</view>
+</view> -->
 <view class="orderInfo">
   <view class="row">
     <text class="text">商品金额</text>

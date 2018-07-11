@@ -26,8 +26,43 @@
   </view>
 
   <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon }}"></address>
-  <productItemSold items="{{ !order.groupon_id ? order.items : order.groupon }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}"  class="productItemSoldWrapper" wx:if="{{ !otherPeopleGroupon }}" />
-  <productItemSold items="{{ groupon }}" itemStyle="{{ 2 }}"  class="productItemSoldWrapper" wx:if="{{ otherPeopleGroupon }}" />
+
+  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && !otherPeopleGroupon }}"  data-index="{{index}}" bindtap="toLogisticsDetail">
+    <view class="logistics">
+      <view class="logistics-header">
+        <text class="header-left">包裹{{ index + 1 }}</text>
+        <text class="header-center">{{ item.company + ':' +  item.no }}</text>
+        <text class="header-right">已发货</text>
+      </view>
+      <view class="logistics-body">
+        <view class="body-left">
+          <image class="body-left-img" src="/icons/truck.png" mode="aspectFit" />
+        </view>
+        <view class="body-center">
+          <view class="body-center-top">{{ item.logisticsText }}</view>
+          <view>{{ item.defineTime }}</view>
+        </view>
+        <view class="body-right">
+          <image src="/icons/right.png" class="body-right-img" />
+        </view>
+      </view>
+    </view>
+    <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+  </view>
+
+  <view class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && !otherPeopleGroupon && order.noLogisticsForItem && order.noLogisticsForItem.length > 0 }}">
+    <view class="noLogistics">待发货</view>
+    <productItemSold items="{{ order.noLogisticsForItem }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+  </view>
+
+  <view wx:if="{{ order.status !== 3 && order.status !== 31 && !otherPeopleGroupon }}" class="logisticsWrap">
+    <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+  </view>
+
+  <view wx:if="{{ otherPeopleGroupon }}" class="logisticsWrap">
+    <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}"  />
+  </view>
+
 
   <include
     wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"

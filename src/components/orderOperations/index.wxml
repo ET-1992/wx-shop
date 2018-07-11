@@ -29,11 +29,11 @@
     bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo"
     wx:if="{{ statusCode === 1 }}"
   >去支付</button>
-  <navigator
+  <!-- <navigator
     class="statusBt"
     url="/pages/logistics/logistics?orderNo={{orderNo}}"
     wx:if="{{ statusCode > 2 && statusCode < 4 }}"
-  >查看物流</navigator>
+  >查看物流</navigator> -->
   <view class="statusBt confirmBt" bindtap="onConfirmOrder" wx:if="{{ statusCode === 3 }}">确认收货</view>
   <view class="statusBt" bindtap="onComment" wx:if="{{ statusCode === 4 && flase }}">发表评价</view>
 </view>
