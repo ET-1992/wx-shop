@@ -64,14 +64,10 @@ Page({
         console.log(setting);
         if (setting.authSetting['scope.address']) {
             this.setData({
-<<<<<<< HEAD
                 refuseAddress: false,
                 addressModal: {
                     isFatherControl: false,
                 },
-=======
-                refuseAddress: false
->>>>>>> 187c3c4185f4225654a492f9fd04cafcc13065bc
             });
         }
     },
