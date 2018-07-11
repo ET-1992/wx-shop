@@ -135,6 +135,7 @@
 					<image class="icon" src="../../icons/store.png" /> 店铺
 				</navigator>
 				<navigator class="cart" open-type="switchTab" hover-class="navigator-hover" url="/pages/cart/cart">
+					<view class="orderItemValue" wx:if="{{ cartNumber }}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" /> 购物车
 				</navigator>
 				<button 

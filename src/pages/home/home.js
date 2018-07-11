@@ -4,6 +4,7 @@ import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import autoRedirect from 'utils/autoRedirect';
+import { updateCart } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -130,7 +131,6 @@ Page({
                 next_cursor: 0
             });
         }
-
     },
 
     async onShow() {
@@ -138,7 +138,8 @@ Page({
         this.setData({ themeColor });
         this.loadHome();
 
-        console.log(this.data);
+        const { categoryIndex } = app.globalData;
+        updateCart(categoryIndex.categoryIndex);
     },
 
     async onReceiveCoupon(id, index) {

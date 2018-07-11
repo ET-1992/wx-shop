@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-
-// const app = getApp()
+import { updateCart } from 'utils/util';
+const app = getApp();
 
 Page({
 
@@ -35,6 +35,11 @@ Page({
             console.log('load category error: ', err);
         }
 
+    },
+
+    onShow() {
+        const { categoryIndex } = app.globalData;
+        updateCart(categoryIndex.categoryIndex);
     },
 
     onMainCategoryItemClick(ev) {

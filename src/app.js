@@ -18,8 +18,9 @@ App({
 
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue' };
-        const { primaryColor, secondaryColor } = extConfig;
+        const { primaryColor, secondaryColor, categoryIndex = 2 } = extConfig;
         this.globalData.themeColor = { primaryColor, secondaryColor };
+        this.globalData.categoryIndex = { categoryIndex };
     },
 
     async silentLogin() {

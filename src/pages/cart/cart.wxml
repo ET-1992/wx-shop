@@ -128,7 +128,11 @@
     	bindtap="onClearCart"
     >清空购物车</view>
   </view>
-
+  <view class="promote" wx:if="{{ !items.length && products.length }}">
+    <view class="label"> • 为你推荐 • </view>
+    <productList products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" />
+  </view>
+  
   <view class="footer" wx:if="{{ items.length && !isLoading }}">
     <view
     	class="radio {{ isAllSelected ? 'selected' : '' }}"

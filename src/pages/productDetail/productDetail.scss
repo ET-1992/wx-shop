@@ -414,15 +414,26 @@ button {
 
 	.shop,
 	.cart {
+		// width: 100rpx;
+		// font-size: 8pt;
+		// background-color: #fff;
+		// display: flex;
+		// align-items: center;
+		// flex-direction: column;
+		// justify-content: center;
+		// color: $titleColor;
+		// border-radius: 0;
+		flex-grow: 1;
 		width: 100rpx;
-		font-size: 8pt;
-		background-color: #fff;
 		display: flex;
-		align-items: center;
 		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		color: $titleColor;
-		border-radius: 0;
+		font-size: 8pt;
+
+		position: relative;
+		left: 0;
+		top: 0;
 	}
 
 	.icon {
@@ -759,4 +770,19 @@ img,
 	padding-left: 20rpx;
 	width: 380rpx;
 	height: 30rpx; 
+}
+/* 红点 */
+.orderItemValue {
+	width:28rpx;
+	height:28rpx;
+	border-radius:50%;
+	font-size:17rpx;
+	color:#fff;
+	text-align:center;
+	line-height:28rpx;
+	background-color:#FC2732;
+	position:absolute;
+	right:12rpx;
+	top:8rpx;
+	z-index:2;
 }

@@ -1,15 +1,13 @@
 import api from 'utils/api';
-import { getUserInfo, getAgainUserForInvalid } from 'utils/util';
+import { getUserInfo, getAgainUserForInvalid, updateCart  } from 'utils/util';
 import { chooseAddress, getSetting } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
+const app = getApp();
 
 // const itemActions = {
 //     coupon: () => console.log('coupon'),
 //     notice: () => console.log('notice'),
 // };
-
-// 获取全局应用程序实例对象
-const app = getApp();
 
 // 创建页面实例对象
 Page({
@@ -62,6 +60,9 @@ Page({
                 },
             });
         }
+
+        const { categoryIndex } = app.globalData;
+        updateCart(categoryIndex.categoryIndex);
     },
 
     onLogin() {
