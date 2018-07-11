@@ -13,9 +13,10 @@ Page({
             status: '',
         },
         order: {},
+        isLoading: true
     },
 
-    async onLoad({ orderNo }) {
+    async onLoad({ orderNo, logisticsIndex = 0, logisticId = '' }) {
         // 		const logistics = {
         //     "company": "EMS", /* 快递公司名字 */
         //     "com": "ems",
@@ -71,13 +72,13 @@ Page({
         // }
 
         const { order } = await api.hei.fetchOrder({ order_no: orderNo });
-        order.productCount = order.items.reduce((count, item) => {
-            return count + Number(item.quantity);
-        }, 0);
 
-        const { logistics } = await api.hei.fetchLogistics({
-            order_no: orderNo
+        const { logistics } = await api.hei.fetchLogistic({
+            order_no: orderNo,
+            logistic_id: logisticId
         });
+
+        console.log(order.defineImg);
 
         const updateData = { order };
 
@@ -94,6 +95,8 @@ Page({
 
             updateData.logistics = logistics;
         }
+
+        updateData.isLoading = false;
 
         this.setData(updateData);
 

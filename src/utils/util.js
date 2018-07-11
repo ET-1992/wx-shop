@@ -176,3 +176,17 @@ export function bankCardAttribution(bankCard) {
     }
     return _getBankInfoByCardNo(bankCard);
 }
+
+export function textToValue(array = [], text = '') {
+    const filterValue =  array.filter((item) => {
+        return item.text === text;
+    });
+    return filterValue && filterValue[0] && filterValue[0].value;
+}
+
+export function valueToText(array = [], value = null) {
+    const filterValue =  array.filter((item) => {
+        return item.value === value;
+    });
+    return (filterValue && filterValue[0] && filterValue[0].text) || array[0].text;
+}

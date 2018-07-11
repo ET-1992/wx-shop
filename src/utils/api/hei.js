@@ -104,8 +104,8 @@ const apis = {
         method: 'POST',
         isForceToken: true,
     },
-    fetchLogistics: {
-        path: 'api/mag.order.logistics.json',
+    fetchLogistic: {
+        path: 'api/mag.order.logistic.json',
         isForceToken: true,
     },
     fetchCategory: {

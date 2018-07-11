@@ -1,8 +1,10 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<view class="container">
+<import src="/templates/loading/loading.wxml" />
+<template is="loading" wx:if="{{ isLoading }}" />
+
+<view class="container" wx:if="{{ !isLoading }}">
   <view class="section header">
-    <image class="prodcuctImage" src="{{ order.items[0].image_url }}">
-      <view class="productCount">共{{ order.productCount }}件商品</view>
+    <image class="prodcuctImage" src="{{ logistics.thumbnail }}">
+      <view class="productCount">共{{ logistics.item_ids.length }}件商品</view>
     </image>
     <view class="logistics">
       <view class="logisticsInfo">
