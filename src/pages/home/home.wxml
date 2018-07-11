@@ -228,7 +228,7 @@
 <view wx:if="{{ newUser == 1 && hasNewUserCoupons }}" class="newUserCoupon">
   <view class="couponContainer">
     <scroll-view class="couponScroll" scroll-y>
-      <view class="couponItem" wx:for="{{coupons}}" wx:if="{{item.target_user_type === '2' }}" wx:key="id" data-status="{{item.status}}">
+      <view class="couponItem" wx:for="{{coupons_newbie}}" wx:if="{{item.target_user_type === '2' }}" wx:key="id" data-status="{{item.status}}">
         <view class="newCouponInfo">
           <view class="couponType">
             <view class="newUser">新用户专享</view>
@@ -244,7 +244,7 @@
         </view>
       </view>
     </scroll-view>
-    <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons}}"></image>
+    <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons_newbie}}"></image>
   </view>
   <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image>
 </view>

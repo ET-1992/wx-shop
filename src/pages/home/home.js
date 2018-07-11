@@ -21,6 +21,8 @@ Page({
         groupons: [],
         featured_products: [],
         coupons: [],
+        coupons_home: [],
+        coupons_newbie: [],
         hasNewUserCoupons: false,
 
         productListStyle: PRODUCT_LAYOUT_STYLE[0],
@@ -60,7 +62,7 @@ Page({
 
         const data = await api.hei.fetchHome();
         // console.log('home data:', data);
-        const { current_user = {}, coupons = [] } = data;
+        const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
         // if (current_user) {
         // 	this.setData({
         // 		newUser: current_user.new_user,
@@ -75,9 +77,14 @@ Page({
         /**
 		*	target_user_type 1:所有人可领取, 2:新人专属
 		*	status 2 可使用
-		*/
-        const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
-        const userCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
+        */
+
+        // const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
+        // const userCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
+
+        const newUserCouponIndex = coupons_newbie.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
+        const userCoupon = coupons_home.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
+
         const hasNewUserCoupons = newUserCouponIndex >= 0;
 
         if (data.page_title) {
@@ -130,6 +137,8 @@ Page({
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
         this.loadHome();
+
+        console.log(this.data);
     },
 
     async onReceiveCoupon(id, index) {
