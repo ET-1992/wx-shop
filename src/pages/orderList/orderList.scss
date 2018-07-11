@@ -17,14 +17,23 @@
 	color: #999999;
 	font-size: 28rpx;
 	height: $height;
-	width: 100%;
 	box-shadow: 0rpx 0rpx 2rpx rgba(0, 0, 0, 0.16);
 	z-index: 10000;
+	overflow: auto;
+	left:0;
+	top:0;
+	white-space:nowrap;
+	padding: 0 10rpx;
 
 	.statusItem {
-		width: 16%;
+		width: 84rpx;
 		display: inline-block;
 		text-align: center;
+		margin-right: 40rpx;
+	}
+
+	.statusItem:last-child {
+		margin-right: 0rpx;
 	}
 
 	.statusItemName {

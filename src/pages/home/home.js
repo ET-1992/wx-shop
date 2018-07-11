@@ -36,7 +36,7 @@ Page({
         share_title: '',
         page_title: '',
         type: '',
-
+        isProductBottom: false,
         hasMask: false
     },
 
@@ -58,7 +58,8 @@ Page({
 
         this.setData({
             isLoading: true,
-            hasMask: false
+            hasMask: false,
+            isProductBottom: false
         });
 
         const data = await api.hei.fetchHome();
@@ -136,6 +137,9 @@ Page({
     async onShow() {
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
+    },
+
+    async onShow() {
         this.loadHome();
 
         const { categoryIndex } = app.globalData;
@@ -289,7 +293,7 @@ Page({
     async showProducts() {
         const { windowHeight } = app.systemInfo;
         const rect = await this.getDomRect('loadProducts');
-        if (rect.top && (rect.top <= windowHeight) && !this.data.isProductBottom) {
+        if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             const { next_cursor } = this.data;
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             if (next_cursor !== 0) {

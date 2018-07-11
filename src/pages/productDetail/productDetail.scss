@@ -306,6 +306,15 @@ button {
 	}
 }
 
+.desc {
+	font-size: 24rpx;
+	line-height: 33rpx;
+	color: #9fa0a0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-top: 10rpx;
+}
 .pendingGroupons {
 	background-color: #fff;
 	color: $titleColor;

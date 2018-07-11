@@ -11,9 +11,18 @@
       <text>搜索商品，共有{{ total }}款好物</text>
     </view>
   </navigator>
-  <view class="{{ modules[0].key === 'search_box' ? 'main': '' }}">
-    <view wx:for="{{modules}}" wx:for-item="module" wx:key="key">
-      <!-- 幻灯片 -->
+
+  <view
+    class="{{ modules[0].key === 'search_box' ? 'main': 'zeroMarginTop' }}"
+  >
+  
+    <view
+      wx:for="{{modules}}"
+      wx:for-item="module"
+      wx:key="key"
+    >
+   
+     <!-- 幻灯片 -->
       <view wx:if="{{ module.key === 'sliders' }}">
         <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
           <swiper-item wx:for="{{ sliders }}" wx:key="id">

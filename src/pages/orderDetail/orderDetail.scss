@@ -22,9 +22,21 @@ $footerHeight: 100rpx;
 	line-height: 40rpx;
 }
 
-.productItemSoldWrapper {
-	display: block;
+.logisticsWrap {
+	display: block; 
 	margin: 20rpx 0;
+
+	.noLogistics {
+		background: #fff;
+		padding: 20rpx 30rpx;
+		height: 50rpx;
+		display: flex;
+		justify-content: flex-end;
+		color: #FC2732;
+		font-size: 24rpx;
+		line-height: 33rpx;
+		align-items: center;
+	}
 }
 
 .redpacketBannerBt {
@@ -43,3 +55,72 @@ $footerHeight: 100rpx;
 	background-color: $mainColor;
 }
 
+.logistics {
+	width: 100%;
+	height: 155rpx;
+	background: #fff;
+	padding: 20rpx 30rpx;
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1rpx solid #E0E0E0;
+
+	.logistics-header, .logistics-body {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		color: #707070;
+		font-size: 24rpx;
+		line-height: 33rpx;
+		justify-content: space-between;
+		height: 50rpx;
+		align-items: center;
+
+		.header-left, .body-left {
+			width: 100rpx;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			
+			.body-left-img {
+				width: 35rpx;
+				margin-left: 10rpx;
+			}
+		}
+
+		.header-center, .body-center {
+			flex: 1;
+			float: left;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			.body-center-top {
+				color: #FC2732;
+				margin-bottom: 5rpx;
+			}
+		}
+
+		.header-right {
+			color: #FC2732;
+		}
+
+		.body-right {
+			width: 70rpx;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+
+			.body-right-img {
+				width: 10rpx;
+				height: 20rpx;
+				margin-right: 5rpx;
+			}
+		}
+	}
+
+	.logistics-body {
+		flex: 1;
+	}
+}

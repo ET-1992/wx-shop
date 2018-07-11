@@ -18,6 +18,28 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const STATUS_TEXT = ['', '等待买家付款', '待发货', '卖家已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭', '', '待成团'];
 
+export const ORDER_STATUS_TEXT = [
+    { text: '全部', value: null },
+    { text: '待付款', value: 1 },
+    { text: '待成团', value: 10 },
+    { text: '待发货', value: 2 },
+    { text: '已发货', value: 3 },
+    { text: '已完成', value: 4 },
+    { text: '已部分发货', value: 31 },
+    { text: '申请退款', value: 5 },
+    { text: '订单关闭', value: 7 },
+    { text: '系统关闭', value: 8 },
+    { text: '退款成功', value: 6 },
+];
+
+export const LOGISTICS_STATUS_TEXT = [
+    { text: '暂无该物流信息', value: null },
+    { text: '暂无该物流信息', value: 1 },
+    { text: '正在运输', value: 2 },
+    { text: '已签收', value: 3 },
+    { text: '错误', value: 4 },
+];
+
 export const phoneStyle = {
     'iPhone 5': 'iphone5',
     'iPhone X': 'iphoneX'

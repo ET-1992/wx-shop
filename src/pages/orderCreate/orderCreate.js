@@ -2,7 +2,6 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
-import Event from 'utils/event';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -65,10 +64,14 @@ Page({
         console.log(setting);
         if (setting.authSetting['scope.address']) {
             this.setData({
+<<<<<<< HEAD
                 refuseAddress: false,
                 addressModal: {
                     isFatherControl: false,
                 },
+=======
+                refuseAddress: false
+>>>>>>> 187c3c4185f4225654a492f9fd04cafcc13065bc
             });
         }
     },
@@ -194,7 +197,7 @@ Page({
     async onLoadData() {
         const { address, items, totalPrice, user_coupon_ids, isGrouponBuy } = this.data;
         console.log(totalPrice, 'totalPrice');
-        let requestData;
+        let requestData = {};
         if (address) {
             requestData = {
                 receiver_name: address.userName,
@@ -208,7 +211,7 @@ Page({
             };
         }
 
-        if (user_coupon_ids && !requestData) { // 团购无优惠卷
+        if (user_coupon_ids) { // 团购无优惠卷
             requestData.user_coupon_ids = user_coupon_ids;
         }
 

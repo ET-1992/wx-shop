@@ -1,7 +1,7 @@
 <view class="itemList">
     <view class="item" wx:for="{{ products }}" wx:key="id" >
        <image
-         src="{{ item.imageUrl }}"
+         src="{{ item.imageUrl || item.thumbnail }}"
          class="itemImage"
          mode="aspectFill"
        />
@@ -11,7 +11,7 @@
          <view class="itemMeta">
            <view class="itemPrice">￥{{ item.price }}</view>
            <view class="itemCount">
-            <view class="grouponLimit" wx:if="{{ item.memberlimit }}">{{ item.memberlimit }}人团</view>
+            <view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
             <view class="itemQuantity">x{{ item.quantity }}</view>
            </view>
          </view>
