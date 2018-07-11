@@ -27,9 +27,10 @@
 	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
 		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 	</view>
-
-	<view wx:if="{{article.label && article.products.length}}" class="label"> • {{article.label}} • </view>
-	<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
+	<view class="promote" wx:if="{{article.products.length}}">
+		<view wx:if="{{ article.label }}" class="label"> • {{article.label}} • </view>
+		<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
+	</view>
 </view>
 
 <!-- 底部评论栏 -->

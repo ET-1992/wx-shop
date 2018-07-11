@@ -161,14 +161,20 @@ swiper image{
   border:none;
 }
 
-.label{
-	display: flex;
-	justify-content: center;
-	font-size: 32rpx;
-	margin-top: 60rpx;
-	text-align: center;
-	align-items: center;
-	color: $titleColor;
+.promote{
+	margin: 60rpx auto 100rpx;
+	background: #fff;
+	overflow: hidden;
+
+	.label{
+		display: flex;
+		justify-content: center;
+		font-size: 32rpx;
+		text-align: center;
+		align-items: center;
+		color: $titleColor;
+		padding: 30rpx 0;
+	}
 }
 
 
