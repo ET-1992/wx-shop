@@ -128,7 +128,7 @@ Page({
             this.data.consoleTime = 0;
         }, 1000);
 
-        if (this.data.consoleTime >= 8) {
+        if (this.data.consoleTime >= 7) {
             console.log('six six six');
             app.openConsole = true;
             app.event.emit('showConsole');
