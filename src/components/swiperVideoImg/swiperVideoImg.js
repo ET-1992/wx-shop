@@ -19,6 +19,9 @@ Component({
         videoTime: 0,
         swiperIndex: 0
     },
+    detached() {
+        console.log('组件移除');
+    },
     methods: {
         changeType(e) {
             const type = e.currentTarget.dataset.type;

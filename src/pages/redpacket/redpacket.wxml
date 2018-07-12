@@ -45,3 +45,5 @@
     <productList products="{{ products }}" productListStyle="{{ productListStyle }}" />
   </view>
 </view>
+
+<console page="红包" />

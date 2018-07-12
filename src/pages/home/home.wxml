@@ -255,3 +255,5 @@
   </view>
   <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image>
 </view>
+
+<console page="首页" />

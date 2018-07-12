@@ -2,6 +2,7 @@
   "usingComponents": {
     "numberInput": "../../components/numberInput/index",
     "pendingGrouponItem": "../../components/pendingGrouponItem/index",
-    "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg"
+    "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
+    "console": "../../components/console/console"
   }
 }

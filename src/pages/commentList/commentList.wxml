@@ -4,3 +4,5 @@
   <include src="../../templates/common/comments.wxml" />
   <include src="../../templates/common/comment-form.wxml" />
 </view>
+
+<console page="评论列表" />

@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle":"black",
   "usingComponents": {
-    "address": "../../components/address/address"
+    "address": "../../components/address/address",
+    "console": "../../components/console/console"
   }
 }

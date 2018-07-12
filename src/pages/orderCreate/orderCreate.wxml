@@ -13,3 +13,5 @@
 <orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay"></orderPay>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
+
+<console page="创建订单" />

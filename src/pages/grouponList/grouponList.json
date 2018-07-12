@@ -1,3 +1,6 @@
 {
-	"navigationBarTitleText": "拼团"
+	"navigationBarTitleText": "拼团",
+	"usingComponents": {
+    	"console": "../../components/console/console"
+  	}
 }

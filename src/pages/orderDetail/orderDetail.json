@@ -4,6 +4,7 @@
     "orderOperations": "../../components/orderOperations/index",
     "modal": "../../components/modal/modal",
     "address": "../../components/address/address",
-    "productItemSold": "../../components/productItemSold/index"
+    "productItemSold": "../../components/productItemSold/index",
+    "console": "../../components/console/console"
   }
 }

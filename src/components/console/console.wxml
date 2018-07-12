@@ -1,0 +1,14 @@
+<view class="container" wx:if="{{ isConsoleShow }}">
+	<view class="consoleBtn" wx:if="{{ !isShow }}" bindtap="show">Clik Me</view>
+	<view class="consoleWrap" wx:if="{{ isShow }}">
+		<view class="consoleHead">
+			<view class="consoleHeadItem" bindtap="clear" style="border-right: 1rpx solid #c9c9c9">清空</view>
+			<view class="consoleHeadItem" bindtap="hide">退出</view>
+		</view>
+		<scroll-view class="consoleBody" scroll-y="{{ true }}">
+			<view wx:for="{{ oldLogData }}" class="consoleItem">
+				{{ item }}
+			</view>
+		</scroll-view>
+	</view>
+</view>

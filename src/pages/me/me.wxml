@@ -1,7 +1,7 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
 	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
-		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
@@ -136,6 +136,8 @@
 <view class="logo">
 	<image src="../../icons/logo.png"></image>
 </view>
+
+<console page="个人中心" />
 <!-- <view class="mask" wx:if="{{active==1}}">
   <view class="con">
     <view class="cont">

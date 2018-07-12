@@ -85,3 +85,5 @@
     wx:if="{{ !order.groupon_id }}"
   />
 </view>
+
+<console page="订单详情" />

@@ -1,0 +1,59 @@
+.container {
+	width: 100%;
+
+	.consoleBtn {
+		position: fixed;
+		width: 200rpx;
+		height: 50rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #fff;
+		border-radius: 6rpx;
+		top: 70%;
+		right: 0;
+		background: #fff
+	}
+
+	.consoleWrap {
+		position: fixed;
+		width: 100%;
+		background: #fff;
+		overflow: hidden;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		font-size: 20rpx;
+
+		.consoleHead {
+			height: 80rpx;
+			display: flex;
+			background: #fff;
+			flex-direction: row;
+			width: 100%;
+			border-top: 1rpx solid #c9c9c9;
+
+			.consoleHeadItem {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 80rpx;
+			}
+		}
+
+		.consoleBody {
+			flex: 1;
+			border-top: 1rpx solid #c9c9c9;
+			height: 500rpx;
+			.consoleItem {
+				border-bottom: 1rpx solid #c9c9c9;
+				padding: 10rpx;
+				width: 100%;
+				word-wrap: break-word; 
+			}
+		}
+	}
+}

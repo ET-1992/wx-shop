@@ -18,7 +18,8 @@ Page({
         isLogin: false,
         nowTS: Date.now() / 1000,
         isSelectedObject: {},
-        phoneModel: ''
+        phoneModel: '',
+        isShowConsole: false
     },
     onLoad() {
         const { themeColor } = app.globalData;
@@ -26,7 +27,7 @@ Page({
     },
 
     async onShow() {
-        this.setData({ isLogin: true, isLoading: true });
+        this.setData({ isLogin: true, isLoading: true, isShowConsole: app.openConsole });
         await this.loadCart();
     },
 

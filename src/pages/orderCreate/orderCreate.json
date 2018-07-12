@@ -6,6 +6,7 @@
     "orderInfo": "./orderInfo/index",
     "orderPay": "./orderPay/index",
     "productItemSold": "../../components/productItemSold/index",
-    "myModal": "../../components/myModal/myModal"
+    "myModal": "../../components/myModal/myModal",
+    "console": "../../components/console/console"
   }
 }

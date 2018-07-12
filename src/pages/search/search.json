@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "搜索",
   "usingComponents": {
-    "productList": "../../components/productList/index"
+    "productList": "../../components/productList/index",
+    "console": "../../components/console/console"
   }
 }

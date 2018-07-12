@@ -21,6 +21,13 @@ App({
         console.log(extConfig, 'extConfig');
         const { primaryColor, secondaryColor } = extConfig;
         this.globalData.themeColor = { primaryColor, secondaryColor };
+        this.logData = [];
+        this.openConsole = false;
+    },
+
+    onHide() {
+        this.logData = [];
+        this.openConsole = false;
     },
 
     async silentLogin() {
@@ -33,6 +40,9 @@ App({
     },
 
     async onShow(options) {
+        this.logData = [];
+        this.openConsole = false;
+
         const { query = {}} = options;
         if (query.vendor) {
             this.globalData.vendor = query.vendor;
@@ -55,6 +65,7 @@ App({
 
     onError(err) {
         console.error('[APP ERROR]', err);
+        this.logData.push(err);
     },
 
     globalData: {
@@ -69,5 +80,18 @@ App({
 
     systemInfo: {},
 
-    event: new Event()
+    event: new Event(),
+
+    log(data) {
+        if (this.openConsole) {
+            this.logData.push(data);
+            this.event.emit('log');
+        }
+    },
+
+    logData: [],
+
+    openConsole: false,
+
+    consoleShowRes: false
 });
