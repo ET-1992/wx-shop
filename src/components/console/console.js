@@ -8,7 +8,7 @@ Component({
             value: '',
             observer(newValue) {
                 if (newValue) {
-                    app.log('进入' + newValue);
+                    app.log('进入' + newValue + '页面');
                 }
             }
         }

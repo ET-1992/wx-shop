@@ -38,6 +38,8 @@ Page({
     },
 
     onShow() {
+        this.setData({ isShowConsole: app.openConsole });
+
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
     },

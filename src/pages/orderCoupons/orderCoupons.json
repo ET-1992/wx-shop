@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "使用优惠券"
+  "navigationBarTitleText": "使用优惠券",
+  "usingComponents": {
+    "console": "../../components/console/console"
+  }
 }

@@ -258,4 +258,4 @@
   <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image>
 </view>
 
-<console page="首页" />
+<console page="首页" wx:if="{{ isShowConsole }}"/>

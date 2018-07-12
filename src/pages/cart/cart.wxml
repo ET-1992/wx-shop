@@ -172,4 +172,4 @@
 </view>
 
 
-<console page="购物车" />
+<console page="购物车" wx:if="{{ isShowConsole }}"/>

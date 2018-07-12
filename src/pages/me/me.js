@@ -55,14 +55,6 @@ Page({
         this.setData({ user, isShowConsole: app.openConsole });
         this.loadOrderCount();
 
-        const setting = await getSetting();
-        console.log(setting);
-        if (setting.authSetting['scope.address']) {
-            this.setData({
-                refuseAddress: false,
-            });
-        }
-
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
     },
@@ -135,7 +127,7 @@ Page({
             this.data.consoleTime = 0;
         }, 1000);
 
-        if (this.data.consoleTime >= 6) {
+        if (this.data.consoleTime >= 8) {
             console.log('six six six');
             app.openConsole = true;
             app.event.emit('showConsole');

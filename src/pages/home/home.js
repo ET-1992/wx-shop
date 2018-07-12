@@ -37,7 +37,8 @@ Page({
         page_title: '',
         type: '',
         isProductBottom: false,
-        hasMask: false
+        hasMask: false,
+        isShowConsole: false
     },
 
     onBannerClick(ev) {
@@ -140,6 +141,8 @@ Page({
     },
 
     async onShow() {
+        this.setData({ isShowConsole: app.openConsole });
+
         this.loadHome();
 
         const { categoryIndex } = app.globalData;

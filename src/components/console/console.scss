@@ -1,6 +1,6 @@
 .container {
 	width: 100%;
-
+	
 	.consoleBtn {
 		position: fixed;
 		width: 200rpx;
@@ -10,9 +10,11 @@
 		align-items: center;
 		background: #fff;
 		border-radius: 6rpx;
-		top: 70%;
-		right: 0;
-		background: #fff
+		top: 80%;
+		right: 5rpx;
+		background: #729153;
+		z-index: 10002;
+		color: #fff;
 	}
 
 	.consoleWrap {
@@ -26,6 +28,7 @@
 		display: flex;
 		flex-direction: column;
 		font-size: 20rpx;
+		z-index: 10002;
 
 		.consoleHead {
 			height: 80rpx;
