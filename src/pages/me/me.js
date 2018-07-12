@@ -46,7 +46,7 @@ Page({
         app.log('页面onLoad');
         // user用户客服对接
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        this.setData({ themeColor, isShowConsole: app.openConsole });
     },
 
     async onShow() {
@@ -123,6 +123,7 @@ Page({
 
     consoleOpen() {
         this.data.consoleTime++;
+        console.log(this.data.consoleTime);
         setTimeout(() => {
             this.data.consoleTime = 0;
         }, 1000);
@@ -131,6 +132,18 @@ Page({
             console.log('six six six');
             app.openConsole = true;
             app.event.emit('showConsole');
+            this.onLoad();
+        }
+
+        if (app.openConsole) {
+            this.data.openConsoleResDataTime++;
+            setTimeout(() => {
+                this.data.openConsoleResDataTime = 0;
+            }, 1000);
+            if (this.data.openConsoleResDataTime >= 3) {
+                console.log('openConsoleResData');
+                app.openConsoleResData = true;
+            }
         }
     }
 });

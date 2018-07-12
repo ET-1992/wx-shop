@@ -161,4 +161,4 @@
 
 <myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
 
-<console page="个人中心" wx:if="{{ isShowConsole }}" />
+<console page="个人中心" wx:if="{{ isShowConsole }}"/>

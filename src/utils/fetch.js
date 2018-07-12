@@ -8,7 +8,7 @@ const onRequestSuccess = async (resolve, reject, res, wxRequest, reTryTime, app 
     app.log('请求结束 耗时时间：' + (new Date().getTime() - sendTime) + 'ms');
     const { data, statusCode, errMsg } = res;
     const { errcode, errmsg } = data;
-    // app.log(res);
+    app.openConsoleResData && app.log(res);
     if (statusCode.toString().slice(0, 2) !== '20' || errcode) {
         const err = {
             errMsg: errmsg || errMsg,
@@ -82,7 +82,7 @@ export default async (path, data, options = {}) => {
             }
             reTryTime++;
             app.log('开始请求');
-            app.log('请求路径：' + url);
+            app.log('请求路径：' + path);
             app.log('请求方法：' + method);
             app.log(restParams);
             sendTime = new Date().getTime();

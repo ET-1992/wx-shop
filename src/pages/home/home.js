@@ -136,11 +136,15 @@ Page({
     },
 
     async onLoad() {
+        app.log('onLoad');
+
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
     },
 
     async onShow() {
+        app.log('onShow');
+
         this.setData({ isShowConsole: app.openConsole });
 
         this.loadHome();
