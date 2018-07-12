@@ -108,7 +108,7 @@
 			>
 				<view class="text">服务</view>
 				<view class="desc">
-					<view class="service-item" wx:for="{{ product.service_instructions }}">• {{ item }}</view>
+					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="{{ index }}">• {{ item }}</view>
 				</view>
 			</view>
 		</view>
