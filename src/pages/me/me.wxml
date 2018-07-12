@@ -62,7 +62,7 @@
 	</view>
 
 	<view class="section">
-		<view bindtap="onItemClick" class="sectionItem" data-name="address">
+		<view bindtap="onAddress" class="sectionItem" data-name="address">
 			<image class="itemIcon" src="../../icons/address.png" />
 			<view class="itemTitle">收货地址</view>
 			<image class="rightIcon" src="../../icons/right.png" />

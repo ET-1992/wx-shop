@@ -1,5 +1,5 @@
 <view class="orderCreateWrap">
-  <address address="{{ address }}" bindtap="{{ refuseAddress? 'onModal' : 'onAddress' }}" class="addressWrapper"></address>
+  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
   <view class="textareaWrapper">
     <textarea wx:if="{{!addressModal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />

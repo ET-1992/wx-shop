@@ -71,3 +71,7 @@ export const checkSession = (options) => new Promise((resolve, reject) => {
 export const downloadFile = (options) => new Promise((resolve, reject) => {
     wx.downloadFile({ success: resolve, fail: reject, ...options });
 });
+
+export const authorize = (options) => new Promise((resolve, reject) => {
+    wx.authorize({ success: resolve, fail: reject, ...options });
+});

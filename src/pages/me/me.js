@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getUserInfo, getAgainUserForInvalid, updateCart  } from 'utils/util';
-import { chooseAddress, getSetting } from 'utils/wxp';
+import { chooseAddress, getSetting, authorize } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
 
@@ -60,9 +60,6 @@ Page({
         if (setting.authSetting['scope.address']) {
             this.setData({
                 refuseAddress: false,
-                addressModal: {
-                    isFatherControl: false,
-                },
             });
         }
 
@@ -91,44 +88,28 @@ Page({
 
     async onAddress() {
         let that = this;
-        wx.getSetting({
-            success(res) {
-                if (!res.authSetting['scope.address']) {
-                    wx.authorize({
-                        scope: 'scope.address',
-                        success() {
-                            wx.chooseAddress({
-                                success: function (res) {
-                                    that.setData({
-                                        refuseAddress: false
-                                    });
-                                    wx.setStorageSync(ADDRESS_KEY, res);
-                                }
-                            });
-                        },
-                        fail() {
-                            that.setData({
-                                refuseAddress: true
-                            });
-                        }
-                    });
-                } else {
-                    wx.chooseAddress({
-                        success: function (res) {
-                            that.setData({
-                                refuseAddress: false
-                            });
-                            wx.setStorageSync(ADDRESS_KEY, res);
-                        }
-                    });
+        try {
+            const setting = await getSetting();
+            if (!setting.authSetting['scope.address']) {
+                try {
+                    await authorize({ scope: 'scope.address' });
+                    const addressRes = await chooseAddress();
+                    wx.setStorageSync(ADDRESS_KEY, addressRes);
+                } catch (e) {
+                    that.onModal();
                 }
+            } else {
+                const addressRes = await chooseAddress();
+                wx.setStorageSync(ADDRESS_KEY, addressRes);
             }
-        });
+        } catch (e) {
+            this.onModal();
+        }
     },
     onModal() {
         this.setData({
             addressModal: {
-                isFatherControl: true,
+                isFatherControl: false,
                 title: '温馨提示',
                 isShowModal: true,
                 body: '请授权地址信息',
@@ -137,19 +118,6 @@ Page({
                     opentype: 'openSetting'
                 }
             },
-        });
-    },
-    onAddressCancel() {
-        this.setData({
-            'addressModal.isShowModal': false,
-            isShouldRedirect: false
-        });
-    },
-
-    onAddressConfirm() {
-        this.setData({
-            'addressModal.isShowModal': false,
-            isShouldRedirect: true
         });
     },
 
