@@ -177,6 +177,19 @@ export function bankCardAttribution(bankCard) {
     return _getBankInfoByCardNo(bankCard);
 }
 
+export function updateCart(e) {
+    const CART_NUM  = wx.getStorageSync('CART_NUM');
+    if (!CART_NUM || CART_NUM === '0') {
+        wx.removeTabBarBadge({
+            index: e
+        });
+    } else {
+        wx.setTabBarBadge({
+            index: e,
+            text: CART_NUM
+        });
+    }
+}
 export function textToValue(array = [], text = '') {
     const filterValue =  array.filter((item) => {
         return item.text === text;

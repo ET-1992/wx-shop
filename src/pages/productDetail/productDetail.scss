@@ -2,7 +2,7 @@
 @import "~templates/loading/loading";
 @import "~templates/couponItem/couponItem";
 @import "~styles/color";
-
+@import "../../utils/wxParse/wxParse.scss";
 $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
 
@@ -200,11 +200,23 @@ video {
 			color: #000000;
 			padding-right: 30rpx;
 			display:inline-block;
+			line-height: 32rpx;
 		}
 		
 		.coupon {
 			background: #F52D2D;
 			color: #fff;
+			margin-right: 20rpx;
+			display: inline-block;
+			min-width: 100rpx;
+			height: 32rpx;
+			line-height: 32rpx;
+			border-radius: 5rpx;
+			text-align: center;
+			padding: 0 10rpx;
+		}
+		.nullCoupon {
+			color: #707070;
 			margin-right: 20rpx;
 			display: inline-block;
 			min-width: 100rpx;
@@ -338,6 +350,11 @@ button {
 .detail{
 	background-color: #fff;
 	width: 100%;
+
+	.wxParse-blockquote{
+		background-color: #fff;
+		border:none;
+	}
 }
 
 .detailTitle,
@@ -406,15 +423,26 @@ button {
 
 	.shop,
 	.cart {
+		// width: 100rpx;
+		// font-size: 8pt;
+		// background-color: #fff;
+		// display: flex;
+		// align-items: center;
+		// flex-direction: column;
+		// justify-content: center;
+		// color: $titleColor;
+		// border-radius: 0;
+		flex-grow: 1;
 		width: 100rpx;
-		font-size: 8pt;
-		background-color: #fff;
 		display: flex;
-		align-items: center;
 		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		color: $titleColor;
-		border-radius: 0;
+		font-size: 8pt;
+
+		position: relative;
+		left: 0;
+		top: 0;
 	}
 
 	.icon {
@@ -700,12 +728,70 @@ img,
 	max-height: 800rpx;
 }
 
-.product-card-thumbnail {
-	width: 220rpx !important;
-	height: 220rpx !important;
-	float: left;
-}
-
 .joinGroup{
 	font-size: 28rpx;
+}
+
+/* 卡片 */
+.product-card{
+	width: 90%;
+	color: #333;
+	padding: 20rpx;
+	margin: 40rpx auto;
+	box-shadow:2px 2px 12px #ccc;
+	border-radius: 10rpx;
+}
+.product-card-thumbnail{
+	width: 240rpx !important;
+	height: 240rpx !important;
+	float: left;
+}
+.product-card-title {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	font-size: 16px;
+	font-weight: normal;
+	color: #333;
+	padding: 18rpx 0 0 25rpx;
+	margin-top: 0;
+	width: 380rpx;
+	height: 110rpx; 
+}
+.product-card-meta {
+	display: flex;
+	padding: 30rpx 0 0 20rpx; 
+}
+.product-card-price {
+	color: #FC2732;
+	font-size: 36rpx;
+	width: 240rpx;
+}
+.product-card-except {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 24rpx;
+	color: #999999;
+	padding-left: 20rpx;
+	width: 380rpx;
+	height: 30rpx; 
+}
+/* 红点 */
+.orderItemValue {
+	width:28rpx;
+	height:28rpx;
+	border-radius:50%;
+	font-size:17rpx;
+	color:#fff;
+	text-align:center;
+	line-height:28rpx;
+	background-color:#FC2732;
+	position:absolute;
+	right:12rpx;
+	top:8rpx;
+	z-index:2;
 }

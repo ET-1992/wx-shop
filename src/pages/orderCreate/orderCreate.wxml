@@ -1,11 +1,8 @@
 <view class="orderCreateWrap">
-  <button class="addressBtn" wx:if="{{ refuseAddress }}" open-type="openSetting">
-    <address address="{{ address }}" class="addressWrapper"></address>
-  </button>
-  <address wx:else address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
+  <address address="{{ address }}" bindtap="{{ refuseAddress? 'onModal' : 'onAddress' }}" class="addressWrapper"></address>
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
   <view class="textareaWrapper">
-    <textarea class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
+    <textarea wx:if="{{!addressModal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
   <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
@@ -13,5 +10,9 @@
 <orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay"></orderPay>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
+<<<<<<< HEAD
 
 <console page="创建订单" />
+=======
+<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>
+>>>>>>> a0786bfaf5ed5d47e4a8e9be7544b31ce23a7dba

@@ -129,6 +129,9 @@ Page({
             case '3':
                 index = 4;
                 break;
+            case '4':
+                index = 5;
+                break;
         }
         return index;
     },

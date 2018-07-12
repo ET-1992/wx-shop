@@ -1,6 +1,7 @@
 {
 	"navigationBarTitleText": "个人中心",
 	"usingComponents": {
+		"myModal": "../../components/myModal/myModal",
 		"console": "../../components/console/console"
-	}
+	  }
 }

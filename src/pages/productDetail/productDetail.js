@@ -6,7 +6,7 @@ import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY } from 'constants/index';
-import { getAgainUserForInvalid } from 'utils/util';
+import { getAgainUserForInvalid, updateCart } from 'utils/util';
 
 // import login from 'utils/login';
 
@@ -312,6 +312,10 @@ Page({
     async onShow() {
         this.setData({ isLoading: true });
         await this.initPage();
+        const CART_NUM  = wx.getStorageSync('CART_NUM');
+        this.setData({
+            cartNumber: CART_NUM
+        });
     },
 
     currentIndex(e) {
@@ -380,6 +384,8 @@ Page({
             wx.showToast({
                 title: '成功添加'
             });
+
+            this.showCartNumber(data.count);
         }
     },
 
@@ -638,6 +644,13 @@ Page({
                 showCancel: false,
             });
         }
+    },
+
+    async showCartNumber(e) {
+        wx.setStorageSync('CART_NUM', e.toString());
+        this.setData({
+            cartNumber: e.toString()
+        });
     },
 
     async reload() {

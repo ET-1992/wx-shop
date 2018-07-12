@@ -16,20 +16,17 @@
 		width: 650rpx;
 		background-color: #fff;
 		border-radius: 10rpx;
-		padding-top: 54rpx;
-		padding-left: 60rpx;
-		padding-right: 60rpx;
-		padding-bottom: 30rpx;
-
+		padding: 30rpx 50rpx;
 
 		.content-header {
 			font-size: 40rpx;
 			line-height: 56rpx;
+			text-align: center;
 		}
 
 		.content-footer {
 			display: flex;
-			justify-content: flex-end;
+			justify-content: space-around;
 			font-size: 36rpx;
 			line-height: 50rpx;
 			height: 50rpx;
@@ -51,6 +48,8 @@
 			padding: 30rpx 0 50rpx 0;
 			font-size: 36rpx;
 			line-height: 50rpx;
+			text-align: center;
+			color: #707070;
 		}
 	}
 }

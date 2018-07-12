@@ -5,13 +5,13 @@
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
-		<block>
+		<block wx:if="{{ wallet.coin_enable }}" >
 			<navigator class="welfare" url="/pages/coinDetail/coinDetail">
-				<view class="number">876</view>
+				<view class="number">{{ wallet.coins || 0 }}</view>
 				<view class="title">花生米</view>
 			</navigator>
 			<navigator class="welfare" url="/pages/myCoupons/myCoupons">
-				<view class="number">8</view>
+				<view class="number">{{ coupons.available.length || 0 }}</view>
 				<view class="title">优惠券</view>
 			</navigator>
 		</block>
@@ -34,36 +34,36 @@
 		<view class="orderItems">
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
 				<view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
-				<image class="statusIcon" src="../../icons/wallet.png" />
-				<view>待付款</view>
+				<image class="statusIcon unpay" src="../../icons/wallet.png" />
+				<view class="statusText">待付款</view>
 			</navigator>
 
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
 				<view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
-				<image class="statusIcon" src="../../icons/truck.png" />
-				<view>待发货</view>
+				<image class="statusIcon unSend" src="../../icons/truck.png" />
+				<view class="statusText">待发货</view>
 			</navigator>
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
 				<view class="orderItemValue" wx:if="{{ orderCount['3'] }}">{{ orderCount['3'] }}</view>
-				<image class="statusIcon" src="../../icons/confirm.png" />
-				<view>待收货</view>
+				<image class="statusIcon unGet" src="../../icons/confirm.png" />
+				<view class="statusText">待收货</view>
 			</navigator>
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
 				<view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
-				<image class="statusIcon" src="../../icons/finish.png" />
-				<view>退款售后</view>
+				<image class="statusIcon service" src="../../icons/finish.png" />
+				<view class="statusText">退款|售后</view>
 			</navigator>
-			<navigator class="orderItem" url="/pages/orderList/orderList">
-				<view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
-				<image class="statusIcon" src="../../icons/orders.png" />
-				<view>所有订单</view>
+			<navigator class="lastItem orderItem" url="/pages/orderList/orderList">
+				<view class="orderItemValue" wx:if="{{ orderCount['0'] }}">{{ orderCount['0'] }}</view>
+				<image class="statusIcon allOrder" src="../../icons/orders.png" />
+				<view class="statusText">所有订单</view>
 			</navigator>
 		</view>
 	</view>
 
 	<view class="section">
-		<view bindtap="onItemClick" class="sectionItem" data-name="address">
-			<image class="itemIcon" src="../../icons/address.png" />
+		<view bindtap="{{ refuseAddress? 'onModal' : 'onAddress' }}" class="sectionItem">
+			<image class="itemIcon myAddress" src="../../icons/address.png" />
 			<view class="itemTitle">收货地址</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</view>
@@ -72,16 +72,16 @@
 	<view class="section">
 		<navigator url="/pages/orderList/orderList?status=10">
 			<view class="sectionItem">
-				<image class="itemIcon" src="../../icons/my.png" />
+				<image class="itemIcon myGroup" src="../../icons/my.png" />
 				<view class="itemTitle">我的拼团</view>
 				<image class="rightIcon" src="../../icons/right.png" />
 			</view>
 		</navigator>
 	</view>
 
-	<view class="section">
+	<view wx:if="{{ !wallet.coin_enable }}" class="section">
 		<navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
-			<image class="itemIcon" src="../../icons/coupon.png" />
+			<image class="itemIcon couponIcon" src="../../icons/coupon.png" />
 			<view class="itemTitle">我的优惠券</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -103,21 +103,15 @@
 		</navigator>
 	</view>
 
-	<view class="section">
+	<!-- <view class="section">
 		<navigator class="sectionItem" url="">
-			<image class="itemIcon" src="../../icons/shareCenter.png" />
+			<image class="itemIcon shareIcon" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
-	</view>
+	</view> -->
 
 	<view class="section contact">
-		<view bindtap="onItemClick" class="sectionItem" data-name="notice" wx:if="{{ false }}">
-			<!-- <image class="itemIcon" src="../../icons/truck.png" /> -->
-			<view class="itemTitle">系统通知</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</view>
-
 		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
 			<image class="itemIcon" src="../../icons/contact.png" />
 			<view class="itemTitle">联系客服</view>
@@ -125,15 +119,23 @@
 		</button>
 	</view>
 	<!-- <view class="section">
+		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
+			<image class="itemIcon contactIcon" src="../../icons/contact.png" />
+			<view class="itemTitle">联系客服</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</button>
+	</view> -->
+	<!-- <view class="section">
 		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 	</view> -->
-	<view class="section">
+	
+	<!-- <view class="section">
 		<navigator class="sectionItem" url="">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>
-	</view>
+	</view> -->
 </view>
-<view class="logo">
+<view class="peanut-logo logo">
 	<image src="../../icons/logo.png"></image>
 </view>
 
@@ -158,3 +160,5 @@
     <image src="../../icons/close.png"></image>
   </view>
 </view> -->
+
+<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>

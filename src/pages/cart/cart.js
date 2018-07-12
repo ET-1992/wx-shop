@@ -2,7 +2,8 @@ import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import forceUserInfo from 'utils/forceUserInfo';
-import { CART_LIST_KEY, phoneStyle } from 'constants/index';
+import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE } from 'constants/index';
+import { updateCart } from 'utils/util';
 
 const app = getApp();
 
@@ -19,7 +20,8 @@ Page({
         nowTS: Date.now() / 1000,
         isSelectedObject: {},
         phoneModel: '',
-        isShowConsole: false
+        isShowConsole: false,
+        productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
     },
     onLoad() {
         const { themeColor } = app.globalData;
@@ -29,6 +31,9 @@ Page({
     async onShow() {
         this.setData({ isLogin: true, isLoading: true, isShowConsole: app.openConsole });
         await this.loadCart();
+        const cartNumber = (this.data.items.length).toString();
+        wx.setStorageSync('CART_NUM', cartNumber);
+        this.showCart();
     },
 
     onHide() {
@@ -59,7 +64,8 @@ Page({
             isSelectedObject,
             isAllSelected,
             isLoading: false,
-            isIphone5
+            isIphone5,
+            products: data.products
         });
         this.calculatePrice();
     },
@@ -142,6 +148,10 @@ Page({
             this.setData({ items });
             delete isSelectedObject[itemId];
             this.calculatePrice();
+
+            const cartNumber = (items.length).toString();
+            wx.setStorageSync('CART_NUM', cartNumber);
+            this.showCart();
         }
     },
 
@@ -159,6 +169,8 @@ Page({
             });
             this.setData({ items: [], isSelectedObject: {}});
             this.calculatePrice();
+            wx.removeStorageSync('CART_NUM');
+            this.showCart();
         }
     },
 
@@ -206,4 +218,9 @@ Page({
 
         this.setData({ totalPrice, savePrice, totalPostage });
     },
+
+    showCart() {
+        const { categoryIndex } = app.globalData;
+        updateCart(categoryIndex.categoryIndex);
+    }
 });

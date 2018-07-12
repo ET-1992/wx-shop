@@ -6,7 +6,7 @@ page{
 	position:relative;
 }
 .empty{
-	color:#ccc;
+	color:#333333;
 	font-size: 28rpx;
 	height:80%;
 	text-align:center;
@@ -243,4 +243,20 @@ page{
 .iphone5-style .totalPrice {
 	color: $priceColor;			
 	font-size: 10pt;
+}
+
+.promote{
+	margin: 60rpx auto 100rpx;
+	background: #fff;
+	overflow: hidden;
+
+	.label{
+		display: flex;
+		justify-content: center;
+		font-size: 32rpx;
+		text-align: center;
+		align-items: center;
+		color: $titleColor;
+		padding: 30rpx 0;
+	}
 }

@@ -17,10 +17,10 @@ App({
         };
 
         const extConfig = wx.getExtConfigSync() || {};
-        // const extConfig = { primaryColor: 'red', secondaryColor: 'blue' };
-        console.log(extConfig, 'extConfig');
-        const { primaryColor, secondaryColor } = extConfig;
+        // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
+        const { primaryColor, secondaryColor, categoryIndex = 2 } = extConfig;
         this.globalData.themeColor = { primaryColor, secondaryColor };
+        this.globalData.categoryIndex = { categoryIndex };
         this.logData = [];
         this.openConsole = false;
     },

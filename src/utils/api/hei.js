@@ -220,6 +220,11 @@ const apis = {
         method: 'GET',
         isForceToken: true,
     },
+    myFare: {
+        path: 'api/mag.shop.my.json',
+        method: 'GET',
+        isForceToken: true,
+    },
     shareUserInfo: {
         path: 'api/mag.affiliate.member.get.json',
         method: 'GET',

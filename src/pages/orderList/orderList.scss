@@ -23,17 +23,20 @@
 	left:0;
 	top:0;
 	white-space:nowrap;
-	padding: 0 10rpx;
+	// padding: 0 10rpx;
 
 	.statusItem {
-		width: 84rpx;
+		width: 110rpx;
 		display: inline-block;
 		text-align: center;
-		margin-right: 40rpx;
+		// margin-right: 40rpx;
 	}
 
-	.statusItem:last-child {
-		margin-right: 0rpx;
+	// .statusItem:last-child {
+	// 	margin-right: 0rpx;
+	// }
+	.statusItem:first-child {
+		width: 90rpx;
 	}
 
 	.statusItemName {
@@ -43,7 +46,7 @@
 		display: inline-block;
 
 		&.selected {
-			border-bottom: 4rpx solid $mainColor;
+			border-bottom: 6rpx solid $mainColor;
 			color: #000000;
 		}
 	}

@@ -1,14 +1,13 @@
 import api from 'utils/api';
-import { getUserInfo, getAgainUserForInvalid } from 'utils/util';
-
-const itemActions = {
-    address: wx.chooseAddress,
-    coupon: () => console.log('coupon'),
-    notice: () => console.log('notice'),
-};
-
-// 获取全局应用程序实例对象
+import { getUserInfo, getAgainUserForInvalid, updateCart  } from 'utils/util';
+import { chooseAddress, getSetting } from 'utils/wxp';
+import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
+
+// const itemActions = {
+//     coupon: () => console.log('coupon'),
+//     notice: () => console.log('notice'),
+// };
 
 // 创建页面实例对象
 Page({
@@ -29,10 +28,18 @@ Page({
     },
 
     async loadOrderCount() {
-        const data = await api.hei.fetchOrderCount({
-            status: '1,2,3,10',
+        // const data = await api.hei.fetchOrderCount({
+        //     status: '1,2,3,10',
+        // });
+        const data = await api.hei.myFare();
+
+        this.setData({
+            orderCount: data.order_counts,
+            coupons: data.coupons,
+            wallet: data.wallet
         });
-        this.setData({ orderCount: data.counts });
+
+        console.log(this.data);
     },
 
     onLoad() {
@@ -47,6 +54,20 @@ Page({
         const user = getUserInfo();
         this.setData({ user, isShowConsole: app.openConsole });
         this.loadOrderCount();
+
+        const setting = await getSetting();
+        console.log(setting);
+        if (setting.authSetting['scope.address']) {
+            this.setData({
+                refuseAddress: false,
+                addressModal: {
+                    isFatherControl: false,
+                },
+            });
+        }
+
+        const { categoryIndex } = app.globalData;
+        updateCart(categoryIndex.categoryIndex);
     },
 
     onLogin() {
@@ -62,10 +83,74 @@ Page({
     // 		active: 0,
     // 	});
     // },
-    onItemClick(ev) {
-        const { name } = ev.currentTarget.dataset;
-        const action = itemActions[name];
-        action();
+    // onItemClick(ev) {
+    //     const { name } = ev.currentTarget.dataset;
+    //     const action = itemActions[name];
+    //     action();
+    // },
+
+    async onAddress() {
+        let that = this;
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting['scope.address']) {
+                    wx.authorize({
+                        scope: 'scope.address',
+                        success() {
+                            wx.chooseAddress({
+                                success: function (res) {
+                                    that.setData({
+                                        refuseAddress: false
+                                    });
+                                    wx.setStorageSync(ADDRESS_KEY, res);
+                                }
+                            });
+                        },
+                        fail() {
+                            that.setData({
+                                refuseAddress: true
+                            });
+                        }
+                    });
+                } else {
+                    wx.chooseAddress({
+                        success: function (res) {
+                            that.setData({
+                                refuseAddress: false
+                            });
+                            wx.setStorageSync(ADDRESS_KEY, res);
+                        }
+                    });
+                }
+            }
+        });
+    },
+    onModal() {
+        this.setData({
+            addressModal: {
+                isFatherControl: true,
+                title: '温馨提示',
+                isShowModal: true,
+                body: '请授权地址信息',
+                type: 'button',
+                buttonData: {
+                    opentype: 'openSetting'
+                }
+            },
+        });
+    },
+    onAddressCancel() {
+        this.setData({
+            'addressModal.isShowModal': false,
+            isShouldRedirect: false
+        });
+    },
+
+    onAddressConfirm() {
+        this.setData({
+            'addressModal.isShowModal': false,
+            isShouldRedirect: true
+        });
     },
 
     async bindGetUserInfo(e) {

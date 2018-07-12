@@ -3,7 +3,7 @@
 .flashItem {
 	display: flex;
 	background-color: #fff;
-	padding:10rpx 0;
+	// padding:10rpx 0;
 	align-items: center;
 
 	.meta {
@@ -24,10 +24,10 @@
 	.desc {
 		color: $tagColor;
 		font-size: 26rpx;
-		margin-top: 10rpx;
+		margin: 20rpx 0;
 		white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
 	}
 
 	.timeLimit {
@@ -68,6 +68,11 @@
 			font-size: 36rpx;
 			color: $priceColor;
 		}
+		.miaoshaPrice {
+			font-size: 36rpx;
+			color: $priceColor;
+			font-weight: bold;
+		}
 
 		.originalPriceTitle, .originalPrice {
 			font-size:22rpx;
@@ -93,7 +98,7 @@
 			height:48rpx;
 			text-align:center;
 			line-height:48rpx;
-
+			border-radius: 5rpx;
 		}
 	}
 

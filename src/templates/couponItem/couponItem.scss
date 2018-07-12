@@ -37,6 +37,12 @@
 			.reduceCost {
 				font-size: 46rpx;
 			}
+			.discount {
+				font-size: 30rpx;
+			}
+			.yuan {
+				font-size: 30rpx;
+			}
 		}
 
 		.center {
@@ -107,6 +113,7 @@
 				border-radius: 50%;
 				line-height: $size;
 				text-align: center;
+				background:#f4f4f4;
 
 				&.selected {
 					background-color: $couponMainColor;
