@@ -28,7 +28,10 @@
                         <text>￥</text>{{ product.price }}
                     </view>
                 </block>
-                <view class="productItemOriginPrice">
+                <view 
+                    wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
+                    class="productItemOriginPrice"
+                >
                     <text>￥</text>{{ product.original_price }}
                 </view>
                 <view class="tagWrapper">

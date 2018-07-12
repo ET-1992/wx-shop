@@ -27,12 +27,12 @@
     <view class="footer">
       <view>
         <view class="flashPrice">
-          <text class="flashPriceTitle">限时购</text>
-          <text class="price">￥</text><text class="flashPrice">{{ product.miaosha_price }}</text>
+          <text class="flashPriceTitle">限时价</text>
+          <text class="price">￥</text><text class="miaoshaPrice">{{ product.miaosha_price }}</text>
         </view>
-        <view>
+        <view  wx:if="{{ product.miaosha_price !== product.original_price }}" >
           <text class="originalPriceTitle">原价</text>
-          <text class="originalPrice">{{ product.original_price }}</text>
+          <text class="originalPrice" >{{ product.original_price }}</text>
         </view>
       </view>
 

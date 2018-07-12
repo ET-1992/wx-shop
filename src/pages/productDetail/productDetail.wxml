@@ -65,7 +65,10 @@
 						<view class="priceStyle" wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</view>
 						<view class="priceStyle" wx:else>{{ product.price}}</view>
 					</view>
-					<view class="originalPrice">￥{{ product.original_price }}</view>
+					<view
+						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
+						class="originalPrice"
+					>￥{{ product.original_price }}</view>
 				</view>
 				<view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
 				<view class="sales">已售：{{ product.sales }}</view>

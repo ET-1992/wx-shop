@@ -1,6 +1,13 @@
 <view class="container">
 	<scroll-view class="statusBar" style="{{ newIndex == 1 ? 'display:none' : '' }};" scroll-x="{{true}}" scroll-into-view="{{ scrollView }}">
-		<view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}" id="tap{{ item.value }}">
+		<view 
+			class="statusItem" 
+			wx:for="{{ status }}" 
+			wx:key="name" 
+			bindtap="onStautsItemClick" 
+			data-value="{{ item.value }}" 
+			id="tap{{ item.value }}"
+		>
 			<view>
 				<view 
 					class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}" 

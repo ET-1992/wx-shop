@@ -7,7 +7,7 @@
             <view class="grouponInfo">
                 <view class="grouponLimit">{{ product.groupon_member_limit }}人团</view>
                 <view class="grouponPrice">
-                    <text class="activeBuy">￥</text>{{ product.groupon_price }}</view>
+                    <text class="activeBuy">￥</text><text class="nowPrice">{{ product.groupon_price }}</text></view>
             </view>
             <view class="singleBuy">单独购买<text class="price">￥{{ product.price }}</text></view>
             <view class="footer">
