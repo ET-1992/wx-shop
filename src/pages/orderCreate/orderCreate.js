@@ -127,19 +127,19 @@ Page({
             if (!setting.authSetting['scope.address']) {
                 try {
                     await authorize({ scope: 'scope.address' });
-                    const addressRes = await chooseAddress();
-                    this.setData({ address: addressRes });
-                    wx.setStorageSync(ADDRESS_KEY, addressRes);
                 } catch (e) {
                     that.onModal();
                 }
+                const addressRes = await chooseAddress();
+                this.setData({ address: addressRes });
+                wx.setStorageSync(ADDRESS_KEY, addressRes);
             } else {
                 const addressRes = await chooseAddress();
                 this.setData({ address: addressRes });
                 wx.setStorageSync(ADDRESS_KEY, addressRes);
             }
         } catch (e) {
-            this.onModal();
+            // this.onModal();
         }
     },
     onModal() {
