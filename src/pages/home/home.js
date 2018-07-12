@@ -140,14 +140,13 @@ Page({
 
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
+        this.loadHome();
     },
 
     async onShow() {
         app.log('onShow');
 
         this.setData({ isShowConsole: app.openConsole });
-
-        this.loadHome();
 
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
