@@ -119,6 +119,20 @@ page{
 		align-self: flex-start;
 	}
 
+	.cartReduce {
+		color: #FC2732;
+		font-size: 8pt;
+		margin-bottom: 8rpx;
+		height: 40rpx;
+
+		text {
+			border: 1rpx solid #FC2732;
+			border-radius: 15rpx;
+			padding: 3rpx 10rpx;
+			line-height: 40rpx;
+		}
+	}
+
 	.meta {
 		display: flex;
 		align-items: center;

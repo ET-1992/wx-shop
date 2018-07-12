@@ -98,6 +98,7 @@
         <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
           {{ item.sku_property_names }}
         </view>
+        <view class="cartReduce" wx:if="{{ item.reduced > 0 }}"><text>比加入时降{{ item.reduced }}元</text></view>
         <view class="meta">
         	<view>
             	<view class="price" >￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
