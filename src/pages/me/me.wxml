@@ -159,4 +159,4 @@
   </view>
 </view> -->
 
-<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>
+<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
