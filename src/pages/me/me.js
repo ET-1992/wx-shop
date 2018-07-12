@@ -85,27 +85,40 @@ Page({
     // },
 
     async onAddress() {
-        try {
-            const address = await chooseAddress();
-            wx.setStorageSync(ADDRESS_KEY, address);
-            this.setData({
-                address,
-                refuseAddress: false
-            });
-
-        } catch (err) {
-            console.log(err.errMsg);
-            // const addressStorage = wx.getStorageSync(ADDRESS_KEY);
-            const setting = await getSetting();
-            console.log(setting);
-            if (!setting.authSetting['scope.address']) {
-                this.setData({
-                    refuseAddress: true
-                }, () => {
-                    this.onModal();
-                });
+        let that = this;
+        wx.getSetting({
+            success(res) {
+                if (!res.authSetting['scope.address']) {
+                    wx.authorize({
+                        scope: 'scope.address',
+                        success() {
+                            wx.chooseAddress({
+                                success: function (res) {
+                                    that.setData({
+                                        refuseAddress: false
+                                    });
+                                    wx.setStorageSync(ADDRESS_KEY, res);
+                                }
+                            });
+                        },
+                        fail() {
+                            that.setData({
+                                refuseAddress: true
+                            });
+                        }
+                    });
+                } else {
+                    wx.chooseAddress({
+                        success: function (res) {
+                            that.setData({
+                                refuseAddress: false
+                            });
+                            wx.setStorageSync(ADDRESS_KEY, res);
+                        }
+                    });
+                }
             }
-        }
+        });
     },
     onModal() {
         this.setData({
