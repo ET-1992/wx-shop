@@ -53,7 +53,7 @@
 		</view>
 		<image
 			class="bg"
-			src="../../icons/couponItem.png"
+			src="../../icons/couponItemReceived.png"
 			wx:if="{{ status === 'available' || !canChoice }}"
 		/>
 		<image
@@ -73,7 +73,7 @@
 		/>
 		<image
 			class="bg"
-			src="../../icons/couponItemReceived.png"
+			src="../../icons/couponItem.png"
 			wx:if="{{status === 'receivable' }}"
 		/>
 	</view>

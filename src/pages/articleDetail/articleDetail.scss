@@ -239,7 +239,9 @@ swiper image{
 	color: #707070;
 	position: fixed;
 	width: 100%;
-	padding: 30rpx;
+	height:100rpx;
+	line-height:100rpx;
+	padding:0 30rpx;
 	display: flex;
 	justify-content: space-between;
 	bottom: 0;
@@ -264,9 +266,14 @@ button::after{
 	outline: none;
 }
 .iphoneXTrick{
-	padding-bottom: 100rpx;
+	padding-bottom: 40rpx;
+	height:140rpx;
 }
 
 // .size-full{
 // 	width: 750rpx;
 // }
+
+.relateShop .meta{
+	height: auto;
+}
