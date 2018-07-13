@@ -23,11 +23,13 @@ App({
         this.globalData.categoryIndex = { categoryIndex };
         this.logData = [];
         this.openConsole = false;
+        this.openConsoleResData = false;
     },
 
     onHide() {
         this.logData = [];
         this.openConsole = false;
+        this.openConsoleResData = false;
     },
 
     async silentLogin() {
@@ -42,6 +44,7 @@ App({
     async onShow(options) {
         this.logData = [];
         this.openConsole = false;
+        this.openConsoleResData = false;
 
         const { query = {}} = options;
         if (query.vendor) {
@@ -93,5 +96,7 @@ App({
 
     openConsole: false,
 
-    consoleShowRes: false
+    consoleShowRes: false,
+
+    openConsoleResData: false
 });

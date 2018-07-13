@@ -16,7 +16,6 @@ swiper{
 	height: 97rpx;
 	background-color: $backgroundColor;
 	padding: 12rpx 40rpx;
-	border-bottom: 1px solid #ddd;
 	position: fixed;
 	left: 0;
 	width: 100%;
@@ -148,6 +147,7 @@ swiper{
 				position:absolute;
 				z-index:2;
 				right:-25rpx;
+				width: 11rpx;
 			}
 		}
 	}

@@ -467,7 +467,7 @@ Page({
         if (isDisabled) {
             await showModal({
                 title: '温馨提示',
-                content: 'sku库存为0',
+                content: '该商品库存为0',
             });
             return;
         }
