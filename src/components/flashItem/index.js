@@ -41,10 +41,12 @@ Component({
                     const intervalId = setInterval(() => {
                         const { timeLimit } = this.data;
                         const [hour, minute, second] = getRemainTime(timeLimit);
+                        let day = parseInt(hour / 24, 10);
                         this.setData({
                             'timeLimit': timeLimit - 1,
                             remainTime: {
-                                hour,
+                                day: day,
+                                hour: hour - day * 24,
                                 minute,
                                 second,
                             }
