@@ -3,24 +3,24 @@
 	margin-top: 20rpx;
 	background-color: #fff;
 
-	// .sectionTitle {
-	// 	text-align:center;
-	// 	padding:36rpx;
-	// 	color:#333;
-	// 	font-size:17px;
-	// }
 	.sectionTitle {
-		text-align: center;
-		// padding: 36rpx;
-		height: 70rpx;
-		line-height: 70rpx;
-		color: $titleColor;
-		font-size: 28rpx;
-
-		.dot{
-			padding: 0 30rpx;
-		}
+		text-align:center;
+		padding:36rpx;
+		color:#333;
+		font-size:17px;
 	}
+	// .sectionTitle {
+	// 	text-align: center;
+	// 	// padding: 36rpx;
+	// 	height: 70rpx;
+	// 	line-height: 70rpx;
+	// 	color: $titleColor;
+	// 	font-size: 28rpx;
+
+	// 	.dot{
+	// 		padding: 0 30rpx;
+	// 	}
+	// }
 
 	.rowImgWrap {
 		display: flex;

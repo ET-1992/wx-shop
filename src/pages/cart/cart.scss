@@ -271,6 +271,12 @@ page{
 		text-align: center;
 		align-items: center;
 		color: $titleColor;
-		padding: 30rpx 0;
+		// padding: 30rpx 0;
+		height: 90rpx;
+		line-height: 90rpx;
+
+		.dot{
+			padding: 0 30rpx;
+		}
 	}
 }
