@@ -44,7 +44,7 @@
 					</view>
 				</view>
 			</navigator>
-			<!-- <orderOperations 
+			<orderOperations 
 				wx:if="{{ order.statusCode == 1 || order.statusCode == 3 }}" 
 				statusCode="{{ order.statusCode }}" 
 				orderNo="{{ order.order_no }}" 
@@ -53,7 +53,7 @@
 				bindconfirmOrder="onConfirmOrder" 
 				bindpayOrder="onPayOrder" 
 				bindcloseOrder="onCloseOrder" 
-			/> -->
+			/>
 		</view>
 	</view>
 	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>

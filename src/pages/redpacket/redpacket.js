@@ -26,7 +26,8 @@ Page({
             products,
             redpacket: received_redpacket,
             isIphone5,
-            goldNumer: goldNumer
+            goldNumer: goldNumer,
+            hasRecived: !!received_redpacket
         });
         console.log(this.data);
     },
