@@ -145,7 +145,7 @@ Page({
     onModal() {
         this.setData({
             addressModal: {
-                isFatherControl: false,
+                isFatherControl: true,
                 title: '温馨提示',
                 isShowModal: true,
                 body: '请授权地址信息',
@@ -199,8 +199,10 @@ Page({
         }
         requestData.posts = JSON.stringify(items);
         const { coupons, wallet, coin_in_order, fee, use_platform_pay } = await api.hei.orderPrepare(requestData);
-        const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
-        const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+        const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
+        const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
+
+        console.log(maxUseCoin, 'maxUseCoin');
         const useCoin = Math.min(maxUseCoin, wallet.coins);
         console.log(useCoin);
         this.setData({
