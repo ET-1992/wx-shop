@@ -1,5 +1,5 @@
 	<view class="container">
-		<image class="address-icon" src="/icons/address.png"></image>
+		<image class="address-icon" src="/icons/address.png" mode="aspectFit"></image>
 
 		<view wx:if="{{ !address.userName }}" class="address">
         	添加地址
