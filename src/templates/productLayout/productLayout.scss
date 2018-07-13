@@ -69,9 +69,13 @@
 
 /* topImage */
 .productItemMeta {
+	// display: flex;
+	// align-items: center;
+	// padding-bottom: 5rpx;
 	display: flex;
 	align-items: center;
 	padding-bottom: 5rpx;
+	justify-content: space-between;
 }
 
 .productItemTag {
@@ -96,7 +100,7 @@
 .productItemOriginPrice {
 	color: #707070;
 	text-decoration: line-through;
-	padding-left: 20rpx;
+	padding-right: 40rpx;
 	font-size: 22rpx;
 }
 
@@ -133,12 +137,14 @@
 		flex-direction: column;
 		justify-content: space-between;
 		padding: 10rpx 0 0 12rpx;
-		height:160rpx;
+		height:150rpx;
 	}
 
 	.tagWrapper {
-		flex-grow: 1;
-		text-align: right;
+		// flex-grow: 1;
+		// text-align: right;
+		display: felx;
+		align-items: center;
 	}
 
 	.tag {
@@ -149,6 +155,8 @@
 		width: 90rpx;
 		text-align: center;
 		border-radius: 5rpx;
+		height:35rpx;
+		line-height:35rpx;
 	}
 }
 
