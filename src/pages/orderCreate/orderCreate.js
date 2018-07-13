@@ -145,7 +145,7 @@ Page({
     onModal() {
         this.setData({
             addressModal: {
-                isFatherControl: false,
+                isFatherControl: true,
                 title: '温馨提示',
                 isShowModal: true,
                 body: '请授权地址信息',
