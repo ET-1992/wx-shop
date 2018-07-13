@@ -176,9 +176,15 @@ swiper{
 
 	.sectionTitle {
 		text-align: center;
-		padding: 36rpx;
+		// padding: 36rpx;
+		height: 70rpx;
+		line-height: 70rpx;
 		color: $titleColor;
-		font-size: 17px;
+		font-size: 28rpx;
+
+		.dot{
+			padding: 0 30rpx;
+		}
 	}
 
 	.grouponItemWrapper{
@@ -353,3 +359,6 @@ button::after {
 		}
 	}
 }
+
+.iphoneXTrick {
+	padding-bottom: 1rpx; }

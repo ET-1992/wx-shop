@@ -44,12 +44,19 @@
 			line-height: 40rpx;
 			text-align: center;
 			background-color: $mainColor;
-			margin: 0 10rpx;
+			margin: 0 5rpx;
 			font-size:26rpx;
+			border-radius: 5rpx;
+		}
+		.day{
+			padding-left: 20rpx;
+			font-size: 36rpx;
+			font-weight: bold;
+			margin: 0 5rpx;
 		}
 
-		.hour {
-			margin-left: 20rpx;
+		.dateTitle{
+			font-size: 20rpx;
 		}
 	}
 
@@ -60,13 +67,14 @@
 
 		.flashPriceTitle {
 			font-size: 26rpx;
-			color: $titleColor;
+			color: #000;
 			margin-right: 10rpx;
 		}
 
 		.flashPrice {
 			font-size: 36rpx;
 			color: $priceColor;
+			padding-left: 50rpx;
 		}
 		.miaoshaPrice {
 			font-size: 36rpx;
@@ -74,7 +82,8 @@
 			font-weight: bold;
 		}
 
-		.originalPriceTitle, .originalPrice {
+		.originalPriceTitle{
+			padding-left: 20rpx;
 			font-size:22rpx;
 			color: $originalPriceColor;
 			margin-right: 10rpx;
@@ -82,6 +91,9 @@
 
 		.originalPrice {
 			text-decoration: line-through;
+			font-size:20rpx;
+			color: #707070;
+			margin-right: 10rpx;
 		}
 
 		.right {
@@ -99,6 +111,12 @@
 			text-align:center;
 			line-height:48rpx;
 			border-radius: 5rpx;
+		}
+
+		.allprice{
+			display: flex;
+			justify-content:space-around;
+			align-items: center;
 		}
 	}
 

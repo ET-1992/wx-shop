@@ -136,7 +136,12 @@ Page({
 
     async onLoad() {
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const systemInfo = wx.getSystemInfoSync();
+        const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+        this.setData({
+            themeColor,
+            isIphoneX
+        });
     },
 
     async onShow() {
