@@ -44,7 +44,7 @@
       <!-- 拼团专区 -->
       <view wx:if="{{ module.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}"><text class="dot">•</text>{{module.title}}<text class="dot">•</text></view>
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
               <template is="leftImage" data="{{ product: groupons[0], themeColor }}" />
             </navigator>
@@ -66,7 +66,7 @@
       <!-- 最新推荐 -->
       <view wx:if="{{ module.key === 'articles' }}">
         <view class="section" wx:if="{{ articles && articles.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}"><text class="dot">•</text>{{module.title}}<text class="dot">•</text></view>
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
             <image src="{{articles[0].banner}}" style="height: {{module.height}}rpx;"></image>
             <template is="articleItem" data="{{ article: articles[0] }}" />
@@ -90,7 +90,7 @@
       <!-- 限时购 -->
       <view wx:if="{{ module.key === 'miaoshas' }}">
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}"><text class="dot">•</text>{{module.title}}<text class="dot">•</text></view>
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
             <flashItem isList="{{ miaoshas.length == 1 }}" product="{{ miaoshas[0] }}" />
           </navigator>
@@ -160,7 +160,7 @@
       <view wx:if="{{ module.key === 'featured' }}">
 
         <view class="section" wx:if="{{ featured && featured.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}"><text class="dot">•</text>{{module.title}}<text class="dot">•</text></view>
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}" wx:for="{{ featured }}" wx:key="id">
             <image class="starProductItem" src="{{ item.banner }}" />
           </navigator>
@@ -169,7 +169,7 @@
       <!-- 最新上架 -->
       <view wx:if="{{ module.key === 'products' }}">
         <view class="section" wx:if="{{ products && products.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}"><text class="dot">•</text>{{module.title}}<text class="dot">•</text></view>
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <!-- 商品列表 -->
           <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{next_cursor}}" />
           <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">

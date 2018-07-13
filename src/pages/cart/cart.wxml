@@ -129,7 +129,7 @@
     >清空购物车</view>
   </view>
   <view class="promote" wx:if="{{ !items.length && products.length }}">
-    <view class="label"> • 为你推荐 • </view>
+    <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
     <productList products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" />
   </view>
   
