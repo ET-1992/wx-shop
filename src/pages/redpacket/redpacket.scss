@@ -89,6 +89,7 @@ $textColor: #ec0023;
 
 	.products {
 		margin-top: 20px;
+		background: #fff;
 
 		.title {
 			text-align: center;
@@ -114,6 +115,22 @@ $textColor: #ec0023;
 				border-bottom: 2px solid #fff;
 				width: 20px;
 				margin-left: 5px;
+			}
+		}
+
+		.label {
+			display: flex;
+			justify-content: center;
+			font-size: 32rpx;
+			text-align: center;
+			align-items: center;
+			color: #333;
+			// padding: 30rpx 0;
+			height: 90rpx;
+			line-height: 90rpx;
+	
+			.dot{
+				padding: 0 30rpx;
 			}
 		}
 	}

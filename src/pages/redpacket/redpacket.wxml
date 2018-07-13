@@ -41,7 +41,7 @@
     </view>
   </view>
   <view class="products" wx-if="{{ products }}">
-    <view class="title">好货推荐</view>
+    <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
     <productList products="{{ products }}" productListStyle="{{ productListStyle }}" />
   </view>
 </view>
