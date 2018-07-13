@@ -29,7 +29,7 @@
 	</view>
 	<view class="promote" wx:if="{{article.products.length}}">
 		<view wx:if="{{ article.label }}" class="label"><text class="dot">•</text>{{article.label}}<text class="dot">•</text></view>
-		<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" />
+		<productList products="{{ article.products }}" productLayoutStyle="{{ productLayoutStyle }}" themeColor="{{ themeColor }}"/>
 	</view>
 </view>
 

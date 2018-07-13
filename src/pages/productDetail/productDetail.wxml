@@ -124,7 +124,7 @@
 			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
 		</view>
 		<view class="detail">
-			<view class="detailTitle"> • 商品详情 • </view>
+			<view class="detailTitle"><text class="dot">•</text>商品详情<text class="dot">•</text></view>
 			<view class="peanut-wxParse">
 				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
 			</view>

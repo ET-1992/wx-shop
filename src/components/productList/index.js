@@ -5,6 +5,10 @@ Component({
             type: Array,
             value: [],
         },
+        themeColor: {
+            type: Object,
+            value: {},
+        },
         modules: {
             type: Object,
             value: {},

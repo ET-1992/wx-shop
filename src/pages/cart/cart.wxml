@@ -131,7 +131,7 @@
   </view>
   <view class="promote" wx:if="{{ !items.length && products.length }}">
     <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
-    <productList products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" />
+    <productList products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" themeColor="{{ themeColor }}"/>
   </view>
   
   <view class="footer" wx:if="{{ items.length && !isLoading }}">
