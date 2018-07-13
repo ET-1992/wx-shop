@@ -49,7 +49,7 @@
 			border-radius: 5rpx;
 		}
 		.day{
-			padding-left: 20rpx;
+			padding: 0 5rpx;
 			font-size: 36rpx;
 			font-weight: bold;
 			margin: 0 5rpx;
@@ -75,6 +75,8 @@
 			font-size: 36rpx;
 			color: $priceColor;
 			padding-left: 50rpx;
+			display: flex;
+			align-items: center;
 		}
 		.miaoshaPrice {
 			font-size: 36rpx;

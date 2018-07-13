@@ -152,7 +152,8 @@ Page({
                 const { remainSecond } = this.data;
                 this.setData({
                     remainSecond: remainSecond - 1,
-                    remainTime: getRemainTime(remainSecond - 1).join(':')
+                    // remainTime: getRemainTime(remainSecond - 1).join(':')
+                    ...formatConfirmTime(remainSecond - 1)
                 });
             }, 1000);
         }
@@ -182,6 +183,8 @@ Page({
 
         this.setData({ isLoading: false });
         this.countDown();
+
+        console.log(this.data);
     },
 
     onUnload() {
