@@ -1,7 +1,0 @@
-{
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "filterList": "../../../components/filterList/filterList"
-  },
-  "navigationBarTitleText": "分享商品"
-}
