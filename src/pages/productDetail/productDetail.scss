@@ -7,14 +7,13 @@ $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
 
 .container {
-	padding-bottom: $footerHeight + 20rpx;
+	padding-bottom: $footerHeight;
 	color: $titleColor;
 	overflow-x: hidden;
 	overflow-y: auto;
 
 	&.iphoneXTrick {
-		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
-	    padding-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+	    padding-bottom: $footerHeight + $iphoneXBottomGap;
 	}
 }
 
