@@ -1,8 +1,9 @@
 <import src="./templates/orderItem/orderItem.wxml"/>
 <import src="./templates/moneyItem/moneyItem.wxml"/>
 <import src="./templates/moneyGetItem/moneyGetItem.wxml"/>
+<import src="/templates/loading/loading.wxml"/>
 
-<view class="container">
+<view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
 	<!-- <view class="moneyDisplay">
 		<view class="moneyDisplay-h">可提现金额</view>
 		<view class="moneyDisplay-b"><text>￥</text>38.8</view>
@@ -21,17 +22,23 @@
 		</view>
 
 		<view class="moneyInfoBody">
-			<view class="moneyInfoBodySearch {{ isActive === 1 ? '' : 'displayNone' }}">
+			<template is="loading" wx:if="{{ isLoading }}"/>
+			<!-- <view class="moneyInfoBodySearch" hidden="{{ isActive !== 1 && !isLoading }}">
 				<input class="moneyInfoBodySearch-i" placeholder="请输入订单号或者商品号查找" />
-			</view>
-			<view class="moneyInfoBodyList {{ isActive === 1 ? '' : 'displayNone' }}">
-				<template is="orderShareItem" />
-				<template is="orderShareItem" />
-				<template is="moneyShareItem" />
+			</view> -->
+			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
+				<block wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}">
+					<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ ...item }}" />
+					<template is="moneyShareItem" wx:if="{{ item.type === 4 }}" />
+				</block>
+				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>
 
-			<view class="moneyInfoBodyList {{ isActive === 2 ? '' : 'displayNone' }}">
-				<template is="shareMoneyGetItem" />
+			<view class="moneyInfoBodyList" hidden="{{ isActive !== 2 && !isLoading }}">
+				<block wx:for="{{ getMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ getMoneyLogItems.length > 0 }}">
+					<template is="shareMoneyGetItem" data="{{ ...item }}" />
+				</block>
+				<view wx:if="{{ getMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>
 		</view>
 	</view>

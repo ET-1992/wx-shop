@@ -194,7 +194,7 @@ export function textToValue(array = [], text = '') {
     const filterValue =  array.filter((item) => {
         return item.text === text;
     });
-    return filterValue && filterValue[0] && filterValue[0].value;
+    return (filterValue && filterValue[0] && filterValue[0].value) || array[0].value;
 }
 
 export function valueToText(array = [], value = null) {

@@ -1,5 +1,6 @@
 {
-	"navigationBarTitleText": "提现",
+	"navigationBarTitleText": "收支明细",
+	"onReachBottomDistance": 100,
 	"usingComponents": {
 		"myModal": "../../../components/myModal/myModal"
   }
