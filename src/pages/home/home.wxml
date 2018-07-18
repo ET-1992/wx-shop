@@ -1,8 +1,6 @@
 <import src="/templates/productLayout/leftImage.wxml"/>
-<import src="/templates/loading/loading.wxml"/>
 <import src="/templates/articleItem/articleItem.wxml"/>
-
-<template is="loading" wx:if="{{ isLoading }}"/>
+<loading isLoading="{{ isLoading }}"/>
 
 <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
   <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">

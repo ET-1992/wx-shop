@@ -1,0 +1,1 @@
+<image wx:if="{{ isLoading }}" class="loadingIcon" src="/icons/loading.png" />

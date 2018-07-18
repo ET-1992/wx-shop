@@ -1,6 +1,7 @@
 {
     "enablePullDownRefresh": true,
     "usingComponents": {
-    	"console": "../../components/console/console"
+    	"console": "../../components/console/console",
+    	"loading": "../../components/loading/index"
   	}
 }

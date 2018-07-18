@@ -1,6 +1,5 @@
 <import src="../../templates/couponItem/couponItem.wxml" />
-<import src="/templates/loading/loading.wxml"/>
-<template is="loading" wx:if="{{ isLoading }}"/>
+<loading isLoading="{{ isLoading }}"/>
 <image wx:if="{{ !isLoading && vendor.image_url }}" class="vendorImage" src="{{ vendor.image_url }}" mode="widthFix"/>
 <view class="couponsList">
 	<view 

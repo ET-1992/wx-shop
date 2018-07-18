@@ -23,7 +23,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-
+        isLoading: true,
         isShowConsole: false
     },
 
@@ -36,7 +36,8 @@ Page({
         this.setData({
             orderCount: data.order_counts,
             coupons: data.coupons,
-            wallet: data.wallet
+            wallet: data.wallet,
+            isLoading: false
         });
 
         console.log(this.data);

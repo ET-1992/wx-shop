@@ -1,7 +1,4 @@
-<import src="/templates/loading/loading.wxml"/>
-
-<template is="loading" wx:if="{{ isLoading }}"/>
-
+<loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
 	<scroll-view class="mainCategory" scroll-y>
     <view

@@ -5,6 +5,7 @@
     "categoryList": "../../components/categoryList/index",
     "flashItem": "../../components/flashItem/index",
     "magicImg": "../../components/magicImg/magicImg",
-    "console": "../../components/console/console"
+    "console": "../../components/console/console",
+    "loading": "../../components/loading/index"
   }
 }

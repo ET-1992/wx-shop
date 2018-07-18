@@ -1,11 +1,12 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<loading isLoading="{{ isLoading }}"/>
 <view class="container">
 	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
-		<block wx:if="{{ wallet.coin_enable }}" >
+		<block wx:if="{{ wallet.coin_enable && !isLoading}}" >
 			<navigator class="welfare" url="/pages/coinDetail/coinDetail">
 				<view class="number">{{ wallet.coins || 0 }}</view>
 				<view class="title">花生米</view>
@@ -103,13 +104,13 @@
 		</navigator>
 	</view>
 
-	<!-- <view class="section">
+	<view class="section">
 		<navigator class="sectionItem" url="">
 			<image class="itemIcon shareIcon" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
-	</view> -->
+	</view>
 
 	<view class="section contact">
 		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
@@ -118,22 +119,16 @@
 			<image class="rightIcon" src="../../icons/right.png" />
 		</button>
 	</view>
-	<!-- <view class="section">
-		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
-			<image class="itemIcon contactIcon" src="../../icons/contact.png" />
-			<view class="itemTitle">联系客服</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</button>
-	</view> -->
+	
 	<!-- <view class="section">
 		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 	</view> -->
 	
-	<!-- <view class="section">
+	<view class="section">
 		<navigator class="sectionItem" url="">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>
-	</view> -->
+	</view>
 </view>
 <view class="peanut-logo logo">
 	<image src="../../icons/logo.png"></image>
