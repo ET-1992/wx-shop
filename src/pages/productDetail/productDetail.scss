@@ -13,7 +13,7 @@ $iphoneXBottomGap: 40rpx;
 	overflow-y: auto;
 
 	&.iphoneXTrick {
-		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+		// margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
 	    padding-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
 	}
 }
@@ -309,11 +309,11 @@ button {
 .desc {
 	font-size: 24rpx;
 	line-height: 33rpx;
-	color: #9fa0a0;
+	color: #000000;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	margin-top: 10rpx;
+	// margin-top: 10rpx;
 }
 .pendingGroupons {
 	background-color: #fff;
