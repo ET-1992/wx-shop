@@ -18,21 +18,20 @@ Component({
                 if (newValue.layout.charAt(newValue.layout.length - 1) === '1' || newValue.layout === '2-2' || newValue.layout === '2-3') {
                     newValue.defineType = 'oneLine';
                     newValue.eachNum = Number(newValue.layout.charAt(0));
-                    for (let i = 0; i < newValue.images.length; i++) {
-                        if (newValue.images[i].type === 'contact') {
-                            const userInfo = wx.getStorageSync(USER_KEY);
-                            this.setData({
-                                userInfo
-                            });
-                        }
-                    }
                 }
                 this.setData({
                     magicImgData: newValue,
                 });
-                console.log(this.data);
-            }
+            },
+
         }
+    },
+    attached() {
+        const userInfo = wx.getStorageSync(USER_KEY);
+        this.setData({
+            userInfo
+        });
+        console.log(this.data);
     },
     methods: {
         onModal(e) {
