@@ -1,10 +1,6 @@
 import { USER_KEY } from 'constants/index';
 Component({
     properties: {
-        userInfo: {
-            type: Object,
-            value: {},
-        },
         isMarginTopZero: {
             type: Boolean,
             value: false,
@@ -22,14 +18,19 @@ Component({
                 if (newValue.layout.charAt(newValue.layout.length - 1) === '1' || newValue.layout === '2-2' || newValue.layout === '2-3') {
                     newValue.defineType = 'oneLine';
                     newValue.eachNum = Number(newValue.layout.charAt(0));
+                    for (let i = 0; i < newValue.images.length; i++) {
+                        if (newValue.images[i].type === 'contact') {
+                            const userInfo = wx.getStorageSync(USER_KEY);
+                            this.setData({
+                                userInfo
+                            });
+                        }
+                    }
                 }
-                const userInfo = wx.getStorageSync(USER_KEY);
                 this.setData({
                     magicImgData: newValue,
-                    userInfo
                 });
-                console.log(this.data.userInfo);
-                console.log(this.data.magicImgData);
+                console.log(this.data);
             }
         }
     },
@@ -42,6 +43,7 @@ Component({
                     isShowModal: true,
                     body: e.currentTarget.dataset.tips,
                     type: 'button',
+                    userInfo: this.data.userInfo,
                     buttonData: {
                         opentype: 'contact'
                     }

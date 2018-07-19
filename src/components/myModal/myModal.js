@@ -1,4 +1,3 @@
-import { USER_KEY } from 'constants/index';
 Component({
     properties: {
         modal: {
@@ -6,10 +5,9 @@ Component({
             value: {},
             observer(newValue) {
                 if (newValue) {
-                    const userInfo = wx.getStorageSync(USER_KEY);
                     const { defineModal } = this.data;
                     this.setData({
-                        defineModal: { ...defineModal, ...newValue, userInfo }
+                        defineModal: { ...defineModal, ...newValue }
                     }, () => {
                         console.log(this.data.defineModal);
                     });

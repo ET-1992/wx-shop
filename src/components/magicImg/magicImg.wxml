@@ -37,21 +37,14 @@
 
 <template name="columnImgItem">
 	<button 
-		wx:if="{{ magicImgData.images[index].type === 'contact' && magicImgData.images[index].tips}}" 
-		bindtap="onModal"
-		data-tips="{{magicImgData.images[index].tips}}" 
-		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
-		style="background-image: url({{  magicImgData.images[index].image }})" 
-		></button>
-
-	<button 
-		wx:elif="{{ magicImgData.images[index].type === 'contact' && !magicImgData.images[index].tips}}" 
-		open-type="contact" 
+		wx:if="{{ magicImgData.images[index].type === 'contact'}}" 
+		bindtap="{{ magicImgData.images[index].tips ? 'onModal' : ''}}"
+		data-tips="{{ magicImgData.images[index].tips }}" 
+		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}" 
 		session-from="nickName={{ userInfo.nickname }}|avatarUrl={{ userInfo.avatarurl }}"
 		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
 		style="background-image: url({{  magicImgData.images[index].image }})" 
-		></button>
-
+	></button>
 	<navigator
 		wx:else
 		class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
@@ -66,21 +59,14 @@
 
 <template name="rowImgItem">
 	<button 
-		wx:if="{{ magicImgData.images[index].type === 'contact' && magicImgData.images[index].tips }}" 
-		bindtap="onModal"
+		wx:if="{{ magicImgData.images[index].type === 'contact' }}" 
+		bindtap="{{ magicImgData.images[index].tips ? 'onModal' : ''}}"
 		data-tips="{{ magicImgData.images[index].tips }}" 
+		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}" 
+		session-from="nickName={{ userInfo.nickname }}|avatarUrl={{ userInfo.avatarurl }}"
 		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
 		style="background-image: url({{ magicImgData.images[index].image }})" 
-		></button>
-
-	<button 
-		wx:elif="{{ magicImgData.images[index].type === 'contact' && !magicImgData.images[index].tips }}" 
-		open-type="contact" 
-		session-from="nickName={{ userInfo.nickname}}|avatarUrl={{ userInfo.avatarurl }}"
-		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
-		style="background-image: url({{ magicImgData.images[index].image }})" 
-		></button>
-
+	></button>
 	<navigator
 		wx:else
 		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
