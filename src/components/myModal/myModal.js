@@ -1,5 +1,4 @@
-const app = getApp();
-
+import { USER_KEY } from 'constants/index';
 Component({
     properties: {
         modal: {
@@ -7,9 +6,10 @@ Component({
             value: {},
             observer(newValue) {
                 if (newValue) {
+                    const userInfo = wx.getStorageSync(USER_KEY);
                     const { defineModal } = this.data;
                     this.setData({
-                        defineModal: { ...defineModal, ...newValue }
+                        defineModal: { ...defineModal, ...newValue, userInfo }
                     }, () => {
                         console.log(this.data.defineModal);
                     });
@@ -29,7 +29,7 @@ Component({
             cancelText: '取消',
             isShowModal: false, // 控制弹窗展示
             isFatherControl: false // 是否由父组件控制
-        }
+        },
     },
     methods: {
         onCancel() {
