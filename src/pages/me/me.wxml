@@ -5,7 +5,7 @@
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
-		<block wx:if="{{ wallet.coin_enable }}" >
+		<!-- <block wx:if="{{ wallet.coin_enable }}" > -->
 			<navigator class="welfare" url="/pages/coinDetail/coinDetail">
 				<view class="number">{{ wallet.coins || 0 }}</view>
 				<view class="title">花生米</view>
@@ -14,7 +14,7 @@
 				<view class="number">{{ coupons.available.length || 0 }}</view>
 				<view class="title">优惠券</view>
 			</navigator>
-		</block>
+		<!-- </block> -->
 		 <!-- 使用open-data组件显示头像和昵称
 		<image class="avatar unlogin" bindtap="onLogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}" />
 		<view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
@@ -79,13 +79,13 @@
 		</navigator>
 	</view>
 
-	<view wx:if="{{ !wallet.coin_enable }}" class="section">
+	<!-- <view wx:if="{{ !wallet.coin_enable }}" class="section">
 		<navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
 			<image class="itemIcon couponIcon" src="../../icons/coupon.png" />
 			<view class="itemTitle">我的优惠券</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
-	</view>
+	</view> -->
 
 	<!-- <view class="section">
 		<navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
