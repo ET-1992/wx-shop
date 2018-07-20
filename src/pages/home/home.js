@@ -1,4 +1,4 @@
-import { PRODUCT_LAYOUT_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
+import { PRODUCT_LAYOUT_STYLE, CATEGORY_LIST_STYLE, USER_KEY } from 'constants/index';
 import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
@@ -142,9 +142,11 @@ Page({
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+        const userInfo = wx.getStorageSync(USER_KEY);
         this.setData({
             themeColor,
-            isIphoneX
+            isIphoneX,
+            userInfo
         });
     },
 
@@ -331,5 +333,22 @@ Page({
                 resolve(rect);
             }).exec();
         });
+    },
+
+    onModal(e) {
+        this.setData({
+            contactModal: {
+                isFatherControl: false,
+                title: '温馨提示',
+                isShowModal: true,
+                body: e.currentTarget.dataset.tips,
+                type: 'button',
+                userInfo: this.data.userInfo,
+                buttonData: {
+                    opentype: 'contact'
+                }
+            }
+        });
+        console.log(this.data.contactModal);
     }
 });

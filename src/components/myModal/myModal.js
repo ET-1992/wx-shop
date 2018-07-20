@@ -1,5 +1,3 @@
-const app = getApp();
-
 Component({
     properties: {
         modal: {
@@ -29,7 +27,7 @@ Component({
             cancelText: '取消',
             isShowModal: false, // 控制弹窗展示
             isFatherControl: false // 是否由父组件控制
-        }
+        },
     },
     methods: {
         onCancel() {

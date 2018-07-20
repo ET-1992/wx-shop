@@ -1,6 +1,5 @@
 @import '~styles/color';
 @import '~templates/productLayout/productLayout';
-@import '~templates/loading/loading';
 @import '~templates/articleItem/articleItem';
 
 swiper{
@@ -352,6 +351,10 @@ button::after {
 				height: 110rpx;
 				border-radius: 5rpx;
 			}
+		}
+		.categoryBtn{
+			line-height:0;
+			background:#fff;
 		}
 		.categoryTitle{
 			padding-top: 12rpx;

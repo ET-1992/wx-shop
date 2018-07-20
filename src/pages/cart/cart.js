@@ -216,7 +216,9 @@ Page({
         savePrice = savePrice.toFixed(2);
         totalPostage = totalPostage.toFixed(2);
 
-        this.setData({ totalPrice, savePrice, totalPostage });
+        let isShouldPay = items.filter((item) => isSelectedObject[item.id]) && items.filter((item) => isSelectedObject[item.id]).length > 0;
+
+        this.setData({ totalPrice, savePrice, totalPostage, isShouldPay });
     },
 
     showCart() {

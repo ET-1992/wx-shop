@@ -183,7 +183,7 @@
         </view>
       </view>
 
-      <!-- 首页分类 -->
+      <!-- 快捷导航 -->
       <view wx:if="{{ module.key === 'links' }}">
         <view class="section categoryBox" wx:if="{{ links && links.length }}">
           <view class="homeCategory" wx:for="{{ links }}" wx:key="id">
@@ -205,6 +205,17 @@
             >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
+
+            <button 
+              wx:elif="{{ item.type === 'contact' }}" 
+		          bindtap="{{ item.tips ? 'onModal' : ''}}"
+		          data-tips="{{ item.tips }}" 
+		          open-type="{{ !item.tips ? 'contact' : ''}}" 
+		          session-from="nickName={{ userInfo.nickname }}|avatarUrl={{ userInfo.avatarurl }}"
+              class="categoryItem categoryBtn"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </button>
             
             <navigator 
               wx:else
@@ -255,5 +266,8 @@
   </view>
   <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image>
 </view>
+
+<!-- 自定义弹窗 -->
+<myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 
 <console page="首页" wx:if="{{ isShowConsole }}"/>

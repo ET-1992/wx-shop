@@ -164,7 +164,7 @@
     	bindgetuserinfo="onCreateOrder"
     	open-type="getUserInfo"
     	lang="zh_CN"
-    	disabled="{{ !(totalPrice - 0) }}"
+    	disabled="{{ !isShouldPay }}"
     	style="background-color: {{ themeColor.primaryColor  }}"
     >去结算</button>
   </view>

@@ -23,7 +23,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        isLoading: true,
+        // isLoading: true,
         isShowConsole: false
     },
 
@@ -37,7 +37,7 @@ Page({
             orderCount: data.order_counts,
             coupons: data.coupons,
             wallet: data.wallet,
-            isLoading: false
+            // isLoading: false
         });
 
         console.log(this.data);

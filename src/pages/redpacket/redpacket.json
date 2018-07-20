@@ -3,6 +3,7 @@
   "navigationBarBackgroundColor": "#f34353",
   "usingComponents": {
     "productList": "../../components/productList/index",
+    "loading": "../../components/loading/index",
     "console": "../../components/console/console"
   }
 }
