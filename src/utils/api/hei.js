@@ -234,6 +234,36 @@ const apis = {
         path: 'api/mag.affiliate.join.json',
         method: 'POST',
         isForceToken: true
+    },
+    getWelcomeShare: {
+        path: 'api/mag.affiliate.welcome.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    getShareMoney: {
+        path: 'api/mag.wallet.withdraw.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    showMoneyLog: {
+        path: 'api/mag.affiliate.member.logs.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    getMoneyLog: {
+        path: 'api/mag.wallet.withdrawals.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    getShareOrderList: {
+        path: 'api/mag.affiliate.order.list.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    getShareCustomerList: {
+        path: 'api/mag.affiliate.member.list.json',
+        method: 'GET',
+        isForceToken: true
     }
 };
 
