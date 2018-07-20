@@ -1,16 +1,19 @@
 import { checkPhone, bankCardAttribution } from 'utils/util';
 import { BANK_CARD_LIST } from 'utils/bank';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import api from 'utils/api';
+import { ENGINE_METHOD_DIGESTS } from 'constants';
+
 // import { USER_KEY } from 'constants/index';
 const app = getApp();
 Page({
     data: {
         payStyles: [
-            { name: '微信', value: '1', checked: 'true' },
-            { name: '银行卡', value: '2' }
+            { name: '微信', value: 'weixin', checked: 'true' },
+            { name: '银行卡', value: 'bank' }
         ],
 
-        payStyle: 1,
+        payStyle: 'weixin',
 
         index: 0,
 
@@ -18,28 +21,45 @@ Page({
             phone: false,
             card: false
         },
+        balance: '0',
+        income_pending: '0',
 
         wechatId: '',   // 微信号
         username: '',   // 用户名
         phoneNumber: '',    // 手机号
         bankName: '',   // 银行
-        bankNumber: ''  // 银行卡
+        bankNumber: '',  // 银行卡
+        isGetingMoney: false
     },
 
     onLoad(parmas) {
         console.log(parmas);
-        const systemInfo = wx.getSystemInfoSync();
-        // const user = wx.getStorageSync(USER_KEY);
-        const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+        const { balance = '0', income_pending = '0', code } = parmas;
+        const isIphoneX = app.systemInfo.isIphoneX;
         const { themeColor } = app.globalData;
         this.setData({
             // user,
             isIphoneX,
             themeColor,
-            bankNameList: BANK_CARD_LIST
+            bankNameList: BANK_CARD_LIST,
+            balance,
+            income_pending,
+            code,
         });
 
         console.log(this.data.bankNameList);
+    },
+
+    onShow() {
+        const { code } = this.data;
+        const data = wx.getStorageSync('ShareUserInfo');
+        let shareUseInfo = {};
+        if (data && data[code]) {
+            shareUseInfo = data[code];
+        }
+        this.setData({
+            ...shareUseInfo
+        });
     },
 
     /* radio选择改变触发 */
@@ -98,7 +118,7 @@ Page({
     },
 
     /* 银行卡提交 */
-    submitBank() {
+    async submitBank() {
         let that = this;
         if (that.data.username.length === 0) {
             wx.showToast({ title: '用户名不能为空', icon: 'none', image: '', duration: 1000 });
@@ -121,9 +141,11 @@ Page({
         } else {
             console.log('submitBank');
         }
+
+        this.getShareMoney();
     },
 
-    submitWechat() {
+    async submitWechat() {
         let that = this;
         if (that.data.phoneNumber.length === 0) {
             wx.showToast({ title: '手机号不能为空', icon: 'none', image: '', duration: 1000 });
@@ -137,11 +159,90 @@ Page({
         } else if (that.data.wechatId.length === 0) {
             wx.showToast({ title: '微信号不能为空', icon: 'none', image: '', duration: 1000 });
             return false;
-        } else {
-            console.log('submitWechat');
+        }
+
+        console.log('submitWechat');
+        this.getShareMoney();
+    },
+
+    async getShareMoney() {
+        this.saveShareUserInfo();
+        const { isGetingMoney } = this.data;
+        if (isGetingMoney) {
+            return;
+        }
+        try {
+            const { payStyle, phoneNumber, bankName, wechatId, bankNumber, money, username } = this.data;
+            this.setData({
+                isGetingMoney: true
+            });
+            const data = await api.hei.getShareMoney({
+                method: payStyle,
+                phone: phoneNumber,
+                bank_account_no: bankNumber,
+                bank_name: bankName,
+                weixin_account: wechatId,
+                name: username,
+                amount: Number(money) * 100
+            });
+            this.setData({
+                isGetingMoney: false
+            });
+
+            console.log(data);
+            await wx.showToast({ title: '提款成功', icon: 'success', image: '', duration: 1000 });
+            setTimeout(wx.navigateBack, 1000);
+        } catch (e) {
+            this.setData({
+                isGetingMoney: false
+            });
+            wx.showToast({ title: '提款失败，请重试', icon: 'none', image: '', duration: 1000 });
+        }
+
+    },
+
+    setMoneyValue(e) {
+        const { value } = e.detail;
+        const { balance } = this.data;
+        if (Number(value) > Number(balance)) {
+            return balance;
+        }
+        return value;
+    },
+
+    saveMoneyValue(e) {
+        const { value } = e.detail;
+        console.log(value);
+        this.setData({
+            money: value
+        });
+    },
+
+    saveShareUserInfo() {
+        const { code, wechatId, username, phoneNumber, bankName, bankNumber } = this.data;
+        try {
+            const data = wx.getStorageSync('ShareUserInfo');
+            if (data) {
+                data[code] = {
+                    wechatId, username, phoneNumber, bankName, bankNumber
+                };
+                wx.setStorageSync('ShareUserInfo', { ...data });
+            } else {
+                wx.setStorageSync('ShareUserInfo', {
+                    [code]: {
+                        wechatId, username, phoneNumber, bankName, bankNumber
+                    }
+                });
+            }
+        } catch (e) {
+            wx.setStorageSync('ShareUserInfo', {
+                [code]: {
+                    wechatId, username, phoneNumber, bankName, bankNumber
+                }
+            });
         }
     },
 
     // 页面分享设置
-    onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage: onDefaultShareAppMessage
 });

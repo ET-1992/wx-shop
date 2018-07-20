@@ -1,4 +1,4 @@
-<view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove"> 
+<view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove" id="myModal"> 
 	<view class="content">
 		<view class="content-header">{{ defineModal.title }}</view>
 		<view class="content-body">
@@ -13,7 +13,8 @@
 				type="default" 
 				plain="{{true}}" 
 				open-type="{{ defineModal.buttonData.opentype }}"
-				session-from="nickName={{ defineModal.userInfo.nickname }}|avatarUrl={{ defineModal.userInfo.avatarurl }}" 
+				session-from="nickName={{ defineModal.userInfo.nickname }}|avatarUrl={{ defineModal.userInfo.avatarurl }}"
+				bindgetuserinfo="bindGetUserInfo" 
 			>{{ defineModal.confirmText }}</button>
 			<navigator class="content-footer-confirm" bindtap="onConfirm" wx:if="{{ defineModal.type === 'navigate' }}" path="{{ defineModal.navigateData.url }}" target="{{ defineModal.navigateData.target }}" app-id="{{ defineModal.navigateData.appId }}" extra-data="{{ defineModal.navigateData.extraData }}" version="{{ defineModal.navigateData.version }}">{{ defineModal.confirmText }}</navigator>
 		</view>

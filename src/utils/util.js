@@ -1,6 +1,6 @@
 import { TOKEN_KEY, EXPIRED_KEY, USER_KEY } from 'constants/index';
 import api from 'utils/api';
-import { login, checkSession } from 'utils/wxp';
+import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
 
 function formatNumber(n) {
@@ -194,7 +194,7 @@ export function textToValue(array = [], text = '') {
     const filterValue =  array.filter((item) => {
         return item.text === text;
     });
-    return filterValue && filterValue[0] && filterValue[0].value;
+    return (filterValue && filterValue[0] && filterValue[0].value) || array[0].value;
 }
 
 export function valueToText(array = [], value = null) {
@@ -202,4 +202,52 @@ export function valueToText(array = [], value = null) {
         return item.value === value;
     });
     return (filterValue && filterValue[0] && filterValue[0].text) || array[0].text;
+}
+
+export function auth({ scope, ctx, isFatherControl = false, ...opts }) {
+    return new Promise(async (resolve) => {
+        const setting = await getSetting();
+        if (!setting.authSetting[scope]) {
+            try {
+                await authorize({ scope });
+                resolve(true);
+            } catch (e) {
+                ctx.beforeAutoShowModal && ctx.beforeAutoShowModal(scope);
+                ctx.setData({
+                    'authModal': {
+                        isFatherControl,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: '该操作需要用户授权',
+                        type: 'button',
+                        buttonData: {
+                            opentype: scope === 'scope.userInfo' ? 'getUserInfo' : 'openSetting'
+                        },
+                        confirmText: '确定',
+                        cancelText: '取消',
+                    }
+                });
+                resolve(false);
+            }
+        } else {
+            resolve(true);
+        }
+    });
+}
+
+export function authGetUserInfo({ ctx, isFatherControl = false }) {
+    ctx.setData({
+        'authModal': {
+            isFatherControl,
+            title: '温馨提示',
+            isShowModal: true,
+            body: '该操作需要获取用户头像',
+            type: 'button',
+            buttonData: {
+                opentype: 'getUserInfo'
+            },
+            confirmText: '确定',
+            cancelText: '取消',
+        }
+    });
 }

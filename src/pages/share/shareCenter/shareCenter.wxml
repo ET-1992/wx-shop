@@ -1,45 +1,45 @@
 <view class="container">
 	<view class="shareMoneyDisplay">
 		<text class="shareMoneyDisplay-h">累计收益（元）</text>
-		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>88.88</text>
-		<text class="shareMoneyDisplay-f">包含待结算收益￥8.88</text>
+		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>{{ (wallet.income + wallet.income_pending)|| 0 }}</text>
+		<text class="shareMoneyDisplay-f">包含待结算收益￥{{ wallet.income_pending || 0 }}</text>
 		<view class="shareMoneyDisplay-s" bindtap="changeModal">规则说明</view>
 	</view>
 	<view class="shareMoneyGet">
-		<text class="shareMoneyGet-text">可提现金额 <text class="shareMoneyGet-money">￥38.8</text> </text>
-		<view class="shareMoneyGet-btn">立即提现</view>
+		<text class="shareMoneyGet-text">可提现金额 <text class="shareMoneyGet-money">￥{{ wallet.balance || 0 }}</text> </text>
+		<view class="shareMoneyGet-btn" bindtap="goToShare" data-urldata="shareMoney">立即提现</view>
 	</view>
-	<view class="finishUserInfo">
+	<view class="finishUserInfo" bindtap="goToShare" data-urldata="shareDetail">
 		<view class="finishUserInfo-left">收入明细</view>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view>
-	<view class="finishUserInfo">
+	<!-- <view class="finishUserInfo" bindtap="goToShare" data-urldata="shareFinishUserInfo">
 		<text class="finishUserInfo-left">完善个人资料</text>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
-	</view>
+	</view> -->
 	<view class="userInfoDisplay">
 		<view class="userInfoDisplay-item">
-			<text class="userInfoDisplay-num">88</text>	
+			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">客户</text>	
 		</view>
 
 		<view class="userInfoDisplay-item">
-			<text class="userInfoDisplay-num">88</text>	
+			<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">分享家</text>	
 		</view>
 
 		<view class="userInfoDisplay-item">
-			<text class="userInfoDisplay-num">888</text>	
+			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">订单</text>	
 		</view>
 	</view>
 	<view class="footer">
-		<view class="footer-item">
+		<view class="footer-item" bindtap="goToShare" data-urldata="shareProductList">
 			<image class="footer-img" src="/icons/shareProduct.png"></image>	
 			<text class="footer-text">分享商品</text>	
 		</view>
 
-		<view class="footer-item">
+		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster">
 			<image class="footer-img" src="/icons/sharePoster.png"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>

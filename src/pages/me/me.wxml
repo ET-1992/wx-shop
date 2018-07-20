@@ -34,28 +34,28 @@
 
 		<view class="orderItems">
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
-				<view class="orderItemValue" wx:if="{{ orderCount['1'] }}">{{ orderCount['1'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['1'] }}">{{ order_counts['1'] }}</view>
 				<image class="statusIcon unpay" src="../../icons/wallet.png" />
 				<view class="statusText">待付款</view>
 			</navigator>
 
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
-				<view class="orderItemValue" wx:if="{{ orderCount['2'] }}">{{ orderCount['2'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['2'] }}">{{ order_counts['2'] }}</view>
 				<image class="statusIcon unSend" src="../../icons/truck.png" />
 				<view class="statusText">待发货</view>
 			</navigator>
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
-				<view class="orderItemValue" wx:if="{{ orderCount['3'] }}">{{ orderCount['3'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['3'] }}">{{ order_counts['3'] }}</view>
 				<image class="statusIcon unGet" src="../../icons/confirm.png" />
 				<view class="statusText">待收货</view>
 			</navigator>
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
-				<view class="orderItemValue" wx:if="{{ orderCount['5'] }}">{{ orderCount['5'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['5'] }}">{{ order_counts['5'] }}</view>
 				<image class="statusIcon service" src="../../icons/finish.png" />
 				<view class="statusText">退款|售后</view>
 			</navigator>
 			<navigator class="lastItem orderItem" url="/pages/orderList/orderList">
-				<view class="orderItemValue" wx:if="{{ orderCount['0'] }}">{{ orderCount['0'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['0'] }}">{{ order_counts['0'] }}</view>
 				<image class="statusIcon allOrder" src="../../icons/orders.png" />
 				<view class="statusText">所有订单</view>
 			</navigator>
@@ -104,9 +104,9 @@
 		</navigator>
 	</view>
 
-	<view class="section">
-		<navigator class="sectionItem" url="">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
+	<view class="section" wx:if="{{ is_affiliate_member }}">
+		<navigator class="sectionItem" url="/pages/share/shareCenter/shareCenter">
+			<image class="itemIcon shareIcon" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -124,7 +124,7 @@
 		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 	</view> -->
 	
-	<view class="section">
+	<view class="section" wx:if="{{ affiliate_enable && !is_affiliate_member }}">
 		<navigator class="sectionItem" url="">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>
@@ -157,3 +157,5 @@
 <myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
 
 <console page="个人中心" wx:if="{{ isShowConsole }}"/>
+
+<myModal modal="{{authModal}}" />

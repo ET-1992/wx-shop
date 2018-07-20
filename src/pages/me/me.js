@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { getUserInfo, getAgainUserForInvalid, updateCart  } from 'utils/util';
+import { getUserInfo, getAgainUserForInvalid, updateCart, auth  } from 'utils/util';
 import { chooseAddress, getSetting, authorize } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
@@ -34,10 +34,7 @@ Page({
         const data = await api.hei.myFare();
 
         this.setData({
-            orderCount: data.order_counts,
-            coupons: data.coupons,
-            wallet: data.wallet,
-            // isLoading: false
+            ...data
         });
 
         console.log(this.data);
@@ -80,38 +77,14 @@ Page({
     // },
 
     async onAddress() {
-        let that = this;
-        try {
-            const setting = await getSetting();
-            if (!setting.authSetting['scope.address']) {
-                try {
-                    await authorize({ scope: 'scope.address' });
-                } catch (e) {
-                    that.onModal();
-                }
-                const addressRes = await chooseAddress();
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            } else {
-                const addressRes = await chooseAddress();
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            }
-        } catch (e) {
-            // this.onModal();
-        }
-    },
-    onModal() {
-        this.setData({
-            addressModal: {
-                isFatherControl: false,
-                title: '温馨提示',
-                isShowModal: true,
-                body: '请授权地址信息',
-                type: 'button',
-                buttonData: {
-                    opentype: 'openSetting'
-                }
-            },
+        const res = await auth({
+            scope: 'scope.address',
+            ctx: this
         });
+        if (res) {
+            const addressRes = await chooseAddress();
+            wx.setStorageSync(ADDRESS_KEY, addressRes);
+        }
     },
 
     async bindGetUserInfo(e) {

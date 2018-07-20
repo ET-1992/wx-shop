@@ -167,3 +167,7 @@ button::after {
 .borderBottom {
 	border-bottom: 4rpx solid $mainColor !important;
 }
+
+.isIphoneXClass {
+	padding-bottom: 40rpx;
+}

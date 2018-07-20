@@ -1,13 +1,12 @@
 @import "./templates/orderItem/orderItem.scss";
 @import "./templates/moneyItem/moneyItem.scss";
 @import "./templates/moneyGetItem/moneyGetItem.scss";
+@import '~templates/loading/loading';
 
 .container {
-	padding-top: 10rpx;
 	color: #000;
-	position: fixed;
-	top: 0;
-	bottom: 0;
+	height: 100%;
+	width: 100%;
 
 	.moneyDisplay {
 		width: 100%;
@@ -48,9 +47,9 @@
 		width: 100%;
 		//margin-top: 20rpx;
 		// margin-top: 290rpx;
-		position: absolute;
-		top: 0;
-		bottom:0;
+		// position: absolute;
+		// top: 0;
+		// bottom:0;
 		height: 100%;
 		
 		.moneyInfoHeader {
@@ -58,6 +57,7 @@
 			height: 90rpx;
 			background: #fff;
 			display: flex;
+			color: #707070;
 			
 			.moneyInfoHeader-text {
 				flex: 1;	
@@ -75,7 +75,7 @@
 		}
 		.moneyInfoBody {
 			margin-top: 10rpx;
-			padding: 30rpx;
+			padding: 30rpx 30rpx 30rpx 30rpx;
 			background-color: #fff;
 			height: 100%;
 			
@@ -83,6 +83,8 @@
 				width: 100%;
 				padding-bottom: 20rpx;
 				border-bottom: 1rpx solid #c9c9c9;
+				font-size: 24rpx;
+				color: #707070;
 				
 				.moneyInfoBodySearch-i {
 					width: 100%;
@@ -91,9 +93,12 @@
 			}
 			
 			.moneyInfoBodyList {
-				overflow: auto;
-				height: 100%;
 			}
 		}
+	}
+
+	.noDataText {
+		text-align: center;
+		color: #707070;
 	}
 }

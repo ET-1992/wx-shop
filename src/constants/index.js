@@ -40,6 +40,18 @@ export const LOGISTICS_STATUS_TEXT = [
     { text: '错误', value: 4 },
 ];
 
+// export const SHARE_STATUS_TEXT = [
+//     { text: '待处理', value: 1 },
+//     { text: '审核中', value: 2 },
+//     { text: '未通过', value: 3 },
+// ];
+
+export const SHARE_STATUS_TEXT = {
+    1: '审核中',
+    2: '已确认',
+    3: '未通过'
+};
+
 export const phoneStyle = {
     'iPhone 5': 'iphone5',
     'iPhone X': 'iphoneX'

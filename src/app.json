@@ -35,6 +35,7 @@
 		"pages/share/shareFinishUserInfo/shareFinishUserInfo",
 		"pages/share/sharePoster/sharePoster",
 		"pages/share/shareMoney/shareMoney",
+		"pages/share/shareList/shareList",
 		"pages/webPages/webPages"
 	],
 	"window": {

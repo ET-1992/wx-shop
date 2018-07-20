@@ -1,3 +1,7 @@
+import { getAgainUserForInvalid } from 'utils/util';
+
+const app = getApp();
+
 Component({
     properties: {
         modal: {
@@ -40,7 +44,7 @@ Component({
                 });
             }
         },
-        onConfirm() {
+        async onConfirm(e) {
             if (this.data.defineModal.isFatherControl) {
                 this.triggerEvent('onConfirm', {}, { bubbles: true });
             } else {
@@ -49,6 +53,14 @@ Component({
                 });
             }
         },
+
+        async bindGetUserInfo(e) {
+            console.log(e, 'eeee');
+            const { encryptedData, iv } = e.detail;
+            const user = await getAgainUserForInvalid({ encryptedData, iv });
+            this.triggerEvent('onSaveUserInfo', { user }, { bubbles: true });
+        },
+
         touchmove() {
             console.log('点击穿透阻止');
             return;
