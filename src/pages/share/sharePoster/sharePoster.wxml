@@ -1,5 +1,6 @@
 <view class="container">
-	<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId"></canvas>
+	<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: {{ hiddenCanvas ? 'none' : 'block' }}"/>
+	<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>
 
 	<view class="btnWtap">
 		<button class="btn" open-type="share">分享给好友</button>
@@ -7,4 +8,4 @@
 	</view>
 </view>
 
-<myModal modal="{{modal}}"/>
+<myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />

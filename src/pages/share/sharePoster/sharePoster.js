@@ -1,52 +1,42 @@
-import { getNodeInfo, getUserInfo, autoDrawText, imgToHttps } from 'utils/util';
+import { getNodeInfo, getUserInfo, autoDrawText, imgToHttps, auth, authGetUserInfo } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { downloadFile } from 'utils/wxp';
+import { downloadFile, canvasToTempFilePath, saveImageToPhotosAlbum } from 'utils/wxp';
 
 const app = getApp();
 
 Page({
     data: {
         title: 'sharePoster',
-        modal: {},
+        authModal: {},
         options: {}
     },
 
-    async onLoad(options) {
+    async onShow(options) {
         console.log(options);
         this.data.options = options;
 
         const user = getUserInfo();
         this.data.user = user;
-        if (user.avatarurl) {
-            // const downloadData = await downloadFile({ url: user.avatarurl });
-            const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
-            console.log(httpsimg, 'httpsimg');
-            const downloadData = await downloadFile({ url: httpsimg });
+        console.log(user);
+        if (user && user.avatarurl) {
+            const downloadData = await downloadFile({ url: user.avatarurl });
+            // const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
+            // console.log(httpsimg, 'httpsimg');
+            // const downloadData = await downloadFile({ url: httpsimg });
             console.log(downloadData, 'downloadData');
             if (downloadData.statusCode === 200) {
                 this.data.tempFilePath = downloadData.tempFilePath;
                 const nodeInfo = await getNodeInfo('canvasPosterId');
                 console.log(nodeInfo, 'nodeInfo');
                 this.data.nodeInfo = nodeInfo;
-                this.drawProductDetailImg();
-                setTimeout(this.drawCanvasToImg, 200);
+                this.drawPosterImage();
             }
+        } else {
+            console.log('900');
+            authGetUserInfo({
+                ctx: this
+            });
         }
-        // wx.showNavigationBarLoading();
-        // wx.setNavigationBarTitle({
-        //     title: '当前页面'
-        // });
-        // wx.showModal({
-        //     title: '提现',
-        //     content: '提现前请先到分享中心完善个人资料',
-        //     success: function(res) {
-        //         if (res.confirm) {
-        //             console.log('用户点击确定');
-        //         } else if (res.cancel) {
-        //             console.log('用户点击取消');
-        //         }
-        //     }
-        // });
         this.setData({
             share_title: '精品好店'
         });
@@ -140,32 +130,71 @@ Page({
         ctx.draw();
     },
 
-    drawCanvasToImg() {
+    async drawCanvasToImg() {
         const { width, height } = this.data.nodeInfo;
-        wx.canvasToTempFilePath({
+        const data = await canvasToTempFilePath({
             x: 0,
             y: 0,
             width: width,
             height: height,
             canvasId: 'canvasPoster',
-            quality: 1,
-            success: (res) => {
-                this.data.tempFilePath = res.tempFilePath;
-            }
+            quality: 1
+        });
+        return data;
+    },
+
+    async saveCanvasToImg() {
+        const data = await this.drawCanvasToImg();
+        console.log(data, 'data');
+        const res = await auth({
+            scope: 'scope.writePhotosAlbum',
+            ctx: this,
+            isFatherControl: true
+        });
+        if (res) {
+            await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
+            wx.showModal({
+                title: '温馨提示',
+                content: '保存成功，打开相册分享到朋友圈吧~',
+                showCancel: false,
+            });
+        }
+    },
+
+    onModalCancel() {
+        console.log('90');
+        this.setData({
+            'authModal.isShowModal': false,
+            hiddenCanvas: false
         });
     },
 
-    saveCanvasToImg() {
-        wx.saveImageToPhotosAlbum({
-            filePath: this.data.tempFilePath,
-            success: () => {
-                this.setData({
-                    body: '保存图片成功，赶紧分享你的图片吧~',
-                    isShowModal: true
-                });
-            }
+    onModalConfirm() {
+        this.setData({
+            'authModal.isShowModal': false,
+            hiddenCanvas: false
         });
     },
 
-    onShareAppMessage: onDefaultShareAppMessage
+    onSaveUserInfo(e) {
+        this.onLoad();
+        this.onShow();
+    },
+
+    beforeAutoShowModal(e) {
+        if (e !== 'scope.userInfo') {
+            this.setData({
+                hiddenCanvas: true
+            });
+        }
+    },
+
+    onShareAppMessage() {
+        console.log('90');
+        return {
+            title: '我发现了一家好店，快来看看',
+            path: 'pages/share/shareApply/shareApply',
+            imageUrl: this.data.tempFilePath || ''
+        };
+    }
 });
