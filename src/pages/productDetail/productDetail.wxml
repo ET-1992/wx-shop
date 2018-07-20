@@ -56,9 +56,12 @@
 					<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
 				</view>
 
-				<!-- 图片分享 -->
+				<!-- 分享按钮 -->
 				<view class="right">
-					<image class="shareIcon" src="../../icons/shareIcon.png"></image>
+					<!-- 开启分销 -->
+					<!-- <image class="shareIcon" mode="aspectFit" src="../../icons/shareIcon.png"></image> -->
+					<!-- 关闭分销 -->
+					<image class="shareIcon" mode="aspectFit" src="../../icons/shareGoods.png"></image>
 				</view>
 
 			</view>

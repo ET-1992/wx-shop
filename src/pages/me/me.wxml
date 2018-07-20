@@ -64,7 +64,7 @@
 
 	<view class="section">
 		<view bindtap="onAddress" class="sectionItem">
-			<image class="itemIcon myAddress" src="../../icons/address.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/address.png" />
 			<view class="itemTitle">收货地址</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</view>
@@ -73,7 +73,7 @@
 	<view class="section">
 		<navigator url="/pages/orderList/orderList?status=10">
 			<view class="sectionItem">
-				<image class="itemIcon myGroup" src="../../icons/my.png" />
+				<image class="itemIcon" mode="aspectFit" src="../../icons/my.png" />
 				<view class="itemTitle">我的拼团</view>
 				<image class="rightIcon" src="../../icons/right.png" />
 			</view>
@@ -82,7 +82,7 @@
 
 	<!-- <view wx:if="{{ !wallet.coin_enable }}" class="section">
 		<navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
-			<image class="itemIcon couponIcon" src="../../icons/coupon.png" />
+			<image class="itemIcon couponIcon" mode="aspectFit" src="../../icons/coupon.png" />
 			<view class="itemTitle">我的优惠券</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -90,7 +90,7 @@
 
 	<!-- <view class="section">
 		<navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
-			<image class="itemIcon" src="../../icons/coin.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/coin.png" />
 			<view class="itemTitle">我的花生米</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -98,7 +98,7 @@
 
 	<view class="section">
 		<navigator class="sectionItem" url="/pages/myFav/myFav">
-			<image class="itemIcon" src="../../icons/myfav.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/myfav.png" />
 			<view class="itemTitle">我的收藏</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -106,7 +106,7 @@
 
 	<view class="section">
 		<navigator class="sectionItem" url="">
-			<image class="itemIcon shareIcon" src="../../icons/shareCenter.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
@@ -114,7 +114,7 @@
 
 	<view class="section contact">
 		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
-			<image class="itemIcon" src="../../icons/contact.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/contact.png" />
 			<view class="itemTitle">联系客服</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</button>
