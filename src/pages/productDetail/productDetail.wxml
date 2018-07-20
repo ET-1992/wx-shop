@@ -59,9 +59,9 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<!-- <image class="shareIcon" mode="aspectFit" src="../../icons/shareIcon.png"></image> -->
+					<image class="shareIcon" mode="aspectFit" src="../../icons/shareProductDetail.png"></image>
 					<!-- 关闭分销 -->
-					<image class="shareIcon" mode="aspectFit" src="../../icons/shareGoods.png"></image>
+					<!-- <image class="shareIcon" mode="aspectFit" src="../../icons/shareGoods.png"></image> -->
 				</view>
 
 			</view>

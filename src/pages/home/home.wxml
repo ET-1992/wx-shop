@@ -244,7 +244,7 @@
 </view>
 <!-- 新用戶优惠券弹框 -->
 <view wx:if="{{ newUser == 1 && hasNewUserCoupons }}" class="newUserCoupon">
-  <view class="couponContainer">
+  <!-- <view class="couponContainer">
     <scroll-view class="couponScroll" scroll-y>
       <view class="couponItem" wx:for="{{coupons_newbie}}" wx:if="{{item.target_user_type === '2' }}" wx:key="id" data-status="{{item.status}}">
         <view class="newCouponInfo">
@@ -263,8 +263,34 @@
       </view>
     </scroll-view>
     <image class="affirm" bindtap="receiveCouponAll" src="../../icons/affirm.png" data-id="{{coupons_newbie}}"></image>
+  </view> -->
+  <!-- <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image> -->
+  <view class="couponContainer">
+    <image class="CouponBottom" src="../../icons/CouponBottom.png"></image>
+    <view class="couponBox">
+      <view class="title">新用户专享</view>
+      <scroll-view class="couponScroll" scroll-y>
+        <view class="couponItem" wx:for="{{coupons_newbie}}" wx:if="{{item.target_user_type === '2' }}" wx:key="id" data-status="{{item.status}}">
+          <view class="newCouponInfo">
+            <view class="couponType">
+              <view class="newUser">新用户专享</view>
+              <view>{{item.title}}</view>
+            </view>
+            <view class="reduce">
+              <text wx:if="{{ item.type == 1 }}">￥</text>
+              <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+              <text wx:if="{{ item.type == 2 }}">折</text>
+            </view>
+          </view>
+          <view class="deadline">
+            <text wx:if="{{ coupon.date_type === '2' }}">领券当日起{{ item.fixed_term }}日内可用</text>
+            <text wx:else>{{ item.start_time }}至{{ item.end_time }}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
   </view>
-  <image class="closeCoupon" src="../../icons/closeCoupon.png" bindtap="closeCoupon"></image>
+  <image class="couponConfirm" src="../../icons/newCouponBtn.png" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
 </view>
 
 <!-- 自定义弹窗 -->
