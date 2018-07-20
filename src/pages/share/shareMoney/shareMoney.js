@@ -172,7 +172,7 @@ Page({
             return;
         }
         try {
-            const { payStyle, phoneNumber, bankName, wechatId, bankNumber, money } = this.data;
+            const { payStyle, phoneNumber, bankName, wechatId, bankNumber, money, username } = this.data;
             this.setData({
                 isGetingMoney: true
             });
@@ -182,6 +182,7 @@ Page({
                 bank_account_no: bankNumber,
                 bank_name: bankName,
                 weixin_account: wechatId,
+                name: username,
                 amount: Number(money) * 100
             });
             this.setData({
@@ -190,7 +191,7 @@ Page({
 
             console.log(data);
             await wx.showToast({ title: '提款成功', icon: 'success', image: '', duration: 1000 });
-            wx.navigateBack();
+            setTimeout(wx.navigateBack, 1000);
         } catch (e) {
             this.setData({
                 isGetingMoney: false
