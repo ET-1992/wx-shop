@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="img"></view>
+	<image class="img" src="{{ image_url }}" mode="scaleToFill"/>
 	<view class="footer">
 		<view class="shareBtn" bindtap="joinShareUser"><text class="text">申请成为分享家</text></view>
 	</view>
