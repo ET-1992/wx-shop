@@ -106,7 +106,7 @@
 
 	<view class="section" wx:if="{{ is_affiliate_member }}">
 		<navigator class="sectionItem" url="/pages/share/shareCenter/shareCenter">
-			<image class="itemIcon shareIcon" src="../../icons/shareCenter.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
