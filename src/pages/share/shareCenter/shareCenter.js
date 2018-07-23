@@ -4,14 +4,13 @@ Page({
     data: {
         title: 'shareCenter',
         isShowModal: false,
-        loading: true,
+        isLoading: true,
         member: {},
         wallet: {}
     },
 
     onLoad(parmas) {
         console.log(parmas);
-        wx.showLoading();
     },
     async onShow() {
         const data = await api.hei.shareUserInfo();
@@ -19,9 +18,9 @@ Page({
         console.log(data, 'data');
         this.setData({
             member,
-            wallet
+            wallet,
+            isLoading: false
         });
-        wx.hideLoading();
     },
     changeModal() {
         this.setData({
@@ -51,7 +50,9 @@ Page({
                 break;
             }
             case 'sharePoster': {
-                url = '/pages/share/sharePoster/sharePoster';
+                const { postertype } = e.currentTarget.dataset;
+                console.log(postertype, 'poser');
+                url = '/pages/share/sharePoster/sharePoster?postertype=' + postertype;
                 break;
             }
             default:
