@@ -1,7 +1,0 @@
-<import src="./templates/share/orderList.scss"/>
-<import src="/templates/loading/loading.wxml"/>
-
-<view class="container" wx:if="{{ isLoading }}">
-
-	<template is="orderList" />
-</view>

@@ -36,7 +36,8 @@
 		"pages/share/sharePoster/sharePoster",
 		"pages/share/shareMoney/shareMoney",
 		"pages/share/shareList/shareList",
-		"pages/webPages/webPages"
+		"pages/webPages/webPages",
+		"pages/share/shareOrderList/shareOrderList"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

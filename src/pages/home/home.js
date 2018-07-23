@@ -135,8 +135,8 @@ Page({
         }
     },
 
-    async onLoad() {
-        app.log('onLoad');
+    async onLoad(options) {
+        app.log(options, 'onLoad');
 
         const { themeColor } = app.globalData;
         this.loadHome();
