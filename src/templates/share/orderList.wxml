@@ -1,5 +1,5 @@
 <template name="orderList">
-    <view wx:for="{{ orderData }}" class="container">
+    <view class="container">
         <view class="top">
             <view class="orderNumber">所属单号：{{ item.number }}</view>
             <view class="orderStatus {{ item.status == '待支付' ||  item.status == '已支付' || item.status == '已确认' ? '' : 'activeColor' }}">{{ item.status }}</view>

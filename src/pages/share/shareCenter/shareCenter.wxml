@@ -36,7 +36,7 @@
 			<text class="userInfoDisplay-text">订单</text>	
 		</view>
 	</view>
-	<view class="footer">
+	<view class="footer" wx:if="{{ affiliate_enable }}">
 		<view class="footer-item" bindtap="goToShare" data-urldata="shareProductList">
 			<image class="footer-img" src="/icons/shareProduct.png"></image>	
 			<text class="footer-text">分享商品</text>	
@@ -52,6 +52,7 @@
 			<text class="footer-text">邀请好友</text>	
 		</view>
 	</view>
+	<view class="closeFooter" wx:if="{{ !affiliate_enable }}">商家分享功能已下线</view>
 
 </view>
 <view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}"> 

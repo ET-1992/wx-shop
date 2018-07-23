@@ -14,12 +14,13 @@ Page({
     },
     async onShow() {
         const data = await api.hei.shareUserInfo();
-        const { member, wallet } = data;
+        const { member, wallet, affiliate_enable } = data;
         console.log(data, 'data');
         this.setData({
             member,
             wallet,
-            isLoading: false
+            isLoading: false,
+            affiliate_enable
         });
     },
     changeModal() {
