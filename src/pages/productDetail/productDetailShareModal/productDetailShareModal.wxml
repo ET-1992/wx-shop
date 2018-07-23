@@ -1,0 +1,12 @@
+<view class="container">
+	<view class="shareModal">
+		<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: block"/>
+		<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>
+	
+		<view class="btnWtap">
+			<button class="btn" open-type="share">分享给好友</button>
+			<button class="btn" bindtap="saveCanvasToImg">保存分享到朋友圈</button>
+		</view>
+	</view>
+</view>
+<myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />

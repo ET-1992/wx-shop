@@ -1,0 +1,54 @@
+.container {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
+	flex-direction: column;
+	padding: 50rpx;
+
+	.shareModal {
+		background: #fff;
+		width: 100%;
+		height: 100%;
+		border-radius: 10rpx;
+		padding: 20rpx;
+	}
+	
+	.canvasWrap {
+		width: 100%;
+		height: 900rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+		//border: 1rpx solid #000;
+		box-shadow: 0rpx 3rpx 6rpx RGBA(0, 0, 0, 0.16);
+		// margin: 0rpx 30rpx;
+	}
+	
+	.btnWtap {
+		margin-top: 60rpx;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	
+	.btn {
+		flex: 1;
+		max-width: 300rpx;
+		height: 70rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #729153;
+		border-radius: 10rpx;
+		color: #fff;
+		font-size: 32rpx;
+	}
+}

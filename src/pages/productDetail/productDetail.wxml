@@ -52,9 +52,9 @@
 				</view>
 
 				<!-- 图片分享 -->
-				<!-- <view class="right">
+				<view class="right">
 					<image class="shareIcon" src="../../icons/shareIcon.png"></image>
-				</view> -->
+				</view>
 
 			</view>
 			<view class="meta">
@@ -331,3 +331,5 @@
 </view>
 
 <console page="商品详情" />
+
+<productDetailShareModal />
