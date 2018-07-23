@@ -119,7 +119,7 @@
 		justify-content: space-around;
 		align-items: center;
 		background-color: #fff;
-		margin-top: 20rpx;
+		margin-top: 30rpx;
 
 		.userInfoDisplay-item {
 			display: flex;
@@ -146,7 +146,8 @@
 		justify-content: space-around;
 		align-items: center;
 		background-color: #fff;
-		margin-top: 20rpx;
+		// margin: 30rpx 20rpx 0 20rpx;
+		margin-top: 30rpx;
 
 		.footer-item {
 			display: flex;
@@ -165,6 +166,19 @@
 				line-height: 40rpx;
 			}
 		}
+	}
+
+	.closeFooter {
+		// margin: 30rpx 20rpx 0 20rpx;
+		margin-top: 30rpx;
+		width: 100%;
+		height: 200rpx;
+		color: #707070;
+		font-size: 36rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #fff;
 	}
 
 	.modal {
