@@ -28,7 +28,7 @@ Page({
             user_type: this.data.user_type
         });
 
-        const newData = this.data.shareList.concat(shareList.member);
+        const newData = this.data.shareList.concat(shareList.members);
         this.setData({
             shareList: newData,
             isLoading: false,

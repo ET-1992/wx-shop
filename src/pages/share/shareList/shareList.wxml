@@ -1,2 +1,6 @@
+<loading isLoading="{{ isLoading }}"/>
 <import src="/templates/share/shareList.wxml"/>
-<template is="shareList" data="{{ shareList, user_type}}"/>
+<template wx:if="{{ shareList.length }}" is="shareList" data="{{ shareList, user_type}}"/>
+<view class="noDataText" wx:else>
+    {{ user_type === '1' ? '暂无分享家' : '暂无客户'}}
+</view>
