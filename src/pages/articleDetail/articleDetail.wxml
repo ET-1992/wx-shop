@@ -1,5 +1,4 @@
-<import src="../../templates/loading/loading.wxml" />
-<template is="loading" wx:if="{{ isLoading }}" />
+<loading isLoading="{{ isLoading }}"/>
 <import src="/templates/productLayout/topImage.wxml"/>
 <view wx:if="{{ !isLoading }}">
 <view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">

@@ -2,6 +2,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "productList": "../../components/productList/index",
-    "console": "../../components/console/console"
+    "console": "../../components/console/console",
+    "loading": "../../components/loading/index"
   }
 }

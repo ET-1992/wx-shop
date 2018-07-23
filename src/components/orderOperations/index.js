@@ -43,6 +43,10 @@ Component({
             type: Object,
             value: {},
         },
+        isOrderDetail: {
+            type: Boolean,
+            value: false
+        }
     },
 
     attached() {

@@ -23,7 +23,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-
+        // isLoading: true,
         isShowConsole: false
     },
 

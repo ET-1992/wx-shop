@@ -1,0 +1,18 @@
+.loadingIcon {
+	$size: 40rpx;
+
+	width: $size;
+	height: $size;
+	margin: 20rpx auto;
+	display: block;
+	animation: rolling 0.8s linear infinite;
+}
+
+@keyframes rolling {
+	from {
+		transform: rotate(0deg)
+	}
+	to {
+		transform: rotate(360deg)
+	}
+}

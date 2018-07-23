@@ -1,31 +1,34 @@
-<import src="/templates/loading/loading.wxml" />
-	<template is="loading" wx:if="{{ isLoading }}" />
-	<view class="header" wx:if="{{ !isLoading }}" >
-		<view class="couponTitle">以下商品可以使用{{ indexParams.couponTitle }}优惠券</view>
-		<view class="sortOptions" wx:if="{{ products.length }}">
-			<view class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}" bindtap="onSort" data-index="0">综合</view>
-			<view class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}" bindtap="onSort" data-index="1">
-				<text>价格</text>
-				<view class="indicators">
-					<image class='triangleIcon triangleIconUp' src="/icons/triangleUp.png" wx:if="{{sortType !== 'priceUp' }}" />
-					<image class='triangleIcon triangleIconUp' src="/icons/triangleUpActive.png" wx:if="{{sortType === 'priceUp' }}" />
-					<image class='triangleIcon' src="/icons/triangleDown.png" wx:if="{{sortType !== 'priceDown' }}" />
-					<image class='triangleIcon' wx:if="{{sortType === 'priceDown' }}" src="/icons/triangleDownActive.png" />
-				</view>
+<loading isLoading="{{ isLoading }}"/>
+<view class="header" wx:if="{{ !isLoading }}" >
+	<view class="couponTitle">以下商品可以使用{{ indexParams.couponTitle }}优惠券</view>
+	<view class="sortOptions" wx:if="{{ products.length }}">
+		<view class="sortOption {{ activeIdx === '0' ? 'selected' : '' }}" bindtap="onSort" data-index="0">综合</view>
+		<view class="sortOption {{ activeIdx === '1' ? 'selected' : '' }}" bindtap="onSort" data-index="1">
+			<text>价格</text>
+			<view class="indicators">
+				<image class='triangleIcon triangleIconUp' src="/icons/triangleUp.png" wx:if="{{sortType !== 'priceUp' }}" />
+				<image class='triangleIcon triangleIconUp' src="/icons/triangleUpActive.png" wx:if="{{sortType === 'priceUp' }}" />
+				<image class='triangleIcon' src="/icons/triangleDown.png" wx:if="{{sortType !== 'priceDown' }}" />
+				<image class='triangleIcon' wx:if="{{sortType === 'priceDown' }}" src="/icons/triangleDownActive.png" />
 			</view>
-			<view class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}" bindtap="onSort" data-index="2">
-				<text>销量</text>
-				<view class="indicators">
-					<image class='triangleIcon' src="/icons/triangleDown.png" wx:if="{{ activeIdx !== '2' }}" />
-					<image class='triangleIcon' wx:if="{{ activeIdx === '2' }}" src="/icons/triangleDownActive.png" />
-				</view>
+		</view>
+		<view class="sortOption {{ activeIdx === '2' ? 'selected' : '' }}" bindtap="onSort" data-index="2">
+			<text>销量</text>
+			<view class="indicators">
+				<image class='triangleIcon' src="/icons/triangleDown.png" wx:if="{{ activeIdx !== '2' }}" />
+				<image class='triangleIcon' wx:if="{{ activeIdx === '2' }}" src="/icons/triangleDownActive.png" />
 			</view>
 		</view>
 	</view>
-	<view class="main">
-		<productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{!currentPage === totalPages}}"
-		 wx:if="{{ products.length && isSearch && !isLoading }}" />
-		<view class="noHint" wx:if="{{ !products.length && !isLoading }}">暂无商品</view>
+</view>
+<view class="main">
+	<productList 
+		products="{{ products }}" 
+		productListStyle="{{ productListStyle }}" 
+		nextCursor="{{!currentPage === totalPages}}"
+		wx:if="{{ products.length && isSearch && !isLoading }}" 
+	/>
+	<view class="noHint" wx:if="{{ !products.length && !isLoading }}">暂无商品</view>
 </view>
 
 <console page="优惠商品" />

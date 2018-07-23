@@ -1,4 +1,4 @@
-<import src="/templates/loading/loading.wxml" />
+<!-- <loading isLoading="{{ isLoading }}"/> -->
 <view class="container {{ isFinished ? 'finishedBgImage' : 'normalBgImage' }}">
   <view wx:if="{{ !isFinished }}">
     <view class="coupon couponBgImage {{ isIphone5? 'iphone5-style' : '' }}" wx:if="{{ redpacket.item_type == 1 && hasRecived }}">

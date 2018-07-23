@@ -1,6 +1,5 @@
-<import src="/templates/loading/loading.wxml"/>
 <view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
-<template is="loading" wx:if="{{ isLoading }}"/>
+<loading isLoading="{{ isLoading }}"/>
 <view wx:if="{{ !isLogin && !isLoading }}">
 	<image class="emptyHint unloginHint" src="../../icons/bigCart.png" mode="widthFix"></image>
         <view class="empty">未登录</view>

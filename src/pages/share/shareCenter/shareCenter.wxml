@@ -21,20 +21,20 @@
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view> -->
 	<view class="userInfoDisplay">
-		<view class="userInfoDisplay-item">
+		<navigator class="userInfoDisplay-item" url="/pages/share/shareList/shareList?user_type=2">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">客户</text>	
-		</view>
+		</navigator>
 
-		<view class="userInfoDisplay-item">
+		<navigator class="userInfoDisplay-item" url="/pages/share/shareList/shareList?user_type=1">
 			<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">分享家</text>	
-		</view>
+		</navigator>
 
-		<view class="userInfoDisplay-item">
+		<navigator class="userInfoDisplay-item" url="/pages/share/shareOrderList/shareOrderList">
 			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">订单</text>	
-		</view>
+		</navigator>
 	</view>
 	<view class="footer" wx:if="{{ affiliate_enable }}">
 		<view class="footer-item" bindtap="goToShare" data-urldata="shareProductList">

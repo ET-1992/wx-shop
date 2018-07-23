@@ -1,6 +1,4 @@
-<import src="../../templates/loading/loading.wxml" />
-<template is="loading" wx:if="{{ isLoading }}" />
-
+<loading isLoading="{{ isLoading }}"/>
 <import src="../../templates/mock/mock.wxml" />
 <import src="../../templates/couponItem/couponItem.wxml" />
 <import src="../../utils/wxParse/wxParse.wxml" />
@@ -37,12 +35,19 @@
 				<view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
 				<view wx:if="{{ !hasStart }}">距开始</view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
-				<view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
-				<view wx:if="{{ !hasEnd }}">:</view>
-				<view class="minute" wx:if="{{ !hasEnd }}">{{ remainTime.minute }}</view>
-				<view wx:if="{{ !hasEnd }}">:</view>
-				<view class="second" wx:if="{{ !hasEnd }}">{{ remainTime.second }}</view>
-			</view>
+				<view style="padding-left: 10rpx;"></view>
+				<block wx:if="{{ !hasEnd && remainTime.day > 0 }}"> 
+					<view>{{ remainTime.day }}</view> 
+					<view>天</view> 
+				</block>
+				<view wx:if="{{ !hasEnd }}" >{{ remainTime.hour }}</view>
+				<view wx:if="{{ !hasEnd }}">时</view>
+				<view wx:if="{{ !hasEnd }}" >{{ remainTime.minute }}</view>
+				<view wx:if="{{ !hasEnd }}">分</view>
+				<view wx:if="{{ !hasEnd }}" >{{ remainTime.second }}</view>
+				<view wx:if="{{ !hasEnd }}">秒</view>
+			  </view>
+			
 		</view>
 		<view class="info">
 			<view class="top">
@@ -51,9 +56,12 @@
 					<view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
 				</view>
 
-				<!-- 图片分享 -->
+				<!-- 分享按钮 -->
 				<view class="right">
-					<image class="shareIcon" src="../../icons/shareIcon.png"></image>
+					<!-- 开启分销 -->
+					<image class="shareIcon" mode="aspectFit" src="../../icons/shareProductDetail.png"></image>
+					<!-- 关闭分销 -->
+					<!-- <image class="shareIcon" mode="aspectFit" src="../../icons/shareGoods.png"></image> -->
 				</view>
 
 			</view>

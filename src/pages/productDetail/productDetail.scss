@@ -1,5 +1,4 @@
 @import "~templates/mock/mock";
-@import "~templates/loading/loading";
 @import "~templates/couponItem/couponItem";
 @import "~styles/color";
 @import "../../utils/wxParse/wxParse.scss";
@@ -7,13 +6,13 @@ $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
 
 .container {
-	padding-bottom: $footerHeight + 20rpx;
+	padding-bottom: $footerHeight;
 	color: $titleColor;
 	overflow-x: hidden;
 	overflow-y: auto;
 
 	&.iphoneXTrick {
-		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+		// margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
 	    padding-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
 	}
 }
@@ -131,9 +130,10 @@ video {
 	}
 
 	.right{
+		height:90rpx;
 		.shareIcon{
-			width: 80rpx;
-			height: 91rpx;
+			width: 90rpx;
+			// height: 91rpx;
 		}
 	}
 
@@ -308,12 +308,12 @@ button {
 
 .desc {
 	font-size: 24rpx;
-	line-height: 33rpx;
-	color: #9fa0a0;
+	// line-height: 33rpx;
+	color: #000000;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	margin-top: 10rpx;
+	// margin-top: 10rpx;
 }
 .pendingGroupons {
 	background-color: #fff;

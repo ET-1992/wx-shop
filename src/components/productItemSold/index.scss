@@ -49,7 +49,7 @@
 
 		.itemCount {
 			display: flex;
-			width: 130rpx;
+			width: 160rpx;
 			justify-content: space-between;
 			flex-direction: row-reverse;
 		}
@@ -64,15 +64,16 @@
 		}
 
 		.grouponLimit {
-			background-color:#c81337;
-			font-size: 20rpx;
+			background-color: #FC2732;
+			font-size: 22rpx;
 			color:#fff;
 			// padding:4rpx 10rpx;
-			width: 80rpx;
+			width: 90rpx;
 			height: 40rpx;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			border-radius: 5rpx;
 		}
 	}
 }

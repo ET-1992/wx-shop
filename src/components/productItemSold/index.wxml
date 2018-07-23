@@ -1,20 +1,16 @@
 <view class="itemList">
-    <view class="item" wx:for="{{ products }}" wx:key="id" >
-       <image
-         src="{{ item.imageUrl || item.thumbnail }}"
-         class="itemImage"
-         mode="aspectFill"
-       />
-       <view class="itemInfo">
-         <view class="itemName">{{ item.title }}</view>
-         <view class="propertyNames" wx:if="{{ item.property }}">{{ item.property }}</view>
-         <view class="itemMeta">
-           <view class="itemPrice">￥{{ item.price }}</view>
-           <view class="itemCount">
-            <view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
-            <view class="itemQuantity">x{{ item.quantity }}</view>
-           </view>
-         </view>
-       </view>
-    </view>
+	<navigator class="item" wx:for="{{ products }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
+		<image src="{{ item.imageUrl || item.thumbnail }}" class="itemImage" mode="aspectFill" />
+		<view class="itemInfo">
+			<view class="itemName">{{ item.title }}</view>
+			<view class="propertyNames" wx:if="{{ item.property }}">{{ item.property }}</view>
+			<view class="itemMeta">
+				<view class="itemPrice">￥{{ item.price }}</view>
+				<view class="itemCount">
+					<view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
+					<view class="itemQuantity">x{{ item.quantity }}</view>
+				</view>
+			</view>
+		</view>
+	</navigator>
 </view>

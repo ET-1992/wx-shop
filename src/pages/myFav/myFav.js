@@ -1,4 +1,4 @@
-// pages/myFav/myFav.js
+import { showModal } from 'utils/wxp';
 import api from 'utils/api';
 Page({
 
@@ -38,28 +38,30 @@ Page({
     },
 
     async unfav(e) {
-        wx.showModal({
-            title: '确定取消收藏吗？',
-            async success() {
-                const data = await api.hei.unfav({
-                    post_id: e.currentTarget.id
-                }).then(function(res) {
-                    wx.redirectTo({
-                        url: '/pages/myFav/myFav',
-                        success: function(res) {
-                            wx.showToast({
-                                title: '取消收藏成功！',
-                                icon: 'success',
-                                duration: 2000
-                            });
-                        },
-                        fail(res) {
-                            console.log(res);
-                        }
-                    });
-                });
-            }
+        const { confirm } = await showModal({
+            title: '温馨提示',
+            content: '确定取消收藏吗？',
+            confirmText: '确定',
+            // confirmColor: '#dc143c',
         });
+        if (confirm) {
+            await api.hei.unfav({
+                post_id: e.currentTarget.id
+            });
+            wx.redirectTo({
+                url: '/pages/myFav/myFav',
+                success: function(res) {
+                    wx.showToast({
+                        title: '取消收藏成功！',
+                        icon: 'success',
+                        duration: 2000
+                    });
+                },
+                fail(res) {
+                    console.log(res);
+                }
+            });
+        }
     },
 
     /**

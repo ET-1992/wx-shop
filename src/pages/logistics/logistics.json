@@ -1,6 +1,7 @@
 {
 	"navigationBarTitleText": "物流跟踪",
 	"usingComponents": {
-    	"console": "../../components/console/console"
+    	"console": "../../components/console/console",
+    	"loading": "../../components/loading/index"
   	}
 }

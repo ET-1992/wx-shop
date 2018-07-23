@@ -46,6 +46,9 @@ App({
         this.openConsole = false;
         this.openConsoleResData = false;
 
+        console.log(options, 'options');
+        this.logData.push(options);
+
         const { query = {}} = options;
         if (query.vendor) {
             this.globalData.vendor = query.vendor;
@@ -54,16 +57,16 @@ App({
             this.globalData.extraData = options.referrerInfo.extraData;
         }
 
-        try {
-            const token = getToken();
-            if (!token) {
-                throw new Error('token invalid');
-            }
-            await checkSession();
-        }
-        catch (err) {
-            await this.silentLogin();
-        }
+        // try {
+        //     const token = getToken();
+        //     if (!token) {
+        //         throw new Error('token invalid');
+        //     }
+        //     await checkSession();
+        // }
+        // catch (err) {
+        //     await this.silentLogin();
+        // }
     },
 
     onError(err) {

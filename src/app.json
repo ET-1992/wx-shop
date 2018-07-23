@@ -36,8 +36,13 @@
 		"pages/share/sharePoster/sharePoster",
 		"pages/share/shareMoney/shareMoney",
 		"pages/share/shareList/shareList",
+<<<<<<< HEAD
 		"pages/webPages/webPages",
 		"pages/share/shareOrderList/shareOrderList"
+=======
+		"pages/share/shareOrderList/shareOrderList",
+		"pages/webPages/webPages"
+>>>>>>> 01c5642da292f7a14362f4c0332cc480bfcc7549
 	],
 	"window": {
 		"backgroundTextStyle": "white",

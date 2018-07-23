@@ -1,5 +1,4 @@
-<import src="/templates/loading/loading.wxml" />
-<template is="loading" wx:if="{{ isLoading }}" />
+<loading isLoading="{{ isLoading }}"/>
 <block wx:if="{{ !isLoading && topics.length }}">
 	<view class="favList" wx:for="{{topics}}" wx:key="id">
 		<navigator url="../articleDetail/articleDetail?id={{item.id}}">

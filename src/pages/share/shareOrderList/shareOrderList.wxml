@@ -1,0 +1,3 @@
+<loading isLoading="{{ isLoading }}"/>
+<import src="/templates/share/orderList.wxml"/>
+<template wx:if="{{ !isLoading && orders.length }}" is="orderList" data="{{ orders }}"/>

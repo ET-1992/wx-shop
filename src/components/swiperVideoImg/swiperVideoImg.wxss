@@ -16,11 +16,13 @@ video {
 
 
 .player {
-  width: 100rpx;
-  height: 100rpx;
-  position: absolute;
-  left: 42%;
-  top: 42%;
+  width:120rpx;
+  height:120rpx;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin-left:-60rpx;
+  margin-top:-30px;
 }
 
 

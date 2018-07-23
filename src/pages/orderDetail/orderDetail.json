@@ -5,6 +5,7 @@
     "modal": "../../components/modal/modal",
     "address": "../../components/address/address",
     "productItemSold": "../../components/productItemSold/index",
-    "console": "../../components/console/console"
+    "console": "../../components/console/console",
+    "loading": "../../components/loading/index"
   }
 }

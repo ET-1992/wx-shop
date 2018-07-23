@@ -1,24 +1,43 @@
 import api from 'utils/api';
-
 Page({
     data: {
-        title: 'shareList',
+        next_cursor: 0,
+        isLoading: true,
+        shareList: []
     },
 
     onLoad(parmas) {
-        console.log(parmas);
-    },
-
-    async onShow() {
-        try {
-            const data = await api.hei.getShareOrderList();
-        } catch (e) {
-            console.log(e, 'e');
-        }
-
-        const customerList = await api.hei.getShareCustomerList({
-            user_type: 2
+        const { user_type } = parmas;
+        this.setData({
+            user_type
         });
-        // console.log(data, data1, data2);
+        if (user_type === '1') {
+            wx.setNavigationBarTitle({
+                title: '我的分享家'
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '我的客户'
+            });
+        }
+    },
+    async getCustomerList() {
+        const { next_cursor } = this.data;
+        const shareList = await api.hei.getShareCustomerList({
+            cursor: next_cursor,
+            user_type: this.data.user_type
+        });
+
+        const newData = this.data.shareList.concat(shareList.members);
+        this.setData({
+            shareList: newData,
+            isLoading: false,
+            next_cursor: shareList.next_cursor,
+        });
+        return shareList;
+    },
+    async onShow() {
+        this.getCustomerList();
+        console.log(this.data);
     }
 });

@@ -34,11 +34,11 @@
 		    </view>
 		    <view class="btn" wx:if="{{ (status === 'available' || status === 'received') && !canChoice }}">
 				<view class="useBtn">立即使用</view>
-				<image src="/icons/couponArrow.png" mode="aspectFit" class="arrow" />
+				<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>
 			</view>
 		    <view class="btn" wx:if="{{status === 'receivable' }}">
 				<view class="useBtn">立即领取</view>
-				<image src="/icons/couponArrow.png" mode="aspectFit" class="arrow" />
+				<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>
 			</view>
 		    <view class="btn" wx:if="{{ status === 'used' }}">
 				<view>已使用</view>

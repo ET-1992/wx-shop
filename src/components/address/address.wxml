@@ -10,7 +10,7 @@
 				<text>{{ address.telNumber }}</text>
 			</view>
 			<view class="address-bottom">
-				<text>收获地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
+				<text>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
 			</view>
 		</view>
 		<image src="/icons/right.png" class="right-arrow"></image>
