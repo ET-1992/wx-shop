@@ -1,0 +1,13 @@
+<template name="shareList">
+    <view class="container">
+        <view class="item" >
+            <image src="{{ item.avatar }}" class="left"></image>
+            <view class="right">
+                <view class="rightTop">{{ item.name || '用户昵称'}}</view>
+                <view class="rightBottom">
+                    <view class="bottomLeft">订单：{{ item.orderCount || 0}}</view>
+                    <view class="bottomRight">{{ user_type === '1' ? '我的收益' : '成交金额'}}：￥{{ item.amount || 0}}</view>
+                </view>
+            </view>
+        </view>
+</template>

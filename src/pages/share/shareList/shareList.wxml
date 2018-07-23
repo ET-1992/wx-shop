@@ -1,2 +1,2 @@
-<import src="/templates/share/shareCustomList.wxml"/>
-<template is="shareCustomList"/>
+<import src="/templates/share/shareList.wxml"/>
+<template is="shareList" data="{{ shareList, user_type}}"/>
