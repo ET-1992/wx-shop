@@ -1,13 +1,13 @@
 <template name="orderList">
-    <view class="container">
+    <view class="container" wx:for="{{ orders }}">
         <view class="top">
-            <view class="orderNumber">所属单号：{{ item.number }}</view>
-            <view class="orderStatus {{ item.status == '待支付' ||  item.status == '已支付' || item.status == '已确认' ? '' : 'activeColor' }}">{{ item.status }}</view>
+            <view class="orderNumber">所属单号：{{ item.order_no }}</view>
+            <view class="orderStatus {{ item.order_status === '待支付' ||  item.status == '已支付' || item.status == '已确认' ? '' : 'activeColor' }}">{{ item.order_status }}</view>
         </view>
         <view class="middle">
-            <image class="itemImage" mode="aspectFill" src="{{ item.thumbnail }}"></image>
+            <image class="itemImage" mode="aspectFill" src="{{ item.image_url }}"></image>
             <view class="middleRight">
-                <view class="title">{{ item.title }}</view>
+                <view class="title">{{ item.order_title }}</view>
                 <view class="rightBottom">
                     <view class="orderDate">{{ item.date }}</view>
                     <view class="orderCount">X{{ item.count }}</view>
@@ -15,8 +15,8 @@
             </view>
         </view>
         <view class="bottom">
-            <view>商品总价：￥{{ item.amount }}</view>
-            <view class="income">{{ item.status == '已确认' || item.status == '已退款' ? '收益：' : '预计收益：'}} {{ item.income }}</view>
+            <view>商品总价：￥{{ item.order_amount }}</view>
+            <view class="income">{{ item.order_status == '已确认' || item.order_status == '已退款' ? '收益：' : '预计收益：'}} {{ item.commission_amount }}</view>
         </view>
     </view>
 </template>

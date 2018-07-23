@@ -1,3 +1,6 @@
-.container {
-	padding: 20rpx;
+@import "../../../templates/share/orderList.scss";
+.noDataText{
+    margin: 100rpx auto;
+    text-align: center;
+    color: #707070;
 }

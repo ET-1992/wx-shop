@@ -31,10 +31,10 @@
 			<text class="userInfoDisplay-text">分享家</text>	
 		</navigator>
 
-		<view class="userInfoDisplay-item">
+		<navigator class="userInfoDisplay-item" url="/pages/share/shareOrderList/shareOrderList">
 			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">订单</text>	
-		</view>
+		</navigator>
 	</view>
 	<view class="footer" wx:if="{{ affiliate_enable }}">
 		<view class="footer-item" bindtap="goToShare" data-urldata="shareProductList">
