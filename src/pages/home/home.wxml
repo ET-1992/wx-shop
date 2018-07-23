@@ -255,7 +255,7 @@
           wx:if="{{ item.target_user_type === '2' }}" 
           wx:key="id" 
           data-status="{{ item.status }}"
-          style="{{ coupons_newbie.length == '1' ? 'margin-top: 30rpx' : '' }}"
+          style="{{ coupons_newbie.length == '1' ? 'margin-top: 60rpx' : '' }}"
         >
           <view class="newCouponInfo">
             <view class="reduce">
