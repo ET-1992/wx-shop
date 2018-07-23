@@ -1,6 +1,7 @@
 import { getNodeInfo, getUserInfo, autoDrawText, imgToHttps, auth, authGetUserInfo } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { downloadFile, canvasToTempFilePath, saveImageToPhotosAlbum } from 'utils/wxp';
+import api from 'utils/api';
 
 const app = getApp();
 
@@ -11,40 +12,65 @@ Page({
         options: {}
     },
 
-    async onShow(options) {
-        console.log(options);
-        this.data.options = options;
+    onLoad(options) {
+        // postertype: 1 推广好店 2 申请分享家 3 分享商品
+        this.postertype = options && options.postertype;
+        this.posterFnc = {
+            '1': this.drawPosterImage,
+            '2': this.drawFriendImage,
+            '3': this.drawProductDetailImg
+        };
+        this.qrcodePath = {
+            '1': 'pages/home/home',
+            '2': 'pages/share/shareApply/shareApply',
+            '3': 'pages/productDetail/productDetail'
+        };
+    },
 
-        const user = getUserInfo();
-        this.data.user = user;
-        console.log(user);
-        if (user && user.avatarurl) {
-            const downloadData = await downloadFile({ url: user.avatarurl });
-            // const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
-            // console.log(httpsimg, 'httpsimg');
-            // const downloadData = await downloadFile({ url: httpsimg });
-            console.log(downloadData, 'downloadData');
-            if (downloadData.statusCode === 200) {
-                this.data.tempFilePath = downloadData.tempFilePath;
-                const nodeInfo = await getNodeInfo('canvasPosterId');
-                console.log(nodeInfo, 'nodeInfo');
-                this.data.nodeInfo = nodeInfo;
-                this.drawPosterImage();
+    async onShow(options) {
+        const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
+        if (data && data.qrcode_url) {
+            const qrcodeUrl = imgToHttps(data.qrcode_url);
+            const user = getUserInfo();
+            console.log(user);
+            if (user && user.avatarurl) {
+                const avatarUrlPromise = downloadFile({ url: user.avatarurl });
+                const qrcodeUrlPromise = downloadFile({ url: qrcodeUrl });
+                const datas = await Promise.all([avatarUrlPromise, qrcodeUrlPromise]);
+                console.log(datas, 'datas');
+                const avatarUrlData = datas[0];
+                const qrcodeUrlData = datas[1];
+                // //const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
+                // console.log(httpsimg, 'httpsimg');
+                // const downloadData = await downloadFile({ url: httpsimg });
+                // if (downloadData.statusCode === 200) {
+                //     this.data.tempFilePath = downloadData.tempFilePath;
+                //     const nodeInfo = await getNodeInfo('canvasPosterId');
+                //     console.log(nodeInfo, 'nodeInfo');
+                //     this.data.nodeInfo = nodeInfo;
+                //     this.drawPosterImage();
+                // }
+
+                if (avatarUrlData.statusCode === 200 && qrcodeUrlData.statusCode === 200) {
+                    const nodeInfo = await getNodeInfo('canvasPosterId');
+                    this.setData({
+                        nodeInfo,
+                        avatarUrl: avatarUrlData.tempFilePath,
+                        qrcodeUrl: qrcodeUrlData.tempFilePath,
+                        user
+                    }, this.posterFnc[this.postertype]);
+                }
+            } else {
+                authGetUserInfo({
+                    ctx: this
+                });
             }
-        } else {
-            console.log('900');
-            authGetUserInfo({
-                ctx: this
-            });
+
         }
-        this.setData({
-            share_title: '精品好店'
-        });
     },
 
     drawPosterImage() {
         const sharePosterBg = '/icons/sharePosterBg.png';
-        const shareFriend = '/icons/shareFriend.png';
         const ctx = wx.createCanvasContext('canvasPoster');
         this.data.ctx = ctx;
         const { windowWidth } = app.systemInfo;
@@ -55,7 +81,7 @@ Page({
         ctx.beginPath();
         ctx.arc(width / 2, height * 0.11 * 2, width * (120 / 650) / 2, 0, 2 * Math.PI);
         ctx.clip();
-        ctx.drawImage(this.data.tempFilePath, width / 2 - width * (120 / 650) / 2, height * 0.11 * 2 - width * (120 / 650) / 2, width * (120 / 650), width * (120 / 650));
+        ctx.drawImage(this.data.avatarUrl, width / 2 - width * (120 / 650) / 2, height * 0.11 * 2 - width * (120 / 650) / 2, width * (120 / 650), width * (120 / 650));
         ctx.restore();
 
         ctx.beginPath();
@@ -63,11 +89,53 @@ Page({
         ctx.setTextAlign('center');
 
         ctx.setFontSize(0.030 * windowWidth);
-        ctx.fillText('用户昵称', width / 2, height * 0.18 * 2);
+        ctx.fillText(this.data.user.nickname, width / 2, height * 0.17 * 2);
 
+        ctx.beginPath();
         ctx.arc(width / 2, height * 0.34 * 2, width * (288 / 650) / 2, 0, 2 * Math.PI);
-        ctx.setFillStyle('#c9c9c9');
-        ctx.fill();
+        ctx.clip();
+        ctx.drawImage(this.data.qrcodeUrl, width / 2 - width * (288 / 650) / 2, height * 0.34 * 2 - width * (288 / 650) / 2, width * (288 / 650), width * (288 / 650));
+        ctx.restore();
+
+        ctx.draw();
+    },
+
+    drawFriendImage() {
+        // const shareFriend = '/icons/shareFriend.png';
+        const ctx = wx.createCanvasContext('canvasPoster');
+        this.data.ctx = ctx;
+        const { windowWidth } = app.systemInfo;
+        const { width, height } = this.data.nodeInfo;
+        console.log(width, height);
+        // ctx.drawImage(shareFriend, 0, 0, width, height);
+        ctx.beginPath();
+        ctx.save();
+        ctx.arc(width / 2, height * 0.11, width * (120 / 650) / 2, 0, 2 * Math.PI);
+        ctx.clip();
+        ctx.drawImage(this.data.avatarUrl, width / 2 - width * (120 / 650) / 2, height * 0.11 - width * (120 / 650) / 2, width * (120 / 650), width * (120 / 650));
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.setFillStyle('#000000');
+        ctx.setTextAlign('center');
+        ctx.setFontSize(0.030 * windowWidth);
+        ctx.fillText(this.data.user.nickname, width / 2, height * 0.24);
+
+        ctx.font = 'normal bold 1px PingFang SC';
+        ctx.setFontSize(0.040 * windowWidth);
+        ctx.fillText('我发现了一家好店，快来看看！', width / 2, height * 0.35);
+
+        ctx.font = 'normal normal 1px PingFang SC';
+        ctx.setFontSize(0.030 * windowWidth);
+        ctx.fillText('长按识别小程序码访问店铺', width / 2, height * 0.95);
+
+        ctx.beginPath();
+        ctx.arc(width / 2, height * 0.65, width * (360 / 650) / 2, 0, 2 * Math.PI);
+        ctx.clip();
+        ctx.drawImage(this.data.qrcodeUrl, width / 2 - width * (360 / 650) / 2, height * 0.65 - width * (360 / 650) / 2, width * (360 / 650), width * (360 / 650));
+        ctx.restore();
+
+
         ctx.draw();
     },
 
@@ -162,7 +230,6 @@ Page({
     },
 
     onModalCancel() {
-        console.log('90');
         this.setData({
             'authModal.isShowModal': false,
             hiddenCanvas: false
