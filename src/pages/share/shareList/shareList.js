@@ -3,6 +3,7 @@ import api from 'utils/api';
 Page({
     data: {
         title: 'shareList',
+        // isLoading: true
     },
 
     onLoad(parmas) {

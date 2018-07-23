@@ -1,3 +1,2 @@
-<view class="container">
-	Page shareList
-</view>
+<import src="/templates/share/shareCustomList.wxml"/>
+<template is="shareCustomList"/>
