@@ -1,3 +1,8 @@
 <loading isLoading="{{ isLoading }}"/>
 <import src="/templates/share/orderList.wxml"/>
-<template wx:if="{{ !isLoading && orders.length }}" is="orderList" data="{{ orders }}"/>
+<block wx:if="{{ !isLoading }}">
+    <template wx:if="{{ orders.length }}" is="orderList" data="{{ orders }}"/>
+    <view class="noDataText" wx:else>
+        暂无订单
+    </view>
+</block>

@@ -14,7 +14,7 @@
     </view>
   </view>
   <view class="section address">
-    <image class="addressIcon" src="/icons/address.png" />
+    <image class="addressIcon" mode="aspectFit" src="/icons/address.png" />
     <view class="addressInfo">
       <view>
         <text>收货人：{{ order.receiver_name }}</text>

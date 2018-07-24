@@ -2,6 +2,7 @@
 	"navigationBarTitleText": "收支明细",
 	"onReachBottomDistance": 100,
 	"usingComponents": {
-		"myModal": "../../../components/myModal/myModal"
+		"myModal": "../../../components/myModal/myModal",
+		"loading": "../../../components/loading/index"
   }
 }

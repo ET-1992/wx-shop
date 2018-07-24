@@ -1,9 +1,12 @@
 import api from 'utils/api';
-import { getNodeInfo, formatTime } from 'utils/util';
+import { getNodeInfo, formatTime, textToValue, valueToText  } from 'utils/util';
+import { SHARE_ORDER_STATUS_TEXT } from 'constants/index';
 
 Page({
     data: {
-        isLoading: true
+        isLoading: true,
+        next_cursor: 0,
+        orders: []
     },
 
     onLoad(parmas) {
@@ -14,16 +17,41 @@ Page({
     },
 
     async onShow() {
-        const data = await api.hei.getShareOrderList();
-        const { orders } = data;
-        // orders.forEach((item) => {
-        //     item.formatTime = formatTime(new Date(Number(item.modified)) * 1000);
-        // });
+        this.getOrderList();
+    },
 
-        this.setData({
-            orders,
-            isLoading: false
+    async getOrderList() {
+        const { next_cursor } = this.data;
+        const data = await api.hei.getShareOrderList({
+            cursor: next_cursor
         });
-        console.log(this.data);
+        data.orders.forEach((item) => {
+            item.formatTime = formatTime(new Date(item.time * 1000));
+            item.statusText = valueToText(SHARE_ORDER_STATUS_TEXT, Number(item.order_status));
+        });
+        const newData = this.data.orders.concat(data.orders);
+        this.setData({
+            orders: newData,
+            isLoading: false,
+            next_cursor: data.next_cursor,
+        });
+        console.log(this.data.orders);
+        return data;
+    },
+
+    async onPullDownRefresh() {
+        this.setData({
+            next_cursor: 0,
+            orders: [],
+            isLoading: true
+        });
+        this.getOrderList();
+        wx.stopPullDownRefresh();
+    },
+
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) { return }
+        this.getOrderList();
     }
 });

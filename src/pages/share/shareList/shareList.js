@@ -3,13 +3,24 @@ Page({
     data: {
         next_cursor: 0,
         isLoading: true,
-        shareList: []
+        shareList: [],
     },
 
     onLoad(parmas) {
         const { user_type } = parmas;
         this.setData({
-            user_type
+            user_type,
+            filterListData: [
+                {
+                    name: '时间',
+                },
+                {
+                    name: '订单数'
+                },
+                {
+                    name: user_type === '1' ? '我的收益' : '成交金额'
+                }
+            ]
         });
         if (user_type === '1') {
             wx.setNavigationBarTitle({
@@ -39,5 +50,20 @@ Page({
     async onShow() {
         this.getCustomerList();
         console.log(this.data);
+    },
+    async onPullDownRefresh() {
+        this.setData({
+            next_cursor: 0,
+            shareList: [],
+            isLoading: true
+        });
+        this.getCustomerList();
+        wx.stopPullDownRefresh();
+    },
+
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) { return }
+        this.getCustomerList();
     }
 });

@@ -1,15 +1,13 @@
 <import src="./templates/orderItem/orderItem.wxml"/>
 <import src="./templates/moneyItem/moneyItem.wxml"/>
 <import src="./templates/moneyGetItem/moneyGetItem.wxml"/>
-<import src="/templates/loading/loading.wxml"/>
-
+<loading isLoading="{{ isLoading }}"/>
 <view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
 	<!-- <view class="moneyDisplay">
 		<view class="moneyDisplay-h">可提现金额</view>
 		<view class="moneyDisplay-b"><text>￥</text>38.8</view>
 		<view class="moneyDisplay-f" bindtap="applyGetMoney">申请提现</view>
 	</view> -->
-
 
 	<view class="moneyInfo">
 		<view class="moneyInfoHeader">
@@ -22,7 +20,6 @@
 		</view>
 
 		<view class="moneyInfoBody">
-			<template is="loading" wx:if="{{ isLoading }}"/>
 			<!-- <view class="moneyInfoBodySearch" hidden="{{ isActive !== 1 && !isLoading }}">
 				<input class="moneyInfoBodySearch-i" placeholder="请输入订单号或者商品号查找" />
 			</view> -->

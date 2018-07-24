@@ -1,6 +1,8 @@
 {
 	"usingComponents": {
 		"console": "../../../components/console/console",
-		"loading": "../../../components/loading/index"
-	  }
+		"loading": "../../../components/loading/index",
+		"filterList": "../../../components/filterList/filterList"
+		},
+		"enablePullDownRefresh": true
 }
