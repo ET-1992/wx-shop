@@ -57,6 +57,15 @@ App({
             this.globalData.extraData = options.referrerInfo.extraData;
         }
 
+        if (query.afcode) {
+            this.globalData.afcode = query.afcode;
+        }
+
+        if (options.scene) {
+            const scene = decodeURIComponent(options.scene);
+            console.log(scene);
+        }
+
         // try {
         //     const token = getToken();
         //     if (!token) {
