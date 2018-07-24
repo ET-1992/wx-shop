@@ -269,6 +269,11 @@ const apis = {
         path: 'api/mag.affiliate.qrcode.json',
         method: 'POST',
         isForceToken: true
+    },
+    getShareProductList: {
+        path: 'api/mag.affiliate.product.list.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 

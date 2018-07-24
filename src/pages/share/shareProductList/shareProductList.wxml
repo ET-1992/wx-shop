@@ -1,3 +1,4 @@
 <view>
-  <filterList filterListData="{{ filterListData }}"></filterList>
+  <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
+  <productList products="{{ products }}" class="shareProductListWrap" />
 </view>
