@@ -32,18 +32,18 @@ export const ORDER_STATUS_TEXT = [
     { text: '退款成功', value: 6 },
 ];
 
-export const SHARE_ORDER_STATUS_TEXT = [
-    { text: '待付款', value: 1 },
-    { text: '已支付', value: 2 },
-    { text: '已发货', value: 3 },
-    { text: '已确认', value: 4 },
-    { text: '待成团', value: 10 },
-    { text: '退款中', value: 5 },
-    { text: '已退款', value: 6 },
-    { text: '订单关闭', value: 7 },
-    { text: '系统关闭', value: 8 },
-    { text: '已部分发货', value: 31 },
-];
+// export const SHARE_ORDER_STATUS_TEXT = [
+//     { text: '待付款', value: 1 },
+//     { text: '已支付', value: 2 },
+//     { text: '已发货', value: 3 },
+//     { text: '已确认', value: 4 },
+//     { text: '待成团', value: 10 },
+//     { text: '退款中', value: 5 },
+//     { text: '已退款', value: 6 },
+//     { text: '订单关闭', value: 7 },
+//     { text: '系统关闭', value: 8 },
+//     { text: '已部分发货', value: 31 },
+// ];
 
 export const LOGISTICS_STATUS_TEXT = [
     { text: '暂无该物流信息', value: null },
