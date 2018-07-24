@@ -50,5 +50,20 @@ Page({
     async onShow() {
         this.getCustomerList();
         console.log(this.data);
+    },
+    async onPullDownRefresh() {
+        this.setData({
+            next_cursor: 0,
+            shareList: [],
+            isLoading: true
+        });
+        this.getCustomerList();
+        wx.stopPullDownRefresh();
+    },
+
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) { return }
+        this.getCustomerList();
     }
 });
