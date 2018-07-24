@@ -22,9 +22,10 @@ export const onShareHomeAppMessage = () => {
     };
 };
 
-export const onDefaultShareAppMessage = function () {
+export const onDefaultShareAppMessage = function (params = {}) {
     const { share_title, share_image } = this.data;
-    const { options, route } = this;
+    let { options = {}, route } = this;
+    options = { ...options, ...params };
     const optionsKeys = Object.keys(options);
     const hasOptions = !!optionsKeys.length;
     let path = route;
