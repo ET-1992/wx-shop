@@ -76,8 +76,8 @@ export const authorize = (options) => new Promise((resolve, reject) => {
     wx.authorize({ success: resolve, fail: reject, ...options });
 });
 
-export const canvasToTempFilePath = (options) => new Promise((resolve, reject) => {
-    wx.canvasToTempFilePath({ success: resolve, fail: reject, ...options });
+export const canvasToTempFilePath = (options, ctx) => new Promise((resolve, reject) => {
+    wx.canvasToTempFilePath({ success: resolve, fail: reject, ...options }, ctx);
 });
 
 export const saveImageToPhotosAlbum = (options) => new Promise((resolve, reject) => {

@@ -7,7 +7,7 @@ Component({
     },
     data: {
         isActive: {
-            1: 'Up'
+            0: 'Up'
         }
     },
     methods: {
@@ -22,6 +22,12 @@ Component({
                 isActive: {
                     [index]: type
                 }
+            }, () => {
+                const filter = {
+                    filterIndex: index,
+                    filterType: type
+                };
+                this.triggerEvent('changeFilterList', filter, { bubbles: true });
             });
         }
     }

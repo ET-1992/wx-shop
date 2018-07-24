@@ -59,9 +59,7 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="../../icons/shareProductDetail.png"></image>
-					<!-- 关闭分销 -->
-					<!-- <image class="shareIcon" mode="aspectFit" src="../../icons/shareGoods.png"></image> -->
+					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image>
 				</view>
 
 			</view>
@@ -339,3 +337,5 @@
 </view>
 
 <console page="商品详情" />
+
+<productDetailShareModal productImage="{{ product.images && product.images[0] }}" productTitle="{{ product.title }}" productPrice="{{ product.price }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.images && product.images[0] }}"/>

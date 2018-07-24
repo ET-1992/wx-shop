@@ -85,7 +85,7 @@ export function checkPhone(value) {
     return reg.test(value);
 }
 
-export function getNodeInfo(id, obj = {}) {
+export function getNodeInfo(id, obj = {}, isComponent, ctx) {
     return new Promise((resolve, reject) => {
         const defaultObj = {
             dataset: true,
@@ -94,7 +94,7 @@ export function getNodeInfo(id, obj = {}) {
             rect: true,
             ...obj
         };
-        const query = wx.createSelectorQuery();
+        const query = isComponent ? wx.createSelectorQuery().in(ctx) : wx.createSelectorQuery();
         query.select(`#${id}`).fields(defaultObj, (res) => {
             resolve(res);
         }).exec();

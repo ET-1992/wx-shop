@@ -275,8 +275,8 @@ Page({
             nationalCode,
             detailInfo,
         } = address;
-        const { vendor } = app.globalData;
-        console.log(vendor);
+        const { vendor, afcode } = app.globalData;
+        console.log(vendor, afcode, 'globalData');
 
         if (!userName) {
             wx.showModal({
@@ -308,6 +308,7 @@ Page({
             buyer_message: buyerMessage,
             form_id: formId,
             vendor,
+            afcode
         };
 
         if (user_coupon_ids) {

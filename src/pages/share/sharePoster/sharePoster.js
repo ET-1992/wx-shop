@@ -27,7 +27,7 @@ Page({
         };
     },
 
-    async onShow(options) {
+    async onShow() {
         const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
         if (data && data.qrcode_url) {
             const qrcodeUrl = imgToHttps(data.qrcode_url);
@@ -260,8 +260,7 @@ Page({
         console.log('90');
         return {
             title: '我发现了一家好店，快来看看',
-            path: 'pages/share/shareApply/shareApply',
-            imageUrl: this.data.tempFilePath || ''
+            path: 'pages/share/shareApply/shareApply'
         };
     }
 });

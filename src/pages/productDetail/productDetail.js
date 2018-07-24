@@ -115,6 +115,7 @@ Page({
         isGrouponBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
+        isShowProductDetailShareModal: false
     },
 
     onShowSku(ev) {
@@ -658,7 +659,13 @@ Page({
     async reload() {
         await this.initPage();
     },
-    onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage(res) {
+        const { current_user = {}} = this.data;
+        const opts = {
+            afcode: current_user.afcode || ''
+        };
+        onDefaultShareAppMessage.call(this, opts);
+    },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频
         const swiperVideoImg = this.selectComponent('#swiperVideoImg');
@@ -671,10 +678,34 @@ Page({
     },
 
     shareProductDetail() {
-        console.log('来哦时间哦');
         const { product } = this.data;
         wx.navigateTo({
             url: `/pages/share/sharePoster/sharePoster?productTitle=${product.title}&productImg=${product.images && product.images[0]}`
+        });
+    },
+
+    async isShowProductDetailShareModal() {
+        const { product, current_user } = this.data;
+        if (product.affiliate_enable && !current_user.is_affiliate_member) {
+            const { confirm } = await showModal({
+                content: '希望获取这件商品的佣金吗? 赶紧申请为分销员吧！',
+                title: '温馨提示'
+            });
+            if (confirm) {
+                wx.navigateTo({
+                    url: '/pages/share/shareApply/shareApply'
+                });
+                return;
+            }
+        }
+        this.setData({
+            isShowProductDetailShareModal: true
+        });
+    },
+
+    onCloseProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: false
         });
     }
 });

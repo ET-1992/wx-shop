@@ -4,6 +4,7 @@
     "pendingGrouponItem": "../../components/pendingGrouponItem/index",
     "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
     "console": "../../components/console/console",
+    "productDetailShareModal": "./productDetailShareModal/productDetailShareModal",
     "loading": "../../components/loading/index"
   }
 }

@@ -4,8 +4,10 @@
 	display: flex;
 	flex-direction: row;
 	font-size: 24rpx;
-	border-bottom: 1rpx solid #E0E0E0;
+	border-bottom: 1rpx solid #c2c2c2;
 	background: #fff;
+	position: fixed;
+	top: 0;
 }
 
 .item {
