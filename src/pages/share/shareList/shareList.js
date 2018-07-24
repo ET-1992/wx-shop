@@ -3,13 +3,24 @@ Page({
     data: {
         next_cursor: 0,
         isLoading: true,
-        shareList: []
+        shareList: [],
     },
 
     onLoad(parmas) {
         const { user_type } = parmas;
         this.setData({
-            user_type
+            user_type,
+            filterListData: [
+                {
+                    name: '时间',
+                },
+                {
+                    name: '订单数'
+                },
+                {
+                    name: user_type === '1' ? '我的收益' : '成交金额'
+                }
+            ]
         });
         if (user_type === '1') {
             wx.setNavigationBarTitle({
