@@ -1,22 +1,24 @@
 <template name="orderList">
-    <view class="container" wx:for="{{ orders }}">
+    <view class="container" wx:for="{{ orders }}" wx:for-item="order">
         <view class="top">
-            <view class="orderNumber">所属单号：{{ item.order_no }}</view>
-            <view class="orderStatus {{ item.order_status === '待支付' ||  item.status == '已支付' || item.status == '已确认' ? '' : 'activeColor' }}">{{ item.order_status }}</view>
+            <view class="orderNumber">所属订单号：{{ order.order_no }}</view>
+            <view class="orderStatus {{ order.order_status === '1' ||  order.order_status == '2' || order.order_status == '4' ? '' : 'activeColor' }}">{{ order.statusText }}</view>
         </view>
-        <view class="middle">
-            <image class="itemImage" mode="aspectFill" src="{{ item.image_url }}"></image>
-            <view class="middleRight">
-                <view class="title">{{ item.order_title }}</view>
-                <view class="rightBottom">
-                    <view class="orderDate">{{ item.date }}</view>
-                    <view class="orderCount">X{{ item.count }}</view>
+        <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
+            <view class="middle" wx:for="{{ order.order_items }}">
+                <image class="itemImage" mode="aspectFill" src="{{ item.image_url }}"></image>
+                <view class="middleRight">
+                    <view class="title">{{ item.title }}</view>
+                    <view class="rightBottom">
+                        <view class="orderDate">{{ order.formatTime }}</view>
+                        <view class="orderCount">X<text class="quantity">{{ item.quantity }}</text></view>
+                    </view>
                 </view>
             </view>
-        </view>
+        </navigator>
         <view class="bottom">
-            <view>商品总价：￥{{ item.order_amount }}</view>
-            <view class="income">{{ item.order_status == '已确认' || item.order_status == '已退款' ? '收益：' : '预计收益：'}} {{ item.commission_amount }}</view>
+            <view>商品总价：￥{{ order.order_amount }}</view>
+            <view class="income">{{ order.order_status == '4' || order.order_status == '6' ? '收益：' : '预计收益：'}} ￥{{ order.commission_amount }}</view>
         </view>
     </view>
 </template>
