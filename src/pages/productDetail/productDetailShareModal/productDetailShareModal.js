@@ -7,29 +7,50 @@ const app = getApp();
 
 Component({
     properties: {
-        title: {
+        productImage: {
             type: String,
-            value: 'productDetailShareModal Component',
+            value: '',
+        },
+        productTitle: {
+            type: String,
+            value: '',
+        },
+        productPrice: {
+            type: String,
+            value: '',
+        },
+        isShowProductDetailShareModal: {
+            type: Boolean,
+            value: false,
         }
     },
     data: {
         nodeInfo: {},
-        ctx: {}
+        ctx: {},
+        authModal: {},
+        productImageUrl: '',
+        qrcodeUrl: ''
     },
     async ready() {
         const nodeInfo = await getNodeInfo('canvasPosterId', {}, true, this);
         console.log(nodeInfo);
-        this.data.nodeInfo = nodeInfo;
-        this.drawProductDetailImg();
+        const user = getUserInfo();
+        this.setData({
+            nodeInfo,
+            user
+        }, this.downImg);
     },
     methods: {
         drawProductDetailImg() {
             // ctm的wx page和components搞两套语法也就算了 api也搞两套 一下午被兼容搞得头大
+            const { productTitle, productPrice, productImageUrl, qrcodeUrl, user, nodeInfo } = this.data;
+            console.log(productImageUrl);
+            console.log(productTitle);
             const ctx = wx.createCanvasContext('canvasPoster', this);
             this.data.ctx = ctx;
             const { windowWidth } = app.systemInfo;
             console.log(this.data);
-            const { width, height } = this.data.nodeInfo;
+            const { width, height } = nodeInfo;
             ctx.setFillStyle('#fff');
             ctx.fillRect(0, 0, width, height);
 
@@ -37,10 +58,10 @@ Component({
 
             ctx.beginPath();
             ctx.rect(45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height);
-            ctx.setFillStyle('red');
+            ctx.setFillStyle('#fff');
             ctx.fill();
-            // ctx.clip();
-            // ctx.drawImage(this.data.tempFilePath, 45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height, 450 / 540 * width, 450 / 900 * height);
+            ctx.clip();
+            ctx.drawImage(productImageUrl || '', 45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height, 450 / 540 * width, 450 / 900 * height);
             ctx.restore();
 
             ctx.beginPath();
@@ -48,7 +69,7 @@ Component({
             ctx.setTextAlign('left');
             console.log('2');
 
-            const text = '风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉';
+            const text = productTitle;
             ctx.font = 'normal normal 18px PingFang SC';
             const textRow = autoDrawText({
                 text,
@@ -67,7 +88,7 @@ Component({
             console.log(textRow);
             ctx.beginPath();
             ctx.setFillStyle('#FC2732');
-            ctx.fillText('￥999', 45 / 540 * width, 640 / 900 * height);
+            ctx.fillText(productPrice, 45 / 540 * width, 640 / 900 * height);
 
             ctx.beginPath();
             ctx.moveTo(45 / 540 * width, 670 / 900 * height);
@@ -80,27 +101,33 @@ Component({
             ctx.setFillStyle('#000000');
             ctx.setTextAlign('left');
             ctx.font = 'normal normal 12px PingFang SC';
-            ctx.fillText(`xxx向你推荐这个商品`, 50 / 540 * width, 750 / 900 * height);
+            ctx.fillText(`${(user && user.nickname) || '好友'}向你推荐这个商品`, 50 / 540 * width, 750 / 900 * height);
             ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
             ctx.arc(410 / 540 * width, 750 / 900 * height + 15, 75 / 540 * width, 0, 2 * Math.PI);
-            ctx.setFillStyle('#c9c9c9');
-            ctx.fill();
+            ctx.clip();
+            ctx.drawImage(qrcodeUrl, 410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
+            // ctx.setFillStyle('#c9c9c9');
+            // ctx.fill();
             console.log('o00');
             ctx.draw();
         },
         async drawCanvasToImg() {
             const { width, height } = this.data.nodeInfo;
-            const data = await canvasToTempFilePath({
-                x: 0,
-                y: 0,
-                width: width,
-                height: height,
-                canvasId: 'canvasPoster',
-                quality: 1
-            });
-            return data;
+            try {
+                const data = await canvasToTempFilePath({
+                    x: 0,
+                    y: 0,
+                    width: width,
+                    height: height,
+                    canvasId: 'canvasPoster',
+                    quality: 1
+                }, this);
+                return data;
+            } catch (e) {
+                console.log(e);
+            }
         },
 
         async saveCanvasToImg() {
@@ -109,7 +136,7 @@ Component({
             const res = await auth({
                 scope: 'scope.writePhotosAlbum',
                 ctx: this,
-                isFatherControl: false
+                isFatherControl: true
             });
             if (res) {
                 await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
@@ -120,6 +147,54 @@ Component({
                 });
             }
         },
+
+        beforeAutoShowModal(e) {
+            if (e !== 'scope.userInfo') {
+                this.setData({
+                    hiddenCanvas: true
+                });
+            }
+        },
+
+        onModalCancel() {
+            this.setData({
+                'authModal.isShowModal': false,
+                hiddenCanvas: false
+            });
+        },
+
+        onModalConfirm() {
+            this.setData({
+                'authModal.isShowModal': false,
+                hiddenCanvas: false
+            });
+        },
+
+        touchmove() {
+            console.log('点击穿透阻止');
+            return;
+        },
+
+        async downImg() {
+            const qvcode = await api.hei.getShareQrcode();
+            const { productImage } = this.data;
+            const productImage_ = imgToHttps(productImage);
+            const qvcode_ = imgToHttps(qvcode.qrcode_url);
+            const productImageUrlPromise = downloadFile({ url: productImage_ });
+            const qrcodeUrlPromise = downloadFile({ url: qvcode_ });
+            const datas = await Promise.all([productImageUrlPromise, qrcodeUrlPromise]);
+            console.log(datas, 'datas');
+            const productImageUrlData = datas[0];
+            const qrcodeUrlData = datas[1];
+            this.setData({
+                productImageUrl: productImageUrlData.tempFilePath,
+                qrcodeUrl: qrcodeUrlData.tempFilePath
+            }, this.drawProductDetailImg);
+        },
+
+        closeModal() {
+            this.triggerEvent('onCloseModal', {}, { bubbles: true });
+        }
     }
 });
 

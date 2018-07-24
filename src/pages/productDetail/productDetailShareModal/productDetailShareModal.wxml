@@ -1,6 +1,6 @@
-<view class="container">
+<view class="container" catchtouchmove="touchmove">
 	<view class="shareModal">
-		<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: block"/>
+		<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: {{ hiddenCanvas ? 'none' : 'block' }}"/>
 		<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>
 	
 		<view class="btnWtap">
@@ -8,5 +8,6 @@
 			<button class="btn" bindtap="saveCanvasToImg">保存分享到朋友圈</button>
 		</view>
 	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 </view>
 <myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />
