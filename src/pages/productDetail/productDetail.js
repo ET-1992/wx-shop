@@ -194,6 +194,7 @@ Page({
 
         try {
             const data = await api.hei.fetchProduct({ id });
+
             const { skus, coupons, properties: productProperties } = data.product;
             const skuData = {};
             skus.forEach((sku) => {
@@ -305,6 +306,22 @@ Page({
             });
 
             this.countDown();
+
+            // --------------------
+            const { hasEnd, hasStart, product } = this.data;
+            product.definePrice = 0;
+
+            if (product.groupon_enable === '1') {
+                product.definePrice = product.groupon_price;
+            } else if (product.miaosha_enable === '1' && !hasEnd && hasStart) {
+                product.definePrice = product.miaosha_price;
+            } else {
+                product.definePrice = product.price;
+            }
+            this.setData({
+                product
+            });
+            // ---------------
         }
         catch (err) {
             console.log(err);
