@@ -6,7 +6,7 @@
                 <view class="rightTop">{{ item.nickname }}</view>
                 <view class="rightBottom">
                     <view class="bottomLeft">订单：{{ item.order_count || 0}}</view>
-                    <view class="bottomRight">{{ user_type === '1' ? '我的收益' : '成交金额'}}：￥{{ item.commission || 0}}</view>
+                    <view class="bottomRight">{{ user_type === '1' ? '我的收益' : '成交金额'}}：￥{{ item.commission/100 || 0}}</view>
                 </view>
             </view>
         </view>

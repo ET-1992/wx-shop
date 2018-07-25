@@ -7,8 +7,7 @@ Page({
         filterData: {
             filterIndex: 0,
             filterType: 'Up'
-        },
-        current_page: 1,
+        }
     },
 
     onLoad(parmas) {
@@ -41,7 +40,7 @@ Page({
     changeFilterList(e) {
         this.setData({
             filterData: e.detail,
-            current_page: 1,
+            next_cursor: 0,
             members: []
         }, this.filterShareList);
         console.log(this.data);
@@ -63,13 +62,12 @@ Page({
         }, this.getCustomerList);
     },
     async getCustomerList() {
-        const { filterOrderby, filterOrder, current_page, next_cursor, members } = this.data;
+        const { filterOrderby, filterOrder, next_cursor, members } = this.data;
         const data = await api.hei.getShareCustomerList({
             cursor: next_cursor,
             user_type: this.data.user_type,
             orderby: filterOrderby,
-            order: filterOrder,
-            current_page
+            order: filterOrder
         });
         if (members.length > 0) {
             data.members = data.members.concat(members);
@@ -95,13 +93,8 @@ Page({
     },
 
     async onReachBottom() {
-        let { next_cursor, current_page, total_pages } = this.data;
+        const { next_cursor } = this.data;
         if (!next_cursor) { return }
-        current_page++;
-        if (current_page === total_pages) { return }
-        console.log(current_page);
-        this.setData({
-            current_page
-        }, this.getCustomerList);
+        this.getCustomerList();
     }
 });
