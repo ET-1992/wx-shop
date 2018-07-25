@@ -22,6 +22,14 @@ Component({
         isShowProductDetailShareModal: {
             type: Boolean,
             value: false,
+        },
+        routeQuery: {
+            type: Object,
+            value: {},
+        },
+        routePath: {
+            type: String,
+            value: '',
         }
     },
     data: {
@@ -175,11 +183,12 @@ Component({
         },
 
         async downImg() {
+            const { routePath, routeQuery } = this.data;
             wx.showLoading({
                 title: '绘制图片中',
                 mask: true
             });
-            const qvcode = await api.hei.getShareQrcode();
+            const qvcode = await api.hei.getShareQrcode({ weapp_page: routePath, id: routeQuery.id });
             const { productImage } = this.data;
             const productImage_ = imgToHttps(productImage);
             const qvcode_ = imgToHttps(qvcode.qrcode_url);

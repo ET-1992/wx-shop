@@ -197,14 +197,14 @@ Page({
 
             const { skus, coupons, properties: productProperties } = data.product;
             const skuData = {};
-            skus.forEach((sku) => {
+            skus && skus.forEach((sku) => {
                 const { property_names, stock, price } = sku;
                 skuData[property_names] = { price, count: stock };
             });
 
             const skuMap = getSKUMap.init(skuData);
 
-            const { receivableCoupons, receivedCoupons } = coupons.reduce(
+            const { receivableCoupons, receivedCoupons } = coupons && coupons.reduce(
                 (classifyCoupons, coupon) => {
                     const { receivableCoupons, receivedCoupons } = classifyCoupons;
 
@@ -259,7 +259,7 @@ Page({
             let defalutSelectedProperties;
             let selectedSku = {};
 
-            skus.forEach((sku) => {
+            skus && skus.forEach((sku) => {
                 const { stock, properties } = sku;
                 // const value = properties[0].v;
 
@@ -347,7 +347,7 @@ Page({
         wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
     },
 
-    async onLoad({ grouponId }) {
+    async onLoad({ grouponId, ...query }) {
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -357,6 +357,8 @@ Page({
             user,
             themeColor,
             isGrouponBuy: !!grouponId,
+            routePath: this.route,
+            routeQuery: query
         });
     },
 
@@ -707,6 +709,7 @@ Page({
     },
 
     async isShowProductDetailShareModal() {
+        this.setSwiperVideoImg();
         const { product, current_user } = this.data;
         if (product.affiliate_enable && !current_user.is_affiliate_member) {
             const { confirm } = await showModal({

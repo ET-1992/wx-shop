@@ -62,8 +62,22 @@ App({
         }
 
         if (options.scene) {
-            const scene = decodeURIComponent(options.scene);
-            console.log(scene);
+            let scene = decodeURIComponent(options.scene);
+            console.log(scene, 'scene');
+            // let query = {};
+            // if (scene.indexOf('&') > -1) {
+            //     const array = scene.split('&');
+            //     console.log(scene, array, 'pop');
+            //     array.forEach((item) => {
+            //         const itemArray = item.split('=');
+            //         query[itemArray[0]] = itemArray[1];
+            //     });
+            // } else {
+            //     const sceneArray = scene.split('=');
+            //     query[sceneArray[0]] = sceneArray[1];
+            // }
+
+            // console.log(query, 'query', options.path);
         }
 
         // try {
