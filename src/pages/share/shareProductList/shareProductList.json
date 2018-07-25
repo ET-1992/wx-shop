@@ -2,7 +2,8 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "filterList": "../../../components/filterList/filterList",
-    "productList": "../../../components/productList/index"
+    "productList": "../../../components/productList/index",
+    "loading": "../../../components/loading/index"
   },
   "navigationBarTitleText": "分享商品",
   "onReachBottomDistance": 100

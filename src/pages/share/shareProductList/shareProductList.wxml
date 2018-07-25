@@ -1,4 +1,5 @@
+<loading isLoading="{{ isLoading }}" />
 <view>
   <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
-  <productList products="{{ products }}" class="shareProductListWrap" />
+  <productList wx:if="{{ !isLoading }}" products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" class="shareProductListWrap" />
 </view>

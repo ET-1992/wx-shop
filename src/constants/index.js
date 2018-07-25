@@ -70,4 +70,4 @@ export const phoneStyle = {
     'iPhone X': 'iphoneX'
 };
 /* 商品列表排版风格 */
-export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage'];
+export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage', 'shareProduct'];

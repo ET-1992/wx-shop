@@ -1,7 +1,8 @@
 import api from 'utils/api';
-
+import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 Page({
     data: {
+        productLayoutStyle: PRODUCT_LAYOUT_STYLE[4],
         filterListData: [
             {
                 name: '佣金比例',
@@ -18,7 +19,8 @@ Page({
             filterType: 'Up'
         },
         current_page: 1,
-        products: []
+        products: [],
+        isLoading: true
     },
     async onShow() {
         this.filterProduct();
@@ -27,7 +29,8 @@ Page({
         this.setData({
             filterData: e.detail,
             current_page: 1,
-            products: []
+            products: [],
+            isLoading: true
         }, this.filterProduct);
     },
     filterProduct() {
@@ -53,8 +56,17 @@ Page({
             data.products = data.products.concat(products);
         }
         this.setData({
-            ...data
+            ...data,
+            isLoading: false
         });
+    },
+    async onPullDownRefresh() {
+        this.setData({
+            isLoading: true,
+            currentPage: 1,
+        });
+        this.loadProduct();
+        wx.stopPullDownRefresh();
     },
     onReachBottom() {
         let { current_page, total_pages } = this.data;
