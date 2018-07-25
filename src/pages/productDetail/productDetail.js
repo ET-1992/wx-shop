@@ -659,12 +659,13 @@ Page({
     async reload() {
         await this.initPage();
     },
-    onShareAppMessage(res) {
+
+    onShareAppMessage() {
         const { current_user = {}} = this.data;
         const opts = {
             afcode: current_user.afcode || ''
         };
-        onDefaultShareAppMessage.call(this, opts);
+        return onDefaultShareAppMessage.call(this, opts);
     },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频

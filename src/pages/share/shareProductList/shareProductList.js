@@ -48,7 +48,7 @@ Page({
     },
     async loadProduct() {
         const { filterOrderby, filterOrder, current_page, products } = this.data;
-        const data = await api.hei.getShareProductList({ orderby: filterOrderby, order: filterOrder, current_page });
+        const data = await api.hei.getShareProductList({ orderby: filterOrderby, order: filterOrder, paged: current_page });
         if (products.length > 0) {
             data.products = data.products.concat(products);
         }
