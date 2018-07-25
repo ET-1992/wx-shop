@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getNodeInfo, formatTime, textToValue, valueToText  } from 'utils/util';
-import { SHARE_ORDER_STATUS_TEXT } from 'constants/index';
+import { ORDER_STATUS_TEXT } from 'constants/index';
 
 Page({
     data: {
@@ -27,7 +27,7 @@ Page({
         });
         data.orders.forEach((item) => {
             item.formatTime = formatTime(new Date(item.time * 1000));
-            item.statusText = valueToText(SHARE_ORDER_STATUS_TEXT, Number(item.order_status));
+            item.statusText = valueToText(ORDER_STATUS_TEXT, Number(item.order_status));
         });
         const newData = this.data.orders.concat(data.orders);
         this.setData({

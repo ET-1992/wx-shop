@@ -5,4 +5,5 @@
     <view class="noDataText" wx:else>
         暂无订单
     </view>
+    <view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
 </block>
