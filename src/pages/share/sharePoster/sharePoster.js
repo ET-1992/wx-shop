@@ -21,8 +21,8 @@ Page({
             '2': this.drawFriendImage
         };
         this.qrcodePath = {
-            '1': 'pages/home/home',
-            '2': 'pages/share/shareApply/shareApply'
+            '2': 'pages/home/home',
+            '1': 'pages/share/shareApply/shareApply'
         };
     },
 
@@ -202,7 +202,7 @@ Page({
         const opts = {
             afcode: current_user.afcode || ''
         };
-        const path = '/pages/share/shareApply/shareApply';
+        const path = '/' + this.qrcodePath[this.postertype];
         return onDefaultShareAppMessage.call(this, opts, path);
     }
 });
