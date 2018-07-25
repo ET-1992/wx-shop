@@ -1,0 +1,60 @@
+<view class="flashItem">
+    <view class="meta">
+      <view class="name">{{ product.title }}</view>
+      <!-- <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view> -->
+      <view class="timeLimit">
+        <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+        <view wx:if="{{ !hasStart }}">距开始</view>
+        <view wx:if="{{ hasEnd }}">已结束</view>
+        <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+          <view class="day">{{ remainTime.day }}</view>
+          <view class="dateTitle">天</view>
+        </block>
+        <view
+          class="hour"
+          style="background-color: {{ themeColor.primaryColor }}"
+          wx:if="{{ !hasEnd }}"
+        >{{ remainTime.hour }}</view>
+        <view class="dateTitle" wx:if="{{ !hasEnd }}">时</view>
+        <view
+          class="minute"
+          wx:if="{{ !hasEnd }}"
+          style="background-color: {{ themeColor.primaryColor }}"
+        >{{ remainTime.minute }}</view>
+        <view class="dateTitle" wx:if="{{ !hasEnd }}">分</view>
+        <view
+          class="second"
+          wx:if="{{ !hasEnd }}"
+          style="background-color: {{ themeColor.primaryColor }}"
+        >{{ remainTime.second }}</view>
+        <view class="dateTitle" wx:if="{{ !hasEnd }}">秒</view>
+      </view>
+      <view class="footer">
+        <view class="allprice">
+          <view class="flashPrice">
+            <text class="flashPriceTitle">限时价</text>
+            <text class="price">￥</text><text class="miaoshaPrice">{{ product.miaosha_price }}</text>
+          </view>
+          <view  wx:if="{{ product.miaosha_price !== product.original_price }}" >
+            <text class="originalPriceTitle"></text>
+            <text class="originalPrice" >￥{{ product.original_price }}</text>
+          </view>
+        </view>
+  
+        <!-- <view class="right" wx:if="{{ !hasEnd }}">
+          <form bindsubmit="submit" report-submit="true">
+            <button
+              class="buy"
+              formType="submit"
+              style="background-color: {{ themeColor.primaryColor }}"
+            >{{ hasStart ? '马上抢' : '去看看' }}</button>
+          </form>
+        </view> -->
+      </view>
+    </view>
+    <image
+      class="productImage"
+      mode="apsectFit"
+      src="{{ product.thumbnail }}"
+    />
+  </view>  

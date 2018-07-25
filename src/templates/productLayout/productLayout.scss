@@ -295,6 +295,141 @@
 	}
 }
 
+.flashItem {
+	display: flex;
+	background-color: #fff;
+	// padding:10rpx 0;
+	align-items: center;
+
+	.meta {
+		padding-left:30rpx;
+		width: 470rpx;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.name {
+		overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    color: $titleColor;
+    font-size: 32rpx;
+	}
+
+	.desc {
+		color: $tagColor;
+		font-size: 26rpx;
+		margin: 20rpx 0;
+		white-space: nowrap;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+	}
+
+	.timeLimit {
+		display: flex;
+		align-items: center;
+		font-size: 26rpx;
+		margin-top: 30rpx;
+		margin-bottom: 30rpx;
+
+		.hour, .minute, .second {
+			color: #fff;
+			width: 50rpx;
+			height: 40rpx;
+			line-height: 40rpx;
+			text-align: center;
+			background-color: $mainColor;
+			margin: 0 5rpx;
+			font-size:26rpx;
+			border-radius: 5rpx;
+		}
+		.day{
+			padding: 0 5rpx;
+			font-size: 36rpx;
+			font-weight: bold;
+			margin: 0 5rpx;
+		}
+
+		.dateTitle{
+			font-size: 20rpx;
+		}
+	}
+
+	.footer {
+		display: flex;
+		align-items: flex-end;
+		flex-grow: 1;
+
+		.flashPriceTitle {
+			font-size: 26rpx;
+			color: #000;
+			margin-right: 10rpx;
+		}
+
+		.flashPrice {
+			font-size: 36rpx;
+			color: $priceColor;
+			padding-left: 50rpx;
+			display: flex;
+			align-items: center;
+		}
+		.miaoshaPrice {
+			font-size: 36rpx;
+			color: $priceColor;
+			font-weight: bold;
+		}
+
+		.originalPriceTitle{
+			padding-left: 20rpx;
+			font-size:22rpx;
+			color: $originalPriceColor;
+			margin-right: 10rpx;
+		}
+
+		.originalPrice {
+			text-decoration: line-through;
+			font-size:20rpx;
+			color: #707070;
+			margin-right: 10rpx;
+		}
+
+		.right {
+			flex-grow: 1;
+		}
+
+		.buy {
+			float: right;
+			font-size: 26rpx;
+			color: #fff;
+			background-color: $mainColor;
+			margin-right:20rpx;
+			width:110rpx;
+			height:48rpx;
+			text-align:center;
+			line-height:48rpx;
+			border-radius: 5rpx;
+		}
+
+		.allprice{
+			display: flex;
+			justify-content:space-around;
+			align-items: center;
+		}
+	}
+
+	.productImage {
+		$size: 280rpx;
+
+		width: $size;
+		height: $size;
+		flex-shrink: 0;
+	}
+	.price{
+		font-size: 26rpx;
+		color: $priceColor;
+	}
+}
+
 /* shareProduct */
 .shareProductItem {
 	display: flex;
