@@ -14,9 +14,7 @@ Page({
         wx.setNavigationBarTitle({
             title: '订单列表'
         });
-    },
 
-    async onShow() {
         this.getOrderList();
     },
 
