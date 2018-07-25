@@ -1,6 +1,6 @@
 <template name="shareList">
     <view class="container">
-        <view class="item" wx:for="{{ shareList }}">
+        <view class="item" wx:for="{{ members }}">
             <image src="{{ item.avatarurl }}" class="left"></image>
             <view class="right">
                 <view class="rightTop">{{ item.nickname }}</view>
