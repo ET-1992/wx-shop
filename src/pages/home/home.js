@@ -239,12 +239,11 @@ Page({
 
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);
-        }
-        else {
+        } else if (Number(status) === 4) {
             wx.navigateTo({
                 url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
             });
-        }
+        } else { return }
     },
 
     closeCoupon() {

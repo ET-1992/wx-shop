@@ -94,14 +94,10 @@
 					<button formType="submit">
 						<view class="couponBtn">领券</view>
 						<!-- 只显示三个 -->
-						<view 
-							class="coupon" 
-							wx:for="{{ product.coupons }}" 
-							wx:key="{{ item.id }}" 
-							wx:if="{{ index < 3 }}"
-						>{{ item.title }}
-						</view>
-						<!-- <view wx:if="{{ !(item.status == 2 && item.stock_qty) }}" class="nullCoupon">暂无可领取优惠券</view> -->
+						<block wx:if="{{ receivableCoupons && receivableCoupons.length}}">
+							<view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="{{ item.id }}" wx:if="{{ index< 3}}">{{ item.title }}</view>
+						</block>
+						<view wx:else class="nullCoupon">暂无可领取优惠券</view>
 						<!-- <image class="rightIcon" src="/icons/right.png" /> -->
 					</button>
 				</form>
