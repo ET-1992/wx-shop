@@ -2,7 +2,7 @@
   <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
   <view class="textareaWrapper">
-    <textarea wx:if="{{!addressModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
+    <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
   <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
@@ -12,4 +12,4 @@
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
 
 <console page="创建订单" />
-<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>
+<myModal modal="{{authModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>
