@@ -2,3 +2,5 @@
   <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
   <productList products="{{ products }}" class="shareProductListWrap" />
 </view>
+
+<console page="分销商品" />

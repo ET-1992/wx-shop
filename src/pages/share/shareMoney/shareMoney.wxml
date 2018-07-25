@@ -110,3 +110,4 @@
 	<view class="saveBtn" bindtap="{{ payStyle == 'weixin' ? 'submitWechat' : 'submitBank'}}">申请提现</view>
 </view>
     
+<console page="分销提现" />

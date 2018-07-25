@@ -9,3 +9,5 @@
 </view>
 
 <myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />
+
+<console page="分销海报" />

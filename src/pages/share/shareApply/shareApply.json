@@ -1,4 +1,6 @@
 {
-  "enablePullDownRefresh": true,
-  "navigationBarTitleText": "花生分享计划"
+  "navigationBarTitleText": "花生分享计划",
+  "usingComponents": {
+    "console": "/components/console/console"
+  }
 }

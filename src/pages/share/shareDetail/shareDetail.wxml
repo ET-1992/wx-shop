@@ -42,3 +42,5 @@
 
 	<myModal modal="{{modal}}" />
 </view>
+
+<console page="分销明细" />

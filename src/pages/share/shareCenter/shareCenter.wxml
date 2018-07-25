@@ -67,3 +67,5 @@
 		<view class="content-footer" bindtap="changeModal">知道了</view>
 	</view>
 </view>
+
+<console page="分销中心" />
