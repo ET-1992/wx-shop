@@ -3,7 +3,12 @@ Page({
     data: {
         next_cursor: 0,
         isLoading: true,
-        shareList: [],
+        members: [],
+        filterData: {
+            filterIndex: 0,
+            filterType: 'Up'
+        },
+        current_page: 1,
     },
 
     onLoad(parmas) {
@@ -32,29 +37,57 @@ Page({
             });
         }
     },
-    async getCustomerList() {
-        const { next_cursor } = this.data;
-        const shareList = await api.hei.getShareCustomerList({
-            cursor: next_cursor,
-            user_type: this.data.user_type
-        });
 
-        const newData = this.data.shareList.concat(shareList.members);
+    changeFilterList(e) {
         this.setData({
-            shareList: newData,
-            isLoading: false,
-            next_cursor: shareList.next_cursor,
+            filterData: e.detail,
+            current_page: 1,
+            members: []
+        }, this.filterShareList);
+        console.log(this.data);
+    },
+    filterShareList() {
+        const { filterData } = this.data;
+        const sortText = {
+            0: 'time',
+            1: 'order_count',
+            2: this.data.user_type === '1' ? 'commission' : 'order_amount'
+        };
+        const sortStatus = {
+            'Up': 'desc',
+            'Down': 'asc'
+        };
+        this.setData({
+            filterOrderby: sortText[filterData.filterIndex],
+            filterOrder: sortStatus[filterData.filterType]
+        }, this.getCustomerList);
+    },
+    async getCustomerList() {
+        const { filterOrderby, filterOrder, current_page, next_cursor, members } = this.data;
+        const data = await api.hei.getShareCustomerList({
+            cursor: next_cursor,
+            user_type: this.data.user_type,
+            orderby: filterOrderby,
+            order: filterOrder,
+            current_page
         });
-        return shareList;
+        if (members.length > 0) {
+            data.members = data.members.concat(members);
+        }
+        this.setData({
+            ...data,
+            isLoading: false,
+            next_cursor: data.next_cursor,
+        });
     },
     async onShow() {
-        this.getCustomerList();
+        this.filterShareList();
         console.log(this.data);
     },
     async onPullDownRefresh() {
         this.setData({
             next_cursor: 0,
-            shareList: [],
+            members: [],
             isLoading: true
         });
         this.getCustomerList();
@@ -62,8 +95,13 @@ Page({
     },
 
     async onReachBottom() {
-        const { next_cursor } = this.data;
+        let { next_cursor, current_page, total_pages } = this.data;
         if (!next_cursor) { return }
-        this.getCustomerList();
+        current_page++;
+        if (current_page === total_pages) { return }
+        console.log(current_page);
+        this.setData({
+            current_page
+        }, this.getCustomerList);
     }
 });
