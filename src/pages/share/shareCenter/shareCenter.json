@@ -1,7 +1,7 @@
 {
 	"navigationBarTitleText": "分享中心",
 	"usingComponents": {
-		"console": "/components/console/console",
+		"console": "../../../components/console/console",
 		"loading": "../../../components/loading/index"
 	}
 }

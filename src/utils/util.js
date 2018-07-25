@@ -84,6 +84,10 @@ export function checkPhone(value) {
     const reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     return reg.test(value);
 }
+export function checkQQ(value) {
+    const reg = /^([1-9][0-9]{4})|([0-9]{6,10})$/;
+    return reg.test(value);
+}
 
 export function getNodeInfo(id, obj = {}, isComponent, ctx) {
     return new Promise((resolve, reject) => {
