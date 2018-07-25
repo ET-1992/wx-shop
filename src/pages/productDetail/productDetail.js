@@ -211,7 +211,7 @@ Page({
                     if (Number(coupon.status) === 2) {
                         receivableCoupons.push(coupon);
                     }
-                    else {
+                    else if (Number(coupon.status) === 4) {
                         receivedCoupons.push(coupon);
                     }
                     return classifyCoupons;
@@ -310,6 +310,7 @@ Page({
             console.log(err);
         }
         this.setData({ isLoading: false });
+        console.log(this.data);
     },
 
     async onShow() {
