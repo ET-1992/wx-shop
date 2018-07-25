@@ -110,6 +110,7 @@ Component({
             // ctx.fill();
             console.log('o00');
             ctx.draw();
+            wx.hideLoading();
         },
         async drawCanvasToImg() {
             const { width, height } = this.data.nodeInfo;
@@ -174,6 +175,10 @@ Component({
         },
 
         async downImg() {
+            wx.showLoading({
+                title: '绘制图片中',
+                mask: true
+            });
             const qvcode = await api.hei.getShareQrcode();
             const { productImage } = this.data;
             const productImage_ = imgToHttps(productImage);

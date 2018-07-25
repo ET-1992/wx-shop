@@ -27,6 +27,10 @@ Page({
     },
 
     async onShow() {
+        wx.showLoading({
+            title: '绘制图片中',
+            mask: true
+        });
         const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
         if (data && data.qrcode_url) {
             const qrcodeUrl = imgToHttps(data.qrcode_url);
@@ -98,6 +102,7 @@ Page({
         ctx.restore();
 
         ctx.draw();
+        wx.hideLoading();
     },
 
     drawFriendImage() {
@@ -134,9 +139,8 @@ Page({
         ctx.clip();
         ctx.drawImage(this.data.qrcodeUrl, width / 2 - width * (360 / 650) / 2, height * 0.65 - width * (360 / 650) / 2, width * (360 / 650), width * (360 / 650));
         ctx.restore();
-
-
         ctx.draw();
+        wx.hideLoading();
     },
 
     async drawCanvasToImg() {
