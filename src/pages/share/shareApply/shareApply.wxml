@@ -1,8 +1,50 @@
 <view class="container">
-	<image class="img" src="{{ image_url }}" mode="scaleToFill"/>
+	<image class="img" src="{{ image_url }}" mode="widthFix"/>
 	<view class="footer">
-		<view class="shareBtn" bindtap="joinShareUser"><text class="text">申请成为分享家</text></view>
+		<view class="shareBtn" bindtap="applyModal"><text class="text">申请成为分享家</text></view>
 	</view>
 </view>
-
+<view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}">
+	<view class="content">
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
+		<view class="content-body">
+			<view class="item">
+				<view class="item-text">手机号
+					<text class="sign">*</text>
+				</view>
+				<input 
+					class="item-input" 
+					placeholder="请输入手机号" 
+					type="number" 
+					bindblur="check" 
+					style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
+					bindfocus="reset"
+					bindinput='getUserIdCardPhoneNumber'
+					value="{{ phoneNumber }}"
+				/>
+			</view>
+			<view class="item">
+				<text class="item-text">微信号</text>
+				<input 
+					class="item-input" 
+					placeholder="请输入微信号" 
+					type="text"
+					bindinput='getUserWechatId'
+					value="{{ wechatId }}" 
+				/>
+			</view>
+			<view class="item">
+				<text class="item-text">QQ号</text>
+				<input 
+					class="item-input" 
+					placeholder="请输入QQ号" 
+					type="number" 
+					bindinput='getUserQQId'
+					value="{{ qqId }}" 
+				/>
+			</view>
+		</view>
+		<view class="content-footer" bindtap="submitApply">提交申请</view>
+	</view>
+</view>
 <console page="分销申请" />
