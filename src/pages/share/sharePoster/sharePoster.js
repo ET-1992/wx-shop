@@ -9,7 +9,8 @@ Page({
     data: {
         title: 'sharePoster',
         authModal: {},
-        options: {}
+        options: {},
+        share_title: ''
     },
 
     onLoad(options) {
@@ -17,13 +18,11 @@ Page({
         this.postertype = options && options.postertype;
         this.posterFnc = {
             '1': this.drawPosterImage,
-            '2': this.drawFriendImage,
-            '3': this.drawProductDetailImg
+            '2': this.drawFriendImage
         };
         this.qrcodePath = {
-            '1': 'pages/home/home',
-            '2': 'pages/share/shareApply/shareApply',
-            '3': 'pages/productDetail/productDetail'
+            '2': 'pages/home/home',
+            '1': 'pages/share/shareApply/shareApply'
         };
     },
 
@@ -57,7 +56,8 @@ Page({
                         nodeInfo,
                         avatarUrl: avatarUrlData.tempFilePath,
                         qrcodeUrl: qrcodeUrlData.tempFilePath,
-                        user
+                        user,
+                        current_user: data.current_user
                     }, this.posterFnc[this.postertype]);
                 }
             } else {
@@ -139,65 +139,6 @@ Page({
         ctx.draw();
     },
 
-    drawProductDetailImg() {
-        const ctx = wx.createCanvasContext('canvasPoster');
-        this.data.ctx = ctx;
-        const { windowWidth } = app.systemInfo;
-        const { width, height } = this.data.nodeInfo;
-        ctx.setFillStyle('#fff');
-        ctx.fillRect(0, 0, width, height);
-        ctx.save();
-
-        ctx.beginPath();
-        ctx.rect(45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height);
-        ctx.clip();
-        ctx.drawImage(this.data.tempFilePath, 45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height, 450 / 540 * width, 450 / 900 * height);
-        ctx.restore();
-
-        ctx.beginPath();
-        ctx.setFillStyle('#000000');
-        ctx.setTextAlign('left');
-
-        const text = '风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉风吹蛋蛋凉';
-        ctx.font = 'normal normal 18px PingFang SC';
-        const textRow = autoDrawText({
-            text,
-            ctx,
-            maxWidth: 410 / 540 * width,
-            maxLine: 2
-        });
-        console.log(textRow);
-
-        let height_ = textRow.length === 1 ? 10 : 0;
-
-        textRow.forEach((item, index) => {
-            ctx.fillText(item, 45 / 540 * width, 540 / 900 * height + (index === 1 ? 20 : 0) + height_);
-        });
-
-        console.log(textRow);
-        ctx.beginPath();
-        ctx.setFillStyle('#FC2732');
-        ctx.fillText('￥999', 45 / 540 * width, 640 / 900 * height);
-
-        ctx.beginPath();
-        ctx.moveTo(45 / 540 * width, 670 / 900 * height);
-        ctx.lineTo(500 / 540 * width, 670 / 900 * height);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.setFillStyle('#000000');
-        ctx.setTextAlign('left');
-        ctx.font = 'normal normal 12px PingFang SC';
-        ctx.fillText(`xxx向你推荐这个商品`, 50 / 540 * width, 750 / 900 * height);
-        ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
-
-        ctx.beginPath();
-        ctx.arc(410 / 540 * width, 750 / 900 * height + 15, 75 / 540 * width, 0, 2 * Math.PI);
-        ctx.setFillStyle('#c9c9c9');
-        ctx.fill();
-        ctx.draw();
-    },
-
     async drawCanvasToImg() {
         const { width, height } = this.data.nodeInfo;
         const data = await canvasToTempFilePath({
@@ -256,11 +197,12 @@ Page({
         }
     },
 
-    onShareAppMessage() {
-        console.log('90');
-        return {
-            title: '我发现了一家好店，快来看看',
-            path: 'pages/share/shareApply/shareApply'
+    onShareAppMessage(res) {
+        let { current_user = {}, share_title = '' } = this.data;
+        const opts = {
+            afcode: current_user.afcode || ''
         };
+        const path = '/' + this.qrcodePath[this.postertype];
+        return onDefaultShareAppMessage.call(this, opts, path);
     }
 });

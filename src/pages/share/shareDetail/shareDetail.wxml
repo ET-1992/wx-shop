@@ -1,7 +1,6 @@
 <import src="./templates/orderItem/orderItem.wxml"/>
 <import src="./templates/moneyItem/moneyItem.wxml"/>
 <import src="./templates/moneyGetItem/moneyGetItem.wxml"/>
-<loading isLoading="{{ isLoading }}"/>
 <view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
 	<!-- <view class="moneyDisplay">
 		<view class="moneyDisplay-h">可提现金额</view>
@@ -23,6 +22,7 @@
 			<!-- <view class="moneyInfoBodySearch" hidden="{{ isActive !== 1 && !isLoading }}">
 				<input class="moneyInfoBodySearch-i" placeholder="请输入订单号或者商品号查找" />
 			</view> -->
+			<loading isLoading="{{ isLoading }}"/>
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
 				<block wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}">
 					<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ ...item }}" />
@@ -42,3 +42,5 @@
 
 	<myModal modal="{{modal}}" />
 </view>
+
+<console page="分销明细" />

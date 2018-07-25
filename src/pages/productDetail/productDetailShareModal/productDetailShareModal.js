@@ -67,7 +67,6 @@ Component({
             ctx.beginPath();
             ctx.setFillStyle('#000000');
             ctx.setTextAlign('left');
-            console.log('2');
 
             const text = productTitle;
             ctx.font = 'normal normal 18px PingFang SC';
@@ -77,7 +76,6 @@ Component({
                 maxWidth: 410 / 540 * width,
                 maxLine: 2
             });
-            console.log(textRow);
 
             let height_ = textRow.length === 1 ? 10 : 0;
 
@@ -88,7 +86,7 @@ Component({
             console.log(textRow);
             ctx.beginPath();
             ctx.setFillStyle('#FC2732');
-            ctx.fillText(productPrice, 45 / 540 * width, 640 / 900 * height);
+            ctx.fillText('￥' + productPrice, 45 / 540 * width, 640 / 900 * height);
 
             ctx.beginPath();
             ctx.moveTo(45 / 540 * width, 670 / 900 * height);

@@ -2,6 +2,7 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY } from 'constants/index';
+import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -121,40 +122,17 @@ Page({
     },
 
     async onAddress() {
-        let that = this;
-        try {
-            const setting = await getSetting();
-            if (!setting.authSetting['scope.address']) {
-                try {
-                    await authorize({ scope: 'scope.address' });
-                } catch (e) {
-                    that.onModal();
-                }
-                const addressRes = await chooseAddress();
-                this.setData({ address: addressRes });
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            } else {
-                const addressRes = await chooseAddress();
-                this.setData({ address: addressRes });
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            }
-        } catch (e) {
-            // this.onModal();
-        }
-    },
-    onModal() {
-        this.setData({
-            addressModal: {
-                isFatherControl: true,
-                title: '温馨提示',
-                isShowModal: true,
-                body: '请授权地址信息',
-                type: 'button',
-                buttonData: {
-                    opentype: 'openSetting'
-                }
-            },
+        const res = await auth({
+            scope: 'scope.address',
+            ctx: this,
+            isFatherControl: true
         });
+        if (res) {
+            const addressRes = await chooseAddress();
+            this.setData({ address: addressRes });
+            wx.setStorageSync(ADDRESS_KEY, addressRes);
+            this.onLoadData();
+        }
     },
 
     async getCouponId() {
@@ -233,19 +211,15 @@ Page({
     computedFinalPay() {
         const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
         let finalPay = 0;
-        if (!isGrouponBuy) {
-            if (shouldGoinDisplay) {
-                finalPay = fee.amount - useCoin / 100;
-            } else {
-                finalPay = fee.amount;
-            }
-            if (finalPay < 0) {
-                finalPay = 0;
-            }
-            finalPay = Number(finalPay).toFixed(2);
+        if (shouldGoinDisplay) {
+            finalPay = fee.amount - useCoin / 100;
         } else {
-            finalPay = Number(totalPostage + totalPrice).toFixed(2);
+            finalPay = fee.amount;
         }
+        if (finalPay < 0) {
+            finalPay = 0;
+        }
+        finalPay = Number(finalPay).toFixed(2);
 
         this.setData({
             finalPay
@@ -411,14 +385,14 @@ Page({
     },
     onAddressCancel() {
         this.setData({
-            'addressModal.isShowModal': false,
+            'authModal.isShowModal': false,
             isShouldRedirect: false
         });
     },
 
     onAddressConfirm() {
         this.setData({
-            'addressModal.isShowModal': false,
+            'authModal.isShowModal': false,
             isShouldRedirect: true
         });
     }

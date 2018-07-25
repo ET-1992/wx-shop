@@ -67,9 +67,7 @@
 				<view class="price">
 					<view class="nowPrice">
 						<view>￥</view>
-						<view class="priceStyle" wx:if="{{ product.groupon_enable === '1' }}">{{ product.groupon_price }}</view>
-						<view class="priceStyle" wx:elif="{{ product.miaosha_enable === '1' && !hasEnd && hasStart }}">{{ product.miaosha_price }}</view>
-						<view class="priceStyle" wx:else>{{ product.price}}</view>
+						<view class="priceStyle">{{ product.definePrice}}</view>
 					</view>
 					<view
 						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
@@ -334,4 +332,4 @@
 
 <console page="商品详情" />
 
-<productDetailShareModal productImage="{{ product.images && product.images[0] }}" productTitle="{{ product.title }}" productPrice="{{ product.price }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.images && product.images[0] }}"/>
+<productDetailShareModal productImage="{{ product.images && product.images[0] }}" productTitle="{{ product.title }}" productPrice="{{ product.definePrice }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.images && product.images[0] }}"/>

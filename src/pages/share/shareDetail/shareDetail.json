@@ -1,8 +1,9 @@
 {
-	"navigationBarTitleText": "收支明细",
+	"navigationBarTitleText": "收入明细",
 	"onReachBottomDistance": 100,
 	"usingComponents": {
 		"myModal": "../../../components/myModal/myModal",
-		"loading": "../../../components/loading/index"
+		"loading": "../../../components/loading/index",
+		"console": "/components/console/console"
   }
 }

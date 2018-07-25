@@ -31,7 +31,6 @@ Component({
         this.setData({
             userInfo
         });
-        console.log(this.data);
     },
     methods: {
         onModal(e) {

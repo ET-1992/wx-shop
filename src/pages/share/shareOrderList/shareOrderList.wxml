@@ -7,3 +7,5 @@
     </view>
     <view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
 </block>
+
+<console page="分销订单" />

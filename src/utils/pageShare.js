@@ -22,13 +22,13 @@ export const onShareHomeAppMessage = () => {
     };
 };
 
-export const onDefaultShareAppMessage = function (params = {}) {
+export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
     const { share_title, share_image } = this.data;
     let { options = {}, route } = this;
     options = { ...options, ...params };
     const optionsKeys = Object.keys(options);
     const hasOptions = !!optionsKeys.length;
-    let path = route;
+    let path = path_ || route;
     if (hasOptions) {
         path = optionsKeys.reduce((path, key, index) => {
             const joinSymbol = index ? '&' : '?';

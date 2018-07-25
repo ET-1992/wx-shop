@@ -3,3 +3,4 @@
   <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
   <productList wx:if="{{ !isLoading }}" products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" class="shareProductListWrap" />
 </view>
+<console page="分销商品" />

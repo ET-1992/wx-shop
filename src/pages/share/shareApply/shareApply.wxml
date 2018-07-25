@@ -4,3 +4,5 @@
 		<view class="shareBtn" bindtap="joinShareUser"><text class="text">申请成为分享家</text></view>
 	</view>
 </view>
+
+<console page="分销申请" />
