@@ -4,6 +4,6 @@
 	"usingComponents": {
 		"myModal": "../../../components/myModal/myModal",
 		"loading": "../../../components/loading/index",
-		"console": "/components/console/console"
+		"console": "../../../components/console/console"
   }
 }

@@ -4,7 +4,7 @@
     "filterList": "../../../components/filterList/filterList",
     "productList": "../../../components/productList/index",
     "loading": "../../../components/loading/index",
-    "console": "/components/console/console"
+    "console": "../../../components/console/console"
   },
   "navigationBarTitleText": "分享商品",
   "onReachBottomDistance": 100

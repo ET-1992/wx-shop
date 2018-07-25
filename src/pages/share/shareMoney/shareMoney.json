@@ -1,6 +1,6 @@
 {
 	"navigationBarTitleText": "提现",
 	"usingComponents": {
-		"console": "/components/console/console"
+		"console": "../../../components/console/console"
   }
 }
