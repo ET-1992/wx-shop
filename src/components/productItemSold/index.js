@@ -14,13 +14,14 @@ Component({
                         ...item,
                         imageUrl: item.image_url,
                         property: item.sku_property_names,
-                        price: (item.miaosha_end_timestamp >= nowTime && nowTime >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price
+                        price: (item.miaosha_end_timestamp >= nowTime && nowTime >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price,
+                        post_id: item.post_id ? item.post_id : item.id
                     };
                 });
-                console.log(products, 'products');
                 this.setData({
                     products
                 });
+                console.log('res:', products);
             }
         },
         itemStyle: {

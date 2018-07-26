@@ -44,14 +44,10 @@ $footerHeight: 100rpx;
 }
 
 .button {
-	margin:100rpx auto;
-	color:#fff;
-	font-size:28rpx;
-	background-color:#729153;
-	width:370rpx;
-	height:80rpx;
-	line-height:80rpx;
-	border-radius:40rpx;
+	margin: 40rpx 20rpx;
+	color: #fff;
+	font-size: 12pt;
+	background-color: $mainColor;
 }
 
 .logistics {
