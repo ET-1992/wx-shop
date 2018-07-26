@@ -28,11 +28,10 @@ Page({
 
     async onShow() {
         wx.showLoading({
-            title: '绘制图片中',
-            mask: true
+            title: '绘制图片中'
         });
         const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
-        if (data && data.qrcode_url) {
+        if (data && data.qrcode_url && data.errcode === 0) {
             const qrcodeUrl = imgToHttps(data.qrcode_url);
             const user = getUserInfo();
             console.log(user);
@@ -70,6 +69,12 @@ Page({
                 });
             }
 
+        } else {
+            wx.hideLoading();
+            wx.showToast({
+                title: '接口错误',
+                icon: 'none'
+            });
         }
     },
 

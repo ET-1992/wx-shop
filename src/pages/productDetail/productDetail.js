@@ -347,7 +347,7 @@ Page({
         wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
     },
 
-    async onLoad({ grouponId, ...query }) {
+    onLoad(query) {
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -356,7 +356,7 @@ Page({
             isIphoneX,
             user,
             themeColor,
-            isGrouponBuy: !!grouponId,
+            isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             routeQuery: query
         });

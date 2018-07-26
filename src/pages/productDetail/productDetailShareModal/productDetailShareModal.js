@@ -185,23 +185,31 @@ Component({
         async downImg() {
             const { routePath, routeQuery } = this.data;
             wx.showLoading({
-                title: '绘制图片中',
-                mask: true
+                title: '绘制图片中'
             });
-            const qvcode = await api.hei.getShareQrcode({ weapp_page: routePath, id: routeQuery.id });
-            const { productImage } = this.data;
-            const productImage_ = imgToHttps(productImage);
-            const qvcode_ = imgToHttps(qvcode.qrcode_url);
-            const productImageUrlPromise = downloadFile({ url: productImage_ });
-            const qrcodeUrlPromise = downloadFile({ url: qvcode_ });
-            const datas = await Promise.all([productImageUrlPromise, qrcodeUrlPromise]);
-            console.log(datas, 'datas');
-            const productImageUrlData = datas[0];
-            const qrcodeUrlData = datas[1];
-            this.setData({
-                productImageUrl: productImageUrlData.tempFilePath,
-                qrcodeUrl: qrcodeUrlData.tempFilePath
-            }, this.drawProductDetailImg);
+            const qvcode = await api.hei.getShareQrcode({ weapp_page: 'pages/webPages/webPages', id: routeQuery.id, width: 150 });
+            console.log(qvcode);
+            if (qvcode.errcode === 0) {
+                const { productImage } = this.data;
+                const productImage_ = imgToHttps(productImage);
+                const qvcode_ = imgToHttps(qvcode.qrcode_url);
+                const productImageUrlPromise = downloadFile({ url: productImage_ });
+                const qrcodeUrlPromise = downloadFile({ url: qvcode_ });
+                const datas = await Promise.all([productImageUrlPromise, qrcodeUrlPromise]);
+                console.log(datas, 'datas');
+                const productImageUrlData = datas[0];
+                const qrcodeUrlData = datas[1];
+                this.setData({
+                    productImageUrl: productImageUrlData.tempFilePath,
+                    qrcodeUrl: qrcodeUrlData.tempFilePath
+                }, this.drawProductDetailImg);
+            } else {
+                wx.hideLoading();
+                wx.showToast({
+                    title: '异常错误',
+                    icon: 'none'
+                });
+            }
         },
 
         closeModal() {

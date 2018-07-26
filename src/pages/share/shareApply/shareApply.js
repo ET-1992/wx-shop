@@ -107,16 +107,15 @@ Page({
             if (confirm) {
                 wx.redirectTo({ url: '/pages/home/home' });
             }
+        } else if (is_affiliate_member) {
+            const { confirm }  = await showModal({
+                title: '温馨提示',
+                content: '您已经是分销员,请前往分销中心',
+                showCancel: false
+            });
+            if (confirm) {
+                wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+            }
         }
-        // else if (is_affiliate_member) {
-        //     const { confirm }  = await showModal({
-        //         title: '温馨提示',
-        //         content: '您已经是分销员,请前往分销中心',
-        //         showCancel: false
-        //     });
-        //     if (confirm) {
-        //         wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
-        //     }
-        // }
     }
 });

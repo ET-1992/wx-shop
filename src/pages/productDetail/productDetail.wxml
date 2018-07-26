@@ -332,4 +332,4 @@
 
 <console page="商品详情" />
 
-<productDetailShareModal productImage="{{ product.images && product.images[0] }}" productTitle="{{ product.title }}" productPrice="{{ product.definePrice }}" routePath="{{ routePath }}" routeQuery="{{ routeQuery }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.images && product.images[0] }}"/>
+<productDetailShareModal productImage="{{ product.thumbnail }}" productTitle="{{ product.title }}" productPrice="{{ product.definePrice }}" routePath="{{ routePath }}" routeQuery="{{ routeQuery }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"/>
