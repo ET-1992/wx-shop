@@ -1,6 +1,7 @@
-<loading isLoading="{{ isLoading }}" />
 <view>
+  <loading isLoading="{{ isLoading }}" />
   <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
-  <productList wx:if="{{ !isLoading }}" products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" class="shareProductListWrap" />
+  <productList wx:if="{{ !isLoading && products.length }}" products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" class="shareProductListWrap" />
+  <view class="emptyHint" wx:if="{{ !products.length && !isLoading }}" >暂无分享商品</view>
 </view>
 <console page="分销商品" />

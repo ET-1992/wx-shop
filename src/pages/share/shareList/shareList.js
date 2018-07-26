@@ -41,6 +41,7 @@ Page({
         this.setData({
             filterData: e.detail,
             next_cursor: 0,
+            isLoading: true,
             members: []
         }, this.filterShareList);
         console.log(this.data);

@@ -18,10 +18,14 @@ Page({
     },
 
     async onShow() {
+        this.setData({
+            isLoading: true
+        });
         const data = await api.hei.getWelcomeShare();
         console.log(data);
         this.setData({
-            ...data
+            ...data,
+            isLoading: false
         }, this.redirectToHome);
     },
 

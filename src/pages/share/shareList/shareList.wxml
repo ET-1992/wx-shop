@@ -1,11 +1,9 @@
 <loading isLoading="{{ isLoading }}"/>
 <import src="/templates/share/shareList.wxml"/>
-<block wx:if="{{ !isLoading }}">
-    <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" ></filterList>
-    <view wx:if="{{ members.length }}" class="content">
-        <template is="shareList" data="{{ members, user_type}}"/>
-    </view>
-    <view wx:else class="emptyHint">
-        {{ user_type === '1' ? '暂无分享家' : '暂无客户'}}
-    </view>
-</block>
+<filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" ></filterList>
+<view wx:if="{{ !isLoading && members.length }}" class="content">
+    <template is="shareList" data="{{ members, user_type}}"/>
+</view>
+<view wx:if="{{ !isLoading && !members.length }}" class="emptyHint">
+    {{ user_type === '1' ? '暂无分享家' : '暂无客户'}}
+</view>

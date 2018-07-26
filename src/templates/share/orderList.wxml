@@ -4,7 +4,7 @@
             <view class="orderNumber">所属订单号：{{ order.order_no }}</view>
             <view class="orderStatus {{ order.order_status === '1' ||  order.order_status == '2' || order.order_status == '4' ? '' : 'activeColor' }}">{{ order.statusText }}</view>
         </view>
-        <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
+        <!-- <navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}"> -->
             <view class="middle" wx:for="{{ order.order_items }}">
                 <image class="itemImage" mode="aspectFill" src="{{ item.image_url }}"></image>
                 <view class="middleRight">
@@ -15,7 +15,7 @@
                     </view>
                 </view>
             </view>
-        </navigator>
+        <!-- </navigator> -->
         <view class="bottom">
             <view>商品总价：￥{{ order.order_amount }}</view>
             <view class="income">{{ order.order_status == '4' || order.order_status == '6' ? '收益：' : '预计收益：'}} ￥{{ order.commission_amount/100 }}</view>
