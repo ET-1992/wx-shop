@@ -1,4 +1,5 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+<view wx:if="{{ !isLoading }}" class="container">
 	<image class="img" src="{{ image_url }}" mode="widthFix"/>
 	<view class="footer">
 		<view class="shareBtn" bindtap="applyModal"><text class="text">申请成为分享家</text></view>

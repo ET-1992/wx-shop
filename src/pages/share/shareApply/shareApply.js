@@ -18,10 +18,14 @@ Page({
     },
 
     async onShow() {
+        this.setData({
+            isLoading: true
+        });
         const data = await api.hei.getWelcomeShare();
         console.log(data);
         this.setData({
-            ...data
+            ...data,
+            isLoading: false
         }, this.redirectToHome);
     },
 
@@ -108,15 +112,15 @@ Page({
                 wx.redirectTo({ url: '/pages/home/home' });
             }
         }
-        // else if (is_affiliate_member) {
-        //     const { confirm }  = await showModal({
-        //         title: '温馨提示',
-        //         content: '您已经是分销员,请前往分销中心',
-        //         showCancel: false
-        //     });
-        //     if (confirm) {
-        //         wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
-        //     }
-        // }
+        else if (is_affiliate_member) {
+            const { confirm }  = await showModal({
+                title: '温馨提示',
+                content: '您已经是分销员,请前往分销中心',
+                showCancel: false
+            });
+            if (confirm) {
+                wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+            }
+        }
     }
 });
