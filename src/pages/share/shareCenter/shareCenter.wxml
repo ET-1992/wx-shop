@@ -41,12 +41,12 @@
 			<text class="footer-text">分享商品</text>	
 		</view>
 
-		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="1">
+		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="2">
 			<image class="footer-img" src="/icons/sharePoster.png"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>
 
-		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="2">
+		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="1">
 			<image class="footer-img" src="/icons/shareToFriend.png"></image>	
 			<text class="footer-text">邀请好友</text>	
 		</view>

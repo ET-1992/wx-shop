@@ -24,6 +24,15 @@ Page({
             '2': 'pages/home/home',
             '1': 'pages/share/shareApply/shareApply'
         };
+        if (this.postertype === '2') {
+            wx.setNavigationBarTitle({
+                title: '推广海报'
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '邀请好友'
+            });
+        }
     },
 
     async onShow() {

@@ -162,6 +162,7 @@
 			.footer-text {
 				font-size: 28rpx;
 				line-height: 40rpx;
+				font-weight: bold;
 			}
 		}
 	}
@@ -207,12 +208,14 @@
 
 			.content-header {
 				font-size: 28rpx;
-				border-bottom: 1rpx solid #C9C9C9;
+				font-weight: bold;
+				// border-bottom: 1rpx solid #C9C9C9;
 			}
 
 			.content-footer {
 				font-size: 32rpx;
 				border-top: 1rpx solid #C9C9C9;
+				font-weight: bold;
 			}
 
 			.content-body {
@@ -234,6 +237,7 @@
 					.content-body-item-left {
 						font-size: 28rpx;
 						width: 180rpx;
+						font-weight: bold;
 					}
 				}
 			}

@@ -1,5 +1,4 @@
 {
-	"navigationBarTitleText": "推广海报",
 	"usingComponents": {
 		"myModal": "../../../components/myModal/myModal",
 		"console": "../../../components/console/console"
