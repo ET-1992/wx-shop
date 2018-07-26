@@ -19,6 +19,7 @@
 		width: 100%;
 		border-radius: 10rpx;
 		padding: 50rpx 20rpx 20rpx 20rpx;
+		position: relative;
 	}
 	
 	.canvasWrap {
@@ -55,7 +56,7 @@
 		position: absolute;
 		width: 40rpx;
 		height: 40rpx;
-		top: 60rpx;
-		right: 58rpx;
+		top: 5rpx;
+		right: 5rpx;
 	}
 }

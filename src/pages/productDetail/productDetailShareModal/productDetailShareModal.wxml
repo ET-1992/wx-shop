@@ -7,7 +7,7 @@
 			<button class="btn" open-type="share">分享给好友</button>
 			<button class="btn" bindtap="saveCanvasToImg">保存分享到朋友圈</button>
 		</view>
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 	</view>
-	<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 </view>
 <myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />

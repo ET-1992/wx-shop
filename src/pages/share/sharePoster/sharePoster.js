@@ -72,7 +72,7 @@ Page({
         } else {
             wx.hideLoading();
             wx.showToast({
-                title: '接口错误',
+                title: '异常错误',
                 icon: 'none'
             });
         }
