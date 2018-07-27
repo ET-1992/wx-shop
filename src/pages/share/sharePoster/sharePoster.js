@@ -110,7 +110,7 @@ Page({
         ctx.fillText(this.data.user.nickname, width / 2, height * 0.17 * 2);
 
         ctx.beginPath();
-        ctx.arc(width / 2, height * 0.34 * 2, width * (288 / 650) / 2, 0, 2 * Math.PI);
+        ctx.rect(width / 2 - width * (288 / 650) / 2, height * 0.34 * 2 - width * (288 / 650) / 2, width * (288 / 650), width * (288 / 650));
         ctx.clip();
         ctx.drawImage(this.data.qrcodeUrl, width / 2 - width * (288 / 650) / 2, height * 0.34 * 2 - width * (288 / 650) / 2, width * (288 / 650), width * (288 / 650));
         ctx.restore();
@@ -126,7 +126,12 @@ Page({
         const { windowWidth } = app.systemInfo;
         const { width, height } = this.data.nodeInfo;
         console.log(width, height);
-        // ctx.drawImage(shareFriend, 0, 0, width, height);
+
+        ctx.beginPath();
+        ctx.setFillStyle('#fff');
+        ctx.fillRect(0, 0, width, height);
+        ctx.fill();
+
         ctx.beginPath();
         ctx.save();
         ctx.arc(width / 2, height * 0.11, width * (120 / 650) / 2, 0, 2 * Math.PI);
@@ -149,7 +154,7 @@ Page({
         ctx.fillText('长按识别小程序码访问店铺', width / 2, height * 0.95);
 
         ctx.beginPath();
-        ctx.arc(width / 2, height * 0.65, width * (360 / 650) / 2, 0, 2 * Math.PI);
+        ctx.rect(width / 2 - width * (360 / 650) / 2, height * 0.65 - width * (360 / 650) / 2, width * (360 / 650), width * (360 / 650));
         ctx.clip();
         ctx.drawImage(this.data.qrcodeUrl, width / 2 - width * (360 / 650) / 2, height * 0.65 - width * (360 / 650) / 2, width * (360 / 650), width * (360 / 650));
         ctx.restore();

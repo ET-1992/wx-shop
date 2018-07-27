@@ -111,7 +111,7 @@ Component({
             ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
-            ctx.arc(410 / 540 * width, 750 / 900 * height + 15, 75 / 540 * width, 0, 2 * Math.PI);
+            ctx.rect(410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
             ctx.clip();
             ctx.drawImage(qrcodeUrl, 410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
             // ctx.setFillStyle('#c9c9c9');
@@ -182,6 +182,10 @@ Component({
             return;
         },
 
+        detached() {
+            wx.hideLoading();
+        },
+
         async downImg() {
             const { routePath, routeQuery } = this.data;
             wx.showLoading({
@@ -213,6 +217,7 @@ Component({
         },
 
         closeModal() {
+            wx.hideLoading();
             this.triggerEvent('onCloseModal', {}, { bubbles: true });
         }
     }
