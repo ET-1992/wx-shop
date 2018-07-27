@@ -3,12 +3,12 @@
 <view class="container" wx:if="{{ !isLoading }}" >
 	<view class="shareMoneyDisplay">
 		<text class="shareMoneyDisplay-h">累计收益（元）</text>
-		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>{{ (wallet.income + wallet.income_pending)|| 0 }}</text>
-		<text class="shareMoneyDisplay-f">最低提现金额{{ wallet.income_pending || 0 }}元</text>
+		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>{{ (wallet.affiliate_income + wallet.affiliate_income_pending)|| 0 }}</text>
+		<text class="shareMoneyDisplay-f">最低提现金额{{ wallet.withdrawal_limit || 0 }}元</text>
 		<view class="shareMoneyDisplay-s" bindtap="changeModal">规则说明</view>
 	</view>
 	<view class="shareMoneyGet">
-		<text class="shareMoneyGet-text">可提现金额 <text class="shareMoneyGet-money">￥{{ wallet.balance || 0 }}</text> </text>
+		<text class="shareMoneyGet-text">当前金额 <text class="shareMoneyGet-money">￥{{ wallet.affiliate_balance || 0 }}</text> </text>
 		<view class="shareMoneyGet-btn" bindtap="goToShare" data-urldata="shareMoney">立即提现</view>
 	</view>
 	<view class="finishUserInfo" bindtap="goToShare" data-urldata="shareDetail">

@@ -35,7 +35,7 @@ Page({
         switch (urldata) {
             case 'shareMoney': {
                 const { wallet, member } = this.data;
-                url = `/pages/share/shareMoney/shareMoney?balance=${wallet.balance}&income_pending=${wallet.income_pending}&code=${member.code}`;
+                url = `/pages/share/shareMoney/shareMoney?balance=${wallet.affiliate_balance}&income_pending=${wallet.affiliate_income_pending}&code=${member.code}`;
                 break;
             }
             case 'shareFinishUserInfo': {

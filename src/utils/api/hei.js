@@ -241,7 +241,7 @@ const apis = {
         isForceToken: true
     },
     getShareMoney: {
-        path: 'api/mag.wallet.withdraw.json',
+        path: 'api/mag.affiliate.withdraw.json',
         method: 'POST',
         isForceToken: true
     },
