@@ -115,7 +115,8 @@ Page({
         isGrouponBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
-        isShowProductDetailShareModal: false
+        isShowProductDetailShareModal: false,
+        showShareModal: false
     },
 
     onShowSku(ev) {
@@ -731,6 +732,18 @@ Page({
     onCloseProductDetailShareModal() {
         this.setData({
             isShowProductDetailShareModal: false
+        });
+    },
+
+    /* 调起底部弹窗 */
+    openShareModal() {
+        this.setData({
+            showShareModal: true
+        });
+    },
+    closeShareModal() {
+        this.setData({
+            showShareModal: false
         });
     }
 });

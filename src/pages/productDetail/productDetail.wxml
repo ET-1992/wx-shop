@@ -59,7 +59,8 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image>
+					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<!-- <image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image> -->
 				</view>
 
 			</view>
@@ -329,6 +330,19 @@
 				<view class="gap" />
 			</scroll-view>
 		</view>
+	</view>
+</view>
+
+<!-- 底部弹窗 -->
+<view class="shareModal" wx:if="{{showShareModal}}" catchtap="closeShareModal"></view>
+<view wx:if="{{showShareModal}}" animation="{{animationData}}" class="content">
+	<view class="shareBtn">
+		<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+		<view>分享给好友</view>
+	</view>
+	<view class="shareBtn">
+		<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+		<view>分享商品海报</view>
 	</view>
 </view>
 
