@@ -41,6 +41,12 @@ App({
         wx.setStorageSync(EXPIRED_KEY, expiredTime);
     },
 
+    async bindShare(afcode) {
+        setTimeout(() => {
+            api.hei.bindShare({ code: afcode });
+        }, 500);
+    },
+
     async onShow(options) {
         this.logData = [];
         this.openConsole = false;
@@ -59,6 +65,7 @@ App({
 
         if (query.afcode) {
             this.globalData.afcode = query.afcode;
+            this.bindShare(query.afcode);
         }
 
         if (options.scene) {

@@ -274,6 +274,11 @@ const apis = {
         path: 'api/mag.affiliate.product.list.json',
         method: 'POST',
         isForceToken: true
+    },
+    bindShare: {
+        path: 'api/mag.affiliate.bind.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 

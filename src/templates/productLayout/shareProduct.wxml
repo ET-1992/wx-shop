@@ -29,7 +29,7 @@
                     </view>
                 </block>
                 <view class="tagWrapper">
-                    <view class="productItemSold">佣金：{{ product.commission || 0 }}%</view>
+                    <view class="productItemSold">佣金：{{ product.commission_percent_level_1 || 0 }}%</view>
                     <view class="productItemSold">已售：{{ product.sales }}</view>
                 </view>
             </view>

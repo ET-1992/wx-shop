@@ -22,6 +22,7 @@ Page({
             console.log(query, 'query');
             if (query.afcode) {
                 app.globalData.afcode = query.afcode;
+                app.bindShare({ code: query.afcode });
             }
             if (query.id) {
                 wx.redirectTo({
