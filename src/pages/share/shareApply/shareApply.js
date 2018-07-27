@@ -8,6 +8,7 @@ Page({
         is_affiliate_member: false,
         affiliate_enable: false,
         isShowModal: false,
+        showBtn: false,
         wechatId: '',   // 微信号
         qqId: '',   // qq号
         phoneNumber: '',    // 手机号
@@ -27,6 +28,28 @@ Page({
             ...data,
             isLoading: false
         }, this.redirectToHome);
+    },
+    /* 图片加载完毕回调 */
+    isLoaded(e) {
+        console.log(e.detail);
+        this.setData({
+            showBtn: true
+        });
+    },
+
+    /* 验证手机 */
+    check(e) {
+        const { value } = e.detail;
+        if (!checkPhone(value)) {
+            this.setData({
+                'isError.phone': true
+            });
+        }
+    },
+    reset() {
+        this.setData({
+            'isError.phone': false
+        });
     },
 
     getUserIdCardPhoneNumber(e) {
@@ -67,22 +90,20 @@ Page({
                 wechat: wechatId,
                 qq: qqId
             });
-            await showToast({ title: '申请成功', icon: 'success' });
-            // setTimeout(() => {
-            //     wx.redirectTo({
-            //         url: '/pages/share/shareCenter/shareCenter'
-            //     });
-            // }, 1000);
+            await showToast({
+                title: '提交成功,请等待商家审核',
+                icon: 'none'
+            });
+            setTimeout(() => {
+                wx.switchTab({
+                    url: '/pages/me/me'
+                });
+            }, 1000);
         } catch (e) {
             await showToast({
                 title: '申请失败',
                 icon: 'none'
             });
-            // setTimeout(() => {
-            //     wx.redirectTo({
-            //         url: '/pages/share/shareCenter/shareCenter'
-            //     });
-            // }, 1000);
         }
         this.setData({
             isShowModal: false
