@@ -430,15 +430,6 @@ button {
 
 	.shop,
 	.cart {
-		// width: 100rpx;
-		// font-size: 8pt;
-		// background-color: #fff;
-		// display: flex;
-		// align-items: center;
-		// flex-direction: column;
-		// justify-content: center;
-		// color: $titleColor;
-		// border-radius: 0;
 		flex-grow: 1;
 		width: 100rpx;
 		display: flex;
@@ -450,6 +441,7 @@ button {
 		position: relative;
 		left: 0;
 		top: 0;
+		line-height: 1;
 	}
 
 	.icon {
