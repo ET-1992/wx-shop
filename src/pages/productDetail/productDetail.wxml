@@ -334,15 +334,17 @@
 </view>
 
 <!-- 底部弹窗 -->
-<view class="shareModal" wx:if="{{showShareModal}}" catchtap="closeShareModal"></view>
-<view wx:if="{{showShareModal}}" animation="{{animationData}}" class="content">
-	<view class="shareBtn">
-		<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
-		<view>分享给好友</view>
-	</view>
-	<view class="shareBtn">
-		<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
-		<view>分享商品海报</view>
+<view class="mock {{ showShareModal ? 'mockShow' : ''}}" catchtap="closeShareModal"></view>
+<view class="actionShareModal {{showShareModal ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+	<view class="shareModalContent">
+		<view class="shareBtn">
+			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<view>分享给好友</view>
+		</view>
+		<view class="shareBtn">
+			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<view>分享商品海报</view>
+		</view>
 	</view>
 </view>
 
