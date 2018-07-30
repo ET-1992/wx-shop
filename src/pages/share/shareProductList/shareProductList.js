@@ -53,7 +53,7 @@ Page({
         const { filterOrderby, filterOrder, current_page, products } = this.data;
         const data = await api.hei.getShareProductList({ orderby: filterOrderby, order: filterOrder, paged: current_page });
         if (products.length > 0) {
-            data.products = data.products.concat(products);
+            data.products = products.concat(data.products);
         }
         this.setData({
             ...data,
@@ -70,8 +70,8 @@ Page({
     },
     onReachBottom() {
         let { current_page, total_pages } = this.data;
-        current_page++;
         if (current_page === total_pages) { return }
+        current_page++;
         console.log(current_page);
         this.setData({
             current_page

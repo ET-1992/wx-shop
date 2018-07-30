@@ -272,7 +272,7 @@ const apis = {
     },
     getShareProductList: {
         path: 'api/mag.affiliate.product.list.json',
-        method: 'POST',
+        method: 'GET',
         isForceToken: true
     },
     bindShare: {

@@ -3,7 +3,7 @@
 <view class="container" wx:if="{{ !isLoading }}" >
 	<view class="shareMoneyDisplay">
 		<text class="shareMoneyDisplay-h">累计收益（元）</text>
-		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>{{ (wallet.affiliate_income + wallet.affiliate_income_pending)|| 0 }}</text>
+		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">￥</text>{{ (wallet.affiliate_income_total)|| 0 }}</text>
 		<text class="shareMoneyDisplay-f">最低提现金额{{ wallet.withdrawal_limit || 0 }}元</text>
 		<view class="shareMoneyDisplay-s" bindtap="changeModal">规则说明</view>
 	</view>
