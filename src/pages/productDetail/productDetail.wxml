@@ -59,7 +59,8 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image>
+					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<!-- <image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image> -->
 				</view>
 
 			</view>
@@ -134,11 +135,13 @@
 			<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
 			<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
 				<navigator class="shop" open-type="switchTab" hover-class="navigator-hover" url="/pages/home/home">
-					<image class="icon" src="../../icons/store.png" /> 店铺
+					<image class="icon" src="../../icons/store.png" />
+					<text>店铺</text>
 				</navigator>
 				<navigator class="cart" open-type="switchTab" hover-class="navigator-hover" url="/pages/cart/cart">
 					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== '0'}}">{{ cartNumber }}</view>
-					<image class="icon" src="../../icons/shopcart.png" /> 购物车
+					<image class="icon" src="../../icons/shopcart.png" />
+					<text>购物车</text>
 				</navigator>
 				<button 
 					open-type="contact" 
@@ -328,6 +331,22 @@
 			</scroll-view>
 		</view>
 	</view>
+</view>
+
+<!-- 底部弹窗 -->
+<view class="mock {{ showShareModal ? 'mockShow' : ''}}" catchtap="closeShareModal"></view>
+<view class="actionShareModal {{showShareModal ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+	<view class="shareModalContent">
+		<button class="shareBtn" open-type="share">
+			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<view>分享给好友</view>
+		</button>
+		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<view>分享商品海报</view>
+		</view>
+	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal"/>
 </view>
 
 <console page="商品详情" />

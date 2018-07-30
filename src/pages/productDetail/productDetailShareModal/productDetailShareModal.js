@@ -43,9 +43,11 @@ Component({
         const nodeInfo = await getNodeInfo('canvasPosterId', {}, true, this);
         console.log(nodeInfo);
         const user = getUserInfo();
+        const { themeColor } = app.globalData;
         this.setData({
             nodeInfo,
-            user
+            user,
+            themeColor
         }, this.downImg);
     },
     methods: {
@@ -146,11 +148,15 @@ Component({
                 isFatherControl: true
             });
             if (res) {
+                let that = this;
                 await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
                 wx.showModal({
                     title: '温馨提示',
                     content: '保存成功，打开相册分享到朋友圈吧~',
                     showCancel: false,
+                    success: function() {
+                        that.closeModal();
+                    }
                 });
             }
         },
