@@ -127,7 +127,8 @@ Page({
             const { confirm }  = await showModal({
                 title: '温馨提示',
                 content: '商家暂时关闭了分销功能',
-                showCancel: false
+                showCancel: false,
+                mask: true
             });
             if (confirm) {
                 wx.redirectTo({ url: '/pages/home/home' });
@@ -136,7 +137,8 @@ Page({
             const { confirm }  = await showModal({
                 title: '温馨提示',
                 content: '您已经是分销员,请前往分销中心',
-                showCancel: false
+                showCancel: false,
+                mask: true
             });
             if (confirm) {
                 wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
