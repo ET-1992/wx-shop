@@ -303,6 +303,7 @@ Page({
                 selectedProperties: defalutSelectedProperties,
                 selectedSku,
                 skuMap,
+                isLoading: false,
                 ...data,
             });
 
@@ -328,7 +329,7 @@ Page({
         catch (err) {
             console.log(err);
         }
-        this.setData({ isLoading: false });
+        // this.setData({ isLoading: false });
         console.log(this.data);
     },
 

@@ -27,6 +27,8 @@ const apis = {
     },
     fetchProduct: {
         path: 'api/mag.product.get.json',
+        method: 'GET',
+        isForceToken: true,
     },
     fetchCartList: {
         path: 'api/mag.cart.get.json',
