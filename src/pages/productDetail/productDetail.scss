@@ -813,6 +813,14 @@ img,
 	&.show {
 		transform: translateY(0);
 	}
+
+	.close {
+		position: absolute;
+		width: 40rpx;
+		height: 40rpx;
+		top: 15rpx;
+		right: 15rpx;
+	}
 }
 .shareModalContent{
 	height: 280rpx;
@@ -824,6 +832,7 @@ img,
 		flex-direction: column;
 		align-items: center;
 		padding-top: 67.5rpx;
+		background-color: transparent;
 		
 		image{
 			width: 90rpx;

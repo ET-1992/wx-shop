@@ -337,15 +337,16 @@
 <view class="mock {{ showShareModal ? 'mockShow' : ''}}" catchtap="closeShareModal"></view>
 <view class="actionShareModal {{showShareModal ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<view class="shareModalContent">
-		<view class="shareBtn">
+		<button class="shareBtn" open-type="share">
 			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
 			<view>分享给好友</view>
-		</view>
-		<view class="shareBtn">
+		</button>
+		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
 			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
 			<view>分享商品海报</view>
 		</view>
 	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal"/>
 </view>
 
 <console page="商品详情" />

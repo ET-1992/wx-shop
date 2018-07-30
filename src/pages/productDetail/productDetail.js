@@ -320,7 +320,8 @@ Page({
                 product.definePrice = product.price;
             }
             this.setData({
-                product
+                product,
+                share_image: product.thumbnail
             });
             // ---------------
         }
@@ -331,14 +332,14 @@ Page({
         console.log(this.data);
     },
 
-    async onShow() {
-        this.setData({ isLoading: true });
-        await this.initPage();
-        const CART_NUM  = wx.getStorageSync('CART_NUM');
-        this.setData({
-            cartNumber: CART_NUM
-        });
-    },
+    // async onShow() {
+    //     this.setData({ isLoading: true });
+    //     await this.initPage();
+    //     const CART_NUM  = wx.getStorageSync('CART_NUM');
+    //     this.setData({
+    //         cartNumber: CART_NUM
+    //     });
+    // },
 
     currentIndex(e) {
         this.setData({ current: e.detail.current });
@@ -353,13 +354,16 @@ Page({
         const user = wx.getStorageSync(USER_KEY);
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor } = app.globalData;
+        this.initPage();
+        const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
             themeColor,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
-            routeQuery: query
+            routeQuery: query,
+            cartNumber: CART_NUM
         });
     },
 
@@ -682,6 +686,7 @@ Page({
     },
 
     onShareAppMessage() {
+        this.closeShareModal();
         const { current_user = {}, product } = this.data;
         let opts = {};
         if (product.affiliate_enable && current_user.is_affiliate_member) {
@@ -725,7 +730,8 @@ Page({
             }
         }
         this.setData({
-            isShowProductDetailShareModal: true
+            isShowProductDetailShareModal: true,
+            showShareModal: false
         });
     },
 
