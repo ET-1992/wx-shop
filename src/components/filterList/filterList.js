@@ -7,7 +7,7 @@ Component({
     },
     data: {
         isActive: {
-            0: 'Up'
+            0: 'Down'
         }
     },
     methods: {

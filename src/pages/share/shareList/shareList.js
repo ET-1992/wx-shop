@@ -6,7 +6,7 @@ Page({
         members: [],
         filterData: {
             filterIndex: 0,
-            filterType: 'Up'
+            filterType: 'Down'
         }
     },
 
@@ -54,8 +54,8 @@ Page({
             2: this.data.user_type === '1' ? 'commission' : 'order_amount'
         };
         const sortStatus = {
-            'Up': 'desc',
-            'Down': 'asc'
+            'Up': 'asc',
+            'Down': 'desc'
         };
         this.setData({
             filterOrderby: sortText[filterData.filterIndex],

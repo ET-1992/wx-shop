@@ -16,7 +16,7 @@ Page({
         ],
         filterData: {
             filterIndex: 0,
-            filterType: 'Up'
+            filterType: 'Down'
         },
         current_page: 1,
         products: [],
@@ -41,8 +41,8 @@ Page({
             2: 'total_sales'
         };
         const sortStatus = {
-            'Up': 'desc',
-            'Down': 'asc'
+            'Up': 'asc',
+            'Down': 'desc'
         };
         this.setData({
             filterOrderby: sortText[filterData.filterIndex],
