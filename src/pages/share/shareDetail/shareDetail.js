@@ -92,7 +92,6 @@ Page({
     },
 
     async onReachBottom() {
-        console.log('090');
         const { showMoneyLogCursor, getMoneyLogCursor, isActive } = this.data;
         if ((!showMoneyLogCursor && isActive === 1) || (!getMoneyLogCursor && isActive === 2)) { return }
         this.loadData();

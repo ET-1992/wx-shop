@@ -3,6 +3,7 @@ import { BANK_CARD_LIST } from 'utils/bank';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
+import { showModal } from 'utils/wxp';
 
 // import { USER_KEY } from 'constants/index';
 const app = getApp();
@@ -190,8 +191,15 @@ Page({
             });
 
             console.log(data);
-            await wx.showToast({ title: '提款成功', icon: 'success', image: '', duration: 1000 });
-            setTimeout(wx.navigateBack, 1000);
+            const { confirm }  = await showModal({
+                title: '温馨提示',
+                content: '申请成功，请等待商家审核',
+                showCancel: false,
+                mask: true
+            });
+            if (confirm) {
+                wx.navigateBack();
+            }
         } catch (e) {
             this.setData({
                 isGetingMoney: false
