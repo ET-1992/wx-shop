@@ -38,52 +38,54 @@ Page({
     },
 
     async onShow() {
-        wx.showLoading({
-            title: '绘制图片中'
-        });
-        const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
-        if (data && data.qrcode_url && data.errcode === 0) {
-            const qrcodeUrl = imgToHttps(data.qrcode_url);
-            const user = getUserInfo();
-            console.log(user);
-            if (user && user.avatarurl) {
-                const avatarUrlPromise = downloadFile({ url: user.avatarurl });
-                const qrcodeUrlPromise = downloadFile({ url: qrcodeUrl });
-                const datas = await Promise.all([avatarUrlPromise, qrcodeUrlPromise]);
-                console.log(datas, 'datas');
-                const avatarUrlData = datas[0];
-                const qrcodeUrlData = datas[1];
-                // //const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
-                // console.log(httpsimg, 'httpsimg');
-                // const downloadData = await downloadFile({ url: httpsimg });
-                // if (downloadData.statusCode === 200) {
-                //     this.data.tempFilePath = downloadData.tempFilePath;
-                //     const nodeInfo = await getNodeInfo('canvasPosterId');
-                //     console.log(nodeInfo, 'nodeInfo');
-                //     this.data.nodeInfo = nodeInfo;
-                //     this.drawPosterImage();
-                // }
+        try {
+            wx.showLoading({
+                title: '绘制图片中'
+            });
+            const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
+            if (data && data.qrcode_url && data.errcode === 0) {
+                const qrcodeUrl = imgToHttps(data.qrcode_url);
+                const user = getUserInfo();
+                console.log(user);
+                if (user && user.avatarurl) {
+                    const avatarUrlPromise = downloadFile({ url: user.avatarurl });
+                    const qrcodeUrlPromise = downloadFile({ url: qrcodeUrl });
+                    const datas = await Promise.all([avatarUrlPromise, qrcodeUrlPromise]);
+                    console.log(datas, 'datas');
+                    const avatarUrlData = datas[0];
+                    const qrcodeUrlData = datas[1];
+                    // //const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
+                    // console.log(httpsimg, 'httpsimg');
+                    // const downloadData = await downloadFile({ url: httpsimg });
+                    // if (downloadData.statusCode === 200) {
+                    //     this.data.tempFilePath = downloadData.tempFilePath;
+                    //     const nodeInfo = await getNodeInfo('canvasPosterId');
+                    //     console.log(nodeInfo, 'nodeInfo');
+                    //     this.data.nodeInfo = nodeInfo;
+                    //     this.drawPosterImage();
+                    // }
 
-                if (avatarUrlData.statusCode === 200 && qrcodeUrlData.statusCode === 200) {
-                    const nodeInfo = await getNodeInfo('canvasPosterId');
-                    this.setData({
-                        nodeInfo,
-                        avatarUrl: avatarUrlData.tempFilePath,
-                        qrcodeUrl: qrcodeUrlData.tempFilePath,
-                        user,
-                        current_user: data.current_user
-                    }, this.posterFnc[this.postertype]);
+                    if (avatarUrlData.statusCode === 200 && qrcodeUrlData.statusCode === 200) {
+                        const nodeInfo = await getNodeInfo('canvasPosterId');
+                        this.setData({
+                            nodeInfo,
+                            avatarUrl: avatarUrlData.tempFilePath,
+                            qrcodeUrl: qrcodeUrlData.tempFilePath,
+                            user,
+                            current_user: data.current_user
+                        }, this.posterFnc[this.postertype]);
+                    }
+                } else {
+                    authGetUserInfo({
+                        ctx: this
+                    });
                 }
-            } else {
-                authGetUserInfo({
-                    ctx: this
-                });
-            }
 
-        } else {
+            }
+        } catch (e) {
             wx.hideLoading();
             wx.showToast({
-                title: '异常错误',
+                title: '异常错误,请重试',
                 icon: 'none'
             });
         }
