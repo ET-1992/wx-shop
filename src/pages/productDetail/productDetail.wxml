@@ -60,7 +60,6 @@
 				<view class="right">
 					<!-- 开启分销 -->
 					<image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
-					<!-- <image class="shareIcon" mode="aspectFit" src="{{ product.affiliate_enable ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="isShowProductDetailShareModal" ></image> -->
 				</view>
 
 			</view>
