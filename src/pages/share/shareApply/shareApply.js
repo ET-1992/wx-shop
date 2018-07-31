@@ -82,32 +82,53 @@ Page({
         }
         that.joinShareUser();
     },
+    async submitFormId(ev) {
+        // await api.hei.submitFormId({
+        //     form_id: ev.detail.formId,
+        // });
+        this.setData({
+            form_id: ev.detail.formId
+        });
+    },
     async joinShareUser() {
-        try {
-            const { phoneNumber, wechatId, qqId } = this.data;
-            const data = await api.hei.joinShareUser({
-                phone: phoneNumber,
-                wechat: wechatId,
-                qq: qqId
-            });
-            await showToast({
-                title: '提交成功,请等待商家审核',
-                icon: 'none'
-            });
-            setTimeout(() => {
-                wx.switchTab({
-                    url: '/pages/me/me'
-                });
-            }, 1000);
-        } catch (e) {
-            await showToast({
-                title: '申请失败',
-                icon: 'none'
-            });
-        }
         this.setData({
             isShowModal: false
         });
+        try {
+            const { phoneNumber, wechatId, qqId, member_need_audit, form_id } = this.data;
+            const data = await api.hei.joinShareUser({
+                phone: phoneNumber,
+                wechat: wechatId,
+                qq: qqId,
+                form_id
+            });
+            if (member_need_audit) {
+                const { confirm } = await showModal({
+                    title: '温馨提示',
+                    content: '提交成功，请等待商户审核通过',
+                    showCancel: false,
+                    mask: true
+                });
+                if (confirm) {
+                    wx.switchTab({ url: '/pages/me/me' });
+                }
+            } else {
+                const { confirm }  = await showModal({
+                    title: '温馨提示',
+                    content: '您已成为分享家',
+                    showCancel: false,
+                    mask: true
+                });
+                if (confirm) {
+                    wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+                }
+            }
+        } catch (e) {
+            await showToast({
+                title: '提交失败',
+                icon: 'none'
+            });
+        }
     },
 
     applyModal() {
@@ -126,8 +147,9 @@ Page({
         if (!affiliate_enable) {
             const { confirm }  = await showModal({
                 title: '温馨提示',
-                content: '商家暂时关闭了分销功能',
-                showCancel: false
+                content: '商家暂时关闭了分享功能',
+                showCancel: false,
+                mask: true
             });
             if (confirm) {
                 wx.redirectTo({ url: '/pages/home/home' });
@@ -135,8 +157,9 @@ Page({
         } else if (is_affiliate_member) {
             const { confirm }  = await showModal({
                 title: '温馨提示',
-                content: '您已经是分销员,请前往分销中心',
-                showCancel: false
+                content: '您已经是分享家,请前往分享中心',
+                showCancel: false,
+                mask: true
             });
             if (confirm) {
                 wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });

@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getUserInfo, getAgainUserForInvalid, updateCart, auth  } from 'utils/util';
-import { chooseAddress, getSetting, authorize } from 'utils/wxp';
+import { chooseAddress, getSetting, authorize, showToast, showModal } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
 
@@ -119,5 +119,11 @@ Page({
                 app.openConsoleResData = true;
             }
         }
+    },
+    showToast() {
+        showToast({
+            title: '审核中',
+            icon: 'none'
+        });
     }
 });
