@@ -129,7 +129,8 @@ Page({
     },
 
     redirectToShareCenter() {
-        if (this.data.user) {
+        const user = getUserInfo();
+        if (user) {
             wx.navigateTo({ url: '/pages/share/shareCenter/shareCenter' });
         }
     }
