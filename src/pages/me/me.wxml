@@ -1,6 +1,6 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<!-- <loading isLoading="{{ isLoading }}"/> -->
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
 	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
@@ -104,12 +104,19 @@
 		</navigator>
 	</view>
 
-	<view class="section" wx:if="{{ is_affiliate_member }}">
-		<navigator class="sectionItem" url="/pages/share/shareCenter/shareCenter">
+	<view class="section" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
+			<navigator class="sectionItem" url="/pages/share/shareCenter/shareCenter">
+				<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
+				<view class="itemTitle">分享中心</view>
+				<image class="rightIcon" src="../../icons/right.png" />
+			</navigator>
+	</view>
+	<view class="section" wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}">
+		<view class="sectionItem" bindtap="showToast">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 			<image class="rightIcon" src="../../icons/right.png" />
-		</navigator>
+		</view>
 	</view>
 
 	<view class="section contact">
@@ -124,7 +131,7 @@
 		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
 	</view> -->
 	
-	<view class="section" wx:if="{{ affiliate_enable && !is_affiliate_member }}">
+	<view class="section" wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">
 		<navigator class="sectionItem" url="/pages/share/shareApply/shareApply">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>

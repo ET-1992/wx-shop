@@ -45,7 +45,13 @@
 				/>
 			</view>
 		</view>
-		<view class="content-footer" bindtap="submitApply">提交申请</view>
+		<view catchtap="submitApply">
+			<form bindsubmit="submitFormId" report-submit="true">
+				<button formType="submit">
+					<view class="content-footer">提交申请</view>
+				</button>
+			</form>
+		</view>
 	</view>
 </view>
 <console page="分销申请" />

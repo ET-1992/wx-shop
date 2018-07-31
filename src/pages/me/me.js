@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getUserInfo, getAgainUserForInvalid, updateCart, auth  } from 'utils/util';
-import { chooseAddress, getSetting, authorize } from 'utils/wxp';
+import { chooseAddress, getSetting, authorize, showToast, showModal } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
 
@@ -23,7 +23,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        // isLoading: true,
+        isLoading: true,
         isShowConsole: false
     },
 
@@ -34,7 +34,8 @@ Page({
         const data = await api.hei.myFare();
 
         this.setData({
-            ...data
+            ...data,
+            isLoading: false
         });
 
         console.log(this.data);
@@ -119,5 +120,11 @@ Page({
                 app.openConsoleResData = true;
             }
         }
+    },
+    showToast() {
+        showToast({
+            title: '审核中',
+            icon: 'none'
+        });
     }
 });

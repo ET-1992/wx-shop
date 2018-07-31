@@ -33,6 +33,8 @@ Page({
                 title: '邀请好友'
             });
         }
+        const { themeColor } = app.globalData;
+        this.setData({ themeColor });
     },
 
     async onShow() {
