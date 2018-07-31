@@ -1,6 +1,6 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
-<!-- <loading isLoading="{{ isLoading }}"/> -->
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
 	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>

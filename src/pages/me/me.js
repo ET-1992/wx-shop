@@ -23,7 +23,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        // isLoading: true,
+        isLoading: true,
         isShowConsole: false
     },
 
@@ -34,7 +34,8 @@ Page({
         const data = await api.hei.myFare();
 
         this.setData({
-            ...data
+            ...data,
+            isLoading: false
         });
 
         console.log(this.data);
