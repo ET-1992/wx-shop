@@ -338,6 +338,8 @@ button::after {
 		flex-direction: column;
 		.categoryItem{
 			padding: 42rpx 35rpx 0;
+			line-height: 0;
+
 			.categoryImg{
 				width: 110rpx;
 				height: 110rpx;
@@ -345,8 +347,9 @@ button::after {
 			}
 		}
 		.categoryBtn{
-			line-height:0;
-			background:#fff;
+			background-color:transparent;
+			color: 333333;
+			font-size: 24rpx;
 		}
 		.categoryTitle{
 			padding-top: 12rpx;
