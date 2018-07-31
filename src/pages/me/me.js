@@ -126,5 +126,11 @@ Page({
             title: '审核中',
             icon: 'none'
         });
+    },
+
+    redirectToShareCenter() {
+        if (this.data.user) {
+            wx.navigateTo({ url: '/pages/share/shareCenter/shareCenter' });
+        }
     }
 });
