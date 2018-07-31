@@ -441,7 +441,11 @@ button {
 		position: relative;
 		left: 0;
 		top: 0;
-		line-height: 1;
+		
+		text{
+			color: #333;
+			line-height: 1.5;
+		}
 	}
 
 	.icon {

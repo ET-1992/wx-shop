@@ -717,19 +717,6 @@ Page({
 
     async isShowProductDetailShareModal() {
         this.setSwiperVideoImg();
-        const { product, current_user } = this.data;
-        if (product.affiliate_enable && !current_user.is_affiliate_member) {
-            const { confirm } = await showModal({
-                content: '希望获取这件商品的佣金吗? 赶紧申请为分销员吧！',
-                title: '温馨提示'
-            });
-            if (confirm) {
-                wx.navigateTo({
-                    url: '/pages/share/shareApply/shareApply'
-                });
-                return;
-            }
-        }
         this.setData({
             isShowProductDetailShareModal: true,
             showShareModal: false
@@ -743,7 +730,21 @@ Page({
     },
 
     /* 调起底部弹窗 */
-    openShareModal() {
+    async openShareModal() {
+        const { product, current_user } = this.data;
+        if (product.affiliate_enable && !current_user.is_affiliate_member) {
+            const { confirm } = await showModal({
+                title: '温馨提示',
+                content: '希望获取这件商品的佣金吗? 赶紧申请成为分享家吧！',
+                mask: true
+            });
+            if (confirm) {
+                wx.navigateTo({
+                    url: '/pages/share/shareApply/shareApply'
+                });
+                return;
+            }
+        }
         this.setData({
             showShareModal: true
         });
