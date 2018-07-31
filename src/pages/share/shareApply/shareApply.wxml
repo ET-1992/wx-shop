@@ -2,7 +2,7 @@
 <view wx:if="{{ !isLoading }}" class="container">
 	<image class="img" src="{{ image_url }}" mode="widthFix" bindload="isLoaded"/>
 	<view wx:if="{{ showBtn || !image_url }}" class="footer">
-		<view class="shareBtn" bindtap="applyModal"><text class="text">申请成为分享家</text></view>
+		<view class="shareBtn" bindtap="{{ member_need_audit ? 'applyModal' : 'beShareUser'}}"><text class="text">申请成为分享家</text></view>
 	</view>
 </view>
 <view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}">

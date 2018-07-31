@@ -95,37 +95,45 @@ Page({
             isShowModal: false
         });
         try {
-            const { phoneNumber, wechatId, qqId, member_need_audit, form_id } = this.data;
+            const { phoneNumber, wechatId, qqId, form_id } = this.data;
             const data = await api.hei.joinShareUser({
                 phone: phoneNumber,
                 wechat: wechatId,
                 qq: qqId,
                 form_id
             });
-            if (member_need_audit) {
-                const { confirm } = await showModal({
-                    title: '温馨提示',
-                    content: '提交成功，请等待商户审核通过',
-                    showCancel: false,
-                    mask: true
-                });
-                if (confirm) {
-                    wx.switchTab({ url: '/pages/me/me' });
-                }
-            } else {
-                const { confirm }  = await showModal({
-                    title: '温馨提示',
-                    content: '您已成为分享家',
-                    showCancel: false,
-                    mask: true
-                });
-                if (confirm) {
-                    wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
-                }
+            const { confirm } = await showModal({
+                title: '温馨提示',
+                content: '提交成功，请等待商户审核通过',
+                showCancel: false,
+                mask: true
+            });
+            if (confirm) {
+                wx.switchTab({ url: '/pages/me/me' });
             }
         } catch (e) {
             await showToast({
                 title: '提交失败',
+                icon: 'none'
+            });
+        }
+    },
+
+    async beShareUser() {
+        try {
+            const data = await api.hei.joinShareUser();
+            const { confirm }  = await showModal({
+                title: '温馨提示',
+                content: '申请成功，您已成为分享家',
+                showCancel: false,
+                mask: true
+            });
+            if (confirm) {
+                wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+            }
+        } catch (e) {
+            await showToast({
+                title: '申请失败',
                 icon: 'none'
             });
         }
