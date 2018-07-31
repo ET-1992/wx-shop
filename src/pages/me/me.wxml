@@ -105,11 +105,11 @@
 	</view>
 
 	<view class="section" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
-			<navigator class="sectionItem" url="/pages/share/shareCenter/shareCenter">
-				<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
-				<view class="itemTitle">分享中心</view>
-				<image class="rightIcon" src="../../icons/right.png" />
-			</navigator>
+		<button class="normalizeBt sectionItem contactBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
+			<view class="itemTitle">分享中心</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</button>
 	</view>
 	<view class="section" wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}">
 		<view class="sectionItem" bindtap="showToast">
