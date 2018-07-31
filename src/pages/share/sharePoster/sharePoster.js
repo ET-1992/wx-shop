@@ -15,7 +15,7 @@ Page({
 
     onLoad(options) {
         // postertype: 1 推广好店 2 申请分享家 3 分享商品
-        this.postertype = options && options.postertype;
+        this.postertype = (options && options.postertype) || '2';
         this.posterFnc = {
             '1': this.drawPosterImage,
             '2': this.drawFriendImage
