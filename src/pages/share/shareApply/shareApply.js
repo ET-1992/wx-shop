@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
 import { checkPhone, checkQQ } from 'utils/util';
+const app = getApp();
 Page({
     data: {
         title: 'shareApply',
@@ -15,7 +16,12 @@ Page({
     },
 
     onLoad(parmas) {
+        const { themeColor } = app.globalData;
         console.log(parmas);
+        this.setData({
+            isIphoneX: app.systemInfo.isIphoneX,
+            themeColor
+        });
     },
 
     async onShow() {
