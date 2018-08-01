@@ -120,7 +120,7 @@
 	</view>
 
 	<view class="section contact">
-		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from="nickName={{user.nickname}}|avatarUrl={{user.avatarurl}}">
+		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
 			<image class="itemIcon" mode="aspectFit" src="../../icons/contact.png" />
 			<view class="itemTitle">联系客服</view>
 			<image class="rightIcon" src="../../icons/right.png" />

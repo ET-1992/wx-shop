@@ -40,8 +40,8 @@
 		wx:if="{{ magicImgData.images[index].type === 'contact'}}" 
 		bindtap="{{ magicImgData.images[index].tips ? 'onModal' : ''}}"
 		data-tips="{{ magicImgData.images[index].tips }}" 
-		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}" 
-		session-from="nickName={{ userInfo.nickname }}|avatarUrl={{ userInfo.avatarurl }}"
+		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}"
+		session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'
 		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
 		style="background-image: url({{  magicImgData.images[index].image }})" 
 	></button>
@@ -62,8 +62,8 @@
 		wx:if="{{ magicImgData.images[index].type === 'contact' }}" 
 		bindtap="{{ magicImgData.images[index].tips ? 'onModal' : ''}}"
 		data-tips="{{ magicImgData.images[index].tips }}" 
-		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}" 
-		session-from="nickName={{ userInfo.nickname }}|avatarUrl={{ userInfo.avatarurl }}"
+		open-type="{{ !magicImgData.images[index].tips ? 'contact' : ''}}"
+		session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'
 		class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
 		style="background-image: url({{ magicImgData.images[index].image }})" 
 	></button>
