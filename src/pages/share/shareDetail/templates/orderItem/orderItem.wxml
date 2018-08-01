@@ -5,7 +5,7 @@
             <view class="itemCenter-t">品名：{{ order.title }}</view>
             <view class="itemCenter-t">所属订单号：{{ order.order_no }}</view>
             <view class="itemCenter-t">确认时间：{{ formatTime }}</view>
-            <text class="itemCenter-t" decode="{{ true }}">支付金额：￥{{ order.amount }} &nbsp; &nbsp; 佣金比例：{{ order.commission_percent }}%</text>
+            <text class="itemCenter-t" decode="{{ true }}">支付金额：￥{{ order_amount }} &nbsp; &nbsp; 佣金比例：{{ order.commission_percent }}%</text>
         </view>
         <view class="itemRight">+￥{{ order.commission_amount/100 }}</view>
     </view>
