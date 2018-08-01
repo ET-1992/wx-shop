@@ -255,3 +255,19 @@ export function authGetUserInfo({ ctx, isFatherControl = false }) {
         }
     });
 }
+
+export function parseScene(scene) {
+    let query_ = {};
+    let sceneArray = [];
+    if (scene.indexOf('&') > -1) {
+        const array = scene.split('&');
+        array.forEach((item) => {
+            sceneArray = item.split('=');
+            query_[sceneArray[0]] = sceneArray[1];
+        });
+    } else {
+        sceneArray = scene.split('=');
+        query_[sceneArray[0]] = sceneArray[1];
+    }
+    return query_;
+}

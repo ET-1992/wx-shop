@@ -60,7 +60,6 @@ Component({
                         });
 
                     }, 1000);
-                    console.log('------', intervalId);
                     this.intervalId = intervalId;
                 }
             },
@@ -81,11 +80,9 @@ Component({
     attached() {
         const { themeColor } = app.globalData;
         this.setData({ themeColor });
-        console.log('attached', this.intervalId);
     },
 
     detached() {
-        console.log('detached', this.intervalId);
         clearInterval(this.intervalId);
     },
 

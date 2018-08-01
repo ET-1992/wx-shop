@@ -29,7 +29,6 @@ Component({
         app.event.on('showConsole', this.eventShowConsole, this);
     },
     attached() {
-        console.log('attached');
         if (app.openConsole) {
             this.setData({
                 oldLogData: [],

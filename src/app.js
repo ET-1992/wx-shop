@@ -3,6 +3,7 @@ import api from 'utils/api';
 import getToken from 'utils/getToken';
 import { USER_KEY, TOKEN_KEY, EXPIRED_KEY } from 'constants/index';
 import Event from 'utils/event';
+import { parseScene } from 'utils/util';
 
 App({
     onLaunch() {
@@ -43,7 +44,9 @@ App({
 
     async bindShare(afcode) {
         setTimeout(() => {
-            api.hei.bindShare({ code: afcode });
+            api.hei.bindShare({ code: afcode }).then((res) => {
+                console.log(res);
+            });
         }, 500);
     },
 
@@ -51,7 +54,6 @@ App({
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
-
         console.log(options, 'options');
         this.logData.push(options);
 
@@ -68,21 +70,14 @@ App({
             this.bindShare(query.afcode);
         }
 
-        if (options.scene) {
-            let scene = decodeURIComponent(options.scene);
-            console.log(scene, 'scene');
+        if (query.scene) {
+            let scene = decodeURIComponent(query.scene);
+            let query_ = parseScene(scene);
+            if (query_.afcode) {
+                this.globalData.afcode = query.afcode;
+                this.bindShare(query_.afcode);
+            }
         }
-
-        // try {
-        //     const token = getToken();
-        //     if (!token) {
-        //         throw new Error('token invalid');
-        //     }
-        //     await checkSession();
-        // }
-        // catch (err) {
-        //     await this.silentLogin();
-        // }
     },
 
     onError(err) {
