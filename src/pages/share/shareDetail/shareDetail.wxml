@@ -11,10 +11,16 @@
 	<view class="moneyInfo">
 		<view class="moneyInfoHeader">
 			<view class="moneyInfoHeader-text" data-index="{{1}}" bindtap="checkActive">
-				<view class="moneyInfoHeader-border {{ isActive === 1 ? 'borderBottom' : '' }}">收支明细</view>
+				<view 
+					class="moneyInfoHeader-border {{ isActive === 1 ? 'borderBottom' : '' }}" 
+					style="{{ isActive === 1 ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+				>收支明细</view>
 			</view>
 			<view class="moneyInfoHeader-text" data-index="{{2}}" bindtap="checkActive">
-				<view class="moneyInfoHeader-border {{ isActive === 2 ? 'borderBottom' : '' }}">提现记录</view>
+				<view 
+					class="moneyInfoHeader-border {{ isActive === 2 ? 'borderBottom' : '' }}"
+					style="{{ isActive === 2 ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+				>提现记录</view>
 			</view>
 		</view>
 
@@ -26,7 +32,7 @@
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
 				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
-						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{order, formatTime: item.formatTime }}" />
+						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime }}" />
 					</view>
 				</view>
 				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>

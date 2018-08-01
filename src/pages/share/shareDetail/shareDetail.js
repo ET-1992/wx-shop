@@ -18,8 +18,10 @@ Page({
 
     onLoad(parmas) {
         console.log(parmas);
+        const { themeColor } = app.globalData;
         this.setData({
-            isIphoneX: app.systemInfo.isIphoneX
+            isIphoneX: app.systemInfo.isIphoneX,
+            themeColor
         });
     },
 
