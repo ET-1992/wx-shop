@@ -79,8 +79,13 @@ Page({
     },
 
     async onLoad({ id }) {
+        const systemInfo = wx.getSystemInfoSync();
+        const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        this.setData({
+            themeColor,
+            isIphoneX
+        });
 
         const { order } = await api.hei.fetchOrder({ order_no: id });
         order.formatTime = formatTime(new Date(order.time * 1000));
