@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-import { checkPhone, checkQQ } from 'utils/util';
+import { checkPhone, checkQQ, getAgainUserForInvalid } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -96,6 +96,19 @@ Page({
             form_id: ev.detail.formId
         });
     },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        const user = await getAgainUserForInvalid({ encryptedData, iv });
+        if (user) {
+            if (this.data.member_need_audit) {
+                this.applyModal();
+            } else {
+                this.beShareUser();
+            }
+        }
+    },
+
     async joinShareUser() {
         this.setData({
             isShowModal: false
@@ -125,6 +138,7 @@ Page({
         }
     },
 
+    /* 免后台审核成为分享家 */
     async beShareUser() {
         try {
             const data = await api.hei.joinShareUser();
@@ -145,6 +159,7 @@ Page({
         }
     },
 
+    /* 申请弹窗 */
     applyModal() {
         this.setData({
             isShowModal: true
