@@ -52,7 +52,7 @@ export async function getAgainUserForInvalid({ encryptedData, iv }) {
                 if (data) {
                     wx.setStorageSync(USER_KEY, data.user);
                 }
-                resolve(user);
+                resolve(data.user);
             } catch (e) {
                 console.log(e, 'getAgainUserForInvalid');
                 resolve(null);
