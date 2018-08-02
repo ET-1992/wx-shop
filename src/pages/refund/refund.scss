@@ -213,4 +213,8 @@ $color: #595757;
 	width: 100%;
 	background-color: $mainColor;
 	color: #fff;
+
+	&.iphoneXTrick {
+		margin-bottom: 40rpx;
+	}
 }

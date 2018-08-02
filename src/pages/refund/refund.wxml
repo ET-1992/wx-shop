@@ -64,7 +64,7 @@
       </view>
     </view>
   </view>
-  <view class="footer" bindtap="onRefund" style="background-color: {{ themeColor.primaryColor }}">
-    提交
+  <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <view bindtap="onRefund" style="background-color: {{ themeColor.primaryColor }}">提交</view>
   </view>
 </view>
