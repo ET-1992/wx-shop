@@ -14,8 +14,8 @@ const host = 'https://api.wpweixin.com/';
  **/
 const apis = {
     login: {
-        // path: `api2/auth.signon.json?appid=${APPID}`,
-        path: 'api2/auth.signon.json',
+        // path: `api/mag.auth.signon.json?appid=${APPID}`,
+        path: 'api/mag.auth.signon.json',
         method: 'POST',
     },
     fetchHome: {
@@ -141,7 +141,7 @@ const apis = {
         isForceToken: true,
     },
     upload: {
-        path: 'api2/upload.media.json',
+        path: 'api/mag.upload.media.json',
         isForceToken: true,
         method: 'POST',
         requestType: 'uploadFile',
@@ -192,7 +192,7 @@ const apis = {
         isForceToken: true,
     },
     submitFormId: {
-        path: 'api2/form_id.json',
+        path: 'api/mag.form_id.json',
         method: 'POST',
     },
     receiveCouponAll: {
@@ -209,11 +209,11 @@ const apis = {
         isForceToken: true,
     },
     silentLogin: {
-        path: 'api2/user.login.json',
+        path: 'api/mag.user.login.json',
         method: 'POST',
     },
     getUserInfo: {
-        path: 'api2/user.info.json',
+        path: 'api/mag.user.info.json',
         method: 'POST',
         isForceToken: true,
     },
