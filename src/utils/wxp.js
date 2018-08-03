@@ -83,3 +83,7 @@ export const canvasToTempFilePath = (options, ctx) => new Promise((resolve, reje
 export const saveImageToPhotosAlbum = (options) => new Promise((resolve, reject) => {
     wx.saveImageToPhotosAlbum({ success: resolve, fail: reject, ...options });
 });
+
+export const getLocation = (options) => new Promise((resolve, reject) => {
+    wx.getLocation({ success: resolve, fail: reject, ...options });
+});

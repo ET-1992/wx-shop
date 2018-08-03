@@ -281,6 +281,11 @@ const apis = {
         path: 'api/mag.affiliate.bind.json',
         method: 'POST',
         isForceToken: true
+    },
+    liftList: {
+        path: 'api/mag.order.liftingaddress.json',
+        method: 'GET',
+        isForceToken: true
     }
 };
 

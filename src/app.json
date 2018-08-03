@@ -37,7 +37,8 @@
 		"pages/share/shareMoney/shareMoney",
 		"pages/share/shareList/shareList",
 		"pages/share/shareOrderList/shareOrderList",
-		"pages/webPages/webPages"
+		"pages/webPages/webPages",
+		"pages/liftList/liftList"
 	],
 	"window": {
 		"backgroundTextStyle": "white",
