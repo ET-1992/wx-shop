@@ -1,0 +1,77 @@
+.container {
+    
+    .address{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 40rpx;
+        margin: 10rpx 0;
+
+        .title{
+            display: flex;
+            align-items: center;
+            font-size: 28rpx;
+            color: #000000;
+            padding-right: 28rpx;
+        }
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            font-size: 26rpx;
+            flex: 1;
+
+            view:nth-child(1){
+                color: #333333;
+                font-weight: bold;
+                margin-bottom: 10rpx;
+                display: -webkit-box;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp:1;
+            }
+            view:nth-child(2){
+                color: #707070;
+                display: -webkit-box;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp:2;
+            }
+        }
+    }
+
+    .receiver{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        padding: 20rpx 0;
+        font-size: 28rpx;
+        color: #000000;
+
+        .tel{
+            text{
+                color: red;
+            }
+        }
+    }
+
+    .chooseAddress{
+        display: flex;
+        background: #fff;
+        padding: 40rpx;
+        margin: 10rpx 0;
+        font-size: 28rpx;
+    }
+    .right-arrow {
+        display: flex;
+        color: #999999;
+        width: 10rpx;
+        height: 20rpx;
+        margin-right: 40rpx;
+        margin-left: 40rpx;
+    }
+}
