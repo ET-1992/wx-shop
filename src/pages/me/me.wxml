@@ -46,6 +46,8 @@
 			</navigator>
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
 				<view class="orderItemValue" wx:if="{{ order_counts['3'] }}">{{ order_counts['3'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['31'] }}">{{ order_counts['31'] }}</view>
+				<view class="orderItemValue" wx:if="{{ order_counts['3'] && order_counts['31'] }}">{{ order_counts['3']+order_counts['31'] }}</view>
 				<image class="statusIcon unGet" src="../../icons/confirm.png" />
 				<view class="statusText">待收货</view>
 			</navigator>
