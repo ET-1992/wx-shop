@@ -26,12 +26,12 @@
 
   <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon }}"></address>
 
-  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && !otherPeopleGroupon }}"  data-index="{{index}}" bindtap="toLogisticsDetail">
+  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}"  data-index="{{index}}" bindtap="toLogisticsDetail">
     <view class="logistics">
       <view class="logistics-header">
         <text class="header-left">包裹{{ index + 1 }}</text>
         <text class="header-center">{{ item.company + ':' +  item.no }}</text>
-        <text class="header-right">已发货</text>
+        <text class="header-right">{{ order.statusText }}</text>
       </view>
       <view class="logistics-body">
         <view class="body-left">
@@ -54,7 +54,7 @@
     <productItemSold items="{{ order.noLogisticsForItem }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
 
-  <view wx:if="{{ order.status !== 3 && order.status !== 31 && !otherPeopleGroupon }}" class="logisticsWrap">
+  <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="logisticsWrap">
     <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
 

@@ -121,6 +121,10 @@ Page({
     /* 银行卡提交 */
     async submitBank() {
         let that = this;
+        if (that.data.balance === '0') {
+            wx.showToast({ title: '可提现金额为0', icon: 'none', image: '', duration: 1000 });
+            return false;
+        }
         if (that.data.username.length === 0) {
             wx.showToast({ title: '用户名不能为空', icon: 'none', image: '', duration: 1000 });
             return false;
@@ -130,7 +134,7 @@ Page({
         } else if (that.data.phoneNumber.length !== 11) {
             wx.showToast({ title: '手机号长度有误', icon: 'none', image: '', duration: 1000 });
             return false;
-        } else if (!checkPhone(this.data.phoneNumber)) {
+        } else if (!checkPhone(that.data.phoneNumber)) {
             wx.showToast({ title: '请输入正确的手机号', icon: 'none', image: '', duration: 1000 });
             return false;
         } else if (!that.data.bankNumber) {
@@ -148,6 +152,10 @@ Page({
 
     async submitWechat() {
         let that = this;
+        if (that.data.balance === '0') {
+            wx.showToast({ title: '可提现金额为0', icon: 'none', image: '', duration: 1000 });
+            return false;
+        }
         if (that.data.phoneNumber.length === 0) {
             wx.showToast({ title: '手机号不能为空', icon: 'none', image: '', duration: 1000 });
             return false;
@@ -161,7 +169,7 @@ Page({
             wx.showToast({ title: '微信号不能为空', icon: 'none', image: '', duration: 1000 });
             return false;
         }
-
+        console.log(that.data);
         console.log('submitWechat');
         this.getShareMoney();
     },
