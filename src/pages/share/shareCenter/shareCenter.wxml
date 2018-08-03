@@ -58,11 +58,11 @@
 	<view class="content">
 		<view class="content-header">分享规则说明</view>
 		<view class="content-body">
-			<view class="content-body-item"><text class="content-body-item-left">分享家</text><text>通过邀请海报绑定关系的下线</text></view>
+			<view class="content-body-item"><text class="content-body-item-left">分享家</text><text>通过邀请并申请成为分享家的下线</text></view>
 			<view class="content-body-item"><text class="content-body-item-left">客户</text><text>通过分享海报或链接购买商品的买家</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">订单</text><text>客户和分享家的客户的购买订单</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">预计收益</text><text>处于进行中的订单收益</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">收益</text><text>完成后7日后且无退款的订单收益</text></view>
+			<view class="content-body-item"><text class="content-body-item-left">订单</text><text>能获得收益的所有订单</text></view>
+			<view class="content-body-item"><text class="content-body-item-left">预计收益</text><text>未完成订单的可能收益</text></view>
+			<view class="content-body-item"><text class="content-body-item-left">收益</text><text>完成后7日且无退款（含部分退款）的订单收益</text></view>
 		</view>
 		<view class="content-footer" bindtap="changeModal">知道了</view>
 	</view>
