@@ -40,6 +40,28 @@
             color: #707070;
         }
     }
+
+    .icon {
+        margin-right: 10rpx;
+        width: 25rpx;
+        height: 25rpx;
+    }
+
+   .address-bottom, .liftInfoBottom {
+        color: #707070;
+        display: flex;
+        align-items: center;
+
+        .text {
+            display: -webkit-box;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:2;
+            flex: 1;
+        }
+    }
     
     .right-arrow {
         color: #999999;
@@ -59,8 +81,36 @@
     color: #000000;
 
     .tel{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
         text{
             color: red;
+        }
+
+        input{
+            width: 240rpx;
+            border:1px solid #707070;
+            height: 20rpx;
+            box-sizing:border-box;
+            text-align:center;
+            color:#000000;
+        }
+    }
+
+    .title{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input{
+            width: 200rpx;
+            border:1px solid #707070;
+            height: 20rpx;
+            box-sizing:border-box;
+            text-align:center;
+            color:#000000;
         }
     }
 }

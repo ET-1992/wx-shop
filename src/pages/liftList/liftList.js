@@ -21,14 +21,44 @@ Page({
         if (res) {
             const data = await getLocation();
             console.log(data, 'data');
-            console.log(res);
             const { latitude, longitude } = data;
-        }
+            try {
+                const { address_list, self_lifting_enable } = await api.hei.liftList();
+                console.log(address_list, 'add');
+                address_list.forEach((item, index) => {
+                    let distance = getDistance(latitude, longitude, Number(item.latitude), Number(item.longtitude));
+                    item.distance = Number(distance).toFixed(2);
+                    item.checked = false;
+                });
 
-        try {
-            const { address_list, self_lifting_enable } = await api.hei.liftList();
-        } catch (e) {
-            console.log(e);
+                address_list.sort((a, b) => {
+                    return Number(a.distance) - Number(b.distance);
+                });
+
+                this.setData({
+                    address_list
+                });
+                console.log(address_list);
+            } catch (e) {
+                console.log(e);
+            }
         }
+    },
+
+    getLiftInfo(e) {
+        const { value } = e.detail;
+        console.log(e);
+        this.setTrueLiftItem(Number(value));
+    },
+
+    setTrueLiftItem(index) {
+        const { address_list } = this.data;
+        address_list.forEach((item) => {
+            item.checked = false;
+        });
+        address_list[index].checked = true;
+        this.setData({
+            address_list
+        });
     }
 });

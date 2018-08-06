@@ -9,7 +9,11 @@ const app = getApp();
 Page({
     data: {
         title: 'orderCreate',
-
+        liftStyles: [
+            { title: '快递', value: 'express', checked: 'true' },
+            { title: '自提', value: 'lift' }
+        ],
+        liftStyle: 'express',
         savePrice: 0,
         totalPrice: 0,
         items: [],
@@ -395,7 +399,15 @@ Page({
             'authModal.isShowModal': false,
             isShouldRedirect: true
         });
-    }
+    },
+
+    /* radio选择改变触发 */
+    radioChange(e) {
+        this.setData({
+            liftStyle: e.detail.value
+        });
+        console.log('radio的value值为：', e.detail.value);
+    },
 
     // checkPhoneModel() {
     // 	wx.getSystemInfo({

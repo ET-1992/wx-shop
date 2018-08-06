@@ -1,12 +1,17 @@
-<view class="container">
-    <block wx:if="{{ !liftInfo.length }}">
+<navigator class="container" url="/pages/liftList/liftList">
+    <block wx:if="{{ liftInfo.length }}">
         <view class="title">自提地址</view>
         <view class="address">
             <view class="address-top">
                 <view>{{ liftInfo.receiver_district }}</view>
             </view>
             <view class="address-bottom">
+                <image src="/icons/address.png"	mode="widthFix" class="icon" />
                 <view>{{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}</view>
+            </view>
+            <view class="liftInfoBottom">
+                <image src="/icons/phone.png" mode="widthFix" class="icon" />
+                <view class="text">15425458545</view>
             </view>
         </view>
     </block>
@@ -14,8 +19,18 @@
         选择自提点
     </view>
     <image src="/icons/right.png" class="right-arrow"></image>
-</view>
+</navigator>
+
 <view class="receiver">
     <view class="title">提货人：{{ liftInfo.receiver_name }}</view>
-    <view class="tel">电话<text>*</text>：{{ liftInfo.receiver_phone }}</view>
+    <view class="tel" style="padding-right: 50rpx">电话<text>*</text>：{{ liftInfo.receiver_phone }}</view>
+</view>
+
+<view class="receiver">
+    <view class="title">
+        提货人：<input type="text" />
+    </view>
+    <view class="tel">
+        电话<text>*</text>：<input type="number" />
+    </view>
 </view>
