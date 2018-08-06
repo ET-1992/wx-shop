@@ -1,14 +1,16 @@
 <view class="container">
     <block wx:if="{{ !liftInfo.length }}">
+        <view class="title">自提地址</view>
         <view class="address">
-            <view class="title">自提地址</view>
-            <view class="content">
+            <view class="address-top">
                 <view>{{ liftInfo.receiver_district }}</view>
+            </view>
+            <view class="address-bottom">
                 <view>{{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}</view>
             </view>
         </view>
     </block>
-    <view wx:else class="address">
+    <view wx:else class="address title">
         选择自提点
     </view>
     <image src="/icons/right.png" class="right-arrow"></image>
