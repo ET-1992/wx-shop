@@ -9,44 +9,44 @@
 	</view>
 	<view class="shareMoneyGet">
 		<text class="shareMoneyGet-text">当前金额 <text class="shareMoneyGet-money">￥{{ wallet.affiliate_balance || 0 }}</text> </text>
-		<view class="shareMoneyGet-btn" bindtap="goToShare" data-urldata="shareMoney">立即提现</view>
+		<view class="shareMoneyGet-btn" bindtap="goToAffiliate" data-urldata="affiliateMoney">立即提现</view>
 	</view>
-	<view class="finishUserInfo" bindtap="goToShare" data-urldata="shareDetail">
+	<view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateDetail">
 		<view class="finishUserInfo-left">收入明细</view>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view>
-	<!-- <view class="finishUserInfo" bindtap="goToShare" data-urldata="shareFinishUserInfo">
+	<!-- <view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateFinishUserInfo">
 		<text class="finishUserInfo-left">完善个人资料</text>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view> -->
 	<view class="userInfoDisplay">
-		<navigator class="userInfoDisplay-item" url="/pages/share/shareList/shareList?user_type=2">
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">客户</text>	
 		</navigator>
 
-		<navigator class="userInfoDisplay-item" url="/pages/share/shareList/shareList?user_type=1">
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=1">
 			<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">分享家</text>	
 		</navigator>
 
-		<navigator class="userInfoDisplay-item" url="/pages/share/shareOrderList/shareOrderList">
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateOrderList/affiliateOrderList">
 			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">订单</text>	
 		</navigator>
 	</view>
 	<view class="footer" wx:if="{{ affiliate_enable }}">
-		<view class="footer-item" bindtap="goToShare" data-urldata="shareProductList">
+		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliateProductList">
 			<image class="footer-img" src="/icons/shareProduct.png"></image>	
 			<text class="footer-text">分享商品</text>	
 		</view>
 
-		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="2">
+		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="2">
 			<image class="footer-img" src="/icons/sharePoster.png"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>
 
-		<view class="footer-item" bindtap="goToShare" data-urldata="sharePoster" data-postertype="1">
+		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="1">
 			<image class="footer-img" src="/icons/shareToFriend.png"></image>	
 			<text class="footer-text">邀请好友</text>	
 		</view>

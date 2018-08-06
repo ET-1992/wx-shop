@@ -134,7 +134,7 @@
 	</view> -->
 	
 	<view class="section" wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">
-		<navigator class="sectionItem" url="/pages/share/shareApply/shareApply">
+		<navigator class="sectionItem" url="/pages/affiliate/affiliateApply/affiliateApply">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>
 	</view>

@@ -131,7 +131,7 @@ Page({
     redirectToShareCenter() {
         const user = getUserInfo();
         if (user) {
-            wx.navigateTo({ url: '/pages/share/shareCenter/shareCenter' });
+            wx.navigateTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
         }
     }
 });

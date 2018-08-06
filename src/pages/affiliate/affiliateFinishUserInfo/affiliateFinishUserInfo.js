@@ -2,7 +2,7 @@ import { checkPhone } from 'utils/util';
 
 Page({
     data: {
-        title: 'shareFinishUserInfo',
+        title: 'affiliateFinishUserInfo',
         isError: {
             phone: false,
             card: false
