@@ -1,4 +1,3 @@
-<view wx:for="{{ products }}">
+<block wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
     <productList product="{{ item }}" productLayoutStyle="leftImage" />
-    <view>{{item.title}}</view>
-</view>
+</block>

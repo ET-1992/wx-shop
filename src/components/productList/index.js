@@ -1,10 +1,5 @@
 Component({
     properties: {
-        products: {
-            type: Array,
-            value: [],
-        },
-
         product: {
             type: Object,
             value: {},

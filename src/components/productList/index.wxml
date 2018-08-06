@@ -1,10 +1,7 @@
-<view>
-	<view class="{{ productLayoutStyle === 'articleImage'?'':'container'}}">
-	  	<include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
-	  	<include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
-	  	<include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
-	  	<include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
-	  	<include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
-	</view>
-</view>
+
+<include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
+<include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
+<include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
+<include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
+<include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
 

@@ -417,3 +417,9 @@ button::after {
 	width: 532rpx;
 	height: 86rpx;
 }
+.productContainer{
+	display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

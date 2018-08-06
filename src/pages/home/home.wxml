@@ -44,11 +44,11 @@
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-              <template is="leftImage" data="{{ product: groupons[0], themeColor }}" />
+              <productList product="{{ groupons[0] }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
             </navigator>
           <block wx:else>
             <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-             <template is="leftImage" data="{{ product: item, themeColor }}"  />
+             <productList product="{{ item }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
             </navigator>
           </block>
           <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
@@ -169,7 +169,16 @@
         <view class="section" wx:if="{{ products && products.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <!-- 商品列表 -->
-          <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{next_cursor}}" />
+          <navigator
+            wx:for="{{ products }}"
+            wx:key="id"
+            wx:for-item="product"
+            wx:for-index="productIndex"
+            hover-class="navigator-hover"
+            url="/pages/productDetail/productDetail?id={{ product.id }}"
+          >
+            <productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
+          </navigator>
           <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">
             <navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
               <form bindsubmit="submitFormId" report-submit="true">
