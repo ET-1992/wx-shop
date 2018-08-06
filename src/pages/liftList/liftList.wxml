@@ -19,3 +19,6 @@
 		<view class="liftRight">{{ item.distance }}km</view>
 	</radio-group>
 </view>
+
+<myModal modal="{{authModal}}" />
+<console />
