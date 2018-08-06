@@ -4,7 +4,7 @@ import { checkPhone, checkQQ, getAgainUserForInvalid } from 'utils/util';
 const app = getApp();
 Page({
     data: {
-        title: 'shareApply',
+        title: 'affiliateApply',
         image_url: '',
         is_affiliate_member: false,
         affiliate_enable: false,
@@ -149,7 +149,7 @@ Page({
                 mask: true
             });
             if (confirm) {
-                wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+                wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
             }
         } catch (e) {
             await showToast({
@@ -191,7 +191,7 @@ Page({
                 mask: true
             });
             if (confirm) {
-                wx.redirectTo({ url: '/pages/share/shareCenter/shareCenter' });
+                wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
             }
         }
     }

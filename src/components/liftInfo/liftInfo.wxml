@@ -1,5 +1,5 @@
 <view class="container">
-    <!-- <block wx:if="{{ liftInfo.length }}"> -->
+    <block wx:if="{{ !liftInfo.length }}">
         <view class="address">
             <view class="title">自提地址</view>
             <view class="content">
@@ -7,13 +7,13 @@
                 <view>{{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}</view>
             </view>
         </view>
-        <view class="receiver">
-            <view class="title">提货人：{{ liftInfo.receiver_name }}</view>
-            <view class="tel">电话<text>*</text>：{{ liftInfo.receiver_phone }}</view>
-        </view>
-    <!-- </block> -->
-    <!-- <view wx:else class="chooseAddress">
+    </block>
+    <view wx:else class="address">
         选择自提点
-    </view> -->
+    </view>
     <image src="/icons/right.png" class="right-arrow"></image>
+</view>
+<view class="receiver">
+    <view class="title">提货人：{{ liftInfo.receiver_name }}</view>
+    <view class="tel">电话<text>*</text>：{{ liftInfo.receiver_phone }}</view>
 </view>

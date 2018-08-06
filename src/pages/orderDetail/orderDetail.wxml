@@ -24,12 +24,12 @@
     </view>
   </view>
 
-  <!-- <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon }}"/> -->
+  <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon }}"/>
   <!-- <liftInfo liftInfo="{{ order }}" wx:if="{{ order.shipping_type === 2 }}"/> -->
   <liftInfo liftInfo="{{ order }}"/>
 
-  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}"  data-index="{{index}}" bindtap="toLogisticsDetail">
-    <view class="logistics">
+  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}" >
+    <view class="logistics" data-index="{{index}}" bindtap="toLogisticsDetail">
       <view class="logistics-header">
         <text class="header-left">包裹{{ index + 1 }}</text>
         <text class="header-center">{{ item.company + ':' +  item.no }}</text>

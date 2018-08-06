@@ -7,7 +7,7 @@ const app = getApp();
 
 Page({
     data: {
-        title: 'sharePoster',
+        title: 'affiliatePoster',
         authModal: {},
         options: {},
         share_title: ''
@@ -22,7 +22,7 @@ Page({
         };
         this.qrcodePath = {
             '2': 'pages/home/home',
-            '1': 'pages/share/shareApply/shareApply'
+            '1': 'pages/affiliate/affiliateApply/affiliateApply'
         };
         if (this.postertype === '2') {
             wx.setNavigationBarTitle({

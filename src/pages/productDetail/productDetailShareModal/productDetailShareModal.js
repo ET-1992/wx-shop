@@ -79,7 +79,7 @@ Component({
             ctx.setTextAlign('left');
 
             const text = productTitle;
-            ctx.font = 'normal normal 18px PingFang SC';
+            ctx.font = 'normal normal 16px PingFang SC';
             const textRow = autoDrawText({
                 text,
                 ctx,

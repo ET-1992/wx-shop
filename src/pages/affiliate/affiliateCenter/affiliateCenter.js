@@ -2,7 +2,7 @@ import api from 'utils/api';
 
 Page({
     data: {
-        title: 'shareCenter',
+        title: 'affiliateCenter',
         isShowModal: false,
         isLoading: true,
         member: {},
@@ -28,32 +28,32 @@ Page({
             isShowModal: !this.data.isShowModal
         });
     },
-    goToShare(e) {
+    goToAffiliate(e) {
         console.log(e, '090');
         const { urldata } = e.currentTarget.dataset;
         let url = '';
         switch (urldata) {
-            case 'shareMoney': {
+            case 'affiliateMoney': {
                 const { wallet, member } = this.data;
-                url = `/pages/share/shareMoney/shareMoney?balance=${wallet.affiliate_balance}&income_pending=${wallet.affiliate_income_pending}&code=${member.code}`;
+                url = `/pages/affiliate/affiliateMoney/affiliateMoney?balance=${wallet.affiliate_balance}&income_pending=${wallet.affiliate_income_pending}&code=${member.code}`;
                 break;
             }
-            case 'shareFinishUserInfo': {
-                url = '/pages/share/shareFinishUserInfo/shareFinishUserInfo';
+            case 'affiliateFinishUserInfo': {
+                url = '/pages/affiliate/affiliateFinishUserInfo/affiliateFinishUserInfo';
                 break;
             }
-            case 'shareProductList': {
-                url = '/pages/share/shareProductList/shareProductList';
+            case 'affiliateProductList': {
+                url = '/pages/affiliate/affiliateProductList/affiliateProductList';
                 break;
             }
-            case 'shareDetail': {
-                url = '/pages/share/shareDetail/shareDetail';
+            case 'affiliateDetail': {
+                url = '/pages/affiliate/affiliateDetail/affiliateDetail';
                 break;
             }
-            case 'sharePoster': {
+            case 'affiliatePoster': {
                 const { postertype } = e.currentTarget.dataset;
                 console.log(postertype, 'poser');
-                url = '/pages/share/sharePoster/sharePoster?postertype=' + postertype;
+                url = '/pages/affiliate/affiliatePoster/affiliatePoster?postertype=' + postertype;
                 break;
             }
             default:
