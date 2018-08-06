@@ -1,22 +1,24 @@
 <view class="container">
-	<radio-group class="item" wx:for="{{ address_list }}" bindchange="getLiftInfo">
-		<radio value="{{index}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" class="itemRadio" />
+	<radio-group wx:for="{{ address_list }}" bindchange="getLiftInfo">
+		<label class="item">
+			<radio value="{{index}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" class="itemRadio" />
 
-		<view class="liftInfo">
-			<view class="liftInfoTop">
-				{{ item.name }}
+			<view class="liftInfo">
+				<view class="liftInfoTop">
+					{{ item.name }}
+				</view>
+				<view class="liftInfoCenter">
+					<image src="/icons/address.png"	mode="widthFix" class="icon" />
+					<view class="text">{{ item.state + item.city + item.district + item.address }}</view>
+				</view>
+				<view class="liftInfoBottom" wx:if="{{ item.phone }}">
+					<image src="/icons/phone.png" mode="widthFix" class="icon" />
+					<view class="text">{{ item.phone }}</view>
+				</view>
 			</view>
-			<view class="liftInfoCenter">
-				<image src="/icons/address.png"	mode="widthFix" class="icon" />
-				<view class="text">{{ item.state + item.city + item.district + item.address }}</view>
-			</view>
-			<view class="liftInfoBottom" wx:if="{{ item.phone }}">
-				<image src="/icons/phone.png" mode="widthFix" class="icon" />
-				<view class="text">{{ item.phone }}</view>
-			</view>
-		</view>
 
-		<view class="liftRight">{{ item.distance }}km</view>
+			<view class="liftRight">{{ item.distance }}km</view>
+		</label>
 	</radio-group>
 </view>
 
