@@ -6,7 +6,7 @@ const app = getApp();
 
 Page({
     data: {
-        title: 'shareMoney',
+        title: 'affiliateMoney',
         isActive: 1,
         modal: {},
         getMoneyLogCursor: 0,
