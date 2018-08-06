@@ -1,10 +1,15 @@
-import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 Component({
     properties: {
         products: {
             type: Array,
             value: [],
         },
+
+        product: {
+            type: Object,
+            value: {},
+        },
+
         themeColor: {
             type: Object,
             value: {},
@@ -15,7 +20,7 @@ Component({
         },
         productLayoutStyle: {
             type: String,
-            value: PRODUCT_LAYOUT_STYLE[0],
+            value: '',
         },
         nextCursor: {
             type: Number,

@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "productList": "../../components/productList/index",
+        "magicImg": "../../components/magicImg/magicImg",
+        "console": "../../components/console/console",
+        "loading": "../../components/loading/index"
+    }
+}

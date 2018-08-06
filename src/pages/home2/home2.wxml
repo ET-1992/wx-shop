@@ -1,0 +1,4 @@
+<view wx:for="{{ products }}">
+    <productList product="{{ item }}" productLayoutStyle="leftImage" />
+    <view>{{item.title}}</view>
+</view>
