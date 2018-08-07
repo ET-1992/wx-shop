@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" wx:if="{{ !isLoading }}">
 	<radio-group wx:for="{{ address_list }}" bindchange="getLiftInfo">
 		<label class="item">
 			<radio value="{{index}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" class="itemRadio" />
@@ -21,6 +21,8 @@
 		</label>
 	</radio-group>
 </view>
+
+<loading isLoading="{{ isLoading }}"/>
 
 <myModal modal="{{authModal}}" />
 <console />

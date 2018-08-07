@@ -6,7 +6,7 @@ const app = getApp();
 
 Page({
     data: {
-        title: 'liftList',
+        isLoading: true,
     },
 
     onLoad(parmas) {
@@ -24,7 +24,6 @@ Page({
             const { latitude, longitude } = data;
             try {
                 const { address_list, self_lifting_enable } = await api.hei.liftList();
-                console.log(address_list, 'add');
                 address_list.forEach((item, index) => {
                     let distance = getDistance(latitude, longitude, Number(item.latitude), Number(item.longtitude));
                     item.distance = Number(distance).toFixed(2);
@@ -36,7 +35,8 @@ Page({
                 });
 
                 this.setData({
-                    address_list
+                    address_list,
+                    isLoading: false
                 });
                 console.log(address_list);
             } catch (e) {
