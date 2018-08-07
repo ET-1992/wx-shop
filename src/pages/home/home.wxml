@@ -37,11 +37,11 @@
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
             <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-              <productList product="{{ groupons[0] }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+              <productList product="{{ groupons[0] }}" tplStyle="one" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
             </navigator>
           <block wx:else>
             <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-             <productList product="{{ item }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+             <productList product="{{ item }}" tplStyle="one" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
             </navigator>
           </block>
           <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
@@ -83,10 +83,10 @@
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
-            <productList miaosha="{{ miaoshas[0] }}" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+            <productList miaosha="{{ miaoshas[0] }}" tplStyle="one" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
           </navigator>
           <navigator wx:if="{{ miaoshas.length > 1}}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-            <productList miaosha="{{ item }}" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+            <productList miaosha="{{ item }}" tplStyle="one" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
           </navigator>
           <navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
             <form bindsubmit="submitFormId" report-submit="true">
@@ -164,7 +164,7 @@
 					<!-- 商品列表start -->
 					<view class="productContainer">
 						<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
-							<productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
+							<productList product="{{ product }}" tplStyle="one" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
 						</navigator>
 					</view>
 					<!-- 商品列表end -->

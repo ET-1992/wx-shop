@@ -40,7 +40,7 @@
 				wx:for-index="productIndex"
 				hover-class="navigator-hover"
 			>
-				<productList product="{{ product }}" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+				<productList product="{{ product }}" tplStyle="one" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
 			</view>
 		</view>
 	</view>

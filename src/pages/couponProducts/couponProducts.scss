@@ -75,3 +75,10 @@ page {
 	padding-top: 100rpx;
 	color: $originalPriceColor;
 }
+
+.productContainer{
+	display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

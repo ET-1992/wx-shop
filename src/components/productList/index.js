@@ -70,6 +70,10 @@ Component({
             type: String,
             value: '',
         },
+        tplStyle: {
+            type: String,
+            value: '',
+        },
         nextCursor: {
             type: Number,
             value: 0,

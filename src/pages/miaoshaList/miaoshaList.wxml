@@ -4,8 +4,7 @@
   </view>
   <view wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.miaosha_enable=='1'}}">
     <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
-      <!-- <flashItem isList="{{ true }}" product="{{ item }}" /> -->
-      <productList miaosha="{{ item }}" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+      <productList miaosha="{{ item }}" tplStyle="one" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
     </navigator>
   </view>
   <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>

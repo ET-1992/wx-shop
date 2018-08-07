@@ -1,7 +1,11 @@
 
-<include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
-<include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
-<include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
-<include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
-<include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
+<!-- tplStyleOne -->
+<include wx:if="{{ tplStyle === 'one' && productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
+<include wx:if="{{ tplStyle === 'one' && productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
+<include wx:if="{{ tplStyle === 'one' && productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
+<include wx:if="{{ tplStyle === 'one' && productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
+<include wx:if="{{ tplStyle === 'one' && productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
+
+<!-- tplStyleTwo -->
+<include wx:if="{{ tplStyle === 'two' && productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
 
