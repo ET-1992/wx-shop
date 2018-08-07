@@ -1,18 +1,12 @@
-import { PRODUCT_LIST_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-
-
-
-// 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp();
 
 // 创建页面实例对象
 Page({
     // 页面的初始数据
     data: {
         products: [],
-        // productListStyle: PRODUCT_LIST_STYLE[1],
 
         isRefresh: false,
 
@@ -44,6 +38,10 @@ Page({
     },
 
     async onLoad() {
+        const { themeColor } = app.globalData;
+        this.setData({
+            themeColor
+        });
         this.loadProducts();
     },
 

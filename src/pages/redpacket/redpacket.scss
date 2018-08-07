@@ -138,3 +138,9 @@ $textColor: #ec0023;
 .iphone5-style .date {
 	bottom: 15rpx !important;
 }
+.productContainer{
+	display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

@@ -1,5 +1,8 @@
-<view class="container">
-  <productList products="{{ products }}" productListStyle="{{ productListStyle }}" nextCursor="{{next_cursor}}" />
-</view>
-
+<!-- 商品列表start -->
+<view class="productContainer">
+    <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+      <productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
+    </navigator>
+  </view>
+  <!-- 商品列表end -->
 <console page="loadProduct" />

@@ -1,8 +1,9 @@
-/* pages/loadProduct/loadProduct.wxss */
-@import '~styles/color';
 page{
 	background: #fff;
 }
-.container{
-	margin-top:20rpx;
+.productContainer{
+	display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }

@@ -1,7 +1,10 @@
 @import '~styles/color';
 /* articleImage */
-.relateShop{
-	padding: 10rpx 30rpx;
+.articleImage{
+	image{
+		width: 340rpx;
+		height: 340rpx;
+	}
 	.meta {
 		margin:10rpx 0 20rpx;
 		width: 340rpx;
@@ -51,20 +54,6 @@
 			font-size: 28rpx;
 		}
 	}
-}
-.relateShopItem:nth-child(odd){
-	width: 340rpx;
-	float: left;
-	margin-bottom: 40rpx;
-}
-.relateShopItem:nth-child(even){
-	width: 340rpx;
-	float: right;
-	margin-bottom: 40rpx;
-}
-.relateShopItem image{
-	width: 340rpx;
-	height: 340rpx;
 }
 
 /* topImage */

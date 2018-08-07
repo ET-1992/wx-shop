@@ -2,7 +2,6 @@
   "usingComponents": {
     "productList": "../../components/productList/index",
     "categoryList": "../../components/categoryList/index",
-    "flashItem": "../../components/flashItem/index",
     "console": "../../components/console/console"
   }
 }

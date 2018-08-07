@@ -1,7 +1,10 @@
 .shareProductListWrap {
+    display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+    justify-content: space-between;
     margin-top: 80rpx;
     background: #fff;
-    display: block;
 }
 .emptyHint {
 	padding-top: 300rpx;

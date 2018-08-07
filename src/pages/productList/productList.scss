@@ -102,3 +102,9 @@ page{
 .m-attrList img{
 	width: 750rpx;
 }
+.productContainer{
+	display: flex;
+	padding: 21rpx 30rpx;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}

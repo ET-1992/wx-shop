@@ -277,3 +277,18 @@ button::after{
 .relateShop .meta{
 	height: auto;
 }
+
+.relateShop{
+	padding: 10rpx 30rpx;
+
+	.relateShopItem{
+		width: 340rpx;
+		margin-bottom: 40rpx;
+	}
+	.relateShopItem:nth-child(odd){
+		float: left;
+	}
+	.relateShopItem:nth-child(even){
+		float: right;
+	}
+}

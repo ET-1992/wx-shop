@@ -96,11 +96,14 @@
 	    bind:touchend="onTouchEnd"
 	    wx:else
 	>
-    	<productList
-    		products="{{ products }}"
-    		productLayoutStyle="{{ productLayoutStyle }}"
-    		nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"
-    	/>
+			<!-- 商品列表start -->
+			<view class="productContainer">
+				<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
+				 url="/pages/productDetail/productDetail?id={{ product.id }}">
+					<productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"/>
+				</navigator>
+			</view>
+			<!-- 商品列表end -->
 	</view>
 </view>
 

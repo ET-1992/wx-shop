@@ -1,4 +1,3 @@
-<import src="/templates/productLayout/leftImage.wxml"/>
 <import src="/templates/articleItem/articleItem.wxml"/>
 <loading isLoading="{{ isLoading }}"/>
 
@@ -10,15 +9,9 @@
     </view>
   </navigator>
 
-  <view
-    class="{{ modules[0].key === 'search_box' ? 'main': 'zeroMarginTop' }}"
-  >
+  <view class="{{ modules[0].key === 'search_box' ? 'main': 'zeroMarginTop' }}" >
   
-    <view
-      wx:for="{{modules}}"
-      wx:for-item="module"
-      wx:key="key"
-    >
+    <view wx:for="{{modules}}" wx:for-item="module" wx:key="key" >
    
      <!-- 幻灯片 -->
       <view wx:if="{{ module.key === 'sliders' }}">
@@ -90,10 +83,10 @@
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
-            <flashItem isList="{{ miaoshas.length == 1 }}" product="{{ miaoshas[0] }}" />
+            <productList miaosha="{{ miaoshas[0] }}" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
           </navigator>
           <navigator wx:if="{{ miaoshas.length > 1}}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-            <flashItem isList="{{ miaoshas.length > 1 }}" product="{{item }}" />
+            <productList miaosha="{{ item }}" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
           </navigator>
           <navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
             <form bindsubmit="submitFormId" report-submit="true">
@@ -167,18 +160,14 @@
       <!-- 最新上架 -->
       <view wx:if="{{ module.key === 'products' }}">
         <view class="section" wx:if="{{ products && products.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <!-- 商品列表 -->
-          <navigator
-            wx:for="{{ products }}"
-            wx:key="id"
-            wx:for-item="product"
-            wx:for-index="productIndex"
-            hover-class="navigator-hover"
-            url="/pages/productDetail/productDetail?id={{ product.id }}"
-          >
-            <productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
-          </navigator>
+					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+					<!-- 商品列表start -->
+					<view class="productContainer">
+						<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+							<productList product="{{ product }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
+						</navigator>
+					</view>
+					<!-- 商品列表end -->
           <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">
             <navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
               <form bindsubmit="submitFormId" report-submit="true">
@@ -207,11 +196,7 @@
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
 
-            <navigator 
-              wx:elif="{{ item.type === 'web_view' }}" 
-              url="/pages/webPages/webPages?src={{item.src}}"
-              class="categoryItem"
-            >
+            <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="categoryItem" >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
 
@@ -226,11 +211,7 @@
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </button>
             
-            <navigator 
-              wx:else
-              url="{{ item.path }}" 
-              class="categoryItem"
-            >
+            <navigator wx:else url="{{ item.path }}" class="categoryItem" >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </navigator>
             <view class="categoryTitle">{{item.title}}</view>

@@ -1,7 +1,17 @@
-<view>
-  <loading isLoading="{{ isLoading }}" />
-  <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
-  <productList wx:if="{{ !isLoading && products.length }}" products="{{ products }}" productLayoutStyle="{{ productLayoutStyle }}" class="shareProductListWrap" />
-  <view class="emptyHint" wx:if="{{ !products.length && !isLoading }}" >暂无分享商品</view>
+<loading isLoading="{{ isLoading }}" />
+<filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"></filterList>
+<view wx:if="{{ !isLoading && products.length }}" class="shareProductListWrap">
+  <navigator 
+    hover-class="navigator-hover" 
+    url="/pages/productDetail/productDetail?id={{ product.id }}"
+    wx:for="{{ products }}"
+    wx:key="id"
+    wx:for-item="product"
+    wx:for-index="productIndex"
+  >
+    <productList product="{{ product }}" productLayoutStyle="shareProduct" />
+  </navigator>
 </view>
+<view class="emptyHint" wx:if="{{ !products.length && !isLoading }}" >暂无分享商品</view>
+
 <console page="分销商品" />
