@@ -1,5 +1,5 @@
 <view class="orderCreateWrap">
-  <view class="express">
+  <view class="express" wx:if="{{ selfLiftEnable }}" >
       <text class="item-text">配送方式</text>
       <radio-group class="radio-group" bindchange="radioChange">
           <label wx:for="{{ liftStyles }}" wx:key="{{index}}">
@@ -8,8 +8,8 @@
           </label>
       </radio-group>
   </view>
-  <liftInfo liftInfo="{{ order }}" wx:if="{{ liftStyle == 'lift' }}"/>
-  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' }}" />
+  <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
+  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
   <view class="textareaWrapper">
     <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />

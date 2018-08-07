@@ -46,9 +46,19 @@ Page({
     },
 
     getLiftInfo(e) {
+        const { address_list } = this.data;
         const { value } = e.detail;
-        console.log(e);
         this.setTrueLiftItem(Number(value));
+        const item = address_list[Number(value)] || {};
+        const liftInfo = {
+            receiver_address_phone: item.phone,
+            receiver_state: item.state,
+            receiver_city: item.city,
+            receiver_district: item.district,
+            receiver_address: item.address,
+            receiver_address_name: item.name
+        };
+        app.event.emit('getLiftInfoEvent', liftInfo);
     },
 
     setTrueLiftItem(index) {

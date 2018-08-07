@@ -9,7 +9,7 @@
 				</view>
 				<view class="liftInfoCenter">
 					<image src="/icons/address.png"	mode="widthFix" class="icon" />
-					<view class="text">{{ item.state + item.city + item.district + item.address }}</view>
+					<view class="text">{{ item.state + '省' + item.city + '市' + item.district + '区' + item.address }}</view>
 				</view>
 				<view class="liftInfoBottom" wx:if="{{ item.phone }}">
 					<image src="/icons/phone.png" mode="widthFix" class="icon" />
