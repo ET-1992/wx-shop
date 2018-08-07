@@ -181,7 +181,7 @@ Page({
     },
 
     async onLoadData() {
-        const { address, items, totalPrice, user_coupon_ids, isGrouponBuy } = this.data;
+        const { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle } = this.data;
         console.log(totalPrice, 'totalPrice');
         let requestData = {};
         if (address) {
@@ -204,6 +204,11 @@ Page({
         if (isGrouponBuy) {
             requestData.order_type = 'groupon';
         }
+
+        if (liftStyle === 'lift') {
+            requestData.shipping_type = 2;
+        }
+
         requestData.posts = JSON.stringify(items);
         const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
@@ -346,6 +351,7 @@ Page({
         if (liftStyle === 'lift') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
+            wx.setStorageSync('liftInfo', liftInfo);
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
@@ -454,20 +460,18 @@ Page({
 
     /* radio选择改变触发 */
     radioChange(e) {
+        if (e.detail.value === 'lift') {
+            const liftInfo = wx.getStorageSync('liftInfo');
+            if (liftInfo) {
+                this.setData({
+                    liftInfo
+                });
+            }
+        }
         this.setData({
             liftStyle: e.detail.value
+        }, () => {
+            this.onLoadData();
         });
-        console.log('radio的value值为：', e.detail.value);
-    },
-
-    // checkPhoneModel() {
-    // 	wx.getSystemInfo({
-    // 		success: (res) => {
-    // 			this.setData({
-    // 				phoneModel: phoneStyle[res.model] || ''
-    // 			});
-    // 			console.log(res.model);
-    // 		}
-    // 	});
-    // }
+    }
 });

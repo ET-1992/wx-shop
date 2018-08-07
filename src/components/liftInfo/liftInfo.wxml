@@ -7,7 +7,7 @@
 				</view>
 				<view class="liftInfoCenter">
 					<image src="/icons/address.png"	mode="widthFix" class="icon" />
-					<view class="text">{{ liftInfo.receiver_state + '省' + liftInfo.receiver_city + '市' + liftInfo.receiver_district + '区' + liftInfo.receiver_address }}</view>
+					<view class="text">{{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}</view>
 				</view>
 				<view class="liftInfoBottom" wx:if="{{ liftInfo.receiver_address_phone }}">
 					<image src="/icons/phone.png" mode="widthFix" class="icon" />
@@ -28,9 +28,9 @@
 
 <view class="receiver" wx:if="{{ liftInfo.isCanInput }}">
     <view class="title">
-        提货人：<input type="text" bindblur="updateLiftInfoName" />
+        提货人：<input type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
     </view>
     <view class="tel">
-        电话<text>*</text>：<input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" />
+        电话<text>*</text>：<input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
     </view>
 </view>

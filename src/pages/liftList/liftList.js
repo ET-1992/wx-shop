@@ -59,6 +59,9 @@ Page({
             receiver_address_name: item.name
         };
         app.event.emit('getLiftInfoEvent', liftInfo);
+        wx.navigateBack({
+            delta: 1
+        });
     },
 
     setTrueLiftItem(index) {
