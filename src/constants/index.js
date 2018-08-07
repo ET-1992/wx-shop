@@ -71,3 +71,6 @@ export const phoneStyle = {
 };
 /* 商品列表排版风格 */
 export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage', 'shareProduct'];
+
+/* 模板 */
+export const TPL_STYLE = ['one', 'two', 'three', 'four'];

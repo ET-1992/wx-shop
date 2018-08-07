@@ -1,3 +1,0 @@
-<block wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
-    <productList product="{{ item }}" productLayoutStyle="leftImage" />
-</block>
