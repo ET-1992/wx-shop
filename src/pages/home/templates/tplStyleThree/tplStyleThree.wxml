@@ -1,0 +1,256 @@
+<view class="tplStyleThree">
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
+  <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">
+    <view class="search">
+      <image src="/icons/search.png" class="searchIcon" />
+      <text>搜索商品，共有{{ total }}款好物</text>
+    </view>
+  </navigator>
+
+  <view class="{{ modules[0].key === 'search_box' ? 'main': 'zeroMarginTop' }}" >
+  
+    <view wx:for="{{modules}}" wx:for-item="module" wx:key="key" >
+   
+     <!-- 幻灯片 -->
+      <view wx:if="{{ module.key === 'sliders' }}">
+        <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
+          <swiper-item wx:for="{{ sliders }}" wx:key="id">
+            <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
+              <image src="{{ item.image }}"/>
+            </button> -->
+            <navigator 
+              app-id="{{item.appid}}" 
+              path="{{item.path}}"
+              target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+              url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+              style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+              hover-class="none"
+            >
+            </navigator>
+          </swiper-item>
+        </swiper>
+      </view>
+      <!-- 拼团专区 -->
+      <view wx:if="{{ module.key === 'groupons' }}">
+        <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+            <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
+              <productList product="{{ groupons[0] }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+            </navigator>
+          <block wx:else>
+            <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
+             <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+            </navigator>
+          </block>
+          <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+            <form bindsubmit="submitFormId" report-submit class="form">
+              <button formType="submit" class="moreButton">
+                <span>更多</span>
+                <image class="rightIcon" src="/icons/right.png" />
+              </button>
+            </form>
+          </navigator>
+        </view>
+      </view>
+      <!-- 最新推荐 -->
+      <view wx:if="{{ module.key === 'articles' }}">
+        <view class="section" wx:if="{{ articles && articles.length }}">
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+          <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
+            <image src="{{articles[0].banner}}" style="height: {{module.height}}rpx;"></image>
+            <template is="articleItem" data="{{ article: articles[0] }}" />
+          </navigator>
+          <block wx:else>
+            <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+              <image src="{{item.banner}}" style="height: {{module.height}}rpx;"></image>
+              <template is="articleItem" data="{{ article: item,module:module }}" />
+            </navigator>
+          </block>
+          <navigator class="sectionMore" wx:if="{{articles.length >1}}" url="/pages/articleList/articleList">
+            <form bindsubmit="submitFormId" report-submit="true">
+              <button formType="submit" class="moreButton">
+                <span>更多</span>
+                <image class="rightIcon" src="/icons/right.png" />
+              </button>
+            </form>
+          </navigator>
+        </view>
+      </view>
+      <!-- 限时购 -->
+      <view wx:if="{{ module.key === 'miaoshas' }}">
+        <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+          <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
+            <productList miaosha="{{ miaoshas[0] }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+          </navigator>
+          <navigator wx:if="{{ miaoshas.length > 1}}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+            <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+          </navigator>
+          <navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
+            <form bindsubmit="submitFormId" report-submit="true">
+              <button formType="submit" class="moreButton">
+                <span>更多</span>
+                <image class="rightIcon" src="/icons/right.png" />
+              </button>
+            </form>
+          </navigator>
+        </view>
+      </view>
+      <!-- 优惠券 -->
+      <view wx:if="{{ module.key === 'coupons' }}">
+        <view 
+          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 ? 'secondCoupon' : '' }} {{ index === 0 ? 'firstCoupon' : ''}} {{ index === modules.length-1 ? 'lastCoupon' : ''}}" 
+          wx:if="{{ userCoupon.length }}"
+        >
+          <view class="coupons">
+            <view class="coupon" 
+              wx:for="{{ userCoupon }}" 
+              wx:key="id" 
+              bindtap="onCouponClick" 
+              data-id="{{ item.id }}" 
+              data-status="{{ item.status }}" 
+              data-title="{{ item.title }}" 
+              data-index="{{ index }}"
+              wx:if="{{ index < 2 }}"
+            >
+              <form bindsubmit="submitFormId" report-submit="true">
+                <button class="couponInfoList" formType="submit">
+                  <view class="couponInfo">
+                    <view class="reduce">
+                      <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+                      <text wx:if="{{ item.type == 2 }}">折</text>
+                    </view>
+                    <view class="title">满{{ item.least_cost }}元使用</view>
+                  </view>
+                  <image class="bg" src="/icons/tpl3/homeCoupon.png" wx:if="{{ item.status == 2 && item.stock_qty }}" /> <!-- 待领取 -->
+                  <image class="bg" src="/icons/tpl3/homeCouponReceived.png" wx:if="{{ item.status == 4 }}" /> <!-- 已领取 -->
+                  <image class="bg" src="/icons/tpl3/homeCouponOut.png" wx:if="{{ item.status == 2 && !item.stock_qty }}" /> <!-- 已抢光 -->
+                  <image class="bg" src="/icons/tpl3/homeUnableCoupon.png" wx:if="{{ item.status == 5 }}" /> <!-- 已使用 -->
+                  <image class="bg" src="/icons/tpl3/homeCouponOut.png" wx:if="{{ item.status == 3 }}" /> <!-- 已过期 -->
+                </button>
+              </form>
+            </view>
+            <navigator class="moreCoupon" url="/pages/couponList/couponList" wx:if="{{ userCoupon.length > 1 }}">
+              <view class="moreBtn">查看更多</view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+      <!-- 明星产品 -->
+      <view wx:if="{{ module.key === 'featured' }}">
+
+        <view class="section" wx:if="{{ featured && featured.length }}">
+          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+          <navigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}" wx:for="{{ featured }}" wx:key="id">
+            <image class="starProductItem" src="{{ item.banner }}" />
+          </navigator>
+        </view>
+      </view>
+      <!-- 最新上架 -->
+      <view wx:if="{{ module.key === 'products' }}">
+        <view class="section" wx:if="{{ products && products.length }}">
+		    <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+		    <!-- 商品列表start -->
+		    <view class="productContainer">
+		    	<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+		    		<productList product="{{ product }}" tplStyle="default" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
+		    	</navigator>
+		    </view>
+		    <!-- 商品列表end -->
+            <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">
+                <navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
+                  <form bindsubmit="submitFormId" report-submit="true">
+                    <button formType="submit" class="moreButton">
+                      <span>更多</span>
+                      <image class="rightIcon" src="/icons/right.png" />
+                    </button>
+                  </form>
+                </navigator>
+            </view>
+        </view>
+      </view>
+
+      <!-- 快捷导航 -->
+      <view wx:if="{{ module.key === 'links' }}">
+        <view class="section categoryBox" wx:if="{{ links && links.length }}">
+          <view class="homeCategory" wx:for="{{ links }}" wx:key="id">
+            <navigator 
+              wx:if="{{ item.type === 'mini_program'}}"
+              app-id="{{item.appid}}" 
+              path="{{item.path}}"
+              target="miniProgram" 
+              open-type="navigate" 
+              class="categoryItem"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+
+            <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="categoryItem" >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+
+            <button 
+              wx:elif="{{ item.type === 'contact' }}" 
+		          bindtap="{{ item.tips ? 'onModal' : ''}}"
+		          data-tips="{{ item.tips }}" 
+		          open-type="{{ !item.tips ? 'contact' : ''}}" 
+              session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
+              class="categoryItem categoryBtn"
+            >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </button>
+            
+            <navigator wx:else url="{{ item.path }}" class="categoryItem" >
+              <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+            </navigator>
+            <view class="categoryTitle">{{item.title}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 魔方 -->
+
+      <view wx:if="{{ module.type === 'cube' }}" class="cube">
+        <magicImg magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
+      </view>
+
+    </view>
+  </view>
+  <!-- <view class="bottomHint">-这是一条底线-</view> -->
+  <view id="loadProducts" class="logo" hidden="{{hasMask}}">
+    <image src="/icons/logo.png"></image>
+  </view>
+</view>
+<!-- 新用戶优惠券弹框 -->
+<view wx:if="{{ newUser == 1 && hasNewUserCoupons }}" class="newUserCoupon">
+  <view class="couponContainer">
+    <image class="CouponBottom" src="/icons/CouponBottom.png"></image>
+    <view class="couponBox">
+      <view class="title">新用户专享</view>
+      <scroll-view class="couponScroll" scroll-y>
+        <view 
+          class="couponItem" 
+          wx:for="{{ coupons_newbie }}" 
+          wx:if="{{ item.target_user_type === '2' }}" 
+          wx:key="id" 
+          data-status="{{ item.status }}"
+          style="{{ coupons_newbie.length == '1' ? 'margin-top: 60rpx' : '' }}"
+        >
+          <view class="newCouponInfo">
+            <view class="reduce">
+              <text wx:if="{{ item.type == 1 }}">￥</text>
+              <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+              <text wx:if="{{ item.type == 2 }}">折</text>
+            </view>
+            <view class="couponType">
+              <view>新用户专享</view>
+              <view>{{item.title}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <image class="couponConfirm" src="/icons/newCouponBtn.png" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
+</view>
+</view>

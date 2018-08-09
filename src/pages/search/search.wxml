@@ -47,7 +47,7 @@
   <view class="productContainer" wx:if="{{ products.length && isSearch }}">
     <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
       url="/pages/productDetail/productDetail?id={{ product.id }}">
-      <productList product="{{ product }}" tplStyle="one" productLayoutStyle="topImage" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}" />
+      <productList product="{{ product }}" tplStyle="default" productLayoutStyle="topImage" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}" />
     </navigator>
   </view>
   <!-- 商品列表end -->

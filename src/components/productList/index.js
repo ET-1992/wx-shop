@@ -72,7 +72,7 @@ Component({
         },
         tplStyle: {
             type: String,
-            value: '',
+            value: 'default',
         },
         nextCursor: {
             type: Number,

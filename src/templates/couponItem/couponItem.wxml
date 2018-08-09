@@ -43,7 +43,7 @@
 		    <view class="btn" wx:if="{{ status === 'used' }}">
 				<view>已使用</view>
 			</view>
-		    <view class="btn" wx:if="{{ status === 'expired' || status === 'unavailable' }}">
+		    <view class="btn" wx:if="{{ status === 'expired'}}">
 				<view>已过期</view>
 			</view>
 		    <view class="btn" wx:if="{{ status === 'nullCoupon' }}">

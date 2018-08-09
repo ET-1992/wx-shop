@@ -1,0 +1,4 @@
+<include wx:if="{{ tplStyle === 'default' }}" src="/templates/couponList/default/default.wxml" />
+<include wx:if="{{ tplStyle === 'two' }}" src="/templates/couponList/tplStyleTwo/tplStyleTwo.wxml" />
+<include wx:if="{{ tplStyle === 'three' }}" src="/templates/couponList/tplStyleThree/tplStyleThree.wxml" />
+<include wx:if="{{ tplStyle === 'four' }}" src="/templates/couponList/tplStyleFour/tplStyleFour.wxml" />

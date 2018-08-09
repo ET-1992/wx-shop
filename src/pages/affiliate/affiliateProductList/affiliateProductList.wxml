@@ -9,7 +9,7 @@
     wx:for-item="product"
     wx:for-index="productIndex"
   >
-    <productList product="{{ product }}" tplStyle="one" productLayoutStyle="shareProduct" />
+    <productList product="{{ product }}" tplStyle="default" productLayoutStyle="shareProduct" />
   </navigator>
 </view>
 <view class="emptyHint" wx:if="{{ !products.length && !isLoading }}" >暂无分享商品</view>

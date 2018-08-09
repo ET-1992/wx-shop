@@ -64,6 +64,16 @@ Page({
         const data = await api.hei.fetchHome();
         // console.log('home data:', data);
         const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
+
+        if (data.modules) {
+            for (let i = 0; i < data.modules.length; i++) {
+                if (data.modules[i].key === 'sliders') {
+                    this.setData({
+                        hasSliders: true
+                    });
+                }
+            }
+        }
         // if (current_user) {
         // 	this.setData({
         // 		newUser: current_user.new_user,
@@ -111,9 +121,9 @@ Page({
             conWidth: width || '',
             hasNewUserCoupons,
             newUser: current_user ? current_user.new_user : 1,
-            ...data,
+            ...data
         });
-
+        console.log(this.data);
         if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {
             this.setData({
                 hasMask: true
@@ -136,7 +146,7 @@ Page({
     async onLoad(options) {
         app.log(options, 'onLoad');
 
-        const { themeColor } = app.globalData;
+        const { themeColor, tplStyle } = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -144,7 +154,8 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            userInfo
+            userInfo,
+            tplStyle
         });
     },
 

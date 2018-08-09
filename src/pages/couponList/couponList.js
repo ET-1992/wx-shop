@@ -17,6 +17,11 @@ Page({
         wx.setNavigationBarTitle({
             title: '优惠券'
         });
+        const { tplStyle } = app.globalData;
+        this.setData({
+            tplStyle
+        });
+        console.log(this.data);
         this.loadCoupon();
     },
 
