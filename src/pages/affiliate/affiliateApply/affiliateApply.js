@@ -171,28 +171,28 @@ Page({
         });
     },
 
-    async redirectToHome() {
-        const { affiliate_enable, is_affiliate_member } = this.data;
-        if (!affiliate_enable) {
-            const { confirm }  = await showModal({
-                title: '温馨提示',
-                content: '商家暂时关闭了分享功能',
-                showCancel: false,
-                mask: true
-            });
-            if (confirm) {
-                wx.redirectTo({ url: '/pages/home/home' });
-            }
-        } else if (is_affiliate_member) {
-            const { confirm }  = await showModal({
-                title: '温馨提示',
-                content: '您已经是分享家,请前往分享中心',
-                showCancel: false,
-                mask: true
-            });
-            if (confirm) {
-                wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
-            }
-        }
-    }
+    // async redirectToHome() {
+    //     const { affiliate_enable, is_affiliate_member } = this.data;
+    //     if (!affiliate_enable) {
+    //         const { confirm }  = await showModal({
+    //             title: '温馨提示',
+    //             content: '商家暂时关闭了分享功能',
+    //             showCancel: false,
+    //             mask: true
+    //         });
+    //         if (confirm) {
+    //             wx.redirectTo({ url: '/pages/home/home' });
+    //         }
+    //     } else if (is_affiliate_member) {
+    //         const { confirm }  = await showModal({
+    //             title: '温馨提示',
+    //             content: '您已经是分享家,请前往分享中心',
+    //             showCancel: false,
+    //             mask: true
+    //         });
+    //         if (confirm) {
+    //             wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
+    //         }
+    //     }
+    // }
 });
