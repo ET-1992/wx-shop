@@ -1,4 +1,7 @@
 .default{
+	$searchWrapper: 97rpx;
+	$zeroMarginTop: 20rpx;
+
     swiper{
     	margin-bottom: 15rpx;
     }
@@ -7,9 +10,9 @@
     	width: 100%;
     	box-sizing: border-box; 
     }
-    
+    /* 搜索start */
     .searchWrapper {
-    	height: 97rpx;
+    	height: $searchWrapper;
     	background-color: $backgroundColor;
     	padding: 12rpx 40rpx;
     	position: fixed;
@@ -40,29 +43,32 @@
     		justify-content: center;
     		align-items: center;
     	}
-    }
+	}
+	/* 搜索end */
 
     .main {
-    	margin-top: 96rpx;
+    	margin-top: $searchWrapper;
     }
 
     .zeroMarginTop {
-    	margin-top: -20rpx;
+    	margin-top: -$zeroMarginTop;
     }
 
     .banner,.banner button, .banner image {
     	width: 100%;
     	height: 100%;
-    }
+	}
+	
     .flashItem .meta{
     	padding: 40rpx;
     }
 
+	/* 优惠券start */
     .couponsWrapper {
     	padding-left: 10rpx;
     	font-size: 0;
     	z-index: 9;
-    	margin-bottom: 20rpx;
+    	margin: 20rpx 0;
 
     	.coupons {
     		display: flex;
@@ -156,19 +162,13 @@
     	}
     }
     .firstCoupon{
-    	margin-top: 20rpx;
-    	padding-top: 20rpx;
+    	margin-top: 20rpx + $zeroMarginTop;
     }
-    .secondCoupon{
-    	margin: 110rpx 0 20rpx;
-    }
-    .lastCoupon{
-    	margin-top: 20rpx;
-    }
+	/* 优惠券end */
 
     .section {
     	background-color: #fff;
-    	margin-top: 20rpx;
+    	margin-top: $zeroMarginTop;
 
     	.sectionTitle {
     		text-align:center;
@@ -233,7 +233,7 @@
     	margin-bottom: 20rpx;
     }
 
-    /* 首页分类 */
+    /* 首页分类start */
     .categoryBox{
     	padding: 0 15rpx 39rpx;
     	width: 100%;
@@ -270,12 +270,14 @@
     			font-weight: normal;
     		}
     	}
-    }
+	}
+	/* 首页分类end */
 
     .iphoneXTrick {
 		padding-bottom: 1rpx; 
 	}
 
+	/* 商品列表 */
     .productContainer{
     	display: flex;
     	padding: 21rpx 30rpx;

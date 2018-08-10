@@ -1,5 +1,4 @@
 <loading isLoading="{{ isLoading }}"/>
-<import src="/templates/articleItem/articleItem.wxml"/>
 
 <!-- 模板皮肤 -->
 <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>

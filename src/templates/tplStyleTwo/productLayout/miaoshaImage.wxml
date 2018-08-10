@@ -1,0 +1,24 @@
+<view class="leftItem">
+    <image class="productImage" src="{{ miaosha.thumbnail }}" />
+    <view class="meta">
+        <view class="title">{{ miaosha.title }}</view>
+        <view class="desc" wx:if="{{ miaosha.excerpt }}">{{ miaosha.excerpt }}</view>
+        <view class="status unstart" wx:if="{{ !hasStart }}">未开始</view>
+        <view class="status" wx:if="{{ !hasEnd && hasStart }}">进行中</view>
+        <view class="status over" wx:if="{{ hasEnd }}">已结束</view>
+        <view class="miaoshaPrice">
+            <view class="newPrice">
+                <text class="yuan">￥</text>
+                <text class="price">{{ miaosha.miaosha_price }}</text>
+            </view>
+            <view class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">
+                <text>￥{{ miaosha.original_price }}</text>
+            </view>
+        </view>
+    </view>
+    <view class="grouponBtn">
+        <form bindsubmit="submit" report-submit="true">
+            <button class="groupBt" formType="submit" style="background-color: {{ themeColor.primaryColor }}">去抢购 ></button>
+        </form>
+    </view>
+</view>

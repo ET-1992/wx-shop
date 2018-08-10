@@ -1,11 +1,16 @@
 
-<!-- tplStyleOne -->
-<include wx:if="{{ tplStyle === 'default' && productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
-<include wx:if="{{ tplStyle === 'default' && productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
-<include wx:if="{{ tplStyle === 'default' && productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
-<include wx:if="{{ tplStyle === 'default' && productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
-<include wx:if="{{ tplStyle === 'default' && productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
+<!-- default -->
+<view class="default" wx:if="{{ tplStyle === 'default'}}">
+    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
+</view>
 
 <!-- tplStyleTwo -->
-<include wx:if="{{ tplStyle === 'two' && productLayoutStyle === 'leftImage' }}" src="/templates/productLayout/leftImage.wxml"/>
+<view class="tplStyleTwo" wx:if="{{ tplStyle === 'two' }}">
+    <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleTwo/productLayout/leftImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'miaoshaImage' }}" src="/templates/tplStyleTwo/productLayout/miaoshaImage.wxml"/>
+</view>
 

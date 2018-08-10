@@ -1,0 +1,121 @@
+.leftItem{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding-bottom:30rpx;
+    border-bottom: 1rpx solid #C2C2C2;
+    margin:  0 30rpx 30rpx;
+
+    .productImage{
+        width: 200rpx;
+        height: 200rpx;
+    }
+
+    .meta {
+	    display: flex;
+	    flex-direction: column;
+        width: 342rpx;
+        align-self:flex-end;
+		
+		.top{
+            display: flex;
+            margin-bottom:22rpx;
+
+            .icon{
+                width: 30rpx;
+                height: 30rpx;
+            }
+            .groupNumber{
+                display: flex;
+                margin-left: 10rpx;
+                font-size: 20rpx;
+                color: #844705;
+                background: #FFF4D5;
+                border-radius: 20rpx;
+                width: 148rpx;
+                height: 30rpx;
+                align-items: center;
+                justify-content:center;
+            }
+        }
+        .title{
+            font-size: 28rpx;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .desc{
+            font-size: 20rpx;
+            color: #999999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .singleBuy{
+            font-size: 20rpx;
+            color: #999999;
+            margin: 14rpx 0 6rpx 0;
+        }
+        .grouponInfo{
+            display:flex;
+            font-size: 22rpx;
+            color: #FF1E1E;
+        }
+    }
+    .grouponBtn{
+        display: flex;
+        align-self:flex-end;
+        line-height: 0;
+
+        .groupBt {
+            font-size: 20rpx;
+            color: #fff;
+            background-color: $mainColor;
+            display: inline-block;
+            width: 110rpx;
+            height: 40rpx;
+            line-height: 40rpx;
+            text-align: center;
+            border-radius: 20rpx;
+        }
+    }
+
+    .status{
+        display: flex;
+        font-size: 20rpx;
+        color: #844705;
+        background: #FFF4D5;
+        border-radius: 20rpx;
+        width: 100rpx;
+        height: 30rpx;
+        align-items: center;
+        justify-content:center;
+        margin: 38rpx 0 22rpx;
+    }
+
+    .unstart{
+        background: #C2C2C2;
+        color: #fff;
+    }
+    .over{
+        background: #fff;;
+        color: #C2C2C2;
+        border: 1rpx solid #C2C2C2;
+    }
+
+    .miaoshaPrice{
+        display: flex;
+        align-items: center;
+
+        .newPrice{
+            font-size: 30rpx;
+            color: #FF1E1E;
+        }
+        .originalPrice{
+            font-size: 20rpx;
+            color: #999999;
+            text-decoration: line-through;
+            padding-left: 10rpx;
+        }
+    }
+}

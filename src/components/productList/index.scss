@@ -1,1 +1,14 @@
-@import '~templates/productLayout/productLayout';
+@import '~styles/color';
+
+.default{
+    @import '~templates/productLayout/productLayout';
+}
+.tplStyleTwo{
+    @import '~templates/tplStyleTwo/productLayout/productLayout';
+}
+.tplStyleThree{
+    @import '~templates/tplStyleThree/productLayout/productLayout';
+}
+.tplStyleFour{
+    @import '~templates/tplStyleFour/productLayout/productLayout';
+}

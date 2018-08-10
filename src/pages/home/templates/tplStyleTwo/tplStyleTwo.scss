@@ -1,5 +1,8 @@
 .tplStyleTwo{
-    background: #fff;
+	$searchWrapper: 90rpx;
+	$zeroMarginTop: 20rpx;
+	background: #fff;
+	
     .container {
     	height: auto;
     	width: 100%;
@@ -7,7 +10,7 @@
     }
     
     .searchWrapper {
-    	height: 90rpx;
+    	height: $searchWrapper;
     	background-color: $mainColor;
     	padding: 15rpx 40rpx;
     	position: fixed;
@@ -41,11 +44,11 @@
     }
 
     .main {
-    	margin-top: 90rpx;
+    	margin-top: $searchWrapper;
     }
 
     .zeroMarginTop {
-    	margin-top: -20rpx;
+    	margin-top: -$zeroMarginTop;
     }
 
     .banner,.banner button, .banner image {
@@ -59,7 +62,8 @@
     .couponsWrapper {
     	font-size: 0;
     	z-index: 9;
-    	padding: 20rpx 0 0 10rpx;
+		padding: 20rpx 0 20rpx 10rpx;
+		margin: 20rpx 0;
 
     	.coupons {
     		display: flex;
@@ -152,36 +156,27 @@
     		z-index: 1;
     	}
     }
-    .firstCoupon{
-    	margin-top: 20rpx;
-    }
-    .secondCoupon{
-    	margin: 110rpx 0 20rpx;
-    }
-    .lastCoupon{
-    	padding-bottom: 20rpx;
-    }
 
     .section {
         background-color: #fff;
-        margin-top: 20rpx;
+        margin-top: $zeroMarginTop;
 
     	.sectionTitle {
-    		text-align:center;
-    		padding:36rpx;
-    		color:#333;
-    		font-size:17px;
+    		padding-bottom:10rpx;
+    		color:#000000;
+			font-size: 36rpx;
+			font-weight: bold;
+			border-bottom: 1rpx solid #C2C2C2;
+			margin: 0 30rpx 30rpx;
     	}
-
-    	.grouponItemWrapper{
-    		padding-bottom: 10rpx;
-    	}
+		.grouponContainer{
+			margin: 0 30rpx;
+		}
 
     	.sectionMore {
     		height: 80rpx;
     		line-height: 80rpx;
     		color: $titleColor;
-    		border-top: 1px solid #eee;
     		padding: 10rpx 0;
 
     		.form {
@@ -189,8 +184,13 @@
     		}
 
     		.moreButton{
-    			font-size: 26rpx;
-    			background: none;
+    			font-size:30rpx;
+				background:$mainColor;
+				color:#fff;
+				height:60rpx;
+				line-height:60rpx;
+				margin:0 30rpx;
+				border-radius:40rpx;
     		}
     	}
 

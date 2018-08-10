@@ -24,6 +24,10 @@ Component({
                 });
             },
 
+        },
+        tplStyle: {
+            type: String,
+            value: 'default',
         }
     },
     attached() {
