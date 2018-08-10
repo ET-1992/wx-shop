@@ -1,38 +1,14 @@
-<import src="/templates/articleItem/articleItem.wxml"/>
 <loading isLoading="{{ isLoading }}"/>
+<import src="/templates/articleItem/articleItem.wxml"/>
 
+<!-- 模板皮肤 -->
 <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
 <include wx:if="{{ tplStyle === 'two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
 <include wx:if="{{ tplStyle === 'three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
 <include wx:if="{{ tplStyle === 'four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
 
 <!-- 新用戶优惠券弹框 -->
-<!-- <view wx:if="{{ newUser == 1 && hasNewUserCoupons }}" class="newUserCoupon"> -->
-<view class="newUserCoupon">
-    <view class="couponContainer">
-        <image class="CouponBottom" src="/icons/CouponBottom.png"></image>
-        <view class="couponBox">
-            <view class="title">新用户专享</view>
-            <scroll-view class="couponScroll" scroll-y>
-                <view class="couponItem" wx:for="{{ coupons_newbie }}" wx:if="{{ item.target_user_type === '2' }}" wx:key="id" data-status="{{ item.status }}"
-                    style="{{ coupons_newbie.length == '1' ? 'margin-top: 60rpx' : '' }}">
-                    <view class="newCouponInfo">
-                        <view class="reduce">
-                            <text wx:if="{{ item.type == 1 }}">￥</text>
-                            <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
-                            <text wx:if="{{ item.type == 2 }}">折</text>
-                        </view>
-                        <view class="couponType">
-                            <view>新用户专享</view>
-                            <view>{{item.title}}</view>
-                        </view>
-                    </view>
-                </view>
-            </scroll-view>
-        </view>
-    </view>
-    <image class="couponConfirm" src="/icons/newCouponBtn.png" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
-</view>
+<include wx:if="{{ newUser == 1 && hasNewUserCoupons }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
 
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />

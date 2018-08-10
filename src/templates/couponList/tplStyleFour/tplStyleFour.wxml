@@ -21,8 +21,8 @@
 			</view>
 		</view>
 		<image class="bg" src="/icons/tpl4/couponItemReceived.png" wx:if="{{ status === 'available' || !canChoice }}" />
-		<image class="bg" src="/icons/tpl4/unableCoupon.png" wx:if="{{ status === 'used' }}" />
-		<image class="bg" src="/icons/tpl4/unableCoupon.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
+		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'used' }}" />
+		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
 		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'nullCoupon' }}" />
 		<image class="bg" src="/icons/tpl4/couponItem.png" wx:if="{{status === 'receivable' }}" />
 	</view>
