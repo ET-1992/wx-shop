@@ -6,6 +6,7 @@
     "orderCoupon": "./orderCoupon/index",
     "orderInfo": "./orderInfo/index",
     "orderPay": "./orderPay/index",
+    "orderForm": "./orderForm/orderForm",
     "productItemSold": "../../components/productItemSold/index",
     "myModal": "../../components/myModal/myModal",
     "console": "../../components/console/console"
