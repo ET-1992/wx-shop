@@ -1,3 +1,4 @@
+/* 左图右文 */
 .leftItem{
     display: flex;
     justify-content: space-between;
@@ -116,6 +117,87 @@
             color: #999999;
             text-decoration: line-through;
             padding-left: 10rpx;
+        }
+    }
+}
+
+/* 上图下文 */
+.topImage{
+    padding-bottom: 30rpx;
+    
+    .container{
+        width: 330rpx;
+        // height: 540rpx;
+        border: 1rpx solid #C2C2C2;
+
+        .top{
+            line-height: 0;
+            .goods_image{
+                width: 100%;
+                height: 330rpx;
+            }
+            .tagWrapper{
+                display: flex;
+                justify-content: space-between;
+                height: 36rpx;
+                line-height: 36rpx;
+                background: #FFF4D5;
+                font-size: 24rpx;
+    
+                .sold{
+                    color: #999999;
+                    padding-left: 20rpx;
+                }
+                .tag{
+                    color: #333333;
+                    padding-right: 20rpx;
+                    text-align: right;
+                }
+            }
+        }
+        .bottom{
+            padding: 20rpx 20rpx 15rpx;
+            .content{
+                height: 90rpx;
+
+                .title{
+                    color: #000000;
+                    font-size: 28rpx;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .desc{
+                    font-size: 20rpx;
+                    color:#999999;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-top: 8rpx;
+                }
+            }
+            .price{
+                display: flex;
+                align-items: center;
+                height: 42rpx;
+                .now{
+                    font-size: 30rpx;
+                    font-weight: bold;
+                    color: #FF1E1E;
+                    line-height: 42rpx;
+                }
+                .original{
+                    font-size: 20rpx;
+                    color: #999999;
+                    line-height: 42rpx;
+                    text-decoration: line-through;
+                    padding-left: 10rpx;
+                }
+            }
         }
     }
 }

@@ -51,6 +51,8 @@ Page({
     },
 
     async onLoad() {
+        const { themeColor, tplStyle } = app.globalData;
+        this.setData({ themeColor, tplStyle });
         const data = await this.loadProducts();
         if (data.page_title) {
             wx.setNavigationBarTitle({

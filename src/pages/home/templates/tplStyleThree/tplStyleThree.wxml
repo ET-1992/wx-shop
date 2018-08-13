@@ -1,34 +1,79 @@
 <view class="tplStyleThree">
+<import src="/templates/articleItem/articleItem.wxml"/>
+
 <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
-  <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">
+  <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key !== 'sliders'}}">
     <view class="search">
       <image src="/icons/search.png" class="searchIcon" />
       <text>搜索商品，共有{{ total }}款好物</text>
     </view>
   </navigator>
 
-  <view class="{{ modules[0].key === 'search_box' ? 'main': 'zeroMarginTop' }}" >
-  
+  <view class="{{ modules[0].key === 'search_box' && modules[1].key !== 'sliders' ? 'main': 'zeroMarginTop' }}" >
+
+	<!-- 服务公告start -->
+	<view wx:if="{{ !hasSliders }}" style="{{ modules[0].key === 'search_box' && modules[1].key !== 'sliders' ? '': 'margin-top: 30rpx' }}">
+        <view class="instructions" wx:if="{{ instructions && instructions.length }}">
+            <block wx:for="{{instructions}}">
+                <view class="instructions-item">
+                    <image mode="aspectFit" src="/icons/tpl2/instructions.png"></image>
+                    <view>{{item}}</view>
+                </view>
+            </block>
+        </view>
+        <navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}">
+            <image mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
+            <view>{{announcement.text}}</view>
+        </navigator>
+    </view>
+	<!-- 服务公告end -->
+		
     <view wx:for="{{modules}}" wx:for-item="module" wx:key="key" >
    
      <!-- 幻灯片 -->
       <view wx:if="{{ module.key === 'sliders' }}">
-        <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
-          <swiper-item wx:for="{{ sliders }}" wx:key="id">
-            <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
-              <image src="{{ item.image }}"/>
-            </button> -->
-            <navigator 
-              app-id="{{item.appid}}" 
-              path="{{item.path}}"
-              target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
-              url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
-              style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
-              hover-class="none"
-            >
-            </navigator>
-          </swiper-item>
-        </swiper>
+		<view class="searchSliders">
+			<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" bindchange="swiperChange">
+			  <swiper-item wx:for="{{ sliders }}" wx:key="id">
+				<navigator 
+				  app-id="{{item.appid}}" 
+				  path="{{item.path}}"
+				  target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+				  url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+				  style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+				  hover-class="none"
+				>
+				</navigator>
+			  </swiper-item>
+			  
+			</swiper>
+			<!-- 自定义idots -->
+			<view class="dots" style="{{ modules[1].key === 'sliders' ? 'top: 24rpx;' : 'bottom: 24rpx;'}}">
+				<block wx:for="{{ sliders }}" wx:key="id">
+					<view class="dot {{index == swiperCurrent ? 'active' : ''}}"></view>
+				</block>
+			</view>
+			<navigator class="searchBox" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key === 'sliders'}}">
+				<view class="search">
+				  <image src="/icons/search.png" class="searchIcon" />
+				  <text>搜索商品，共有{{ total }}款好物</text>
+				</view>
+			</navigator>
+		</view>
+		<!-- 服务公告start -->
+		<view class="instructions" wx:if="{{instructions && instructions.length}}">
+			<block wx:for="{{instructions}}">
+				<view class="instructions-item">
+					<image mode="aspectFit" src="/icons/tpl2/instructions.png"></image>
+					<view>{{item}}</view>
+				</view>
+			</block>
+		</view>
+		<navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}">
+			<image mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
+			<view>{{announcement.text}}</view>
+		</navigator>
+		<!-- 服务公告end -->
       </view>
       <!-- 拼团专区 -->
       <view wx:if="{{ module.key === 'groupons' }}">
@@ -58,13 +103,11 @@
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
             <image src="{{articles[0].banner}}" style="height: {{module.height}}rpx;"></image>
-            <import src="/templates/articleItem/articleItem.wxml"/>
             <template is="articleItem" data="{{ article: articles[0] }}" />
           </navigator>
           <block wx:else>
             <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
               <image src="{{item.banner}}" style="height: {{module.height}}rpx;"></image>
-              <import src="/templates/articleItem/articleItem.wxml"/>
               <template is="articleItem" data="{{ article: item,module:module }}" />
             </navigator>
           </block>
@@ -101,7 +144,7 @@
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
         <view 
-          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 ? 'secondCoupon' : '' }} {{ index === 0 ? 'firstCoupon' : ''}} {{ index === modules.length-1 ? 'lastCoupon' : ''}}" 
+          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && !(instructions && instructions.length || announcement)? 'secondCoupon' : '' }} {{ index === 0 && !(instructions && instructions.length || announcement) ? 'firstCoupon' : ''}}" 
           wx:if="{{ userCoupon.length }}"
         >
           <view class="coupons">
@@ -174,7 +217,7 @@
 
       <!-- 快捷导航 -->
       <view wx:if="{{ module.key === 'links' }}">
-        <view class="section categoryBox" wx:if="{{ links && links.length }}">
+        <view class="categoryBox" wx:if="{{ links && links.length }}">
           <view class="homeCategory" wx:for="{{ links }}" wx:key="id">
             <navigator 
               wx:if="{{ item.type === 'mini_program'}}"

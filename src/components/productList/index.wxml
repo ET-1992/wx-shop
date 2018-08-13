@@ -12,5 +12,13 @@
 <view class="tplStyleTwo" wx:if="{{ tplStyle === 'two' }}">
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleTwo/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaImage' }}" src="/templates/tplStyleTwo/productLayout/miaoshaImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleTwo/productLayout/topImage.wxml"/>
+</view>
+
+<!-- tplStyleThree -->
+<view class="tplStyleThree" wx:if="{{ tplStyle === 'three' }}">
+    <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleThree/productLayout/grouponStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleThree/productLayout/miaoshaStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleThree/productLayout/topImage.wxml"/>
 </view>
 

@@ -1,0 +1,8 @@
+<template name="articleItem">
+	<view class='m-desc'>
+		<view class='m-tt  f-fs-18'>{{article.title}}</view>
+		<view class='m-toe'>
+			<view class='f-toe s-fc f-fs-15'>{{article.excerpt}}</view>
+		</view>
+	</view>
+</template>

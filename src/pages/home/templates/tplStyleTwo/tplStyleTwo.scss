@@ -1,4 +1,6 @@
 .tplStyleTwo{
+	@import '~templates/tplStyleTwo/articleItem/articleItem';
+
 	$searchWrapper: 90rpx;
 	$zeroMarginTop: 20rpx;
 	background: #fff;
@@ -275,7 +277,7 @@
 	/* 商品列表 */
     .productContainer{
     	display: flex;
-    	padding: 21rpx 30rpx;
+    	padding: 0 30rpx;
     	flex-wrap: wrap;
     	justify-content: space-between;
     }
@@ -316,5 +318,5 @@
             font-size: 22rpx;
             color: #000000;
         }
-    }
+	}
 }

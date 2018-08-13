@@ -43,8 +43,8 @@ Page({
     },
 
     async onLoad() {
-        const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const { themeColor, tplStyle } = app.globalData;
+        this.setData({ themeColor, tplStyle });
         this.loadProducts();
     },
     async submit(e) {

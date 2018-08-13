@@ -36,7 +36,14 @@ Page({
         type: '',
         isProductBottom: false,
         hasMask: false,
-        isShowConsole: false
+        isShowConsole: false,
+        swiperCurrent: 0
+    },
+
+    swiperChange(e) {
+        this.setData({
+            swiperCurrent: e.detail.current
+        });
     },
 
     onBannerClick(ev) {
