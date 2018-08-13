@@ -3,6 +3,7 @@
 	"usingComponents": {
 		"myModal": "../../components/myModal/myModal",
 		"console": "../../components/console/console",
-		"loading": "../../components/loading/index"
+		"loading": "../../components/loading/index",
+		"logo": "../../components/logo/logo"
 	  }
 }

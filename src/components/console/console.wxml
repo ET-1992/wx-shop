@@ -7,7 +7,7 @@
 		</view>
 		<scroll-view class="consoleBody" scroll-y="{{ true }}">
 			<view wx:for="{{ oldLogData }}" class="consoleItem">
-				{{ item }}
+				<text selectable="{{ true }}">{{ item }}</text>
 			</view>
 		</scroll-view>
 	</view>
