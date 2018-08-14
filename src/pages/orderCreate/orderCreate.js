@@ -211,7 +211,8 @@ Page({
     computedFinalPay() {
         const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
         let finalPay = 0;
-        if (shouldGoinDisplay) {
+        console.log(useCoin, shouldGoinDisplay);
+        if (shouldGoinDisplay && !isGrouponBuy) {
             finalPay = fee.amount - useCoin / 100;
         } else {
             finalPay = fee.amount;
