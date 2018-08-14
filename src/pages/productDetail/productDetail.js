@@ -731,8 +731,8 @@ Page({
 
     /* 调起底部弹窗 */
     async openShareModal() {
-        const { product, current_user } = this.data;
-        if (product.affiliate_enable && !current_user.is_affiliate_member) {
+        const { product, current_user = {}} = this.data;
+        if (product.affiliate_enable && current_user && !current_user.is_affiliate_member) {
             const { confirm } = await showModal({
                 title: '温馨提示',
                 content: '希望获取这件商品的佣金吗? 赶紧申请成为分享家吧！',

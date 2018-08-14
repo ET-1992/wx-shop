@@ -108,8 +108,9 @@ Component({
             ctx.beginPath();
             ctx.setFillStyle('#000000');
             ctx.setTextAlign('left');
-            ctx.font = 'normal normal 12px PingFang SC';
-            ctx.fillText(`${(user && user.nickname) || '好友'} 向你推荐这个商品`, 50 / 540 * width, 750 / 900 * height);
+            ctx.font = 'normal bold 12px PingFang SC';
+            ctx.fillText((user && user.nickname) || '好友', 50 / 540 * width, 750 / 900 * height);
+            ctx.fillText('向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
             ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
