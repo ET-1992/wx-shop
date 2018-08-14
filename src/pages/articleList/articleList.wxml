@@ -1,4 +1,4 @@
-<import src="/templates/tplStyleTwo/articleItem/articleItem.wxml" />
+<import src="/templates/articleItem/articleItem.wxml" />
 <view class="container">
   <scroll-view scroll-x class="scrollSegmentcontrol" style="background-color: {{ themeColor.primaryColor  }}">
     <view catchtap="handleArticleList" data-index="{{index}}" class="category {{getIndex==index?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}" wx:key="id">

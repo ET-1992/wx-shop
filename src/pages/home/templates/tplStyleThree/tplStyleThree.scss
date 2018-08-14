@@ -1,5 +1,6 @@
 .tplStyleThree{
-	@import '~templates/articleItem/articleItem';
+	@import '~templates/tplStyleThree/articleItem/articleItem';
+	
 	$searchWrapper: 90rpx;
 	$zeroMarginTop: 30rpx;
 
@@ -83,6 +84,9 @@
 			background: #45424E;
 		}
 
+	}
+	.banner{
+		margin-top: $zeroMarginTop;
 	}
     .banner,.banner button, .banner image {
     	width: 100%;
@@ -198,7 +202,7 @@
     }
 
     .section {
-    	margin-top: $zeroMarginTop;
+		margin: $zeroMarginTop $zeroMarginTop 0;
 
     	.sectionTitle {
 			background-color: #fff;
@@ -211,24 +215,34 @@
 			margin-bottom: 10rpx;
     	}
 
-    	.grouponItemWrapper{
-    		padding-bottom: 10rpx;
-    	}
+		.grouponContainer{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content:space-between;
+
+			.grouponItem{
+				margin: 10rpx 0 20rpx;
+			}
+			/* .grouponItem:nth-child(3n-2){
+				margin-right: 20rpx;
+			}
+			.grouponItem:nth-child(3n+0){
+				margin-left: 20rpx;
+			} */
+		}
 
     	.sectionMore {
-    		height: 80rpx;
-    		line-height: 80rpx;
-    		color: $titleColor;
-    		border-top: 1px solid #eee;
-    		padding: 10rpx 0;
 
     		.form {
     			width: 100%;
     		}
 
     		.moreButton{
-    			font-size: 26rpx;
-    			background: none;
+    			font-size: 30rpx;
+				background:#fff;
+				color: #707070;
+				height: 60rpx;
+				line-height: 60rpx;
     		}
     	}
 
@@ -313,7 +327,6 @@
 	/* 商品列表 */
     .productContainer{
     	display: flex;
-    	padding: 21rpx 30rpx;
     	flex-wrap: wrap;
     	justify-content: space-between;
 	}

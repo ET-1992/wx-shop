@@ -19,6 +19,5 @@
 <view class="tplStyleThree" wx:if="{{ tplStyle === 'three' }}">
     <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleThree/productLayout/grouponStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleThree/productLayout/miaoshaStyle.wxml"/>
-    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleThree/productLayout/topImage.wxml"/>
 </view>
 

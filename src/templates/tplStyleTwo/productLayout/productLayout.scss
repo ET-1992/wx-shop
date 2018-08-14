@@ -183,7 +183,6 @@
             .price{
                 display: flex;
                 align-items: center;
-                height: 42rpx;
                 .now{
                     font-size: 30rpx;
                     font-weight: bold;
@@ -193,7 +192,6 @@
                 .original{
                     font-size: 20rpx;
                     color: #999999;
-                    line-height: 42rpx;
                     text-decoration: line-through;
                     padding-left: 10rpx;
                 }

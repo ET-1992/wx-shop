@@ -1,6 +1,6 @@
-/* pages/articleList/articleList.wxss */
 @import '~styles/color';
-@import '~templates/tplStyleTwo/articleItem/articleItem';
+@import '~templates/articleItem/articleItem';
+
 page{
 	background:#fff;
 }
@@ -36,12 +36,12 @@ page{
 
 }
 .category{
-		flex-shrink:0;
-		padding:14rpx 16rpx;
-		margin:21rpx;
-		marign-top:0;
-		margin-bottom:0;
-		display:inline-block
+	flex-shrink:0;
+	padding:14rpx 16rpx;
+	margin:21rpx;
+	margin-top:0;
+	margin-bottom:0;
+	display:inline-block
 	}
 swiper{
 	height: 100vh;

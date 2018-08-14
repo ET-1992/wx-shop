@@ -4,7 +4,7 @@
   </view>
   <view class="itemWrapper" wx:for="{{ products }}" wx:if="{{item.groupon_enable=='1'}}" wx:key="id">
     <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
-      <productList product="{{ item }}" tplStyle="{{ default }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+      <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
     </navigator>
   </view>
   <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>

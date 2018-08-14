@@ -1,33 +1,33 @@
-<view class="productItemSmallCard">
-    <image src="{{ product.thumbnail }}" class="productItemImage" mode="aspectFit" />
-    <view class="productItemInfo">
-        <view class="prodcutItemName">
+<view class="topImage">
+    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+    <view class="Info">
+        <view class="title">
             {{ product.title }}
         </view>
-        <view class="productItemMeta">
-            <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
-                <view class="productItemPrice">
-                    <text>￥</text>{{ product.miaosha_price }}
+        <view class="meta">
+            <view class="priceWrapper">
+                <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
+                    <view class="ItemPrice">
+                        <text>￥</text>{{ product.miaosha_price }}
+                    </view>
+                </block>
+                <block wx:elif="{{ product.groupon_enable == 1}}">
+                    <view class="ItemPrice">
+                        <text>￥</text>{{ product.groupon_price }}
+                    </view>
+                </block>
+                <block wx:else>
+                    <view class="ItemPrice">
+                        <text>￥</text>{{ product.price }}
+                    </view>
+                </block>
+                <view 
+                    wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
+                    class="originPrice"><text>￥</text>{{ product.original_price }}
                 </view>
-            </block>
-            <block wx:elif="{{ product.groupon_enable == 1}}">
-                <view class="productItemPrice">
-                    <text>￥</text>{{ product.groupon_price }}
-                </view>
-            </block>
-            <block wx:else>
-                <view class="productItemPrice">
-                    <text>￥</text>{{ product.price }}
-                </view>
-            </block>
-            <view 
-                wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
-                class="productItemOriginPrice"
-            >
-                <text>￥</text>{{ product.original_price }}
             </view>
             <view class="tagWrapper">
-                <view class="productItemSold" wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}">已售：{{ product.sales }}</view>
+                <view class="ItemSold" wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}">已售: {{ product.sales }}件</view>
                 <view class="tag" wx:if="{{ product.groupon_enable === '1' || product.miaosha_enable === '1' }}">
                     {{ product.groupon_enable === '1' ? product.groupon_member_limit + '人团' : '限时购' }}
                 </view>

@@ -1,0 +1,82 @@
+.grouponStyle{
+    display: flex;
+    flex-direction: column;
+    height: 390rpx;
+    width: 218rpx;
+    background: #fff;
+
+    .grouponImage{
+        width: 192rpx;
+        height: 192rpx;
+        margin: 12rpx auto 0;
+    }
+    .meta{
+        display: flex;
+	    flex-direction: column;
+        width: 192rpx;
+        height: 174rpx;
+        align-self: flex-end;
+        margin: 12rpx auto 0;
+
+        .content{
+            height: 85rpx;
+        }
+        .miaosha-content{
+            height: 70rpx;
+        }
+        .miaosha-content, .content{
+            .title{
+                font-size: 24rpx;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                height: 1.5;
+            }
+        }
+        .status{
+            font-size: 20rpx;
+            height: 50rpx;
+
+            .unstart{
+                color: #999999;
+            }
+            .ongoing{
+                color: #FF1E1E;
+            }
+            .over{
+                color: #999999;
+            }
+        }
+        .miaoshaPrice{
+            display: flex;
+            align-items: center;
+    
+            .newPrice{
+                .yuan, .price{
+                    font-size: 30rpx;
+                    font-weight: bold;
+                    color: #FF1E1E;
+                }
+                .originalPrice{
+                    font-size: 20rpx;
+                    color: #999999;
+                    text-decoration: line-through;
+                    padding-left: 10rpx;
+                }
+            }
+        }
+        .grouponPrice{
+            font-size: 30rpx;
+            font-weight: bold;
+            color: #FF1E1E;
+            margin-bottom: 10rpx;
+        }
+        .grouponInfo{
+            display: flex;
+            font-size: 20rpx;
+            color: #999999;
+        }
+    }
+}

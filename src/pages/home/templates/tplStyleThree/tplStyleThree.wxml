@@ -1,5 +1,5 @@
 <view class="tplStyleThree">
-<import src="/templates/articleItem/articleItem.wxml"/>
+<import src="/templates/tplStyleThree/articleItem/articleItem.wxml"/>
 
 <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
   <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key !== 'sliders'}}">
@@ -33,7 +33,7 @@
      <!-- 幻灯片 -->
       <view wx:if="{{ module.key === 'sliders' }}">
 		<view class="searchSliders">
-			<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner section" style="padding-bottom:0;height:{{module.height}}rpx" bindchange="swiperChange">
+			<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindchange="swiperChange">
 			  <swiper-item wx:for="{{ sliders }}" wx:key="id">
 				<navigator 
 				  app-id="{{item.appid}}" 
@@ -78,23 +78,25 @@
       <!-- 拼团专区 -->
       <view wx:if="{{ module.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-            <navigator wx:if="{{groupons.length==1}}" url="/pages/grouponList/grouponList">
-              <productList product="{{ groupons[0] }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
-            </navigator>
-          <block wx:else>
-            <navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItemWrapper" url="/pages/productDetail/productDetail?id={{ item.id }}">
-             <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
-            </navigator>
-          </block>
-          <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
-            <form bindsubmit="submitFormId" report-submit class="form">
-              <button formType="submit" class="moreButton">
-                <span>更多</span>
-                <image class="rightIcon" src="/icons/right.png" />
-              </button>
-            </form>
+			<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+		  	<view class="grouponContainer">
+          <navigator wx:if="{{groupons.length==1}}" class="grouponItem" url="/pages/grouponList/grouponList">
+          	<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </navigator>
+          <block wx:else>
+          	<navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem" url="/pages/productDetail/productDetail?id={{ item.id }}">
+          	 	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
+          	</navigator>
+				  </block>
+			  </view>
+        	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+        	  <form bindsubmit="submitFormId" report-submit class="form">
+        	    <button formType="submit" class="moreButton">
+        	      <span>更多</span>
+        	      <image class="rightIcon" src="/icons/right.png" />
+        	    </button>
+        	  </form>
+        	</navigator>
         </view>
       </view>
       <!-- 最新推荐 -->
@@ -102,12 +104,12 @@
         <view class="section" wx:if="{{ articles && articles.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
           <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
-            <image src="{{articles[0].banner}}" style="height: {{module.height}}rpx;"></image>
+            <image src="{{articles[0].banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
             <template is="articleItem" data="{{ article: articles[0] }}" />
           </navigator>
           <block wx:else>
             <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-              <image src="{{item.banner}}" style="height: {{module.height}}rpx;"></image>
+              <image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
               <template is="articleItem" data="{{ article: item,module:module }}" />
             </navigator>
           </block>
@@ -124,21 +126,23 @@
       <!-- 限时购 -->
       <view wx:if="{{ module.key === 'miaoshas' }}">
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
-          <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
-            <productList miaosha="{{ miaoshas[0] }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
-          </navigator>
-          <navigator wx:if="{{ miaoshas.length > 1}}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-            <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
-          </navigator>
-          <navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
-            <form bindsubmit="submitFormId" report-submit="true">
-              <button formType="submit" class="moreButton">
-                <span>更多</span>
-                <image class="rightIcon" src="/icons/right.png" />
-              </button>
-            </form>
-          </navigator>
+			<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+			<view class="grouponContainer">
+				<navigator wx:if="{{ miaoshas.length == 1}}" class="grouponItem" url="/pages/miaoshaList/miaoshaList">
+					<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+				</navigator>
+				<navigator wx:if="{{ miaoshas.length > 1}}" class="grouponItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+					<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+				</navigator>
+			</view>
+        	<navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
+        		<form bindsubmit="submitFormId" report-submit="true">
+        		  <button formType="submit" class="moreButton">
+        		    <span>更多</span>
+        		    <image class="rightIcon" src="/icons/right.png" />
+        		  </button>
+        		</form>
+        	</navigator>
         </view>
       </view>
       <!-- 优惠券 -->
@@ -236,11 +240,11 @@
 
             <button 
               wx:elif="{{ item.type === 'contact' }}" 
-		          bindtap="{{ item.tips ? 'onModal' : ''}}"
-		          data-tips="{{ item.tips }}" 
-		          open-type="{{ !item.tips ? 'contact' : ''}}" 
-              session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
-              class="categoryItem categoryBtn"
+		        bindtap="{{ item.tips ? 'onModal' : ''}}"
+		        data-tips="{{ item.tips }}" 
+		        open-type="{{ !item.tips ? 'contact' : ''}}" 
+              	session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
+              	class="categoryItem categoryBtn"
             >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </button>
@@ -255,7 +259,7 @@
 
       <!-- 魔方 -->
       <view wx:if="{{ module.type === 'cube' }}" class="cube">
-        <magicImg magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
+        <magicImg tplStyle="{{ tplStyle }}" magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
       </view>
 
     </view>

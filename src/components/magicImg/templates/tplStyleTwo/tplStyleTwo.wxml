@@ -1,5 +1,5 @@
 <view class="tplStyleTwo">
-    <view class="container" style="margin-top: {{ isMarginTopZero ? 0 : '20rpx' }}">
+    <view class="container" style="margin-top: {{ isMarginTopZero ? 0 : '10rpx' }}">
         <view class="sectionTitle" wx:if="{{ magicImgData.title }}">{{ magicImgData.title }}</view>
         <view class="rowImgWrap" wx:if="{{ magicImgData.defineType === 'oneLine' }}" style="height: {{magicImgData.height}}rpx">
             <block wx:for="{{magicImgData.eachNum}}" wx:key="{{ index }}">

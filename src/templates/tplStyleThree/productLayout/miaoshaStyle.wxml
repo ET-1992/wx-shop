@@ -1,0 +1,20 @@
+<view class="grouponStyle">
+    <image class="grouponImage" mode="aspectFill" src="{{ miaosha.thumbnail }}" />
+    <view class="meta">
+        <view class="miaosha-content">
+            <view class="title">{{ miaosha.title }}</view>
+        </view>
+        <view class="status">
+            <view class="unstart" wx:if="{{ !hasStart }}">未开始</view>
+            <view class="ongoing" wx:if="{{ !hasEnd && hasStart }}">进行中</view>
+            <view class="over" wx:if="{{ hasEnd }}">已结束</view>
+        </view>
+        <view class="miaoshaPrice">
+            <view class="newPrice">
+                <text class="yuan">￥</text>
+                <text class="price">{{ miaosha.miaosha_price }}</text>
+                <text class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">￥{{ miaosha.original_price }}</text>
+            </view>
+        </view>
+    </view>
+</view>
