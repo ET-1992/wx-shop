@@ -151,10 +151,11 @@ Component({
             });
             if (res) {
                 let that = this;
+                const { qvcode } = this.data;
                 await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
                 wx.showModal({
                     title: '温馨提示',
-                    content: '保存成功，打开相册分享到朋友圈吧~',
+                    content: qvcode.save_success_tips ? qvcode.save_success_tips : '保存成功，快去分享吧',
                     showCancel: false,
                     success: function() {
                         that.closeModal();
