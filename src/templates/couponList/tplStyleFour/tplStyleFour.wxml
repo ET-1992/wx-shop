@@ -3,27 +3,35 @@
 		<view class="couponInfo">
 			<view class="left">
 				<view class="reduce">
-					<text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
-					<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
+					<view class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</view>
+					<view class="discount" wx:if="{{ coupon.type == 2 }}">折</view>
 				</view>
+				<view class="least" wx:if="{{ status === 'available' }}">满{{ coupon.least_cost }}使用</view>
 			</view>
 			<view class="center">
-				<view wx:if="{{ coupon.description && coupon.description.length }}" wx:key="index" wx:for="{{ coupon.description }}" wx:for-item="desc"
-				 class="couponDesc"> • {{ desc }}</view>
-				<text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
-				<text wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</text>
+				<view class="desc" wx:if="{{ coupon.description && coupon.description.length }}" wx:key="index" wx:for="{{ coupon.description }}" wx:for-item="desc"> • {{ desc }}</view>
+				<view class="tag" wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</view>
+				<view class="tag" wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</view>
 			</view>
+
 			<view class="right {{ canChoice ? 'rightCenter' : '' }}">
+				<block wx:if="{{ status !== 'available' }}">
+					<view class="least">满{{ coupon.least_cost }}使用</view>
+					<view class="btn" wx:if="{{ status === 'receivable' }}">立即领取</view>
+					<view class="btn" wx:if="{{ status === 'received' }}">立即使用</view>
+					<view class="btn unable" wx:if="{{ status === 'expired' }}">已抢光</view>
+					<view class="btn unable" wx:if="{{ status === 'used' }}">已使用</view>
+					<view class="btn unable" wx:if="{{ status === 'nullCoupon' }}">已过期</view>
+				</block>
+
 				<view class="radio {{ isSelected ? 'selected' : '' }}" wx:if="{{ canChoice }}">
 					<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelected }}" />
 				</view>
-				<view class="couponTitle">满{{ coupon.least_cost }}使用</view>
 			</view>
 		</view>
-		<image class="bg" src="/icons/tpl4/couponItemReceived.png" wx:if="{{ status === 'available' || !canChoice }}" />
-		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'used' }}" />
-		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
-		<image class="bg" src="/icons/tpl4/couponOut.png" wx:if="{{ status === 'nullCoupon' }}" />
-		<image class="bg" src="/icons/tpl4/couponItem.png" wx:if="{{status === 'receivable' }}" />
+
+		<image class="bg" src="/icons/tpl4/receivable.png" wx:if="{{ status === 'receivable' }}" />
+		<image class="bg" src="/icons/tpl4/received.png" wx:if="{{ status === 'available' || status === 'received' }}" />
+		<image class="bg" src="/icons/tpl4/unavailable.png" wx:if="{{ status === 'expired' || status === 'used' || status === 'nullCoupon' || status === 'unavailable' }}" />
 	</view>
 </view>

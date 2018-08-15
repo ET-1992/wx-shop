@@ -1,9 +1,10 @@
 .tplStyleFour{
 	@import '~templates/articleItem/articleItem';
 	
-    swiper{
-    	margin-bottom: 15rpx;
-    }
+	$searchWrapper: 90rpx;
+	$zeroMarginTop: 30rpx;
+	background: #fff;
+
     .container {
     	height: auto;
     	width: 100%;
@@ -11,47 +12,82 @@
     }
     
     .searchWrapper {
-    	height: 97rpx;
-    	background-color: $backgroundColor;
+    	height: $searchWrapper;
+    	background-color: transparent;
     	padding: 12rpx 40rpx;
     	position: fixed;
     	left: 0;
     	width: 100%;
     	top: 0;
     	z-index: 9;
+	}
+	.searchIcon {
+		$size: 28rpx;
 
-    	.searchIcon {
-    		$size: 36rpx;
+		width: $size;
+		height: $size;
+		line-height:$size;
+		margin-right: 20rpx;
+	}
 
-    		width: $size;
-    		height: $size;
-    		line-height:$size;
-    		margin-right: 20rpx;
-    	}
-
-    	.search {
-    		height: 70rpx;
-    		text-align: center;
-    		font-size: 9pt;
-    		color: $titleColor;
-    		background-color: #fff;
-    		border-radius: 100rpx;
-    		line-height: 70rpx;
-    		border: 1px solid #ddd;
-    		display: flex;
-    		justify-content: center;
-    		align-items: center;
-    	}
-    }
+	.search {
+		height: 60rpx;
+		text-align: center;
+		font-size: 22rpx;
+		color: #707070;
+		background-color: #fff;
+		border-radius: 100rpx;
+		line-height: 60rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
     .main {
-    	margin-top: 96rpx;
+    	margin-top: $searchWrapper;
     }
 
     .zeroMarginTop {
-    	margin-top: -20rpx;
-    }
+    	margin-top: -$zeroMarginTop;
+	}
+	
+	.searchSliders{
+		position: relative;
+		.searchBox{
+			height: auto;
+			background-color:transparent;
+			padding:0 40rpx;
+			position: absolute;;
+			left:0;
+			width:100%;
+			top: 20rpx;
+			z-index:9;
+		}
 
+		.dots{
+			position: absolute;
+			bottom: 24rpx;
+			display: flex;
+			justify-content: center;
+		}
+		.dots .dot{
+			$size: 16rpx;
+
+			margin: 0 8rpx;
+			width: $size;
+			height: $size;
+			background: #fff;
+			border-radius: 8rpx;
+			transition: all .6s;
+		}
+		.dots .dot.active{
+			background: #45424E;
+		}
+
+	}
+	.banner{
+		margin-top: $zeroMarginTop;
+	}
     .banner,.banner button, .banner image {
     	width: 100%;
     	height: 100%;
@@ -60,126 +96,155 @@
     	padding: 40rpx;
     }
 
+	/* 优惠券 */
     .couponsWrapper {
-    	padding-left: 10rpx;
-    	font-size: 0;
-    	z-index: 9;
-    	margin-bottom: 20rpx;
-
+		margin: 60rpx 40rpx;
+		
     	.coupons {
-    		display: flex;
+			display: flex;
+			justify-content: space-between;
     	}
-
     	.coupon {
-    		width: 300rpx;
-    		height: 136rpx;
+    		width: 320rpx;
+    		height: 160rpx;
     		position: relative;
-    		line-height: 1.2;
-    		margin-left: 20rpx;
-    	}
-    
-    	.moreCoupon{
-    		width: 101rpx;
-    		height: 136rpx;
-    		position: relative;
-    		line-height: 1.2;
 
-    		.moreBtn{
-    			position:absolute;
-    			width:20rpx;
-    			color:#707070;
-    			font-size:20rpx;
-    			left:40rpx;
-    			top:26rpx;
-    		}
-    	}
-
-    	.couponInfoList {
-    		position: absolute;
-    		z-index: 2;
-    		color: #fff;
-    		font-size: 9pt;
-    		height: 136rpx;
-    		width: 300rpx;
-    		display: flex;
-    		line-height: 1.4;
-
-    		.couponInfo {
+			.couponInfoList {
+				display: flex;
+				justify-content: space-around;
 				color: #fff;
-				z-index: 2;
-    			font-size: 9pt;
-    			height: 120rpx;
-    			width: 160rpx;
-    			display: flex;
-    			justify-content: center;
-    			align-items: center;
+				background: #fff;
+				height: 160rpx;
+				width: 320rpx;
 
-    			.reduceCost {
-					font-size: 18pt;
-    			}
-    		}
-
-    		.couponBtn{
-				color:#fff;
-				z-index: 2;
-				height: 110rpx;
-				width: 108rpx;
-    			display:flex;
-    			align-items:center;
-
-				.title{
-					font-size: 20rpx;
+				.left{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					line-height: 1;
+					z-index: 2;
+					padding-left: 10rpx;
+					.reduce{
+						.reduceCost {
+							font-size: 64rpx;
+							font-weight: lighter;
+						}
+						.discount{
+							font-size: 28rpx;
+						}
+	
+					}
+					.title{
+						font-size: 28rpx;
+					}
 				}
-    		}
-    	}
+				.right {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					z-index: 2;
+					line-height: 2;
 
-    	.bg {
-    		width: 300rpx;
-    		height: 136rpx;
-    		position: absolute;
-    		z-index: 1;
-    	}
-    }
+					.least{
+						font-size: 20rpx;
+					}
+					.btn{
+						width: 96rpx;
+						height: 26rpx;
+						line-height: 26rpx;
+						border-radius: 14rpx;
+						background: #fff;
+						font-size: 18rpx;
+						font-weight: bold;
+						color: #FB4762;
+						text-align:center;
+					}
+					.unable{
+						color: #000000;
+					}
+				}
+				.bg {
+					width: 320rpx;
+					height: 160rpx;
+					position: absolute;
+					z-index: 1;
+				}
+			}
+		}
+
+		.moreCoupon{
+			display: flex;
+			height: 40rpx;
+			width: 160rpx;
+			align-items: center;
+			justify-content: center;
+			margin: 30rpx auto;
+			view{
+				font-size: 28rpx;
+				color: #000000;
+				padding-right:8rpx;
+			}
+			image{
+				width: 20rpx;
+				height: 20rpx;
+				transform: rotate(90deg);
+			}
+			
+		}
+	}
+	
     .firstCoupon{
-    	margin-top: 20rpx;
-    	padding-top: 20rpx;
+    	margin-top: $zeroMarginTop;
+    	padding-top: $zeroMarginTop;
     }
     .secondCoupon{
     	margin: 110rpx 0 20rpx;
     }
-    .lastCoupon{
-    	margin-top: 20rpx;
-    }
 
     .section {
-    	background-color: #fff;
-    	margin-top: 20rpx;
+		margin: $zeroMarginTop $zeroMarginTop 0;
 
     	.sectionTitle {
+			background-color: #fff;
     		text-align:center;
-    		padding:36rpx;
-    		color:#333;
-    		font-size:17px;
+    		color:#000000;
+			font-size: 36rpx;
+			font-weight: bold;
+			height: 60rpx;
+			line-height: 60rpx;
+			margin-bottom: 10rpx;
     	}
 
-    	.grouponItemWrapper{
-    		padding-bottom: 10rpx;
-    	}
+		.grouponContainer{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content:space-between;
+
+			.grouponItem{
+				margin: 10rpx 0 20rpx;
+			}
+			/* .grouponItem:nth-child(3n-2){
+				margin-right: 20rpx;
+			}
+			.grouponItem:nth-child(3n+0){
+				margin-left: 20rpx;
+			} */
+		}
 
     	.sectionMore {
-    		height: 80rpx;
-    		line-height: 80rpx;
-    		color: $titleColor;
-    		border-top: 1px solid #eee;
-    		padding: 10rpx 0;
 
     		.form {
     			width: 100%;
     		}
 
     		.moreButton{
-    			font-size: 26rpx;
-    			background: none;
+    			font-size: 30rpx;
+				background:#fff;
+				color: #707070;
+				height: 60rpx;
+				line-height: 60rpx;
     		}
     	}
 
@@ -220,23 +285,25 @@
 
     /* 首页分类 */
     .categoryBox{
-    	padding: 0 15rpx 39rpx;
-    	width: 100%;
+		background: #fff;
+		margin: 30rpx;
+    	padding: 6rpx 0 46rpx;
     	display: flex;
       	justify-content: flex-start;
     	flex-flow: row wrap;
     	align-items: center;
     	text-align: center;
     	.homeCategory{
-    		flex-direction: column;
-    		.categoryItem{
-    			padding: 42rpx 35rpx 0;
-    			line-height: 0;
+			flex-direction: column;
+			width: 173rpx;
+			padding: 0 10rpx;
 
+    		.categoryItem{
+    			padding: 30rpx 0 10rpx;
+    			line-height: 0;
     			.categoryImg{
     				width: 110rpx;
     				height: 110rpx;
-    				border-radius: 5rpx;
     			}
     		}
     		.categoryBtn{
@@ -245,10 +312,8 @@
     			font-size: 24rpx;
     		}
     		.categoryTitle{
-    			padding-top: 12rpx;
     			font-size: 24rpx;
     			color: #333333;
-    			width: 180rpx;
     			overflow: hidden;
     			white-space: nowrap;
     			text-overflow: ellipsis;
@@ -264,8 +329,44 @@
 	/* 商品列表 */
     .productContainer{
     	display: flex;
-    	padding: 21rpx 30rpx;
     	flex-wrap: wrap;
     	justify-content: space-between;
+	}
+	/* 服务说明 */
+    .instructions{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        height: 70rpx;
+        align-items: center;
+
+        .instructions-item{
+            image{
+                width: 20rpx;
+                height: 20rpx;
+            }
+            view{
+                padding-left: 10rpx;
+                display: inline;
+                font-size: 20rpx;
+                color: #707070;
+            }
+        }
     }
+    .announcement{
+        display: flex;
+        height: 70rpx;
+        align-items: center;
+        background: #FFF9EC;
+        
+        image{
+            margin: 0 14rpx 0 30rpx;
+            width: 48rpx;
+            height: 35rpx;
+        }
+        view{
+            font-size: 22rpx;
+            color: #000000;
+        }
+	}
 }

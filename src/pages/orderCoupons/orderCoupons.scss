@@ -1,5 +1,5 @@
 @import '~styles/color';
-@import '~templates/couponItem/couponItem';
+// @import '~templates/couponItem/couponItem';
 
 $footerHeight: 100rpx;
 
@@ -50,10 +50,10 @@ $footerHeight: 100rpx;
 }
 
 .couponList {
-	padding: 25rpx;
-
-	.couponItemWrapper {
-		margin-bottom: 25rpx;
+	padding: 40rpx 25rpx;
+	.couponItemWrapper{
+		margin:25rpx auto 0;
+		width:650rpx;
 	}
 }
 

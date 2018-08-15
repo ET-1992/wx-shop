@@ -5,6 +5,7 @@
     "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
     "console": "../../components/console/console",
     "productDetailShareModal": "./productDetailShareModal/productDetailShareModal",
+    "couponList": "../../components/couponList/index",
     "loading": "../../components/loading/index"
   }
 }

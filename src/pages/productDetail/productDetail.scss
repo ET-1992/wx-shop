@@ -1,5 +1,5 @@
 @import "~templates/mock/mock";
-@import "~templates/couponItem/couponItem";
+// @import "~templates/couponItem/couponItem";
 @import "~styles/color";
 @import "../../utils/wxParse/wxParse.scss";
 $footerHeight: 100rpx;
@@ -654,6 +654,11 @@ button {
 	.couponList {
 		height: 800rpx;
 		padding: 20rpx 0;
+		
+		.couponItemWrapper{
+			margin:25rpx auto 0;
+			width:650rpx;
+		}
 
 		.noCoupon {
 			image{

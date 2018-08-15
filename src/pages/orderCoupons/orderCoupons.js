@@ -1,8 +1,6 @@
 import api from 'utils/api';
 const app = getApp();
 
-
-
 // 创建页面实例对象
 Page({
     // 页面的初始数据
@@ -24,7 +22,7 @@ Page({
 
 
     async onLoad() {
-        const { themeColor } = app.globalData;
+        const { themeColor, tplStyle } = app.globalData;
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();
@@ -32,7 +30,8 @@ Page({
         this.setData({
             coupons,
             themeColor,
-            isIphoneX
+            isIphoneX,
+            tplStyle
         });
     },
 

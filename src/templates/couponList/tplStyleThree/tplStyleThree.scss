@@ -69,33 +69,6 @@
 					justify-content: center;
 					align-items: flex-end;
 				}
-				.btn{
-					display:flex;
-					justify-content:center;
-					align-items:center;
-					.useBtn{
-						font-size: 24rpx;
-						width: 55rpx;
-						line-height: 1.2;
-					}
-					.arrow{
-						padding: 0 10rpx;
-						image{
-							width: 20rpx;
-							height: 20rpx;
-						}
-					}
-	
-				}
-				.getBt {
-					background-color: $couponMainColor;
-					color: #fff;
-					width: 110rpx;
-					height: 40rpx;
-					line-height: 40rpx;
-					text-align: center;
-					margin-bottom:-4rpx;
-				}
 	
 				.radio {
 					$size: 32rpx;
@@ -122,6 +95,11 @@
 						width: $iconSize;
 						margin-top: 2rpx;
 					}
+				}
+				.btn{
+					font-size: 24rpx;
+					width: 48rpx;
+					color: #FF74C3;
 				}
 			}
 		}

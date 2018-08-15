@@ -21,8 +21,8 @@ Page({
         this.setData({
             tplStyle
         });
-        console.log(this.data);
         this.loadCoupon();
+        console.log(this.data);
     },
 
     async loadCoupon() {
@@ -32,8 +32,6 @@ Page({
             ...data,
             isLoading: false
         });
-
-        console.log(this.data);
     },
 
     async onReceiveCoupon(id, index) {

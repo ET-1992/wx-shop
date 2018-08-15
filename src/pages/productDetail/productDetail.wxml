@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
 <import src="../../templates/mock/mock.wxml" />
-<import src="../../templates/couponItem/couponItem.wxml" />
+<!-- <import src="../../templates/couponItem/couponItem.wxml" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -306,23 +306,18 @@
 						data-index="{{ index }}" 
 						catchtap="onCouponClick"
 					>
-					<template is="couponItem" wx:if="{{ item.status == 2 && item.stock_qty }}" data="{{ coupon: item, status: 'receivable' }}" /> <!-- 未领取 -->
-					<template is="couponItem" wx:if="{{ item.status == 4 }}" data="{{ coupon: item, status: 'received' }}" />	<!-- 已领取 -->
+						<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="receivable" /><!-- 未领取 -->
+						<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" /><!-- 已领取 -->
 					</view>
-
 					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
 						<view class="couponListTitle">已领取优惠券</view>
-						<!-- <view class="noCouponHint" wx:if="{{ !receivedCoupons.length }}">
-							<image src="../../icons/noCoupon.png"></image>
-							<view>暂无已领取优惠券</view>
-						</view> -->
 						<navigator 
 							class="couponItemWrapper" 
 							wx:for="{{ receivedCoupons }}" 
 							wx:key="id" 
 							url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
 						>
-						<template is="couponItem" wx:if="{{ item.status == 4 }}" data="{{ coupon: item, status: 'received' }}" />	<!-- 已领取 -->
+							<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" /><!-- 已领取 -->
 						</navigator>
 					</block>
 				</view>

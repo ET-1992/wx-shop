@@ -19,10 +19,12 @@
 			</view>
 		</view>
 		</view>
-		<image class="bg" src="/icons/tpl2/couponItemReceived.png" wx:if="{{ status === 'available' || !canChoice }}" />
-		<image class="bg" src="/icons/tpl2/unableCoupon.png" wx:if="{{ status === 'used' }}" />
-		<image class="bg" src="/icons/tpl2/unableCoupon.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
-		<image class="bg" src="/icons/tpl2/couponOut.png" wx:if="{{ status === 'nullCoupon' }}" />
-		<image class="bg" src="/icons/tpl2/couponItem.png" wx:if="{{status === 'receivable' }}" />
+		<image class="bg" src="/icons/tpl2/receivable.png" wx:if="{{ status === 'receivable' }}" />
+		<image class="bg" src="/icons/tpl2/received.png" wx:if="{{ status === 'received' }}" />
+		<image class="bg" src="/icons/tpl2/used.png" wx:if="{{ status === 'used' }}" />
+		<image class="bg" src="/icons/tpl2/expired.png" wx:if="{{ status === 'expired' }}" />
+		<image class="bg" src="/icons/tpl2/nullCoupon.png" wx:if="{{ status === 'nullCoupon' }}" />
+		<image class="bg" src="/icons/tpl2/unavailable.png" wx:if="{{ status === 'unavailable' }}" />
+		<image class="bg" src="/icons/tpl2/available.png" wx:if="{{ status === 'available' }}" />
 	</view>
 </view>
