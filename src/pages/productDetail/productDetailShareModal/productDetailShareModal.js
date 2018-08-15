@@ -37,7 +37,8 @@ Component({
         ctx: {},
         authModal: {},
         productImageUrl: '',
-        qrcodeUrl: ''
+        qrcodeUrl: '',
+        qvcode: {}
     },
     async ready() {
         const nodeInfo = await getNodeInfo('canvasPosterId', {}, true, this);
@@ -213,7 +214,8 @@ Component({
                     const qrcodeUrlData = datas[1];
                     this.setData({
                         productImageUrl: productImageUrlData.tempFilePath,
-                        qrcodeUrl: qrcodeUrlData.tempFilePath
+                        qrcodeUrl: qrcodeUrlData.tempFilePath,
+                        qvcode
                     }, this.drawProductDetailImg);
                 }
             } catch (e) {

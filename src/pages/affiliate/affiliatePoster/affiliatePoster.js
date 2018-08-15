@@ -10,7 +10,8 @@ Page({
         title: 'affiliatePoster',
         authModal: {},
         options: {},
-        share_title: ''
+        share_title: '',
+        qrcode: {}
     },
 
     onLoad(options) {
@@ -72,7 +73,8 @@ Page({
                             avatarUrl: avatarUrlData.tempFilePath,
                             qrcodeUrl: qrcodeUrlData.tempFilePath,
                             user,
-                            current_user: data.current_user
+                            current_user: data.current_user,
+                            qrcode: data
                         }, this.posterFnc[this.postertype]);
                     }
                 } else {

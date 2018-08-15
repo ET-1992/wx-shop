@@ -5,7 +5,7 @@
 	
 		<view class="btnWtap">
 			<!-- <button class="btn" open-type="share">分享给好友</button> -->
-			<button class="btn" bindtap="saveCanvasToImg" style="background-color: {{ themeColor.primaryColor }}">保存分享到朋友圈</button>
+			<button class="btn" bindtap="saveCanvasToImg" style="background-color: {{ themeColor.primaryColor }}">{{ qvcode.save_button_title ? qvcode.save_button_title : '保存图片到手机' }}</button>
 		</view>
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 	</view>
