@@ -63,7 +63,7 @@
   </view>
 
   <view class="virtualProductBtnWrap" wx:if="{{ order.type === 3 && virtualProductBtn }}">
-    <view class="virtualProductBtn" bindtap="setVirtualProductBtn" >获取取货码</view>
+    <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}">获取取货码</view>
   </view>
 
   <view class="virtualProduct" wx:if="{{ order.type === 3 && !virtualProductBtn }}">
