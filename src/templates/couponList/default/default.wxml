@@ -22,29 +22,24 @@
 			</view>
 
 			<view class="right {{ canChoice ? 'rightCenter' : '' }}">
+				<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
+					<view class="btn" wx:if="{{ status === 'received' }}">
+						<view class="useBtn">立即使用</view>
+						<view class="arrow"><image src="/icons/couponArrow.png" mode="aspectFit"/></view>
+					</view>
+					<view class="btn" wx:if="{{status === 'receivable' }}">
+						<view class="useBtn">立即领取</view>
+						<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>
+					</view>
+					<view class="btn" wx:if="{{ status === 'used' }}">已使用</view>
+					<view class="btn" wx:if="{{ status === 'expired' }}">已过期</view>
+					<view class="btn" wx:if="{{ status === 'nullCoupon' }}">已抢光</view>
+				</block>
 				<view class="radio {{ isSelected ? 'selected' : '' }}" wx:if="{{ canChoice }}" >
 					<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelected }}" />
 				</view>
-				<view class="btn" wx:if="{{ status === 'received' }}">
-					<view class="useBtn">立即使用</view>
-					<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>
-				</view>
-				<view class="btn" wx:if="{{status === 'receivable' }}">
-					<view class="useBtn">立即领取</view>
-					<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>
-				</view>
-				<view class="btn" wx:if="{{ status === 'used' }}">
-					<view>已使用</view>
-				</view>
-				<view class="btn" wx:if="{{ status === 'expired' }}">
-					<view>已过期</view>
-				</view>
-				<view class="btn" wx:if="{{ status === 'nullCoupon' }}">
-					<view>已抢光</view>
-				</view>
 			</view>
 		</view>
-		{{status}}
 		<image class="bg" src="/icons/couponItem.png" wx:if="{{ status === 'receivable' }}" />
 		<image class="bg" src="/icons/couponItemReceived.png" wx:if="{{ status === 'available' || status === 'received' }}" />
 		<image class="bg" src="/icons/unableCoupon.png" wx:if="{{ status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable'}}" />

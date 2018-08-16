@@ -167,13 +167,20 @@
                   <view class="couponInfo">
                     <view class="reduce">
                       <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
-                      <text wx:if="{{ item.type == 2 }}">折</text>
+                      <text class="discount" wx:if="{{ item.type == 2 }}">折</text>
                     </view>
                     <view class="title">满{{ item.least_cost }}元使用</view>
                   </view>
+                  <view class="right">
+                    <view class="btn" wx:if="{{ item.status == 2 && item.stock_qty }}">点击领取</view>
+				            <view class="btn" wx:if="{{ item.status == 4 }}">立即使用</view>
+				            <view class="btn unable" wx:if="{{ item.status == 2 && !item.stock_qty }}">已抢光</view>
+				            <view class="btn unable" wx:if="{{ item.status == 5 }}">已使用</view>
+				            <view class="btn unable" wx:if="{{ item.status == 3 }}">已过期</view>
+                  </view>
                   <image class="bg" src="/icons/tpl3/homeReceivable.png" wx:if="{{ item.status == 2 && item.stock_qty }}" /> <!-- 待领取 -->
                   <image class="bg" src="/icons/tpl3/homeReceived.png" wx:if="{{ item.status == 4 }}" /> <!-- 已领取 -->
-                  <image class="bg" src="/icons/tpl3/homeUnableCoupon.png" wx:if="{{ ( item.status == 2 && !item.stock_qty ) || item.status == 3 || item.status == 5 }}" /> <!-- 已使用 -->
+                  <image class="bg" src="/icons/tpl3/homeUnavailable.png" wx:if="{{ ( item.status == 2 && !item.stock_qty ) || item.status == 3 || item.status == 5 }}" />
                 </button>
               </form>
             </view>

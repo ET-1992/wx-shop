@@ -15,21 +15,18 @@
 				flex-direction: column;
 				justify-content:center;
 				z-index: 2;
-				width: 226rpx;
+				width: 200rpx;
 
 				.reduce{
-					display: flex;
-					align-items: flex-end;
 					.reduceCost {
 						font-size: 64rpx;
-						line-height: 0.8;
 					}
 					.discount {
 						font-size: 22rpx;
 					}
 				}
 
-				.least{
+				.couponTitle{
 					font-size: 20rpx;
 				}
 			}
@@ -39,10 +36,13 @@
 				flex-direction: column;
 				justify-content: center;
 				z-index: 2;
-				width: 250rpx;
+				width: 300rpx;
 				.desc {
 					font-size: 20rpx;
 					padding-bottom: 10rpx;
+					white-space: nowrap;
+    				overflow: hidden;
+    				text-overflow: ellipsis;
 				}
 				.tag{
 					font-size: 16rpx;
@@ -58,7 +58,7 @@
 				flex-direction: column;
 				z-index: 2;
 				line-height: 2;
-				width: 174rpx;
+				width: 150rpx;
 
 				&.rightCenter {
 					justify-content: center;
@@ -92,9 +92,6 @@
 					}
 				}
 				
-				.least{
-					font-size: 20rpx;
-				}
 				.btn{
 					width: 96rpx;
 					height: 26rpx;

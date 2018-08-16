@@ -27,24 +27,24 @@
 					font-size: 22rpx;
 				}
 				.reduceCost {
-					font-size: 46rpx;
+					font-size: 44rpx;
 				}
 				.discount {
-					font-size: 30rpx;
-				}
-				.yuan {
-					font-size: 30rpx;
+					font-size: 22rpx;
 				}
 			}
 	
 			.center {
 				padding-top: 40rpx;
-				width: 300rpx;
+				width: 324rpx;
 				display: flex;
 				flex-direction: column;
 				flex-shrink: 0;
 				.couponDesc {
 					font-size: 22rpx;
+					white-space: nowrap;
+    				overflow: hidden;
+    				text-overflow: ellipsis;
 				}
 				view{
 					line-height: 1.5;
@@ -57,6 +57,7 @@
 			}
 	
 			.right {
+				width: 96rpx;
 				position: relative;
 				flex-shrink: 0;
 				font-size: 24rpx;
@@ -100,6 +101,11 @@
 					font-size: 24rpx;
 					width: 48rpx;
 					color: #FF74C3;
+					margin: 0 auto;
+				}
+				.unable{
+					color: #707070;
+					width: 24rpx;
 				}
 			}
 		}

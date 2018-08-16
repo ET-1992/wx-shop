@@ -62,25 +62,22 @@
     }
 
     .couponsWrapper {
-    	font-size: 0;
     	z-index: 9;
-		padding: 20rpx 0 20rpx 10rpx;
-		margin: 20rpx 0;
-
+    	margin:30rpx;
     	.coupons {
     		display: flex;
     	}
-
     	.coupon {
-    		width: 300rpx;
+    		width: 296rpx;
     		height: 136rpx;
     		position: relative;
     		line-height: 1.2;
-    		margin-left: 20rpx;
-    	}
-    
+		}
+		.coupon:nth-child(1){
+			margin-right: 20rpx;
+		}
     	.moreCoupon{
-    		width: 101rpx;
+    		width: 78rpx;
     		height: 136rpx;
     		position: relative;
     		line-height: 1.2;
@@ -99,60 +96,71 @@
     		position: absolute;
     		z-index: 2;
     		color: #fff;
-    		font-size: 9pt;
     		height: 136rpx;
-    		width: 300rpx;
+    		width: 296rpx;
     		display: flex;
-    		line-height: 1.4;
-
+			line-height: 1.2;
+			
     		.couponInfo {
     			position: absolute;
     			z-index: 2;
-    			color: #fff;
-    			font-size: 9pt;
     			height: 136rpx;
-    			width: 180rpx;
+    			width: 176rpx;
     			display: flex;
     			justify-content: center;
     			align-items: center;
     			flex-direction: column;
 
-    			.reduceCost {
-    				font-size: 18pt;
-    			}
-
+				.reduce{
+					.reduceCost {
+						font-size: 44rpx;
+					}
+					.discount{
+						font-size: 20rpx;
+					}
+				}
     			.title {
-    				font-size: 8pt;
+    				font-size: 22rpx;
     			}
     		}
-
-    		.couponBtn{
-    			position:absolute;
-    			z-index:2;
-    			color:#fff;
-    			font-size: 23rpx;
-    			height:136rpx;
-    			display:flex;
-    			justify-content:center;
-    			align-items:center;
-    			flex-direction:column;
-    			right: 43rpx;
-
-    			.couponUnuse{
-    				width: 46rpx;
-    				line-height: 1.2;
-    			}
-    			.arrow{
-    				position:absolute;
-    				z-index:2;
-    				right:-25rpx;
-    				width: 11rpx;
-    			}
+			.right {
+				position: absolute;
+				right: 0;
+				top: 0;
+    			z-index: 2;
+    			height: 136rpx;
+    			width: 120rpx;
+    			display: flex;
+    			justify-content: center;
+    			align-items: center;
+				flex-direction: column;
+				
+				.title{
+					font-size: 28rpx;
+					font-weight: bold;
+					padding-bottom: 12rpx;
+					width:100%;
+					text-align:left;
+				}
+    			.btn{
+					font-size: 18rpx;
+					text-align: center;
+					background: #FCBA20;
+					height: 36rpx;
+					line-height: 36rpx;
+					width: 100%;
+				}
+				.able{
+					background: #FB4762;
+				}
+				.unable{
+					background: #707070;
+				}
     		}
     	}
 
     	.bg {
-    		width: 300rpx;
+    		width: 296rpx;
     		height: 136rpx;
     		position: absolute;
     		z-index: 1;

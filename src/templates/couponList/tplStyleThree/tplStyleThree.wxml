@@ -14,7 +14,7 @@
 			<text wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</text>
 		</view>
 		<view class="right {{ canChoice ? 'rightCenter' : '' }}">
-			<block wx:if="{{ status !== 'available' }}">
+			<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
 				<view class="btn" wx:if="{{ status === 'receivable' }}">点击领取</view>
 				<view class="btn" wx:if="{{ status === 'received' }}">立即使用</view>
 				<view class="btn unable" wx:if="{{ status === 'expired' }}">已抢光</view>

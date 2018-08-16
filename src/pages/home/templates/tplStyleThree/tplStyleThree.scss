@@ -97,97 +97,88 @@
     }
 
     .couponsWrapper {
-    	padding-left: 10rpx;
-    	font-size: 0;
     	z-index: 9;
-    	margin:30rpx 0;
-
+    	margin:30rpx;
     	.coupons {
     		display: flex;
     	}
-
     	.coupon {
-    		width: 300rpx;
+    		width: 296rpx;
     		height: 136rpx;
     		position: relative;
     		line-height: 1.2;
-    		margin-left: 20rpx;
-    	}
-    
+		}
+		.coupon:nth-child(1){
+			margin-right: 20rpx;
+		}
     	.moreCoupon{
-    		width: 101rpx;
+    		width: 78rpx;
     		height: 136rpx;
     		position: relative;
     		line-height: 1.2;
-
     		.moreBtn{
     			position:absolute;
     			width:20rpx;
-    			color:#707070;
+    			color:#999999;
     			font-size:20rpx;
     			left:40rpx;
     			top:26rpx;
     		}
     	}
-
     	.couponInfoList {
-    		position: absolute;
-    		z-index: 2;
     		color: #fff;
-    		font-size: 9pt;
     		height: 136rpx;
-    		width: 300rpx;
+    		width: 296rpx;
     		display: flex;
-    		line-height: 1.4;
-
+			line-height: 1.4;
+			
     		.couponInfo {
     			position: absolute;
     			z-index: 2;
-    			color: #fff;
-    			font-size: 9pt;
     			height: 136rpx;
-    			width: 180rpx;
+    			width: 200rpx;
+    			display: flex;
+    			justify-content: center;
+    			align-items: center;
+				flex-direction: column;
+				
+				.reduce{
+					.reduceCost {
+						font-size: 44rpx;
+					}
+					.discount{
+						font-size: 22rpx;
+					}
+				}
+    			.title {
+    				font-size: 20rpx;
+    			}
+			}
+			.right {
+				position: absolute;
+				right: 0;
+				top: 0;
+    			z-index: 2;
+    			height: 136rpx;
+    			width: 96rpx;
     			display: flex;
     			justify-content: center;
     			align-items: center;
     			flex-direction: column;
-
-    			.reduceCost {
-    				font-size: 18pt;
-    			}
-
-    			.title {
-    				font-size: 8pt;
-    			}
-    		}
-
-    		.couponBtn{
-    			position:absolute;
-    			z-index:2;
-    			color:#fff;
-    			font-size: 23rpx;
-    			height:136rpx;
-    			display:flex;
-    			justify-content:center;
-    			align-items:center;
-    			flex-direction:column;
-    			right: 43rpx;
-
-    			.couponUnuse{
-    				width: 46rpx;
-    				line-height: 1.2;
-    			}
-    			.arrow{
-    				position:absolute;
-    				z-index:2;
-    				right:-25rpx;
-    				width: 11rpx;
-    			}
+    			.btn{
+					font-size: 24rpx;
+					width: 48rpx;
+					color: #FF74C3;
+					margin: 0 auto;
+				}
+				.unable{
+					color: #707070;
+					width: 24rpx;
+				}
     		}
     	}
-
     	.bg {
-    		width: 300rpx;
+    		width: 296rpx;
     		height: 136rpx;
     		position: absolute;
     		z-index: 1;

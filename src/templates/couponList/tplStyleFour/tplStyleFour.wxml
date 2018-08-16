@@ -3,10 +3,10 @@
 		<view class="couponInfo">
 			<view class="left">
 				<view class="reduce">
-					<view class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</view>
-					<view class="discount" wx:if="{{ coupon.type == 2 }}">折</view>
+					<text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
+					<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
 				</view>
-				<view class="least" wx:if="{{ status === 'available' }}">满{{ coupon.least_cost }}使用</view>
+				<view class="couponTitle">满{{ coupon.least_cost }}使用</view>
 			</view>
 			<view class="center">
 				<view class="desc" wx:if="{{ coupon.description && coupon.description.length }}" wx:key="index" wx:for="{{ coupon.description }}" wx:for-item="desc"> • {{ desc }}</view>
@@ -15,8 +15,7 @@
 			</view>
 
 			<view class="right {{ canChoice ? 'rightCenter' : '' }}">
-				<block wx:if="{{ status !== 'available' }}">
-					<view class="least">满{{ coupon.least_cost }}使用</view>
+				<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
 					<view class="btn" wx:if="{{ status === 'receivable' }}">立即领取</view>
 					<view class="btn" wx:if="{{ status === 'received' }}">立即使用</view>
 					<view class="btn unable" wx:if="{{ status === 'expired' }}">已抢光</view>
