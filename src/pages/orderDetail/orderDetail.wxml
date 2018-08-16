@@ -62,6 +62,20 @@
     <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}"  />
   </view>
 
+  <view class="virtualProductBtnWrap" wx:if="{{ order.type === 3 && virtualProductBtn }}">
+    <view class="virtualProductBtn" bindtap="setVirtualProductBtn" >获取取货码</view>
+  </view>
+
+  <view class="virtualProduct" wx:if="{{ order.type === 3 && !virtualProductBtn }}">
+    <view class="virtualProductItem">兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }} <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}">复制</view></view>
+    <view class="virtualProductItem">密码：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.password }}  <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.password }}">复制</view></view>
+  </view>
+
+  <view class="virtualImage" wx:if="{{ !virtualProductBtn && order.type === 3 && ( (order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode) || ( order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code ) ) }}">
+    <image class="virtualImageQrcode" src="{{ order.annotation.virtual_product.qrcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode }}" />
+    <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.code }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}" />
+  </view>
+
 
   <include
     wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"

@@ -2,6 +2,7 @@ import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT } from 'constants/index';
 import { formatTime, valueToText } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
+import { setClipboardData, showToast } from 'utils/wxp';
 
 const app = getApp();
 
@@ -34,7 +35,9 @@ Page({
 
         isLoading: false,
 
-        address: {}
+        address: {},
+
+        virtualProductBtn: true
     },
 
     async loadOrder(id) {
@@ -266,6 +269,22 @@ Page({
         // };
         wx.navigateTo({
             url: `/pages/logistics/logistics?orderNo=${order.order_no}&logisticsIndex=${index}&logisticId=${order.logistics && order.logistics[index] && order.logistics[index].id}`
+        });
+    },
+
+    async setClipboardVp(e) {
+        const { value } = e.currentTarget.dataset;
+        console.log(e);
+        await setClipboardData({ data: value });
+        showToast({
+            title: '复制成功',
+            icon: 'success'
+        });
+    },
+
+    setVirtualProductBtn() {
+        this.setData({
+            virtualProductBtn: false
         });
     }
 });
