@@ -1,8 +1,8 @@
 .tplStyleFour{
-	@import '~templates/articleItem/articleItem';
+	@import '~templates/tplStyleFour/articleItem/articleItem';
 	
 	$searchWrapper: 90rpx;
-	$zeroMarginTop: 30rpx;
+	$zeroMarginTop: 40rpx;
 	background: #fff;
 
     .container {
@@ -99,6 +99,7 @@
 	/* 优惠券 */
     .couponsWrapper {
 		margin: 60rpx 40rpx;
+		border-bottom: 2rpx solid #C2C2C2;
 		
     	.coupons {
 			display: flex;
@@ -200,28 +201,26 @@
     	padding-top: $zeroMarginTop;
     }
     .secondCoupon{
-    	margin: 110rpx 0 20rpx;
+    	margin: $searchWrapper + $zeroMarginTop 0 20rpx;
     }
 
     .section {
-		margin: $zeroMarginTop $zeroMarginTop 0;
+		margin: 60rpx $zeroMarginTop 0;
+		padding-bottom: 60rpx;
+		border-bottom: 2rpx solid #C2C2C2;
 
     	.sectionTitle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			background-color: #fff;
-    		text-align:center;
     		color:#000000;
-			font-size: 36rpx;
+			font-size: 40rpx;
 			font-weight: bold;
-			height: 60rpx;
-			line-height: 60rpx;
-			margin-bottom: 10rpx;
+			height: 56rpx;
     	}
 
 		.grouponContainer{
-			display: flex;
-			flex-wrap: wrap;
-			justify-content:space-between;
-
 			.grouponItem{
 				margin: 10rpx 0 20rpx;
 			}
@@ -233,18 +232,38 @@
 			} */
 		}
 
-    	.sectionMore {
+		.miaoshaContainer{
+			display: flex;
+    		flex-wrap: wrap;
+			justify-content: space-between;
+			.miaoshaItem{
+				margin-bottom: 10rpx;
+			}
+		}
 
+    	.sectionMore {
     		.form {
     			width: 100%;
     		}
-
     		.moreButton{
-    			font-size: 30rpx;
 				background:#fff;
 				color: #707070;
-				height: 60rpx;
-				line-height: 60rpx;
+				display: flex;
+				height: 40rpx;
+				width: 160rpx;
+				align-items: center;
+				justify-content: center;
+				margin: 8rpx auto 50rpx;
+				view{
+					font-size:28rpx;
+					color:#000000;
+					padding-right:8rpx;
+				}
+				image {
+    				width: 20rpx;
+    				height: 20rpx;
+    				transform: rotate(90deg);
+				}
     		}
     	}
 
@@ -286,30 +305,41 @@
     /* 首页分类 */
     .categoryBox{
 		background: #fff;
-		margin: 30rpx;
-    	padding: 6rpx 0 46rpx;
     	display: flex;
-      	justify-content: flex-start;
-    	flex-flow: row wrap;
-    	align-items: center;
-    	text-align: center;
+		flex-flow: row wrap;
+		// margin: 30rpx;
+    	// align-items: center;
+    	// text-align: center;
+		// width: 650rpx;
+		// margin: 0 auto;
+		margin: 60rpx 40rpx;
+		border-bottom:2rpx solid #C2C2C2;
+		
+		.homeCategory:nth-child(5n){
+			margin-right: 0;
+		}
     	.homeCategory{
+			display:flex;
+			justify-content:space-between;
 			flex-direction: column;
-			width: 173rpx;
-			padding: 0 10rpx;
+			align-items:center;
+			width:135rpx;
+			height: 154rpx;
+			margin-bottom: 46rpx;
 
     		.categoryItem{
-    			padding: 30rpx 0 10rpx;
-    			line-height: 0;
     			.categoryImg{
     				width: 110rpx;
     				height: 110rpx;
     			}
     		}
     		.categoryBtn{
+				width: 110rpx;
+    			height: 110rpx;
     			background-color:transparent;
     			color: 333333;
     			font-size: 24rpx;
+				line-height: 0;
     		}
     		.categoryTitle{
     			font-size: 24rpx;
@@ -317,7 +347,9 @@
     			overflow: hidden;
     			white-space: nowrap;
     			text-overflow: ellipsis;
-    			font-weight: normal;
+				font-weight: normal;
+				width:130rpx;
+				text-align: center;
     		}
     	}
     }
@@ -330,7 +362,7 @@
     .productContainer{
     	display: flex;
     	flex-wrap: wrap;
-    	justify-content: space-between;
+		justify-content: space-between;
 	}
 	/* 服务说明 */
     .instructions{
