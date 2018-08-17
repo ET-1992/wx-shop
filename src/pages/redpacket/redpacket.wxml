@@ -43,9 +43,9 @@
   <view class="products" wx-if="{{ products }}">
     <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
     <!-- 商品列表start -->
-    <view class="productContainer">
+    <view class="productContainer" style="{{ tplStyle === 'four' ? 'padding: 21rpx 40rpx;' : '' }}">
         <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
-          <productList product="{{ product }}" tplStyle="default" productLayoutStyle="topImage" />
+          <productList product="{{ product }}" tplStyle="{{ tplStyle === 'three' ? 'default' : tplStyle }}" productLayoutStyle="topImage" />
         </navigator>
       </view>
       <!-- 商品列表end -->

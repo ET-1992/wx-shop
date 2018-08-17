@@ -22,12 +22,15 @@ Page({
             received_redpacket.item.reduceValue = Number(received_redpacket.item.reduce_cost);
             goldNumer = parseInt(received_redpacket.item.amount * 100, 10);
         }
+        const { themeColor, tplStyle } = app.globalData;
         this.setData({
             products,
             redpacket: received_redpacket,
             isIphone5,
             goldNumer: goldNumer,
-            hasRecived: !!received_redpacket
+            hasRecived: !!received_redpacket,
+            themeColor,
+            tplStyle
         });
         console.log(this.data);
     },
