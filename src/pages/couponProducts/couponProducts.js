@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { SEARCH_KEY, PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
 
-// const app = getApp()
+const app = getApp();
 
 // 创建页面实例对象
 Page({
@@ -99,11 +99,14 @@ Page({
     },
 
     onLoad(params) {
+        const { themeColor, tplStyle } = app.globalData;
         this.setData({
             isRefresh: true,
             isSearch: true,
             indexParams: params,
-            isLoading: true
+            isLoading: true,
+            themeColor,
+            tplStyle
         });
         this.loadProducts();
     },
