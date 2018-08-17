@@ -1,15 +1,14 @@
 .tplStyleFour{
     .container {
-        margin-top: 20rpx;
-        background-color: #fff;
+        margin: 0 40rpx;
         
         .sectionTitle {
-            padding-bottom:10rpx;
+            padding-bottom: 40rpx;
             color:#000000;
-            font-size: 36rpx;
+            font-size: 40rpx;
             font-weight: bold;
-            border-bottom: 1rpx solid #C2C2C2;
-            margin: 0 30rpx 30rpx;
+            margin-top: 60rpx;
+            text-align: center;
         }
         .rowImgWrap {
             display: flex;
