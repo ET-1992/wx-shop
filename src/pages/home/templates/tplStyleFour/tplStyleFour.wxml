@@ -47,7 +47,7 @@
 			<!-- 自定义idots -->
 			<view class="dots" style="{{ modules[1].key === 'sliders' ? 'right: 25rpx;' : 'right:0;left:0' }}">
 				<block wx:for="{{ sliders }}" wx:key="id">
-					<view class="dot {{index == swiperCurrent ? 'active' : ''}}"></view>
+					<view class="dot {{index == swiperCurrent ? 'active' : ''}}" style="background:{{ index == swiperCurrent ? themeColor.primaryColor : '' }}"></view>
 				</block>
 			</view>
 			<navigator class="searchBox" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key === 'sliders'}}">
@@ -126,7 +126,7 @@
 	<view wx:if="{{ module.key === 'miaoshas' }}">
 		<view class="section" wx:if="{{ miaoshas && miaoshas.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
 			<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-			<navigator class="sectionMore" wx:if="{{miaoshas.length >1}}" url="/pages/miaoshaList/miaoshaList">
+			<navigator class="sectionMore" wx:if="{{miaoshas.length > 0 }}" url="/pages/miaoshaList/miaoshaList">
 				<form bindsubmit="submitFormId" report-submit="true">
 					<button formType="submit" class="moreButton">
 						<view>查看更多</view>
@@ -135,10 +135,10 @@
 				</form>
 			</navigator>
 			<view class="miaoshaContainer">
-				<navigator wx:if="{{ miaoshas.length == 1}}" class="miaoshaItem" url="/pages/miaoshaList/miaoshaList">
+				<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="miaoshaItem" url="/pages/miaoshaList/miaoshaList">
 					<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
-				</navigator>
-				<navigator wx:if="{{ miaoshas.length > 1}}" class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+				</navigator> -->
+				<navigator wx:if="{{ miaoshas.length > 0 }}" class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
 					<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 				</navigator>
 			</view>

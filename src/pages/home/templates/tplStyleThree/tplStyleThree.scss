@@ -102,7 +102,7 @@
 
     .couponsWrapper {
     	z-index: 9;
-    	margin:30rpx;
+    	margin: $zeroMarginTop $sideWidth;
     	.coupons {
     		display: flex;
     	}
@@ -190,10 +190,13 @@
     }
     .firstCoupon{
     	padding-top: $zeroMarginTop;
+	}
+	.secondCoupon{
+    	padding-top: $zeroMarginTop;
     }
 
     .section {
-		margin: $zeroMarginTop + $searchWrapper $zeroMarginTop 0;
+		margin: $zeroMarginTop $zeroMarginTop 0;
 
     	.sectionTitle {
 			background-color: #fff;
