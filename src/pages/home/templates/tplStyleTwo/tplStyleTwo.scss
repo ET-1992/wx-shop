@@ -1,8 +1,10 @@
 .tplStyleTwo{
 	@import '~templates/tplStyleTwo/articleItem/articleItem';
 
-	$searchWrapper: 90rpx;
-	$zeroMarginTop: 20rpx;
+	$searchWrapper: 90rpx; //搜索框高度
+	$zeroMarginTop: 20rpx;	//模块间隔高度
+	$sideWidth: 30rpx;	//边框距离
+
 	background: #fff;
 	
     .container {
@@ -51,7 +53,10 @@
 
     .zeroMarginTop {
     	margin-top: -$zeroMarginTop;
-    }
+	}
+	.MarginTop{
+		margin-top: $zeroMarginTop;
+	}
 
     .banner,.banner button, .banner image {
     	width: 100%;
@@ -63,7 +68,7 @@
 
     .couponsWrapper {
     	z-index: 9;
-    	margin:30rpx;
+    	margin: $zeroMarginTop $sideWidth;
     	.coupons {
     		display: flex;
     	}
@@ -165,6 +170,9 @@
     		position: absolute;
     		z-index: 1;
     	}
+	}
+	.firstCoupon{
+    	padding-top: $zeroMarginTop;
     }
 
     .section {

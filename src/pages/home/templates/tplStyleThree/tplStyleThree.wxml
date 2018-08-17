@@ -12,7 +12,7 @@
   <view class="{{ modules[0].key === 'search_box' && modules[1].key !== 'sliders' ? 'main': 'zeroMarginTop' }}" >
 
 	<!-- 服务公告start -->
-	<view wx:if="{{ !hasSliders }}" style="{{ modules[0].key === 'search_box' && modules[1].key !== 'sliders' ? '': 'margin-top: 30rpx' }}">
+	<view wx:if="{{ !hasSliders }}" class="{{ modules[0].key !== 'search_box' ? 'MarginTop' : ''}}">
         <view class="instructions" wx:if="{{ instructions && instructions.length }}">
             <block wx:for="{{instructions}}">
                 <view class="instructions-item">
@@ -148,7 +148,7 @@
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
         <view 
-          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && !(instructions && instructions.length || announcement)? 'secondCoupon' : '' }} {{ index === 0 && !(instructions && instructions.length || announcement) ? 'firstCoupon' : ''}}" 
+          class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && hasSliders ? 'secondCoupon' : '' }} {{ index === 0 && hasSliders ? 'firstCoupon' : ''}}" 
           wx:if="{{ userCoupon.length }}"
         >
           <view class="coupons">

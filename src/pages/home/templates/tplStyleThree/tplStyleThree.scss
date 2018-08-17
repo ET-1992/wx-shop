@@ -1,8 +1,9 @@
 .tplStyleThree{
 	@import '~templates/tplStyleThree/articleItem/articleItem';
 	
-	$searchWrapper: 90rpx;
-	$zeroMarginTop: 30rpx;
+	$searchWrapper: 90rpx; //搜索框高度
+	$zeroMarginTop: 30rpx;	//模块间隔高度
+	$sideWidth: 30rpx;	//边框距离
 
     .container {
     	height: auto;
@@ -48,6 +49,9 @@
 
     .zeroMarginTop {
     	margin-top: -$zeroMarginTop;
+	}
+	.MarginTop{
+		margin-top: $zeroMarginTop;
 	}
 	
 	.searchSliders{
@@ -185,15 +189,11 @@
     	}
     }
     .firstCoupon{
-    	margin-top: $zeroMarginTop;
     	padding-top: $zeroMarginTop;
-    }
-    .secondCoupon{
-    	margin: 110rpx 0 20rpx;
     }
 
     .section {
-		margin: $zeroMarginTop $zeroMarginTop 0;
+		margin: $zeroMarginTop + $searchWrapper $zeroMarginTop 0;
 
     	.sectionTitle {
 			background-color: #fff;
