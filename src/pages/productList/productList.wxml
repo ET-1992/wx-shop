@@ -97,10 +97,10 @@
 	    wx:else
 	>
 			<!-- 商品列表start -->
-			<view class="productContainer">
+			<view class="productContainer" style="{{ tplStyle === 'four' ? 'padding: 21rpx 40rpx;' : '' }}">
 				<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
 				 url="/pages/productDetail/productDetail?id={{ product.id }}">
-					<productList product="{{ product }}" tplStyle="default" productLayoutStyle="topImage" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"/>
+					<productList product="{{ product }}" tplStyle="{{ tplStyle === 'three' ? 'default' : tplStyle }}" productLayoutStyle="topImage" nextCursor="{{ totalPages ? totalPages - currentPage : totalPages }}"/>
 				</navigator>
 			</view>
 			<!-- 商品列表end -->

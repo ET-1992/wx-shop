@@ -86,8 +86,8 @@ Page({
     },
 
     async onLoad({ categoryId, categoryParent }) {
-        const { themeColor } = app.globalData;
-        this.setData({ categoryId, categoryParent, themeColor });
+        const { themeColor, tplStyle } = app.globalData;
+        this.setData({ categoryId, categoryParent, themeColor, tplStyle });
         const { page_title } = await this.loadProducts();
         wx.setNavigationBarTitle({
             title: this.data.categories[0].name,
