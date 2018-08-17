@@ -21,3 +21,10 @@
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleThree/productLayout/miaoshaStyle.wxml"/>
 </view>
 
+<!-- tplStyleFour -->
+<view class="tplStyleFour" wx:if="{{ tplStyle === 'four' }}">
+    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleFour/productLayout/topImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleFour/productLayout/leftImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleFour/productLayout/miaoshaStyle.wxml"/>
+</view>
+
