@@ -49,10 +49,22 @@
                         </view>
                     </block>
                 </view>
-                <navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}"> 
-                    <image mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
+                <view class="announcement">
+                    <image class="infoIcon" mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
+                    <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
+                        <block wx:for="{{msgList}}">
+                            <navigator url="/pages/index/index?title={{item.url}}" open-type="navigate">
+                                <swiper-item>
+                                    <view class="swiper_item">{{item.title}}</view>
+                                </swiper-item>
+                            </navigator>
+                        </block>
+                    </swiper>
+                </view>
+                <!-- <navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}"> 
+                    <image class="infoIcon" mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
                     <view>{{announcement.text}}</view>
-                </navigator>
+                </navigator> -->
                 <!-- 服务公告end -->
             </view>
 
