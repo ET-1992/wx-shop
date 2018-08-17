@@ -1,28 +1,28 @@
-<view class="productItemSmallCard">
-    <image src="{{ product.thumbnail }}" class="productItemImage" mode="aspectFit" />
-    <view class="shareProductInfo">
-        <view class="prodcutItemName">
+<view class="shareProduct">
+    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFit" />
+    <view class="shareInfo">
+        <view class="title">
             {{ product.title }}
         </view>
-        <view class="shareProductItem">
+        <view class="shareItem">
             <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
-                <view class="productItemPrice">
+                <view class="ItemPrice">
                     <text>￥</text>{{ product.miaosha_price }}
                 </view>
             </block>
             <block wx:elif="{{ product.groupon_enable == 1}}">
-                <view class="productItemPrice">
+                <view class="ItemPrice">
                     <text>￥</text>{{ product.groupon_price }}
                 </view>
             </block>
             <block wx:else>
-                <view class="productItemPrice">
+                <view class="ItemPrice">
                     <text>￥</text>{{ product.price }}
                 </view>
             </block>
             <view class="tagWrapper">
-                <view class="productItemSold">佣金：{{ product.commission_percent_level_1 || 0 }}%</view>
-                <view class="productItemSold">已售：{{ product.sales }}</view>
+                <view class="ItemSold">佣金：{{ product.commission_percent_level_1 || 0 }}%</view>
+                <view class="ItemSold">已售：{{ product.sales }}</view>
             </view>
         </view>
     </view>

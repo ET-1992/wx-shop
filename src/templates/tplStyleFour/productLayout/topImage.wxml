@@ -1,0 +1,29 @@
+<view class="topImage">
+    <image class="productImage" mode="aspectFill" src="{{ product.thumbnail }}"></image>
+    <view class="content">
+        <view class="title"> {{ product.title }}</view>
+    </view>
+    <view class="bottom">
+        <view class="price">
+            <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp }}">
+                <view class="now"><text>￥</text>{{ product.miaosha_price }} </view>
+            </block>
+            <block wx:elif="{{ product.groupon_enable == 1}}">
+                <view class="now"><text>￥</text>{{ product.groupon_price }} </view>
+            </block>
+            <block wx:else>
+                <view class="now"><text>￥</text>{{ product.price }} </view>
+            </block>
+           <!--  <view 
+                wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
+                class="original"
+            ><text>￥</text>{{ product.original_price }}
+            </view> -->
+        </view>
+        <!-- <view class="sold">已售{{ product.sales }}件</view> -->
+        <view 
+            class="tag" 
+            wx:if="{{ product.groupon_enable === '1' || product.miaosha_enable === '1' }}"
+        >{{ product.groupon_enable === '1' ? product.groupon_member_limit + '人团' : '限时购' }}</view>
+    </view>
+</view>
