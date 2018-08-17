@@ -245,11 +245,11 @@
 
             <button 
               wx:elif="{{ item.type === 'contact' }}" 
-		        bindtap="{{ item.tips ? 'onModal' : ''}}"
-		        data-tips="{{ item.tips }}" 
-		        open-type="{{ !item.tips ? 'contact' : ''}}" 
-              	session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
-              	class="categoryItem categoryBtn"
+		          bindtap="{{ item.tips ? 'onModal' : ''}}"
+		          data-tips="{{ item.tips }}" 
+		          open-type="{{ !item.tips ? 'contact' : ''}}" 
+              session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
+              class="categoryItem categoryBtn"
             >
               <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
             </button>
