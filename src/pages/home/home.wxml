@@ -238,8 +238,8 @@
     </view>
   </view>
   <!-- <view class="bottomHint">-这是一条底线-</view> -->
-  <view id="loadProducts" class="logo" hidden="{{hasMask}}">
-    <image src="../../icons/logo.png"></image>
+ <view id="loadProducts" class="logo">
+    <logo logoObj="{{ logoObj }}" />
   </view>
 </view>
 <!-- 新用戶优惠券弹框 -->

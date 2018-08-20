@@ -48,16 +48,16 @@
 	bottom: 0;
 	right: 0;
 	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	z-index: 10000;
 
 	.content {
 		width: 650rpx;
 		background-color: #fff;
 		border-radius: 10rpx;
-		position:fixed;
+		position: absolute;
+		left: 50%; 
+        top: 50%;
+		transform: translate(-50%, -50%);
 
 		.content-header, .content-footer {
 			height: 100rpx;

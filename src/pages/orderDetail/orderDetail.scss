@@ -119,3 +119,83 @@ $footerHeight: 100rpx;
 		flex: 1;
 	}
 }
+
+.virtualProduct {
+	width: 100%;
+	margin: 10rpx 0;
+	background: #fff;
+	padding: 20rpx 30rpx;
+	color: #000000;
+	font-size: 24rpx;
+	height: 150rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.virtualProductItem {
+		height: 40rpx;
+		line-height: 40rpx;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.virtualProductItemBtn {
+		width: 100rpx;
+		height: 40rpx;
+		background: #E0E0E0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 4rpx;
+	}
+}
+
+.virtualImage {
+	width: 100%;
+	margin: 10rpx 0;
+	background: #fff;
+	padding: 20rpx 30rpx;
+	color: #000000;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.virtualImageQrcode {
+		width: 280rpx;
+		height: 280rpx;
+		border: 1rpx solid #f4f4f4;
+	}
+
+	.virtualImageBarcode {
+		width: 600rpx;
+		height: 160rpx;
+		border: 1rpx solid #f4f4f4;
+	}
+
+	.virtualImageQrcode + .virtualImageBarcode {
+		margin-top: 20rpx;
+	}
+}
+
+.virtualProductBtnWrap {
+	width: 100%;
+	margin: 10rpx 0;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	padding: 50rpx 0;
+
+	.virtualProductBtn {
+		width: 370rpx;
+		height: 80rpx;
+		border-radius: 40rpx;
+		background-color: #729153;
+		color: #FFFFFF;
+		font-size: 28rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
