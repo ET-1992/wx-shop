@@ -16,7 +16,8 @@ Component({
     data: {
         oldLogData: [],
         isShow: false,
-        isConsoleShow: false
+        isConsoleShow: false,
+        keyName: null
     },
     created() {
         console.log('created');
@@ -49,13 +50,15 @@ Component({
         app.event.off('showConsole', this);
     },
     methods: {
-        eventLog() {
+        eventLog(opt, reload = false) {
             const { logData } = app;
-            const { oldLogData } = this.data;
-            if (logData.length !== oldLogData.length) {
-                const logData_ = logData.map((item) => {
-                    return JSON.stringify(item);
+            const { oldLogData, keyName } = this.data;
+            const reg = new RegExp(`${keyName}`, 'g');
+            if (logData.length !== oldLogData.length || reload) {
+                let logData_ = logData.map((item) => {
+                    return JSON.stringify(item).replace(reg, `@@${keyName}@@`).split('@@');
                 });
+
                 this.setData({
                     oldLogData: logData_
                 });
@@ -72,7 +75,8 @@ Component({
         clear() {
             app.logData = [];
             this.setData({
-                oldLogData: []
+                oldLogData: [],
+                keyName: null
             });
         },
 
@@ -85,6 +89,15 @@ Component({
         show() {
             this.setData({
                 isShow: true
+            });
+        },
+
+        setKeyName(e) {
+            const { value } = e.detail;
+            this.setData({
+                keyName: value || null
+            }, () => {
+                this.eventLog(null, true);
             });
         }
 
