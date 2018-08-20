@@ -25,7 +25,7 @@
 		<view class="item" wx:if="{{ item.type === 'img' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type">
-				<view class="uploadSFZ" bindtap="onUpload" style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};background-image: url({{ uploadImg }})" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}"></view>
+				<view class="uploadSFZ" bindtap="onUpload" style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};background-image: url({{ uploadImg ? uploadImg : '/icons/uploadIcon.png' }});border: {{ uploadImg ? '1rpx solid #C2C2C2' : none }}" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}"></view>
 			</view>
 		</view>
 
