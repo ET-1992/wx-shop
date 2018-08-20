@@ -16,15 +16,23 @@
         <view class="instructions" wx:if="{{ instructions && instructions.length }}">
             <block wx:for="{{instructions}}">
                 <view class="instructions-item">
-                    <image mode="aspectFit" src="/icons/tpl2/instructions.png"></image>
+                    <image mode="aspectFit" src="/icons/instructions.png"></image>
                     <view>{{item}}</view>
                 </view>
             </block>
         </view>
-        <navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}">
-            <image mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
-            <view>{{announcement.text}}</view>
-        </navigator>
+        <view class="announcement" wx:if="{{announcement}}">
+			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
+			<swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
+				<!-- <block wx:for="{{announcement}}"> -->
+					<navigator url="/pages/index/index?title={{announcement.path}}" open-type="navigate">
+						<swiper-item>
+							<view class="swiper_item">{{announcement.text}}</view>
+						</swiper-item>
+					</navigator>
+				<!-- </block> -->
+			</swiper>
+		</view>
     </view>
 	<!-- 服务公告end -->
 		
@@ -61,15 +69,23 @@
 		<view class="instructions" wx:if="{{instructions && instructions.length}}">
 			<block wx:for="{{instructions}}">
 				<view class="instructions-item">
-					<image mode="aspectFit" src="/icons/tpl2/instructions.png"></image>
+					<image mode="aspectFit" src="/icons/instructions.png"></image>
 					<view>{{item}}</view>
 				</view>
 			</block>
 		</view>
-		<navigator class="announcement" wx:if="{{announcement}}" url="{{announcement.path}}">
-			<image mode="aspectFit" src="/icons/tpl2/announcement.png"></image>
-			<view>{{announcement.text}}</view>
-		</navigator>
+		<view class="announcement" wx:if="{{announcement}}">
+			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
+			<swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
+				<!-- <block wx:for="{{announcement}}"> -->
+					<navigator url="/pages/index/index?title={{announcement.path}}" open-type="navigate">
+						<swiper-item>
+							<view class="swiper_item">{{announcement.text}}</view>
+						</swiper-item>
+					</navigator>
+				<!-- </block> -->
+			</swiper>
+		</view>
 		<!-- 服务公告end -->
     </view>
 	<!-- 拼团专区 -->

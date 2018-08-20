@@ -394,14 +394,24 @@
         align-items: center;
         background: #FFF9EC;
         
-        image{
-            margin: 0 14rpx 0 30rpx;
-            width: 48rpx;
-            height: 35rpx;
-        }
-        view{
-            font-size: 22rpx;
-            color: #000000;
-        }
+        .swiper_container {
+			height: 70rpx;
+			width: 80%;
+			line-height:70rpx;
+		}
+		  
+		.swiper_item {
+			font-size: 25rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			letter-spacing: 2px;
+		}
+	
+		.infoIcon{
+			margin: 0 14rpx 0 30rpx;
+			width: 48rpx;
+			height: 35rpx;
+		}
 	}
 }
