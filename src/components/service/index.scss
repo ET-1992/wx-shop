@@ -1,0 +1,16 @@
+image{
+    width: 90rpx;
+    height: 90rpx;
+}
+.container{
+    position: fixed;
+    bottom:10%;
+    right: 20rpx;
+    z-index: 9999;
+
+    button{
+        width: 90rpx;
+        height: 90rpx;
+        border-radius: 100%;
+    }
+}

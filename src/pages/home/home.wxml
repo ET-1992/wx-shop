@@ -6,6 +6,11 @@
 <include wx:if="{{ tplStyle === 'three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
 <include wx:if="{{ tplStyle === 'four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
 
+<block wx:if="{{ tplStyle !== 'default' }}">
+    <!-- 服务 -->
+    <service phone="{{phone}}" customer="{{customer}}" sessionFrom='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'/>
+</block>
+
 <!-- 新用戶优惠券弹框 -->
 <include wx:if="{{ newUser == 1 && hasNewUserCoupons }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
 

@@ -6,6 +6,7 @@
     "magicImg": "../../components/magicImg/magicImg",
     "myModal": "../../components/myModal/myModal",
     "loading": "../../components/loading/index",
+    "service": "../../components/service/index",
     "console": "../../components/console/console"
   }
 }
