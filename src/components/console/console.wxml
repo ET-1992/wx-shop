@@ -5,9 +5,10 @@
 			<view class="consoleHeadItem" bindtap="clear" style="border-right: 1rpx solid #c9c9c9">清空</view>
 			<view class="consoleHeadItem" bindtap="hide">退出</view>
 		</view>
+		<input class="search" type="text" placeholder="搜索关键字" bindblur="setKeyName" />
 		<scroll-view class="consoleBody" scroll-y="{{ true }}">
 			<view wx:for="{{ oldLogData }}" class="consoleItem">
-				<text selectable="{{ true }}">{{ item }}</text>
+				<text selectable="{{ true }}" wx:for="{{ item }}" wx:for-item="itemChild" style="color: {{ itemChild == keyName ? '#21C11F' : '' }}">{{ itemChild }}</text>
 			</view>
 		</scroll-view>
 	</view>
