@@ -73,7 +73,7 @@
 
   <view class="virtualImage" wx:if="{{ !virtualProductBtn && order.type === 3 && ( (order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode) || ( order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode ) ) }}">
     <image class="virtualImageQrcode" src="{{ order.annotation.virtual_product.qrcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode }}" />
-    <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.code }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode }}" />
+    <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.barcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode }}" />
   </view>
 
 
