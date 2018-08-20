@@ -4,7 +4,7 @@ import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import autoRedirect from 'utils/autoRedirect';
-import { updateCart } from 'utils/util';
+import { updateCart, parseScene } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -296,9 +296,14 @@ Page({
     // },
 
     async loadProducts() {
-        const { next_cursor, products } = this.data;
+        const { next_cursor, products, modules } = this.data;
+        let hack = {};
+        if (modules[modules.length - 1] && modules[modules.length - 1].args) {
+            hack = parseScene(modules[modules.length - 1].args);
+        }
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
+            ...hack
         });
         this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);
