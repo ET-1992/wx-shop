@@ -362,7 +362,7 @@ Page({
                 });
                 return;
             } else {
-                requestData.annotation = JSON.stringify(dns_obj);
+                requestData.annotation = JSON.stringify({ remarks: dns_obj });
             }
         }
 

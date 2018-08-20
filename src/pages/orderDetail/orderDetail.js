@@ -275,7 +275,7 @@ Page({
     async setClipboardVp(e) {
         const { value } = e.currentTarget.dataset;
         console.log(e);
-        await setClipboardData({ data: value });
+        await setClipboardData({ data: String(value) });
         showToast({
             title: '复制成功',
             icon: 'success'
