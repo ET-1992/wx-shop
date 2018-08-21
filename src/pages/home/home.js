@@ -38,6 +38,14 @@ Page({
         hasMask: false,
         isShowConsole: false,
         swiperCurrent: 0,
+
+        /* marqueePace: 1, // 滚动速度
+        marqueeDistance: 0, // 初始滚动距离
+        orientation: 'left', // 滚动方向
+        interval: 20 // 时间间隔 */
+
+        size: 22,
+        speed: 50,
     },
 
     swiperChange(e) {
@@ -122,13 +130,19 @@ Page({
         // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
         // const newUser = data.current_user ? data.current_user.new_user : null;
 
+        let textLength = data.announcement.text.length * this.data.size; // 文字长度
+        let second = textLength / this.data.speed;
+        console.log(second);
+        console.log(textLength);
+
         this.setData({
             userCoupon,
             isLoading: false,
             conWidth: width || '',
             hasNewUserCoupons,
             newUser: current_user ? current_user.new_user : 1,
-            ...data
+            ...data,
+            second
         });
         console.log(this.data);
         if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {
@@ -148,6 +162,16 @@ Page({
                 next_cursor: 0
             });
         }
+
+        /* // 滚动公告
+        let that = this;
+        let length = that.data.announcement.text.length * that.data.size;// 文字长度
+        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
+        that.setData({
+            length: length,
+            windowWidth: windowWidth
+        });
+        that.run(); */
     },
 
     async onLoad(options) {
@@ -365,5 +389,22 @@ Page({
             }
         });
         console.log(this.data.contactModal);
-    }
+    },
+
+    /* run() {
+        let that = this;
+        let interval = setInterval(function () {
+            if (-that.data.marqueeDistance < that.data.length) {
+                that.setData({
+                    marqueeDistance: that.data.marqueeDistance - that.data.marqueePace,
+                });
+            } else {
+                clearInterval(interval);
+                that.setData({
+                    marqueeDistance: that.data.windowWidth
+                });
+                that.run();
+            }
+        }, that.data.interval);
+    }, */
 });

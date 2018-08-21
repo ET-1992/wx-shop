@@ -105,6 +105,13 @@
 			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
 	</view>
+	<view class="section">
+		<navigator class="sectionItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/myfav.png" />
+			<view class="itemTitle">about us</view>
+			<image class="rightIcon" src="../../icons/right.png" />
+		</navigator>
+	</view>
 
 	<view class="section" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
 		<button class="normalizeBt sectionItem contactBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter">

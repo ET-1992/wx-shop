@@ -76,16 +76,19 @@
 		</view>
 		<view class="announcement" wx:if="{{announcement}}">
 			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
-			<swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000">
-				<!-- <block wx:for="{{announcement}}"> -->
-					<navigator url="/pages/index/index?title={{announcement.path}}" open-type="navigate">
-						<swiper-item>
-							<view class="swiper_item">{{announcement.text}}</view>
-						</swiper-item>
-					</navigator>
-				<!-- </block> -->
-			</swiper>
+			<view class="marquee_box">
+				<view class="marquee_text" style="animation: marque-animation {{ second }}s linear infinite;font-size: {{size}}rpx;"> {{announcement.text}} </view>
+			</view>
 		</view>
+
+		<!-- <view class="example">
+			<view class="marquee_box">
+			  <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size: {{size}}px;">
+				<text>{{text}}</text>
+				<text wx:if="{{marquee2copy_status}}" style="margin-left:{{marquee2_margin}}px;">{{text}}</text>
+			  </view>
+			</view>
+		</view> -->
 		<!-- 服务公告end -->
     </view>
 	<!-- 拼团专区 -->
