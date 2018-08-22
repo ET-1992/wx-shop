@@ -133,5 +133,12 @@ Page({
         if (user) {
             wx.navigateTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
         }
+    },
+
+    /* 我的管家 */
+    openManager() {
+        this.setData({
+            showModal: true
+        });
     }
 });

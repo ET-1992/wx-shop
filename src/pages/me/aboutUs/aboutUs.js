@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
     data: {
-        showBtn: false
+        showBtn: false,
+        isLoading: true
     },
 
     /**
@@ -26,7 +27,8 @@ Page({
     isLoaded(e) {
         console.log(e.detail);
         this.setData({
-            showBtn: true
+            showBtn: true,
+            isLoading: false
         });
     },
 
