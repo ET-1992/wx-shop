@@ -404,7 +404,7 @@
 		
 	}
 
-	/* .marquee_box {
+	.marquee_box {
 		width: 100%;
 		position: relative;
 		height: 70rpx;
@@ -415,35 +415,5 @@
 	.marquee_text {
 		white-space: nowrap;
 		position: absolute;
-	} */
-
-	@keyframes marque-animation {
-    	0% {
-    	    transform: translateX(0);
-    	}
-    	100% {
-    	    transform: translateX(-1782rpx);
-    	}
-	}
-
-	.marquee_box {
-	    width: 100%;
-	    height: 44px;
-	    line-height: 44px;
-	    background: #fff;
-	    border: none;
-	    display: block;
-	    margin: 0 auto;
-	    overflow: hidden;
-	    white-space: nowrap;
-	    text-overflow: clip;
-	    position: relative;
-	    font-size: 28rpx;
-	}
-
-	.marquee_text {
-	    display: inline-block;
-	    position: relative;
-	    white-space: nowrap;
 	}
 }

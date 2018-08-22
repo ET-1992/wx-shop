@@ -39,13 +39,11 @@ Page({
         isShowConsole: false,
         swiperCurrent: 0,
 
-        /* marqueePace: 1, // 滚动速度
+        marqueePace: 1, // 滚动速度
         marqueeDistance: 0, // 初始滚动距离
+        size: 11,  // 字体大小
         orientation: 'left', // 滚动方向
-        interval: 20 // 时间间隔 */
-
-        size: 22,
-        speed: 50,
+        interval: 20 // 时间间隔
     },
 
     swiperChange(e) {
@@ -130,20 +128,30 @@ Page({
         // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
         // const newUser = data.current_user ? data.current_user.new_user : null;
 
-        let textLength = data.announcement.text.length * this.data.size; // 文字长度
+        /*  let textLength = data.announcement.text.length * this.data.size; // 文字长度
+        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
         let second = textLength / this.data.speed;
-        console.log(second);
-        console.log(textLength);
+        console.log('秒', second);
+        console.log('文本长度', textLength);
+        console.log('屏宽', windowWidth); */
+
+        // 页面显示
+        let length = data.announcement.text.length * this.data.size;// 文字长度
+        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
 
         this.setData({
             userCoupon,
-            isLoading: false,
             conWidth: width || '',
             hasNewUserCoupons,
             newUser: current_user ? current_user.new_user : 1,
             ...data,
-            second
+            length: length,
+            windowWidth: windowWidth,
+            isLoading: false,
         });
+
+        this.run();
+
         console.log(this.data);
         if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {
             this.setData({
@@ -162,23 +170,13 @@ Page({
                 next_cursor: 0
             });
         }
-
-        /* // 滚动公告
-        let that = this;
-        let length = that.data.announcement.text.length * that.data.size;// 文字长度
-        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
-        that.setData({
-            length: length,
-            windowWidth: windowWidth
-        });
-        that.run(); */
     },
 
     async onLoad(options) {
         app.log(options, 'onLoad');
 
         const { themeColor, tplStyle } = app.globalData;
-        this.loadHome();
+
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -191,12 +189,14 @@ Page({
     },
 
     async onShow() {
+        this.loadHome();
         app.log('onShow');
 
         this.setData({ isShowConsole: app.openConsole });
 
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
+        console.log(this.data.announcement);
     },
 
     async onReceiveCoupon(id, index) {
@@ -391,20 +391,20 @@ Page({
         console.log(this.data.contactModal);
     },
 
-    /* run() {
+    run() {
         let that = this;
-        let interval = setInterval(function () {
+        let timer = setInterval(function () {
             if (-that.data.marqueeDistance < that.data.length) {
                 that.setData({
                     marqueeDistance: that.data.marqueeDistance - that.data.marqueePace,
                 });
             } else {
-                clearInterval(interval);
+                clearInterval(timer);
                 that.setData({
                     marqueeDistance: that.data.windowWidth
                 });
                 that.run();
             }
         }, that.data.interval);
-    }, */
+    },
 });
