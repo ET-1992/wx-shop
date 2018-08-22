@@ -74,7 +74,7 @@
 						class="originalPrice"
 					>￥{{ product.original_price }}</view>
 				</view>
-				<view class="postage">邮费：{{ product.postage ?product.postage +'元': '包邮' }}</view>
+				<view class="postage">上门服务费：{{ product.postage ?product.postage +'元': '0 元' }}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
 			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
@@ -124,7 +124,7 @@
 			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
 		</view>
 		<view class="detail">
-			<view class="detailTitle"><text class="dot">•</text>商品详情<text class="dot">•</text></view>
+			<view class="detailTitle"><text class="dot">•</text>服务详情<text class="dot">•</text></view>
 			<view class="peanut-wxParse">
 				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
 			</view>
@@ -155,7 +155,7 @@
 					<view 
 						class="addCart multi" 
 						catchtap="onShowSku" 
-						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即购买' }] }}"
+						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: '立即下单' }] }}"
 						style="background-color: {{ themeColor.secondaryColor }}"
 					>
 						<view>￥{{ product.price }}</view>
@@ -165,7 +165,7 @@
 						class="buy multi" 
 						catchtap="onShowSku" 
 						data-is-groupon-buy 
-						data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: '立即下单' }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view>￥{{ product.groupon_price }}</view>
@@ -179,7 +179,7 @@
 						class="buy multi" 
 						catchtap="onShowSku" 
 						data-is-groupon-buy 
-						data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: '立即下单' }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view class="joinGroup">立即参团</view>
@@ -196,9 +196,9 @@
 					<view 
 						class="buy" 
 						catchtap="onShowSku" 
-						data-actions="{{ [{ type: 'onBuy', text: '立即购买'}] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: '立即下单'}] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
-					>立即购买</view>
+					>立即下单</view>
 				</block>
 			</view>
 		</view>
@@ -225,9 +225,9 @@
 								</text>
 								<text wx:else>￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
 							</view>
-							<view class="stock">
+							<!-- <view class="stock">
 								库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
-							</view>
+							</view> -->
 							<view class="property" wx:if="{{ product.skus.length }}">
 								已选择：{{ selectedSku.property_names || '--' }}
 							</view>

@@ -6,32 +6,17 @@
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
-		<!-- <block wx:if="{{ wallet.coin_enable }}" > -->
-			<navigator class="welfare" url="/pages/coinDetail/coinDetail">
-				<view class="number">{{ wallet.coins || 0 }}</view>
-				<view class="title">花生米</view>
-			</navigator>
-			<navigator class="welfare" url="/pages/myCoupons/myCoupons">
-				<view class="number">{{ coupons.available.length || 0 }}</view>
-				<view class="title">优惠券</view>
-			</navigator>
-		<!-- </block> -->
-		 <!-- 使用open-data组件显示头像和昵称
-		<image class="avatar unlogin" bindtap="onLogin" src="../../icons/unlogin.png" wx:if="{{ !user.avatarurl }}" />
-		<view class="name loginBt" wx:if="{{ user.nickname }}">{{ user.nickname }}</view>
-		
-		<button class="normalizeBt loginBt" bindtap="onLogin" wx:if="{{ !user.nickname }}">点击头像立即登录</button> -->
+		<navigator class="welfare" url="/pages/coinDetail/coinDetail">
+			<view class="number">{{ wallet.coins || 0 }}</view>
+			<view class="title">花生米</view>
+		</navigator>
+		<navigator class="welfare" url="/pages/myCoupons/myCoupons">
+			<view class="number">{{ coupons.available.length || 0 }}</view>
+			<view class="title">优惠券</view>
+		</navigator>
 	</view>
 
 	<view class="section orders">
-		<!-- <navigator class="orderHeader" url="/pages/orderList/orderList">
-			<view>我的订单</view>
-			<view class="viewAll">
-				查看全部
-				<image class="rightIcon" src="../../icons/right.png" />
-			</view>
-		</navigator> -->
-
 		<view class="orderItems">
 			<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
 				<view class="orderItemValue" wx:if="{{ order_counts['1'] }}">{{ order_counts['1'] }}</view>
@@ -64,111 +49,68 @@
 		</view>
 	</view>
 
-	<view class="section">
-		<view bindtap="onAddress" class="sectionItem">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/address.png" />
+	<view class="infos">
+		<view class="infoItem" bindtap="onAddress">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/address.png" />
 			<view class="itemTitle">收货地址</view>
-			<image class="rightIcon" src="../../icons/right.png" />
 		</view>
-	</view>
+		
+		<view class="infoItem" bindtap="">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/manager.png" />
+			<view class="itemTitle">我的管家</view>
+		</view>
 
-	<view class="section">
-		<navigator url="/pages/orderList/orderList?status=10">
-			<view class="sectionItem">
-				<image class="itemIcon" mode="aspectFit" src="../../icons/my.png" />
-				<view class="itemTitle">我的拼团</view>
-				<image class="rightIcon" src="../../icons/right.png" />
-			</view>
+		<navigator class="infoItem" url="/pages/orderList/orderList?status=10">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/myGroup.png" />
+			<view class="itemTitle">我的拼团</view>
 		</navigator>
-	</view>
-
-	<!-- <view wx:if="{{ !wallet.coin_enable }}" class="section">
-		<navigator class="sectionItem" url="/pages/myCoupons/myCoupons">
-			<image class="itemIcon couponIcon" mode="aspectFit" src="../../icons/coupon.png" />
-			<view class="itemTitle">我的优惠券</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</navigator>
-	</view> -->
-
-	<!-- <view class="section">
-		<navigator class="sectionItem" url="/pages/coinDetail/coinDetail">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/coin.png" />
-			<view class="itemTitle">我的花生米</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</navigator>
-	</view> -->
-
-	<view class="section">
-		<navigator class="sectionItem" url="/pages/myFav/myFav">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/myfav.png" />
+		
+		<navigator class="infoItem" url="/pages/myFav/myFav">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/myfav.png" />
 			<view class="itemTitle">我的收藏</view>
-			<image class="rightIcon" src="../../icons/right.png" />
 		</navigator>
-	</view>
-	<view class="section">
-		<navigator class="sectionItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/myfav.png" />
-			<view class="itemTitle">about us</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</navigator>
-	</view>
 
-	<view class="section" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
-		<button class="normalizeBt sectionItem contactBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
+		<button 
+			class="normalizeBt infoItem" 
+			bindgetuserinfo="bindGetUserInfo" 
+			open-type="getUserInfo" 
+			bindtap="redirectToShareCenter"
+			wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}"
+			>
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
-			<image class="rightIcon" src="../../icons/right.png" />
 		</button>
-	</view>
-	<view class="section" wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}">
-		<view class="sectionItem" bindtap="showToast">
-			<image class="itemIcon" mode="aspectFit" src="../../icons/shareCenter.png" />
-			<view class="itemTitle">分享中心</view>
-			<image class="rightIcon" src="../../icons/right.png" />
-		</view>
-	</view>
 
-	<view class="section contact">
-		<button class="normalizeBt sectionItem contactBt" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
-			<image class="itemIcon" mode="aspectFit" src="../../icons/contact.png" />
+		<button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/contact.png" />
 			<view class="itemTitle">联系客服</view>
-			<image class="rightIcon" src="../../icons/right.png" />
 		</button>
+
+		<navigator 
+			class="infoItem"
+			url="/pages/affiliate/affiliateApply/affiliateApply"
+			wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}"
+			>
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/myfav.png" />
+			<view class="itemTitle">花生分享计划</view>
+		</navigator>
+
+		<navigator class="infoItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}">
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/about.png" />
+			<view class="itemTitle">关于我们</view>
+		</navigator>
 	</view>
-	
-	<!-- <view class="section">
-		<view class="itemTitle" bindtap="free">一键开通永久免费的小程序商城>></view>
-	</view> -->
-	
-	<view class="section" wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">
+
+	<!-- <view class="section" wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">
 		<navigator class="sectionItem" url="/pages/affiliate/affiliateApply/affiliateApply">
 			<view class="itemTitle">花生分享计划 >></view>
 		</navigator>
-	</view>
+	</view> -->
+
 </view>
 <view class="peanut-logo logo">
 	<image src="../../icons/logo.png"></image>
 </view>
-<!-- <view class="mask" wx:if="{{active==1}}">
-  <view class="con">
-    <view class="cont">
-      <view class="title">
-        <image src="../../icons/huasheng.png"></image>
-        <text>花生小店</text>
-      </view>
-      <view>
-        <text>1. 由于微信规则限制，无法直接在微信内申请开店，请用电脑浏览器访问网址：97866.com 或搜索“花生小店”官网，即可一键开通。</text>
-        <text>2. 花生小店功能强大，包含多店管理、用户画像，支持红包、拼团、限时购、优惠券、群发通知等社交营销工具。从裂变拉新到商品促销到用户留存，多维度触达用户。</text>
-        <text>
-        3. 花生小店承诺，全部功能永久免费开放给商户使用，0门槛、0成本、无需开发，5分钟内免审通过。
-        </text>
-      </view>
-    </view>
-  </view>
-  <view class="close" bindtap="close">
-    <image src="../../icons/close.png"></image>
-  </view>
-</view> -->
 
 <myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
 

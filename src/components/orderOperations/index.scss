@@ -26,6 +26,18 @@
 		display: none;
 	}
 
+	.callBt{
+		float: left;
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+		margin-top: 8rpx;
+		border: none;
+		background-color: transparent;
+		line-height: 1.4;
+		padding-left: 50rpx;
+	}
+
 	.contactIcon {
 		$size: 36rpx;
 

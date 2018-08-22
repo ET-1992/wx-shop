@@ -2,15 +2,15 @@
 		<image class="address-icon" src="/icons/address.png" mode="aspectFit"></image>
 
 		<view wx:if="{{ !address.userName }}" class="address">
-        	添加地址
+        	添加服务地址
      	</view>
 		<view class="address" wx:if="{{ address.userName }}">
 			<view class="address-top">
-				<text style="margin-right: 30rpx">收货人：{{ address.userName }}</text>
+				<text style="margin-right: 30rpx">联系人：{{ address.userName }}</text>
 				<text>{{ address.telNumber }}</text>
 			</view>
 			<view class="address-bottom">
-				<text>收货地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
+				<text>服务地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
 			</view>
 		</view>
 		<image src="/icons/right.png" class="right-arrow"></image>

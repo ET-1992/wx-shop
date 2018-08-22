@@ -227,7 +227,8 @@ Page({
                 },
             });
             wx.setNavigationBarTitle({
-                title: data.page_title,
+                // title: data.page_title,
+                title: '服务详情'
             });
 
             // const skuSplitProperties = skus.reduce(

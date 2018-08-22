@@ -22,7 +22,7 @@
     <text class="money">-￥{{ info.coinForPayDispaly }}</text>
   </view>
   <view class="row">
-    <text class="text">运费</text>
+    <text class="text">附加服务费</text>
     <text class="money">+￥{{ info.postageDispaly }}</text>
   </view>
   <view class="line"></view>
