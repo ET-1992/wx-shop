@@ -1,6 +1,23 @@
 <view class="orderCreateWrap">
   <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
+
+<view class="pickerBox">
+	<veiw class="title">上门时间</veiw>
+	<picker mode="date" value="{{date}}" start="2018-01-01" end="2050-01-01" bindchange="bindDateChange">
+		<view class="date">
+			<view>{{date || '请选择'}}</view>
+			<image class="arrow" src="/icons/triangleDownActive.png" mode="aspectFit"></image>
+		</view>
+	</picker>
+	<picker mode="time" value="{{time}}" start="00:00" end="24:00" bindchange="bindTimeChange">
+		<view class="time">
+			<view>{{time || '请选择'}}</view>
+			<image class="arrow" src="/icons/triangleDownActive.png" mode="aspectFit"></image>
+		</view>
+	</picker>
+</view>
+
   <view class="textareaWrapper">
     <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>

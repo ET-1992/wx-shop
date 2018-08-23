@@ -395,6 +395,17 @@ Page({
             'authModal.isShowModal': false,
             isShouldRedirect: true
         });
+    },
+
+    bindDateChange(e) {
+        this.setData({
+            date: e.detail.value
+        });
+    },
+    bindTimeChange(e) {
+        this.setData({
+            time: e.detail.value
+        });
     }
 
     // checkPhoneModel() {
