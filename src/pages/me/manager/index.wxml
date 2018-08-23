@@ -1,18 +1,18 @@
 <view class="modal" wx:if="{{ showModal }}">
-	<!-- <view class="container1">
+	<view class="container1">
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 		<view class="content">
 			<text>您尚未设置服务地址，请先设置服务地址以便为您分配专属管家</text>
-			<text>您当前地址尚无专属管家，请联系400客服</text>
+			<!-- <text>您当前地址尚无专属管家，请联系400客服</text> -->
 		</view>
 		<view catchtap="call" class="btn">
 			<form bindsubmit="submitFormId" report-submit="true">
 				<button formType="submit">拨打400电话</button>
 			</form>
 		</view>
-    </view> -->
+    </view>
     
-    <view class="container2">
+    <!-- <view class="container2">
         <view class="title">星级管家</view>
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 		<view class="top">
@@ -29,10 +29,10 @@
             </view>
             <view class="diyInfo"> 商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字 </view>
         </view>
-        <view catchtap="callManager" class="btn">
+        <view catchtap="callManager" data-phone="10086">
 			<form bindsubmit="submitFormId" report-submit="true">
 				<button formType="submit">呼叫管家</button>
 			</form>
 		</view>
-	</view>
+	</view> -->
 </view>

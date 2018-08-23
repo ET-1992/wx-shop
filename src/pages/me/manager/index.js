@@ -6,6 +6,11 @@ Component({
         }
     },
     methods: {
+        callManager(e) {
+            wx.makePhoneCall({
+                phoneNumber: e.currentTarget.dataset.phone
+            });
+        },
         closeModal() {
             this.setData({
                 showModal: false

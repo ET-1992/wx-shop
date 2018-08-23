@@ -104,6 +104,8 @@
                 }
             }
             .diyInfo{
+                font-size: 28rpx;
+                color: #707070;
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
@@ -113,24 +115,20 @@
         }
 	}
 
-    .btn{
-            
-        button{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: transparent;
-            font-size: 28rpx;
-            color: #fff;
-            background: $mainColor;
-            width: 220rpx;
-            height: 70rpx;
-            border-radius: 35rpx;
-            position:absolute;
-            bottom:20rpx;
-            left:50%;
-            margin-left:-110rpx;
-
-        }
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        font-size: 28rpx;
+        color: #fff;
+        background: $mainColor;
+        width: 220rpx;
+        height: 70rpx;
+        border-radius: 35rpx;
+        position:absolute;
+        bottom:30rpx;
+        left:50%;
+        margin-left:-110rpx;
     }
 }

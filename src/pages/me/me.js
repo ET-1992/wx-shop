@@ -136,7 +136,7 @@ Page({
     },
 
     /* 我的管家 */
-    openManager() {
+    async openManager() {
         this.setData({
             showModal: true
         });
