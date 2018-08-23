@@ -38,12 +38,10 @@ Page({
         hasMask: false,
         isShowConsole: false,
         swiperCurrent: 0,
+        hasSliders: false,
 
-        marqueePace: 1, // 滚动速度
-        marqueeDistance: 0, // 初始滚动距离
-        size: 11,  // 字体大小
-        orientation: 'left', // 滚动方向
-        interval: 20 // 时间间隔
+        size: 11,
+        speed: 50,
     },
 
     swiperChange(e) {
@@ -75,10 +73,10 @@ Page({
         });
 
         const data = await api.hei.fetchHome();
-        // console.log('home data:', data);
+        console.log('home data:', data);
         const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
 
-        if (data.modules) {
+        if (data.modules && data.modules.length) {
             for (let i = 0; i < data.modules.length; i++) {
                 if (data.modules[i].key === 'sliders') {
                     this.setData({
@@ -128,30 +126,22 @@ Page({
         // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
         // const newUser = data.current_user ? data.current_user.new_user : null;
 
-        /*  let textLength = data.announcement.text.length * this.data.size; // 文字长度
+        let textLength = data.announcement.text.length * this.data.size; // 文字长度
         let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
-        let second = textLength / this.data.speed;
-        console.log('秒', second);
-        console.log('文本长度', textLength);
-        console.log('屏宽', windowWidth); */
-
-        // 页面显示
-        let length = data.announcement.text.length * this.data.size;// 文字长度
-        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
+        let second = (windowWidth + textLength) / this.data.speed;
+        console.log('s', second);
+        console.log('单个文本长度', textLength);
+        console.log('屏幕宽度', windowWidth);
 
         this.setData({
             userCoupon,
+            isLoading: false,
             conWidth: width || '',
             hasNewUserCoupons,
             newUser: current_user ? current_user.new_user : 1,
             ...data,
-            length: length,
-            windowWidth: windowWidth,
-            isLoading: false,
+            second,
         });
-
-        this.run();
-
         console.log(this.data);
         if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {
             this.setData({
@@ -176,7 +166,7 @@ Page({
         app.log(options, 'onLoad');
 
         const { themeColor, tplStyle } = app.globalData;
-
+        this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -189,14 +179,12 @@ Page({
     },
 
     async onShow() {
-        this.loadHome();
         app.log('onShow');
 
         this.setData({ isShowConsole: app.openConsole });
 
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
-        console.log(this.data.announcement);
     },
 
     async onReceiveCoupon(id, index) {
@@ -296,6 +284,7 @@ Page({
         this.setData({
             isRefresh: true,
             next_cursor: 0,
+            hasSliders: false
         });
         await this.loadHome();
         wx.stopPullDownRefresh();
@@ -389,22 +378,5 @@ Page({
             }
         });
         console.log(this.data.contactModal);
-    },
-
-    run() {
-        let that = this;
-        let timer = setInterval(function () {
-            if (-that.data.marqueeDistance < that.data.length) {
-                that.setData({
-                    marqueeDistance: that.data.marqueeDistance - that.data.marqueePace,
-                });
-            } else {
-                clearInterval(timer);
-                that.setData({
-                    marqueeDistance: that.data.windowWidth
-                });
-                that.run();
-            }
-        }, that.data.interval);
     },
 });
