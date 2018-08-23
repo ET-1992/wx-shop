@@ -204,9 +204,9 @@
 		</view>
 	</view>
 	
-	<view class="actionSheet">
+	<view class="actionSheet" wx:if="{{ isShowAcitonSheet }}">
 		<template is="mock" data="{{ isShow: isShowAcitonSheet }}" />
-		<view class="actionSheetContent {{ isShowAcitonSheet ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="actionSheetContent {{ isShowAcitonSheeted ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="close" catchtap="onMockCancel">
 				<image src="../../icons/clear.png"></image>
 			</view>
@@ -281,9 +281,9 @@
 		</view>
 	</view>
 
-	<view class="actionSheet">
+	<view class="actionSheet" wx:if="{{ isShowCouponList }}">
 		<template is="mock" data="{{ isShow: isShowCouponList }}" />
-		<view class="actionSheetContent couponActionSheet {{ isShowCouponList ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="actionSheetContent couponActionSheet {{ isShowCouponListed ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="close" catchtap="onMockCancel">
 				<image src="../../icons/clear.png"></image>
 			</view>
@@ -329,7 +329,7 @@
 
 <!-- 底部弹窗 -->
 <view class="mock {{ showShareModal ? 'mockShow' : ''}}" catchtap="closeShareModal"></view>
-<view class="actionShareModal {{showShareModal ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+<view class="actionShareModal {{showShareModaled ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ showShareModal }}">
 	<view class="shareModalContent">
 		<button class="shareBtn" open-type="share">
 			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>

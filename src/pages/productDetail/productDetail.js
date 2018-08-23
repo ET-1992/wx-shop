@@ -134,6 +134,9 @@ Page({
         }
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
+            this.setData({
+                isShowAcitonSheeted: true
+            });
         });
     },
 
@@ -230,32 +233,6 @@ Page({
                 title: data.page_title,
             });
 
-            // const skuSplitProperties = skus.reduce(
-            // 	(skuSplitProperties, sku, index) => {
-            // 		const { properties } = sku;
-            // 		const isInit = !index;
-
-            // 		// sku.properties = properties;
-
-            // 		properties.forEach((property, propertyInex) => {
-            // 			const { k, v } = property;
-            // 			if (isInit) {
-            // 				skuSplitProperties.push({ key: k, values: [v] });
-            // 			}
-            // 			else {
-            // 				const isExits =
-            // 					skuSplitProperties[propertyInex].values.findIndex(
-            // 						(value) => value === v,
-            // 					) >= 0;
-            // 				if (!isExits) {
-            // 					skuSplitProperties[propertyInex].values.push(v);
-            // 				}
-            // 			}
-            // 		});
-            // 		return skuSplitProperties;
-            // 	},
-            // 	[],
-            // );
 
             let defalutSelectedProperties;
             let selectedSku = {};
@@ -307,11 +284,14 @@ Page({
                 ...data,
             });
 
-            this.countDown();
 
             // --------------------
             const { hasEnd, hasStart, product } = this.data;
             product.definePrice = 0;
+
+            if (product.miaosha_enable) {
+                this.countDown();
+            }
 
             if (product.groupon_enable === '1') {
                 product.definePrice = product.groupon_price;
@@ -561,6 +541,10 @@ Page({
     onHideCouponList() {
         this.setData({
             isShowCouponList: false,
+        }, () => {
+            this.setData({
+                isShowCouponListed: false
+            });
         });
     },
 
@@ -620,6 +604,10 @@ Page({
         console.log('onShowCoupons');
         this.setData({
             isShowCouponList: true,
+        }, () => {
+            this.setData({
+                isShowCouponListed: true
+            });
         });
     },
 
@@ -630,6 +618,10 @@ Page({
             // selectedProperties: [],
             // quantity: 1,
             pendingGrouponId: '',
+        }, () => {
+            this.setData({
+                isShowAcitonSheeted: false
+            });
         });
     },
 
@@ -648,6 +640,10 @@ Page({
         // const { actionType } = ev.detail.target.dataset;
         this.setData({
             isShowAcitonSheet: false,
+        }, () => {
+            this.setData({
+                isShowAcitonSheeted: false
+            });
         });
         // actionType [addCart, onBuy]
         this[actionType]();
@@ -721,6 +717,10 @@ Page({
         this.setData({
             isShowProductDetailShareModal: true,
             showShareModal: false
+        }, () => {
+            this.setData({
+                showShareModaled: false
+            });
         });
     },
 
@@ -732,8 +732,8 @@ Page({
 
     /* 调起底部弹窗 */
     async openShareModal() {
-        const { product, current_user } = this.data;
-        if (product.affiliate_enable && !current_user.is_affiliate_member) {
+        const { product, current_user = {}} = this.data;
+        if (product.affiliate_enable && current_user && !current_user.is_affiliate_member) {
             const { confirm } = await showModal({
                 title: '温馨提示',
                 content: '希望获取这件商品的佣金吗? 赶紧申请成为分享家吧！',
@@ -748,11 +748,19 @@ Page({
         }
         this.setData({
             showShareModal: true
+        }, () => {
+            this.setData({
+                showShareModaled: true
+            });
         });
     },
     closeShareModal() {
         this.setData({
             showShareModal: false
+        }, () => {
+            this.setData({
+                showShareModaled: false
+            });
         });
     }
 });
