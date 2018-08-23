@@ -18,7 +18,7 @@
         </view>
     </view>
     <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
-        <image class="Bg" src="../../icons/nocoin.png"></image>
+        <image class="Bg" src="http://cdn2.wpweixin.com/shop/nocoin.png"></image>
         <view>还没有花生米</view>
     </view>
 </view>

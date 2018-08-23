@@ -92,7 +92,7 @@ Page({
     },
 
     drawPosterImage() {
-        const sharePosterBg = '/icons/sharePosterBg.png';
+        const sharePosterBg = 'http://cdn2.wpweixin.com/shop/sharePosterBg.png';
         const ctx = wx.createCanvasContext('canvasPoster');
         this.data.ctx = ctx;
         const { windowWidth } = app.systemInfo;

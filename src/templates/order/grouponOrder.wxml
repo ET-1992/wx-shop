@@ -4,7 +4,7 @@
     <image class="grouponHintImage" src="/icons/grouponHint.png" />
   </view>
   <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && order.id }}" open-type="share">
-    <image class="redpacketBanner" src="/images/orderRedpacketBanner.jpg" />
+    <image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
   </button>
   <button wx:if="{{ order.id || groupon.status === 2 }}" class="normalizeBt button" bindtap="onShare" open-type="share" data-is-share-groupon="{{ true }}" style="background-color: {{ themeColor.primaryColor }}">
     邀请朋友参团

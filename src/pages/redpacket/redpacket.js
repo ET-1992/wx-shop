@@ -87,7 +87,7 @@ Page({
         return {
             title: `好友${name}给你发来了一个红包，快去领取吧`,
             path: `/pages/redpacket/redpacket?id=${id}`,
-            imageUrl: '/icons/redpacketShare.jpg'
+            imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
         };
     },
 

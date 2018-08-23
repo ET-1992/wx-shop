@@ -1,6 +1,6 @@
 <view class="newUserCoupon">
     <view class="couponContainer">
-        <image class="CouponBottom" src="/icons/CouponBottom.png"></image>
+        <image class="CouponBottom" src="http://cdn2.wpweixin.com/shop/CouponBottom.png"></image>
         <view class="couponBox">
             <view class="title">新用户专享</view>
             <scroll-view class="couponScroll" scroll-y>

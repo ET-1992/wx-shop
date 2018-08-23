@@ -43,7 +43,7 @@
   <view class="item" wx:if="{{ order.refund_time }}">退款时间: {{ order.refundDate }}</view>
 </view>
 <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}" open-type="share">
-  <image class="redpacketBanner" src="/images/orderRedpacketBanner.jpg" />
+  <image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
 </button>
 <navigator open-type="switchTab" url="/pages/home/home" class="viewProduct" style="background-color: {{ themeColor.primaryColor }}">
   浏览更多商品

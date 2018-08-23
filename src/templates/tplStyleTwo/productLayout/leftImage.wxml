@@ -2,7 +2,7 @@
     <image class="productImage" src="{{ product.thumbnail }}" />
     <view class="meta">
         <view class="top">
-            <image class="icon" src="/icons/tpl2/smileFace.png"></image>
+            <image class="icon" src="/icons/smileFace.png"></image>
             <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
         </view>
         <view class="title">{{ product.title }}</view>

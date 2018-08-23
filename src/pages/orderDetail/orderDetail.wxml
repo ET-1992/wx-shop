@@ -77,7 +77,7 @@
     content="越多好友拆红包奖励越大喔"
     confirmText="发红包"
     confirmColor="#ffad00"
-    iconUrl="/icons/redpacketIcon.png"
+    iconUrl="http://cdn2.wpweixin.com/shop/redpacketIcon.png"
     isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}"
     bindmodalConfirm="onModalConfirm"
     confirmButtonType="share"

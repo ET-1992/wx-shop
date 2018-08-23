@@ -43,10 +43,10 @@
 			</view>
 		</view>
 		</view>
-		<image class="bg" src="../../icons/couponItemReceived.png" wx:if="{{ status === 'available' || !canChoice }}" />
-		<image class="bg" src="../../icons/unableCoupon.png" wx:if="{{ status === 'used' }}" />
-		<image class="bg" src="../../icons/unableCoupon.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
-		<image class="bg" src="../../icons/unableCoupon.png" wx:if="{{ status === 'nullCoupon' }}" />
-		<image class="bg" src="../../icons/couponItem.png" wx:if="{{status === 'receivable' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/couponItemReceived.png" wx:if="{{ status === 'available' || !canChoice }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/unableCoupon.png" wx:if="{{ status === 'used' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/unableCoupon.png" wx:if="{{ status === 'expired' || status === 'unavailable' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/unableCoupon.png" wx:if="{{ status === 'nullCoupon' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/couponItem.png" wx:if="{{status === 'receivable' }}" />
 	</view>
 </template>
