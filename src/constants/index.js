@@ -46,10 +46,10 @@ export const ORDER_STATUS_TEXT = [
 // ];
 
 export const LOGISTICS_STATUS_TEXT = [
-    { text: '暂无该物流信息', value: null },
-    { text: '暂无该物流信息', value: 1 },
-    { text: '正在运输', value: 2 },
-    { text: '已签收', value: 3 },
+    { text: '暂无信息', value: null },
+    { text: '暂无信息', value: 1 },
+    { text: '进行中', value: 2 },
+    { text: '已完成', value: 3 },
     { text: '错误', value: 4 },
 ];
 
