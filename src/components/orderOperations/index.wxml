@@ -8,11 +8,11 @@
     <image class="contactIcon" src="/icons/contact.png"/>
     <text>联系客服</text>
   </button>
-  <view
+  <button
     class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     bindtap="onRefund"
     wx:if="{{ isShowRefund }}"
-  >申请退款</view>
+  >申请退款</button>
   <button
     class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     wx:if="{{ isShowService }}"
