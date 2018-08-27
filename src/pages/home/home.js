@@ -42,6 +42,7 @@ Page({
 
         size: 11,
         speed: 50,
+        second: 0
     },
 
     swiperChange(e) {
@@ -126,12 +127,18 @@ Page({
         // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
         // const newUser = data.current_user ? data.current_user.new_user : null;
 
-        let textLength = data.announcement.text.length * this.data.size; // 文字长度
-        let windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
-        let second = (windowWidth + textLength) / this.data.speed;
-        console.log('s', second);
-        console.log('单个文本长度', textLength);
-        console.log('屏幕宽度', windowWidth);
+        if (data.announcement) {
+            let textLength = data.announcement.text.length * this.data.size;    // 文字长度
+            let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
+            let second = (windowWidth + textLength) / this.data.speed;
+            console.log('s', second);
+            console.log('单个文本长度', textLength);
+            console.log('屏幕宽度', windowWidth);
+
+            this.setData({
+                second
+            });
+        }
 
         this.setData({
             userCoupon,
@@ -139,8 +146,7 @@ Page({
             conWidth: width || '',
             hasNewUserCoupons,
             newUser: current_user ? current_user.new_user : 1,
-            ...data,
-            second,
+            ...data
         });
         console.log(this.data);
         if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {

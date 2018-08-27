@@ -21,16 +21,16 @@
                 </view>
             </block>
         </view>
-        <view class="announcement" wx:if="{{announcement}}">
-			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
-			<view class="marquee">
-				<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
-					{{announcement.text}}<text class="content-space"></text>
-					{{announcement.text}}<text class="content-space"></text>
-					{{announcement.text}}<text class="content-space"></text>
-				</text>
-			</view>
-		</view>
+      <navigator class="announcement" wx:if="{{announcement}}" url="{{ announcement.path }}">
+			  <image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
+			  <view class="marquee">
+			  	<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
+			  		{{announcement.text}}<text class="content-space"></text>
+			  		{{announcement.text}}<text class="content-space"></text>
+			  		{{announcement.text}}<text class="content-space"></text>
+			  	</text>
+			  </view>
+		</navigator>
     </view>
 	<!-- 服务公告end -->
 		
@@ -75,7 +75,7 @@
 				</view>
 			</block>
 		</view>
-		<view class="announcement" wx:if="{{announcement}}">
+		<navigator class="announcement" wx:if="{{announcement}}" url="{{ announcement.path }}">
 			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 			<view class="marquee">
 				<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
@@ -84,7 +84,7 @@
 					{{announcement.text}}<text class="content-space"></text>
 				</text>
 			</view>
-		</view>
+		</navigator>
 		<!-- 服务公告end -->
       </view>
       <!-- 拼团专区 -->
