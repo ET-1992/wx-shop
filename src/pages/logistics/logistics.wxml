@@ -6,7 +6,7 @@
     </image>
     <view class="logistics">
       <view class="logisticsInfo">
-        <view class="status">{{ logistics.status == 1 ? '已签收' : '运送中' }}</view>
+        <view class="status">{{ logistics.logisticsText }}</view>
         <view class="company">快递公司：{{ logistics.company }}</view>
         <view class="no">快递单号：{{ logistics.no }}</view>
       </view>

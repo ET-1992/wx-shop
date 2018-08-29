@@ -21,6 +21,25 @@ $footerHeight: 100rpx;
 	display: block; 
 	margin: 20rpx 0;
 
+	.logisticsBox{
+		display: flex;
+		justify-content: space-around;
+		background: #fff;
+		border-bottom:1rpx solid #E0E0E0;
+
+		.arrowRight {
+			width: 70rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.right-img {
+				width: 10rpx;
+				height: 20rpx;
+				margin-right: 5rpx;
+			}
+		}
+	}
+
 	.noLogistics {
 		background: #fff;
 		padding: 20rpx 30rpx;
@@ -57,14 +76,13 @@ $footerHeight: 100rpx;
 	padding: 20rpx 30rpx;
 	display: flex;
 	flex-direction: column;
-	border-bottom: 1rpx solid #E0E0E0;
 
 	.logistics-header, .logistics-body {
 		width: 100%;
 		display: flex;
 		flex-direction: row;
 		color: #707070;
-		font-size: 24rpx;
+		font-size: 22rpx;
 		line-height: 33rpx;
 		justify-content: space-between;
 		height: 50rpx;
@@ -72,7 +90,6 @@ $footerHeight: 100rpx;
 
 		.header-left, .body-left {
 			width: 100rpx;
-			height: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
@@ -91,8 +108,15 @@ $footerHeight: 100rpx;
 			justify-content: center;
 
 			.body-center-top {
+				font-size: 22rpx;
 				color: #FC2732;
-				margin-bottom: 5rpx;
+				margin-top: 10rpx;
+				display:-webkit-box;
+				-webkit-box-orient:vertical;
+				-webkit-line-clamp:2;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				line-height: 1.3;
 			}
 		}
 
@@ -100,21 +124,8 @@ $footerHeight: 100rpx;
 			color: #FC2732;
 		}
 
-		.body-right {
-			width: 70rpx;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-
-			.body-right-img {
-				width: 10rpx;
-				height: 20rpx;
-				margin-right: 5rpx;
-			}
-		}
 	}
-
+	
 	.logistics-body {
 		flex: 1;
 	}

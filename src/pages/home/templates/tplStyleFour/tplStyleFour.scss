@@ -4,7 +4,7 @@
 	background: #fff;
 
 	$searchWrapper: 90rpx; //搜索框高度
-	$zeroMarginTop: 40rpx;	//模块间隔高度
+	$zeroMarginTop: 60rpx;	//模块间隔高度
 	$sideWidth: 40rpx;	//边框距离
 	
     .container {
@@ -103,7 +103,7 @@
 
 	/* 优惠券 */
     .couponsWrapper {
-		margin: 60rpx 40rpx;
+		padding: 60rpx 40rpx;
 		border-bottom: 2rpx solid #C2C2C2;
 		
     	.coupons {
@@ -211,7 +211,7 @@
     .section {
 		margin: 60rpx $sideWidth 0;
 		padding-bottom: 60rpx;
-		border-bottom: 2rpx solid #C2C2C2;
+		// border-bottom: 2rpx solid #C2C2C2;
 
     	.sectionTitle {
 			display: flex;

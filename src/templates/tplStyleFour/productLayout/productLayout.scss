@@ -87,10 +87,13 @@
 		.desc {
 			font-size: 22rpx;
 			color: #AAAAAA;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow:ellipsis;
-			margin-top: 10rpx;
+            margin-top: 10rpx;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:1;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            line-height:1.2;
 		}
 
 		.grouponPrice {
