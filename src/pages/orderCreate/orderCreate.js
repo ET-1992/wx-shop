@@ -210,7 +210,7 @@ Page({
         }
 
         requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable } = await api.hei.orderPrepare(requestData);
+        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
         const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
 
@@ -229,7 +229,8 @@ Page({
             isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
             isPeanutPay: use_platform_pay,
             selfLiftEnable: self_lifting_enable,
-            isDisablePay: false
+            isDisablePay: false,
+            order_annotation
         }, () => {
             this.computedFinalPay();
         });
@@ -275,7 +276,8 @@ Page({
             useCoin,
             shouldGoinDisplay,
             liftStyle,
-            liftInfo
+            liftInfo,
+            order_annotation
         } = this.data;
         const {
             userName,
@@ -321,11 +323,6 @@ Page({
 
         let method = 'createOrderAndPay';
 
-        wx.showLoading({
-            title: '处理订单中',
-            mark: true,
-        });
-
         let requestData = {
             receiver_name: userName,
             receiver_phone: telNumber,
@@ -340,6 +337,39 @@ Page({
             vendor,
             afcode
         };
+
+        if (order_annotation) {
+            const orderForm = this.selectComponent('#orderForm');
+            console.log(orderForm.data, 'orderForm');
+            const { annotation, dns_obj } = orderForm.data;
+            annotation.forEach((item, index) => {
+                if (item.required && !dns_obj[item.name]) {
+                    item.isError = true;
+                }
+            });
+            this.setData({
+                order_annotation: annotation
+            });
+            const error = annotation.filter((item) => {
+                return (item.isError === true);
+            });
+            console.log(error);
+            if (error.length > 0) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请检查留言信息，带*号为必填项',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.annotation = JSON.stringify({ remarks: dns_obj });
+            }
+        }
+
+        wx.showLoading({
+            title: '处理订单中',
+            mark: true,
+        });
 
         if (user_coupon_ids) {
             requestData.user_coupon_ids = user_coupon_ids;

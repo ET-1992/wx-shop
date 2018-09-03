@@ -89,6 +89,15 @@ export function checkQQ(value) {
     return reg.test(value);
 }
 
+export function checkEmail(value) {
+    const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    return reg.test(value);
+}
+
+export function checkIdNameNum(value) {
+    return value.toString().length === 18;
+}
+
 export function getNodeInfo(id, obj = {}, isComponent, ctx) {
     return new Promise((resolve, reject) => {
         const defaultObj = {

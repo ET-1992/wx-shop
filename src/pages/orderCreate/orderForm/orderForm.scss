@@ -1,0 +1,80 @@
+	.container {
+		background: #fff;
+		padding: 50rpx 30rpx;
+		margin: 30rpx 0;
+		
+
+		.item {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 35rpx;
+		}
+
+		.text {
+			width: 170rpx;
+			color: #000000;
+			font-size: 28rpx;
+			line-height: 60rpx;
+
+			.required {
+				color: #FF0000;
+			}
+		}
+
+		.type {
+			flex: 1;
+
+			.picker {
+				height: 60rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1rpx solid #707070;
+				border-radius: 5rpx;
+			}
+
+			.pickerDate {
+				width: 300rpx;
+			}
+
+			.pickerTime {
+				width: 180rpx;
+			}
+
+			textarea {
+				width: 480rpx;
+				height: 180rpx;
+				border: 1rpx solid #707070;
+				border-radius: 5rpx;
+			}
+
+			input {
+				height: 60rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1rpx solid #707070;
+				border-radius: 5rpx;
+				text-align: center;
+			}
+
+			.input_480 {
+				width: 480rpx;
+			}
+
+			.input_300 {
+				width: 300rpx;
+			}
+
+			.uploadSFZ {
+				width: 120rpx;
+				height: 120rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5rpx;
+				background-size: 100% 100%;
+			}
+		}
+	}
