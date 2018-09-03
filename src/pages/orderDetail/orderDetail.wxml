@@ -24,7 +24,8 @@
     </view>
   </view>
 
-  <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon }}"></address>
+  <address address="{{ address }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/>
+  <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}"/>
 
   <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}" >
     <view class="logistics" data-index="{{index}}" bindtap="toLogisticsDetail">
