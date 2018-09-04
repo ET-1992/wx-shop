@@ -38,7 +38,8 @@
 		"pages/affiliate/affiliateMoney/affiliateMoney",
 		"pages/affiliate/affiliateList/affiliateList",
 		"pages/affiliate/affiliateOrderList/affiliateOrderList",
-		"pages/webPages/webPages"
+		"pages/webPages/webPages",
+		"pages/liftList/liftList"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

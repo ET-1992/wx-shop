@@ -1,9 +1,23 @@
 <view class="orderCreateWrap">
-  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper"></address>
+  <view class="express" wx:if="{{ selfLiftEnable }}" >
+      <text class="item-text">配送方式</text>
+      <radio-group class="radio-group" bindchange="radioChange">
+          <label wx:for="{{ liftStyles }}" wx:key="{{index}}">
+              <radio value="{{item.value}}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor }}" color="{{ themeColor.primaryColor }}" />
+              <text class="title">{{ item.title }}</text>
+          </label>
+      </radio-group>
+  </view>
+  <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
+  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
-  <view class="textareaWrapper">
+
+  <view class="textareaWrapper" wx:if="{{ !order_annotation }}">
     <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
+
+  <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation }}" id="orderForm" />
+
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
   <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>
 </view>

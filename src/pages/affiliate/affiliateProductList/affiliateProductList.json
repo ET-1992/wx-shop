@@ -1,5 +1,5 @@
 {
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "filterList": "../../../components/filterList/filterList",
     "productList": "../../../components/productList/index",

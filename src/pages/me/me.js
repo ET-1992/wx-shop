@@ -44,8 +44,8 @@ Page({
     onLoad() {
         app.log('页面onLoad');
         // user用户客服对接
-        const { themeColor } = app.globalData;
-        this.setData({ themeColor, isShowConsole: app.openConsole });
+        const { themeColor, partner = {}} = app.globalData;
+        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner });
     },
 
     async onShow() {
@@ -89,10 +89,11 @@ Page({
     },
 
     async bindGetUserInfo(e) {
+        console.log('90');
         const { encryptedData, iv } = e.detail;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         this.setData({
-            user
+            isAuthUser: user
         });
     },
 

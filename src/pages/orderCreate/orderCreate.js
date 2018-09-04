@@ -9,7 +9,15 @@ const app = getApp();
 Page({
     data: {
         title: 'orderCreate',
-
+        liftStyles: [
+            { title: '快递', value: 'express', checked: 'true' },
+            { title: '自提', value: 'lift' }
+        ],
+        liftStyle: 'express',
+        liftInfo: {
+            isCanInput: true,
+            isCanNav: true
+        },
         savePrice: 0,
         totalPrice: 0,
         items: [],
@@ -87,6 +95,7 @@ Page({
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
                 }
+                app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 this.onLoadData();
             });
         }
@@ -108,6 +117,7 @@ Page({
         // console.log(JSON.stringify(app.globalData.currentOrder));
         wx.removeStorageSync('orderCreate');
         app.event.off('getCouponIdEvent', this);
+        app.event.off('getLiftInfoEvent', this);
     },
 
     onHide() {
@@ -151,8 +161,27 @@ Page({
         });
     },
 
+    getLiftInfoEvent(data) {
+        console.log('getLiftInfoEvent', data);
+        const { liftInfo } = this.data;
+
+        this.setData({
+            liftInfo: { ...liftInfo, ...data }
+        });
+    },
+
+    updateLiftInfo(e) {
+        console.log(e);
+        const { liftInfo = {}} = this.data;
+        this.setData({
+            liftInfo: { ...liftInfo, ...e.detail }
+        }, () => {
+            console.log(this.data.liftInfo);
+        });
+    },
+
     async onLoadData() {
-        const { address, items, totalPrice, user_coupon_ids, isGrouponBuy } = this.data;
+        const { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle } = this.data;
         console.log(totalPrice, 'totalPrice');
         let requestData = {};
         if (address) {
@@ -175,8 +204,13 @@ Page({
         if (isGrouponBuy) {
             requestData.order_type = 'groupon';
         }
+
+        if (liftStyle === 'lift') {
+            requestData.shipping_type = 2;
+        }
+
         requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee, use_platform_pay } = await api.hei.orderPrepare(requestData);
+        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
         const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
 
@@ -194,7 +228,9 @@ Page({
             user_coupon_ids: coupons.recommend && coupons.recommend.user_coupon_id || '',
             isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
             isPeanutPay: use_platform_pay,
-            isDisablePay: false
+            selfLiftEnable: self_lifting_enable,
+            isDisablePay: false,
+            order_annotation
         }, () => {
             this.computedFinalPay();
         });
@@ -211,7 +247,8 @@ Page({
     computedFinalPay() {
         const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
         let finalPay = 0;
-        if (shouldGoinDisplay) {
+        console.log(useCoin, shouldGoinDisplay);
+        if (shouldGoinDisplay && !isGrouponBuy) {
             finalPay = fee.amount - useCoin / 100;
         } else {
             finalPay = fee.amount;
@@ -237,7 +274,10 @@ Page({
             isGrouponBuy,
             user_coupon_ids,
             useCoin,
-            shouldGoinDisplay
+            shouldGoinDisplay,
+            liftStyle,
+            liftInfo,
+            order_annotation
         } = this.data;
         const {
             userName,
@@ -252,10 +292,28 @@ Page({
         const { vendor, afcode } = app.globalData;
         console.log(vendor, afcode, 'globalData');
 
-        if (!userName) {
+        if (!userName && liftStyle !== 'lift') {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
+                showCancel: false,
+            });
+            return;
+        }
+
+        if (liftStyle === 'lift' && !liftInfo.receiver_address_name) {
+            wx.showModal({
+                title: '提示',
+                content: '请先选择自提地址',
+                showCancel: false,
+            });
+            return;
+        }
+
+        if (liftStyle === 'lift' && !liftInfo.receiver_phone) {
+            wx.showModal({
+                title: '提示',
+                content: '请输入正确的手机号',
                 showCancel: false,
             });
             return;
@@ -265,12 +323,7 @@ Page({
 
         let method = 'createOrderAndPay';
 
-        wx.showLoading({
-            title: '处理订单中',
-            mark: true,
-        });
-
-        const requestData = {
+        let requestData = {
             receiver_name: userName,
             receiver_phone: telNumber,
             receiver_country: nationalCode,
@@ -285,12 +338,51 @@ Page({
             afcode
         };
 
+        if (order_annotation) {
+            const orderForm = this.selectComponent('#orderForm');
+            console.log(orderForm.data, 'orderForm');
+            const { annotation, dns_obj } = orderForm.data;
+            annotation.forEach((item, index) => {
+                if (item.required && !dns_obj[item.name]) {
+                    item.isError = true;
+                }
+            });
+            this.setData({
+                order_annotation: annotation
+            });
+            const error = annotation.filter((item) => {
+                return (item.isError === true);
+            });
+            console.log(error);
+            if (error.length > 0) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请检查留言信息，带*号为必填项',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.annotation = JSON.stringify({ remarks: dns_obj });
+            }
+        }
+
+        wx.showLoading({
+            title: '处理订单中',
+            mark: true,
+        });
+
         if (user_coupon_ids) {
             requestData.user_coupon_ids = user_coupon_ids;
         }
 
         if (useCoin && shouldGoinDisplay) {
             requestData.coins = useCoin;
+        }
+
+        if (liftStyle === 'lift') {
+            requestData.shipping_type = 2;
+            requestData = { ...requestData, ...liftInfo };
+            wx.setStorageSync('liftInfo', liftInfo);
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
@@ -395,16 +487,22 @@ Page({
             'authModal.isShowModal': false,
             isShouldRedirect: true
         });
-    }
+    },
 
-    // checkPhoneModel() {
-    // 	wx.getSystemInfo({
-    // 		success: (res) => {
-    // 			this.setData({
-    // 				phoneModel: phoneStyle[res.model] || ''
-    // 			});
-    // 			console.log(res.model);
-    // 		}
-    // 	});
-    // }
+    /* radio选择改变触发 */
+    radioChange(e) {
+        if (e.detail.value === 'lift') {
+            const liftInfo = wx.getStorageSync('liftInfo');
+            if (liftInfo) {
+                this.setData({
+                    liftInfo
+                });
+            }
+        }
+        this.setData({
+            liftStyle: e.detail.value
+        }, () => {
+            this.onLoadData();
+        });
+    }
 });

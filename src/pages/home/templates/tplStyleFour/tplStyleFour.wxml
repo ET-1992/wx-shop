@@ -261,8 +261,8 @@
 			</view>
     	</view>
 	</view>
-	<view id="loadProducts" class="logo">
-		<image src="/icons/logo.png"></image>
-	</view>
+	 <view id="loadProducts" class="logo">
+    <logo logoObj="{{ logoObj }}" />
+  </view>
 </view>
 </view>

@@ -37,7 +37,8 @@ Component({
         ctx: {},
         authModal: {},
         productImageUrl: '',
-        qrcodeUrl: ''
+        qrcodeUrl: '',
+        qvcode: {}
     },
     async ready() {
         const nodeInfo = await getNodeInfo('canvasPosterId', {}, true, this);
@@ -108,8 +109,9 @@ Component({
             ctx.beginPath();
             ctx.setFillStyle('#000000');
             ctx.setTextAlign('left');
-            ctx.font = 'normal normal 12px PingFang SC';
-            ctx.fillText(`${(user && user.nickname) || '好友'} 向你推荐这个商品`, 50 / 540 * width, 750 / 900 * height);
+            ctx.font = 'normal bold 12px PingFang SC';
+            ctx.fillText((user && user.nickname) || '好友', 50 / 540 * width, 750 / 900 * height);
+            ctx.fillText('向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
             ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
@@ -149,10 +151,11 @@ Component({
             });
             if (res) {
                 let that = this;
+                const { qvcode } = this.data;
                 await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
                 wx.showModal({
                     title: '温馨提示',
-                    content: '保存成功，打开相册分享到朋友圈吧~',
+                    content: qvcode.save_success_tips ? qvcode.save_success_tips : '保存成功，快去分享吧',
                     showCancel: false,
                     success: function() {
                         that.closeModal();
@@ -212,7 +215,8 @@ Component({
                     const qrcodeUrlData = datas[1];
                     this.setData({
                         productImageUrl: productImageUrlData.tempFilePath,
-                        qrcodeUrl: qrcodeUrlData.tempFilePath
+                        qrcodeUrl: qrcodeUrlData.tempFilePath,
+                        qvcode
                     }, this.drawProductDetailImg);
                 }
             } catch (e) {

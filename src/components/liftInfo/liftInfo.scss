@@ -1,0 +1,106 @@
+.container {
+	display: flex;
+	width: 100%;
+	background-color: #fff;
+	padding: 40rpx 0;
+	flex-direction: row;
+	align-items: center;
+    margin: 10rpx 0;
+
+    .title{
+        font-size: 28rpx;
+        color: #000000;
+        margin-left: 40rpx;
+        margin-right: 20rpx;
+    }
+    
+    .liftInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex: 1;
+        font-size: 26rpx;
+
+        .liftInfoTop {
+            color: #333333;
+            font-weight: bold;
+        }
+
+        .icon {
+            margin-right: 10rpx;
+            width: 25rpx;
+            height: 25rpx;
+        }
+
+        .liftInfoCenter {
+            margin: 10rpx 0;
+        }	
+        
+        .liftInfoCenter, .liftInfoBottom {
+            color: #707070;
+            display: flex;
+            align-items: center;
+
+            .text {
+                display: -webkit-box;
+                word-break: break-all;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp:2;
+                flex: 1;
+            }
+        }
+    }
+    
+    .right-arrow {
+        color: #999999;
+        width: 10rpx;
+        height: 20rpx;
+        margin-right: 40rpx;
+        margin-left: 40rpx;
+    }
+}
+
+.receiver{
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    padding: 20rpx 40rpx;
+    font-size: 28rpx;
+    color: #000000;
+
+    .tel{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        text{
+            color: red;
+        }
+
+        input{
+            width: 240rpx;
+            border:1px solid #707070;
+            height: 20rpx;
+            box-sizing:border-box;
+            text-align:center;
+            color:#000000;
+        }
+    }
+
+    .title{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input{
+            width: 200rpx;
+            border:1px solid #707070;
+            height: 20rpx;
+            box-sizing:border-box;
+            text-align:center;
+            color:#000000;
+        }
+    }
+}

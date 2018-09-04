@@ -4,6 +4,7 @@
     "orderOperations": "../../components/orderOperations/index",
     "modal": "../../components/modal/modal",
     "address": "../../components/address/address",
+    "liftInfo": "../../components/liftInfo/liftInfo",
     "productItemSold": "../../components/productItemSold/index",
     "console": "../../components/console/console",
     "loading": "../../components/loading/index"

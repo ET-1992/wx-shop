@@ -281,8 +281,8 @@
 
     </view>
   </view>
-  <view id="loadProducts" class="logo" hidden="{{hasMask}}">
-    <image src="/icons/logo.png"></image>
+   <view id="loadProducts" class="logo">
+    <logo logoObj="{{ logoObj }}" />
   </view>
 </view>
 </view>

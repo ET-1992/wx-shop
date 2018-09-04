@@ -17,11 +17,13 @@ App({
             isIphone5: model.indexOf('iPhone 5') >= 0
         };
 
-        // const extConfig = wx.getExtConfigSync() || {};
-        const extConfig = { primaryColor: 'red', secondaryColor: 'black', categoryIndex: 2, tplStyle: 'four' };
-        const { primaryColor, secondaryColor, categoryIndex = 2, tplStyle } = extConfig;
+        const extConfig = wx.getExtConfigSync() || {};
+        // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
+        console.log(extConfig, 'extConfig');
+        const { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, tplStyle: 'default'} = extConfig;
         this.globalData.themeColor = { primaryColor, secondaryColor };
         this.globalData.categoryIndex = { categoryIndex };
+        this.globalData.partner = partner;
         this.globalData.tplStyle = tplStyle;
         this.logData = [];
         this.openConsole = false;

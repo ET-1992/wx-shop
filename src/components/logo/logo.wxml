@@ -1,0 +1,27 @@
+<view class="container">
+	<image src="/icons/logo.png" wx:if="{{ !logoObj.type && logoObj.type !== 0 }}" class="huashengLogo"></image>
+
+	<image src="{{ logoObj.logo }}" wx:if="{{ logoObj.type === 0 }}" class="huashengLogo"></image>
+
+	<view wx:if="{{ logoObj.type === 1 && logoObj.xlogo }}" class="type1_xlogo">
+		<image src="{{ logoObj.xlogo }}" class="xlogo"/><image src="/icons/logo2.png" class="logo2">
+	</view>
+
+	<view wx:if="{{ logoObj.type === 1 && !logoObj.xlogo }}" class="type1_xlogo">{{ logoObj.text }}</view>
+
+	<view wx:if="{{ logoObj.type === 2 && logoObj.xlogo }}" class="type2_xlogo_wrap">
+		<image src="{{ logoObj.logo }}" class="type2_logo" />
+		<view  class="type1_xlogo">
+			<image src="{{ logoObj.xlogo }}" class="xlogo"/><image src="/icons/logo2.png" class="logo2">
+		</view>
+	</view>
+
+	<view wx:if="{{ logoObj.type === 2 && !logoObj.xlogo }}" class="type2_xlogo_wrap">
+		<image src="{{ logoObj.logo }}" class="type2_logo" />
+		<view>{{ logoObj.text }}</view>
+	</view>
+
+	<view wx:if="{{ logoObj.type === 3 && logoObj.logo }}">
+		<image src="{{ logoObj.logo }}" class="type2_logo"/>
+	</view>
+</view>

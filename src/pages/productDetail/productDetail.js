@@ -741,7 +741,7 @@ Page({
             });
             if (confirm) {
                 wx.navigateTo({
-                    url: '/pages/share/shareApply/shareApply'
+                    url: '/pages/affiliate/affiliateApply/affiliateApply'
                 });
                 return;
             }

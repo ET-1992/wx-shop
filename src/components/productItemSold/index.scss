@@ -1,12 +1,16 @@
 .itemList {
-    box-shadow: 0 0 #E0E0E0 2rpx;
+	box-shadow: 0 0 #E0E0E0 2rpx;
+	background-color: #FFFFFF;
+
+	.item:last-child{
+		border:none;
+	}
 	.item {
 		display: flex;
-		padding: 20rpx 24rpx 20rpx 20rpx;
+		padding: 20rpx 0;
 		font-size: 28rpx;
-        background-color: #FFFFFF;
-        font-family: "PingFang SC";
-        border-bottom: 1rpx solid #E0E0E0;
+		border-bottom: 1rpx solid #E0E0E0;
+		margin: 0 24rpx 0 20rpx;
 
 		.itemImage {
 			$size: 140rpx;

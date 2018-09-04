@@ -4,7 +4,7 @@ import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import autoRedirect from 'utils/autoRedirect';
-import { updateCart } from 'utils/util';
+import { updateCart, parseScene } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -171,7 +171,7 @@ Page({
     async onLoad(options) {
         app.log(options, 'onLoad');
 
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor, partner = {}, tplStyle } = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -180,12 +180,38 @@ Page({
             themeColor,
             isIphoneX,
             userInfo,
-            tplStyle
+            tplStyle,
+            logoObj: partner
         });
     },
 
     async onShow() {
         app.log('onShow');
+
+
+        // const mock0 = {
+        //     type: 0,
+        //     logo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/08/1533633075-14823x.png'
+        // };
+
+        // const mock1 = {
+        //     type: 1,
+        //     xlogo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/160/h/40/interlace/1/q/70#',
+        //     text: '花生小店技术支持'
+        // };
+
+        // const mock2 = {
+        //     type: 2,
+        //     xlogo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/160/h/40/interlace/1/q/70#',
+        //     text: '花生小店技术支持',
+        //     logo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/320/h/112/interlace/1/q/70#'
+        // };
+
+        // this.setData({
+        //     mock0,
+        //     mock1,
+        //     mock2
+        // });
 
         this.setData({ isShowConsole: app.openConsole });
 
@@ -305,9 +331,14 @@ Page({
     // },
 
     async loadProducts() {
-        const { next_cursor, products } = this.data;
+        const { next_cursor, products, modules } = this.data;
+        let hack = {};
+        if (modules[modules.length - 1] && modules[modules.length - 1].args) {
+            hack = parseScene(modules[modules.length - 1].args);
+        }
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
+            ...hack
         });
         this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);

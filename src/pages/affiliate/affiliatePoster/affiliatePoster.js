@@ -10,7 +10,8 @@ Page({
         title: 'affiliatePoster',
         authModal: {},
         options: {},
-        share_title: ''
+        share_title: '',
+        qrcode: {}
     },
 
     onLoad(options) {
@@ -72,7 +73,8 @@ Page({
                             avatarUrl: avatarUrlData.tempFilePath,
                             qrcodeUrl: qrcodeUrlData.tempFilePath,
                             user,
-                            current_user: data.current_user
+                            current_user: data.current_user,
+                            qrcode: data
                         }, this.posterFnc[this.postertype]);
                     }
                 } else {
@@ -188,10 +190,11 @@ Page({
             isFatherControl: true
         });
         if (res) {
+            const { qrcode } = this.data;
             await saveImageToPhotosAlbum({ filePath: data.tempFilePath });
             wx.showModal({
                 title: '温馨提示',
-                content: '保存成功，打开相册分享到朋友圈吧~',
+                content: qrcode.save_success_tips ? qrcode.save_success_tips : '保存成功，去分享吧~',
                 showCancel: false,
             });
         }
