@@ -3,6 +3,14 @@ Component({
         showModal: {
             type: Boolean,
             value: false
+        },
+        manager: {
+            type: Object,
+            value: {}
+        },
+        themeColor: {
+            type: Object,
+            value: {}
         }
     },
     methods: {

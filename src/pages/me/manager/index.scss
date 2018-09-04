@@ -11,7 +11,7 @@
 	left: 0;
 	z-index: 10000;
 
-	.container1 {
+	.container {
         width: 560rpx;
         height: 320rpx;
 		background-color: #fff;
@@ -38,9 +38,8 @@
             height: 40rpx;
         }
 	}
-	.container2 {
+	.manager {
         width: 560rpx;
-        height: 836rpx;
 		background-color: #fff;
 		border-radius: 10rpx;
 		position: absolute;
@@ -89,12 +88,16 @@
             
             .desc{
                 width: 476rpx;
-                height: 120rpx;
                 font-size: 28rpx;
                 color: #707070;
+                overflow:hidden; 
+                text-overflow:ellipsis;
+                display:-webkit-box; 
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp: 4; 
             }
             .service{
-                margin: 27rpx 0 23rpx;
+                margin-top: 27rpx;
                 font-size: 28rpx;
                 font-weight: bold;
                 color: #707070;
@@ -126,9 +129,6 @@
         width: 220rpx;
         height: 70rpx;
         border-radius: 35rpx;
-        position:absolute;
-        bottom:30rpx;
-        left:50%;
-        margin-left:-110rpx;
+        margin: 35rpx auto;
     }
 }

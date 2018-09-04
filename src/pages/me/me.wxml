@@ -111,4 +111,4 @@
 
 <myModal modal="{{authModal}}" />
 
-<manager showModal="{{ showModal }}"/>
+<manager showModal="{{ showModal }}" manager="{{ dedicated_manager }}" themeColor="{{ themeColor }}"/>
