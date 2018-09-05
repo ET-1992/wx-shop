@@ -86,6 +86,10 @@ Component({
             });
         },
 
+        info() {
+            console.log('232');
+        },
+
         show() {
             this.setData({
                 isShow: true
