@@ -225,9 +225,9 @@
 								</text>
 								<text wx:else>￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
 							</view>
-							<!-- <view class="stock">
+							<view class="stock" wx:if="{{ defineTypeGlobal !== 'magua'}}">
 								库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
-							</view> -->
+							</view>
 							<view class="property" wx:if="{{ product.skus.length }}">
 								已选择：{{ selectedSku.property_names || '--' }}
 							</view>
