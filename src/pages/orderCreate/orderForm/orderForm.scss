@@ -12,11 +12,12 @@
 		}
 
 		.text {
-			width: 170rpx;
+			width: 130rpx;
 			color: #000000;
 			font-size: 28rpx;
 			line-height: 60rpx;
-
+			text-align: right;
+			margin-right: 50rpx;
 			.required {
 				color: #FF0000;
 			}
