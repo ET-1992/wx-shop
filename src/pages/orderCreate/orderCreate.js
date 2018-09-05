@@ -210,7 +210,7 @@ Page({
         }
 
         requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation } = await api.hei.orderPrepare(requestData);
+        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
         const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
 
@@ -230,7 +230,8 @@ Page({
             isPeanutPay: use_platform_pay,
             selfLiftEnable: self_lifting_enable,
             isDisablePay: false,
-            order_annotation
+            order_annotation,
+            product_type
         }, () => {
             this.computedFinalPay();
         });

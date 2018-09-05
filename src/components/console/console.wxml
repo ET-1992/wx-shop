@@ -3,7 +3,7 @@
 	<view class="consoleWrap" wx:if="{{ isShow }}">
 		<view class="consoleHead">
 			<view class="consoleHeadItem" bindtap="clear" style="border-right: 1rpx solid #c9c9c9">清空</view>
-			<view class="consoleHeadItem" bindtap="info" style="border-right: 1rpx solid #c9c9c9">信息</view>
+			<!-- <view class="consoleHeadItem" bindtap="info" style="border-right: 1rpx solid #c9c9c9">信息</view> -->
 			<view class="consoleHeadItem" bindtap="hide">退出</view>
 		</view>
 		<input class="search" type="text" placeholder="搜索关键字" bindblur="setKeyName" />

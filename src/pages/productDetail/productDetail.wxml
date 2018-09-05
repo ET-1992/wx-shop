@@ -192,6 +192,7 @@
 						catchtap="onShowSku" 
 						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}" 
 						style="background-color: {{ themeColor.secondaryColor }}"
+						wx:if="{{ product.product_type !== 1 }}"
 					>加入购物车</view>
 					<view 
 						class="buy" 
@@ -250,7 +251,7 @@
 						</view>
 					</view>
 				</scroll-view>
-				<view class="quantity">
+				<view class="quantity" wx:if="{{ product.product_type !== 1 }}">
 					<view class="title">数量</view>
 					<numberInput 
 						value="{{ quantity }}" 
