@@ -86,20 +86,20 @@
 			<view class="itemTitle">联系客服</view>
 		</button>
 
-		<navigator 
-			class="infoItem"
-			url="/pages/affiliate/affiliateApply/affiliateApply"
-			wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}"
-			>
-			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/affiliate.png" />
-			<view class="itemTitle">花生分享计划</view>
-		</navigator>
-
 		<navigator class="infoItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/about.png" />
 			<view class="itemTitle">关于我们</view>
 		</navigator>
 	</view>
+
+	<navigator 
+		class="affiliate" 
+		url="/pages/affiliate/affiliateApply/affiliateApply" 
+		wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">>
+		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
+		<view class="itemTitle">花生分享计划 >></view>
+	</navigator>
+	
 </view>
 <view class="peanut-logo logo">
 	<image src="../../icons/logo.png"></image>
