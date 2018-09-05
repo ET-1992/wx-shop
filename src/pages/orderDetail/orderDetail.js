@@ -163,9 +163,10 @@ Page({
     },
 
     onLoad({ isFromCreate = false }) {
-        const { globalData: { themeColor }, systemInfo } = app;
+        const { globalData: { themeColor, defineTypeGlobal }, systemInfo } = app;
         this.setData({
             themeColor,
+            defineTypeGlobal,
             systemInfo,
             isFromCreate,
             isLoading: true

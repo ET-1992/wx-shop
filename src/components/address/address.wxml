@@ -2,15 +2,15 @@
 		<image class="address-icon" src="/icons/address.png" mode="aspectFit"></image>
 
 		<view wx:if="{{ !address.userName }}" class="address">
-        	添加服务地址
+        	{{ defineTypeGlobalText[defineTypeGlobal].addAddress }}
      	</view>
 		<view class="address" wx:if="{{ address.userName }}">
 			<view class="address-top">
-				<text style="margin-right: 30rpx">联系人：{{ address.userName }}</text>
+				<text style="margin-right: 30rpx">{{ defineTypeGlobalText[defineTypeGlobal].receiver }}：{{ address.userName }}</text>
 				<text>{{ address.telNumber }}</text>
 			</view>
 			<view class="address-bottom">
-				<text>服务地址：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
+				<text>{{ defineTypeGlobalText[defineTypeGlobal].address }}：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
 			</view>
 		</view>
 		<image src="/icons/right.png" class="right-arrow"></image>
