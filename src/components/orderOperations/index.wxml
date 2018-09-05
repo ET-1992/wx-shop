@@ -8,7 +8,13 @@
     <image class="contactIcon" src="/icons/contact.png"/>
     <text>联系客服</text>
   </button>
-  <button
+
+  <view class="callBt" wx:if="{{ isShowContact }}" bindtap="call" data-phone="{{ phone }}">
+    <image class="contactIcon" src="/icons/contact.png"/>
+    <text>电话客服</text>
+  </view>
+
+   <button
     class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     bindtap="onRefund"
     wx:if="{{ isShowRefund }}"

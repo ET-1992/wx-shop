@@ -36,7 +36,7 @@
     <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
   </view>
   <view class="priceInfoItem">
-    <view class="priceInoItemTitle">运费</view>
+    <view class="priceInoItemTitle">附加服务费</view>
     <view class="priceInfoItemValue">+￥{{ postage || 0 }}</view>
   </view>
   <view class="priceInfoItem">

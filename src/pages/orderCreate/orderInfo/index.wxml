@@ -12,7 +12,7 @@
     <text class="money">-￥{{ coinForPay }}</text>
   </view>
   <view>
-    <text class="text">运费</text>
+    <text class="text">附加服务费</text>
     <text class="money">+￥{{ postageDispaly}}</text>
   </view>
 </view>

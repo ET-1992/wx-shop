@@ -1,0 +1,134 @@
+@import '~styles/color';
+.modal {
+    display: flex;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 10000;
+
+	.container1 {
+        width: 560rpx;
+        height: 320rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+		position: absolute;
+		left: 50%; 
+        top: 50%;
+        transform: translate(-50%, -50%);
+        
+		.content{
+            font-size: 28rpx;
+            color: #707070;
+            width: 392rpx;
+            height: 80rpx;
+            margin: 80rpx auto 50rpx;
+        }
+        
+        .close{
+            position:absolute;
+            right: 15rpx;
+            top: 15rpx;
+            z-index:999;
+            width: 40rpx;
+            height: 40rpx;
+        }
+	}
+	.container2 {
+        width: 560rpx;
+        height: 836rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+		position: absolute;
+		left: 50%; 
+        top: 50%;
+        transform: translate(-50%, -50%);
+        
+        .title{
+            position:absolute;
+		    left: 30rpx;
+            top: 20rpx;
+            font-size: 28rpx;
+            color: #fff;
+        }
+        .close{
+            position:absolute;
+            right: 20rpx;
+            top: 20rpx;
+            z-index:999;
+            width: 40rpx;
+            height: 40rpx;
+        }
+
+        .top{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: 320rpx;
+            background: $mainColor;
+            border-radius: 10rpx 10rpx 0 0;
+            .avatar{
+                width: 120rpx;
+                height: 120rpx;
+                background: #707070;
+                border-radius: 100%;
+                margin: 100rpx 0 20rpx;
+            }
+            .name{
+                font-size: 28rpx;
+                color: #fff;
+            }
+        }
+
+        .content{
+            margin: 35rpx 40rpx 0;
+            
+            .desc{
+                width: 476rpx;
+                height: 120rpx;
+                font-size: 28rpx;
+                color: #707070;
+            }
+            .service{
+                margin: 27rpx 0 23rpx;
+                font-size: 28rpx;
+                font-weight: bold;
+                color: #707070;
+
+                .time{
+                    padding-top: 20rpx;
+                }
+            }
+            .diyInfo{
+                font-size: 28rpx;
+                color: #707070;
+                overflow : hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+        }
+	}
+
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        font-size: 28rpx;
+        color: #fff;
+        background: $mainColor;
+        width: 220rpx;
+        height: 70rpx;
+        border-radius: 35rpx;
+        position:absolute;
+        bottom:30rpx;
+        left:50%;
+        margin-left:-110rpx;
+    }
+}

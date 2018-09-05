@@ -2,6 +2,7 @@
 	"navigationBarTitleText": "个人中心",
 	"usingComponents": {
 		"myModal": "../../components/myModal/myModal",
+		"manager": "./manager/index",
 		"console": "../../components/console/console",
 		"loading": "../../components/loading/index",
 		"logo": "../../components/logo/logo"

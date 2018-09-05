@@ -194,6 +194,13 @@ Component({
             if (user) {
                 this.onPayOrder();
             }
+        },
+
+        /* 电话客服 */
+        call(e) {
+            wx.makePhoneCall({
+                phoneNumber: e.currentTarget.dataset.phone
+            });
         }
     },
 });

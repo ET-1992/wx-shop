@@ -220,3 +220,47 @@ $iphoneXBottomGap: 40rpx;
 .textarea-placeholder {
 	color: $originalPriceColor;
 }
+
+.pickerBox{
+	display: flex;
+	width: 100%;
+	height: 100rpx;
+	background: #fff;
+	align-items: center;
+
+	.title{
+		font-size: 28rpx;
+		margin-left: 40rpx;
+
+	}
+
+	.date, .time{
+		display:flex;
+		align-items:center;
+		justify-content: center;
+		justify-content: space-between;
+		padding: 10rpx 20rpx;
+		height: 59rpx;
+		border: 1rpx solid #707070;
+		
+		view{
+			line-height: 0;
+			font-size: 32rpx;
+			color: #000000;
+		}
+	}
+
+	.date{
+		width: 284rpx;
+		margin-left: 24rpx;
+	}
+
+	.time{
+		width: 175rpx;
+		margin-left: 20rpx;
+	}
+
+	.arrow{
+		width: 18rpx;
+	}
+}
