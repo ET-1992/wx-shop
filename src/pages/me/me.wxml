@@ -52,10 +52,10 @@
 	<view class="infos">
 		<view class="infoItem" bindtap="onAddress">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/address.png" />
-			<view class="itemTitle">收货地址</view>
+			<view class="itemTitle">我的地址</view>
 		</view>
 		
-		<view class="infoItem" bindtap="openManager">
+		<view class="infoItem" bindtap="openManager" wx:if="{{ dedicated_manager }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/manager.png" />
 			<view class="itemTitle">我的管家</view>
 		</view>
@@ -86,20 +86,20 @@
 			<view class="itemTitle">联系客服</view>
 		</button>
 
-		<navigator 
-			class="infoItem"
-			url="/pages/affiliate/affiliateApply/affiliateApply"
-			wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}"
-			>
-			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/myfav.png" />
-			<view class="itemTitle">花生分享计划</view>
-		</navigator>
-
 		<navigator class="infoItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/about.png" />
 			<view class="itemTitle">关于我们</view>
 		</navigator>
 	</view>
+
+	<navigator 
+		class="affiliate" 
+		url="/pages/affiliate/affiliateApply/affiliateApply" 
+		wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">>
+		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
+		<view class="itemTitle">花生分享计划 >></view>
+	</navigator>
+	
 </view>
 <view class="peanut-logo logo">
 	<logo logoObj="{{ logoObj }}" />
@@ -111,4 +111,4 @@
 
 <myModal modal="{{authModal}}" />
 
-<manager showModal="{{ showModal }}"/>
+<manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}" themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}"/>
