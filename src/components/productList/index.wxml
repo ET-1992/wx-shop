@@ -9,20 +9,20 @@
 </view>
 
 <!-- tplStyleTwo -->
-<view class="tplStyleTwo" wx:if="{{ tplStyle === 'two' }}">
+<view class="tplStyleTwo" wx:if="{{ tplStyle === 'vip_tpl_vip_tpl_two' }}">
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleTwo/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaImage' }}" src="/templates/tplStyleTwo/productLayout/miaoshaImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleTwo/productLayout/topImage.wxml"/>
 </view>
 
 <!-- tplStyleThree -->
-<view class="tplStyleThree" wx:if="{{ tplStyle === 'three' }}">
+<view class="tplStyleThree" wx:if="{{ tplStyle === 'vip_tpl_vip_tpl_three' }}">
     <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleThree/productLayout/grouponStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleThree/productLayout/miaoshaStyle.wxml"/>
 </view>
 
 <!-- tplStyleFour -->
-<view class="tplStyleFour" wx:if="{{ tplStyle === 'four' }}">
+<view class="tplStyleFour" wx:if="{{ tplStyle === 'vip_tpl_vip_tpl_four' }}">
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleFour/productLayout/topImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleFour/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleFour/productLayout/miaoshaStyle.wxml"/>

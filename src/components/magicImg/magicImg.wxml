@@ -1,8 +1,8 @@
 
 <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml" />
-<include wx:if="{{ tplStyle === 'two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml" />
-<include wx:if="{{ tplStyle === 'three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml" />
-<include wx:if="{{ tplStyle === 'four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml" />
+<include wx:if="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml" />
+<include wx:if="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml" />
+<include wx:if="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml" />
 
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />

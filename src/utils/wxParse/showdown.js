@@ -1430,8 +1430,8 @@ showdown.subParser('codeBlocks', function (text, options, globals) {
  *         <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
  *
  *    There's no arbitrary limit to the number of backticks you
- *    can use as delimters. If you need three consecutive backticks
- *    in your code, use four for delimiters, etc.
+ *    can use as delimters. If you need vip_tpl_three consecutive backticks
+ *    in your code, use vip_tpl_four for delimiters, etc.
  *
  *  *  You can use spaces to get literal backticks at the edges:
  *
@@ -1485,7 +1485,7 @@ showdown.subParser('detab', function (text) {
     // expand first n-1 tabs
     text = text.replace(/\t(?=\t)/g, '    '); // g_tab_width
 
-    // replace the nth with two sentinels
+    // replace the nth with vip_tpl_two sentinels
     text = text.replace(/\t/g, '~A~B');
 
     // use the sentinel to anchor our regex so it doesn't explode
