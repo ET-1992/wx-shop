@@ -116,7 +116,22 @@ Page({
         receivableCoupons: [],
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
-        showShareModal: false
+        showShareModal: false,
+
+        defineTypeGlobalText: {
+            magua: {
+                buyText: '立即下单',
+                logisticsText: '上门服务费',
+                titleText: '服务详情',
+                nullPrice: '0 元'
+            },
+            default: {
+                buyText: '立即购买',
+                logisticsText: '邮费',
+                titleText: '商品详情',
+                nullPrice: '包邮'
+            }
+        }
     },
 
     onShowSku(ev) {
@@ -230,8 +245,7 @@ Page({
                 },
             });
             wx.setNavigationBarTitle({
-                // title: data.page_title,
-                title: '服务详情'
+                title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
 
 
@@ -335,19 +349,20 @@ Page({
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, tplStyle } = app.globalData;
-        this.initPage();
+        const { themeColor, tplStyle, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
             themeColor,
             tplStyle,
+            defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             routeQuery: query,
             cartNumber: CART_NUM
         });
+        this.initPage();
     },
 
     onUnload() {

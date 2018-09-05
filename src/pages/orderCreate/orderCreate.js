@@ -71,9 +71,9 @@ Page({
 
     async onLoad() {
         // this.checkPhoneModel();
-        const { themeColor } = app.globalData;
+        const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
-        this.setData({ themeColor, isIphoneX });
+        this.setData({ themeColor, isIphoneX, defineTypeGlobal });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy } = this.options;

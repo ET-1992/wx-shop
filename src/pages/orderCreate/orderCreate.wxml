@@ -9,7 +9,7 @@
       </radio-group>
   </view>
   <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
-  <address address="{{ address }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
+  <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal  }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
 
   <view class="textareaWrapper" wx:if="{{ !order_annotation }}">
