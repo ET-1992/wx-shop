@@ -52,10 +52,10 @@
 	<view class="infos">
 		<view class="infoItem" bindtap="onAddress">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/address.png" />
-			<view class="itemTitle">收货地址</view>
+			<view class="itemTitle">服务地址</view>
 		</view>
 		
-		<view class="infoItem" bindtap="openManager">
+		<view class="infoItem" bindtap="openManager" >
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/manager.png" />
 			<view class="itemTitle">我的管家</view>
 		</view>
@@ -111,4 +111,4 @@
 
 <myModal modal="{{authModal}}" />
 
-<manager showModal="{{ showModal }}" manager="{{ dedicated_manager }}" themeColor="{{ themeColor }}"/>
+<manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}" themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}"/>

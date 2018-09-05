@@ -4,17 +4,11 @@ import { chooseAddress, getSetting, authorize, showToast, showModal } from 'util
 import { ADDRESS_KEY } from 'constants/index';
 const app = getApp();
 
-// const itemActions = {
-//     coupon: () => console.log('coupon'),
-//     notice: () => console.log('notice'),
-// };
-
 // 创建页面实例对象
 Page({
 
     // 页面的初始数据
     data: {
-        // active: 0,
         user: {},
         orderCount: {
             1: 0,
@@ -28,9 +22,7 @@ Page({
     },
 
     async loadOrderCount() {
-        // const data = await api.hei.fetchOrderCount({
-        //     status: '1,2,3,10',
-        // });
+
         const data = await api.hei.myFare();
 
         this.setData({
@@ -43,13 +35,14 @@ Page({
 
     onLoad() {
         app.log('页面onLoad');
-        // user用户客服对接
+
         const { themeColor } = app.globalData;
         this.setData({ themeColor, isShowConsole: app.openConsole });
     },
 
     async onShow() {
         app.log('页面onShow');
+
         const user = getUserInfo();
         this.setData({ user, isShowConsole: app.openConsole });
         this.loadOrderCount();
@@ -61,21 +54,6 @@ Page({
     onLogin() {
         wx.navigateTo({ url: '/pages/login/login' });
     },
-    // free() {
-    // 	this.setData({
-    // 		active: 1,
-    // 	});
-    // },
-    // close() {
-    // 	this.setData({
-    // 		active: 0,
-    // 	});
-    // },
-    // onItemClick(ev) {
-    //     const { name } = ev.currentTarget.dataset;
-    //     const action = itemActions[name];
-    //     action();
-    // },
 
     async onAddress() {
         const res = await auth({
@@ -137,8 +115,20 @@ Page({
 
     /* 我的管家 */
     async openManager() {
-        this.setData({
-            showModal: true
-        });
+        const address  = wx.getStorageSync('address');
+        if (!address) {
+            const res = await auth({
+                scope: 'scope.address',
+                ctx: this
+            });
+            if (res) {
+                const addressRes = await chooseAddress();
+                wx.setStorageSync(ADDRESS_KEY, addressRes);
+            }
+        } else {
+            this.setData({
+                openManager: true
+            });
+        }
     }
 });

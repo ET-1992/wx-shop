@@ -1,18 +1,5 @@
-<view class="modal" wx:if="{{ showModal }}">
-	<!-- <view class="container">
-		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
-		<view class="content">
-			<text>您尚未设置服务地址，请先设置服务地址以便为您分配专属管家</text>
-			<text>您当前地址尚无专属管家，请联系400客服</text>
-		</view>
-		<view catchtap="call" class="btn">
-			<form bindsubmit="submitFormId" report-submit="true">
-				<button formType="submit">拨打400电话</button>
-			</form>
-		</view>
-    </view> -->
-    
-    <view class="manager">
+<view class="modal" wx:if="{{ openManager }}">
+    <view class="manager" wx:if="{{ manager && manager.phone && address }}">
         <view class="title">星级管家</view>
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 		<view class="top" style="background-color: {{ themeColor.primaryColor }}">
@@ -29,10 +16,16 @@
             </view>
             <!-- <view class="diyInfo"> 商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字 </view> -->
         </view>
-        <view catchtap="callManager" data-phone="{{ manager.phone }}">
-			<form bindsubmit="submitFormId" report-submit="true">
-				<button formType="submit" style="background-color: {{ themeColor.primaryColor }}">呼叫管家</button>
-			</form>
-		</view>
+        <view class="btn" catchtap="callManager" data-phone="{{ manager.phone }}" style="background-color: {{ themeColor.primaryColor }}"> 呼叫管家 </view>
 	</view>
+
+	<view class="container" wx:if="{{ !(manager && manager.phone) }}">
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
+		<view class="content">
+			<text>您当前地址尚无专属管家，请联系客服</text>
+		</view>
+		<view wx:if="{{ phoneNumber }}" class="btn" catchtap="callServicer" data-phone="{{ phoneNumber }}" style="background-color: {{ themeColor.primaryColor }}"> 拨打400电话 </view>
+		<button wx:if="{{ !phoneNumber && !user }}" class="btn" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" style="background-color: {{ themeColor.primaryColor }}">联系客服{{ user.nickname }}</button>
+		<button wx:if="{{ !phoneNumber && user }}" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}' class="btn" style="background-color: {{ themeColor.primaryColor }}">联系客服</button>
+    </view>
 </view>
