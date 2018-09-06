@@ -7,6 +7,11 @@ Component({
         annotation: {
             type: Array,
             value: [],
+        },
+
+        isShowModal: {
+            type: Boolean,
+            value: false,
         }
     },
     data: {

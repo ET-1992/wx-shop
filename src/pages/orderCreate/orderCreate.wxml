@@ -18,7 +18,7 @@
     <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
 
-  <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation && order_annotation.length > 0 }}" id="orderForm" />
+  <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation && order_annotation.length > 0 }}" id="orderForm" isShowModal="{{ modal.isShowModal }}" />
 
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
   <orderInfo fee="{{ fee }}" totalPrice="{{ totalPrice }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}"></orderInfo>

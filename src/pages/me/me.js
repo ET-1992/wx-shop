@@ -36,8 +36,8 @@ Page({
     onLoad() {
         app.log('页面onLoad');
         // user用户客服对接
-        const { themeColor, partner = {}} = app.globalData;
-        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner });
+        const { themeColor, partner = {}, defineTypeGlobal } = app.globalData;
+        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal });
     },
 
     async onShow() {

@@ -55,7 +55,7 @@
 			<view class="itemTitle">我的地址</view>
 		</view>
 		
-		<view class="infoItem" bindtap="openManager" wx:if="{{ dedicated_manager }}">
+		<view class="infoItem" bindtap="openManager" wx:if="{{ defineTypeGlobal === 'magua' }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/manager.png" />
 			<view class="itemTitle">我的管家</view>
 		</view>
@@ -111,4 +111,4 @@
 
 <myModal modal="{{authModal}}" />
 
-<manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}" themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}"/>
+<manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}"  themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}"/>

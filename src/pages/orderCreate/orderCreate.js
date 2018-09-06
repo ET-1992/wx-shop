@@ -278,7 +278,9 @@ Page({
             shouldGoinDisplay,
             liftStyle,
             liftInfo,
-            order_annotation
+            order_annotation,
+            product_type,
+            selfLiftEnable
         } = this.data;
         const {
             userName,
@@ -293,7 +295,7 @@ Page({
         const { vendor, afcode } = app.globalData;
         console.log(vendor, afcode, 'globalData');
 
-        if (!userName && liftStyle !== 'lift') {
+        if (!userName && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
@@ -302,7 +304,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_address_name) {
+        if (liftStyle === 'lift' && !liftInfo.receiver_address_name && product_type !== 1 && selfLiftEnable) {
             wx.showModal({
                 title: '提示',
                 content: '请先选择自提地址',
@@ -311,7 +313,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_phone) {
+        if (liftStyle === 'lift' && !liftInfo.receiver_phone && product_type !== 1 && selfLiftEnable) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
@@ -339,7 +341,7 @@ Page({
             afcode
         };
 
-        if (order_annotation) {
+        if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
             console.log(orderForm.data, 'orderForm');
             const { annotation, dns_obj } = orderForm.data;

@@ -195,7 +195,7 @@
 						wx:if="{{ product.product_type !== 1 }}"
 					>加入购物车</view>
 					<view 
-						class="buy" 
+						class="buy {{ product.product_type === 1 && 'maguaWidthBtn' }}" 
 						catchtap="onShowSku" 
 						data-actions="{{ [{ type: 'onBuy', text: defineTypeGlobalText[defineTypeGlobal].buyText }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
@@ -214,7 +214,7 @@
 			<view style="width:100%">
 				<scroll-view scroll-y class="scrollSkus">
 					<view class="head">
-						<image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.images[0] }}" class="productImage" mode="aspectFill"
+						<image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill"
 						/>
 						<view class="productInfo">
 							<view class="price">
