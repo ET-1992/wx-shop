@@ -101,7 +101,6 @@
 	/* 优惠券 */
     .couponsWrapper {
 		padding: 30rpx 40rpx;
-		// border-bottom: 2rpx solid #C2C2C2;
 		
     	.coupons {
 			display: flex;
@@ -207,8 +206,6 @@
 
     .section {
 		margin: 60rpx $sideWidth 0;
-		padding-bottom: 60rpx;
-		// border-bottom: 2rpx solid #C2C2C2;
 
     	.sectionTitle {
 			display: flex;
@@ -225,12 +222,6 @@
 			.grouponItem{
 				margin: 10rpx 0 20rpx;
 			}
-			/* .grouponItem:nth-child(3n-2){
-				margin-right: 20rpx;
-			}
-			.grouponItem:nth-child(3n+0){
-				margin-left: 20rpx;
-			} */
 		}
 
 		.miaoshaContainer{
@@ -308,8 +299,7 @@
 		background: #fff;
     	display: flex;
 		flex-flow: row wrap;
-		margin: 60rpx 35rpx;
-		// border-bottom:2rpx solid #C2C2C2;
+		padding: 30rpx 35rpx 0;
 		
     	.homeCategory{
 			display:flex;
@@ -318,7 +308,7 @@
 			align-items:center;
 			width: 20%;
 			height: 154rpx;
-			margin-bottom: 46rpx;
+			margin-bottom: 45rpx;
 
     		.categoryItem{
 				.categoryImg{
