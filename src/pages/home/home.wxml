@@ -6,10 +6,10 @@
 <include wx:if="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
 <include wx:if="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
 
-<block wx:if="{{ tplStyle !== 'default' }}">
+<!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
     <service phone="{{phone}}" customer="{{customer}}" sessionFrom='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'/>
-</block>
+<!-- </block> -->
 
 <!-- 新用戶优惠券弹框 -->
 <include wx:if="{{ newUser == 1 && hasNewUserCoupons }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
