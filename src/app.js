@@ -23,11 +23,11 @@ App({
         let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default' } = extConfig;
 
         const templateTypeTest  = ['magua'];
-        if (templateTypeTest.indexOf(templateType) === -1) {
+        if (templateTypeTest.indexOf(templateType) < 0) {
             templateType = 'default';
         }
         const styleTypeTest = ['vip_tpl_two', 'vip_tpl_three', 'vip_tpl_four'];
-        if (styleTypeTest.indexOf(templateType) === -1) {
+        if (styleTypeTest.indexOf(styleType) < 0) {
             styleType = 'default';
         }
 
