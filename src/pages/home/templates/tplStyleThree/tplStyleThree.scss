@@ -327,6 +327,8 @@
         align-items: center;
 
         .instructions-item{
+			display: flex;
+			align-items: center;
             image{
                 width: 20rpx;
                 height: 20rpx;

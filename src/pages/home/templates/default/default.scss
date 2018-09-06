@@ -5,7 +5,7 @@
 	$zeroMarginTop: 20rpx;
 
     swiper{
-    	margin-bottom: 15rpx;
+    	// margin-bottom: 15rpx;
     }
     .container {
     	height: auto;
@@ -54,7 +54,10 @@
 
     .zeroMarginTop {
     	margin-top: -$zeroMarginTop;
-    }
+	}
+	.MarginTop{
+		margin-top: $zeroMarginTop;
+	}
 
     .banner,.banner button, .banner image {
     	width: 100%;
@@ -285,5 +288,75 @@
     	padding: 21rpx 30rpx;
     	flex-wrap: wrap;
     	justify-content: space-between;
+	}
+	
+	/* 服务说明 */
+    .instructions{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        height: 70rpx;
+        align-items: center;
+
+        .instructions-item{
+			display: flex;
+			align-items: center;
+            image{
+                width: 20rpx;
+                height: 20rpx;
+            }
+            view{
+                padding-left: 10rpx;
+                display: inline;
+                font-size: 20rpx;
+                color: #707070;
+            }
+        }
     }
+    .announcement{
+        display: flex;
+        height: 70rpx;
+        align-items: center;
+		background: #FFF9EC;
+		font-size: 22rpx;
+		color: #000000;
+	
+		.infoIcon{
+			margin: 0 14rpx 0 30rpx;
+			width: 48rpx;
+			height: 35rpx;
+		}
+		
+	}
+
+	@keyframes marque {
+    	0% {
+    	    transform: translateX(0);
+    	}
+    	100% {
+    	    transform: translateX(-33.3%);
+    	}
+	}
+	.marquee {
+		width: 100%;
+  		display: block;
+  		overflow: hidden;
+  		white-space: nowrap;
+  		text-overflow: clip;
+		position: relative;
+		  
+		.content {
+			display: inline-block;
+			position: relative;
+			padding-right: 0px;
+			white-space: nowrap;
+			animation-name: marque;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		.content-space{
+			display: inline-block;
+			width: 300px;
+		}
+	}
 }

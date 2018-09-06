@@ -176,7 +176,7 @@
     	}
 	}
 	.firstCoupon{
-    	padding-top: 40rpx;
+    	padding-top: 20rpx;
 	}
 	.secondCoupon{
     	padding-top: $zeroMarginTop;
@@ -315,6 +315,8 @@
         align-items: center;
 
         .instructions-item{
+			display: flex;
+			align-items: center;
             image{
                 width: 20rpx;
                 height: 20rpx;

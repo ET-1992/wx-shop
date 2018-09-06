@@ -135,7 +135,7 @@
             </view>
             <!-- 优惠券 -->
             <view wx:if="{{ module.key === 'coupons' }}">
-                <view class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && hasSliders ? 'secondCoupon' : ''}} {{ index === 0 && hasSliders ? 'firstCoupon' : ''}}" wx:if="{{ userCoupon.length }}">
+                <view class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && !(instructions && instructions.length) && !announcement ? 'secondCoupon' : ''}} {{ index === 0 && !(instructions && instructions.length) && !announcement ? 'firstCoupon' : '' }}" wx:if="{{ userCoupon.length }}">
                     <view class="coupons">
                         <view class="coupon" wx:for="{{ userCoupon }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}"
                             data-title="{{ item.title }}" data-index="{{ index }}" wx:if="{{ index < 2 }}">
