@@ -19,7 +19,10 @@
 
 		<view class="item" wx:if="{{ item.type === 'textarea' }}">
 			<view class="text" wx:if="{{ item.name }}">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
-			<view class="type"><textarea type="text" style="border-color: {{ item.isError ? '#FF0000' : '#707070' }};width: {{ item.name ? '480rpx' : '100%' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  /></view>
+			<view class="type">
+				<textarea wx:if="{{ !isShowModal }}"  type="text" style="border-color: {{ item.isError ? '#FF0000' : '#707070' }};width: {{ item.name ? '480rpx' : '100%' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  />
+				<view wx:if="{{ isShowModal }}"  type="text" style="border-color: {{ item.isError ? '#FF0000' : '#707070' }};width: {{ item.name ? '480rpx' : '100%' }};" class="textareafix"  />
+			</view>
 		</view>
 
 		<view class="item" wx:if="{{ item.type === 'img' }}">

@@ -19,7 +19,7 @@
         <view class="btn" catchtap="callManager" data-phone="{{ manager.phone }}" style="background-color: {{ themeColor.primaryColor }}"> 呼叫管家 </view>
 	</view>
 
-	<view class="container" wx:if="{{ !(manager && manager.phone) }}">
+	<view class="container" wx:if="{{ !manager }}">
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 		<view class="content">
 			<text>您当前地址尚无专属管家，请联系客服</text>

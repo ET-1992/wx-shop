@@ -142,6 +142,7 @@ Page({
         const updateData = { isShowAcitonSheet: true };
         if (ev) {
             const { actions, isGrouponBuy = false } = ev.currentTarget.dataset;
+            console.log(actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;

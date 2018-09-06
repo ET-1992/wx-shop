@@ -27,5 +27,6 @@ module.exports = {
     'one-var': 0,
     'array-callback-return': 1,
     'guard-for-in': 0,
+    'complexity': 0
   }
 };
