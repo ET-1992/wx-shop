@@ -22,7 +22,7 @@
 	<view class="container" wx:if="{{ !manager }}">
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="closeModal" />
 		<view class="content">
-			<text>您当前地址尚无专属管家，请联系客服</text>
+			<text>{{ no_dedicated_manager_text || '您当前地址尚无专属管家，请联系客服' }}</text>
 		</view>
 		<view wx:if="{{ phoneNumber }}" class="btn" catchtap="callServicer" data-phone="{{ phoneNumber }}" style="background-color: {{ themeColor.primaryColor }}"> 拨打400电话 </view>
 		<button wx:if="{{ !phoneNumber && !user }}" class="btn" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" style="background-color: {{ themeColor.primaryColor }}">联系客服{{ user.nickname }}</button>

@@ -24,8 +24,10 @@
     </view>
   </view>
 
+<view wx:if="{{ order.type !== 3 }}">
   <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/>
   <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}"/>
+</view>
 
   <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}" >
 		<view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">

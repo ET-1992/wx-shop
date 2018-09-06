@@ -20,6 +20,10 @@ Component({
         user: {
             type: Object,
             value: {}
+        },
+        no_dedicated_manager_text: {
+            type: String,
+            value: ''
         }
     },
     data: {
