@@ -20,12 +20,25 @@ App({
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
-        const { primaryColor = 'red', secondaryColor = 'blue', categoryIndex = 2, partner = {}, styleType = 'vip_tpl_four', templateType = 'default' } = extConfig;
-        this.globalData.themeColor = { primaryColor, secondaryColor };
-        this.globalData.categoryIndex = { categoryIndex };
-        this.globalData.partner = partner;
-        this.globalData.tplStyle = styleType;
-        this.globalData.defineTypeGlobal = templateType;
+        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default' } = extConfig;
+
+        const templateTypeTest  = ['magua'];
+        if (templateTypeTest.indexOf(templateType) < 0) {
+            templateType = 'default';
+        }
+        const styleTypeTest = ['vip_tpl_two', 'vip_tpl_three', 'vip_tpl_four'];
+        if (styleTypeTest.indexOf(styleType) < 0) {
+            styleType = 'default';
+        }
+
+        this.globalData = Object.assign(this.globalData, {
+            themeColor: { primaryColor, secondaryColor },
+            categoryIndex: { categoryIndex },
+            partner: partner,
+            tplStyle: styleType,
+            defineTypeGlobal: templateType
+        });
+
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
