@@ -39,7 +39,7 @@
      <!-- 幻灯片 -->
       <view wx:if="{{ module.key === 'sliders' }}">
 		<view class="searchSliders">
-			<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindchange="swiperChange">
+			<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindanimationfinish="swiperChange">
 			  <swiper-item wx:for="{{ sliders }}" wx:key="id">
 				<navigator 
 				  app-id="{{item.appid}}" 

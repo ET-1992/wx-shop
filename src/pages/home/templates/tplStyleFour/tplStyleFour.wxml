@@ -36,7 +36,7 @@
     		<!-- 幻灯片 -->
     		<view wx:if="{{ module.key === 'sliders' }}">
 				<view style="{{ modules[0].key === 'sliders' || (modules[0].key === 'search_box' && modules[1].key === 'sliders') ? '' : 'padding-top: 30rpx'}}" class="searchSliders">
-					<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindchange="swiperChange">
+					<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindanimationfinish="swiperChange">
 						<swiper-item wx:for="{{ sliders }}" wx:key="id">
 							<navigator 
 							  app-id="{{item.appid}}" 
