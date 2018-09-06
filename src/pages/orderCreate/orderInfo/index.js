@@ -44,12 +44,25 @@ Component({
                     totalPostageDispaly: Number(newValue).toFixed(2)
                 });
             }
+        },
+        defineTypeGlobal: {
+            type: String,
+            value: ''
         }
     },
     data: {
         coinForPay: '0.00',
         totalPriceDispaly: '0.00',
         couponFeeDispaly: '0.00',
-        totalPostageDispaly: '0.00'
+        totalPostageDispaly: '0.00',
+
+        defineTypeGlobalText: {
+            magua: {
+                postageText: '附加服务费'
+            },
+            default: {
+                postageText: '运费'
+            }
+        }
     }
 });

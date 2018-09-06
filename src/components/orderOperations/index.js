@@ -46,6 +46,10 @@ Component({
         isOrderDetail: {
             type: Boolean,
             value: false
+        },
+        phone: {
+            type: String,
+            value: ''
         }
     },
 

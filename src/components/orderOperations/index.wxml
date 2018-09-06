@@ -9,8 +9,8 @@
     <text>联系客服</text>
   </button>
 
-  <view class="callBt" wx:if="{{ isShowContact }}" bindtap="call" data-phone="{{ phone }}">
-    <image class="contactIcon" src="/icons/contact.png"/>
+  <view class="callBt" wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
+    <image class="contactIcon" src="/icons/magua/phone.png"/>
     <text>电话客服</text>
   </view>
 

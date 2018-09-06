@@ -37,7 +37,16 @@ Page({
 
         address: {},
 
-        virtualProductBtn: true
+        virtualProductBtn: true,
+
+        defineTypeGlobalText: {
+            magua: {
+                postageText: '附加服务费'
+            },
+            default: {
+                postageText: '运费'
+            }
+        }
     },
 
     async loadOrder(id) {
