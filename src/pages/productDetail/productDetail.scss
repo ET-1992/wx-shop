@@ -187,9 +187,7 @@ video {
 		padding: 24rpx 0;
 		color: $originalPriceColor;
 		font-size: 24rpx;
-		border-bottom: 0.5rpx solid #D7D7D7;
 
-		
 		button {
 			color: $originalPriceColor;
 			font-size: 18rpx;
@@ -242,6 +240,7 @@ video {
 		padding: 24rpx 0;
 		display: flex;
 		justify-content: flex-start;
+		border-top: 0.5rpx solid #D7D7D7;
 
 		.desc{
 			width: 600rpx;
