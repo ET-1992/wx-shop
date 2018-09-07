@@ -91,7 +91,7 @@
       <view wx:if="{{ module.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
 			<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-		  	<view class="grouponContainer" style="justify-content:{{ groupons.length <= 2 ? 'flex-start' : 'space-between' }}">
+		  	<view class="grouponContainer">
           <navigator wx:if="{{groupons.length==1}}" class="grouponItem" url="/pages/grouponList/grouponList">
           	<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </navigator>
