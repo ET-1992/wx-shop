@@ -211,11 +211,14 @@
 
 		.grouponContainer{
 			display: flex;
-			flex-wrap: wrap;
+			// flex-wrap: wrap;
 			justify-content:space-between;
 
 			.grouponItem{
-				margin: 10rpx 0 20rpx;
+				margin: 0 0 10rpx 12rpx;
+			}
+			.grouponItem:nth-child(3n-2){
+				margin-left: 0;
 			}
 		}
 
