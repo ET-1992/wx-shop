@@ -11,7 +11,7 @@
                 {{ manager.description }}
             </view>
             <view class="service">
-                <view>服务电话：{{ manager.phone }}</view>
+                <view>服务电话：{{ manager.phone_number }}</view>
                 <view class="time">服务时间：{{ manager.service_time }}</view>
             </view>
             <!-- <view class="diyInfo"> 商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字商家自定义信息，两行约30字 </view> -->
