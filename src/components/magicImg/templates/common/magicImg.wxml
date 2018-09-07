@@ -1,12 +1,12 @@
 
 <view class="sectionTitle" wx:if="{{ magicImgData.title }}">{{ magicImgData.title }}</view>
-<view class="rowImgWrap" wx:if="{{ magicImgData.defineType === 'oneLine' }}" style="height: {{magicImgData.height}}rpx">
+<view class="rowImgWrap" wx:if="{{ magicImgData.defineType === 'oneLine' }}" style="height: {{ tplStyle === 'default' ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <block wx:for="{{magicImgData.eachNum}}" wx:key="{{ index }}">
         <template is="rowImgItem" data="{{magicImgData, index, userInfo}}"></template>
     </block>
 </view>
 
-<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-2' }}" style="height: {{magicImgData.height}}rpx">
+<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-2' }}" style="height: {{ tplStyle === 'default' ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <template is="rowImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
         <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
@@ -14,7 +14,7 @@
     </view>
 </view>
 
-<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-3' }}" style="height: {{magicImgData.height}}rpx">
+<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-3' }}" style="height: {{ tplStyle === 'default' ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
         <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
         <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
@@ -22,7 +22,7 @@
     <template is="rowImgItem" data="{{magicImgData, index: 2, userInfo}}"></template>
 </view>
 
-<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '4-2' }}" style="height: {{magicImgData.height}}rpx">
+<view class="rowImgWrap" wx:if="{{ magicImgData.layout === '4-2' }}" style="height: {{ tplStyle === 'default' ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
         <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
         <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
