@@ -17,6 +17,7 @@ const getSKU = ({
             skuValue, // 原始数据里面的一条SKU数据的值
             skuKeyArrs, // 原始数据里面的一条SKU数据的键返回的新的数组[1,2,3,4]
             combinationArr;// 排列组合返回的所有可行路径
+        this.SKU = {};
         for (;i < len; i++) {
             skuKey = skuKeyArr[i];
             skuValue = data[skuKey];
