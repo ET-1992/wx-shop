@@ -12,12 +12,12 @@
 		}
 
 		.text {
-			width: 130rpx;
+			width: 155rpx;
 			color: #000000;
-			font-size: 28rpx;
+			font-size: 24rpx;
 			line-height: 60rpx;
 			text-align: right;
-			margin-right: 50rpx;
+			margin-right: 30rpx;
 			.required {
 				color: #FF0000;
 			}
@@ -25,13 +25,14 @@
 
 		.type {
 			flex: 1;
+			font-size: 24rpx;
 
 			.picker {
 				height: 60rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				border: 1rpx solid #707070;
+				border: 1rpx solid #c2c2c2;
 				border-radius: 5rpx;
 			}
 
@@ -46,7 +47,7 @@
 			textarea, .textareafix {
 				width: 480rpx;
 				height: 180rpx;
-				border: 1rpx solid #707070;
+				border: 1rpx solid #c2c2c2;
 				border-radius: 5rpx;
 			}
 
@@ -55,7 +56,7 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				border: 1rpx solid #707070;
+				border: 1rpx solid #c2c2c2;
 				border-radius: 5rpx;
 				text-align: center;
 			}
