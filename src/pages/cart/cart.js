@@ -29,7 +29,7 @@ Page({
     },
 
     async onShow() {
-        this.setData({ isLogin: true, isLoading: true, isShowConsole: app.openConsole });
+        this.setData({ isLogin: true, isLoading: true });
         await this.loadCart();
         const cartNumber = (this.data.items.length).toString();
         wx.setStorageSync('CART_NUM', cartNumber);

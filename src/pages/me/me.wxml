@@ -101,14 +101,16 @@
 	</navigator>
 	
 </view>
-<view class="peanut-logo logo">
+<view class="peanut-logo logo" bindtap="getDeviceInfo">
 	<logo logoObj="{{ logoObj }}" />
 </view>
 
 <myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
 
-<console page="个人中心" wx:if="{{ isShowConsole }}"/>
+<console page="个人中心" />
 
 <myModal modal="{{authModal}}" />
 
 <manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}"  themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
+
+<myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />
