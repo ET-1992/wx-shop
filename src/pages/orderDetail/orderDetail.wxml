@@ -1,6 +1,5 @@
 <wxs module="orderDetail">
   var check = function(text, _text) {
-    console.log(1, text.indexOf(_text));
     return text.indexOf(_text);
   };
 
