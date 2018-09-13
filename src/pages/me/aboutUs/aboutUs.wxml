@@ -1,7 +1,7 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<image class="img" src="{{ image_url }}" mode="widthFix" bindload="isLoaded"/>
-	<view wx:if="{{ showBtn || !image_url }}" class="footer">
+	<view wx:if="{{ phone && !isLoading }}" class="footer">
         <button class="call" bindtap="call" data-phone="{{ phone }}" style="background-color: {{ themeColor.primaryColor }}">
 			<text class="text">联系我们</text>
 		</button>
