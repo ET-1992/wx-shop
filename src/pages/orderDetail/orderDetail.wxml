@@ -1,3 +1,12 @@
+<wxs module="orderDetail">
+  var check = function(text, _text) {
+    console.log(1, text.indexOf(_text));
+    return text.indexOf(_text);
+  };
+
+  module.exports.check = check;
+</wxs>
+
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
   <view class="header" wx:if="{{ order.id && order.statusCode !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
@@ -86,8 +95,8 @@
 <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
   <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
     <view>{{ index }}</view>
-    <view wx:if="{{ index !== '图片' }}">{{item}}</view>
-    <image wx:if="{{ index === '图片' }}" class="remarkImg" src="{{ item }}" />
+    <view wx:if="{{ orderDetail.check(item, 'http:') === -1 }}">{{item}}</view>
+    <image wx:if="{{ orderDetail.check(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
   </view>
 </view>
 
