@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "发表评价",
+	"usingComponents": {
+		"i-rate": "../../components/iview-weapp/dist/rate/index",
+		"van-field": "../../components/vant-weapp/dist/field/index"
+	}
+}

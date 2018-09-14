@@ -1,0 +1,31 @@
+<view class="container">
+	<view class="top">
+		<image wx:if="{{ imageUrl }}" class="left" src="{{ imageUrl }}" mode="aspectFill"></image>
+		<view class="right">
+			<view class="title">商品评分</view>
+			<i-cell>
+				<i-rate bind:change="rate" value="{{rating}}" size="30"></i-rate>
+			</i-cell>
+		</view>
+	</view>
+	<textarea class="content" maxlength="{{ maxlength }}" bindinput="bindTextAreaBlur" placeholder="分享一下你的购买心得吧~" placeholder-class="textarea-placeholder">
+        <view class="bottom" style="color:{{ len == maxlength ? 'red' : '' }}">
+            {{ len|0 }}/{{ maxlength }}
+        </view>
+    </textarea>
+	<view class="uploadGroup">
+		<view class="uploadItem" wx:for="{{ images }}" wx:key="item">
+			<image class="imageItem" src="{{ item }}" mode="aspectFill" bindtap="previewImage"/>
+			<image src="/icons/delete.png" class="deleteIcon" data-index="{{ index }}" bindtap="onDeleteImage" mode="aspectFill" />
+		</view>
+		<view class="uploadItem addImage" wx:if="{{ images.length < 4 }}" bindtap="onUpload">
+			<image class="camera" src="/icons/camera.png" mode="aspectFit"></image>
+			<view class="text">添加图片</view>
+		</view>
+	</view>
+	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<form bindsubmit="formSubmit" report-submit="true">
+			<button form-type="submit" bindtap="onSubmit" style="background-color: {{ themeColor.primaryColor }}">确认提交</button>
+		</form>
+	</view>
+</view>

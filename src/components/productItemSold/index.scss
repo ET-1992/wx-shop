@@ -80,4 +80,23 @@
 			border-radius: 5rpx;
 		}
 	}
+	
+	.comment{
+		display: flex;
+		justify-content: flex-end;
+		padding-right: 30rpx;
+		height: 70rpx;
+		align-items: center;
+		.btn{
+			width: 120rpx;
+			height: 50rpx;
+			background: #F52D2D;
+			border-radius: 10rpx;
+			color: #fff;
+			font-size: 24rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
 }

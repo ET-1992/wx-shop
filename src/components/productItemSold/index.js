@@ -31,6 +31,10 @@ Component({
         groupon: {
             type: Object,
             value: {}
+        },
+        statusCode: {
+            type: Number,
+            value: 0
         }
     },
     data: {
