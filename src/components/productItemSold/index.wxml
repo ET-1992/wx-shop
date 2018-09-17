@@ -15,7 +15,7 @@
 			</view>
 		</navigator>
 		<view class="comment" wx:if="{{ statusCode === 4 }}">
-			<navigator class="btn" url="/pages/comment/comment?id={{ item.post_id }}&imageUrl={{ item.thumbnail }}" >评价</navigator>
+			<navigator class="btn" url="/pages/comment/comment?id={{ item.post_id }}&orderNo={{ orderNo }}&imageUrl={{ item.thumbnail }}" >评价</navigator>
 		</view>
 	</block>
 </view>

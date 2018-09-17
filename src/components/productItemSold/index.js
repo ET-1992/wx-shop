@@ -35,7 +35,11 @@ Component({
         statusCode: {
             type: Number,
             value: 0
-        }
+        },
+        orderNo: {
+            type: String,
+            value: ''
+        },
     },
     data: {
         products: []

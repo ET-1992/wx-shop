@@ -8,11 +8,14 @@ Component({
         postId: {
             type: Number,
             value: 0
+        },
+        replyCount: {
+            type: Number,
+            value: 0
         }
     },
     data: {
-        hasMore: true,
-        newImages: []
+        hasMore: true
     },
     methods: {
         async moreComments() {
@@ -29,16 +32,18 @@ Component({
             }
         },
         previewImage(ev) {
-            const { comments } = this.data;
+            const newImages = [];
+            const { items } = ev.currentTarget.dataset;
             const { index } = ev.currentTarget.dataset;
-            comments.forEach(item => {
-                item.images.forEach(item => {
-                    this.data.newImages.push(item.original);
-                });
+            console.log(index);
+            console.log(items);
+            items.forEach(item => {
+                newImages.push(item.original);
             });
+            console.log(newImages);
             wx.previewImage({
-                urls: this.data.newImages,
-                current: this.data.newImages[index]
+                urls: newImages,
+                current: newImages[index]
             });
         }
     }

@@ -51,7 +51,7 @@
 				<image src="/icons/right.png" class="right-img" />
 			</view>
 		</view>
-    <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" wx:if="{{ !otherPeopleGroupon }}" />
+    <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
 
   <view class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && order.logistics && order.logistics.length && !otherPeopleGroupon && order.noLogisticsForItem && order.noLogisticsForItem.length > 0 }}">
@@ -60,7 +60,7 @@
   </view>
 
   <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="logisticsWrap">
-    <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" wx:if="{{ !otherPeopleGroupon }}" />
+    <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
 
   <view wx:if="{{ otherPeopleGroupon }}" class="logisticsWrap">

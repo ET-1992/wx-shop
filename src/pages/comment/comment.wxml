@@ -15,7 +15,7 @@
     </textarea>
 	<view class="uploadGroup">
 		<view class="uploadItem" wx:for="{{ images }}" wx:key="item">
-			<image class="imageItem" src="{{ item }}" mode="aspectFill" bindtap="previewImage"/>
+			<image class="imageItem" src="{{ item }}" mode="aspectFill" data-index="{{ index }}" bindtap="previewImage"/>
 			<image src="/icons/delete.png" class="deleteIcon" data-index="{{ index }}" bindtap="onDeleteImage" mode="aspectFill" />
 		</view>
 		<view class="uploadItem addImage" wx:if="{{ images.length < 4 }}" bindtap="onUpload">
