@@ -131,7 +131,28 @@ Page({
                 titleText: '商品详情',
                 nullPrice: '包邮'
             }
-        }
+        },
+
+        comments: [
+            {
+                rating: 5,
+                text: '下单10天不发货，每天一催，糟心。',
+                images: [
+                    {
+                        original: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/0/w/1080/q/70#',
+                        thumb: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/1/w/200/h/200/q/70#'
+                    },
+                    {
+                        original: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/0/w/1080/q/70#',
+                        thumb: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/1/w/200/h/200/q/70#'
+                    },
+                    {
+                        original: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/0/w/1080/q/70#',
+                        thumb: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/09/wx69dfd8295ccb5d73.o6zAJs8Wdox1ylKpjeJ8MH1Z00CA.0Xft7fBhapAOc01f059e2397e7872bf254dcb45f6c76.jpg?imageView2/1/w/200/h/200/q/70#'
+                    }
+                ]
+            }
+        ]
     },
 
     onShowSku(ev) {
