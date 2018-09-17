@@ -192,6 +192,12 @@ const apis = {
         method: 'POST',
         isForceToken: true,
     },
+    // 商品评论列表
+    productCommentList: {
+        path: 'api/mag.product.reply.list.json',
+        method: 'GET',
+        isForceToken: true,
+    },
     deleteReply: {
         path: '',
         method: 'POST',

@@ -114,7 +114,7 @@
 		</view>
 		<!-- end -->
 		<!-- 商品评论start -->
-		<productComments comments="{{ comments }}"/>
+		<productComments wx:if="{{ product.replies && product.replies.length }}" comments="{{ product.replies }}" postId="{{ product.id }}"/>
 		<!-- 商品评论end -->
 		<view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}" class="pendingGroupons">
 			<view class="title">正在开团, 可直接参团</view>
