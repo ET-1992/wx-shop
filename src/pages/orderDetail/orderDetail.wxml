@@ -1,9 +1,9 @@
 <wxs module="orderDetail">
-  var check = function(text, _text) {
+  var indexOf = function(text, _text) {
     return text.indexOf(_text);
   };
 
-  module.exports.check = check;
+  module.exports.indexOf = indexOf;
 </wxs>
 
 <loading isLoading="{{ isLoading }}"/>
@@ -94,8 +94,8 @@
 <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
   <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
     <view>{{ index }}</view>
-    <view wx:if="{{ orderDetail.check(item, 'http:') === -1 }}">{{item}}</view>
-    <image wx:if="{{ orderDetail.check(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
+    <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
+    <image wx:if="{{ orderDetail.indexOf(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
   </view>
 </view>
 

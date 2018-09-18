@@ -12,7 +12,7 @@
 				<view 
 					class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}" 
 					style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
-				>{{ item.name }}</view>
+				>{{ item.text }}</view>
 			</view>
 		</view>
 	</scroll-view>
