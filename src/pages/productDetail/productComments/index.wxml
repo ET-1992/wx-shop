@@ -9,8 +9,8 @@
                 </view>
                <i-cell><i-rate count=5 value="{{ item.rating }}" disabled="{{true}}"></i-rate></i-cell>
            </view>
-           <view class="text">{{ item.text }}</view>
-           <view class="images">
+           <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
+           <view class="images" wx:if="{{ item.images && item.images.length }}">
                <image class="commentImage" wx:for="{{ item.images }}" data-items="{{ item.images }}" data-index="{{ index }}" wx:for-item="img" src="{{ img.thumb }}" mode="aspectFill" bindtap="previewImage"></image>
            </view>
             <view wx:if="{{ item.admin_reply && item.admin_reply.text }}" class="admin_reply">

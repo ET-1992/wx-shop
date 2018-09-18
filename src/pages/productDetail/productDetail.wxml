@@ -113,9 +113,6 @@
 			</view>
 		</view>
 		<!-- end -->
-		<!-- 商品评论start -->
-		<productComments wx:if="{{ product.replies && product.replies.length }}" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}"/>
-		<!-- 商品评论end -->
 		<view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}" class="pendingGroupons">
 			<view class="title">正在开团, 可直接参团</view>
 			<view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
@@ -126,6 +123,11 @@
 			<view class="title">拼团流程</view>
 			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
 		</view>
+
+		<!-- 商品评论start -->
+		<productComments wx:if="{{ product.replies && product.replies.length }}" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}"/>
+		<!-- 商品评论end -->
+		
 		<view class="detail">
 			<view class="detailTitle"><text class="dot">•</text>{{ defineTypeGlobalText[defineTypeGlobal].titleText }}<text class="dot">•</text></view>
 			<view class="peanut-wxParse">
