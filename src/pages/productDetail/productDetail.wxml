@@ -103,8 +103,9 @@
 				</form>
 			</view>
 			<view 
-				wx:if="{{ product.service_instructions && product.service_instructions.length}}"
-				class="service"
+				wx:if="{{ product.service_instructions && product.service_instructions.length}}" 
+				class="service" 
+				style="{{ product.coupons && product.coupons.length ? '' : 'border:none'}}"
 			>
 				<view class="text">服务</view>
 				<view class="desc">
