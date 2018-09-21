@@ -39,7 +39,8 @@
 		"pages/affiliate/affiliateList/affiliateList",
 		"pages/affiliate/affiliateOrderList/affiliateOrderList",
 		"pages/webPages/webPages",
-		"pages/liftList/liftList"
+		"pages/liftList/liftList",
+		"pages/overseaAddress/overseaAddress"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

@@ -1,3 +1,5 @@
+import  templateTypeText from 'constants/templateType';
+
 Component({
     properties: {
         useCoin: {
@@ -55,14 +57,6 @@ Component({
         totalPriceDispaly: '0.00',
         couponFeeDispaly: '0.00',
         totalPostageDispaly: '0.00',
-
-        defineTypeGlobalText: {
-            magua: {
-                postageText: '附加服务费'
-            },
-            default: {
-                postageText: '运费'
-            }
-        }
+        templateTypeText
     }
 });
