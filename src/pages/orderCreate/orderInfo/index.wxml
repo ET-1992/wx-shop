@@ -12,7 +12,7 @@
     <text class="money">-￥{{ coinForPay }}</text>
   </view>
   <view>
-    <text class="text">{{ defineTypeGlobalText[defineTypeGlobal].postageText }}</text>
+    <text class="text">{{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}</text>
     <text class="money">+￥{{ postageDispaly}}</text>
   </view>
 </view>

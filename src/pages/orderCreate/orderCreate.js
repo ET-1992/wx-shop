@@ -132,6 +132,13 @@ Page({
     },
 
     async onAddress() {
+        const { defineTypeGlobal } = this.data;
+        if (defineTypeGlobal === 'oversea') {
+            wx.navigateTo({
+                url: '/pages/overseaAddress/overseaAddress'
+            });
+            return;
+        }
         const res = await auth({
             scope: 'scope.address',
             ctx: this,

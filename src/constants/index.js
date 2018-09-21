@@ -1,5 +1,3 @@
-const app = getApp();
-console.log(app, 'app');
 
 export const TOKEN_KEY = 'token';
 export const EXPIRED_KEY = 'expired';
@@ -9,6 +7,7 @@ export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
+export const OVERSEA_ADDRESS_KEY = 'overseaAddressKey';
 
 export const SHARE_TITLE = '小黑店';
 

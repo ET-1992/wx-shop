@@ -1,3 +1,5 @@
+import  templateTypeText from 'constants/templateType';
+
 Component({
     properties: {
         address: {
@@ -10,18 +12,7 @@ Component({
         }
     },
     data: {
-        defineTypeGlobalText: {
-            magua: {
-                addAddress: '添加服务地址',
-                receiver: '联系人',
-                address: '服务地址'
-            },
-            default: {
-                addAddress: '添加地址',
-                receiver: '收货人',
-                address: '收货地址'
-            }
-        }
+        templateTypeText
     }
 });
 

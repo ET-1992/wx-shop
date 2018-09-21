@@ -22,7 +22,7 @@ App({
         console.log(extConfig, 'extConfig');
         let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default' } = extConfig;
 
-        const templateTypeTest  = ['magua'];
+        const templateTypeTest = ['magua', 'oversea'];
         if (templateTypeTest.indexOf(templateType) < 0) {
             templateType = 'default';
         }

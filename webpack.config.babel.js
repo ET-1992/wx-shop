@@ -39,7 +39,7 @@ export default (env = {}) => {
                 {
                     enforce: 'pre',
                     test: /\.js$/,
-                    exclude: /wxParse|node_modules/,
+                    exclude: /wxParse|node_modules|vant-weapp/,
                     loader: 'eslint-loader',
                 },
                 {
