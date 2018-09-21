@@ -1,3 +1,6 @@
+const app = getApp();
+console.log(app, 'app');
+
 export const TOKEN_KEY = 'token';
 export const EXPIRED_KEY = 'expired';
 export const UID_KEY = 'uid';
@@ -24,9 +27,23 @@ export const ORDER_STATUS_TEXT = [
     { text: '待成团', value: 10 },
     { text: '待发货', value: 2 },
     { text: '已发货', value: 3 },
-    { text: '已完成', value: 4 },
     { text: '已部分发货', value: 31 },
-    { text: '申请退款', value: 5 },
+    { text: '退款中', value: 5 },
+    { text: '已完成', value: 4 },
+    { text: '订单关闭', value: 7 },
+    { text: '系统关闭', value: 8 },
+    { text: '退款成功', value: 6 },
+];
+
+export const MAGUA_ORDER_STATUS_TEXT = [
+    { text: '全部', value: null },
+    { text: '待付款', value: 1 },
+    { text: '待成团', value: 10 },
+    { text: '待派单', value: 2 },
+    { text: '服务中', value: 3 },
+    { text: '服务中', value: 31 },
+    { text: '退款中', value: 5 },
+    { text: '已完成', value: 4 },
     { text: '订单关闭', value: 7 },
     { text: '系统关闭', value: 8 },
     { text: '退款成功', value: 6 },

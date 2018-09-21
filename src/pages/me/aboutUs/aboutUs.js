@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
     data: {
-        showBtn: false,
         isLoading: true
     },
 
@@ -25,9 +24,7 @@ Page({
 
     /* 图片加载完毕回调 */
     isLoaded(e) {
-        console.log(e.detail);
         this.setData({
-            showBtn: true,
             isLoading: false
         });
     },

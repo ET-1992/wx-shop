@@ -1,8 +1,25 @@
 import api from 'utils/api';
-import { STATUS_TEXT, ORDER_STATUS_TEXT } from 'constants/index';
+import { STATUS_TEXT, ORDER_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
 import { textToValue, valueToText } from 'utils/util';
+
 // 获取全局应用程序实例对象
 const app = getApp();
+
+const o = {
+    'default': ORDER_STATUS_TEXT,
+    'magua': MAGUA_ORDER_STATUS_TEXT
+};
+
+const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal];
+
+const dataStatus = D_ORDER_STATUS_TEXT.filter((item) => {
+    const o = [1, 10, 2, 3, 5, 4];
+    return o.indexOf(item.value) > -1;
+});
+
+dataStatus.unshift({ text: '全部', value: null });
+
+console.log(dataStatus);
 
 Page({
     data: {
@@ -12,16 +29,7 @@ Page({
 
         activeIndex: 0,
         isRefresh: true,
-        status: [
-            { name: '全部', value: null },
-            { name: '待付款', value: '1' },
-            { name: '待成团', value: '10' },
-            { name: '待发货', value: '2' },
-            { name: '待收货', value: '3' },
-            { name: '退款中', value: '5' },
-            { name: '已完成', value: '4' },
-
-        ],
+        status: dataStatus,
         selectedStatus: null
     },
 
@@ -38,7 +46,7 @@ Page({
         const formatedOrders = data.orders.map((order) => {
             const statusCode = Number(order.status);
             order.statusCode = statusCode;
-            order.statusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
+            order.statusText = valueToText(D_ORDER_STATUS_TEXT, Number(order.status));
             order.productCount = order.items.reduce((count, item) => {
                 return count + Number(item.quantity);
             }, 0);
@@ -107,7 +115,7 @@ Page({
         const updateData = {};
         updateData[`orders[${orderIndex}].statusCode`] = 4;
         updateData[`orders[${orderIndex}].status`] = 4;
-        updateData[`orders[${orderIndex}].statusText`] = valueToText(ORDER_STATUS_TEXT, 4);
+        updateData[`orders[${orderIndex}].statusText`] = valueToText(D_ORDER_STATUS_TEXT, 4);
         this.setData(updateData);
     },
 
@@ -141,7 +149,7 @@ Page({
         const updateData = {};
         updateData[`orders[${orderIndex}].statusCode`] = 2;
         updateData[`orders[${orderIndex}].status`] = 2;
-        updateData[`orders[${orderIndex}].statusText`] = valueToText(ORDER_STATUS_TEXT, 2);
+        updateData[`orders[${orderIndex}].statusText`] = valueToText(D_ORDER_STATUS_TEXT, 2);
         this.setData(updateData);
     },
     onCloseOrder(ev) {
@@ -150,7 +158,7 @@ Page({
         const updateData = {};
         updateData[`orders[${orderIndex}].statusCode`] = 7;
         updateData[`orders[${orderIndex}].status`] = 7;
-        updateData[`orders[${orderIndex}].statusText`] = valueToText(ORDER_STATUS_TEXT, 7);
+        updateData[`orders[${orderIndex}].statusText`] = valueToText(D_ORDER_STATUS_TEXT, 7);
         this.setData(updateData);
     },
 });

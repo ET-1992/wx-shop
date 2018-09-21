@@ -14,3 +14,5 @@
 		</scroll-view>
 	</view>
 </view>
+
+<myModal modal="{{ infoModal }}" />

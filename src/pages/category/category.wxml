@@ -35,4 +35,4 @@
   </scroll-view>
 </view>
 
-<console page="分类" wx:if="{{ isShowConsole }}" />
+<console page="分类" />

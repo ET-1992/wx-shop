@@ -1,11 +1,11 @@
 <view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove" id="myModal"> 
 	<view class="content">
 		<view class="content-header">{{ defineModal.title }}</view>
-		<view class="content-body">
+		<text class="content-body" decode="{{ true }}" style="{{defineModal.bodyStyle}}">
 			{{ defineModal.body }}
-		</view>
+		</text>
 		<view class="content-footer">
-			<view class="content-footer-cancel" bindtap="onCancel">{{ defineModal.cancelText }}</view>
+			<view class="content-footer-cancel" bindtap="onCancel" wx:if="{{ defineModal.isShowCanel }}">{{ defineModal.cancelText }}</view>
 			<button 
 				class="content-footer-confirm" 
 				bindtap="onConfirm" 

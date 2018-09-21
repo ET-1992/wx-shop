@@ -1,10 +1,17 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT } from 'constants/index';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
 import { formatTime, valueToText } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
 
 const app = getApp();
+
+const o = {
+    'default': ORDER_STATUS_TEXT,
+    'magua': MAGUA_ORDER_STATUS_TEXT
+};
+
+const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal];
 
 const formatConfirmTime = (seconds) => {
     let remainSeconds = seconds;
@@ -63,7 +70,7 @@ Page({
         address.detailInfo = order.receiver_address;
         address.postalCode = order.receiver_zipcode;
 
-        order.statusText = valueToText(ORDER_STATUS_TEXT, statusCode);
+        order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
         order.statusCode = statusCode;
         order.buyer_message = order.buyer_message || '买家未留言';
         order.createDate = formatTime(new Date(order.time * 1000));

@@ -17,4 +17,4 @@
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 
-<console page="首页" wx:if="{{ isShowConsole }}" />
+<console page="首页" />

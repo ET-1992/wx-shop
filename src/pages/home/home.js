@@ -186,9 +186,6 @@ Page({
     },
 
     async onShow() {
-        app.log('onShow');
-
-
         // const mock0 = {
         //     type: 0,
         //     logo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/08/1533633075-14823x.png'
@@ -212,8 +209,6 @@ Page({
         //     mock1,
         //     mock2
         // });
-
-        this.setData({ isShowConsole: app.openConsole });
 
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
