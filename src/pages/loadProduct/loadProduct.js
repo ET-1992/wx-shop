@@ -34,10 +34,11 @@ Page({
     async loadProducts() {
 
         this.setData({ isLoading: true });
-        const { next_cursor, products } = this.data;
+        const { next_cursor, products, params } = this.data;
 
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
+            ...params
         });
 
         const newProducts = products.concat(data.products);
@@ -50,9 +51,9 @@ Page({
         return data;
     },
 
-    async onLoad() {
+    async onLoad(params) {
         const { themeColor, tplStyle } = app.globalData;
-        this.setData({ themeColor, tplStyle });
+        this.setData({ themeColor, tplStyle, params });
         const data = await this.loadProducts();
         if (data.page_title) {
             wx.setNavigationBarTitle({

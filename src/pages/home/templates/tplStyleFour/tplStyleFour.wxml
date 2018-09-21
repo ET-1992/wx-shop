@@ -194,7 +194,7 @@
 				<view class="section" wx:if="{{ products && products.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
 					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ index === modules.length-1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
 					<view style="{{ index === modules.length-1 ? 'display: none' : ''}}">
-						<navigator class="sectionMore" wx:if="{{products.length > 1}}" url="/pages/loadProduct/loadProduct">
+						<navigator class="sectionMore" wx:if="{{products.length > 1}}" url="{{'/pages/loadProduct/loadProduct?' + module.args }}">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
 									<view>查看更多</view>
