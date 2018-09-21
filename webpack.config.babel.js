@@ -107,8 +107,7 @@ export default (env = {}) => {
                 clear: !isDev,
             }),
             new CopyPlugin([
-                { from: 'src/icons', to: 'icons' },
-                { from: 'src/images', to: 'images' },
+                { from: 'src/icons', to: 'icons' }
             ]),
             new optimize.ModuleConcatenationPlugin()
         ].filter(Boolean),

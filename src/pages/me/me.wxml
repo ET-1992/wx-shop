@@ -6,11 +6,11 @@
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 		</button>
-		<navigator class="welfare" url="/pages/coinDetail/coinDetail">
-			<view class="number">{{ wallet.coins || 0 }}</view>
+		<navigator wx:if="{{ wallet && wallet.coin_enable }}" class="welfare" url="/pages/coinDetail/coinDetail">
+			<view class="number">{{ wallet && wallet.coins || 0 }}</view>
 			<view class="title">花生米</view>
 		</navigator>
-		<navigator class="welfare" url="/pages/myCoupons/myCoupons">
+		<navigator wx:if="{{ wallet.coin_enable }}" class="welfare" url="/pages/myCoupons/myCoupons">
 			<view class="number">{{ coupons.available.length || 0 }}</view>
 			<view class="title">优惠券</view>
 		</navigator>
@@ -59,6 +59,11 @@
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/manager.png" />
 			<view class="itemTitle">我的管家</view>
 		</view>
+
+		<navigator wx:if="{{ wallet && !wallet.coin_enable }}" class="infoItem" url="/pages/myCoupons/myCoupons">
+			<image class="itemIcon coupon" mode="aspectFit" src="../../icons/yhq.png" />
+			<view class="itemTitle">优惠券</view>
+		</navigator>
 
 		<navigator class="infoItem" url="/pages/orderList/orderList?status=10">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/myGroup.png" />

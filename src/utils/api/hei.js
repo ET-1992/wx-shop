@@ -188,8 +188,20 @@ const apis = {
         method: 'POST',
         isForceToken: true,
     },
+    // 商品评论
+    productComment: {
+        path: 'api/mag.product.reply.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 商品评论列表
+    productCommentList: {
+        path: 'api/mag.product.reply.list.json',
+        method: 'GET',
+        isForceToken: true,
+    },
     deleteReply: {
-        path: 'api/mag.article.reply.delete.json',
+        path: '',
         method: 'POST',
         isForceToken: true,
     },

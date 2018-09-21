@@ -1,16 +1,21 @@
 <view class="itemList">
-	<navigator class="item" wx:for="{{ products }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-		<image src="{{ item.imageUrl || item.thumbnail }}" class="itemImage" mode="aspectFill" />
-		<view class="itemInfo">
-			<view class="itemName">{{ item.title }}</view>
-			<view class="propertyNames" wx:if="{{ item.property }}">{{ item.property }}</view>
-			<view class="itemMeta">
-				<view class="itemPrice">￥{{ itemStyle === 1 ? item.price : groupon.price }}</view>
-				<view class="itemCount">
-					<view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
-					<view class="itemQuantity">x{{ item.quantity }}</view>
+	<block wx:for="{{ products }}">
+		<navigator class="item" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
+			<image src="{{ item.imageUrl || item.thumbnail }}" class="itemImage" mode="aspectFill" />
+			<view class="itemInfo">
+				<view class="itemName">{{ item.title }}</view>
+				<view class="propertyNames" wx:if="{{ item.property }}">{{ item.property }}</view>
+				<view class="itemMeta">
+					<view class="itemPrice">￥{{ itemStyle === 1 ? item.price : groupon.price }}</view>
+					<view class="itemCount">
+						<view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
+						<view class="itemQuantity">x{{ item.quantity }}</view>
+					</view>
 				</view>
 			</view>
+		</navigator>
+		<view class="comment" wx:if="{{ vip && vip.product_reply && statusCode === 4 }}">
+			<navigator class="btn" url="/pages/comment/comment?id={{ item.post_id }}&orderNo={{ orderNo }}&imageUrl={{ item.thumbnail }}" >评价</navigator>
 		</view>
-	</navigator>
+	</block>
 </view>

@@ -3,15 +3,15 @@ import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_
 import { formatTime, valueToText } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
+import templateTypeText from 'constants/templateType';
 
 const app = getApp();
 
 const o = {
-    'default': ORDER_STATUS_TEXT,
     'magua': MAGUA_ORDER_STATUS_TEXT
 };
 
-const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal];
+const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal] || ORDER_STATUS_TEXT;
 
 const formatConfirmTime = (seconds) => {
     let remainSeconds = seconds;
@@ -46,14 +46,7 @@ Page({
 
         virtualProductBtn: true,
 
-        defineTypeGlobalText: {
-            magua: {
-                postageText: '附加服务费'
-            },
-            default: {
-                postageText: '运费'
-            }
-        }
+        templateTypeText
     },
 
     async loadOrder(id) {
@@ -179,9 +172,10 @@ Page({
     },
 
     onLoad({ isFromCreate = false }) {
-        const { globalData: { themeColor, defineTypeGlobal }, systemInfo } = app;
+        const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo } = app;
         this.setData({
             themeColor,
+            vip,
             defineTypeGlobal,
             systemInfo,
             isFromCreate,

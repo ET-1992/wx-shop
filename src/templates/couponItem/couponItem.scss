@@ -52,7 +52,10 @@
 			flex-direction: column;
 			flex-shrink: 0;
 			.couponDesc {
-				font-size: 22rpx;
+				font-size:22rpx;
+				white-space:nowrap;
+				overflow:hidden;
+				text-overflow:ellipsis;
 			}
 			view{
 				line-height: 1.5;

@@ -40,6 +40,7 @@
 		"pages/affiliate/affiliateOrderList/affiliateOrderList",
 		"pages/webPages/webPages",
 		"pages/liftList/liftList",
+		"pages/comment/comment",
 		"pages/overseaAddress/overseaAddress"
 	],
 	"window": {

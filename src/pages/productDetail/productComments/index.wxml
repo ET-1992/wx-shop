@@ -1,0 +1,25 @@
+<view class="container">
+    <view class="title"> 商品评价（{{ replyCount }}）</view>
+    <view class="comments">
+        <view class="item" wx:for="{{ comments }}">
+           <view class="top">
+                <view class="user">
+                    <image class="avatar" src="{{ item.user.avatarurl }}" mode="aspectFit"></image>
+                    <view class="nickname">{{ item.user.nickname }}</view>
+                </view>
+               <i-cell><i-rate count=5 value="{{ item.rating }}" disabled="{{true}}"></i-rate></i-cell>
+           </view>
+           <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
+           <view class="images" wx:if="{{ item.images && item.images.length }}">
+               <image class="commentImage" wx:for="{{ item.images }}" data-items="{{ item.images }}" data-index="{{ index }}" wx:for-item="img" src="{{ img.thumb }}" mode="aspectFill" bindtap="previewImage"></image>
+           </view>
+            <view wx:if="{{ item.admin_reply && item.admin_reply.text }}" class="admin_reply">
+                <view class="dialog-box">
+                    <view class="top"></view>
+                </view>
+               <view class="reply_text" >商家回复：{{ item.admin_reply.text }}</view>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{ hasMore && replyCount > 2 }}" class="moreComments" bindtap="moreComments">查看全部评价</view>
+</view>

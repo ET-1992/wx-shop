@@ -74,7 +74,7 @@
 						class="originalPrice"
 					>￥{{ product.original_price }}</view>
 				</view>
-				<view class="postage">{{defineTypeGlobalText[defineTypeGlobal].logisticsText}}：{{ product.postage ?product.postage +'元': defineTypeGlobalText[defineTypeGlobal].nullPrice }}</view>
+				<view class="postage">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
 			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
@@ -103,8 +103,9 @@
 				</form>
 			</view>
 			<view 
-				wx:if="{{ product.service_instructions && product.service_instructions.length}}"
-				class="service"
+				wx:if="{{ product.service_instructions && product.service_instructions.length}}" 
+				class="service" 
+				style="{{ product.coupons && product.coupons.length ? '' : 'border:none'}}"
 			>
 				<view class="text">服务</view>
 				<view class="desc">
@@ -123,8 +124,13 @@
 			<view class="title">拼团流程</view>
 			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
 		</view>
+
+		<!-- 商品评论start -->
+		<productComments wx:if="{{ vip && vip.product_reply && product.reply_count }}" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}"/>
+		<!-- 商品评论end -->
+		
 		<view class="detail">
-			<view class="detailTitle"><text class="dot">•</text>{{ defineTypeGlobalText[defineTypeGlobal].titleText }}<text class="dot">•</text></view>
+			<view class="detailTitle"><text class="dot">•</text>{{ templateTypeText[defineTypeGlobal].page_productDetail.titleText || '商品详情' }}<text class="dot">•</text></view>
 			<view class="peanut-wxParse">
 				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
 			</view>
@@ -155,7 +161,7 @@
 					<view 
 						class="addCart multi" 
 						catchtap="onShowSku" 
-						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: defineTypeGlobalText[defineTypeGlobal].buyText }] }}"
+						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
 						style="background-color: {{ themeColor.secondaryColor }}"
 					>
 						<view>￥{{ product.price }}</view>
@@ -165,7 +171,7 @@
 						class="buy multi" 
 						catchtap="onShowSku" 
 						data-is-groupon-buy 
-						data-actions="{{ [{ type: 'onBuy', text: defineTypeGlobalText[defineTypeGlobal].buyText }] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view>￥{{ product.groupon_price }}</view>
@@ -179,7 +185,7 @@
 						class="buy multi" 
 						catchtap="onShowSku" 
 						data-is-groupon-buy 
-						data-actions="{{ [{ type: 'onBuy', text:defineTypeGlobalText[defineTypeGlobal].buyText }] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view class="joinGroup">立即参团</view>
@@ -197,9 +203,9 @@
 					<view 
 						class="buy {{ product.product_type === 1 && 'maguaWidthBtn' }}" 
 						catchtap="onShowSku" 
-						data-actions="{{ [{ type: 'onBuy', text: defineTypeGlobalText[defineTypeGlobal].buyText }] }}" 
+						data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
-					>{{ defineTypeGlobalText[defineTypeGlobal].buyText }}</view>
+					>{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}</view>
 				</block>
 			</view>
 		</view>
@@ -226,7 +232,7 @@
 								</text>
 								<text wx:else>￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
 							</view>
-							<view class="stock" wx:if="{{ defineTypeGlobal !== 'magua'}}">
+							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
 								库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
 							</view>
 							<view class="property" wx:if="{{ product.skus.length }}">
