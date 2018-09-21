@@ -1,5 +1,7 @@
 import { OVERSEA_ADDRESS_KEY, ADDRESS_KEY } from 'constants/index';
 
+const app = getApp();
+
 Page({
     data: {
         overseaObj: {},
@@ -15,8 +17,9 @@ Page({
     },
 
     check(e) {
+        console.log(e);
         const { error, overseaObj } = this.data;
-        const { value } = e.detail.detail;
+        const value = e.detail;
         const { key } = e.currentTarget.dataset;
         if (!value) {
             error[key] = true;
@@ -33,12 +36,22 @@ Page({
     },
 
     saveOversea() {
-        const { overseaObj } = this.data;
+        const { overseaObj, error } = this.data;
+        if (error.userName || error.telNumber || error.detailInfo) {
+            wx.showToast({
+                title: '请检查您的信息',
+                icon: 'none'
+            });
+            return;
+        }
+        // wx.removeStorageSync(ADDRESS_KEY);
         wx.setStorageSync(ADDRESS_KEY, overseaObj);
         wx.showToast({
             title: '填写成功',
             icon: 'success'
         });
+        app.event.emit('setOverseeAdressEvent', overseaObj);
+
         wx.navigateBack({
             delta: 1
         });

@@ -10,7 +10,7 @@
 				<text>{{ address.telNumber }}</text>
 			</view>
 			<view class="address-bottom">
-				<text>{{  templateTypeText[defineTypeGlobal].com_address.address || '收货地址' }}：{{ address.provinceName + address.cityName + address.countyName + address.detailInfo }}</text>
+				<text>{{  templateTypeText[defineTypeGlobal].com_address.address || '收货地址' }}：{{ (address.provinceName || '') + (address.cityName || '') + (address.countyName || '') + address.detailInfo }}</text>
 			</view>
 		</view>
 		<image src="/icons/right.png" class="right-arrow"></image>

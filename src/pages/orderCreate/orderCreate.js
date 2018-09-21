@@ -96,6 +96,7 @@ Page({
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
                 }
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
+                app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
                 this.onLoadData();
             });
         }
@@ -118,6 +119,7 @@ Page({
         wx.removeStorageSync('orderCreate');
         app.event.off('getCouponIdEvent', this);
         app.event.off('getLiftInfoEvent', this);
+        app.event.off('setOverseeAdressEvent', this);
     },
 
     onHide() {
@@ -174,6 +176,13 @@ Page({
 
         this.setData({
             liftInfo: { ...liftInfo, ...data }
+        });
+    },
+
+    setOverseeAdressEvent(overseaObj) {
+        console.log('setOverseeAdressEvent');
+        this.setData({
+            address: overseaObj
         });
     },
 
@@ -334,14 +343,14 @@ Page({
         let method = 'createOrderAndPay';
 
         let requestData = {
-            receiver_name: userName,
-            receiver_phone: telNumber,
-            receiver_country: nationalCode,
-            receiver_state: provinceName,
-            receiver_city: cityName,
-            receiver_district: countyName,
-            receiver_address: detailInfo,
-            receiver_zipcode: postalCode,
+            receiver_name: userName || '',
+            receiver_phone: telNumber || '',
+            receiver_country: nationalCode || '',
+            receiver_state: provinceName || '',
+            receiver_city: cityName || '',
+            receiver_district: countyName || '',
+            receiver_address: detailInfo || '',
+            receiver_zipcode: postalCode || '',
             buyer_message: buyerMessage,
             form_id: formId,
             vendor,
