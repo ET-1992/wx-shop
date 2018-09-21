@@ -1,4 +1,5 @@
 import  templateTypeText from 'constants/templateType';
+const app = getApp();
 
 Component({
     properties: {
@@ -12,7 +13,8 @@ Component({
         }
     },
     data: {
-        templateTypeText
+        templateTypeText,
+        defineTypeGlobal: app.globalData.defineTypeGlobal
     }
 });
 

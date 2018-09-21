@@ -44,7 +44,7 @@ Page({
             });
             return;
         }
-        // wx.removeStorageSync(ADDRESS_KEY);
+        wx.removeStorageSync(ADDRESS_KEY);
         wx.setStorageSync(ADDRESS_KEY, overseaObj);
         wx.showToast({
             title: '填写成功',
