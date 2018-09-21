@@ -1,0 +1,87 @@
+{
+  "_from": "vant-weapp",
+  "_id": "vant-weapp@0.2.0",
+  "_inBundle": false,
+  "_integrity": "sha1-c3RWNFVvM+dUeOmyJRDkW44L058=",
+  "_location": "/vant-weapp",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "vant-weapp",
+    "name": "vant-weapp",
+    "escapedName": "vant-weapp",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/vant-weapp/download/vant-weapp-0.2.0.tgz",
+  "_shasum": "73745634556f33e75478e9b22510e45b8e0bd39f",
+  "_spec": "vant-weapp",
+  "_where": "C:\\Project\\taro\\gift",
+  "author": {
+    "name": "youzan"
+  },
+  "bugs": {
+    "url": "https://github.com/youzan/vant-weapp/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "轻量、可靠的小程序 UI 组件库",
+  "devDependencies": {
+    "autoprefixer": "^9.1.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "cross-env": "^5.1.4",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.4.0",
+    "eslint-plugin-vue-libs": "^3.0.0",
+    "fast-vue-md-loader": "^1.0.3",
+    "gh-pages": "^1.2.0",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.2.2",
+    "html-webpack-plugin": "^3.2.0",
+    "postcss-calc": "^6.0.1",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-loader": "^3.0.0",
+    "precss": "^2.0.0",
+    "progress-bar-webpack-plugin": "^1.11.0",
+    "style-loader": "^0.22.1",
+    "vant-doc": "^1.0.15",
+    "vue": "2.5.17",
+    "vue-loader": "^15.4.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "2.5.17",
+    "webpack": "^4.17.0",
+    "webpack-serve": "^2.0.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/youzan/vant-weapp#readme",
+  "license": "MIT",
+  "miniprogram": "dist",
+  "name": "vant-weapp",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/youzan/vant-weapp.git"
+  },
+  "scripts": {
+    "build": "sh scripts/deploy.sh",
+    "build:changelog": "vant-doc changelog --tag v0.0.1 ./docs/markdown/changelog.generated.md",
+    "build:lib": "NODE_ENV=production node build/compiler.js",
+    "build:site": "rm -rf docs/dist && cross-env NODE_ENV=production webpack --config build/webpack.doc.prd.js && gh-pages -d docs/dist",
+    "dev": "node build/dev.js",
+    "lint": "eslint ./packages --ext .js",
+    "release": "sh build/release.sh"
+  },
+  "version": "0.2.0"
+}
