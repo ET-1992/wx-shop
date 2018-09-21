@@ -50,7 +50,7 @@
 	</view>
 
 	<view class="infos">
-		<view class="infoItem" bindtap="onAddress">
+		<view class="infoItem" bindtap="onAddress" wx:if="{{ defineTypeGlobal !== 'oversea' }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/address.png" />
 			<view class="itemTitle">我的地址</view>
 		</view>

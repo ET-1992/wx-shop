@@ -20,7 +20,7 @@ App({
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
-        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'oversea', vip } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip } = extConfig;
 
         const templateTypeTest = ['magua', 'oversea'];
         if (templateTypeTest.indexOf(templateType) < 0) {
