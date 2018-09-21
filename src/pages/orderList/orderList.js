@@ -6,11 +6,10 @@ import { textToValue, valueToText } from 'utils/util';
 const app = getApp();
 
 const o = {
-    'default': ORDER_STATUS_TEXT,
     'magua': MAGUA_ORDER_STATUS_TEXT
 };
 
-const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal];
+const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal] || ORDER_STATUS_TEXT;
 
 const dataStatus = D_ORDER_STATUS_TEXT.filter((item) => {
     const o = [1, 10, 2, 3, 5, 4];

@@ -7,6 +7,7 @@ import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY } from 'constants/index';
 import { getAgainUserForInvalid, updateCart } from 'utils/util';
+import  templateTypeText from 'constants/templateType';
 
 // import login from 'utils/login';
 
@@ -118,20 +119,7 @@ Page({
         isShowProductDetailShareModal: false,
         showShareModal: false,
 
-        defineTypeGlobalText: {
-            magua: {
-                buyText: '立即下单',
-                logisticsText: '上门服务费',
-                titleText: '服务详情',
-                nullPrice: '0 元'
-            },
-            default: {
-                buyText: '立即购买',
-                logisticsText: '邮费',
-                titleText: '商品详情',
-                nullPrice: '包邮'
-            }
-        }
+        templateTypeText
     },
 
     onShowSku(ev) {
@@ -350,13 +338,14 @@ Page({
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, tplStyle, defineTypeGlobal } = app.globalData;
+        const { themeColor, tplStyle, defineTypeGlobal, vip } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
             themeColor,
             tplStyle,
+            vip,
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,

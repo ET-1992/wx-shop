@@ -40,6 +40,10 @@ Component({
             type: String,
             value: ''
         },
+        vip: {
+            type: Object,
+            value: {}
+        }
     },
     data: {
         products: []
