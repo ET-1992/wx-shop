@@ -85,6 +85,14 @@
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/shareCenter.png" />
 			<view class="itemTitle">分享中心</view>
 		</button>
+		<view 
+			class="infoItem" 
+			bindtap="showToast"
+			wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}"
+		>
+			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/shareCenter.png" />
+			<view class="itemTitle">分享中心</view>
+		</view>
 
 		<button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/contact.png" />
