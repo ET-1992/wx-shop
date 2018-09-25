@@ -93,14 +93,24 @@ Page({
         }
     },
 
-    drawPosterImage() {
+    async drawPosterImage() {
         const sharePosterBg = 'http://cdn2.wpweixin.com/shop/sharePosterBg.png';
+        const sharePosterBgHttps = imgToHttps(sharePosterBg);
+        const sharePosterBgDownLoad = await downloadFile({ url: sharePosterBgHttps });
+
+        if (sharePosterBgDownLoad.statusCode !== 200) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '图片下载失败',
+            });
+        }
+
         const ctx = wx.createCanvasContext('canvasPoster');
         this.data.ctx = ctx;
         const { windowWidth } = app.systemInfo;
         const { width, height } = this.data.nodeInfo;
         console.log(width, height);
-        ctx.drawImage(sharePosterBg, 0, 0, width, height);
+        ctx.drawImage(sharePosterBgDownLoad.tempFilePath, 0, 0, width, height);
         ctx.save();
         ctx.beginPath();
         ctx.arc(width / 2, height * 0.11 * 2, width * (120 / 650) / 2, 0, 2 * Math.PI);
