@@ -1,7 +1,7 @@
 <view class="container">
     <van-cell-group>
   <van-field
-    value="{{ overseaObj.userName }}"
+    value="{{ selfAddressObj.userName }}"
     required
     clearable
     label="姓名"
@@ -13,7 +13,7 @@
   />
 
   <van-field
-    value="{{ overseaObj.telNumber }}"
+    value="{{ selfAddressObj.telNumber }}"
     required
     clearable
     label="手机号"
@@ -25,7 +25,7 @@
   />
 
   <van-field
-    value="{{ overseaObj.detailInfo }}"
+    value="{{ selfAddressObj.detailInfo }}"
     required
     label="详细地址"
     type="textarea"
@@ -38,5 +38,5 @@
   />
 </van-cell-group>
 
-<view class="btnWrap" bindtap="saveOversea">确定地址</view>
+<view class="btnWrap" bindtap="saveSelfAddress">确定地址</view>
 </view>

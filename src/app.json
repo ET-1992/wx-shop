@@ -41,7 +41,7 @@
 		"pages/webPages/webPages",
 		"pages/liftList/liftList",
 		"pages/comment/comment",
-		"pages/overseaAddress/overseaAddress"
+		"pages/selfAddress/selfAddress"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

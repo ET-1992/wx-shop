@@ -134,10 +134,10 @@ Page({
     },
 
     async onAddress() {
-        const { defineTypeGlobal } = this.data;
-        if (defineTypeGlobal === 'oversea') {
+        const self_address = app.vip && app.vip.self_address;
+        if (self_address) {
             wx.navigateTo({
-                url: '/pages/overseaAddress/overseaAddress'
+                url: '/pages/selfAddress/selfAddress'
             });
             return;
         }
@@ -179,10 +179,10 @@ Page({
         });
     },
 
-    setOverseeAdressEvent(overseaObj) {
+    setOverseeAdressEvent(selfAddressObj) {
         console.log('setOverseeAdressEvent');
         this.setData({
-            address: overseaObj
+            address: selfAddressObj
         });
     },
 

@@ -14,7 +14,8 @@ Component({
     },
     data: {
         templateTypeText,
-        defineTypeGlobal: app.globalData.defineTypeGlobal
+        defineTypeGlobal: app.globalData.defineTypeGlobal,
+        selfAddress: app.vip && app.vip.self_address
     }
 });
 

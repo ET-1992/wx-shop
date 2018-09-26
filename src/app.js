@@ -22,7 +22,7 @@ App({
         console.log(extConfig, 'extConfig');
         let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip } = extConfig;
 
-        const templateTypeTest = ['magua', 'oversea'];
+        const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
             templateType = 'default';
         }
@@ -39,6 +39,8 @@ App({
             defineTypeGlobal: templateType,
             vip
         });
+
+        this.vip = vip;
 
         this.logData = [];
         this.openConsole = false;
