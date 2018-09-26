@@ -61,7 +61,7 @@
 		</view>
 
 		<navigator wx:if="{{ wallet && !wallet.coin_enable }}" class="infoItem" url="/pages/myCoupons/myCoupons">
-			<image class="itemIcon coupon" mode="aspectFit" src="../../icons/yhq.png" />
+			<image class="itemIcon" mode="aspectFit" src="../../icons/yhq.png" />
 			<view class="itemTitle">优惠券</view>
 		</navigator>
 
