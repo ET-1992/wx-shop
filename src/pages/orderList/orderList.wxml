@@ -10,7 +10,7 @@
 		>
 			<view>
 				<view 
-					class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}" 
+					class="statusItemName {{ selectedStatus == item.value ? 'selected' : '' }}" 
 					style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
 				>{{ item.text }}</view>
 			</view>
