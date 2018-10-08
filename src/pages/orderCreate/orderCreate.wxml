@@ -1,4 +1,5 @@
 <view class="orderCreateWrap">
+<view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
 <block wx:if="{{ product_type !== 1 }}">
   <view class="express" wx:if="{{ selfLiftEnable }}" >
       <text class="item-text">配送方式</text>
