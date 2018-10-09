@@ -21,20 +21,22 @@ Component({
 
         updateLiftInfoPhone(e) {
             const { value } = e.detail;
-            if (!checkPhone(Number(value))) {
-                this.setData({
-                    'isError.phone': true
-                });
-                wx.showToast({
-                    icon: 'none',
-                    title: '请输入正确的手机号'
-                });
-            } else {
-                this.setData({
-                    'isError.phone': false
-                });
-                this.triggerEvent('updateLiftInfo', { receiver_phone: value }, { bubbles: true });
-            }
+            // if (!checkPhone(Number(value))) {
+            //     this.setData({
+            //         'isError.phone': true
+            //     });
+            //     wx.showToast({
+            //         icon: 'none',
+            //         title: '请输入正确的手机号'
+            //     });
+            // } else {
+            //     this.setData({
+            //         'isError.phone': false
+            //     });
+            //     this.triggerEvent('updateLiftInfo', { receiver_phone: value }, { bubbles: true });
+            // }
+
+            this.triggerEvent('updateLiftInfo', { receiver_phone: value }, { bubbles: true });
         }
     }
 }
