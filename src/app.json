@@ -41,7 +41,9 @@
 		"pages/webPages/webPages",
 		"pages/liftList/liftList",
 		"pages/comment/comment",
-		"pages/selfAddress/selfAddress"
+		"pages/selfAddress/selfAddress",
+		"pages/directPay/directPay",
+		"pages/directPayResult/directPayResult"
 	],
 	"window": {
 		"backgroundTextStyle": "white",
