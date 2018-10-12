@@ -1,0 +1,50 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 103rpx;
+
+	.title{
+		font-size: 48rpx;
+		font-weight: bold;
+		color: #000000;
+		padding-bottom: 22rpx;
+	}
+	.img{
+		width: 229rpx;
+		height: 173rpx;
+	}
+
+	.btn{
+		width: 550rpx;
+		height: 98rpx;
+		font-size: 36rpx;
+		font-weight: bold;
+		border-radius: 10rpx;
+		background: #F4F4F4;
+		color: #707070;
+		border: 1rpx solid #707070;
+		letter-spacing: 5rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.returnHome{
+		background: #79BCBE;
+		color: #fff;
+		border: none;
+		margin: 164rpx 0 20rpx;
+	}
+	.official{
+		position: fixed;
+		bottom: 65rpx;
+		left: 50%;
+		margin-left: -325rpx;
+		width: 650rpx;
+		height: 150rpx;
+
+		&.iphoneXTrick{
+			padding-bottom: 40rpx;
+		}
+	}
+}
