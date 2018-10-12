@@ -1,0 +1,8 @@
+<view class="container">
+	<view class="title"> 支付成功 </view>
+	<image class="img" src="/icons/directPay/directPay.svg" mode="aspectFill"></image>
+	<button class="btn returnHome" style="background-color: {{ themeColor.primaryColor  }}">返回首页</button>
+	<button class="btn">查看订单</button>
+	<official-account class="official {{ isIphoneX ? 'iphoneXTrick' : '' }}"></official-account>
+</view>
+

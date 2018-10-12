@@ -1,0 +1,14 @@
+<view class="container">
+	<view class="shop">
+		<image class="avatar" src="/icons/directPay/shop_avatar.png" mode="aspectFit" ></image>
+		<view class="title">花生小店体验店</view>
+	</view>
+	<view class="input_money" bind:tap="clickInput">
+		<view class="title"> 付款金额 </view>
+		<view class="money">
+			<view class="yuan">￥</view>
+			<input class="num" type="number" focus="{{ isFocus }}" bindinput='getLen' style="width:{{ len ? len : '15' }}px;"/>
+		</view>
+	</view>
+	<button class="confirmPay" style="background-color: {{ themeColor.primaryColor  }}" bind:tap="confirmPay" >确认支付</button>
+</view>
