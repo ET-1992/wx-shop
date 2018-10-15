@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { checkNumber } from 'utils/util';
-import { showModal } from 'utils/wxp';
+import { wxPay } from 'utils/pageShare';
 const app = getApp();
 
 Page({
@@ -58,10 +58,17 @@ Page({
             });
             console.log(data);
             if (data.errcode === 0) {
-                const { order_no } = data;
-                wx.redirectTo({
-                    url: `/pages/directPayResult/directPayResult?order_no=${order_no}`
-                });
+                const { order_no, pay_sign } = data;
+                if (pay_sign) {
+                    console.log('自主支付');
+                    const res = await wxPay(pay_sign);
+                    if (res.errMsg === 'requestPayment:ok') {
+                        console.log(res);
+                        wx.redirectTo({
+                            url: `/pages/directPayResult/directPayResult?order_no=${order_no}`
+                        });
+                    }
+                }
             }
         } catch (e) {
             wx.showToast({ title: '支付失败，请重试', icon: 'none', image: '', duration: 1000 });
