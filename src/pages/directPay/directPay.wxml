@@ -7,8 +7,10 @@
 		<view class="title"> 付款金额 </view>
 		<view class="money">
 			<view class="yuan">￥</view>
-			<input class="num" type="number" focus="{{ isFocus }}" bindinput='getLen' style="width:{{ len ? len : '15' }}px;"/>
+			<input class="num" type="digit" focus="{{ isFocus }}" bindinput='getLen' bindblur="saveValue" style="width:{{ len ? len : '15' }}px;"/>
 		</view>
 	</view>
-	<button class="confirmPay" style="background-color: {{ themeColor.primaryColor  }}" bind:tap="confirmPay" >确认支付</button>
+	<form report-submit bindsubmit="onPay">
+		<button class="confirmPay" form-type="submit" disabled="{{ isDisablePay }}" style="background-color: {{ themeColor.primaryColor  }}" >确认支付</button>
+</form>
 </view>

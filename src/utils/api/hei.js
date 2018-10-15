@@ -300,6 +300,11 @@ const apis = {
         path: 'api/mag.order.liftingaddress.json',
         method: 'GET',
         isForceToken: true
+    },
+    payDirect: {
+        path: 'api/mag.order.pay.direct.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 
