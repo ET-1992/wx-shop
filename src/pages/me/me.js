@@ -72,7 +72,7 @@ Page({
         const { encryptedData, iv } = e.detail;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         this.setData({
-            isAuthUser: user
+            user
         });
     },
 
