@@ -190,7 +190,7 @@ $footerHeight: 100rpx;
 	}
 }
 
-.virtualProductBtnWrap {
+.virtualProductBtnWrap, .liftInfoBtnWrap{
 	width: 100%;
 	margin: 10rpx 0;
 	background: #fff;
@@ -198,7 +198,7 @@ $footerHeight: 100rpx;
 	justify-content: center;
 	padding: 50rpx 0;
 
-	.virtualProductBtn {
+	.virtualProductBtn, .liftInfoBtn {
 		width: 370rpx;
 		height: 80rpx;
 		border-radius: 40rpx;
@@ -210,6 +210,16 @@ $footerHeight: 100rpx;
 		align-items: center;
 	}
 }
+
+.liftInfoCanvas {
+	width: 500rpx;
+	height: 500rpx;
+	background: #fff;
+}
+
+// .liftInfoCanvas {
+	
+// }
 
 .remarkWrap {
 	width: 100%;

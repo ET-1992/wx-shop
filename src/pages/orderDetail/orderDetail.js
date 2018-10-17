@@ -5,6 +5,7 @@ import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
 
+const QR = require('utils/qrcode.js');
 const app = getApp();
 
 const o = {
@@ -296,6 +297,20 @@ Page({
     setVirtualProductBtn() {
         this.setData({
             virtualProductBtn: false
+        });
+    },
+
+    openLiftInfoModal() {
+        const { order } = this.data;
+        QR.api.draw('D-' + order.order_code, 'liftInfoCanvasId', 250, 250);
+        this.setData({
+            liftInfoModal: true
+        });
+    },
+
+    closeLiftInfoModal() {
+        this.setData({
+            liftInfoModal: false
         });
     }
 });
