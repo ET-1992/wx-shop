@@ -96,9 +96,9 @@
           	<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </navigator>
           <block wx:else>
-          	<navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
+          	<myNavigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
           	 	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
-          	</navigator>
+          	</myNavigator>
 				  </block>
 			  </view>
         	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
@@ -143,9 +143,9 @@
 				<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="grouponItem" url="/pages/miaoshaList/miaoshaList">
 					<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 				</navigator> -->
-				<navigator wx:if="{{ miaoshas.length > 0 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+				<myNavigator wx:if="{{ miaoshas.length > 0 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
 					<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
-				</navigator>
+				</myNavigator>
 			</view>
         	<navigator class="sectionMore" wx:if="{{miaoshas.length > 0 }}" url="/pages/miaoshaList/miaoshaList">
         		<form bindsubmit="submitFormId" report-submit="true">
@@ -207,9 +207,9 @@
 
         <view class="section" wx:if="{{ featured && featured.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <navigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}" wx:for="{{ featured }}" wx:key="id">
+          <myNavigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}" wx:for="{{ featured }}" wx:key="id">
             <image class="starProductItem" src="{{ item.banner }}" />
-          </navigator>
+          </myNavigator>
         </view>
       </view>
       <!-- 最新上架 -->
@@ -218,9 +218,9 @@
 		    <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
 		    <!-- 商品列表start -->
 		    <view class="productContainer">
-		    	<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+		    	<myNavigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
 		    		<productList product="{{ product }}" tplStyle="default" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
-		    	</navigator>
+		    	</myNavigator>
 		    </view>
 		    <!-- 商品列表end -->
             <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">

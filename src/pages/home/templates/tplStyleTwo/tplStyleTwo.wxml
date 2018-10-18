@@ -74,9 +74,9 @@
                         <productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}" />
                     </navigator>
                     <block wx:else>
-                        <navigator wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
+                        <myNavigator wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
                             <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}" />
-                        </navigator>
+                        </myNavigator>
                     </block>
                     <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
                         <form bindsubmit="submitFormId" report-submit class="form">
@@ -119,10 +119,10 @@
                     <!-- <navigator wx:if="{{ miaoshas.length == 1}}" url="/pages/miaoshaList/miaoshaList">
                         <productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaImage" themeColor="{{themeColor}}" />
                     </navigator> -->
-                    <navigator wx:if="{{ miaoshas.length > 0 }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}"
+                    <myNavigator wx:if="{{ miaoshas.length > 0 }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}"
                         wx:key="item.id">
                         <productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaImage" themeColor="{{themeColor}}" />
-                    </navigator>
+                    </myNavigator>
                     <navigator class="sectionMore" wx:if="{{miaoshas.length > 0}}" url="/pages/miaoshaList/miaoshaList">
                         <form bindsubmit="submitFormId" report-submit="true">
                             <button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
@@ -174,10 +174,10 @@
 
                 <view class="section" wx:if="{{ featured && featured.length }}">
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-                    <navigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}"
+                    <myNavigator style="height: {{module.height}}rpx;margin-bottom:15rpx;" url="{{ item.type === 'article' ? '/pages/articleDetail/articleDetail?id=' + item.id : '/pages/productDetail/productDetail?id=' + item.id }}"
                         wx:for="{{ featured }}" wx:key="id">
                         <image class="starProductItem" src="{{ item.banner }}" />
-                    </navigator>
+                    </myNavigator>
                 </view>
             </view>
             <!-- 最新上架 -->
@@ -186,10 +186,10 @@
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
                     <!-- 商品列表start -->
                     <view class="productContainer">
-                        <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
+                        <myNavigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
                             url="/pages/productDetail/productDetail?id={{ product.id }}">
                             <productList product="{{ product }}" tplStyle="{{ tplStyle }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}" />
-                        </navigator>
+                        </myNavigator>
                     </view>
                     <!-- 商品列表end -->
                     <view style="{{ index === modules.length-1 ? 'display: none' : ''}}">

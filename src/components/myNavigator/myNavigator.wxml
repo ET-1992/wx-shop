@@ -1,0 +1,10 @@
+<form bindsubmit="submitFormId" report-submit="true" class="label">
+    <label formType="submit" class="moreButton" for="notDisplayId" class="label">
+		<slot></slot>
+	</label>
+	<button id="notDisplayId" class="notDisplayBtn" form-type="submit"></button>
+</form>
+
+<!-- <navigator wx:if="{{ defineType === 'navigator' }}" >
+	<slot></slot>
+</navigator> -->

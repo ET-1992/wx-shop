@@ -94,10 +94,10 @@
 						</form>
 					</navigator>
 					<view class="grouponContainer">
-						<navigator wx:if="{{groupons.length==1}}" class="grouponItem" url="/pages/grouponList/grouponList">
+						<myNavigator wx:if="{{groupons.length==1}}" class="grouponItem" url="/pages/grouponList/grouponList">
 							<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"
 							/>
-						</navigator>
+						</myNavigator>
 						<block wx:else>
 							<navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem" url="/pages/productDetail/productDetail?id={{ item.id }}">
 								<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
@@ -146,9 +146,9 @@
 						<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="miaoshaItem" url="/pages/miaoshaList/miaoshaList">
 							<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 						</navigator> -->
-						<navigator wx:if="{{ miaoshas.length > 0 }}" class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+						<myNavigator wx:if="{{ miaoshas.length > 0 }}" class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
 							<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
-						</navigator>
+						</myNavigator>
 					</view>
 				</view>
 			</view>
@@ -205,7 +205,7 @@
 					</view>
 					<!-- 商品列表start -->
 					<view class="productContainer" style="{{ index === modules.length-1 ? 'border:none' : ''}}">
-						<navigator 
+						<myNavigator 
 						wx:for="{{ products }}" 
 						wx:key="id" 
 						wx:for-item="product" 
@@ -213,7 +213,7 @@
 						hover-class="navigator-hover" 
 						url="/pages/productDetail/productDetail?id={{ product.id }}">
 							<productList product="{{ product }}" tplStyle="{{ tplStyle }}" productLayoutStyle="topImage" nextCursor="{{next_cursor}}"/>
-						</navigator>
+						</myNavigator>
 					</view>
 					<!-- 商品列表end -->
 				</view>
