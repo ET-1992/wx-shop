@@ -15,7 +15,8 @@ Page({
         console.log(parmas);
         const { themeColor } = app.globalData;
         this.setData({
-            themeColor
+            themeColor,
+            authorizer: app.globalData.authorizer
         });
     },
     clickInput() {
