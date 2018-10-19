@@ -8,6 +8,7 @@
     "loading": "../../components/loading/index",
     "service": "../../components/service/index",
     "console": "../../components/console/console",
-    "logo": "../../components/logo/logo"
+    "logo": "../../components/logo/logo",
+    "myNavigator": "../../components/myNavigator/myNavigator"
   }
 }

@@ -1,7 +1,8 @@
 {
 	"component": true,
 	"usingComponents": {
-		"myModal": "../../components/myModal/myModal"
+		"myModal": "../../components/myModal/myModal",
+		"myNavigator": "../../components/myNavigator/myNavigator"
 	}
 }
 

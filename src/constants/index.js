@@ -87,3 +87,17 @@ export const phoneStyle = {
 };
 /* 商品列表排版风格 */
 export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage', 'shareProduct'];
+
+const ORDER_TYPE = {
+    0: '普通订单',
+    1: '拼团订单',
+    2: '礼品卡订单',
+    3: '虚拟商品订单',
+    4: '直接支付'
+};
+
+const SHIPPING_TYPE = {
+    1: '快递物流',
+    2: '自提',
+    3: '上门服务'
+};
