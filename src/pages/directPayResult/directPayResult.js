@@ -6,11 +6,13 @@ Page({
 
     onLoad(parmas) {
         console.log(parmas);
+        const { order_no } = parmas;
         const { themeColor } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         this.setData({
             themeColor,
-            isIphoneX
+            isIphoneX,
+            order_no
         });
     }
 });

@@ -80,6 +80,10 @@ export function getUserInfo() {
     return user;
 }
 
+export function checkNumber(value) {
+    const reg = /^\d+(\.\d+)?$/;
+    return reg.test(value);
+}
 export function checkPhone(value) {
     const reg = /^((1[3,5,8][0-9])|(14[5,7])|(16[6])|(17[0,6,7,8])|(19[8,9]))\d{8}$/;
     return reg.test(value);
