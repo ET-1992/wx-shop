@@ -7,7 +7,7 @@
 		<view class="title"> 付款金额 </view>
 		<view class="money">
 			<view class="yuan">￥</view>
-			<input class="num" type="digit" focus="{{ isFocus }}" bindinput='getLen' bindblur="saveValue" style="width:{{ len ? len : '15' }}px;"/>
+			<input class="num" type="digit" focus="{{ isFocus }}" bindinput='getLen' bindinput="saveValue" />
 		</view>
 	</view>
 	<form report-submit bindsubmit="onPay">

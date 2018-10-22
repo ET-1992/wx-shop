@@ -41,7 +41,7 @@
 			color: #000000;
 
 			.num{
-				max-width: 300rpx;
+				width: 140rpx;	
 				height:100rpx;
 			}
 		}
@@ -52,15 +52,13 @@
 		justify-content: center;
 		width: 550rpx;
 		height: 98rpx;
-		position: fixed;
-		bottom: 200rpx;
-		left: 50%;
-		margin-left: -275rpx;
 		background: #79BCBE;
 		color: #fff;
 		font-size: 36rpx;
 		font-weight: bold;
 		border: 1rpx solid #C2C2C2;
 		border-radius: 10rpx;
+		margin: auto;
+		margin-top: 30rpx;
 	}
 }
