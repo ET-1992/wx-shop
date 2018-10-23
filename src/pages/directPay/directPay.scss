@@ -7,7 +7,6 @@
 		.avatar{
 			width: 70rpx;
 			height: 70rpx;
-			border: 2rpx solid #999999;
 			border-radius: 100%;
 		}
 		.title{
@@ -26,7 +25,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 41rpx 34rpx;
+		padding: 41rpx 0 41rpx 34rpx;
 
 		.title{
 			font-size: 24rpx;
@@ -41,7 +40,7 @@
 			color: #000000;
 
 			.num{
-				width: 140rpx;	
+				width: 165rpx;	
 				height:100rpx;
 			}
 		}
@@ -59,6 +58,6 @@
 		border: 1rpx solid #C2C2C2;
 		border-radius: 10rpx;
 		margin: auto;
-		margin-top: 30rpx;
+		margin-top: 50rpx;
 	}
 }
