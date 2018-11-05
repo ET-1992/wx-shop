@@ -99,6 +99,13 @@ App({
                 this.bindShare(query_.afcode);
             }
         }
+
+        try {
+            await checkSession();
+        }
+        catch (err) {
+            await this.silentLogin();
+        }
     },
 
     onError(err) {
