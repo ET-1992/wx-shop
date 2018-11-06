@@ -226,7 +226,7 @@ Page({
         }
 
         requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips } = await api.hei.orderPrepare(requestData);
+        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only } = await api.hei.orderPrepare(requestData);
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
         const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
 
@@ -248,7 +248,9 @@ Page({
             isDisablePay: false,
             order_annotation,
             product_type,
-            payment_tips
+            payment_tips,
+            self_lifting_only,
+            liftStyle: self_lifting_only ? 'lift' : 'express'
         }, () => {
             this.computedFinalPay();
         });
