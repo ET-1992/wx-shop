@@ -89,6 +89,7 @@
             app-id="{{  magicImgData.images[index].appid }}" 
             path="{{  magicImgData.images[index].path }}" 
             hover-class="none"
+            bindfail="miniFail"
         >
         </navigator>
 

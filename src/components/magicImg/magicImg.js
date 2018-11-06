@@ -53,6 +53,14 @@ Component({
             });
             console.log(this.data.contactModal);
         },
+        miniFail(e) {
+            console.log(e);
+            const { errMsg } = e.detail;
+            wx.showModal({
+                title: '温馨提示',
+                content: errMsg,
+            });
+        }
     }
 });
 
