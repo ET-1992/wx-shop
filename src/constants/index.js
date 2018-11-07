@@ -88,16 +88,30 @@ export const phoneStyle = {
 /* 商品列表排版风格 */
 export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage', 'shareProduct'];
 
-const ORDER_TYPE = {
-    0: '普通订单',
-    1: '拼团订单',
-    2: '礼品卡订单',
-    3: '虚拟商品订单',
-    4: '直接支付'
-};
+// const ORDER_TYPE = {
+//     0: '普通订单',
+//     1: '拼团订单',
+//     2: '礼品卡订单',
+//     3: '虚拟商品订单',
+//     4: '直接支付'
+// };
 
-const SHIPPING_TYPE = {
-    1: '快递物流',
-    2: '自提',
-    3: '上门服务'
-};
+// const SHIPPING_TYPE = {
+//     1: '快递物流',
+//     2: '自提',
+//     3: '上门服务'
+// };
+
+// const coupon_data_type = {
+//     1: '固定日期区间',
+//     2: '固定时长' // 领取后计算
+// };
+
+// const coupon_status = {
+//     1: '已创建，未投放',
+//     2: '商家已投放，使用中',
+//     3: '已过期',
+//     4: '用户已领取',
+//     5: '用户已使用',
+//     '-1': '已删除'
+// };

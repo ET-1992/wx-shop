@@ -133,7 +133,7 @@ const apis = {
         isForceToken: true,
     },
     fetchMyCouponList: {
-        path: 'api/mag.coupon.my.json',
+        path: 'api/mag.coupon.my.json?v2',
         method: 'POST',
         isForceToken: true,
     },
