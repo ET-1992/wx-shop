@@ -1,5 +1,6 @@
 {
 	"navigationBarTitleText": "分类",
+	"enablePullDownRefresh": true,
 	"usingComponents": {
     	"console": "../../components/console/console",
     	"loading": "../../components/loading/index"

@@ -47,4 +47,9 @@ Page({
         this.setData({ selectedIndex: index });
     },
     onShareAppMessage: onDefaultShareAppMessage,
+
+    async onPullDownRefresh() {
+        this.onLoad();
+        wx.stopPullDownRefresh();
+    }
 });
