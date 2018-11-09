@@ -416,9 +416,9 @@ Page({
     miniFail(e) {
         console.log(e);
         const { errMsg } = e.detail;
-        wx.showModal({
-            title: '温馨提示',
-            content: errMsg,
-        });
+        // wx.showModal({
+        //     title: '温馨提示',
+        //     content: errMsg,
+        // });
     }
 });

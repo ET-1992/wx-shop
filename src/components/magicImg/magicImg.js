@@ -55,11 +55,11 @@ Component({
         },
         miniFail(e) {
             console.log(e);
-            const { errMsg } = e.detail;
-            wx.showModal({
-                title: '温馨提示',
-                content: errMsg,
-            });
+            // const { errMsg } = e.detail;
+            // wx.showModal({
+            //     title: '温馨提示',
+            //     content: errMsg,
+            // });
         }
     }
 });
