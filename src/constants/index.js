@@ -88,6 +88,11 @@ export const phoneStyle = {
 /* 商品列表排版风格 */
 export const PRODUCT_LAYOUT_STYLE = ['topImage', 'leftImage', 'rightImage', 'articleImage', 'shareProduct'];
 
+export const CURRENCY = {
+    'CNY': '￥',
+    'AUD': '$'
+};
+
 // const ORDER_TYPE = {
 //     0: '普通订单',
 //     1: '拼团订单',

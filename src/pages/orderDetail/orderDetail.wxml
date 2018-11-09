@@ -84,7 +84,7 @@
     <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}"  />
   </view>
 
-<view wx:if="{{ !otherPeopleGroupon && order.type === 3 }}">
+<view wx:if="{{ !otherPeopleGroupon && order.type === 3 && order.status >= 3 }}">
   <view class="virtualProductBtnWrap" wx:if="{{ virtualProductBtn }}">
     <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}">获取取货码</view>
   </view>

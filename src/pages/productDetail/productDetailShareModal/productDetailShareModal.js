@@ -95,9 +95,10 @@ Component({
             });
 
             console.log(textRow);
+            const globalData = app.globalData;
             ctx.beginPath();
             ctx.setFillStyle('#FC2732');
-            ctx.fillText('￥' + productPrice, 45 / 540 * width, 640 / 900 * height);
+            ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
 
             ctx.beginPath();
             ctx.moveTo(45 / 540 * width, 670 / 900 * height);

@@ -5,7 +5,7 @@
             <view class="title">{{ product.title }}</view>
         </view>
         <view class="grouponPrice">
-            <text class="activeBuy">￥</text>
+            <text class="activeBuy">{{ globalData.CURRENCY[globalData.currency] }}</text>
             <text class="nowPrice">{{ product.groupon_price }}</text>
         </view>
         <view class="grouponInfo">

@@ -66,13 +66,13 @@
 			<view class="meta">
 				<view class="price">
 					<view class="nowPrice">
-						<view>￥</view>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
 						<view class="priceStyle">{{ product.definePrice}}</view>
 					</view>
 					<view
 						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
 						class="originalPrice"
-					>￥{{ product.original_price }}</view>
+					>{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 				</view>
 				<view class="postage">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
@@ -164,7 +164,7 @@
 						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
 						style="background-color: {{ themeColor.secondaryColor }}"
 					>
-						<view>￥{{ product.price }}</view>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
 						<view>单独购买</view>
 					</view>
 					<view 
@@ -174,7 +174,7 @@
 						data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
-						<view>￥{{ product.groupon_price }}</view>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</view>
 						<view>{{ product.groupon_member_limit }}人团</view>
 					</view>
 				</block>
@@ -225,12 +225,12 @@
 						<view class="productInfo">
 							<view class="price">
 								<text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
-									￥{{ product.groupon_price }}
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}
 								</text>
 								<text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
-									￥{{ product.miaosha_price }}
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
 								</text>
-								<text wx:else>￥{{ selectedSku.id ? selectedSku.price : product.price }}</text>
+								<text wx:else>{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}</text>
 							</view>
 							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
 								库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}

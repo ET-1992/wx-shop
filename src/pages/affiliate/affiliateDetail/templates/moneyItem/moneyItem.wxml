@@ -5,6 +5,6 @@
             <view class="itemCenter-t">零钱提现</view>
             <view class="itemCenter-t">确认时间：898989898989</view>
         </view>
-        <view class="itemRight">-￥89</view>
+        <view class="itemRight">-{{ globalData.CURRENCY[globalData.currency] }}89</view>
     </view>
 </template>

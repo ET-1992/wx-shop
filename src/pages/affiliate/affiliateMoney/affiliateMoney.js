@@ -46,6 +46,7 @@ Page({
             balance,
             income_pending,
             code,
+            globalData: app.globalData
         });
 
         console.log(this.data.bankNameList);

@@ -6,7 +6,7 @@
 	<view class="input_money" bind:tap="clickInput">
 		<view class="title"> 付款金额 </view>
 		<view class="money">
-			<view class="yuan">￥</view>
+			<view class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</view>
 			<input class="num" type="digit" focus="{{ isFocus }}" bindinput='getLen' bindinput="saveValue" />
 		</view>
 	</view>

@@ -1,5 +1,7 @@
 import api from 'utils/api';
 
+const app = getApp();
+
 Page({
     data: {
         title: 'affiliateCenter',
@@ -20,7 +22,8 @@ Page({
             member,
             wallet,
             isLoading: false,
-            affiliate_enable
+            affiliate_enable,
+            globalData: app.globalData
         });
     },
     changeModal() {

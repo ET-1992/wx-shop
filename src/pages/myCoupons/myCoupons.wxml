@@ -51,7 +51,7 @@
     	>
     		<template
         		is="couponItem"
-        		data="{{ coupon: item, status: selectedStatus }}"
+        		data="{{ coupon: item, status: selectedStatus, globalData }}"
     		/>
     	</view>
   	</view>

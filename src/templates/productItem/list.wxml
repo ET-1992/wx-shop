@@ -13,9 +13,9 @@
       wx:if="{{ product.tag }}"
     >{{ product.tag }}</view>
     <view class="productItemMeta">
-      <view class="productItemPrice">￥{{ product.price }}</view>
+      <view class="productItemPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
       <view class="productItemOriginPrice"
-      >￥{{ product.original_price }}</view>
+      >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
       <view class="productItemSold">已售：{{ product.sales }}</view>
     </view>
   </view>

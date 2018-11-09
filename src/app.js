@@ -1,7 +1,7 @@
 import { login as wxLogin, checkSession } from 'utils/wxp';
 import api from 'utils/api';
 import getToken from 'utils/getToken';
-import { USER_KEY, TOKEN_KEY, EXPIRED_KEY } from 'constants/index';
+import { USER_KEY, TOKEN_KEY, EXPIRED_KEY, CURRENCY } from 'constants/index';
 import Event from 'utils/event';
 import { parseScene } from 'utils/util';
 
@@ -20,7 +20,7 @@ App({
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
-        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip, authorizer } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip, authorizer, currency = 'AUD' } = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -38,7 +38,9 @@ App({
             tplStyle: styleType,
             defineTypeGlobal: templateType,
             vip,
-            authorizer
+            authorizer,
+            currency,
+            CURRENCY
         });
 
         this.vip = vip;

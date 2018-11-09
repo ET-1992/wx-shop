@@ -1,3 +1,5 @@
+const app = getApp();
+
 Component({
     properties: {
         finalPay: {
@@ -16,6 +18,9 @@ Component({
             type: Boolean,
             value: true
         }
+    },
+    data: {
+        globalData: app.globalData
     },
     methods: {
         onPay(e) {

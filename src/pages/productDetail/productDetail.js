@@ -350,7 +350,8 @@ Page({
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             routeQuery: query,
-            cartNumber: CART_NUM
+            cartNumber: CART_NUM,
+            globalData: app.globalData
         });
         this.initPage();
     },

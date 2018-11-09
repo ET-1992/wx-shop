@@ -1,3 +1,5 @@
+const app = getApp();
+
 Component({
     properties: {
         items: {
@@ -46,6 +48,7 @@ Component({
         }
     },
     data: {
-        products: []
+        products: [],
+        globalData: app.globalData
     }
 });

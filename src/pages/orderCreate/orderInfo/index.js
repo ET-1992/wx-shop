@@ -1,5 +1,7 @@
 import  templateTypeText from 'constants/templateType';
 
+const app = getApp();
+
 Component({
     properties: {
         useCoin: {
@@ -57,6 +59,7 @@ Component({
         totalPriceDispaly: '0.00',
         couponFeeDispaly: '0.00',
         totalPostageDispaly: '0.00',
-        templateTypeText
+        templateTypeText,
+        globalData: app.globalData
     }
 });

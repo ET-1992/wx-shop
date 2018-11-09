@@ -1,4 +1,6 @@
 import api from 'utils/api';
+const app = getApp();
+
 Page({
     data: {
         next_cursor: 0,
@@ -24,7 +26,8 @@ Page({
                 {
                     name: '我的收益'
                 }
-            ]
+            ],
+            globalData: app.globalData
         });
         if (user_type === '1') {
             wx.setNavigationBarTitle({

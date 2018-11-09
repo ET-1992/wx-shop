@@ -21,12 +21,12 @@
             <view class="allprice">
                 <view class="flashPrice">
                     <text class="flashPriceTitle">限时价</text>
-                    <text class="price">￥</text>
+                    <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
                     <text class="miaoshaPrice">{{ product.miaosha_price }}</text>
                 </view>
                 <view wx:if="{{ product.miaosha_price !== product.original_price }}">
                     <text class="originalPriceTitle"></text>
-                    <text class="originalPrice">￥{{ product.original_price }}</text>
+                    <text class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</text>
                 </view>
             </view>
 

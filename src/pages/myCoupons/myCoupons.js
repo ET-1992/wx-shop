@@ -35,7 +35,8 @@ Page({
             'coupons.available': available,
             'coupons.used': used,
             'coupons.expired': expired,
-            isLoading: false
+            isLoading: false,
+            globalData: app.globalData
         });
     },
 

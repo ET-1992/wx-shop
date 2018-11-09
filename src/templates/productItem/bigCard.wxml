@@ -9,9 +9,9 @@
       {{ product.title }}
     </view>
     <view class="productItemMeta">
-      <view class="productItemPrice">￥{{ product.price }}</view>
+      <view class="productItemPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
       <view class="productItemOriginPrice"
-      >￥{{ product.original_price }}</view>
+      >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
       <view
         class="productItemTag"
         wx:if="{{ product.tag }}"

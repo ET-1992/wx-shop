@@ -25,7 +25,7 @@ Page({
     },
     onLoad() {
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        this.setData({ themeColor, globalData: app.globalData });
     },
 
     async onShow() {

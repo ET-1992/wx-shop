@@ -17,8 +17,8 @@
             </view>
         <!-- </navigator> -->
         <view class="bottom">
-            <view>商品总价：￥{{ order.order_amount }}</view>
-            <view class="income">{{ order.order_status == '4' || order.order_status == '6' ? '收益：' : '预计收益：'}} ￥{{ order.commission_amount/100 }}</view>
+            <view>商品总价：{{ globalData.CURRENCY[globalData.currency] }}{{ order.order_amount }}</view>
+            <view class="income">{{ order.order_status == '4' || order.order_status == '6' ? '收益：' : '预计收益：'}} {{ globalData.CURRENCY[globalData.currency] }}{{ order.commission_amount/100 }}</view>
         </view>
     </view>
 </template>

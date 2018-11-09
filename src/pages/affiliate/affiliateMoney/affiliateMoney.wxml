@@ -1,18 +1,18 @@
 <view class="container top">
     <view class="item">
         <text class="item-text">可提现金额</text>
-        <text class="amount">￥{{ balance }}</text>
+        <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ balance }}</text>
     </view>
     <view class="item">
         <text class="item-text">未结算收益</text>
-        <text class="amount">￥{{ income_pending }}</text>
+        <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ income_pending }}</text>
     </view>
 
 </view>
 <view class="container middle">
     <view class="item">
         <text class="item-text">本次提现</text>
-        <text class="price">￥</text>
+        <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
         <input class="input" type="digit" focus bindinput="setMoneyValue" bindblur="saveMoneyValue" placeholder="0.00" />
     </view>
 </view>

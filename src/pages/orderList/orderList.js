@@ -92,6 +92,7 @@ Page({
             selectedStatus: state,
             activeIndex: index,
             themeColor,
+            globalData: app.globalData,
             scrollView: `tap${state}`
         });
         this.loadOrders();

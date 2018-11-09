@@ -65,7 +65,7 @@
         <view class="meta">
           <view>
             <view class="price">
-              ￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}
+              {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}
             </view>
           </view>
           <view class="metaRight">
@@ -100,7 +100,7 @@
         <view class="cartReduce" wx:if="{{ item.reduced > 0 }}"><text>比加入时降{{ item.reduced }}元</text></view>
         <view class="meta">
         	<view>
-            	<view class="price" >￥{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
+            	<view class="price" >{{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</view>
         	</view>
 
         	<view class="metaRight">
@@ -162,12 +162,12 @@
     <view class="priceCount">
       <view class="priceMeta">
         <!-- <text class="postage"
-        >运费：￥{{ totalPostage }}</text> -->
-        <text>已节省：￥{{ savePrice }}</text>
+        >运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
+        <text>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</text>
       </view>
       <view>
         合计：
-        <text class="totalPrice">￥{{ totalPrice }}</text>
+        <text class="totalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }}</text>
       </view>
     </view>
 

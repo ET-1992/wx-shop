@@ -11,24 +11,24 @@
 <view class="orderInfo">
   <view class="row">
     <text class="text">商品金额</text>
-    <text class="money">￥{{ info.totalPriceDispaly }}</text>
+    <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ info.totalPriceDispaly }}</text>
   </view>
   <view wx:if="{{ info.couponFee }}" class="row">
     <text class="text">优惠券</text>
-    <text class="money">-￥{{ info.couponFeeDispaly }}</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }}</text>
   </view>
   <view wx:if="{{ info.coinForPay }}" class="row">
     <text class="text">花生米</text>
-    <text class="money">-￥{{ info.coinForPayDispaly }}</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }}</text>
   </view>
   <view class="row">
     <text class="text">{{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}</text>
-    <text class="money">+￥{{ info.postageDispaly }}</text>
+    <text class="money">+{{ globalData.CURRENCY[globalData.currency] }}{{ info.postageDispaly }}</text>
   </view>
   <view class="line"></view>
   <view class="finalPay">
     实付款：
-    <text class="finalPayText">￥{{  info.finalPayDispaly  }}</text>
+    <text class="finalPayText">{{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }}</text>
   </view>
 </view>
 <view class="section buyerMessage">

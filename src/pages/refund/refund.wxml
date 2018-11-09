@@ -24,7 +24,7 @@
         <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
           {{ item.sku_property_names }}
         </view>
-        <view class="price">￥{{ item.price }}</view>
+        <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
       </view>
     </view>
   </view>

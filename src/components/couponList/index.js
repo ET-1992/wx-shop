@@ -1,3 +1,5 @@
+const app = getApp();
+
 Component({
     properties: {
         coupon: {
@@ -20,5 +22,8 @@ Component({
             type: String,
             value: 'default',
         }
+    },
+    data: {
+        globalData: app.globalData
     }
 });

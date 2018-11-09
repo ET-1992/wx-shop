@@ -2,6 +2,8 @@ import api from 'utils/api';
 import { getNodeInfo, formatTime, textToValue, valueToText  } from 'utils/util';
 import { ORDER_STATUS_TEXT } from 'constants/index';
 
+const app = getApp();
+
 Page({
     data: {
         isLoading: true,
@@ -11,6 +13,9 @@ Page({
 
     onLoad(parmas) {
         console.log(parmas);
+        this.setData({
+            globalData: app.globalData
+        });
         wx.setNavigationBarTitle({
             title: '订单列表'
         });

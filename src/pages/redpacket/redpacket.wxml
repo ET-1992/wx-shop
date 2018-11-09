@@ -7,7 +7,7 @@
           <view>{{ redpacket.item.title || '--' }}</view>
         </view>
         <view class="price">
-          <text>￥</text>
+          <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
           {{ redpacket.item.reduceValue || '--' }}
         </view>
       </view>
@@ -26,7 +26,7 @@
         {{goldNumer || '--'}}
         <text>个</text>
       </view>
-      <view class="price">直接抵现￥{{redpacket.item.amount || '--'}}</view>
+      <view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
     </view>
     <button class="normalizeBt" bindtap="onRecive" wx:if="{{ !hasRecived }}">
       <image class="receiveRedpacketBg" src="/icons/receiveRedpacketBt.png" />

@@ -21,8 +21,8 @@
       </view>
       <view class="right">
         <view>
-          <view class="price">￥{{ item.price }}</view>
-          <view class="originalPrice">￥{{ item.original_price }}</view>
+          <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
+          <view class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ item.original_price }}</view>
         </view>
         <view class="itemQuantity">x{{ item.quantity }}</view>
       </view>
@@ -33,23 +33,23 @@
 <view class="section priceInfo">
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">￥{{ totalPrice }}</view>
+    <view class="priceInfoItemValue">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">附加服务费</view>
-    <view class="priceInfoItemValue">+￥{{ postage || 0 }}</view>
+    <view class="priceInfoItemValue">+{{ globalData.CURRENCY[globalData.currency] }}{{ postage || 0 }}</view>
   </view>
   <view class="priceInfoItem">
     <view class="priceInoItemTitle">优惠券</view>
-    <view class="priceInfoItemValue">-￥{{ couponPrice || 0 }}</view>
+    <view class="priceInfoItemValue">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponPrice || 0 }}</view>
   </view>
    <view class="priceInfoItem">
     <view class="priceInoItemTitle">金币</view>
-    <view class="priceInfoItemValue">-￥{{ coinPrice || 0 }}</view>
+    <view class="priceInfoItemValue">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinPrice || 0 }}</view>
   </view>
   <view class="priceInfoItem priceTotal">
     <view class="priceInoItemTitle">实付款</view>
-    <view class="priceInfoItemValue">￥{{ orderPrice || 0 }}</view>
+    <view class="priceInfoItemValue">{{ globalData.CURRENCY[globalData.currency] }}{{ orderPrice || 0 }}</view>
   </view>
 </view>
 

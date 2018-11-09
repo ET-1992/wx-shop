@@ -16,7 +16,8 @@ Page({
         const { themeColor } = app.globalData;
         this.setData({
             themeColor,
-            authorizer: app.globalData.authorizer
+            authorizer: app.globalData.authorizer,
+            globalData: app.globalData
         });
     },
     clickInput() {

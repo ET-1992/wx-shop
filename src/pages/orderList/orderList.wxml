@@ -28,7 +28,7 @@
 						<view class="itemTitle">{{ item.title }}</view>
 						<view class="property">{{ item.sku_property_names }}</view>
 						<view class="itemPirceInfo">
-							<view class="price">￥{{ item.price }}</view>
+							<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
 							<view class="number">x{{ item.quantity }}</view>
 						</view>
 					</view>
@@ -39,7 +39,7 @@
 						<view>共{{ order.productCount }}件商品</view>
 						<view class="orderPrice">
 							{{ (order.statusCode === 1) ? '需付款：' : '实付款：' }}
-							<text class="orderPriceValue">￥{{ order.amount }}</text>
+							<text class="orderPriceValue">{{ globalData.CURRENCY[globalData.currency] }}{{ order.amount }}</text>
 						</view>
 					</view>
 				</view>

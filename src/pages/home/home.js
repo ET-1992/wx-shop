@@ -181,7 +181,8 @@ Page({
             isIphoneX,
             userInfo,
             tplStyle,
-            logoObj: partner
+            logoObj: partner,
+            globalData: app.globalData
         });
     },
 

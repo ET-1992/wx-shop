@@ -19,7 +19,8 @@ Page({
             buyer_message,
             couponPrice,
             orderPrice,
-            coinPrice
+            coinPrice,
+            globalData: app.globalData
         });
     },
 

@@ -3,7 +3,7 @@
 		<view class="couponInfo">
 			<view class="left">
 				<view class="reduce">
-					<text class="yuan" wx:if="{{ coupon.type == 1 }}">￥</text>
+					<text class="yuan" wx:if="{{ coupon.type == 1 }}">{{ globalData.CURRENCY[globalData.currency] }}</text>
 					<text class="reduceCost">{{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}</text>
 					<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
 				</view>

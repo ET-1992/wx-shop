@@ -8,22 +8,22 @@
             <view class="priceWrapper">
                 <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
                     <view class="ItemPrice">
-                        <text>￥</text>{{ product.miaosha_price }}
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.miaosha_price }}
                     </view>
                 </block>
                 <block wx:elif="{{ product.groupon_enable == 1}}">
                     <view class="ItemPrice">
-                        <text>￥</text>{{ product.groupon_price }}
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.groupon_price }}
                     </view>
                 </block>
                 <block wx:else>
                     <view class="ItemPrice">
-                        <text>￥</text>{{ product.price }}
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
                     </view>
                 </block>
                 <view 
                     wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
-                    class="originPrice"><text>￥</text>{{ product.original_price }}
+                    class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
                 </view>
             </view>
             <view class="tagWrapper">

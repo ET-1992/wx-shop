@@ -1,18 +1,18 @@
 <view class="orderInfo">
   <view>
     <text class="text">商品金额</text>
-    <text class="money">￥{{ totalPriceDispaly }}</text>
+    <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPriceDispaly }}</text>
   </view>
   <view wx:if="{{ !isGrouponBuy }}">
     <text class="text">优惠券</text>
-    <text class="money">-￥{{ couponFeeDispaly }}</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponFeeDispaly }}</text>
   </view>
   <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
     <text class="text">花生米</text>
-    <text class="money">-￥{{ coinForPay }}</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinForPay }}</text>
   </view>
   <view>
     <text class="text">{{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}</text>
-    <text class="money">+￥{{ postageDispaly}}</text>
+    <text class="money">+{{ globalData.CURRENCY[globalData.currency] }}{{ postageDispaly}}</text>
   </view>
 </view>

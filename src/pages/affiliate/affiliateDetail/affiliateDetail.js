@@ -21,7 +21,8 @@ Page({
         const { themeColor } = app.globalData;
         this.setData({
             isIphoneX: app.systemInfo.isIphoneX,
-            themeColor
+            themeColor,
+            globalData: app.globalData
         });
     },
 

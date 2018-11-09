@@ -1,7 +1,8 @@
+
 <template name="shareMoneyGetItem">
     <view class="shareMoneyGetItem">
         <view class="shareMoneyGetItemLeft">
-            <view class="shareMoneyGetItemLeft-t">金额 ￥{{ amount / 100 }}</view>
+            <view class="shareMoneyGetItemLeft-t">金额 {{ globalData.CURRENCY[globalData.currency] }}{{ amount / 100 }}</view>
             <view class="shareMoneyGetItemLeft-t" wx:if="{{ status === 3 }}">驳回原因：{{ note }}</view>
             <view class="shareMoneyGetItemLeft-t">{{ formatTime }}</view>
         </view>

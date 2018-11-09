@@ -2,7 +2,7 @@
 <import src="/templates/share/shareList.wxml"/>
 <filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" ></filterList>
 <view wx:if="{{ !isLoading && members.length }}" class="content">
-    <template is="shareList" data="{{ members, user_type}}"/>
+    <template is="shareList" data="{{ members, user_type, globalData}}"/>
 </view>
 <view wx:if="{{ !isLoading && !members.length }}" class="emptyHint">
     {{ user_type === '1' ? '暂无分享家' : '暂无客户'}}

@@ -84,7 +84,8 @@ Page({
         const { themeColor } = app.globalData;
         this.setData({
             themeColor,
-            isIphoneX
+            isIphoneX,
+            globalData: app.globalData
         });
 
         const { order } = await api.hei.fetchOrder({ order_no: id });

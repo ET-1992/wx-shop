@@ -2,11 +2,6 @@
 <import src="./templates/moneyItem/moneyItem.wxml"/>
 <import src="./templates/moneyGetItem/moneyGetItem.wxml"/>
 <view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
-	<!-- <view class="moneyDisplay">
-		<view class="moneyDisplay-h">可提现金额</view>
-		<view class="moneyDisplay-b"><text>￥</text>38.8</view>
-		<view class="moneyDisplay-f" bindtap="applyGetMoney">申请提现</view>
-	</view> -->
 
 	<view class="moneyInfo">
 		<view class="moneyInfoHeader">
@@ -32,7 +27,7 @@
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
 				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
-						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime }}" />
+						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime, globalData }}" />
 					</view>
 				</view>
 				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
@@ -40,7 +35,7 @@
 
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 2 && !isLoading }}">
 				<block wx:for="{{ getMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ getMoneyLogItems.length > 0 }}">
-					<template is="shareMoneyGetItem" data="{{ ...item }}" />
+					<template is="shareMoneyGetItem" data="{{ globalData, ...item }}" />
 				</block>
 				<view wx:if="{{ getMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>

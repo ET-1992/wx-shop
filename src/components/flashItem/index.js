@@ -75,6 +75,7 @@ Component({
         hasStart: true,
         hasEnd: false,
         timeLimit: 0,
+        globalData: app.globalData
     },
 
     attached() {

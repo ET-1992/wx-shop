@@ -30,7 +30,8 @@ Page({
             goldNumer: goldNumer,
             hasRecived: !!received_redpacket,
             themeColor,
-            tplStyle
+            tplStyle,
+            globalData: app.globalData
         });
         console.log(this.data);
     },
