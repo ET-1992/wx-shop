@@ -4,6 +4,7 @@
   "description": "shop-wxapp",
   "scripts": {
     "start": "cross-env NODE_ENV=production webpack --watch --progress -p",
+    "dev": "cross-env NODE_ENV=dev webpack --watch --progress -p",
     "webpack": "webpack",
     "prestart": "rimraf dist",
     "prebuild": "rimraf dist",
