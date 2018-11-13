@@ -223,27 +223,16 @@ Page({
         if (!userCoupon[index].stock_qty) {
             return;
         }
-        try {
-            const data = await api.hei.receiveCoupon({
-                coupon_id: id,
-            });
-            const { errcode } = data;
-            if (!errcode) {
-                showToast({ title: '领取成功' });
-                const updateData = {};
-                const key = `userCoupon[${index}].status`;
-                updateData[key] = 4;
-                this.setData(updateData);
-                await this.loadHome();
-            }
-        }
-        catch (err) {
-            await showModal({
-                title: '温馨提示',
-                content: err.errMsg,
-                showCancel: false,
-            });
-        }
+
+        api.hei.receiveCoupon({
+            coupon_id: id,
+        });
+
+        showToast({ title: '领取成功' });
+        const updateData = {};
+        const key = `userCoupon[${index}].status`;
+        updateData[key] = 4;
+        this.setData(updateData);
     },
     async receiveCouponAll(e) {
         const token = getToken();
