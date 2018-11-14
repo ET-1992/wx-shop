@@ -99,7 +99,7 @@
 			<view class="itemTitle">联系客服</view>
 		</button>
 
-		<navigator class="infoItem" url="./aboutUs/aboutUs?image_url={{ about_us }}&phone={{ phone_number }}" wx:if="{{ about_us }}">
+		<navigator class="infoItem" url="{{ './aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
 			<image class="itemIcon" mode="aspectFit" src="../../icons/magua/about.png" />
 			<view class="itemTitle">关于我们</view>
 		</navigator>
