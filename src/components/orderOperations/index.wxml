@@ -23,6 +23,10 @@
     class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
     wx:if="{{ isShowService }}"
     open-type="contact"
+    send-message-title="{{order.items[0].title}}"
+		send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
+		send-message-img="{{order.items[0].thumbnail}}"
+		show-message-card="{{true}}"
     session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
   >申请售后</button>
   <button
