@@ -150,6 +150,10 @@
 				</navigator>
 				<button 
 					open-type="contact" 
+					send-message-title="{{product.title}}"
+					send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
+					send-message-img="{{product.thumbnail}}"
+					show-message-card="{{true}}"
 					class="cart" 
 					session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
 				>
