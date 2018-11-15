@@ -181,7 +181,8 @@ Page({
             const { items, isSelectedObject } = this.data;
             const selectdItems = items.filter((item) => isSelectedObject[item.id]);
             this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
-            app.globalData.currentOrder = this.data;
+            app.globalData.currentOrder = this.data.items;
+            console.log(app.globalData, this.data.items);
             wx.navigateTo({
                 url: '/pages/orderCreate/orderCreate',
             });
