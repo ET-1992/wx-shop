@@ -1,7 +1,6 @@
 import api from 'utils/api';
-import { getUserInfo, getAgainUserForInvalid, updateCart, auth  } from 'utils/util';
-import { chooseAddress, getSetting, authorize, showToast, showModal } from 'utils/wxp';
-import { ADDRESS_KEY, USER_KEY } from 'constants/index';
+import { getUserInfo, getAgainUserForInvalid, updateCart } from 'utils/util';
+import { USER_KEY } from 'constants/index';
 const app = getApp();
 
 // 创建页面实例对象
@@ -23,15 +22,24 @@ Page({
     },
 
     async loadOrderCount() {
-
         const data = await api.hei.myFare();
+        const { defineTypeGlobal, vip, user } = this.data;
+        const infosComponentData = {
+            defineTypeGlobal,
+            vip,
+            user,
+            wallet: data.wallet,
+            affiliate: data.affiliate,
+            phone_number: data.phone_number,
+            about_us: data.about_us,
+            shop_phone: data.shop_phone
+        };
 
         this.setData({
             ...data,
-            isLoading: false
+            isLoading: false,
+            infosComponentData
         });
-
-        console.log(this.data);
     },
 
     onLoad() {
@@ -54,17 +62,6 @@ Page({
 
     onLogin() {
         wx.navigateTo({ url: '/pages/login/login' });
-    },
-
-    async onAddress() {
-        const res = await auth({
-            scope: 'scope.address',
-            ctx: this
-        });
-        if (res) {
-            const addressRes = await chooseAddress();
-            wx.setStorageSync(ADDRESS_KEY, addressRes);
-        }
     },
 
     async bindGetUserInfo(e) {
@@ -145,37 +142,4 @@ Page({
             }
         });
     },
-
-    showToast() {
-        showToast({
-            title: '审核中',
-            icon: 'none'
-        });
-    },
-
-    redirectToShareCenter() {
-        const user = getUserInfo();
-        if (user) {
-            wx.navigateTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
-        }
-    },
-
-    /* 我的管家 */
-    async openManager() {
-        const address  = wx.getStorageSync('address');
-        if (!address) {
-            const res = await auth({
-                scope: 'scope.address',
-                ctx: this
-            });
-            if (res) {
-                const addressRes = await chooseAddress();
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            }
-        } else {
-            this.setData({
-                openManager: true
-            });
-        }
-    }
 });

@@ -73,40 +73,6 @@
 	line-height: 2;
 }
 
-.infos{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	background: #fff;
-	margin: 15rpx 20rpx;
-	border-radius: 5rpx;
-	align-content: center;
-
-	.infoItem{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		line-height: 2;
-		width: 25%;
-		padding: 25rpx;
-		
-		.itemIcon {
-			width: 55rpx;
-			height: 60rpx;
-		}
-		.itemTitle {
-			flex-grow: 1;
-			font-size: 22rpx;
-			color: #333333;
-		}
-
-		.coupon{
-			width: 85rpx;
-		}
-	}
-}
-
 .affiliate{
 	margin: 15rpx 20rpx;
 	border-radius: 5rpx;
