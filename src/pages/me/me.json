@@ -5,6 +5,7 @@
 		"manager": "./manager/index",
 		"console": "../../components/console/console",
 		"loading": "../../components/loading/index",
-		"logo": "../../components/logo/logo"
+		"logo": "../../components/logo/logo",
+		"infos": "./infos/index"
 	  }
 }
