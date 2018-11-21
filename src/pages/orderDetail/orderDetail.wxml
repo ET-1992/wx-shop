@@ -42,7 +42,7 @@
 
 <van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal">
     <van-panel title="提货码">
-        <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId"/>
+        <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
       </van-panel>
 </van-popup>
 
@@ -59,7 +59,7 @@
     				  <image class="body-left-img" src="/icons/truck.png" mode="aspectFit" />
     				</view>
     				<view class="body-center">
-    				  <view class="body-center-top">{{ item.list[item.list.length-1].remark || '暂无物流信息' }}</view>
+    				  <view class="body-center-top">{{ item.list[item.list.length-1].remark || '请点击查看物流信息' }}</view>
     				  <view>{{item.list[item.list.length-1].datetime || item.defineTime }}</view>
     				</view>
     			</view>
