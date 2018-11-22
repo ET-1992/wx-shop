@@ -1,4 +1,4 @@
-import { getUserInfo, auth } from 'utils/util';
+import { getUserInfo, getAgainUserForInvalid, auth } from 'utils/util';
 import { chooseAddress, showToast } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
 
@@ -15,6 +15,13 @@ Component({
         }
     },
     methods: {
+        async bindGetUserInfo(e) {
+            const { encryptedData, iv } = e.detail;
+            const user = await getAgainUserForInvalid({ encryptedData, iv });
+            this.setData({
+                user
+            });
+        },
         async onAddress() {
             const res = await auth({
                 scope: 'scope.address',
