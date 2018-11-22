@@ -1,53 +1,11 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{!isLoading}}">
-	<view class="header" style="background-color: {{ themeColor.primaryColor }}">
-		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
-			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
-			<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
-		</button>
-		<navigator wx:if="{{ wallet && wallet.coin_enable }}" class="welfare" url="/pages/coinDetail/coinDetail">
-			<view class="number">{{ wallet && wallet.coins || 0 }}</view>
-			<view class="title">花生米</view>
-		</navigator>
-		<navigator wx:if="{{ wallet.coin_enable }}" class="welfare" url="/pages/myCoupons/myCoupons">
-			<view class="number">{{ coupons.available.length || 0 }}</view>
-			<view class="title">优惠券</view>
-		</navigator>
-	</view>
 
+	<!-- 头部面板 -->
+	<personal personalComponentData="{{ personalComponentData }}" bind:consoleOpen="consoleOpen"/>
+	
 	<!-- 订单面板 -->
-	<view class="section orders">
-		<view class="orderItems">
-			<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
-				<view class="orderItemValue" wx:if="{{ order_counts['1'] }}">{{ order_counts['1'] }}</view>
-				<image class="statusIcon unpay" src="../../icons/wallet.png" />
-				<view class="statusText">待付款</view>
-			</navigator>
-			<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
-				<view class="orderItemValue" wx:if="{{ order_counts['2'] }}">{{ order_counts['2'] }}</view>
-				<image class="statusIcon unSend" src="../../icons/truck.png" />
-				<view class="statusText">待发货</view>
-			</navigator>
-			<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
-				<view class="orderItemValue" wx:if="{{ order_counts['3'] }}">{{ order_counts['3'] }}</view>
-				<view class="orderItemValue" wx:if="{{ order_counts['31'] }}">{{ order_counts['31'] }}</view>
-				<view class="orderItemValue" wx:if="{{ order_counts['3'] && order_counts['31'] }}">{{ order_counts['3']+order_counts['31'] }}</view>
-				<image class="statusIcon unGet" src="../../icons/confirm.png" />
-				<view class="statusText">待收货</view>
-			</navigator>
-			<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
-				<view class="orderItemValue" wx:if="{{ order_counts['5'] }}">{{ order_counts['5'] }}</view>
-				<image class="statusIcon service" src="../../icons/finish.png" />
-				<view class="statusText">退款|售后</view>
-			</navigator>
-			<navigator class="lastItem orderItem" url="/pages/orderList/orderList">
-				<view class="orderItemValue" wx:if="{{ order_counts['0'] }}">{{ order_counts['0'] }}</view>
-				<image class="statusIcon allOrder" src="../../icons/orders.png" />
-				<view class="statusText">所有订单</view>
-			</navigator>
-		</view>
-	</view>
+	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 功能面板 -->
 	<infos infosComponentData="{{ infosComponentData }}"/>
@@ -65,12 +23,8 @@
 	<logo logoObj="{{ logoObj }}" />
 </view>
 
-<myModal modal="{{addressModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm" />
-
-<console page="个人中心" />
-
-<myModal modal="{{authModal}}" />
-
-<manager openManager="{{ openManager }}" manager="{{ dedicated_manager }}"  themeColor="{{ themeColor }}" phoneNumber="{{ phone_number }}" user="{{ user }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
+<manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
 
 <myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />
+
+<console page="个人中心" />

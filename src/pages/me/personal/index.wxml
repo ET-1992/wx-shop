@@ -1,0 +1,14 @@
+<view class="header" style="background-color: {{ themeColor.primaryColor }}">
+	<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+		<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+		<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
+	</button>
+	<navigator wx:if="{{ wallet && wallet.coin_enable }}" class="welfare" url="/pages/coinDetail/coinDetail">
+		<view class="number">{{ wallet && wallet.coins || 0 }}</view>
+		<view class="title">花生米</view>
+	</navigator>
+	<navigator wx:if="{{ wallet.coin_enable }}" class="welfare" url="/pages/myCoupons/myCoupons">
+		<view class="number">{{ coupons.available.length || 0 }}</view>
+		<view class="title">优惠券</view>
+	</navigator>
+</view>
