@@ -1,78 +1,5 @@
 @import '~styles/color';
 
-.header {
-	padding: 36rpx;
-	text-align: center;
-	background-color: $mainColor;
-	color: #fff;
-	display: flex;
-	justify-content: space-around;
-	// flex-direction: column;
-	align-items: center;
-	margin: 20rpx;
-	border-radius: 10rpx;
-	.head-button {
-		background-color: $mainColor;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	
-	.welfare{
-		line-height: 1.7;
-	}
-	.number{
-		font-size: 36rpx;
-		font-weight: bold;
-	}
-	.title{
-		font-size: 28rpx;
-	}
-
-	.avatar {
-		$size: 120rpx;
-		width: $size;
-		height: $size;
-		border-radius: 50%;
-		border: 1rpx solid #F1F1F1;
-		margin-bottom: 10rpx;
-		overflow: hidden;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
-
-	.text {
-		color: #fff;
-		font-size: 24rpx;
-	}
-
-	.unlogin{
-		border: none;
-	}
-
-	.loginBt {
-		width: 250rpx;
-		padding: 10rpx 0;
-		display: inline-block;
-		color: #fff;
-		font-size: 14px;
-	}
-}
-
-.section {
-	background-color: #fff;
-	margin-bottom: 10rpx;
-	padding: 0 20rpx;
-}
-
-.orders {
-	padding: 20rpx 20rpx;
-	margin: 0 20rpx;
-	border-radius: 5rpx;
-	height: 180rpx;
-	line-height: 2;
-}
-
 .affiliate{
 	margin: 15rpx 20rpx;
 	border-radius: 5rpx;
@@ -157,79 +84,6 @@
 	}
 }
 
-.orderItems {
-	display: flex;
-	margin-top: 20rpx;
-
-	.orderItem {
-		flex-grow: 1;
-		width: 25%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-		left: 0;
-		top: 0;
-		font-size: 22rpx;
-		color: #333333;
-
-		.statusText{
-			font-size: 22rpx;
-			color: #333333;
-		}
-	}
-
-
-	.statusIcon {
-		$size: 60rpx;
-		height: $size;
-		width: $size;
-		margin-bottom: 10rpx;
-	}
-
-	.unpay{
-		width: 70rpx;
-		
-	}
-	.unSend{
-		width: 70rpx;
-		
-	}
-	.unGet{
-		width: 64rpx;
-		
-	}
-	.service{
-		width: 57rpx;
-		
-	}
-	.allOrder{
-		width: 55rpx;
-		
-	}
-
-	.orderItemValue {
-		$size: 30rpx;
-		width: $size;
-		height: $size;
-		border-radius: 50%;
-		font-size: 18rpx;
-		color: #fff;
-		text-align: center;
-		line-height: $size;
-		background-color: #FC2732;
-		position: absolute;
-		right: 22rpx;
-		top: -10rpx;
-		z-index: 2;
-	}
-
-	.lastItem{
-		border-left: 1rpx solid #707070;
-	}
-}
-
 .rightIcon {
 	width: 16rpx;
 	height: 26rpx;
@@ -244,10 +98,6 @@
 	text-align: left;
 	font-size: 12pt;
 	line-height: 1.4;
-}
-.section:last-child{
-	text-align: center;
-	font-size: 14px;
 }
 
 .mask{

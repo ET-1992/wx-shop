@@ -9,21 +9,18 @@ Component({
             type: Object,
             value: {}
         },
-        themeColor: {
-            type: Object,
-            value: {}
-        },
-        phoneNumber: {
-            type: String,
-            value: ''
-        },
-        user: {
-            type: Object,
-            value: {}
-        },
         no_dedicated_manager_text: {
             type: String,
             value: ''
+        },
+        managerComponentData: {
+            type: Object,
+            value: {},
+            observer(newValue) {
+                this.setData({
+                    ...newValue
+                });
+            }
         }
     },
     data: {

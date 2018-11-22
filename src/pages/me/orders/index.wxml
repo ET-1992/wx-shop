@@ -1,0 +1,31 @@
+<view class="section orders">
+	<view class="orderItems">
+		<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
+			<view class="orderItemValue" wx:if="{{ order_counts['1'] }}">{{ order_counts['1'] }}</view>
+			<image class="statusIcon unpay" src="/icons/wallet.png" />
+			<view class="statusText">待付款</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
+			<view class="orderItemValue" wx:if="{{ order_counts['2'] }}">{{ order_counts['2'] }}</view>
+			<image class="statusIcon unSend" src="/icons/truck.png" />
+			<view class="statusText">待发货</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
+			<view class="orderItemValue" wx:if="{{ order_counts['3'] }}">{{ order_counts['3'] }}</view>
+			<view class="orderItemValue" wx:if="{{ order_counts['31'] }}">{{ order_counts['31'] }}</view>
+			<view class="orderItemValue" wx:if="{{ order_counts['3'] && order_counts['31'] }}">{{ order_counts['3']+order_counts['31'] }}</view>
+			<image class="statusIcon unGet" src="/icons/confirm.png" />
+			<view class="statusText">待收货</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
+			<view class="orderItemValue" wx:if="{{ order_counts['5'] }}">{{ order_counts['5'] }}</view>
+			<image class="statusIcon service" src="/icons/finish.png" />
+			<view class="statusText">退款|售后</view>
+		</navigator>
+		<navigator class="lastItem orderItem" url="/pages/orderList/orderList">
+			<view class="orderItemValue" wx:if="{{ order_counts['0'] }}">{{ order_counts['0'] }}</view>
+			<image class="statusIcon allOrder" src="/icons/orders.png" />
+			<view class="statusText">所有订单</view>
+		</navigator>
+	</view>
+</view>

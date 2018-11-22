@@ -1,12 +1,9 @@
 import api from 'utils/api';
-import { getUserInfo, getAgainUserForInvalid, updateCart } from 'utils/util';
+import { getUserInfo, updateCart } from 'utils/util';
 import { USER_KEY } from 'constants/index';
 const app = getApp();
 
-// 创建页面实例对象
 Page({
-
-    // 页面的初始数据
     data: {
         user: {},
         orderCount: {
@@ -23,7 +20,7 @@ Page({
 
     async loadOrderCount() {
         const data = await api.hei.myFare();
-        const { defineTypeGlobal, vip, user } = this.data;
+        const { themeColor, defineTypeGlobal, vip, user } = this.data;
         const infosComponentData = {
             defineTypeGlobal,
             vip,
@@ -34,11 +31,29 @@ Page({
             about_us: data.about_us,
             shop_phone: data.shop_phone
         };
+        const ordersComponentData = {
+            order_counts: data.order_counts
+        };
+        const personalComponentData = {
+            themeColor,
+            user,
+            wallet: data.wallet,
+            coupons: data.coupons
+        };
+        const managerComponentData = {
+            themeColor,
+            user,
+            phoneNumber: data.phone_number,
+        };
 
         this.setData({
-            ...data,
+            affiliate_enable: data.affiliate_enable,
+            affiliate: data.affiliate,
             isLoading: false,
-            infosComponentData
+            infosComponentData,
+            ordersComponentData,
+            personalComponentData,
+            managerComponentData
         });
     },
 
@@ -62,41 +77,6 @@ Page({
 
     onLogin() {
         wx.navigateTo({ url: '/pages/login/login' });
-    },
-
-    async bindGetUserInfo(e) {
-        console.log('90');
-        const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
-        this.setData({
-            user
-        });
-    },
-
-    consoleOpen() {
-        this.data.consoleTime++;
-        console.log(this.data.consoleTime);
-        setTimeout(() => {
-            this.data.consoleTime = 0;
-        }, 1000);
-
-        if (this.data.consoleTime >= 7) {
-            console.log('six six six');
-            app.openConsole = true;
-            app.event.emit('showConsole');
-            this.onLoad();
-        }
-
-        if (app.openConsole) {
-            this.data.openConsoleResDataTime++;
-            setTimeout(() => {
-                this.data.openConsoleResDataTime = 0;
-            }, 1000);
-            if (this.data.openConsoleResDataTime >= 3) {
-                console.log('openConsoleResData');
-                app.openConsoleResData = true;
-            }
-        }
     },
 
     getDeviceInfo() {
@@ -142,4 +122,30 @@ Page({
             }
         });
     },
+
+    consoleOpen() {
+        this.data.consoleTime++;
+        console.log(this.data.consoleTime);
+        setTimeout(() => {
+            this.data.consoleTime = 0;
+        }, 1000);
+
+        if (this.data.consoleTime >= 7) {
+            console.log('six six six');
+            app.openConsole = true;
+            app.event.emit('showConsole');
+            this.onLoad();
+        }
+
+        if (app.openConsole) {
+            this.data.openConsoleResDataTime++;
+            setTimeout(() => {
+                this.data.openConsoleResDataTime = 0;
+            }, 1000);
+            if (this.data.openConsoleResDataTime >= 3) {
+                console.log('openConsoleResData');
+                app.openConsoleResData = true;
+            }
+        }
+    }
 });
