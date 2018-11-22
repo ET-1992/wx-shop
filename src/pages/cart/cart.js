@@ -180,8 +180,10 @@ Page({
         if (encryptedData && iv) {
             const { items, isSelectedObject } = this.data;
             const selectdItems = items.filter((item) => isSelectedObject[item.id]);
-            this.data.items = selectdItems; // 不需要更新UI,直接赋值即可
-            app.globalData.currentOrder = this.data;
+            app.globalData.currentOrder = {
+                items: selectdItems,
+                totalPostage: this.data.totalPostage
+            };
             wx.navigateTo({
                 url: '/pages/orderCreate/orderCreate',
             });

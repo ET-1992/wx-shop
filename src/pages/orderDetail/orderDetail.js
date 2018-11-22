@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
-import { formatTime, valueToText } from 'utils/util';
+import { formatTime, valueToText, getNodeInfo } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
@@ -302,9 +302,12 @@ Page({
 
     openLiftInfoModal() {
         const { order } = this.data;
-        QR.api.draw('D-' + order.order_code, 'liftInfoCanvasId', 250, 250);
         this.setData({
             liftInfoModal: true
+        }, async () => {
+            const nodeInfo = await getNodeInfo('liftInfoId');
+            const { width, height } = nodeInfo;
+            QR.api.draw('D-' + order.order_code, 'liftInfoCanvasId', width, height);
         });
     },
 

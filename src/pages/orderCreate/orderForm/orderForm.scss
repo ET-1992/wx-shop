@@ -49,16 +49,17 @@
 				height: 180rpx;
 				border: 1rpx solid #c2c2c2;
 				border-radius: 5rpx;
+				padding: 10 20rpx;
 			}
 
 			input {
 				height: 60rpx;
 				display: flex;
-				justify-content: center;
 				align-items: center;
 				border: 1rpx solid #c2c2c2;
 				border-radius: 5rpx;
-				text-align: center;
+				text-align: left;
+				padding: 0 20rpx;
 			}
 
 			.input_480 {

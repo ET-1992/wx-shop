@@ -4,6 +4,10 @@
     wx:if="{{ isShowContact }}"
     open-type="contact"
     session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
+    send-message-title="{{order.items[0].title}}"
+		send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
+		send-message-img="{{order.items[0].thumbnail}}"
+		show-message-card="{{true}}"
   >
     <image class="contactIcon" src="/icons/contact.png"/>
     <text>联系客服</text>
