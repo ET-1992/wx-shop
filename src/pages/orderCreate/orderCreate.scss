@@ -72,6 +72,9 @@ $iphoneXBottomGap: 40rpx;
 			-webkit-transform:translate(-50%, -50%) scale(1);
  		}
 	}
+	&.iphoneXTrick {
+		padding-bottom: $footerHeight + $iphoneXBottomGap;
+	}
 }
 
 .textareaWrapper {
