@@ -1,4 +1,4 @@
-<view class="orderCreateWrap">
+<view class="orderCreateWrap {{ isIphoneX ? 'iphoneXTrick' : ''}}">
 <view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
 <block wx:if="{{ product_type !== 1 }}">
   <view class="express" wx:if="{{ selfLiftEnable && !self_lifting_only }}" >
