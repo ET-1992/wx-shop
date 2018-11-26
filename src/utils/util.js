@@ -85,7 +85,7 @@ export function checkNumber(value) {
     return reg.test(value);
 }
 export function checkPhone(value) {
-    const reg = /^((1[3,5,8][0-9])|(14[5,7])|(16[6])|(17[0,6,7,8])|(19[8,9]))\d{8}$/;
+    const reg = /^((1[3,5,8][0-9])|(14[5-9])|(16[5,6])|(17[0-8])|(19[8,9]))\d{8}$/;
     return reg.test(value);
 }
 export function checkQQ(value) {
