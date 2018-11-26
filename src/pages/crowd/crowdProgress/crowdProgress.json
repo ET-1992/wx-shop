@@ -1,0 +1,8 @@
+{
+	"usingComponents": {
+		"richList": "../richList/index",
+		"i-count-down": "../../../components/iview-weapp/dist/count-down/index",
+		"i-progress": "../../../components/iview-weapp/dist/progress/index",
+		"productItemSold": "../../../components/productItemSold/index"
+	}
+}

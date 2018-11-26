@@ -43,7 +43,8 @@
 		"pages/comment/comment",
 		"pages/selfAddress/selfAddress",
 		"pages/directPay/directPay",
-		"pages/directPayResult/directPayResult"
+		"pages/directPayResult/directPayResult",
+		"pages/crowd/crowdProgress/crowdProgress"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

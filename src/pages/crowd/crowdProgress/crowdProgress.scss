@@ -1,0 +1,52 @@
+.container {
+	
+	.head{
+		padding: 25rpx 25rpx 25rpx 36rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.rule{
+			display: flex;
+			.question{
+				width: 30rpx;
+				height: 30rpx;
+				border-radius: 100%;
+				background: #FD417B;
+				color: #fff;
+				font-size: 24rpx;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.instruction{
+				padding-left: 10rpx;
+				font-size: 24rpx;
+				font-weight: bold;
+				color: #FD417B;
+			}
+		}
+		.status{
+			font-size: 24rpx;
+			color: #FD417B;
+			font-weight: bold;
+		}
+	}
+	.order{
+		margin: 0 25rpx;
+		background: #fff;
+		padding: 20rpx;
+		border-radius: 10rpx;
+		.btn{
+			width: 400rpx;
+			height: 80rpx;
+			color: #fff;
+			background: #5CB4AE;
+			border-radius: 50rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 40rpx auto 20rpx;
+		}
+	}
+}

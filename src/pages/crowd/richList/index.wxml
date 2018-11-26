@@ -1,0 +1,21 @@
+<view class="wrap">
+    <view class="tip">土豪榜</view>
+    <view class="list" wx:if="{{ richList.length }}">
+        <view class="item" wx:for="{{ richList }}">
+            <image class="avatarurl" src="{{ item.avatarurl }}" mode="aspectFill"/>
+            <view class="content">
+                <view class="top">
+                    <view class="nickname">{{ item.nickname }}</view>
+                    <view class="amount">
+                       支持 <text class="price">￥{{ item.amount }}</text>
+                    </view>
+                </view>
+                <view class="word">{{ item.word }}</view>
+            </view>
+        </view>
+    </view>
+    <view class="noList" wx:if="{{ !richList.length }}">
+        <image src="/icons/crowd/crowd.svg" mode="aspectFit"/>
+        <view class="text">空空如也，还没有土豪助力</view>
+    </view>
+</view>

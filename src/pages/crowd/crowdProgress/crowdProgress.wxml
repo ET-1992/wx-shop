@@ -1,0 +1,26 @@
+<view class="container">
+    <view class="head">
+        <view class="rule">
+            <view class="question">?</view>
+            <view class="instruction">规则说明</view>
+        </view>
+        <!-- <view class="status">
+            还剩<i-count-down target="{{targetTime}}" clear-timer="{{clearTimer}}" ></i-count-down>结束
+        </view> -->
+        <view class="status">
+            已结束
+        </view>
+    </view>
+    <view class="order">
+        <productItemSold />
+        <view class="progress">
+            <i-progress 
+                percent="16" 
+                status="normal"
+                hide-info="{{true}}"
+            />
+        </view>
+        <view class="btn">请朋友帮忙</view>
+    </view>
+	<richList richList="{{ records }}" />
+</view>
