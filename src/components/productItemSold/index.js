@@ -45,6 +45,10 @@ Component({
         vip: {
             type: Object,
             value: {}
+        },
+        customClass: {
+            type: String,
+            value: ''
         }
     },
     data: {

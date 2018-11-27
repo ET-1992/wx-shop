@@ -1,41 +1,59 @@
+import api from 'utils/api';
+import { Decimal } from 'decimal.js';
+import { USER_KEY } from 'constants/index';
+const app = getApp();
+
 Page({
     data: {
-        'records': [
-            {
-                'avatarurl': 'https://wx.qlogo.cn/mmopen/vi_32/ajNVdqHZLLCzHlibGticmt7kKWJOWoB8uV46Za0wg92NcDnqS6GicfoQvlOyNNExNB9uBicwcIJ7LviaHBibkdW2OTrQ/132',
-                'nickname': 'Well',
-                'amount': '900.00',
-                'word': '谢谢'
-            },
-            {
-                'avatarurl': 'https://wx.qlogo.cn/mmopen/vi_32/ajNVdqHZLLCzHlibGticmt7kKWJOWoB8uV46Za0wg92NcDnqS6GicfoQvlOyNNExNB9uBicwcIJ7LviaHBibkdW2OTrQ/132',
-                'nickname': 'Well',
-                'amount': '900.00',
-                'word': '谢谢'
-            },
-            {
-                'avatarurl': 'https://wx.qlogo.cn/mmopen/vi_32/ajNVdqHZLLCzHlibGticmt7kKWJOWoB8uV46Za0wg92NcDnqS6GicfoQvlOyNNExNB9uBicwcIJ7LviaHBibkdW2OTrQ/132',
-                'nickname': 'Well',
-                'amount': '900.00',
-                'word': '谢谢'
-            },
-        ],
-        'order': {
-            'image_url': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/01/1514965358-1.png',
-            'products': '测试商品 | 女式可拆卸狐狸毛牛仔外套  数量:1',
-            'amount': '999.10',
-            'time': '1542869822', // 发起时间
-            'status': '0',
-            'pay_amount': '1880.00', // 已支付金额
-            'crowd_pay_no': 'EgBumTwo'// 众筹订单号
-        },
-        targetTime: new Date().getTime() + 1542869822,
+
     },
 
-    onLoad(parmas) {
-        console.log(parmas);
+    onLoad(options) {
+        console.log(options);
+        const userInfo = wx.getStorageSync(USER_KEY);
+        const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         wx.setNavigationBarTitle({
             title: '代付进度'
         });
+        this.setData({
+            themeColor,
+            isIphoneX,
+            userInfo
+        });
     },
+    async onShow() {
+        const { id } = this.options;
+        await this.loadOrder(id);
+    },
+    async loadOrder(id) {
+        const { order } = await api.hei.fetchOrder({ order_no: id });
+
+        // -----------------处理价格显示
+        let info = {};
+
+        info.couponFeeDispaly = order.coupon_discount_fee; // 优惠券
+        info.couponFee = Number(order.coupon_discount_fee);
+
+        info.coinForPayDispaly = order.coins_fee; // 金币
+        info.coinForPay = Number(order.coins_fee);
+
+        info.postageDispaly = Number(order.postage).toFixed(2); // 运费
+        info.postage = order.postage;
+
+        info.totalPrice = Number(order.amount) - info.postage + info.couponFee + info.coinForPay;// 商品价格
+        info.totalPriceDispaly = Number(info.totalPrice).toFixed(2);
+
+        info.finalPay = Number(order.amount); // 付款价格
+        info.finalPayDispaly = Number(info.finalPay).toFixed(2);
+        // -----------------End
+
+        this.setData({
+            items: order.items,
+            crowd: order.crowd,
+            crowd_users: order.crowd_users,
+            avatarurl: order.avatarurl,
+            openid: order.openid,
+            info
+        });
+    }
 });

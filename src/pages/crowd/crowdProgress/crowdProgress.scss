@@ -1,5 +1,5 @@
 .container {
-	
+
 	.head{
 		padding: 25rpx 25rpx 25rpx 36rpx;
 		display: flex;
@@ -7,6 +7,7 @@
 		align-items: center;
 		.rule{
 			display: flex;
+			align-items: center;
 			.question{
 				width: 30rpx;
 				height: 30rpx;
@@ -37,16 +38,127 @@
 		background: #fff;
 		padding: 20rpx;
 		border-radius: 10rpx;
-		.btn{
-			width: 400rpx;
-			height: 80rpx;
-			color: #fff;
-			background: #5CB4AE;
-			border-radius: 50rpx;
+		.crowding{
+
+			.otherPay{
+				width: 400rpx;
+				height: 80rpx;
+				color: #fff;
+				background: #5CB4AE;
+				border-radius: 50rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 40rpx auto 20rpx;
+			}
+			.ownPay{
+				display: flex;
+				justify-content: space-around;
+				margin: 40rpx auto 20rpx;
+				.refund{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					width: 276rpx;
+					height: 80rpx;
+					color: #fff;
+					background: #999999;
+					border-radius: 50rpx;
+					font-size: 24rpx;
+					line-height: 1.1;
+				}
+				.payTail{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 276rpx;
+					height: 80rpx;
+					color: #fff;
+					background: #5CB4AE;
+					border-radius: 50rpx;
+					font-size: 32rpx;
+				}
+			}
+		}
+		.crowded{
+			font-size: 32rpx;
+			font-weight: bold;
+			color: #FD417B;
+			text-align:center;
+			padding: 62rpx 0 38rpx;
+		}
+	}
+	.progress{
+		.i-progress{
+			padding: 0 20rpx;
+		}
+		.amount{
+			padding: 16rpx 0 10rpx;
+			font-size: 27rpx;
+			color: #000000;
 			display: flex;
+			justify-content: flex-end;
+			.price{
+				color: #FD417B;
+				font-weight: bold;
+			}
+		}
+		.currentPrice{
+			padding-top: 10rpx;
+			font-size: 27rpx;
+			font-weight: bold;
+			color: #FD417B;
+			padding-left: 94rpx;
+		}
+	}
+	.panel{
+		padding: 60rpx 25rpx 0;
+		.info{
+			background: #ffffff;
+			text-align: center;
+			padding: 20rpx;
+			border-radius: 10rpx;
+			.avatar{
+				width: 110rpx;
+				height: 110rpx;
+				border-radius: 100%;
+				border: 5rpx solid #FFFFFF;
+				margin-top: -75rpx;
+			}
+			.text{
+				font-size: 32rpx;
+				font-weight: bold;
+				color: #FD417B;
+				padding: 27rpx 0 43rpx;
+			}
+		}
+		.opera{
+			background: #ffffff;
+			padding: 40rpx 25rpx 5rpx;
+			display: flex;
+			flex-direction: column;
 			align-items: center;
-			justify-content: center;
-			margin: 40rpx auto 20rpx;
+			margin-top: 25rpx;
+			.text{
+				padding-bottom: 40rpx;
+				font-size: 27rpx;
+				font-weight: bold;
+				text{
+					color: #FD417B;
+				}
+			}
+			.btn{
+				width: 500rpx;
+				height: 80rpx;
+				background: #FD417B;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 40rpx;
+				color: #ffffff;
+				margin-bottom: 35rpx;
+			}
 		}
 	}
 }

@@ -4,23 +4,57 @@
             <view class="question">?</view>
             <view class="instruction">规则说明</view>
         </view>
-        <!-- <view class="status">
-            还剩<i-count-down target="{{targetTime}}" clear-timer="{{clearTimer}}" ></i-count-down>结束
-        </view> -->
         <view class="status">
-            已结束
+            <view wx:if="{{ crowd.status === '1' }}">
+                还剩<i-count-down target="{{ crowd.surplus_time }}"/>结束
+            </view>
+            <view wx:if="{{ crowd.status === '3' }}">
+                还剩<i-count-down target="{{ crowd.surplus_time }}"/>付尾款
+            </view>
+            <view wx:if="{{ crowd.status === '2' }}"> 已完成 </view>
+            <view wx:if="{{ crowd.status === '4' }}"> 已结束 </view>
         </view>
     </view>
-    <view class="order">
-        <productItemSold />
+    <view class="order" wx:if="{{ userInfo.openid === openid }}">
+        <productItemSold items="{{ items }}" customClass="crowd"/>
+        <view class="crowding">
+            <view class="progress">
+                <view class="amount">目标金额<text class="price">￥{{ info.finalPayDispaly }}</text></view>
+                <i-progress percent="{{ crowd.pay_amount / info.finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+                <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
+            </view>
+            <view class="otherPay" wx:if="{{ crowd.status === '1' }}">请朋友帮忙</view>
+            <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
+                <view class="refund">
+                    <view>放弃代付</view>
+                    <view>原路退回</view>
+                </view>
+                <view class="payTail">付尾款</view>
+            </view>
+        </view>
+        <view class="crowded" wx:if="{{ crowd.status === '2' }}">助力已完成，请等待商家发货</view>
+        <view class="crowded" wx:if="{{ crowd.status === '4' }}">助力失败，代付款已原路退回</view>
+    </view>
+
+    <!-- 其他人进来 -->
+    <view class="panel" wx:if="{{ userInfo.openid !== openid }}">
+        <view class="info">
+            <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
+            <view class="text">就差一点点了，快来助我一臂之力吧！</view>
+            <productItemSold items="{{ items }}" customClass="crowd"/>
+        </view>
         <view class="progress">
-            <i-progress 
-                percent="16" 
-                status="normal"
-                hide-info="{{true}}"
-            />
+            <view class="amount">目标金额<text class="price">￥{{ info.finalPayDispaly }}</text></view>
+            <view class="i-progress">
+                <i-progress percent="{{ crowd.pay_amount / info.finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+            </view>
+            <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
         </view>
-        <view class="btn">请朋友帮忙</view>
+        <view class="opera">
+            <view class="text">已助力<text>5.6</text>元，还差<text>￥21.9</text>元</view>
+            <view class="btn" bind:tap="pay">我要赞助</view>
+            <view class="btn" bind:tap="buy">我也要下单</view>
+        </view>
     </view>
-	<richList richList="{{ records }}" />
+	<richList richList="{{ crowd_users }}" />
 </view>
