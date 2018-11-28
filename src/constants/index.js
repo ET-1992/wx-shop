@@ -120,3 +120,10 @@ export const CURRENCY = {
 //     5: '用户已使用',
 //     '-1': '已删除'
 // };
+
+export const CROWD_STATUS_TEXT = [
+    { text: '进行中', value: 1 },
+    { text: '待发货', value: 2 },   // 助力成功
+    { text: '待支付尾款', value: 3 },
+    { text: '已退款', value: 4 }
+];
