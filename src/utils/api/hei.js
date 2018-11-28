@@ -305,6 +305,10 @@ const apis = {
         path: 'api/mag.order.pay.direct.json',
         method: 'POST',
         isForceToken: true
+    },
+    crowdList: {
+        path: 'api/mag.order.crowd.list.json',
+        isForceToken: true
     }
 };
 

@@ -44,7 +44,9 @@
 		"pages/selfAddress/selfAddress",
 		"pages/directPay/directPay",
 		"pages/directPayResult/directPayResult",
-		"pages/crowd/crowdProgress/crowdProgress"
+		"pages/crowd/crowdProgress/crowdProgress",
+		"pages/crowd/inviteCrowd/inviteCrowd",
+		"pages/crowd/crowdList/crowdList"
 	],
 	"window": {
 		"backgroundTextStyle": "white",
