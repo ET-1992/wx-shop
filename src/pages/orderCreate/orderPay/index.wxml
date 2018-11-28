@@ -1,6 +1,7 @@
 <form report-submit bindsubmit="onPay">
     <view class="orderPay {{ isIphoneX ? 'iphoneX-style' : '' }}">
         <text class="pay-text">实付款：<text> {{ globalData.CURRENCY[globalData.currency] }}{{ finalPay }} </text></text>
-        <button class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">{{ isPeanutPay ? '提交订单' : '去支付' }}</button>
+        <button wx:if="{{ !crowd }}" class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">{{ isPeanutPay ? '提交订单' : '去支付' }}</button>
+        <button wx:if="{{ crowd }}" class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">请好友代付</button>
     </view>
 </form>

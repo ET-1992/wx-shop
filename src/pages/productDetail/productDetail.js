@@ -769,5 +769,50 @@ Page({
                 showShareModaled: false
             });
         });
-    }
+    },
+
+    async addCrowd() {
+        const {
+            product,
+            quantity,
+            selectedSku,
+            grouponId,
+            pendingGrouponId,
+            isGrouponBuy,
+        } = this.data;
+        let url = `/pages/orderCreate/orderCreate?crowd=${true}`;
+        let isMiaoshaBuy = false;
+        if (product.miaosha_enable === '1') {
+            const now = Date.now() / 1000;
+            const hasStart = now >= product.miaosha_start_timestamp;
+            const hasEnd = now >= product.miaosha_end_timestamp;
+            isMiaoshaBuy = hasStart && !hasEnd;
+        }
+        if (selectedSku.stock === 0) {
+            await showModal({
+                title: '温馨提示',
+                content: '无法购买库存为0的商品',
+            });
+            return;
+        }
+        if (isGrouponBuy) {
+            url = url + '?isGrouponBuy=true';
+            // 参团，跳转到orderCreate需要带上grouponId
+            if (grouponId) {
+                url = url + `&grouponId=${grouponId}`;
+            }
+            else if (pendingGrouponId) {
+                url = url + `&grouponId=${pendingGrouponId}`;
+            }
+        }
+        const currentOrder = createCurrentOrder({
+            selectedSku,
+            quantity,
+            product,
+            isGrouponBuy,
+            isMiaoshaBuy,
+        });
+        app.globalData.currentOrder = currentOrder;
+        wx.navigateTo({ url });
+    },
 });

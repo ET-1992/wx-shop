@@ -859,3 +859,17 @@ img,
 		}
 	}
 }
+
+.crowdBtn{
+	position: fixed;
+	right: 25rpx;
+	bottom: 154rpx;
+	z-index: 98;
+	image{
+		width: 90rpx;
+		height: 90rpx;
+	}
+	&.iphoneXTrick{
+		bottom: 154rpx + $iphoneXBottomGap;
+	}
+}

@@ -17,6 +17,10 @@ Component({
         isDisablePay: {
             type: Boolean,
             value: true
+        },
+        crowd: {
+            type: Boolean,
+            value: false
         }
     },
     data: {

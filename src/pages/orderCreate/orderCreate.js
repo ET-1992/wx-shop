@@ -76,7 +76,7 @@ Page({
         this.setData({ themeColor, isIphoneX, defineTypeGlobal });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
-            const { grouponId, isGrouponBuy } = this.options;
+            const { grouponId, isGrouponBuy, crowd = false } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -90,7 +90,8 @@ Page({
                 isGrouponBuy: isGrouponBuy || null,
                 grouponId: grouponId || null,
                 totalPostage,
-                isShouldRedirect: false
+                isShouldRedirect: false,
+                crowd
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -429,53 +430,63 @@ Page({
             requestData.posts = JSON.stringify(items);
         }
 
+        if (this.data.crowd) {
+            requestData.type = 5;
+        }
+
         try {
             const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
             // console.log(order_no, status, pay_sign, pay_appid, 'pay');
             wx.hideLoading();
 
-            if (this.data.finalPay <= 0) {
+            if (this.data.crowd) {
                 wx.redirectTo({
-                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
+                    url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}`,
                 });
-            }
+            } else {
+                if (this.data.finalPay <= 0) {
+                    wx.redirectTo({
+                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
+                    });
+                }
 
-            if (pay_sign) {
-                console.log('自主支付');
-                await wxPay(pay_sign);
-                wx.redirectTo({
-                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                });
-            }
-            else if (pay_appid) {
-                console.log('平台支付');
+                if (pay_sign) {
+                    console.log('自主支付');
+                    await wxPay(pay_sign);
+                    wx.redirectTo({
+                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
+                    });
+                }
+                else if (pay_appid) {
+                    console.log('平台支付');
 
-                this.setData({
-                    modal: {
-                        isFatherControl: true,
-                        title: '温馨提示',
-                        isShowModal: true,
-                        body: '确定要提交订单吗？',
-                        type: 'navigate',
-                        navigateData: {
-                            url: `/pages/peanutPay/index?order_no=${order_no}`,
-                            appId: pay_appid,
-                            target: 'miniProgram',
-                            version: 'develop',
-                            extraData: {
-                                order_no: order_no,
-                                address: this.data.address,
-                                items: this.data.items,
-                                totalPrice: this.data.totalPrice,
-                                totalPostage: this.data.fee.postage,
-                                orderPrice: this.data.finalPay,
-                                coupons: this.data.fee.coupon_reduce_fee,
-                                buyerMessage: this.data.buyerMessage,
-                                coinPrice: this.data.useCoin,
+                    this.setData({
+                        modal: {
+                            isFatherControl: true,
+                            title: '温馨提示',
+                            isShowModal: true,
+                            body: '确定要提交订单吗？',
+                            type: 'navigate',
+                            navigateData: {
+                                url: `/pages/peanutPay/index?order_no=${order_no}`,
+                                appId: pay_appid,
+                                target: 'miniProgram',
+                                version: 'develop',
+                                extraData: {
+                                    order_no: order_no,
+                                    address: this.data.address,
+                                    items: this.data.items,
+                                    totalPrice: this.data.totalPrice,
+                                    totalPostage: this.data.fee.postage,
+                                    orderPrice: this.data.finalPay,
+                                    coupons: this.data.fee.coupon_reduce_fee,
+                                    buyerMessage: this.data.buyerMessage,
+                                    coinPrice: this.data.useCoin,
+                                }
                             }
-                        }
-                    },
-                });
+                        },
+                    });
+                }
             }
         }
         catch (err) {

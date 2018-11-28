@@ -357,3 +357,11 @@
 <console page="商品详情" />
 
 <productDetailShareModal productImage="{{ product.thumbnail }}" productTitle="{{ product.title }}" productPrice="{{ product.definePrice }}" routePath="{{ routePath }}" routeQuery="{{ routeQuery }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"/>
+
+<view 
+	class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" 
+	catchtap="onShowSku" 
+	data-actions="{{ [{ type: 'addCrowd', text: '找好友代付' }] }}" 
+>
+	<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit"/>
+</view>
