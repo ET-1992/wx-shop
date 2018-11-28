@@ -1,0 +1,28 @@
+<view class="container">
+	<view class="rule">
+        <view class="question">?</view>
+        <view class="instruction">规则说明</view>
+    </view>
+	<view class="tips">
+		<image class="icon" src="/icons/crowd/crowd.svg" mode="aspectFit"/>
+		<view class="text">你下单，TA付账！</view>
+	</view>
+	<view class="product">
+		<productItemSold items="{{ items }}" customClass="inviteCrowd"/>
+		<view class="price">订单总价：<text>￥{{ finalPayDispaly }}</text></view>
+	</view>
+	<view class="content">
+		<textarea 
+			class="textarea" 
+			maxlength="{{ maxlength }}" 
+			bindinput="bindTextAreaBlur" 
+			placeholder="就差一点点了，快来助我一臂之力吧" 
+			placeholder-class="textarea-placeholder"
+		>
+            <view class="bottom" style="color:{{ len == maxlength ? 'red' : '' }}">
+                {{ len|0 }}/{{ maxlength }}
+            </view>
+        </textarea>
+	</view>
+	<button open-type="share" class="shareBtn">请朋友帮忙</button>
+</view>
