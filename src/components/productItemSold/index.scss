@@ -39,7 +39,7 @@
                 -webkit-box-orient: vertical;
                 word-break: break-all;
 			}
-			.itemName-crowd{
+			.itemName-crowd, .itemName-inviteCrowd{
 				font-size: 28rpx;
 				color: #333333;
 				-webkit-line-clamp: 1;
@@ -85,6 +85,9 @@
 			font-size: 27rpx;
 			color: #000000;
 		}
+		.itemQuantity-inviteCrowd {
+			text-align: right;
+		}
 
 		.grouponLimit {
 			background-color: #FC2732;
@@ -118,6 +121,6 @@
 		}
 	}
 }
-.itemList-crowd{
+.itemList-crowd, .itemList-inviteCrowd{
 	background: #F4F4F4;
 }
