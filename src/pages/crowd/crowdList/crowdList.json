@@ -1,0 +1,8 @@
+{
+	"usingComponents": {
+		"productItemSold": "../../../components/productItemSold/index",
+		"loading": "../../../components/loading/index",
+		"i-load-more": "../../../components/iview-weapp/dist/load-more/index",
+		"i-count-down": "../../../components/iview-weapp/dist/count-down/index"
+	}
+}
