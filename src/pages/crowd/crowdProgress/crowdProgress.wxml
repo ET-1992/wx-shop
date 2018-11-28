@@ -1,4 +1,5 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
     <view class="head">
         <view class="rule">
             <view class="question">?</view>
@@ -15,12 +16,14 @@
             <view wx:if="{{ crowd.status === '4' }}"> 已结束 </view>
         </view>
     </view>
+
+    <!-- 自己进来 -->
     <view class="order" wx:if="{{ userInfo.openid === openid }}">
         <productItemSold items="{{ items }}" customClass="crowd"/>
         <view class="crowding">
             <view class="progress">
-                <view class="amount">目标金额<text class="price">￥{{ info.finalPayDispaly }}</text></view>
-                <i-progress percent="{{ crowd.pay_amount / info.finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+                <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
+                <i-progress percent="{{ crowd.pay_amount / finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
             </view>
             <view class="otherPay" wx:if="{{ crowd.status === '1' }}">请朋友帮忙</view>
@@ -56,5 +59,7 @@
             <view class="btn" bind:tap="buy">我也要下单</view>
         </view>
     </view>
+
+    <!-- 土豪榜 -->
 	<richList richList="{{ crowd_users }}" />
 </view>

@@ -5,16 +5,13 @@ const app = getApp();
 
 Page({
     data: {
-
+        isLoading: true,
     },
 
     onLoad(options) {
         console.log(options);
         const userInfo = wx.getStorageSync(USER_KEY);
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
-        wx.setNavigationBarTitle({
-            title: '代付进度'
-        });
         this.setData({
             themeColor,
             isIphoneX,
@@ -24,6 +21,12 @@ Page({
     async onShow() {
         const { id } = this.options;
         await this.loadOrder(id);
+        let title;
+        this.data.userInfo.openid === this.data.openid ? title = '代付进度' : title = '土豪帮帮忙';
+        wx.setNavigationBarTitle({
+            title: title
+        });
+
     },
     async loadOrder(id) {
         const { order } = await api.hei.fetchOrder({ order_no: id });
@@ -53,7 +56,8 @@ Page({
             crowd_users: order.crowd_users,
             avatarurl: order.avatarurl,
             openid: order.openid,
-            info
+            finalPayDispaly: info.finalPayDispaly,
+            isLoading: false
         });
     }
 });
