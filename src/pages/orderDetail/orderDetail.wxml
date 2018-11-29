@@ -5,8 +5,7 @@
 
   module.exports.indexOf = indexOf;
 </wxs>
-
-<loading isLoading="{{ isLoading }}"/>
+<loading isLoading="{{ isLoading }}" />
 <view class="container" wx:if="{{ !isLoading }}">
   <view class="header" wx:if="{{ order.id && order.statusCode !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
     <view>
@@ -31,103 +30,163 @@
       {{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}
     </view>
   </view>
-
-<view wx:if="{{ order.type !== 3 }}">
-  <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/>
-  <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}"/>
-  <view class="liftInfoBtnWrap" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}">
-    <view class="liftInfoBtn" bindtap="openLiftInfoModal" style="background-color: {{ themeColor.primaryColor }}">出示自提码</view>
+  <view wx:if="{{ order.type !== 3 }}">
+    <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}" />
+    <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" />
+    <view class="liftInfoBtnWrap" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}">
+      <view class="liftInfoBtn" bindtap="openLiftInfoModal" style="background-color: {{ themeColor.primaryColor }}">
+        出示自提码
+      </view>
+    </view>
   </view>
-</view>
-
-<van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal">
+  <van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal">
     <van-panel title="提货码">
-        <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
-      </van-panel>
-</van-popup>
-
-  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}" >
-		<view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
-    		<view class="logistics">
-    			<view class="logistics-header">
-    				<view class="header-left">包裹{{ index + 1 }}</view>
-    				<view class="header-center">{{ item.company + ':' +  item.no }}</view>
-    				<!-- <view class="header-right">{{ order.statusText }}</view> -->
-    			</view>
-    			<view class="logistics-body">
-    				<view class="body-left">
-    				  <image class="body-left-img" src="/icons/truck.png" mode="aspectFit" />
-    				</view>
-    				<view class="body-center">
-    				  <view class="body-center-top">{{ item.list[item.list.length-1].remark || '请点击查看物流信息' }}</view>
-    				  <view>{{item.list[item.list.length-1].datetime || item.defineTime }}</view>
-    				</view>
-    			</view>
-    		</view>
-			<view class="arrowRight">
-				<image src="/icons/right.png" class="right-img" />
-			</view>
-		</view>
+      <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
+    </van-panel>
+  </van-popup>
+  <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
+    <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
+      <view class="logistics">
+        <view class="logistics-header">
+          <view class="header-left">包裹{{ index + 1 }}</view>
+          <view class="header-center">{{ item.company + ':' +  item.no }}</view>
+          <!-- <view class="header-right">{{ order.statusText }}</view> -->
+        </view>
+        <view class="logistics-body">
+          <view class="body-left">
+            <image class="body-left-img" src="/icons/truck.png" mode="aspectFit" />
+          </view>
+          <view class="body-center">
+            <view class="body-center-top">
+              {{ item.list[item.list.length-1].remark || '请点击查看物流信息' }}
+            </view>
+            <view>{{item.list[item.list.length-1].datetime || item.defineTime }}</view>
+          </view>
+        </view>
+      </view>
+      <view class="arrowRight">
+        <image src="/icons/right.png" class="right-img" />
+      </view>
+    </view>
     <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
-
   <view class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && order.logistics && order.logistics.length && !otherPeopleGroupon && order.noLogisticsForItem && order.noLogisticsForItem.length > 0 }}">
     <view class="noLogistics">待发货</view>
     <productItemSold items="{{ order.noLogisticsForItem }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
-
   <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }}">
     <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
-
   <view wx:if="{{ otherPeopleGroupon }}" class="logisticsWrap">
-    <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}"  />
+    <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}" />
   </view>
-
-<view wx:if="{{ !otherPeopleGroupon && order.type === 3 && order.status >= 3 }}">
-  <view class="virtualProductBtnWrap" wx:if="{{ virtualProductBtn }}">
-    <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}">获取取货码</view>
+  <view wx:if="{{ !otherPeopleGroupon && order.type === 3 && order.status >= 3 }}">
+    <view class="virtualProductBtnWrap" wx:if="{{ virtualProductBtn }}">
+      <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}">
+        获取取货码
+      </view>
+    </view>
+    <view class="virtualProduct" wx:if="{{ !virtualProductBtn }}">
+      <view class="virtualProductItem">
+        兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}
+        <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}">
+          复制
+        </view>
+      </view>
+      <view class="virtualProductItem">
+        密码：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.password }}
+        <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.password }}">
+          复制
+        </view>
+      </view>
+    </view>
+    <view class="virtualImage" wx:if="{{ !virtualProductBtn && ( (order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode) || ( order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode ) ) }}">
+      <image class="virtualImageQrcode" src="{{ order.annotation.virtual_product.qrcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode }}" />
+      <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.barcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode }}" />
+    </view>
   </view>
-
-  <view class="virtualProduct" wx:if="{{ !virtualProductBtn }}">
-    <view class="virtualProductItem">兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }} <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}">复制</view></view>
-    <view class="virtualProductItem">密码：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.password }}  <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.password }}">复制</view></view>
+  <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
+    <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
+      <view>{{ index }}</view>
+      <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
+      <image wx:if="{{ orderDetail.indexOf(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
+    </view>
   </view>
-
-  <view class="virtualImage" wx:if="{{ !virtualProductBtn && ( (order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode) || ( order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode ) ) }}">
-    <image class="virtualImageQrcode" src="{{ order.annotation.virtual_product.qrcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.qrcode }}" />
-    <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.barcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode }}" />
+  <view wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}">
+    <view class="grouponHint">
+      <view class="title">拼团流程</view>
+      <image class="grouponHintImage" src="/icons/grouponHint.png" />
+    </view>
+    <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && order.id }}" open-type="share">
+      <image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
+    </button>
+    <button wx:if="{{ order.id || groupon.status === 2 }}" class="normalizeBt button" bindtap="onShare" open-type="share" data-is-share-groupon="{{ true }}" style="background-color: {{ themeColor.primaryColor }}">
+      邀请朋友参团
+    </button>
+    <button wx:if="{{ !order.groupon_id && !has_joined && groupon.member_limit - groupon.member_count }}" class="normalizeBt button" bindtap="onJoin" disable="{{ remainSecond }}" style="background-color: {{ themeColor.primaryColor }}">
+      马上参团
+    </button>
+    <navigator open-type="switchTab" url="/pages/home/home">
+      <button wx:if="{{ groupon.id }}" class="normalizeBt button" style="background-color: {{ themeColor.primaryColor }}">
+        浏览更多商品
+      </button>
+    </navigator>
   </view>
+  <view class="orderInfo" wx:else>
+    <view class="row">
+      <text class="text">商品金额</text>
+      <text class="money">
+        {{ globalData.CURRENCY[globalData.currency] }}{{ info.totalPriceDispaly }}
+      </text>
+    </view>
+    <view wx:if="{{ info.couponFee }}" class="row">
+      <text class="text">优惠券</text>
+      <text class="money">
+        -{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }}
+      </text>
+    </view>
+    <view wx:if="{{ info.coinForPay }}" class="row">
+      <text class="text">花生米</text>
+      <text class="money">
+        -{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }}
+      </text>
+    </view>
+    <view class="row">
+      <text class="text">
+        {{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}
+      </text>
+      <text class="money">
+        +{{ globalData.CURRENCY[globalData.currency] }}{{ info.postageDispaly }}
+      </text>
+    </view>
+    <view class="line"></view>
+    <view class="finalPay">
+      实付款：
+      <text class="finalPayText">
+        {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }}
+      </text>
+    </view>
+  </view>
+  <view class="section buyerMessage">
+    <view class="buyerMessageContent">买家留言：{{ order.buyer_message }}</view>
+  </view>
+  <view class="section orderMeta">
+    <view class="item">支付方式: 微信支付</view>
+    <view class="item">订单编号: {{ order.order_no }}</view>
+    <view class="item" wx:if="{{ order.time }}">下单时间: {{ order.createDate }}</view>
+    <view class="item" wx:if="{{ order.paytime }}">付款时间: {{ order.payDate }}</view>
+    <view class="item" wx:if="{{ order.consign_time }}">发货时间: {{ order.consignDate }}</view>
+    <view class="item" wx:if="{{ order.refund_time }}">退款时间: {{ order.refundDate }}</view>
+  </view>
+  <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}" open-type="share">
+    <image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
+  </button>
+  <navigator open-type="switchTab" url="/pages/home/home" class="viewProduct" style="background-color: {{ themeColor.primaryColor }}">
+    浏览更多商品
+  </navigator>
+  <view class="footer {{ systemInfo.isIphoneX ? 'iphoneXTrick' : '' }}">
+    <orderOperations phone="{{ order.phone_number }}" isOrderDetail="{{true}}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" order="{{ order }}" isShowContact="{{ !order.isDone }}" isShowService="{{ order.isDone }}" isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" user="{{ user }}" bindconfirmOrder="onRelaodOrder" bindpayOrder="onRelaodOrder" bindcloseOrder="onRelaodOrder" />
+  </view>
+  <modal title="【恭喜你获得一个现金红包】" content="越多好友拆红包奖励越大喔" confirmText="发红包" confirmColor="#ffad00" iconUrl="http://cdn2.wpweixin.com/shop/redpacketIcon.png" isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}" bindmodalConfirm="onModalConfirm" confirmButtonType="share" wx:if="{{ !order.groupon_id }}" />
 </view>
-
-<view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
-  <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
-    <view>{{ index }}</view>
-    <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
-    <image wx:if="{{ orderDetail.indexOf(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
-  </view>
-</view>
-
-  <include
-    wx:if="{{ groupon.id || (order.groupon_id && order.statusCode === 10) }}"
-    src="/templates/order/grouponOrder.wxml"
-  />
-  <include
-    wx:else
-    src="/templates/order/normalOrder.wxml"
-  />
-
-  <modal
-    title="【恭喜你获得一个现金红包】"
-    content="越多好友拆红包奖励越大喔"
-    confirmText="发红包"
-    confirmColor="#ffad00"
-    iconUrl="http://cdn2.wpweixin.com/shop/redpacketIcon.png"
-    isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}"
-    bindmodalConfirm="onModalConfirm"
-    confirmButtonType="share"
-    wx:if="{{ !order.groupon_id }}"
-  />
-</view>
-
 <console page="订单详情" />
