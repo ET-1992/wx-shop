@@ -15,8 +15,18 @@ Component({
         }
     },
     data: {
-        dns_obj: {},
-        uploadImg: ''
+        dns_obj: {}
+    },
+    ready() {
+        const { annotation, dns_obj } = this.data;
+        annotation.forEach((item, index) => {
+            if (item.value) {
+                dns_obj[item.name] = item.value;
+            }
+        });
+        this.setData({
+            dns_obj
+        });
     },
     methods: {
         async onUpload(e) {
@@ -36,9 +46,9 @@ Component({
                     // dns_obj.push({ [annotationname]: url });
                     dns_obj[annotationname] = url;
                     annotation[index].isError = false;
+                    annotation[index].value = url;
                     this.setData({
                         dns_obj,
-                        uploadImg: url,
                         annotation
                     }, () => {
                         console.log(this.data);
