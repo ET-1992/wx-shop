@@ -7,10 +7,10 @@
         </view>
         <view class="status">
             <view wx:if="{{ crowd.status === '1' }}">
-                还剩<i-count-down target="{{ crowd.surplus_time }}"/>结束
+                还剩<countDown time="{{ crowd.surplus_time }}"/>结束
             </view>
             <view wx:if="{{ crowd.status === '3' }}">
-                还剩<i-count-down target="{{ crowd.surplus_time }}"/>付尾款
+                还剩<countDown time="{{ crowd.surplus_time }}"/>付尾款
             </view>
             <view wx:if="{{ crowd.status === '2' }}"> 已完成 </view>
             <view wx:if="{{ crowd.status === '4' }}"> 已结束 </view>
@@ -23,7 +23,7 @@
         <view class="crowding">
             <view class="progress">
                 <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
-                <i-progress percent="{{ crowd.pay_amount / finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+                <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
             </view>
             <view class="otherPay" wx:if="{{ crowd.status === '1' }}">请朋友帮忙</view>
@@ -47,14 +47,14 @@
             <productItemSold items="{{ items }}" customClass="crowd"/>
         </view>
         <view class="progress">
-            <view class="amount">目标金额<text class="price">￥{{ info.finalPayDispaly }}</text></view>
+            <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
             <view class="i-progress">
-                <i-progress percent="{{ crowd.pay_amount / info.finalPayDispaly * 100 }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+                <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
             </view>
             <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
         </view>
         <view class="opera">
-            <view class="text">已助力<text>5.6</text>元，还差<text>￥21.9</text>元</view>
+            <view class="text">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount }}</text>元</view>
             <view class="btn" bind:tap="pay">我要赞助</view>
             <view class="btn" bind:tap="buy">我也要下单</view>
         </view>

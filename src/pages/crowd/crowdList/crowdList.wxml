@@ -19,12 +19,12 @@
 					</view>
 				</view>
 				<view class="orderMeta">
-					<view class="status" wx:if="{{ crowd.status !== '1' }}">{{ order.statusText }}</view>
-					<view class="timeLimit" wx:if="{{ crowd.status === '1' }}">
+					<view class="status" wx:if="{{ order.crowd.status !== '1' }}">{{ order.statusText }}</view>
+					<view class="timeLimit" wx:if="{{ order.crowd.status === '1' }}">
 						<view class="text">剩余时间</view>
-						<i-count-down target="{{ crowd.surplus_time}}"/>
+						<countDown time="{{ order.crowd.surplus_time }}" />
 					</view>
-					<view class="progress" wx:if="{{ crowd.status === '1' }}">进度{{ order.progress }}%</view>
+					<view class="progress" wx:if="{{ order.crowd.status === '1' }}">进度{{ order.progress }}%</view>
 				</view>
 			</navigator>
 		</view>

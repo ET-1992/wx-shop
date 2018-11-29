@@ -34,20 +34,12 @@ Page({
         // -----------------处理价格显示
         let info = {};
 
-        info.couponFeeDispaly = order.coupon_discount_fee; // 优惠券
-        info.couponFee = Number(order.coupon_discount_fee);
-
-        info.coinForPayDispaly = order.coins_fee; // 金币
-        info.coinForPay = Number(order.coins_fee);
-
-        info.postageDispaly = Number(order.postage).toFixed(2); // 运费
-        info.postage = order.postage;
-
-        info.totalPrice = Number(order.amount) - info.postage + info.couponFee + info.coinForPay;// 商品价格
-        info.totalPriceDispaly = Number(info.totalPrice).toFixed(2);
-
         info.finalPay = Number(order.amount); // 付款价格
         info.finalPayDispaly = Number(info.finalPay).toFixed(2);
+
+        let rest_amount = new Decimal(order.amount).minus(order.crowd.pay_amount).toNumber().toFixed(2);    // 剩余价格
+
+        let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
         // -----------------End
 
         this.setData({
@@ -56,7 +48,10 @@ Page({
             crowd_users: order.crowd_users,
             avatarurl: order.avatarurl,
             openid: order.openid,
+            finalPay: info.finalPay,
             finalPayDispaly: info.finalPayDispaly,
+            rest_amount,
+            progress,
             isLoading: false
         });
     }

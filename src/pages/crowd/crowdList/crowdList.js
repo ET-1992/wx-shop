@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { CROWD_STATUS_TEXT } from 'constants/index';
 import { valueToText, formatTime, auth, getUserInfo } from 'utils/util';
+import { Decimal } from 'decimal.js';
 
 const app = getApp();
 
@@ -52,7 +53,7 @@ Page({
             order.productCount = order.items.reduce((count, item) => {
                 return count + Number(item.quantity);
             }, 0);
-            order.progress = (Number(order.crowd.pay_amount) / Number(order.amount) * 100).toFixed(2);
+            order.progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber().toFixed(2);
             return order;
         });
         const newOrders = isRefresh ? formatedOrders : orders.concat(formatedOrders);
