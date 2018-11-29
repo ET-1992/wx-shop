@@ -16,7 +16,8 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            order_no: options.id
+            order_no: options.id,
+            crowd_pay_no: options.crowd_pay_no
         });
         await this.loadOrder(options.id);
     },
@@ -25,19 +26,6 @@ Page({
 
         // -----------------处理价格显示
         let info = {};
-
-        info.couponFeeDispaly = order.coupon_discount_fee; // 优惠券
-        info.couponFee = Number(order.coupon_discount_fee);
-
-        info.coinForPayDispaly = order.coins_fee; // 金币
-        info.coinForPay = Number(order.coins_fee);
-
-        info.postageDispaly = Number(order.postage).toFixed(2); // 运费
-        info.postage = order.postage;
-
-        info.totalPrice = Number(order.amount) - info.postage + info.couponFee + info.coinForPay;// 商品价格
-        info.totalPriceDispaly = Number(info.totalPrice).toFixed(2);
-
         info.finalPay = Number(order.amount); // 付款价格
         info.finalPayDispaly = Number(info.finalPay).toFixed(2);
         // -----------------End
@@ -51,15 +39,15 @@ Page({
         let content = e.detail.value;
         let len = parseInt(content.length, 0);
         this.setData({
-            content: content,
+            content: content || '就差一点点了，快来助我一臂之力吧',
             len: len
         });
     },
     onShareAppMessage() {
-        let { content = '就差一点点了，快来助我一臂之力吧', order_no } = this.data;
+        let { content, order_no, crowd_pay_no } = this.data;
         let shareMsg = {
             title: content,
-            path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}`,
+            path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
             imageUrl: ''
         };
         return shareMsg;

@@ -29,7 +29,19 @@ Component({
     methods: {
         onPay(e) {
             const { formId } = e.detail;
-            this.triggerEvent('onpay', { formId }, { bubbles: true });
+            const { crowd, finalPay } = this.data;
+
+            finalPay > 0
+                ?
+                this.triggerEvent('onpay', { formId, crowd }, { bubbles: true })
+                :
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '订单价格为0元',
+                    showCancel: false,
+                    confirmText: '确定',
+                    confirmColor: '#3CC51F',
+                });
         }
     }
 });

@@ -291,7 +291,7 @@ Page({
 
     async onPay(ev) {
         console.log(ev, 'ev');
-        const { formId } = ev.detail;
+        const { formId, crowd } = ev.detail;
         const {
             address,
             items,
@@ -430,18 +430,18 @@ Page({
             requestData.posts = JSON.stringify(items);
         }
 
-        if (this.data.crowd) {
+        if (crowd) {
             requestData.type = 5;
         }
 
         try {
-            const { order_no, status, pay_sign, pay_appid } = await api.hei[method](requestData);
-            // console.log(order_no, status, pay_sign, pay_appid, 'pay');
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no } = await api.hei[method](requestData);
+            // console.log(order_no, status, pay_sign, pay_appid, crowd_pay_no, 'pay');
             wx.hideLoading();
 
-            if (this.data.crowd) {
+            if (crowd && crowd_pay_no) {
                 wx.redirectTo({
-                    url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}`,
+                    url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
                 });
             } else {
                 if (this.data.finalPay <= 0) {
