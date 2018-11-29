@@ -26,8 +26,8 @@
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
             </view>
-            <view class="otherPay" wx:if="{{ crowd.status === '3' }}" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</view>
-            <view class="ownPay" wx:if="{{ crowd.status === '1' }}">
+            <button open-type="share" class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</button>
+            <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
                 <view class="refund">
                     <view>放弃代付</view>
                     <view>原路退回</view>

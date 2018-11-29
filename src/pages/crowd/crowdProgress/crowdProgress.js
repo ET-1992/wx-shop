@@ -61,5 +61,14 @@ Page({
             progress,
             isLoading: false
         });
-    }
+    },
+    onShareAppMessage() {
+        let { crowd, order_no, crowd_pay_no } = this.data;
+        let shareMsg = {
+            title: crowd.word,
+            path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
+            imageUrl: ''
+        };
+        return shareMsg;
+    },
 });

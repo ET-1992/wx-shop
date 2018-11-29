@@ -1,10 +1,11 @@
 import api from 'utils/api';
-import { onDefaultShareAppMessage } from 'utils/pageShare';
 const app = getApp();
 
 Page({
     data: {
         maxlength: 50,  // 输入框最大字数
+        pageShareStatus: false,
+        defaultWord: '就差一点点了，快来助我一臂之力吧'
     },
 
     async onLoad(options) {
@@ -39,17 +40,32 @@ Page({
         let content = e.detail.value;
         let len = parseInt(content.length, 0);
         this.setData({
-            content: content || '就差一点点了，快来助我一臂之力吧',
-            len: len
+            content,
+            len
         });
     },
     onShareAppMessage() {
-        let { content, order_no, crowd_pay_no } = this.data;
+        let { content, order_no, crowd_pay_no, defaultWord } = this.data;
         let shareMsg = {
-            title: content,
+            title: content ? content : defaultWord,
             path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
             imageUrl: ''
         };
+        this.setData({ pageShareStatus: true });
         return shareMsg;
     },
+    async onShow() {
+        const { pageShareStatus, order_no, content, defaultWord } = this.data;
+        console.log('pageShareStatus:', pageShareStatus);
+        console.log('order_no:', order_no);
+        console.log('content:', content ? content : defaultWord);
+        if (pageShareStatus) {
+            const res = await api.hei.crowdCreate({
+                order_no,
+                word: content ? content : defaultWord,
+            });
+            console.log(res);
+            this.setData({ pageShareStatus: false });
+        }
+    }
 });

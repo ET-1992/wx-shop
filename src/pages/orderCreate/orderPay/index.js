@@ -37,7 +37,7 @@ Component({
                 :
                 wx.showModal({
                     title: '温馨提示',
-                    content: '订单价格为0元',
+                    content: '订单金额为0元',
                     showCancel: false,
                     confirmText: '确定',
                     confirmColor: '#3CC51F',
