@@ -24,5 +24,5 @@
             </view>
         </textarea>
 	</view>
-	<button open-type="share" class="shareBtn">请朋友帮忙</button>
+	<button open-type="share" class="shareBtn" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</button>
 </view>

@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="statusBar">
 		<view class="statusItem" wx:for="{{ statusList }}" bindtap="onStautsItemClick" data-value="{{ item.value }}">
-			<view class="statusItemName {{ status == item.value ? 'selected' : '' }}" >{{ item.name }}</view>
+			<view class="statusItemName {{ status == item.value ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }};">{{ item.name }}</view>
 		</view>
 	</view>
 	<view class="orderItem">

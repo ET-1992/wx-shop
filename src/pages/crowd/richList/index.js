@@ -5,6 +5,14 @@ Component({
         richList: {
             type: Object,
             value: {},
+        },
+        themeColor: {
+            type: Object,
+            value: {},
+        },
+        self: {
+            type: Boolean,
+            value: true
         }
     }
 });

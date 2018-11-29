@@ -26,13 +26,13 @@
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
             </view>
-            <view class="otherPay" wx:if="{{ crowd.status === '1' }}">请朋友帮忙</view>
-            <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
+            <view class="otherPay" wx:if="{{ crowd.status === '3' }}" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</view>
+            <view class="ownPay" wx:if="{{ crowd.status === '1' }}">
                 <view class="refund">
                     <view>放弃代付</view>
                     <view>原路退回</view>
                 </view>
-                <view class="payTail">付尾款</view>
+                <view class="payTail" style="background-color: {{ themeColor.primaryColor }};">付尾款</view>
             </view>
         </view>
         <view class="crowded" wx:if="{{ crowd.status === '2' }}">助力已完成，请等待商家发货</view>
@@ -54,12 +54,12 @@
             <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
         </view>
         <view class="opera">
-            <view class="text">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount }}</text>元</view>
+            <view class="text">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
             <view class="btn" bind:tap="pay">我要赞助</view>
-            <view class="btn" bind:tap="buy">我也要下单</view>
+            <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
         </view>
     </view>
 
     <!-- 土豪榜 -->
-	<richList richList="{{ crowd_users }}" />
+	<richList richList="{{ crowd_users }}" themeColor="{{ themeColor }}" self="{{ userInfo.openid === openid }}"/>
 </view>

@@ -1,5 +1,6 @@
 <view class="wrap">
-    <view class="tip">土豪榜</view>
+    <view class="tip" wx:if="{{ self }}" style="background-color: {{ themeColor.primaryColor }};">土豪榜</view>
+    <view class="tip noself" wx:if="{{ !self }}">土豪榜</view>
     <view class="list" wx:if="{{ richList.length }}">
         <view class="item" wx:for="{{ richList }}">
             <image class="avatarurl" src="{{ item.avatarurl }}" mode="aspectFill"/>

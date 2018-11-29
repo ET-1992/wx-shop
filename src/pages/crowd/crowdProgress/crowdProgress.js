@@ -15,21 +15,26 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            userInfo
+            userInfo,
+            order_no: options.id,
+            crowd_pay_no: options.crowd_pay_no
         });
     },
     async onShow() {
-        const { id } = this.options;
-        await this.loadOrder(id);
-        let title;
-        this.data.userInfo.openid === this.data.openid ? title = '代付进度' : title = '土豪帮帮忙';
-        wx.setNavigationBarTitle({
-            title: title
-        });
+        await this.loadOrder();
+        let title = '';
+        const { userInfo, openid } = this.data;
+        userInfo.openid === openid ? title = '代付进度' : title = '土豪帮帮忙';
+        wx.setNavigationBarTitle({ title });
 
     },
-    async loadOrder(id) {
-        const { order } = await api.hei.fetchOrder({ order_no: id });
+    async loadOrder() {
+        const { order_no, crowd_pay_no } = this.data;
+        let queryOption = { order_no };
+        if (crowd_pay_no) {
+            queryOption.crowd_pay_no = crowd_pay_no;
+        }
+        const { order } = await api.hei.fetchOrder(queryOption);
 
         // -----------------处理价格显示
         let info = {};
@@ -37,7 +42,8 @@ Page({
         info.finalPay = Number(order.amount); // 付款价格
         info.finalPayDispaly = Number(info.finalPay).toFixed(2);
 
-        let rest_amount = new Decimal(order.amount).minus(order.crowd.pay_amount).toNumber().toFixed(2);    // 剩余价格
+        let rest_amount = new Decimal(order.amount).minus(order.crowd.pay_amount).toNumber();    // 尾款
+        let rest_amount_display = rest_amount.toFixed(2);
 
         let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
         // -----------------End
@@ -51,6 +57,7 @@ Page({
             finalPay: info.finalPay,
             finalPayDispaly: info.finalPayDispaly,
             rest_amount,
+            rest_amount_display,
             progress,
             isLoading: false
         });

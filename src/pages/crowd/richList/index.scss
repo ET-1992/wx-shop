@@ -16,6 +16,10 @@
         justify-content: center;
         margin-left: -3rpx;
     }
+    .noself{
+        background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMjA0IDYwIj48ZGVmcz48c3R5bGU+LmF7ZmlsbDp1cmwoI2EpO308L3N0eWxlPjxsaW5lYXJHcmFkaWVudCBpZD0iYSIgeDE9IjAuMDgiIHkxPSIwLjcxIiB4Mj0iMSIgeTI9IjAuNSIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZjY2IxZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZkNDE3YiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMCwwSDE3NGEzMCwzMCwwLDAsMSwzMCwzMHYwYTMwLDMwLDAsMCwxLTMwLDMwSDBhMCwwLDAsMCwxLDAsMFYwQTAsMCwwLDAsMSwwLDBaIi8+PC9zdmc+');
+        background-size: cover;
+    }
     .list{
         padding: 38rpx 60rpx 31rpx;
         .item{

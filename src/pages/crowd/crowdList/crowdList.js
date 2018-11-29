@@ -19,8 +19,12 @@ Page({
     },
 
     onLoad() {
+        const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         wx.setNavigationBarTitle({
             title: '代付订单'
+        });
+        this.setData({
+            themeColor
         });
         this.loadOrders();
     },
