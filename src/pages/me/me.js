@@ -80,7 +80,6 @@ Page({
     },
 
     getDeviceInfo() {
-        console.log('9');
         this.data.infoModalTime++;
         setTimeout(() => {
             this.data.infoModalTime = 0;

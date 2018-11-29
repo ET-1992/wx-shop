@@ -14,7 +14,7 @@
 				<view class="content" wx:for="{{ item }}" wx:for-item="itemChild" wx:for-index="itemIndex" style="color: {{ itemChild == keyName ? '#21C11F' : '' }}" wx:if="{{  !oldLogDataCtr[index].isZheDie }}">
 					<text selectable="{{ true }}">{{ itemChild }}</text>
 				</view>
-				<text wx:if="{{ oldLogDataCtr[index].isZheDie }}" >...我被折叠了</text>
+				<text class="content" wx:if="{{ oldLogDataCtr[index].isZheDie }}" >...我被折叠了</text>
 			</view>
 		</scroll-view>
 	</view>
