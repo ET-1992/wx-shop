@@ -55,7 +55,33 @@
 				border-bottom: 1rpx solid #c9c9c9;
 				padding: 10rpx;
 				width: 100%;
-				word-wrap: break-word; 
+				word-wrap: break-word;
+				position: relative;
+
+				.copy {
+					background-color: #21C11F;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					width: 25rpx;
+				}
+
+				.zhedie {
+					color: #21C11F;
+					background-color: #ff80ff;
+					display: block;
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					width: 25rpx;
+				}
+
+				.content {
+					padding-left: 40rpx;
+					display: inline-block;
+				}
 			}
 		}
 	}
@@ -72,4 +98,3 @@
 		color: #21C11F;
 	}
 }
-

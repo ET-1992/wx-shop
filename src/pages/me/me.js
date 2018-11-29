@@ -125,27 +125,25 @@ Page({
 
     consoleOpen() {
         this.data.consoleTime++;
-        console.log(this.data.consoleTime);
         setTimeout(() => {
             this.data.consoleTime = 0;
         }, 1000);
 
-        if (this.data.consoleTime >= 7) {
-            console.log('six six six');
+        if (this.data.consoleTime >= 5) {
             app.openConsole = true;
+            app.openConsoleResData = true;
             app.event.emit('showConsole');
             this.onLoad();
         }
-
-        if (app.openConsole) {
-            this.data.openConsoleResDataTime++;
-            setTimeout(() => {
-                this.data.openConsoleResDataTime = 0;
-            }, 1000);
-            if (this.data.openConsoleResDataTime >= 3) {
-                console.log('openConsoleResData');
-                app.openConsoleResData = true;
-            }
-        }
+        // if (app.openConsole) {
+        //     this.data.openConsoleResDataTime++;
+        //     setTimeout(() => {
+        //         this.data.openConsoleResDataTime = 0;
+        //     }, 1000);
+        //     if (this.data.openConsoleResDataTime >= 3) {
+        //         console.log('openConsoleResData');
+        //         app.openConsoleResData = true;
+        //     }
+        // }
     }
 });

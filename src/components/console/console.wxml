@@ -9,7 +9,12 @@
 		<input class="search" type="text" placeholder="搜索关键字" bindblur="setKeyName" />
 		<scroll-view class="consoleBody" scroll-y="{{ true }}">
 			<view wx:for="{{ oldLogData }}" class="consoleItem">
-				<text selectable="{{ true }}" wx:for="{{ item }}" wx:for-item="itemChild" style="color: {{ itemChild == keyName ? '#21C11F' : '' }}">{{ itemChild }}</text>
+				<text wx:if="{{ oldLogDataCtr[index].isShowCopy }}" class="copy" bind:tap="copy"  data-item="{{ item }}"></text>
+				<text  wx:if="{{ oldLogDataCtr[index].isShowZheDie }}" class="zhedie" bindtap="zheDie" data-item-index="{{ itemIndex }}" data-index="{{ index }}"></text>
+				<view class="content" wx:for="{{ item }}" wx:for-item="itemChild" wx:for-index="itemIndex" style="color: {{ itemChild == keyName ? '#21C11F' : '' }}" wx:if="{{  !oldLogDataCtr[index].isZheDie }}">
+					<text selectable="{{ true }}">{{ itemChild }}</text>
+				</view>
+				<text wx:if="{{ oldLogDataCtr[index].isZheDie }}" >...我被折叠了</text>
 			</view>
 		</scroll-view>
 	</view>
