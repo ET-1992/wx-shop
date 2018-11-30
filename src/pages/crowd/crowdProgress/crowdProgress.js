@@ -8,32 +8,32 @@ Page({
         isLoading: true,
     },
 
-    onLoad(options) {
-        console.log(options);
+    onLoad() {
         const userInfo = wx.getStorageSync(USER_KEY);
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         this.setData({
             themeColor,
             isIphoneX,
-            userInfo,
-            order_no: options.id,
-            crowd_pay_no: options.crowd_pay_no
+            userInfo
         });
     },
     async onShow() {
-        await this.loadOrder();
+        let { id, crowd_pay_no } = this.options;
+        let queryOption = { order_no: id };
+        if (crowd_pay_no) {
+            queryOption.crowd_pay_no = crowd_pay_no;
+            this.setData({ crowd_pay_no });
+        }
+        await this.loadOrder(queryOption);
+
         let title = '';
         const { userInfo, openid } = this.data;
         userInfo.openid === openid ? title = '代付进度' : title = '土豪帮帮忙';
         wx.setNavigationBarTitle({ title });
 
     },
-    async loadOrder() {
-        const { order_no, crowd_pay_no } = this.data;
-        let queryOption = { order_no };
-        if (crowd_pay_no) {
-            queryOption.crowd_pay_no = crowd_pay_no;
-        }
+    async loadOrder(queryOption) {
+
         const { order } = await api.hei.fetchOrder(queryOption);
 
         // -----------------处理价格显示
@@ -49,6 +49,7 @@ Page({
         // -----------------End
 
         this.setData({
+            order_no: order.order_no,
             items: order.items,
             crowd: order.crowd,
             crowd_users: order.crowd_users,
@@ -64,6 +65,7 @@ Page({
     },
     onShareAppMessage() {
         let { crowd, order_no, crowd_pay_no } = this.data;
+        if (!crowd_pay_no) { crowd_pay_no = crowd.crowd_pay_no }
         let shareMsg = {
             title: crowd.word,
             path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
