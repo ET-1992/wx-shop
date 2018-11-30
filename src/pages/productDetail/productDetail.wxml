@@ -292,7 +292,7 @@
 							wx:if="{{ item.type !== 'addCrowd' }}"
 						>{{ item.text }}</button>
 						<button 
-							class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
+							class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} addCrowd" 
 							wx:for="{{ actions }}" 
 							wx:key="text"
 							disabled="{{ product.skus.length && !selectedSku.id }}" 
@@ -301,7 +301,6 @@
 							bindgetuserinfo="onUserInfo"
 							open-type="getUserInfo" 
 							lang="zh_CN" 
-							style="background-image: url('/icons/crowd/crowdBtn_bg.png'); background-size: cover"
 							wx:if="{{ item.type === 'addCrowd' }}"
 						>{{ item.text }}</button>
 					</view>
