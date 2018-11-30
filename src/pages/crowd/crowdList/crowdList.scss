@@ -1,9 +1,15 @@
 @import "~styles/color";
+page{
+	width: 100%;
+}
 .container {
+	$height: 90rpx;
 
 	.statusBar {
-		$height: 90rpx;
-		
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
 		display: flex;
 		justify-content: space-around;
 		background-color: #FFFFFF;
@@ -32,8 +38,11 @@
 			}
 		}
 	}
+	.wrap{
+		height: 100%;
+	}
 	.orderItem{
-
+		padding-top: $height;
 		.order {
 			background-color: #fff;
 			margin-top: 10rpx;

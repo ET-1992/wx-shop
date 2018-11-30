@@ -1,6 +1,6 @@
 import api from 'utils/api';
-import { CROWD_STATUS_TEXT } from 'constants/index';
-import { valueToText, formatTime, auth, getUserInfo } from 'utils/util';
+import { ORDER_STATUS_TEXT, CROWD_STATUS_TEXT } from 'constants/index';
+import { valueToText } from 'utils/util';
 import { Decimal } from 'decimal.js';
 
 const app = getApp();
@@ -24,20 +24,12 @@ Page({
             title: '代付订单'
         });
         this.setData({
-            themeColor
+            themeColor,
+            isIphoneX
         });
         this.loadOrders();
     },
-    onStautsItemClick(ev) {
-        const { value } = ev.currentTarget.dataset;
-        this.setData({
-            status: value,
-            isRefresh: true,
-            next_cursor: 0,
-            orders: []
-        });
-        this.loadOrders();
-    },
+
     async loadOrders() {
         const { next_cursor, isRefresh, orders, status } = this.data;
         const queryOption = { cursor: next_cursor };
@@ -54,6 +46,7 @@ Page({
             const statusCode = Number(order.status);
             order.statusCode = statusCode;
             order.statusText = valueToText(CROWD_STATUS_TEXT, Number(order.crowd.status));
+            order.normalStatusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
             order.productCount = order.items.reduce((count, item) => {
                 return count + Number(item.quantity);
             }, 0);
@@ -69,5 +62,63 @@ Page({
         });
         wx.hideLoading();
         console.log(this.data);
-    }
+    },
+
+    onStautsItemClick(ev) {
+        const { value } = ev.currentTarget.dataset;
+        this.setData({
+            status: value,
+            isRefresh: true,
+            next_cursor: 0,
+            orders: []
+        });
+        this.loadOrders();
+    },
+
+    touchstart(e) {
+        this.data.clineX = e.touches[0].clientX;
+        this.data.clineY = e.touches[0].clientY;
+    },
+    touchend(e) {
+        console.log(e);
+        let ev;
+        let { status, statusList } = this.data;
+        // next
+        if (e.changedTouches[0].clientX - this.data.clineX < -70) {
+
+            if (status === statusList[1].value) {
+                ev = {
+                    currentTarget: {
+                        dataset: {
+                            value: 1,
+                        },
+                    },
+                };
+            } else {
+                ev = {
+                    currentTarget: {
+                        dataset: {
+                            value: 2,
+                        },
+                    },
+                };
+            }
+            this.onStautsItemClick(ev);
+        }
+        // pre
+        if (e.changedTouches[0].clientX - this.data.clineX > 70) {
+            if (status === 1) {
+                return;
+            } else {
+                ev = {
+                    currentTarget: {
+                        dataset: {
+                            value: status - 1,
+                        },
+                    },
+                };
+                this.onStautsItemClick(ev);
+            }
+        }
+    },
 });

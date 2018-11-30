@@ -123,7 +123,7 @@ export const CURRENCY = {
 
 export const CROWD_STATUS_TEXT = [
     { text: '进行中', value: 1 },
-    { text: '待发货', value: 2 },   // 助力成功
+    { text: '助力成功', value: 2 },
     { text: '待支付尾款', value: 3 },
     { text: '已退款', value: 4 }
 ];

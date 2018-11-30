@@ -1,34 +1,36 @@
 <view class="container">
 	<view class="statusBar">
-		<view class="statusItem" wx:for="{{ statusList }}" bindtap="onStautsItemClick" data-value="{{ item.value }}">
+		<view class="statusItem" wx:for="{{ statusList }}" bindtap="onStautsItemClick" data-value="{{ item.value }}" data-index="{{ index }}">
 			<view class="statusItemName {{ status == item.value ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }};">{{ item.name }}</view>
 		</view>
 	</view>
-	<view class="orderItem">
-    	<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
-			<navigator url="/pages/crowd/crowdProgress/crowdProgress?id={{ order.order_no }}">
-				<view class="item" wx:for="{{ order.items }}">
-					<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
-					<view class="itemInfo">
-						<view class="itemTitle">{{ item.title }}</view>
-						<view class="property">{{ item.sku_property_names }}</view>
-						<view class="itemPirceInfo">
-							<view class="price">￥{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
-							<view class="number">x{{ item.quantity }}</view>
+	<view class="wrap" bindtouchstart="touchstart" bindtouchend="touchend">
+		<view class="orderItem">
+			<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
+				<navigator url="{{ order.crowd.status === '2' ? '/pages/orderDetail/orderDetail' : '/pages/crowd/crowdProgress/crowdProgress'}}?id={{ order.order_no }}">
+					<view class="item" wx:for="{{ order.items }}">
+						<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
+						<view class="itemInfo">
+							<view class="itemTitle">{{ item.title }}</view>
+							<view class="property">{{ item.sku_property_names }}</view>
+							<view class="itemPirceInfo">
+								<view class="price">￥{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
+								<view class="number">x{{ item.quantity }}</view>
+							</view>
 						</view>
 					</view>
-				</view>
-				<view class="orderMeta">
-					<view class="status" wx:if="{{ order.crowd.status !== '1' }}">{{ order.statusText }}</view>
-					<view class="timeLimit" wx:if="{{ order.crowd.status === '1' }}">
-						<view class="text">剩余时间</view>
-						<countDown time="{{ order.crowd.surplus_time }}" />
+					<view class="orderMeta">
+						<view class="status" wx:if="{{ order.crowd.status !== '1' }}">{{ order.crowd.status === '2' ? order.normalStatusText : order.statusText }}</view>
+						<view class="timeLimit" wx:if="{{ order.crowd.status === '1' }}">
+							<view class="text">剩余时间</view>
+							<countDown time="{{ order.crowd.surplus_time }}" />
+						</view>
+						<view class="progress" wx:if="{{ order.crowd.status === '1' }}">进度{{ order.progress }}%</view>
 					</view>
-					<view class="progress" wx:if="{{ order.crowd.status === '1' }}">进度{{ order.progress }}%</view>
-				</view>
-			</navigator>
+				</navigator>
+			</view>
 		</view>
+		<i-load-more wx:if="{{ orders.length }}" tip="{{ next_cursor ? '加载中' : '到底啦' }}" loading="{{ next_cursor }}" />
+		<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}">暂无内容</view>
 	</view>
-	<i-load-more wx:if="{{ orders.length }}" tip="{{ next_cursor ? '加载中' : '到底啦' }}" loading="{{ next_cursor }}" />
-	<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}">暂无内容</view>
 </view>
