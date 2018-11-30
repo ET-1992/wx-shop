@@ -8,7 +8,7 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
-        payModal: true
+        payModal: false
     },
 
     onLoad() {
@@ -133,30 +133,26 @@ Page({
     },
     // 赞助
     async onPay(ev) {
-        const { confirm } = await showModal({
-            title: '温馨提醒',
-            content: '确定赞助？'
-        });
-        if (confirm) {
-            let { rest_amount, crowd } = this.data;
-            const { formId } = ev.detail;
-            try {
-                const { pay_sign } = await api.hei.crowdPay({
-                    crowd_pay_no: crowd.crowd_pay_no,
-                    amount: rest_amount,
-                    form_id: formId
-                });
-                if (pay_sign) {
-                    await wxPay(pay_sign);
-                }
-            } catch (e) {
-                wx.showModal({
-                    title: '温馨提醒',
-                    content: e.errMsg,
-                    showCancel: false
-                });
+        let { supportAmount, rest_amount, crowd } = this.data;
+        supportAmount ? supportAmount = Number(supportAmount) : supportAmount = new Decimal(rest_amount).mul(0.5).toNumber();
+        const { formId } = ev.detail;
+        try {
+            const { pay_sign } = await api.hei.crowdPay({
+                crowd_pay_no: crowd.crowd_pay_no,
+                amount: supportAmount,
+                form_id: formId
+            });
+            if (pay_sign) {
+                await wxPay(pay_sign);
             }
+        } catch (e) {
+            wx.showModal({
+                title: '温馨提醒',
+                content: e.errMsg,
+                showCancel: false
+            });
         }
+
     },
     // 赞助弹窗
     showPayModal() {
@@ -164,6 +160,13 @@ Page({
         payModal ? payModal = false : payModal = true;
         this.setData({
             payModal
+        });
+    },
+    // 输入赞助金额
+    supportAmount(e) {
+        const { value } = e.detail;
+        this.setData({
+            supportAmount: value
         });
     }
 });

@@ -60,7 +60,7 @@
         <view class="opera">
             <view class="text" wx:if="{{ crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
             <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
-            <button class="btn" disabled="{{ crowd.status !== '2' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
+            <button class="btn" disabled="{{ crowd.status === '2' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
             <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
         </view>
     </view>
@@ -77,7 +77,7 @@
         </view>
         <view class="inputField">
             <view class="yuan">￥</view>
-            <input  placeholder="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}" value="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}"/>
+            <input type="digit" bindinput="supportAmount" placeholder="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}" value="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}"/>
             <view class="yuan">元</view>
         </view>
         <form report-submit bindsubmit="onPay">
