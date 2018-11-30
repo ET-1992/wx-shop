@@ -7,14 +7,14 @@ const app = getApp();
 
 Page({
     data: {
-        status: 1,
+        status: 2,
         orders: [],
         next_cursor: 0,
         isLoading: true,
         isRefresh: true,
         statusList: [
-            { name: '进行中', value: 1 },
-            { name: '已完成', value: 2 }
+            { name: '我的订单', value: 2 },
+            { name: '我的代付', value: 1 }
         ]
     },
 
@@ -90,7 +90,7 @@ Page({
                 ev = {
                     currentTarget: {
                         dataset: {
-                            value: 1,
+                            value: 2,
                         },
                     },
                 };
@@ -98,7 +98,7 @@ Page({
                 ev = {
                     currentTarget: {
                         dataset: {
-                            value: 2,
+                            value: 1,
                         },
                     },
                 };
@@ -107,13 +107,13 @@ Page({
         }
         // pre
         if (e.changedTouches[0].clientX - this.data.clineX > 70) {
-            if (status === 1) {
+            if (status === 2) {
                 return;
             } else {
                 ev = {
                     currentTarget: {
                         dataset: {
-                            value: status - 1,
+                            value: 2,
                         },
                     },
                 };
