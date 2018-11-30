@@ -314,6 +314,16 @@ const apis = {
         path: 'api/mag.order.crowd.pay.create.json',
         method: 'POST',
         isForceToken: true
+    },
+    crowdRefund: {
+        path: 'api/mag.order.crowd.refund.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    crowdPay: {
+        path: 'api/mag.order.crowd.pay.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 

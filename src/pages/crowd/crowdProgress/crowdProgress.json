@@ -4,6 +4,7 @@
 		"countDown": "../../../components/countDown/countDown",
 		"i-progress": "../../../components/iview-weapp/dist/progress/index",
 		"productItemSold": "../../../components/productItemSold/index",
-		"loading": "../../../components/loading/index"
+		"loading": "../../../components/loading/index",
+		"van-popup": "../../../components/vant-weapp/dist/popup/index"
 	}
 }

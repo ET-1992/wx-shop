@@ -1,7 +1,8 @@
 <loading isLoading="{{ isLoading }}"/>
+<import src="../../utils/wxParse/wxParse.wxml"/>
 <import src="/templates/productLayout/topImage.wxml"/>
 <view wx:if="{{ !isLoading }}">
-<view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) }}">
+<view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0) && !isCrowd }}">
 	<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
 	<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
 		<block wx:for="{{article.images}}">
@@ -12,21 +13,21 @@
 	</swiper>
 </view>
 <view class="p-single">
-	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
+	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1 && !isCrowd }}">
 		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
 		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
 		<view class="borderLine"></view>
 		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
 	</view>
 
-	<import src="../../utils/wxParse/wxParse.wxml"/>
 	<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
 		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
 	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
 		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 	</view>
-	<view class="promote" wx:if="{{article.products.length}}">
+
+	<view class="promote" wx:if="{{article.products.length && !isCrowd}}">
 		<view wx:if="{{ article.label }}" class="label">
 			<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
 		</view>
@@ -47,7 +48,7 @@
 </view>
 
 <!-- 底部评论栏 -->
-<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isCrowd }}">
 	<view class="footerItem">
 		<!-- 返回首页 -->
 		<navigator class="favItem" url="/pages/home/home" open-type="switchTab">
@@ -77,7 +78,6 @@
 		<navigator url="/pages/commentList/commentList?id={{article.id}}" class="comment">
 			<view class="commentIcon"></view>{{article.reply_count}}
 		</navigator>
-
 	</view>
 </view>
 </view>

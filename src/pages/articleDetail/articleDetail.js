@@ -27,7 +27,7 @@ Page({
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
     },
 
-    onLoad({ id }) {
+    onLoad({ id, isCrowd }) {
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         this.setData({ themeColor });
         const pages = getCurrentPages();
@@ -35,6 +35,7 @@ Page({
         this.setData({
             isIphoneX,
             currentPageLength: pages.length,
+            isCrowd: isCrowd ? true : false
         });
     },
 

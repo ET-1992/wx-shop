@@ -1,10 +1,10 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{!isLoading}}">
     <view class="head">
-        <view class="rule">
+        <navigator class="rule" url="{{ '/pages/articleDetail/articleDetail?id=' + 1275 + '&isCrowd=' + true }}">
             <view class="question">?</view>
             <view class="instruction">规则说明</view>
-        </view>
+        </navigator>
         <view class="status">
             <view wx:if="{{ crowd.status === '1' }}">
                 还剩<countDown time="{{ crowd.surplus_time }}"/>结束
@@ -18,7 +18,7 @@
     </view>
 
     <!-- 自己进来 -->
-    <view class="order" wx:if="{{ userInfo.openid === openid }}">
+    <view class="order" wx:if="{{ userInfo.openid !== openid }}">
         <productItemSold items="{{ items }}" customClass="crowd"/>
         <view class="crowding">
             <view class="progress">
@@ -28,11 +28,15 @@
             </view>
             <button open-type="share" class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</button>
             <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
-                <view class="refund">
-                    <view>放弃代付</view>
-                    <view>原路退回</view>
-                </view>
-                <view class="payTail" style="background-color: {{ themeColor.primaryColor }};">付尾款</view>
+                <form report-submit bindsubmit="crowdRefund">
+                    <button class="refund" form-type="submit">
+                        <view>放弃代付</view>
+                        <view>原路退回</view>
+                    </button>
+                </form>
+                <form report-submit bindsubmit="payTailMoney">
+                    <button class="payTail" form-type="submit" style="background-color: {{ themeColor.primaryColor }};">付尾款</button>
+                </form>
             </view>
         </view>
         <view class="crowded" wx:if="{{ crowd.status === '2' }}">助力已完成，请等待商家发货</view>
@@ -40,7 +44,7 @@
     </view>
 
     <!-- 其他人进来 -->
-    <view class="panel" wx:if="{{ userInfo.openid !== openid }}">
+    <view class="panel" wx:if="{{ userInfo.openid === openid }}">
         <view class="info">
             <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
             <view class="text">就差一点点了，快来助我一臂之力吧！</view>
@@ -54,8 +58,9 @@
             <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
         </view>
         <view class="opera">
-            <view class="text">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
-            <view class="btn" bind:tap="pay">我要赞助</view>
+            <view class="text" wx:if="{{ crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
+            <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
+            <button class="btn" disabled="{{ crowd.status !== '2' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
             <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
         </view>
     </view>
@@ -63,3 +68,20 @@
     <!-- 土豪榜 -->
 	<richList richList="{{ crowd_users }}" themeColor="{{ themeColor }}" self="{{ userInfo.openid === openid }}"/>
 </view>
+
+<van-popup show="{{ payModal }}" bind:close="showPayModal">
+    <view class="modal">
+        <view class="info">
+            <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
+            <view class="text">快来助我一臂之力吧！</view>
+        </view>
+        <view class="inputField">
+            <view class="yuan">￥</view>
+            <input  placeholder="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}" value="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}"/>
+            <view class="yuan">元</view>
+        </view>
+        <form report-submit bindsubmit="onPay">
+            <button class="support" form-type="submit">赞助TA</button>
+        </form>
+    </view>
+</van-popup>
