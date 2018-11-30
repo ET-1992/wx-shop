@@ -1,6 +1,7 @@
 @import '~styles/color';
+@import './templates/stodownload/index';
 
-$footerHeight: 100rpx;
+$footerHeight: 150rpx;
 page{
 	background: #F4F4F4;
 	position:relative;
@@ -49,7 +50,11 @@ page{
 		margin-right: 10rpx;
 	}
 .cartList {
-	margin-bottom: $footerHeight + 125rpx;
+	margin-bottom: $footerHeight;
+}
+
+.stodownloadWrap {
+	margin-bottom: 250rpx;
 }
 
 .radioWrapper {

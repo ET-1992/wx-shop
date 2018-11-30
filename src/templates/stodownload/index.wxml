@@ -1,0 +1,4 @@
+<navigator class="stodownload" target="miniProgram" url="" hover-class="none" open-type="navigate" app-id="wx56c8f077de74b07c" path="/open/function-introduction/function-introduction">
+  <image src="/icons/stodownload.png" class="stodownloadImg" mode="aspectFit" />
+  <text class="stodownloadText" selectable="false" space="false" decode="false">已同步至微信购物单</text>
+</navigator>
