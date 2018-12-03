@@ -27,9 +27,13 @@ Page({
             themeColor,
             isIphoneX
         });
+    },
+    onShow() {
+        this.setData({
+            orders: []
+        });
         this.loadOrders();
     },
-
     async loadOrders() {
         const { next_cursor, isRefresh, orders, status } = this.data;
         const queryOption = { cursor: next_cursor };
@@ -121,4 +125,10 @@ Page({
             }
         }
     },
+
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) { return }
+        this.loadOrders();
+    }
 });

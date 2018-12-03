@@ -3,6 +3,7 @@ const app = getApp();
 
 Page({
     data: {
+        isLoading: true,
         maxlength: 50,  // 输入框最大字数
         pageShareStatus: false,
         defaultWord: '就差一点点了，快来助我一臂之力吧'
@@ -33,7 +34,8 @@ Page({
 
         this.setData({
             items: order.items,
-            finalPayDispaly: info.finalPayDispaly
+            finalPayDispaly: info.finalPayDispaly,
+            isLoading: false
         });
     },
     bindTextAreaBlur(e) {

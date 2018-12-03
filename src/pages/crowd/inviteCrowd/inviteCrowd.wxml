@@ -1,4 +1,5 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{ !isLoading }}">
 	<navigator class="rule" url="{{ '/pages/articleDetail/articleDetail?id=' + 1275 + '&isCrowd=' + true }}">
         <view class="question">?</view>
         <view class="instruction">规则说明</view>
