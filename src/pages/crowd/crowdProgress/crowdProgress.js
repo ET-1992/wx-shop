@@ -51,7 +51,7 @@ Page({
         let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
 
         let support_amount;
-        if (rest_amount >= 0.01) {
+        if (rest_amount > 0.01) {
             support_amount = new Decimal(rest_amount).mul(0.5).toNumber();   // 默认价
         } else {
             support_amount = 0.01;
