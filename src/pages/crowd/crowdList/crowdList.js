@@ -82,8 +82,10 @@ Page({
         console.log(e);
         let ev;
         let { status, statusList } = this.data;
+        let X = e.changedTouches[0].clientX - this.data.clineX;
+        let Y = e.changedTouches[0].clientY - this.data.clineY;
         // next
-        if (e.changedTouches[0].clientX - this.data.clineX < -70) {
+        if (Math.abs(X) > Math.abs(Y) && X < 0) {
 
             if (status === statusList[1].value) {
                 ev = {
@@ -105,7 +107,7 @@ Page({
             this.onStautsItemClick(ev);
         }
         // pre
-        if (e.changedTouches[0].clientX - this.data.clineX > 70) {
+        if (Math.abs(X) > Math.abs(Y) && X > 0) {
             if (status === 2) {
                 return;
             } else {
