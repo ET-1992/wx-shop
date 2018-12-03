@@ -49,6 +49,13 @@ Page({
         let rest_amount_display = rest_amount.toFixed(2);
 
         let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
+
+        let support_amount;
+        if (rest_amount >= 0.01) {
+            support_amount = new Decimal(rest_amount).mul(0.5).toNumber();   // 默认价
+        } else {
+            support_amount = 0.01;
+        }
         // -----------------End
 
         this.setData({
@@ -62,6 +69,7 @@ Page({
             finalPayDispaly: info.finalPayDispaly,
             rest_amount,
             rest_amount_display,
+            support_amount,
             progress,
             isLoading: false
         });
@@ -76,7 +84,7 @@ Page({
         };
         return shareMsg;
     },
-
+    // 退款
     async crowdRefund(ev) {
         const { confirm } = await showModal({
             title: '温馨提醒',
@@ -94,6 +102,7 @@ Page({
                     await showToast({
                         title: '退款成功',
                     });
+                    this.onShow();
                 }
             } catch (e) {
                 wx.showModal({
@@ -133,13 +142,12 @@ Page({
     },
     // 赞助
     async onPay(ev) {
-        let { supportAmount, rest_amount, crowd } = this.data;
-        supportAmount ? supportAmount = Number(supportAmount) : supportAmount = new Decimal(rest_amount).mul(0.5).toNumber();
+        let { support_amount, crowd } = this.data;
         const { formId } = ev.detail;
         try {
             const { pay_sign } = await api.hei.crowdPay({
                 crowd_pay_no: crowd.crowd_pay_no,
-                amount: supportAmount,
+                amount: support_amount,
                 form_id: formId
             });
             if (pay_sign) {
@@ -162,11 +170,17 @@ Page({
             payModal
         });
     },
+
     // 输入赞助金额
-    supportAmount(e) {
+    setMoneyValue(e) {
         const { value } = e.detail;
+        let newValue = (value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;   // 限制小数点后两位
+        const { rest_amount } = this.data;
+        if (Number(newValue) > Number(rest_amount)) {
+            return rest_amount;
+        }
         this.setData({
-            supportAmount: value
+            support_amount: newValue
         });
     }
 });

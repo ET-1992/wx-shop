@@ -18,7 +18,7 @@
     </view>
 
     <!-- 自己进来 -->
-    <view class="order" wx:if="{{ userInfo.openid !== openid }}">
+    <view class="order" wx:if="{{ userInfo.openid === openid }}">
         <productItemSold items="{{ items }}" customClass="crowd"/>
         <view class="crowding">
             <view class="progress">
@@ -44,7 +44,7 @@
     </view>
 
     <!-- 其他人进来 -->
-    <view class="panel" wx:if="{{ userInfo.openid === openid }}">
+    <view class="panel" wx:if="{{ userInfo.openid !== openid }}">
         <view class="info">
             <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
             <view class="text">就差一点点了，快来助我一臂之力吧！</view>
@@ -77,11 +77,11 @@
         </view>
         <view class="inputField">
             <view class="yuan">￥</view>
-            <input type="digit" bindinput="supportAmount" placeholder="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}" value="{{ rest_amount <= 0.01 ? rest_amount : rest_amount * 0.5 }}"/>
+            <input type="digit" bindinput="setMoneyValue" bindblur="saveMoneyValue" placeholder="{{ support_amount }}" value="{{ support_amount }}"/>
             <view class="yuan">元</view>
         </view>
         <form report-submit bindsubmit="onPay">
-            <button class="support" form-type="submit">赞助TA</button>
+            <button class="support" form-type="submit" disabled="{{ support_amount <= 0 }}">赞助TA</button>
         </form>
     </view>
 </van-popup>

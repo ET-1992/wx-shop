@@ -166,7 +166,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 560rpx;
-	padding: 30rpx 20rpx;
+	padding: 30rpx 20rpx 0;
 	border-radius: 10rpx;
 	.info{
 		background: #ffffff;
@@ -204,6 +204,9 @@
 		justify-content: center;
 		border-radius: 40rpx;
 		color: #ffffff;
-		margin: 30rpx auto;
+		margin: 40rpx auto;
 	}
+}
+.van-popup{
+	border-radius: 10rpx;
 }
