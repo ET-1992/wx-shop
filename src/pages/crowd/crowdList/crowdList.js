@@ -10,7 +10,7 @@ Page({
         status: 2,
         orders: [],
         next_cursor: 0,
-        isLoading: true,
+        // isLoading: true,
         isRefresh: true,
         statusList: [
             { name: '我的订单', value: 2 },
@@ -26,11 +26,6 @@ Page({
         this.setData({
             themeColor,
             isIphoneX
-        });
-    },
-    onShow() {
-        this.setData({
-            orders: []
         });
         this.loadOrders();
     },
@@ -62,7 +57,7 @@ Page({
             orders: newOrders,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            isLoading: false
+            // isLoading: false
         });
         wx.hideLoading();
         console.log(this.data);
