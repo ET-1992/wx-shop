@@ -22,5 +22,8 @@ Component({
                 }
             }
         },
-    }
+    },
+    detached() {
+        clearInterval(this.intervalId);
+    },
 });
