@@ -9,8 +9,11 @@
             <view wx:if="{{ crowd.status === '1' }}">
                 还剩<countDown time="{{ crowd.surplus_time }}"/>结束
             </view>
-            <view wx:if="{{ crowd.status === '3' }}">
+           <!--  <view wx:if="{{ crowd.status === '3' }}">
                 还剩<countDown time="{{ crowd.surplus_time }}"/>付尾款
+            </view> -->
+            <view wx:if="{{ crowd.status === '3' }}">
+                待支付尾款
             </view>
             <view wx:if="{{ crowd.status === '2' }}"> 已完成 </view>
             <view wx:if="{{ crowd.status === '4' }}"> 已结束 </view>
