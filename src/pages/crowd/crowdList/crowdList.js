@@ -7,14 +7,14 @@ const app = getApp();
 
 Page({
     data: {
-        status: 2,
+        status: 1,
         orders: [],
         next_cursor: 0,
         // isLoading: true,
         isRefresh: true,
         statusList: [
-            { name: '我的订单', value: 2 },
-            { name: '我的代付', value: 1 }
+            { name: '我的代付', value: 1 },
+            { name: '我的订单', value: 2 }
         ]
     },
 
@@ -87,7 +87,7 @@ Page({
         // next
         if (Math.abs(X) > Math.abs(Y) && X < 0) {
 
-            if (status === statusList[1].value) {
+            if (status === statusList[0].value) {
                 ev = {
                     currentTarget: {
                         dataset: {
@@ -108,13 +108,13 @@ Page({
         }
         // pre
         if (Math.abs(X) > Math.abs(Y) && X > 0) {
-            if (status === 2) {
+            if (status === 1) {
                 return;
             } else {
                 ev = {
                     currentTarget: {
                         dataset: {
-                            value: 2,
+                            value: 1,
                         },
                     },
                 };
