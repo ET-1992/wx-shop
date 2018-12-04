@@ -5,7 +5,7 @@ import getRemainTime from 'utils/getRemainTime';
 import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 import { getAgainUserForInvalid, updateCart } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 
@@ -335,14 +335,19 @@ Page({
     },
 
     onLoad(query) {
+        // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
+        const config = wx.getStorageSync(CONFIG);
+        // -------------------------  TODO
+
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor, tplStyle, defineTypeGlobal, vip } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
+            config,
             themeColor,
             tplStyle,
             vip,

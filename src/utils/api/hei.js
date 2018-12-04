@@ -324,6 +324,11 @@ const apis = {
         path: 'api/mag.order.crowd.pay.json',
         method: 'POST',
         isForceToken: true
+    },
+    config: {
+        path: 'api/mag.shop.config.json',
+        method: 'GET',
+        isForceToken: true
     }
 };
 

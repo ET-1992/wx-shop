@@ -1,7 +1,7 @@
 import { login as wxLogin, checkSession } from 'utils/wxp';
 import api from 'utils/api';
 import getToken from 'utils/getToken';
-import { USER_KEY, TOKEN_KEY, EXPIRED_KEY, CURRENCY } from 'constants/index';
+import { USER_KEY, TOKEN_KEY, EXPIRED_KEY, CURRENCY, CONFIG } from 'constants/index';
 import Event from 'utils/event';
 import { parseScene } from 'utils/util';
 
@@ -73,12 +73,26 @@ App({
         }, 500);
     },
 
+    updateConfig() {
+        setTimeout(() => {
+            api.hei.config().then((res) => {
+                console.log(res);
+                const { config } = res;
+                wx.setStorageSync(CONFIG, config);
+            });
+        }, 500);
+    },
+
     async onShow(options) {
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
         console.log(options, 'options');
         this.logData.push(options);
+
+        console.log('9090');
+        this.updateConfig();
+
 
         const { query = {}} = options;
         if (query.vendor) {
