@@ -222,10 +222,14 @@ Page({
             requestData.order_type = 'groupon';
         }
 
+        if (liftStyle === 'lift') {
+            requestData.shipping_type = 2;
+        }
+
         requestData.posts = JSON.stringify(items);
         const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only } = await api.hei.orderPrepare(requestData);
-        const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.item_amount && fee.item_amount;
-        const maxUseCoin = Math.floor(fee.item_amount * coin_in_order.percent_in_order);
+        const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+        const maxUseCoin = Math.floor(fee.amount * coin_in_order.percent_in_order);
 
         console.log(maxUseCoin, 'maxUseCoin');
         const useCoin = Math.min(maxUseCoin, wallet.coins);
@@ -233,10 +237,6 @@ Page({
 
         if (self_lifting_only) {
             liftStyle = 'lift';
-        }
-
-        if (liftStyle === 'lift') {
-            requestData.shipping_type = 2;
         }
 
         this.setData({

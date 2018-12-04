@@ -7,6 +7,7 @@
 		"infos": "./infos/index",
 		"orders": "./orders/index",
 		"personal": "./personal/index",
-		"console": "../../components/console/console"
+		"console": "../../components/console/console",
+		"myModal": "../../components/myModal/myModal"
 	  }
 }
