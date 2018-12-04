@@ -52,7 +52,7 @@ Page({
 
         let support_amount;
         if (rest_amount > 0.01) {
-            support_amount = new Decimal(rest_amount).mul(0.5).toNumber();   // 默认价
+            support_amount = new Decimal(rest_amount).mul(0.5).toNumber().toFixed(2);   // 默认价
         } else {
             support_amount = 0.01;
         }
@@ -130,6 +130,7 @@ Page({
                 });
                 if (pay_sign) {
                     await wxPay(pay_sign);
+                    this.onShow();
                 }
             } catch (e) {
                 wx.showModal({
@@ -152,6 +153,10 @@ Page({
             });
             if (pay_sign) {
                 await wxPay(pay_sign);
+                this.setData({
+                    payModal: false
+                });
+                this.onShow();
             }
         } catch (e) {
             wx.showModal({

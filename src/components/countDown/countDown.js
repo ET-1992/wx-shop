@@ -26,4 +26,9 @@ Component({
     detached() {
         clearInterval(this.intervalId);
     },
+    pageLifetimes: {
+        hide() {
+            clearInterval(this.intervalId);
+        }
+    }
 });

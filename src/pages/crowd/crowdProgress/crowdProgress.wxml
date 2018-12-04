@@ -1,5 +1,5 @@
 <loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{!isLoading}}">
+<view class="container" wx:if="{{!isLoading}}" style="position: {{ payModal ? 'fixed' : ''}}">
     <view class="head">
         <navigator class="rule" url="{{ '/pages/articleDetail/articleDetail?id=' + 1275 + '&isCrowd=' + true }}">
             <view class="question">?</view>
@@ -80,7 +80,7 @@
         </view>
         <view class="inputField">
             <view class="yuan">￥</view>
-            <input type="digit" bindinput="setMoneyValue" bindblur="saveMoneyValue" placeholder="{{ support_amount }}" value="{{ support_amount }}"/>
+            <input class="input" type="digit" bindinput="setMoneyValue" placeholder="{{ support_amount }}" value="{{ support_amount }}"/>
             <view class="yuan">元</view>
         </view>
         <form report-submit bindsubmit="onPay">
