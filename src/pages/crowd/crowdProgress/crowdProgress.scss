@@ -166,7 +166,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 560rpx;
-	padding: 30rpx 20rpx 0;
+	padding: 30rpx 50rpx 0;
 	border-radius: 10rpx;
 	.info{
 		background: #ffffff;
@@ -190,9 +190,15 @@
 		display: flex;
 		align-items: center;
 		margin: 0 auto;
+		border-bottom: 1rpx solid #E9E9E9;
 		.yuan{
 			color: #000000;
 			font-weight: bold;
+		}
+		.input{
+			color: #FD417B;
+			font-weight: bold;
+			padding-left: 10rpx;
 		}
 	}
 	.support{
