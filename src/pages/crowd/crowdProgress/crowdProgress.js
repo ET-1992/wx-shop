@@ -17,7 +17,8 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            userInfo
+            userInfo,
+            routePath: this.route
         });
     },
     async onShow() {
@@ -74,16 +75,7 @@ Page({
             isLoading: false
         });
     },
-    onShareAppMessage() {
-        let { crowd, order_no, crowd_pay_no } = this.data;
-        if (!crowd_pay_no) { crowd_pay_no = crowd.crowd_pay_no }
-        let shareMsg = {
-            title: crowd.word,
-            path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
-            imageUrl: crowd.image || ''
-        };
-        return shareMsg;
-    },
+
     // 退款
     async crowdRefund(ev) {
         const { confirm } = await showModal({
@@ -187,5 +179,43 @@ Page({
         this.setData({
             support_amount: newValue
         });
-    }
+    },
+
+    // 分享弹窗
+    showShareModal() {
+        let { crowd, order_no, crowd_pay_no } = this.data;
+        let routeQuery = {
+            order_no,
+            crowd_pay_no: crowd_pay_no ? crowd_pay_no : crowd.crowd_pay_no
+        };
+
+        let { shareModal } = this.data;
+        shareModal ? shareModal = false : shareModal = true;
+        this.setData({
+            shareModal,
+            routeQuery
+        });
+    },
+
+    async onShowProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: true,
+            shareModal: false
+        });
+    },
+    onCloseProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: false
+        });
+    },
+
+    onShareAppMessage() {
+        let { crowd, routeQuery } = this.data;
+        let shareMsg = {
+            title: crowd.word,
+            path: `/pages/crowd/crowdProgress/crowdProgress?id=${routeQuery.order_no}&crowd_pay_no=${routeQuery.crowd_pay_no}`,
+            imageUrl: crowd.image || ''
+        };
+        return shareMsg;
+    },
 });

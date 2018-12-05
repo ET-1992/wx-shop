@@ -5,6 +5,7 @@
 		"i-progress": "../../../components/iview-weapp/dist/progress/index",
 		"productItemSold": "../../../components/productItemSold/index",
 		"loading": "../../../components/loading/index",
-		"van-popup": "../../../components/vant-weapp/dist/popup/index"
+		"van-popup": "../../../components/vant-weapp/dist/popup/index",
+		"productDetailShareModal": "../../../components/productDetailShareModal/productDetailShareModal"
 	}
 }
