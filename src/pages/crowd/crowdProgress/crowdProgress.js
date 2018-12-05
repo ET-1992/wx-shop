@@ -80,7 +80,7 @@ Page({
         let shareMsg = {
             title: crowd.word,
             path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
-            imageUrl: ''
+            imageUrl: crowd.image || ''
         };
         return shareMsg;
     },
