@@ -114,7 +114,7 @@ Component({
             ctx.font = 'normal bold 12px PingFang SC';
             ctx.fillText((user && user.nickname) || '好友', 50 / 540 * width, 750 / 900 * height);
             ctx.fillText(this.data.routeQuery.crowd_pay_no ? '很想要这个商品' : '向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
-            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给他赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
+            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给TA赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
             ctx.rect(410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);

@@ -219,6 +219,10 @@
 	display: flex;
 	justify-content: space-around;
 
+	&.iphoneXTrick{
+		margin-bottom: 40rpx;
+	}
+
 	.shareBtn{
 		display: flex;
 		flex-direction: column;
