@@ -8,7 +8,7 @@ const onRequestSuccess = async (resolve, reject, res, wxRequest, reTryTime, app 
     app.log('请求结束 耗时时间：' + (new Date().getTime() - sendTime) + 'ms');
     const { data, statusCode, errMsg } = res;
     const { errcode, errmsg } = data;
-    app.openConsoleResData && app.log(res);
+    app.openConsoleResData && app.log(data);
     if (statusCode.toString().slice(0, 2) !== '20' || errcode) {
         const err = {
             errMsg: errmsg || errMsg,

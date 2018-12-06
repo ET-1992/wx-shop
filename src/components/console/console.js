@@ -17,7 +17,8 @@ Component({
         oldLogData: [],
         isShow: false,
         isConsoleShow: false,
-        keyName: null
+        keyName: null,
+        oldLogDataCtr: []
     },
     created() {
         console.log('created');
@@ -52,15 +53,25 @@ Component({
     methods: {
         eventLog(opt, reload = false) {
             const { logData } = app;
-            const { oldLogData, keyName } = this.data;
+            const { oldLogData, keyName, oldLogDataCtr } = this.data;
             const reg = new RegExp(`${keyName}`, 'g');
             if (logData.length !== oldLogData.length || reload) {
                 let logData_ = logData.map((item) => {
-                    return JSON.stringify(item).replace(reg, `@@${keyName}@@`).split('@@');
+                    return JSON.stringify(item, null, 4).replace(reg, `@@${keyName}@@`).split('@@');
+                });
+
+                logData.forEach((item, index) => {
+                    const itemJson = JSON.stringify(item);
+                    if (!oldLogDataCtr[index]) {
+                        oldLogDataCtr[index] = {};
+                    }
+                    oldLogDataCtr[index].isShowZheDie = itemJson.length > 800;
+                    oldLogDataCtr[index].isShowCopy = itemJson.indexOf('请求路径') > -1 || itemJson.indexOf('Content-Type') > -1;
                 });
 
                 this.setData({
-                    oldLogData: logData_
+                    oldLogData: logData_,
+                    oldLogDataCtr
                 });
             }
         },
@@ -86,10 +97,6 @@ Component({
             });
         },
 
-        info() {
-            console.log('232');
-        },
-
         show() {
             this.setData({
                 isShow: true
@@ -102,6 +109,38 @@ Component({
                 keyName: value || null
             }, () => {
                 this.eventLog(null, true);
+            });
+        },
+
+        zheDie(e) {
+            const { index } = e.currentTarget.dataset;
+            const { oldLogDataCtr } = this.data;
+            oldLogDataCtr[index].isZheDie = !oldLogDataCtr[index].isZheDie;
+            this.setData({
+                oldLogDataCtr
+            });
+        },
+
+        copy(e) {
+            const { item } = e.currentTarget.dataset;
+            wx.setClipboardData({
+                data: item[0],
+                success: (result) => {
+                    wx.showToast({
+                        title: '复制成功',
+                        icon: 'none',
+                        image: '',
+                        duration: 1500,
+                        mask: false,
+                        success: (result) => {
+
+                        },
+                        fail: () => {},
+                        complete: () => {}
+                    });
+                },
+                fail: () => {},
+                complete: () => {}
             });
         }
 

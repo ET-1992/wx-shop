@@ -90,7 +90,6 @@ App({
         console.log(options, 'options');
         this.logData.push(options);
 
-        console.log('9090');
         this.updateConfig();
 
 
