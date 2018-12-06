@@ -183,9 +183,8 @@ Page({
 
     // 分享弹窗
     showShareModal() {
-        let { crowd, order_no, crowd_pay_no } = this.data;
+        let { crowd, crowd_pay_no } = this.data;
         let routeQuery = {
-            order_no,
             crowd_pay_no: crowd_pay_no ? crowd_pay_no : crowd.crowd_pay_no
         };
 
@@ -213,7 +212,7 @@ Page({
         let { crowd, routeQuery } = this.data;
         let shareMsg = {
             title: crowd.word,
-            path: `/pages/crowd/crowdProgress/crowdProgress?id=${routeQuery.order_no}&crowd_pay_no=${routeQuery.crowd_pay_no}`,
+            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${routeQuery.crowd_pay_no}`,
             imageUrl: crowd.image || ''
         };
         return shareMsg;
