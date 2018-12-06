@@ -16,9 +16,9 @@ Page({
                     url: '/pages/productDetail/productDetail?id=' + query.id
                 });
             }
-            if (query.crowd_pay_no) {
+            if (query.c) {
                 wx.redirectTo({
-                    url: `/pages/crowd/crowdProgress/crowdProgress?id=${query.id}&crowd_pay_no=${query.crowd_pay_no}`
+                    url: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${query.c}`
                 });
             }
         } else {

@@ -105,9 +105,9 @@
 </van-popup>
 
 <productDetailShareModal 
-    productImage="{{ items.thumbnail }}" 
-    productTitle="{{ items.title }}" 
-    productPrice="{{ items.price }}" 
+    productImage="{{ items[0].thumbnail }}" 
+    productTitle="{{ items[0].title }}" 
+    productPrice="{{ items[0].price }}" 
     routePath="{{ routePath }}" 
     routeQuery="{{ routeQuery }}" 
     bindonCloseModal="onCloseProductDetailShareModal" 

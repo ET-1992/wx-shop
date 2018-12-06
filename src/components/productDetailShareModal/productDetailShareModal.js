@@ -50,6 +50,7 @@ Component({
             user,
             themeColor
         }, this.downImg);
+        console.log('ffdfd:', this.data);
     },
     methods: {
         drawProductDetailImg() {
@@ -112,8 +113,8 @@ Component({
             ctx.setTextAlign('left');
             ctx.font = 'normal bold 12px PingFang SC';
             ctx.fillText((user && user.nickname) || '好友', 50 / 540 * width, 750 / 900 * height);
-            ctx.fillText('向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
-            ctx.fillText('长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
+            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '很想要这个商品' : '向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
+            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给他赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
             ctx.beginPath();
             ctx.rect(410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
@@ -209,8 +210,7 @@ Component({
                 if (routeQuery.id) {
                     options.id = routeQuery.id;
                 }
-                if (routeQuery.order_no) {
-                    options.order_no = routeQuery.order_no;
+                if (routeQuery.crowd_pay_no) {
                     options.crowd_pay_no = routeQuery.crowd_pay_no;
                 }
                 const qvcode = await api.hei.getShareQrcode(options);

@@ -48,10 +48,10 @@ Page({
         });
     },
     onShareAppMessage() {
-        let { content, order_no, crowd_pay_no, defaultWord, crowd } = this.data;
+        let { content, crowd_pay_no, defaultWord, crowd } = this.data;
         let shareMsg = {
             title: content ? content : defaultWord,
-            path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
+            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd_pay_no}`,
             imageUrl: crowd.image || ''
         };
         this.setData({ pageShareStatus: true });
