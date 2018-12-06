@@ -1,37 +1,35 @@
-Component({
-    options: {
-        addGlobalClass: true
+import { VantComponent } from '../common/component';
+import { transition } from '../mixins/transition';
+VantComponent({
+  mixins: [transition(false)],
+  props: {
+    transition: String,
+    customStyle: String,
+    overlayStyle: String,
+    zIndex: {
+      type: Number,
+      value: 100
     },
-
-    externalClasses: [
-        'custom-class',
-        'overlay-class'
-    ],
-
-    properties: {
-        show: Boolean,
-        overlayStyle: String,
-        overlay: {
-            type: Boolean,
-            value: true
-        },
-        closeOnClickOverlay: {
-            type: Boolean,
-            value: true
-        },
-        position: {
-            type: String,
-            value: 'center'
-        }
+    overlay: {
+      type: Boolean,
+      value: true
     },
-
-    methods: {
-        onClickOverlay() {
-            this.triggerEvent('click-overlay');
-
-            if (this.data.closeOnClickOverlay) {
-                this.triggerEvent('close');
-            }
-        }
+    closeOnClickOverlay: {
+      type: Boolean,
+      value: true
+    },
+    position: {
+      type: String,
+      value: 'center'
     }
+  },
+  methods: {
+    onClickOverlay: function onClickOverlay() {
+      this.$emit('click-overlay');
+
+      if (this.data.closeOnClickOverlay) {
+        this.$emit('close');
+      }
+    }
+  }
 });

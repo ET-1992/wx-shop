@@ -29,7 +29,7 @@
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
             </view>
-            <button open-type="share" class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</button>
+            <button class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};" bind:tap="showShareModal">请朋友帮忙</button>
             <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
                 <form report-submit bindsubmit="crowdRefund">
                     <button class="refund" form-type="submit">
@@ -63,7 +63,7 @@
         <view class="opera">
             <view class="text" wx:if="{{ crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
             <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
-            <button class="btn" disabled="{{ crowd.status === '2' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
+            <button class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
             <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
         </view>
     </view>
@@ -72,7 +72,7 @@
 	<richList richList="{{ crowd_users }}" themeColor="{{ themeColor }}" self="{{ userInfo.openid === openid }}"/>
 </view>
 
-<van-popup show="{{ payModal }}" bind:close="showPayModal">
+<van-popup custom-style="border-radius: 10rpx;" show="{{ payModal }}" bind:close="showPayModal">
     <view class="modal">
         <view class="info">
             <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
@@ -88,3 +88,28 @@
         </form>
     </view>
 </van-popup>
+
+<!-- 底部弹窗 -->
+<van-popup show="{{ shareModal }}" bind:close="showShareModal" position="bottom">
+    <view class="shareModalContent {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<button class="shareBtn" open-type="share">
+			<image src="/icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<view>分享给好友</view>
+		</button>
+		<view class="shareBtn" bindtap="onShowProductDetailShareModal">
+			<image src="/icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<view>分享商品海报</view>
+		</view>
+	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
+</van-popup>
+
+<productDetailShareModal 
+    productImage="{{ items.thumbnail }}" 
+    productTitle="{{ items.title }}" 
+    productPrice="{{ items.price }}" 
+    routePath="{{ routePath }}" 
+    routeQuery="{{ routeQuery }}" 
+    bindonCloseModal="onCloseProductDetailShareModal" 
+    wx:if="{{ isShowProductDetailShareModal }}"
+/>

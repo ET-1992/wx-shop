@@ -35,7 +35,8 @@ Page({
         this.setData({
             items: order.items,
             finalPayDispaly: info.finalPayDispaly,
-            isLoading: false
+            isLoading: false,
+            crowd: order.crowd
         });
     },
     bindTextAreaBlur(e) {
@@ -47,20 +48,17 @@ Page({
         });
     },
     onShareAppMessage() {
-        let { content, order_no, crowd_pay_no, defaultWord } = this.data;
+        let { content, order_no, crowd_pay_no, defaultWord, crowd } = this.data;
         let shareMsg = {
             title: content ? content : defaultWord,
             path: `/pages/crowd/crowdProgress/crowdProgress?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
-            imageUrl: ''
+            imageUrl: crowd.image || ''
         };
         this.setData({ pageShareStatus: true });
         return shareMsg;
     },
     async onShow() {
         const { pageShareStatus, order_no, content, defaultWord } = this.data;
-        console.log('pageShareStatus:', pageShareStatus);
-        console.log('order_no:', order_no);
-        console.log('content:', content ? content : defaultWord);
         if (pageShareStatus) {
             const res = await api.hei.crowdCreate({
                 order_no,

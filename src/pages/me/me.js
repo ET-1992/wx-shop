@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getUserInfo, updateCart } from 'utils/util';
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 const app = getApp();
 
 Page({
@@ -21,6 +21,9 @@ Page({
     async loadOrderCount() {
         const data = await api.hei.myFare();
         const { themeColor, defineTypeGlobal, vip, user } = this.data;
+
+        const { orders } = await api.hei.crowdList({ status: 1 });
+
         const infosComponentData = {
             defineTypeGlobal,
             vip,
@@ -29,7 +32,10 @@ Page({
             affiliate: data.affiliate,
             phone_number: data.phone_number,
             about_us: data.about_us,
-            shop_phone: data.shop_phone
+            shop_phone: data.shop_phone,
+
+            crowd_pay_enable: this.data.config.crowd_pay_enable,
+            crowdList: orders.length
         };
         const ordersComponentData = {
             order_counts: data.order_counts
@@ -61,7 +67,8 @@ Page({
         app.log('页面onLoad');
         // user用户客服对接
         const { themeColor, partner = {}, defineTypeGlobal, vip } = app.globalData;
-        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip, config });
     },
 
     async onShow() {
