@@ -202,11 +202,18 @@ Component({
                 wx.showLoading({
                     title: '绘制图片中'
                 });
-                const qvcode = await api.hei.getShareQrcode({
+                let options = {
                     weapp_page: 'pages/webPages/webPages',
-                    id: routeQuery.id,
                     width: 150
-                });
+                };
+                if (routeQuery.id) {
+                    options.id = routeQuery.id;
+                }
+                if (routeQuery.order_no) {
+                    options.order_no = routeQuery.order_no;
+                    options.crowd_pay_no = routeQuery.crowd_pay_no;
+                }
+                const qvcode = await api.hei.getShareQrcode(options);
                 console.log(qvcode);
                 if (qvcode.errcode === 0) {
                     const { productImage } = this.data;

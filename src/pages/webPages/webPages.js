@@ -16,6 +16,11 @@ Page({
                     url: '/pages/productDetail/productDetail?id=' + query.id
                 });
             }
+            if (query.crowd_pay_no) {
+                wx.redirectTo({
+                    url: `/pages/crowd/crowdProgress/crowdProgress?id=${query.id}&crowd_pay_no=${query.crowd_pay_no}`
+                });
+            }
         } else {
             this.setData({ src });
         }
