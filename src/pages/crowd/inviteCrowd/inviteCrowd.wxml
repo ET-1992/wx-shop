@@ -14,6 +14,7 @@
 	</view>
 	<view class="content">
 		<textarea 
+			wx:if="{{ !shareModal && !isShowProductDetailShareModal }}"
 			class="textarea" 
 			maxlength="{{ maxlength }}" 
 			bindinput="bindTextAreaBlur" 
@@ -24,6 +25,37 @@
                 {{ len|0 }}/{{ maxlength }}
             </view>
         </textarea>
+		<view class="textarea" wx:if="{{ shareModal || isShowProductDetailShareModal }}">
+			<view class="textarea-placeholder">{{content ? content : defaultWord}}</view>
+			<view class="bottom" style="color:{{ len == maxlength ? 'red' : '' }}">
+                {{ len|0 }}/{{ maxlength }}
+            </view>
+		</view>
 	</view>
-	<button open-type="share" class="shareBtn" style="background-color: {{ themeColor.primaryColor }};">请朋友帮忙</button>
+	<button class="shareBtn" style="background-color: {{ themeColor.primaryColor }};" bind:tap="showShareModal">请朋友帮忙</button>
 </view>
+
+<!-- 底部弹窗 -->
+<van-popup show="{{ shareModal }}" bind:close="showShareModal" position="bottom">
+    <view class="shareModalContent {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<button class="shareBtn" open-type="share">
+			<image src="/icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<view>分享给好友</view>
+		</button>
+		<view class="shareBtn" bindtap="onShowProductDetailShareModal">
+			<image src="/icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<view>分享商品海报</view>
+		</view>
+	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
+</van-popup>
+
+<productDetailShareModal 
+    productImage="{{ items[0].thumbnail }}" 
+    productTitle="{{ items[0].title }}" 
+    productPrice="{{ items[0].price }}" 
+    routePath="{{ routePath }}" 
+    routeQuery="{{ routeQuery }}" 
+    bindonCloseModal="onCloseProductDetailShareModal" 
+    wx:if="{{ isShowProductDetailShareModal }}"
+/>

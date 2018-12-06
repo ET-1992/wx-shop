@@ -47,16 +47,7 @@ Page({
             len
         });
     },
-    onShareAppMessage() {
-        let { content, crowd_pay_no, defaultWord, crowd } = this.data;
-        let shareMsg = {
-            title: content ? content : defaultWord,
-            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd_pay_no}`,
-            imageUrl: crowd.image || ''
-        };
-        this.setData({ pageShareStatus: true });
-        return shareMsg;
-    },
+
     async onShow() {
         const { pageShareStatus, order_no, content, defaultWord } = this.data;
         if (pageShareStatus) {
@@ -67,5 +58,43 @@ Page({
             console.log(res);
             this.setData({ pageShareStatus: false });
         }
-    }
+    },
+
+    // 分享弹窗
+    showShareModal() {
+        let { crowd, crowd_pay_no } = this.data;
+        let routeQuery = {
+            crowd_pay_no: crowd_pay_no ? crowd_pay_no : crowd.crowd_pay_no
+        };
+
+        let { shareModal } = this.data;
+        shareModal ? shareModal = false : shareModal = true;
+        this.setData({
+            shareModal,
+            routeQuery
+        });
+    },
+
+    async onShowProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: true,
+            shareModal: false
+        });
+    },
+    onCloseProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: false
+        });
+    },
+
+    onShareAppMessage() {
+        let { content, crowd_pay_no, defaultWord, crowd } = this.data;
+        let shareMsg = {
+            title: content ? content : defaultWord,
+            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd_pay_no}`,
+            imageUrl: crowd.image || ''
+        };
+        this.setData({ pageShareStatus: true });
+        return shareMsg;
+    },
 });
