@@ -22,8 +22,6 @@ Page({
         const data = await api.hei.myFare();
         const { themeColor, defineTypeGlobal, vip, user } = this.data;
 
-        const { orders } = await api.hei.crowdList({ status: 1 });
-
         const infosComponentData = {
             defineTypeGlobal,
             vip,
@@ -33,9 +31,7 @@ Page({
             phone_number: data.phone_number,
             about_us: data.about_us,
             shop_phone: data.shop_phone,
-
-            crowd_pay_enable: this.data.config.crowd_pay_enable,
-            crowdList: orders.length
+            crowd_pay_enable: this.data.config.crowd_pay_enable
         };
         const ordersComponentData = {
             order_counts: data.order_counts
