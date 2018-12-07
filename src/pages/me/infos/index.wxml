@@ -15,7 +15,7 @@
         <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/myGroup.png" />
         <view class="itemTitle">我的拼团</view>
     </navigator>
-    <navigator wx:if="{{ crowdList || crowd_pay_enable }}" class="infoItem" url="/pages/crowd/crowdList/crowdList">
+    <navigator wx:if="{{ crowd_pay_enable }}" class="infoItem" url="/pages/crowd/crowdList/crowdList">
         <image class="itemIcon" mode="aspectFit" src="../../../icons/crowd/crowdPay.png" />
         <view class="itemTitle">好友代付</view>
     </navigator>
