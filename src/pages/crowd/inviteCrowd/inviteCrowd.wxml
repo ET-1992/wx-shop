@@ -20,6 +20,7 @@
 			bindinput="bindTextAreaBlur" 
 			placeholder="就差一点点了，快来助我一臂之力吧" 
 			placeholder-class="textarea-placeholder"
+			value="{{ content }}"
 		>
             <view class="bottom" style="color:{{ len == maxlength ? 'red' : '' }}">
                 {{ len|0 }}/{{ maxlength }}

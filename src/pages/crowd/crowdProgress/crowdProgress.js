@@ -174,7 +174,10 @@ Page({
         let newValue = (value.match(/^\d*(\.?\d{0,2})/g)[0]) || null;   // 限制小数点后两位
         const { rest_amount } = this.data;
         if (Number(newValue) > Number(rest_amount)) {
-            return rest_amount;
+            this.setData({
+                support_amount: rest_amount
+            });
+            return;
         }
         this.setData({
             support_amount: newValue
