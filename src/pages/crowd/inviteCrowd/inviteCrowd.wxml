@@ -54,8 +54,7 @@
 <productDetailShareModal 
     productImage="{{ items[0].thumbnail }}" 
     productTitle="{{ items[0].title }}" 
-    productPrice="{{ items[0].price }}" 
-    routePath="{{ routePath }}" 
+    productPrice="{{ items[0].price }}"
     routeQuery="{{ routeQuery }}" 
     bindonCloseModal="onCloseProductDetailShareModal" 
     wx:if="{{ isShowProductDetailShareModal }}"

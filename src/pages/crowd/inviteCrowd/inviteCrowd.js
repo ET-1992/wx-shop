@@ -10,7 +10,6 @@ Page({
     },
 
     async onLoad(options) {
-        console.log(options);
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         wx.setNavigationBarTitle({
             title: '请朋友代付'
@@ -18,8 +17,7 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            order_no: options.id,
-            crowd_pay_no: options.crowd_pay_no
+            order_no: options.id
         });
         await this.loadOrder(options.id);
     },
@@ -32,11 +30,13 @@ Page({
         info.finalPayDispaly = Number(info.finalPay).toFixed(2);
         // -----------------End
 
+        let { crowd_pay_no } = order.crowd;
         this.setData({
             items: order.items,
             finalPayDispaly: info.finalPayDispaly,
             isLoading: false,
-            crowd: order.crowd
+            crowd: order.crowd,
+            routeQuery: { crowd_pay_no }
         });
     },
     bindTextAreaBlur(e) {
@@ -51,7 +51,7 @@ Page({
     async onShow() {
         const { pageShareStatus, order_no, content, defaultWord } = this.data;
         if (pageShareStatus) {
-            const res = await api.hei.crowdCreate({
+            await api.hei.crowdCreate({
                 order_no,
                 word: content ? content : defaultWord,
             });
@@ -61,17 +61,9 @@ Page({
 
     // 分享弹窗
     showShareModal() {
-        let { crowd, crowd_pay_no } = this.data;
-        let routeQuery = {
-            crowd_pay_no: crowd_pay_no ? crowd_pay_no : crowd.crowd_pay_no
-        };
-
         let { shareModal } = this.data;
         shareModal ? shareModal = false : shareModal = true;
-        this.setData({
-            shareModal,
-            routeQuery
-        });
+        this.setData({ shareModal });
     },
 
     async onShowProductDetailShareModal() {
@@ -80,7 +72,7 @@ Page({
             shareModal: false
         });
         const { order_no, content, defaultWord } = this.data;
-        const res = await api.hei.crowdCreate({
+        await api.hei.crowdCreate({
             order_no,
             word: content ? content : defaultWord,
         });
@@ -92,10 +84,10 @@ Page({
     },
 
     onShareAppMessage() {
-        let { content, crowd_pay_no, defaultWord, crowd } = this.data;
+        let { content, defaultWord, crowd } = this.data;
         let shareMsg = {
             title: content ? content : defaultWord,
-            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd_pay_no}`,
+            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd.crowd_pay_no}`,
             imageUrl: crowd.image || ''
         };
         this.setData({ pageShareStatus: true });

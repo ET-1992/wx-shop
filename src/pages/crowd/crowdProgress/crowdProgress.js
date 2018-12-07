@@ -26,7 +26,6 @@ Page({
         let queryOption = { order_no: id };
         if (crowd_pay_no) {
             queryOption.crowd_pay_no = crowd_pay_no;
-            this.setData({ crowd_pay_no });
         }
         await this.loadOrder(queryOption);
 
@@ -59,6 +58,7 @@ Page({
         }
         // -----------------End
 
+        let { crowd_pay_no } = order.crowd;
         this.setData({
             order_no: order.order_no,
             items: order.items,
@@ -72,7 +72,8 @@ Page({
             rest_amount_display,
             support_amount,
             progress,
-            isLoading: false
+            isLoading: false,
+            routeQuery: { crowd_pay_no }
         });
     },
 
@@ -186,17 +187,9 @@ Page({
 
     // 分享弹窗
     showShareModal() {
-        let { crowd, crowd_pay_no } = this.data;
-        let routeQuery = {
-            crowd_pay_no: crowd_pay_no ? crowd_pay_no : crowd.crowd_pay_no
-        };
-
         let { shareModal } = this.data;
         shareModal ? shareModal = false : shareModal = true;
-        this.setData({
-            shareModal,
-            routeQuery
-        });
+        this.setData({ shareModal });
     },
 
     async onShowProductDetailShareModal() {
@@ -212,10 +205,10 @@ Page({
     },
 
     onShareAppMessage() {
-        let { crowd, routeQuery } = this.data;
+        let { crowd } = this.data;
         let shareMsg = {
             title: crowd.word,
-            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${routeQuery.crowd_pay_no}`,
+            path: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${crowd.crowd_pay_no}`,
             imageUrl: crowd.image || ''
         };
         return shareMsg;
