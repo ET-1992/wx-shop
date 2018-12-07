@@ -55,7 +55,6 @@ Page({
                 order_no,
                 word: content ? content : defaultWord,
             });
-            console.log(res);
             this.setData({ pageShareStatus: false });
         }
     },
@@ -79,6 +78,11 @@ Page({
         this.setData({
             isShowProductDetailShareModal: true,
             shareModal: false
+        });
+        const { order_no, content, defaultWord } = this.data;
+        const res = await api.hei.crowdCreate({
+            order_no,
+            word: content ? content : defaultWord,
         });
     },
     onCloseProductDetailShareModal() {
