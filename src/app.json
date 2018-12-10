@@ -46,7 +46,8 @@
 		"pages/directPayResult/directPayResult",
 		"pages/crowd/crowdProgress/crowdProgress",
 		"pages/crowd/inviteCrowd/inviteCrowd",
-		"pages/crowd/crowdList/crowdList"
+		"pages/crowd/crowdList/crowdList",
+		"pages/rulePages/rulePages"
 	],
 	"window": {
 		"backgroundTextStyle": "white",

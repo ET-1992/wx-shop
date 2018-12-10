@@ -1,0 +1,6 @@
+{
+	"usingComponents": {
+        "console": "../../components/console/console",
+        "loading": "../../components/loading/index"
+    }
+}

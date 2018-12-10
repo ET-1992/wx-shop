@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
-	<navigator class="rule" url="{{ '/pages/articleDetail/articleDetail?id=' + 1275 + '&isCrowd=' + true }}">
+	<navigator class="rule" url="{{ '/pages/rulePages/rulePages?id=' + config.crowd_pay_rule_post_id }}">
         <view class="question">?</view>
         <view class="instruction">规则说明</view>
     </navigator>

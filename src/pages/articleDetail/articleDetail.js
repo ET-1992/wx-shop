@@ -27,15 +27,14 @@ Page({
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
     },
 
-    onLoad({ id, isCrowd }) {
+    onLoad({ id }) {
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         this.setData({ themeColor });
         const pages = getCurrentPages();
         this.getDetail(id);
         this.setData({
             isIphoneX,
-            currentPageLength: pages.length,
-            isCrowd: isCrowd ? true : false
+            currentPageLength: pages.length
         });
     },
 

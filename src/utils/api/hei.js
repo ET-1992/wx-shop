@@ -329,6 +329,11 @@ const apis = {
         path: 'api/mag.shop.config.json',
         method: 'GET',
         isForceToken: true
+    },
+    getRule: {
+        path: 'api/mag.component.article.get.json',
+        method: 'GET',
+        isForceToken: true
     }
 };
 

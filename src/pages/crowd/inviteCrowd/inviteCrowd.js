@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Page({
@@ -10,6 +11,7 @@ Page({
     },
 
     async onLoad(options) {
+        const config = wx.getStorageSync(CONFIG);
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         wx.setNavigationBarTitle({
             title: '请朋友代付'
@@ -17,6 +19,7 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
+            config,
             order_no: options.id
         });
         await this.loadOrder(options.id);

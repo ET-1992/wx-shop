@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { Decimal } from 'decimal.js';
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 import { showModal, showToast } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 const app = getApp();
@@ -13,11 +13,13 @@ Page({
 
     onLoad() {
         const userInfo = wx.getStorageSync(USER_KEY);
+        const config = wx.getStorageSync(CONFIG);
         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
         this.setData({
             themeColor,
             isIphoneX,
             userInfo,
+            config,
             routePath: this.route
         });
     },
