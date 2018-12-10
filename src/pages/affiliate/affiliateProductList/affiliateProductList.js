@@ -23,7 +23,11 @@ Page({
         isLoading: true
     },
     async onShow() {
-        this.filterProduct();
+        this.setData({
+            current_page: 1,
+            products: [],
+            isLoading: true
+        }, this.filterProduct);
     },
     changeFilterList(e) {
         this.setData({

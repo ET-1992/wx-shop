@@ -83,7 +83,11 @@ Page({
         });
     },
     async onShow() {
-        this.filterShareList();
+        this.setData({
+            next_cursor: 0,
+            isLoading: true,
+            members: []
+        }, this.filterShareList);
         console.log(this.data);
     },
     async onPullDownRefresh() {

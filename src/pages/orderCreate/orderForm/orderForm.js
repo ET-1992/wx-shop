@@ -65,8 +65,25 @@ Component({
             const { annotationname, index, type } = e.currentTarget.dataset;
             const { value } = e.detail;
             const { annotation, dns_obj } = this.data;
+
+            dns_obj[annotationname] = value;
+            annotation[index].value = value;
+            this.setData({
+                dns_obj,
+                annotation
+            }, () => {
+                console.log(this.data);
+            });
+        },
+
+        checkError(e) {
+            const { annotationname, index, type } = e.currentTarget.dataset;
+            const { value } = e.detail;
+            const { annotation, dns_obj } = this.data;
+
             if (value) {
                 // dns_obj.push({ [annotationname]: value });
+                console.log(value);
 
                 if (type === 'phone_number') {
                     annotation[index].isError = annotation[index].required && !checkPhone(value);

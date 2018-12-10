@@ -3,24 +3,24 @@
 		<view class="item" wx:if="{{ item.type === 'id_number' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type" >
-				<input class="input_480" type="idcard" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" />
+				<input class="input_480" type="idcard" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindinput="saveData" bindfocus="resetError"  bindblur="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" />
 			</view>
 		</view>
 
 		<view class="item" wx:if="{{ item.type === 'text' || item.type === 'email' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
-			<view class="type"><input class="input_300" type="text" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  /></view>
+			<view class="type"><input class="input_300" type="text" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindinput="saveData" bindfocus="resetError"  bindblur="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  /></view>
 		</view>
 
 		<view class="item" wx:if="{{ item.type === 'number' || item.type === 'phone_number' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
-			<view class="type"><input class="input_300" type="number" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}"  /></view>
+			<view class="type"><input class="input_300" type="number" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindblur="checkError" bindinput="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}"  /></view>
 		</view>
 
 		<view class="item" wx:if="{{ item.type === 'textarea' }}">
 			<view class="text" wx:if="{{ item.name }}">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type">
-				<textarea wx:if="{{ !isShowModal }}" value="{{ item.value }}" type="text" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }};width: {{ item.name ? '480rpx' : '100%' }}" bindblur="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  />
+				<textarea wx:if="{{ !isShowModal }}" value="{{ item.value }}" type="text" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }};width: {{ item.name ? '480rpx' : '100%' }}" bindinput="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}"  />
 				<view wx:if="{{ isShowModal }}"  type="text" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }};width: {{ item.name ? '480rpx' : '100%' }};" class="textareafix"  />
 			</view>
 		</view>
@@ -35,7 +35,7 @@
 		<view class="item" wx:if="{{ item.type === 'date' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type">
-				<picker mode="date" bindchange="saveData" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerDate" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+				<picker mode="date" bindchange="checkError" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerDate" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
 					<view>
 						{{ item.value || '选择日期' }}
 					</view>
@@ -46,7 +46,7 @@
 		<view class="item" wx:if="{{ item.type === 'time' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type">
-				<picker mode="time" bindchange="saveData" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerTime" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+				<picker mode="time" bindchange="checkError" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerTime" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
 					<view>
 						{{ item.value || '选择时间' }}
 					</view>
