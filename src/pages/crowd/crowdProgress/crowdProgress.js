@@ -52,9 +52,16 @@ Page({
 
         let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
 
+        // 默认价
         let support_amount;
-        if (rest_amount > 0.01) {
-            support_amount = new Decimal(rest_amount).mul(0.5).toNumber().toFixed(2);   // 默认价
+        if (rest_amount > 0.01 && rest_amount <= 1) {
+            support_amount = new Decimal(rest_amount).mul(0.5).toNumber().toFixed(2);
+        }
+        if (rest_amount > 1) {
+            // 取1~50%之间的随机数
+            let min = 1,
+                max = new Decimal(rest_amount).mul(0.5);
+            support_amount = (Math.random() * (max - min + 1) + min).toFixed(2);
         } else {
             support_amount = 0.01;
         }
