@@ -149,7 +149,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
 // 	return order;
 // };
 
-export const wxPay = async (options = {}) => {
+export const wxPay = async (options = {}, order_no) => {
     const { timeStamp, nonceStr, package: pkg, signType, paySign } = options;
     try {
         const res = await requestPayment({
@@ -159,6 +159,9 @@ export const wxPay = async (options = {}) => {
             signType,
             paySign,
         });
+        if (order_no) {
+            api.hei.orderQuery({ order_no }).then((res) => { console.log('orderQuery：', res) });
+        }
         await showToast({ title: '支付成功' });
         console.log('requestPayment res', res);
         return res;

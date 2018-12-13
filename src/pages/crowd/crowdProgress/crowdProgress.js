@@ -125,7 +125,7 @@ Page({
                 });
                 if (pay_sign) {
                     await wxPay(pay_sign);
-                    this.onShow();
+                    setTimeout(this.onShow, 500);
                 }
             } catch (e) {
                 wx.showModal({
@@ -151,7 +151,7 @@ Page({
                 this.setData({
                     payModal: false
                 });
-                this.onShow();
+                setTimeout(this.onShow, 500);
             }
         } catch (e) {
             wx.showModal({

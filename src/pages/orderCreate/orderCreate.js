@@ -452,7 +452,7 @@ Page({
 
                 if (pay_sign) {
                     console.log('自主支付');
-                    await wxPay(pay_sign);
+                    await wxPay(pay_sign, order_no);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });

@@ -32,7 +32,7 @@ Page({
                 order_no: orderNo,
             });
 
-            const { isCancel } = await wxPay(pay_sign);
+            const { isCancel } = await wxPay(pay_sign, orderNo);
 
             wx.navigateBackMiniProgram({
                 extraData: {
