@@ -64,7 +64,6 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20rpx;
 	font-size: 10pt;
 
 	.addressIcon {
@@ -83,6 +82,11 @@
 	.phone {
 		float: right;
 	}
+}
+
+.tips {
+	color: $priceColor;
+	font-size: 9pt;
 }
 
 .item {
