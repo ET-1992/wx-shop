@@ -13,7 +13,7 @@
 	<navigator 
 		class="affiliate" 
 		url="/pages/affiliate/affiliateApply/affiliateApply" 
-		wx:if="{{ (affiliate_enable && !affiliate.is_affiliate_member) || (affiliate_enable && affiliate.member && affiliate.member.audit_status === '3') }}">
+		wx:if="{{ ((config.affiliate_enable && !affiliate.is_affiliate_member) || (config.affiliate_enable && affiliate.member && affiliate.member.audit_status === '3')) && config.affiliate_public }}">
 		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
 		<view class="itemTitle">花生分享计划 >></view>
 	</navigator>

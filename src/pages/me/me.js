@@ -63,15 +63,15 @@ Page({
         app.log('页面onLoad');
         // user用户客服对接
         const { themeColor, partner = {}, defineTypeGlobal, vip } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
-        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip, config });
+        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip });
     },
 
     async onShow() {
         app.log('页面onShow');
+        const config = wx.getStorageSync(CONFIG);
 
         const user = getUserInfo();
-        this.setData({ user });
+        this.setData({ user, config });
         this.loadOrderCount();
 
         const { categoryIndex } = app.globalData;
