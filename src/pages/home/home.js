@@ -4,7 +4,7 @@ import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
 import autoRedirect from 'utils/autoRedirect';
-import { updateCart, parseScene } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -86,16 +86,9 @@ Page({
                 }
             }
         }
-        // if (current_user) {
-        // 	this.setData({
-        // 		newUser: current_user.new_user,
-        // 	});
-        // }
-        // else {
-        // 	this.setData({
-        // 		newUser: 1,
-        // 	});
-        // }
+
+        /* 判断是否新人 */
+        const { isUserGetRedPacket }  = splitUserStatus(current_user.user_status);
 
         /**
 		*	target_user_type 1:所有人可领取, 2:新人专属
@@ -125,19 +118,12 @@ Page({
         // const { shop_setting: { category_style, product_list_style } } = data;
         // data.productListStyle = PRODUCT_LIST_STYLE[+product_list_style - 1];
         // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
-        // const newUser = data.current_user ? data.current_user.new_user : null;
 
         if (data.announcement) {
             let textLength = data.announcement.text.length * this.data.size;    // 文字长度
             let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
             let second = (windowWidth + textLength) / this.data.speed;
-            console.log('s', second);
-            console.log('单个文本长度', textLength);
-            console.log('屏幕宽度', windowWidth);
-
-            this.setData({
-                second
-            });
+            this.setData({ second });
         }
 
         this.setData({
@@ -145,15 +131,10 @@ Page({
             isLoading: false,
             conWidth: width || '',
             hasNewUserCoupons,
-            newUser: current_user ? current_user.new_user : 1,
+            isNewUser: !isUserGetRedPacket,
+            hasMask: (!isUserGetRedPacket && hasNewUserCoupons) ? true : false,
             ...data
         });
-        console.log(this.data);
-        if (this.data.newUser === 1 && this.data.hasNewUserCoupons) {
-            this.setData({
-                hasMask: true
-            });
-        }
 
         let products = this.data.products;
         if (products && products[products.length - 1]) {
@@ -256,12 +237,10 @@ Page({
             if (target_user_type === '2') result.push(id);
         });
         const allResult = result.join(',');
-        const data = await api.hei.receiveCouponAll({
-            coupon_ids: allResult,
-        });
+        await api.hei.receiveCouponAll({ coupon_ids: allResult, });
         showToast({ title: '领取成功' });
         this.setData({
-            newUser: 2,
+            isNewUser: false,
             hasMask: false
         });
     },
@@ -293,7 +272,7 @@ Page({
 
     closeCoupon() {
         this.setData({
-            newUser: 2,
+            isNewUser: false,
             hasMask: false
         });
     },

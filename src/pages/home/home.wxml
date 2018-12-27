@@ -12,7 +12,7 @@
 <!-- </block> -->
 
 <!-- 新用戶优惠券弹框 -->
-<include wx:if="{{ newUser == 1 && hasNewUserCoupons }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
+<include wx:if="{{ isNewUser && hasNewUserCoupons }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
 
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
