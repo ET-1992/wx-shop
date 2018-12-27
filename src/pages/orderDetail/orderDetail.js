@@ -196,7 +196,10 @@ Page({
             await this.loadGroupon(grouponId);
         }
 
-        this.setData({ isLoading: false });
+        this.setData({
+            isLoading: false,
+            grouponId
+        });
         this.countDown();
 
         console.log(this.data);
