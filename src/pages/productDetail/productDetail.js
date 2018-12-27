@@ -358,14 +358,12 @@ Page({
             cartNumber: CART_NUM,
             globalData: app.globalData
         });
-        this.initPage();
     },
 
     onShow() {
         const config = wx.getStorageSync(CONFIG);
-        this.setData({
-            config
-        });
+        this.setData({ config });
+        this.initPage();
     },
 
     onUnload() {
