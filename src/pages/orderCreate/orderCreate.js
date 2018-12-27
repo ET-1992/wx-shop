@@ -198,7 +198,7 @@ Page({
     },
 
     async onLoadData() {
-        let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle } = this.data;
+        let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
         console.log(totalPrice, 'totalPrice');
         let requestData = {};
         if (address) {
@@ -220,6 +220,9 @@ Page({
 
         if (isGrouponBuy) {
             requestData.order_type = 'groupon';
+        }
+        if (grouponId) {
+            requestData.groupon_id = grouponId;
         }
 
         if (liftStyle === 'lift') {
