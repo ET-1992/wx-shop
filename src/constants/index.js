@@ -129,3 +129,8 @@ export const CROWD_STATUS_TEXT = [
     { text: '待支付尾款', value: 3 },
     { text: '已退款', value: 4 }
 ];
+
+export const USER_STATUS = {
+    isUserGetRedPacket: 1,
+    isUserHasPayOrder: 2
+};
