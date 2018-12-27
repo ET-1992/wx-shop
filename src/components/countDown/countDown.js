@@ -11,7 +11,7 @@ Component({
                     remainSecond,
                     remainTime: getRemainTime(remainSecond).join(':')
                 });
-                if (remainSecond) {
+                if (Number(remainSecond)) {
                     this.intervalId = setInterval(() => {
                         const { remainSecond } = this.data;
                         this.setData({

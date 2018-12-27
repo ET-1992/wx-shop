@@ -1,6 +1,3 @@
-
-import getRemainTime from 'utils/getRemainTime';
-
 Component({
     properties: {
         groupon: {
@@ -27,35 +24,8 @@ Component({
                     hasStart,
                     hasEnd
                 });
-
-                if (timeLimit) {
-                    this.intervalId = setInterval(() => {
-                        const { timeLimit } = this.data;
-                        const [hour, minute, second] = getRemainTime(timeLimit);
-                        this.setData({
-                            'timeLimit': timeLimit - 1,
-                            remainTime: {
-                                hour,
-                                minute,
-                                second,
-                            }
-                        });
-                    }, 1000);
-                }
             },
         }
-    },
-
-    data: {
-        remainTime: {
-            hour: '00',
-            minute: '00',
-            second: '00',
-        },
-    },
-
-    detached() {
-        clearInterval(this.intervalId);
     },
 
     methods: {
