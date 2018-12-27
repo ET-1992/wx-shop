@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
@@ -295,4 +295,13 @@ export function getDistance(lat1, lng1, lat2, lng2) {
     s = s * 6378.137;// EARTH_RADIUS;
     s = Math.round(s * 10000) / 10000;
     return s;
+}
+
+export function splitUserStatus(status) {
+    const userStatus = {};
+    Object.keys(USER_STATUS).forEach((key) => {
+        const value = USER_STATUS[key];
+        userStatus[key] = ((status & value) === value);
+    });
+    return userStatus;
 }
