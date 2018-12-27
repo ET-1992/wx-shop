@@ -52,7 +52,7 @@
 </van-popup>
 
 <productDetailShareModal 
-    productImage="{{ items[0].thumbnail }}" 
+    productImage="{{ items[0].image_url }}" 
     productTitle="{{ items[0].title }}" 
     productPrice="{{ items[0].price }}"
     routeQuery="{{ routeQuery }}" 

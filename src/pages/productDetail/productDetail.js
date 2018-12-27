@@ -361,6 +361,13 @@ Page({
         this.initPage();
     },
 
+    onShow() {
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({
+            config
+        });
+    },
+
     onUnload() {
         if (this.intervalId) {
             clearInterval(this.intervalId);
@@ -744,8 +751,8 @@ Page({
 
     /* 调起底部弹窗 */
     async openShareModal() {
-        const { product, current_user = {}} = this.data;
-        if (product.affiliate_enable && current_user && !current_user.is_affiliate_member) {
+        const { product, current_user = {}, config } = this.data;
+        if (config.affiliate_enable && current_user && !current_user.is_affiliate_member && config.affiliate_public) {
             const { confirm } = await showModal({
                 title: '温馨提示',
                 content: '希望获取这件商品的佣金吗? 赶紧申请成为分享家吧！',

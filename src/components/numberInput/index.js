@@ -31,7 +31,9 @@ Component({
     methods: {
         onChange(ev) {
             const { type } = ev.currentTarget.dataset;
-            const { value, postId, skuId, max, isDisabled, quota } = this.data;
+
+            let { value: inputValue } = ev.detail;
+            let { value, postId, skuId, max, isDisabled, quota } = this.data;
 
             if (isDisabled) {
                 return;
@@ -39,41 +41,57 @@ Component({
 
             const isDecrease = type === 'decrease';
             const isAdd = type === 'add';
-            if (isDecrease && !(value > 1)) {
+            const isInput = type === 'input';
+
+
+            if (isDecrease) {
+                value--;
+            }
+            if (isAdd) {
+                value++;
+            }
+            if (isInput) {
+                console.log(inputValue, '90');
+                value = inputValue;
+            }
+            // if (isInput) {
+
+            // }
+
+
+            if (value < 1) {
                 wx.showModal({
                     title: '温馨提示',
                     content: '数量不能小于1',
                     showCancel: false,
                 });
-                console.log(this.data);
-                return;
+                value = 1;
             }
 
-            if (isAdd && value >= max) {
+            if (value > max) {
                 wx.showModal({
                     title: '温馨提示',
                     content: '库存不足，请重新选择',
                     showCancel: false,
                 });
-                return;
+                value = max;
             }
 
-            if (quota > 0 && isAdd && value >= quota) {
+            if (quota > 0 && value > quota) {
                 wx.showModal({
                     title: '温馨提示',
                     content: `每人限购${quota}件`,
                     showCancel: false,
                 });
-                return;
+                value = quota;
             }
 
-            const addNum = isDecrease ? -1 : 1;
             const updateData = {
-                value: value + addNum,
+                value,
                 postId,
                 skuId,
             };
-            this.setData({ value: value + addNum });
+            this.setData({ value });
             this.triggerEvent('quantityChangeEvent', updateData);
         },
     },

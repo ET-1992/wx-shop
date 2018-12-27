@@ -25,6 +25,11 @@
       </view>
     </view>
   </view>
+
+  <view class="section tips">
+    <view >物流信息以{{ logistics.company }}的官方查询为准</view>
+  </view>
+
   <view class="section">
     <view class="emptyHint" wx:if="{{ !logistics.list.length }}">暂无信息</view>
     <view class="item" wx:if="{{ logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">

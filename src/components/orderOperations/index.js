@@ -84,7 +84,7 @@ Component({
             if (pay_sign) {
                 console.log('orderOperations: 自主支付');
 
-                await wxPay(pay_sign);
+                await wxPay(pay_sign, orderNo);
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
                 });

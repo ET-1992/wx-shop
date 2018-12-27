@@ -334,6 +334,11 @@ const apis = {
         path: 'api/mag.component.article.get.json',
         method: 'GET',
         isForceToken: true
+    },
+    orderQuery: {
+        path: 'api/mag.order.query.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
 

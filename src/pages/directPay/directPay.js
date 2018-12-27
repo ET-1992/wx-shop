@@ -63,7 +63,7 @@ Page({
                 const { order_no, pay_sign } = data;
                 if (pay_sign) {
                     console.log('自主支付');
-                    const res = await wxPay(pay_sign);
+                    const res = await wxPay(pay_sign, order_no);
                     if (res.errMsg === 'requestPayment:ok') {
                         console.log(res);
                         wx.redirectTo({

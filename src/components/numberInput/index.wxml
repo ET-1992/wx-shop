@@ -1,7 +1,7 @@
 <view class="quantity">
   <view class="bt" catchtap="onChange" data-type="decrease">-</view>
-  <view
-    class="value"
-  >{{ value }}</view>
+  <input class="value"  bindblur="onChange" bindconfirm="onChange" value="{{ value }}" type="number" data-type="input" />
+  <!-- <view catchtap>
+  </view> -->
   <view class="bt" catchtap="onChange" data-type="add">+</view>
 </view>
