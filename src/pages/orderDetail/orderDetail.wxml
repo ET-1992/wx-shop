@@ -14,22 +14,25 @@
     </view>
     <view wx:if="{{ remainSecond > 0 }}">还剩{{ remainTime }}自动确认</view>
   </view>
-  <view class="header" wx:if="{{ order.groupon_id && order.statusCode === 10 }}" style="background-color: {{ themeColor.primaryColor }}">
-    <view>
-      订单状态：{{ order.groupon.status === 2 ? '还差' + (order.groupon.member_limit - order.groupon.member_count) + '人成团' : '已成团' }}
-    </view>
-    <view wx:if="{{ order.groupon.status === 2 }}">
-      {{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}
-    </view>
-  </view>
-  <view class="header" wx:if="{{ groupon.id }}" style="background-color: {{ themeColor.primaryColor }}">
-    <view>
-      订单状态：{{ groupon.status === 2 ? '还剩' + (groupon.member_limit - groupon.member_count) + '人成团' : '已成团'}}
-    </view>
-    <view wx:if="{{ groupon.status === 2}}">
-      {{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}
-    </view>
-  </view>
+
+  	<!-- 拼团订单 -->
+  	<!-- <view class="header" wx:if="{{ order.groupon_id && order.statusCode === 10 }}" style="background-color: {{ themeColor.primaryColor }}">
+  	  	<view>
+  	  	  	订单状态：{{ order.groupon.status === 2 ? '还差' + (order.groupon.member_limit - order.groupon.member_count) + '人成团' : '已成团' }}
+  	  	</view>
+  	  	<view wx:if="{{ order.groupon.status === 2 }}">
+  	  	  	{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}
+  	  	</view>
+  	</view>
+  	<view class="header" wx:if="{{ groupon.id }}" style="background-color: {{ themeColor.primaryColor }}">
+  	  	<view>
+  	  	  	订单状态：{{ groupon.status === 2 ? '还剩' + (groupon.member_limit - groupon.member_count) + '人成团' : '已成团'}}
+  	  	</view>
+  	  	<view wx:if="{{ groupon.status === 2}}">
+  	  	  	{{ remainSecond > 0 ? '剩余' + remainTime + '结束' : '已结束' }}
+  	  	</view>
+  	</view> -->
+
   <view wx:if="{{ order.type !== 3 }}">
     <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}" />
     <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" />
@@ -77,9 +80,12 @@
   <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }}">
     <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
   </view>
-  <view wx:if="{{ otherPeopleGroupon }}" class="logisticsWrap">
+
+  <!-- 参团 -->
+  <view wx:if="{{ otherPeopleGroupon }}" class="otherPeopleGrouponWrap">
     <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}" />
   </view>
+
   <view wx:if="{{ !otherPeopleGroupon && order.type === 3 && order.status >= 3 }}">
     <view class="virtualProductBtnWrap" wx:if="{{ virtualProductBtn }}">
       <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}">
@@ -121,17 +127,28 @@
     <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && order.id }}" open-type="share">
       <image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
     </button>
-    <button wx:if="{{ order.id || groupon.status === 2 }}" class="normalizeBt button" bindtap="onShare" open-type="share" data-is-share-groupon="{{ true }}" style="background-color: {{ themeColor.primaryColor }}">
-      邀请朋友参团
+    <button 
+		wx:if="{{ order.id || groupon.status === 2 }}" 
+		class="normalizeBt button" 
+		bindtap="onShare" 
+		open-type="share" 
+		data-is-share-groupon="{{ true }}" 
+		style="background-color: {{ themeColor.primaryColor }}"
+	>邀请朋友参团</button>
+    <button 
+		wx:if="{{ !order.groupon_id && !has_joined && groupon.member_limit - groupon.member_count }}" 
+		class="normalizeBt button" 
+		bindtap="onJoin" 
+		disable="{{ remainSecond }}" 
+		style="background-color: {{ themeColor.primaryColor }}"
+	>
+     {{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}
     </button>
-    <button wx:if="{{ !order.groupon_id && !has_joined && groupon.member_limit - groupon.member_count }}" class="normalizeBt button" bindtap="onJoin" disable="{{ remainSecond }}" style="background-color: {{ themeColor.primaryColor }}">
-      马上参团
-    </button>
-    <navigator open-type="switchTab" url="/pages/home/home">
+    <!-- <navigator open-type="switchTab" url="/pages/home/home">
       <button wx:if="{{ groupon.id }}" class="normalizeBt button" style="background-color: {{ themeColor.primaryColor }}">
         浏览更多商品
       </button>
-    </navigator>
+    </navigator> -->
   </view>
   
   <view class="orderInfo" wx:else>

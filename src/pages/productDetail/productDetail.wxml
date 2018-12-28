@@ -67,7 +67,7 @@
 				<view class="price">
 					<view class="nowPrice">
 						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
-						<view class="priceStyle">{{ product.definePrice}}</view>
+						<view class="priceStyle">{{ product.groupon_commander_price ? product.groupon_commander_price : product.definePrice}}</view>
 					</view>
 					<view
 						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
@@ -178,7 +178,7 @@
 						data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}" 
 						style="background-color: {{ themeColor.primaryColor }}"
 					>
-						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</view>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}</view>
 						<view>{{ product.groupon_member_limit }}人团</view>
 					</view>
 				</block>
@@ -233,7 +233,7 @@
 						<view class="productInfo">
 							<view class="price">
 								<text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
-									{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}
 								</text>
 								<text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
 									{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}

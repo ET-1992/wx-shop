@@ -41,6 +41,10 @@ Component({
             type: Boolean,
             value: false
         },
+        grouponId: {
+            type: Number,
+            value: 0
+        },
         totalPostage: {
             type: null,
             value: '0.00',

@@ -194,13 +194,16 @@ Page({
         }
         else {
             await this.loadGroupon(grouponId);
+            /* wx.setNavigationBarTitle({
+                title: '拼团详情'
+            }); */
         }
 
         this.setData({
             isLoading: false,
             grouponId
         });
-        this.countDown();
+        // this.countDown();
 
         console.log(this.data);
     },
