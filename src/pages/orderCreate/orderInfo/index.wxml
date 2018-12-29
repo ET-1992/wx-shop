@@ -1,7 +1,7 @@
 <view class="orderInfo">
   <view>
     <text class="text">商品金额</text>
-    <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPriceDispaly }}<text wx:if="{{!grouponId}}">(团长优惠)</text></text>
+    <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPriceDispaly }}<text wx:if="{{isGrouponCommanderPrice}}">(团长优惠)</text></text>
   </view>
   <view wx:if="{{ !isGrouponBuy }}">
     <text class="text">优惠券</text>

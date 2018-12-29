@@ -76,7 +76,7 @@ Page({
         this.setData({ themeColor, isIphoneX, defineTypeGlobal });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
-            const { grouponId, isGrouponBuy, crowd = false } = this.options;
+            const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -91,7 +91,8 @@ Page({
                 grouponId: grouponId || null,
                 totalPostage,
                 isShouldRedirect: false,
-                crowd
+                crowd,
+                groupon_commander_price
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);

@@ -41,9 +41,9 @@ Component({
             type: Boolean,
             value: false
         },
-        grouponId: {
-            type: Number,
-            value: 0
+        isGrouponCommanderPrice: {
+            type: Boolean,
+            value: false
         },
         totalPostage: {
             type: null,
