@@ -129,11 +129,13 @@ Page({
         }
         const updateData = { isShowAcitonSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false } = ev.currentTarget.dataset;
+            const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
             console.log(actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
+            console.log('onShowSku isCrowd: ', isCrowd);
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
+            updateData.isCrowd = isCrowd;
 
         }
         this.setData(updateData, () => {
@@ -426,6 +428,7 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
+            isCrowd
         } = this.data;
 
         let url = '/pages/orderCreate/orderCreate';
@@ -457,11 +460,18 @@ Page({
 
             // 参团，跳转到orderCreate需要带上grouponId
             if (grouponId) {
+                console.log('grouponId');
                 url = url + `&grouponId=${grouponId}`;
             }
             else if (pendingGrouponId) {
+                console.log('pendingGrouponId');
                 url = url + `&grouponId=${pendingGrouponId}`;
+            } else {
+                url = url + '&groupon_commander_price=true';
             }
+        }
+        if (isCrowd) {
+            url = url + '?crowd=true';
         }
 
         // if (isGrouponBuy) {
@@ -814,6 +824,10 @@ Page({
             else if (pendingGrouponId) {
                 url = url + `&grouponId=${pendingGrouponId}`;
             }
+        } else {
+            const { groupon_commander_price } = product;
+            groupon_commander_price && (url = url + '&groupon_commander_price=true');
+            console.log('dddd');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,

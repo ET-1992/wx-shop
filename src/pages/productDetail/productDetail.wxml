@@ -214,7 +214,7 @@
 			</view>
 		</view>
 		<!-- 代付按钮 -->
-		<view class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onShowSku" data-actions="{{ [{ type: 'addCrowd', text: '找好友代付' }] }}" wx:if="{{ config.crowd_pay_enable }}">
+		<view class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}" wx:if="{{ config.crowd_pay_enable }}">
 			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit"/>
 		</view>
 	</view>
