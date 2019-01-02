@@ -9,6 +9,7 @@
     "console": "../../components/console/console",
     "loading": "../../components/loading/index",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
-    "van-panel": "../../components/vant-weapp/dist/panel/index"
+    "van-panel": "../../components/vant-weapp/dist/panel/index",
+    "countDown": "../../components/countDown/countDown"
   }
 }

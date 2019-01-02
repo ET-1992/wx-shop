@@ -50,6 +50,38 @@ Page({
         templateTypeText
     },
 
+    onLoad({ isFromCreate = false }) {
+        const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo: { isIphoneX }} = app;
+        this.setData({
+            themeColor,
+            vip,
+            defineTypeGlobal,
+            isIphoneX,
+            isFromCreate,
+            isLoading: true
+        });
+    },
+
+    async onShow() {
+        const { id, grouponId } = this.options;
+        const user = wx.getStorageSync(USER_KEY);
+        this.setData({ user });
+
+        if (id) {
+            await this.loadOrder(id);
+        }
+        else {
+            await this.loadGroupon(grouponId);
+        }
+
+        this.setData({
+            isLoading: false,
+            grouponId
+        });
+
+        console.log(this.data);
+    },
+
     async loadOrder(id) {
         const { order, redpacket = {}} = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket };
@@ -103,7 +135,6 @@ Page({
         //     data.logistics = order.logistics_info;
 
         // }
-        console.log(order);
 
         let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
         order.logistics && order.logistics.forEach((item) => {
@@ -131,90 +162,54 @@ Page({
             const remainSecond = time_expired - now;
             data.remainSecond = remainSecond;
             data.remainTime = getRemainTime(remainSecond).join(':');
-            console.log(data);
         }
         else {
             wx.hideShareMenu();
         }
-        console.log(data, 'data');
-        this.setData(data);
-        this.setData({ address, info });
+
+        // ------------拼团头像
+        if (order.groupon_id && order.groupon) {
+            let grouponDefaultImageArray = [];
+            for (let i = 0; i < (order.groupon.member_limit - order.groupon.member_count); i++) {
+                grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
+            }
+            this.setData({
+                groupon: order.groupon,
+                grouponDefaultImageArray
+            });
+        }
+
+        this.setData({
+            address,
+            info,
+            ...data
+        });
     },
     async loadGroupon(id) {
         console.log('grouponId', id);
         const data = await api.hei.fetchGroupon({ id });
-        console.log(data, 'grouponData');
         const { time_expired } = data.groupon;
         const now = Math.round(Date.now() / 1000);
         const remainSecond = time_expired - now;
         data.remainSecond = remainSecond;
         data.remainTime = getRemainTime(remainSecond).join(':');
         data.otherPeopleGroupon = true;
-        this.setData(data);
+
+        let grouponDefaultImageArray = [];
+        for (let i = 0; i < (data.groupon.member_limit - data.groupon.member_count); i++) {
+            grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
+        }
+
+        this.setData({
+            grouponDefaultImageArray,
+            ...data
+        });
     },
 
     // async loadRedpacket(id) {
     // 	const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
     // 	this.setData({ redpacket });
     // },
-
-    countDown() {
-        const { remainSecond } = this.data;
-        if (remainSecond) {
-            this.intervalId = setInterval(() => {
-                const { remainSecond } = this.data;
-                this.setData({
-                    remainSecond: remainSecond - 1,
-                    // remainTime: getRemainTime(remainSecond - 1).join(':')
-                    ...formatConfirmTime(remainSecond - 1)
-                });
-            }, 1000);
-        }
-    },
-
-    onLoad({ isFromCreate = false }) {
-        const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo } = app;
-        this.setData({
-            themeColor,
-            vip,
-            defineTypeGlobal,
-            systemInfo,
-            isFromCreate,
-            isLoading: true
-        });
-    },
-
-    async onShow() {
-        const { id, grouponId } = this.options;
-        const user = wx.getStorageSync(USER_KEY);
-        this.setData({ user });
-
-        if (id) {
-            await this.loadOrder(id);
-        }
-        else {
-            await this.loadGroupon(grouponId);
-            /* wx.setNavigationBarTitle({
-                title: '拼团详情'
-            }); */
-        }
-
-        this.setData({
-            isLoading: false,
-            grouponId
-        });
-        // this.countDown();
-
-        console.log(this.data);
-    },
-
-    onUnload() {
-        clearInterval(this.intervalId);
-    },
-
-    onHide() {
-        clearInterval(this.intervalId);
-    },
 
     onShare() {
         wx.showShareMenu();
