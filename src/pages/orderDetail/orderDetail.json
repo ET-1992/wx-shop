@@ -10,6 +10,7 @@
     "loading": "../../components/loading/index",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
     "van-panel": "../../components/vant-weapp/dist/panel/index",
-    "countDown": "../../components/countDown/countDown"
+    "countDown": "../../components/countDown/countDown",
+    "productList": "../../components/productList/index"
   }
 }

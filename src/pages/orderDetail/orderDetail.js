@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
-import { formatTime, valueToText, getNodeInfo } from 'utils/util';
+import { formatTime, valueToText, getNodeInfo, splitUserStatus } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
@@ -51,6 +51,7 @@ Page({
     },
 
     onLoad({ isFromCreate = false }) {
+        wx.hideShareMenu();
         const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo: { isIphoneX }} = app;
         this.setData({
             themeColor,
@@ -65,25 +66,17 @@ Page({
     async onShow() {
         const { id, grouponId } = this.options;
         const user = wx.getStorageSync(USER_KEY);
-        this.setData({ user });
-
-        if (id) {
-            await this.loadOrder(id);
-        }
-        else {
-            await this.loadGroupon(grouponId);
-        }
-
+        id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
         this.setData({
-            isLoading: false,
-            grouponId
+            user,
+            grouponId,
+            isLoading: false
         });
-
         console.log(this.data);
     },
 
     async loadOrder(id) {
-        const { order, redpacket = {}} = await api.hei.fetchOrder({ order_no: id });
+        const { order, redpacket = {}, products } = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket };
         const statusCode = Number(order.status);
         let address = {};
@@ -157,18 +150,17 @@ Page({
         }
 
         if (statusCode === 10) {
+            wx.showShareMenu();
             const { time_expired } = order.groupon;
             const now = Math.round(Date.now() / 1000);
             const remainSecond = time_expired - now;
             data.remainSecond = remainSecond;
             data.remainTime = getRemainTime(remainSecond).join(':');
-        }
-        else {
-            wx.hideShareMenu();
+            data.products = products;
         }
 
         // ------------拼团头像
-        if (order.groupon_id && order.groupon) {
+        if (order.status === 10 && order.groupon_id && order.groupon) {
             let grouponDefaultImageArray = [];
             for (let i = 0; i < (order.groupon.member_limit - order.groupon.member_count); i++) {
                 grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
@@ -186,6 +178,7 @@ Page({
         });
     },
     async loadGroupon(id) {
+        wx.showShareMenu();
         console.log('grouponId', id);
         const data = await api.hei.fetchGroupon({ id });
         const { time_expired } = data.groupon;
@@ -211,17 +204,29 @@ Page({
     // 	this.setData({ redpacket });
     // },
 
-    onShare() {
+    /* onShare() {
         wx.showShareMenu();
-    },
+    }, */
 
-    onJoin() {
-        const { groupon, order } = this.data;
-        const id = groupon.post_id || order.items[0].post_id;
-        const grouponId = groupon.id || order.groupon.id;
-        wx.navigateTo({
-            url: `/pages/productDetail/productDetail?id=${id}&grouponId=${grouponId}`
-        });
+    onJoin(e) {
+        const { isNewUserGroupon } = e.currentTarget.dataset;
+        const { current_user } = this.data;
+        let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
+
+        if (isNewUserGroupon && isUserHasPayOrder) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '您不是新用户不能参与该拼团',
+                showCancel: false
+            });
+        } else {
+            const { groupon, order } = this.data;
+            const id = groupon.post_id || order.items[0].post_id;
+            const grouponId = groupon.id || order.groupon.id;
+            wx.navigateTo({
+                url: `/pages/productDetail/productDetail?id=${id}&grouponId=${grouponId}`
+            });
+        }
     },
 
     onRelaodOrder(ev) {
@@ -233,36 +238,34 @@ Page({
 
 
     onShareAppMessage({ target }) {
-        const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
         const { nickname } = this.data.user;
-        const { groupon = {}, order = {}, redpacket = {}} = this.data;
+        const { groupon = {}, redpacket = {}} = this.data;
 
         console.log('target', target);
-
-        if (isShareGroupon) {
-            const grouponId = groupon.id || order.groupon_id;
-            let shareMsg = {
-                title: '小嘿店',
-                path: '/pages/home/home',
-                imageUrl: groupon.image_url || (order.items && order.items[0].image_url)
-            };
-            if (order.id || groupon.status === 2) {
-                shareMsg = {
-                    title: `${nickname}邀请你一起拼团`,
-                    path: `/pages/orderDetail/orderDetail?grouponId=${grouponId}`,
-                    imageUrl: groupon.image_url || order.groupon.image_url
+        if (typeof (target) !== 'undefined') {
+            const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
+            if (isModal || isRedpocketShare) {
+                this.setData({ isShared: true });
+                return {
+                    title: `好友${nickname}给你发来了一个红包，快去领取吧`,
+                    path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
+                    imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
                 };
             }
-            console.log(shareMsg);
-            return shareMsg;
-        }
-        else if (isModal || isRedpocketShare) {
-            this.setData({ isShared: true });
+            if (isShareGroupon && groupon.status === 2) {
+                return {
+                    title: `${nickname}邀请你一起拼团`,
+                    path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
+                    imageUrl: groupon.image_url
+                };
+            }
+        } else {
             return {
-                title: `好友${nickname}给你发来了一个红包，快去领取吧`,
-                path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
-                imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+                title: `${nickname}邀请你一起拼团`,
+                path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
+                imageUrl: groupon.image_url
             };
+
         }
     },
 

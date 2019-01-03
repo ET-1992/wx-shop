@@ -6,8 +6,8 @@
   module.exports.indexOf = indexOf;
 </wxs>
 <loading isLoading="{{ isLoading }}" />
-<view class="container" wx:if="{{ !isLoading }}">
-	<view class="header" wx:if="{{ order.id || !otherPeopleGroupon }}" style="background-color: {{ themeColor.primaryColor }}">
+<view class="container {{ otherPeopleGroupon ? 'otherPeopleGroupon' : ''}}" wx:if="{{ !isLoading }}">
+	<view class="header" wx:if="{{ order.id && order.status !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
 		<view> 订单状态：<text class="orderStatus">{{ order.statusText }}</text> </view>
 	</view>
 
@@ -113,22 +113,25 @@
     		<view class="title">拼团流程</view>
     		<image class="grouponHintImage" src="/icons/grouponHint.png" />
     	</view>
+			<button 
+				class="nomalizeBt redpacketBannerBt" 
+				data-is-redpocket-share="{{ true }}" 
+				wx:if="{{ redpacket.pakcet_no && !otherPeopleGroupon }}"   			
+				open-type="share"><image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" /></button>
     	<button 
-			wx:if="{{ order.groupon_id && groupon.status === 2 }}" 
-			class="normalizeBt viewProduct" 
-			bindtap="onShare" 
-			open-type="share" 
-			data-is-share-groupon="{{ true }}"
-			style="background-color: {{ themeColor.primaryColor }}"
-		>邀请朋友参团</button>
+				wx:if="{{ order.groupon_id && groupon.status === 2 }}" 
+				class="normalizeBt viewProduct"
+				open-type="share" 
+				data-is-share-groupon="{{ true }}"
+				style="background-color: {{ themeColor.primaryColor }}">邀请朋友参团</button>
     	<button 
-			wx:if="{{ otherPeopleGroupon }}" 
-			class="normalizeBt viewProduct" 
-			bindtap="onJoin" 
-			disabled="{{ groupon.status !== 2 }}" 
-			style="background-color: {{ themeColor.primaryColor }}"
-		>{{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}
-    	</button>
+				wx:if="{{ otherPeopleGroupon }}" 
+				class="normalizeBt viewProduct" 
+				bindtap="onJoin"
+				data-is-new-user-groupon="{{groupon.type === 'new_user'}}" 
+				disabled="{{ groupon.status !== 2 }}" 
+				style="background-color: {{ themeColor.primaryColor }}"
+			>{{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}</button>
 	</view>
 	  
 	<!-- 正常订单 -->
@@ -156,7 +159,7 @@
 	</view>
 
 	<!-- 非参团 -->
-	<block wx:if="{{ !otherPeopleGroupon }}">
+	<block wx:if="{{ order.status !== 10 && !otherPeopleGroupon }}">
 		<view class="section buyerMessage">
 			<view class="buyerMessageContent">买家留言：{{ order.buyer_message }}</view>
 		</view>
@@ -174,28 +177,40 @@
 			wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}"   			
 			open-type="share"><image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
 		</button>
-	
-  		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-    		<orderOperations 
-				phone="{{ order.phone_number }}" 
-				isOrderDetail="{{true}}" 
-				statusCode="{{ order.statusCode }}" 
-				orderNo="{{ order.order_no }}" 
-				order="{{ order }}" 
-				isShowContact="{{ !order.isDone }}" 
-				isShowService="{{ order.isDone }}" 
-				isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" 
-				user="{{ user }}" 
-				bindconfirmOrder="onRelaodOrder" 
-				bindpayOrder="onRelaodOrder" 
-				bindcloseOrder="onRelaodOrder" 
-			/>
-  		</view>
 	</block>
+
+  <view 
+		class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" 
+		wx:if="{{ !otherPeopleGroupon }}">
+  	<orderOperations 
+			phone="{{ order.phone_number }}" 
+			isOrderDetail="{{true}}" 
+			statusCode="{{ order.statusCode }}" 
+			orderNo="{{ order.order_no }}" 
+			order="{{ order }}" 
+			isShowContact="{{ !order.isDone }}" 
+			isShowService="{{ order.isDone }}" 
+			isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" 
+			user="{{ user }}" 
+			bindconfirmOrder="onRelaodOrder" 
+			bindpayOrder="onRelaodOrder" 
+			bindcloseOrder="onRelaodOrder" />
+  </view>
+
+	<view class="promote" wx:if="{{ (order.status === 10 || otherPeopleGroupon ) && products.length }}">
+    <view class="label">
+      <text class="dot">•</text> 为你推荐 <text class="dot">•</text>
+    </view>
+    <view class="relateShop">
+      <view class="relateShopItem" wx:for="{{ products }}" wx:key="id" wx:for-item="product">
+        <productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
+      </view>
+    </view>
+  </view>
 
 	<!-- 自动红包弹窗|拼团订单不显示 -->
 	<modal 
-	  	title="【恭喜你获得一个现金红包】" 
+	  title="【恭喜你获得一个现金红包】" 
 		content="越多好友拆红包奖励越大喔" 
 		confirmText="发红包" 
 		confirmColor="#ffad00" 

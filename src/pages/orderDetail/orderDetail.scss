@@ -4,6 +4,9 @@ $footerHeight: 100rpx;
 
 .container {
 	padding-bottom: $footerHeight + 40rpx;
+	&.otherPeopleGroupon{
+		padding-bottom: 40rpx;
+	}
 }
 
 .header {
@@ -569,3 +572,36 @@ $footerHeight: 100rpx;
 		}
 	}
 }
+
+/* 为你推荐 */
+.promote{
+	background: #fff;
+	overflow: hidden;
+	.label{
+		display: flex;
+		justify-content: center;
+		font-size: 32rpx;
+		text-align: center;
+		align-items: center;
+		color: $titleColor;
+		height: 90rpx;
+		line-height: 90rpx;
+		.dot{
+			padding: 0 30rpx;
+		}
+	}
+	.relateShop{
+		padding: 10rpx 30rpx;
+		.relateShopItem{
+			width: 340rpx;
+			margin-bottom: 40rpx;
+		}
+		.relateShopItem:nth-child(odd){
+			float: left;
+		}
+		.relateShopItem:nth-child(even){
+			float: right;
+		}
+	}
+}
+
