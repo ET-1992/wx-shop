@@ -68,6 +68,7 @@
 					<view class="nowPrice">
 						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
 						<view class="priceStyle">{{ product.groupon_commander_price ? product.groupon_commander_price : product.definePrice}}</view>
+						<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
 					</view>
 					<view
 						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
@@ -88,7 +89,7 @@
 				wx:if="{{ product.coupons && product.coupons.length }}" 
 				class="coupons" 
 				catchtap="onShowCouponList" 
-				style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}}"
+				style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}} {{ product.coupons && product.coupons.length ? '' : 'border:none'}}"
 			>
 				<form bindsubmit="submitFormId" report-submit="true">
 					<button formType="submit">
@@ -102,11 +103,7 @@
 					</button>
 				</form>
 			</view>
-			<view 
-				wx:if="{{ product.service_instructions && product.service_instructions.length}}" 
-				class="service" 
-				style="{{ product.coupons && product.coupons.length ? '' : 'border:none'}}"
-			>
+			<view wx:if="{{ product.service_instructions && product.service_instructions.length}}" class="service" >
 				<view class="text">服务</view>
 				<view class="desc">
 					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="{{ index }}">• {{ item }}</view>
@@ -234,6 +231,7 @@
 							<view class="price">
 								<text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
 									{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}
+									<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
 								</text>
 								<text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
 									{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
