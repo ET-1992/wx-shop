@@ -220,7 +220,8 @@ Page({
         }
 
         if (isGrouponBuy) {
-            requestData.order_type = 'groupon';
+            // requestData.order_type = 'groupon';
+            requestData.order_type = 1;     // 后端改post参数
         }
         if (grouponId) {
             requestData.groupon_id = grouponId;
