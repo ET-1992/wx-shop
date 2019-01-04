@@ -216,7 +216,7 @@ Page({
 
     onJoin(e) {
         const { isNewUserGroupon } = e.currentTarget.dataset;
-        const { current_user, user } = this.data;
+        const { current_user, groupon, user } = this.data;
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
@@ -225,7 +225,7 @@ Page({
                 content: '您不是新用户不能参与该拼团',
                 showCancel: false
             });
-        } else if (current_user && user && (current_user.openid === user.openid)) {
+        } else if (current_user && groupon.user && (current_user.openid === groupon.user.openid)) {
             wx.showModal({
                 title: '温馨提示',
                 content: '不能参加自己的拼团',
