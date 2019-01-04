@@ -58,24 +58,26 @@ Page({
             vip,
             defineTypeGlobal,
             isIphoneX,
-            isFromCreate,
-            isLoading: true
+            isFromCreate
         });
     },
 
     async onShow() {
         const { id, grouponId } = this.options;
         const user = wx.getStorageSync(USER_KEY);
-        id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
         this.setData({
             user,
             grouponId,
-            isLoading: false
+            isLoading: true
         });
+
+        id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
+
         console.log(this.data);
     },
 
     async loadOrder(id) {
+        wx.setNavigationBarTitle({ title: '订单详情' });
         const { order, redpacket = {}, products } = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket };
         const statusCode = Number(order.status);
@@ -151,6 +153,7 @@ Page({
 
         if (statusCode === 10) {
             wx.showShareMenu();
+            wx.setNavigationBarTitle({ title: '拼团详情' });
             const { time_expired } = order.groupon;
             const now = Math.round(Date.now() / 1000);
             const remainSecond = time_expired - now;
@@ -174,10 +177,12 @@ Page({
         this.setData({
             address,
             info,
+            isLoading: false,
             ...data
         });
     },
     async loadGroupon(id) {
+        wx.setNavigationBarTitle({ title: '拼团详情' });
         wx.showShareMenu();
         console.log('grouponId', id);
         const data = await api.hei.fetchGroupon({ id });
@@ -195,6 +200,7 @@ Page({
 
         this.setData({
             grouponDefaultImageArray,
+            isLoading: false,
             ...data
         });
     },
@@ -210,13 +216,19 @@ Page({
 
     onJoin(e) {
         const { isNewUserGroupon } = e.currentTarget.dataset;
-        const { current_user } = this.data;
+        const { current_user, user } = this.data;
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
             wx.showModal({
                 title: '温馨提示',
                 content: '您不是新用户不能参与该拼团',
+                showCancel: false
+            });
+        } else if (current_user && user && (current_user.openid === user.openid)) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '不能参加自己的拼团',
                 showCancel: false
             });
         } else {
@@ -238,30 +250,30 @@ Page({
 
 
     onShareAppMessage({ target }) {
-        const { nickname } = this.data.user;
+        const { user, current_user } = this.data;
         const { groupon = {}, redpacket = {}} = this.data;
 
         console.log('target', target);
-        if (typeof (target) !== 'undefined') {
+        if (typeof (target) !== 'undefined') {  // 点击按钮进来
             const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
             if (isModal || isRedpocketShare) {
                 this.setData({ isShared: true });
                 return {
-                    title: `好友${nickname}给你发来了一个红包，快去领取吧`,
+                    title: `${user.nickname ? user.nickname : '好友'}给你发来了一个红包，快去领取吧`,
                     path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
                     imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
                 };
             }
             if (isShareGroupon && groupon.status === 2) {
                 return {
-                    title: `${nickname}邀请你一起拼团`,
+                    title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
                     path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
                     imageUrl: groupon.image_url
                 };
             }
-        } else {
+        } else {    // 右上角转发按钮
             return {
-                title: `${nickname}邀请你一起拼团`,
+                title: `${current_user.nickname ? current_user.nickname : '好友'}邀请你一起拼团`,
                 path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
                 imageUrl: groupon.image_url
             };

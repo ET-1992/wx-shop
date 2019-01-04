@@ -93,9 +93,9 @@
 	<view class="group" wx:if="{{ otherPeopleGroupon || order.status === 10 }}">
 		<view class="title" wx:if="{{groupon.status === 2}}"> 还差{{ groupon.member_limit - groupon.member_count }}人成团，剩余时间 <countDown time="{{remainSecond}}"/></view>
 		<view class="title" wx:if="{{groupon.status === -1}}"> 该拼团已过期 </view>
-		<view class="title" wx:if="{{groupon.status === -2}}"> 该拼团已关闭 </view>
+		<view class="title otherGroupStatus" wx:if="{{groupon.status === -2}}"> 该拼团已关闭 </view>
 		<view class="title" wx:if="{{groupon.status === 3}}"> 已成团 </view>
-		<view class="avatar">
+		<view class="avatar" wx:if="{{groupon.status === 2 || groupon.status === 3 || groupon.status === -1}}">
 			<view wx:for="{{ groupon.members }}" class="avatarItem">
 				<image src="{{ item.avatarurl }}" mode="aspectFill"></image>
 				<view wx:if="{{index === 0}}" class="captain">团长</view>
