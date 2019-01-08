@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import forceUserInfo from 'utils/forceUserInfo';
-import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE } from 'constants/index';
+import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
 import { updateCart } from 'utils/util';
 
 const app = getApp();
@@ -25,7 +25,8 @@ Page({
     },
     onLoad() {
         const { themeColor } = app.globalData;
-        this.setData({ themeColor, globalData: app.globalData });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, globalData: app.globalData, config });
     },
 
     async onShow() {

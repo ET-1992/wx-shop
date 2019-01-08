@@ -11,10 +11,10 @@
 		<view> 订单状态：<text class="orderStatus">{{ order.statusText }}</text> </view>
 	</view>
 
-	<view wx:if="{{ order.type !== 3 }}">
+	<view wx:if="{{ order.type !== 3 }}"  class="liftInfoWrap">
 		<address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/>
 		<liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" />
-		<view class="liftInfoBtnWrap" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}">
+		<view class="liftInfoBtnWrap" wx:if="{{ (!otherPeopleGroupon && order.shipping_type === '2' && groupon.status === 3 && groupon.id) || (!otherPeopleGroupon && order.shipping_type === '2' && !groupon.id) }}">
 			<view class="liftInfoBtn" bindtap="openLiftInfoModal" style="background-color: {{ themeColor.primaryColor }}"> 出示自提码 </view>
 		</view>
 	</view>

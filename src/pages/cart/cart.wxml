@@ -84,7 +84,7 @@
     </view>
     <view class="clearCart" bindtap="onClearCart">清空购物车</view>
   </view>
-  <view wx:if="{{ items.length && !isLoading }}" class="stodownloadWrap">
+  <view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
     <include src="/templates/stodownload/index.wxml" />
   </view>
   <view class="promote" wx:if="{{ !items.length && products.length }}">
