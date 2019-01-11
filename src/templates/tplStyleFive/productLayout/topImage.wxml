@@ -1,0 +1,31 @@
+<view class="topImage">
+    <view class="image-wrap" wx:if="{{product.thumbnail}}">
+        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
+        <view class="triangle_border_up"></view>
+    </view>
+    <view class="content-wrap">
+        <view class="left">
+            <view class="title"> {{ product.title }}</view>
+            <view class="desc"> {{ product.excerpt }}</view>
+            <view class="price">
+                <view wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" class="original">
+                    <text>原价</text>
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                    <text>{{ product.original_price }}</text>
+                </view>
+                <view class="now" style="color: {{ themeColor.primaryColor }}">
+                    <text>新品价</text>
+                    <text class="money">
+                        <text class="mark">{{ globalData.CURRENCY[globalData.currency] }}</text>
+                        <text class="num" wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">{{ product.miaosha_price }}</text>
+                        <text class="num" wx:elif="{{ product.groupon_enable == 1}}">{{ product.groupon_price }}</text>
+                        <text class="num" wx:else>{{ product.price }}</text>
+                   </text>
+                </view>
+            </view>
+        </view>
+        <view class="right">
+            <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button>
+        </view>
+    </view>
+</view>

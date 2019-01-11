@@ -7,6 +7,10 @@ Component({
             type: Object,
             value: {},
         },
+        article: {
+            type: Object,
+            value: {},
+        },
         miaosha: {
             type: Object,
             value: {},

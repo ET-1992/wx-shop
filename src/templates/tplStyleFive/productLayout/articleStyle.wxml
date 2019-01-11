@@ -1,0 +1,8 @@
+<view class="articleStyle">
+    <image class="left" src="{{article.banner}}" mode="aspectFill"/>
+    <view class="right">
+        <view class="title">{{article.title}}</view>
+        <view class="time">{{article.time}}</view>
+        <view class="btn" style="color: {{ themeColor.primaryColor }}; border-color: {{themeColor.primaryColor}}">查看</view>
+    </view>
+</view>
