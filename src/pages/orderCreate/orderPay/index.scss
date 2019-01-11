@@ -11,6 +11,17 @@
     bottom: 0;
     z-index: 10000;
 }
+.orderPay-crowd {
+    position: relative;
+    padding: 20rpx 0;
+    .pay-text{
+        text{
+            color: #F52D2D;
+            font-size: 28rpx;
+            font-weight: bold;
+        }
+    }
+}
 
 .pay-button {
     width: 240rpx;
@@ -32,4 +43,25 @@
 .iphoneX-style{
     // bottom:40rpx;
     padding-bottom: 40rpx;
+}
+
+.crowBtn{
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    padding: 40rpx 0;
+    button{
+        background:#000;
+        height:70rpx;
+        width: 280rpx;
+        border-radius:10rpx;
+        color:#fff;
+        font-size:28rpx;
+    }
+    .agent-pay{
+        background: #000;
+    }
+    .crowd-pay{
+        background: #729153;
+    }
 }
