@@ -10,7 +10,7 @@
                 拼团价<text class="activeBuy">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="nowPrice">{{ product.groupon_price }}</text>
             </view>
             <view class="singleBuy">
-                单卖价<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                单买价<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
             </view>
         </view>
         <view class="footer">

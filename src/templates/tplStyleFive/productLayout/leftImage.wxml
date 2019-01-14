@@ -2,25 +2,19 @@
     <image class="productImage" src="{{ product.thumbnail }}" />
     <view class="meta">
         <view class="top">
-            <image class="icon" src="/icons/smileFace.png"></image>
-            <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
         </view>
-        <view class="title">{{ product.title }}</view>
-        <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
-        <view class="singleBuy">单独购买
-            <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
-        </view>
-        <view class="grouponInfo">
-            <view class="grouponLimit">{{ product.groupon_member_limit }}人团</view>
-            <view class="grouponPrice">
-                <text class="activeBuy">{{ globalData.CURRENCY[globalData.currency] }}</text>
-                <text class="nowPrice">{{ product.groupon_price }}</text>
+        <view class="bottom">
+            <view class="single-price">单买价:{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
+            <view class="foot">
+                <view class="groupon-price">
+                   <view class="text">拼团价</view>
+                   <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</view>
+                </view>
+                <view class="grouponLimit" style="color: {{ themeColor.primaryColor }}">{{ product.groupon_member_limit }}人团</view>
+                <view class="groupBt" style="color:{{ themeColor.primaryColor }}; border-color:{{ themeColor.primaryColor }}">去开团</view>
             </view>
         </view>
-    </view>
-    <view class="grouponBtn">
-        <form bindsubmit="submit" report-submit="true">
-            <button class="groupBt" formType="submit" style="background-color: {{ themeColor.primaryColor }}">去开团</button>
-        </form>
     </view>
 </view>

@@ -1,46 +1,47 @@
-.tplStyleFive{
-	background: #fff;
+.tplStyleSix{
 	$searchWrapper: 90rpx; //搜索框高度
-	$zeroMarginTop: 30rpx;	//模块间隔高度
-	$sideWidth: 35rpx;	//边框距离
-
+	$zeroMarginTop: 20rpx;	//模块间隔高度
+	$sideWidth: 40rpx;	//边框距离
+	
     .container {
     	height: auto;
     	width: 100%;
     	box-sizing: border-box; 
     }
     
-    .searchWrapper {
+	.searchWrapper {
     	height: $searchWrapper;
-    	background-color: transparent;
-    	padding: 12rpx 40rpx;
+    	background-color: $mainColor;
+    	padding: 15rpx 40rpx;
     	position: fixed;
     	left: 0;
     	width: 100%;
     	top: 0;
     	z-index: 9;
-	}
-	.searchIcon {
-		$size: 28rpx;
 
-		width: $size;
-		height: $size;
-		line-height:$size;
-		margin-right: 20rpx;
-	}
+    	.searchIcon {
+    		$size: 36rpx;
 
-	.search {
-		height: 60rpx;
-		text-align: center;
-		font-size: 22rpx;
-		color: #707070;
-		background-color: #fff;
-		border-radius: 100rpx;
-		line-height: 60rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+    		width: $size;
+    		height: $size;
+    		line-height:$size;
+    		margin-right: 20rpx;
+    	}
+
+    	.search {
+    		height: 60rpx;
+    		text-align: center;
+    		font-size: 26rpx;
+    		color: #707070;
+    		background-color: #fff;
+    		border-radius: 5rpx;
+            border: none;
+    		line-height: 60rpx;
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    	}
+    }
 
     .main {
     	margin-top: $searchWrapper;
@@ -65,9 +66,27 @@
 			top: 20rpx;
 			z-index:9;
 		}
-	}
-	.banner{
-		margin-top: $zeroMarginTop;
+
+		.dots{
+			position: absolute;
+			bottom: 24rpx;
+			display: flex;
+			justify-content: center;
+		}
+		.dots .dot{
+			$size: 16rpx;
+
+			margin: 0 8rpx;
+			width: $size;
+			height: $size;
+			background: #fff;
+			border-radius: 8rpx;
+			transition: all .6s;
+		}
+		.dots .dot.active{
+			background: #45424E;
+		}
+
 	}
     .banner,.banner button, .banner image {
     	width: 100%;
@@ -77,156 +96,149 @@
     	padding: 40rpx;
     }
 
+	/* 优惠券 */
     .couponsWrapper {
-    	z-index: 9;
-    	margin: $zeroMarginTop $sideWidth;
+		padding: 30rpx 40rpx;
+		
     	.coupons {
-    		display: flex;
+			display: flex;
+			justify-content: space-between;
     	}
     	.coupon {
-    		width: 296rpx;
-    		height: 136rpx;
+    		width: 320rpx;
+    		height: 160rpx;
     		position: relative;
-    		line-height: 1.2;
-		}
-		.coupon:nth-child(1){
-			margin-right: 20rpx;
-		}
-    	.moreCoupon{
-    		width: 78rpx;
-    		height: 136rpx;
-    		position: relative;
-    		line-height: 1.2;
-    		.moreBtn{
-    			position:absolute;
-    			width:20rpx;
-    			color:#999999;
-    			font-size:20rpx;
-    			left:40rpx;
-    			top:26rpx;
-    		}
-    	}
-    	.couponInfoList {
-    		color: #fff;
-    		height: 136rpx;
-    		width: 296rpx;
-    		display: flex;
-			line-height: 1.4;
-			
-    		.couponInfo {
-    			position: absolute;
-    			z-index: 2;
-    			height: 136rpx;
-    			width: 200rpx;
-    			display: flex;
-    			justify-content: center;
-    			align-items: center;
-				flex-direction: column;
-				
-				.reduce{
-					.reduceCost {
-						font-size: 44rpx;
+
+			.couponInfoList {
+				display: flex;
+				justify-content: space-around;
+				color: #fff;
+				background: transparent;
+				height: 160rpx;
+				width: 320rpx;
+
+				.left{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					line-height: 1;
+					z-index: 2;
+					padding-left: 10rpx;
+					.reduce{
+						.reduceCost {
+							font-size: 64rpx;
+							font-weight: lighter;
+						}
+						.discount{
+							font-size: 28rpx;
+						}
+	
 					}
-					.discount{
-						font-size: 22rpx;
+					.title{
+						font-size: 28rpx;
 					}
 				}
-    			.title {
-    				font-size: 20rpx;
-    			}
+				.right {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+					z-index: 2;
+					line-height: 2;
+
+					.least{
+						font-size: 20rpx;
+					}
+					.btn{
+						width: 96rpx;
+						height: 26rpx;
+						line-height: 26rpx;
+						border-radius: 14rpx;
+						background: #fff;
+						font-size: 18rpx;
+						font-weight: bold;
+						color: #FB4762;
+						text-align:center;
+					}
+					.unable{
+						color: #000000;
+					}
+				}
+				.bg {
+					width: 320rpx;
+					height: 160rpx;
+					position: absolute;
+					z-index: 1;
+				}
 			}
-			.right {
-				position: absolute;
-				right: 0;
-				top: 0;
-    			z-index: 2;
-    			height: 136rpx;
-    			width: 96rpx;
-    			display: flex;
-    			justify-content: center;
-    			align-items: center;
-    			flex-direction: column;
-    			.btn{
-					font-size: 24rpx;
-					width: 48rpx;
-					color: #FF74C3;
-					margin: 0 auto;
-				}
-				.unable{
-					color: #707070;
-					width: 24rpx;
-				}
-    		}
-    	}
-    	.bg {
-    		width: 296rpx;
-    		height: 136rpx;
-    		position: absolute;
-    		z-index: 1;
-    	}
-    }
+		}
+
+		.moreCoupon{
+			display: flex;
+			height: 40rpx;
+			width: 160rpx;
+			align-items: center;
+			justify-content: center;
+			margin: 30rpx auto;
+			view{
+				font-size: 28rpx;
+				color: #000000;
+				padding-right:8rpx;
+			}
+			image{
+				width: 20rpx;
+				height: 20rpx;
+				transform: rotate(90deg);
+			}
+			
+		}
+	}
+	
     .firstCoupon{
     	padding-top: $zeroMarginTop;
 	}
 	.secondCoupon{
-    	padding-top: $zeroMarginTop;
+    	padding-top: 60rpx;
     }
 
     .section {
 		margin-top: $zeroMarginTop;
-
 		.header{
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
-			height: 60rpx;
+			justify-content: center;
+			height: 100rpx;
 			background-color: #fff;
-			margin: 0 $sideWidth 35rpx;
 			.sectionTitle {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 				color:#333333;
-				font-size: 36rpx;
+				font-size: 35rpx;
 				font-weight: bold;
 			}
 			.sectionMore {
-
+				margin-left: 10rpx;
 				.form {
 					width: 100%;
 				}
 				.moreButton{
-					font-size: 28rpx;
-					color: #333333;
-					background-color: #fff;
-					display:flex;
-					align-items:center;
-
-					.rightIcon {
-						width: 36rpx;
-						height: 36rpx;
-						margin-left: 5rpx;
+					background:#fff;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					image {
+						width: 30rpx;
+						height: 30rpx;
 					}
 				}
 			}
-		}
-
-		.grouponContainer{
-			display: flex;
-			justify-content:space-between;
-
-			.grouponItem{
-				margin: 0 0 10rpx 0;
-			}
-
-			.grouponTwoItem:last-child {
+	
+			.rightIcon {
+				width: 14rpx;
+				height: 20rpx;
 				margin-left: 10rpx;
-			}
-		}
-
-		.miaoshasWrap{
-			display: flex;
-			margin: 0 35rpx;
-			border: 1rpx solid #D4D4D4;
-			.miaoshasItem{
-				flex: 1;
 			}
 		}
     }
@@ -262,30 +274,33 @@
     /* 首页分类 */
     .categoryBox{
 		background: #fff;
-		margin: 30rpx;
-    	padding: 6rpx 0 46rpx;
     	display: flex;
-      	justify-content: flex-start;
-    	flex-flow: row wrap;
-    	align-items: center;
-    	text-align: center;
+		flex-flow: row wrap;
+		padding: 30rpx 35rpx 0;
+		
     	.homeCategory{
+			display:flex;
+			justify-content:space-between;
 			flex-direction: column;
-			width: 173rpx;
-			padding: 0 10rpx;
+			align-items:center;
+			width: 20%;
+			height: 154rpx;
+			margin-bottom: 45rpx;
 
     		.categoryItem{
-    			padding: 30rpx 0 10rpx;
-    			line-height: 0;
-    			.categoryImg{
-    				width: 110rpx;
+				.categoryImg{
+					width: 110rpx;
     				height: 110rpx;
+					border-radius: 10rpx;
     			}
     		}
     		.categoryBtn{
+				width: 110rpx;
+    			height: 110rpx;
     			background-color:transparent;
     			color: 333333;
     			font-size: 24rpx;
+				line-height: 0;
     		}
     		.categoryTitle{
     			font-size: 24rpx;
@@ -293,7 +308,9 @@
     			overflow: hidden;
     			white-space: nowrap;
     			text-overflow: ellipsis;
-    			font-weight: normal;
+				font-weight: normal;
+				width:130rpx;
+				text-align: center;
     		}
     	}
     }
@@ -302,6 +319,12 @@
 		padding-bottom: 1rpx; 
 	}
 
+	/* 商品列表 */
+    .productContainer{
+    	display: flex;
+    	flex-wrap: wrap;
+		justify-content: space-between;
+	}
 	/* 服务说明 */
     .instructions{
         display: flex;

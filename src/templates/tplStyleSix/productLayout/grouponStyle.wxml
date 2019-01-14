@@ -1,0 +1,19 @@
+<view class="grouponStyle">
+    <image class="productImage" src="{{ product.thumbnail }}" />
+    <view class="meta">
+        <view class="top">
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        </view>
+        <view class="bottom">
+            <view class="info">
+                <view class="price">
+                    <text class="group-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</text>
+                    <text class="single-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                </view>
+                <view class="count">已拼{{ product.sales || 0 }}件</view>
+            </view>
+            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" >去拼团</view>
+        </view>
+    </view>
+</view>

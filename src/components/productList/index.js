@@ -72,6 +72,10 @@ Component({
             type: Object,
             value: {},
         },
+        module: {
+            type: Object,
+            value: {},
+        },
         productLayoutStyle: {
             type: String,
             value: '',

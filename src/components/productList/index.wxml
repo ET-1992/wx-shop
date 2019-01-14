@@ -36,3 +36,11 @@
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleFive/productLayout/leftImage.wxml"/>
 </view>
 
+<!-- tplStyleSix -->
+<view class="tplStyleSix" wx:if="{{ tplStyle === 'vip_tpl_six' }}">
+    <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleSix/productLayout/leftImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleSix/productLayout/grouponStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleSix/productLayout/miaoshaStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'articleStyle' }}" src="/templates/tplStyleSix/productLayout/articleStyle.wxml"/>
+</view>
+

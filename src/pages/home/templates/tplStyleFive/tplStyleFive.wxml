@@ -1,6 +1,4 @@
 <view class="tplStyleFive">
-<import src="/templates/tplStyleThree/articleItem/articleItem.wxml"/>
-
 <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
 	<navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key !== 'sliders'}}">
 		<view class="search">
@@ -95,16 +93,14 @@
         	  		</form>
         		</navigator>
 			</view>
-		  	<view class="grouponContainer" style="justify-content:{{ groupons.length <= 2 ? 'center' : 'space-between' }}">
-        		<navigator wx:if="{{groupons.length==1}}" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/grouponList/grouponList">
-        		  	<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
-        		</navigator>
-        		<block wx:else>
-        		  	<myNavigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
-        		  	 	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
-        		  	</myNavigator>
-				</block>
-			</view>
+			<myNavigator 
+			  wx:for="{{ groupons }}" 
+			  wx:key="id" 
+			  wx:for-item="groupon" 
+			  url="{{ groupons.length === 1 ? '/pages/grouponList/grouponList' : '/pages/productDetail/productDetail?id=' + groupon.id }}" 
+			  >
+        	 	<productList product="{{ groupon }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+        	</myNavigator>
         </view>
       	</view>
       	<!-- 内容电商 -->
@@ -127,8 +123,7 @@
 				wx:for-item="article" 
 				hover-class="navigator-hover" 
 				url="{{ articles.length === 1 ? '/pages/articleList/articleList' : '/pages/articleDetail/articleDetail?id=' + article.id }}" 
-			>
-		    	<productList article="{{ article }}" tplStyle="{{ tplStyle }}" productLayoutStyle="articleStyle" themeColor="{{themeColor}}"/>
+			><productList article="{{ article }}" tplStyle="{{ tplStyle }}" productLayoutStyle="articleStyle" themeColor="{{themeColor}}"/>
 		    </myNavigator>
         </view>
       	</view>
@@ -147,8 +142,13 @@
         		</navigator>
 			</view>
 			<view class="miaoshasWrap">
-				<myNavigator wx:if="{{ miaoshas.length > 0 && index < 2}}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-					<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+				<myNavigator 
+					class="miaoshasItem" 
+					wx:if="{{ miaoshas.length > 0 && index < 2}}" 
+					wx:for="{{ miaoshas }}" 
+					url="/pages/productDetail/productDetail?id={{ item.id }}" 
+					wx:key="item.id"
+				><productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 				</myNavigator>
 			</view>
         </view>
