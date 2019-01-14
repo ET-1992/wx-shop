@@ -17,7 +17,7 @@
 		}
     }
     .content-wrap{
-		padding: 35rpx;
+		padding: 35rpx 0 35rpx 35rpx;
 		display: flex;
 		align-items: center;
 		.left{
@@ -76,6 +76,7 @@
 			justify-content: center;
 			align-items: center;
 			flex: 1;
+			margin-left: 55rpx;
 			.buyBtn{	
 				display: flex;
 				align-items: center;
@@ -275,10 +276,10 @@
 					font-weight: bold;
 					width: 150rpx;
 					height: 50rpx;
-					border: 1rpx solid #F89452;
+					border: 1rpx solid $mainColor;
 					border-radius: 30rpx;
 					background: #fff;
-					color: #F89452;
+					color: $mainColor;
 					display: flex;
 					align-items: center;
 					justify-content: center;
