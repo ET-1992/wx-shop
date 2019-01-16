@@ -2,3 +2,5 @@
 <include wx:if="{{ tplStyle === 'vip_tpl_two' }}" src="/templates/couponList/tplStyleTwo/tplStyleTwo.wxml" />
 <include wx:if="{{ tplStyle === 'vip_tpl_three' }}" src="/templates/couponList/tplStyleThree/tplStyleThree.wxml" />
 <include wx:if="{{ tplStyle === 'vip_tpl_four' }}" src="/templates/couponList/tplStyleFour/tplStyleFour.wxml" />
+<include wx:if="{{ tplStyle === 'vip_tpl_five' }}" src="/templates/couponList/tplStyleFive/tplStyleFive.wxml" />
+<include wx:if="{{ tplStyle === 'vip_tpl_six' }}" src="/templates/couponList/tplStyleSix/tplStyleSix.wxml" />
