@@ -23,7 +23,7 @@
 </view>
 <view class="main">
 	<!-- 商品列表start -->
-	<view class="productContainer" wx:if="{{ products.length && isSearch && !isLoading }}" style="{{ tplStyle === 'vip_tpl_four' ? 'padding: 21rpx 40rpx;' : '' }}">
+	<view class="productContainer" wx:if="{{ products.length && !isLoading }}" style="{{ tplStyle === 'vip_tpl_four' ? 'padding: 21rpx 40rpx;' : '' }}">
 		<navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover"
 		 url="/pages/productDetail/productDetail?id={{ product.id }}">
 			<productList product="{{ product }}" tplStyle="{{ (tplStyle === 'vip_tpl_three' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? 'default' : tplStyle }}" productLayoutStyle="topImage" nextCursor="{{!currentPage === totalPages}}" />

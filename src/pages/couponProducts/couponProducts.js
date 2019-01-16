@@ -1,5 +1,4 @@
 import api from 'utils/api';
-import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 
 const app = getApp();
 
@@ -10,8 +9,6 @@ Page({
 
         isRefresh: false,
         isLoading: true,
-        isSearch: false,
-        productListStyle: PRODUCT_LAYOUT_STYLE[0],
 
         sortType: 'default',
         sortSales: 'saleDown',
@@ -73,7 +70,6 @@ Page({
         const { themeColor, tplStyle } = app.globalData;
         this.setData({
             isRefresh: true,
-            isSearch: true,
             indexParams: params,
             isLoading: true,
             themeColor,
