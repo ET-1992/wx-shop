@@ -98,102 +98,110 @@
 
 	/* 优惠券 */
     .couponsWrapper {
-		padding: 30rpx 40rpx;
-		
+    	z-index: 9;
+    	margin: $zeroMarginTop $sideWidth;
     	.coupons {
-			display: flex;
-			justify-content: space-between;
+    		display: flex;
     	}
     	.coupon {
-    		width: 320rpx;
-    		height: 160rpx;
+    		width: 300rpx;
+    		height: 140rpx;
     		position: relative;
-
-			.couponInfoList {
+    		line-height: 1.2;
+		}
+		.coupon:nth-child(1){
+			margin-right: 30rpx;
+		}
+    	.moreCoupon{
+    		width: 78rpx;
+    		height: 140rpx;
+    		position: relative;
+    		line-height: 1.2;
+    		.moreBtn{
+    			position:absolute;
+    			width:20rpx;
+    			color:#999999;
+    			font-size:20rpx;
+    			left:40rpx;
+    			top:26rpx;
+    		}
+    	}
+    	.couponInfoList {
+    		height: 140rpx;
+    		width: 300rpx;
+			display: flex;
+			flex-direction: column;
+			line-height: 1.4;
+			background: transparent;
+			align-items: center;
+			justify-content: space-between;
+    		.couponInfo {
 				display: flex;
-				justify-content: space-around;
-				color: #fff;
-				background: transparent;
-				height: 160rpx;
-				width: 320rpx;
-
-				.left{
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-direction: column;
-					line-height: 1;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				padding: 15rpx 25rpx;
+				.reduce{
 					z-index: 2;
-					padding-left: 10rpx;
-					.reduce{
-						.reduceCost {
-							font-size: 64rpx;
-							font-weight: lighter;
-						}
-						.discount{
-							font-size: 28rpx;
-						}
-	
+					flex: 1;
+					.reduceCost {
+						font-size: 56rpx;
+						line-height: 1;
 					}
-					.title{
-						font-size: 28rpx;
+					.discount{
+						font-size: 24rpx;
 					}
 				}
 				.right {
+					z-index: 2;
+					height: 100%;
 					display: flex;
+					flex: 1;
 					justify-content: center;
 					align-items: center;
 					flex-direction: column;
-					z-index: 2;
-					line-height: 2;
-
-					.least{
-						font-size: 20rpx;
+					.title{
+						font-size: 27rpx;
 					}
-					.btn{
-						width: 96rpx;
-						height: 26rpx;
-						line-height: 26rpx;
-						border-radius: 14rpx;
-						background: #fff;
+					.leastCost {
 						font-size: 18rpx;
 						font-weight: bold;
-						color: #FB4762;
-						text-align:center;
-					}
-					.unable{
-						color: #000000;
+						padding-bottom: 5rpx;
 					}
 				}
-				.bg {
-					width: 320rpx;
-					height: 160rpx;
-					position: absolute;
-					z-index: 1;
+			}
+			.couponBt{
+				z-index: 2;
+				padding-bottom: 12rpx;
+				.btn{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 14rpx;
+					width: 93rpx;
+					height: 32rpx;
+					border-radius: 30rpx;
+					color: #fff;
+					box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, 0.16);
+				}
+				.color-receivable{
+					background:#F03445;
+				}
+				.color-received{
+					background:#F56673;
+				}
+				.color-unable{
+					background: #707070;
 				}
 			}
-		}
-
-		.moreCoupon{
-			display: flex;
-			height: 40rpx;
-			width: 160rpx;
-			align-items: center;
-			justify-content: center;
-			margin: 30rpx auto;
-			view{
-				font-size: 28rpx;
-				color: #000000;
-				padding-right:8rpx;
-			}
-			image{
-				width: 20rpx;
-				height: 20rpx;
-				transform: rotate(90deg);
-			}
-			
-		}
-	}
+    	}
+    	.bg {
+    		width: 300rpx;
+    		height: 140rpx;
+    		position: absolute;
+    		z-index: 1;
+    	}
+    }
 	
     .firstCoupon{
     	padding-top: $zeroMarginTop;
