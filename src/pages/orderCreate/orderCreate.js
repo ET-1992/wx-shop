@@ -296,7 +296,7 @@ Page({
 
     async onPay(ev) {
         console.log(ev, 'ev');
-        const { formId, crowd } = ev.detail;
+        const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
             items,
@@ -437,6 +437,7 @@ Page({
 
         if (crowd) {
             requestData.type = 5;
+            requestData.crowd_type = crowdtype;
         }
 
         try {

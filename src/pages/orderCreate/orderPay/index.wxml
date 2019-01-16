@@ -5,7 +5,7 @@
         <!-- <button wx:if="{{ crowd }}" class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">请好友代付</button> -->
     </view>
     <view wx:if="{{ crowd }}" class="crowBtn">
-        <button class="pay-button agent-pay" form-type="submit" >请好友代付</button>
-        <button class="pay-button crowd-pay" form-type="submit" >请好友众筹</button>
+        <button class="pay-button agent-pay" form-type="submit" data-crowdType="{{2}}">请好友代付</button>
+        <button class="pay-button crowd-pay" form-type="submit" data-crowdType="{{1}}" style="background:{{ themeColor.primaryColor }}">请好友众筹</button>
     </view>
 </form>
