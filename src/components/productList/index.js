@@ -100,5 +100,13 @@ Component({
         hasEnd: false,
         timeLimit: 0,
         globalData: app.globalData
+    },
+    detached() {
+        clearInterval(this.intervalId);
+    },
+    pageLifetimes: {
+        hide() {
+            clearInterval(this.intervalId);
+        }
     }
 });
