@@ -148,11 +148,14 @@ Page({
         let { support_amount, crowd } = this.data;
         const { formId } = ev.detail;
         try {
-            const { pay_sign } = await api.hei.crowdPay({
+            let options = {
                 crowd_pay_no: crowd.crowd_pay_no,
-                amount: support_amount,
                 form_id: formId
-            });
+            };
+            if (crowd && crowd.type === '1') {
+                options.amount = support_amount;
+            }
+            const { pay_sign } = await api.hei.crowdPay(options);
             if (pay_sign) {
                 await wxPay(pay_sign);
                 this.setData({

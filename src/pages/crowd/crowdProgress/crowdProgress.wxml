@@ -24,7 +24,7 @@
     <view class="order" wx:if="{{ userInfo.openid === openid }}">
         <productItemSold items="{{ items }}" customClass="crowd"/>
         <view class="crowding">
-            <view class="progress">
+            <view class="progress" wx:if="{{ crowd.type === '1' }}">
                 <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
                 <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
@@ -50,26 +50,29 @@
     <view class="panel" wx:if="{{ userInfo.openid !== openid }}">
         <view class="info">
             <image class="avatar" src="{{ avatarurl }}" mode="aspectFill"/>
-            <view class="text">就差一点点了，快来助我一臂之力吧！</view>
+            <view class="text">{{ crowd.type === '1' ? '就差一点点了，快来助我一臂之力吧！' : '我喜欢这个礼物，快来帮我付款吧！'}}</view>
             <productItemSold items="{{ items }}" customClass="crowd"/>
         </view>
-        <view class="progress">
+        <view class="progress" wx:if="{{ crowd.type === '1' }}">
             <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
             <view class="i-progress">
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
             </view>
             <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
         </view>
-        <view class="opera">
-            <view class="text" wx:if="{{ crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
+        <view class="opera {{crowd.type === '2' ? 'agent' : ''}}">
+            <view class="text" wx:if="{{ crowd.type === '1' && crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
             <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
-            <button class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bind:tap="showPayModal">我要赞助</button>
+            <button class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bind:tap="showPayModal" wx:if="{{crowd.type === '1'}}">我要赞助</button>
+            <form report-submit bindsubmit="onPay" wx:if="{{crowd.type === '2'}}">
+                <button class="btn" form-type="submit" disabled="{{ crowd.status !== '1' ? true : false }}">帮TA付款</button>
+            </form>
             <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
         </view>
     </view>
 
     <!-- 土豪榜 -->
-	<richList richList="{{ crowd_users }}" themeColor="{{ themeColor }}" self="{{ userInfo.openid === openid }}"/>
+	<richList wx:if="{{ crowd.type === '1' }}" richList="{{ crowd_users }}" themeColor="{{ themeColor }}" self="{{ userInfo.openid === openid }}"/>
 </view>
 
 <van-popup custom-style="border-radius: 10rpx;" show="{{ payModal }}" bind:close="showPayModal">
