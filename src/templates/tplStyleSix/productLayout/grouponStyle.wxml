@@ -1,5 +1,5 @@
 <view class="grouponStyle">
-    <image class="productImage" src="{{ product.thumbnail }}" />
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
     <view class="meta">
         <view class="top">
             <view class="title">{{ product.title }}</view>

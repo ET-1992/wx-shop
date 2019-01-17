@@ -15,7 +15,7 @@
         </view>
     </view>
     <view class="content">
-        <image class="productImage" src="{{ miaosha.thumbnail }}" />
+        <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill"/>
         <view class="meta">
             <view class="top">
                 <view class="title">{{ miaosha.title }}</view>
