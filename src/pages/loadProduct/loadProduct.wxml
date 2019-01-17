@@ -1,8 +1,8 @@
-<!-- 商品列表start -->
-<view class="{{ (tplStyle === 'vip_tpl_six' || tplStyle === 'vip_tpl_five') ? '' : 'productContainer'}}">
-    <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
-      <productList product="{{ product }}" tplStyle="{{ tplStyle }}" productLayoutStyle="{{ tplStyle === 'vip_tpl_six' ? 'leftImage' : 'topImage'}}" nextCursor="{{next_cursor}}" />
-    </navigator>
-  </view>
-  <!-- 商品列表end -->
+<!-- 商品列表更多页面 -->
+<loading isLoading="{{ isLoading }}" />
+<view wx:if="{{ !isLoading }}" class="{{ (tplStyle === 'vip_tpl_six' || tplStyle === 'vip_tpl_five') ? '' : 'productContainer'}}">
+  <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+    <productList product="{{ product }}" tplStyle="{{ tplStyle === 'vip_tpl_three' ? 'default' : tplStyle }}" productLayoutStyle="{{ tplStyle === 'vip_tpl_six' ? 'leftImage' : 'topImage'}}" nextCursor="{{next_cursor}}" themeColor="{{themeColor}}"/>
+  </navigator>
+</view>
 <console page="loadProduct" />
