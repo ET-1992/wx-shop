@@ -87,7 +87,7 @@ Page({
 
     async onLoad({ categoryId, categoryParent }) {
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG); 
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({ categoryId, categoryParent, themeColor, tplStyle, globalData: app.globalData });
         const { page_title } = await this.loadProducts();
         wx.setNavigationBarTitle({

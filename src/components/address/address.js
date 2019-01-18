@@ -1,5 +1,8 @@
 import  templateTypeText from 'constants/templateType';
+import { CONFIG } from 'constants/index';
+
 const app = getApp();
+const config = wx.getStorageSync(CONFIG);
 
 Component({
     properties: {
@@ -15,7 +18,7 @@ Component({
     data: {
         templateTypeText,
         defineTypeGlobal: app.globalData.defineTypeGlobal,
-        selfAddress: app.vip && app.vip.self_address
+        selfAddress: config && config.self_address
     }
 });
 

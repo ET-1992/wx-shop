@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY } from 'constants/index';
+import { ADDRESS_KEY, CONFIG } from 'constants/index';
 import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -73,7 +73,8 @@ Page({
         // this.checkPhoneModel();
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
-        this.setData({ themeColor, isIphoneX, defineTypeGlobal });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, isIphoneX, defineTypeGlobal, config });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
@@ -136,7 +137,7 @@ Page({
     },
 
     async onAddress() {
-        const self_address = app.vip && app.vip.self_address;
+        const { self_address } = this.data.config;
         if (self_address) {
             wx.navigateTo({
                 url: '/pages/selfAddress/selfAddress'

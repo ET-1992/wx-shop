@@ -24,7 +24,7 @@ Page({
 
     async onLoad() {
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);        
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();
