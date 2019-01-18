@@ -50,7 +50,7 @@
 		"pages/rulePages/rulePages"
 	],
 	"window": {
-		"backgroundTextStyle": "white",
+		"backgroundTextStyle": "light",
 		"navigationBarBackgroundColor": "#729153",
 		"navigationBarBackgroundColorRed": "#3B89D8",
 		"navigationBarBackgroundColorBlue": "#245e74",
