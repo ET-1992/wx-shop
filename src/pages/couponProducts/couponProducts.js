@@ -1,10 +1,8 @@
 import api from 'utils/api';
-import { SEARCH_KEY, PRODUCT_LAYOUT_STYLE } from 'constants/index';
-import { showModal } from 'utils/wxp';
+import { CONFIG } from 'constants/index';
 
 const app = getApp();
 
-// 创建页面实例对象
 Page({
     data: {
         currentPage: 1,
@@ -12,8 +10,6 @@ Page({
 
         isRefresh: false,
         isLoading: true,
-        isSearch: false,
-        productListStyle: PRODUCT_LAYOUT_STYLE[0],
 
         sortType: 'default',
         sortSales: 'saleDown',
@@ -27,12 +23,7 @@ Page({
             order: 'desc',
         },
 
-        activeIdx: '0',
-
-        indexParams: {
-            user_coupon_id: '',
-            couponTitle: '',
-        },
+        activeIdx: '0'
     },
 
     async loadProducts() {
@@ -40,26 +31,22 @@ Page({
             currentPage,
             isRefresh,
             products,
-            sortType,
             priceSort,
             activeIdx,
             saleSort,
             indexParams
         } = this.data;
+
         const options = {
             paged: currentPage,
-            coupon_id: indexParams.couponId
-        };
-        const userOptions = {
-            paged: currentPage,
-            user_coupon_id: indexParams.userCouponId
         };
 
-        // if(sortType !== 'defalut') {
-        // 	Object.assign(options, priceSort);
-        // }else {
-        // 	console.log(this.data);
-        // }
+        indexParams && indexParams.couponId
+            ?
+            options.coupon_id = indexParams.couponId
+            :
+            options.user_coupon_id = indexParams.userCouponId;
+
         switch (activeIdx) {
             case '1':
                 Object.assign(options, priceSort);
@@ -68,41 +55,23 @@ Page({
                 Object.assign(options, saleSort);
                 break;
         }
-
-        // if(sortType !== 'defalut' && sortType2 !== 'saleSort'){
-        // 	console.log('222')
-        // 	Object.assign(options, saleSort);
-        // }
-        if (indexParams.userCouponId) {
-            const data = await api.hei.fetchProductList(userOptions);
-            const newProducts = isRefresh ? data.products : products.concat(data.products);
-            this.setData({
-                products: newProducts,
-                isRefresh: false,
-                currentPage: data.current_page,
-                totalPages: data.total_pages,
-                isLoading: false
-            });
-            return data;
-        } else {
-            const data = await api.hei.fetchProductList(options);
-            const newProducts = isRefresh ? data.products : products.concat(data.products);
-            this.setData({
-                products: newProducts,
-                isRefresh: false,
-                currentPage: data.current_page,
-                totalPages: data.total_pages,
-                isLoading: false
-            });
-            return data;
-        }
+        const data = await api.hei.fetchProductList(options);
+        const newProducts = isRefresh ? data.products : products.concat(data.products);
+        this.setData({
+            products: newProducts,
+            isRefresh: false,
+            currentPage: data.current_page,
+            totalPages: data.total_pages,
+            isLoading: false
+        });
+        return data;
     },
 
     onLoad(params) {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             isRefresh: true,
-            isSearch: true,
             indexParams: params,
             isLoading: true,
             themeColor,

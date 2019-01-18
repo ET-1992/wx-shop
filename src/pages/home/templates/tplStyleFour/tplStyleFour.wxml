@@ -12,15 +12,22 @@
 	<view class="{{ modules[0].key === 'search_box' && modules[1].key !== 'sliders' ? 'main': '' }}" >
 		<!-- 服务公告start -->
 		<view wx:if="{{ !hasSliders }}">
-			<view class="instructions" wx:if="{{ instructions && instructions.length }}">
+			<navigator class="instructions" wx:if="{{ instructions && instructions.length }}" url="{{ instruction_path }}">
 				<block wx:for="{{instructions}}">
 					<view class="instructions-item">
 						<image mode="aspectFit" src="/icons/instructions.png"></image>
 						<view>{{item}}</view>
 					</view>
 				</block>
-			</view>
-			<navigator class="announcement" wx:if="{{announcement}}" url="{{ announcement.path }}">
+			</navigator>
+			<navigator 
+				wx:if="{{announcement}}"
+				app-id="{{announcement.appid}}" 
+				path="{{announcement.path}}"
+				target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
+				url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
+				class="announcement"
+           		bindfail="miniFail">
 				<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 				<view class="marquee">
 					<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
@@ -63,15 +70,22 @@
 					</navigator>
 				</view>
 				<!-- 服务公告start -->
-				<view class="instructions" wx:if="{{instructions && instructions.length}}">
+				<navigator class="instructions" wx:if="{{ instructions && instructions.length }}" url="{{ instruction_path }}">
 					<block wx:for="{{instructions}}">
 						<view class="instructions-item">
 							<image mode="aspectFit" src="/icons/instructions.png"></image>
 							<view>{{item}}</view>
 						</view>
 					</block>
-				</view>
-				<navigator class="announcement" wx:if="{{announcement}}" url="{{ announcement.path }}">
+				</navigator>
+				<navigator 
+					wx:if="{{announcement}}"
+					app-id="{{announcement.appid}}" 
+					path="{{announcement.path}}"
+					target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
+					url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
+					class="announcement"
+           			bindfail="miniFail">
 					<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 					<view class="marquee">
 						<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">

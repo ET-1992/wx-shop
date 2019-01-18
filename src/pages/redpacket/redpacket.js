@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_STYLE, USER_KEY } from 'constants/index';
+import { PRODUCT_LIST_STYLE, USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { showToast } from 'utils/wxp';
 const app = getApp();
@@ -22,7 +22,9 @@ Page({
             received_redpacket.item.reduceValue = Number(received_redpacket.item.reduce_cost);
             goldNumer = parseInt(received_redpacket.item.amount * 100, 10);
         }
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+
         this.setData({
             products,
             redpacket: received_redpacket,

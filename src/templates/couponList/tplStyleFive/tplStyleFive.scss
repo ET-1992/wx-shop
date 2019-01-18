@@ -1,0 +1,138 @@
+.tplStyleFive{
+	.couponItem {
+		width: 650rpx;
+		height: 160rpx;
+		font-size: 0;
+		position: relative;
+		left: 0;
+		top: 0;
+	
+		.couponInfo {
+			position: absolute;
+			z-index: 2;
+			display: flex;
+			width: 100%;
+			padding: 0 30rpx 0 20rpx;
+	
+			.left {
+				height: 160rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				line-height: 1.3;
+				flex-shrink: 0;
+				flex:1;
+				.reduceCost {
+					font-size: 45rpx;
+					.discount {
+						font-size: 22rpx;
+					}
+				}
+				.title{
+					font-size: 22rpx;
+				}
+			}
+	
+			.center {
+				width: 280rpx;
+				padding-top: 40rpx;
+				display: flex;
+				flex-direction: column;
+				flex-shrink: 0;
+				flex: 1.5;
+				.couponDesc {
+					font-size: 22rpx;
+					white-space: nowrap;
+    				overflow: hidden;
+    				text-overflow: ellipsis;
+				}
+				view{
+					line-height: 1.5;
+				}
+				text{
+					font-size: 18rpx;
+					position: absolute;
+					bottom: 20rpx;
+				}
+			}
+	
+			.right {
+				position: relative;
+				flex-shrink: 0;
+				font-size: 24rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				flex-grow: 1;
+				flex: 1;
+				.leastCost{
+					font-size: 18rpx;
+					padding-bottom: 5rpx;
+				}
+				.btn{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 18rpx;
+					width: 100rpx;
+					height: 30rpx;
+					border-radius: 30rpx;
+					color: #fff;
+					background: #F85552;
+				}
+				.color-receivable{
+					background:#F89452;
+            		background:-webkit-linear-gradient(left,#F85552,#F89452);
+            		background:-o-linear-gradient(right,#F85552,#F89452);
+            		background:-moz-linear-gradient(right,#F85552,#F89452);
+            		background:linear-gradient(to right,#F85552,#F89452);
+				}
+				.color-received{
+					background:#fbbd97;
+            		background:-webkit-linear-gradient(left,#ff9892,#fbbd97);
+            		background:-o-linear-gradient(right,#ff9892,#fbbd97);
+            		background:-moz-linear-gradient(right,#ff9892,#fbbd97);
+            		background:linear-gradient(to right,#ff9892,#fbbd97);
+				}
+				.color-unable{
+					background: #b4b4b4;
+					background:-webkit-linear-gradient(left,#707070,#b4b4b4);
+            		background:-o-linear-gradient(right,#707070,#b4b4b4);
+            		background:-moz-linear-gradient(right,#707070,#b4b4b4);
+            		background:linear-gradient(to right,#707070,#b4b4b4);
+				}
+
+				.radio {
+					$size: 32rpx;
+					height: $size;
+					width: $size;
+					flex-shrink: 0;
+					border: 1px solid #ccc;
+					border-radius: 50%;
+					background:#f4f4f4;
+					&.selected {
+						background-color: $couponMainColor;
+						border-color: $couponMainColor;
+					}
+					.radioIcon {
+						$iconSize: 24rpx;
+						height: $iconSize;
+						width: $iconSize;
+						margin-top: 2rpx;
+					}
+				}
+			}
+		}
+	
+		.bg {
+			width: 650rpx;
+			height: 160rpx;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 1;
+		}
+	}
+}

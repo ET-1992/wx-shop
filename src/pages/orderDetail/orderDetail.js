@@ -216,7 +216,7 @@ Page({
 
     onJoin(e) {
         const { isNewUserGroupon } = e.currentTarget.dataset;
-        const { current_user, groupon, user } = this.data;
+        const { current_user, groupon } = this.data;
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
@@ -250,7 +250,7 @@ Page({
 
 
     onShareAppMessage({ target }) {
-        const { user, current_user } = this.data;
+        const { user } = this.data;
         const { groupon = {}, redpacket = {}} = this.data;
 
         console.log('target', target);
@@ -273,7 +273,7 @@ Page({
             }
         } else {    // 右上角转发按钮
             return {
-                title: `${current_user.nickname ? current_user.nickname : '好友'}邀请你一起拼团`,
+                title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
                 path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
                 imageUrl: groupon.image_url
             };

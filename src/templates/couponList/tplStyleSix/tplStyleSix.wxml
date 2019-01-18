@@ -1,0 +1,35 @@
+<view class="tplStyleSix">
+	<view class="couponItem">
+		<view class="couponInfo">
+			<view class="content" style="color:{{ (status === 'receivable' || (status === 'available' || status === 'received')) ? '#F85552;' : '#707070'}}">
+				<view class="left">
+					<view class="reduceCost"> {{ coupon.type == 1 ? coupon.reduce_cost : (100 - coupon.discount) / 10 }}
+						<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text> 
+					</view>
+				</view>
+				<view class="center">
+					<view wx:if="{{ coupon.description && coupon.description.length }}" wx:key="index" wx:for="{{ coupon.description }}" wx:for-item="desc" class="couponDesc" > • {{ desc }}</view>
+					<text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
+					<view class="time" wx:else>有效期：{{ coupon.start_time }}-{{ coupon.end_time }}</view>
+				</view>
+				<view class="right">
+					<view class="title">优惠券</view>
+					<view class="leastCost">{{ coupon.least_cost ? ('满' + coupon.least_cost + '元使用') : '全场无门槛通用'}}</view>
+					<view class="radio {{ isSelected ? 'selected' : '' }}" wx:if="{{ canChoice }}" >
+						<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelected }}" />
+					</view>
+				</view>
+			</view>
+			<view class="couponBt">
+				<view class="btn color-receivable" wx:if="{{ status === 'receivable' }}">点击领取</view>
+				<view class="btn color-received" wx:if="{{ status === 'received' }}">立即使用</view>
+				<view class="btn color-unable" wx:if="{{ status === 'expired' }}">已抢光</view>
+				<view class="btn color-unable" wx:if="{{ status === 'used' }}">已使用</view>
+				<view class="btn color-unable" wx:if="{{ status === 'nullCoupon' }}">已过期</view>
+			</view>
+		</view>
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/receivable.png" wx:if="{{ status === 'receivable' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/received.png" wx:if="{{ status === 'available' || status === 'received' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/unavailable.png" wx:if="{{ status === 'unavailable' || status === 'nullCoupon' || status === 'expired' || status === 'used'}}" />
+	</view>
+</view>

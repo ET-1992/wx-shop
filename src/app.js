@@ -26,7 +26,7 @@ App({
         if (templateTypeTest.indexOf(templateType) < 0) {
             templateType = 'default';
         }
-        const styleTypeTest = ['vip_tpl_two', 'vip_tpl_three', 'vip_tpl_four'];
+        const styleTypeTest = ['vip_tpl_two', 'vip_tpl_three', 'vip_tpl_four', 'vip_tpl_five', 'vip_tpl_six'];
         if (styleTypeTest.indexOf(styleType) < 0) {
             styleType = 'default';
         }
@@ -54,6 +54,7 @@ App({
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
+        this.updateConfig();
     },
 
     async silentLogin() {

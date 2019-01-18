@@ -4,7 +4,7 @@ import getToken from 'utils/getToken';
 import { showToast, showModal } from 'utils/wxp';
 // import { onDefaultShareAppMessage } from 'utils/pageShare';
 // import login from 'utils/login';
-// import { USER_KEY } from 'constants/index';
+import { CONFIG } from 'constants/index';
 
 const app = getApp();
 Page({
@@ -17,7 +17,8 @@ Page({
         wx.setNavigationBarTitle({
             title: '优惠券'
         });
-        const { tplStyle, themeColor } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             tplStyle,
             themeColor

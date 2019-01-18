@@ -1,5 +1,6 @@
 import api from 'utils/api';
 const app = getApp();
+import { CONFIG } from 'constants/index';
 
 // 创建页面实例对象
 Page({
@@ -22,7 +23,8 @@ Page({
 
 
     async onLoad() {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();

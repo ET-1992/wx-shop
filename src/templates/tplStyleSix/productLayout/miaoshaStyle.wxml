@@ -1,0 +1,35 @@
+<view class="miaoshaStyle">
+    <view class="header" wx:if="{{ miaosha.miaosha_enable }}">
+        <view class="status" wx:if="{{ hasEnd }}">已结束</view>
+        <view class="time" wx:else>
+            <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+                <view class="day">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+            </block>
+            <view class="hour">{{ remainTime.hour }}</view>
+            <view class="dateTitle">时</view>
+            <view class="minute">{{ remainTime.minute }}</view>
+            <view class="dateTitle">分</view>
+            <view class="second">{{ remainTime.second }}</view>
+            <view class="dateTitle">秒</view>
+        </view>
+    </view>
+    <view class="content">
+        <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill"/>
+        <view class="meta">
+            <view class="top">
+                <view class="title">{{ miaosha.title }}</view>
+                <view class="desc" wx:if="{{ miaosha.excerpt }}">{{ miaosha.excerpt }}</view>
+            </view>
+            <view class="bottom">
+                <view class="info">
+                    <view class="price">
+                        <text class="miaosha-price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.miaosha_enable ? miaosha.miaosha_price : miaosha.price }}</text>
+                        <text class="original-price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+                    </view>
+                </view>
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" >马上抢</view>
+            </view>
+        </view>
+    </view>
+</view>

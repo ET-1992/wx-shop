@@ -1,0 +1,26 @@
+<view class="miaoshaStyle">
+    <view class="time-wrap">
+        <view class="status">
+            <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+            <view wx:if="{{ !hasStart }}">距开始</view>
+            <view wx:if="{{ hasEnd }}">已结束</view>
+        </view>
+        <view class="time">
+            <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+                <view class="day">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+            </block>
+            <view class="hour" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
+            <view class="dot" wx:if="{{ !hasEnd }}">:</view>
+            <view class="minute" wx:if="{{ !hasEnd }}" >{{ remainTime.minute }}</view>
+            <view class="dot" wx:if="{{ !hasEnd }}">:</view>
+            <view class="second" wx:if="{{ !hasEnd }}" >{{ remainTime.second }}</view>
+        </view>
+    </view>
+    <image class="miaoshaImage" mode="aspectFill" src="{{ miaosha.thumbnail }}" />
+    <view class="title">{{miaosha.title}}</view>
+    <view class="miaoshaPrice">
+        <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.miaosha_enable ? miaosha.miaosha_price : miaosha.price }}</text>
+        <text class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+    </view>
+</view>

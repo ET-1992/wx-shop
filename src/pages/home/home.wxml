@@ -5,6 +5,8 @@
 <include wx:if="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
 <include wx:if="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
 <include wx:if="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
+<include wx:if="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml"/>
+<include wx:if="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml"/>
 
 <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->

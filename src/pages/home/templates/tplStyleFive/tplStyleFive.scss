@@ -1,0 +1,417 @@
+.tplStyleFive{
+	background: #fff;
+	$searchWrapper: 90rpx; //搜索框高度
+	$zeroMarginTop: 30rpx;	//模块间隔高度
+	$sideWidth: 35rpx;	//边框距离
+
+    .container {
+    	height: auto;
+    	width: 100%;
+    	box-sizing: border-box; 
+    }
+    
+    .searchWrapper {
+    	height: $searchWrapper;
+    	background-color: transparent;
+    	padding: 12rpx 40rpx;
+    	position: fixed;
+    	left: 0;
+    	width: 100%;
+    	top: 0;
+    	z-index: 9;
+	}
+	.searchIcon {
+		$size: 28rpx;
+
+		width: $size;
+		height: $size;
+		line-height:$size;
+		margin-right: 20rpx;
+	}
+
+	.search {
+		height: 60rpx;
+		text-align: center;
+		font-size: 22rpx;
+		color: #707070;
+		background-color: #fff;
+		border-radius: 100rpx;
+		line-height: 60rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+    .main {
+    	margin-top: $searchWrapper;
+    }
+
+    .zeroMarginTop {
+    	margin-top: -$zeroMarginTop;
+	}
+	.MarginTop{
+		margin-top: $zeroMarginTop;
+	}
+	
+	.searchSliders{
+		position: relative;
+		.searchBox{
+			height: auto;
+			background-color:transparent;
+			padding:0 40rpx;
+			position: absolute;;
+			left:0;
+			width:100%;
+			top: 20rpx;
+			z-index:9;
+		}
+	}
+	.banner{
+		margin-top: $zeroMarginTop;
+	}
+    .banner,.banner button, .banner image {
+    	width: 100%;
+    	height: 100%;
+    }
+    .flashItem .meta{
+    	padding: 40rpx;
+    }
+
+    .couponsWrapper {
+    	z-index: 9;
+    	margin: $zeroMarginTop $sideWidth;
+    	.coupons {
+    		display: flex;
+    	}
+    	.coupon {
+    		width: 300rpx;
+    		height: 150rpx;
+    		position: relative;
+    		line-height: 1.2;
+		}
+		.coupon:nth-child(1){
+			margin-right: 30rpx;
+		}
+    	.moreCoupon{
+    		width: 78rpx;
+    		height: 150rpx;
+    		position: relative;
+    		line-height: 1.2;
+    		.moreBtn{
+    			position:absolute;
+    			width:20rpx;
+    			color:#999999;
+    			font-size:20rpx;
+    			left:40rpx;
+    			top:26rpx;
+    		}
+    	}
+    	.couponInfoList {
+    		height: 150rpx;
+    		width: 300rpx;
+    		display: flex;
+			line-height: 1.4;
+			
+    		.left {
+				padding-left: 20rpx;
+    			z-index: 2;
+    			height: 100%;
+				display: flex;
+				flex: 1;
+    			justify-content: center;
+    			align-items: center;
+				flex-direction: column;
+				position: relative;
+				.reduce{
+					padding-top: 28rpx;
+					color: #707070;
+					.reduceCost {
+						font-size: 45rpx;
+						line-height: 1;
+					}
+					.title{
+						font-size: 20rpx;
+					}
+				}
+				.tip{
+					position: absolute;
+					top: 25rpx;
+					font-size: 18rpx;
+					width: 28rpx;
+					height: 28rpx;
+					background:#707070;
+					color: #fff;
+					border-radius: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+				.color-receivable{
+					background: #F85552;
+				}
+				.color-received{
+					background: #ff9892;
+				}
+			}
+			.right {
+				padding-right: 28rpx;
+    			z-index: 2;
+    			height: 100%;
+				display: flex;
+				flex: 1;
+    			justify-content: center;
+    			align-items: center;
+				flex-direction: column;
+				.leastCost {
+					font-size: 15rpx;
+					color: #707070;
+					padding-bottom: 5rpx;
+    			}
+    			.btn{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-size: 18rpx;
+					width: 100rpx;
+					height: 30rpx;
+					border-radius: 30rpx;
+					color: #fff;
+					background: #F85552;
+				}
+				.color-receivable{
+					background:#F89452;
+            		background:-webkit-linear-gradient(left,#F85552,#F89452);
+            		background:-o-linear-gradient(right,#F85552,#F89452);
+            		background:-moz-linear-gradient(right,#F85552,#F89452);
+            		background:linear-gradient(to right,#F85552,#F89452);
+				}
+				.color-received{
+					background:#fbbd97;
+            		background:-webkit-linear-gradient(left,#ff9892,#fbbd97);
+            		background:-o-linear-gradient(right,#ff9892,#fbbd97);
+            		background:-moz-linear-gradient(right,#ff9892,#fbbd97);
+            		background:linear-gradient(to right,#ff9892,#fbbd97);
+				}
+				.color-unable{
+					background: #b4b4b4;
+					background:-webkit-linear-gradient(left,#707070,#b4b4b4);
+            		background:-o-linear-gradient(right,#707070,#b4b4b4);
+            		background:-moz-linear-gradient(right,#707070,#b4b4b4);
+            		background:linear-gradient(to right,#707070,#b4b4b4);
+				}
+    		}
+    	}
+    	.bg {
+    		width: 300rpx;
+    		height: 150rpx;
+    		position: absolute;
+    		z-index: 1;
+    	}
+    }
+    .firstCoupon{
+    	padding-top: $zeroMarginTop;
+	}
+	.secondCoupon{
+    	padding-top: $zeroMarginTop;
+    }
+
+    .section {
+		margin-top: $zeroMarginTop;
+
+		.header{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 60rpx;
+			background-color: #fff;
+			margin: 0 $sideWidth 35rpx;
+			.sectionTitle {
+				color:#333333;
+				font-size: 36rpx;
+				font-weight: bold;
+			}
+			.sectionMore {
+
+				.form {
+					width: 100%;
+				}
+				.moreButton{
+					font-size: 28rpx;
+					color: #333333;
+					background-color: #fff;
+					display:flex;
+					align-items:center;
+
+					.rightIcon {
+						width: 36rpx;
+						height: 36rpx;
+						margin-left: 5rpx;
+					}
+				}
+			}
+		}
+
+		.grouponContainer{
+			display: flex;
+			justify-content:space-between;
+
+			.grouponItem{
+				margin: 0 0 10rpx 0;
+			}
+
+			.grouponTwoItem:last-child {
+				margin-left: 10rpx;
+			}
+		}
+
+		.miaoshasWrap{
+			display: flex;
+			margin: 0 35rpx;
+			border: 1rpx solid #D4D4D4;
+			.miaoshasItem{
+				flex: 1;
+			}
+		}
+    }
+
+    .starProductItem {
+    	margin-bottom: 15rpx;
+    	width: 100%;
+    	height: 100%;
+    }
+
+    button{
+    	margin: 0;
+    	padding: 0;
+    	border: none;
+    	outline: none;
+    	border-radius: 0;
+    }
+
+    button::after {
+    	outline: 0;
+    	border-radius: 0;
+    	border: 0;
+    }
+
+    .bottomHint {
+    	text-align: center;
+    	color: #ccc;
+    	font-size: 10pt;
+    	padding:40rpx 0 0 20rpx;
+    	margin-bottom: 20rpx;
+    }
+
+    /* 首页分类 */
+    .categoryBox{
+		background: #fff;
+		margin: 30rpx;
+    	padding: 6rpx 0 46rpx;
+    	display: flex;
+      	justify-content: flex-start;
+    	flex-flow: row wrap;
+    	align-items: center;
+    	text-align: center;
+    	.homeCategory{
+			flex-direction: column;
+			width: 173rpx;
+			padding: 0 10rpx;
+
+    		.categoryItem{
+    			padding: 30rpx 0 10rpx;
+    			line-height: 0;
+    			.categoryImg{
+    				width: 110rpx;
+    				height: 110rpx;
+    			}
+    		}
+    		.categoryBtn{
+    			background-color:transparent;
+    			color: 333333;
+    			font-size: 24rpx;
+    		}
+    		.categoryTitle{
+    			font-size: 24rpx;
+    			color: #333333;
+    			overflow: hidden;
+    			white-space: nowrap;
+    			text-overflow: ellipsis;
+    			font-weight: normal;
+    		}
+    	}
+    }
+
+    .iphoneXTrick {
+		padding-bottom: 1rpx; 
+	}
+
+	/* 服务说明 */
+    .instructions{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        height: 70rpx;
+        align-items: center;
+
+        .instructions-item{
+			display: flex;
+			align-items: center;
+            image{
+                width: 20rpx;
+                height: 20rpx;
+            }
+            view{
+                padding-left: 10rpx;
+                display: inline;
+                font-size: 20rpx;
+                color: #707070;
+            }
+        }
+    }
+    .announcement{
+        display: flex;
+        height: 70rpx;
+        align-items: center;
+		background: #FFF9EC;
+		font-size: 22rpx;
+		color: #000000;
+	
+		.infoIcon{
+			margin: 0 14rpx 0 30rpx;
+			width: 48rpx;
+			height: 35rpx;
+		}
+		
+	}
+
+	@keyframes marque {
+    	0% {
+    	    transform: translateX(0);
+    	}
+    	100% {
+    	    transform: translateX(-33.3%);
+    	}
+	}
+	.marquee {
+		width: 100%;
+  		display: block;
+  		overflow: hidden;
+  		white-space: nowrap;
+  		text-overflow: clip;
+		position: relative;
+		  
+		.content {
+			display: inline-block;
+			position: relative;
+			padding-right: 0px;
+			white-space: nowrap;
+			animation-name: marque;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		.content-space{
+			display: inline-block;
+			width: 300px;
+		}
+	}
+}

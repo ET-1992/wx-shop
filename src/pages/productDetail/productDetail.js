@@ -340,18 +340,15 @@ Page({
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
-        const config = wx.getStorageSync(CONFIG);
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, tplStyle, defineTypeGlobal, vip } = app.globalData;
+        const { themeColor, defineTypeGlobal, vip } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
-            config,
             themeColor,
-            tplStyle,
             vip,
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
@@ -364,7 +361,8 @@ Page({
 
     onShow() {
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ config });
+        const { style_type: tplStyle = 'default' } = config;
+        this.setData({ config, tplStyle });
         this.initPage();
     },
 

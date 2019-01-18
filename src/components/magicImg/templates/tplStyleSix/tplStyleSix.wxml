@@ -1,0 +1,5 @@
+<view class="tplStyleSix">
+    <view class="container" style="margin-top: {{ isMarginTopZero ? 0 : '10rpx' }}">
+       <include src="./../common/magicImg.wxml" />
+    </view>
+</view>

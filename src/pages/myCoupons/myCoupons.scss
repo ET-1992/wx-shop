@@ -1,62 +1,67 @@
 @import '~styles/color';
-@import '~templates/couponItem/couponItem';
-
+$height: 90rpx;
 page{
 	background: #F4F4F4;
 }
-.statusBar {
-	$height: 90rpx;
-
-	background-color:#FFFFFF;
-	color:#707070;
-	font-size:28rpx;
-	position:fixed;
-	left:0;
-	top:0;
-	white-space:nowrap;
-	box-shadow:0 0 2rpx rgba(0, 0, 0, 0.16);
-	z-index:999;
-	width: 100%;
-
-	.statusItem {
-		width: 33%;
-		display: inline-block;
-		text-align: center;
+.container{
+	padding-top: $height;
+	.statusBar {
+		background-color:#FFFFFF;
+		color:#707070;
+		font-size:28rpx;
+		position:fixed;
+		left:0;
+		top:0;
+		white-space:nowrap;
+		box-shadow:0 0 2rpx rgba(0, 0, 0, 0.16);
+		z-index:999;
+		width: 100%;
+		.statusItem {
+			width: 33%;
+			display: inline-block;
+			text-align: center;
+		}
+		.statusItemName {
+			margin: 0 auto;
+			height: $height;
+			padding-top: 35rpx;
+			display: inline-block;
+			&.selected {
+				border-bottom: 8rpx solid $mainColor;
+				color: #000000;
+				font-weight: bold;
+			}
+		}
 	}
-
-	.statusItemName {
-		margin: 0 auto;
-		height: $height;
-		padding-top: 35rpx;
-		display: inline-block;
-
-		&.selected {
-			border-bottom: 8rpx solid $mainColor;
-			color: #000000;
-			font-weight: bold;
+	.emptyHint {
+		padding-top: 320rpx;
+		color: #707070;
+		font-size: 28rpx;
+		text-align: center;
+		.noHint{
+			transform:rotate(-15deg);
+			text-align:center;
+			width:190rpx;
+			height:157rpx;
+			margin:0 0 30rpx;
+		}
+		.couponBt {
+			width:320rpx;
+			background-color: $mainColor;
+			color:#fff;
+			margin: 115rpx auto 0 auto;
+			height:75rpx;
+			line-height:75rpx;
+			border-radius: 40rpx;
+		}
+	}
+	.couponsList{
+		padding: 40rpx 25rpx;
+		.couponItemWrapper{
+			margin:25rpx auto 0;
+			width:650rpx;
 		}
 	}
 }
 
-.emptyHint {
-	padding-top: 320rpx;
-	color: #707070;
-	font-size: 28rpx;
-	text-align: center;
-	.noHint{
-		transform:rotate(-15deg);
-		text-align:center;
-        width:190rpx;
-		height:157rpx;
-		margin:0 0 30rpx;
-	}
-	.couponBt {
-		width:320rpx;
-		background-color: $mainColor;
-		color:#fff;
-		margin: 115rpx auto 0 auto;
-		height:75rpx;
-		line-height:75rpx;
-		border-radius: 40rpx;
-	}
-}
+

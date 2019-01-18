@@ -7,6 +7,10 @@ Component({
             type: Object,
             value: {},
         },
+        article: {
+            type: Object,
+            value: {},
+        },
         miaosha: {
             type: Object,
             value: {},
@@ -68,6 +72,10 @@ Component({
             type: Object,
             value: {},
         },
+        module: {
+            type: Object,
+            value: {},
+        },
         productLayoutStyle: {
             type: String,
             value: '',
@@ -92,5 +100,13 @@ Component({
         hasEnd: false,
         timeLimit: 0,
         globalData: app.globalData
+    },
+    detached() {
+        clearInterval(this.intervalId);
+    },
+    pageLifetimes: {
+        hide() {
+            clearInterval(this.intervalId);
+        }
     }
 });

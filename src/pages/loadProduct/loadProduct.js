@@ -1,9 +1,10 @@
-import { PRODUCT_LAYOUT_STYLE, CATEGORY_LIST_STYLE } from 'constants/index';
+
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
 
 // 获取应用实例
-const app = getApp(); // eslint-disable-line no-undef
+const app = getApp();
 
 Page({
     data: {
@@ -19,10 +20,7 @@ Page({
         featured_products: [],
         coupons: [],
 
-        productListStyle: PRODUCT_LAYOUT_STYLE[0],
-        categoryListStyle: CATEGORY_LIST_STYLE[2],
-        isRefresh: false,
-        isLoading: false,
+        isLoading: true,
 
         post_type_title: '',
         taxonomy_title: '',
@@ -32,27 +30,23 @@ Page({
     },
 
     async loadProducts() {
-
-        this.setData({ isLoading: true });
         const { next_cursor, products, params } = this.data;
-
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
             ...params
         });
-
         const newProducts = products.concat(data.products);
         this.setData({
             products: newProducts,
             next_cursor: data.next_cursor,
+            isLoading: false
         });
-
-        this.setData({ isLoading: false });
         return data;
     },
 
     async onLoad(params) {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({ themeColor, tplStyle, params });
         const data = await this.loadProducts();
         if (data.page_title) {
@@ -64,7 +58,7 @@ Page({
 
     async onPullDownRefresh() {
         this.setData({
-            isRefresh: true,
+            isLoading: true,
             next_cursor: 0,
             products: [],
         });

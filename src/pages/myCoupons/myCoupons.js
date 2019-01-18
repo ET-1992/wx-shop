@@ -1,8 +1,8 @@
 import api from 'utils/api';
 const app = getApp();
-// 创建页面实例对象
+import { CONFIG } from 'constants/index';
+
 Page({
-    // 页面的初始数据
     data: {
         status: [
             { name: '未使用', value: 'available' },
@@ -35,8 +35,7 @@ Page({
             'coupons.available': available,
             'coupons.used': used,
             'coupons.expired': expired,
-            isLoading: false,
-            globalData: app.globalData
+            isLoading: false
         });
     },
 
@@ -49,7 +48,8 @@ Page({
     async onShow() {
         try {
             const { themeColor } = app.globalData;
-            this.setData({ isLoading: true, themeColor });
+            const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+            this.setData({ isLoading: true, themeColor, tplStyle });
             await this.loadCoupons();
         }
         catch (err) {

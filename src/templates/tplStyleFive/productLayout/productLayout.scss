@@ -1,0 +1,292 @@
+.topImage{
+    display: flex;
+    flex-direction: column;
+    .image-wrap{
+        .goods_image{
+            width: 100%;
+            height: 600rpx;
+		}
+		.triangle_border_up{
+			width:0;
+			height:0;
+			border-width:0 25rpx 30rpx;
+			margin: -32rpx 0 0 25rpx;
+			border-style:solid;
+			border-color:transparent transparent #fff;
+			position:relative;
+		}
+    }
+    .content-wrap{
+		padding: 35rpx 0 35rpx 35rpx;
+		display: flex;
+		align-items: center;
+		.left{
+			display: flex;
+			flex: 2;
+			flex-direction: column;
+			.title{
+				font-size: 28rpx;
+				font-weight: bold;
+				color: #333333;
+				margin-bottom: 15rpx;
+				display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+			}
+			.desc{
+				font-size: 24rpx;
+				color: #333333;
+				margin-bottom: 20rpx;
+				display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 4;
+                overflow: hidden;
+                text-overflow: ellipsis;
+			}
+			.price{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+                .now{
+                    font-size: 24rpx;
+                    font-weight: bold;
+					color: #FF1E1E;
+					padding-right: 20rpx;
+					.money{
+						.num{
+							font-size: 45rpx;
+						}
+						.mark{
+							font-size: 20rpx;
+							padding-left: 5rpx;
+						}
+					}
+                }
+                .original{
+                    font-size: 20rpx;
+                    color: #999999;
+                    text-decoration: line-through;
+                }
+			}
+		}
+		.right{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex: 1;
+			margin-left: 55rpx;
+			.buyBtn{	
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 150rpx;
+				height: 50rpx;
+				border-radius: 30rpx;
+				font-size: 24rpx;
+				background: $mainColor;
+				color: #fff;
+			}
+		}
+    }
+}
+
+.articleStyle{
+	display: flex;
+	padding: 35rpx;
+	border-bottom: 1rpx solid #D4D4D4;
+	.left{
+		width: 200rpx;
+		height: 200rpx;
+	}
+	.right{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		position: relative;
+		padding: 5rpx 25rpx;
+		flex: 1;
+		.title{
+			font-size: 28rpx;
+			color: #333333;
+			font-weight: bold;
+			display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+		}
+		.time{
+			font-size: 20rpx;
+			color: #333333;
+		}
+		.btn{
+			position: absolute;
+			right: 25rpx;
+			bottom: 0;
+			width: 150rpx;
+			height: 50rpx;
+			border-radius: 30rpx;
+			border: 1rpx solid $mainColor;
+			color: $mainColor;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+}
+
+.miaoshaStyle{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 35rpx;
+	.time-wrap{
+		background: #D4D4D4;
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-bottom: 35rpx;
+		flex-direction: column;
+		.status{
+			font-size: 24rpx;
+			font-weight: bold;
+			color: #333333;
+		}
+		.time{
+			margin-top: 10rpx;
+			color: #333333;
+			.day{
+				font-size: 30rpx;
+				font-weight: bold;
+				color: #000000;
+			}
+			.dateTitle{
+				font-size: 16rpx;
+				padding: 0 15rpx 0 5rpx;
+			}
+			.hour, .minute, .second{
+				width: 50rpx;
+				height: 25rpx;
+				background: #333333;
+				border-radius: 30rpx;
+				font-size: 20rpx;
+				color: #FFFFFF;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.dot{
+				font-size: 24rpx;
+				padding: 0 6rpx;
+			}
+			display: flex;
+			align-items: center;
+		}
+	}
+	.miaoshaImage{
+		width: 280rpx;
+		height: 280rpx;
+		background: #F4F4F4;
+		border: 1rpx solid #D4D4D4;
+	}
+	.title{
+		width: 280rpx;
+		height: 80rpx;
+		font-size: 28rpx;
+		display: -webkit-box;
+    	-webkit-box-orient: vertical;
+    	-webkit-line-clamp: 2;
+    	overflow: hidden;
+		text-overflow: ellipsis;
+		margin: 7rpx 0 5rpx;
+	}
+	.miaoshaPrice{
+		width: 280rpx;
+		.price{
+			font-size: 28rpx;
+			font-weight: bold;
+			color: #333333;
+		}
+		.originalPrice{
+			padding-left: 10rpx;
+			font-size: 22rpx;
+            color: #999999;
+            text-decoration: line-through;
+		}
+	}
+}
+
+.leftItem{
+	padding: 35rpx;
+	display: flex;
+	border-bottom: 1rpx solid #D4D4D4;
+	.productImage{
+		width: 200rpx;
+		height: 200rpx;
+		background: #AAAAAA;
+	}
+	.meta{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex: 1;
+		padding: 5rpx 0 5rpx 25rpx;
+		.top{
+			.title{
+				font-size: 28rpx;
+				font-weight: bold;
+				color: #333333;
+			}
+			.desc{
+				font-size: 24rpx;
+				color: #333333;
+			}
+		}
+		.bottom{
+			.single-price{
+				font-size: 20rpx;
+				color: #707070;
+			}
+			.foot{
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				.groupon-price{
+					display: flex;
+					align-items: center;
+					.text{
+						font-size: 20rpx;
+						color: #333333;
+					}
+					.price{
+						font-size: 28rpx;
+						color: #333333;
+						font-weight: bold;
+					}
+				}
+				.grouponLimit{
+					font-size: 24rpx;
+				}
+				.groupBt{
+					font-size: 28rpx;
+					font-weight: bold;
+					width: 150rpx;
+					height: 50rpx;
+					border: 1rpx solid $mainColor;
+					border-radius: 30rpx;
+					background: #fff;
+					color: $mainColor;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+	}
+}
