@@ -344,7 +344,9 @@ Page({
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, tplStyle, defineTypeGlobal, vip } = app.globalData;
+        const { themeColor, defineTypeGlobal, vip } = app.globalData;
+        const { style_type: tplStyle = 'default' } = config;
+
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,

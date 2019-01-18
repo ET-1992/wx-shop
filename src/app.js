@@ -54,6 +54,7 @@ App({
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
+        this.updateConfig();
     },
 
     async silentLogin() {

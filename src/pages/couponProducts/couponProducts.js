@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import { CONFIG } from 'constants/index';
 
 const app = getApp();
 
@@ -67,7 +68,8 @@ Page({
     },
 
     onLoad(params) {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             isRefresh: true,
             indexParams: params,
