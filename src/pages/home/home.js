@@ -1,4 +1,4 @@
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
@@ -152,11 +152,12 @@ Page({
     async onLoad(options) {
         app.log(options, 'onLoad');
 
-        const { themeColor, partner = {}, tplStyle } = app.globalData;
+        const { themeColor, partner = {}} = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             themeColor,
             isIphoneX,

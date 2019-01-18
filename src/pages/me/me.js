@@ -20,18 +20,18 @@ Page({
 
     async loadOrderCount() {
         const data = await api.hei.myFare();
-        const { themeColor, defineTypeGlobal, vip, user } = this.data;
+        const { themeColor, defineTypeGlobal, vip, user, config } = this.data;
 
         const infosComponentData = {
             defineTypeGlobal,
-            vip,
+            config,
             user,
             wallet: data.wallet,
             affiliate: data.affiliate,
             phone_number: data.phone_number,
             about_us: data.about_us,
             shop_phone: data.shop_phone,
-            crowd_pay_enable: this.data.config.crowd_pay_enable
+            crowd_pay_enable: config.crowd_pay_enable
         };
         const ordersComponentData = {
             order_counts: data.order_counts

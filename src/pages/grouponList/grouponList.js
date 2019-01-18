@@ -1,6 +1,7 @@
-import { PRODUCT_LIST_STYLE } from 'constants/index';
+import { PRODUCT_LIST_STYLE, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+
 
 // 获取全局应用程序实例对象
 const app = getApp();
@@ -43,7 +44,8 @@ Page({
     },
 
     async onLoad() {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({ themeColor, tplStyle });
         this.loadProducts();
     },

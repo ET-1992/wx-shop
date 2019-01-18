@@ -1,4 +1,4 @@
-import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
+import { PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
@@ -86,7 +86,8 @@ Page({
     },
 
     async onLoad({ categoryId, categoryParent }) {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({ categoryId, categoryParent, themeColor, tplStyle, globalData: app.globalData });
         const { page_title } = await this.loadProducts();
         wx.setNavigationBarTitle({

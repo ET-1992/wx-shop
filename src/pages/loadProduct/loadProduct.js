@@ -1,6 +1,7 @@
 
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
 
 // 获取应用实例
 const app = getApp();
@@ -44,7 +45,8 @@ Page({
     },
 
     async onLoad(params) {
-        const { themeColor, tplStyle } = app.globalData;
+        const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({ themeColor, tplStyle, params });
         const data = await this.loadProducts();
         if (data.page_title) {
