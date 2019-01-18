@@ -24,8 +24,8 @@
 				</view>
 			</view>
 		</view>
-		<image class="bg" src="/icons/tpl5/receivable.png" wx:if="{{ status === 'receivable' }}" />
-		<image class="bg" src="/icons/tpl5/received.png" wx:if="{{ status === 'available' || status === 'received' }}" />
-		<image class="bg" src="/icons/tpl5/unavailable.png" wx:if="{{ status === 'unavailable' || status === 'nullCoupon' || status === 'expired' || status === 'used'}}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl5/receivable.png" wx:if="{{ status === 'receivable' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl5/received.png" wx:if="{{ status === 'available' || status === 'received' }}" />
+		<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl5/unavailable.png" wx:if="{{ status === 'unavailable' || status === 'nullCoupon' || status === 'expired' || status === 'used'}}" />
 	</view>
 </view>
