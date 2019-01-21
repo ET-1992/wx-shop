@@ -13,7 +13,7 @@ Page({
     },
 
     async loadRepacket() {
-        const { isIphone5 } = app.systemInfo;
+        const { isIphoneX } = app.systemInfo;
         const { id } = this.options;
         let goldNumer = 0;
         const { products = [], received_redpacket, shared_redpacket } = await api.hei.fetchRedpacket({ packet_no: id });
@@ -28,11 +28,11 @@ Page({
         this.setData({
             products,
             redpacket: received_redpacket,
-            isIphone5,
             goldNumer: goldNumer,
             hasRecived: !!received_redpacket,
             themeColor,
             tplStyle,
+            isIphoneX,
             globalData: app.globalData
         });
         console.log(this.data);
