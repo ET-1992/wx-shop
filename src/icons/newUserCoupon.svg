@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="135.999" viewBox="0 0 400 135.999">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" y1="0.136" x2="0.054" y2="0.919" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f03089"/>
+      <stop offset="0.522" stop-color="#e46d29"/>
+      <stop offset="1" stop-color="#e81515"/>
+    </linearGradient>
+  </defs>
+  <g id="组_2009" data-name="组 2009" transform="translate(6398.999 -2592)">
+    <g id="组_1338" data-name="组 1338" transform="translate(-5309 3640)">
+      <rect id="矩形_385" data-name="矩形 385" width="400" height="135.999" rx="10" transform="translate(-1089.999 -1048)" fill="url(#linear-gradient)"/>
+      <path id="交叉_3" data-name="交叉 3" d="M113.65,136c1.768-29.518-9.347-53.755-29.207-74.454C64.285,40.535,25.608,21.067,0,0H143.249a10,10,0,0,1,10,10V126a10,10,0,0,1-10,10Z" transform="translate(-843.521 -1048)" fill="#fff" opacity="0.1"/>
+      <path id="交叉_4" data-name="交叉 4" d="M10,136A10,10,0,0,1,0,126V10A10,10,0,0,1,10,0H37.232a25.769,25.769,0,0,1,6.792,11.165C50.123,33.051,20.576,27.322,26,69.886c3.227,25.3,42.114,46.153,66.3,66.113Z" transform="translate(-1090 -1048)" fill="#fff" opacity="0.1"/>
+    </g>
+    <g id="矩形_385-2" data-name="矩形 385" transform="translate(-6389.531 2601.499)" fill="none" stroke="#fff" stroke-width="1">
+      <rect width="380" height="116" rx="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="379" height="115" rx="4.5" fill="none"/>
+    </g>
+  </g>
+</svg>

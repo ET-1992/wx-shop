@@ -1,55 +1,40 @@
 <!-- <loading isLoading="{{ isLoading }}"/> -->
-<view class="container {{ isFinished ? 'finishedBgImage' : 'normalBgImage' }}">
-  <view wx:if="{{ !isFinished }}">
-    <view class="coupon couponBgImage {{ isIphone5? 'iphone5-style' : '' }}" wx:if="{{ redpacket.item_type == 1 && hasRecived }}">
-      <view class="middle">
-        <view class="title">
-          <view>{{ redpacket.item.title || '--' }}</view>
-        </view>
-        <view class="price">
-          <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
-          {{ redpacket.item.reduceValue || '--' }}
-        </view>
-      </view>
-      <view class="date">
-        <text wx:if="{{ redpacket.item.date_type === '2' }}">
-          领券当日起{{ redpacket.item.fixed_term }}日内可用
-        </text>
-        <text wx:else>
-          有效期: {{redpacket.item.start_time || '--'}}至{{redpacket.item.end_time || '--'}}
-        </text>
-      </view>
-    </view>
-    <view class="coupon goldCoin" wx:if="{{ redpacket.item_type == 2 && hasRecived }}">
-      <view class="title">恭喜获得花生米</view>
-      <view class="number">
-        {{goldNumer || '--'}}
-        <text>个</text>
-      </view>
-      <view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
-    </view>
-    <button class="normalizeBt" bindtap="onRecive" wx:if="{{ !hasRecived }}">
-      <image class="receiveRedpacketBg" src="/icons/receiveRedpacketBt.png" />
-    </button>
-    <view class="btGroup" wx:if="{{ hasRecived }}">
-      <button class="normalizeBt useBt" bindtap="onUse">
-        <image class="btBg" src="/icons/redpacketUseBt.png" />
-      </button>
-      <button class="normalizeBt shareBt" open-type="share">
-        <image class="btBg" src="/icons/redpacketShrareBt.png" />
-      </button>
-    </view>
-  </view>
-  <view class="products" wx-if="{{ products }}">
-    <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
-    <!-- 商品列表start -->
-    <view class="productContainer" style="{{ tplStyle === 'vip_tpl_four' ? 'padding: 21rpx 40rpx;' : '' }}">
-        <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
-          <productList product="{{ product }}" tplStyle="{{ (tplStyle === 'vip_tpl_three' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? 'default' : tplStyle }}" productLayoutStyle="topImage" />
-        </navigator>
-      </view>
-      <!-- 商品列表end -->
-  </view>
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? '/icons/redpacket/finishBg.jpg':'/icons/redpacket/normalBg.jpg'}})">
+  	<view wx:if="{{ !isFinished }}">
+		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url('/icons/redpacket/couponBg.png')">
+			<view class="middle">
+    		  	<view class="title"> 
+					<view class="text">分享红包</view>
+					<view class="discount">{{ redpacket.item.title || '--' }}</view> 
+				</view>
+    		  	<view class="price"> <text>{{ globalData.CURRENCY[globalData.currency] }}</text> {{ redpacket.item.reduceValue || '--' }} </view>
+    		</view>
+    		<view class="date">
+				<view class="icon">L</view>
+    		  	<text wx:if="{{ redpacket.item.date_type === '2' }}"> 领券当日起{{ redpacket.item.fixed_term }}日内可用 </text>
+    		  	<text wx:else> 有效期: {{redpacket.item.start_time || '--'}}至{{redpacket.item.end_time || '--'}} </text>
+    		</view>
+    	</view>
+    	<view class="coupon goldCoin" wx:if="{{ redpacket.item_type == 2 && hasRecived }}">
+    	  	<view class="title">恭喜获得花生米</view>
+    	  	<view class="number"> {{goldNumer || '--'}} <text>个</text> </view>
+    	  	<view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
+    	</view>
+    	<button class="normalizeBt receiveRedpacketBg" bindtap="onRecive" wx:if="{{ !hasRecived }}"> 立即领取 </button>
+    	<view class="btGroup" wx:if="{{ hasRecived }}">
+    	  	<button class="normalizeBt useBt" bindtap="onUse">立即使用</button>
+    	  	<button class="normalizeBt shareBt" open-type="share">继续分享</button>
+    	</view>
+  	</view>
+	<view class="products" wx:if="{{ products }}">
+	    <view class="label"><text class="dot">•</text>为你推荐<text class="dot">•</text></view>
+	    <!-- 商品列表start -->
+	    <view class="productContainer" style="{{ tplStyle === 'vip_tpl_four' ? 'padding: 21rpx 40rpx;' : '' }}">
+	        <navigator wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}" >
+	          	<productList product="{{ product }}" tplStyle="{{ (tplStyle === 'vip_tpl_three' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? 'default' : tplStyle }}" productLayoutStyle="topImage" />
+	        </navigator>
+	    </view>
+	</view>
 </view>
 
 <console page="红包" />

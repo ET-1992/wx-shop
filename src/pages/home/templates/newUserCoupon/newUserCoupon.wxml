@@ -4,8 +4,13 @@
         <view class="couponBox">
             <view class="title">新用户专享</view>
             <scroll-view class="couponScroll" scroll-y>
-                <view class="couponItem" wx:for="{{ coupons_newbie }}" wx:if="{{ item.target_user_type === '2' }}" wx:key="id" data-status="{{ item.status }}"
-                    style="{{ coupons_newbie.length == '1' ? 'margin-top: 60rpx' : '' }}">
+                <view 
+                    class="couponItem" 
+                    wx:for="{{ coupons_newbie }}" 
+                    wx:if="{{ item.target_user_type === '2' }}" 
+                    wx:key="id" 
+                    data-status="{{ item.status }}"
+                    style="background-image:url('/icons/newUserCoupon.svg');{{ coupons_newbie.length == '1' ? 'margin-top: 60rpx' : '' }}">
                     <view class="newCouponInfo">
                         <view class="reduce">
                             <text wx:if="{{ item.type == 1 }}">{{ globalData.CURRENCY[globalData.currency] }}</text>

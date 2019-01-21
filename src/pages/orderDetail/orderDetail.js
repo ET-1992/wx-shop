@@ -14,25 +14,6 @@ const o = {
 
 const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal] || ORDER_STATUS_TEXT;
 
-const formatConfirmTime = (seconds) => {
-    let remainSeconds = seconds;
-    const day = Math.floor(remainSeconds / (24 * 60 * 60));
-    remainSeconds = remainSeconds % (24 * 60 * 60);
-    const hour = Math.floor(remainSeconds / (60 * 60));
-    remainSeconds = remainSeconds % (60 * 60);
-    const minute = Math.floor(remainSeconds / 60);
-    const second = remainSeconds % 60;
-    const unit = ['天', '时', '分', '秒'];
-    const dateStr = [day, hour, minute, second].reduce((str, value, index) => {
-        let dateStr = str;
-        if (value) {
-            dateStr = dateStr + value + unit[index];
-        }
-        return dateStr;
-    }, '');
-    return { remainTime: dateStr, remainSecond: seconds };
-};
-
 Page({
     data: {
         order: {},
@@ -146,9 +127,7 @@ Page({
         });
 
         if (statusCode === 3) {
-            const { remainTime, remainSecond } = formatConfirmTime(order.auto_confirm_in_seconds);
-            data.remainTime = remainTime;
-            data.remainSecond = remainSecond;
+            data.remainSecond = order.auto_confirm_in_seconds;
         }
 
         if (statusCode === 10) {

@@ -9,6 +9,7 @@
 <view class="container {{ otherPeopleGroupon ? 'otherPeopleGroupon' : ''}}" wx:if="{{ !isLoading }}">
 	<view class="header" wx:if="{{ order.id && order.status !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
 		<view> 订单状态：<text class="orderStatus">{{ order.statusText }}</text> </view>
+		<view wx:if="{{ remainSecond > 0 }}">还剩<countDown formatTime="{{remainSecond}}"/>自动确认</view>
 	</view>
 
 	<view wx:if="{{ order.type !== 3 }}"  class="liftInfoWrap">
