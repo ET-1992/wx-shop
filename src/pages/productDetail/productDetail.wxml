@@ -277,7 +277,7 @@
 				<form catchsubmit="onFormSubmit" report-submit="true">
 					<view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 						<button 
-							class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }} {{ isCrowd ? 'addCrowd' : ''}}" 
+							class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
 							wx:for="{{ actions }}" 
 							wx:key="text"
 							disabled="{{ product.skus.length && !selectedSku.id }}" 
@@ -286,7 +286,7 @@
 							bindgetuserinfo="onUserInfo"
 							open-type="getUserInfo" 
 							lang="zh_CN" 
-							style="{{isCrowd ? '' : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+							style="{{isCrowd ? 'background-image:url(/icons/addCrowd.svg);' : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
 						>{{ item.text }}</button>
 					</view>
 				</form>
