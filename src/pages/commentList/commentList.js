@@ -171,7 +171,7 @@ Page({
             this.setData({ user });
         }
         if (openid === user.openid) {
-            console.log('删除评论');
+            /* console.log('删除评论');
             wx.showActionSheet({
                 itemList: ['删除评论'],
                 itemColor: '#e74c3c',
@@ -180,7 +180,7 @@ Page({
                         self.deleteReply(comment_id, self.data.type);
                     }
                 },
-            });
+            }); */
         }
         else {
             console.log('其他人评论');
