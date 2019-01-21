@@ -286,7 +286,7 @@
 							bindgetuserinfo="onUserInfo"
 							open-type="getUserInfo" 
 							lang="zh_CN" 
-							style="{{isCrowd ? 'background-image:url(/icons/addCrowd.svg);' : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+							style="{{isCrowd ? 'background-image:url(http://cdn2.wpweixin.com/shop/addCrowdBg.svg);' : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
 						>{{ item.text }}</button>
 					</view>
 				</form>
