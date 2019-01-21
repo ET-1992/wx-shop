@@ -157,44 +157,22 @@ Page({
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             themeColor,
             isIphoneX,
             userInfo,
-            tplStyle,
             logoObj: partner,
             globalData: app.globalData
         });
     },
 
     async onShow() {
-        // const mock0 = {
-        //     type: 0,
-        //     logo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/08/1533633075-14823x.png'
-        // };
-
-        // const mock1 = {
-        //     type: 1,
-        //     xlogo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/160/h/40/interlace/1/q/70#',
-        //     text: '花生小店技术支持'
-        // };
-
-        // const mock2 = {
-        //     type: 2,
-        //     xlogo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/160/h/40/interlace/1/q/70#',
-        //     text: '花生小店技术支持',
-        //     logo: 'http://cdn2.wpweixin.com/wp-content/uploads/sites/339/2018/02/1519632392-%E6%BB%9A.gif?imageView2/1/w/320/h/112/interlace/1/q/70#'
-        // };
-
-        // this.setData({
-        //     mock0,
-        //     mock1,
-        //     mock2
-        // });
-
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
+        this.setData({
+            tplStyle
+        });
     },
 
     async onReceiveCoupon(id, index) {
