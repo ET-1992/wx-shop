@@ -1,4 +1,4 @@
-import { PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
+import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
@@ -11,7 +11,6 @@ Page({
     // 页面的初始数据
     data: {
         products: [],
-        productLayoutStyle: PRODUCT_LAYOUT_STYLE[0],
 
         categoryId: 0,
         categoryParent: 0,
@@ -80,20 +79,25 @@ Page({
             totalPages: data.total_pages,
             categories: data.categories,
             selectedCategoryId: data.current_product_category.id,
+            toView: 'tab' + categoryId
         });
         // this.setData({ isLoading: false });
         return data;
     },
 
-    async onLoad({ categoryId, categoryParent }) {
+    async onLoad({ categoryId, categoryParent, activeIndex = 0 }) {
         const { themeColor } = app.globalData;
         const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
-        this.setData({ categoryId, categoryParent, themeColor, tplStyle, globalData: app.globalData });
-        const { page_title } = await this.loadProducts();
-        wx.setNavigationBarTitle({
-            title: this.data.categories[0].name,
+        this.setData({
+            categoryId,
+            categoryParent,
+            themeColor,
+            tplStyle,
+            globalData: app.globalData,
+            activeIndex
         });
-        this.setData({ toView: 'tab' + categoryId });
+        await this.loadProducts();
+        wx.setNavigationBarTitle({ title: this.data.categories[0].name });
     },
 
     onSegmentItemClick(ev) {
