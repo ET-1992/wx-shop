@@ -170,7 +170,7 @@ Page({
             hasEnd,
         });
 
-        if (timeLimit && !this.intervalId) {
+        /* if (timeLimit && !this.intervalId) {
             this.intervalId = setInterval(() => {
                 const { timeLimit } = this.data;
                 const [hour, minute, second] = getRemainTime(timeLimit);
@@ -185,7 +185,7 @@ Page({
                     }
                 });
             }, 1000);
-        }
+        } */
     },
 
     async initPage() {
