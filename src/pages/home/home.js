@@ -157,14 +157,18 @@ Page({
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
+
         this.setData({
             themeColor,
             isIphoneX,
             userInfo,
             tplStyle,
             logoObj: partner,
-            globalData: app.globalData
+            globalData: app.globalData,
+            config
         });
     },
 

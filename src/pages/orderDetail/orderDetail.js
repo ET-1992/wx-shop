@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
 import { formatTime, valueToText, getNodeInfo, splitUserStatus } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
@@ -34,12 +34,15 @@ Page({
     onLoad({ isFromCreate = false }) {
         wx.hideShareMenu();
         const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo: { isIphoneX }} = app;
+        const config = wx.getStorageSync(CONFIG);
+
         this.setData({
             themeColor,
             vip,
             defineTypeGlobal,
             isIphoneX,
-            isFromCreate
+            isFromCreate,
+            config
         });
     },
 
@@ -229,8 +232,7 @@ Page({
 
 
     onShareAppMessage({ target }) {
-        const { user } = this.data;
-        const { groupon = {}, redpacket = {}} = this.data;
+        const { user, groupon = {}, redpacket = {}, config } = this.data;
 
         console.log('target', target);
         if (typeof (target) !== 'undefined') {  // 点击按钮进来
@@ -240,7 +242,7 @@ Page({
                 return {
                     title: `${user.nickname ? user.nickname : '好友'}给你发来了一个红包，快去领取吧`,
                     path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
-                    imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+                    imageUrl: `${config.cdn_host}/shop/redpacketShare.jpg`
                 };
             }
             if (isShareGroupon && groupon.status === 2) {

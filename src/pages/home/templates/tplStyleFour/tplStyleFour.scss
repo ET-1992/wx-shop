@@ -153,15 +153,16 @@
 						font-size: 20rpx;
 					}
 					.btn{
+						display:flex;
+						align-items:center;
+						justify-content:center;
 						width: 96rpx;
 						height: 26rpx;
-						line-height: 26rpx;
 						border-radius: 14rpx;
 						background: #fff;
 						font-size: 18rpx;
 						font-weight: bold;
 						color: #FB4762;
-						text-align:center;
 					}
 					.unable{
 						color: #000000;

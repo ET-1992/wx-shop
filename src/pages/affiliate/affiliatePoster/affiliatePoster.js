@@ -1,6 +1,7 @@
 import { getNodeInfo, getUserInfo, autoDrawText, imgToHttps, auth, authGetUserInfo } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { downloadFile, canvasToTempFilePath, saveImageToPhotosAlbum } from 'utils/wxp';
+import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 
 const app = getApp();
@@ -35,7 +36,8 @@ Page({
             });
         }
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, config });
     },
 
     async onShow() {
@@ -94,7 +96,7 @@ Page({
     },
 
     async drawPosterImage() {
-        const sharePosterBg = 'http://cdn2.wpweixin.com/shop/sharePosterBg.png';
+        const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
         const sharePosterBgHttps = imgToHttps(sharePosterBg);
         const sharePosterBgDownLoad = await downloadFile({ url: sharePosterBgHttps });
 

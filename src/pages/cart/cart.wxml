@@ -1,123 +1,89 @@
 <view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
-  <loading isLoading="{{ isLoading }}" />
-  <view wx:if="{{ !isLogin && !isLoading }}">
-    <image class="emptyHint unloginHint" src="../../icons/bigCart.png" mode="widthFix"></image>
-    <view class="empty">未登录</view>
-    <button class="normalizeBt onGotoBuy onGotoLogin" style="background-color: {{ themeColor.primaryColor  }}" open-type="getUserInfo" bindgetuserinfo="onLogin">
-      <image src="../../icons/webchat.png"></image>
-      <text>微信用户快速登录</text>
-    </button>
-  </view>
-  <view wx:if="{{ !items.length && !isLoading && isLogin }}">
-    <image class="emptyHint" src="../../icons/bigCart.png"></image>
-    <view class="empty">购物车空空如也~</view>
-    <view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
-  </view>
+  	<loading isLoading="{{ isLoading }}" />
+  	<view wx:if="{{ !isLogin && !isLoading }}">
+  	  	<image class="emptyHint unloginHint" src="../../icons/bigCart.png" mode="widthFix"></image>
+  	  	<view class="empty">未登录</view>
+  	  	<button class="normalizeBt onGotoBuy onGotoLogin" style="background-color: {{ themeColor.primaryColor  }}" open-type="getUserInfo" bindgetuserinfo="onLogin">
+  	  	  	<image src="../../icons/webchat.png"></image>
+  	  	  	<text>微信用户快速登录</text>
+  	  	</button>
+  	</view>
+  	<view wx:if="{{ !items.length && !isLoading && isLogin }}">
+  	  	<image class="emptyHint" src="../../icons/bigCart.png"></image>
+  	  	<view class="empty">购物车空空如也~</view>
+  	  	<view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
+  	</view>
 
+	<scroll-view scroll-y="{{true}}" class="cartList" wx:if="{{ items.length && !isLoading }}">
+    	<view class="cartItem" wx:for="{{ items }}" wx:key="id">
+    	  	<view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 }}"> <view class="stock0Radio" /> </view>
+    	  	<view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>
+    	  	  	<view class="radio {{ isSelectedObject[item.id] ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }}; {{ isSelectedObject[item.id] ? 'background-color: ' + themeColor.primaryColor : ''  }}">
+    	  	  	  	<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelectedObject[item.id] }}" />
+    	  	  	</view>
+    	  	</view>
+    	  	<navigator class="itemImageList" url="/pages/productDetail/productDetail?id={{ item.post_id }}" hover-class="none">
+    	  	  	<view wx:if="{{ item.status === 0 }}" class="opacityBg stock0"></view>
+    	  	  	<image src="{{ item.thumbnail }}" class="itemImage" mode="aspectFill" />
+    	  	  	<image src="../../icons/stock0.png" class="stock0" wx:if="{{ item.status === 0 }}"></image>
+    	  	</navigator>
+    	  	<view class="info" wx:if="{{ item.status === 0 }}">
+    	  	  	<view class="title">{{ item.title }}</view>
+    	  	  	<view class="propertyNames" wx:if="{{ item.sku_property_names }}"> {{ item.sku_property_names }} </view>
+    	  	  	<view class="meta">
+    	  	  	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
+    	  	  	  	<view class="metaRight">
+    	  	  	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" isDisabled="{{ true }}" quota="{{ item.quota }}" />
+    	  	  	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"> 删除 </view>
+    	  	  	  	</view>
+    	  	  	</view>
+    	  	</view>
+    	  	<view class="info" wx:else>
+    	  		<navigator hover-class="none" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
+    	  		  	<view class="title">{{ item.title }}</view>
+    	  		  	<view class="propertyNames" wx:if="{{ item.sku_property_names }}"> {{ item.sku_property_names }} </view>
+    	  		  	<view class="cartReduce" wx:if="{{ item.reduced > 0 }}"> <text>比加入时降{{ item.reduced }}元</text> </view>
+    	  		</navigator>
+    	    	<view class="meta">
+    	    	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
+    	    	  	<view class="metaRight">
+    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" />
+    	    	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"> 删除 </view>
+    	    	  	</view>
+    	    	</view>
+    	  	</view>
+    	</view>
+    	<view class="clearCart" bindtap="onClearCart">清空购物车</view>
 
-  <view class="cartList" wx:if="{{ items.length && !isLoading }}">
-    <view class="cartItem" wx:for="{{ items }}" wx:key="id">
-      <view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 }}">
-        <view class="stock0Radio" />
-      </view>
-      <view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>
-        <view class="radio {{ isSelectedObject[item.id] ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }}; {{ isSelectedObject[item.id] ? 'background-color: ' + themeColor.primaryColor : ''  }}">
-          <image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelectedObject[item.id] }}" />
-        </view>
-      </view>
+  		<view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
+  		  	<include src="/templates/stodownload/index.wxml" />
+  		</view>
+	</scroll-view>
 
-      <navigator class="itemImageList" url="/pages/productDetail/productDetail?id={{ item.post_id }}" hover-class="none">
-        <view wx:if="{{ item.status === 0 }}" class="opacityBg stock0"></view>
-        <image src="{{ item.thumbnail }}" class="itemImage" mode="aspectFill" />
-        <image src="../../icons/stock0.png" class="stock0" wx:if="{{ item.status === 0 }}"></image>
-      </navigator>
+  	<view class="promote" wx:if="{{ !items.length && products.length }}">
+  	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
+  	  	<view class="relateShop">
+  	  	  	<view class="relateShopItem" wx:if="{{products.length}}" wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover">
+  	  	  	  	<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
+  	  	  	</view>
+  	  	</view>
+  	</view>
 
-
-      <view class="info" wx:if="{{ item.status === 0 }}">
-        <view class="title">{{ item.title }}</view>
-        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
-          {{ item.sku_property_names }}
-        </view>
-        <view class="meta">
-          <view>
-            <view class="price">
-              {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}
-            </view>
-          </view>
-          <view class="metaRight">
-            <numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" isDisabled="{{ true }}" quota="{{ item.quota }}" />
-            <view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
-              删除
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <view class="info" wx:else>
-
-      <navigator hover-class="none" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-        <view class="title">{{ item.title }}</view>
-        <view class="propertyNames" wx:if="{{ item.sku_property_names }}">
-          {{ item.sku_property_names }}
-        </view>
-        <view class="cartReduce" wx:if="{{ item.reduced > 0 }}">
-          <text>比加入时降{{ item.reduced }}元</text>
-        </view>
-      </navigator>
-
-        <view class="meta">
-          <view>
-            <view class="price">
-              {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}
-            </view>
-          </view>
-          <view class="metaRight">
-            <numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" />
-            <view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
-              删除
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="clearCart" bindtap="onClearCart">清空购物车</view>
-  </view>
-  <view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
-    <include src="/templates/stodownload/index.wxml" />
-  </view>
-  <view class="promote" wx:if="{{ !items.length && products.length }}">
-    <view class="label">
-      <text class="dot">•</text>
-      为你推荐
-      <text class="dot">•</text>
-    </view>
-    <view class="relateShop">
-      <view class="relateShopItem" wx:if="{{products.length}}" wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover">
-        <productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
-      </view>
-    </view>
-  </view>
-  <view class="footer" wx:if="{{ items.length && !isLoading }}">
-    <view class="radio {{ isAllSelected ? 'selected' : '' }}" bindtap="onSelectAll" style="border-color: {{ themeColor.primaryColor }}; {{ isAllSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}">
-      <image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isAllSelected }}" />
-    </view>
-    <view bindtap="onSelectAll">全选</view>
-    <view class="priceCount">
-      <view class="priceMeta">
-        <!-- <text class="postage"
-        >运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
-        <text>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</text>
-      </view>
-      <view>
-        合计：
-        <text class="totalPrice">
-          {{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }}
-        </text>
-      </view>
-    </view>
-    <button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor  }}">
-      去结算
-    </button>
-  </view>
+  	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ items.length && !isLoading }}">
+  	  	<view class="radio {{ isAllSelected ? 'selected' : '' }}" bindtap="onSelectAll" style="border-color: {{ themeColor.primaryColor }}; {{ isAllSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}">
+  	  	  	<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isAllSelected }}" />
+  	  	</view>
+  	  	<view class="checkall" bindtap="onSelectAll">全选</view>
+  	  	<view class="priceCount">
+  	  	  	<view class="priceMeta">
+  	  	  	  	<!-- <text class="postage"
+  	  	  	  	>运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
+  	  	  	  	<text>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</text>
+  	  	  	</view>
+  	  	  	<view class="amount"> 合计： <text class="totalPrice"> {{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }} </text> </view>
+  	  	</view>
+  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor  }}"> 去结算 </button>
+  	</view>
 </view>
+
 <console page="购物车" />

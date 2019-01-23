@@ -1,4 +1,6 @@
+import { CONFIG } from 'constants/index';
 const app = getApp();
+const config = wx.getStorageSync(CONFIG);
 
 Component({
     properties: {
@@ -24,6 +26,7 @@ Component({
         }
     },
     data: {
-        globalData: app.globalData
+        globalData: app.globalData,
+        config
     }
 });

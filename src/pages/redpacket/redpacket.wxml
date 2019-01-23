@@ -1,7 +1,7 @@
 <!-- <loading isLoading="{{ isLoading }}"/> -->
-<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? 'http://cdn2.wpweixin.com/shop/finishBg.jpg':'http://cdn2.wpweixin.com/shop/normalBg.jpg'}})">
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? (config.cdn_host + '/shop/finishBg.jpg') : (config.cdn_host + '/shop/normalBg.jpg') }})">
   	<view wx:if="{{ !isFinished }}">
-		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url('http://cdn2.wpweixin.com/shop/couponBg.png')">
+		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url({{config.cdn_host + '/shop/couponBg.png'}})">
 			<view class="middle">
     		  	<view class="title"> 
 					<view class="text">分享红包</view>

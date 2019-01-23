@@ -1,4 +1,4 @@
-import { PRODUCT_LIST_STYLE, USER_KEY, CONFIG } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { showToast } from 'utils/wxp';
 import { autoNavigate } from 'utils/util';
@@ -6,7 +6,6 @@ const app = getApp();
 Page({
     data: {
         title: 'redpacket',
-        productListStyle: PRODUCT_LIST_STYLE[1],
         redpacket: {},
         products: [],
         hasRecived: false,
@@ -24,7 +23,8 @@ Page({
             goldNumer = parseInt(received_redpacket.item.amount * 100, 10);
         }
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
 
         this.setData({
             products,
@@ -34,6 +34,7 @@ Page({
             themeColor,
             tplStyle,
             isIphoneX,
+            config,
             globalData: app.globalData
         });
         console.log(this.data);
@@ -91,7 +92,7 @@ Page({
         return {
             title: `好友${name}给你发来了一个红包，快去领取吧`,
             path: `/pages/redpacket/redpacket?id=${id}`,
-            imageUrl: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+            imageUrl: `${this.data.config.cdn_host}/shop/redpacketShare.jpg`
         };
     },
 

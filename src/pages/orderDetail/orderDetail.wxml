@@ -118,7 +118,7 @@
 				class="nomalizeBt redpacketBannerBt" 
 				data-is-redpocket-share="{{ true }}" 
 				wx:if="{{ redpacket.pakcet_no && !otherPeopleGroupon }}"   			
-				open-type="share"><image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" /></button>
+				open-type="share"><image class="redpacketBanner" src="{{ config.cdn_host + '/shop/orderRedpacketBanner.jpg'}}" /></button>
     	<button 
 				wx:if="{{ order.groupon_id && groupon.status === 2 }}" 
 				class="normalizeBt viewProduct"
@@ -176,7 +176,7 @@
 			class="nomalizeBt redpacketBannerBt" 
 			data-is-redpocket-share="{{ true }}" 
 			wx:if="{{ redpacket.pakcet_no && (order.statusCode > 1 && order.statusCode < 5 ) }}"   			
-			open-type="share"><image class="redpacketBanner" src="http://cdn2.wpweixin.com/shop/orderRedpacketBanner.jpg" />
+			open-type="share"><image class="redpacketBanner" src="{{ config.cdn_host + '/shop/orderRedpacketBanner.jpg'}}" />
 		</button>
 	</block>
 
@@ -215,7 +215,7 @@
 		content="越多好友拆红包奖励越大喔" 
 		confirmText="发红包" 
 		confirmColor="#ffad00" 
-		iconUrl="http://cdn2.wpweixin.com/shop/redpacketIcon.png" 
+		iconUrl="{{ config.cdn_host + '/shop/redpacketIcon.png'}}" 
 		isShow="{{ redpacket.pakcet_no && isFromCreate && !isShared }}" 
 		bindmodalConfirm="onModalConfirm" 
 		confirmButtonType="share" 

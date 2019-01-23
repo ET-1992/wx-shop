@@ -24,9 +24,14 @@ Page({
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
     },
     onLoad() {
-        const { themeColor } = app.globalData;
+        const { globalData, systemInfo } = app;
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ themeColor, globalData: app.globalData, config });
+        this.setData({
+            themeColor: globalData.themeColor,
+            globalData,
+            config,
+            ...systemInfo
+        });
     },
 
     async onShow() {
@@ -47,7 +52,6 @@ Page({
 
     async loadCart() {
         // this.checkPhoneModel();
-        const { isIphone5 } = app.systemInfo;
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
         const data = await api.hei.fetchCartList();
         const items = data && data.items || [];
@@ -65,7 +69,6 @@ Page({
             isSelectedObject,
             isAllSelected,
             isLoading: false,
-            isIphone5,
             products: data.products
         });
         this.calculatePrice();
@@ -74,16 +77,6 @@ Page({
     checkAllSelected(isSelectedObject) {
         return Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]) && !Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]).length > 0;
     },
-
-    // checkPhoneModel() {
-    // 	wx.getSystemInfo({
-    // 		success: (res) => {
-    // 			this.setData({
-    // 				phoneModel: phoneStyle[res.model] || ''
-    // 			});
-    // 		}
-    // 	});
-    // },
 
     onHandleItemSelect(e) {
         let { itemId } = e.currentTarget.dataset;

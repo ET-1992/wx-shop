@@ -1,6 +1,5 @@
 <loading isLoading="{{ isLoading }}"/>
 <import src="../../templates/mock/mock.wxml" />
-<!-- <import src="../../templates/couponItem/couponItem.wxml" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -32,11 +31,9 @@
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
 			<view class="timeLimit">
-				<view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
-				<view wx:if="{{ !hasStart }}">距开始</view>
+				<view wx:if="{{ hasStart && !hasEnd }}">距结束<countDown formatTime="{{ timeLimit }}" /></view>
+				<view wx:if="{{ !hasStart }}">距开始<countDown formatTime="{{ timeLimit }}" /></view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
-				<view style="padding-left: 10rpx;"></view>
-				<countDown formatTime="{{ timeLimit }}" />
 			  </view>
 		</view>
 		<view class="info">
@@ -276,7 +273,7 @@
 							bindgetuserinfo="onUserInfo"
 							open-type="getUserInfo" 
 							lang="zh_CN" 
-							style="{{isCrowd ? 'background-image:url(http://cdn2.wpweixin.com/shop/addCrowdBg.png);' : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+							style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
 						>{{ item.text }}</button>
 					</view>
 				</form>

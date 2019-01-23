@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { formatTime } from 'utils/util';
+import { CONFIG } from 'constants/index';
 Page({
     data: {
         next_cursor: 0,
@@ -11,6 +12,8 @@ Page({
             title: '花生米明细'
         });
         this.getCoinList();
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ config });
     },
     async getCoinList() {
         const { next_cursor } = this.data;

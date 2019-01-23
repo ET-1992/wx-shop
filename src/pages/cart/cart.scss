@@ -1,10 +1,10 @@
 @import '~styles/color';
 @import './templates/stodownload/index';
 
-$footerHeight: 100rpx;
 page{
-	background: #F4F4F4;
+	// background: #F4F4F4;
 	position:relative;
+	height: 100%;
 }
 .empty{
 	color:#333333;
@@ -13,9 +13,6 @@ page{
 	text-align:center;
 	width:100%;
 	padding-top:20rpx;
-}
-.container{
-	height:80%;
 }
 .emptyHint {
 	width: 400rpx;
@@ -50,11 +47,13 @@ page{
 		margin-right: 10rpx;
 	}
 .cartList {
-	margin-bottom: 150rpx;
+	height: 90%;
+	// margin-bottom: 150rpx;
 }
 
 .stodownloadWrap {
-	margin-bottom: 250rpx;
+	// margin-bottom: 250rpx;
+	padding-bottom: 40rpx;
 }
 
 .radioWrapper {
@@ -90,7 +89,7 @@ page{
 	display: flex;
 	align-items: center;
 	padding: 20rpx;
-	margin-bottom: 1px solid #eee;
+	border-bottom: 1px solid #F4F4F4;
 	background-color: #fff;
 	margin-bottom: 5rpx;
 
@@ -159,15 +158,14 @@ page{
 
 .clearCart {
 	padding: 40rpx 20rpx;
-	text-align: right;
 	color: #ccc;
 	font-size: 10pt;
-	width:200rpx;
-	float:right;
-
+	display: flex;
+	justify-content: flex-end;
 }
-
 .footer {
+	$footerHeight: 100rpx;
+	
 	height: $footerHeight;
 	display: flex;
 	align-items: center;
@@ -176,23 +174,26 @@ page{
 	bottom: 0;
 	width: 100%;
 	background-color: #fff;
-	border-top: 1px solid #eee;
+	// border-top: 1px solid #eee;
 	padding-left: 20rpx;
 
-
+	.checkall{
+		font-size: 30rpx;
+	}
 	.priceCount {
 		width: 320rpx;
 		flex-grow: 1;
 		text-align: right;
 		padding-right: 20rpx;
-
+		.amount{
+			font-size: 30rpx;
+		}
 		.totalPrice {
 			color: $priceColor;
-			font-size: 12pt;
+			font-size: 28rpx;
 		}
-
 		.priceMeta {
-			font-size: 8pt;
+			font-size: 20rpx;
 			color: $originalPriceColor;
 			.postage {
 				margin-right: 20rpx;
@@ -201,16 +202,23 @@ page{
 	}
 
 	.createOrderBt {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
 		width: 240rpx;
 		background-color: $mainColor;
 		color: #fff;
-		text-align: center;
-		line-height: $footerHeight;
 		border-radius: 0;
-		font-size: 12pt;
+		font-size: 30rpx;
 		&[disabled] {
 			background-color: #ccc !important;
 		}
+	}
+
+	&.iphoneXTrick{
+		padding-bottom: 40rpx;
+		height: 140rpx;
 	}
 }
 .logo{
@@ -242,13 +250,6 @@ page{
 	border-radius: 50%;
 	margin-right: 20rpx;
 }
-// /* 兼容iphone 5 */
-// .suit-ip5{
-// 	font-size: 10pt;
-// }
-// .suit-ip5 button.createOrderBt{
-// 	width:195rpx
-// }
 
 .iphone5-style footer {
 	font-size: 10pt;
