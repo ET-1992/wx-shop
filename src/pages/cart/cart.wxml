@@ -11,9 +11,7 @@
   <view wx:if="{{ !items.length && !isLoading && isLogin }}">
     <image class="emptyHint" src="../../icons/bigCart.png"></image>
     <view class="empty">购物车空空如也~</view>
-    <navigator open-type="switchTab" class="onGotoBuy" url="/pages/home/home" style="background-color: {{ themeColor.primaryColor  }}">
-      去逛逛
-    </navigator>
+    <view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
   </view>
 
 

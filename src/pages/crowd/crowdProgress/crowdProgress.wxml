@@ -67,7 +67,7 @@
             <form report-submit bindsubmit="onPay" wx:if="{{crowd.type === '2'}}">
                 <button class="btn" form-type="submit" disabled="{{ crowd.status !== '1' ? true : false }}">帮TA付款</button>
             </form>
-            <navigator class="btn" open-type="switchTab" url="/pages/home/home">我也要下单</navigator>
+            <view class="btn" bind:tap="navigateToHome">我也要下单</view>
         </view>
     </view>
 

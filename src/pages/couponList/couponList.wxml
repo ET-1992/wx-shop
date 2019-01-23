@@ -13,9 +13,7 @@
     <couponList wx:if="{{ item.status == 3 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="expired" />
     <!-- 已过期 -->
   </view>
-  <navigator open-type="switchTab" url="/pages/home/home" class="viewProduct" style="background-color: {{ themeColor.primaryColor }}">
-    立即使用
-  </navigator>
+  <view class="viewProduct" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor }}"> 立即使用 </view>
   <view class="noCouponHint" wx:if="{{ !isLoading && !coupons.length }}">暂无可领取优惠券</view>
 </view>
 <console page="优惠劵列表" />

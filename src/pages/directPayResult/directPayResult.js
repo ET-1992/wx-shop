@@ -1,3 +1,4 @@
+import { autoNavigate } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -14,5 +15,9 @@ Page({
             isIphoneX,
             order_no
         });
+    },
+
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
     }
 });

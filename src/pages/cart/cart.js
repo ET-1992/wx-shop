@@ -3,7 +3,7 @@ import { showModal } from 'utils/wxp';
 import getToken from 'utils/getToken';
 import forceUserInfo from 'utils/forceUserInfo';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
-import { updateCart } from 'utils/util';
+import { updateCart, autoNavigate } from 'utils/util';
 
 const app = getApp();
 
@@ -227,5 +227,9 @@ Page({
     showCart() {
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
+    },
+
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
     }
 });

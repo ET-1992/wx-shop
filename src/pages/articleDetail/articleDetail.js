@@ -4,6 +4,7 @@ import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 // import getToken from 'utils/getToken';
 // import login from 'utils/login';
+import { autoNavigate } from 'utils/util';
 
 const WxParse = require('utils/wxParse/wxParse.js');
 
@@ -172,6 +173,10 @@ Page({
         this.setData({
             isShowCouponList: false,
         });
+    },
+
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
     },
 
     async reLoad() {

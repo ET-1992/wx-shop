@@ -305,3 +305,12 @@ export function splitUserStatus(status) {
     });
     return userStatus;
 }
+
+export function autoNavigate(url, type = 'navigateTo') {
+    wx.switchTab({
+        url,
+        fail() {
+            wx[type]({ url });
+        },
+    });
+}

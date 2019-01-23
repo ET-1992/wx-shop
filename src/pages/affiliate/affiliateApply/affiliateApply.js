@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-import { checkPhone, checkQQ, getAgainUserForInvalid } from 'utils/util';
+import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -128,7 +128,7 @@ Page({
                 mask: true
             });
             if (confirm) {
-                wx.switchTab({ url: '/pages/me/me' });
+                autoNavigate('/pages/me/me');
             }
         } catch (e) {
             await showToast({

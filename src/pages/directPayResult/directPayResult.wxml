@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="title"> 支付成功 </view>
 	<image class="img" src="/icons/directPay/directPay.svg" mode="aspectFill"></image>
-	<navigator class="btn returnHome" open-type='switchTab' url="/pages/home/home" style="background-color: {{ themeColor.primaryColor  }}">返回首页</navigator>
+	<view class="btn returnHome" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}">返回首页</view>
 	<!-- <navigator class="btn" open-type='redirectTo' url="/pages/orderDetail/orderDetail?id={{ order_no }}">查看订单</navigator> -->
 	<official-account class="official {{ isIphoneX ? 'iphoneXTrick' : '' }}"></official-account>
 </view>

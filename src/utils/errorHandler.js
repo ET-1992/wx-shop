@@ -1,3 +1,4 @@
+import { autoNavigate } from 'utils/util';
 export const accessDeny = () => {
     wx.showModal({
         title: '授权登录失败',
@@ -6,7 +7,7 @@ export const accessDeny = () => {
         confirmText: '返回首页',
         success: ({ confirm }) => {
             if (confirm) {
-                wx.switchTab({ url: '/pages/home/home' });
+                autoNavigate('/pages/home/home');
             }
         }
     });

@@ -1,6 +1,7 @@
 import { PRODUCT_LIST_STYLE, USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { showToast } from 'utils/wxp';
+import { autoNavigate } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -74,7 +75,7 @@ Page({
     },
 
     onUse() {
-        wx.switchTab({ url: '/pages/home/home' });
+        autoNavigate('/pages/home/home');
     },
 
     // async reLoad() {

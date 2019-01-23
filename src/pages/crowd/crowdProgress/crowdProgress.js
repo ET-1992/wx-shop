@@ -3,6 +3,7 @@ import { Decimal } from 'decimal.js';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showModal, showToast } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
+import { autoNavigate } from 'utils/util';
 const app = getApp();
 
 Page({
@@ -225,4 +226,8 @@ Page({
         };
         return shareMsg;
     },
+
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
+    }
 });

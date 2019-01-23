@@ -51,10 +51,10 @@
 <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 	<view class="footerItem">
 		<!-- 返回首页 -->
-		<navigator class="favItem" url="/pages/home/home" open-type="switchTab">
+		<view class="favItem" bind:tap="navigateToHome">
 			<view class="homeIcon"></view>
 			<text>首页</text>
-		</navigator>
+		</view>
 		<!-- 分享 -->
 		<button class="favItem" open-type="share">
 			<view class="shareIcon"></view>

@@ -126,15 +126,15 @@
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 			<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
 			<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
-				<navigator class="shop" open-type="switchTab" hover-class="navigator-hover" url="/pages/home/home">
+				<view class="shop" bind:tap="navigateToHome">
 					<image class="icon" src="../../icons/store.png" />
 					<text>店铺</text>
-				</navigator>
-				<navigator class="cart" open-type="switchTab" hover-class="navigator-hover" url="/pages/cart/cart">
+				</view>
+				<view class="cart" bind:tap="navigateToCart">
 					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== '0'}}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" />
 					<text>购物车</text>
-				</navigator>
+				</view>
 				<button 
 					open-type="contact" 
 					send-message-title="{{product.title}}"

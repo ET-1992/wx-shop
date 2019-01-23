@@ -4,6 +4,7 @@ import getToken from 'utils/getToken';
 import { showToast, showModal } from 'utils/wxp';
 // import { onDefaultShareAppMessage } from 'utils/pageShare';
 // import login from 'utils/login';
+import { autoNavigate } from 'utils/util';
 import { CONFIG } from 'constants/index';
 
 const app = getApp();
@@ -87,6 +88,10 @@ Page({
                 url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
             });
         } else { return }
+    },
+
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
     },
 
     reLoad() {

@@ -6,7 +6,7 @@ import getToken from 'utils/getToken';
 import getSKUMap from 'utils/getSKUMap';
 import forceUserInfo from 'utils/forceUserInfo';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { getAgainUserForInvalid, updateCart } from 'utils/util';
+import { getAgainUserForInvalid, updateCart, autoNavigate } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 
 // import login from 'utils/login';
@@ -837,4 +837,11 @@ Page({
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
     },
+
+    navigateToCart() {
+        autoNavigate('/pages/cart/cart');
+    },
+    navigateToHome() {
+        autoNavigate('/pages/home/home');
+    }
 });
