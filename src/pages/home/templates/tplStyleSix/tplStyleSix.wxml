@@ -192,7 +192,7 @@
 						</view>
         			  	<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/homeReceivable.png" wx:if="{{ item.status == 2 && item.stock_qty }}" /> <!-- 待领取 -->
         			  	<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/homeReceived.png" wx:if="{{ item.status == 4 }}" /> <!-- 已领取 -->
-        			  	<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/homeUnavailable.png" wx:if="{{ ( item.status == 2 && !item.stock_qty ) || item.status == 3 || item.status == 5 }}" />
+        			  	<image class="bg" src="http://cdn2.wpweixin.com/shop/tpl6/homeUnavailable2.png" wx:if="{{ ( item.status == 2 && !item.stock_qty ) || item.status == 3 || item.status == 5 }}" />
         			</button>
         			</form>
         		</view>
