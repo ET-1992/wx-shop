@@ -19,10 +19,12 @@ Page({
             title: '优惠券'
         });
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         this.setData({
             tplStyle,
-            themeColor
+            themeColor,
+            config
         });
         this.loadCoupon();
         console.log(this.data);

@@ -24,7 +24,8 @@ Page({
 
     async onLoad() {
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();
@@ -33,7 +34,8 @@ Page({
             coupons,
             themeColor,
             isIphoneX,
-            tplStyle
+            tplStyle,
+            config
         });
     },
 

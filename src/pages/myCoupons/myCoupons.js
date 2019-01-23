@@ -48,8 +48,14 @@ Page({
     async onShow() {
         try {
             const { themeColor } = app.globalData;
-            const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
-            this.setData({ isLoading: true, themeColor, tplStyle });
+            const config = wx.getStorageSync(CONFIG);
+            const { style_type: tplStyle = 'default' } = config;
+            this.setData({
+                isLoading: true,
+                themeColor,
+                tplStyle,
+                config
+            });
             await this.loadCoupons();
         }
         catch (err) {

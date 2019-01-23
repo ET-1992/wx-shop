@@ -1,7 +1,4 @@
-import { CONFIG } from 'constants/index';
 const app = getApp();
-const config = wx.getStorageSync(CONFIG);
-
 Component({
     properties: {
         coupon: {
@@ -23,10 +20,13 @@ Component({
         tplStyle: {
             type: String,
             value: 'default',
+        },
+        config: {
+            type: Object,
+            value: {},
         }
     },
     data: {
-        globalData: app.globalData,
-        config
+        globalData: app.globalData
     }
 });

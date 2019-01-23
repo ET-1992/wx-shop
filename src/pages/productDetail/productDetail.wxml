@@ -306,8 +306,8 @@
 						data-index="{{ index }}" 
 						catchtap="onCouponClick"
 					>
-						<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="receivable" /><!-- 未领取 -->
-						<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" /><!-- 已领取 -->
+						<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="receivable" config="{{config}}"/><!-- 未领取 -->
+						<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" config="{{config}}"/><!-- 已领取 -->
 					</view>
 					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
 						<view class="couponListTitle">已领取优惠券</view>
@@ -317,7 +317,7 @@
 							wx:key="id" 
 							url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
 						>
-							<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" /><!-- 已领取 -->
+							<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" config="{{config}}"/><!-- 已领取 -->
 						</navigator>
 					</block>
 				</view>
