@@ -54,13 +54,10 @@
 				<view class="price">
 					<view class="nowPrice">
 						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
-						<view class="priceStyle">{{ product.groupon_commander_price ? product.groupon_commander_price : product.definePrice}}</view>
-						<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
+						<view class="priceStyle">{{product.definePrice}}</view>
+						<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
 					</view>
-					<view
-						wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
-						class="originalPrice"
-					>{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+					<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 				</view>
 				<view class="postage">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
@@ -217,7 +214,7 @@
 						<view class="productInfo">
 							<view class="price">
 								<text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
-									{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
 									<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
 								</text>
 								<text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
