@@ -3,8 +3,7 @@ import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import getToken from 'utils/getToken';
-import autoRedirect from 'utils/autoRedirect';
-import { updateCart, parseScene, splitUserStatus } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus, autoNavigate } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -53,9 +52,8 @@ Page({
 
     onBannerClick(ev) {
         const { path } = ev.currentTarget.dataset;
-        const type = 'navigate';
-        if ((path, type)) {
-            autoRedirect({ url: path, type: type });
+        if (path) {
+            autoNavigate(path);
         }
     },
     async submitFormId(e) {
