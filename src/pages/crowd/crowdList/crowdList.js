@@ -30,6 +30,8 @@ Page({
         this.loadOrders();
     },
     async loadOrders() {
+        console.log('90');
+        // new Decimal(null).div(1).mul(100).toNumber().toFixed(2);
         const { next_cursor, isRefresh, orders, status } = this.data;
         const queryOption = { cursor: next_cursor };
         if (status) {
