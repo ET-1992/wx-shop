@@ -1,3 +1,4 @@
+import { CONFIG } from 'constants/index';
 const app = getApp();
 Component({
     properties: {
@@ -27,6 +28,15 @@ Component({
         }
     },
     data: {
-        globalData: app.globalData
+        globalData: app.globalData,
+        config: null
+    },
+    lifetimes: {
+        attached() {
+            const config = wx.getStorageSync(CONFIG);
+            this.setData({
+                config
+            });
+        }
     }
 });
