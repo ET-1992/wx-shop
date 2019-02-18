@@ -131,7 +131,7 @@
 				bindtap="onJoin"
 				data-is-new-user-groupon="{{groupon.type === 'new_user'}}" 
 				disabled="{{ groupon.status !== 2 }}" 
-				style="background-color: {{ themeColor.primaryColor }}"
+				style="color: #fff; background:{{ groupon.status !== 2 ? '#c2c2c2' : themeColor.primaryColor }};" 
 			>{{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}</button>
 	</view>
 	  
