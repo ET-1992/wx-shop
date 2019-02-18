@@ -439,6 +439,7 @@ Page({
         if (crowd) {
             requestData.type = 5;
             requestData.crowd_type = crowdtype;
+            method = 'createOrder';
         }
 
         try {
