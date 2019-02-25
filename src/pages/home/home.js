@@ -278,7 +278,7 @@ Page({
     async loadProducts() {
         const { next_cursor, products, modules } = this.data;
         let hack = {};
-        if (modules[modules.length - 1] && modules[modules.length - 1].args) {
+        if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args) {
             hack = parseScene(modules[modules.length - 1].args);
         }
         const data = await api.hei.fetchProductList({
@@ -326,7 +326,7 @@ Page({
     },
     onPageScroll() {
         let modules = this.data.modules;
-        if (modules[modules.length - 1].key === 'products') {
+        if (modules && modules.length && modules[modules.length - 1].key === 'products') {
             this.showProducts();
         }
     },
