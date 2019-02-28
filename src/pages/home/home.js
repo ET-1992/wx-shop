@@ -88,7 +88,7 @@ Page({
         }
 
         /* 判断是否新人 */
-        const { isUserGetRedPacket }  = splitUserStatus(current_user.user_status);
+        const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
 
         /**
 		*	target_user_type 1:所有人可领取, 2:新人专属
