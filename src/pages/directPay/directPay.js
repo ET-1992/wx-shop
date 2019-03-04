@@ -1,6 +1,8 @@
 import api from 'utils/api';
 import { checkNumber } from 'utils/util';
 import { wxPay } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
+
 const app = getApp();
 
 Page({
@@ -11,12 +13,13 @@ Page({
         amount: 0
     },
 
-    onLoad(parmas) {
+    onShow(parmas) {
         console.log(parmas);
+        const config = wx.getStorageSync(CONFIG);
         const { themeColor } = app.globalData;
         this.setData({
             themeColor,
-            authorizer: app.globalData.authorizer,
+            authorizer: config.authorizer,
             globalData: app.globalData
         });
     },

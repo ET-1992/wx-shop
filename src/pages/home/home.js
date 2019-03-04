@@ -167,7 +167,7 @@ Page({
 
     async onShow() {
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         const { categoryIndex } = app.globalData;
         updateCart(categoryIndex.categoryIndex);
         this.setData({
