@@ -85,6 +85,9 @@ Page({
                 wx.showToast({ title: '请输入正确的QQ号', icon: 'none', image: '', duration: 1000 });
                 return false;
             }
+        } else if (!that.data.wechatId) {
+            wx.showToast({ title: '微信号不能为空', icon: 'none', image: '', duration: 1000 });
+            return false;
         }
         that.joinShareUser();
     },
