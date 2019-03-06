@@ -129,7 +129,7 @@
 						wx:key="id" 
 						wx:for-item="article" 
 						hover-class="navigator-hover" 
-						url="{{ articles.length === 1 ? '/pages/articleList/articleList' : '/pages/articleDetail/articleDetail?id=' + article.id }}" 
+						url="{{ '/pages/articleDetail/articleDetail?id=' + article.id }}" 
 					><productList article="{{ article }}" module="{{ module }}" tplStyle="{{ tplStyle }}" productLayoutStyle="articleStyle" themeColor="{{themeColor}}"/>
 		    		</myNavigator>
 				</view>

@@ -134,16 +134,10 @@
 							</button>
 						</form>
 					</navigator>
-					<navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
-						<image src="{{articles[0].banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
-						<template is="articleItem" data="{{ article: articles[0] }}" />
-					</navigator>
-					<block wx:else>
-						<navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+					<navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
 							<image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
 							<template is="articleItem" data="{{ article: item,module:module }}" />
-						</navigator>
-					</block>
+					</navigator>
 				</view>
 			</view>
 			<!-- 限时购 -->

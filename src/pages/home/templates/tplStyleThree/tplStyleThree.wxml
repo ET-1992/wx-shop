@@ -130,16 +130,10 @@
       <view wx:if="{{ module.key === 'articles' }}">
         <view class="section" wx:if="{{ articles && articles.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <navigator class="m-list" wx:if="{{articles.length==1}}" url="/pages/articleList/articleList">
-            <image src="{{articles[0].banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
-            <template is="articleItem" data="{{ article: articles[0] }}" />
-          </navigator>
-          <block wx:else>
-            <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+          <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
               <image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
               <template is="articleItem" data="{{ article: item,module:module }}" />
-            </navigator>
-          </block>
+          </navigator>
           <navigator class="sectionMore" wx:if="{{articles.length >1}}" url="/pages/articleList/articleList">
             <form bindsubmit="submitFormId" report-submit="true">
               <button formType="submit" class="moreButton">
