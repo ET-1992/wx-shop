@@ -1,4 +1,4 @@
-<view class="newUserCoupon">
+<view class="newUserCoupon" catchtouchmove="touchmove" >
     <view class="couponContainer">
         <image class="CouponBottom" src="{{ config.cdn_host + '/shop/CouponBottom.png'}}"></image>
         <view class="couponBox">

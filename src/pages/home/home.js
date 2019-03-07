@@ -35,7 +35,6 @@ Page({
         page_title: '',
         type: '',
         isProductBottom: false,
-        hasMask: false,
         isShowConsole: false,
         swiperCurrent: 0,
         hasSliders: false,
@@ -64,11 +63,26 @@ Page({
         console.log(data);
     },
 
-    async loadHome() {
+    async loadHomeExtra() {
+        setTimeout(async () => {
+            const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchHomeExtra();
 
+            /* 判断是否新人 */
+            const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
+            console.log(isUserGetRedPacket, 'i');
+
+            this.setData({
+                isNewUser: !isUserGetRedPacket,
+                coupons_newbie,
+                userCoupon: coupons_home
+            });
+        }, 800);
+    },
+
+    async loadHome() {
+        this.loadHomeExtra();
         this.setData({
             isLoading: true,
-            hasMask: false,
             isProductBottom: false
         });
 
@@ -86,37 +100,16 @@ Page({
             }
         }
 
-        /* 判断是否新人 */
-        const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
-
         /**
 		*	target_user_type 1:所有人可领取, 2:新人专属
 		*	status 2 可使用
         */
-
-        // const newUserCouponIndex = coupons.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
-        // const userCoupon = coupons.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
-
-        const newUserCouponIndex = coupons_newbie.findIndex(({ status, target_user_type, stock_qty }) => target_user_type === '2' && status === 2 && stock_qty !== 0);
-        const userCoupon = coupons_home.filter(({ status, target_user_type, stock_qty }) => target_user_type !== '2');
-
-        const hasNewUserCoupons = newUserCouponIndex >= 0;
 
         if (data.page_title) {
             wx.setNavigationBarTitle({
                 title: data.page_title,
             });
         }
-        let width;
-        if (userCoupon && userCoupon.length) {
-            width = userCoupon.length * 250 + 20 * userCoupon.length;
-        }
-
-        // delete data.coupons;
-
-        // const { shop_setting: { category_style, product_list_style } } = data;
-        // data.productListStyle = PRODUCT_LIST_STYLE[+product_list_style - 1];
-        // data.categoryListStyle = CATEGORY_LIST_STYLE[+category_style - 1];
 
         if (data.announcement) {
             let textLength = data.announcement.text.length * this.data.size;    // 文字长度
@@ -126,12 +119,8 @@ Page({
         }
 
         this.setData({
-            userCoupon,
+            userCoupon: coupons_home,
             isLoading: false,
-            conWidth: width || '',
-            hasNewUserCoupons,
-            isNewUser: !isUserGetRedPacket,
-            hasMask: (!isUserGetRedPacket && hasNewUserCoupons) ? true : false,
             ...data
         });
 
@@ -196,21 +185,6 @@ Page({
         this.setData(updateData);
     },
     async receiveCouponAll(e) {
-        const token = getToken();
-
-        // if (!token) {
-        // 	const { confirm } = await showModal({
-        // 		title: '未登录',
-        // 		content: '请先登录，再领取优惠券',
-        // 		confirmText: '登录',
-        // 	});
-        // 	if (confirm) {
-        // 		// await login();
-        // 		wx.navigateTo({ url: '/pages/login/login' });
-        // 	}
-        // 	return;
-        // }
-
         const { id } = e.currentTarget.dataset;
         let result = [];
         id.map(({ id, target_user_type }, index) => {
@@ -220,27 +194,11 @@ Page({
         await api.hei.receiveCouponAll({ coupon_ids: allResult, });
         showToast({ title: '领取成功' });
         this.setData({
-            isNewUser: false,
-            hasMask: false
+            isNewUser: false
         });
     },
     async onCouponClick(ev) {
         const { id, index, status, title } = ev.currentTarget.dataset;
-        // const token = getToken();
-
-        // if (!token) {
-        // 	const { confirm } = await showModal({
-        // 		title: '未登录',
-        // 		content: '请先登录，再领取优惠券',
-        // 		confirmText: '登录',
-        // 	});
-        // 	if (confirm) {
-        // 		// await login();
-        // 		wx.navigateTo({ url: '/pages/login/login' });
-        // 	}
-        // 	return;
-        // }
-
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);
         } else if (Number(status) === 4) {
@@ -252,8 +210,7 @@ Page({
 
     closeCoupon() {
         this.setData({
-            isNewUser: false,
-            hasMask: false
+            isNewUser: false
         });
     },
     async onPullDownRefresh() {
@@ -265,14 +222,6 @@ Page({
         await this.loadHome();
         wx.stopPullDownRefresh();
     },
-
-    // async needAuth(e) {
-    // 	const user = await login();
-    // 	console.log(user);
-    // 	this.setData({
-    // 		user: user,
-    // 	});
-    // },
 
     async loadProducts() {
         const { next_cursor, products, modules } = this.data;
@@ -361,12 +310,8 @@ Page({
         console.log(this.data.contactModal);
     },
 
-    miniFail(e) {
-        console.log(e);
-        const { errMsg } = e.detail;
-        // wx.showModal({
-        //     title: '温馨提示',
-        //     content: errMsg,
-        // });
+    touchmove() {
+        console.log('点击穿透阻止');
+        return;
     }
 });

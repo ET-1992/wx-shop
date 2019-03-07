@@ -1,7 +1,7 @@
 <view class="tplStyleFour">
 <import src="/templates/tplStyleFour/articleItem/articleItem.wxml"/>
 
-<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}"wx:if="{{ !isLoading }}">
 	<navigator class="searchWrapper" style="background:#f4f4f4" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key !== 'sliders'}}">
 		<view class="search" style="border:2rpx solid #E4E4E4">
 			<image src="/icons/search.png" class="searchIcon" />

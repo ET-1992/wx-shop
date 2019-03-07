@@ -1,6 +1,6 @@
 <view class="default">
   <import src="/templates/articleItem/articleItem.wxml"/>
-<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="{{hasMask?'position:fixed;':''}}" wx:if="{{ !isLoading }}">
+<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
   <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">
     <view class="search">
       <image src="/icons/search.png" class="searchIcon" />

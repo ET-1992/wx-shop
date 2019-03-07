@@ -19,8 +19,11 @@ const apis = {
         method: 'POST',
     },
     fetchHome: {
-        path: 'api/mag.shop.home.json',
-        isForceToken: true,
+        path: 'api/mag.shop.home.json?v2'
+    },
+    fetchHomeExtra: {
+        path: 'api/mag.shop.extra.json',
+        isForceToken: true
     },
     fetchProductList: {
         path: 'api/mag.product.list.json',
