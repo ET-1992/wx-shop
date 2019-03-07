@@ -20,11 +20,12 @@
 		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
 	</view>
 
-	<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
-		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
-	</view>
 	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
 		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
+	</view>
+	
+	<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
+		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 	</view>
 
 	<view class="promote" wx:if="{{article.products.length}}">
