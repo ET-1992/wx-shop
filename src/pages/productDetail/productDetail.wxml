@@ -70,10 +70,10 @@
 		<!-- 领券&服务说明 -->
 		<view class="sevice-coupon">
 			<view 
-				wx:if="{{ product.coupons && product.coupons.length }}" 
+				wx:if="{{ coupons && coupons.length }}" 
 				class="coupons" 
 				catchtap="onShowCouponList" 
-				style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}} {{ product.coupons && product.coupons.length ? '' : 'border:none'}}"
+				style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}} {{ coupons && coupons.length ? '' : 'border:none'}}"
 			>
 				<form bindsubmit="submitFormId" report-submit="true">
 					<button formType="submit">

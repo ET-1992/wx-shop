@@ -21,7 +21,7 @@ const apis = {
     fetchHome: {
         path: 'api/mag.shop.home.json?v2'
     },
-    fetchHomeExtra: {
+    fetchShopExtra: {
         path: 'api/mag.shop.extra.json',
         isForceToken: true
     },
@@ -29,9 +29,7 @@ const apis = {
         path: 'api/mag.product.list.json',
     },
     fetchProduct: {
-        path: 'api/mag.product.get.json',
-        method: 'GET',
-        isForceToken: true,
+        path: 'api/mag.product.get.json?v2'
     },
     fetchCartList: {
         path: 'api/mag.cart.get.json',

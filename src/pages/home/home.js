@@ -65,7 +65,9 @@ Page({
 
     async loadHomeExtra() {
         setTimeout(async () => {
-            const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchHomeExtra();
+            const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
+                weapp_page: 'home'
+            });
 
             /* 判断是否新人 */
             const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
@@ -76,7 +78,7 @@ Page({
                 coupons_newbie,
                 userCoupon: coupons_home
             });
-        }, 800);
+        }, 300);
     },
 
     async loadHome() {

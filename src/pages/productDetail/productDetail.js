@@ -188,31 +188,12 @@ Page({
         } */
     },
 
-    async initPage() {
-        const { id, grouponId } = this.options;
-        // const { product } = this.data;
-        // if (!product.id) {
-        //     this.setData({ isLoading: true });
-        // }
-
-        this.setData({
-            pendingGrouponId: '',
-            selectedProperties: [],
-            selectedSku: {},
-            // skuSplitProperties: [],
-        });
-
-        try {
-            const data = await api.hei.fetchProduct({ id });
-
-            const { skus, coupons, properties: productProperties } = data.product;
-            const skuData = {};
-            skus && skus.forEach((sku) => {
-                const { property_names, stock, price } = sku;
-                skuData[property_names] = { price, count: stock };
+    loadProductDetailExtra(id) {
+        setTimeout(async () => {
+            const { coupons, current_user } = await api.hei.fetchShopExtra({
+                weapp_page: 'productDetail',
+                id
             });
-
-            const skuMap = getSKUMap.init(skuData);
 
             const { receivableCoupons, receivedCoupons } = coupons && coupons.reduce(
                 (classifyCoupons, coupon) => {
@@ -230,11 +211,50 @@ Page({
                 { receivableCoupons: [], receivedCoupons: [] },
             );
 
-            wx.getBackgroundAudioManager({
-                success(res) {
-                    console.log(res);
-                },
+            this.setData({
+                receivableCoupons,
+                receivedCoupons,
+                current_user,
+                coupons
             });
+
+
+        }, 300);
+    },
+
+    async initPage() {
+        const { id, grouponId } = this.options;
+        // const { product } = this.data;
+        // if (!product.id) {
+        //     this.setData({ isLoading: true });
+        // }
+
+        this.loadProductDetailExtra();
+
+        this.setData({
+            pendingGrouponId: '',
+            selectedProperties: [],
+            selectedSku: {},
+            // skuSplitProperties: [],
+        });
+
+        try {
+            const data = await api.hei.fetchProduct({ id });
+
+            const { skus, coupons = [], properties: productProperties } = data.product;
+            const skuData = {};
+            skus && skus.forEach((sku) => {
+                const { property_names, stock, price } = sku;
+                skuData[property_names] = { price, count: stock };
+            });
+
+            const skuMap = getSKUMap.init(skuData);
+
+            // wx.getBackgroundAudioManager({
+            //     success(res) {
+            //         console.log(res);
+            //     },
+            // });
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
@@ -280,8 +300,6 @@ Page({
             this.setData({
                 // skuSplitProperties,
                 grouponId: grouponId || '',
-                receivedCoupons,
-                receivableCoupons,
                 disableSkuItems,
                 selectedProperties: defalutSelectedProperties,
                 selectedSku,
