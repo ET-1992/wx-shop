@@ -93,6 +93,15 @@
         >
         </navigator>
 
+        <video 
+            wx:elif="{{ magicImgData.images[index].type === 'video' }}"
+            class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
+            src="{{ magicImgData.images[index].video }}"
+            style="flex: {{ magicImgData.flex ? magicImgData.flex[index] : 1 }}"
+            poster="{{  magicImgData.images[index].image }}"
+        ></video>
+
+
         <myNavigator
          wx:else
          class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
