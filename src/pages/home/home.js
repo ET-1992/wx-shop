@@ -2,8 +2,6 @@ import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import getToken from 'utils/getToken';
-import autoRedirect from 'utils/autoRedirect';
 import { updateCart, parseScene, splitUserStatus, autoNavigate } from 'utils/util';
 
 // 获取应用实例
