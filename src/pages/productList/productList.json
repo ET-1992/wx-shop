@@ -4,6 +4,8 @@
   "usingComponents": {
     "productList": "../../components/productList/index",
     "console": "../../components/console/console",
-    "loading": "../../components/loading/index"
+    "loading": "../../components/loading/index",
+    "filterList": "../../components/filterList/filterList",
+    "navbarList": "../../components/navbarList/navbarList"
   }
 }
