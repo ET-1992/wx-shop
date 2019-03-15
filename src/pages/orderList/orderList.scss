@@ -1,56 +1,11 @@
 @import "~styles/color";
 
-.container {
-	// padding: 20rpx;
-}
-
 .emptyHint {
 	padding-top: 300rpx;
 	text-align: center;
 	color: $originalPriceColor;
 }
 
-.statusBar {
-	$height: 90rpx;
-	position: fixed;
-	background-color: #FFFFFF;
-	color: #999999;
-	font-size: 28rpx;
-	height: $height;
-	box-shadow: 0rpx 0rpx 2rpx rgba(0, 0, 0, 0.16);
-	z-index: 10000;
-	overflow: auto;
-	left:0;
-	top:0;
-	white-space:nowrap;
-	// padding: 0 10rpx;
-
-	.statusItem {
-		width: 110rpx;
-		display: inline-block;
-		text-align: center;
-		// margin-right: 40rpx;
-	}
-
-	// .statusItem:last-child {
-	// 	margin-right: 0rpx;
-	// }
-	.statusItem:first-child {
-		width: 90rpx;
-	}
-
-	.statusItemName {
-		margin: 0 auto;
-		height: $height;
-		line-height: 115rpx;
-		display: inline-block;
-
-		&.selected {
-			border-bottom: 6rpx solid $mainColor;
-			color: #000000;
-		}
-	}
-}
 .orderItem{
 	padding-top: 90rpx;
 }
@@ -80,12 +35,12 @@
 	}
 
 	.itemTitle {
-		overflow: hidden;/*超出部分隐藏*/
+		overflow: hidden;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		word-break: break-all;
-    	text-overflow: ellipsis;/*超出部分文字以...显示*/
+    	text-overflow: ellipsis;
 		font-size: 28rpx;
 		font-weight: normal;
 		color: #000000;
