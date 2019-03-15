@@ -13,9 +13,9 @@ Page({
         amount: 0
     },
 
-    onShow(parmas) {
+    async onShow(parmas) {
         console.log(parmas);
-        const config = wx.getStorageSync(CONFIG);
+        const { config } = await api.hei.config();
         const { themeColor } = app.globalData;
         this.setData({
             themeColor,
