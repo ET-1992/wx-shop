@@ -1,0 +1,11 @@
+<scroll-view class="scrollStyle" scroll-x="true" scroll-with-animation="{{true}}" scroll-into-view="{{ toView }}">
+    <view 
+    	wx:for="{{ navbarListData }}" 
+    	class="item {{ activeIndex === index ? 'selected' : '' }}" 
+    	data-index="{{index}}"
+		bind:tap="changeActive"
+    	id="tab{{ index }}" 
+    	data-value="{{item.value}}"
+    	style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}" 
+    >{{ item.text }}</view>
+</scroll-view>

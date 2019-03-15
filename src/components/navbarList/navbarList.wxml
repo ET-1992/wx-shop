@@ -1,0 +1,3 @@
+<include wx:if="{{ template === 'default' }}" src="./templates/default.wxml"/>
+<include wx:if="{{ template === 'scrollStyle' }}" src="./templates/scrollStyle.wxml"/>
+<include wx:if="{{ template === 'fixedStyle' }}" src="./templates/fixedStyle.wxml"/>

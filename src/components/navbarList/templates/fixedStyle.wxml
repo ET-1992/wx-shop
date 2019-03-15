@@ -1,0 +1,10 @@
+<view class="fixedStyle">
+    <view 
+        wx:for="{{ navbarListData }}" 
+        class="item {{ activeIndex === index ? 'selected' : '' }}" 
+        data-index="{{index}}"
+        data-value="{{item.value}}"
+        bind:tap="changeActive"
+        style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}" 
+    >{{ item.text }}</view>
+</view>
