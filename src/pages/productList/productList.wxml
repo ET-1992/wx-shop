@@ -1,7 +1,7 @@
 
 <loading isLoading="{{ isInit }}"/>
 <view class="wrap" wx:if="{{ !isInit }}">
-	<navbarList class="navbarList" navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
+	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
 	<filterList class="filterList" filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" />
 	<view class="container">
 		<loading isLoading="{{ isLoading }}"/>
