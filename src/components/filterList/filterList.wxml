@@ -1,11 +1,9 @@
-<view class="container">
-  <view wx:for="{{ filterListData }}" class="item" catch:tap="changeActive" data-index="{{ index }}">
-    <text>{{ item.name }}</text>
-    <view class="indicators">
-      <image class="triangleIcon triangleIconUp" src="/icons/triangleUp.png" wx:if="{{isActive[index] !== 'Up' }}" />
-      <image class="triangleIcon triangleIconUp" src="/icons/triangleUpActive.png" wx:if="{{isActive[index] === 'Up' }}" />
-      <image class="triangleIcon" src="/icons/triangleDown.png" wx:if="{{isActive[index] !== 'Down' }}" />
-      <image class="triangleIcon" wx:if="{{isActive[index] === 'Down' }}" src="/icons/triangleDownActive.png" />
-    </view>
+<view wx:for="{{ filterListData }}" class="item" catch:tap="changeActive" data-index="{{ index }}">
+  <view>{{ item.name }}</view>
+  <view class="indicators" wx:if="{{ !item.hideOption }}">
+    <image class="triangleIcon triangleIconUp" src="/icons/triangleUp.png" wx:if="{{isActive[index] !== 'Up' }}" />
+    <image class="triangleIcon triangleIconUp" src="/icons/triangleUpActive.png" wx:if="{{isActive[index] === 'Up' }}" />
+    <image class="triangleIcon" src="/icons/triangleDown.png" wx:if="{{isActive[index] !== 'Down' }}" />
+    <image class="triangleIcon" wx:if="{{isActive[index] === 'Down' }}" src="/icons/triangleDownActive.png" />
   </view>
 </view>
