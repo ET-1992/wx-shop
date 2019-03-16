@@ -1,8 +1,11 @@
+require('@babel/register');
+
 import { resolve } from 'path';
 import { DefinePlugin, EnvironmentPlugin, optimize, IgnorePlugin } from 'webpack';
 import WXAppWebpackPlugin, { Targets } from 'wxapp-webpack-plugin';
 // import StylelintPlugin from 'stylelint-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV !== 'production';
@@ -45,17 +48,12 @@ export default (env = {}) => {
                 {
                     test: /\.js$/,
                     include: /src/,
-                    use: [
-                        'babel-loader',
-                    ].filter(Boolean),
+                    use: { loader: 'babel-loader' }
                 },
                 {
                     test: /\.wxs$/,
                     include: /src/,
-                    use: [
-                        ...relativeFileLoader(),
-                        'babel-loader'
-                    ].filter(Boolean),
+                    use: { loader: 'babel-loader' }
                 },
                 {
                     test: /\.scss$/,
@@ -109,7 +107,8 @@ export default (env = {}) => {
             new CopyPlugin([
                 { from: 'src/icons', to: 'icons' }
             ]),
-            new optimize.ModuleConcatenationPlugin()
+            new optimize.ModuleConcatenationPlugin(),
+            new UglifyJSPlugin()
         ].filter(Boolean),
         devtool: isDev ? 'source-map' : false,
         resolve: {

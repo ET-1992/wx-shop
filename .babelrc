@@ -1,15 +1,18 @@
 {
 	"presets": [
-		["es2015", {
-			"loose": true,
-		}],
-		"stage-0",
-	],
+		"@babel/env"
+    ],
 	"plugins": [
-		["transform-runtime", {
-			"polyfill": true,
-			"regenerator": true,
+		["import", {
+			"libraryName": "peanut-all",
+            "camel2UnderlineComponentName": false,
+            "camel2DashComponentName": false
 		}],
+		["@babel/plugin-transform-runtime", {
+            "helpers": false,
+            "regenerator": true
+        }
+    	],
 		"lodash",
 		["module-resolver", {
 			"root": ["./src"],
