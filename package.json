@@ -49,13 +49,13 @@
     "sass-loader": "^6.0.6",
     "webpack": "^3.4.1",
     "wxapp-webpack-plugin": "^0.16.0",
-    "wxml-loader": "^0.2.1"
+    "wxml-loader": "^0.2.1",
+    "uglifyjs-webpack-plugin": "^1.3.0"
   },
   "dependencies": {
     "decimal.js": "^10.0.1",
     "es6-promise": "^4.1.0",
-    "peanut-all": "^1.0.6",
-    "uglifyjs-webpack-plugin": "^1.3.0"
+    "peanut-all": "^1.1.1"
   },
   "jest": {
     "modulePathIgnorePatterns": [

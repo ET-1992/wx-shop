@@ -26,8 +26,8 @@ export default (env = {}) => {
     return {
         entry: {
             app: [
-                `es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
-                './src/utils/bomPolyfill.js',
+                // `es6-promise/dist/es6-promise.auto${isDev ? '.min' : ''}.js`,
+                // './src/utils/bomPolyfill.js',
                 './src/app.js',
             ],
         },
@@ -47,13 +47,24 @@ export default (env = {}) => {
                 },
                 {
                     test: /\.js$/,
-                    include: /src/,
-                    use: { loader: 'babel-loader' }
+                    // include: /src/,
+                    // exclude: /node_modules\/(?!(peanut-all))/,
+                    options: {
+                        configFile: resolve(__dirname, './babel.config.js')
+                    },
+                    loader: 'babel-loader',
+                    include: [
+                        resolve('node_modules/peanut-all'),
+                        resolve('src')
+                    ]
                 },
                 {
                     test: /\.wxs$/,
                     include: /src/,
-                    use: { loader: 'babel-loader' }
+                    options: {
+                        configFile: resolve(__dirname, './babel.config.js')
+                    },
+                    loader: 'babel-loader',
                 },
                 {
                     test: /\.scss$/,
