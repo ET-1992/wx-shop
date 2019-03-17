@@ -1,6 +1,5 @@
 import api from 'utils/api';
-import { getAgainUserForInvalid } from 'utils/util';
-import getUserInfo from 'utils/getUserInfo';
+import { getAgainUserForInvalid, getUserInfo } from 'utils/util';
 import { showModal, showToast } from 'utils/wxp';
 
 const app = getApp();
