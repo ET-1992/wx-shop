@@ -1,5 +1,5 @@
-import hei from './hei';
+import { api } from 'peanut-all';
+import { apis, host } from './api';
+api.config({ apis, host });
 
-export default {
-    hei,
-};
+export default api;

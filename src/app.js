@@ -1,6 +1,5 @@
-import { login as wxLogin, checkSession } from 'utils/wxp';
+import wxProxy from 'utils/wxProxy';
 import api from 'utils/api';
-import getToken from 'utils/getToken';
 import { USER_KEY, TOKEN_KEY, EXPIRED_KEY, CURRENCY, CONFIG } from 'constants/index';
 import Event from 'utils/event';
 import { parseScene } from 'utils/util';
@@ -20,7 +19,7 @@ App({
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
-        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip, authorizer, currency = 'CNY' } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY' } = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -58,7 +57,7 @@ App({
     },
 
     async silentLogin() {
-        const { code } = await wxLogin();
+        const { code } = await wxProxy.login();
         const { user, access_token, expired_in } = await api.hei.silentLogin({ code });
         const expiredTime = expired_in * 1000 + Date.now();
         wx.setStorageSync(USER_KEY, user);
@@ -117,7 +116,7 @@ App({
         }
 
         try {
-            await checkSession();
+            await wxProxy.checkSession();
         }
         catch (err) {
             await this.silentLogin();

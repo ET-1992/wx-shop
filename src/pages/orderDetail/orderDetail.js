@@ -4,8 +4,8 @@ import { formatTime, valueToText, getNodeInfo, splitUserStatus } from 'utils/uti
 import getRemainTime from 'utils/getRemainTime';
 import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
+import { qrcode  } from 'peanut-all';
 
-const QR = require('utils/qrcode.js');
 const app = getApp();
 
 const o = {
@@ -304,7 +304,7 @@ Page({
         }, async () => {
             const nodeInfo = await getNodeInfo('liftInfoId');
             const { width, height } = nodeInfo;
-            QR.api.draw('D-' + order.order_code, 'liftInfoCanvasId', width, height);
+            qrcode.api.draw('D-' + order.order_code, 'liftInfoCanvasId', width, height);
         });
     },
 

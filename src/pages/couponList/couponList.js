@@ -1,6 +1,5 @@
 // pages/couponList/couponList.js
 import api from 'utils/api';
-import getToken from 'utils/getToken';
 import { showToast, showModal } from 'utils/wxp';
 // import { onDefaultShareAppMessage } from 'utils/pageShare';
 // import login from 'utils/login';

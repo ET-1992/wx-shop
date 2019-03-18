@@ -1,7 +1,5 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
-import getToken from 'utils/getToken';
-import forceUserInfo from 'utils/forceUserInfo';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
 import { updateCart, autoNavigate } from 'utils/util';
 

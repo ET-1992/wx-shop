@@ -1,7 +1,3 @@
-import { APPID } from 'constants/index';
-import { API } from './core';
-
-const host = 'https://api.wpweixin.com/';
 
 // const host = 'https://shenghuogou.wpweixin.com/';
 // const host = 'https://dpm.wpweixin.com/';
@@ -12,7 +8,8 @@ const host = 'https://api.wpweixin.com/';
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-const apis = {
+export const host = 'https://api.wpweixin.com/';
+export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
         path: 'api/mag.auth.signon.json',
@@ -342,5 +339,3 @@ const apis = {
         isForceToken: true
     }
 };
-
-export default new API({ apis, host });

@@ -26,7 +26,6 @@
 		"pages/loadProduct/loadProduct",
 		"pages/myFav/myFav",
 		"pages/couponList/couponList",
-		"pages/login/login",
 		"pages/redpacket/redpacket",
 		"pages/coinDetail/coinDetail",
 		"pages/affiliate/affiliateProductList/affiliateProductList",

@@ -19,7 +19,6 @@
                 </view>
             </block>
         </navigator>
-      	<navigator class="announcement" wx:if="{{announcement}}" url="{{ announcement.path }}">
 			<navigator 
 				wx:if="{{announcement}}"
 				app-id="{{announcement.appid}}" 
@@ -31,11 +30,11 @@
 			>
 			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 			<view class="marquee">
-				<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
+				<view class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
 					{{announcement.text}}<text class="content-space"></text>
 					{{announcement.text}}<text class="content-space"></text>
 					{{announcement.text}}<text class="content-space"></text>
-				</text>
+				</view>
 			</view>
 		</navigator>
     </view>
@@ -87,11 +86,11 @@
 		>
 			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 			<view class="marquee">
-				<text class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
+				<view class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
 					{{announcement.text}}<text class="content-space"></text>
 					{{announcement.text}}<text class="content-space"></text>
 					{{announcement.text}}<text class="content-space"></text>
-				</text>
+				</view>
 			</view>
 		</navigator>
 		<!-- 服务公告end -->

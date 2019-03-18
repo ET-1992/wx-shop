@@ -16,7 +16,7 @@ module.exports = {
   rules: {
     'no-tabs': 0,
     'no-unused-vars': [
-      'warn',
+      0,
       {
           vars: 'all',
           args: 'none',

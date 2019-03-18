@@ -33,7 +33,7 @@
     </view>
 </view>
 <form report-submit='true' bind:submit='test'>
-<button id="formId" form-type="submit"><button>
+<button id="formId" form-type="submit"></button>
 </form>
 
 <template name="columnImgItem">

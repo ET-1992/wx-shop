@@ -1,9 +1,6 @@
 import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import api from 'utils/api';
-// import { showToast, showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-// import getToken from 'utils/getToken';
-// import login from 'utils/login';
 import { autoNavigate } from 'utils/util';
 
 const WxParse = require('utils/wxParse/wxParse.js');
