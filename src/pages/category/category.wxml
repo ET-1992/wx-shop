@@ -22,7 +22,7 @@
         class="subCategoryItem"
         wx:for="{{ categories[selectedIndex].children }}"
         wx:key="id"
-        url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) + '&activeIndex=' + index }}"
+        url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) }}"
       >
         <image
           class="subCategoryItemThumb"

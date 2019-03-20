@@ -2,22 +2,37 @@ import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
-// 获取全局应用程序实例对象
 const app = getApp();
 
-// 创建页面实例对象
 Page({
-
-    // 页面的初始数据
     data: {
+        filterListData: [
+            {
+                name: '综合',
+                hideOption: true
+            },
+            {
+                name: '价格',
+            },
+            {
+                name: '销量',
+            }
+        ],
+        filterData: {
+            filterIndex: 0,
+            filterType: 'Down'
+        },
+        filterOrderby: '',
+        filterOrder: '',
         products: [],
+        categories: [],
 
         categoryId: 0,
         categoryParent: 0,
-        isRefresh: false,
         isLoading: true,
+        isInit: true,
 
-        currentPage: 1,
+        current_page: 1,
 
         page_title: '',
         share_title: '',
@@ -26,287 +41,156 @@ Page({
 
         clientX: 0,
         activeIndex: 0,
-
-        sortType: 'default',
-        sortSales: 'saleDown',
-
-        priceSort: {
-            orderby: 'price',
-            order: 'desc',
-        },
-        saleSort: {
-            orderby: 'total_sales',
-            order: 'desc',
-        },
-
-        activeIdx: '0',
     },
 
-    async loadProducts() {
-        // this.setData({ isLoading: true });
-        const {
-            currentPage,
-            categoryId,
-            isRefresh,
-            products,
-            categoryParent,
-            activeIdx,
-            priceSort,
-            saleSort,
-        } = this.data;
-        let options = {
-            paged: currentPage,
-            product_category_id: categoryId,
-            product_category_parent: categoryParent,
-        };
-        console.log(activeIdx);
-        switch (activeIdx) {
-            case '1':
-                Object.assign(options, priceSort);
-                break;
-            case '2':
-                Object.assign(options, saleSort);
-                break;
-        }
-
-        const data = await api.hei.fetchProductList(options);
-        const newProducts = isRefresh ? data.products : products.concat(data.products);
-        this.setData({
-            products: newProducts,
-            isRefresh: false,
-            isLoading: false,
-            currentPage: data.current_page,
-            totalPages: data.total_pages,
-            categories: data.categories,
-            selectedCategoryId: data.current_product_category.id,
-            toView: 'tab' + categoryId
-        });
-        // this.setData({ isLoading: false });
-        return data;
-    },
-
-    async onLoad({ categoryId, categoryParent, activeIndex = 0 }) {
+    async onLoad({ categoryId, categoryParent }) {
         const { themeColor } = app.globalData;
         const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             categoryId,
-            categoryParent,
+            categoryParent
+        });
+        await this.loadProducts();
+        const { categories } = this.data;
+        wx.setNavigationBarTitle({ title: categories[0].name });
+
+        let navbarListData = [];
+        categories[0].children.forEach((item) => {
+            navbarListData.push({
+                text: item.name,
+                value: item.id
+            });
+        });
+        navbarListData.unshift({ text: '全部', value: categories[0].id });
+        let activeIndex = navbarListData.findIndex((item) => {
+            return item.value === Number(categoryId);
+        });
+
+        this.setData({
             themeColor,
             tplStyle,
             globalData: app.globalData,
-            activeIndex
+            navbarListData,
+            activeIndex,
+            isInit: false
         });
-        await this.loadProducts();
-        wx.setNavigationBarTitle({ title: this.data.categories[0].name });
     },
 
-    onSegmentItemClick(ev) {
-        // this.setData({ currentPage: 1 });
-        const { selectedCategoryId } = this.data;
-        const { categoryId, index } = ev.currentTarget.dataset;
-        if (selectedCategoryId === categoryId) {
-            return;
-        }
-
+    changeNavbarList(e) {
+        const { index, value } = e.detail;
         this.setData({
-            selectedCategoryId: Number(categoryId),
-            isRefresh: true,
-            categoryId,
+            products: [],
+            categoryId: value,
             activeIndex: index,
-            currentPage: 1
+            isLoading: true,
+            current_page: 1
         });
-
         this.loadProducts();
     },
 
-    onSort(ev) {
-        const { type, index } = ev.currentTarget.dataset;
-        const { sortType, activeIdx, sortSales } = this.data;
-        let updateData = {};
-        switch (index) {
-            case '0':
-                updateData = {
-                    sortType: 'default',
-                    sortSales: 'default',
-                    isRefresh: true,
-                    currentPage: 1,
-                };
-                break;
-            case '1':
-                updateData = {
-                    sortType: this.data.priceSort.order,
-                    sortSales: 'default',
-                    isRefresh: true,
-                    currentPage: 1,
-                };
-                break;
-            case '2':
-                updateData = {
-                    sortType: 'default',
-                    sortSales: this.data.saleSort.order,
-                    isRefresh: true,
-                    currentPage: 1,
-                };
-                break;
+    changeFilterList(e) {
+        console.log(e);
+        this.setData({
+            filterData: e.detail,
+            current_page: 1,
+            products: [],
+            isLoading: true
+        }, this.filterProduct);
+    },
+    filterProduct() {
+        const { filterData } = this.data;
+        const sortText = {
+            0: 'default',
+            1: 'price',
+            2: 'total_sales'
+        };
+        const sortStatus = {
+            'Up': 'asc',
+            'Down': 'desc'
+        };
+        this.setData({
+            filterOrderby: sortText[filterData.filterIndex],
+            filterOrder: sortStatus[filterData.filterType]
+        }, this.loadProducts);
+    },
+    async loadProducts() {
+        let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData } = this.data;
+        let options = {
+            paged: current_page,
+            product_category_id: categoryId,
+            product_category_parent: categoryParent,
+        };
+        if (filterData.filterIndex) {
+            options.orderby = filterOrderby;
+            options.order = filterOrder;
         }
 
-        if (activeIdx === index && (index === '0' || index === '2')) {
-            return;
-        }
+        this.data.fetchProductListStatus = 'Pending';
 
-        if (
-            (index === '1' && sortType === 'priceUp') ||
-			(index === '1' && sortType === 'default')
-        ) {
-            updateData.sortType = 'priceDown';
-            updateData['priceSort.order'] = 'desc';
-        }
-        if (index === '1' && sortType === 'priceDown') {
-            updateData.sortType = 'priceUp';
-            updateData['priceSort.order'] = 'asc';
-        }
+        const data = await api.hei.fetchProductList(options);
+        current_page++;
 
-        // if (
-        // 	(index === "2" && sortSales === "saleUp") ||
-        // 	(index === "2" && sortSales === "default")
-        // ) {
-        // 	updateData.sortSales = "saleDown";
-        // 	updateData["saleSort.order"] = "desc";
-        // }
-        // if (index === "2" && sortSales === "saleDown") {
-        // 	updateData.sortSales = "saleUp";
-        // 	updateData["saleSort.order"] = "asc";
-        // }
-        updateData.activeIdx = index;
-        this.setData(updateData);
-        this.loadProducts();
+        this.data.fetchProductListStatus = 'Success';
+
+        if (products.length > 0) {
+            data.products = products.concat(data.products);
+        }
+        this.setData({
+            ...data,
+            current_page,
+            isLoading: false
+        });
     },
 
     onTouchStart(e) {
-        this.data.clientX = e.touches[0].clientX;
+        this.data.clineX = e.touches[0].clientX;
     },
     onTouchEnd(e) {
-        let val,
-            idx,
-            ev;
-        if (e.changedTouches[0].clientX - this.data.clientX > 90) {
-            // prev
-            if (Number(this.data.activeIndex) === 0) {
-                // ev = {
-                // 	currentTarget: {
-                // 		dataset: {
-                // 			categoryId: this.data.categories[0].children[
-                // 				this.data.categories[0].children.length - 1
-                // 			].id,
-                // 			index: this.getIndex(
-                // 				this.data.categories[0].children[
-                // 					this.data.categories[0].children.length - 1
-                // 				].id,
-                // 			),
-                // 		},
-                // 	},
-                // };
-                return;
-            }
-            else if (this.data.activeIndex === 1) {
-                ev = {
-                    currentTarget: {
-                        dataset: {
-                            categoryId: this.data.categories[0].id,
-                            index: this.getIndex(0),
-                        },
-                    },
-                };
-            }
-            else {
-                ev = {
-                    currentTarget: {
-                        dataset: {
-                            categoryId: this.data.categories[0].children[
-                                this.data.activeIndex - 2
-                            ].id,
-                            index: this.getIndex(
-                                this.data.categories[0].children[this.data.activeIndex - 2].id,
-                            ),
-                        },
-                    },
-                };
-            }
-
-            this.onSegmentItemClick(ev);
+        let { activeIndex } = this.data;
+        if (e.changedTouches[0].clientX - this.data.clineX < -120) {
+            this.moveIndex(activeIndex + 1);
         }
-
-        if (e.changedTouches[0].clientX - this.data.clientX < -90) {
-
-            // next
-
-            if (this.data.activeIndex === this.data.categories[0].children.length) {
-                ev = {
-                    currentTarget: {
-                        dataset: {
-                            categoryId: this.data.categories[0].id,
-                            index: this.getIndex(0),
-                        },
-                    },
-                };
-            }
-            else {
-                ev = {
-                    currentTarget: {
-                        dataset: {
-                            categoryId: this.data.categories[0].children[
-                                this.data.activeIndex
-                            ].id,
-                            index: this.getIndex(
-                                this.data.categories[0].children[this.data.activeIndex].id,
-                            ),
-                        },
-                    },
-                };
-            }
-            this.onSegmentItemClick(ev);
+        if (e.changedTouches[0].clientX - this.data.clineX > 120) {
+            this.moveIndex(activeIndex - 1);
         }
     },
-
-    getIndex(id) {
-        if (`${id}` === '0') {
-            return 0;
+    moveIndex(index) {
+        let activeIndex = index;
+        const { navbarListData } = this.data;
+        const { length, last = length - 1 } = navbarListData;
+        if (activeIndex < 0) {
+            return;
         }
-
-        let arr = this.data.categories[0].children;
-
-        for (let i = 0; i < arr.length; i++) {
-            if (`${id}` === `${arr[i].id}`) {
-                return i + 1;
-            }
+        if (index > last) {
+            activeIndex = 0;
         }
+        this.setData({
+            products: [],
+            categoryId: navbarListData[activeIndex].value,
+            activeIndex,
+            isLoading: true,
+            current_page: 1
+        });
+        this.loadProducts();
     },
 
     async onPullDownRefresh() {
         this.setData({
-            isRefresh: true,
+            products: [],
             isLoading: true,
-            currentPage: 1,
+            current_page: 1,
         });
         await this.loadProducts();
         wx.stopPullDownRefresh();
     },
 
-    // async onReachBottom() {
-    // 	const { currentPage, totalPages } = this.data;
-    // 	if (currentPage === totalPages) { return; }
-    // 	this.loadProducts();
-    // },
-
     async onReachBottom() {
-        const { currentPage, totalPages } = this.data;
-        if (currentPage >= totalPages) {
-            return;
+        let { current_page, total_pages } = this.data;
+        if (current_page > total_pages) { return }
+        if (this.data.fetchProductListStatus === 'Success') {
+            this.loadProducts();
         }
-        this.setData({ currentPage: currentPage + 1 });
-        this.loadProducts();
     },
 
-    // 页面分享设置
     onShareAppMessage: onDefaultShareAppMessage,
 });

@@ -1,8 +1,7 @@
 import api from 'utils/api';
-import { STATUS_TEXT, ORDER_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
-import { textToValue, valueToText } from 'utils/util';
+import { ORDER_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT } from 'constants/index';
+import { valueToText } from 'utils/util';
 
-// 获取全局应用程序实例对象
 const app = getApp();
 
 const o = {
@@ -22,13 +21,11 @@ console.log(dataStatus);
 
 Page({
     data: {
-        title: 'orderList',
         orders: [],
         next_cursor: 0,
-
         activeIndex: 0,
         isRefresh: true,
-        status: dataStatus,
+        navbarListData: dataStatus,
         selectedStatus: null
     },
 
@@ -60,40 +57,33 @@ Page({
         });
 
         wx.hideLoading();
-        // return data;
         console.log(this.data);
     },
 
-    onStautsItemClick(ev) {
-        const { value } = ev.currentTarget.dataset;
-        const index = this.getIndex(value);
-        console.log(index, this.data.activeIndex, value);
-        // if (index === this.data.activeIndex) { return }
+    changeNavbarList(ev) {
+        const { index, value } = ev.detail;
         this.setData({
             selectedStatus: value,
             activeIndex: index,
             isRefresh: true,
-            next_cursor: 0,
-            scrollView: `tap${value}`
+            next_cursor: 0
         });
         this.loadOrders();
     },
 
     async onLoad({ status }) {
-        // const selectedStatus = status || '1,2,3';
-        const state = status ? status : null;
+        const state = Number(status) || null;
         const { themeColor } = app.globalData;
-        let index = this.getIndex(state);
-        // if (status === 5) {
-        //     this.setData({ newIndex: 1 });
-        //     wx.setNavigationBarTitle({ title: '退款中' });
-        // }
+        const { navbarListData } = this.data;
+        let index = navbarListData.findIndex((item) => {
+            return item.value === state;
+        });
+
         this.setData({
             selectedStatus: state,
             activeIndex: index,
             themeColor,
             globalData: app.globalData,
-            scrollView: `tap${state}`
         });
         this.loadOrders();
     },
@@ -117,31 +107,6 @@ Page({
         updateData[`orders[${orderIndex}].status`] = 4;
         updateData[`orders[${orderIndex}].statusText`] = valueToText(D_ORDER_STATUS_TEXT, 4);
         this.setData(updateData);
-    },
-
-    getIndex(value) {
-        let index = 0;
-        switch (value) {
-            case null:
-                index = 0;
-                break;
-            case '1':
-                index = 1;
-                break;
-            case '10':
-                index = 2;
-                break;
-            case '2':
-                index = 3;
-                break;
-            case '3':
-                index = 4;
-                break;
-            case '4':
-                index = 5;
-                break;
-        }
-        return index;
     },
 
     onPayOrder(ev) {

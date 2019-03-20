@@ -1,9 +1,5 @@
 <view class="container">
-	<view class="statusBar">
-		<view class="statusItem" wx:for="{{ statusList }}" bindtap="onStautsItemClick" data-value="{{ item.value }}" data-index="{{ index }}">
-			<view class="statusItemName {{ status == item.value ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }};">{{ item.name }}</view>
-		</view>
-	</view>
+	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" />
 	<view class="wrap" bindtouchstart="touchstart" bindtouchend="touchend">
 		<view class="orderItem">
 			<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
