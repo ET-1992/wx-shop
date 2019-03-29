@@ -43,6 +43,10 @@
         <image class="itemIcon" mode="aspectFit" src="../../../icons/shopPhone.png" />
         <view class="itemTitle">售后电话</view>
     </view>
+    <navigator class="infoItem" url="/pages/idCard/idCard">
+        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/myfav.png" />
+        <view class="itemTitle">身份信息</view>
+    </navigator>
 </view>
 
 <myModal modal="{{authModal}}" />

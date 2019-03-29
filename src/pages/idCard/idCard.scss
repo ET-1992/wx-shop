@@ -1,0 +1,48 @@
+.container {
+	padding: 50rpx 40rpx;
+}
+
+.form-section {
+	display: flex;
+	margin: 20rpx auto 50rpx;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.form-left {
+	font-size: 30rpx;
+	color: #333;
+	width: 180rpx;
+	text-align: right;
+}
+
+.form-left::after {
+	content: '*';
+	font-size: 14px;
+	color: #f44;
+}
+
+.form-right {
+	border: 1rpx solid #ccc;
+	height: 60rpx;
+	margin-left: 28rpx;
+	flex: 2;
+	padding-left:20rpx;
+}
+
+.form-img {
+	width: 120rpx;
+	height: 120rpx;
+	margin-left: 14rpx;
+}
+
+.form-btn {
+	width: 400rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	border-radius: 20rpx;
+	margin: 50rpx auto;
+	background-color:#729153;
+	color: #fff;
+	font-size: 32rpx;
+}

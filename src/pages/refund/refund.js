@@ -115,7 +115,6 @@ Page({
         catch (err) {
             console.log(err);
         }
-
     },
 
     onInput(ev) {
