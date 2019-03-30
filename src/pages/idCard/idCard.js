@@ -49,29 +49,21 @@ Page({
     },
 
     // 上传身份证正面照
-    onUploadIDCard() {
+    async onUploadIDCard() {
         const { idCardImage1 } = this.data;
-        this.onUpload().then(res => {
-            console.log(res);
-            this.setData({
-                idCardImage1: res
-            });
-            console.log(this.data.idCardImage1);
+        const res = await this.onUpload();
+        this.setData({
+            idCardImage1: res
         });
-        console.log('sss');
     },
 
     // 上传身份证反面照
-    onUploadReverseSideOfIDCard() {
+    async onUploadReverseSideOfIDCard() {
         const { idCardImage2 } = this.data;
-        this.onUpload().then(res => {
-            console.log(res);
-            this.setData({
-                idCardImage2: res
-            });
-            console.log(this.data.idCardImage2);
+        const res = await this.onUpload();
+        this.setData({
+            idCardImage2: res
         });
-        console.log('sss');
     },
 
     // 提交表单内容
@@ -94,22 +86,21 @@ Page({
         }
 
         try {
-            console.log(idCardImage1);
-            console.log(idCardImage2);
             const res = await api.hei.uploadIdentity({
                 name: userName,
                 id_card_no: idNumber,
                 id_card_image1: idCardImage1,
                 id_card_image2: idCardImage2
             });
-            console.log(res);
-            if (!res.errcode) {
-                proxy.showToast({
-                    title: '保存成功'
-                });
-            }
+            proxy.showToast({
+                title: '保存成功'
+            });
         } catch (error) {
-            console.log(error);
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false,
+            });
         }
     },
 
@@ -125,7 +116,6 @@ Page({
                 idCardImage1: profile.id_card_image1,
                 idCardImage2: profile.id_card_image2
             });
-            console.log(this.data.userName);
         } catch (error) {
             console.log(error);
         }
