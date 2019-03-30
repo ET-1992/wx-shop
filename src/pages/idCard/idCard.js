@@ -72,8 +72,8 @@ Page({
         let error = '';
 
         !checkIdNameNum(idNumber) && (error = '请输入正确的身份证号码');
-        !idCardImage1 && (error = '请上传身份证件');
-        !idCardImage2 && (error = '请上传身份证件');
+        !idCardImage1 && (error = '请上传身份证正面照');
+        !idCardImage2 && (error = '请上传身份证反面照');
         !idNumber && (error = '身份证号不能为空');
         !userName && (error = '姓名不能为空');
 
@@ -95,6 +95,11 @@ Page({
             proxy.showToast({
                 title: '保存成功'
             });
+            if (!res.errcode) {
+                wx.switchTab({
+                    url: '/pages/me/me'
+                });
+            }
         } catch (error) {
             wx.showModal({
                 title: '温馨提示',
