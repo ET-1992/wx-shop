@@ -8,12 +8,12 @@ Page({
         coinList: []
     },
     async onLoad() {
-        wx.setNavigationBarTitle({
-            title: '花生米明细'
-        });
         this.getCoinList();
         const config = wx.getStorageSync(CONFIG);
         this.setData({ config });
+        wx.setNavigationBarTitle({
+            title: `${config.coin_name}明细`
+        });
     },
     async getCoinList() {
         const { next_cursor } = this.data;

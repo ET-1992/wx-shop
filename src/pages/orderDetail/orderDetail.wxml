@@ -146,7 +146,7 @@
 	  	  <text class="money"> -{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }} </text>
 	  	</view>
 	  	<view wx:if="{{ info.coinForPay }}" class="row">
-	  	  <text class="text">花生米</text>
+	  	  <text class="text">{{ config.coin_name ? config.coin_name : '花生米' }}</text>
 	  	  <text class="money"> -{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }} </text>
 	  	</view>
 	  	<view class="row">

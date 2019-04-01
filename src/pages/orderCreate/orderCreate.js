@@ -111,11 +111,11 @@ Page({
             });
         }
 
-        console.log(this.data);
+        // console.log(this.data);
     },
 
     onUnload() {
-        console.log('--- onUnLoad ----');
+        // console.log('--- onUnLoad ----');
         app.globalData.currentOrder = {};
 
         // console.log(JSON.stringify(app.globalData.currentOrder));
@@ -126,7 +126,7 @@ Page({
     },
 
     onHide() {
-        console.log('--- onHide ----');
+        // console.log('--- onHide ----');
 
         // wx.clearStorageSync('orderCreate');
     },
@@ -174,7 +174,7 @@ Page({
     },
 
     getLiftInfoEvent(data) {
-        console.log('getLiftInfoEvent', data);
+        // console.log('getLiftInfoEvent', data);
         const { liftInfo } = this.data;
 
         this.setData({
@@ -183,14 +183,14 @@ Page({
     },
 
     setOverseeAdressEvent(selfAddressObj) {
-        console.log('setOverseeAdressEvent');
+        // console.log('setOverseeAdressEvent');
         this.setData({
             address: selfAddressObj
         });
     },
 
     updateLiftInfo(e) {
-        console.log(e);
+        // console.log(e);
         const { liftInfo = {}} = this.data;
         this.setData({
             liftInfo: { ...liftInfo, ...e.detail }
@@ -201,7 +201,7 @@ Page({
 
     async onLoadData() {
         let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
-        console.log(totalPrice, 'totalPrice');
+        // console.log(totalPrice, 'totalPrice');
         let requestData = {};
         if (address) {
             requestData = {
@@ -237,9 +237,9 @@ Page({
         const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
         const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
-        console.log(maxUseCoin, 'maxUseCoin');
+        // console.log(maxUseCoin, 'maxUseCoin');
         const useCoin = Math.min(maxUseCoin, wallet.coins);
-        console.log(useCoin);
+        // console.log(useCoin);
 
         if (self_lifting_only) {
             liftStyle = 'lift';
@@ -279,7 +279,7 @@ Page({
     computedFinalPay() {
         const { useCoin, fee, isGrouponBuy, totalPostage, totalPrice, shouldGoinDisplay } = this.data;
         let finalPay = 0;
-        console.log(useCoin, shouldGoinDisplay);
+        // console.log(useCoin, shouldGoinDisplay);
         if (shouldGoinDisplay && !isGrouponBuy) {
             finalPay = fee.amount - useCoin / 100;
         } else {
@@ -296,7 +296,7 @@ Page({
     },
 
     async onPay(ev) {
-        console.log(ev, 'ev');
+        // console.log(ev, 'ev');
         const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
@@ -324,7 +324,7 @@ Page({
             detailInfo,
         } = address;
         const { vendor, afcode } = app.globalData;
-        console.log(vendor, afcode, 'globalData');
+        // console.log(vendor, afcode, 'globalData');
 
         if (!userName && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
@@ -374,7 +374,7 @@ Page({
 
         if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
-            console.log(orderForm.data, 'orderForm');
+            // console.log(orderForm.data, 'orderForm');
             const { annotation, dns_obj } = orderForm.data;
             annotation.forEach((item, index) => {
                 if (item.required && !dns_obj[item.name]) {

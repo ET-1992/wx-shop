@@ -21,8 +21,8 @@
 
   <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation && order_annotation.length > 0 }}" id="orderForm" isShowModal="{{ modal.isShowModal }}" />
 
-  <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
-  <orderInfo defineTypeGlobal="{{ defineTypeGlobal }}" fee="{{ fee }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}" isGrouponCommanderPrice="{{ groupon_commander_price }}"></orderInfo>
+  <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
+  <orderInfo defineTypeGlobal="{{ defineTypeGlobal }}" fee="{{ fee }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}" isGrouponCommanderPrice="{{ groupon_commander_price }}"  config="{{ config }}"></orderInfo>
 </view>
 <orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay" crowd="{{ crowd }}" themeColor="{{ themeColor }}"></orderPay>
 

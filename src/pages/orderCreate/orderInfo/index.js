@@ -57,6 +57,10 @@ Component({
         defineTypeGlobal: {
             type: String,
             value: ''
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
     data: {

@@ -22,6 +22,10 @@ Component({
             type: Number,
             value: 0
         },
+        config: {
+            type: Object,
+            value: {}
+        },
         fee: {
             type: Object,
             value: {},

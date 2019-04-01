@@ -16,7 +16,7 @@
     		</view>
     	</view>
     	<view class="coupon goldCoin" wx:if="{{ redpacket.item_type == 2 && hasRecived }}">
-    	  	<view class="title">恭喜获得花生米</view>
+    	  	<view class="title">恭喜获得{{ config.coin_name ? config.coin_name : '花生米' }}</view>
     	  	<view class="number"> {{goldNumer || '--'}} <text>个</text> </view>
     	  	<view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
     	</view>

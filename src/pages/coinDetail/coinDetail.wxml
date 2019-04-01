@@ -17,9 +17,9 @@
             +<text>{{item.income}}</text>
         </view>
     </view>
-    <view wx:if="{{ !isLoading && !coinList.length}}" class="noHint">
-        <image class="Bg" src="/icons/no_coin.svg"></image>
-        <view>还没有花生米</view>
+    <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
+        <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
+        <view>还没有{{ config.coin_name ? config.coin_name : '花生米' }}</view>
     </view>
 </view>
 <!-- <view

@@ -10,6 +10,10 @@ Component({
                     ...newValue
                 });
             }
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
     methods: {

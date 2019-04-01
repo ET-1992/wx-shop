@@ -2,7 +2,7 @@
 <view class="container" wx:if="{{!isLoading}}">
 
 	<!-- 头部面板 -->
-	<personal personalComponentData="{{ personalComponentData }}" bind:consoleOpen="consoleOpen"/>
+	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
 	
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />

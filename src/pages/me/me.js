@@ -42,6 +42,8 @@ Page({
             wallet: data.wallet,
             coupons: data.coupons
         };
+        console.log(personalComponentData);
+        console.log('123');
         const managerComponentData = {
             themeColor,
             user,
