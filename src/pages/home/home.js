@@ -3,6 +3,7 @@ import api from 'utils/api';
 import { showToast, showModal, getSystemInfo } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart, parseScene, splitUserStatus, autoNavigate } from 'utils/util';
+import { clearInterval } from 'timers';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -39,7 +40,8 @@ Page({
 
         size: 11,
         speed: 50,
-        second: 0
+        second: 0,
+        guide_status: false // 添加到小程序指引是否消失
     },
 
     swiperChange(e) {
@@ -137,6 +139,16 @@ Page({
         }
     },
 
+    // 计时 当second为5时，指引消失
+    addGuideSecond() {
+        let { status } = this.data;
+        setTimeout(() => {
+            this.setData({
+                status: !status
+            });
+        }, 5000);
+    },
+
     async onLoad(options) {
         app.log(options, 'onLoad');
 
@@ -152,6 +164,7 @@ Page({
             logoObj: partner,
             globalData: app.globalData
         });
+        this.addGuideSecond();
     },
 
     async onShow() {

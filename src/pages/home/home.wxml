@@ -20,4 +20,9 @@
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 
+<!-- 添加到小程序指引 -->
+<view class="home-guide" hidden="{{ status }}">
+    <image class="home-guide_img" src="/icons/guide.svg"/>
+</view>
+
 <console page="首页" />

@@ -7,3 +7,14 @@
 @import './templates/tplStyleFive/tplStyleFive';
 @import './templates/tplStyleSix/tplStyleSix';
 @import './templates/newUserCoupon/newUserCoupon';
+
+.home-guide {
+    position: fixed;
+    top: 10rpx;
+    right: 40rpx;
+}
+
+.home-guide_img {
+    width: 399rpx;
+    height: 68rpx;
+}
