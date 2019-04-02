@@ -1,0 +1,31 @@
+<view class="container">
+	<form bindsubmit='formSubmit' class='form'>
+        <view class='form-section'>
+            <view class='form-left'>真实姓名</view>
+            <input class='form-right' type="text" value="{{userName? userName : ''}}" bindinput="bindNameInput" />
+        </view>
+        <view class='form-section'>
+            <view class='form-left'>身份证号</view>
+            <input class='form-right' type="idcard"  value="{{idNumber?  idNumber : ''}}" bindinput="bindNumberInput" maxlength="18"/>
+        </view>
+        <!-- <view class='form-section' wx:for="{{imgFile}}" wx:key="{{index}}">
+            <view class='form-left'>{{item.info}}</view>
+			<view class="form-img" >
+				<image class="form-img"  src="{{item.imgSrc ? item.imgSrc: '/icons/uploadIcon.png'}}" bindtap="onUpload" data-index="{{index}}"/>
+			</view>
+        </view> -->
+        <view class='form-section'>
+            <view class='form-left'>身份证正面</view>
+			<view class="form-img" >
+				<image class="form-img"  src="{{idCardImage1 ? idCardImage1: '/icons/uploadIcon.png'}}" bindtap="onUploadIDCard"/>
+			</view>
+        </view>
+        <view class='form-section'>
+            <view class='form-left'>身份证反面</view>
+			<view class="form-img" >
+				<image class="form-img"  src="{{idCardImage2 ? idCardImage2: '/icons/uploadIcon.png'}}" bindtap="onUploadReverseSideOfIDCard"/>
+			</view>
+        </view>
+		<button form-type="submit" class="form-btn" style="background-color: {{ themeColor.primaryColor }}">保 存</button>
+    </form>
+</view>

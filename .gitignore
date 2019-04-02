@@ -12,3 +12,4 @@ node_modules
 lib
 package-lock.json
 jsconfig.json
+.vscode

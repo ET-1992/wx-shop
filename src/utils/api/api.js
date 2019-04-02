@@ -337,5 +337,16 @@ export const apis = {
         path: 'api/mag.order.query.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 上传身份信息
+    uploadIdentity: {
+        path: 'api/mag.shop.user.profile.update.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 获取身份信息
+    getIdentityInfo: {
+        path: 'api/mag.shop.user.profile.get.json',
+        isForceToken: true
     }
 };

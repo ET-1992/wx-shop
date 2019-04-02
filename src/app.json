@@ -46,7 +46,8 @@
 		"pages/crowd/crowdProgress/crowdProgress",
 		"pages/crowd/inviteCrowd/inviteCrowd",
 		"pages/crowd/crowdList/crowdList",
-		"pages/rulePages/rulePages"
+		"pages/rulePages/rulePages",
+		"pages/idCard/idCard"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -94,7 +95,7 @@
 	},
 	"permission": {
 		"scope.userLocation": {
-		  "desc": "你的位置信息将用于小程序位置接口的效果展示"
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
 		}
-	  }
+	}
 }
