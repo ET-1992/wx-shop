@@ -1,7 +1,7 @@
-<!-- <loading isLoading="{{ isLoading }}"/> -->
-<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? (config.cdn_host + '/shop/finishBg.jpg') : (config.cdn_host + '/shop/normalBg.jpg') }})">
+<loading isLoading="{{ isLoading }}"/>
+<view wx:if="{{ !isLoading }}" class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? (config && config.cdn_host + '/shop/finishBg.jpg') : (config && config.cdn_host + '/shop/normalBg.jpg') }})">
   	<view wx:if="{{ !isFinished }}">
-		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url({{config.cdn_host + '/shop/couponBg.png'}})">
+		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url({{config && config.cdn_host + '/shop/couponBg.png'}})">
 			<view class="middle">
     		  	<view class="title"> 
 					<view class="text">分享红包</view>
