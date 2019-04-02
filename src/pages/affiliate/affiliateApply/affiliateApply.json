@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "花生分享计划",
   "usingComponents": {
     "console": "../../../components/console/console",
     "loading": "../../../components/loading/index"

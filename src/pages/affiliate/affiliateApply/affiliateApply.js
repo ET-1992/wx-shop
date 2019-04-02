@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
 import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate } from 'utils/util';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 Page({
     data: {
@@ -28,12 +29,17 @@ Page({
         this.setData({
             isLoading: true
         });
+        const config = wx.getStorageSync(CONFIG);
         const data = await api.hei.getWelcomeShare();
         console.log(data);
         this.setData({
+            config,
             ...data,
             isLoading: false
         }, this.redirectToHome);
+        wx.setNavigationBarTitle({
+            title: `${config.platform_name}分享计划`
+        });
     },
     /* 图片加载完毕回调 */
     isLoaded(e) {
