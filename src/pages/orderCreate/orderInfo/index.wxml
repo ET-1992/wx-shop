@@ -8,7 +8,7 @@
     <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponFeeDispaly }}</text>
   </view>
   <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
-    <text class="text">{{ config.coin_name ? config.coin_name : '花生米' }}</text>
+    <text class="text">{{ config.coin_name || '花生米' }}</text>
     <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinForPay }}</text>
   </view>
   <view>

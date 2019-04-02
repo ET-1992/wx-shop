@@ -5,7 +5,7 @@
 	</button>
 	<navigator wx:if="{{ wallet && wallet.coin_enable }}" class="welfare" url="/pages/coinDetail/coinDetail">
 		<view class="number">{{ wallet && wallet.coins || 0 }}</view>
-		<view class="title">{{ config.coin_name ? config.coin_name : '花生米' }}</view>
+		<view class="title">{{ config.coin_name || '花生米' }}</view>
 	</navigator>
 	<navigator wx:if="{{ wallet.coin_enable }}" class="welfare" url="/pages/myCoupons/myCoupons">
 		<view class="number">{{ coupons.available.length || 0 }}</view>

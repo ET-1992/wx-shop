@@ -8,9 +8,9 @@
     </view>
   </view>
   <view class="gold" wx:if="{{ shouldGoinDisplay }}">
-    <view class="gold-title">{{ config.coin_name ? config.coin_name : '花生米' }}（本单最多可使用 {{ maxUseCoin }} 个）</view>
+    <view class="gold-title">{{ config.coin_name || '花生米' }}（本单最多可使用 {{ maxUseCoin }} 个）</view>
     <view class="gold-content">
-      共 {{ coins }}  {{ config.coin_name ? config.coin_name : '花生米' }},使用
+      共 {{ coins }}  {{ config.coin_name || '花生米' }},使用
       <input type="number" bindinput="bindInput" class="gold-number" value="{{ useCoin }}" />
       个
     </view>

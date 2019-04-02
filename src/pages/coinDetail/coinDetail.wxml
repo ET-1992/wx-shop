@@ -19,7 +19,7 @@
     </view>
     <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
         <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
-        <view>还没有{{ config.coin_name ? config.coin_name : '花生米' }}</view>
+        <view>还没有{{ config.coin_name || '花生米' }}</view>
     </view>
 </view>
 <!-- <view

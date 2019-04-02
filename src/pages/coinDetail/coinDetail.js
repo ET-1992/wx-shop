@@ -12,7 +12,7 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         this.setData({ config });
         wx.setNavigationBarTitle({
-            title: `${config.coin_name}明细`
+            title: `${(config.coin_name || '花生米')}明细`
         });
     },
     async getCoinList() {
