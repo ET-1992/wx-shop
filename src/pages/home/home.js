@@ -123,8 +123,9 @@ Page({
         this.setData({
             userCoupon: coupons_home,
             isLoading: false,
+            guide_status: true,
             ...data
-        });
+        }, this.addGuideSecond);
 
         let products = this.data.products;
         if (products && products[products.length - 1]) {
@@ -141,12 +142,11 @@ Page({
 
     // 计时 当second为5时，指引消失
     addGuideSecond() {
-        let { status } = this.data;
         setTimeout(() => {
             this.setData({
-                status: !status
+                guide_status: false
             });
-        }, 5000);
+        }, 3000);
     },
 
     async onLoad(options) {
@@ -164,7 +164,6 @@ Page({
             logoObj: partner,
             globalData: app.globalData
         });
-        this.addGuideSecond();
     },
 
     async onShow() {
