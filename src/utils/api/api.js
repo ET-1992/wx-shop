@@ -348,5 +348,19 @@ export const apis = {
     getIdentityInfo: {
         path: 'api/mag.shop.user.profile.get.json',
         isForceToken: true
+    },
+    favProduct: {
+        path: 'api/mag.product.fav.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    unFavProduct: {
+        path: 'api/mag.product.unfav.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    getFavProductList: {
+        path: 'api/mag.product.fav.list.json',
+        isForceToken: true
     }
 };

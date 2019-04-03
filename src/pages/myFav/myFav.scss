@@ -1,6 +1,11 @@
 /* pages/myFav/myFav.wxss */
 page{
 	background: #fff;
+	height: 100%;
+}
+.wrap{
+	padding-top: 90rpx;
+	height: 100%;
 }
 .favList{
 	border-bottom: 1px solid #eee;
