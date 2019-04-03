@@ -19,6 +19,7 @@ App({
         const extConfig = wx.getExtConfigSync() || {};
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
+        // vip已去掉  styleType  templateType partner authorizer走config
         let { primaryColor, secondaryColor, categoryIndex = 2, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY' } = extConfig;
 
         const templateTypeTest = ['magua'];

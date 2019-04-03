@@ -14,7 +14,7 @@ Component({
             value: ''
         }
     },
-    created() {
+    attached() {
         const config = wx.getStorageSync(CONFIG);
         console.log(config.self_address, 'selfAddress');
         this.setData({
