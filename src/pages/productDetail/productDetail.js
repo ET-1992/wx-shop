@@ -362,13 +362,12 @@ Page({
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, defineTypeGlobal, vip } = app.globalData;
+        const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         this.setData({
             isIphoneX,
             user,
             themeColor,
-            vip,
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,

@@ -107,7 +107,7 @@
 		</view>
 
 		<!-- 商品评论start -->
-		<productComments wx:if="{{ vip && vip.product_reply && product.reply_count }}" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}"/>
+		<productComments wx:if="{{ config.reply_enable && product.reply_count }}" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}"/>
 		<!-- 商品评论end -->
 		
 		<view class="detail">

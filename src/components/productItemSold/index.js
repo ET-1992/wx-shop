@@ -56,7 +56,8 @@ Component({
         products: [],
         globalData: app.globalData
     },
-    created() {
+    attached() {
+        const { statusCode } = this.data;
         const config = wx.getStorageSync(CONFIG);
         this.setData({
             config
