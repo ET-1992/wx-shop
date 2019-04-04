@@ -12,13 +12,15 @@ Component({
         isShowModal: {
             type: Boolean,
             value: false,
-        }
+        },
     },
     data: {
         dns_obj: {}
     },
+
     ready() {
         const { annotation, dns_obj } = this.data;
+        console.log(this.data.annotation);
         annotation.forEach((item, index) => {
             if (item.value) {
                 dns_obj[item.name] = item.value;
@@ -28,6 +30,7 @@ Component({
             dns_obj
         });
     },
+
     methods: {
         async onUpload(e) {
             console.log(e);
@@ -78,11 +81,10 @@ Component({
 
         checkError(e) {
             const { annotationname, index, type } = e.currentTarget.dataset;
-            const { value } = e.detail;
+            let { value } = e.detail;
             const { annotation, dns_obj } = this.data;
 
             if (value) {
-                // dns_obj.push({ [annotationname]: value });
                 console.log(value);
 
                 if (type === 'phone_number') {
@@ -113,6 +115,9 @@ Component({
                     annotation[index].isError = false;
                 }
 
+                if (type === 'select') {
+                    value = annotation[index]['options'][value];
+                }
 
                 dns_obj[annotationname] = value;
                 annotation[index].value = value;
