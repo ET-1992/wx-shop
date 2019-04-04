@@ -123,7 +123,6 @@ Page({
         this.setData({
             userCoupon: coupons_home,
             isLoading: false,
-            guide_status: true,
             ...data
         }, this.addGuideSecond);
 
@@ -142,11 +141,18 @@ Page({
 
     // 计时 当second为5时，指引消失
     addGuideSecond() {
-        setTimeout(() => {
+        const isShowGuide = wx.getStorageSync('ISSHOWGUIDE');
+        if (!isShowGuide) {
             this.setData({
-                guide_status: false
+                guide_status: true
             });
-        }, 3000);
+            setTimeout(() => {
+                this.setData({
+                    guide_status: false
+                });
+                wx.setStorageSync('ISSHOWGUIDE', true);
+            }, 5000);
+        }
     },
 
     async onLoad(options) {
