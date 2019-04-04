@@ -168,6 +168,35 @@ $footerHeight: 100rpx;
 	}
 }
 
+.virtualProductText {
+	width: 100%;
+	background: #fff;
+	padding: 20rpx 30rpx;
+	color: #000000;
+	font-size: 24rpx;
+	height: auto;
+	margin: 20rpx 0;
+	.virtualProductItem {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.virtualText {
+		flex: 2;
+	}
+	.virtualProductItemBtn {
+		width: 100rpx;
+		height: 40rpx;
+		background: #E0E0E0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 4rpx;
+		margin-left: 30rpx;
+	}
+}
+
 .virtualImage {
 	width: 100%;
 	margin: 10rpx 0;
@@ -197,7 +226,7 @@ $footerHeight: 100rpx;
 
 .virtualProductBtnWrap, .liftInfoBtnWrap{
 	width: 100%;
-	margin: 10rpx 0;
+	margin: 20rpx 0;
 	background: #fff;
 	display: flex;
 	justify-content: center;
@@ -225,10 +254,6 @@ $footerHeight: 100rpx;
 .liftInfoWrap {
 	margin: 10rpx 0;
 }
-
-// .liftInfoCanvas {
-	
-// }
 
 .remarkWrap {
 	width: 100%;
@@ -377,7 +402,7 @@ $footerHeight: 100rpx;
 
 .section {
 	font-size: 10pt;
-	margin-bottom: 10rpx;
+	margin-bottom: 20rpx;
 	background-color: #fff;
 }
 
