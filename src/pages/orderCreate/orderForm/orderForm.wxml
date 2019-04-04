@@ -1,5 +1,5 @@
 <view class="container">
-	<view wx:for="{{ annotation }}">
+	<view wx:for="{{ annotation }}" wx:key="{{ index }}">
 		<view class="item" wx:if="{{ item.type === 'id_number' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
 			<view class="type" >
@@ -49,6 +49,17 @@
 				<picker mode="time" bindchange="checkError" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerTime" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
 					<view>
 						{{ item.value || '选择时间' }}
+					</view>
+				</picker>
+			</view>
+		</view>
+
+		<view class="item" wx:if="{{ item.type === 'select' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<picker mode="selector" bindchange="checkError" value="{{ item.value }}" range="{{ item.options }}" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerSelect" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+					<view>
+						{{ item.value || '请选择'}}
 					</view>
 				</picker>
 			</view>
