@@ -429,8 +429,11 @@ Page({
             wx.showToast({
                 title: '成功添加'
             });
-
+            // 更新红点
             this.showCartNumber(data.count);
+
+            // 收藏商品
+            await api.hei.favProduct({ post_id: id });
         }
     },
 

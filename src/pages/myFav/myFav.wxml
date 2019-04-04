@@ -1,25 +1,18 @@
 <loading isLoading="{{ isLoading }}"/>
-<block wx:if="{{ !isLoading && topics.length }}">
-	<view class="favList" wx:for="{{topics}}" wx:key="id">
-		<navigator url="../articleDetail/articleDetail?id={{item.id}}">
-			<view class="favItem">
-				<image class="avatar" src="{{item.banner}}" mode="aspectFill"></image>
-				<view class="favDetail">
-						<view class="m-tt">{{item.title}}</view>
-						<view class="m-desc">{{item.excerpt}}</view>
-						<button catchtap="unfav" id="{{item.id}}">取消收藏</button>
-				</view>
+<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" />
+<view class="wrap" wx:if="{{ !isLoading && topics.length }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+	<navigator wx:for="{{topics}}" wx:key="id" class="favList" url="{{ (activeIndex ? '/pages/productDetail/productDetail?id=':'/pages/articleDetail/articleDetail?id=') + item.id}}">
+		<view class="favItem">
+			<image class="avatar" src="{{item.banner || item.thumbnail}}" mode="aspectFill"></image>
+			<view class="favDetail">
+				<view class="m-tt">{{item.title}}</view>
+				<view class="m-desc">{{item.excerpt}}</view>
+				<button catchtap="unfav" data-id="{{item.id}}">取消收藏</button>
 			</view>
-		</navigator>
-	</view>
-</block>
-<block wx:if="{{ !isLoading && topics.length == 0}}">
-	<view class="noHint">
-		<image class="favBg" src="../../icons/favBg.png"></image>
-		<view>还没有收藏</view>
-	</view>
-</block>
-<!-- <view
-	class="bottomHint"
-	wx:if="{{ topics.length && !next_cursor }}"
->-这是一条底线-</view> -->
+		</view>
+	</navigator>
+</view>
+<view class="noHint" wx:if="{{ !isLoading && !topics.length}}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+	<image class="favBg" src="/icons/favBg.png"></image>
+	<view>还没有收藏</view>
+</view>
