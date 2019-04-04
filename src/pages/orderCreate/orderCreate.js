@@ -200,72 +200,81 @@ Page({
     },
 
     async onLoadData() {
-        let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
-        // console.log(totalPrice, 'totalPrice');
-        let requestData = {};
-        if (address) {
-            requestData = {
-                receiver_name: address.userName,
-                receiver_phone: address.telNumber,
-                receiver_country: address.nationalCode,
-                receiver_state: address.provinceName,
-                receiver_city: address.cityName,
-                receiver_district: address.countyName,
-                receiver_address: address.detailInfo,
-                receiver_zipcode: address.postalCode
-            };
-        }
+        try {
+            let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
+            // console.log(totalPrice, 'totalPrice');
+            let requestData = {};
+            if (address) {
+                requestData = {
+                    receiver_name: address.userName,
+                    receiver_phone: address.telNumber,
+                    receiver_country: address.nationalCode,
+                    receiver_state: address.provinceName,
+                    receiver_city: address.cityName,
+                    receiver_district: address.countyName,
+                    receiver_address: address.detailInfo,
+                    receiver_zipcode: address.postalCode
+                };
+            }
 
-        if (user_coupon_ids) { // 团购无优惠卷
-            requestData.user_coupon_ids = user_coupon_ids;
-        }
+            if (user_coupon_ids) { // 团购无优惠卷
+                requestData.user_coupon_ids = user_coupon_ids;
+            }
 
-        if (isGrouponBuy) {
+            if (isGrouponBuy) {
             // requestData.order_type = 'groupon';
-            requestData.order_type = 1;     // 后端改post参数
+                requestData.order_type = 1;     // 后端改post参数
+            }
+            if (grouponId) {
+                requestData.groupon_id = grouponId;
+            }
+
+            if (liftStyle === 'lift') {
+                requestData.shipping_type = 2;
+            }
+
+            requestData.posts = JSON.stringify(items);
+            const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only } = await api.hei.orderPrepare(requestData);
+            const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+            const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+
+            // console.log(maxUseCoin, 'maxUseCoin');
+            const useCoin = Math.min(maxUseCoin, wallet.coins);
+            // console.log(useCoin);
+
+            if (self_lifting_only) {
+                liftStyle = 'lift';
+            }
+
+            this.setData({
+                coupons,
+                wallet,
+                coin_in_order,
+                fee,
+                shouldGoinDisplay,
+                maxUseCoin,
+                useCoin,
+                user_coupon_ids: coupons.recommend && coupons.recommend.user_coupon_id || '',
+                isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
+                isPeanutPay: use_platform_pay,
+                selfLiftEnable: self_lifting_enable,
+                isDisablePay: false,
+                order_annotation,
+                product_type,
+                payment_tips,
+                self_lifting_only,
+                liftStyle
+            }, () => {
+                this.computedFinalPay();
+            });
+        } catch (err) {
+            console.log(err);
+            showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false,
+            });
         }
-        if (grouponId) {
-            requestData.groupon_id = grouponId;
-        }
-
-        if (liftStyle === 'lift') {
-            requestData.shipping_type = 2;
-        }
-
-        requestData.posts = JSON.stringify(items);
-        const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only } = await api.hei.orderPrepare(requestData);
-        const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
-        const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
-
-        // console.log(maxUseCoin, 'maxUseCoin');
-        const useCoin = Math.min(maxUseCoin, wallet.coins);
-        // console.log(useCoin);
-
-        if (self_lifting_only) {
-            liftStyle = 'lift';
-        }
-
-        this.setData({
-            coupons,
-            wallet,
-            coin_in_order,
-            fee,
-            shouldGoinDisplay,
-            maxUseCoin,
-            useCoin,
-            user_coupon_ids: coupons.recommend && coupons.recommend.user_coupon_id || '',
-            isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
-            isPeanutPay: use_platform_pay,
-            selfLiftEnable: self_lifting_enable,
-            isDisablePay: false,
-            order_annotation,
-            product_type,
-            payment_tips,
-            self_lifting_only,
-            liftStyle
-        }, () => {
-            this.computedFinalPay();
-        });
     },
 
     setUseCoin(e) {
