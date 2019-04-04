@@ -15,7 +15,7 @@
 <!-- </block> -->
 
 <!-- 新用戶优惠券弹框 -->
-<include wx:if="{{ (!isNewUser && coupons_newbie && coupons_newbie.length > 0 && config.cdn_host) }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
+<include wx:if="{{ (isNewUser && coupons_newbie && coupons_newbie.length > 0 && config.cdn_host) }}" src="./templates/newUserCoupon/newUserCoupon.wxml"/>
 
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
