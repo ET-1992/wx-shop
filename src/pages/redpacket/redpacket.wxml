@@ -1,4 +1,4 @@
-<loading isLoading="{{ isLoading }}"/>∏
+<loading isLoading="{{ isLoading }}"/>
 <view wx:if="{{ !isLoading }}" class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" style="background-image:url({{isFinished ? (config && config.cdn_host + '/shop/finishBg.jpg') : (config && config.cdn_host + '/shop/normalBg.jpg') }})">
   	<view wx:if="{{ !isFinished }}">
 		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url({{config && config.cdn_host + '/shop/couponBg.png'}})">
