@@ -408,7 +408,7 @@ Page({
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        const { product: { id }, selectedSku, quantity, formId } = this.data;
+        const { product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
 
         if (selectedSku.stock === 0) {
             await showModal({
@@ -433,7 +433,15 @@ Page({
             this.showCartNumber(data.count);
 
             // 收藏商品
-            await api.hei.favProduct({ post_id: id });
+            if (!is_faved) {
+                const res = await api.hei.favProduct({ post_id: id });
+                if (!res.errcode) {
+                    product.is_faved = 1;
+                    this.setData({
+                        product
+                    });
+                }
+            }
         }
     },
 
