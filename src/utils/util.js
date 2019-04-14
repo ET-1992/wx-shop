@@ -2,6 +2,7 @@ import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
+import wxProxy from 'utils/wxProxy';
 
 function formatNumber(n) {
     let x;
@@ -313,4 +314,25 @@ export function autoNavigate(url, type = 'navigateTo') {
             wx[type]({ url });
         },
     });
+}
+
+export function autoNavigate_({ url, type = 'navigateTo' }) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await wxProxy[type]({ url });
+            resolve();
+        } catch (e) {
+            try {
+                await wxProxy.switchTab({ url });
+                resolve();
+            } catch (e) {
+                reject(e);
+            }
+        }
+    });
+}
+
+export async function go(e) {
+    const { url, type } = e.currentTarget.dataset;
+    autoNavigate_({ url, type });
 }
