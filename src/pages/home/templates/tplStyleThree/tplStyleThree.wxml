@@ -111,7 +111,7 @@
           	<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </navigator>
           <block wx:else>
-          	<myNavigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
+          	<myNavigator wx:for="{{ groupons }}" wx:if="{{ index < 3 }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
           	 	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           	</myNavigator>
 				  </block>
@@ -152,7 +152,7 @@
 				<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="grouponItem" url="/pages/miaoshaList/miaoshaList">
 					<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 				</navigator> -->
-				<myNavigator wx:if="{{ miaoshas.length > 0 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+				<myNavigator wx:if="{{ miaoshas.length > 0 && index < 3 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
 					<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 				</myNavigator>
 			</view>
