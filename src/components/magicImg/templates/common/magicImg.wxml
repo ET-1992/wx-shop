@@ -99,7 +99,7 @@
             src="{{ magicImgData.images[index].video }}"
             style="flex: {{ magicImgData.flex ? magicImgData.flex[index] : 1 }}"
             poster="{{  magicImgData.images[index].image }}"
-            autoplay controls
+            controls
         ></video>
 
 
