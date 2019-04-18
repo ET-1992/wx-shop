@@ -1,7 +1,9 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}"/>
+
+<view class="container" wx:if="{{ !isLoading }}">
 	<view class="shop">
-		<image class="avatar" src="{{ authorizer.head_img || '/icons/directPay/shop_avatar.png' }}" mode="aspectFit" ></image>
-		<view class="title">{{ authorizer.nick_name || '花生小店体验店'}}</view>
+		<image class="avatar" src="{{ authorizer.head_img || '/icons/default_shop.svg' }}" mode="aspectFit" ></image>
+		<view class="title">{{ authorizer.nick_name || '认证商户'}}</view>
 	</view>
 	<view class="input_money" bind:tap="clickInput">
 		<view class="title"> 付款金额 </view>
@@ -11,6 +13,6 @@
 		</view>
 	</view>
 	<form report-submit bindsubmit="onPay">
-		<button class="confirmPay" form-type="submit" disabled="{{ isDisablePay }}" style="background-color: {{ themeColor.primaryColor  }}" >确认支付</button>
+		<button class="confirmPay" form-type="submit" style="background-color: {{ isDisablePay ? '#d4d4d4' : themeColor.primaryColor }}" >确认支付</button>
 </form>
 </view>

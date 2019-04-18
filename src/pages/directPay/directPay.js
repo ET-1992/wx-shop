@@ -10,7 +10,8 @@ Page({
         isFocus: true,
         size: 15,
         isDisablePay: true,
-        amount: 0
+        amount: 0,
+        isLoading: true
     },
 
     async onShow(parmas) {
@@ -20,7 +21,8 @@ Page({
         this.setData({
             themeColor,
             authorizer: config.authorizer,
-            globalData: app.globalData
+            globalData: app.globalData,
+            isLoading: false
         });
     },
     clickInput() {
@@ -54,7 +56,11 @@ Page({
         console.log(ev);
         const { formId } = ev.detail;
         const { vendor } = app.globalData;
-        const { money } = this.data;
+        const { money, isDisablePay } = this.data;
+        if (isDisablePay) {
+            wx.showToast({ title: '请输入金额', icon: 'none', image: '', duration: 1000 });
+            return;
+        }
         try {
             const data = await api.hei.payDirect({
                 formId,
