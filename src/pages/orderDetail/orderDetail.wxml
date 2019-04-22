@@ -69,7 +69,7 @@
       <view class="virtualProductBtn" bindtap="setVirtualProductBtn" style="background-color: {{ themeColor.primaryColor }}"> 获取取货信息 </view>
 		</view>
 		<!-- 发货 卡号/兑换码、密码： -->
-    <view class="virtualProduct" wx:if="{{ !virtualProductBtn && order.annotation.virtual_product.code &&  order.annotation.virtual_product.password }}">
+    <view class="virtualProduct" wx:if="{{ !virtualProductBtn }}">
       <view class="virtualProductItem">
         兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}
         <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}"> 复制 </view>
