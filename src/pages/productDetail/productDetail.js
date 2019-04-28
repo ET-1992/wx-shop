@@ -6,6 +6,7 @@ import getSKUMap from 'utils/getSKUMap';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { getAgainUserForInvalid, updateCart, autoNavigate } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
+import proxy from 'utils/wxProxy';
 
 // import login from 'utils/login';
 
@@ -303,7 +304,16 @@ Page({
             // ---------------
         }
         catch (err) {
-            console.log(err);
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '商品过期不存在',
+                showCancel: false
+            });
+            if (confirm) {
+                wx.navigateBack({
+                    delta: 1
+                });
+            }
         }
         // this.setData({ isLoading: false });
         console.log(this.data);
