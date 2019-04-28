@@ -145,45 +145,30 @@ Page({
     },
 
     countDown() {
-        const {
-            miaosha_end_timestamp,
-            miaosha_start_timestamp,
-        } = this.data.product;
-        const now = Math.round(Date.now() / 1000);
-        let timeLimit = miaosha_end_timestamp - now;
-        let hasStart = true;
-        let hasEnd = false;
-        if (now < miaosha_start_timestamp) {
-            hasStart = false;
-            timeLimit = miaosha_start_timestamp - now;
-        }
+        return new Promise((resolve) => {
+            const {
+                miaosha_end_timestamp,
+                miaosha_start_timestamp,
+            } = this.data.product;
+            const now = Math.round(Date.now() / 1000);
+            let timeLimit = miaosha_end_timestamp - now;
+            let hasStart = true;
+            let hasEnd = false;
+            if (now < miaosha_start_timestamp) {
+                hasStart = false;
+                timeLimit = miaosha_start_timestamp - now;
+            }
 
-        if (now > miaosha_end_timestamp) {
-            hasEnd = true;
-            timeLimit = 0;
-        }
-        this.setData({
-            timeLimit,
-            hasStart,
-            hasEnd,
+            if (now > miaosha_end_timestamp) {
+                hasEnd = true;
+                timeLimit = 0;
+            }
+            this.setData({
+                timeLimit,
+                hasStart,
+                hasEnd,
+            }, resolve());
         });
-
-        /* if (timeLimit && !this.intervalId) {
-            this.intervalId = setInterval(() => {
-                const { timeLimit } = this.data;
-                const [hour, minute, second] = getRemainTime(timeLimit);
-                let day = parseInt(hour / 24, 10);
-                this.setData({
-                    'timeLimit': timeLimit - 1,
-                    remainTime: {
-                        day: day,
-                        hour: hour - day * 24,
-                        minute,
-                        second,
-                    }
-                });
-            }, 1000);
-        } */
     },
 
     loadProductDetailExtra(id) {
@@ -239,7 +224,7 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
 
-            const { skus, coupons = [], properties: productProperties } = data.product;
+            const { skus, coupons = [], properties: productProperties, thumbnail } = data.product;
             const skuData = {};
             skus && skus.forEach((sku) => {
                 const { property_names, stock, price } = sku;
@@ -303,32 +288,18 @@ Page({
                 selectedSku,
                 skuMap,
                 isLoading: false,
+                share_image: thumbnail,
                 ...data,
             });
 
 
-            // --------------------
-            const { hasEnd, hasStart, product } = this.data;
-            product.definePrice = 0;
+            const { product } = this.data;
 
             if (product.miaosha_enable) {
-                this.countDown();
+                await this.countDown();
             }
-
-            if (product.groupon_enable === '1') {
-                product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
-                product.showOriginalPrice = product.groupon_price !== product.original_price;
-            } else if (product.miaosha_enable === '1' && !hasEnd && hasStart) {
-                product.definePrice = product.miaosha_price;
-                product.showOriginalPrice = product.miaosha_price !== product.original_price;
-            } else {
-                product.definePrice = product.price;
-                product.showOriginalPrice = product.price !== product.original_price;
-            }
-            this.setData({
-                product,
-                share_image: product.thumbnail
-            });
+            // --------------------
+            this.setDefinePrice();
             // ---------------
         }
         catch (err) {
@@ -338,14 +309,24 @@ Page({
         console.log(this.data);
     },
 
-    // async onShow() {
-    //     this.setData({ isLoading: true });
-    //     await this.initPage();
-    //     const CART_NUM  = wx.getStorageSync('CART_NUM');
-    //     this.setData({
-    //         cartNumber: CART_NUM
-    //     });
-    // },
+    setDefinePrice() {
+        const { hasEnd, hasStart, product } = this.data;
+        product.definePrice = 0;
+
+        if (product.groupon_enable === '1') {
+            product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
+            product.showOriginalPrice = product.groupon_price !== product.original_price;
+        } else if (product.miaosha_enable === '1' && !hasEnd && hasStart) {
+            product.definePrice = product.miaosha_price;
+            product.showOriginalPrice = product.miaosha_price !== product.original_price;
+        } else {
+            product.definePrice = product.price;
+            product.showOriginalPrice = product.price !== product.original_price;
+        }
+        this.setData({
+            product,
+        });
+    },
 
     currentIndex(e) {
         this.setData({ current: e.detail.current });
