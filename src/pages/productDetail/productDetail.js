@@ -215,7 +215,7 @@ Page({
         //     this.setData({ isLoading: true });
         // }
 
-        this.loadProductDetailExtra();
+        this.loadProductDetailExtra(id);
 
         this.setData({
             pendingGrouponId: '',
