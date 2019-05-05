@@ -6,12 +6,12 @@
         </view>
         <view class="meta">
             <view class="priceWrapper">
-                <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
+                <block wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp)  }}">
                     <view class="ItemPrice">
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.miaosha_price }}
                     </view>
                 </block>
-                <block wx:elif="{{ product.groupon_enable == 1}}">
+                <block wx:elif="{{ product.groupon_enable }}">
                     <view class="ItemPrice">
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.groupon_price }}
                     </view>
@@ -22,14 +22,14 @@
                     </view>
                 </block>
                 <view 
-                    wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" 
+                    wx:if="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" 
                     class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
                 </view>
             </view>
             <view class="tagWrapper">
-                <view class="ItemSold" wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}">已售: {{ product.sales }}件</view>
-                <view class="tag" wx:if="{{ product.groupon_enable === '1' || product.miaosha_enable === '1' }}">
-                    {{ product.groupon_enable === '1' ? product.groupon_member_limit + '人团' : '限时购' }}
+                <view class="ItemSold" wx:if="{{ !product.groupon_enable && !product.miaosha_enable }}">已售: {{ product.sales }}件</view>
+                <view class="tag" wx:if="{{ product.groupon_enable || product.miaosha_enable }}">
+                    {{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}
                 </view>
             </view>
         </view>
