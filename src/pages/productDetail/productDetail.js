@@ -118,7 +118,9 @@ Page({
         isShowProductDetailShareModal: false,
         showShareModal: false,
 
-        templateTypeText
+        templateTypeText,
+
+        expiredGroupon: []
     },
 
     onShowSku(ev) {
@@ -863,5 +865,15 @@ Page({
     },
     navigateToHome() {
         autoNavigate('/pages/home/home');
+    },
+
+    getExpiredGroupon(e) {
+        console.log(e);
+        const { expiredGroupon } = this.data;
+        const { id } = e.detail;
+        expiredGroupon.push(id);
+        this.setData({
+            expiredGroupon
+        });
     }
 });

@@ -8,6 +8,11 @@ Component({
                 const { time_expired, time } = newVal;
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = time_expired - now;
+
+                if (!timeLimit) {
+                    this.triggerEvent('getExpiredGroupon', { id: newVal.id, timeLimit });
+                }
+
                 let hasStart = true;
                 let hasEnd = false;
                 if (now < time) {
@@ -24,6 +29,7 @@ Component({
                     hasStart,
                     hasEnd
                 });
+
             },
         }
     },

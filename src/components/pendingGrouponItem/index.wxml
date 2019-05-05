@@ -1,4 +1,4 @@
-<view class="pendingGroupon" bindtap="onGroupon">
+<view class="pendingGroupon" bind:tap="onGroupon" wx:if="{{ timeLimit }}">
 	<image class="userAvatar" src="{{ groupon.user.avatarurl }}" />
 	<view class="middle">
 		<view class="userName">{{ groupon.user.nickname }}</view>

@@ -97,9 +97,9 @@
 		</view>
 		<!-- end -->
 		<view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId }}" class="pendingGroupons">
-			<view class="title">正在开团, 可直接参团</view>
+			<view class="title" wx:if="{{ (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}">正在开团, 可直接参团</view>
 			<view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
-				<pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" />
+				<pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bindgetExpiredGroupon="getExpiredGroupon"/>
 			</view>
 		</view>
 		<view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
