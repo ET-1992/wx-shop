@@ -20,7 +20,7 @@
 					<view class="count">
 						<view>共{{ order.productCount }}件商品</view>
 						<view class="orderPrice">
-							{{ (order.statusCode === 1) ? '需付款：' : '实付款：' }}
+							{{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}}
 							<text class="orderPriceValue">{{ globalData.CURRENCY[globalData.currency] }}{{ order.amount }}</text>
 						</view>
 					</view>

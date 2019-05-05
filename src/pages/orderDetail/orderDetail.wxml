@@ -170,7 +170,7 @@
 	  	</view>
 	  	<view class="line"></view>
 	  	<view class="finalPay">
-	  	  实付款： <text class="finalPayText"> {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }} </text>
+	  	  {{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}} <text class="finalPayText"> {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }} </text>
 	  	</view>
 	</view>
 
