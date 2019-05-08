@@ -2,47 +2,22 @@
 @import '~templates/articleItem/articleItem';
 
 page{
-	background:#fff;
-}
-.container{
-	position: relative;
+	background: #fff;
 	height: 100%;
 }
-.articleList{
-	padding-top:120rpx;
+.wrap{
+	height: 100%;
 }
-
-.navSelected{
-	border-bottom: 6rpx solid #fff;
+.container{
+	padding-top: 90rpx;
 }
-.conc{
-	margin-top:62rpx;
+.listWrapper {
+	height: 100%;
 }
-.scrollView{
-	z-index:1;
-	margin-top:150rpx;
-	height:100%;
-	padding-bottom:170rpx;
-
-}
-.scrollSegmentcontrol{
-	z-index:100;
-	position: fixed;
-	top: 0;
-	background-color: $mainColor;
-	color: #fff;
-	left: 0;
-	white-space: nowrap;
-
-}
-.category{
-	flex-shrink:0;
-	padding:14rpx 16rpx;
-	margin:21rpx;
-	margin-top:0;
-	margin-bottom:0;
-	display:inline-block
-	}
-swiper{
-	height: 100vh;
+.noHint {
+	text-align: center;
+	color: $originalPriceColor;
+	width: 100%;
+	padding-top: 220rpx;
+	height: 100%;
 }
