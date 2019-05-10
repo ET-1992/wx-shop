@@ -1,0 +1,37 @@
+<view class="topImage" wx:if="{{!hasProducts}}">
+	<view 
+		class="item"
+		wx:for="{{ products }}" 
+		wx:key="id" 
+		wx:for-item="product" 
+		wx:for-index="productIndex"
+	>
+		<navigator hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
+			<image class="image" src="{{product.thumbnail}}" mode="aspectFill" />
+		</navigator>
+		<form catchsubmit="onFormSubmit" report-submit="true">
+			<button
+				form-type="submit" 
+				catch:tap="{{product.skus && product.skus.length ? 'isShowSkuModal' : 'addCart'}}" 
+				data-product="{{ product }}"
+				data-id="{{ product.id }}"
+				data-stock="{{ product.stock }}"
+			>
+				<view class="title">{{product.title}}</view>
+				<view class="sales">已售 {{product.sales}}</view>
+				<view class="bottom">
+					<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{product.price}}</view>
+					<view class="pickSku" wx:if="{{ product.skus && product.skus.length }}"> 
+						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
+						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
+					</view>
+					<view class="addCart" wx:else>
+						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
+						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
+					</view>
+				</view>
+			</button>
+		</form>
+	</view>
+	<view class="emptyHint" wx:if="{{ !products.length }}">暂无商品</view>
+</view>

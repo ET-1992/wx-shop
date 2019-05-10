@@ -3,6 +3,10 @@ Component({
         isLoading: {
             type: Boolean,
             value: false,
+        },
+        paddingTop: {
+            type: String,
+            value: ''
         }
     }
 });

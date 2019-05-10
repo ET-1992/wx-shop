@@ -1,0 +1,11 @@
+{
+	"navigationBarTitleText": "商品分类",
+	"usingComponents": {
+		"console": "../../components/console/console",
+		"loading": "../../components/loading/index",
+    "i-load-more": "../../components/iview-weapp/dist/load-more/index",
+    "filterList": "../../components/filterList/filterList",
+    "skuModal": "../../components/skuModal/skuModal",
+		"van-popup": "../../components/vant-weapp/dist/popup/index"
+	  }
+}

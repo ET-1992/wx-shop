@@ -47,7 +47,8 @@
 		"pages/crowd/inviteCrowd/inviteCrowd",
 		"pages/crowd/crowdList/crowdList",
 		"pages/rulePages/rulePages",
-		"pages/idCard/idCard"
+		"pages/idCard/idCard",
+		"pages/classify/classify"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -74,7 +75,7 @@
 				"selectedIconPath": "icons/default/homeSelected.png"
 			},
 			{
-				"pagePath": "pages/category/category",
+				"pagePath": "pages/classify/classify",
 				"iconPath": "icons/default/category.png",
 				"text": "分类",
 				"selectedIconPath": "icons/default/categorySelected.png"

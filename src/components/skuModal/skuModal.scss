@@ -1,0 +1,141 @@
+.container {
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
+	transition: all 0.3s linear;
+
+	.modal {
+		width: 650rpx;
+		background: #ffffff;
+		border-radius: 5rpx;
+		transition: all 0.3s linear;
+
+		.header {
+			height: 90rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #000000;
+			font-size: 32rpx;
+			margin-bottom: 20rpx;
+			position: relative;
+
+			.headerText {
+				width: 280rpx;
+				overflow: hidden;
+				white-space: nowrap; /*不换行*/
+				-webkit-line-clamp: 1;
+				text-overflow: ellipsis; /*超出部分文字以...显示*/
+				height: 45rpx;
+				line-height: 45rpx;
+				font-weight: bold;
+			}
+
+			.close {
+				width: 30rpx;
+				height: 30rpx;
+				position:absolute;
+				right:0;
+				top:0;
+				margin: 30rpx;
+				z-index:999;
+			}
+		}
+
+		.content {
+			padding: 0 50rpx;
+			background: #ffffff;
+
+			.item {
+				margin-bottom: 10rpx;
+
+				.itemTitle {
+					color: #000000;
+					font-size: 26rpx;
+					margin-bottom: 20rpx;
+					font-weight: bold;
+				}
+
+				.itemContent {
+					.itemSku {
+						color: #ffffff;
+						font-size: 26rpx;
+						line-height: 37rpx;
+						padding: 12rpx 37rpx;
+						margin-right:20rpx;
+						margin-bottom:20rpx;
+						display: inline-block;
+						border: 1rpx solid #707070;
+						color: #000000;
+					}
+
+					.active {
+						background: #79BCBE;
+						color: #ffffff;
+						border: none;
+					}
+
+					.disable {
+						border-color:#ccc;
+						color:#eee;
+					}
+				}
+			}
+		}
+
+		.footer {
+			height: 90rpx;
+			background: #F4F4F4;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 50rpx;
+
+			.money {
+				color: #F52D2D;
+				font-size: 36rpx;
+			}
+
+			.addCart {
+				background: #79BCBE;
+				border-radius: 25rpx;
+				width: 200rpx;
+				height: 50rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #ffffff;
+				font-size: 24rpx;
+				line-height: 33rpx;
+			}
+		}
+	}
+}
+
+.skuModalClose {
+	transform: scale(0.5);
+}
+
+.skuModalShow {
+	transform: scale(1);
+}
+
+.containerClose {
+	opacity: 0;
+}
+
+.containerShow {
+	opacity: 1;
+}
+
+.none {
+	display: none;
+}
