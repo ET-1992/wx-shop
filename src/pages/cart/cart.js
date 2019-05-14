@@ -218,7 +218,7 @@ Page({
     showCart() {
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
-            updateCart(categoryIndex.categoryIndex);
+            updateCart(categoryIndex);
         }
     },
 

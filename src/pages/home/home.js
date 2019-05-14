@@ -177,7 +177,7 @@ Page({
         const { style_type: tplStyle = 'default' } = config;
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
-            updateCart(categoryIndex.categoryIndex);
+            updateCart(categoryIndex);
         }
         this.setData({
             tplStyle,

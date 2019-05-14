@@ -75,7 +75,7 @@
 				"selectedIconPath": "icons/default/homeSelected.png"
 			},
 			{
-				"pagePath": "pages/classify/classify",
+				"pagePath": "pages/category/category",
 				"iconPath": "icons/default/category.png",
 				"text": "分类",
 				"selectedIconPath": "icons/default/categorySelected.png"

@@ -33,7 +33,7 @@ App({
 
         this.globalData = Object.assign(this.globalData, {
             themeColor: { primaryColor, secondaryColor },
-            categoryIndex: { categoryIndex },
+            categoryIndex,
             partner: partner,
             tplStyle: styleType,
             defineTypeGlobal: templateType,

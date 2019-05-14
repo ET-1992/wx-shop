@@ -208,7 +208,7 @@ Page({
             this.reloadCart(data);
             wx.setStorageSync('CART_NUM', String(data.count));
             const { categoryIndex } = app.globalData;
-            updateCart(categoryIndex.categoryIndex);
+            updateCart(categoryIndex);
         } catch (ev) {
             if (ev.code === 'system_error') {
                 return;
