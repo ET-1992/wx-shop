@@ -217,7 +217,9 @@ Page({
 
     showCart() {
         const { categoryIndex } = app.globalData;
-        updateCart(categoryIndex.categoryIndex);
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex.categoryIndex);
+        }
     },
 
     navigateToHome() {

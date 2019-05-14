@@ -43,7 +43,9 @@ Page({
 
     onShow() {
         const { categoryIndex } = app.globalData;
-        updateCart(categoryIndex.categoryIndex);
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex.categoryIndex);
+        }
     },
 
     onMainCategoryItemClick(ev) {
