@@ -3,23 +3,23 @@
 
 	<!-- 头部面板 -->
 	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
-	
+
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 功能面板 -->
 	<infos infosComponentData="{{ infosComponentData }}"/>
 
-	<navigator 
-		class="affiliate" 
-		url="/pages/affiliate/affiliateApply/affiliateApply" 
+	<navigator
+		class="affiliate"
+		url="/pages/affiliate/affiliateApply/affiliateApply"
 		wx:if="{{ ((config.affiliate_enable && !affiliate.is_affiliate_member) || (config.affiliate_enable && affiliate.member && affiliate.member.audit_status === '3')) && config.affiliate_public }}">
 		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
 		<view class="itemTitle">{{ config.platform_name }}分享计划 >></view>
 	</navigator>
-	
+
 </view>
-<view class="peanut-logo logo" bindtap="getDeviceInfo">
+<view class="peanut-logo logo">
 	<logo logoObj="{{ logoObj }}" />
 </view>
 
