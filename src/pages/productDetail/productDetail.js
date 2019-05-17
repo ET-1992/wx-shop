@@ -867,7 +867,7 @@ Page({
         autoNavigate('/pages/home/home');
     },
 
-    getExpiredGroupon(e) {
+    onExpiredGroupon(e) {
         console.log(e);
         const { expiredGroupon } = this.data;
         const { id } = e.detail;

@@ -1,4 +1,4 @@
-<view class="pendingGroupon" bind:tap="onGroupon" wx:if="{{ timeLimit }}">
+<view class="pendingGroupon" bind:tap="onGroupon" wx:if="{{ timeLimit > 0 }}">
 	<image class="userAvatar" src="{{ groupon.user.avatarurl }}" />
 	<view class="middle">
 		<view class="userName">{{ groupon.user.nickname }}</view>
@@ -9,7 +9,7 @@
 		<view class="timeLimit">
 			<view>剩余</view>
 			<view class="remainTime">
-				<countDown time="{{ timeLimit }}" />
+				<countDown time="{{ timeLimit }}" bind:onCountDownEvent="onCountDownEvent"/>
 			</view>
 			<view>结束</view>
 		</view>
