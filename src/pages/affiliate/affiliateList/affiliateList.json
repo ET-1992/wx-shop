@@ -4,5 +4,5 @@
 		"loading": "../../../components/loading/index",
 		"filterList": "../../../components/filterList/filterList"
 		},
-		"enablePullDownRefresh": true
+    "enablePullDownRefresh": true
 }

@@ -167,7 +167,6 @@ Page({
             themeColor,
             isIphoneX,
             userInfo,
-            logoObj: partner,
             globalData: app.globalData
         });
     },
@@ -181,7 +180,8 @@ Page({
         }
         this.setData({
             tplStyle,
-            config
+            config,
+            logoObj: config.partner
         });
     },
 

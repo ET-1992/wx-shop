@@ -19,7 +19,7 @@
 	</navigator>
 
 </view>
-<view class="peanut-logo logo" bindtap="getDeviceInfo">
+<view class="peanut-logo logo">
 	<logo logoObj="{{ logoObj }}" />
 </view>
 
