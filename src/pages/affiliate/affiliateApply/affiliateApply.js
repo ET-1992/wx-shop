@@ -38,7 +38,7 @@ Page({
             isLoading: false
         }, this.redirectToHome);
         wx.setNavigationBarTitle({
-            title: `${config.platform_name}分享计划`
+            title: `${config.affiliate_name}`
         });
     },
     /* 图片加载完毕回调 */
