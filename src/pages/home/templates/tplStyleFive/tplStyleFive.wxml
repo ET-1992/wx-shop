@@ -113,7 +113,7 @@
 			  wx:for="{{ groupons }}" 
 			  wx:key="id" 
 			  wx:for-item="groupon" 
-			  url="{{ groupons.length === 1 ? '/pages/grouponList/grouponList' : '/pages/productDetail/productDetail?id=' + groupon.id }}" 
+			  url="{{ '/pages/productDetail/productDetail?id=' + groupon.id }}" 
 			  >
         	 	<productList product="{{ groupon }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
         	</myNavigator>
@@ -148,7 +148,7 @@
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
 			<view class="header">
 				<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}} </view>
-				<navigator class="sectionMore" wx:if="{{miaoshas.length > 0 }}" url="/pages/miaoshaList/miaoshaList">
+				<navigator class="sectionMore" wx:if="{{miaoshas.length > 1 }}" url="/pages/miaoshaList/miaoshaList">
         			<form bindsubmit="submitFormId" report-submit="true">
         			  	<button formType="submit" class="moreButton">
         			  	  	<view>更多</view>

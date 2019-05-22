@@ -6,6 +6,7 @@ import getSKUMap from 'utils/getSKUMap';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { getAgainUserForInvalid, updateCart, autoNavigate } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
+import proxy from 'utils/wxProxy';
 
 // import login from 'utils/login';
 
@@ -117,7 +118,9 @@ Page({
         isShowProductDetailShareModal: false,
         showShareModal: false,
 
-        templateTypeText
+        templateTypeText,
+
+        expiredGroupon: []
     },
 
     onShowSku(ev) {
@@ -212,7 +215,7 @@ Page({
         //     this.setData({ isLoading: true });
         // }
 
-        this.loadProductDetailExtra();
+        this.loadProductDetailExtra(id);
 
         this.setData({
             pendingGrouponId: '',
@@ -303,7 +306,16 @@ Page({
             // ---------------
         }
         catch (err) {
-            console.log(err);
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '商品过期不存在',
+                showCancel: false
+            });
+            if (confirm) {
+                wx.navigateBack({
+                    delta: 1
+                });
+            }
         }
         // this.setData({ isLoading: false });
         console.log(this.data);
@@ -853,5 +865,15 @@ Page({
     },
     navigateToHome() {
         autoNavigate('/pages/home/home');
+    },
+
+    onExpiredGroupon(e) {
+        console.log(e);
+        const { expiredGroupon } = this.data;
+        const { id } = e.detail;
+        expiredGroupon.push(id);
+        this.setData({
+            expiredGroupon
+        });
     }
 });

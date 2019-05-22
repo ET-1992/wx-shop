@@ -1,0 +1,142 @@
+.leftImage{
+	padding: 80rpx 0;
+	.product{
+        display: flex;
+        padding: 15rpx 0;
+        border-bottom: 1rpx solid #D4D4D4;
+		.img{
+			width: 120rpx;
+            height: 120rpx;
+            // border: 1rpx solid #707070;
+            border-radius: 3rpx;
+            background: #D4D4D4;
+		}
+		.content{
+			padding-left: 25rpx;
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			flex: 1;
+			.title{
+				font-size: 24rpx;
+				font-weight: bold;
+				color: #000000;
+				text-overflow:ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				word-break: break-all;
+				overflow:hidden;
+			}
+			.desc{
+				font-size: 22rpx;
+				color: #707070;
+				text-overflow:ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				word-break: break-all;
+				overflow:hidden;
+			}
+			.bottom{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.price{
+					font-size: 28rpx;
+                    color: #E50000;
+                    text{
+                        font-size: 20rpx;
+                    }
+				}
+				.pickSku{
+					position: relative;
+					.title{
+						width: 80rpx;
+						height: 40rpx;
+						border-radius: 25rpx;
+						background: #79BCBE;
+						color: #fff;
+						font-size: 20rpx;
+						display:flex;
+						align-items:center;
+						justify-content:center;
+					}
+					.badge{
+						border-radius: 100%;
+						width: 16rpx;
+						height: 16rpx;
+						background: #F52D2D;
+						color: #fff;
+						font-size: 18rpx;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						position: absolute;
+						top: -5rpx;
+						right: 0;
+					}
+				}
+				.addCart{
+					width: 50rpx;
+					height: 50rpx;
+					position: relative;
+					.addBtn{
+						width: 40rpx;
+						height: 40rpx;
+						box-sizing: border-box;
+						border: none;
+						border-radius: 100%;
+						background: #79BCBE;
+						position: relative;
+					}
+					.badge{
+						border-radius: 100%;
+						width: 16rpx;
+						height: 16rpx;
+						background: #F52D2D;
+						color: #fff;
+						font-size: 18rpx;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						position: absolute;
+						top: -6rpx;
+						right: 6rpx;
+					}
+					.click-style{
+						opacity: 0.6;
+					}
+					.addBtn::before,
+					.addBtn::after{
+						content: '';
+						position: absolute;
+						margin: auto;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						background-color: #fff;
+					}
+					.addBtn::before{
+						width: 9px;
+						height: 1px
+					}
+					.addBtn::after{
+						height: 9px;
+						width: 1px
+					}
+				}
+			}
+		}
+	}
+	.emptyHint {
+		padding-top: 100rpx;
+		font-size: 32rpx;
+		text-align: center;
+		color: $originalPriceColor;
+	}
+	button{
+		overflow: unset;
+	}
+}

@@ -42,7 +42,7 @@
     	<view wx:for="{{modules}}" wx:for-item="module" wx:key="key" >
     		<!-- 幻灯片 -->
     		<view wx:if="{{ module.key === 'sliders' }}">
-				<view style="{{ modules[0].key === 'sliders' || (modules[0].key === 'search_box' && modules[1].key === 'sliders') ? '' : 'padding-top: 30rpx'}}" class="searchSliders">
+				<view class="searchSliders">
 					<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindanimationfinish="swiperChange">
 						<swiper-item wx:for="{{ sliders }}" wx:key="id">
 							<navigator 
@@ -100,7 +100,7 @@
 			<!-- 拼团专区 -->
 			<view wx:if="{{ module.key === 'groupons' }}">
 				<view class="section" class="section" wx:if="{{ groupons && groupons.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
-					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ groupons.length === 1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
 					<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
 						<form bindsubmit="submitFormId" report-submit class="form">
 							<button formType="submit" class="moreButton">
@@ -110,22 +110,16 @@
 						</form>
 					</navigator>
 					<view class="grouponContainer">
-						<myNavigator wx:if="{{groupons.length==1}}" class="grouponItem" url="/pages/grouponList/grouponList">
-							<productList product="{{ groupons[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"
-							/>
+						<myNavigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem" url="/pages/productDetail/productDetail?id={{ item.id }}">
+							<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
 						</myNavigator>
-						<block wx:else>
-							<navigator wx:for="{{ groupons }}" wx:key="id" class="grouponItem" url="/pages/productDetail/productDetail?id={{ item.id }}">
-								<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
-							</navigator>
-						</block>
 					</view>
 				</view>
 			</view>
 			<!-- 文章详情 -->
 			<view wx:if="{{ module.key === 'articles' }}">
 				<view class="section" wx:if="{{ articles && articles.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
-					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ articles.length === 1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
 					<navigator class="sectionMore" wx:if="{{articles.length >1}}" url="/pages/articleList/articleList">
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
@@ -135,16 +129,16 @@
 						</form>
 					</navigator>
 					<navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-							<image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
-							<template is="articleItem" data="{{ article: item,module:module }}" />
+						<image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
+						<template is="articleItem" data="{{ article: item,module:module }}" />
 					</navigator>
 				</view>
 			</view>
 			<!-- 限时购 -->
 			<view wx:if="{{ module.key === 'miaoshas' }}">
 				<view class="section" wx:if="{{ miaoshas && miaoshas.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
-					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-					<navigator class="sectionMore" wx:if="{{miaoshas.length > 0 }}" url="/pages/miaoshaList/miaoshaList">
+					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ miaoshas.length === 1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
+					<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList">
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
 								<view>查看更多</view>
@@ -153,10 +147,7 @@
 						</form>
 					</navigator>
 					<view class="miaoshaContainer">
-						<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="miaoshaItem" url="/pages/miaoshaList/miaoshaList">
-							<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
-						</navigator> -->
-						<myNavigator wx:if="{{ miaoshas.length > 0 }}" class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+						<myNavigator class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
 							<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 						</myNavigator>
 					</view>

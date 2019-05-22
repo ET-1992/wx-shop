@@ -1,176 +1,151 @@
-// pages/articleList/articleList.js
 import api from 'utils/api';
+import { USER_KEY, CONFIG } from 'constants/index';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-
+import { updateCart } from 'utils/util';
 const app = getApp();
 
 Page({
-
-    /**
-	 * 页面的初始数据
-	 */
     data: {
-        getIndex: 0,
-        isLoading: false,
-        isRefresh: false,
-        currentPages: 1,
-        articleList: [],
-        totalPages: 1,
+        articles: [],
+        categories: [],
+        categoryId: 0,
+        categoryParent: 0,
+        isLoading: true,
+        isInit: true,
+        current_page: 1,
+        clientX: 0,
+        activeIndex: 0,
     },
-
-    /**
-	 * 生命周期函数--监听页面加载
-	 */
-    onLoad(options) {
+    async onLoad({ categoryId = '', categoryParent = '' }) {
         const { themeColor } = app.globalData;
-        this.getArticleList();
-        this.setData({ themeColor });
-        //    this.setData(data)
-        // 第一种方法
-        // this.getArticleList()
-        //   this.setData({
-        //      isRefresh: true,
-        //      getIndex: 0,
-        //   })
-    },
-
-    // async getArticleList(id) {
-    //   const {currentPage,isRefresh} = this.data
-    //   const data = await api.hei.articleList({
-    //     article_category_id:id || 0,
-    //     paged: currentPage
-    //   })
-    //     const articleList = isRefresh ? data.articles:this.data.articleList.concat(data.articles)
-    //     const categories = data.categories.unshift( {name:'全部',id:0})
-    //      this.setData({
-    //       categories:data.categories,
-    //       currentPage: data.current_page,
-    //       isRefresh: false,
-    //       totalPages: data.total_pages,
-    //       article:articleList,
-    //       isLoading:false,
-    //       share_title:data.share_title
-    //     })
-    //   if (data.page_title) {
-    //     wx.setNavigationBarTitle({
-    //         title: data.page_title
-    //     });
-    //   }
-    //    this.setData(data)
-    // },
-    async changeCurrent(e) {
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         this.setData({
-            getIndex: e.detail.current,
+            categoryId,
+            categoryParent,
+            config
         });
-        // wx.setNavigationBarTitle({
-        // 	title: this.data.categories[e.detail.current].page_title,
-        // });
-    },
+        await this.getArticleList();
+        const { categories } = this.data;
 
-    handleArticleList(e) {
-        const { index } = e.currentTarget.dataset;
-        const { id } = e.currentTarget;
-        this.setData({
-            isRefresh: true,
-            current: index,
+        let navbarListData = categories.map(item => {
+            return {
+                text: item.name,
+                value: item.id
+            };
         });
-
-        wx.setNavigationBarTitle({
-            title: this.data.categories[index].page_title,
+        navbarListData.unshift({ text: '全部', value: '' });
+        let activeIndex = navbarListData.findIndex((item) => {
+            return item.value === Number(categoryId);
         });
-    },
-
-    // onPullDownRefresh(){
-    //   console.log('下拉刷新')
-    // },
-    // async onPullDownRefresh() {
-    //   console.log('daole');
-    //     this.setData({
-    //         isRefresh: true,
-    //         currentPage: 1,
-    //     });
-    //     console.log('22')
-    //     await this.getArticleList()
-    //   },
-    // const formatedOrders = data.orders.map((order) => {
-    //    const statusCode = +order.status;
-    //    order.statusCode = statusCode;
-    //    order.statusText = STATUS_TEXT[+order.status];
-    //    order.productCount = order.items.reduce((count, item) => {
-    //      return count + +item.quantity;
-    //    }, 0);
-    //    return order;
-    //  });
-    async getArticleList() {
-        const { currentPage, getIndex, isLoading } = this.data;
-        if (isLoading) return;
-        else this.data.isLoading = true;
-        const data = await api.hei.articleList({
-            article_category_id: 0,
-            paged: 1,
-        });
-        const categoriesId = data.categories.map(function (item, index) {
-            return item.id;
-        });
-
-        const articleList = [];
-        let totalPages = [data.total_pages];
-        let currentPages = [data.current_page];
-        for (let i = 0; i < categoriesId.length; i++) {
-            const data2 = await api.hei.articleList({
-                article_category_id: categoriesId[i] || 0,
-                paged: 1,
-            });
-            articleList.push(data2.articles);
-            currentPages.push(data.current_page);
-            totalPages.push(data2.total_pages);
+        if (activeIndex === -1) {
+            activeIndex = 0;
         }
-        articleList.unshift(data.articles);
 
-        // const articleLists = isRefresh ? data.articles:this.data.articleList.concat(data.articles)
-
-        const categories = data.categories.unshift({
-            name: '全部',
-            id: 0,
-            page_title: data.page_title,
-        });
         this.setData({
-            articles: articleList,
-            categories: data.categories,
-            isLoading: false,
-            articleBannerHeight: data.article_banner_height,
-            currentPages,
-            totalPages,
-        });
-        wx.setNavigationBarTitle({
-            title: data.page_title,
+            themeColor,
+            tplStyle,
+            globalData: app.globalData,
+            navbarListData,
+            activeIndex,
+            isInit: false
         });
     },
-    async onReachBottom() {
-        const { currentPages, totalPages, getIndex, isLoading } = this.data;
-        if (currentPages[getIndex] >= totalPages[getIndex] || isLoading) {
+    onShow() {
+        const { categoryIndex } = app.globalData;
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex);
+        }
+    },
+
+    async getArticleList() {
+        let { current_page, categoryId, activeIndex, articles, categoryParent, config: { share_title, share_image }} = this.data;
+        let options = {
+            paged: current_page,
+            article_category_id: categoryId,
+            article_category_parent: categoryParent,
+        };
+
+        this.data.fetchProductListStatus = 'Pending';
+
+        const data = await api.hei.articleList(options);
+        current_page++;
+
+        this.data.fetchProductListStatus = 'Success';
+
+        if (articles.length > 0) {
+            data.articles = articles.concat(data.articles);
+        }
+        wx.setNavigationBarTitle({
+            title: activeIndex - 1 >= 0 ? data.categories[activeIndex - 1].page_title : data.page_title,
+        });
+        this.setData({
+            ...data,
+            share_title,
+            share_image,
+            current_page,
+            isLoading: false
+        });
+    },
+    changeNavbarList(e) {
+        const { index, value } = e.detail;
+        this.setData({
+            articles: [],
+            categoryId: value,
+            activeIndex: index,
+            isLoading: true,
+            current_page: 1
+        });
+        this.getArticleList();
+    },
+
+    onTouchStart(e) {
+        this.data.clineX = e.touches[0].clientX;
+    },
+    onTouchEnd(e) {
+        let { activeIndex } = this.data;
+        if (e.changedTouches[0].clientX - this.data.clineX < -120) {
+            this.moveIndex(activeIndex + 1);
+        }
+        if (e.changedTouches[0].clientX - this.data.clineX > 120) {
+            this.moveIndex(activeIndex - 1);
+        }
+    },
+    moveIndex(index) {
+        let activeIndex = index;
+        const { navbarListData } = this.data;
+        const { length, last = length - 1 } = navbarListData;
+        if (activeIndex < 0) {
             return;
         }
-        this.data.isLoading = true;
-        const article_category_id = this.data.categories[this.data.getIndex].id;
-        const data = await api.hei.articleList({
-            article_category_id: article_category_id,
-            paged: currentPages[getIndex] + 1,
+        if (index > last) {
+            activeIndex = 0;
+        }
+        this.setData({
+            articles: [],
+            categoryId: navbarListData[activeIndex].value,
+            activeIndex,
+            isLoading: true,
+            current_page: 1
         });
-        const newArticleList = data.articles;
-        const newArticle = this.data.articles[this.data.getIndex];
-        newArticleList.map(function (item, index) {
-            return newArticle.push(item);
+        this.getArticleList();
+    },
+    async onPullDownRefresh() {
+        this.setData({
+            articles: [],
+            isLoading: true,
+            current_page: 1,
         });
+        await this.getArticleList();
+        wx.stopPullDownRefresh();
+    },
 
-        this.setData({
-            articles: this.data.articles,
-        });
-        this.data.totalPages[getIndex] = data.total_pages;
-        this.data.currentPages[getIndex] = data.current_page;
-        this.setData({
-            isLoading: false,
-        });
+    async onReachBottom() {
+        let { current_page, total_pages } = this.data;
+        if (current_page > total_pages) { return }
+        if (this.data.fetchProductListStatus === 'Success') {
+            this.getArticleList();
+        }
     },
     onShareAppMessage: onDefaultShareAppMessage,
 });

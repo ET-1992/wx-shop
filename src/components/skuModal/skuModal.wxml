@@ -1,0 +1,33 @@
+<view class="container {{  isShowSkuModalCss ? 'containerShow' : 'containerClose' }}" wx:if="{{ isShowSkuModal }}">
+	<view class="modal {{ isShowSkuModalCss ? 'skuModalShow' : 'skuModalClose' }}">
+		<view class="header">
+			<view class="headerText">{{ product.title }}</view>
+		<image src="/icons/clear.png" class="close" bindtap="close" />	
+		</view>
+		<view class="content">
+			<view class="item" wx:for="{{ product.properties }}">
+				<view class="itemTitle">{{ item.name }}</view>
+				<view class="itemContent">
+					<view 
+					class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}"
+					style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}"
+					wx:for="{{ item.items }}" 
+					wx:for-item="sku"
+					wx:for-index="skuIndex"
+					data-is-disabled="{{ disableSkuItems[item.name] }}" 
+					data-sku-name="{{ sku.name }}"
+					data-key="{{ item.name }}" 
+					data-property-index="{{ index }}" 
+					catchtap="onSkuItem"
+					>
+					{{ sku.name }}
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="footer">
+			<view class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.price || 0 }}</view>
+			<view class="addCart" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ themeColor.primaryColor }}">加入购物车</view>
+		</view>
+	</view>
+</view>

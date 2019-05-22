@@ -45,10 +45,12 @@ Page({
 
     async onLoad({ categoryId, categoryParent }) {
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         this.setData({
             categoryId,
-            categoryParent
+            categoryParent,
+            config
         });
         await this.loadProducts();
         const { categories } = this.data;
@@ -114,7 +116,7 @@ Page({
         }, this.loadProducts);
     },
     async loadProducts() {
-        let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData } = this.data;
+        let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
         let options = {
             paged: current_page,
             product_category_id: categoryId,
@@ -138,6 +140,8 @@ Page({
         this.setData({
             ...data,
             current_page,
+            share_title,
+            share_image,
             isLoading: false
         });
     },

@@ -175,7 +175,9 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
         const { categoryIndex } = app.globalData;
-        updateCart(categoryIndex.categoryIndex);
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex);
+        }
         this.setData({
             tplStyle,
             config,

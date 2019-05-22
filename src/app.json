@@ -47,7 +47,8 @@
 		"pages/crowd/inviteCrowd/inviteCrowd",
 		"pages/crowd/crowdList/crowdList",
 		"pages/rulePages/rulePages",
-		"pages/idCard/idCard"
+		"pages/idCard/idCard",
+		"pages/classify/classify"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

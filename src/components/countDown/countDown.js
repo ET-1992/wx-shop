@@ -20,45 +20,52 @@ const formatConfirmTime = (seconds) => {
 Component({
     properties: {
         time: {
-            type: String,
-            value: '',
+            type: Number,
+            value: 0,
             observer(newVal) {
-                if (!newVal) { return }
-                const remainSecond = newVal;
+                if (newVal <= 0) { return }
+                let remainSecond = newVal;
                 this.setData({
                     remainSecond,
                     remainTime: getRemainTime(remainSecond).join(':')
                 });
-                if (Number(remainSecond)) {
-                    this.intervalId = setInterval(() => {
-                        const { remainSecond } = this.data;
-                        this.setData({
-                            remainSecond: remainSecond - 1,
-                            remainTime: getRemainTime(remainSecond - 1).join(':'),
-                        });
-                    }, 1000);
-                }
+                this.intervalId = setInterval(() => {
+                    --remainSecond;
+                    this.setData({
+                        remainSecond,
+                        remainTime: getRemainTime(remainSecond).join(':'),
+                    });
+                    if (remainSecond <= 0) {
+                        clearInterval(this.intervalId);
+                        console.log('倒计时结束');
+                        this.triggerEvent('onCountDownEvent', { remainSecond });		// 返回倒计时结束通知
+                    }
+                }, 1000);
+
             }
         },
         formatTime: {
-            type: String,
-            value: '',
+            type: Number,
+            value: 0,
             observer(newVal) {
-                if (!newVal) { return }
-                const remainSecond = newVal;
+                if (newVal <= 0) { return }
+                let remainSecond = newVal;
                 this.setData({
                     remainSecond,
                     ...formatConfirmTime(remainSecond - 1)
                 });
-                if (Number(remainSecond)) {
-                    this.intervalId = setInterval(() => {
-                        const { remainSecond } = this.data;
-                        this.setData({
-                            remainSecond: remainSecond - 1,
-                            ...formatConfirmTime(remainSecond - 1)
-                        });
-                    }, 1000);
-                }
+                this.intervalId = setInterval(() => {
+                    --remainSecond;
+                    this.setData({
+                        remainSecond,
+                        ...formatConfirmTime(remainSecond)
+                    });
+                    if (remainSecond <= 0) {
+                        clearInterval(this.intervalId);
+                        console.log('倒计时结束');
+                        this.triggerEvent('onCountDownEvent', { remainSecond });		// 返回倒计时结束通知
+                    }
+                }, 1000);
             }
         }
     },

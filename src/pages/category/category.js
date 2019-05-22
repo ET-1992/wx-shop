@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart } from 'utils/util';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Page({
@@ -13,6 +14,7 @@ Page({
     },
 
     async onLoad() {
+        const { share_title, share_image } = wx.getStorageSync(CONFIG);
         try {
             this.setData({ isLoading: true });
             const data = await api.hei.fetchCategory();
@@ -28,7 +30,9 @@ Page({
 
             this.setData({
                 isLoading: false,
-                ...data
+                ...data,
+                share_title,
+                share_image
             });
         }
         catch (err) {
@@ -39,7 +43,9 @@ Page({
 
     onShow() {
         const { categoryIndex } = app.globalData;
-        updateCart(categoryIndex.categoryIndex);
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex);
+        }
     },
 
     onMainCategoryItemClick(ev) {

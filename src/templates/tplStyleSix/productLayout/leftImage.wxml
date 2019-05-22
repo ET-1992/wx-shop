@@ -6,15 +6,15 @@
             <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
         </view>
         <view class="bottom">
-            <view wx:if="{{ product.groupon_price !== product.original_price && product.miaosha_price !== product.original_price && product.price !== product.original_price }}" class="original">
+            <view wx:if="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" class="original">
                 <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
                 <text>{{ product.original_price }}</text>
             </view>
             <view class="foot">
                 <view class="price">
                     <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
-                    <text class="num" wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">{{ product.miaosha_price }}</text>
-                    <text class="num" wx:elif="{{ product.groupon_enable == 1}}">{{ product.groupon_price }}</text>
+                    <text class="num" wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">{{ product.miaosha_price }}</text>
+                    <text class="num" wx:elif="{{ product.groupon_enable }}">{{ product.groupon_price }}</text>
                     <text class="num" wx:else>{{ product.price }}</text>
                 </view>
                 <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" >立即抢购</view>

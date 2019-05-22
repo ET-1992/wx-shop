@@ -1,34 +1,17 @@
 <import src="/templates/articleItem/articleItem.wxml" />
-<view class="container">
-  <scroll-view scroll-x class="scrollSegmentcontrol" style="background-color: {{ themeColor.primaryColor  }}">
-    <view catchtap="handleArticleList" data-index="{{index}}" class="category {{getIndex==index?'navSelected':''}}" id="{{item.id}}" wx:for="{{categories}}" wx:key="id">
-      {{item.name}}
-    </view>
-  </scroll-view>
-  <swiper autoplay="{{false}}" current="{{current}}" bindchange="changeCurrent">
-    <block wx:for="{{articles}}" wx:for-item="article" wx:key="id">
-      <swiper-item>
-        <scroll-view scroll-y class="scrollView" bindscrolltolower="onReachBottom">
-          <navigator class="m-list" wx:for="{{article}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-            <image src="{{item.banner}}" style="height: {{articleBannerHeight}}rpx;" mode="aspectFill" />
-            <template is="articleItem" data="{{ article: item}}" />
-          </navigator>
-        </scroll-view>
-      </swiper-item>
-    </block>
-  </swiper>
+
+<loading isLoading="{{ isInit }}"/>
+<view class="wrap" wx:if="{{ !isInit }}">
+	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
+	<view class="container">
+		<loading isLoading="{{ isLoading }}"/>
+		<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ articles.length && !isLoading }}">
+      <navigator class="m-list" wx:for="{{articles}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+        <image src="{{item.banner}}" style="height: {{articleBannerHeight}}rpx;" mode="aspectFill" />
+        <template is="articleItem" data="{{ article: item}}" />
+      </navigator>
+		</view>
+		<view class="noHint" wx:if="{{ !articles.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">暂无文章</view>
+	</view>
 </view>
-<!-- 第一种方法 -->
-<!-- <swiper-item wx:for="{{articles}}" item-id="{{item.id}}" wx:key="id">
-    	<scroll-view scroll-y class="scrollView">
-    		<view wx:for="{{articles}}">
-    			<navigator class="m-list" wx:for="{{item}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-		    		<image src='{{item.banner}}' mode="widthFix"></image>
-				  	<template is="articleItem" data="{{ article: item}}" />
-	    	</navigator>
-    		</view>
-
-    	</scroll-view>
-    </swiper-item> -->
-
 <console page="文章列表" />

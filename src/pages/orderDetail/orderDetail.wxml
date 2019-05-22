@@ -112,14 +112,14 @@
 		<view class="title otherGroupStatus" wx:if="{{groupon.status === -2}}"> 该拼团已关闭 </view>
 		<view class="title" wx:if="{{groupon.status === 3}}"> 已成团 </view>
 		<view class="avatar" wx:if="{{groupon.status === 2 || groupon.status === 3 || groupon.status === -1}}">
-			<view wx:for="{{ groupon.members }}" class="avatarItem">
+			<view wx:for="{{ groupon.members }}" class="avatarItem" wx:if="{{ index < 3 }}">
 				<image src="{{ item.avatarurl }}" mode="aspectFill"></image>
 				<view wx:if="{{index === 0}}" class="captain">团长</view>
 			</view>
-			<view wx:for="{{ grouponDefaultImageArray }}" wx:if="{{index < 2}}" class="avatarItem">
+			<view wx:for="{{ grouponDefaultImageArray }}" wx:if="{{ groupon.member_count < 3 && (index < 2)}}" class="avatarItem">
 				<image src="{{ item }}" mode="aspectFill"></image>
 			</view>
-			<view class="ellipsis" wx:if="{{ (groupon.member_limit - groupon.member_count) > 2}}">...</view>
+			<view class="ellipsis" wx:if="{{ groupon.member_limit > 3}}">...</view>
 		</view>
 	</view>
 
@@ -170,7 +170,7 @@
 	  	</view>
 	  	<view class="line"></view>
 	  	<view class="finalPay">
-	  	  实付款： <text class="finalPayText"> {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }} </text>
+	  	  {{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}} <text class="finalPayText"> {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }} </text>
 	  	</view>
 	</view>
 

@@ -19,11 +19,17 @@ Component({
                     hasEnd = true;
                     timeLimit = 0;
                 }
+
+                if (timeLimit <= 0) {
+                    this.triggerEvent('onExpiredGroupon', { id: newVal.id });		// 返回过时的拼团
+                }
+
                 this.setData({
                     timeLimit,
                     hasStart,
                     hasEnd
                 });
+
             },
         }
     },
@@ -34,5 +40,14 @@ Component({
             console.log(id);
             this.triggerEvent('groupEvent', { grouponId: id });
         },
+        onCountDownEvent(e) {
+            console.log(e);
+            const { remainSecond: timeLimit } = e.detail;
+            this.setData({
+                timeLimit
+            });
+            const { id } = this.data.groupon;
+            this.triggerEvent('onExpiredGroupon', { id });		// 返回过时的拼团
+        }
     }
 });
