@@ -69,7 +69,7 @@
   	  	</view>
   	</view>
 
-  	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ items.length && !isLoading }}">
+  	<view class="footer" wx:if="{{ items.length && !isLoading }}">
   	  	<view class="radio {{ isAllSelected ? 'selected' : '' }}" bindtap="onSelectAll" style="border-color: {{ themeColor.primaryColor }}; {{ isAllSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}">
   	  	  	<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isAllSelected }}" />
   	  	</view>
