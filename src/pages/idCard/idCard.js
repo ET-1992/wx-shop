@@ -15,6 +15,7 @@ Page({
     // 获取真实姓名
     bindNameInput(e) {
         const { value } = e.detail;
+        console.log(value);
 
         this.setData({
             userName: value
@@ -24,6 +25,7 @@ Page({
     // 获取身份证号
     bindNumberInput(e) {
         const { value } = e.detail;
+        console.log(value);
 
         this.setData({
             idNumber: value

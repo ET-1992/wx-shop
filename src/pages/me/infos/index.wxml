@@ -44,7 +44,7 @@
         <view class="itemTitle">售后电话</view>
     </view>
     <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/myfav.png" />
+        <image class="itemIcon idCart" mode="aspectFit" src="../../../icons/magua/idCart.svg" />
         <view class="itemTitle">身份信息</view>
     </navigator>
 </view>
