@@ -362,5 +362,9 @@ export const apis = {
     getFavProductList: {
         path: 'api/mag.product.fav.list.json',
         isForceToken: true
+    },
+    getShopRule: {
+        path: 'api/mag.shop.rule.json',
+        isForceToken: true
     }
 };

@@ -1,11 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
-<import src="../../utils/wxParse/wxParse.wxml"/>
-<view wx:if="{{ !isLoading }}">
-	<view class="p-single">
-		<view class="peanut-wxParse">
-			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
-		</view>
-	</view>
+<view class="rule-wrap"  wx:if="{{ !isLoading }}">
+	<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ !isLoading }}" />
 </view>
 
 <console page="规则说明" />

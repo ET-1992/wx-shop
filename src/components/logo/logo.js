@@ -1,4 +1,6 @@
 import { go } from 'utils/util';
+import { CONFIG } from 'constants/index';
+
 Component({
     properties: {
         logoObj: {
@@ -9,5 +11,11 @@ Component({
     methods: {
         go
     },
+    attached() {
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({
+            config
+        });
+    }
 });
 

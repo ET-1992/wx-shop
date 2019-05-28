@@ -60,7 +60,7 @@
 					</view>
 					<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 				</view>
-				<view class="postage">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
+				<view class="postage" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
 			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
