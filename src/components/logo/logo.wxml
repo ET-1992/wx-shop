@@ -1,4 +1,4 @@
-<view class="container" bindtap="go" data-url="/pages/rulePages/rulePages?key=copyright">
+<view class="container" bindtap="{{ (config && config.partner.is_vip) ? '' : 'go' }}" data-url="/pages/rulePages/rulePages?key=copyright">
 	<image class="f-logo" src="{{ logoObj.logo  }}" mode="aspectFit" lazy-load="false" wx:if="{{ logoObj.logo }}" />
 	<image class="h-logo" src="{{ logoObj.copyright_logo }}" mode="aspectFit" wx:if="{{ logoObj.copyright_logo }}" />
 	<view class="h-text" wx:if="{{ logoObj.copyright_text }}">{{ logoObj.copyright_text }}</view>
