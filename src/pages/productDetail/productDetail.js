@@ -331,6 +331,9 @@ Page({
         } else if (product.miaosha_enable === '1' && !hasEnd && hasStart) {
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
+        } else if (product.seckill_enable === '1' && !hasEnd && hasStart) {
+            product.definePrice = product.seckill_price;
+            product.showOriginalPrice = product.seckill_price !== product.original_price;
         } else {
             product.definePrice = product.price;
             product.showOriginalPrice = product.price !== product.original_price;

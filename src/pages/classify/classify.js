@@ -110,6 +110,33 @@ Page({
             total_pages: productData.total_pages,
             hasProducts: false
         });
+
+        this.setDefinePrice();
+    },
+
+    setDefinePrice() {
+        const { products } = this.data;
+        const now = Math.round(Date.now() / 1000);
+        products.forEach(product => {
+            product.definePrice = 0;
+
+            if (product.groupon_enable === '1') {
+                product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
+                product.showOriginalPrice = product.groupon_price !== product.original_price;
+            } else if (product.miaosha_enable === '1' && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
+                product.definePrice = product.miaosha_price;
+                product.showOriginalPrice = product.miaosha_price !== product.original_price;
+            } else if (product.seckill_enable === '1' && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
+                product.definePrice = product.seckill_price;
+                product.showOriginalPrice = product.seckill_price !== product.original_price;
+            } else {
+                product.definePrice = product.price;
+                product.showOriginalPrice = product.price !== product.original_price;
+            }
+        });
+        this.setData({
+            products,
+        });
     },
 
     async reloadCart(data) {
