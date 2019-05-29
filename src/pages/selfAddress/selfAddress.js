@@ -44,6 +44,13 @@ Page({
             });
             return;
         }
+        if (!selfAddressObj.userName || !selfAddressObj.telNumber || !selfAddressObj.detailInfo) {
+            wx.showToast({
+                title: '请注意带*号为必填项',
+                icon: 'none'
+            });
+            return;
+        }
         wx.removeStorageSync(ADDRESS_KEY);
         wx.setStorageSync(ADDRESS_KEY, selfAddressObj);
         wx.showToast({
