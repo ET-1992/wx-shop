@@ -227,7 +227,17 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
 
-            const { skus, coupons = [], properties: productProperties, thumbnail } = data.product;
+            const { skus, coupons = [], properties: productProperties, thumbnail, top = null, bottom = null } = data.product;
+            if (top) {
+                let tops = [];
+                tops.push(top);
+                data.tops = tops;
+            }
+            if (bottom) {
+                let bottoms = [];
+                bottoms.push(bottom);
+                data.bottoms = bottoms;
+            }
             const skuData = {};
             skus && skus.forEach((sku) => {
                 const { property_names, stock, price } = sku;

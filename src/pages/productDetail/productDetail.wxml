@@ -113,9 +113,15 @@
 
 		<view class="detail">
 			<view class="detailTitle"><text class="dot">•</text>{{ templateTypeText[defineTypeGlobal].page_productDetail.titleText || '商品详情' }}<text class="dot">•</text></view>
-			<view class="peanut-wxParse">
+      <view wx:if="{{ product.bottom }}" class="cube">
+		    <magicImg magicImgData="{{ product.top }}" isMarginTopZero="false" />
+      </view>
+      <view class="peanut-wxParse">
 				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
 			</view>
+      <view wx:if="{{ product.bottom }}" class="cube">
+		    <magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />
+	    </view>
 		</view>
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
