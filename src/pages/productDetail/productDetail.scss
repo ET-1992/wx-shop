@@ -116,7 +116,7 @@ video {
 				text-overflow: ellipsis;/*超出部分文字以...显示*/
 				width: 556rpx;
 			}
-		
+
 			.desc {
 				font-size: 24rpx;
 				color: #999999;
@@ -145,11 +145,11 @@ video {
 		width: 100%;
 		justify-content: space-between;
 		font-size: 24rpx;
-		
+
 		.price{
 			display: flex;
 			align-items: center;
-			
+
 			.nowPrice {
 				view{
 					display: inline-block;
@@ -162,7 +162,7 @@ video {
 				color: $priceColor;
 				display: inline-block;
 			}
-		
+
 			.originalPrice {
 				padding-left: 30rpx;
 				text-decoration: line-through;
@@ -170,7 +170,7 @@ video {
 				display: inline-block;
 			}
 		}
-	
+
 		.postage, .sales{
 			color: #707070;
 		}
@@ -194,7 +194,7 @@ video {
 			background-color: #fff;
 			text-align: left;
 		}
-		
+
 		.couponBtn{
 			font-size: 24rpx;
 			color: #000000;
@@ -202,7 +202,7 @@ video {
 			display:inline-block;
 			line-height: 32rpx;
 		}
-		
+
 		.coupon {
 			background: #F52D2D;
 			color: #fff;
@@ -227,7 +227,7 @@ video {
 			padding: 0 10rpx;
 			font-size: 24rpx;
 		}
-	
+
 		.rightIcon {
 			width: 16rpx;
 			height: 26rpx;
@@ -356,6 +356,12 @@ button {
 		background-color: #fff;
 		border:none;
 	}
+
+	.cube{
+		video{
+			position: relative;
+		}
+	}
 }
 
 .detailTitle,
@@ -439,7 +445,7 @@ button {
 		position: relative;
 		left: 0;
 		top: 0;
-		
+
 		text{
 			color: #333;
 			line-height: 1.5;
@@ -470,7 +476,7 @@ button {
 		}
 
 	}
-	
+
 	.maguaWidthBtn {
 		width: 500rpx !important;
 	}
@@ -536,7 +542,7 @@ button {
 			// flex-direction: column;
 			// justify-content: flex-end;
 			width: 400rpx;
-			
+
 			.stock, .price, .property {
 				margin-bottom: 5rpx;
 			}
@@ -638,7 +644,7 @@ button {
 		position: absolute;
 		right: 10rpx;
 		top: 0;
-		padding: 25rpx; 
+		padding: 25rpx;
 		image{
 			width: 30rpx;
 			height: 30rpx;
@@ -658,7 +664,7 @@ button {
 	.couponList {
 		height: 800rpx;
 		padding: 20rpx 0;
-		
+
 		.couponItemWrapper{
 			margin:25rpx auto 0;
 			width:650rpx;
@@ -771,11 +777,11 @@ img,
 	padding: 18rpx 0 0 25rpx;
 	margin-top: 0;
 	width: 380rpx;
-	height: 110rpx; 
+	height: 110rpx;
 }
 .product-card-meta {
 	display: flex;
-	padding: 30rpx 0 0 20rpx; 
+	padding: 30rpx 0 0 20rpx;
 }
 .product-card-price {
 	color: #FC2732;
@@ -790,7 +796,7 @@ img,
 	color: #999999;
 	padding-left: 20rpx;
 	width: 380rpx;
-	height: 30rpx; 
+	height: 30rpx;
 }
 /* 红点 */
 .orderItemValue {
@@ -846,7 +852,7 @@ img,
 		align-items: center;
 		padding-top: 67.5rpx;
 		background-color: transparent;
-		
+
 		image{
 			width: 90rpx;
 			height: 90rpx;

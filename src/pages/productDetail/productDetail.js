@@ -227,17 +227,7 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
 
-            const { skus, coupons = [], properties: productProperties, thumbnail, top = null, bottom = null } = data.product;
-            if (top) {
-                let tops = [];
-                tops.push(top);
-                data.tops = tops;
-            }
-            if (bottom) {
-                let bottoms = [];
-                bottoms.push(bottom);
-                data.bottoms = bottoms;
-            }
+            const { skus, coupons = [], properties: productProperties, thumbnail } = data.product;
             const skuData = {};
             skus && skus.forEach((sku) => {
                 const { property_names, stock, price } = sku;
@@ -254,7 +244,6 @@ Page({
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
-
 
             let defalutSelectedProperties;
             let selectedSku = {};
@@ -322,8 +311,8 @@ Page({
                 showCancel: false
             });
             if (confirm) {
-                wx.navigateBack({
-                    delta: 1
+                wx.switchTab({
+                    url: '/pages/home/home'
                 });
             }
         }
