@@ -1,0 +1,286 @@
+@import '~styles/color';
+page {
+	background-color: #fff;
+	height: 100%;
+}
+
+.container {
+	padding: 20rpx 30rpx;
+}
+
+// 普通用户
+.header {
+	text-align: center;
+	background-color: #85BCC5;
+	color: #fff;
+	border-radius: 15rpx;
+	height: 300rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.member-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		align-items: center;
+		height: 200rpx;
+		border-bottom: 1px solid #fff;
+		padding: 45rpx 40rpx 55rpx 50rpx;
+		.head-button {
+			background-color: #85BCC5;
+			display: flex;
+			align-items: center;
+	
+			.avatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin-right: 30rpx;
+			}
+
+			.member-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				
+				.text {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: #fff;
+					height: 62rpx;
+					max-width: 150rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+	
+				.member-level {
+					width: 100rpx;
+					height: 28rpx;
+					border-radius: 14rpx;
+					background-color: #fff;
+					color: #333;
+					font-size: 20rpx;
+					text-align: center;
+					line-height: 28rpx;
+					border: 1px solid #fff;
+				}
+			}
+
+		}
+		.member-rule {
+			color: #fff;
+			font-size: 24rpx;
+		}
+	}
+
+	.member-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 31rpx 40rpx 29rpx 50rpx;
+		.member-price {
+			color: #fff;
+			font-size: 28rpx;
+		}
+	
+		.member-btn {
+			width: 150rpx;
+			height: 50rpx;
+			border-radius: 25rpx;
+			background-color: #fff;
+			color: #333333;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+// 会员
+.member-header {
+	text-align: center;
+	background-color: #85BCC5;
+	color: #fff;
+	border-radius: 15rpx;
+	height: 300rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	.member-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		align-items: center;
+		height: 200rpx;
+		border-bottom: 1px solid #fff;
+		padding: 45rpx 40rpx 55rpx 50rpx;
+
+		.head-button {
+			background-color: #85BCC5;
+			display: flex;
+			align-items: center;
+
+			.avatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin-right: 30rpx;
+			}
+
+			.member-text {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+
+				.member-session {
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					height: 40rpx;
+					text-align: left;
+
+					.member-user {
+						font-size: 28rpx;
+						font-weight: bold;
+						color: #fff;
+						max-width: 150rpx;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+	
+					.member-level {
+						height: 28rpx;
+						width: 100rpx;
+						border-radius: 14rpx;
+						border: 1px solid #fff;
+						background-color: #fff;
+						color: #333333;
+						font-size: 20rpx;
+						text-align: center;
+						line-height: 28rpx;
+						margin-left: 10rpx;
+					}
+				}
+
+				.sale-text {
+					font-size: 24rpx;
+					color: #fff;
+					height: 40rpx;
+				}
+			}
+
+		}
+
+		.member-rule {
+			color: #fff;
+			font-size: 24rpx;
+		}
+	}
+
+	.member-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 31rpx 40rpx 29rpx 50rpx;
+		color: #fff;
+		text-align: left;
+
+		.member-integral {
+			font-size: 24rpx;
+		}
+
+		.member-integral-text {
+			font-size: 20rpx;
+		}
+
+		.member-btn,
+		.member-signin {
+			width: 150rpx;
+			height: 50rpx;
+			color: #FFFFFF;
+			font-size: 28rpx;
+			background-color: #D7D7D7;
+			border-radius: 25rpx;
+			text-align: center;
+			line-height: 50rpx;
+		}
+
+		.member-btn {
+			color: #333333;
+			background-color: #fff;
+
+		}
+	}
+}
+
+.member-interest {
+	margin-top: 40rpx;
+	.title {
+		font-size: 28rpx;
+		color: #333333;
+		font-weight: bold;
+		text-align: center;
+		padding: 0 20rpx 0;
+		line-height: 1px;
+		border-left: 230rpx solid #ddd;
+		border-right: 230rpx solid #ddd;
+	}
+
+	.member-list {
+		margin-top: 40rpx;
+		.list-item {
+			height: 147rpx;
+			background-color: #F4F4F4;
+			border-radius: 10rpx;
+			padding: 35rpx 40rpx 30rpx 44rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 15rpx;
+
+			.list-icon {
+				width: 70rpx;
+				height: 64rpx;
+			}
+
+			.item-text {
+				font-size: 24rpx;
+				color: #999999;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				margin-bottom: 10rpx;
+				.list-text {
+					color: #333333;
+					font-weight: bold;
+					font-size: 28rpx;
+				}
+			}
+		}
+		.list-more {
+			height: 147rpx;
+			background-color: #F4F4F4;
+			border-radius: 10rpx;
+			color: #999999;
+			font-size: 24rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}

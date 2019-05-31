@@ -89,7 +89,7 @@ video {
 .info {
 	background-color: #fff;
 	padding: 20rpx 34rpx 20rpx 31rpx;
-	margin-bottom: 10rpx;
+	// margin-bottom: 10rpx;
 
 	.tag {
 		border: 1px solid $priceColor;
@@ -173,6 +173,27 @@ video {
 	
 		.postage, .sales{
 			color: #707070;
+		}
+	}
+}
+
+// 开通会员提示框
+.member-wrapper {
+	background-color: #fff;
+	width: 100%;
+	height: 60rpx;
+	.member-tips {
+		font-size: 24rpx;
+		color: #333333;
+		background-color: #FFF9ED;
+		padding: 14rpx 30rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	
+		.tips-right {
+			font-size: 22rpx;
+			font-weight: bold;
 		}
 	}
 }

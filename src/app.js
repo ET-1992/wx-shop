@@ -78,8 +78,9 @@ App({
         setTimeout(() => {
             api.hei.config().then((res) => {
                 console.log(res);
-                const { config } = res;
+                const { config, current_user } = res;
                 wx.setStorageSync(CONFIG, config);
+                wx.setStorageSync(USER_KEY, current_user || '');
             });
         }, 500);
     },

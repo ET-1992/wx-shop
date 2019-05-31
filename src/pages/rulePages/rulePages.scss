@@ -1,126 +1,139 @@
 @import "../../utils/wxParse/wxParse.scss";
 @import "../../styles/color.scss";
 
-.p-single{
-	width:100%;
-	box-sizing: border-box;
-	line-height:1.8;
-	max-width: 750rpx;
+// .p-single{
+// 	width:100%;
+// 	box-sizing: border-box;
+// 	line-height:1.8;
+// 	max-width: 750rpx;
 
-	.wxParse-p {
-		image {
-			max-width: 100% !important;
-		}
-	}
+// 	.wxParse-p {
+// 		image {
+// 			max-width: 100% !important;
+// 		}
+// 	}
 
-	.m-header{
-		padding: 30rpx;
-	}
-	.pad-30{
-		padding: 30rpx;
-	}
-	.dash{
-		width: 6rpx;
-		height: 6rpx;
-		background: #000000;
-		margin: 20rpx;
-		border-radius: 100%;
-	}
-}
-swiper{
-	width: 750rpx;
-	height: 750rpx;
-}
-swiper image{
-	width: 100%;
+// 	.m-header{
+// 		padding: 30rpx;
+// 	}
+// 	.pad-30{
+// 		padding: 30rpx;
+// 	}
+// 	.dash{
+// 		width: 6rpx;
+// 		height: 6rpx;
+// 		background: #000000;
+// 		margin: 20rpx;
+// 		border-radius: 100%;
+// 	}
+// }
+// swiper{
+// 	width: 750rpx;
+// 	height: 750rpx;
+// }
+// swiper image{
+// 	width: 100%;
+// 	height: 100%;
+// }
+// .alignnone{
+// 	display: block;
+// 	width: 100%;
+// }
+// .product-card{
+// 	width: 98%;
+// 	color: #333;
+// 	padding: 20rpx;
+// 	margin: 40rpx auto;
+// 	box-shadow:2px 2px 12px #ccc;
+// 	border-radius: 10rpx;
+// }
+// .product-card-thumbnail{
+// 	width: 240rpx !important;
+// 	height: 240rpx !important;
+// 	float: left;
+// }
+// .product-card-title{
+//  	overflow: hidden;/*超出部分隐藏*/
+// 	display: -webkit-box;
+// 	-webkit-line-clamp: 2;
+// 	-webkit-box-orient: vertical;
+// 	word-break: break-all;
+//     text-overflow:ellipsis;/*超出部分文字以...显示*/
+// 	font-size: 16px;
+// 	font-weight: normal;
+// 	color: $titleColor;
+// 	padding: 18rpx 0 0 25rpx;
+// 	margin-top: 0;
+// 	width:380rpx;
+// 	height: 110rpx;
+// }
+// .product-card-except{
+// 	overflow: hidden;/*超出部分隐藏*/
+//     white-space: nowrap;/*不换行*/
+//     text-overflow:ellipsis;/*超出部分文字以...显示*/
+// 	font-size: 24rpx;
+// 	color:$tagColor;
+// 	padding-left: 20rpx;
+// 	width: 380rpx;
+// 	height: 30rpx;
+// }
+// .product-card-meta{
+// 	display: flex;
+// 	padding: 30rpx 0 0 20rpx;
+// }
+// .product-card-price{
+// 	color:$priceColor;
+// 	font-size: 36rpx;
+// 	width:240rpx;
+// }
+
+// .s-comments{
+// 	padding:120rpx 0;
+// }
+// .poster{
+// 	width:100%;
+// 	height:340rpx;
+// }
+// .m-tt{
+// 	font-size: 36rpx;
+// 	color:$titleColor;
+// 	margin-top:20rpx;
+// 	margin-bottom:20rpx;
+// 	font-weight: bold;
+// }
+// .m-desc{
+// 	font-size: 28rpx;
+// 	color: #707070;
+// }
+// .borderLine{
+// 	width:110rpx;
+// 	height: 2rpx;
+// 	background:#ccc;
+// 	margin:80rpx 0;
+// }
+// .c-commentBar__actions .icon-share, .c-commentBar__actions {
+//   width: 140rpx;
+//   height: 56rpx;
+//   padding: 0 10rpx;
+//   background-size: 60rpx 60rpx;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-color: transparent;
+//   box-shadow: none;
+// }
+// .icon-share::after{
+//   border:none;
+// }
+
+page {
 	height: 100%;
 }
-.alignnone{
-	display: block;
-	width: 100%;
-}
-.product-card{
-	width: 98%;
-	color: #333;
-	padding: 20rpx;
-	margin: 40rpx auto;
-	box-shadow:2px 2px 12px #ccc;
-	border-radius: 10rpx;
-}
-.product-card-thumbnail{
-	width: 240rpx !important;
-	height: 240rpx !important;
-	float: left;
-}
-.product-card-title{
- 	overflow: hidden;/*超出部分隐藏*/
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	word-break: break-all;
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
-	font-size: 16px;
-	font-weight: normal;
-	color: $titleColor;
-	padding: 18rpx 0 0 25rpx;
-	margin-top: 0;
-	width:380rpx;
-	height: 110rpx;
-}
-.product-card-except{
-	overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
-	font-size: 24rpx;
-	color:$tagColor;
-	padding-left: 20rpx;
-	width: 380rpx;
-	height: 30rpx;
-}
-.product-card-meta{
-	display: flex;
-	padding: 30rpx 0 0 20rpx;
-}
-.product-card-price{
-	color:$priceColor;
-	font-size: 36rpx;
-	width:240rpx;
-}
 
-.s-comments{
-	padding:120rpx 0;
-}
-.poster{
-	width:100%;
-	height:340rpx;
-}
-.m-tt{
-	font-size: 36rpx;
-	color:$titleColor;
-	margin-top:20rpx;
-	margin-bottom:20rpx;
-	font-weight: bold;
-}
-.m-desc{
-	font-size: 28rpx;
-	color: #707070;
-}
-.borderLine{
-	width:110rpx;
-	height: 2rpx;
-	background:#ccc;
-	margin:80rpx 0;
-}
-.c-commentBar__actions .icon-share, .c-commentBar__actions {
-  width: 140rpx;
-  height: 56rpx;
-  padding: 0 10rpx;
-  background-size: 60rpx 60rpx;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: transparent;
-  box-shadow: none;
-}
-.icon-share::after{
-  border:none;
+.rule-wrap {
+	height: 100%;
+
+	.rule-image {
+		width: 100%;
+		height: 100%;
+	}
 }

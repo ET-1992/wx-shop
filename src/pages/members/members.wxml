@@ -1,0 +1,66 @@
+<view class="container">
+	<!-- 会员用户 -->
+	<view class="member-header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
+		<view class="member-top">
+			<button class="head-button" style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				<view class="member-text">
+					<view class="member-session">
+						<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
+						<view class="member-level">{{ user.membership.level_name }}</view>
+					</view>
+					<view class="sale-text" wx:if="{{ user.membership.discount }}">全场除促销商品外{{ user.membership.discount }}折</view>
+				</view>
+			</button>
+			<view class="member-rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=membership">查看会员规则</view>
+		</view>
+		<view class="member-bottom">
+			<view>
+				<view class="member-integral">当前积分 {{ user.membership.exp }}</view>
+				<view class="member-integral-text" wx:if="{{ user.membership.level < 5 }}">{{ user.membership.distance }}积分可升级{{ user.membership.next_level_name }}</view>
+				<view class="member-integral-text" wx:if="{{ user.membership.level === 5 }}">{{ user.membership.next_level_name }}</view>
+			</view>
+			<view class="member-signin" wx:if="{{ user.membership.is_checkined }}">已签到</view>
+			<view class="member-btn" bindtap="tapSignIn" wx:if="{{ !user.membership.is_checkined }}">签到</view>
+		</view>
+	</view>
+
+	<!-- 普通用户 -->
+	<view class="header" style="background-color: {{ globalData.themeColor.primaryColor }}" wx:if="{{ !user.membership.is_member }}">
+		<view class="member-top">
+			<button class="head-button" style="background-color: {{ globalData.themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				<view class="member-text">
+					<text class="text">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
+					<view class="member-level">普通用户</view>
+				</view>
+			</button>
+			<view class="member-rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=membership">查看会员规则</view>
+		</view>
+		<view class="member-bottom">
+			<view class="member-price">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
+			<view class="member-btn" bindtap="buyMember">立即开通</view>
+		</view>
+	</view>
+
+	<view class="member-interest">
+		<view class="title">会员权益</view>
+		<view class="member-list">
+			<view class="list-item">
+				<image class="list-icon" src="/icons/member-coupon.svg" />
+				<view class="item-text">
+					<view class="list-text">全场免邮</view>
+					<!-- <view>每月前x单免邮</view> -->
+				</view>
+			</view>
+			<view class="list-item">
+				<image class="list-icon" src="/icons/member-discount.svg" />
+				<view class="item-text">
+					<view class="list-text">会员折扣</view>
+					<view wx:if="{{ user.membership.discount }}">全场除促销商品外{{ user.membership.discount }}折</view>
+				</view>
+			</view>
+			<view class="list-more">更多权益即将开通，敬请期待</view>
+		</view>
+	</view>
+</view>

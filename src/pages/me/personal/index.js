@@ -23,6 +23,7 @@ Component({
             this.setData({
                 user
             });
+            console.log(this.data.user);
         },
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });

@@ -4,6 +4,9 @@
 	<!-- 头部面板 -->
 	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
 
+	<!-- 会员专区 -->
+	<member user="{{ user }}" wx:if="{{ config.membership_enable }}"></member>
+
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
