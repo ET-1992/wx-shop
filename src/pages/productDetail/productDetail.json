@@ -9,6 +9,7 @@
     "loading": "../../components/loading/index",
     "countDown": "../../components/countDown/countDown",
     "productComments": "./productComments/index",
-    "magicImg": "../../components/magicImg/magicImg"
+    "magicImg": "../../components/magicImg/magicImg",
+    "productList": "../../components/productList/index"
   }
 }

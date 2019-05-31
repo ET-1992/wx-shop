@@ -122,7 +122,17 @@
       <view wx:if="{{ product.bottom }}" class="cube">
 		    <magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />
 	    </view>
-		</view>
+    </view>
+
+    <view class="promote" wx:if="{{ product.related && product.related.length }}">
+  	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
+  	  	<view class="relateShop">
+  	  	  	<view class="relateShopItem" wx:for="{{ product.related }}" hover-class="navigator-hover">
+  	  	  	  	<productList product="{{ item }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
+  	  	  	</view>
+  	  	</view>
+  	</view>
+
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 			<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
