@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
-	<navigator class="rule" url="{{ '/pages/rulePages/rulePages?id=' + config.crowd_pay_rule_post_id }}">
+	<navigator class="rule" url="/pages/rulePages/rulePages?key=crowd_pay">
         <view class="question">?</view>
         <view class="instruction">规则说明</view>
     </navigator>
@@ -13,12 +13,12 @@
 		<view class="price">订单总价：<text>￥{{ finalPayDispaly }}</text></view>
 	</view>
 	<view class="content">
-		<textarea 
+		<textarea
 			wx:if="{{ !shareModal && !isShowProductDetailShareModal }}"
-			class="textarea" 
-			maxlength="{{ maxlength }}" 
-			bindinput="bindTextAreaBlur" 
-			placeholder="就差一点点了，快来助我一臂之力吧" 
+			class="textarea"
+			maxlength="{{ maxlength }}"
+			bindinput="bindTextAreaBlur"
+			placeholder="就差一点点了，快来助我一臂之力吧"
 			placeholder-class="textarea-placeholder"
 			value="{{ content }}"
 		>
@@ -51,11 +51,11 @@
 	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
 </van-popup>
 
-<productDetailShareModal 
-    productImage="{{ items[0].image_url }}" 
-    productTitle="{{ items[0].title }}" 
+<productDetailShareModal
+    productImage="{{ items[0].image_url }}"
+    productTitle="{{ items[0].title }}"
     productPrice="{{ items[0].price }}"
-    routeQuery="{{ routeQuery }}" 
-    bindonCloseModal="onCloseProductDetailShareModal" 
+    routeQuery="{{ routeQuery }}"
+    bindonCloseModal="onCloseProductDetailShareModal"
     wx:if="{{ isShowProductDetailShareModal }}"
 />

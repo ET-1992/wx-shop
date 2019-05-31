@@ -34,7 +34,8 @@ Component({
         selectedSku: {},
         disableSkuItems: {},
         skuMap: {},
-        globalData: app.globalData
+        globalData: app.globalData,
+        now: Math.round(Date.now() / 1000)
     },
     methods: {
         close() {

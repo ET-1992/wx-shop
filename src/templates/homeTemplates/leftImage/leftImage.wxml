@@ -1,7 +1,7 @@
 <view class="leftImage" wx:if="{{!hasProducts}}">
-	<navigator 
-		wx:for="{{ products }}" 
-		wx:key="id" 
+	<navigator
+		wx:for="{{ products }}"
+		wx:key="id"
 		wx:for-item="product"
 		hover-class="navigator-hover"
 		url="/pages/productDetail/productDetail?id={{ product.id }}">
@@ -11,9 +11,13 @@
     			<view class="title">{{ product.title }}</view>
     			<!-- <view class="desc">{{ product.excerpt }}</view> -->
     			<view class="bottom">
-    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}<text wx:if="{{ product.skus && product.skus.length }}">起</text></view>
+          <view class="left">
+    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}<text wx:if="{{ product.skus && product.skus.length }}">起</text></view>
+            <view class="tag" wx:if="{{ product.groupon_enable }}">{{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}</view>
+            <view class="tag" wx:if="{{ product.miaosha_enable || product.seckill_enable }}">{{ product.miaosha_enable ? '限时购' : '秒杀'}}</view>
+          </view>
 					<form catchsubmit="onFormSubmit" report-submit="true">
-    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length }}" catch:tap="isShowSkuModal" data-product="{{ product }}"> 
+    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
     						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
     						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
     					</button>
@@ -21,7 +25,7 @@
     						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
     						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
     					</button>
-    				</form>
+    			</form>
     			</view>
     		</view>
 		</view>

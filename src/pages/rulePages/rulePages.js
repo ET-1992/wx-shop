@@ -1,8 +1,7 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
-// const WxParse = require('utils/wxParse/wxParse.js');
-// const app = getApp();
+const app = getApp();
 
 Page({
 
