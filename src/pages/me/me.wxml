@@ -5,7 +5,7 @@
 	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
 
 	<!-- 会员专区 -->
-	<member user="{{ user }}" wx:if="{{ config.membership_enable }}"></member>
+	<member user="{{ user }}" wx:if="{{ config.membership_enable }}" themeColor="{{ themeColor }}"></member>
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />

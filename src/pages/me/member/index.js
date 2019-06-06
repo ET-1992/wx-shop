@@ -8,6 +8,15 @@ Component({
                     ...newValue
                 });
             }
+        },
+        themeColor: {
+            type: Object,
+            value: {},
+            observer(newValue) {
+                this.setData({
+                    ...newValue
+                });
+            }
         }
     }
 });
