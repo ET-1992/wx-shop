@@ -193,7 +193,7 @@
               </form>
             </view>
             <navigator class="moreCoupon" url="/pages/couponList/couponList" wx:if="{{ userCoupon.length > 1 }}">
-              <view class="moreBtn">查看更多</view>
+              <view class="moreBtn">查看更多ddddddd</view>
             </navigator>
           </view>
         </view>

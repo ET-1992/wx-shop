@@ -1,4 +1,3 @@
-@import "~templates/mock/mock";
 @import "~styles/color";
 @import "../../utils/wxParse/wxParse.scss";
 $footerHeight: 100rpx;
@@ -145,23 +144,30 @@ video {
 		justify-content: space-between;
 		font-size: 24rpx;
 
-		.price{
+		.priceWrap{
 			display: flex;
 			align-items: center;
 
-			.nowPrice {
-				view{
-					display: inline-block;
-					vertical-align: middle;
-				}
-				.priceStyle{
-					font-size: 36rpx;
-					font-weight: bold;
-				}
+			.currentPrice {
 				color: $priceColor;
-				display: inline-block;
+				display: flex;
+				align-items: center;
+				.price{
+					display: flex;
+					align-items: center;
+					font-size: 36rpx;
+					line-height: 1.2;
+					.num{
+						font-weight: bold;
+					}
+					.currency{
+						font-size: 24rpx;
+					}
+				}
+				.commander{
+					font-size: 22rpx;
+				}
 			}
-
 			.originalPrice {
 				padding-left: 30rpx;
 				text-decoration: line-through;
@@ -552,16 +558,8 @@ button {
 
 .actionSheetContent {
 	$buttonHeight: 90rpx;
-
 	background-color: #fff;
-	position: fixed;
-	width: 100%;
-	left: 0;
-	bottom: 0;
-	z-index: 100;
 	padding: 20rpx 62rpx $buttonHeight+40rpx;
-	transform: translateY(120%);
-	transition: transform 0.4s ease;
 
 	&.iphoneXTrick {
 		padding-bottom: $buttonHeight + 40rpx + $iphoneXBottomGap;
@@ -870,13 +868,7 @@ img,
 /* 底部弹窗 */
 .actionShareModal{
 	background-color: #fff;
-	position: fixed;
 	width: 100%;
-	left: 0;
-	bottom: 0;
-	z-index: 100;
-	transform: translateY(120%);
-	transition: transform 0.4s ease;
 
 	&.iphoneXTrick {
 		padding-bottom: 40rpx;
