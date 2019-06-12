@@ -1,5 +1,6 @@
 import { getAgainUserForInvalid } from 'utils/util';
 const app = getApp();
+import api from 'utils/api';
 Component({
     properties: {
         personalComponentData: {
@@ -27,6 +28,17 @@ Component({
         },
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });
-        }
+        },
+        // 用户签到
+        async tapSignIn() {
+            const result = await api.hei.signIn(); // 签到
+            this.setData({
+                user: result.current_user
+            });
+            wx.showToast({
+                title: '签到成功',
+                icon: 'success'
+            });
+        },
     }
 });

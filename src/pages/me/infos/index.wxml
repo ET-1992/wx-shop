@@ -1,4 +1,8 @@
 <view class="infos">
+    <navigator class="infoItem" url="/pages/members/members" wx:if="{{  user.membership.is_member }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/memberCenter.svg" />
+        <view class="itemTitle">会员中心</view>
+    </navigator>
     <view class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
         <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/address.png" />
         <view class="itemTitle">我的地址</view>

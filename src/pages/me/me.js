@@ -55,7 +55,8 @@ Page({
             infosComponentData,
             ordersComponentData,
             personalComponentData,
-            managerComponentData
+            managerComponentData,
+            membership_banner: data.membership_banner
         });
     },
 

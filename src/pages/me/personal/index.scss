@@ -1,58 +1,102 @@
 @import '~styles/color';
 .header {
-	padding: 36rpx;
-	text-align: center;
-	background-color: $mainColor;
-	color: #fff;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
 	margin: 20rpx;
 	border-radius: 10rpx;
-	.head-button {
-		background-color: $mainColor;
+	background-color: $mainColor;
+
+	.header-top {
+		padding: 30rpx;
+		text-align: center;
+		color: #fff;
 		display: flex;
-		flex-direction: column;
+		justify-content: space-between;
 		align-items: center;
-	}
+
+		.head-button {
+			background-color: $mainColor;
+			display: flex;
+			// flex-direction: column;
+			align-items: center;
 	
-	.welfare{
-		line-height: 1.7;
-	}
-	.number{
-		font-size: 36rpx;
-		font-weight: bold;
-	}
-	.title{
-		font-size: 28rpx;
-	}
+			.avatar {
+				$size: 120rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+	
+			.head-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				margin-left: 20rpx;
+				margin-bottom: 10rpx;
+	
+				.head-user {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: #fff;
+					height: 60rpx;
+					max-width: 150rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+	
+				.head-level {
+					width: 100rpx;
+					height: 28rpx;
+					border-radius: 14rpx;
+					background-color: #fff;
+					color: #DE4E24;
+					font-size: 20rpx;
+					text-align: center;
+					line-height: 28rpx;
+					border: 1px solid #fff;
+				}
+			}
+		}
 
-	.avatar {
-		$size: 120rpx;
-		width: $size;
-		height: $size;
-		border-radius: 50%;
-		border: 1rpx solid #F1F1F1;
-		margin-bottom: 10rpx;
-		overflow: hidden;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
+		.welfare {
+			line-height: 1.7;
 
-	.text {
-		color: #fff;
-		font-size: 24rpx;
-	}
+			.number {
+				font-size: 36rpx;
+				font-weight: bold;
+			}
 
-	.unlogin{
-		border: none;
+			.title {
+				font-size: 28rpx;
+			}
+		}
 	}
+	.header-bottom {
+		height: 100rpx;
+		padding: 32rpx;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		border-top: 1px solid #fff;
+		
+		.head-btn,
+		.head-signin {
+			width: 150rpx;
+			height: 50rpx;
+			color: #FFFFFF;
+			font-size: 28rpx;
+			background-color: #D7D7D7;
+			border-radius: 25rpx;
+			text-align: center;
+			line-height: 50rpx;
+		}
 
-	.loginBt {
-		width: 250rpx;
-		padding: 10rpx 0;
-		display: inline-block;
-		color: #fff;
-		font-size: 14px;
+		.head-btn {
+			color: #333333;
+			background-color: #fff;
+		}
 	}
 }
