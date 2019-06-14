@@ -20,6 +20,13 @@ Component({
                     toView: `tab${newvalue}`
                 });
             }
+        },
+        top: {
+            type: String,
+            value: '',
+            observer(newvalue) {
+                console.log(newvalue);
+            }
         }
     },
     methods: {

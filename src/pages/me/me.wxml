@@ -8,8 +8,7 @@
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 会员专区 -->
-	<!-- <member user="{{ user }}" wx:if="{{ config.membership_enable }}" themeColor="{{ themeColor }}"></member> -->
-	<navigator class="member" url="/pages/members/members" wx:if="{{ membership_banner }}">
+	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ membership_banner }}">
 		<image class="image" src="{{ membership_banner }}" />
 	</navigator>
 

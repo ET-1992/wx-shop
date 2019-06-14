@@ -10,6 +10,7 @@ Page({
     },
 
     async onLoad({ key }) {
+        console.log({ key });
         const { image_url, title = '规则页' }  = await api.hei.getShopRule({ key });
         wx.setNavigationBarTitle({
             title,

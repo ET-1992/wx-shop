@@ -1,4 +1,4 @@
-<view class="default">
+<view class="default" style="top: {{ top }}">
     <view 
         wx:for="{{ navbarListData }}" 
         class="item {{ activeIndex === index ? 'selected' : '' }}" 

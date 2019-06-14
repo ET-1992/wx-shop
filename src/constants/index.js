@@ -77,6 +77,18 @@ export const LOGISTICS_STATUS_TEXT = [
 //     { text: '未通过', value: 3 },
 // ];
 
+export const CONSUM_TEXT = [
+    { text: '红包', value: 1 },
+    { text: '分享红包后叠加', value: 2 },
+    { text: '分销收入', value: 3 },
+    { text: '现金提现(储值卡提现)', value: 4 },
+    { text: '支付订单', value: 5 },
+    { text: '订单退款', value: 6 },
+    { text: '分销提现', value: 7 },
+    { text: '虚拟币规则', value: 8 },
+    { text: '储值卡充值', value: 9 },
+];
+
 export const SHARE_STATUS_TEXT = {
     1: '审核中',
     2: '已确认',

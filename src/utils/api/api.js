@@ -378,5 +378,21 @@ export const apis = {
     getShopRule: {
         path: 'api/mag.shop.rule.json',
         isForceToken: true
+    },
+    // 储值卡
+    membershipCard: {
+        path: 'api/mag.membership.home.json',
+        isForceToken: true
+    },
+    // 充值金额
+    rechargePrice: {
+        path: 'api/mag.membership.recharge.json',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 消费记录
+    consumptionLog: {
+        path: 'api/mag.membership.store.card.log.json',
+        isForceToken: true
     }
 };

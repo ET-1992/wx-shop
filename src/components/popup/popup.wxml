@@ -1,0 +1,16 @@
+<van-popup show="{{ rechargeModal }}" bind:close="closeRechargeModal"  custom-class="popup">
+	<view class="modal-title">请选择充值金额</view>
+	<view class="model-priceSection">
+		<block wx:for="{{ rechargeArray }}" wx:key="index">
+			<view class='model-section {{ item.checked? "checked_recharge" : "" }}' data-index='{{index}}' bindtap='rechargeTap'>
+				<view class="model-price">{{item.recharge}}元</view>
+				<view class="model-text">赠送{{item.gift}}元</view>
+			</view>
+		</block>
+	</view>
+	<view class="recharge-elsePrice" wx:if="{{ user.membership.is_member }}">
+		<view class="text">其他金额</view>
+		<input type="number" class="item-input" placeholder="请输入金额"  bindblur="inputRechargePrice"/>
+	</view>
+	<view class="model-btn" bindtap="buyMember">确认支付</view>
+</van-popup>

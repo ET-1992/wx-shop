@@ -11,24 +11,24 @@ page {
 // 普通用户
 .header {
 	text-align: center;
-	background-color: #85BCC5;
+	background-color: $mainColor;
 	color: #fff;
 	border-radius: 15rpx;
 	height: 300rpx;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	position: relative;
 
 	.member-top {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		align-items: center;
 		height: 200rpx;
 		border-bottom: 1px solid #fff;
 		padding: 45rpx 40rpx 55rpx 50rpx;
 		.head-button {
-			background-color: #85BCC5;
+			background-color: $mainColor;
 			display: flex;
 			align-items: center;
 	
@@ -49,7 +49,7 @@ page {
 				flex-direction: column;
 				justify-content: space-around;
 				
-				.text {
+				.member-user {
 					font-size: 28rpx;
 					font-weight: bold;
 					color: #fff;
@@ -74,9 +74,25 @@ page {
 			}
 
 		}
-		.member-rule {
-			color: #fff;
-			font-size: 24rpx;
+		.member-concat {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			position: absolute;
+			top: 20rpx;
+			right: 50rpx;
+
+			.member-itemIcon {
+				width: 30rpx;
+				height: 25rpx;
+			}
+
+			.member-itemTitle {
+				font-size: 18rpx;
+				color: #FFFFFF;
+				margin-left: 10rpx;
+			}
 		}
 	}
 
@@ -91,11 +107,11 @@ page {
 		}
 	
 		.member-btn {
-			width: 150rpx;
+			width: 204rpx;
 			height: 50rpx;
 			border-radius: 25rpx;
 			background-color: #fff;
-			color: #333333;
+			color: #333;
 			font-size: 28rpx;
 			font-weight: bold;
 			display: flex;
@@ -108,13 +124,15 @@ page {
 // 会员
 .member-header {
 	text-align: center;
-	background-color: #85BCC5;
+	background-color: $mainColor;
 	color: #fff;
 	border-radius: 15rpx;
 	height: 300rpx;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	position: relative;
+
 	.member-top {
 		display: flex;
 		align-items: center;
@@ -125,7 +143,7 @@ page {
 		padding: 45rpx 40rpx 55rpx 50rpx;
 
 		.head-button {
-			background-color: #85BCC5;
+			background-color: $mainColor;
 			display: flex;
 			align-items: center;
 
@@ -138,57 +156,57 @@ page {
 				overflow: hidden;
 				background-repeat: no-repeat;
 				background-size: cover;
-				margin-right: 30rpx;
 			}
 
 			.member-text {
 				display: flex;
 				flex-direction: column;
-				align-items: flex-start;
+				justify-content: center;
+				margin-left: 30rpx;
 
-				.member-session {
-					display: flex;
-					align-items: center;
-					justify-content: flex-start;
-					height: 40rpx;
-					text-align: left;
-
-					.member-user {
-						font-size: 28rpx;
-						font-weight: bold;
-						color: #fff;
-						max-width: 150rpx;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						white-space: nowrap;
-					}
-	
-					.member-level {
-						height: 28rpx;
-						width: 100rpx;
-						border-radius: 14rpx;
-						border: 1px solid #fff;
-						background-color: #fff;
-						color: #333333;
-						font-size: 20rpx;
-						text-align: center;
-						line-height: 28rpx;
-						margin-left: 10rpx;
-					}
+				.member-user {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: #fff;
+					max-width: 200rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 
-				.sale-text {
-					font-size: 24rpx;
-					color: #fff;
-					height: 40rpx;
+				.member-level {
+					height: 28rpx;
+					width: 110rpx;
+					border-radius: 14rpx;
+					border: 1px solid #fff;
+					background-color: #fff;
+					color: #DE4E24;
+					font-size: 20rpx;
+					text-align: center;
+					line-height: 28rpx;
 				}
 			}
-
 		}
 
-		.member-rule {
-			color: #fff;
-			font-size: 24rpx;
+		.member-concat {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			position: absolute;
+			top: 20rpx;
+			right: 50rpx;
+
+			.member-itemIcon {
+				width: 30rpx;
+				height: 25rpx;
+			}
+
+			.member-itemTitle {
+				font-size: 18rpx;
+				color: #FFFFFF;
+				margin-left: 10rpx;
+			}
 		}
 	}
 
@@ -196,91 +214,31 @@ page {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 31rpx 40rpx 29rpx 50rpx;
+		padding: 30rpx 50rpx;
 		color: #fff;
-		text-align: left;
-
-		.member-integral {
-			font-size: 24rpx;
-		}
 
 		.member-integral-text {
-			font-size: 20rpx;
-		}
-
-		.member-btn,
-		.member-signin {
-			width: 150rpx;
-			height: 50rpx;
-			color: #FFFFFF;
-			font-size: 28rpx;
-			background-color: #D7D7D7;
-			border-radius: 25rpx;
-			text-align: center;
-			line-height: 50rpx;
-		}
-
-		.member-btn {
-			color: #333333;
-			background-color: #fff;
-
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-size: 24rpx;
+			
+			.cart-price {
+				font-size: 32rpx;
+				font-weight: bold;
+			}
 		}
 	}
 }
 
-.member-interest {
-	margin-top: 40rpx;
-	.title {
-		font-size: 28rpx;
-		color: #333333;
-		font-weight: bold;
-		text-align: center;
-		padding: 0 20rpx 0;
-		line-height: 1px;
-		border-left: 230rpx solid #ddd;
-		border-right: 230rpx solid #ddd;
-	}
+// 会员规则
+.member-rule {
+	width: 100%;
+	height: 100%;
+	margin-top: 20rpx;
 
-	.member-list {
-		margin-top: 40rpx;
-		.list-item {
-			height: 147rpx;
-			background-color: #F4F4F4;
-			border-radius: 10rpx;
-			padding: 35rpx 40rpx 30rpx 44rpx;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-bottom: 15rpx;
-
-			.list-icon {
-				width: 70rpx;
-				height: 64rpx;
-			}
-
-			.item-text {
-				font-size: 24rpx;
-				color: #999999;
-				display: flex;
-				flex-direction: column;
-				align-items: flex-end;
-				margin-bottom: 10rpx;
-				.list-text {
-					color: #333333;
-					font-weight: bold;
-					font-size: 28rpx;
-				}
-			}
-		}
-		.list-more {
-			height: 147rpx;
-			background-color: #F4F4F4;
-			border-radius: 10rpx;
-			color: #999999;
-			font-size: 24rpx;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+	.rule-image {
+		width: 100%;
+		height: 100%;
 	}
 }

@@ -1,0 +1,61 @@
+<view class="container">
+	<!-- 会员用户 -->
+	<view class="member-header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
+		<view class="member-top">
+			<button class="head-button" style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				<view class="member-text">
+					<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
+					<view class="member-level">{{ membershipCard.user.level_name }}</view>
+				</view>
+			</button>
+			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}' style="background-color: {{ themeColor.primaryColor }}">
+				<image class="member-itemIcon" mode="aspectFit" src="/icons/memberConcat.svg" />
+				<view class="member-itemTitle">联系客服</view>
+			</button>
+		</view>
+		<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-bottom" wx:if="{{ config.store_card }}">
+			<view class="member-integral-text">
+				<view class="cart-price">{{ membershipCard.user.cash_balance }}</view>
+				<view class="cart-text">储值余额</view>
+			</view>
+			<view class="member-integral-text">
+				<view class="cart-price">{{ membershipCard.user.gift_balance }}</view>
+				<view class="cart-text">赠送余额</view>
+			</view>
+			<view class="member-integral-text">
+				<view class="cart-price">{{ membershipCard.user.exp }}</view>
+				<view class="cart-text">积分</view>
+			</view>
+		</navigator>
+	</view>
+
+	<!-- 普通用户 -->
+	<view class="header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ !user.membership.is_member }}">
+		<view class="member-top">
+			<button class="head-button" style="background-color: {{ globalData.themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				<view class="member-text">
+					<text class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
+					<view class="member-level">普通用户</view>
+				</view>
+			</button>
+			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}' style="background-color: {{ themeColor.primaryColor }}">
+				<image class="member-itemIcon" mode="aspectFit" src="/icons/memberConcat.svg" />
+				<view class="member-itemTitle">联系客服</view>
+			</button>
+		</view>
+		<view class="member-bottom">
+			<view class="member-price">{{ membershipCard.word }}</view>
+			<view class="member-price">{{ config.membership.rules.payment }}</view>
+			<view class="member-btn" bindtap="openRechargeModal">立即开通会员</view>
+		</view>
+	</view>
+
+	<!-- 会员充值弹窗 -->
+	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}"></popup>
+
+	<view class="member-rule">
+		<image class="rule-image" src="{{ image_url }}" mode="aspectFit"/>
+	</view>
+</view>

@@ -8,15 +8,29 @@ Page({
     data: {
         title: 'members',
         globalData: app.globalData,
-        signIn: false
+        rechargeModal: false
     },
 
-    onLoad(params) {
+    async onLoad(params) {
         console.log(params);
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync('user');
-        this.setData({ themeColor, config, user });
+        const { image_url }  = await api.hei.getShopRule({ key: 'membership' });
+        const result = await api.hei.membershipCard();
+        console.log(result);
+        const recharge = await api.hei.rechargePrice();
+        // console.log(recharge);
+        recharge.data[0].checked = true;
+        console.log(recharge.data);
+        this.setData({
+            themeColor,
+            config,
+            user,
+            image_url,
+            membershipCard: result.data,
+            rechargeArray: recharge.data
+        });
     },
 
     async onShow() {
@@ -25,8 +39,6 @@ Page({
         const user = getUserInfo();
         this.setData({ user, config });
     },
-
-    go, // 跳转到规则详情页面
 
     // 获取用户信息
     async bindGetUserInfo(e) {
@@ -47,15 +59,10 @@ Page({
         });
     },
 
-    // 开通会员
-    async buyMember() {
-        const { pay_sign } = await api.hei.joinMembership();
-        if (pay_sign) {
-            try {
-                await wxPay(pay_sign);
-            } catch (error) {
-                console.log(error);
-            }
-        }
+    // 打开会员充值弹窗
+    openRechargeModal() {
+        this.setData({
+            rechargeModal: true
+        });
     }
 });
