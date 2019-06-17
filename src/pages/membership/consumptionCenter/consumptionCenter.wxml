@@ -16,7 +16,7 @@
 <navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" top="180rpx"/>
 
 <view class="wrapper">
-	<view  class="ConsumptionList" wx:for="{{ ConsumptionList }}" wx:if="{{  ConsumptionList.length }}">
+	<view  class="consumptionList" wx:for="{{ ConsumptionList }}" wx:if="{{ ConsumptionList.length }}" wx:key="index">
 		<view>
 			<view>{{ item.text }}</view>
 			<view class="time">{{ item.formatTime }}</view>
@@ -29,5 +29,8 @@
 			<view class="price">+ {{ item.income }}.00</view>
 			<view class="balance">余额: {{ item.balance }}.00</view>
 		</view>
+	</view>
+	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length}}">
+		暂无记录
 	</view>
 </view>

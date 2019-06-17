@@ -1,7 +1,7 @@
 <view class="container">
 	<!-- 会员用户 -->
-	<view class="member-header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
-		<view class="member-top">
+	<view class="member-header {{ config.store_card ? '' : 'noMemberCard' }}" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
+		<view class="member-top {{ config.store_card ? '' : 'noCard' }}">
 			<button class="head-button" style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 				<view class="member-text">
@@ -48,12 +48,13 @@
 		<view class="member-bottom">
 			<view class="member-price">{{ membershipCard.word }}</view>
 			<view class="member-price">{{ config.membership.rules.payment }}</view>
-			<view class="member-btn" bindtap="openRechargeModal">立即开通会员</view>
+			<view class="member-btn" bindtap="openRechargeModal" wx:if="{{ config.store_card }}">立即开通会员</view>
+			<view class="member-btn" bindtap="buyMember" wx:if="{{ !config.store_card }}">立即开通会员</view>
 		</view>
 	</view>
 
 	<!-- 会员充值弹窗 -->
-	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}"></popup>
+	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
 
 	<view class="member-rule">
 		<image class="rule-image" src="{{ image_url }}" mode="aspectFit"/>

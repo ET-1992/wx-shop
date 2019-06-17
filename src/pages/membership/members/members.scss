@@ -139,8 +139,8 @@ page {
 		justify-content: space-between;
 		align-items: center;
 		height: 200rpx;
-		border-bottom: 1px solid #fff;
 		padding: 45rpx 40rpx 55rpx 50rpx;
+		border-bottom: 1px solid #fff;
 
 		.head-button {
 			background-color: $mainColor;
@@ -210,6 +210,10 @@ page {
 		}
 	}
 
+	.noCard {
+		border-bottom: none;
+	}
+
 	.member-bottom {
 		display: flex;
 		justify-content: space-between;
@@ -229,6 +233,10 @@ page {
 			}
 		}
 	}
+}
+
+.noMemberCard {
+	height: 200rpx;
 }
 
 // 会员规则

@@ -364,10 +364,11 @@ export const apis = {
         path: 'api/mag.product.fav.list.json',
         isForceToken: true
     },
-    // 开通会员
+    // 开通会员,充值金额
     joinMembership: {
         path: 'api/mag.membership.pay.json',
-        isForceToken: true
+        isForceToken: true,
+        method: 'POST'
     },
     // 签到
     signIn: {
@@ -384,11 +385,10 @@ export const apis = {
         path: 'api/mag.membership.home.json',
         isForceToken: true
     },
-    // 充值金额
+    // 可充值金额
     rechargePrice: {
         path: 'api/mag.membership.recharge.json',
-        isForceToken: true,
-        method: 'POST'
+        isForceToken: true
     },
     // 消费记录
     consumptionLog: {
