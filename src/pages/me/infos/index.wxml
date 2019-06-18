@@ -1,5 +1,5 @@
 <view class="infos">
-    <navigator class="infoItem" url="/pages/members/members" wx:if="{{  user.membership.is_member }}">
+    <navigator class="infoItem" url="/pages/membership/members/members" wx:if="{{  user.membership.is_member }}">
         <image class="itemIcon" mode="aspectFit" src="/icons/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>
     </navigator>

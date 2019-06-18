@@ -380,7 +380,7 @@ export const apis = {
         path: 'api/mag.shop.rule.json',
         isForceToken: true
     },
-    // 储值卡
+    // 会员中心-储值卡
     membershipCard: {
         path: 'api/mag.membership.home.json',
         isForceToken: true

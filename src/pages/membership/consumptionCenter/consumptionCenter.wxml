@@ -1,10 +1,10 @@
 <view class="header" style="background-color: {{ themeColor.primaryColor }}">
 	<view class="header-text">
-		<view class="header-price">{{ cash_balance }}</view>
+		<view class="header-price">{{ cash_balance }} 元</view>
 		<view class="price-text">储值余额</view>
 	</view>
 	<view class="header-text">
-		<view class="header-price">{{ gift_balance }}</view>
+		<view class="header-price">{{ gift_balance }} 元</view>
 		<view class="price-text">赠送余额</view>
 	</view>
 	<view class="header-btn" bindtap="openRechargeModal">充值</view>
@@ -21,13 +21,9 @@
 			<view>{{ item.text }}</view>
 			<view class="time">{{ item.formatTime }}</view>
 		</view>
-		<view wx:if="{{ item.expense }}" class="coinNum decreaseNum">
-			<view class="price">- {{ item.expense }}.00</view>
-			<view class="balance">余额: {{ item.balance }}.00</view>
-		</view>
-		<view wx:if="{{ item.income }}" class="coinNum">
-			<view class="price">+ {{ item.income }}.00</view>
-			<view class="balance">余额: {{ item.balance }}.00</view>
+		<view class="coinNum decreaseNum">
+			<view class="price">{{ item.amount }} 元</view>
+			<view class="balance">余额: {{ item.balance }} 元</view>
 		</view>
 	</view>
 	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length}}">

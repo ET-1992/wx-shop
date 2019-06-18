@@ -37,7 +37,9 @@ Page({
         app.log('页面onShow');
         const config = wx.getStorageSync(CONFIG);
         const user = getUserInfo();
-        this.setData({ user, config });
+        const result = await api.hei.membershipCard();
+        console.log('储值卡-会员中心result', result);
+        this.setData({ user, config, membershipCard: result.data });
     },
 
     // 获取用户信息

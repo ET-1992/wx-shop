@@ -80,6 +80,8 @@ Page({
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);
         }
+
+        this.loadOrderCount();
     },
 
     onLogin() {

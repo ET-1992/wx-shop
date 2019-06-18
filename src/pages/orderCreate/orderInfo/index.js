@@ -26,10 +26,12 @@ Component({
             type: Object,
             value: {},
             observer(newValue) {
+                console.log(newValue);
                 this.setData({
                     postageDispaly: newValue.postage ? Number(newValue.postage).toFixed(2) : '0.00',
                     couponFeeDispaly: newValue.coupon_reduce_fee ? Number(newValue.coupon_reduce_fee).toFixed(2) : '0.00',
-                    totalPriceDispaly: newValue.item_amount ? Number(newValue.item_amount).toFixed(2) : '0.00'
+                    totalPriceDispaly: newValue.item_amount ? Number(newValue.item_amount).toFixed(2) : '0.00',
+                    membershipReduceFee: Number(newValue.membership_reduce_fee).toFixed(2)
                 });
             }
         },

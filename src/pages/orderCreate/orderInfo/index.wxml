@@ -15,4 +15,8 @@
     <text class="text">{{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}</text>
     <text class="money">+{{ globalData.CURRENCY[globalData.currency] }}{{ postageDispaly}}</text>
   </view>
+  <view wx:if="{{ fee.membership_reduce_fee }}">
+    <text class="text">会员折扣</text>
+    <text class="money">- {{ globalData.CURRENCY[globalData.currency] }}{{ membershipReduceFee}}</text>
+  </view>
 </view>

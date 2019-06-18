@@ -16,11 +16,11 @@
 		</view>
 		<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-bottom" wx:if="{{ config.store_card }}">
 			<view class="member-integral-text">
-				<view class="cart-price">{{ membershipCard.user.cash_balance }}</view>
+				<view class="cart-price">{{ membershipCard.user.cash_balance }} 元</view>
 				<view class="cart-text">储值余额</view>
 			</view>
 			<view class="member-integral-text">
-				<view class="cart-price">{{ membershipCard.user.gift_balance }}</view>
+				<view class="cart-price">{{ membershipCard.user.gift_balance }} 元</view>
 				<view class="cart-text">赠送余额</view>
 			</view>
 			<view class="member-integral-text">

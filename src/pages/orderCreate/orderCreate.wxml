@@ -1,21 +1,21 @@
 <view class="orderCreateWrap {{ !crowd && isIphoneX ? 'iphoneXTrick' : ''}}" style="{{ crowd ? 'padding:0' : '' }} ">
-<view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
-<!-- 配送方式 -->
-<block wx:if="{{ product_type !== 1 }}">
-  <view class="express" wx:if="{{ selfLiftEnable && !self_lifting_only }}" >
-      <text class="item-text">配送方式</text>
-      <radio-group class="radio-group" bindchange="radioChange">
-          <label wx:for="{{ liftStyles }}" wx:key="{{index}}">
-              <radio value="{{item.value}}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor }}" color="{{ themeColor.primaryColor }}" />
-              <text class="title">{{ item.title }}</text>
-          </label>
-      </radio-group>
-  </view>
-  <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
+  <view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
+  <!-- 配送方式 -->
+  <block wx:if="{{ product_type !== 1 }}">
+    <view class="express" wx:if="{{ selfLiftEnable && !self_lifting_only }}" >
+        <text class="item-text">配送方式</text>
+        <radio-group class="radio-group" bindchange="radioChange">
+            <label wx:for="{{ liftStyles }}" wx:key="{{index}}">
+                <radio value="{{item.value}}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor }}" color="{{ themeColor.primaryColor }}" />
+                <text class="title">{{ item.title }}</text>
+            </label>
+        </radio-group>
+    </view>
+    <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
 
-  <!-- 添加地址 -->
-  <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
-</block>
+    <!-- 添加地址 -->
+    <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
+  </block>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
@@ -31,8 +31,10 @@
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
 
   <!-- 订单金额具体信息 -->
-  <orderInfo defineTypeGlobal="{{ defineTypeGlobal }}" fee="{{ fee }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}" isGrouponCommanderPrice="{{ groupon_commander_price }}"  config="{{ config }}"></orderInfo>
+  <orderInfo defineTypeGlobal="{{ defineTypeGlobal }}" fee="{{ fee }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}" isGrouponCommanderPrice="{{ groupon_commander_price }}" config="{{ config }}"></orderInfo>
 </view>
+
+<!-- 底部支付按钮 -->
 <orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay" crowd="{{ crowd }}" themeColor="{{ themeColor }}"></orderPay>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
