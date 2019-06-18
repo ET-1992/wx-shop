@@ -46,9 +46,12 @@
 			</button>
 		</view>
 		<view class="member-bottom">
-			<view class="member-price">{{ membershipCard.word }}</view>
-			<view class="member-price">{{ config.membership.rules.payment }}</view>
+			<!-- 已开通储值卡功能 -->
+			<view class="member-price" wx:if="{{ config.store_card }}">{{ membershipCard.word }}</view>
 			<view class="member-btn" bindtap="openRechargeModal" wx:if="{{ config.store_card }}">立即开通会员</view>
+
+			<!-- 没开储值卡功能 -->
+			<view class="member-price" wx:if="{{ !config.store_card }}">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
 			<view class="member-btn" bindtap="buyMember" wx:if="{{ !config.store_card }}">立即开通会员</view>
 		</view>
 	</view>

@@ -69,6 +69,7 @@ Page({
 
     async onShow() {
         app.log('页面onShow');
+        console.log('页面onShow');
         const config = wx.getStorageSync(CONFIG);
 
         const user = getUserInfo();

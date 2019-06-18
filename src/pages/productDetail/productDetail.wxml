@@ -77,12 +77,12 @@
 		</view>
 
 		<!-- 开通会员提示框 -->
-		<view class="member-wrapper" wx:if="{{ !user.membership.is_member }}">
+		<!-- <view class="member-wrapper" wx:if="{{ !user.membership.is_member }}">
 			<view class="member-tips">
 				<view class="tips-text">开通会员，立享会员价</view>
 				<view class="tips-right">去开通 ></view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 领券&服务说明 -->
 		<view class="sevice-coupon">
 			<view

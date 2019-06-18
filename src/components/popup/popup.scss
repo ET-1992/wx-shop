@@ -1,7 +1,7 @@
 // 会员充值弹窗
 .popup {
 	width: 650rpx;
-	min-height: 600rpx;
+	min-height: 500rpx;
 	padding-top: 30rpx;
 	display: flex;
 	flex-direction: column;
@@ -18,10 +18,13 @@
 	}
 
 	.model-priceSection {
-		margin: 50rpx 40rpx 0;
+		// margin: 50rpx 40rpx 0;
+		width: 100%;
+		padding: 0 20rpx;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		// justify-content: space-between;
+		justify-content: space-around;
 
 		.model-section {
 			width: 180rpx;

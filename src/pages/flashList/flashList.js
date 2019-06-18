@@ -6,11 +6,8 @@ Page({
     data: {
         products: [],
         productListStyle: PRODUCT_LIST_STYLE[1],
-
         isRefresh: false,
-
         next_cursor: 0,
-
         page_title: '',
         share_title: '',
         post_type_title: '',

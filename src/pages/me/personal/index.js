@@ -1,7 +1,8 @@
 import { getAgainUserForInvalid, getUserInfo } from 'utils/util';
-import { CONFIG } from 'constants/index';
-const app = getApp();
+import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
+const app = getApp();
+
 Component({
     properties: {
         personalComponentData: {
@@ -39,14 +40,7 @@ Component({
                 title: '签到成功',
                 icon: 'success'
             });
-        },
-
-        async onShow() {
-            app.log('页面onShow');
-            const config = wx.getStorageSync(CONFIG);
-            const user = getUserInfo();
-            this.setData({ user, config });
-            console.log('页面onShow this.data.user:', this.data.user);
+            wx.setStorageSync(USER_KEY, result.current_user);
         }
     }
 });
