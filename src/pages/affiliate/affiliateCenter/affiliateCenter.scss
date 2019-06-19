@@ -29,7 +29,7 @@
 				align-items: center;
 				.userName {
 					font-size: 32rpx;
-					width: 15em;
+					max-width: 15em;
 					text-overflow: ellipsis; 
 					overflow: hidden; 
 					white-space: nowrap; 
@@ -59,8 +59,8 @@
 						height: $size;
 					}
 					.recommendName {
-						padding: .5em;
-						width: 15em;
+						padding-left: .5em;
+						max-width: 15em;
 						text-overflow: ellipsis; 
 						overflow: hidden; 
 						white-space: nowrap; 
