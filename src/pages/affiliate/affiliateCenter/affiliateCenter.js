@@ -11,8 +11,8 @@ Page({
         wallet: {}
     },
 
-    onLoad(parmas) {
-        console.log(parmas);
+    onLoad(params) {
+        console.log(params);
     },
     async onShow() {
         const data = await api.hei.shareUserInfo();

@@ -32,6 +32,7 @@ Component({
         // 用户签到
         async tapSignIn() {
             const result = await api.hei.signIn(); // 签到
+            const wallet = result.wallet;
             this.setData({
                 user: result.current_user
             });
@@ -41,6 +42,7 @@ Component({
                 icon: 'success'
             });
             wx.setStorageSync(USER_KEY, result.current_user);
+            this.triggerEvent('changeWalletData', wallet, { bubbles: true });
         }
     }
 });

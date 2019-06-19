@@ -13,7 +13,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        isLoading: true,
+        isLoading: false,
         isShowConsole: false,
         infoModalTime: 0
     },
@@ -69,13 +69,11 @@ Page({
 
     async onShow() {
         app.log('页面onShow');
-        console.log('页面onShow');
+        this.setData({ isLoading: true });
         const config = wx.getStorageSync(CONFIG);
-
         const user = getUserInfo();
         this.setData({ user, config, logoObj: config.partner });
         this.loadOrderCount();
-
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);
@@ -153,5 +151,11 @@ Page({
         //         app.openConsoleResData = true;
         //     }
         // }
+    },
+
+    // 签到改变花生米字段
+    changeWalletData(e) {
+        console.log('e', e);
+        // console.log('e.detail', e.detail);
     }
 });

@@ -1,4 +1,6 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}" />
+
+<view class="container" wx:if="{{!isLoading}}">
 	<!-- 会员用户 -->
 	<view class="member-header {{ config.store_card ? '' : 'noMemberCard' }}" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
 		<view class="member-top {{ config.store_card ? '' : 'noCard' }}">
@@ -63,3 +65,5 @@
 		<image class="rule-image" src="{{ image_url }}" mode="aspectFit"/>
 	</view>
 </view>
+
+<console page="会员中心" />

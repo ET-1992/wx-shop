@@ -13,12 +13,15 @@ Page({
             { text: '赠送账户', value: 'gift' }
         ],
         rechargeModal: false,
-        next_cursor: 0,
-        // type: 'cash'
+        next_cursor: 0
     },
 
-    async onLoad(params) {
+    onLoad(params) {
         console.log(params);
+    },
+
+    async onShow() {
+        this.setData({ isLoading: true });
         this.getConsumptionList();
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
@@ -28,6 +31,7 @@ Page({
         recharge.data[0].checked = true;
         console.log(recharge.data, 'recharge.data');
         this.setData({
+            isLoading: false,
             themeColor,
             config,
             user,
@@ -74,16 +78,6 @@ Page({
     /**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-    async onPullDownRefresh() {
-        this.setData({
-            next_cursor: 0,
-            ConsumptionList: [],
-            // isLoading: true
-        });
-        await this.getConsumptionList();
-        wx.stopPullDownRefresh();
-    },
-
     async onReachBottom() {
         const { next_cursor } = this.data;
         if (!next_cursor) {

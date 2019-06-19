@@ -3,6 +3,8 @@
 	"enablePullDownRefresh": true,
 	"usingComponents": {
 		"navbarList": "../../../components/navbarList/navbarList",
+		"loading": "../../../components/loading/index",
+		"console": "../../../components/console/console",
 		"popup": "../../../components/popup/popup"
 	}
 }

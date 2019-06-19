@@ -1,8 +1,7 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{!isLoading}}">
-
 	<!-- 头部面板 -->
-	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
+	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />

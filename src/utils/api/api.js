@@ -394,5 +394,10 @@ export const apis = {
     consumptionLog: {
         path: 'api/mag.membership.store.card.log.json',
         isForceToken: true
+    },
+    // 删除会员
+    test: {
+        path: 'api/mag.membership.test.json',
+        isForceToken: true
     }
 };

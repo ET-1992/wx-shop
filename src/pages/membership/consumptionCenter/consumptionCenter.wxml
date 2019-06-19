@@ -1,4 +1,6 @@
-<view class="header" style="background-color: {{ themeColor.primaryColor }}">
+<loading isLoading="{{ isLoading }}" />
+
+<view class="header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{!isLoading}}">
 	<view class="header-text">
 		<view class="header-price">{{ cash_balance }} 元</view>
 		<view class="price-text">储值余额</view>
@@ -30,3 +32,5 @@
 		暂无记录
 	</view>
 </view>
+
+<console page="消费记录" />
