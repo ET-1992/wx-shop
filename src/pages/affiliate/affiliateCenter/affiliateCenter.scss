@@ -6,8 +6,73 @@
 		letter-spacing: 2rpx;
 	}
 
+	.user {
+		width: 710rpx;
+		height: 180rpx;
+		color: white;
+		background-color: #FF0000;
+		margin: 20rpx auto;
+		border-radius: 10rpx;
+		display: flex;
+		align-items: center;
+		.userHead {
+			margin: 0 25rpx 0 35rpx; 
+			.userAvatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+			}
+		}
+		.userBody {
+			.userData {
+				display: flex;
+				align-items: center;
+				.userName {
+					font-size: 32rpx;
+					width: 15em;
+					text-overflow: ellipsis; 
+					overflow: hidden; 
+					white-space: nowrap; 
+				}
+				.editIcon {
+					$size: 20rpx;
+					width: $size;
+					height: $size;
+					margin-left: 15rpx;
+				}
+			}
+			.recommend {
+				display: flex;
+				align-items: center;
+				font-size: 24rpx;
+				padding-top: 12rpx;
+				.recommendKey {
+					padding-right: 1em;
+					word-break: keep-all;
+				}
+				.recommendValue {
+					display: flex;
+					align-items: center;
+					.recommendAvatar {
+						$size: 35rpx;
+						width: $size;
+						height: $size;
+					}
+					.recommendName {
+						padding: .5em;
+						width: 15em;
+						text-overflow: ellipsis; 
+						overflow: hidden; 
+						white-space: nowrap; 
+					}
+				}
+			}
+		}
+	}
+
 	.shareMoneyDisplay {
-		width: 100%;
+		width: 710rpx;
+		margin: 0 auto;
 		height: 220rpx;
 		background-color: #fff;
 		display: flex;
@@ -57,12 +122,13 @@
 	}
 
 	.shareMoneyGet {
+		width: 710rpx;
+		margin: 0 auto;
 		height: 90rpx;
 		background-color: #fff;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 10rpx;
 		padding: 0 38rpx;
 
 		.shareMoneyGet-text {
@@ -92,10 +158,10 @@
 	}
 
 	.finishUserInfo {
-		width: 100%;
+		width: 710rpx;
+		margin: 0 auto;
 		height: 90rpx;
 		background-color: #fff;
-		margin-top: 5rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -113,14 +179,14 @@
 	}
 
 	.userInfoDisplay {
-		width: 100%;
+		width: 710rpx;
+		margin: 0 auto;
 		height: 160rpx;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 		background-color: #fff;
 		color: #000000;
-		margin-top: 30rpx;
 
 		.userInfoDisplay-item {
 			display: flex;
@@ -141,14 +207,15 @@
 	}
 
 	.footer {
-		width: 100%;
+		width: 710rpx;
+		margin: 0 auto;
 		height: 200rpx;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 		background-color: #fff;
 		// margin: 30rpx 20rpx 0 20rpx;
-		margin-top: 30rpx;
+		margin-top: 20rpx;
 
 		.footer-item {
 			display: flex;
