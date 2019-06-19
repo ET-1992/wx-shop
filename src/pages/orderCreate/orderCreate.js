@@ -67,7 +67,6 @@ Page({
                 url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
             });
         }
-        this.onLoadData();
     },
 
     async onLoad() {
@@ -101,7 +100,7 @@ Page({
                 }
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
-                // this.onLoadData();
+                this.onLoadData();
             });
         }
         catch (err) {
@@ -336,7 +335,7 @@ Page({
         const { vendor, afcode } = app.globalData;
         // console.log(vendor, afcode, 'globalData');
 
-        if (!userName && detailInfo && liftStyle !== 'lift' && product_type !== 1) {
+        if (!userName && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
