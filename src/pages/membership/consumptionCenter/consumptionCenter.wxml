@@ -15,7 +15,7 @@
 <!-- 会员充值弹窗 -->
 <popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}"></popup>
 
-<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" top="180rpx"/>
+<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" top="180rpx" position="absolute" />
 
 <view class="wrapper">
 	<view  class="consumptionList" wx:for="{{ ConsumptionList }}" wx:if="{{ ConsumptionList.length }}" wx:key="index">

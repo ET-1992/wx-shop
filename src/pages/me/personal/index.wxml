@@ -13,7 +13,7 @@
 		</navigator>
 		<navigator class="welfare" url="/pages/myCoupons/myCoupons">
 			<view class="number">{{ coupons.available.length || 0 }}</view>
-			<view class="title">优惠券</view>
+        	<view class="title">优惠券</view>
 		</navigator>
 	</view>
 	<view class="header-bottom">

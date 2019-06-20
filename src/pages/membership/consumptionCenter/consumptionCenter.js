@@ -13,7 +13,8 @@ Page({
             { text: '赠送账户', value: 'gift' }
         ],
         rechargeModal: false,
-        next_cursor: 0
+        next_cursor: 0,
+        type: 'cash'
     },
 
     onLoad(params) {
@@ -39,7 +40,8 @@ Page({
         });
     },
 
-    async getConsumptionList() {
+    async getConsumptionList(e) {
+        console.log('e', e); // 点击的哪个type
         const { next_cursor } = this.data;
         const { type } = this.data;
         const params = { cursor: next_cursor };
@@ -48,8 +50,12 @@ Page({
         }
         console.log('type', type);
         const data = await api.hei.consumptionLog(params);
-        const consume = data.data.logs;
-        console.log('data.data.logs', consume);
+        const logs = data.data.logs;
+        console.log('data.data.logs', logs);
+
+        let consume = type === e ? this.data.ConsumptionList.concat(logs) : logs;
+        console.log('consume', consume);
+
         for (let item in consume) {
             consume[item].formatTime = formatTime(new Date(consume[item].modified * 1000));
             consume[item].text = valueToText(CONSUM_TEXT, Number(consume[item].type));
@@ -79,11 +85,11 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
     async onReachBottom() {
-        const { next_cursor } = this.data;
+        const { next_cursor, type } = this.data;
         if (!next_cursor) {
             return;
         }
-        this.getConsumptionList();
+        this.getConsumptionList(type);
     },
 
     // 打开会员充值弹窗

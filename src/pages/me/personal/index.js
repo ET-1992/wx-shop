@@ -9,6 +9,7 @@ Component({
             type: Object,
             value: {},
             observer(newValue) {
+                console.log('newValue', newValue);
                 this.setData({
                     ...newValue
                 });
@@ -32,16 +33,17 @@ Component({
         // 用户签到
         async tapSignIn() {
             const result = await api.hei.signIn(); // 签到
-            const wallet = result.wallet;
-            this.setData({
-                user: result.current_user
-            });
+            const wallet = result.current_user.wallet;
+            console.log('wallet', wallet);
+            this.setData({ user: result.current_user });
             console.log('签到this.data.user', this.data.user);
             wx.showToast({
                 title: '签到成功',
                 icon: 'success'
             });
             wx.setStorageSync(USER_KEY, result.current_user);
+            console.log('this.data.wallet', this.data.wallet);
+            this.setData({ wallet });
             this.triggerEvent('changeWalletData', wallet, { bubbles: true });
         }
     }

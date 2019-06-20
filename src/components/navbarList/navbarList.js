@@ -27,6 +27,13 @@ Component({
             observer(newvalue) {
                 console.log(newvalue);
             }
+        },
+        position: {
+            type: String,
+            value: '',
+            observer(newvalue) {
+                console.log(newvalue);
+            }
         }
     },
     methods: {
