@@ -70,6 +70,115 @@
 		}
 	}
 
+	.income {
+		width: 710rpx;
+		color: #000000;
+		margin: 0 auto;
+		background-color: white;
+		position: relative;
+		.incomeData {
+			margin: 0 38rpx;
+			padding: 35rpx 0;
+			border-bottom: 1rpx solid #D4D4D4;
+			.incomeDataHead {
+				display: flex;
+				align-items: center;
+				.headTitle {
+					font-size: 32rpx;
+				}
+				.headArrow {
+					width: 15rpx;
+					height: 15rpx;
+					margin-left: 15rpx;
+				}
+			}
+			.incomeDataBody {
+				display: flex;
+				margin-top: 40rpx;
+				.monneyShow {
+					flex: 2;
+					.showItem {
+						display: flex;
+						flex-direction: column;
+						.showItemNum {
+							font-size: 36rpx;
+							font-weight: 600;
+						}
+						.showItemText {
+							font-size: 24rpx;
+						}
+					}
+					.monneyShowTop {
+						.showToday {
+							.showTodayNum {
+								font-size: 60rpx;
+							}
+						}
+					}
+					.monneyShowBottom {
+						display: flex;
+						padding-top: 46rpx;
+						.showItem {
+							flex: 1;
+						}
+					}
+				}
+				.monneyTake {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					.monneyTakeView {
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						margin-bottom: 45rpx;
+						.takeViewNum {
+							color: #FE0000;
+							font-size: 36rpx;
+							line-height: 50rpx;
+							margin-bottom: 8rpx;
+						}
+						.takeViewText {
+							font-size: 24rpx;
+							color: #707070
+						}
+					}
+					.monneyTakeBtn {
+						width: 134rpx;
+						height: 56rpx;
+						border: 1rpx solid #707070;
+						border-radius: 30rpx;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.btnText {
+							line-height: 40rpx;
+						}
+						.btnArrow {
+							width: 14rpx;
+							height: 14rpx;
+							padding-left: .5rpx;
+						}
+					}
+				}
+			}
+		}
+		.incomeRule {
+			position: absolute;
+			top: 30rpx;
+			right: 0;
+			.incomeRuleText {
+				color: white;
+				padding: 12rpx 15rpx;
+				padding-left: 25rpx;
+				background-color: #FE0000;
+				border-radius: 30rpx 0 0 30rpx;
+			}
+		}
+	}
+
 	.shareMoneyDisplay {
 		width: 710rpx;
 		margin: 0 auto;
@@ -181,7 +290,8 @@
 	.userInfoDisplay {
 		width: 710rpx;
 		margin: 0 auto;
-		height: 160rpx;
+		// height: 160rpx;
+		padding: 42rpx 0;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
@@ -192,7 +302,7 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			align-items: center;
+			// align-items: center;
 
 			.userInfoDisplay-num {
 				font-size: 50rpx;
@@ -202,6 +312,7 @@
 			.userInfoDisplay-text {
 				font-size: 28rpx;
 				line-height: 40rpx;
+				color: #707070;
 			}
 		}
 	}

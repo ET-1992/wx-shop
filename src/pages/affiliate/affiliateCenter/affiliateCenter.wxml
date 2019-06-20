@@ -1,7 +1,7 @@
 <loading isLoading="{{ isLoading }}"/>
 
 <view class="container" wx:if="{{ !isLoading }}" >
-	<!-- 添加个人信息内容 -->
+	<!-- 个人信息内容 -->
 	<view class="user">
 		<view class="userHead">
 			<image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}"></image>
@@ -20,7 +20,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="shareMoneyDisplay">
+	<!-- <view class="shareMoneyDisplay">
 		<text class="shareMoneyDisplay-h">累计收益（元）</text>
 		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">{{ globalData.CURRENCY[globalData.currency] }}</text>{{ (wallet.affiliate_income_total)|| 0 }}</text>
 		<text class="shareMoneyDisplay-f">最低提现金额{{ wallet.withdrawal_limit || 0 }}元</text>
@@ -33,15 +33,64 @@
 	<view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateDetail">
 		<view class="finishUserInfo-left">收入明细</view>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
-	</view>
+	</view> -->
 	<!-- <view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateFinishUserInfo">
 		<text class="finishUserInfo-left">完善个人资料</text>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view> -->
+
+	<!-- 收益提现内容 -->
+	<view class="income">
+		<view class="incomeData">
+			<view class="incomeDataHead" bindtap="goToAffiliate" data-urldata="affiliateDetail">
+				<text class="headTitle">我的收益</text>
+				<image class="headArrow" mode="aspectFit" src="/icons/right.png"></image>
+			</view>
+			<view class="incomeDataBody">
+				<view class="monneyShow">
+					<view class="monneyShowTop">
+						<view class="showItem showToday">
+							<text class="showItemNum showTodayNum">{{ wallet.commission_day || 0 }}</text>
+							<text class="showItemText showTodayText">今日（元）</text>
+						</view>
+					</view>
+					<view class="monneyShowBottom">
+						<view class="showItem showThisMonth">
+							<text class="showItemNum showTodayNum">{{ wallet.commission_month || 0 }}</text>
+							<text class="showItemText showTodayText">本月（元）</text>
+						</view>
+						<view class="showItem showTotal">
+							<text class="showItemNum showTodayNum">{{ (wallet.commission_total)|| 0 }}</text>
+							<text class="showItemText showTodayText">累计（元）</text>
+						</view>
+					</view>
+				</view>
+				<view class="monneyTake">
+					<view class="monneyTakeView">
+						<text class="takeViewNum">{{ wallet.affiliate_balance || 0 }}</text>
+						<text class="takeViewText">可提现余额(元）</text>
+					</view>
+					<view class="monneyTakeBtn">
+						<text class="btnText" bindtap="goToAffiliate" data-urldata="affiliateMoney">去提现</text>
+						<image class="btnArrow" mode="aspectFit" src="/icons/right.png"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="incomeRule" bindtap="changeModal">
+			<text class="incomeRuleText">分享家说明</text>
+		</view>
+	</view>
 	<view class="userInfoDisplay">
+		<!-- 浏览用户 -->
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
-			<text class="userInfoDisplay-text">客户</text>	
+			<text class="userInfoDisplay-text">浏览用户</text>	
+		</navigator>
+		<!-- 购买用户 -->
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
+			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
+			<text class="userInfoDisplay-text">购买用户</text>	
 		</navigator>
 
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=1">
@@ -51,22 +100,22 @@
 
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateOrderList/affiliateOrderList">
 			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
-			<text class="userInfoDisplay-text">订单</text>	
+			<text class="userInfoDisplay-text">关联订单</text>	
 		</navigator>
 	</view>
 	<view class="footer" wx:if="{{ affiliate_enable }}">
 		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliateProductList">
-			<image class="footer-img" src="/icons/shareProduct.png"></image>	
+			<image class="footer-img" src="/icons/shareProduct.svg"></image>	
 			<text class="footer-text">分享商品</text>	
 		</view>
 
 		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="2">
-			<image class="footer-img" src="/icons/sharePoster.png"></image>	
+			<image class="footer-img" src="/icons/sharePoster.svg"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>
 
 		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="1">
-			<image class="footer-img" src="/icons/shareToFriend.png"></image>	
+			<image class="footer-img" src="/icons/shareToFriend.svg"></image>	
 			<text class="footer-text">邀请好友</text>	
 		</view>
 	</view>
