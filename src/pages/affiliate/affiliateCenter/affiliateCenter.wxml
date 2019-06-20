@@ -50,17 +50,17 @@
 				<view class="monneyShow">
 					<view class="monneyShowTop">
 						<view class="showItem showToday">
-							<text class="showItemNum showTodayNum">{{ wallet.commission_day || 0 }}</text>
+							<text class="showItemNum showTodayNum">{{ member.commission_day || 0 }}</text>
 							<text class="showItemText showTodayText">今日（元）</text>
 						</view>
 					</view>
 					<view class="monneyShowBottom">
 						<view class="showItem showThisMonth">
-							<text class="showItemNum showTodayNum">{{ wallet.commission_month || 0 }}</text>
+							<text class="showItemNum showTodayNum">{{ member.commission_month || 0 }}</text>
 							<text class="showItemText showTodayText">本月（元）</text>
 						</view>
 						<view class="showItem showTotal">
-							<text class="showItemNum showTodayNum">{{ (wallet.commission_total)|| 0 }}</text>
+							<text class="showItemNum showTodayNum">{{ (wallet.affiliate_income_total)|| 0 }}</text>
 							<text class="showItemText showTodayText">累计（元）</text>
 						</view>
 					</view>
@@ -83,7 +83,7 @@
 	</view>
 	<view class="userInfoDisplay">
 		<!-- 浏览用户 -->
-		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=3">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">浏览用户</text>	
 		</navigator>

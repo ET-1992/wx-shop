@@ -9,6 +9,7 @@
  * requestType: 默认request, [request, uploadFile]
  **/
 export const host = 'https://api.wpweixin.com/';
+// export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
