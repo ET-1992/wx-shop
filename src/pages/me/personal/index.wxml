@@ -18,6 +18,6 @@
 	</view>
 	<view class="header-bottom">
 		<view class="head-signin" wx:if="{{ user.is_checkined }}">已签到</view>
-		<view class="head-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}">签到</view>
+		<view class="head-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}" style="color: {{ themeColor.primaryColor }}">签到</view>
 	</view>
 </view>

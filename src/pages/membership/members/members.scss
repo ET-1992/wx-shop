@@ -186,6 +186,24 @@ page {
 					line-height: 28rpx;
 				}
 			}
+
+			.integral-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				font-size: 28rpx;
+				margin-left: 50rpx;
+				color: #fff;
+
+				.cart-price {
+					font-weight: bold;
+					height: 60rpx;
+				}
+
+				.cart-text {
+					height: 49rpx;
+				}
+			}
 		}
 
 		.member-concat {

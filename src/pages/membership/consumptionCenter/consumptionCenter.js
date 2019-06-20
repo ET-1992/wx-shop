@@ -25,6 +25,7 @@ Page({
         this.setData({ isLoading: true });
         this.getConsumptionList();
         const { themeColor } = app.globalData;
+        console.log('themeColor', themeColor);
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync('user');
         const recharge = await api.hei.rechargePrice();

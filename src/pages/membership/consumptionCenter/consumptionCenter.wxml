@@ -9,7 +9,7 @@
 		<view class="header-price">{{ gift_balance }} 元</view>
 		<view class="price-text">赠送余额</view>
 	</view>
-	<view class="header-btn" bindtap="openRechargeModal">充值</view>
+	<view class="header-btn" style="color: {{ themeColor.primaryColor }}" bindtap="openRechargeModal">充值</view>
 </view>
 
 <!-- 会员充值弹窗 -->

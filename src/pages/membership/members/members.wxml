@@ -10,6 +10,10 @@
 					<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
 					<view class="member-level">{{ membershipCard.user.level_name }}</view>
 				</view>
+				<view class="integral-text" wx:if="{{ !config.store_card }}">
+					<view class="cart-price">{{ membershipCard.user.exp }}</view>
+					<view class="cart-text">积分</view>
+				</view>
 			</button>
 			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}' style="background-color: {{ themeColor.primaryColor }}">
 				<image class="member-itemIcon" mode="aspectFit" src="/icons/memberConcat.svg" />
