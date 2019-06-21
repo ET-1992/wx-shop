@@ -16,6 +16,8 @@ Page({
         console.log(params);
     },
 
+    go,
+
     async onShow() {
         app.log('页面onShow');
         this.setData({ isLoading: true });
