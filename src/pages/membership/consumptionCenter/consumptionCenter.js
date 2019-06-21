@@ -73,13 +73,20 @@ Page({
 
     changeNavbarList(e) {
         const { index, value } = e.detail;
-        console.log(index, 'e.detail');
-        console.log(value, 'e.detail');
+        if (value === this.data.type) {
+            return;
+        }
+        console.log(index, 'e.detail.index');
+        console.log(value, 'e.detail.value');
         this.setData({
             type: value,
-            activeIndex: index
+            activeIndex: index,
+            next_cursor: 0
         });
+        console.log(this.data.type);
+        console.log('1');
         this.getConsumptionList();
+        console.log('2');
     },
 
     /**
@@ -98,5 +105,9 @@ Page({
         this.setData({
             rechargeModal: true
         });
+    },
+
+    setConsumptionList() {
+        this.onShow();
     }
 });

@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "积分明细",
+	"enablePullDownRefresh": true,
+	"usingComponents": {
+	  "console": "../../../components/console/console",
+	  "loading": "../../../components/loading/index"
+	}
+}

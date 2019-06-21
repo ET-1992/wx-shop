@@ -20,20 +20,20 @@
 				<view class="member-itemTitle">联系客服</view>
 			</button>
 		</view>
-		<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-bottom" wx:if="{{ config.store_card }}">
-			<view class="member-integral-text">
+		<view class="member-bottom" wx:if="{{ config.store_card }}">
+			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 				<view class="cart-price">{{ membershipCard.user.cash_balance }} 元</view>
 				<view class="cart-text">储值余额</view>
-			</view>
-			<view class="member-integral-text">
+			</navigator>
+			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 				<view class="cart-price">{{ membershipCard.user.gift_balance }} 元</view>
 				<view class="cart-text">赠送余额</view>
-			</view>
-			<view class="member-integral-text">
+			</navigator>
+			<navigator url="/pages/membership/integralList/integralList" class="member-integral-text">
 				<view class="cart-price">{{ membershipCard.user.exp }}</view>
 				<view class="cart-text">积分</view>
-			</view>
-		</navigator>
+			</navigator>
+		</view>
 	</view>
 
 	<!-- 普通用户 -->

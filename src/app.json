@@ -50,7 +50,8 @@
 		"pages/idCard/idCard",
 		"pages/classify/classify",
 		"pages/membership/members/members",
-		"pages/membership/consumptionCenter/consumptionCenter"
+		"pages/membership/consumptionCenter/consumptionCenter",
+		"pages/membership/integralList/integralList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

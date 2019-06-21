@@ -399,5 +399,10 @@ export const apis = {
     test: {
         path: 'api/mag.membership.test.json',
         isForceToken: true
+    },
+    // 会员中心积分列表
+    getIntegralList: {
+        path: 'api/mag/membership.log.json',
+        isForceToken: true
     }
 };

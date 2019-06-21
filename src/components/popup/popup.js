@@ -106,6 +106,7 @@ Component({
             if (pay_sign) {
                 try {
                     await wxPay(pay_sign);
+                    this.triggerEvent('setConsumptionList', {}, { bubbles: true });
                 } catch (error) {
                     console.log(error);
                 }

@@ -1,0 +1,22 @@
+<loading isLoading="{{ isLoading }}"/>
+<view class="container">
+    <view class="integralList" wx:for="{{ integralList }}" wx:if="{{ !isLoading && integralList.length }}" >
+        <view>
+            <view>{{ item.exp_type }}</view>
+            <view class="time">{{ item.formatTime }}</view>
+        </view>
+        <view class="coinNum">
+            +<text>{{ item.exp_delta }}</text>
+        </view>
+    </view>
+    <view wx:if="{{ !isLoading && integralList.length == 0 }}" class="noHint">
+        <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
+        <view>还没有积分</view>
+    </view>
+</view>
+<!-- <view
+    class="bottomHint"
+    wx:if="{{ coinList.length && !next_cursor }}"
+  >-这是一条底线-</view> -->
+
+  <console page="积分明细" />
