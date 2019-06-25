@@ -13,7 +13,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        isLoading: true,
+        isLoading: false,
         isShowConsole: false,
         infoModalTime: 0
     },
@@ -21,12 +21,14 @@ Page({
     async loadOrderCount() {
         const data = await api.hei.myFare();
         const { themeColor, defineTypeGlobal, vip, user, config } = this.data;
+        this.setData({ wallet: data.wallet });
+        const wallet = this.data.wallet;
 
         const infosComponentData = {
             defineTypeGlobal,
             config,
             user,
-            wallet: data.wallet,
+            wallet,
             affiliate: data.affiliate,
             phone_number: data.phone_number,
             about_us: data.about_us,
@@ -39,7 +41,7 @@ Page({
         const personalComponentData = {
             themeColor,
             user,
-            wallet: data.wallet,
+            wallet,
             coupons: data.coupons
         };
         const managerComponentData = {
@@ -55,7 +57,8 @@ Page({
             infosComponentData,
             ordersComponentData,
             personalComponentData,
-            managerComponentData
+            managerComponentData,
+            membership_banner: data.membership_banner
         });
     },
 
@@ -68,16 +71,17 @@ Page({
 
     async onShow() {
         app.log('页面onShow');
+        this.setData({ isLoading: true });
         const config = wx.getStorageSync(CONFIG);
-
         const user = getUserInfo();
         this.setData({ user, config, logoObj: config.partner });
         this.loadOrderCount();
-
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);
         }
+
+        this.loadOrderCount();
     },
 
     onLogin() {
@@ -149,5 +153,14 @@ Page({
         //         app.openConsoleResData = true;
         //     }
         // }
+    },
+
+    // 签到改变花生米字段
+    changeWalletData(e) {
+        console.log('e', e);
+        console.log('e.detail', e.detail);
+        console.log('this.data.wallet', this.data.wallet);
+        this.setData({ wallet: e.detail });
+        console.log('this.data.wallet', this.data.wallet);
     }
 });

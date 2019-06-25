@@ -28,6 +28,7 @@
 				</swiper-item>
 			</swiper>
 		</view>
+
 		<view wx:if="{{ product.miaosha_enable === '1' }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
@@ -37,6 +38,7 @@
 				<view wx:if="{{ hasEnd }}">已结束</view>
 			  </view>
 		</view>
+
 		<view class="info">
 			<view class="top">
 				<view class="left">
@@ -51,6 +53,8 @@
 				</view>
 
 			</view>
+
+			<!-- 价格区间 -->
 			<view class="meta">
 				<view class="price">
 					<view class="nowPrice">
@@ -58,16 +62,27 @@
 						<view class="priceStyle">{{product.definePrice}}</view>
 						<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
 					</view>
+					<!-- 会员价 -->
+					<!-- <view wx:if="{{ user.membership.is_member }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view> -->
 					<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 				</view>
 				<view class="postage" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
+
 			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
 			<view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
 				{{ product.groupon_member_limit + '人团' }}
 			</view>
 		</view>
+
+		<!-- 开通会员提示框 -->
+		<!-- <view class="member-wrapper" wx:if="{{ !user.membership.is_member }}">
+			<view class="member-tips">
+				<view class="tips-text">开通会员，立享会员价</view>
+				<view class="tips-right">去开通 ></view>
+			</view>
+		</view> -->
 		<!-- 领券&服务说明 -->
 		<view class="sevice-coupon">
 			<view

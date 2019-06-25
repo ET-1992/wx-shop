@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "会员中心",
+	"usingComponents": {
+		"loading": "../../../components/loading/index",
+		"console": "../../../components/console/console",
+		"popup": "../../../components/popup/popup"
+	}
+}

@@ -1,0 +1,272 @@
+@import '~styles/color';
+page {
+	background-color: #fff;
+	height: 100%;
+}
+
+.container {
+	padding: 20rpx 30rpx;
+}
+
+// 普通用户
+.header {
+	text-align: center;
+	background-color: $mainColor;
+	color: #fff;
+	border-radius: 15rpx;
+	height: 300rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+
+	.member-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 200rpx;
+		border-bottom: 1px solid #fff;
+		padding: 45rpx 40rpx 55rpx 50rpx;
+		.head-button {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+	
+			.avatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+				margin-right: 30rpx;
+			}
+
+			.member-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				
+				.member-user {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: #fff;
+					height: 62rpx;
+					max-width: 150rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+	
+				.member-level {
+					width: 100rpx;
+					height: 28rpx;
+					border-radius: 14rpx;
+					background-color: #fff;
+					color: #333;
+					font-size: 20rpx;
+					text-align: center;
+					line-height: 28rpx;
+					border: 1px solid #fff;
+				}
+			}
+
+		}
+		.member-concat {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			position: absolute;
+			top: 20rpx;
+			right: 50rpx;
+
+			.member-itemIcon {
+				width: 30rpx;
+				height: 25rpx;
+			}
+
+			.member-itemTitle {
+				font-size: 18rpx;
+				color: #FFFFFF;
+				margin-left: 10rpx;
+			}
+		}
+	}
+
+	.member-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 31rpx 40rpx 29rpx 50rpx;
+		.member-price {
+			color: #fff;
+			font-size: 28rpx;
+		}
+	
+		.member-btn {
+			width: 204rpx;
+			height: 50rpx;
+			border-radius: 25rpx;
+			background-color: #fff;
+			color: #333;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+// 会员
+.member-header {
+	text-align: center;
+	background-color: $mainColor;
+	color: #fff;
+	border-radius: 15rpx;
+	height: 300rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+
+	.member-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		align-items: center;
+		height: 200rpx;
+		padding: 45rpx 120rpx 55rpx 50rpx;
+		border-bottom: 1px solid #fff;
+
+		.head-button {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+
+			.avatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
+			.member-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				margin-left: 30rpx;
+
+				.member-user {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: #fff;
+					max-width: 200rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+
+				.member-level {
+					height: 28rpx;
+					width: 110rpx;
+					border-radius: 14rpx;
+					border: 1px solid #fff;
+					background-color: #fff;
+					color: #DE4E24;
+					font-size: 20rpx;
+					text-align: center;
+					line-height: 28rpx;
+				}
+			}
+
+		}
+
+		.integral-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-size: 28rpx;
+			color: #fff;
+			margin-top: 30rpx;
+			margin-right: 30rpx;
+
+			.cart-price {
+				font-weight: bold;
+				height: 50rpx;
+			}
+
+			.cart-text {
+				height: 49rpx;
+			}
+		}
+
+		.member-concat {
+			background-color: $mainColor;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			position: absolute;
+			top: 15rpx;
+			right: 30rpx;
+
+			.member-itemIcon {
+				width: 30rpx;
+				height: 25rpx;
+			}
+
+			.member-itemTitle {
+				font-size: 18rpx;
+				color: #FFFFFF;
+				margin-left: 10rpx;
+			}
+		}
+	}
+
+	.noCard {
+		border-bottom: none;
+	}
+
+	.member-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 30rpx 50rpx;
+		color: #fff;
+
+		.member-integral-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-size: 24rpx;
+			
+			.cart-price {
+				font-size: 32rpx;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+.noMemberCard {
+	height: 200rpx;
+}
+
+// 会员规则
+.member-rule {
+	width: 100%;
+	height: 100%;
+	margin-top: 20rpx;
+
+	.rule-image {
+		width: 100%;
+		height: 100%;
+	}
+}

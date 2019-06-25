@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, CONFIG } from 'constants/index';
+import { ADDRESS_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -50,7 +50,9 @@ Page({
         isPeanutPay: false, // 是否第三方支付
         modal: {}, // 弹窗数据
         isShouldRedirect: false,
-        isDisablePay: true
+        isDisablePay: true,
+        PAY_STYLES,
+        selectedPayValue: 'weixin'
     },
 
     // onLoad() {
@@ -234,7 +236,7 @@ Page({
             }
 
             requestData.posts = JSON.stringify(items);
-            const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only } = await api.hei.orderPrepare(requestData);
+            const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only, store_card } = await api.hei.orderPrepare(requestData);
             const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
@@ -263,7 +265,8 @@ Page({
                 product_type,
                 payment_tips,
                 self_lifting_only,
-                liftStyle
+                liftStyle,
+                store_card
             }, () => {
                 this.computedFinalPay();
             });
@@ -320,7 +323,9 @@ Page({
             liftInfo,
             order_annotation,
             product_type,
-            selfLiftEnable
+            selfLiftEnable,
+            selectedPayValue,
+            store_card
         } = this.data;
         const {
             userName,
@@ -378,7 +383,8 @@ Page({
             buyer_message: buyerMessage,
             form_id: formId,
             vendor,
-            afcode
+            afcode,
+            pay_method: selectedPayValue
         };
 
         if (order_annotation && order_annotation.length > 0) {
@@ -406,6 +412,17 @@ Page({
                 return;
             } else {
                 requestData.annotation = JSON.stringify({ remarks: dns_obj });
+            }
+        }
+
+        if (store_card && store_card.store_card_enable && selectedPayValue === 'store_card') {
+            const { confirm } = await showModal({
+                title: '提示',
+                content: '您确定要用储值卡支付吗？',
+                showCancel: true,
+            });
+            if (!confirm) {
+                return;
             }
         }
 
@@ -452,7 +469,7 @@ Page({
         }
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no } = await api.hei[method](requestData);
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order } = await api.hei[method](requestData);
             // console.log(order_no, status, pay_sign, pay_appid, crowd_pay_no, 'pay');
             wx.hideLoading();
 
@@ -461,7 +478,7 @@ Page({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
                 });
             } else {
-                if (this.data.finalPay <= 0) {
+                if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
@@ -528,6 +545,7 @@ Page({
         this.setData({
             'modal.isShowModal': false,
             isShouldRedirect: true
+
         });
     },
     onAddressCancel() {
@@ -536,7 +554,6 @@ Page({
             isShouldRedirect: false
         });
     },
-
     onAddressConfirm() {
         this.setData({
             'authModal.isShowModal': false,
@@ -559,5 +576,21 @@ Page({
         }, () => {
             this.onLoadData();
         });
+    },
+
+    pickPayStyle(e) {
+        const { value } = e.currentTarget.dataset;
+        const { store_card, finalPay } = this.data;
+        if (value === 'store_card' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
+            wx.showModal({
+                title: '提示',
+                content: '您的储值卡余额不足，请到会员中心充值',
+                showCancel: false,
+            });
+        } else {
+            this.setData({
+                selectedPayValue: value
+            });
+        }
     }
 });

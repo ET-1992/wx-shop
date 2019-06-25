@@ -8,7 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -363,8 +364,45 @@ export const apis = {
         path: 'api/mag.product.fav.list.json',
         isForceToken: true
     },
+    // 开通会员,充值金额
+    joinMembership: {
+        path: 'api/mag.membership.pay.json',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 签到
+    signIn: {
+        path: 'api/mag.membership.checkin.json',
+        isForceToken: true
+    },
+    // 规则
     getShopRule: {
         path: 'api/mag.shop.rule.json',
+        isForceToken: true
+    },
+    // 会员中心-储值卡
+    membershipCard: {
+        path: 'api/mag.membership.home.json',
+        isForceToken: true
+    },
+    // 可充值金额
+    rechargePrice: {
+        path: 'api/mag.membership.recharge.json',
+        isForceToken: true
+    },
+    // 消费记录
+    consumptionLog: {
+        path: 'api/mag.membership.store.card.log.json',
+        isForceToken: true
+    },
+    // 删除会员
+    test: {
+        path: 'api/mag.membership.test.json',
+        isForceToken: true
+    },
+    // 会员中心积分列表
+    getIntegralList: {
+        path: 'api/mag/membership.log.json',
         isForceToken: true
     }
 };

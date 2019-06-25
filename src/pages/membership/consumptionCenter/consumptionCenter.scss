@@ -1,0 +1,87 @@
+@import '~styles/color';
+.header {
+	min-height: 180rpx;
+	padding: 40rpx;
+	background-color: $mainColor;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+	.header-text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		color: #fff;
+		font-size: 24rpx;
+		align-items: center;
+
+		.header-price {
+			font-weight: bold;
+			font-size: 32rpx;
+		}
+	}
+
+	.header-btn {
+		min-width: 130rpx;
+		min-height: 50rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: #729153;
+		background-color: #fff;
+		border-radius: 50rpx;
+		font-weight: bold;
+	}
+}
+
+.wrapper {
+	margin-top: 100rpx;
+	height: 100%;
+
+	.consumptionList {
+		display: flex;
+		justify-content: space-between;
+		padding: 20rpx;
+		border-bottom: 1rpx solid #E0E0E0;
+		background: #FFF;
+		font-size: 28rpx;
+	
+		.time {
+			font-size: 20rpx;
+			padding-top: 10rpx;
+			color: #707070;
+		}
+	
+		.coinNum {
+			color: #F52D2D;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: flex-end;
+			
+			.price {
+				font-weight: bold;
+				font-size: 28rpx;
+			}
+	
+			.balance {
+				font-size: 20rpx;
+				color: #333;
+			}
+		}
+	
+		.decreaseNum {
+			color: green;
+		}
+	}
+
+	.noConsumptionList {
+		font-size: 30rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 45%;
+		color: #9fa0a0;
+	}
+}
+

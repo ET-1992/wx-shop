@@ -1,5 +1,15 @@
 @import '~styles/color';
 
+.member {
+	margin: 20rpx;
+	height: 130rpx;
+
+	.image {
+		width: 100%;
+		height: 100%;
+	}
+}
+
 .affiliate{
 	margin: 15rpx 20rpx;
 	border-radius: 5rpx;

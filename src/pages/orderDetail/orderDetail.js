@@ -28,7 +28,12 @@ Page({
 
         virtualProductBtn: true,
 
-        templateTypeText
+        templateTypeText,
+
+        payMethod: {
+            'WEIXIN': '微信支付',
+            'STORE_CARD': '储值卡支付'
+        }
     },
 
     onLoad({ isFromCreate = false }) {
@@ -98,7 +103,7 @@ Page({
         info.postageDispaly = Number(order.postage).toFixed(2); // 运费
         info.postage = order.postage;
 
-        info.totalPrice = Number(order.amount) - info.postage + info.couponFee + info.coinForPay;// 商品价格
+        info.totalPrice = Number(order.item_amount);// 商品价格
         info.totalPriceDispaly = Number(info.totalPrice).toFixed(2);
 
         info.finalPay = Number(order.amount); // 付款价格

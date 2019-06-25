@@ -1,0 +1,91 @@
+// 会员充值弹窗
+.popup {
+	width: 650rpx;
+	min-height: 500rpx;
+	padding-top: 30rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 10rpx;
+
+	.modal-title {
+		width: 100%;
+		text-align: center;
+		font-size: 28rpx;
+		font-weight: bold;
+		color: #333333;
+		margin-bottom: 20rpx;
+	}
+
+	.model-priceSection {
+		width: 100%;
+		padding: 0 30rpx;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+
+		.model-section {
+			width: 180rpx;
+			height: 100rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			color: #333333;
+			font-size: 20rpx;
+			border: 1px solid #333;
+			border-radius: 5rpx;
+			margin-bottom: 20rpx;
+			margin-left: 24rpx;
+
+			.model-price {
+				font-size: 28rpx;
+				font-weight: bold;
+			}
+
+			&:nth-child(3n+1) {
+				margin-left: 0;
+			}
+		}
+
+		.checked_recharge {
+			background-color: #DE4E24;
+			color: #fff;
+			border-color: #DE4E24;
+		}
+	}
+
+	// 其他金额
+	.recharge-elsePrice { 
+		width: 100%;
+		padding: 30rpx 40rpx;
+		display: flex;
+		align-items: center;
+
+		.elsePrice-text {
+			font-size: 28rpx;
+			font-weight: bold;
+			color: #000000;
+		}
+
+		.elsePrice-input {
+			border: 1px solid #000;
+			margin-left: 30rpx;
+			border-radius: 5rpx;
+			padding-left: 20rpx;
+		}
+	}
+
+	// 确认支付按钮
+	.model-btn {
+		width: 100%;
+		height: 100rpx;
+		text-align: center;
+		line-height: 100rpx;
+		background-color: #43B545;
+		color: #fff;
+		font-size: 32rpx;
+		font-weight: bold;
+	}
+}

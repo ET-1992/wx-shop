@@ -4,34 +4,32 @@ import { CONFIG } from 'constants/index';
 Page({
     data: {
         next_cursor: 0,
-        isLoading: true,
-        coinList: []
+        isLoading: false,
+        integralList: []
     },
     async onLoad() {
-        this.getCoinList();
+        this.setData({ isLoading: true });
+        this.getIntegralList();
         const config = wx.getStorageSync(CONFIG);
         this.setData({ config });
-        wx.setNavigationBarTitle({
-            title: `${(config.coin_name || '花生米')}明细`
-        });
     },
-    async getCoinList() {
+    async getIntegralList() {
         const { next_cursor } = this.data;
-        const data = await api.hei.wallet({
+        const data = await api.hei.getIntegralList({
             cursor: next_cursor,
         });
 
         for (let item in data.data) {
-            data.data[item].formatTime = formatTime(new Date(data.data[item].modified * 1000));
+            data.data[item].formatTime = formatTime(new Date(data.data[item].time * 1000));
         }
 
-        const newData = this.data.coinList.concat(data.data);
+        const newData = this.data.integralList.concat(data.data);
         this.setData({
-            coinList: newData,
+            integralList: newData,
             isLoading: false,
             next_cursor: data.next_cursor,
         });
-        console.log(this.data.coinList);
+        console.log('this.data.integralList', this.data.integralList);
         return data;
     },
 
@@ -42,16 +40,16 @@ Page({
     async onPullDownRefresh() {
         this.setData({
             next_cursor: 0,
-            coinList: [],
+            integralList: [],
             isLoading: true
         });
-        await this.getCoinList();
+        await this.getIntegralList();
         wx.stopPullDownRefresh();
     },
 
     async onReachBottom() {
         const { next_cursor } = this.data;
         if (!next_cursor) { return }
-        this.getCoinList();
+        this.getIntegralList();
     }
 });

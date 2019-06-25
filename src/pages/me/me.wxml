@@ -1,14 +1,18 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{!isLoading}}">
-
 	<!-- 头部面板 -->
-	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
+	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
+	<!-- 会员专区 -->
+	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ membership_banner }}">
+		<image class="image" src="{{ membership_banner }}" />
+	</navigator>
+
 	<!-- 功能面板 -->
-	<infos infosComponentData="{{ infosComponentData }}"/>
+	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}"/>
 
 	<navigator
 		class="affiliate"

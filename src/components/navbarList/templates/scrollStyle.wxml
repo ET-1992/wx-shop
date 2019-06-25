@@ -1,4 +1,4 @@
-<scroll-view class="scrollStyle" scroll-x="true" scroll-with-animation="{{true}}" scroll-into-view="{{ toView }}">
+<scroll-view class="scrollStyle" scroll-x="true" scroll-with-animation="{{ true }}" scroll-into-view="{{ toView }}" style="top: {{ top }}">
     <view 
     	wx:for="{{ navbarListData }}" 
     	class="item {{ activeIndex === index ? 'selected' : '' }}" 
