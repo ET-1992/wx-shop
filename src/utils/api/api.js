@@ -8,8 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -232,17 +232,15 @@ export const apis = {
     },
     wallet: {
         path: 'api/mag.wallet.logs.json',
-        method: 'GET',
         isForceToken: true,
     },
     myFare: {
         path: 'api/mag.shop.my.json',
-        method: 'GET',
         isForceToken: true,
     },
+    // 推广中心
     shareUserInfo: {
         path: 'api/mag.affiliate.member.get.json',
-        method: 'GET',
         isForceToken: true
     },
     joinShareUser: {
@@ -366,6 +364,12 @@ export const apis = {
     },
     getShopRule: {
         path: 'api/mag.shop.rule.json',
+        isForceToken: true
+    },
+    // 推广中心更新用户名
+    updateUserInfo: {
+        path: 'api/mag.affiliate.update.userinfo.json',
+        method: 'POST',
         isForceToken: true
     }
 };

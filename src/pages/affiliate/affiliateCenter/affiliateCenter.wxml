@@ -8,15 +8,18 @@
 		</view>
 		<view class="userBody">
 			<view class="userData">
-				<text class="userName">Den丨李大恩</text>
-				<image class="editIcon" mode="aspectFit" src="/icons/affiliateCenter/edit.svg"></image>
+				<view class="userName">{{ user.affiliate_share_name}}</view>
+				<view class="editUserNameIcon" bindtap="editUserName">
+					<image class="editIcon" mode="aspectFit" src="/icons/affiliateCenter/edit.svg"></image>
+				</view>
 			</view>
 			<view class="recommend">
 				<text class="recommendKey">推荐人</text>
-				<view class="recommendValue">
-					<image class="recommendAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}"></image>
-					<text class="recommendName">牛逼闪闪的denis</text>
+				<view class="recommendValue" wx:if="{{ member.referrer_name }}">
+					<image class="recommendAvatar" mode="aspectFit" src="{{ member.referrer_avatarurl ? member.referrer_avatarurl : '/icons/unlogin.png' }}"></image>
+					<text class="recommendName">{{ member.referrer_name }}</text>
 				</view>
+				<view class="recommendNo" wx:if="{{ !member.referrer_name }}">无</view>
 			</view>
 		</view>
 	</view>
@@ -30,11 +33,11 @@
 		<text class="shareMoneyGet-text">当前金额 <text class="shareMoneyGet-money">{{ globalData.CURRENCY[globalData.currency] }}{{ wallet.affiliate_balance || 0 }}</text> </text>
 		<view class="shareMoneyGet-btn" bindtap="goToAffiliate" data-urldata="affiliateMoney">立即提现</view>
 	</view>
-	<view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateDetail">
+	<view class="finishUserInfo" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail">
 		<view class="finishUserInfo-left">收入明细</view>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view> -->
-	<!-- <view class="finishUserInfo" bindtap="goToAffiliate" data-urldata="affiliateFinishUserInfo">
+	<!-- <view class="finishUserInfo" bindtap="go" data-url="/pages/affiliate/affiliateFinishUserInfo/affiliateFinishUserInfo">
 		<text class="finishUserInfo-left">完善个人资料</text>
 		<image class="finishUserInfo-right" src="/icons/right.png"></image>
 	</view> -->
@@ -42,7 +45,7 @@
 	<!-- 收益提现内容 -->
 	<view class="income">
 		<view class="incomeData">
-			<view class="incomeDataHead" bindtap="goToAffiliate" data-urldata="affiliateDetail">
+			<view class="incomeDataHead" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail">
 				<text class="headTitle">我的收益</text>
 				<image class="headArrow" mode="aspectFit" src="/icons/right.png"></image>
 			</view>
@@ -60,7 +63,7 @@
 							<text class="showItemText showTodayText">本月（元）</text>
 						</view>
 						<view class="showItem showTotal">
-							<text class="showItemNum showTodayNum">{{ (wallet.affiliate_income_total)|| 0 }}</text>
+							<text class="showItemNum showTodayNum">{{ member.commission_total || 0 }}</text>
 							<text class="showItemText showTodayText">累计（元）</text>
 						</view>
 					</view>
@@ -71,7 +74,7 @@
 						<text class="takeViewText">可提现余额(元）</text>
 					</view>
 					<view class="monneyTakeBtn">
-						<text class="btnText" bindtap="goToAffiliate" data-urldata="affiliateMoney">去提现</text>
+						<text class="btnText" bindtap="go" data-url="/pages/affiliate/affiliateMoney/affiliateMoney?balance={{wallet.affiliate_balance}}&income_pending={{wallet.affiliate_income_pending}}&code={{member.code}}">去提现</text>
 						<image class="btnArrow" mode="aspectFit" src="/icons/right.png"></image>
 					</view>
 				</view>
@@ -82,39 +85,33 @@
 		</view>
 	</view>
 	<view class="userInfoDisplay">
-		<!-- 浏览用户 -->
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=3">
-			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
+			<text class="userInfoDisplay-num">{{ member.browse_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">浏览用户</text>	
 		</navigator>
-		<!-- 购买用户 -->
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">购买用户</text>	
 		</navigator>
-
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=1">
 			<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">分享家</text>	
 		</navigator>
-
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateOrderList/affiliateOrderList">
 			<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">关联订单</text>	
 		</navigator>
 	</view>
 	<view class="footer" wx:if="{{ affiliate_enable }}">
-		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliateProductList">
-			<image class="footer-img" src="/icons/shareProduct.svg"></image>	
+		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliateProductList/affiliateProductList">
+			<image class="footer-img" src="/icons/shareProduct.svg"></image>
 			<text class="footer-text">分享商品</text>	
 		</view>
-
-		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="2">
+		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=2">
 			<image class="footer-img" src="/icons/sharePoster.svg"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>
-
-		<view class="footer-item" bindtap="goToAffiliate" data-urldata="affiliatePoster" data-postertype="1">
+		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=1">
 			<image class="footer-img" src="/icons/shareToFriend.svg"></image>	
 			<text class="footer-text">邀请好友</text>	
 		</view>
@@ -135,5 +132,12 @@
 		<view class="content-footer" bindtap="changeModal">知道了</view>
 	</view>
 </view>
+
+<!-- 编辑用户名弹窗 -->
+<van-popup show="{{ show }}" bind:close="onClose">
+	<view class="popup_text">修改分销名</view>
+	<input type="text" placeholder="请输入" bindblur="onChange" class="popup_input" />
+	<view class="popup_btn" bindtap="onEditUserName">确认</view>
+</van-popup>
 
 <console page="分销中心" />

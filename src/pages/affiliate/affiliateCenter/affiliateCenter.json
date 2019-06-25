@@ -2,6 +2,10 @@
 	"navigationBarTitleText": "推广中心",
 	"usingComponents": {
 		"console": "../../../components/console/console",
-		"loading": "../../../components/loading/index"
+		"loading": "../../../components/loading/index",
+		"van-popup": "../../../components/vant-weapp/dist/popup/index",
+		"van-cell-group": "../../../components/vant-weapp/dist/cell-group/index",
+		"van-field": "../../../components/vant-weapp/dist/field/index",
+		"van-button": "../../../components/vant-weapp/dist/button/index"
 	}
 }

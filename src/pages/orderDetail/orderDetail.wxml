@@ -54,6 +54,7 @@
 		<productItemSold items="{{ order.noLogisticsForItem }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
 	</view>
 
+	<!-- 正常订单 -->
 	<view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }} {{ groupon.status === 2 ? 'otherPeopleGrouponWrap' : ''}}" >
 		<productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
 	</view>
@@ -97,7 +98,8 @@
     </view>
 	</view>
 
-  <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
+	<!-- 留言 -->
+  <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks && order.annotation.remarks.length }}" class="remarkWrap">
     <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
       <view>{{ index }}</view>
       <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
@@ -150,7 +152,7 @@
 			>{{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}</button>
 	</view>
 
-	<!-- 正常订单 -->
+	<!-- 金额模块 -->
 	<view class="orderInfo" wx:else>
 	  	<view class="row">
 	  	  <text class="text">商品金额</text>
