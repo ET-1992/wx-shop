@@ -273,3 +273,43 @@ $iphoneXBottomGap: 40rpx;
 	color: #FB3838;
 	font-size: 24rpx;
 }
+
+.pickPayStyle{
+		margin-top: 10rpx;
+		display: flex;
+		align-items: center;
+		height: 100rpx;
+		background: #fff;
+		padding-left: 40rpx;
+		font-size: 28rpx;
+		.text{
+			color: #333333;
+		}
+		.radio-group{
+			height: 100%;
+			padding-left: 64rpx;
+			display: flex;
+			flex: 1;
+			justify-content: space-around;
+			.radio{
+				display: flex;
+				align-items: center;
+				text{
+					color: #000000;
+				}
+				.circle{
+					display: inline-block;
+    				width: 20rpx;
+    				height: 20rpx;
+    				margin-left: 20rpx;
+    				border-radius: 50%;
+					border: 1px solid #333333;
+					padding: 4rpx;
+				}
+				.checked{
+					background-color: #000000;
+    				background-clip: content-box;
+				}
+			}
+		}
+	}

@@ -146,3 +146,8 @@ export const USER_STATUS = {
     isUserGetRedPacket: 1,
     isUserHasPayOrder: 2
 };
+
+export const PAY_STYLES = [
+    { text: '微信', value: 'weixin' },
+    { text: '储值卡', value: 'store_card' }
+];

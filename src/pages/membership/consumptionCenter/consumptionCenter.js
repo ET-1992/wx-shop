@@ -9,12 +9,12 @@ Page({
         activeIndex: 0,
         isLoading: false,
         navbarListData: [
-            { text: '储值账户', value: 'cash' },
-            { text: '赠送账户', value: 'gift' }
+            { text: '储值账户', value: '2' },
+            { text: '赠送账户', value: '3' }
         ],
         rechargeModal: false,
         next_cursor: 0,
-        type: 'cash'
+        type: '2'
     },
 
     onLoad(params) {
@@ -47,10 +47,10 @@ Page({
         const { type } = this.data;
         const params = { cursor: next_cursor };
         if (type) {
-            params.type = type;
+            params.currency = type;
         }
         console.log('type', type);
-        const data = await api.hei.consumptionLog(params);
+        const data = await api.hei.wallet(params);
         const logs = data.data.logs;
         console.log('data.data.logs', logs);
 

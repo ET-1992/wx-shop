@@ -164,6 +164,14 @@
 	  	  <text class="text">{{ config.coin_name || '花生米' }}</text>
 	  	  <text class="money"> -{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }} </text>
 	  	</view>
+		<view wx:if="{{ config.store_card_enable }}" class="row">
+	  	  <text class="text">{{ '储值卡消费' }}</text>
+	  	  <text class="money"> -{{ globalData.CURRENCY[globalData.currency] }}{{ order.cashes_fee }} </text>
+	  	</view>
+		<view wx:if="{{ config.store_card_enable }}" class="row">
+	  	  <text class="text">{{ '赠送帐户消费' }}</text>
+	  	  <text class="money"> -{{ globalData.CURRENCY[globalData.currency] }}{{ order.gifts_fee }} </text>
+	  	</view>
 	  	<view class="row">
 	  	  <text class="text"> {{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }} </text>
 	  	  <text class="money"> +{{ globalData.CURRENCY[globalData.currency] }}{{ info.postageDispaly }} </text>
