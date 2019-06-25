@@ -83,7 +83,7 @@
 	</view>
 	<view class="userInfoDisplay">
 		<!-- 浏览用户 -->
-		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=3">
+		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateVisitor/affiliateVisitor">
 			<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">浏览用户</text>	
 		</navigator>

@@ -1,0 +1,18 @@
+<!-- 分享中心 浏览用户 -->
+<loading isLoading="{{ isLoading }}"/>
+<view class="container">
+	<view class="visitorList">
+		<view class="visitorItem" wx:for="array" wx:key="item" 
+			  bindtap="{{ (config && config.partner.is_vip) ? '' : 'go' }}" 
+			  data-url="/pages/rulePages/rulePages?key=copyright">
+			<view class="itemAvatar">
+				<image mode="aspectFit" src="/icons/smileFace.png"></image>
+			</view>
+			<view class="itemData">
+				<text class="itemName">一只小笑脸</text>
+				<text class="itemTime">2018年9月9日</text>
+			</view>
+		</view>
+	</view>
+</view>
+<console page="浏览用户" />
