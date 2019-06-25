@@ -135,10 +135,10 @@
 </view>
 
 <!-- 编辑用户名弹窗 -->
-<van-popup show="{{ show }}" bind:close="onClose">
+<van-popup show="{{ isShowPopup }}" bind:close="onClose">
 	<view class="popup_text">修改分销名</view>
 	<input type="text" placeholder="请输入" bindblur="onChange" class="popup_input" />
-	<view class="popup_btn" bindtap="onEditUserName">确认</view>
+	<view class="popup_btn" bindtap="onEditUserName" style="background-color: {{ themeColor.primaryColor }}">确认</view>
 </van-popup>
 
 <console page="分销中心" />

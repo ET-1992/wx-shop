@@ -9,7 +9,7 @@ Page({
         isLoading: true,
         member: {},
         wallet: {},
-        show: false, // 是否开启编辑用户名弹窗
+        isShowPopup: false, // 是否开启编辑用户名弹窗
         value: '' // input框输入内容
     },
 
@@ -17,6 +17,8 @@ Page({
 
     onLoad(params) {
         console.log(params);
+        const { themeColor } = app.globalData;
+        this.setData({ themeColor });
     },
     async onShow() {
         const data = await api.hei.shareUserInfo();
@@ -76,13 +78,13 @@ Page({
 
     // 开启弹窗
     editUserName() {
-        const { show } = this.data;
-        this.setData({ show: !show, value: '' });
+        const { isShowPopup } = this.data;
+        this.setData({ isShowPopup: !isShowPopup, value: '' });
     },
 
     // 关闭弹窗
     onClose() {
-        this.setData({ show: false });
+        this.setData({ isShowPopup: false });
     },
 
     onChange(event) {
@@ -105,7 +107,7 @@ Page({
                 title: '修改成功',
                 icon: 'success',
             });
-            this.setData({ show: false });
+            this.setData({ isShowPopup: false });
         } catch (error) {
             console.log(error);
         }
