@@ -67,7 +67,7 @@ Page({
 
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });
-        const { order, redpacket = {}, products } = await api.hei.fetchOrder({ order_no: id });
+        const { order, redpacket = {}, products, config } = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket };
         const statusCode = Number(order.status);
         let address = {};
@@ -165,6 +165,7 @@ Page({
             address,
             info,
             isLoading: false,
+            config,
             ...data
         });
     },
