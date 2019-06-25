@@ -33,13 +33,9 @@ Page({
             wx.setNavigationBarTitle({
                 title: '我的分享家'
             });
-        } else if (user_type === '2') {
-            wx.setNavigationBarTitle({
-                title: '我的购买客户'
-            });
         } else {
             wx.setNavigationBarTitle({
-                title: '我的浏览客户'
+                title: '我的购买客户'
             });
         }
     },

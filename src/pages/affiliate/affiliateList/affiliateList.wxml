@@ -5,5 +5,5 @@
     <template is="shareList" data="{{ members, user_type, globalData}}"/>
 </view>
 <view wx:if="{{ !isLoading && !members.length }}" class="emptyHint">
-    {{ user_type === '1' ? '暂无分享家' : (user_type === '2' ? '暂无购买用户' : '暂无浏览客户')}}
+    {{ user_type === '1' ? '暂无分享家' : '暂无购买客户'}}
 </view>
