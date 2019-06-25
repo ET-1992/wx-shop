@@ -48,7 +48,8 @@
 		"pages/crowd/crowdList/crowdList",
 		"pages/rulePages/rulePages",
 		"pages/idCard/idCard",
-		"pages/classify/classify"
+		"pages/classify/classify",
+		"pages/affiliate/affiliateVisitor/affiliateVisitor"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

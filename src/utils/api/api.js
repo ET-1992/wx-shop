@@ -371,5 +371,10 @@ export const apis = {
         path: 'api/mag.affiliate.update.userinfo.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 推广中心浏览用户
+    getVisitorData: {
+        path: 'api/mag.affiliate.browse.user.list.json',
+        isForceToken: true
     }
 };
