@@ -79,7 +79,7 @@ Page({
     // 开启弹窗
     editUserName() {
         const { isShowPopup } = this.data;
-        this.setData({ isShowPopup: !isShowPopup, value: '' });
+        this.setData({ isShowPopup: !isShowPopup });
     },
 
     // 关闭弹窗
