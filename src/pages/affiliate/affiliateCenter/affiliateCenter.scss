@@ -2,6 +2,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: #F4F4F4;
+	color: #707070;
 	padding-top: 10rpx;
 	letter-spacing: 2rpx;
 }
@@ -30,6 +31,7 @@
 			align-items: center;
 			.userName {
 				font-size: 32rpx;
+				font-weight: bold;
 				max-width: 15em;
 				text-overflow: ellipsis; 
 				overflow: hidden; 
@@ -79,7 +81,6 @@
 
 .income {
 	width: 710rpx;
-	color: #000000;
 	margin: 0 auto;
 	background-color: white;
 	position: relative;
@@ -92,6 +93,8 @@
 			align-items: center;
 			.headTitle {
 				font-size: 32rpx;
+				color: #000000;
+				font-weight: bold;
 			}
 			.headArrow {
 				width: 15rpx;
@@ -108,8 +111,9 @@
 					display: flex;
 					flex-direction: column;
 					.showItemNum {
+						color: #000000;
 						font-size: 36rpx;
-						font-weight: 600;
+						font-weight: bold;
 					}
 					.showItemText {
 						font-size: 24rpx;
@@ -133,14 +137,13 @@
 			.monneyTake {
 				display: flex;
 				flex-direction: column;
-				justify-content: center;
+				justify-content: space-between;
 				align-items: center;
 				.monneyTakeView {
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
-					margin-bottom: 45rpx;
 					.takeViewNum {
 						color: #FE0000;
 						font-size: 36rpx;
@@ -153,16 +156,18 @@
 					}
 				}
 				.monneyTakeBtn {
-					min-width: 134rpx;
-					min-height: 56rpx;
-					border: 1rpx solid #707070;
+					color: #000000;
 					border-radius: 30rpx;
 					display: flex;
 					justify-content: center;
 					align-items: center;
 					padding: 10rpx;
+					border: 1rpx solid #707070;
+					margin-bottom: 16rpx;
 					.btnText {
-						line-height: 40rpx;
+						font-size: 28rpx;
+						font-weight: bold;
+						padding-left: 8rpx;
 					}
 					.btnArrow {
 						width: 20rpx;
@@ -178,6 +183,8 @@
 		right: 0;
 		.incomeRuleText {
 			color: white;
+			font-size: 24rpx;
+			font-weight: bold;
 			padding: 12rpx 15rpx;
 			padding-left: 25rpx;
 			background-color: #FE0000;
@@ -232,7 +239,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-weight: 600;
+		font-weight: bold;
 		padding-left: 10rpx;
 	}
 }
@@ -303,23 +310,22 @@
 	justify-content: space-around;
 	align-items: center;
 	background-color: #fff;
-	color: #000000;
 
 	.userInfoDisplay-item {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		// align-items: center;
 
 		.userInfoDisplay-num {
 			font-size: 50rpx;
+			font-weight: bold;
 			line-height: 70rpx;
+			color: #000000;
 		}
 
 		.userInfoDisplay-text {
 			font-size: 28rpx;
 			line-height: 40rpx;
-			color: #707070;
 		}
 	}
 }
@@ -480,30 +486,4 @@
 			border-radius: 5rpx;
 		}
 	}
-
-	// .popup_text {
-	// 	font-size: 32rpx;
-	// 	color: #000000;
-	// 	font-weight: bold;
-	// }
-	// .popup_input {
-	// 	width: 100%;
-	// 	height: 60rpx;
-	// 	padding-left: 20rpx;
-	// 	line-height: 60rpx;
-	// 	border: 1px solid #707070;
-	// 	text-align: left;
-	// 	margin-top: 50rpx;
-	// }
-	// .popup_btn {
-	// 	margin-top: 50rpx;
-	// 	width: 100%;
-	// 	height: 60rpx;
-	// 	text-align: center;
-	// 	line-height: 60rpx;
-	// 	font-size: 28rpx;
-	// 	font-weight: bold;
-	// 	color: #fff;
-	// 	background-color: #729153;
-	// }
 }
