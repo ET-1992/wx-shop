@@ -157,10 +157,6 @@ Page({
 
     // 签到改变花生米字段
     changeWalletData(e) {
-        console.log('e', e);
-        console.log('e.detail', e.detail);
-        console.log('this.data.wallet', this.data.wallet);
         this.setData({ wallet: e.detail });
-        console.log('this.data.wallet', this.data.wallet);
     }
 });

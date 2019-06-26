@@ -25,13 +25,10 @@ Page({
         this.setData({ isLoading: true });
         this.getConsumptionList();
         const { themeColor } = app.globalData;
-        console.log('themeColor', themeColor);
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync('user');
         const recharge = await api.hei.rechargePrice();
-        console.log(recharge, 'recharge');
         recharge.data[0].checked = true;
-        console.log(recharge.data, 'recharge.data');
         this.setData({
             isLoading: false,
             themeColor,
@@ -42,33 +39,27 @@ Page({
     },
 
     async getConsumptionList(e) {
-        console.log('e', e); // 点击的哪个type
         const { next_cursor } = this.data;
         const { type } = this.data;
         const params = { cursor: next_cursor };
         if (type) {
             params.currency = type;
         }
-        console.log('type', type);
         const data = await api.hei.wallet(params);
         const logs = data.data.logs;
-        console.log('data.data.logs', logs);
 
         let consume = type === e ? this.data.ConsumptionList.concat(logs) : logs;
-        console.log('consume', consume);
 
         for (let item in consume) {
             consume[item].formatTime = formatTime(new Date(consume[item].modified * 1000));
             consume[item].text = valueToText(CONSUM_TEXT, Number(consume[item].type));
         }
-        console.log('consume', consume);
         this.setData({
             cash_balance: data.data.cash_balance,
             gift_balance: data.data.gift_balance,
             ConsumptionList: consume,
             next_cursor: data.next_cursor
         });
-        console.log('ConsumptionList', this.data.ConsumptionList);
     },
 
     changeNavbarList(e) {
@@ -76,17 +67,12 @@ Page({
         if (value === this.data.type) {
             return;
         }
-        console.log(index, 'e.detail.index');
-        console.log(value, 'e.detail.value');
         this.setData({
             type: value,
             activeIndex: index,
             next_cursor: 0
         });
-        console.log(this.data.type);
-        console.log('1');
         this.getConsumptionList();
-        console.log('2');
     },
 
     /**

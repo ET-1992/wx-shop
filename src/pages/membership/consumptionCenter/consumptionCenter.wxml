@@ -24,11 +24,12 @@
 			<view class="time">{{ item.formatTime }}</view>
 		</view>
 		<view class="coinNum decreaseNum">
-			<view class="price">{{ item.amount }} 元</view>
+			<view class="price" wx:if="{{ item.income }}">+ {{ item.income }} 元</view>
+			<view class="price" wx:if="{{ item.expense }}">- {{ item.expense }} 元</view>
 			<view class="balance">余额: {{ item.balance }} 元</view>
 		</view>
 	</view>
-	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length}}">
+	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length }}">
 		暂无记录
 	</view>
 </view>

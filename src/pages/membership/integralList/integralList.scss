@@ -37,11 +37,12 @@ page {
 	}
 
 	.noHint {
-		text-align: center;
+		font-size: 30rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 45%;
 		color: #9fa0a0;
-		width: 100%;
-		padding-top: 200rpx;
-		height: 100%;
 	}
 
 	.bottomHint {
@@ -50,10 +51,5 @@ page {
 		font-size: 10pt;
 		padding: 10rpx 0;
 		background-color: #f4f4f4;
-	}
-
-	.Bg {
-		width: 250rpx;
-		height: 240rpx;
 	}
 }
