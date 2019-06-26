@@ -335,7 +335,7 @@ Page({
         const { vendor, afcode } = app.globalData;
         // console.log(vendor, afcode, 'globalData');
 
-        if (!userName && liftStyle !== 'lift' && product_type !== 1) {
+        if (!userName && !detailInfo && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
