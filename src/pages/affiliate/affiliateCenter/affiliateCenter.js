@@ -97,6 +97,7 @@ Page({
     async onEditUserName() {
         const { value } = this.data;
         console.log('value', value);
+        if (!value) return;
         try {
             const data = await api.hei.updateUserInfo({ share_name: value });
             console.log(data);
