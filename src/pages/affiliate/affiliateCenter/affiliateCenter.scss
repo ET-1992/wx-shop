@@ -434,33 +434,76 @@
 
 // 弹窗样式
 .popup {
-	width: 640rpx;
+	width: 650rpx;
 	background-color: #fff;
-	text-align: center;
-	padding: 40rpx 80rpx 50rpx;
-	.popup_text {
-		font-size: 32rpx;
-		color: #000000;
-		font-weight: bold;
+	border-radius: 10rpx;
+
+	.popup-header,
+	.popup-footer {
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.popup_input {
-		width: 100%;
-		height: 60rpx;
-		padding-left: 20rpx;
-		line-height: 60rpx;
-		border: 1px solid #707070;
-		text-align: left;
-		margin-top: 50rpx;
-	}
-	.popup_btn {
-		margin-top: 50rpx;
-		width: 100%;
-		height: 60rpx;
-		text-align: center;
-		line-height: 60rpx;
+
+	.popup-header {
 		font-size: 28rpx;
 		font-weight: bold;
-		color: #fff;
-		background-color: #729153;
+		// border-bottom: 1rpx solid #C9C9C9;
 	}
+
+	.popup-footer {
+		font-size: 32rpx;
+		border-top: 1rpx solid #C9C9C9;
+		font-weight: bold;
+	}
+
+	.popup-body-item {
+		font-size: 24rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 10rpx 50rpx 50rpx;
+
+		.popup-body-item-left {
+			font-size: 28rpx;
+			width: 180rpx;
+			font-weight: bold;
+		}
+
+		.popup-body-item-right {
+			width: 100%;
+			border: 1px solid #707070;
+			padding-left: 20rpx;
+			border-radius: 5rpx;
+		}
+	}
+
+	// .popup_text {
+	// 	font-size: 32rpx;
+	// 	color: #000000;
+	// 	font-weight: bold;
+	// }
+	// .popup_input {
+	// 	width: 100%;
+	// 	height: 60rpx;
+	// 	padding-left: 20rpx;
+	// 	line-height: 60rpx;
+	// 	border: 1px solid #707070;
+	// 	text-align: left;
+	// 	margin-top: 50rpx;
+	// }
+	// .popup_btn {
+	// 	margin-top: 50rpx;
+	// 	width: 100%;
+	// 	height: 60rpx;
+	// 	text-align: center;
+	// 	line-height: 60rpx;
+	// 	font-size: 28rpx;
+	// 	font-weight: bold;
+	// 	color: #fff;
+	// 	background-color: #729153;
+	// }
 }
