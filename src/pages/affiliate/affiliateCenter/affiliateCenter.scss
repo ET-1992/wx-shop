@@ -105,9 +105,11 @@
 		.incomeDataBody {
 			display: flex;
 			margin-top: 40rpx;
+			justify-content: space-between;
 			// 今日、本月、累计
 			.monneyShow {
-				flex: 2;
+				flex: 1;
+				padding-right: 72rpx;
 				.showItem {
 					display: flex;
 					flex-direction: column;
@@ -136,9 +138,7 @@
 				.monneyShowBottom {
 					display: flex;
 					padding-top: 46rpx;
-					.showThisMonth {
-						margin-right: 122rpx;
-					}
+					justify-content: space-between;
 				}
 			}
 
@@ -148,6 +148,10 @@
 				flex-direction: column;
 				justify-content: space-between;
 				align-items: center;
+				border-left: 0.5px #D4D4D4 solid;
+				padding-left: 60rpx;
+				margin: 16rpx 0;
+
 				.monneyTakeView {
 					display: flex;
 					flex-direction: column;
@@ -172,7 +176,7 @@
 					align-items: center;
 					padding: 10rpx;
 					border: 1rpx solid #707070;
-					margin-bottom: 16rpx;
+					
 					.btnText {
 						font-size: 28rpx;
 						font-weight: bold;
