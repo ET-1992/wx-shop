@@ -11,7 +11,6 @@
         </view>
     </view>
     <view wx:if="{{ !isLoading && integralList.length == 0 }}" class="noHint">
-        <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
         <view>暂无积分</view>
     </view>
 </view>
