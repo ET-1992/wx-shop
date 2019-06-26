@@ -51,7 +51,8 @@
 		"pages/classify/classify",
 		"pages/membership/members/members",
 		"pages/membership/consumptionCenter/consumptionCenter",
-		"pages/membership/integralList/integralList"
+		"pages/membership/integralList/integralList",
+		"pages/affiliate/affiliateVisitor/affiliateVisitor"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

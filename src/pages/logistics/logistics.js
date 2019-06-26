@@ -17,7 +17,7 @@ Page({
         isLoading: true
     },
 
-    async onShow({ orderNo, logisticsIndex = 0, logisticId = '' }) {
+    async onLoad({ orderNo, logisticsIndex = 0, logisticId = '' }) {
 
         const { order } = await api.hei.fetchOrder({ order_no: orderNo });
 

@@ -128,7 +128,8 @@ Page({
                 phone: phoneNumber,
                 wechat: wechatId,
                 qq: qqId,
-                form_id
+                form_id,
+                code: app.globalData.afcode
             });
             const { confirm } = await showModal({
                 title: '温馨提示',

@@ -1,248 +1,503 @@
-	.container {
-		width: 100%;
-		height: 100%;
-		background-color: #F4F4F4;
-		padding-top: 10rpx;
-		letter-spacing: 2rpx;
-	}
+.container {
+	width: 100%;
+	height: 100%;
+	background-color: #F4F4F4;
+	color: #707070;
+	padding-top: 10rpx;
+	letter-spacing: 2rpx;
+}
 
-	.shareMoneyDisplay {
-		width: 100%;
-		height: 220rpx;
-		background-color: #fff;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		color: #000000;
-		position: relative;
-		
-		.shareMoneyDisplay-h {
-			font-size: 30rpx;
-			line-height: 42rpx;
+.user {
+	width: 710rpx;
+	height: 180rpx;
+	color: white;
+	background-color: #FF0000;
+	margin: 20rpx auto;
+	border-radius: 10rpx;
+	display: flex;
+	align-items: center;
+	.userHead {
+		margin: 0 25rpx 0 35rpx; 
+		.userAvatar {
+			$size: 100rpx;
+			width: $size;
+			height: $size;
+			border-radius: 50%;
 		}
-
-		.shareMoneyDisplay-b {
-			font-size: 60rpx;
-			line-height: 84rpx;
-			color: #FF0000;
-			margin-top: 6rpx;
-			margin-bottom: 4rpx;
-
-			.shareMoneyDisplay-b-m {
-				font-size: 24rpx;
+	}
+	.userBody {
+		.userData {
+			display: flex;
+			align-items: center;
+			.userName {
+				font-size: 32rpx;
+				font-weight: bold;
+				max-width: 15em;
+				text-overflow: ellipsis; 
+				overflow: hidden; 
+				white-space: nowrap; 
+			}
+			.editUserNameIcon {
+				width: 48rpx;
+				height: 48rpx;
+				text-align: center;
+				line-height: 48rpx;
+				.editIcon {
+					$size: 20rpx;
+					width: $size;
+					height: $size;
+				}
 			}
 		}
-
-		.shareMoneyDisplay-f {
-			font-size: 24rpx;
-			line-height: 33rpx;
-		}
-
-		.shareMoneyDisplay-s {
-			position: absolute;
-			right: 0;
-			top: 24rpx;
-			width: 140rpx;
-			height: 55rpx;
-			border-radius: 30rpx 0 0 30rpx;
-			background-color: #FDC522; 
-			font-size: 24rpx;
+		.recommend {
 			display: flex;
-			justify-content: center;
 			align-items: center;
-			font-weight: 600;
-			padding-left: 10rpx;
+			font-size: 24rpx;
+			padding-top: 12rpx;
+			.recommendKey {
+				padding-right: 1em;
+				word-break: keep-all;
+			}
+			.recommendValue {
+				display: flex;
+				align-items: center;
+				.recommendAvatar {
+					$size: 35rpx;
+					width: $size;
+					height: $size;
+					border-radius: 50%;
+				}
+				.recommendName {
+					padding-left: .5em;
+					max-width: 15em;
+					text-overflow: ellipsis; 
+					overflow: hidden; 
+					white-space: nowrap; 
+				}
+			}
 		}
 	}
+}
 
-	.shareMoneyGet {
-		height: 90rpx;
-		background-color: #fff;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 10rpx;
-		padding: 0 38rpx;
-
-		.shareMoneyGet-text {
+.income {
+	width: 710rpx;
+	margin: 0 auto;
+	background-color: white;
+	position: relative;
+	.incomeData {
+		margin: 0 38rpx;
+		padding: 35rpx 0;
+		border-bottom: 1rpx solid #D4D4D4;
+		.incomeDataHead {
 			display: flex;
 			align-items: center;
-			font-size: 28rpx;
-			color: #000000;
-
-			.shareMoneyGet-money {
-				color: #FF0000;
+			.headTitle {
+				font-size: 32rpx;
+				color: #000000;
+				font-weight: bold;
+			}
+			.headArrow {
+				width: 15rpx;
+				height: 15rpx;
 				margin-left: 15rpx;
 			}
 		}
-
-		.shareMoneyGet-btn {
-			width: 120rpx;
-			height: 50rpx;
-			background-color: #FC2732;
+		.incomeDataBody {
 			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 24rpx;
-			line-height: 30rpx;
-			color: #fff;
-			border-radius: 4rpx;
-		}
-	}
+			margin-top: 40rpx;
+			justify-content: space-between;
+			// 今日、本月、累计
+			.monneyShow {
+				flex: 1;
+				padding-right: 72rpx;
+				.showItem {
+					display: flex;
+					flex-direction: column;
+					text-align: center;
+					.showItemNum {
+						color: #000000;
+						font-size: 36rpx;
+					}
+					.showItemText {
+						font-size: 24rpx;
+					}
+				}
 
-	.finishUserInfo {
-		width: 100%;
-		height: 90rpx;
-		background-color: #fff;
-		margin-top: 5rpx;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 38rpx;
+				// 今日
+				.monneyShowTop {
+					display: flex;
+					.showToday {
+						margin-right: auto;
+						.showTodayNum {
+							font-size: 60rpx;
+						}
+					}
+				}
 
-		.finishUserInfo-left {
-			font-size: 28rpx;
-			line-height: 40rpx;
-		}
-
-		.finishUserInfo-right {
-			width: 10rpx;
-			height: 20rpx;
-		}
-	}
-
-	.userInfoDisplay {
-		width: 100%;
-		height: 160rpx;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		background-color: #fff;
-		color: #000000;
-		margin-top: 30rpx;
-
-		.userInfoDisplay-item {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			.userInfoDisplay-num {
-				font-size: 50rpx;
-				line-height: 70rpx;
+				// 本月、累计
+				.monneyShowBottom {
+					display: flex;
+					padding-top: 46rpx;
+					justify-content: space-between;
+				}
 			}
 
-			.userInfoDisplay-text {
-				font-size: 28rpx;
-				line-height: 40rpx;
-			}
-		}
-	}
-
-	.footer {
-		width: 100%;
-		height: 200rpx;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		background-color: #fff;
-		// margin: 30rpx 20rpx 0 20rpx;
-		margin-top: 30rpx;
-
-		.footer-item {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			.footer-img {
-				width: 88rpx;
-				height: 88rpx;
-				margin-bottom: 15rpx;
-			}
-
-			.footer-text {
-				font-size: 28rpx;
-				line-height: 40rpx;
-				color: #000000;
-			}
-		}
-	}
-
-	.closeFooter {
-		// margin: 30rpx 20rpx 0 20rpx;
-		margin-top: 30rpx;
-		width: 100%;
-		height: 200rpx;
-		color: #707070;
-		font-size: 36rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #fff;
-	}
-
-	.modal {
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.6);
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		left: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		z-index: 10000;
-
-		.content {
-			width: 650rpx;
-			background-color: #fff;
-			border-radius: 10rpx;
-
-			.content-header, .content-footer {
-				height: 100rpx;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.content-header {
-				font-size: 28rpx;
-				font-weight: bold;
-				// border-bottom: 1rpx solid #C9C9C9;
-			}
-
-			.content-footer {
-				font-size: 32rpx;
-				border-top: 1rpx solid #C9C9C9;
-				font-weight: bold;
-			}
-
-			.content-body {
-				height: 500rpx;
+			// 去提现
+			.monneyTake {
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
 				align-items: center;
-				padding: 30rpx 0;
+				border-left: 0.5px #D4D4D4 solid;
+				padding-left: 60rpx;
+				margin: 16rpx 0;
 
-				.content-body-item {
-					font-size: 24rpx;
+				.monneyTakeView {
 					display: flex;
-					flex-direction: row;
+					flex-direction: column;
+					justify-content: center;
 					align-items: center;
-					width: 100%;
-					padding: 0 40rpx;
-
-					.content-body-item-left {
+					.takeViewNum {
+						color: #FE0000;
+						font-size: 36rpx;
+						line-height: 50rpx;
+						margin-bottom: 8rpx;
+					}
+					.takeViewText {
+						font-size: 24rpx;
+						color: #707070
+					}
+				}
+				.monneyTakeBtn {
+					color: #000000;
+					border-radius: 30rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: 10rpx;
+					border: 1rpx solid #707070;
+					
+					.btnText {
 						font-size: 28rpx;
-						width: 180rpx;
 						font-weight: bold;
+						padding-left: 8rpx;
+					}
+					.btnArrow {
+						width: 20rpx;
+						height: 20rpx;
 					}
 				}
 			}
 		}
 	}
+	.incomeRule {
+		position: absolute;
+		top: 30rpx;
+		right: 0;
+		.incomeRuleText {
+			color: white;
+			font-size: 24rpx;
+			font-weight: bold;
+			padding: 12rpx 15rpx;
+			padding-left: 25rpx;
+			background-color: #FE0000;
+			border-radius: 30rpx 0 0 30rpx;
+		}
+	}
+}
+
+.shareMoneyDisplay {
+	width: 710rpx;
+	margin: 0 auto;
+	height: 220rpx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #000000;
+	position: relative;
+	
+	.shareMoneyDisplay-h {
+		font-size: 30rpx;
+		line-height: 42rpx;
+	}
+
+	.shareMoneyDisplay-b {
+		font-size: 60rpx;
+		line-height: 84rpx;
+		color: #FF0000;
+		margin-top: 6rpx;
+		margin-bottom: 4rpx;
+
+		.shareMoneyDisplay-b-m {
+			font-size: 24rpx;
+		}
+	}
+
+	.shareMoneyDisplay-f {
+		font-size: 24rpx;
+		line-height: 33rpx;
+	}
+
+	.shareMoneyDisplay-s {
+		position: absolute;
+		right: 0;
+		top: 24rpx;
+		width: 140rpx;
+		height: 55rpx;
+		border-radius: 30rpx 0 0 30rpx;
+		background-color: #FDC522; 
+		font-size: 24rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-weight: bold;
+		padding-left: 10rpx;
+	}
+}
+
+.shareMoneyGet {
+	width: 710rpx;
+	margin: 0 auto;
+	height: 90rpx;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 38rpx;
+
+	.shareMoneyGet-text {
+		display: flex;
+		align-items: center;
+		font-size: 28rpx;
+		color: #000000;
+
+		.shareMoneyGet-money {
+			color: #FF0000;
+			margin-left: 15rpx;
+		}
+	}
+
+	.shareMoneyGet-btn {
+		width: 120rpx;
+		height: 50rpx;
+		background-color: #FC2732;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 24rpx;
+		line-height: 30rpx;
+		color: #fff;
+		border-radius: 4rpx;
+	}
+}
+
+.finishUserInfo {
+	width: 710rpx;
+	margin: 0 auto;
+	height: 90rpx;
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 38rpx;
+
+	.finishUserInfo-left {
+		font-size: 28rpx;
+		line-height: 40rpx;
+	}
+
+	.finishUserInfo-right {
+		width: 10rpx;
+		height: 20rpx;
+	}
+}
+
+.userInfoDisplay {
+	width: 710rpx;
+	margin: 0 auto;
+	// height: 160rpx;
+	padding: 42rpx 0;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #fff;
+
+	.userInfoDisplay-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.userInfoDisplay-num {
+			font-size: 50rpx;
+			// font-weight: bold;
+			line-height: 70rpx;
+			color: #000000;
+		}
+
+		.userInfoDisplay-text {
+			font-size: 28rpx;
+			line-height: 40rpx;
+		}
+	}
+}
+
+.footer {
+	width: 710rpx;
+	margin: 0 auto;
+	height: 200rpx;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #fff;
+	// margin: 30rpx 20rpx 0 20rpx;
+	margin-top: 20rpx;
+
+	.footer-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.footer-img {
+			width: 88rpx;
+			height: 88rpx;
+			margin-bottom: 15rpx;
+		}
+
+		.footer-text {
+			font-size: 28rpx;
+			line-height: 40rpx;
+			color: #000000;
+		}
+	}
+}
+
+.closeFooter {
+	// margin: 30rpx 20rpx 0 20rpx;
+	margin-top: 30rpx;
+	width: 100%;
+	height: 200rpx;
+	color: #707070;
+	font-size: 36rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+}
+
+.modal {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
+
+	.content {
+		width: 650rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+
+		.content-header, .content-footer {
+			height: 100rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.content-header {
+			font-size: 28rpx;
+			font-weight: bold;
+			// border-bottom: 1rpx solid #C9C9C9;
+		}
+
+		.content-footer {
+			font-size: 32rpx;
+			border-top: 1rpx solid #C9C9C9;
+			font-weight: bold;
+		}
+
+		.content-body {
+			height: 500rpx;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+			padding: 30rpx 0;
+
+			.content-body-item {
+				font-size: 24rpx;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: 100%;
+				padding: 0 40rpx;
+
+				.content-body-item-left {
+					font-size: 28rpx;
+					width: 180rpx;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+
+// 弹窗样式
+.popup {
+	min-width: 600rpx;
+	background-color: #fff;
+	border-radius: 10rpx;
+
+	.popup-header,
+	.popup-footer {
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.popup-header {
+		font-size: 28rpx;
+		font-weight: bold;
+		// border-bottom: 1rpx solid #C9C9C9;
+	}
+
+	.popup-footer {
+		font-size: 32rpx;
+		border-top: 1rpx solid #C9C9C9;
+		font-weight: bold;
+	}
+
+	.popup-body-item {
+		font-size: 24rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 10rpx 50rpx 50rpx;
+
+		.popup-body-item-left {
+			font-size: 28rpx;
+			width: 180rpx;
+			font-weight: bold;
+		}
+
+		.popup-body-item-right {
+			width: 100%;
+			border: 1px solid #707070;
+			padding-left: 20rpx;
+			border-radius: 5rpx;
+		}
+	}
+}

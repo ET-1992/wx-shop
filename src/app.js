@@ -74,11 +74,20 @@ App({
         }, 500);
     },
 
+    async recordAffiliate(afcode) {
+        setTimeout(() => {
+            api.hei.recordAffiliateBrowse({ code: afcode });
+        });
+    },
+
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
                 console.log(res);
                 const { config, current_user } = res;
+                if (!config.affiliate_bind_after_order && this.globalData.afcode) {
+                    this.bindShare(this.globalData.afcode);
+                }
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync(USER_KEY, current_user || '');
             });
@@ -92,9 +101,6 @@ App({
         console.log(options, 'options');
         this.logData.push(options);
 
-        this.updateConfig();
-
-
         const { query = {}} = options;
         if (query.vendor) {
             this.globalData.vendor = query.vendor;
@@ -105,17 +111,18 @@ App({
 
         if (query.afcode) {
             this.globalData.afcode = query.afcode;
-            this.bindShare(query.afcode);
+            this.recordAffiliate(query.afcode);
         }
 
         if (query.scene) {
             let scene = decodeURIComponent(query.scene);
             let query_ = parseScene(scene);
             if (query_.afcode) {
-                this.globalData.afcode = query.afcode;
-                this.bindShare(query_.afcode);
+                this.globalData.afcode = query_.afcode;
+                this.recordAffiliate(query_.afcode);
             }
         }
+        this.updateConfig();
 
         try {
             await wxProxy.checkSession();

@@ -35,7 +35,7 @@ Page({
             });
         } else {
             wx.setNavigationBarTitle({
-                title: '我的客户'
+                title: '我的购买客户'
             });
         }
     },

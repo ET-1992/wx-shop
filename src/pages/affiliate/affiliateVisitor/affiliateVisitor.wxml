@@ -1,0 +1,18 @@
+<!-- 分享中心 浏览用户 -->
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{ !isLoading && visitorList.length }}">
+	<view class="visitorItem" wx:for="{{visitorList}}" wx:key="*this">
+		<view class="itemAvatar">
+			<image mode="aspectFit" src="{{ item.avatarurl ? item.avatarurl : '/icons/smileFace.png' }}"></image>
+		</view>
+		<view class="itemData">
+			<view class="itemName">{{ item.nickname }}</view>
+			<view class="itemTime">{{ item.formatTime }}</view>
+		</view>
+	</view>
+</view>
+<view wx:if="{{ !isLoading && !visitorList.length }}" class="emptyHint">
+    暂无浏览客户
+</view>
+
+<console page="浏览用户" />

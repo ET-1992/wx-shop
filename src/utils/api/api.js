@@ -232,17 +232,15 @@ export const apis = {
     },
     wallet: {
         path: 'api/mag.wallet.logs.json',
-        method: 'GET',
         isForceToken: true,
     },
     myFare: {
         path: 'api/mag.shop.my.json',
-        method: 'GET',
         isForceToken: true,
     },
+    // 推广中心
     shareUserInfo: {
         path: 'api/mag.affiliate.member.get.json',
-        method: 'GET',
         isForceToken: true
     },
     joinShareUser: {
@@ -404,5 +402,21 @@ export const apis = {
     getIntegralList: {
         path: 'api/mag/membership.log.json',
         isForceToken: true
+    },
+    // 推广中心更新用户名
+    updateUserInfo: {
+        path: 'api/mag.affiliate.update.userinfo.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 推广中心浏览用户
+    getVisitorData: {
+        path: 'api/mag.affiliate.browse.user.list.json',
+        isForceToken: true
+    },
+    recordAffiliateBrowse: {
+        path: 'api/mag.affiliate.browse.record.json',
+        isForceToken: true,
+        method: 'POST'
     }
 };
