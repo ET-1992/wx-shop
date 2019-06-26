@@ -245,7 +245,6 @@ Page({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
 
-
             let defalutSelectedProperties;
             let selectedSku = {};
 
@@ -312,8 +311,8 @@ Page({
                 showCancel: false
             });
             if (confirm) {
-                wx.navigateBack({
-                    delta: 1
+                wx.switchTab({
+                    url: '/pages/home/home'
                 });
             }
         }

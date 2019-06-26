@@ -8,6 +8,8 @@
     "couponList": "../../components/couponList/index",
     "loading": "../../components/loading/index",
     "countDown": "../../components/countDown/countDown",
-    "productComments": "./productComments/index"
+    "productComments": "./productComments/index",
+    "magicImg": "../../components/magicImg/magicImg",
+    "productList": "../../components/productList/index"
   }
 }
