@@ -6,12 +6,13 @@
             <view class="time">{{ item.formatTime }}</view>
         </view>
         <view class="coinNum">
-            +<text>{{ item.exp_delta }}</text>
+            <view wx:if="{{ item.income }}">+ {{ item.income }}</view>
+			<view wx:if="{{ item.expense }}">- {{ item.expense }}</view>
         </view>
     </view>
     <view wx:if="{{ !isLoading && integralList.length == 0 }}" class="noHint">
         <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
-        <view>还没有积分</view>
+        <view>暂无积分</view>
     </view>
 </view>
 <!-- <view

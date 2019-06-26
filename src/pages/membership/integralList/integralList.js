@@ -20,7 +20,7 @@ Page({
         });
 
         for (let item in data.data) {
-            data.data[item].formatTime = formatTime(new Date(data.data[item].time * 1000));
+            data.data[item].formatTime = formatTime(new Date(data.data[item].modified * 1000));
         }
 
         const newData = this.data.integralList.concat(data.data);
