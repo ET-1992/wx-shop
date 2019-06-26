@@ -315,10 +315,11 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		align-items: center;
 
 		.userInfoDisplay-num {
 			font-size: 50rpx;
-			font-weight: bold;
+			// font-weight: bold;
 			line-height: 70rpx;
 			color: #000000;
 		}
