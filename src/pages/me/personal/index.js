@@ -25,7 +25,6 @@ Component({
             const { encryptedData, iv } = e.detail;
             const user = await getAgainUserForInvalid({ encryptedData, iv });
             this.setData({ user });
-            console.log('this.data.user', this.data.user);
         },
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });
@@ -34,15 +33,12 @@ Component({
         async tapSignIn() {
             const result = await api.hei.signIn(); // 签到
             const wallet = result.current_user.wallet;
-            console.log('wallet', wallet);
             this.setData({ user: result.current_user });
-            console.log('签到this.data.user', this.data.user);
             wx.showToast({
                 title: '签到成功',
                 icon: 'success'
             });
             wx.setStorageSync(USER_KEY, result.current_user);
-            console.log('this.data.wallet', this.data.wallet);
             this.setData({ wallet });
             this.triggerEvent('changeWalletData', wallet, { bubbles: true });
         }
