@@ -105,35 +105,44 @@
 		.incomeDataBody {
 			display: flex;
 			margin-top: 40rpx;
+			// 今日、本月、累计
 			.monneyShow {
 				flex: 2;
 				.showItem {
 					display: flex;
 					flex-direction: column;
+					text-align: center;
 					.showItemNum {
 						color: #000000;
 						font-size: 36rpx;
-						font-weight: bold;
 					}
 					.showItemText {
 						font-size: 24rpx;
 					}
 				}
+
+				// 今日
 				.monneyShowTop {
+					display: flex;
 					.showToday {
+						margin-right: auto;
 						.showTodayNum {
 							font-size: 60rpx;
 						}
 					}
 				}
+
+				// 本月、累计
 				.monneyShowBottom {
 					display: flex;
 					padding-top: 46rpx;
-					.showItem {
-						flex: 1;
+					.showThisMonth {
+						margin-right: 122rpx;
 					}
 				}
 			}
+
+			// 去提现
 			.monneyTake {
 				display: flex;
 				flex-direction: column;
