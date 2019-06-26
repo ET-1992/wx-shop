@@ -30,6 +30,7 @@
 			align-items: center;
 			.userName {
 				font-size: 32rpx;
+				font-weight: bold;
 				max-width: 15em;
 				text-overflow: ellipsis; 
 				overflow: hidden; 
@@ -92,6 +93,7 @@
 			align-items: center;
 			.headTitle {
 				font-size: 32rpx;
+				font-weight: bold;
 			}
 			.headArrow {
 				width: 15rpx;
@@ -109,7 +111,7 @@
 					flex-direction: column;
 					.showItemNum {
 						font-size: 36rpx;
-						font-weight: 600;
+						font-weight: bold;
 					}
 					.showItemText {
 						font-size: 24rpx;
@@ -162,7 +164,10 @@
 					align-items: center;
 					padding: 10rpx;
 					.btnText {
+						font-size: 28rpx;
+						font-weight: bold;
 						line-height: 40rpx;
+						padding-left: 8rpx;
 					}
 					.btnArrow {
 						width: 20rpx;
@@ -178,6 +183,8 @@
 		right: 0;
 		.incomeRuleText {
 			color: white;
+			font-size: 24rpx;
+			font-weight: bold;
 			padding: 12rpx 15rpx;
 			padding-left: 25rpx;
 			background-color: #FE0000;
@@ -232,7 +239,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-weight: 600;
+		font-weight: bold;
 		padding-left: 10rpx;
 	}
 }
@@ -309,6 +316,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		font-weight: bold;
 		// align-items: center;
 
 		.userInfoDisplay-num {
