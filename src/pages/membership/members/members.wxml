@@ -2,8 +2,8 @@
 
 <view class="container" wx:if="{{!isLoading}}">
 	<!-- 会员用户 -->
-	<view class="member-header {{ config.store_card ? '' : 'noMemberCard' }}" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
-		<view class="member-top {{ config.store_card ? '' : 'noCard' }}">
+	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership.is_member }}">
+		<view class="member-top {{ config.store_card_enable ? '' : 'noCard' }}">
 			<button class="head-button" style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 				<view class="member-text">
@@ -11,7 +11,7 @@
 					<view class="member-level">{{ membershipCard.user.level_name }}</view>
 				</view>
 			</button>
-			<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ !config.store_card }}">
+			<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ !config.store_card_enable }}">
 				<view class="cart-price">{{ membershipCard.user.exp }}</view>
 				<view class="cart-text">积分</view>
 			</navigator>
@@ -20,7 +20,7 @@
 				<view class="member-itemTitle">联系客服</view>
 			</button>
 		</view>
-		<view class="member-bottom" wx:if="{{ config.store_card }}">
+		<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
 			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 				<view class="cart-price">{{ membershipCard.user.cash_balance }} 元</view>
 				<view class="cart-text">储值余额</view>
@@ -51,14 +51,15 @@
 				<view class="member-itemTitle">联系客服</view>
 			</button>
 		</view>
-		<view class="member-bottom">
-			<!-- 已开通储值卡功能 -->
-			<view class="member-price" wx:if="{{ config.store_card }}">{{ membershipCard.word }}</view>
-			<view class="member-btn" bindtap="openRechargeModal" wx:if="{{ config.store_card }}">立即开通会员</view>
-
-			<!-- 没开储值卡功能 -->
-			<view class="member-price" wx:if="{{ !config.store_card }}">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
-			<view class="member-btn" bindtap="buyMember" wx:if="{{ !config.store_card }}">立即开通会员</view>
+		<!-- 已开通储值卡功能 -->
+		<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
+			<view class="member-price">{{ membershipCard.word }}</view>
+			<view class="member-btn" bindtap="openRechargeModal">立即开通会员</view>
+		</view>
+		<!-- 没开储值卡功能 -->
+		<view class="member-bottom" wx:if="{{ !config.store_card_enable }}">
+			<view class="member-price">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
+			<view class="member-btn" bindtap="buyMember">立即开通会员</view>
 		</view>
 	</view>
 
