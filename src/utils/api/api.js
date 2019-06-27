@@ -418,5 +418,11 @@ export const apis = {
         path: 'api/mag.affiliate.browse.record.json',
         isForceToken: true,
         method: 'POST'
+    },
+    // 会员分享
+    membershipShare: {
+        path: 'api/mag/membership.share.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
