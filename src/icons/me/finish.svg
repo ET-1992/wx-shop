@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4192" data-name="组 4192" transform="translate(-4566 -1823)">
+    <rect id="矩形_1801" data-name="矩形 1801" width="60" height="60" transform="translate(4566 1823)" fill="none"/>
+    <g id="组_4194" data-name="组 4194" transform="translate(233.572 -326.396)">
+      <rect id="矩形_1791" data-name="矩形 1791" width="44.535" height="44.535" rx="2" transform="translate(4342.444 2158.356)" fill="#d7d7d7"/>
+      <g id="矩形_1792" data-name="矩形 1792" transform="translate(4336.877 2153.902)" fill="none" stroke="#000" stroke-width="1">
+        <rect width="44.535" height="44.535" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="43.535" height="43.535" rx="2.5" fill="none"/>
+      </g>
+      <g id="组_4172" data-name="组 4172" transform="translate(4367.795 2182.891)">
+        <ellipse id="椭圆_430" data-name="椭圆 430" cx="10" cy="10" rx="10" ry="10" transform="translate(0 0)" fill="#fff" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <g id="组_4170" data-name="组 4170" transform="translate(5.44 13.738) rotate(-90)">
+          <path id="路径_23" data-name="路径 23" d="M0,3.674,3.237,0,6.316,3.674" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+          <path id="路径_24" data-name="路径 24" d="M0,7.812V0" transform="translate(3.191 0.407)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+        </g>
+      </g>
+      <g id="组_4173" data-name="组 4173" transform="translate(4350.237 2167.263)">
+        <line id="直线_135" data-name="直线 135" x2="17.814" transform="translate(0 13.719)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="直线_136" data-name="直线 136" x2="17.814" transform="translate(0 6.348)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="直线_137" data-name="直线 137" y2="13.924" transform="translate(8.805 6.962)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <g id="组_690" data-name="组 690" transform="translate(1.433)">
+          <line id="直线_138" data-name="直线 138" x1="4.505" y2="5.938" transform="translate(10.443)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+          <line id="直线_139" data-name="直线 139" x2="4.505" y2="5.938" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

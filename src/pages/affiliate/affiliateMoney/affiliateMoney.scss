@@ -121,3 +121,16 @@ radio .wx-radio-input{
 	}
 
 }
+
+.footer {
+	width: 100%;
+	height: 40rpx;
+	position: fixed;
+	bottom: 60rpx;
+	color: #032F9A;
+	font-size: 28rpx;
+	text-decoration: underline;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

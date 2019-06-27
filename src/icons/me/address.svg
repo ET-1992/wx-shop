@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4228" data-name="组 4228" transform="translate(-4824 -1967)">
+    <rect id="矩形_1804" data-name="矩形 1804" width="60" height="60" transform="translate(4824 1967)" fill="none"/>
+    <g id="组_4244" data-name="组 4244" transform="translate(0.141 -1)">
+      <ellipse id="椭圆_433" data-name="椭圆 433" cx="21.956" cy="7.083" rx="21.956" ry="7.083" transform="translate(4833.036 2011.359)" fill="#d7d7d7"/>
+      <g id="组_4274" data-name="组 4274">
+        <g id="椭圆_435" data-name="椭圆 435" transform="translate(4830.77 2006.922)" fill="none" stroke="#000" stroke-width="1">
+          <ellipse cx="21.956" cy="7.083" rx="21.956" ry="7.083" stroke="none"/>
+          <ellipse cx="21.956" cy="7.083" rx="21.456" ry="6.583" fill="none"/>
+        </g>
+        <path id="路径_6618" data-name="路径 6618" d="M28.791,5.323A16.595,16.595,0,0,0,5.323,28.791L17.057,41.525,28.791,28.791A16.686,16.686,0,0,0,28.791,5.323Z" transform="translate(4836.792 1970.834)" fill="#fff" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+        <path id="路径_6619" data-name="路径 6619" d="M6.466,0A6.466,6.466,0,1,1,0,6.466,6.466,6.466,0,0,1,6.466,0Z" transform="translate(4847.382 1981.509)" fill="#fff" stroke="#000" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

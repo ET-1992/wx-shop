@@ -4,8 +4,8 @@
 <view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
 
 	<view class="moneyInfo">
-		<view class="moneyInfoHeader">
-			<view class="moneyInfoHeader-text" data-index="{{1}}" bindtap="checkActive">
+		<view class="moneyInfoHeader" wx:if="{{ isActive === 1}}">
+			<!-- <view class="moneyInfoHeader-text" data-index="{{1}}" bindtap="checkActive">
 				<view 
 					class="moneyInfoHeader-border {{ isActive === 1 ? 'borderBottom' : '' }}" 
 					style="{{ isActive === 1 ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
@@ -16,7 +16,20 @@
 					class="moneyInfoHeader-border {{ isActive === 2 ? 'borderBottom' : '' }}"
 					style="{{ isActive === 2 ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
 				>提现记录</view>
-			</view>
+			</view> -->
+			<text>日期范围</text>
+			<picker mode="date" value="{{startDate}}" bindchange="bindStartDateChange">
+				<view class="picker">
+					{{startDate}}
+				</view>
+			</picker>
+			<text>到</text>
+			<picker mode="date" value="{{endDate}}" bindchange="bindEndDateChange">
+				<view class="picker">
+					{{endDate}}
+				</view>
+			</picker>
+			<image class="picker-search" src="/icons/search.png" mode="widthFix" bindtap="tapSearch"/>
 		</view>
 
 		<view class="moneyInfoBody">
@@ -25,12 +38,17 @@
 			</view> -->
 			<loading isLoading="{{ isLoading }}"/>
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
-				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
+				<!-- <view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
 						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime, globalData }}" />
 					</view>
+				</view> -->
+				<view class="orderItem">
+					<view >
+						<template is="orderShareItem" />
+					</view>
 				</view>
-				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
+				<!-- <view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view> -->
 			</view>
 
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 2 && !isLoading }}">

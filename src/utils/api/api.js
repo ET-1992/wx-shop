@@ -260,7 +260,7 @@ export const apis = {
     },
     showMoneyLog: {
         path: 'api/mag.affiliate.member.logs.json',
-        method: 'GET',
+        method: 'POST',
         isForceToken: true
     },
     getMoneyLog: {

@@ -13,22 +13,36 @@ Page({
         showMoneyLogCursor: 0,
         showMoneyLogItems: [],
         getMoneyLogItems: [],
-        isLoading: true
+        isLoading: true,
+        startDate: '2019-06-01',
+        endDate: '2019-06-30'
     },
 
-    onLoad(parmas) {
-        console.log(parmas);
+    onLoad(options) {
+        console.log(options, 'options');
         const { themeColor } = app.globalData;
         this.setData({
             isIphoneX: app.systemInfo.isIphoneX,
             themeColor,
-            globalData: app.globalData
+            globalData: app.globalData,
+            isActive: Number(options.isActive)
         });
+        if (Number(options.isActive) === 2) {
+            wx.setNavigationBarTitle({
+                title: '提现记录'
+            });
+            this.loadData(2);
+        } else {
+            wx.setNavigationBarTitle({
+                title: '收益详情'
+            });
+            this.loadData(1);
+        }
     },
 
-    async onShow() {
-        this.loadData();
-    },
+    // async onShow() {
+    //     this.loadData();
+    // },
 
     checkActive(e) {
         console.log(e);
@@ -56,16 +70,18 @@ Page({
         });
     },
 
-    async loadData() {
-        let { isActive, showMoneyLogCursor = 0, getMoneyLogCursor = 0, showMoneyLogItems = [], getMoneyLogItems = [] } = this.data;
+    async loadData(isActive) {
+        let { showMoneyLogCursor = 0, getMoneyLogCursor = 0, showMoneyLogItems = [], getMoneyLogItems = [] } = this.data;
         if (isActive === 1) {
             const showMoneyLogData = await api.hei.showMoneyLog({ cursor: showMoneyLogCursor });
             console.log(showMoneyLogData);
             showMoneyLogItems = showMoneyLogItems.concat(showMoneyLogData.data);
+            console.log('showMoneyLogItems', showMoneyLogItems);
             showMoneyLogCursor = showMoneyLogData.next_cursor;
 
             showMoneyLogItems.forEach((item) => {
-                item.formatTime = formatTime(new Date(item.time * 1000));
+                console.log(item.time, 'time');
+                item.formatTime = item.time;
             });
 
             this.setData({
@@ -81,7 +97,7 @@ Page({
             getMoneyLogCursor = getMoneyLogData.next_cursor;
 
             getMoneyLogItems.forEach((item) => {
-                item.formatTime = formatTime(new Date(item.time * 1000));
+                item.formatTime = item.time;
                 item.formatStatus = SHARE_STATUS_TEXT[item.status];
             });
 
@@ -99,4 +115,22 @@ Page({
         if ((!showMoneyLogCursor && isActive === 1) || (!getMoneyLogCursor && isActive === 2)) { return }
         this.loadData();
     },
+
+    bindStartDateChange(e) {
+        console.log('picker发送选择改变，携带值为', e.detail.value);
+        this.setData({
+            startDate: e.detail.value
+        });
+    },
+
+    bindEndDateChange(e) {
+        console.log('picker发送选择改变，携带值为', e.detail.value);
+        this.setData({
+            endDate: e.detail.value
+        });
+    },
+
+    tapSearch() {
+        console.log('2');
+    }
 });

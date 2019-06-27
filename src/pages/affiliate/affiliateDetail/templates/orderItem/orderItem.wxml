@@ -1,12 +1,19 @@
 <template name="orderShareItem">
     <view class="orderShareItem">
         <image class="itemLeft" src="{{ order.image_url }}" mode="aspectFill"></image>
-        <view class="itemCenter">
+        <!-- <view class="itemCenter">
             <view class="itemCenter-t">品名：{{ order.title }}</view>
             <view class="itemCenter-t">所属订单号：{{ order.order_no }}</view>
             <view class="itemCenter-t">确认时间：{{ formatTime }}</view>
             <text class="itemCenter-t" decode="{{ true }}">支付金额：{{ globalData.CURRENCY[globalData.currency] }}{{ order_amount }} &nbsp; &nbsp; 佣金比例：{{ order.commission_percent }}%</text>
         </view>
-        <view class="itemRight">+{{ globalData.CURRENCY.currency }}{{ order.commission_amount/100 }}</view>
+        <view class="itemRight">+{{ globalData.CURRENCY.currency }}{{ order.commission_amount/100 }}</view> -->
+        <view class="itemCenter">
+            <view class="itemCenter-t">品名：1</view>
+            <view class="itemCenter-t">所属订单号：2</view>
+            <view class="itemCenter-t">确认时间：3</view>
+            <text class="itemCenter-t" decode="{{ true }}">支付金额：￥4 &nbsp; &nbsp; 佣金比例：30%</text>
+        </view>
+        <view class="itemRight">+￥222</view>
     </view>
 </template>

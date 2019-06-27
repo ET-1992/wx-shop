@@ -1,54 +1,54 @@
 <view class="infos">
-    <navigator class="infoItem" url="/pages/membership/members/members" wx:if="{{  user.membership.is_member }}">
-        <image class="itemIcon" mode="aspectFit" src="/icons/memberCenter.svg" />
+    <navigator class="infoItem" url="/pages/membership/members/members" wx:if="{{ user.membership.is_member }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/me/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>
     </navigator>
     <view class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/address.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/address.svg" />
         <view class="itemTitle">我的地址</view>
     </view>
     <view class="infoItem" bindtap="openManager" wx:if="{{ defineTypeGlobal === 'magua' }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/manager.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/manager.svg" />
         <view class="itemTitle">我的管家</view>
     </view>
     <navigator wx:if="{{ wallet && !wallet.coin_enable }}" class="infoItem" url="/pages/myCoupons/myCoupons">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/yhq.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/yhq.svg" />
         <view class="itemTitle">优惠券</view>
     </navigator>
     <navigator class="infoItem" url="/pages/orderList/orderList?status=10">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/myGroup.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/myGroup.svg" />
         <view class="itemTitle">我的拼团</view>
     </navigator>
     <navigator wx:if="{{ crowd_pay_enable }}" class="infoItem" url="/pages/crowd/crowdList/crowdList">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/crowd/crowdPay.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/crowdPay.svg" />
         <view class="itemTitle">好友代付</view>
     </navigator>
     <navigator class="infoItem" url="/pages/myFav/myFav">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/myfav.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/myfav.svg" />
         <view class="itemTitle">我的收藏</view>
     </navigator>
     <button class="normalizeBt infoItem" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/shareCenter.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </button>
     <view class="infoItem" bindtap="showToast" wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/shareCenter.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </view>
     <button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/contact.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
         <view class="itemTitle">联系客服</view>
     </button>
     <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/magua/about.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
         <view class="itemTitle">关于我们</view>
     </navigator>
     <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
-        <image class="itemIcon" mode="aspectFit" src="../../../icons/shopPhone.png" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/shopPhone.svg" />
         <view class="itemTitle">售后电话</view>
     </view>
     <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
-        <image class="itemIcon idCart" mode="aspectFit" src="../../../icons/magua/idCart.svg" />
+        <image class="itemIcon" mode="widthFix" src="/icons/me/idCart.svg" />
         <view class="itemTitle">身份信息</view>
     </navigator>
 </view>

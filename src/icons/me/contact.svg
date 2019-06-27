@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4238" data-name="组 4238" transform="translate(-4915 -2192)">
+    <rect id="矩形_1820" data-name="矩形 1820" width="60" height="60" transform="translate(4915 2192)" fill="none"/>
+    <g id="组_4209" data-name="组 4209" transform="translate(-102.956 -18.958)">
+      <path id="路径_6636" data-name="路径 6636" d="M8.1,44.5H45.437A18.589,18.589,0,0,0,31.169,26.369,13.4,13.4,0,0,0,40.1,13.835,13.335,13.335,0,1,0,22.368,26.369,18.589,18.589,0,0,0,8.1,44.5Z" transform="translate(5028.659 2217.513)" fill="#d7d7d7"/>
+      <path id="路径_6637" data-name="路径 6637" d="M8.1,44.5H45.437A18.589,18.589,0,0,0,31.169,26.369,13.4,13.4,0,0,0,40.1,13.835,13.335,13.335,0,1,0,22.368,26.369,18.589,18.589,0,0,0,8.1,44.5Z" transform="translate(5023.738 2214.561)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+      <g id="组_4208" data-name="组 4208" transform="translate(5021.842 2243.405)">
+        <path id="路径_6635" data-name="路径 6635" stroke="#000" d="M22.077,19.612a3.71,3.71,0,0,0,3.7-3.7V4.2a3.71,3.71,0,0,0-3.7-3.7H4.2A3.737,3.737,0,0,0,.5,4.2V15.913a3.737,3.737,0,0,0,3.7,3.7H16.246l5.091,4.85Z" fill="#fff" transform="translate(-0.5 -0.5)" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1" fill-rule="evenodd"/>
+        <g id="组_4207" data-name="组 4207" transform="translate(5.769 8.043)">
+          <ellipse id="椭圆_8" data-name="椭圆 8" cx="1.374" cy="1.374" rx="1.374" ry="1.374" transform="translate(0 0)"/>
+          <ellipse id="椭圆_9" data-name="椭圆 9" cx="1.374" cy="1.374" rx="1.374" ry="1.374" transform="translate(5.495 0)"/>
+          <ellipse id="椭圆_10" data-name="椭圆 10" cx="1.374" cy="1.374" rx="1.374" ry="1.374" transform="translate(10.991 0)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

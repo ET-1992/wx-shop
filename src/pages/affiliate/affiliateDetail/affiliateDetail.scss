@@ -57,26 +57,38 @@
 			background: #fff;
 			display: flex;
 			color: #707070;
-			
-			.moneyInfoHeader-text {
-				flex: 1;	
-				display: flex;
-				justify-content: center;
-				align-items: center;
+			font-size: 24rpx;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
 
-				.borderBottom{
-					font-weight: bold;
-					color: #000;
-				}
-
-				.moneyInfoHeader-border {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					height: 100%;
-					font-size: 28rpx;
-				}
+			.picker {
+				color: #000;
 			}
+
+			.picker-search {
+				width: 28rpx;
+			}
+			
+			// .moneyInfoHeader-text {
+			// 	flex: 1;	
+			// 	display: flex;
+			// 	justify-content: center;
+			// 	align-items: center;
+
+			// 	.borderBottom{
+			// 		font-weight: bold;
+			// 		color: #000;
+			// 	}
+
+			// 	.moneyInfoHeader-border {
+			// 		display: flex;
+			// 		justify-content: center;
+			// 		align-items: center;
+			// 		height: 100%;
+			// 		font-size: 28rpx;
+			// 	}
+			// }
 			
 		}
 		.moneyInfoBody {

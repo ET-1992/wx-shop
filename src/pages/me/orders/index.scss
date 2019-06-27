@@ -37,25 +37,25 @@
 	}
 	.statusIcon {
 		$size: 60rpx;
-		height: $size;
 		width: $size;
+		// height: $size;
 		margin-bottom: 10rpx;
 	}
-	.unpay{
-		width: 70rpx;
-	}
-	.unSend{
-		width: 70rpx;
-	}
-	.unGet{
-		width: 64rpx;
-	}
-	.service{
-		width: 57rpx;
-	}
-	.allOrder{
-		width: 55rpx;
-	}
+	// .unpay{
+	// 	width: 70rpx;
+	// }
+	// .unSend{
+	// 	width: 70rpx;
+	// }
+	// .unGet{
+	// 	width: 64rpx;
+	// }
+	// .service{
+	// 	width: 57rpx;
+	// }
+	// .allOrder{
+	// 	width: 55rpx;
+	// }
 	.orderItemValue {
 		$size: 30rpx;
 		width: $size;

@@ -45,7 +45,7 @@
 	<!-- 收益提现内容 -->
 	<view class="income">
 		<view class="incomeData">
-			<view class="incomeDataHead" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail">
+			<view class="incomeDataHead" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=1">
 				<text class="headTitle">我的收益</text>
 				<image class="headArrow" mode="aspectFit" src="/icons/right.png"></image>
 			</view>

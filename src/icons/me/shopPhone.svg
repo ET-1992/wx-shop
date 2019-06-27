@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4242" data-name="组 4242" transform="translate(-4993 -2190)">
+    <path id="路径_6675" data-name="路径 6675" d="M0,0H60V60H0Z" transform="translate(4993 2190)" fill="none"/>
+    <g id="组_4226" data-name="组 4226" transform="translate(-105.536 -38.516)">
+      <rect id="矩形_1829" data-name="矩形 1829" width="39.226" height="45.11" rx="4" transform="translate(5112.845 2237.922)" fill="#d7d7d7"/>
+      <g id="矩形_1830" data-name="矩形 1830" transform="translate(5106.961 2234)" fill="none" stroke="#000" stroke-width="1">
+        <rect width="39.226" height="45.11" rx="4" stroke="none"/>
+        <rect x="0.5" y="0.5" width="38.226" height="44.11" rx="3.5" fill="none"/>
+      </g>
+      <g id="组_4225" data-name="组 4225" transform="translate(5115.013 2245.139)">
+        <g id="组_4224" data-name="组 4224" transform="translate(0 1.11)">
+          <g id="组_4223" data-name="组 4223" transform="translate(0 0)">
+            <path id="路径_6646" data-name="路径 6646" d="M-26.377-16.853c2.257,2.257,4.858,4.367,5.879,3.334,1.467-1.473,2.37-2.759,5.642-.164s.767,4.339-.655,5.766c-1.636,1.653-7.769.118-13.845-5.913S-37.035-25.982-35.4-27.635c1.422-1.427,3.148-3.921,5.766-.694s1.337,4.141-.124,5.642c-1.027,1.033,1.128,3.622,3.385,5.856Z" transform="translate(36 29.906)" fill="#fff" stroke="#000" stroke-width="1"/>
+          </g>
+        </g>
+        <path id="路径_6648" data-name="路径 6648" d="M0,0S12.425.658,11.766,12.132" transform="matrix(0.999, 0.035, -0.035, 0.999, 11.454, 0)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+        <path id="路径_6649" data-name="路径 6649" d="M0,0S7.543.4,7.143,7.364" transform="matrix(0.999, 0.035, -0.035, 0.999, 11.416, 4.748)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+      </g>
+      <path id="路径_6651" data-name="路径 6651" d="M5105.01,2244.557h5.884" transform="translate(0 -0.204)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+      <path id="路径_6652" data-name="路径 6652" d="M5105.01,2244.557h5.884" transform="translate(0 7.641)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+      <path id="路径_6653" data-name="路径 6653" d="M5105.01,2244.557h5.884" transform="translate(0 15.486)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+      <path id="路径_6654" data-name="路径 6654" d="M5105.01,2244.557h5.884" transform="translate(0 23.331)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

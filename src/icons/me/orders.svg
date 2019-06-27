@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4271" data-name="组 4271" transform="translate(-5120 -628)">
+    <rect id="矩形_1801" data-name="矩形 1801" width="60" height="60" transform="translate(5120 628)" fill="none"/>
+    <rect id="矩形_1795" data-name="矩形 1795" width="40.195" height="44.661" rx="3" transform="translate(5132.136 641.194)" fill="#d7d7d7"/>
+    <g id="矩形_1798" data-name="矩形 1798" transform="translate(5127.67 636.728)" fill="none" stroke="#000" stroke-width="1">
+      <rect width="40.195" height="44.661" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="39.195" height="43.661" rx="2.5" fill="none"/>
+    </g>
+    <path id="路径_6622" data-name="路径 6622" d="M16.365,12.9H1.5a1,1,0,0,1-1-1V4.849a1,1,0,0,1,1-1H3.85V1.5a1,1,0,0,1,1-1h8.166a1,1,0,0,1,1,1V3.85h2.35a1,1,0,0,1,1,1V11.9A1,1,0,0,1,16.365,12.9Z" transform="translate(5138.835 631.145)" fill="#fff"/>
+    <path id="路径_6623" data-name="路径 6623" d="M16.365,12.4a.5.5,0,0,0,.5-.5V4.849a.5.5,0,0,0-.5-.5h-2.85V1.5a.5.5,0,0,0-.5-.5H4.849a.5.5,0,0,0-.5.5V4.35H1.5a.5.5,0,0,0-.5.5V11.9a.5.5,0,0,0,.5.5H16.365m0,1H1.5A1.5,1.5,0,0,1,0,11.9V4.849a1.5,1.5,0,0,1,1.5-1.5H3.35V1.5A1.5,1.5,0,0,1,4.849,0h8.166a1.5,1.5,0,0,1,1.5,1.5V3.35h1.85a1.5,1.5,0,0,1,1.5,1.5V11.9A1.5,1.5,0,0,1,16.365,13.4Z" transform="translate(5138.835 631.145)"/>
+    <path id="路径_6615" data-name="路径 6615" d="M4469.43,2219.64h26.8" transform="translate(664.94 -1568.398)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+    <path id="路径_6616" data-name="路径 6616" d="M4469.43,2219.64h26.8" transform="translate(664.94 -1559.466)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+    <path id="路径_6617" data-name="路径 6617" d="M4469.43,2219.64h26.8" transform="translate(664.94 -1550.534)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+  </g>
+</svg>

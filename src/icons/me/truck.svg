@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="组_4183" data-name="组 4183" transform="translate(-4566 -1823)">
+    <rect id="矩形_1801" data-name="矩形 1801" width="60" height="60" transform="translate(4566 1823)" fill="none"/>
+    <g id="组_4186" data-name="组 4186" transform="translate(395.321 -322.418)">
+      <g id="组_4156" data-name="组 4156" transform="translate(4175.708 2151.383)">
+        <path id="联合_14" data-name="联合 14" d="M37.175,38H20.761A5.466,5.466,0,0,1,9.846,38H2.186A2.463,2.463,0,0,1,0,35.344V2.655A2.463,2.463,0,0,1,2.186,0H29.1a2.464,2.464,0,0,1,2.187,2.656v.879H44.324l8.647,14.157V35.284A2.5,2.5,0,0,1,50.785,38h-2.7a5.466,5.466,0,0,1-10.915,0Z" transform="translate(0 5)" fill="#d7d7d7"/>
+      </g>
+      <g id="组_4157" data-name="组 4157" transform="translate(4172.427 2152.009)">
+        <path id="减去_64" data-name="减去 64" d="M4.9,33.113H0V0H14.13l8.648,13.6V30.5a2.429,2.429,0,0,1-2.186,2.609H17.864c.01-.144.015-.295.015-.448a6.5,6.5,0,0,0-13,0c0,.149.005.3.015.448Z" transform="translate(31.287 4.887)" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="1"/>
+        <path id="减去_63" data-name="减去 63" d="M8.861,38H2.187A2.458,2.458,0,0,1,0,35.343V2.656A2.458,2.458,0,0,1,2.187,0H29.1a2.458,2.458,0,0,1,2.186,2.656V38H21.816c.014-.175.022-.357.022-.542a6.5,6.5,0,1,0-13,0c0,.181.007.363.022.542Z" transform="translate(0 0)" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="1"/>
+        <g id="椭圆_431" data-name="椭圆 431" transform="translate(8.252 30.142)" fill="none" stroke="#000" stroke-width="1">
+          <circle cx="7" cy="7" r="7" stroke="none"/>
+          <circle cx="7" cy="7" r="6.5" fill="none"/>
+        </g>
+        <g id="椭圆_432" data-name="椭圆 432" transform="translate(35.552 30.409)" fill="none" stroke="#000" stroke-width="1">
+          <circle cx="7" cy="7" r="7" stroke="none"/>
+          <circle cx="7" cy="7" r="6.5" fill="none"/>
+        </g>
+      </g>
+      <path id="路径_6658" data-name="路径 6658" d="M25,17v5.929l2.964,2.964" transform="translate(4189.283 2150.033)" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>
