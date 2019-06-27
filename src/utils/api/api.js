@@ -404,5 +404,11 @@ export const apis = {
     getIntegralList: {
         path: 'api/mag/membership.log.json',
         isForceToken: true
+    },
+    // 会员分享
+    membershipShare: {
+        path: 'api/mag/membership.share.json',
+        method: 'POST',
+        isForceToken: true
     }
 };

@@ -2,7 +2,7 @@
 // 若需要使用this，不能使用箭头函数，不然this为undefinde
 
 import api from 'utils/api';
-import { SHARE_TITLE } from 'constants/index';
+import { SHARE_TITLE, USER_KEY } from 'constants/index';
 import { showModal, showToast, requestPayment } from 'utils/wxp';
 
 // 获取应用实例
@@ -43,8 +43,19 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
     if (share_image) {
         shareMsg.imageUrl = share_image;
     }
+
+    memberShipShare(path);
     return shareMsg;
 };
+
+function memberShipShare(path) {
+    const user = wx.getStorageSync(USER_KEY);
+    if (user.membership.is_member) {
+        setTimeout(() => {
+            api.hei.membershipShare({ share_url: path });
+        }, 1000);
+    }
+}
 
 export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy, isMiaoshaBuy }) => {
 
