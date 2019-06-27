@@ -66,9 +66,7 @@
 	<!-- 会员充值弹窗 -->
 	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
 
-	<view class="member-rule">
-		<image class="rule-image" src="{{ image_url }}" mode="aspectFit"/>
-	</view>
+	<image class="rule-image" src="{{ image_url }}" mode="widthFix"/>
 </view>
 
 <console page="会员中心" />
