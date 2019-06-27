@@ -125,7 +125,7 @@ Page({
         ctx.setTextAlign('center');
 
         ctx.setFontSize(0.030 * windowWidth);
-        ctx.fillText(this.data.user.nickname, width / 2, height * 0.17 * 2);
+        ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.17 * 2);
 
         ctx.beginPath();
         ctx.rect(width / 2 - width * (288 / 650) / 2, height * 0.34 * 2 - width * (288 / 650) / 2, width * (288 / 650), width * (288 / 650));
@@ -161,7 +161,7 @@ Page({
         ctx.setFillStyle('#000000');
         ctx.setTextAlign('center');
         ctx.setFontSize(0.030 * windowWidth);
-        ctx.fillText(this.data.user.nickname, width / 2, height * 0.24);
+        ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.24);
 
         ctx.font = 'normal bold 1px PingFang SC';
         ctx.setFontSize(0.040 * windowWidth);
