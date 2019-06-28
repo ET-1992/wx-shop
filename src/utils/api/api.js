@@ -376,5 +376,10 @@ export const apis = {
     getVisitorData: {
         path: 'api/mag.affiliate.browse.user.list.json',
         isForceToken: true
+    },
+    recordAffiliateBrowse: {
+        path: 'api/mag.affiliate.browse.record.json',
+        isForceToken: true,
+        method: 'POST'
     }
 };
