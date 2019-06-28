@@ -77,9 +77,22 @@ App({
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
-                console.log(res);
+                console.log(res, 'appConfig');
                 const { config } = res;
                 wx.setStorageSync(CONFIG, config);
+            });
+        }, 500);
+    },
+
+    login() {
+        setTimeout(() => {
+            api.hei.config().then((res) => {
+                const { config, current_user } = res;
+                if (config.web_enable && current_user && !current_user.platform_user_id) {
+                    wx.navigateTo({
+                        url: '/pages/login/login',
+                    });
+                }
             });
         }, 500);
     },
@@ -93,6 +106,7 @@ App({
 
         this.updateConfig();
 
+        this.login();
 
         const { query = {}} = options;
         if (query.vendor) {
