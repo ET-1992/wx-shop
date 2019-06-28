@@ -1,0 +1,4 @@
+<view class="container">
+    <image class="bg" src="{{ config.web.web_bind_bg_image || '/icons/login/bg.svg' }}" mode="aspectFill"></image>
+    <button class="btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">手机号一键登录</button>
+</view>

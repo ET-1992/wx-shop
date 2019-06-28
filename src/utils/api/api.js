@@ -366,5 +366,15 @@ export const apis = {
     getShopRule: {
         path: 'api/mag.shop.rule.json',
         isForceToken: true
+    },
+    bindWebUser: {
+        path: 'api/mag.platform_user.weapp.bind.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    unBindWebUser: {
+        path: 'api/mag.platform_user.weapp.unbind.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
