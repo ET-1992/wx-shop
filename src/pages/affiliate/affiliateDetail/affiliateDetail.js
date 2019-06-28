@@ -14,8 +14,8 @@ Page({
         showMoneyLogItems: [],
         getMoneyLogItems: [],
         isLoading: true,
-        startDate: '2019-06-01',
-        endDate: '2019-06-30'
+        startDate: '2019-01-01',
+        endDate: '2020-01-01'
     },
 
     onLoad(options) {
@@ -71,17 +71,24 @@ Page({
     },
 
     async loadData(isActive) {
-        let { showMoneyLogCursor = 0, getMoneyLogCursor = 0, showMoneyLogItems = [], getMoneyLogItems = [] } = this.data;
+        let { startDate, endDate, showMoneyLogCursor = 0, getMoneyLogCursor = 0, showMoneyLogItems = [], getMoneyLogItems = [] } = this.data;
+        const params = { cursor: showMoneyLogCursor };
+        if (startDate) {
+            params.start_time = startDate;
+        }
+        if (endDate) {
+            params.end_time = endDate;
+        }
         if (isActive === 1) {
-            const showMoneyLogData = await api.hei.showMoneyLog({ cursor: showMoneyLogCursor });
-            console.log(showMoneyLogData);
+            const showMoneyLogData = await api.hei.showMoneyLog(params);
+            console.log('showMoneyLogData', showMoneyLogData);
             showMoneyLogItems = showMoneyLogItems.concat(showMoneyLogData.data);
             console.log('showMoneyLogItems', showMoneyLogItems);
             showMoneyLogCursor = showMoneyLogData.next_cursor;
 
             showMoneyLogItems.forEach((item) => {
                 console.log(item.time, 'time');
-                item.formatTime = item.time;
+                item.formatTime = formatTime(new Date(item.time * 1000));
             });
 
             this.setData({
@@ -97,7 +104,7 @@ Page({
             getMoneyLogCursor = getMoneyLogData.next_cursor;
 
             getMoneyLogItems.forEach((item) => {
-                item.formatTime = item.time;
+                item.formatTime = formatTime(new Date(item.time * 1000));
                 item.formatStatus = SHARE_STATUS_TEXT[item.status];
             });
 
@@ -117,14 +124,14 @@ Page({
     },
 
     bindStartDateChange(e) {
-        console.log('picker发送选择改变，携带值为', e.detail.value);
+        console.log('startDate携带值为', e.detail.value);
         this.setData({
             startDate: e.detail.value
         });
     },
 
     bindEndDateChange(e) {
-        console.log('picker发送选择改变，携带值为', e.detail.value);
+        console.log('endDate携带值为', e.detail.value);
         this.setData({
             endDate: e.detail.value
         });
@@ -132,5 +139,10 @@ Page({
 
     tapSearch() {
         console.log('2');
+        this.setData({
+            showMoneyLogItems: [],
+            showMoneyLogCursor: 0
+        });
+        this.loadData(1);
     }
 });

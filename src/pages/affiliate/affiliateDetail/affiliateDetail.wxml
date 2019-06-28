@@ -38,17 +38,12 @@
 			</view> -->
 			<loading isLoading="{{ isLoading }}"/>
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
-				<!-- <view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
+				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
 						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime, globalData }}" />
 					</view>
-				</view> -->
-				<view class="orderItem">
-					<view >
-						<template is="orderShareItem" />
-					</view>
 				</view>
-				<!-- <view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view> -->
+				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>
 
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 2 && !isLoading }}">
