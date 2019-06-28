@@ -30,7 +30,7 @@
   <!-- 优惠券 -->
   <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isGrouponBuy="{{ isGrouponBuy }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
 
-  <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable }}">
+  <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
       <view class="title">支付方式</view>
       <view class="radio-group">
         <view class="radio" wx:for="{{ PAY_STYLES }}" bind:tap="pickPayStyle" data-value="{{item.value}}">
@@ -40,7 +40,7 @@
       </view>
   </view>
 
-    <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable }}">
+    <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
       <view class="title">您当前的储值卡余额为：{{ store_card.balance }}元</view>
   </view>
 
