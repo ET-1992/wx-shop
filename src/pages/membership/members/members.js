@@ -24,7 +24,8 @@ Page({
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync('user');
-        const { image_url }  = await api.hei.getShopRule({ key: 'membership' });
+        const data  = await api.hei.getShopRule({ key: 'membership' });
+        console.log('data', data);
         const result = await api.hei.membershipCard();
         const recharge = await api.hei.rechargePrice();
         recharge.data[0].checked = true;
@@ -36,7 +37,7 @@ Page({
             themeColor,
             config,
             user,
-            image_url,
+            ...data,
             membershipCard: result.data,
             rechargeArray: recharge.data
         });
@@ -84,6 +85,7 @@ Page({
         if (pay_sign) {
             try {
                 await wxPay(pay_sign);
+                this.onShow();
             } catch (error) {
                 console.log(error);
             }
