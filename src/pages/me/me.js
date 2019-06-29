@@ -75,7 +75,7 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const user = getUserInfo();
         this.setData({ user, config, logoObj: config.partner });
-        this.loadOrderCount();
+        // this.loadOrderCount();
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);

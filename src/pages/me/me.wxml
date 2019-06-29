@@ -7,7 +7,7 @@
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 会员专区 -->
-	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ membership_banner }}">
+	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ config.membership_enable && membership_banner }}">
 		<image class="image" src="{{ membership_banner }}" />
 	</navigator>
 
