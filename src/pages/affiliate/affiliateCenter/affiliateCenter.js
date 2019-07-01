@@ -1,5 +1,7 @@
 import api from 'utils/api';
 import { go } from 'utils/util';
+import { CONFIG, USER_KEY } from 'constants/index';
+
 const app = getApp();
 
 Page({
@@ -26,6 +28,7 @@ Page({
         const user = data.current_user;
         console.log(data, 'data');
         console.log(user, 'user');
+        wx.setStorageSync(USER_KEY, data.current_user || '');
         this.setData({
             member,
             wallet,
