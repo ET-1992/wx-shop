@@ -1,5 +1,5 @@
 import { getAgainUserForInvalid, getUserInfo, go } from 'utils/util';
-import { CONFIG } from 'constants/index';
+import { CONFIG, USER_KEY } from 'constants/index';
 import { wxPay } from 'utils/pageShare';
 import api from 'utils/api';
 const app = getApp();
@@ -25,6 +25,8 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const data  = await api.hei.getShopRule({ key: 'membership' });
         console.log('data', data);
+        wx.setStorageSync(USER_KEY, data.current_user || '');
+
         if (config.store_card_enable) {
             const recharge = await api.hei.rechargePrice();
             recharge.data[0].checked = true;
