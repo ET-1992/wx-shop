@@ -33,18 +33,19 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: space-around;
-				margin-left: 20rpx;
+				margin-left: 16rpx;
 				margin-bottom: 10rpx;
 	
 				.head-user {
-					font-size: 28rpx;
+					font-size: 26rpx;
 					font-weight: bold;
 					color: #fff;
 					height: 60rpx;
-					max-width: 150rpx;
+					max-width: 200rpx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+					margin-bottom: 10rpx;
 				}
 	
 				.head-level {
@@ -65,7 +66,7 @@
 			line-height: 1.7;
 
 			.number {
-				font-size: 36rpx;
+				font-size: 32rpx;
 				font-weight: bold;
 			}
 

@@ -10,7 +10,7 @@
 	</view>
 	<view class="recharge-elsePrice" wx:if="{{ user.membership.is_member }}">
 		<view class="elsePrice-text">其他金额</view>
-		<input type="digit" class="elsePrice-input" placeholder="请输入金额"  bindblur="inputRechargePrice" bindfocus="inputFocus"/>
+		<input type="digit" class="elsePrice-input" placeholder="请输入金额"  bindblur="inputRechargePrice" bindfocus="inputFocus" value="{{ rechargePrice }}"/>
 	</view>
 	<view class="model-btn" bindtap="rechargePriceEvent">确认支付</view>
 </van-popup>
