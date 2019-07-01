@@ -13,7 +13,7 @@ Page({
             10: 0,
         },
         consoleTime: 0,
-        isLoading: false,
+        isLoading: true,
         isShowConsole: false,
         infoModalTime: 0
     },
@@ -71,7 +71,7 @@ Page({
 
     async onShow() {
         app.log('页面onShow');
-        this.setData({ isLoading: true });
+        // this.setData({ isLoading: true });
         const config = wx.getStorageSync(CONFIG);
         const user = getUserInfo();
         this.setData({ user, config, logoObj: config.partner });
