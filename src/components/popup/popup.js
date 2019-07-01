@@ -10,6 +10,11 @@ Component({
         rechargeModal: {
             type: Boolean,
             value: false,
+            observer(newValue) {
+                if (newValue) {
+                    this.setData({ rechargePrice: '' });
+                }
+            }
         },
         rechargeArray: {
             type: Object,
@@ -26,7 +31,7 @@ Component({
     },
     data: {
         amount: 0,
-        // rechargePrice: 0
+        // rechargePrice: ''
     },
     methods: {
         // 关闭会员充值弹窗
