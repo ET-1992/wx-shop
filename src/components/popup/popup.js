@@ -25,7 +25,8 @@ Component({
         }
     },
     data: {
-        amount: 0
+        amount: 0,
+        // rechargePrice: 0
     },
     methods: {
         // 关闭会员充值弹窗
@@ -37,6 +38,12 @@ Component({
         // 充值金额点击选择事件
         rechargeTap(e) {
             let checked = e.currentTarget.dataset.index;
+            console.log('this.data.rechargePrice', this.data.rechargePrice);
+            if (this.data.rechargePrice) {
+                this.setData({
+                    rechargePrice: ''
+                });
+            }
             console.log(checked);
             const { rechargeArray } = this.data;
             for (let i = 0; i < rechargeArray.length; i++) {
@@ -78,14 +85,13 @@ Component({
         inputRechargePrice(e) {
             const { value } = e.detail;
             this.setData({ rechargePrice: value });
-            console.log(this.data.rechargePrice);
+            console.log('this.data.rechargePrice', this.data.rechargePrice);
         },
 
         /* 有储值卡的店铺确认支付按钮事件 */
         async rechargePriceEvent() {
             const { rechargePrice, config } = this.data;
             console.log('有储值卡的店铺rechargePrice', rechargePrice);
-
             if (rechargePrice) {
                 const { pay_sign } = await api.hei.joinMembership({ amount: rechargePrice });
                 this.setData({ pay_sign });

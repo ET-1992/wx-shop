@@ -2,9 +2,9 @@
 <import src="./templates/moneyItem/moneyItem.wxml"/>
 <import src="./templates/moneyGetItem/moneyGetItem.wxml"/>
 <view class="container {{ isIphoneX ? 'isIphoneXClass' : '' }}">
-
-	<view class="moneyInfo">
-		<view class="moneyInfoHeader" wx:if="{{ isActive === 1}}">
+	<loading isLoading="{{ isLoading }}" />
+	<view class="moneyInfo" wx:if="{{!isLoading}}">
+		<view class="moneyInfoHeader" wx:if="{{ isActive === 1 }}">
 			<!-- <view class="moneyInfoHeader-text" data-index="{{1}}" bindtap="checkActive">
 				<view 
 					class="moneyInfoHeader-border {{ isActive === 1 ? 'borderBottom' : '' }}" 
@@ -36,8 +36,8 @@
 			<!-- <view class="moneyInfoBodySearch" hidden="{{ isActive !== 1 && !isLoading }}">
 				<input class="moneyInfoBodySearch-i" placeholder="请输入订单号或者商品号查找" />
 			</view> -->
-			<loading isLoading="{{ isLoading }}"/>
-			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 && !isLoading }}">
+			
+			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 }}">
 				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
 						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime, globalData }}" />
