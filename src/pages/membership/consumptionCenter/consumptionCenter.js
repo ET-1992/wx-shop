@@ -26,14 +26,14 @@ Page({
         this.getConsumptionList();
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const user = wx.getStorageSync('user');
+        // const user = wx.getStorageSync('user');
         const recharge = await api.hei.rechargePrice();
         recharge.data[0].checked = true;
         this.setData({
             isLoading: false,
             themeColor,
             config,
-            user,
+            user: recharge.current_user,
             rechargeArray: recharge.data
         });
     },

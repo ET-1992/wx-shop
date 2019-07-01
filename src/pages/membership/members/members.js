@@ -23,34 +23,21 @@ Page({
         this.setData({ isLoading: true });
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const user = wx.getStorageSync('user');
         const data  = await api.hei.getShopRule({ key: 'membership' });
         console.log('data', data);
-        const result = await api.hei.membershipCard();
-        const recharge = await api.hei.rechargePrice();
-        recharge.data[0].checked = true;
-        // console.log('config', config);
-        // console.log('储值卡-会员中心result', result);
-        // console.log('获取可充值金额数组recharge.data', recharge.data);
+        if (config.store_card_enable) {
+            const recharge = await api.hei.rechargePrice();
+            recharge.data[0].checked = true;
+            this.setData({ rechargeArray: recharge.data });
+        }
         this.setData({
             isLoading: false,
             themeColor,
             config,
-            user,
+            user: data.current_user,
             ...data,
-            membershipCard: result.data,
-            rechargeArray: recharge.data
         });
     },
-
-    // async onShow() {
-    //     app.log('页面onShow');
-    //     const config = wx.getStorageSync(CONFIG);
-    //     const user = getUserInfo();
-    //     const result = await api.hei.membershipCard();
-    //     console.log('储值卡-会员中心result', result);
-    //     this.setData({ user, config, membershipCard: result.data });
-    // },
 
     // 获取用户信息
     async bindGetUserInfo(e) {
