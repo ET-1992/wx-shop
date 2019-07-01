@@ -58,7 +58,7 @@ Page({
             ordersComponentData,
             personalComponentData,
             managerComponentData,
-            membership_banner: data.membership_banner
+            membership_banner: data.membership_banner || ''
         });
     },
 

@@ -230,7 +230,7 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
     },
-    wallet: {
+    wallet: { // 消费记录所调接口
         path: 'api/mag.wallet.logs.json',
         isForceToken: true,
     },
@@ -386,11 +386,6 @@ export const apis = {
     // 可充值金额
     rechargePrice: {
         path: 'api/mag.membership.recharge.json',
-        isForceToken: true
-    },
-    // 消费记录
-    consumptionLog: {
-        path: 'api/mag.membership.store.card.log.json',
         isForceToken: true
     },
     // 删除会员
