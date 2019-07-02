@@ -151,7 +151,9 @@ Page({
     /* 免后台审核成为分享家 */
     async beShareUser() {
         try {
-            const data = await api.hei.joinShareUser();
+            const data = await api.hei.joinShareUser({
+                code: app.globalData.afcode || ''
+            });
             const { confirm }  = await showModal({
                 title: '温馨提示',
                 content: '申请成功，您已成为分享家',
