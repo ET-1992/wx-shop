@@ -19,16 +19,18 @@
 				<view class="item-text">手机号
 					<text class="sign">*</text>
 				</view>
-				<input 
-					class="item-input" 
-					placeholder="请输入手机号" 
-					type="number" 
-					bindblur="check" 
-					style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
-					bindfocus="reset"
-					bindinput='getUserIdCardPhoneNumber'
-					value="{{ phoneNumber }}"
-				/>
+				<view class="item-input item-phone">
+					<input
+						placeholder="请输入手机号" 
+						type="number" 
+						bindblur="check" 
+						style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
+						bindfocus="reset"
+						bindinput='getUserIdCardPhoneNumber'
+						value="{{ phoneNumber }}"
+					/>
+					<button class="item-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号</button>
+				</view>
 			</view>
 			<view class="item">
 				<view class="item-text">微信号

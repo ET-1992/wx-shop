@@ -73,7 +73,7 @@
 
 		.content-footer {
 			font-size: 32rpx;
-			color: #62b900;
+			color: #729153;
 			// border-top: 1rpx solid #C9C9C9;
 		}
 
@@ -83,7 +83,7 @@
 			flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
-			padding: 30rpx 0;
+			padding: 50rpx 0 30rpx;
 
 			.content-body-item {
 				font-size: 24rpx;
@@ -117,15 +117,30 @@
 				}
 		
 				.item-input {
-					padding-left: 100rpx;
+					padding-left: 20rpx;
 					width: 400rpx;
 				}
 				
 				.placeholder {
 					margin-left: 100rpx;
 				}
+
+				.item-btn {
+					font-size: 20rpx;
+					background-color: #729153;
+					color: #fff;
+					line-height: 50rpx;
+					width: 160rpx;
+					height: 50rpx;
+					border-radius: 5rpx;
+				}
+
+				.item-phone {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
 			}
-		
 		}
 
 		button{

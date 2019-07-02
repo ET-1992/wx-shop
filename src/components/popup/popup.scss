@@ -15,67 +15,72 @@
 		font-size: 28rpx;
 		font-weight: bold;
 		color: #333333;
-		margin-bottom: 20rpx;
 	}
-
-	.model-priceSection {
+	
+	.model-main {
 		width: 100%;
 		padding: 0 30rpx;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-start;
+		margin: 50rpx 0;
 
-		.model-section {
-			width: 180rpx;
-			height: 100rpx;
+		.model-priceSection {
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+	
+			.model-section {
+				width: 180rpx;
+				height: 100rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				color: #333333;
+				font-size: 20rpx;
+				border-radius: 6rpx;
+				margin-bottom: 20rpx;
+				margin-left: 24rpx;
+				background-color: #F4F4F4;
+	
+				.model-price {
+					font-size: 28rpx;
+					font-weight: bold;
+				}
+	
+				&:nth-child(3n+1) {
+					margin-left: 0;
+				}
+			}
+	
+			.checked_recharge {
+				background-color: #43B545;
+				color: #fff;
+			}
+		}
+	
+		// 其他金额
+		.recharge-elsePrice { 
+			padding: 14rpx 20rpx;
+			display: flex;
 			align-items: center;
-			color: #333333;
-			font-size: 20rpx;
-			border: 1px solid #d4d4d4;
-			border-radius: 5rpx;
-			margin-bottom: 20rpx;
-			margin-left: 24rpx;
-
-			.model-price {
-				font-size: 28rpx;
-				font-weight: bold;
+			justify-content: space-between;
+			background-color: #F4F4F4;
+			border-radius: 8rpx;
+	
+			.elsePrice-text {
+				min-width: 300rpx; 
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 30rpx;
+				color: #000000;
 			}
-
-			&:nth-child(3n+1) {
-				margin-left: 0;
+	
+			.elsePrice-input {
+				padding-left: 16rpx;
 			}
-		}
-
-		.checked_recharge {
-			background-color: #43B545;
-			color: #fff;
-			border-color: #43B545;
 		}
 	}
 
-	// 其他金额
-	.recharge-elsePrice { 
-		width: 100%;
-		padding: 30rpx 40rpx;
-		display: flex;
-		align-items: center;
-
-		.elsePrice-text {
-			font-size: 28rpx;
-			font-weight: bold;
-			color: #000000;
-		}
-
-		.elsePrice-input {
-			border: 1px solid #d4d4d4;
-			margin-left: 30rpx;
-			border-radius: 5rpx;
-			padding-left: 20rpx;
-		}
-	}
 
 	// 确认支付按钮
 	.model-btn {

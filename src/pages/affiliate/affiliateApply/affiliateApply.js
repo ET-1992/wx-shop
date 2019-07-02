@@ -204,5 +204,14 @@ Page({
                 wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
             }
         }
+    },
+
+    async getPhoneNumber(e) {
+        const data = await api.hei.getUserPhoneNumber({
+            iv: e.detail.iv,
+            encrypted_data: e.detail.encryptedData
+        });
+        console.log('data', data);
+        this.setData({ phoneNumber: data.phone });
     }
 });
