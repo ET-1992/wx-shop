@@ -370,7 +370,7 @@ export const apis = {
     },
     // 签到
     signIn: {
-        path: 'api/mag.membership.checkin.json',
+        path: 'api/mag.shop.checkin.json',
         isForceToken: true
     },
     // 规则
@@ -415,8 +415,8 @@ export const apis = {
         method: 'POST'
     },
     // 会员分享
-    membershipShare: {
-        path: 'api/mag.membership.share.json',
+    shopShare: {
+        path: 'api/mag.shop.share.json',
         method: 'POST',
         isForceToken: true
     },

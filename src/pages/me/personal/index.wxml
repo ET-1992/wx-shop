@@ -16,7 +16,7 @@
         	<view class="title">优惠券</view>
 		</navigator>
 	</view>
-	<view class="header-bottom">
+	<view class="header-bottom" wx:if="{{ config.checkin_enable }}">
 		<view class="head-signin" wx:if="{{ user.is_checkined }}">已签到</view>
 		<view class="head-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}" style="color: {{ themeColor.primaryColor }}">签到</view>
 	</view>
