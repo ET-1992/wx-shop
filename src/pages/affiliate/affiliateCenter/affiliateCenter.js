@@ -7,7 +7,7 @@ const app = getApp();
 Page({
     data: {
         title: 'affiliateCenter',
-        isShowModal: false,
+        // isShowModal: false,
         isLoading: true,
         member: {},
         wallet: {},
@@ -38,11 +38,11 @@ Page({
             globalData: app.globalData
         });
     },
-    changeModal() {
-        this.setData({
-            isShowModal: !this.data.isShowModal
-        });
-    },
+    // changeModal() {
+    //     this.setData({
+    //         isShowModal: !this.data.isShowModal
+    //     });
+    // },
     // goToAffiliate(e) {
     //     console.log(e, '090');
     //     const { urldata } = e.currentTarget.dataset;

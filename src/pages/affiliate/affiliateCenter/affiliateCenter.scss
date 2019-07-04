@@ -126,8 +126,9 @@
 				// 今日
 				.monneyShowTop {
 					display: flex;
+					justify-content: space-between;
 					.showToday {
-						margin-right: auto;
+						// margin-right: auto;
 						.showTodayNum {
 							font-size: 60rpx;
 						}

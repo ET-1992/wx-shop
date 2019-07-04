@@ -53,7 +53,7 @@
 		</view>
 		<!-- 已开通储值卡功能 -->
 		<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
-			<view class="member-price">{{ rule.store_card }}</view>
+			<view class="member-price">{{ store_card }}</view>
 			<view class="member-btn" bindtap="openRechargeModal">立即开通会员</view>
 		</view>
 		<!-- 没开储值卡功能 -->
@@ -66,7 +66,7 @@
 	<!-- 会员充值弹窗 -->
 	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
 
-	<image class="rule-image" src="{{ rule.image_url }}" mode="widthFix"/>
+	<image class="rule-image" src="{{ image_url }}" mode="widthFix"/>
 </view>
 
 <console page="会员中心" />
