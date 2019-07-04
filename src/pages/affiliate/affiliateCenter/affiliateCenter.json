@@ -1,5 +1,6 @@
 {
 	"navigationBarTitleText": "推广中心",
+	"navigationBarBackgroundColor": "#FF0000",
 	"usingComponents": {
 		"console": "../../../components/console/console",
 		"loading": "../../../components/loading/index",
