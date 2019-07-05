@@ -126,19 +126,15 @@
 				}
 
 				.item-btn {
-					font-size: 20rpx;
-					background-color: #729153;
-					color: #fff;
-					line-height: 50rpx;
-					width: 160rpx;
-					height: 50rpx;
-					border-radius: 5rpx;
-				}
+					font-size: 28rpx;
+					padding-left: 20rpx;
+					width: 400rpx;
+					text-align: left;
+					color: #333;
 
-				.item-phone {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
+					.item-btn-placeholder {
+						color: #666;
+					}
 				}
 			}
 		}
