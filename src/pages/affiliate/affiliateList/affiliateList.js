@@ -3,7 +3,7 @@ const app = getApp();
 
 Page({
     data: {
-        next_cursor: 0,
+        current_page: 0,
         isLoading: true,
         members: [],
         filterData: {
@@ -43,7 +43,7 @@ Page({
     changeFilterList(e) {
         this.setData({
             filterData: e.detail,
-            next_cursor: 0,
+            current_page: 0,
             isLoading: true,
             members: []
         }, this.filterShareList);
@@ -66,9 +66,10 @@ Page({
         }, this.getCustomerList);
     },
     async getCustomerList() {
-        const { filterOrderby, filterOrder, next_cursor, members } = this.data;
+        let { filterOrderby, filterOrder, current_page, members, total_pages } = this.data;
+        current_page++;
         const data = await api.hei.getShareCustomerList({
-            cursor: next_cursor,
+            paged: current_page,
             user_type: this.data.user_type,
             orderby: filterOrderby,
             order: filterOrder
@@ -79,12 +80,12 @@ Page({
         this.setData({
             ...data,
             isLoading: false,
-            next_cursor: data.next_cursor,
+            current_page: data.current_page,
         });
     },
     async onShow() {
         this.setData({
-            next_cursor: 0,
+            current_page: 0,
             isLoading: true,
             members: []
         }, this.filterShareList);
@@ -92,7 +93,7 @@ Page({
     },
     async onPullDownRefresh() {
         this.setData({
-            next_cursor: 0,
+            current_page: 0,
             members: [],
             isLoading: true
         });
@@ -101,8 +102,8 @@ Page({
     },
 
     async onReachBottom() {
-        const { next_cursor } = this.data;
-        if (!next_cursor) { return }
+        const { current_page, total_pages } = this.data;
+        if (current_page === total_pages) { return }
         this.getCustomerList();
     }
 });
