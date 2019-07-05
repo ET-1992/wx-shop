@@ -3,7 +3,7 @@
 <view class="header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{!isLoading}}">
 	<view class="header-text">
 		<view class="header-price">{{ cash_balance }} 元</view>
-		<view class="price-text">储值余额</view>
+		<view class="price-text">充值余额</view>
 	</view>
 	<view class="header-text">
 		<view class="header-price">{{ gift_balance }} 元</view>

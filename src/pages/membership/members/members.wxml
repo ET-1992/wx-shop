@@ -23,7 +23,7 @@
 		<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
 			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 				<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
-				<view class="cart-text">储值余额</view>
+				<view class="cart-text">充值余额</view>
 			</navigator>
 			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 				<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
