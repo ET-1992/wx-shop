@@ -19,6 +19,22 @@ Component({
             type: String,
             value: '',
         },
+        originalPrice: {
+            type: String,
+            value: '',
+        },
+        grouponLimit: {
+            type: String,
+            value: '',
+        },
+        remainSecond: {
+            type: String,
+            value: '',
+        },
+        remainTime: {
+            type: String,
+            value: '',
+        },
         isShowProductDetailShareModal: {
             type: Boolean,
             value: false,
@@ -55,7 +71,7 @@ Component({
     methods: {
         drawProductDetailImg() {
             // ctm的wx page和components搞两套语法也就算了 api也搞两套 一下午被兼容搞得头大
-            const { productTitle, productPrice, productImageUrl, qrcodeUrl, user, nodeInfo } = this.data;
+            const { productTitle, productPrice, originalPrice, grouponLimit, remainSecond, remainTime, productImageUrl, qrcodeUrl, user, nodeInfo, routeQuery } = this.data;
             console.log(productImageUrl);
             console.log(productTitle);
             const ctx = wx.createCanvasContext('canvasPoster', this);
@@ -101,21 +117,52 @@ Component({
             ctx.setFillStyle('#FC2732');
             ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
 
-            ctx.beginPath();
-            ctx.moveTo(45 / 540 * width, 670 / 900 * height);
-            ctx.lineTo(500 / 540 * width, 670 / 900 * height);
-            ctx.setLineWidth(1);
-            ctx.strokeStyle = '#c2c2c2';
-            ctx.stroke();
+            if (!routeQuery.grouponId) {
+                ctx.beginPath();
+                ctx.moveTo(45 / 540 * width, 670 / 900 * height);
+                ctx.lineTo(500 / 540 * width, 670 / 900 * height);
+                ctx.setLineWidth(1);
+                ctx.strokeStyle = '#c2c2c2';
+                ctx.stroke();
+            }
 
             ctx.beginPath();
             ctx.setFillStyle('#000000');
             ctx.setTextAlign('left');
             ctx.font = 'normal bold 12px PingFang SC';
-            ctx.fillText((user && user.affiliate_share_name) || '好友', 50 / 540 * width, 750 / 900 * height);
-            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '很想要这个商品' : '向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
-            ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给TA赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
 
+            if (routeQuery.grouponId) {
+                if (remainSecond > 0) {
+                    ctx.setFillStyle('#000000');
+                    ctx.font = 'normal bold 14px PingFang SC';
+                    ctx.fillText('距拼团结束', 45 / 540 * width, 750 / 900 * height - 15);
+                    ctx.setFillStyle('#FC2732');
+                    ctx.font = 'normal bold 12px PingFang SC';
+                    ctx.fillText(remainTime, 45 / 540 * width + 75, 750 / 900 * height - 15);
+                } else {
+                    ctx.setFillStyle('#000000');
+                    ctx.font = 'normal bold 14px PingFang SC';
+                    ctx.fillText('已结束', 45 / 540 * width, 750 / 900 * height - 15);
+                }
+
+                ctx.setFillStyle('#707070');
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillText('单独购买' + globalData.CURRENCY[globalData.currency] + originalPrice, 45 / 540 * width, 750 / 900 * height + 15);
+
+                ctx.setFillStyle('#FC2732');
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillText(globalData.CURRENCY[globalData.currency], 45 / 540 * width, 750 / 900 * height + 45);
+                ctx.font = 'normal bold 18px PingFang SC';
+                ctx.fillText(productPrice, 45 / 540 * width + 12, 750 / 900 * height + 45);
+
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillStyle = '#FC2732';
+                ctx.fillText(grouponLimit + '人团', 45 / 540 * width + 70, 750 / 900 * height + 45);
+            } else {
+                ctx.fillText((user && user.affiliate_share_name) || '好友', 50 / 540 * width, 750 / 900 * height);
+                ctx.fillText(this.data.routeQuery.crowd_pay_no ? '很想要这个商品' : '向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
+                ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给TA赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
+            }
             ctx.beginPath();
             ctx.rect(410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
             ctx.clip();
@@ -207,14 +254,30 @@ Component({
                     weapp_page: 'pages/webPages/webPages',
                     width: 150
                 };
-                if (routeQuery.id) {
-                    options.id = routeQuery.id;
+
+                let scene = {};
+                if (routeQuery.afcode) {
+                    scene.afcode = routeQuery.afcode;
                 }
-                if (routeQuery.crowd_pay_no) {
-                    options.crowd_pay_no = routeQuery.crowd_pay_no;
+                if (routeQuery.id) {		// 商品详情
+                    scene.id = routeQuery.id;
                 }
-                const qvcode = await api.hei.getShareQrcode(options);
-                console.log(qvcode);
+                if (routeQuery.grouponId) {		// 拼团
+                    scene.gid = routeQuery.grouponId;
+                }
+                if (routeQuery.crowd_pay_no) {	// 代付
+                    scene.c = routeQuery.crowd_pay_no;
+                }
+
+                console.log(scene, 'scene');
+                console.log(options, 'options');
+
+                const qvcode = await api.hei.getShopQrcode({
+                    ...options,
+                    scene: Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&')
+                });
+                console.log(qvcode, 'qvcode');
+
                 if (qvcode.errcode === 0) {
                     const { productImage } = this.data;
                     const productImage_ = imgToHttps(productImage);

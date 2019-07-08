@@ -283,6 +283,11 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    getShopQrcode: {
+        path: 'api/mag.shop.qrcode.json',
+        method: 'POST',
+        isForceToken: true
+    },
     getShareProductList: {
         path: 'api/mag.affiliate.product.list.json',
         method: 'GET',

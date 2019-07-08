@@ -282,6 +282,11 @@ Page({
                 this,
             );
 
+            let routeQuery = {
+                id,
+                afcode: data.current_user.afcode
+            };
+
             this.setData({
                 // skuSplitProperties,
                 grouponId: grouponId || '',
@@ -292,6 +297,7 @@ Page({
                 isLoading: false,
                 share_image: thumbnail,
                 ...data,
+                routeQuery
             });
 
 
@@ -366,7 +372,6 @@ Page({
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
-            routeQuery: query,
             cartNumber: CART_NUM,
             globalData: app.globalData
         });

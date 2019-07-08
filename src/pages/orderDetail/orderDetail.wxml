@@ -139,8 +139,7 @@
     	<button
 				wx:if="{{ order.groupon_id && groupon.status === 2 }}"
 				class="normalizeBt viewProduct"
-				open-type="share"
-				data-is-share-groupon="{{ true }}"
+				bind:tap="showShareModal"
 				style="background-color: {{ themeColor.primaryColor }}">邀请朋友参团</button>
     	<button
 				wx:if="{{ otherPeopleGroupon }}"
@@ -250,7 +249,37 @@
 		confirmButtonType="share"
 		wx:if="{{ !groupon.id }}"
 	/>
-
 </view>
+
+<!-- 分享弹窗 -->
+<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="showShareModal" z-index="999">
+  <view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+  	<view class="shareModalContent">
+  		<button class="shareBtn" open-type="share" data-is-share-groupon="{{ true }}">
+  			<image src="/icons/shareFriendIcon.png" mode="aspectFit"></image>
+  			<view>分享给好友</view>
+  		</button>
+  		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+  			<image src="/icons/sharePosterIcon.png" mode="aspectFit"></image>
+  			<view>分享活动海报</view>
+  		</view>
+  	</view>
+  	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
+  </view>
+</van-popup>
+
+<productDetailShareModal
+  productImage="{{ order.items[0].thumbnail }}"
+  productTitle="{{ order.items[0].title }}"
+  productPrice="{{ order.items[0].price }}"
+  originalPrice="{{ order.items[0].original_price }}"
+  grouponLimit="{{ order.groupon.member_limit }}"
+  remainSecond="{{ remainSecond }}"
+  remainTime="{{ remainTime }}"
+  routePath="{{ routePath }}"
+  routeQuery="{{ routeQuery }}"
+  bindonCloseModal="onCloseProductDetailShareModal"
+  wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}"
+/>
 
 <console page="订单详情" />

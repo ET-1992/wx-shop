@@ -33,7 +33,9 @@ Page({
         payMethod: {
             'WEIXIN': '微信支付',
             'STORE_CARD': '储值卡支付'
-        }
+        },
+
+        isShowShareModal: false
     },
 
     onLoad({ isFromCreate = false }) {
@@ -47,7 +49,8 @@ Page({
             defineTypeGlobal,
             isIphoneX,
             isFromCreate,
-            config
+            config,
+            routePath: this.route
         });
     },
 
@@ -67,7 +70,7 @@ Page({
 
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });
-        const { order, redpacket = {}, products, config } = await api.hei.fetchOrder({ order_no: id });
+        const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket };
         const statusCode = Number(order.status);
         let address = {};
@@ -155,9 +158,14 @@ Page({
             for (let i = 0; i < (order.groupon.member_limit - order.groupon.member_count); i++) {
                 grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
             }
+            let routeQuery = {
+                grouponId: order.groupon && order.groupon.id,
+                afcode: current_user && current_user.afcode || ''
+            };
             this.setData({
                 groupon: order.groupon,
-                grouponDefaultImageArray
+                grouponDefaultImageArray,
+                routeQuery
             });
         }
 
@@ -236,6 +244,33 @@ Page({
         });
     },
 
+    showShareModal() {
+        const { isShowShareModal } = this.data;
+        this.setData({
+            isShowShareModal: !isShowShareModal
+        });
+    },
+
+    async isShowProductDetailShareModal() {
+        const { order } = this.data;
+        const { time_expired } = order.groupon;
+        const now = Math.round(Date.now() / 1000);
+        let remainSecond = time_expired - now;
+        let remainTime = getRemainTime(remainSecond).join(':');
+
+        this.setData({
+            isShowProductDetailShareModal: true,
+            isShowShareModal: false,
+            remainTime,
+            remainSecond
+        });
+    },
+
+    onCloseProductDetailShareModal() {
+        this.setData({
+            isShowProductDetailShareModal: false
+        });
+    },
 
     onShareAppMessage({ target }) {
         const { user, groupon = {}, redpacket = {}, config } = this.data;
@@ -252,6 +287,7 @@ Page({
                 };
             }
             if (isShareGroupon && groupon.status === 2) {
+                this.showShareModal();
                 return {
                     title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
                     path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
