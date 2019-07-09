@@ -39,6 +39,14 @@ Page({
             user: data.current_user,
             ...data,
         });
+
+        this.getMemberHome();
+    },
+
+    // 获取会员信息
+    async getMemberHome() {
+        const memberHome = await api.hei.membershipCard();
+        console.log(memberHome);
     },
 
     // 获取用户信息

@@ -1,52 +1,72 @@
 <loading isLoading="{{ isLoading }}" />
 
 <view class="container" wx:if="{{!isLoading}}">
-	<!-- 会员用户 -->
-	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership && user.membership.is_member }}">
+	<!-- 用户 -->
+	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}">
 		<view class="member-top {{ config.store_card_enable ? '' : 'noCard' }}">
-			<button class="head-button" style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 				<view class="member-text">
-					<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
-					<view class="member-level">{{ user.membership.level_name }}</view>
+					<view class="member-user-wrap">
+						<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
+						<!-- 会员 -->
+						<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '咱无数据'}}</view>
+					</view>
+					<!-- 会员 -->
+					<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
+						<view class="cart-text">会员积分：</view>
+						<view class="cart-price">{{ user.membership.exp || '0' }}分</view>
+						<image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image>
+					</navigator>
+					<!-- 非会员 -->
+					<view class="no-member-level" wx:if="{{ user.membership && !user.membership.is_member }}">普通用户</view>
 				</view>
 			</button>
-			<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ !config.store_card_enable }}">
-				<view class="cart-price">{{ user.membership.exp }}</view>
-				<view class="cart-text">积分</view>
-			</navigator>
-			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}' style="background-color: {{ themeColor.primaryColor }}">
-				<image class="member-itemIcon" mode="aspectFit" src="/icons/memberConcat.svg" />
-				<view class="member-itemTitle">联系客服</view>
-			</button>
+			<!-- 非会员 -->
+			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
+				<!-- 已开通储值卡功能 -->
+				<block wx:if="{{ config.store_card_enable }}">
+					<view class="openVip-btn" bindtap="openRechargeModal">立即开通会员</view>
+					<view class="openVip-tip">{{ store_card }}</view>
+				</block>
+				<!-- 没开储值卡功能 -->
+				<block wx:if="{{ !config.store_card_enable }}">
+					<view class="openVip-btn" bindtap="buyMember">立即开通会员</view>
+					<view class="openVip-tip">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
+				</block>
+			</view>
+			
 		</view>
-		<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
-			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
-				<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
-				<view class="cart-text">充值余额</view>
-			</navigator>
-			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
-				<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
-				<view class="cart-text">赠送余额</view>
-			</navigator>
-			<navigator url="/pages/membership/integralList/integralList" class="member-integral-text">
-				<view class="cart-price">{{ user.store_card.exp }}</view>
-				<view class="cart-text">积分</view>
-			</navigator>
-		</view>
+		<!-- 会员 -->
+		<block wx:if="{{ user.membership && user.membership.is_member }}">
+			<!-- 开通储值卡功能 -->
+			<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
+				<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
+					<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
+					<view class="cart-text">储蓄余额</view>
+				</navigator>
+				<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
+					<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
+					<view class="cart-text">赠送余额</view>
+				</navigator>
+				<view class="recharge">
+					<text>充值</text>
+				</view>
+			</view>
+		</block>
 	</view>
 
 	<!-- 普通用户 -->
-	<view class="header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ user.membership && !user.membership.is_member }}">
+	<view class="header" wx:if="{{ user.membership && !user.membership.is_member && false}}">
 		<view class="member-top">
-			<button class="head-button" style="background-color: {{ globalData.themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 				<view class="member-text">
 					<text class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</text>
 					<view class="member-level">普通用户</view>
 				</view>
 			</button>
-			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}' style="background-color: {{ themeColor.primaryColor }}">
+			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'>
 				<image class="member-itemIcon" mode="aspectFit" src="/icons/memberConcat.svg" />
 				<view class="member-itemTitle">联系客服</view>
 			</button>
@@ -66,7 +86,28 @@
 	<!-- 会员充值弹窗 -->
 	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
 
-	<image class="rule-image" src="{{ image_url }}" mode="widthFix"/>
+	<!-- <image class="rule-image" src="{{ image_url }}" mode="widthFix"/> -->
+
+	<!-- 下方跳转列表组 -->
+	<view class="jump-list">
+		<view class="jump-item jump-score">
+			<image mode="aspectFit" class="jump-icon" src="/icons/member/myScore.svg"></image>
+			<text>我的积分</text>
+			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+		</view>
+		<view class="jump-item jump-rule">
+			<image mode="aspectFit" class="jump-icon" src="/icons/member/memberRule.svg"></image>
+			<text>积分规则</text>
+			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+		</view>
+		<view class="jump-item jump-contact">
+			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'>
+				<image class="jump-icon member-itemIcon" mode="aspectFit" src="/icons/member/customerService.svg" />
+				<view class="member-itemTitle">联系客服</view>
+				<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+			</button>
+		</view>
+	</view>
 </view>
 
 <console page="会员中心" />
