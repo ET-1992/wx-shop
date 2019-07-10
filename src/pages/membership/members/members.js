@@ -1,16 +1,26 @@
-import { getAgainUserForInvalid, getUserInfo, go } from 'utils/util';
-import { CONFIG, USER_KEY } from 'constants/index';
-import { wxPay } from 'utils/pageShare';
+import {
+    getAgainUserForInvalid,
+    getUserInfo,
+    go
+} from 'utils/util';
+import {
+    CONFIG,
+    USER_KEY
+} from 'constants/index';
+import {
+    wxPay
+} from 'utils/pageShare';
 import api from 'utils/api';
 const app = getApp();
 
 Page({
     data: {
-        isLoading: false,
+        isLoading: true,
         title: 'members',
         globalData: app.globalData,
         rechargeModal: false,
-        consoleTime: 0
+        consoleTime: 0,
+        updateAgainUserForInvalid: false // 是否已更新头像
     },
 
     onLoad(params) {
@@ -21,17 +31,22 @@ Page({
 
     async onShow() {
         app.log('页面onShow');
-        this.setData({ isLoading: true });
-        const { themeColor } = app.globalData;
+        const {
+            themeColor
+        } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const data  = await api.hei.getShopRule({ key: 'membership' });
+        const data = await api.hei.getShopRule({
+            key: 'membership'
+        });
         console.log('data', data);
         wx.setStorageSync(USER_KEY, data.current_user || '');
 
         if (config.store_card_enable) {
             const recharge = await api.hei.rechargePrice();
             recharge.data[0].checked = true;
-            this.setData({ rechargeArray: recharge.data });
+            this.setData({
+                rechargeArray: recharge.data
+            });
         }
         this.setData({
             isLoading: false,
@@ -52,9 +67,21 @@ Page({
 
     // 获取用户信息
     async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
-        this.setData({ user });
+        const {
+            encryptedData,
+            iv
+        } = e.detail;
+        if (!this.updateAgainUserForInvalid) {
+            // 首次更新头像
+            const user = await getAgainUserForInvalid({
+                encryptedData,
+                iv
+            });
+            this.setData({
+                user
+            }, this.onShow());
+            this.updateAgainUserForInvalid = true;
+        }
     },
 
     // 用户签到
@@ -79,7 +106,9 @@ Page({
     // 未开启储值卡功能的开通会员
     async buyMember() {
         try {
-            const { pay_sign } = await api.hei.joinMembership();
+            const {
+                pay_sign
+            } = await api.hei.joinMembership();
             console.log('付费会员pay_sign', pay_sign);
             if (pay_sign) {
                 await wxPay(pay_sign);
