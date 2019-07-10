@@ -9,7 +9,8 @@ Page({
         isLoading: false,
         title: 'members',
         globalData: app.globalData,
-        rechargeModal: false
+        rechargeModal: false,
+        consoleTime: 0
     },
 
     onLoad(params) {
@@ -69,15 +70,39 @@ Page({
 
     // 未开启储值卡功能的开通会员
     async buyMember() {
-        const { pay_sign } = await api.hei.joinMembership();
-        console.log('付费会员pay_sign', pay_sign);
-        if (pay_sign) {
-            try {
+        try {
+            const { pay_sign } = await api.hei.joinMembership();
+            console.log('付费会员pay_sign', pay_sign);
+            if (pay_sign) {
                 await wxPay(pay_sign);
-                this.onShow();
-            } catch (error) {
-                console.log(error);
             }
+            this.onShow();
+        } catch (error) {
+            console.log(error);
         }
-    }
+    },
+
+    consoleOpen() {
+        this.data.consoleTime++;
+        setTimeout(() => {
+            this.data.consoleTime = 0;
+        }, 1000);
+
+        if (this.data.consoleTime >= 5) {
+            app.openConsole = true;
+            app.openConsoleResData = true;
+            app.event.emit('showConsole');
+            this.onLoad();
+        }
+        // if (app.openConsole) {
+        //     this.data.openConsoleResDataTime++;
+        //     setTimeout(() => {
+        //         this.data.openConsoleResDataTime = 0;
+        //     }, 1000);
+        //     if (this.data.openConsoleResDataTime >= 3) {
+        //         console.log('openConsoleResData');
+        //         app.openConsoleResData = true;
+        //     }
+        // }
+    },
 });
