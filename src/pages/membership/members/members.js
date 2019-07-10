@@ -16,11 +16,11 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
-        title: 'members',
         globalData: app.globalData,
         rechargeModal: false,
         consoleTime: 0,
-        updateAgainUserForInvalid: false // 是否已更新头像
+        updateAgainUserForInvalid: false, // 是否已更新头像
+        ruleData: {} // 会员规则 word image_url
     },
 
     onLoad(params) {
@@ -29,18 +29,22 @@ Page({
 
     go,
 
-    async onShow() {
+    onShow() {
         app.log('页面onShow');
+        this.getMemberHome();
+        this.initPage();
+    },
+
+    // 初始页面配置
+    async initPage() {
         const {
             themeColor
         } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
-        const data = await api.hei.getShopRule({
-            key: 'membership'
-        });
-        console.log('data', data);
-        wx.setStorageSync(USER_KEY, data.current_user || '');
 
+        // 获取全局店铺配置信息
+        const config = wx.getStorageSync(CONFIG);
+
+        // 获取开启储值卡后充值金额数组
         if (config.store_card_enable) {
             const recharge = await api.hei.rechargePrice();
             recharge.data[0].checked = true;
@@ -48,31 +52,31 @@ Page({
                 rechargeArray: recharge.data
             });
         }
+
         this.setData({
             isLoading: false,
             themeColor,
             config,
-            user: data.current_user,
-            ...data,
         });
-
-        this.getMemberHome();
     },
 
     // 获取会员信息
     async getMemberHome() {
         const memberHome = await api.hei.membershipCard();
+        this.setData({
+            user: memberHome.current_user,
+            ruleData: memberHome.data
+        });
         console.log(memberHome);
     },
 
-    // 获取用户信息
+    // 获取用户头像信息
     async bindGetUserInfo(e) {
         const {
             encryptedData,
             iv
         } = e.detail;
         if (!this.updateAgainUserForInvalid) {
-            // 首次更新头像
             const user = await getAgainUserForInvalid({
                 encryptedData,
                 iv
@@ -82,18 +86,6 @@ Page({
             }, this.onShow());
             this.updateAgainUserForInvalid = true;
         }
-    },
-
-    // 用户签到
-    async tapSignIn() {
-        const result = await api.hei.signIn(); // 签到
-        this.setData({
-            user: result.current_user
-        });
-        wx.showToast({
-            title: '签到成功',
-            icon: 'success'
-        });
     },
 
     // 打开会员充值弹窗
