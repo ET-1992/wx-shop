@@ -20,7 +20,7 @@
 					<text class="sign">*</text>
 				</view>
 				<button class="item-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
-					<view class="item-btn-placeholder" wx:if="{{ !phoneNumber }}">请输入手机号</view>
+					<view class="item-btn-placeholder" wx:if="{{ !phoneNumber }}">点击一键获取手机号</view>
 					<view wx:if="{{ phoneNumber }}">{{ phoneNumber }}</view>
 				</button>
 			</view>

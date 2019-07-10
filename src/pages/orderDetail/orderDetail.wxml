@@ -71,11 +71,11 @@
 		</view>
 		<!-- 发货 卡号/兑换码、密码： -->
     <view class="virtualProduct" wx:if="{{ !virtualProductBtn }}">
-      <view class="virtualProductItem">
+      <view class="virtualProductItem" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code  }}">
         兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}
         <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}"> 复制 </view>
       </view>
-      <view class="virtualProductItem">
+      <view class="virtualProductItem" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.password }}">
         密码：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.password }}
         <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.password }}"> 复制 </view>
       </view>
