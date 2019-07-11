@@ -69,7 +69,7 @@
 			<text>我的积分</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
 		</view>
-		<view class="jump-item jump-rule">
+		<view class="jump-item jump-rule" bindtap="go" data-url="/pages/membership/memberRule/memberRule">
 			<image mode="aspectFit" class="jump-icon" src="/icons/member/memberRule.svg"></image>
 			<text>积分规则</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
