@@ -26,7 +26,7 @@
 			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
 				<!-- 已开通储值卡功能 -->
 				<block wx:if="{{ config.store_card_enable }}">
-					<view class="openVip-btn" bindtap="openRechargeModal">立即开通会员</view>
+					<view class="openVip-btn" bindtap="openCommonRechargeModal">立即开通会员</view>
 					<view class="openVip-tip">{{ ruleData.word }}</view>
 				</block>
 				<!-- 没开储值卡功能 -->
@@ -49,19 +49,22 @@
 					<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
 					<view class="cart-text">赠送余额</view>
 				</navigator>
-				<view class="recharge">
+				<view class="recharge" bindtap="openRechargeModal">
 					<text>充值</text>
 				</view>
 			</view>
 		</block>
 	</view>
 
+	<!-- 非会员充值弹窗 -->
+	<popup rechargeModal="{{ commonRechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
+
 	<!-- 会员充值弹窗 -->
-	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
+	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
 
 	<!-- 下方跳转列表组 -->
 	<view class="jump-list">
-		<view class="jump-item jump-score">
+		<view class="jump-item jump-score" bindtap="go" data-url="/pages/membership/integralList/integralList">
 			<image mode="aspectFit" class="jump-icon" src="/icons/member/myScore.svg"></image>
 			<text>我的积分</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>

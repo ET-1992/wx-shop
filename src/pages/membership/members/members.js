@@ -17,7 +17,8 @@ Page({
     data: {
         isLoading: true,
         globalData: app.globalData,
-        rechargeModal: false,
+        commonRechargeModal: false,  // 非会员充值弹窗
+        rechargeModal: false,  // 会员充值弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         ruleData: {} // 会员规则 word image_url
@@ -88,6 +89,13 @@ Page({
         }
     },
 
+    // 打开非会员充值弹窗
+    openCommonRechargeModal() {
+        this.setData({
+            commonRechargeModal: true
+        });
+    },
+
     // 打开会员充值弹窗
     openRechargeModal() {
         this.setData({
@@ -134,4 +142,9 @@ Page({
         //     }
         // }
     },
+
+    // 微信支付后弹窗回调
+    setConsumptionList() {
+        this.onShow();
+    }
 });

@@ -1,5 +1,6 @@
 {
 	"navigationBarTitleText": "积分明细",
+	"navigationBarBackgroundColor": "#333333",
 	"enablePullDownRefresh": true,
 	"usingComponents": {
 	  "console": "../../../components/console/console",
