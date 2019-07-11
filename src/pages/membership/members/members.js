@@ -119,30 +119,6 @@ Page({
         }
     },
 
-    consoleOpen() {
-        this.data.consoleTime++;
-        setTimeout(() => {
-            this.data.consoleTime = 0;
-        }, 1000);
-
-        if (this.data.consoleTime >= 5) {
-            app.openConsole = true;
-            app.openConsoleResData = true;
-            app.event.emit('showConsole');
-            this.onLoad();
-        }
-        // if (app.openConsole) {
-        //     this.data.openConsoleResDataTime++;
-        //     setTimeout(() => {
-        //         this.data.openConsoleResDataTime = 0;
-        //     }, 1000);
-        //     if (this.data.openConsoleResDataTime >= 3) {
-        //         console.log('openConsoleResData');
-        //         app.openConsoleResData = true;
-        //     }
-        // }
-    },
-
     // 微信支付后弹窗回调
     setConsumptionList() {
         this.onShow();
