@@ -64,7 +64,7 @@
 
 	<!-- 下方跳转列表组 -->
 	<view class="jump-list">
-		<view class="jump-item jump-score" bindtap="go" data-url="/pages/membership/integralList/integralList">
+		<view class="jump-item jump-score" bindtap="go" data-url="/pages/membership/integralList/integralList" wx:if="{{ user.membership && user.membership.is_member }}">
 			<image mode="aspectFit" class="jump-icon" src="/icons/member/myScore.svg"></image>
 			<text>我的积分</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>

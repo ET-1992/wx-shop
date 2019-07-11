@@ -84,7 +84,7 @@ Page({
             });
             this.setData({
                 user
-            }, this.onShow());
+            }, this.onShow);
             this.updateAgainUserForInvalid = true;
         }
     },
