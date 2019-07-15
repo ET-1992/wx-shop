@@ -138,14 +138,10 @@ video {
 	}
 
 	.meta {
-		display: flex;
-		align-items: center;
 		margin-top: 20rpx;
-		width: 100%;
-		justify-content: space-between;
-		font-size: 24rpx;
 
 		.price{
+			width: 100%;
 			display: flex;
 			align-items: center;
 
@@ -170,9 +166,36 @@ video {
 			}
 		}
 
-		.postage, .sales{
-			color: #707070;
+		.info-section {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-top: 10rpx;
+
+			.delivery-section {
+				font-size: 24rpx;
+				color: $titleColor;
+
+				.type-icon {
+					width: 20rpx;
+					height: 20rpx;
+					display: inline-block;
+					margin-right: 10rpx;
+				}
+			}
+
+			.default{
+				display: flex;
+				.postage {
+					padding-right: 30rpx;
+				}
+			}
+			.postage, .sales {
+				color: $titleColor;
+				font-size: 24rpx;
+			}
 		}
+
 	}
 }
 
