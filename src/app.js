@@ -100,7 +100,7 @@ App({
                 const { config, current_user } = res;
                 if (config.web_enable && current_user && !current_user.platform_user_id) {
                     wx.navigateTo({
-                        url: '/pages/login/login',
+                        url: '/pages/bindWeb/bindWeb',
                     });
                 }
             });

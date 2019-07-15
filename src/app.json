@@ -54,7 +54,7 @@
 		"pages/membership/integralList/integralList",
 		"pages/affiliate/affiliateVisitor/affiliateVisitor",
 		"pages/membership/memberRule/memberRule",
-		"pages/login/login"
+		"pages/bindWeb/bindWeb"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
