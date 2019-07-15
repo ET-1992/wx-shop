@@ -83,7 +83,7 @@ App({
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
-                console.log(res);
+                console.log(res, 'appConfig');
                 const { config, current_user } = res;
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
@@ -94,12 +94,29 @@ App({
         }, 500);
     },
 
+    login() {
+        setTimeout(() => {
+            api.hei.config().then((res) => {
+                const { config, current_user } = res;
+                if (config.web_enable && current_user && !current_user.platform_user_id) {
+                    wx.navigateTo({
+                        url: '/pages/login/login',
+                    });
+                }
+            });
+        }, 500);
+    },
+
     async onShow(options) {
         this.logData = [];
         this.openConsole = false;
         this.openConsoleResData = false;
         console.log(options, 'options');
         this.logData.push(options);
+
+        this.updateConfig();
+
+        this.login();
 
         const { query = {}} = options;
         if (query.vendor) {

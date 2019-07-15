@@ -430,5 +430,11 @@ export const apis = {
         path: '/api/mag.weapp.user.phone.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 绑定h5
+    bindWebUser: {
+        path: 'api/mag.platform_user.weapp.bind.json',
+        method: 'POST',
+        isForceToken: true
     }
 };

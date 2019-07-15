@@ -76,7 +76,18 @@ Page({
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ themeColor, isIphoneX, defineTypeGlobal, config });
+        const { self_lifting_enable, self_lifting_only } = config;
+        let liftStyle;
+        if (self_lifting_enable && self_lifting_only) {
+            liftStyle = 'lift';
+        }
+        this.setData({
+            themeColor,
+            isIphoneX,
+            defineTypeGlobal,
+            config,
+            liftStyle
+        });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
@@ -340,7 +351,7 @@ Page({
         const { vendor, afcode } = app.globalData;
         // console.log(vendor, afcode, 'globalData');
 
-        if (!userName && liftStyle !== 'lift' && product_type !== 1) {
+        if (!userName && !detailInfo && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',

@@ -70,4 +70,12 @@
 		</view>
   </view>
 </view>
-  <skuModal isShowSkuModal="{{ isShowSkuModal }}" product="{{ selectedProduct }}" themeColor="{{ themeColor }}" wx:if="{{ selectedProduct }}" bindonAddCart="onAddCart" id="skuModal" />
+<skuModal
+  isShowSkuModal="{{ isShowSkuModal }}"
+  product="{{ selectedProduct }}"
+  themeColor="{{ themeColor }}"
+  position="center"
+  duration="{{ 500 }}"
+  wx:if="{{ selectedProduct }}"
+  bindonAddCart="onAddCart"
+  id="skuModal" />
