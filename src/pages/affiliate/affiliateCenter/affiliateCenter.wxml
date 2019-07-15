@@ -52,19 +52,23 @@
 			<view class="incomeDataBody">
 				<view class="monneyShow">
 					<view class="monneyShowTop">
-						<view class="showItem showToday">
-							<text class="showItemNum showTodayNum">{{ member.commission_day || 0 }}</text>
-							<text class="showItemText showTodayText">今日（元）</text>
+						<view class="showItem">
+							<text class="showItemNum">{{ member.commission_day || 0 }}</text>
+							<text class="showItemText showTodayText">今日(元)</text>
+						</view>
+						<view class="showItem">
+							<text class="showItemNum">{{ member.commission_month || 0 }}</text>
+							<text class="showItemText showTodayText">本月(元)</text>
 						</view>
 					</view>
 					<view class="monneyShowBottom">
-						<view class="showItem showThisMonth">
-							<text class="showItemNum showTodayNum">{{ member.commission_month || 0 }}</text>
-							<text class="showItemText showTodayText">本月（元）</text>
+						<view class="showItem">
+							<text class="showItemNum">{{ member.commission_total || 0 }}</text>
+							<text class="showItemText showTodayText">累计(元)</text>
 						</view>
-						<view class="showItem showTotal">
-							<text class="showItemNum showTodayNum">{{ member.commission_total || 0 }}</text>
-							<text class="showItemText showTodayText">累计（元）</text>
+						<view class="showItem">
+							<text class="showItemNum">{{ wallet.affiliate_income_pending || 0 }}</text>
+							<text class="showItemText showTodayText">未结算(元)</text>
 						</view>
 					</view>
 				</view>
@@ -80,9 +84,12 @@
 				</view>
 			</view>
 		</view>
-		<view class="incomeRule" bindtap="changeModal">
+		<!-- <view class="incomeRule" bindtap="changeModal">
 			<text class="incomeRuleText">分享家说明</text>
-		</view>
+		</view> -->
+		<navigator class="incomeRule" url="/pages/rulePages/rulePages?key=affiliate">
+            <view class="incomeRuleText">分享家说明</view>
+        </navigator>
 	</view>
 	<view class="userInfoDisplay">
 		<!-- 浏览用户 -->
@@ -120,7 +127,7 @@
 	<view class="closeFooter" wx:if="{{ !affiliate_enable }}">商家分享功能已下线</view>
 
 </view>
-<view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}"> 
+<!-- <view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}"> 
 	<view class="content">
 		<view class="content-header">分享规则说明</view>
 		<view class="content-body">
@@ -132,7 +139,7 @@
 		</view>
 		<view class="content-footer" bindtap="changeModal">知道了</view>
 	</view>
-</view>
+</view> -->
 
 <!-- 编辑用户名弹窗 -->
 <van-popup show="{{ isShowPopup }}" bind:close="onClose" custom-class="popup">

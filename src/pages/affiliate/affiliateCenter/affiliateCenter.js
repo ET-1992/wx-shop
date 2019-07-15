@@ -1,11 +1,13 @@
 import api from 'utils/api';
 import { go } from 'utils/util';
+import { CONFIG, USER_KEY } from 'constants/index';
+
 const app = getApp();
 
 Page({
     data: {
         title: 'affiliateCenter',
-        isShowModal: false,
+        // isShowModal: false,
         isLoading: true,
         member: {},
         wallet: {},
@@ -26,6 +28,7 @@ Page({
         const user = data.current_user;
         console.log(data, 'data');
         console.log(user, 'user');
+        wx.setStorageSync(USER_KEY, data.current_user || '');
         this.setData({
             member,
             wallet,
@@ -35,11 +38,11 @@ Page({
             globalData: app.globalData
         });
     },
-    changeModal() {
-        this.setData({
-            isShowModal: !this.data.isShowModal
-        });
-    },
+    // changeModal() {
+    //     this.setData({
+    //         isShowModal: !this.data.isShowModal
+    //     });
+    // },
     // goToAffiliate(e) {
     //     console.log(e, '090');
     //     const { urldata } = e.currentTarget.dataset;

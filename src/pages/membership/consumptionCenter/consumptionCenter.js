@@ -9,7 +9,7 @@ Page({
         activeIndex: 0,
         isLoading: false,
         navbarListData: [
-            { text: '储值账户', value: '2' },
+            { text: '充值账户', value: '2' },
             { text: '赠送账户', value: '3' }
         ],
         rechargeModal: false,

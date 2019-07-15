@@ -18,7 +18,7 @@
 		class="affiliate"
 		url="/pages/affiliate/affiliateApply/affiliateApply"
 		wx:if="{{ ((config.affiliate_enable && !affiliate.is_affiliate_member) || (config.affiliate_enable && affiliate.member && affiliate.member.audit_status === '3')) && config.affiliate_public }}">
-		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
+		<image class="itemIcon" mode="widthFix" src="../../icons/affiliate.png" />
 		<view class="itemTitle">{{ config.affiliate_name }} >></view>
 	</navigator>
 

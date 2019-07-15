@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
-<view class="container">
-    <view class="integralList" wx:for="{{ integralList }}" wx:if="{{ !isLoading && integralList.length }}" >
+<view class="container" wx:if="{{!isLoading}}">
+    <view class="integralList" wx:for="{{ integralList }}" wx:if="{{ integralList.length }}" >
         <view>
             <view>{{ item.exp_type }}</view>
             <view class="time">{{ item.formatTime }}</view>
@@ -10,7 +10,7 @@
 			<view wx:if="{{ item.expense }}">- {{ item.expense }}</view>
         </view>
     </view>
-    <view wx:if="{{ !isLoading && integralList.length == 0 }}" class="noHint">
+    <view wx:if="{{ integralList.length == 0 }}" class="noHint">
         <view>暂无积分</view>
     </view>
 </view>

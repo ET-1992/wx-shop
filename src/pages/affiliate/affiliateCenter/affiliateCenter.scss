@@ -109,7 +109,8 @@
 			// 今日、本月、累计
 			.monneyShow {
 				flex: 1;
-				padding-right: 72rpx;
+				padding-right: 52rpx;
+				padding-left: 6rpx;
 				.showItem {
 					display: flex;
 					flex-direction: column;
@@ -126,12 +127,7 @@
 				// 今日
 				.monneyShowTop {
 					display: flex;
-					.showToday {
-						margin-right: auto;
-						.showTodayNum {
-							font-size: 60rpx;
-						}
-					}
+					justify-content: space-between;
 				}
 
 				// 本月、累计

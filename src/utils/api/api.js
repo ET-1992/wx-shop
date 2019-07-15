@@ -8,8 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -375,7 +375,7 @@ export const apis = {
     },
     // 签到
     signIn: {
-        path: 'api/mag.membership.checkin.json',
+        path: 'api/mag.shop.checkin.json',
         isForceToken: true
     },
     // 规则
@@ -400,7 +400,7 @@ export const apis = {
     },
     // 会员中心积分列表
     getIntegralList: {
-        path: 'api/mag/membership.log.json',
+        path: 'api/mag.membership.log.json',
         isForceToken: true
     },
     // 推广中心更新用户名
@@ -420,8 +420,14 @@ export const apis = {
         method: 'POST'
     },
     // 会员分享
-    membershipShare: {
-        path: 'api/mag/membership.share.json',
+    shopShare: {
+        path: 'api/mag.shop.share.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 获取用户手机号
+    getUserPhoneNumber: {
+        path: '/api/mag.weapp.user.phone.json',
         method: 'POST',
         isForceToken: true
     }
