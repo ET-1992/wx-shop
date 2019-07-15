@@ -10,8 +10,6 @@
     "countDown": "../../components/countDown/countDown",
     "productComments": "./productComments/index",
     "magicImg": "../../components/magicImg/magicImg",
-    "skuModal": "../../components/skuModal/skuModal",
-    "van-popup": "../../components/vant-weapp/dist/popup/index",
     "productList": "../../components/productList/index"
   }
 }

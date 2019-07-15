@@ -1,12 +1,18 @@
 import { Sku } from 'peanut-all';
-import { getAgainUserForInvalid } from 'utils/util';
 import { showModal } from 'utils/wxp';
 const app = getApp();
 Component({
     properties: {
         isShowSkuModal: {
             type: Boolean,
-            value: false
+            value: false,
+            observer(newValue) {
+                if (newValue) {
+                    this.setData({
+                        isShowSkuModalCss: true
+                    });
+                }
+            }
         },
         product: {
             type: Object,
@@ -19,34 +25,6 @@ Component({
             }
         },
         themeColor: {
-            type: Object,
-            value: {}
-        },
-        position: {
-            type: String,
-            value: 'center'
-        },
-        duration: {
-            type: Number,
-            value: 300
-        },
-        quantity: {
-            type: Number,
-            value: 0
-        },
-        actions: {
-            type: Array,
-            value: []
-        },
-        isCrowd: {
-            type: Boolean,
-            value: false
-        },
-        isGrouponBuy: {
-            type: Boolean,
-            value: false
-        },
-        config: {
             type: Object,
             value: {}
         }
@@ -62,11 +40,16 @@ Component({
     methods: {
         close() {
             this.setData({
-                isShowSkuModal: false
+                isShowSkuModalCss: false
+            }, () => {
+                setTimeout(() => {
+                    this.setData({
+                        isShowSkuModal: false
+                    });
+                }, 300);
             });
         },
         onSkuItem(e) {
-            console.log(e, 'onSku');
             const { key, skuName, propertyIndex, isDisabled } = e.currentTarget.dataset;
             if (isDisabled) {
                 return;
@@ -77,14 +60,14 @@ Component({
                 skuMap
             } = this.data;
 
-            if (selectedProperties[propertyIndex]) {
+            if (selectedProperties[propertyIndex] && selectedProperties[propertyIndex].value !== skuName) {
                 selectedProperties[propertyIndex] = {
-                    key,
-                    value: selectedProperties[propertyIndex].value === skuName ? '' : skuName
+                    value: skuName,
+                    key
                 };
                 const selectedSku = this.Sku.findSelectedSku(skus, selectedProperties) || {};
                 const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
+                    properties: properties,
                     skuMap,
                     selectedProperties
                 });
@@ -94,7 +77,6 @@ Component({
                     selectedSku
                 });
             }
-            console.log(this.data, 'onSkuItem');
         },
         async onAddCart(e) {
             const { selectedSku } = this.data;
@@ -116,76 +98,29 @@ Component({
                 return;
             }
             try {
-                const { skus, properties } = product;
+                const { skus, properties: productProperties } = product;
                 this.Sku = new Sku({ max: 3 });
                 const skuMap = this.Sku.getSkus(skus);
                 const defalutSelectedProperties = this.Sku.getDefaultSku(skus);
-
-                defalutSelectedProperties.forEach(item => {
-                    item.value = '';
-                });
-
                 const selectedSku = this.Sku.findSelectedSku(skus, defalutSelectedProperties) || {};
                 const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
+                    properties: productProperties,
                     skuMap,
-                    selectedProperties: defalutSelectedProperties,
+                    selectedProperties: defalutSelectedProperties || [],
                 });
 
+                console.log(selectedSku, 'selectedSku');
+                console.log(disableSkuItems, 'disableSkuItems');
                 this.setData({
-                    properties,
                     disableSkuItems,
                     selectedProperties: defalutSelectedProperties,
                     selectedSku,
                     skuMap,
                 });
-
-                console.log(this.data, 'init data');
             } catch (e) {
                 console.log(e);
             }
-        },
-
-        previewImage(e) {
-            const { src } = e.currentTarget.dataset;
-            wx.previewImage({
-                urls: [src]
-            });
-        },
-
-        updateQuantity({ detail }) {
-            const { value } = detail;
-            this.setData({ quantity: value });
-        },
-
-        onFormSubmit(e) {
-            const { formId } = e.detail;
-            this.setData({ formId });
-        },
-
-        async onUserInfo(e) {
-            console.log('onUserInfo', e);
-            const { encryptedData, iv } = e.detail;
-            if (iv && encryptedData) {
-                const { actionType } = e.target.dataset;
-                await getAgainUserForInvalid({ encryptedData, iv });
-                this.onSkuConfirm(actionType);
-            }
-            else {
-                showModal({
-                    title: '温馨提示',
-                    content: '需授权后操作',
-                    showCancel: false,
-                });
-            }
-        },
-
-        onSkuConfirm(actionType) {
-            this.close();
-            console.log(this.data);
-            const { selectedSku, quantity, formId } = this.data;
-            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity, formId }, { bubbles: true });
-        },
+        }
     }
 });
 

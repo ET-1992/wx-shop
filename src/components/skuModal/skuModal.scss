@@ -1,7 +1,23 @@
-.modal {
-	width: 650rpx;
-	background: #ffffff;
-	border-radius: 10rpx;
+.container {
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
+	transition: all 0.3s linear;
+
+	.modal {
+		width: 650rpx;
+		background: #ffffff;
+		border-radius: 5rpx;
+		transition: all 0.3s linear;
+
 		.header {
 			height: 90rpx;
 			display: flex;
@@ -15,12 +31,63 @@
 			.headerText {
 				width: 280rpx;
 				overflow: hidden;
-				white-space: nowrap;
+				white-space: nowrap; /*不换行*/
 				-webkit-line-clamp: 1;
-				text-overflow: ellipsis;
+				text-overflow: ellipsis; /*超出部分文字以...显示*/
 				height: 45rpx;
 				line-height: 45rpx;
 				font-weight: bold;
+			}
+
+			.close {
+				width: 30rpx;
+				height: 30rpx;
+				position:absolute;
+				right:0;
+				top:0;
+				margin: 30rpx;
+				z-index:999;
+			}
+		}
+
+		.content {
+			padding: 0 50rpx;
+			background: #ffffff;
+
+			.item {
+				margin-bottom: 10rpx;
+
+				.itemTitle {
+					color: #000000;
+					font-size: 26rpx;
+					margin-bottom: 20rpx;
+					font-weight: bold;
+				}
+
+				.itemContent {
+					.itemSku {
+						color: #ffffff;
+						font-size: 26rpx;
+						line-height: 37rpx;
+						padding: 12rpx 37rpx;
+						margin-right:20rpx;
+						margin-bottom:20rpx;
+						display: inline-block;
+						border: 1rpx solid #707070;
+						color: #000000;
+					}
+
+					.active {
+						background: #79BCBE;
+						color: #ffffff;
+						border: none;
+					}
+
+					.disable {
+						border-color:#ccc;
+						color:#eee;
+					}
+				}
 			}
 		}
 
@@ -50,155 +117,25 @@
 				line-height: 33rpx;
 			}
 		}
-}
-
-.content {
-	padding: 0 50rpx;
-	background: #ffffff;
-
-	.item {
-		margin-bottom: 10rpx;
-
-		.itemTitle {
-			color: #000000;
-			font-size: 26rpx;
-			margin-bottom: 20rpx;
-			font-weight: bold;
-		}
-
-		.itemContent {
-			.itemSku {
-				color: #ffffff;
-				font-size: 26rpx;
-				line-height: 37rpx;
-				padding: 12rpx 37rpx;
-				margin-right:20rpx;
-				margin-bottom:20rpx;
-				display: inline-block;
-				border: 1rpx solid #707070;
-				color: #000000;
-			}
-			.active {
-				background: #79BCBE;
-				color: #ffffff;
-				border: none;
-			}
-			.disable {
-				border-color:#ccc;
-				color:#eee;
-			}
-		}
-	}
-	&.bottom-content{
-		padding:0
 	}
 }
 
-.close {
-	width: 30rpx;
-	height: 30rpx;
-	position:absolute;
-	right:25rpx;
-	top:25rpx;
-	z-index:999;
+.skuModalClose {
+	transform: scale(0.5);
 }
 
-.bottomModal {
-	background-color: #fff;
-	padding: 20rpx 62rpx 130rpx;
+.skuModalShow {
+	transform: scale(1);
+}
 
-	.scrollSkus {
-		min-height: 200rpx;
-		max-height: 800rpx;
-	}
+.containerClose {
+	opacity: 0;
+}
 
-	.head {
-		margin-bottom: 24rpx;
-		display: flex;
+.containerShow {
+	opacity: 1;
+}
 
-		.productImage {
-			width: 180rpx;
-			height: 180rpx;
-			border: 1px solid #fff;
-			margin-right: 40rpx;
-			position: relative;
-			box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
-		}
-
-		.productInfo {
-			color: #707070;
-			width: 400rpx;
-			font-size: 32rpx;
-
-			.stock, .price, .property {
-				margin-bottom: 5rpx;
-			}
-
-			.price {
-				color: #F52D2D;
-				font-size: 36rpx;
-				font-weight: bold;
-				display: flex;
-				align-items: center;
-				.currency{
-					font-size: 22rpx;
-					font-weight: normal;
-				}
-				.groupon{
-					display: flex;
-					align-items: center;
-					.commander{
-						font-size:22rpx;
-						padding-left:10rpx;
-					}
-				}
-			}
-		}
-	}
-
-	.title {
-		margin-bottom: 20rpx;
-		font-size: 28rpx;
-	}
-
-	.titleHint {
-		font-size: 16rpx;
-		color: #ccc;
-	}
-
-	.quantity {
-		display: flex;
-		justify-content: space-between;
-		border-top: 1px solid #ddd;
-		padding-top: 40rpx;
-		align-items: center;
-	}
-
-	.actionSheetBtGroup {
-		margin-top: 20rpx;
-		position: fixed;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		z-index: 100;
-		font-size: 0;
-		display: flex;
-
-		.confirmBt {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-			border-radius: 0;
-			height: 90rpx;
-			font-size: 10pt;
-			background-color: #79BCBE;
-			color: #fff;
-			background-size: cover;
-		}
-
-		.secondaryBt {
-			background-color: #9bc9ca;
-		}
-	}
+.none {
+	display: none;
 }

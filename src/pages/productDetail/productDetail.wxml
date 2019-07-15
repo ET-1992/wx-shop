@@ -1,9 +1,13 @@
 <loading isLoading="{{ isLoading }}"/>
+<import src="../../templates/mock/mock.wxml" />
 <import src="../../utils/wxParse/wxParse.wxml" />
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view class="header" wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}" >
+		<view
+			class="header"
+			wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}"
+		>
 			<swiperVideoImg
 				id="swiperVideoImg"
 				wx:if="{{product.video}}"
@@ -31,7 +35,7 @@
 				<view wx:if="{{ hasStart && !hasEnd }}">距结束<countDown formatTime="{{ timeLimit }}" /></view>
 				<view wx:if="{{ !hasStart }}">距开始<countDown formatTime="{{ timeLimit }}" /></view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
-			</view>
+			  </view>
 		</view>
 		<view class="info">
 			<view class="top">
@@ -48,24 +52,18 @@
 
 			</view>
 			<view class="meta">
-				<view class="priceWrap">
-					<view class="currentPrice">
-            <view class="price">
-              <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
-              <text class="num">{{ product.definePrice }}</text>
-              <block wx:if="{{ !(product.groupon_enable === '1' || product.miaosha_enable === '1' || product.seckill_enable === '1') && (product.highest_price > product.definePrice) }}">
-                <text>-</text>
-                <text class="num">{{ product.highest_price }}</text>
-              </block>
-            </view>
-						<view class="commander" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</view>
-          </view>
-					<view class="originalPrice" wx:if="{{ product.showOriginalPrice }}">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
-        </view>
-
+				<view class="price">
+					<view class="nowPrice">
+						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
+						<view class="priceStyle">{{product.definePrice}}</view>
+						<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
+					</view>
+					<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+				</view>
 				<view class="postage" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
 				<view class="sales">已售：{{ product.sales }}</view>
 			</view>
+			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
 			<view class="tag" wx:if="{{ product.groupon_enable === '1' }}">
 				{{ product.groupon_member_limit + '人团' }}
 			</view>
@@ -86,6 +84,7 @@
 							<view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="{{ item.id }}" wx:if="{{ index< 3}}">{{ item.title }}</view>
 						</block>
 						<view wx:else class="nullCoupon">暂无可领取优惠券</view>
+						<!-- <image class="rightIcon" src="/icons/right.png" /> -->
 					</button>
 				</form>
 			</view>
@@ -212,18 +211,94 @@
 				</block>
 			</view>
 		</view>
+		<!-- 代付按钮 -->
+		<view class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}" wx:if="{{ config.crowd_pay_enable && product.product_type !== 1}}">
+			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit"/>
+		</view>
 	</view>
-	<!-- 代付按钮 -->
-	<view class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}" wx:if="{{ config.crowd_pay_enable && product.product_type !== 1}}">
-		<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit"/>
-	</view>
-</view>
 
-<!-- 领券弹窗 -->
-<van-popup show="{{ isShowCouponList }}" position="bottom" bind:close="onHideCouponList">
-	<view class="actionSheet">
-		<view class="actionSheetContent couponActionSheet {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-			<view class="close" catchtap="onHideCouponList">
+	<view class="actionSheet" wx:if="{{ isShowAcitonSheet }}">
+		<template is="mock" data="{{ isShow: isShowAcitonSheet }}" />
+		<view class="actionSheetContent {{ isShowAcitonSheeted ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="close" catchtap="onMockCancel">
+				<image src="../../icons/clear.png"></image>
+			</view>
+			<view style="width:100%">
+				<scroll-view scroll-y class="scrollSkus">
+					<view class="head">
+						<image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill"
+						/>
+						<view class="productInfo">
+							<view class="price">
+								<text wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
+									<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
+								</text>
+								<text wx:elif="{{ !hasEnd && hasStart && product.miaosha_enable === '1' }}">
+									{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
+								</text>
+								<text wx:else>{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}</text>
+							</view>
+							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
+								库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
+							</view>
+							<view class="property" wx:if="{{ product.skus.length }}">
+								已选择：{{ selectedSku.property_names || '--' }}
+							</view>
+						</view>
+					</view>
+					<view class="sku" wx:if="{{ product.skus && product.skus.length }}">
+						<view class="skuGroup" wx:for="{{ product.properties }}" wx:for-item="property" wx:for-index="propertyIndex" wx:key="key">
+							<view class="title">{{ property.name }}</view>
+							<view
+								class="skuItem {{ selectedProperties[propertyIndex].value === item.name ? 'selected' : '' }} {{ disableSkuItems[item.name] ? 'disabled' : '' }}"
+								wx:for="{{ property.items }}"
+								wx:key="index"
+								data-is-disabled="{{ disableSkuItems[item.name] }}"
+								data-value="{{ item.name }}"
+								data-key="{{ property.name }}"
+								data-property-index="{{ propertyIndex }}"
+								catchtap="onSkuItem"
+								style="{{ selectedProperties[propertyIndex].value === item.name ? 'background-color: ' + themeColor.primaryColor + ';' + 'border-color: ' + themeColor.primaryColor : '' }}"
+							>{{ item.name }}</view>
+						</view>
+					</view>
+				</scroll-view>
+				<view class="quantity" wx:if="{{ product.product_type !== 1 }}">
+					<view class="title">数量</view>
+					<numberInput
+						value="{{ quantity }}"
+						postId="{{ product.id }}"
+						skuId="{{ selectedSku.id }}"
+						max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
+						bindquantityChangeEvent="updateQuantity"
+						quota="{{ product.quota }}"
+					/>
+				</view>
+				<form catchsubmit="onFormSubmit" report-submit="true">
+					<view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+						<button
+							class="normalizeBt confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+							wx:for="{{ actions }}"
+							wx:key="text"
+							disabled="{{ product.skus.length && !selectedSku.id }}"
+							data-action-type="{{ item.type }}"
+							form-type="submit"
+							bindgetuserinfo="onUserInfo"
+							open-type="getUserInfo"
+							lang="zh_CN"
+							style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}} {{ index + 1 === actions.length ? themeColor.primaryColor :  themeColor.secondaryColor }}"
+						>{{ item.text }}</button>
+					</view>
+				</form>
+			</view>
+		</view>
+	</view>
+
+	<view class="actionSheet" wx:if="{{ isShowCouponList }}">
+		<template is="mock" data="{{ isShow: isShowCouponList }}" />
+		<view class="actionSheetContent couponActionSheet {{ isShowCouponListed ? 'show' : '' }} {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="close" catchtap="onMockCancel">
 				<image src="../../icons/clear.png"></image>
 			</view>
 			<scroll-view class="couponList" scroll-y>
@@ -243,7 +318,8 @@
 						data-status="{{ item.status }}"
 						data-title="{{ item.title }}"
 						data-index="{{ index }}"
-						catchtap="onCouponClick">
+						catchtap="onCouponClick"
+					>
 						<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="receivable" config="{{config}}"/><!-- 未领取 -->
 						<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" config="{{config}}"/><!-- 已领取 -->
 					</view>
@@ -261,39 +337,25 @@
 				</view>
 				<view class="gap" />
 			</scroll-view>
-    </view>
-  </view>
-</van-popup>
+		</view>
+	</view>
+</view>
 
-<!-- 分享弹窗 -->
-<van-popup show="{{ showShareModal }}" position="bottom" bind:close="closeShareModal">
-  <view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-  	<view class="shareModalContent">
-  		<button class="shareBtn" open-type="share">
-  			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
-  			<view>分享给好友</view>
-  		</button>
-  		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
-  			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
-  			<view>分享商品海报</view>
-  		</view>
-  	</view>
-  	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal"/>
-  </view>
-</van-popup>
-
-<skuModal
-  isShowSkuModal="{{ isShowAcitonSheet }}"
-  product="{{ product }}"
-  themeColor="{{ themeColor }}"
-  position="bottom"
-  actions="{{ actions }}"
-  quantity="{{ quantity }}"
-  isCrowd="{{ isCrowd }}"
-  isGrouponBuy="{{ isGrouponBuy }}"
-  config="{{ config }}"
-  bind:onSkuConfirm="onSkuConfirm"
-  />
+<!-- 底部弹窗 -->
+<view class="mock {{ showShareModal ? 'mockShow' : ''}}" catchtap="closeShareModal"></view>
+<view class="actionShareModal {{showShareModaled ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ showShareModal }}">
+	<view class="shareModalContent">
+		<button class="shareBtn" open-type="share">
+			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<view>分享给好友</view>
+		</button>
+		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<view>分享商品海报</view>
+		</view>
+	</view>
+	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal"/>
+</view>
 
 <console page="商品详情" />
 
