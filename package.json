@@ -55,11 +55,7 @@
   "dependencies": {
     "decimal.js": "^10.0.1",
     "es6-promise": "^4.1.0",
-<<<<<<< HEAD
     "peanut-all": "^1.2.3",
-=======
-    "peanut-all": "^1.2.1",
->>>>>>> dc54b5f5d4bba89468358d531a1f49a23bd05fe3
     "vant-weapp": "^0.5.7"
   },
   "jest": {
