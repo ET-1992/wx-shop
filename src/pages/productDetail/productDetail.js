@@ -60,7 +60,7 @@ Page({
         expiredGroupon: []
     },
 
-    go,
+    go, // 跳转到规则详情页面
 
     onShowSku(ev) {
         const { status } = this.data.product;
