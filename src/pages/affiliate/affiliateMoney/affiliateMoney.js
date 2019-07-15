@@ -4,6 +4,7 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
 import { showModal } from 'utils/wxp';
+import { Decimal } from 'decimal.js';
 
 // import { USER_KEY } from 'constants/index';
 const app = getApp();
@@ -193,7 +194,7 @@ Page({
                 bank_name: bankName,
                 weixin_account: wechatId,
                 name: username,
-                amount: Number(money) * 100
+                amount: new Decimal(money).mul(100).toNumber()
             });
             this.setData({
                 isGetingMoney: false
@@ -213,7 +214,11 @@ Page({
             this.setData({
                 isGetingMoney: false
             });
-            wx.showToast({ title: '提款失败，请重试', icon: 'none', image: '', duration: 1000 });
+            if (e.code) {
+                wx.showToast({ title: e.errMsg, icon: 'none', image: '', duration: 1000 });
+            } else {
+                wx.showToast({ title: '提款失败，请重试', icon: 'none', image: '', duration: 1000 });
+            }
         }
 
     },
