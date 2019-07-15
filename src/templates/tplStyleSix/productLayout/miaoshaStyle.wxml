@@ -1,5 +1,7 @@
 <view class="miaoshaStyle">
     <view class="header" wx:if="{{ miaosha.miaosha_enable }}">
+        <view class="status" wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+        <view class="status" wx:if="{{ !hasStart }}">距开始</view>
         <view class="status" wx:if="{{ hasEnd }}">已结束</view>
         <view class="time" wx:else>
             <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
