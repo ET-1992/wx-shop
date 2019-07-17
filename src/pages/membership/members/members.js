@@ -48,7 +48,9 @@ Page({
         // 获取开启储值卡后充值金额数组
         if (config.store_card_enable) {
             const recharge = await api.hei.rechargePrice();
-            recharge.data[0].checked = true;
+            if (recharge.data && recharge.data[0]) {
+                recharge.data[0].checked = true;
+            }
             this.setData({
                 rechargeArray: recharge.data
             });
