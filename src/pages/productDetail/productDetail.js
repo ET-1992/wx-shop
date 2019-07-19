@@ -311,15 +311,17 @@ Page({
             // ---------------
         }
         catch (err) {
-            const { confirm } = await proxy.showModal({
-                title: '温馨提示',
-                content: '商品过期不存在',
-                showCancel: false
-            });
-            if (confirm) {
-                wx.switchTab({
-                    url: '/pages/home/home'
+            if (err && (err.code === 'empty_query')) {
+                const { confirm } = await proxy.showModal({
+                    title: '温馨提示',
+                    content: '商品过期不存在',
+                    showCancel: false
                 });
+                if (confirm) {
+                    wx.switchTab({
+                        url: '/pages/home/home'
+                    });
+                }
             }
         }
         // this.setData({ isLoading: false });
