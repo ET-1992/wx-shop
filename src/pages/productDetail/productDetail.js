@@ -197,11 +197,17 @@ Page({
                 { receivableCoupons: [], receivedCoupons: [] },
             );
 
+            let routeQuery = {
+                id,
+                afcode: current_user.afcode
+            };
+
             this.setData({
                 receivableCoupons,
                 receivedCoupons,
                 current_user,
-                coupons
+                coupons,
+                routeQuery
             });
 
 
@@ -282,11 +288,6 @@ Page({
                 this,
             );
 
-            let routeQuery = {
-                id,
-                afcode: data.current_user.afcode
-            };
-
             this.setData({
                 // skuSplitProperties,
                 grouponId: grouponId || '',
@@ -296,8 +297,7 @@ Page({
                 skuMap,
                 isLoading: false,
                 share_image: thumbnail,
-                ...data,
-                routeQuery
+                ...data
             });
 
 
