@@ -1,4 +1,5 @@
-<view class="container" wx:if="{{ !isLoading }}">
+<!-- 自提点页面 -->
+<view class="container" wx:if="{{ !isLoading && type === '2' }}">
 	<radio-group wx:for="{{ address_list }}" bindchange="getLiftInfo">
 		<label class="item">
 			<radio value="{{index}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" class="itemRadio" />

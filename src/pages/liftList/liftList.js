@@ -7,13 +7,20 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
+        type: ''
     },
 
-    onLoad(parmas) {
-        console.log(parmas);
+    onLoad(params) {
+        console.log(params.type);
+        console.log(typeof (params.type));
+        this.setData({ type: params.type });
     },
 
-    async onShow(type) {
+    onShow() {
+        this.getLocationData(this.data.type);
+    },
+
+    async getLocationData(type) {
         const res = await auth({
             scope: 'scope.userLocation',
             ctx: this

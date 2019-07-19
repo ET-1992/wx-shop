@@ -1,0 +1,73 @@
+@import '~styles/color';
+.container {	
+	padding: 0 30rpx;
+	background-color: #fff;
+
+	.address {
+		font-size: 28rpx;
+		line-height: 40rpx;
+		flex: 1;
+		border-top: 1px solid $borderColor;
+		padding: 30rpx 0;
+	}
+
+	.wrapper {
+		border-top: 1px solid $borderColor;
+		padding: 30rpx 5rpx 8rpx;
+
+		.address-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 28rpx;
+			color: #000;
+			height: 40rpx;
+
+			.right {
+				font-size: 24rpx;
+				color: $infoColor;
+				.right-icon {
+					width: 10rpx;
+					height: 20rpx;
+				}
+			}
+		}
+
+		.address-info {
+			padding: 25rpx;
+			display: flex;
+			flex-wrap: wrap;
+
+			.address-section {
+				display: flex;
+				flex-direction: column;
+				width: 150rpx;
+				flex-grow: 1;
+
+				.address-title {
+					font-size: 24rpx;
+					color: $tagColor;
+				}
+
+				.address-userName,
+				.address-phone,
+				.address-detail {
+					font-size: 28rpx;
+					color: $titleColor;
+				}
+			}
+
+			.address-second {
+				border-left: 1px solid $borderColor;
+				padding-left: 20rpx;
+			}
+
+			.address-bottom {
+				width: 100%;
+				margin-top: 25rpx;
+			}
+		}
+	}
+}
+
+

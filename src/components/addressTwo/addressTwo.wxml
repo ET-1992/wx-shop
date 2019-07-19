@@ -21,7 +21,7 @@
 			</view>
 			<view class="address-section address-bottom">
 				<view class="address-title">地址</view>
-				<view class="address-datail">{{  (address.provinceName + address.cityName + address.countyName + address.detailInfo) }}</view>
+				<view class="address-detail">{{address.provinceName}}{{ address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
 			</view>
 		</view>
 	</view>

@@ -10,10 +10,12 @@ Page({
     data: {
         title: 'orderCreate',
         liftStyles: [
-            { title: '快递', value: 'express', checked: 'true' },
-            { title: '自提', value: 'lift' }
+            { title: '快递', value: 'express', checked: false, visible: false },
+            { title: '自提', value: 'lift', checked: false, visible: false },
+            { title: '送货上门', value: 'delivery', checked: false, visible: false }
         ],
         liftStyle: 'express',
+        listStyleIndex: 0,
         liftInfo: {
             isCanInput: true,
             isCanNav: true
@@ -85,8 +87,7 @@ Page({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config,
-            liftStyle
+            config
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -114,6 +115,7 @@ Page({
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
                 app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
+                this.firstInit();
                 this.onLoadData();
             });
         }
@@ -187,13 +189,15 @@ Page({
         });
     },
 
+    // 从 liftList 页面获取自提地址
     getLiftInfoEvent(data) {
-        // console.log('getLiftInfoEvent', data);
+        console.log('getLiftInfoEvent', data);
         const { liftInfo } = this.data;
 
         this.setData({
             liftInfo: { ...liftInfo, ...data }
         });
+        console.log('liftInfo193', this.data.liftInfo);
     },
 
     setOverseeAdressEvent(selfAddressObj) {
@@ -218,13 +222,60 @@ Page({
 
     // 更新自提地址
     updateLiftInfo(e) {
-        // console.log(e);
+        console.log(e);
         const { liftInfo = {}} = this.data;
         this.setData({
             liftInfo: { ...liftInfo, ...e.detail }
         }, () => {
             console.log(this.data.liftInfo);
         });
+    },
+
+    // 初始化配送方式
+    firstInit() {
+        let {
+            config: {
+                logistics_enable,
+                self_lifting_enable,
+                home_delivery_enable
+            },
+            liftStyles,
+            liftStyle,
+            listStyleIndex
+        } = this.data;
+
+        let configLiftStyles = [
+            {
+                value: 'express',
+                visible: logistics_enable
+            },
+            {
+                value: 'lift',
+                visible: self_lifting_enable
+            },
+            {
+                value: 'delivery',
+                visible: home_delivery_enable
+            }
+        ];
+
+        if (logistics_enable || self_lifting_enable || home_delivery_enable) {
+            liftStyles.forEach((item, index) => {
+                item.visible = item && (item.value === configLiftStyles[index].value) && configLiftStyles[index].visible;
+            });
+            if (!listStyleIndex) {
+                let listStyleIndex = configLiftStyles.findIndex(item => {
+                    return item.visible === true;
+                });
+                console.log(listStyleIndex, 'listStyleIndex');
+                liftStyles[listStyleIndex].checked = true;
+                liftStyle = liftStyles[listStyleIndex].value;
+                this.setData({
+                    liftStyle,
+                    liftStyles
+                });
+            }
+        }
     },
 
     async onLoadData() {
@@ -274,7 +325,7 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (liftStyle === 'lift') {
+            if (liftStyle === 'lift') { // 自提订单
                 requestData.shipping_type = 2;
             }
 
@@ -283,7 +334,8 @@ Page({
             }
 
             requestData.posts = JSON.stringify(items);
-            const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, self_lifting_only, store_card } = await api.hei.orderPrepare(requestData);
+
+            const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, store_card } = await api.hei.orderPrepare(requestData);
             const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
@@ -291,9 +343,9 @@ Page({
             const useCoin = Math.min(maxUseCoin, wallet.coins);
             // console.log(useCoin);
 
-            if (self_lifting_only) {
-                liftStyle = 'lift';
-            }
+            // if (self_lifting_only) {
+            //     liftStyle = 'lift';
+            // }
 
             this.setData({
                 coupons,
@@ -311,9 +363,12 @@ Page({
                 order_annotation,
                 product_type,
                 payment_tips,
-                self_lifting_only,
-                liftStyle: liftStyle,
-                store_card
+                liftStyle,
+                store_card,
+                liftStyles,
+                logistics_enable, // 快递
+                self_lifting_enable, // 自提
+                home_delivery_enable // 送货上门
             }, () => {
                 this.computedFinalPay();
             });
@@ -523,6 +578,7 @@ Page({
             requestData.posts = JSON.stringify(items);
         }
 
+        // 代付
         if (crowd) {
             requestData.type = 5;
             requestData.crowd_type = crowdtype;
@@ -624,7 +680,9 @@ Page({
 
     /* radio选择改变触发 */
     radioChange(e) {
-        if (e.detail.value === 'lift') {
+        const { liftStyles } = this.data;
+        const { value: index } = e.detail;
+        if (liftStyles[index].value === 'lift') {
             const liftInfo = wx.getStorageSync('liftInfo');
             if (liftInfo) {
                 this.setData({
@@ -632,8 +690,17 @@ Page({
                 });
             }
         }
+        liftStyles.forEach((item) => {
+            if (item.value === liftStyles[index].value) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+        });
         this.setData({
-            liftStyle: e.detail.value
+            liftStyle: liftStyles[index].value,
+            listStyleIndex: index,
+            liftStyles
         }, () => {
             this.onLoadData();
         });

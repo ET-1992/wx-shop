@@ -8,8 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -435,6 +435,11 @@ export const apis = {
     bindWebUser: {
         path: 'api/mag.platform_user.weapp.bind.json',
         method: 'POST',
+        isForceToken: true
+    },
+    // 送货上门
+    orderHomeDelivery: {
+        path: 'api/mag/order.deliveryaddress.json',
         isForceToken: true
     }
 };
