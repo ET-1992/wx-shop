@@ -11,6 +11,10 @@
     "van-panel": "../../components/vant-weapp/dist/panel/index",
     "countDown": "../../components/countDown/countDown",
     "productList": "../../components/productList/index",
-    "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal"
+    "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal",
+     "addressTwo": "../../components/addressTwo/addressTwo",
+     "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
+     "delivery": "../../components/delivery/delivery",
+     "storeList": "../../components/storeList/storeList"
   }
 }

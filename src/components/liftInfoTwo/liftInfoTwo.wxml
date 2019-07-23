@@ -1,0 +1,48 @@
+<view class="container">
+	<navigator url="{{ liftInfo.isCanNav ? '/pages/liftList/liftList?type=2' : '' }}">
+		<view class="wrapper" wx:if="{{ liftInfo.receiver_address_name }}" style="{{ isShowBorder ? '' : 'border: 0'}}">
+			<view class="address-top">自提地址</view>
+			<view class="address-part">
+				<view class="address-name">{{ liftInfo.receiver_address_name }}</view>
+				<view class="address-distance" wx:if="{{ isShowBorder }}">
+					<text>距您 {{ liftInfo.distance }} km</text>
+					<image src="/icons/right.png" class="right-arrow"></image>
+				</view>
+			</view>
+			<view class="address-info">
+				<view class="address-section address-first">
+					<view class="address-title">商家地址</view>
+					<view class="address-detail">{{liftInfo.receiver_state}}{{liftInfo.receiver_city}}{{liftInfo.receiver_district}}{{liftInfo.receiver_address}}</view>
+				</view>
+				<view class="address-section">
+					<view class="address-title">营业时间</view>
+					<view class="address-time" wx:if="{{ isShowBorder && liftInfo.time && liftInfo.time.length }}">{{ liftInfo.time[0] }} - {{ liftInfo.time[1] }}</view>
+					<view class="address-time" wx:if="{{ !isShowBorder && liftInfo.store.time && liftInfo.store.time.length }}">{{ liftInfo.store.time[0] }} - {{ liftInfo.store.time[1] }}</view>
+				</view>
+				<view class="address-section address-second">
+					<view class="address-title">商家电话</view>
+					<view class="address-phone">{{ liftInfo.receiver_address_phone }}</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="liftInfo-section" wx:else style="{{ isShowBorder ? '' : 'border: 0'}}">
+			<view class="address title">选择自提点</view>
+			<image src="/icons/right.png" class="right-arrow"></image>
+		</view>
+	</navigator>
+
+	<view class="receiver" wx:if="{{ !liftInfo.isCanInput }}">
+		<view class="title">提货人:{{ liftInfo.receiver_name }}</view>
+		<view class="tel" style="padding-right: 50rpx">电话 <text>*</text>:{{ liftInfo.receiver_phone }}</view>
+	</view>
+
+	<view class="receiver" wx:if="{{ liftInfo.isCanInput }}">
+		<view class="title">
+			提货人:<input type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
+		</view>
+		<view class="tel">
+			电话<text>*</text>:<input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
+		</view>
+	</view>
+</view>

@@ -65,3 +65,69 @@
 		}
 	}
 }
+
+// 门店列表
+.storeContainer {
+	width: 100%;
+	height: 100%;
+	background-color: #F4F4F4;
+
+	.item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: #fff;
+		padding: 20rpx;
+		margin-bottom: 10rpx;
+
+		.storeHeader {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10rpx;
+			.storeLeft{
+				color: #333333;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				.storeImg {
+					width: 80rpx;
+					height: 80rpx;
+					border-radius: 50%;
+				}
+				.storeName {
+					margin-left: 20rpx;
+				}
+			}
+			.storeRight {
+				min-width: 120rpx;
+				color: #707070;
+				font-size: 26rpx;
+				text-align: center;
+			}
+		}
+		.storeCenter {
+			flex: 1;
+			
+			.text {
+				font-size: 26rpx;
+				color: #707070;
+				display: -webkit-box;
+				word-break: break-all;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+			}
+		}
+
+	}
+
+	.distanceInfor {
+		width: 100%;
+		font-size: 26rpx;
+		color: #707070;
+		margin: 20rpx 0;
+		text-align: center;
+	}
+}

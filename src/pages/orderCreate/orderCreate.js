@@ -52,7 +52,7 @@ Page({
         isShouldRedirect: false,
         isDisablePay: true,
         PAY_STYLES,
-        selectedPayValue: 'weixin'
+        selectedPayValue: 'weixin',
     },
 
     // onLoad() {
@@ -94,7 +94,7 @@ Page({
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
-            const totalPrice = currentOrder.totalPrice;
+            const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
             this.setData({
@@ -112,6 +112,7 @@ Page({
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
                 }
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
+                app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
                 app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
                 this.onLoadData();
             });
@@ -202,6 +203,20 @@ Page({
         });
     },
 
+    // 从 liftList 页面获取门店地址
+    getStoreInfoEvent(data) {
+        // console.log('getStoreInfoEvent', data);
+        const times = data[0].times || [];
+        console.log('times', times);
+        this.setData({
+            storeListAddress: data,
+            homeDeliveryTimes: times
+        });
+        console.log('storeListAddress211', this.data.storeListAddress);
+        console.log('homeDeliveryTimes', this.data.homeDeliveryTimes);
+    },
+
+    // 更新自提地址
     updateLiftInfo(e) {
         // console.log(e);
         const { liftInfo = {}} = this.data;
@@ -214,8 +229,25 @@ Page({
 
     async onLoadData() {
         try {
-            let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
-            // console.log(totalPrice, 'totalPrice');
+            // let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
+            let {
+                address,
+                items,
+                totalPrice,
+                user_coupon_ids,
+                isGrouponBuy,
+                liftStyle,
+                grouponId,
+                // seckill_product_id,
+                // seckill,
+                liftStyles,
+                config: {
+                    logistics_enable,
+                    self_lifting_enable,
+                    home_delivery_enable
+                },
+                listStyleIndex
+            } = this.data;
             let requestData = {};
             if (address) {
                 requestData = {
@@ -246,8 +278,12 @@ Page({
                 requestData.shipping_type = 2;
             }
 
+            if (liftStyle === 'delivery') { // 送货上门订单
+                requestData.shipping_type = 4;
+            }
+
             requestData.posts = JSON.stringify(items);
-            const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only, store_card } = await api.hei.orderPrepare(requestData);
+            const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, self_lifting_only, store_card } = await api.hei.orderPrepare(requestData);
             const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
@@ -450,10 +486,24 @@ Page({
             requestData.coins = useCoin;
         }
 
+        // 自提需传数据
         if (liftStyle === 'lift') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
             wx.setStorageSync('liftInfo', liftInfo);
+        }
+
+        // 送货上门需传数据
+        if (liftStyle === 'delivery') {
+            requestData.shipping_type = 4;
+            // 直接获取送货上门子组件的任意数据和方法
+            const delivery = this.selectComponent('#delivery');
+            const { homeDeliveryTimes, index } = delivery.data;
+            console.log(homeDeliveryTimes[index]);
+            requestData.receiver_delivery_time = homeDeliveryTimes[index] || '';
+            // 获取门店列表的门店名称
+            const { storeListAddress } = this.data;
+            requestData.receiver_address_name = storeListAddress[0].name || '';
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)

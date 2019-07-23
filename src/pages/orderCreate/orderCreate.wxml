@@ -11,11 +11,20 @@
             </label>
         </radio-group>
     </view>
-    <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/>
+    <!-- 自提 -->
+    <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ liftStyle == 'lift' && self_lifting_enable }}" bindupdateLiftInfo="updateLiftInfo"/>
+    <!-- <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/> -->
 
-    <!-- 添加地址 -->
-    <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" />
+    <!-- 快递 -->
+    <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' && logistics_enable }}" />
+    <!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" /> -->
+
+    <!-- 送货上门 -->
+    <delivery address="{{ address }}" wx:if="{{ liftStyle == 'delivery' && home_delivery_enable }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" />
   </block>
+
+  <!-- 门店列表 -->
+  <storeList addresses="{{ storeListAddress }}" isOrder="{{ isOrder }}" wx:if="{{ liftStyle == 'delivery' }}" id="storeList"></storeList>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />

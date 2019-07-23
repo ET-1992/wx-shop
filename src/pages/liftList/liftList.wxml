@@ -22,6 +22,41 @@
 	</radio-group>
 </view>
 
+<!-- 门店列表页面 -->
+<view class="storeContainer" wx:if="{{ !isLoading && type === '4' }}">
+	<view wx:for="{{ address_list }}" wx:key="{{ item.name }}" wx:if="{{ !item.isoutofrange }}">
+		<label class="item" data-index="{{ index }}" data-name="{{ item.name }}" bindtap="goOrderCreatePage">
+			<view class="storeHeader">
+				<view class="storeLeft">
+					<image src="{{ item.logo ? item.logo : '/icons/store.svg'}}" class="storeImg"/>
+					<view class="storeName">{{ item.name }}</view>
+				</view>
+				<view class="storeRight">{{ item.distance }}km</view>
+			</view>
+			<view class="storeCenter">
+				<view class="text">门店地址：{{ item.state}}{{item.city}}{{item.district}}{{ item.address }}</view>
+				<view class="text" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
+			</view>
+		</label>
+	</view>
+	<view class="distanceInfor">以下门店超出送货范围</view>
+	<view wx:for="{{ address_list }}" wx:key="{{ item.name }}" wx:if="{{ item.isoutofrange }}">
+		<label class="item" data-index="{{ index }}" data-name="{{ item.name }}" bindtap="goOrderCreatePage">
+			<view class="storeHeader">
+				<view class="storeLeft">
+					<image src="{{ item.logo ? item.logo : '/icons/store.svg'}}" class="storeImg"/>
+					<view class="storeName">{{ item.name }}</view>
+				</view>
+				<view class="storeRight">{{ item.distance }}km</view>
+			</view>
+			<view class="storeCenter">
+				<view class="text">门店地址：{{item.state}}{{item.city}}{{item.district}}{{ item.address }}</view>
+				<view class="text" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
+			</view>
+		</label>
+	</view>
+</view>
+
 <loading isLoading="{{ isLoading }}"/>
 
 <myModal modal="{{authModal}}" />

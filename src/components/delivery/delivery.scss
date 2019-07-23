@@ -1,0 +1,117 @@
+@import '~styles/color';
+.container {
+	padding: 0 30rpx;
+	background-color: #fff;
+
+	.address {
+		font-size: 28rpx;
+		line-height: 40rpx;
+		flex: 1;
+		border-top: 1px solid $borderColor;
+		padding: 30rpx 0;
+	}
+
+	.wrapper {
+		border-top: 1px solid $borderColor;
+		padding: 30rpx 5rpx 8rpx;
+
+		.address-info,
+		.address-remark {
+			padding-left: 20rpx;
+		}
+
+		.address-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 28rpx;
+			color: #000;
+			height: 40rpx;
+
+			.right {
+				font-size: 24rpx;
+				color: $infoColor;
+
+				.right-icon {
+					width: 10rpx;
+					height: 20rpx;
+				}
+			}
+		}
+
+		.address-info {
+			padding: 25rpx;
+			display: flex;
+			flex-wrap: wrap;
+
+			.address-section {
+				display: flex;
+				flex-direction: column;
+				width: 150rpx;
+				flex-grow: 1;
+
+				.address-title {
+					font-size: 24rpx;
+					color: $tagColor;
+					margin-bottom: 5rpx;
+				}
+
+				.address-userName,
+				.address-phone,
+				.address-detail,
+				.address-time,
+				.address-orderTime {
+					font-size: 28rpx;
+					color: $titleColor;
+				}
+			}
+
+			.address-second {
+				border-left: 1px solid $borderColor;
+				padding-left: 20rpx;
+				box-sizing: border-box;
+			}
+
+			.address-bottom {
+				width: 100%;
+				margin-top: 25rpx;
+				margin-bottom: 25rpx;
+			}
+
+			.receive-time {
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+
+				.picker {
+					flex: 2;
+					text-align: center;
+
+					.address-time {
+						display: inline-block;
+					}
+				}
+
+				.address-orderTime {
+					display: inline-block;
+					flex: 2;
+					text-align: center;
+					// font-size: 26rpx;
+				}
+				
+				// .right {
+				// 	display: inline-block;
+				// 	font-size: 24rpx;
+				// 	color: $tagColor;
+				// }
+			}
+		}
+
+		.address-remark {
+			font-size: 24rpx;
+			color: $shareColor;
+			font-weight: bold;
+			margin-bottom: 30rpx;
+		}
+	}
+}

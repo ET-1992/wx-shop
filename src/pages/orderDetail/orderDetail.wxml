@@ -12,13 +12,26 @@
 		<view wx:if="{{ remainSecond > 0 }}">还剩<countDown formatTime="{{remainSecond}}"/>自动确认</view>
 	</view>
 
-	<view wx:if="{{ order.type !== 3 }}"  class="liftInfoWrap">
-		<address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/>
-		<liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" />
+	<view wx:if="{{ order.type !== 3 }}" class="liftInfoWrap">
+		<!-- 快递 -->
+		<!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/> -->
+		<addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '1' }}" isShowBorder="{{isShowBorder}}"/>
+
+		<!-- 自提 -->
+		<!-- <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" /> -->
+		<liftInfoTwo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" isShowBorder="{{isShowBorder}}"/>
+
 		<view class="liftInfoBtnWrap" wx:if="{{ order.shipping_type === '2' && ((!otherPeopleGroupon && groupon.status === 3) || (!groupon.id && (order.status === 2 || order.status === 3 || order.status === 31))) }}">
 			<view class="liftInfoBtn" bindtap="openLiftInfoModal" style="background-color: {{ themeColor.primaryColor }}"> 出示自提码 </view>
 		</view>
+
+		<!-- 送货上门 -->
+		<delivery address="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '4' }}" isShowBorder="{{isShowBorder}}"/>
 	</view>
+
+	<!-- 门店列表 -->
+	<storeList addresses="{{ order.store_address }}" wx:if="{{ order.shipping_type === '4' }}" isOrderDetail="{{isOrderDetail}}"></storeList>
+
 	<van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal" z-index="9999">
 	  	<van-panel title="提货码">
 	  	  	<canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
