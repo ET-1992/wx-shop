@@ -77,7 +77,7 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { self_lifting_enable, self_lifting_only } = config;
-        let liftStyle;
+        let liftStyle = 'express';
         if (self_lifting_enable && self_lifting_only) {
             liftStyle = 'lift';
         }
@@ -267,16 +267,16 @@ Page({
                 shouldGoinDisplay,
                 maxUseCoin,
                 useCoin,
-                user_coupon_ids: coupons.recommend && coupons.recommend.user_coupon_id || '',
-                isHaveUseCoupon: (coupons.available && coupons.available.length > 0) ? true : false,
-                isPeanutPay: use_platform_pay,
+                user_coupon_ids: (coupons.recommend && coupons.recommend.user_coupon_id) || '',
+                isHaveUseCoupon: (coupons.available && coupons.available.length > 0),
+                isPeanutPay: use_platform_pay || '',
                 selfLiftEnable: self_lifting_enable,
                 isDisablePay: false,
                 order_annotation,
                 product_type,
                 payment_tips,
                 self_lifting_only,
-                liftStyle,
+                liftStyle: liftStyle,
                 store_card
             }, () => {
                 this.computedFinalPay();
