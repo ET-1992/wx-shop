@@ -33,13 +33,12 @@ Page({
                 if (type === '2') {
                     const { address_list } = await api.hei.liftList();
                     this.computeDistance(address_list, latitude, longitude);
-                    console.log('2');
                 } else if (type === '4') {
-                    const { address_list } = await api.hei.orderHomeDelivery({ type: 'home_delivery' });
-                    this.computeDistance(address_list, latitude, longitude);
                     wx.setNavigationBarTitle({
                         title: '门店列表'
                     });
+                    const { address_list } = await api.hei.orderHomeDelivery({ type: 'home_delivery' });
+                    this.computeDistance(address_list, latitude, longitude);
                 }
 
                 this.setData({

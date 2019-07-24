@@ -24,7 +24,7 @@
   </block>
 
   <!-- 门店列表 -->
-  <storeList addresses="{{ storeListAddress }}" isOrder="{{ isOrder }}" wx:if="{{ liftStyle == 'delivery' }}" id="storeList"></storeList>
+  <storeList addresses="{{ storeListAddress }}" wx:if="{{ liftStyle == 'delivery' }}" id="storeList"></storeList>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />

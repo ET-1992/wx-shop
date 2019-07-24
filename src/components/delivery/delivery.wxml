@@ -21,7 +21,7 @@
 			<view class="address-section address-second">
 				<view class="address-title">手机号码</view>
 				<!-- 确认订单数据 -->
-				<view class="address-phone" wx:if="{{ isShowBorder }}">{{ address.telNumber }}</view>
+				<view class="address-phone" wx:if="{{ isShowBorder }}">{{ address.telNumber || '无' }}</view>
 				<!-- 订单详情数据 -->
 				<view class="address-phone" wx:if="{{ !isShowBorder }}">{{ address.receiver_phone || '无' }}</view>
 			</view>

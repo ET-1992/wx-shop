@@ -36,7 +36,7 @@
 			</view>
 			<view class="storeCenter">
 				<view class="text">门店地址：{{ item.state}}{{item.city}}{{item.district}}{{ item.address }}</view>
-				<view class="text" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
+				<view class="text text-time" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
 			</view>
 		</label>
 	</view>
@@ -52,7 +52,7 @@
 			</view>
 			<view class="storeCenter">
 				<view class="text">门店地址：{{item.state}}{{item.city}}{{item.district}}{{ item.address }}</view>
-				<view class="text" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
+				<view class="text text-time" wx:if="{{ item.time && item.time.length }}">营业时间：{{ item.time[0] }} - {{ item.time[1] }}</view>
 			</view>
 		</label>
 	</view>
