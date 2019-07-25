@@ -138,6 +138,7 @@ Page({
         wx.removeStorageSync('orderCreate');
         app.event.off('getCouponIdEvent', this);
         app.event.off('getLiftInfoEvent', this);
+        app.event.off('getStoreInfoEvent', this);
         app.event.off('setOverseeAdressEvent', this);
     },
 
@@ -427,7 +428,8 @@ Page({
             product_type,
             selfLiftEnable,
             selectedPayValue,
-            store_card
+            store_card,
+            storeListAddress
         } = this.data;
         const {
             userName,
@@ -551,14 +553,31 @@ Page({
         // 送货上门需传数据
         if (liftStyle === 'delivery') {
             requestData.shipping_type = 4;
+            // 获取门店列表的门店名称
+            if (!(storeListAddress && storeListAddress[0] && storeListAddress[0].name)) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请选择门店',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.receiver_address_name = storeListAddress[0].name;
+            }
             // 直接获取送货上门子组件的任意数据和方法
             const delivery = this.selectComponent('#delivery');
             const { homeDeliveryTimes, index } = delivery.data;
+            if (!(homeDeliveryTimes && homeDeliveryTimes[index])) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请到后台设置该门店配送时间',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.receiver_delivery_time = homeDeliveryTimes[index];
+            }
             console.log(homeDeliveryTimes[index]);
-            requestData.receiver_delivery_time = homeDeliveryTimes[index] || '';
-            // 获取门店列表的门店名称
-            const { storeListAddress } = this.data;
-            requestData.receiver_address_name = storeListAddress[0].name || '';
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)

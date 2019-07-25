@@ -80,12 +80,13 @@
 
 			.receive-time {
 				flex-direction: row;
-				justify-content: space-between;
+				// justify-content: space-between;
 				align-items: center;
 
 				.picker {
 					flex: 2;
-					text-align: center;
+					// text-align: center;
+					margin-left: 60rpx;
 
 					.address-time {
 						display: inline-block;
