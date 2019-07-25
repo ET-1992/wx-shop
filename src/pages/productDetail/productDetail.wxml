@@ -69,12 +69,12 @@
 							<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
 						</view>
 						<!-- 非会员专属会员价 -->
-						<view wx:if="{{ !product.membership_dedicated_enable && product.membership_price_enable }}" class="vipPrice">
+						<view wx:if="{{ product.membership_price_enable }}" class="vipPrice">
 							<text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}</text>
 							<text class="vipTipWrap">会员价</text>
 						</view>
 						<!-- 原价 -->
-						<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+						<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 					</block>
 					<!-- 邮费、已售 -->
 					<view class="default">
@@ -109,12 +109,12 @@
 		</view>
 
 		<!-- 开通会员提示框 -->
-		<!-- <view class="member-wrapper" wx:if="{{ !user.membership.is_member }}">
+		<view class="member-wrapper" wx:if="{{ product.membership_dedicated_enable && !user.membership.is_member }}">
 			<view class="member-tips">
-				<view class="tips-text">开通会员，立享会员价</view>
-				<view class="tips-right">去开通 ></view>
+				<view class="tips-text">会员专属商品，开通会员立享</view>
+				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
 			</view>
-		</view> -->
+		</view>
 		<!-- 领券&服务说明 -->
 		<view class="sevice-coupon">
 			<view
