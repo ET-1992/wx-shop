@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="182" viewBox="0 0 160 182">
+  <g id="组_3532" data-name="组 3532" transform="translate(8005 2333)">
+    <g id="组_3531" data-name="组 3531" transform="translate(-16 4)">
+      <path id="联合_11" data-name="联合 11" d="M6,112a6,6,0,0,1-6-6V10A10,10,0,0,1,10,0H90a10,10,0,0,1,10,10v96a6,6,0,0,1-6,6Z" transform="translate(-7959 -2337)" fill="#fff"/>
+      <path id="交叉_16" data-name="交叉 16" d="M19,72.633V47A10,10,0,0,1,29,37h80a10,10,0,0,1,10,10V72.633C106.43,80.868,88.677,86,69,86S31.57,80.867,19,72.633Z" transform="translate(-7978 -2374)" fill="#f52d2d"/>
+      <path id="减去_54" data-name="减去 54" d="M113,142H25a6.007,6.007,0,0,1-6-6V71.633C32.158,80.252,49.914,85,69,85s36.841-4.747,50-13.367V136A6.007,6.007,0,0,1,113,142Z" transform="translate(-7978 -2367)" fill="#f52d2d"/>
+      <circle id="椭圆_437" data-name="椭圆 437" cx="25" cy="25" r="25" transform="translate(-7934 -2313)" fill="#fff"/>
+      <g id="组_3530" data-name="组 3530" transform="translate(-7922.568 -2303.484)">
+        <line id="直线_135" data-name="直线 135" x2="27.018" transform="translate(0 20.807)" fill="none" stroke="#ffc500" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        <line id="直线_136" data-name="直线 136" x2="27.018" transform="translate(0 9.627)" fill="none" stroke="#ffc500" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        <line id="直线_137" data-name="直线 137" y2="21.117" transform="translate(13.353 10.559)" fill="none" stroke="#ffc500" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        <g id="组_690" data-name="组 690" transform="translate(2.174)">
+          <line id="直线_138" data-name="直线 138" x1="6.832" y2="9.006" transform="translate(15.838)" fill="none" stroke="#ffc500" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+          <line id="直线_139" data-name="直线 139" x2="6.832" y2="9.006" fill="none" stroke="#ffc500" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        </g>
+      </g>
+    </g>
+    <text id="分享有礼" transform="translate(-8005 -2165)" fill="#707070" font-size="40" font-family="PingFang SC Regular, PingFang SC"><tspan x="0" y="0">分享有礼</tspan></text>
+  </g>
+</svg>

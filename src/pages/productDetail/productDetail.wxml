@@ -49,7 +49,7 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
 				</view>
 
 			</view>
@@ -151,7 +151,7 @@
 		</view>
 		<view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
 			<view class="title">拼团流程</view>
-			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
+			<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
 		</view>
 
 		<!-- 商品评论start -->
@@ -353,7 +353,7 @@
 				<view class="availableCoupon">
 					<view class="couponListTitle" wx:if="{{ receivableCoupons.length }}">可领取优惠券</view>
 					<view class="noCoupon" wx:else>
-						<image src="../../icons/noCoupon.png"></image>
+						<image src="../../icons/noCoupon.svg"></image>
 						<view>暂无可领取优惠券</view>
 					</view>
 					<view
@@ -393,11 +393,11 @@
 <view class="actionShareModal {{showShareModaled ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ showShareModal }}">
 	<view class="shareModalContent">
 		<button class="shareBtn" open-type="share">
-			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<image src="../../icons/shareFriendIcon.svg" mode="aspectFit"></image>
 			<view>分享给好友</view>
 		</button>
 		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
-			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<image src="../../icons/sharePosterIcon.svg" mode="aspectFit"></image>
 			<view>分享商品海报</view>
 		</view>
 	</view>

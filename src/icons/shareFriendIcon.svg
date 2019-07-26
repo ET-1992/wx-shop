@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="190" viewBox="0 0 190 190">
+  <g id="组_3528" data-name="组 3528" transform="translate(-144 -1119)">
+    <circle id="椭圆_177" data-name="椭圆 177" cx="92.5" cy="92.5" r="92.5" transform="translate(146.5 1121.5)" fill="none" stroke="#606060" stroke-miterlimit="10" stroke-width="5"/>
+    <g id="组_1379" data-name="组 1379" transform="translate(188.582 1173.972)">
+      <ellipse id="椭圆_230" data-name="椭圆 230" cx="14.61" cy="14.61" rx="14.61" ry="14.61" transform="translate(0 31.278)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <ellipse id="椭圆_231" data-name="椭圆 231" cx="12.552" cy="12.552" rx="12.552" ry="12.552" transform="translate(61.733 0)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <ellipse id="椭圆_232" data-name="椭圆 232" cx="12.552" cy="12.552" rx="12.552" ry="12.552" transform="translate(77.783 58.441)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <line id="直线_234" data-name="直线 234" y1="13.17" x2="23.459" transform="translate(33.336 22.018)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <line id="直线_235" data-name="直线 235" x1="25.31" y1="8.437" transform="translate(34.365 52.473)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_250" data-name="路径 250" d="M30.6,30.8" transform="translate(30.31 30.521)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_251" data-name="路径 251" d="M32.6,31.5" transform="translate(32.425 31.262)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <line id="直线_236" data-name="直线 236" x1="6.173" y1="2.058" transform="translate(65.025 62.762)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+    </g>
+  </g>
+</svg>
