@@ -1,7 +1,5 @@
 @import '~styles/color';
-
-$vipBlack: #333333;
-$vipGolden: #D6BC6F;
+@import '~templates/couponList/tplStyleVip/tplStyleVipSmall';
 
 page {
 	background-color: transparent;
@@ -192,100 +190,6 @@ page {
 		color: $titleColor;
 		font-size: 28rpx;
 		padding-bottom: 20rpx;
-	}
-
-	// 会员优惠券
-	.member-coupon {
-		margin-bottom: 44rpx;
-		.coupon-list {
-			display: flex;
-			.coupon {
-				width: 300rpx;
-				height: 136rpx;
-				position: relative;
-				line-height: 1.2;
-				&.coupon:first-child {
-					margin-right: 25rpx;
-				}
-			}
-		
-			.moreCoupon{
-				width: 101rpx;
-				height: 136rpx;
-				position: relative;
-				line-height: 1.2;
-	
-				.moreBtn{
-					position:absolute;
-					width:20rpx;
-					color:#707070;
-					font-size:20rpx;
-					left:40rpx;
-					top:26rpx;
-				}
-			}
-	
-			.couponInfoList {
-				position: absolute;
-				z-index: 2;
-				color: $vipGolden;
-				font-size: 9pt;
-				height: 136rpx;
-				width: 300rpx;
-				display: flex;
-				line-height: 1.4;
-	
-				.couponInfo {
-					position: absolute;
-					z-index: 2;
-					font-size: 9pt;
-					height: 136rpx;
-					width: 180rpx;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					flex-direction: column;
-	
-					.reduceCost {
-						font-size: 18pt;
-					}
-	
-					.title {
-						font-size: 8pt;
-					}
-				}
-	
-				.couponBtn{
-					position:absolute;
-					z-index:2;
-					font-size: 23rpx;
-					height:136rpx;
-					display:flex;
-					justify-content:center;
-					align-items:center;
-					flex-direction:column;
-					right: 43rpx;
-	
-					.couponUnuse{
-						width: 46rpx;
-						line-height: 1.2;
-					}
-					.arrow{
-						position:absolute;
-						z-index:2;
-						right:-25rpx;
-						width: 11rpx;
-					}
-				}
-			}
-	
-			.bg {
-				width: 300rpx;
-				height: 136rpx;
-				position: absolute;
-				z-index: 1;
-			}
-		}
 	}
 
 	// 会员专属商品banner

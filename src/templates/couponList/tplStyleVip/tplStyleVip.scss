@@ -1,0 +1,147 @@
+.tplStyleVip{
+	.couponItem {
+		width: 650rpx;
+		height: 160rpx;
+		font-size: 0;
+		position: relative;
+		left: 0;
+		top: 0;
+	
+		.couponInfo {
+			position: absolute;
+			z-index: 2;
+			color: #D6BC6F;
+			display: flex;
+			width: 100%;
+	
+			.left {
+				width: 230rpx;
+				height: 160rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				line-height: 1.3;
+				flex-shrink: 0;
+				.couponTitle{
+					font-size: 22rpx;
+				}
+				.reduceCost {
+					font-size: 46rpx;
+				}
+				.discount {
+					font-size: 30rpx;
+				}
+				.yuan {
+					font-size: 30rpx;
+				}
+			}
+	
+			.center {
+				padding-top: 40rpx;
+				width: 300rpx;
+				display: flex;
+				flex-direction: column;
+				flex-shrink: 0;
+				.couponDesc {
+					font-size: 22rpx;
+					white-space: nowrap;
+    				overflow: hidden;
+    				text-overflow: ellipsis;
+				}
+				view{
+					line-height: 1.5;
+				}
+				text{
+					font-size: 18rpx;
+					position: absolute;
+					bottom: 15rpx;
+				}
+			}
+
+			.used {
+				color: #999;
+			}
+	
+			.right {
+				position: relative;
+				flex-shrink: 0;
+				font-size: 24rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				flex-grow: 1;
+	
+				&.rightCenter {
+					justify-content: center;
+					align-items: flex-end;
+				}
+				.btn{
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					color: #999999;
+					.useBtn{
+						font-size: 24rpx;
+						width: 55rpx;
+						line-height: 1.2;
+						color: #D6BC6F;
+					}
+					.arrow{
+						padding: 0 10rpx;
+						image{
+							color: #D6BC6F;
+							width: 20rpx;
+							height: 20rpx;
+						}
+					}
+	
+				}
+				.getBt {
+					background-color: $couponMainColor;
+					color: #fff;
+					width: 110rpx;
+					height: 40rpx;
+					line-height: 40rpx;
+					text-align: center;
+					margin-bottom:-4rpx;
+				}
+	
+				.radio {
+					$size: 32rpx;
+	
+					height: $size;
+					width: $size;
+					margin-right: 20rpx;
+					flex-shrink: 0;
+					border: 1px solid #ccc;
+					border-radius: 50%;
+					line-height: $size;
+					text-align: center;
+					background:#f4f4f4;
+	
+					&.selected {
+						background-color: $couponMainColor;
+						border-color: $couponMainColor;
+					}
+	
+					.radioIcon {
+						$iconSize: 24rpx;
+						height: $iconSize;
+						width: $iconSize;
+						margin-top: 2rpx;
+					}
+				}
+			}
+		}
+	
+		.bg {
+			width: 650rpx;
+			height: 160rpx;
+			position: absolute;
+			left: 0;
+			top: 0;
+			z-index: 1;
+		}
+	}
+}

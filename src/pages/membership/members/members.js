@@ -22,8 +22,8 @@ Page({
         rechargeModal: false,  // 会员充值弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
-        ruleData: {}, // 会员规则 word image_url
-        memberCouponList: {} // 会员优惠券
+        memberCouponList: {}, // 会员优惠券
+        word: ''
     },
 
     onLoad(params) {
@@ -36,7 +36,6 @@ Page({
         app.log('页面onShow');
         this.getMemberHome();
         this.initPage();
-        this.getCoupon();
     },
 
     // 初始页面配置
@@ -66,9 +65,11 @@ Page({
         const memberHome = await api.hei.membershipCard();
         this.setData({
             user: memberHome.current_user,
-            ruleData: memberHome.data
+            word: memberHome.data.word,
+            memberCouponList: memberHome.data.coupons
         });
-        console.log(memberHome);
+        console.log('memberHome', memberHome);
+        console.log('word', this.data.word);
     },
 
     // 获取用户头像信息
@@ -87,17 +88,6 @@ Page({
             }, this.onShow);
             this.updateAgainUserForInvalid = true;
         }
-    },
-
-    // 获取会员优惠券
-    async getCoupon() {
-        const MEMBERCOUPON = '1';
-        const CouponList = await api.hei.fetchCouponList({
-            membership: MEMBERCOUPON
-        });
-        this.setData({
-            memberCouponList: CouponList.coupons
-        });
     },
 
     // 发送模板消息
