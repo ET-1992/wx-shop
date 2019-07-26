@@ -113,7 +113,7 @@
 			<view class="rights-item-title">
 				<text>会员专享商品</text>
 			</view>
-			<image src="/icons/member/vipGoodsOwnBanner.svg" mode="aspectFill"></image>
+			<image src="/icons/member/vipGoodsOwnBanner.svg" mode="aspectFill" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
 		</view>
 	</view>
 
