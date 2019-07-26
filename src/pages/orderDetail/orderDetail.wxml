@@ -164,54 +164,36 @@
     <view class="orderInfo" wx:else>
         <view class="row">
             <text class="text">商品金额</text>
-            <text class="money">
-                {{ globalData.CURRENCY[globalData.currency] }}{{ info.totalPriceDispaly }}
-            </text>
+            <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ info.totalPriceDispaly }}</text>
         </view>
         <view wx:if="{{ info.couponFee }}" class="row">
             <text class="text">优惠券</text>
-            <text class="money">
-                -{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }}
-            </text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }}</text>
         </view>
         <view wx:if="{{ info.coinForPay }}" class="row">
             <text class="text">{{ config.coin_name || '花生米' }}</text>
-            <text class="money">
-                -{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }}
-            </text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }}</text>
         </view>
         <view wx:if="{{ order.membership_reduce_fee }}" class="row">
             <text class="text">会员优惠</text>
-            <text class="money">
-                -{{ globalData.CURRENCY[globalData.currency] }}{{ order.membership_reduce_fee }}
-            </text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.membership_reduce_fee }}</text>
         </view>
         <view wx:if="{{ config.store_card_enable }}" class="row">
             <text class="text">{{ '储值卡消费' }}</text>
-            <text class="money">
-                -{{ globalData.CURRENCY[globalData.currency] }}{{ order.cashes_fee }}
-            </text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.cashes_fee }}</text>
         </view>
         <view wx:if="{{ config.store_card_enable }}" class="row">
             <text class="text">{{ '赠送帐户消费' }}</text>
-            <text class="money">
-                -{{ globalData.CURRENCY[globalData.currency] }}{{ order.gifts_fee }}
-            </text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.gifts_fee }}</text>
         </view>
         <view class="row">
-            <text class="text">
-                {{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}
-            </text>
-            <text class="money">
-                +{{ globalData.CURRENCY[globalData.currency] }}{{ info.postageDispaly }}
-            </text>
+            <text class="text">{{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}</text>
+            <text class="money">+{{ globalData.CURRENCY[globalData.currency] }}{{ info.postageDispaly }}</text>
         </view>
         <view class="line"></view>
         <view class="finalPay">
             {{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}}
-            <text class="finalPayText">
-                {{ globalData.CURRENCY[globalData.currency] }}{{  info.finalPayDispaly  }}
-            </text>
+            <text class="finalPayText">{{ globalData.CURRENCY[globalData.currency] }}{{ info.finalPayDispaly }}</text>
         </view>
     </view>
     <!-- 非参团 -->
