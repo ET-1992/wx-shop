@@ -124,7 +124,7 @@ Page({
             if (!errcode) {
                 showToast({ title: '领取成功' });
                 const updateData = {};
-                const key = `coupons[${index}].status`;
+                const key = `memberCouponList[${index}].status`;
                 updateData[key] = 4;
                 console.log(updateData);
                 this.setData(updateData);

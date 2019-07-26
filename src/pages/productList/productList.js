@@ -43,41 +43,56 @@ Page({
         activeIndex: 0,
     },
 
-    async onLoad({ categoryId, categoryParent }) {
+    async onLoad({ categoryId, categoryParent, memberExclusive }) {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        this.setData({
-            categoryId,
-            categoryParent,
-            config
-        });
-        await this.loadProducts();
-        const { categories } = this.data;
-        wx.setNavigationBarTitle({ title: categories[0].name });
-
-        let navbarListData = [];
-        categories[0].children.forEach((item) => {
-            navbarListData.push({
-                text: item.name,
-                value: item.id
+        if (memberExclusive) {
+            // 会员专属商品
+            this.setData({
+                memberExclusive,
+                config,
+                isInit: false
             });
-        });
-        navbarListData.unshift({ text: '全部', value: categories[0].id });
-        let activeIndex = navbarListData.findIndex((item) => {
-            return item.value === Number(categoryId);
-        });
+            await this.loadProducts();
+            wx.setNavigationBarTitle({
+                title: '会员商品'
+            });
+        } else {
+            // 非会员商品
+            const { style_type: tplStyle = 'default' } = config;
+            this.setData({
+                categoryId,
+                categoryParent,
+                config
+            });
+            await this.loadProducts();
+            const { categories } = this.data;
+            wx.setNavigationBarTitle({ title: categories[0].name });
 
-        this.setData({
-            themeColor,
-            tplStyle,
-            globalData: app.globalData,
-            navbarListData,
-            activeIndex,
-            isInit: false
-        });
+            let navbarListData = [];
+            categories[0].children.forEach((item) => {
+                navbarListData.push({
+                    text: item.name,
+                    value: item.id
+                });
+            });
+            navbarListData.unshift({ text: '全部', value: categories[0].id });
+            let activeIndex = navbarListData.findIndex((item) => {
+                return item.value === Number(categoryId);
+            });
+
+            this.setData({
+                themeColor,
+                tplStyle,
+                globalData: app.globalData,
+                navbarListData,
+                activeIndex,
+                isInit: false
+            });
+        }
     },
 
+    // 列表导航模块
     changeNavbarList(e) {
         const { index, value } = e.detail;
         this.setData({
@@ -90,6 +105,7 @@ Page({
         this.loadProducts();
     },
 
+    // 列表筛选模块
     changeFilterList(e) {
         console.log(e);
         this.setData({
@@ -115,35 +131,59 @@ Page({
             filterOrder: sortStatus[filterData.filterType]
         }, this.loadProducts);
     },
+
+    // 加载商品列表
     async loadProducts() {
-        let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
-        let options = {
-            paged: current_page,
-            product_category_id: categoryId,
-            product_category_parent: categoryParent,
-        };
-        if (filterData.filterIndex) {
-            options.orderby = filterOrderby;
-            options.order = filterOrder;
+        if (this.data.memberExclusive) {
+            // 会员商品请求
+            let { current_page, products } = this.data;
+            let options = {
+                meta_key: 'membership_dedicated_enable',
+                paged: current_page,
+            };
+            this.data.fetchProductListStatus = 'Pending';
+            let apiData = await api.hei.fetchProductList(options);
+            current_page++;
+            this.data.fetchProductListStatus = 'Success';
+            if (products.length > 0) {
+                apiData.products = products.concat(apiData.products);
+            }
+            this.setData({
+                ...apiData,
+                current_page,
+                isLoading: false
+            });
+        } else {
+            // 非会员商品请求
+            let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
+            let options = {
+                paged: current_page,
+                product_category_id: categoryId,
+                product_category_parent: categoryParent,
+            };
+            if (filterData.filterIndex) {
+                options.orderby = filterOrderby;
+                options.order = filterOrder;
+            }
+
+            this.data.fetchProductListStatus = 'Pending';
+
+            const data = await api.hei.fetchProductList(options);
+            current_page++;
+
+            this.data.fetchProductListStatus = 'Success';
+
+            if (products.length > 0) {
+                data.products = products.concat(data.products);
+            }
+            this.setData({
+                ...data,
+                current_page,
+                share_title,
+                share_image,
+                isLoading: false
+            });
         }
-
-        this.data.fetchProductListStatus = 'Pending';
-
-        const data = await api.hei.fetchProductList(options);
-        current_page++;
-
-        this.data.fetchProductListStatus = 'Success';
-
-        if (products.length > 0) {
-            data.products = products.concat(data.products);
-        }
-        this.setData({
-            ...data,
-            current_page,
-            share_title,
-            share_image,
-            isLoading: false
-        });
     },
 
     onTouchStart(e) {

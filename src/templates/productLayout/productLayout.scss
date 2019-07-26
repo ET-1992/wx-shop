@@ -130,6 +130,7 @@
 				// 会员价
 				.vipTap {
 					display: flex;
+					align-items: center;
 					.vipPrice {
 						font-size: 24rpx;
 						color: #000;
@@ -145,6 +146,10 @@
 						justify-content: center;
 						align-items: center;
 					}
+				}
+
+				.market-price {
+					font-size: 18rpx;
 				}
 
 				.ItemSold {

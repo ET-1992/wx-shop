@@ -47,6 +47,12 @@
                   </view>
                   <view class="vipPriceTip">会员价</view>
                 </view>
+
+                <!-- 会员专属商品 市场价 -->
+                <view class="market-price" wx:elif="{{ marketPrice }}">
+                    <text class="marketPriceTip">市场价</text>
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
+                </view>
                 
                 <!-- 已售提示 -->
                 <view class="ItemSold" wx:else>已售: {{ product.sales }}件</view>
