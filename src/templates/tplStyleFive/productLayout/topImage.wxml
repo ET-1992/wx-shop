@@ -8,19 +8,41 @@
             <view class="title"> {{ product.title }}</view>
             <view class="desc"> {{ product.excerpt }}</view>
             <view class="price">
-                <view wx:if="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" class="original">
+                <!-- 会员专属不显示该模块 -->
+                <view wx:if="{{ product.membership_dedicated_enable }}"></view>
+                <!-- 非会员专属会员价 -->
+                <view class="member-price" wx:elif="{{ product.membership_price }}">
+                    <view class="member-price-tip">VIP</view>
+                    <view class="member-price-number">
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.membership_price }}
+                    </view>
+                </view>
+                <!-- 原价 -->
+                <view wx:elif="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" class="original">
                     <text>原价</text>
                     <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
                     <text>{{ product.original_price }}</text>
                 </view>
+
                 <view class="now" style="color: {{ themeColor.primaryColor }}">
-                    <text>新品价</text>
-                    <text class="money">
-                        <text class="mark">{{ globalData.CURRENCY[globalData.currency] }}</text>
-                        <text class="num" wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">{{ product.miaosha_price }}</text>
-                        <text class="num" wx:elif="{{ product.groupon_enable }}">{{ product.groupon_price }}</text>
-                        <text class="num" wx:else>{{ product.price }}</text>
-                   </text>
+                    <!-- 专属商品会员价 -->
+                    <block wx:if="{{  product.membership_dedicated_enable }}">
+                        <image src="/icons/vipLogo-medium.svg" class="member-logo"></image>
+                        <view class="money">
+                            <text class="mark">{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="num">{{ product.price }}</text>
+                        </view>
+                    </block>
+
+                    <block wx:else>
+                        <text>新品价</text>
+                        <view class="money">
+                            <text class="mark">{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="num" wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">{{ product.miaosha_price }}</text>
+                            <text class="num" wx:elif="{{ product.groupon_enable }}">{{ product.groupon_price }}</text>
+                            <text class="num" wx:else>{{ product.price }}</text>
+                       </view>
+                    </block>
                 </view>
             </view>
         </view>

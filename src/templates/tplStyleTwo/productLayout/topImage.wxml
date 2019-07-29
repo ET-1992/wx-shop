@@ -48,7 +48,7 @@
                 </view>
 
                 <!-- 非会员专属会员价 -->
-                <view class="member-price" wx:if="{{ product.membership_price_enable && product.membership_price }}">
+                <view class="member-price" wx:if="{{ !product.membership_dedicated_enable && product.membership_price_enable }}">
                     <view class="member-price-number">
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.membership_price }}
                     </view>
