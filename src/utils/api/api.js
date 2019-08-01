@@ -390,7 +390,7 @@ export const apis = {
     },
     // 可充值金额
     rechargePrice: {
-        path: 'api/mag.membership.recharge.json',
+        path: 'api/mag.membership.store.cards.json',
         isForceToken: true
     },
     // 删除会员

@@ -4,3 +4,5 @@
 <include wx:if="{{ tplStyle === 'vip_tpl_four'  && config}}" src="/templates/couponList/tplStyleFour/tplStyleFour.wxml" />
 <include wx:if="{{ tplStyle === 'vip_tpl_five' && config }}" src="/templates/couponList/tplStyleFive/tplStyleFive.wxml" />
 <include wx:if="{{ tplStyle === 'vip_tpl_six' && config }}" src="/templates/couponList/tplStyleSix/tplStyleSix.wxml" />
+<!-- 会员优惠券模板 -->
+<include wx:if="{{ tplStyle === 'vip_tpl' && config }}" src="/templates/couponList/tplStyleVip/tplStyleVip.wxml" />

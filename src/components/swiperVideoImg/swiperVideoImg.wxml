@@ -2,7 +2,7 @@
 
   <view wx:if="{{ type === 'poster' }}" bindtap="changeType" data-type="video" class="poster">
     <image mode="aspectFill" src="{{poster}}" style='width: 100%'></image>
-    <image src="/icons/player.png" class="player" />
+    <image src="/icons/player.svg" class="player" />
 		<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-yes.png" wx:if="{{ type === 'video' }}"></image>
 		<image class="icon video-icon" catchtap="changeType" data-type="video" src="./icons/video-no.png" wx:if="{{ type !== 'video' }}"></image>
 		<image class="icon img-icon" catchtap="changeType" data-type="img" src="./icons/img-yes.png" wx:if="{{ type === 'img' }}"></image>

@@ -1,7 +1,5 @@
 @import '~styles/color';
-
-$vipBlack: #333333;
-$vipGolden: #D6BC6F;
+@import '~templates/couponList/tplStyleVip/tplStyleVipSmall';
 
 page {
 	background-color: transparent;
@@ -12,7 +10,7 @@ page {
 	background-color: #F4F4F4;
 }
 
-// 会员
+// 用户信息及开通会员
 .member-header {
 	text-align: center;
 	background-color: $vipBlack;
@@ -183,7 +181,28 @@ page {
 	height: 200rpx;
 }
 
-// 下方跳转列表组
+.member-rights {
+	background-color: white;
+	padding: 20rpx;
+	padding-bottom: 30rpx;
+	// 标题
+	.rights-item-title {
+		color: $titleColor;
+		font-size: 28rpx;
+		padding-bottom: 20rpx;
+	}
+
+	// 会员专属商品banner
+	.member-goods-banner {
+		width: 100%;
+		image {
+			width: 710rpx;
+			height: 200rpx;
+		}
+	}
+}
+
+// 我的积分、会员规则、联系客服
 .jump-list {
 	margin-top: 20rpx;
 	background-color: white;

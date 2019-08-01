@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate } from 'utils/util';
+import { getAgainUserForInvalid, updateCart, autoNavigate, go } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 
@@ -57,6 +57,8 @@ Page({
 
         expiredGroupon: []
     },
+
+    go,
 
     onShowSku(ev) {
         const { status } = this.data.product;

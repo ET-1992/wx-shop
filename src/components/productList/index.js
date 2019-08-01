@@ -88,6 +88,11 @@ Component({
             type: Number,
             value: 0,
         },
+        // 会员专属商品的市场价
+        marketPrice: {
+            type: Boolean,
+            value: false
+        },
     },
     data: {
         nowTS: Date.now() / 1000,

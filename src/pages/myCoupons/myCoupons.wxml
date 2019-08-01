@@ -9,7 +9,7 @@
     	</view>
 	</view>
 	<view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
-		<image class="noHint" src="../../icons/noCoupon.png"></image> 
+		<image class="noHint" src="../../icons/noCoupon.svg"></image> 
 	    <view wx:if="{{ selectedStatus === 'available' }}"> 还没有优惠券 </view>
 	    <view wx:if="{{ selectedStatus === 'used' }}"> 暂无已使用优惠券 </view>
 	    <view wx:if="{{ selectedStatus === 'expired' }}"> 暂无已过期优惠券 </view>

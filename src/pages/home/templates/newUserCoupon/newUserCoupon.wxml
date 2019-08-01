@@ -26,5 +26,5 @@
             </scroll-view>
         </view>
     </view>
-    <image class="couponConfirm" src="/icons/newCouponBtn.png" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
+    <image class="couponConfirm" src="/icons/newCouponBtn.svg" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
 </view>

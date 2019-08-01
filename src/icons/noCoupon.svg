@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="405" height="298.245" viewBox="0 0 405 298.245">
+  <g id="组_3526" data-name="组 3526" transform="translate(5353 3642.245)">
+    <rect id="矩形_1722" data-name="矩形 1722" width="404.917" height="297" transform="translate(-5353 -3641)" fill="none"/>
+    <g id="组_3525" data-name="组 3525" transform="translate(-5348 -3637.245)" opacity="0.6">
+      <g id="组_999" data-name="组 999" transform="translate(0)">
+        <path id="XMLID_1_" d="M291.4,120.72A41.25,41.25,0,0,1,332.36,79.6V23.224A20.913,20.913,0,0,0,311.217,2H23.143A20.912,20.912,0,0,0,2,23.224V80.262a41.25,41.25,0,0,1,40.965,41.121c0,22.55-18.5,40.458-40.965,40.458V218.88A21.331,21.331,0,0,0,23.143,240.1H311.878a21.33,21.33,0,0,0,21.143-21.224V161.841C309.9,161.841,291.4,143.933,291.4,120.72Z" transform="translate(-2 39.638)" fill="#c2c2c2"/>
+        <path id="XMLID_1_2" data-name="XMLID_1_" d="M291.4,120.72A41.25,41.25,0,0,1,332.36,79.6V23.224A20.913,20.913,0,0,0,311.217,2H23.143A20.912,20.912,0,0,0,2,23.224V80.262a41.25,41.25,0,0,1,40.965,41.121c0,22.55-18.5,40.458-40.965,40.458V218.88A21.331,21.331,0,0,0,23.143,240.1H311.878a21.33,21.33,0,0,0,21.143-21.224V161.841C309.9,161.841,291.4,143.933,291.4,120.72Z" transform="translate(-2 -2)" fill="#f4f4f4" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10"/>
+        <line id="直线_170" data-name="直线 170" x2="119.506" transform="translate(105.432 83.193)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10"/>
+        <line id="直线_171" data-name="直线 171" x2="119.506" transform="translate(105.432 146.419)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10"/>
+      </g>
+      <g id="椭圆_167" data-name="椭圆 167" transform="translate(272.345 165.427)" fill="#fff" stroke="#999" stroke-width="10">
+        <ellipse cx="63.828" cy="63.828" rx="63.828" ry="63.828" stroke="none"/>
+        <ellipse cx="63.828" cy="63.828" rx="58.828" ry="58.828" fill="none"/>
+      </g>
+      <line id="直线_172" data-name="直线 172" x2="37.658" transform="translate(318.088 229.995)" fill="none" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="10"/>
+    </g>
+  </g>
+</svg>

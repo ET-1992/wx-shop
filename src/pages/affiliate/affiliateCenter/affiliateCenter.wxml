@@ -4,7 +4,7 @@
 	<!-- 个人信息内容 -->
 	<view class="user">
 		<view class="userHead">
-			<image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}"></image>
+			<image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
 		</view>
 		<view class="userBody">
 			<view class="userData">
@@ -16,38 +16,20 @@
 			<view class="recommend">
 				<text class="recommendKey">推荐人</text>
 				<view class="recommendValue" wx:if="{{ member.referrer_name }}">
-					<image class="recommendAvatar" mode="aspectFit" src="{{ member.referrer_avatarurl ? member.referrer_avatarurl : '/icons/unlogin.png' }}"></image>
+					<image class="recommendAvatar" mode="aspectFit" src="{{ member.referrer_avatarurl ? member.referrer_avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
 					<text class="recommendName">{{ member.referrer_name }}</text>
 				</view>
 				<view class="recommendNo" wx:if="{{ !member.referrer_name }}">无</view>
 			</view>
 		</view>
 	</view>
-	<!-- <view class="shareMoneyDisplay">
-		<text class="shareMoneyDisplay-h">累计收益（元）</text>
-		<text class="shareMoneyDisplay-b"><text class="shareMoneyDisplay-b-m">{{ globalData.CURRENCY[globalData.currency] }}</text>{{ (wallet.affiliate_income_total)|| 0 }}</text>
-		<text class="shareMoneyDisplay-f">最低提现金额{{ wallet.withdrawal_limit || 0 }}元</text>
-		<view class="shareMoneyDisplay-s" bindtap="changeModal">规则说明</view>
-	</view>
-	<view class="shareMoneyGet">
-		<text class="shareMoneyGet-text">当前金额 <text class="shareMoneyGet-money">{{ globalData.CURRENCY[globalData.currency] }}{{ wallet.affiliate_balance || 0 }}</text> </text>
-		<view class="shareMoneyGet-btn" bindtap="goToAffiliate" data-urldata="affiliateMoney">立即提现</view>
-	</view>
-	<view class="finishUserInfo" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail">
-		<view class="finishUserInfo-left">收入明细</view>
-		<image class="finishUserInfo-right" src="/icons/right.png"></image>
-	</view> -->
-	<!-- <view class="finishUserInfo" bindtap="go" data-url="/pages/affiliate/affiliateFinishUserInfo/affiliateFinishUserInfo">
-		<text class="finishUserInfo-left">完善个人资料</text>
-		<image class="finishUserInfo-right" src="/icons/right.png"></image>
-	</view> -->
 
 	<!-- 收益提现内容 -->
 	<view class="income">
 		<view class="incomeData">
 			<view class="incomeDataHead" bindtap="go" data-url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=1">
 				<text class="headTitle">我的收益</text>
-				<image class="headArrow" mode="aspectFit" src="/icons/right.png"></image>
+				<image class="headArrow" mode="aspectFit" src="/icons/affiliateCenter/right.png"></image>
 			</view>
 			<view class="incomeDataBody">
 				<view class="monneyShow">
@@ -79,20 +61,18 @@
 					</view>
 					<view class="monneyTakeBtn">
 						<text class="btnText" bindtap="go" data-url="/pages/affiliate/affiliateMoney/affiliateMoney?balance={{wallet.affiliate_balance}}&income_pending={{wallet.affiliate_income_pending}}&code={{member.code}}">去提现</text>
-						<image class="btnArrow" mode="aspectFit" src="/icons/right.png"></image>
+						<image class="btnArrow" mode="aspectFit" src="/icons/affiliateCenter/right.png"></image>
 					</view>
 				</view>
 			</view>
 		</view>
-		<!-- <view class="incomeRule" bindtap="changeModal">
-			<text class="incomeRuleText">分享家说明</text>
-		</view> -->
 		<navigator class="incomeRule" url="/pages/rulePages/rulePages?key=affiliate">
             <view class="incomeRuleText">分享家说明</view>
         </navigator>
 	</view>
+
+	<!-- 浏览用户、购买用户、分享家、关联订单 -->
 	<view class="userInfoDisplay">
-		<!-- 浏览用户 -->
 		<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateVisitor/affiliateVisitor">
 			<text class="userInfoDisplay-num">{{ member.browse_count || 0 }}</text>	
 			<text class="userInfoDisplay-text">浏览用户</text>	
@@ -110,36 +90,25 @@
 			<text class="userInfoDisplay-text">关联订单</text>	
 		</navigator>
 	</view>
+
+	<!-- 分享商品、推广海报和邀请好友 -->
 	<view class="footer" wx:if="{{ affiliate_enable }}">
 		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliateProductList/affiliateProductList">
-			<image class="footer-img" src="/icons/shareProduct.svg"></image>
+			<image class="footer-img" src="/icons/affiliateCenter/shareProduct.svg"></image>
 			<text class="footer-text">分享商品</text>	
 		</view>
 		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=2">
-			<image class="footer-img" src="/icons/sharePoster.svg"></image>	
+			<image class="footer-img" src="/icons/affiliateCenter/sharePoster.svg"></image>	
 			<text class="footer-text">推广海报</text>	
 		</view>
 		<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=1">
-			<image class="footer-img" src="/icons/shareToFriend.svg"></image>	
+			<image class="footer-img" src="/icons/affiliateCenter/shareToFriend.svg"></image>	
 			<text class="footer-text">邀请好友</text>	
 		</view>
 	</view>
 	<view class="closeFooter" wx:if="{{ !affiliate_enable }}">商家分享功能已下线</view>
 
 </view>
-<!-- <view class="modal" style="display: {{ isShowModal ? 'flex' : 'none' }}"> 
-	<view class="content">
-		<view class="content-header">分享规则说明</view>
-		<view class="content-body">
-			<view class="content-body-item"><text class="content-body-item-left">分享家</text><text>通过邀请并申请成为分享家的下线</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">客户</text><text>通过分享海报或链接购买商品的买家</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">订单</text><text>能获得收益的所有订单</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">预计收益</text><text>未完成订单的可能收益</text></view>
-			<view class="content-body-item"><text class="content-body-item-left">收益</text><text>完成后7日且无退款（含部分退款）的订单收益</text></view>
-		</view>
-		<view class="content-footer" bindtap="changeModal">知道了</view>
-	</view>
-</view> -->
 
 <!-- 编辑用户名弹窗 -->
 <van-popup show="{{ isShowPopup }}" bind:close="onClose" custom-class="popup">
