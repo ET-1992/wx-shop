@@ -8,8 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -390,7 +390,7 @@ export const apis = {
     },
     // 可充值金额
     rechargePrice: {
-        path: 'api/mag.membership.recharge.json',
+        path: 'api/mag.membership.store.cards.json',
         isForceToken: true
     },
     // 删除会员

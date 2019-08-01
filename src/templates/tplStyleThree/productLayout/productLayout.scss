@@ -80,3 +80,127 @@
         }
     }
 }
+
+/* 直接从default模板搬过来修改的样式 */
+
+/* topImage */
+.topImage {
+	width: 340rpx;
+	background-color: #fff;
+	padding-bottom: 10rpx;
+	margin-bottom: 10rpx;
+
+	.ItemImage {
+		width: 340rpx;
+		height: 340rpx;
+	}
+
+	.Info {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding:10rpx 12rpx 0 12rpx;
+		height:150rpx;
+
+		.title {
+			color: #333333;
+			font-size: 30rpx;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.meta {
+			display: flex;
+			align-items: center;
+			padding-bottom: 5rpx;
+			justify-content: space-between;
+		
+			.priceWrapper{
+				display: flex;
+				align-items: center;
+		
+				.ItemPrice {
+					color: $priceColor;
+					font-size: 36rpx;
+					font-weight: bold;
+					align-items:center;
+					display:flex;
+
+					text{
+						font-size: 26rpx;
+						font-weight: normal;
+					}
+				}
+				// 会员专属
+				.vipItemPrice {
+					color: $titleColor;
+					.vipLogo {
+						width: 40rpx;
+						height: 25rpx;
+						margin-right: 5rpx;
+					}
+				}
+				.originPrice {
+					color: #707070;
+					text-decoration: line-through;
+					font-size: 22rpx;
+					padding-left: 10rpx;
+				}
+			}
+
+			.tagWrapper {
+				display: felx;
+				align-items: center;
+ 
+				// 会员价
+				.vipTap {
+					display: flex;
+					align-items: center;
+					font-weight: bold;
+					.vipPrice {
+						font-size: 24rpx;
+						color: #000;
+						margin-right: 8.5rpx;
+					}
+					.vipPriceTip {
+                        width:50rpx;
+                        height:25rpx;
+						color: white;
+                        font-size: 18rpx;
+                        background:linear-gradient(95deg,rgba(255,162,0,1) 0%,rgba(255,78,214,1) 100%);
+                        border-radius:5rpx;
+						display: flex;
+						justify-content: center;
+                        align-items: center;
+					}
+				}
+
+				.market-price {
+					font-size: 18rpx;
+				}
+
+				.ItemSold {
+					flex-grow: 1;
+					font-size: 21rpx;
+					color: #707070;
+					// padding-right: 10rpx;
+				}
+
+				.tag {
+					display: inline-block;
+					font-size: 22rpx;
+					background-color: $priceColor;
+					color: #fff;
+					width: 90rpx;
+					text-align: center;
+					border-radius: 5rpx;
+					height:35rpx;
+					line-height:35rpx;
+				}
+			}
+		}
+	}
+}

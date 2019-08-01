@@ -138,16 +138,23 @@ video {
 	}
 
 	.meta {
-		display: flex;
-		align-items: center;
 		margin-top: 20rpx;
-		width: 100%;
-		justify-content: space-between;
-		font-size: 24rpx;
 
 		.price{
+			width: 100%;
 			display: flex;
 			align-items: center;
+
+			// 会员专属价格、
+		    .vipHold {
+				color: $titleColor;
+				font-weight: bold;
+				.vipLogo {
+					width: 40rpx;
+					height: 25rpx;
+					margin-right: 5rpx;
+				}
+			}
 
 			.nowPrice {
 				view{
@@ -161,6 +168,29 @@ video {
 				color: $priceColor;
 				display: inline-block;
 			}
+			
+			// 非会员专属会员价
+			.vipPrice {
+				padding-left: 38rpx;
+				font-size: 24rpx;
+				color: #000;
+				font-weight: bold;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.vipTipWrap {
+					font-size: 20rpx;
+					color: white;
+					font-weight: normal;
+					width: 70rpx;
+					height: 30rpx;
+					margin-left: 8rpx;
+					background: linear-gradient(to right,#F29100, #FC2732);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
 
 			.originalPrice {
 				padding-left: 30rpx;
@@ -168,11 +198,44 @@ video {
 				color: #999999;
 				display: inline-block;
 			}
+			
+			// 邮费和已售
+			.default{
+				display: flex;
+				margin-left: auto;
+				.postage {
+					padding-right: 30rpx;
+				}
+				.postage, .sales {
+					color: $titleColor;
+					font-size: 24rpx;
+				}
+			}
 		}
 
-		.postage, .sales{
-			color: #707070;
+		.info-section {
+			display: flex;
+			// justify-content: space-between;
+			align-items: center;
+			padding-top: 10rpx;
+			
+			// 到店服务
+			.delivery-section {
+				font-size: 24rpx;
+				color: $titleColor;
+				margin-right: 38rpx;
+				display: flex;
+				align-items: center;
+
+				.type-icon {
+					width: 20rpx;
+					height: 20rpx;
+					display: inline-block;
+					margin-right: 10rpx;
+				}
+			}
 		}
+
 	}
 }
 

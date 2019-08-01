@@ -129,7 +129,7 @@
   	<view wx:if="{{ order.status === 10 || otherPeopleGroupon }}">
     	<view class="grouponHint">
     		<view class="title">拼团流程</view>
-    		<image class="grouponHintImage" src="/icons/grouponHint.png" />
+    		<image class="grouponHintImage" src="/icons/grouponHint.svg" />
     	</view>
 			<button
 				class="nomalizeBt redpacketBannerBt"
@@ -256,11 +256,11 @@
   <view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
   	<view class="shareModalContent">
   		<button class="shareBtn" open-type="share" data-is-share-groupon="{{ true }}">
-  			<image src="/icons/shareFriendIcon.png" mode="aspectFit"></image>
+  			<image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
   			<view>分享给好友</view>
   		</button>
   		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
-  			<image src="/icons/sharePosterIcon.png" mode="aspectFit"></image>
+  			<image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
   			<view>分享活动海报</view>
   		</view>
   	</view>

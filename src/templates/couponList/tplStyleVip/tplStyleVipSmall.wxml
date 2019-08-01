@@ -1,0 +1,49 @@
+<view class="member-coupon">
+	<view class="rights-item-title">
+		<text>会员优惠券</text>
+	</view>
+	<view class="coupon-list">
+		<view class="coupon"
+		wx:for="{{ memberCouponList }}"
+		wx:key="id"
+		bindtap="onCouponClick"
+		data-id="{{ item.id }}"
+		data-status="{{ item.status }}"
+		data-title="{{ item.title }}"
+		data-index="{{ index }}"
+		wx:if="{{ index < 2 }}"
+		>
+			<form bindsubmit="submitFormId" report-submit="true">
+				<button class="couponInfoList" formType="submit" hover-class="none">
+					<view class="couponInfo {{ item.status == 5 || item.status == 2 && !item.stock_qty || item.status == 3 ? 'used' : '' }}">
+						<view class="reduce">
+							<text wx:if="{{ item.type == 1 }}">{{ globalData.CURRENCY[globalData.currency] }}</text>
+							<text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
+							<text wx:if="{{ item.type == 2 }}">折</text>
+						</view>
+						<view class="title">满{{ item.least_cost }}元使用</view>
+					</view>
+					<view class="couponBtn">
+						<text class="couponUnuse" wx:if="{{ item.status == 2 && item.stock_qty }}" >立即领取</text>
+						<text class="couponUnuse" wx:if="{{ item.status == 4 }}" >立即使用</text>
+						<text class="couponUsed used" wx:if="{{ item.status == 5 }}" >已使用</text>
+						<text class="couponUsed used" wx:if="{{ item.status == 2 && !item.stock_qty }}" >已抢光</text>
+						<text class="couponUsed used" wx:if="{{ item.status == 3 }}" >已过期</text>
+						<image class="arrow" wx:if="{{ item.status == 2 && item.stock_qty || item.status == 4 }}" src="/icons/member/score-arrow.svg" mode="aspectFit"/>
+					</view>
+					<block>
+						<!-- 待领取 -->
+						<image class="bg" src="/icons/member/vipCouponItemSmall.svg" wx:if="{{ item.status == 2 && item.stock_qty }}" /> 
+						<!-- 已领取 -->
+						<image class="bg" src="/icons/member/vipCouponItemReceivedSmall.svg" wx:if="{{ item.status == 4 }}" /> 
+						<!-- 已失效 -->
+						<image class="bg" src="/icons/member/vipUnableCouponSmall.svg" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" /> 
+					</block>
+				</button>
+			</form>
+		</view>
+		<navigator class="moreCoupon" url="/pages/couponList/couponList?tplStyle=vip" wx:if="{{ memberCouponList.length > 1 }}">
+			<view class="moreBtn">查看更多</view>
+		</navigator>
+	</view>
+</view>
