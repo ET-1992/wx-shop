@@ -30,11 +30,42 @@
                 // font-weight: bold;
                 // color: #FF1E1E;
             }
+            // 会员专属
+            .now-member {
+                display: flex;
+                align-items: center;
+                .member-logo {
+                    width: 40rpx;
+                    height: 25rpx;
+                    margin-right: 5rpx;
+                }
+            }
+            // 原价
             .original{
                 font-size: 20rpx;
                 color: #999999;
                 text-decoration: line-through;
                 padding-left: 10rpx;
+            }
+        }
+        // 会员价-非会员专属商品
+        .member-price {
+            font-size: 20rpx;
+            color: #000000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            .member-price-tip {
+                font-size: 18rpx;
+                width: 50rpx;
+                height: 25rpx;
+                color: white;
+                background:linear-gradient(127deg,rgba(255,152,169,1) 0%,rgba(251,71,98,1) 100%);
+                border-radius:5px;
+                margin-left: 5rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
         .tag{

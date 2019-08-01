@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><style>.a{fill:#fe0000;}.b{fill:#fff;}</style></defs><g transform="translate(-274 -1142)"><circle class="a" cx="40" cy="40" r="40" transform="translate(274 1142)"/><ellipse class="b" cx="12.691" cy="12.691" rx="12.691" ry="12.691" transform="translate(297.943 1159.02)"/><path class="b" d="M18.55,21.419C8.321,21.419,0,18.117,0,14.059A2.866,2.866,0,0,1,.023,13.7,2.32,2.32,0,0,1,0,13.369l.119-1.035c.039-.368.07-.551.138-.909l.011-.088A16.441,16.441,0,0,1,9.185,0a12.726,12.726,0,0,0,9.793,4.449A12.818,12.818,0,0,0,28.5.312a17.944,17.944,0,0,1,4.6,3.655,6.028,6.028,0,0,0-3.167-.9,6.155,6.155,0,0,0-6.116,6.178c0,4.524,3.491,8.225,6.42,10.533A39.371,39.371,0,0,1,18.55,21.419Z" transform="translate(291.658 1183.457)"/><g transform="translate(317.194 1187.99)"><path class="b" d="M15.366.8a5.235,5.235,0,0,0-4.678,2.928A5.206,5.206,0,0,0,.8,6.01c0,7,9.888,11.675,9.888,11.675s9.888-5.438,9.888-11.675A5.218,5.218,0,0,0,15.366.8Z" transform="translate(-0.8 -0.8)"/></g></g></svg>
+<svg id="组_3479" data-name="组 3479" xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 176 176">
+  <circle id="椭圆_176" data-name="椭圆 176" cx="88" cy="88" r="88" fill="#fdc522"/>
+  <g id="组_769" data-name="组 769" transform="translate(13.241 13.241)">
+    <path id="路径_134" data-name="路径 134" d="M26.02,2a50.625,50.625,0,0,0-7.92.415C58.116,3.661,90.628,36.472,90.628,76.759c0,38.625-29.595,70.19-67.109,74.343h2.5a74.847,74.847,0,0,0,75.029-74.759C101.049,35.641,67.286,2,26.02,2Z" transform="translate(48.47 -2)" fill="#f8931e"/>
+    <circle id="椭圆_177" data-name="椭圆 177" cx="74.76" cy="74.76" r="74.76" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="4"/>
+  </g>
+  <g id="组_770" data-name="组 770" transform="translate(51.002 48.284)">
+    <ellipse id="XMLID_4_" cx="20.932" cy="20.932" rx="20.932" ry="20.932" stroke-width="6" transform="translate(11.914)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#fff"/>
+    <path id="XMLID_2_" d="M3.5,87.046A32.873,32.873,0,0,1,36.346,54.2" transform="translate(-3.5 -12.254)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="6"/>
+    <line id="直线_163" data-name="直线 163" x2="32.887" transform="translate(41.109 60.841)" fill="none" stroke="#000" stroke-width="6"/>
+    <line id="直线_164" data-name="直线 164" y2="32.887" transform="translate(57.552 44.397)" fill="none" stroke="#000" stroke-width="6"/>
+  </g>
+</svg>

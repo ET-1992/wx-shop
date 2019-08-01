@@ -49,7 +49,7 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.png' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
 				</view>
 
 			</view>
@@ -57,17 +57,49 @@
 			<!-- 价格区间 -->
 			<view class="meta">
 				<view class="price">
-					<view class="nowPrice">
-						<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
-						<view class="priceStyle">{{product.definePrice}}</view>
-						<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
+					<!-- 会员专属 -->
+					<view wx:if="{{ product.membership_dedicated_enable }}" class="vipHold">
+						<image src="/icons/vipLogo.svg" class="vipLogo"></image>
+						<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
 					</view>
-					<!-- 会员价 -->
-					<!-- <view wx:if="{{ user.membership.is_member }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view> -->
-					<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+					<block wx:else>
+						<view class="nowPrice">
+							<view>{{ globalData.CURRENCY[globalData.currency] }}</view>
+							<view class="priceStyle">{{product.definePrice}}</view>
+							<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
+						</view>
+						<!-- 非会员专属会员价 -->
+						<view wx:if="{{ product.membership_price_enable }}" class="vipPrice">
+							<text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}</text>
+							<text class="vipTipWrap">会员价</text>
+						</view>
+						<!-- 原价 -->
+						<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+					</block>
+					<!-- 邮费、已售 -->
+					<view class="default">
+						<view class="postage" wx:if="{{ !product.hide_postage }}">
+						{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
+						</view>
+						<view class="sales">已售：{{ product.sales }}</view>
+					</view>
 				</view>
-				<view class="postage" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
-				<view class="sales">已售：{{ product.sales }}</view>
+				<view class="info-section">
+					<block wx:if="{{ product.product_type !== 1}}">
+						<view class="delivery-section" wx:if="{{ config && config.self_lifting_enable }}">
+							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+							到店自提
+							</view>
+							<view class="delivery-section" wx:if="{{ config && config.home_delivery_enable }}">
+							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+							送货上门
+							</view>
+							<view class="delivery-section" wx:if="{{ config && config.logistics_enable }}">
+							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+							快递
+						</view>
+					</block>
+				</view>
 			</view>
 
 			<!-- <view class="tag" wx:if="{{ product.miaosha_enable === '1' && !hasEnd }}">限时购</view> -->
@@ -77,12 +109,12 @@
 		</view>
 
 		<!-- 开通会员提示框 -->
-		<!-- <view class="member-wrapper" wx:if="{{ !user.membership.is_member }}">
+		<view class="member-wrapper" wx:if="{{ product.membership_dedicated_enable && !user.membership.is_member }}">
 			<view class="member-tips">
-				<view class="tips-text">开通会员，立享会员价</view>
-				<view class="tips-right">去开通 ></view>
+				<view class="tips-text">会员专属商品，开通会员立享</view>
+				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
 			</view>
-		</view> -->
+		</view>
 		<!-- 领券&服务说明 -->
 		<view class="sevice-coupon">
 			<view
@@ -119,7 +151,7 @@
 		</view>
 		<view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
 			<view class="title">拼团流程</view>
-			<image class="grouponHintImage" src="../../icons/grouponHint.png" />
+			<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
 		</view>
 
 		<!-- 商品评论start -->
@@ -321,7 +353,7 @@
 				<view class="availableCoupon">
 					<view class="couponListTitle" wx:if="{{ receivableCoupons.length }}">可领取优惠券</view>
 					<view class="noCoupon" wx:else>
-						<image src="../../icons/noCoupon.png"></image>
+						<image src="../../icons/noCoupon.svg"></image>
 						<view>暂无可领取优惠券</view>
 					</view>
 					<view
@@ -361,11 +393,11 @@
 <view class="actionShareModal {{showShareModaled ? 'show' : ''}} {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ showShareModal }}">
 	<view class="shareModalContent">
 		<button class="shareBtn" open-type="share">
-			<image src="../../icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<image src="../../icons/shareFriendIcon.svg" mode="aspectFit"></image>
 			<view>分享给好友</view>
 		</button>
 		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
-			<image src="../../icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<image src="../../icons/sharePosterIcon.svg" mode="aspectFit"></image>
 			<view>分享商品海报</view>
 		</view>
 	</view>

@@ -13,6 +13,6 @@
 	</navigator>
 </view>
 <view class="noHint" wx:if="{{ !isLoading && !topics.length}}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
-	<image class="favBg" src="/icons/favBg.png"></image>
+	<image class="favBg" src="/icons/favBg.svg"></image>
 	<view>还没有收藏</view>
 </view>

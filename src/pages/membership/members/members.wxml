@@ -1,7 +1,7 @@
 <loading isLoading="{{ isLoading }}" />
 
 <view class="container" wx:if="{{!isLoading}}">
-	<!-- 用户 -->
+	<!-- 用户信息及开通会员 -->
 	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}">
 		<view class="member-top {{ config.store_card_enable ? '' : 'noCard' }}">
 			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
@@ -27,7 +27,7 @@
 				<!-- 已开通储值卡功能 -->
 				<block wx:if="{{ config.store_card_enable }}">
 					<view class="openVip-btn" bindtap="openCommonRechargeModal">立即开通会员</view>
-					<view class="openVip-tip">{{ ruleData.word }}</view>
+					<view class="openVip-tip">{{ word }}</view>
 				</block>
 				<!-- 没开储值卡功能 -->
 				<block wx:if="{{ !config.store_card_enable }}">
@@ -56,13 +56,20 @@
 		</block>
 	</view>
 
-	<!-- 非会员充值弹窗 -->
-	<popup rechargeModal="{{ commonRechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
+	<view class="member-rights">
+		<!-- 会员优惠券 -->
+		<include src="/templates/couponList/tplStyleVip/tplStyleVipSmall.wxml" />
+		
+		<!-- 会员专属商品 -->
+		<view class="member-goods-banner">
+			<view class="rights-item-title">
+				<text>会员专享商品</text>
+			</view>
+			<image src="/icons/member/vipGoodsOwnBanner.svg" mode="aspectFill" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
+		</view>
+	</view>
 
-	<!-- 会员充值弹窗 -->
-	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
-
-	<!-- 下方跳转列表组 -->
+	<!-- 我的积分、积分规则、联系客服 -->
 	<view class="jump-list">
 		<view class="jump-item jump-score" bindtap="go" data-url="/pages/membership/integralList/integralList" wx:if="{{ user.membership && user.membership.is_member }}">
 			<image mode="aspectFit" class="jump-icon" src="/icons/member/myScore.svg"></image>
@@ -82,6 +89,12 @@
 			</button>
 		</view>
 	</view>
+
+	<!-- 非会员充值弹窗 -->
+	<popup rechargeModal="{{ commonRechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
+
+	<!-- 会员充值弹窗 -->
+	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
 </view>
 
 <console page="会员中心" />
