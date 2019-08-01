@@ -138,6 +138,7 @@ video {
 
 	.meta {
 		margin-top: 20rpx;
+		font-size: 24rpx;
 		.price {
 			width: 100%;
 			display: flex;
@@ -161,22 +162,21 @@ video {
 					color: $priceColor;
 					display: flex;
 					align-items: center;
+					font-size: 36rpx;
+					line-height: 1.2;
+					.currency{
+						font-size: 24rpx;
+					}
+					.num{
+						font-weight: bold;
+					}
 				}
 				view{
 					display: inline-block;
 					vertical-align: middle;
 				}
-				.priceStyle{
-					font-size: 36rpx;
-					line-height: 1.2;
-					.num{
-						font-weight: bold;
-					}
-					.currency{
-						font-size: 24rpx;
-					}
-				}
 				.commander{
+					color: $priceColor;
 					font-size: 22rpx;
 				}
 			}

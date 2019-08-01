@@ -65,12 +65,12 @@
               <view class="currentPrice">
 							  <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
 							  <text class="num">{{ product.definePrice }}</text>
-							  <block wx:if="{{ !(product.groupon_enable === '1' || product.miaosha_enable === '1' || product.seckill_enable === '1') && (product.highest_price > product.definePrice) }}">
+							  <block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && (product.highest_price > product.definePrice) }}">
 							  	<text>-</text>
 							  	<text class="num">{{ product.highest_price }}</text>
 							  </block>
 						  </view>
-							<text style="font-size:22rpx" wx:if="{{product.groupon_enable === '1' && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
+							<text class="commander" wx:if="{{product.groupon_enable && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
 						</view>
 						<!-- 非会员专属会员价 -->
 						<view wx:if="{{ product.membership_price_enable }}" class="vipPrice">
@@ -105,7 +105,7 @@
 					</block>
 				</view>
 			</view>
-			<view class="tag" wx:if="{{ product.groupon_enable === '1' }}"> {{ product.groupon_member_limit + '人团' }} </view>
+			<view class="tag" wx:if="{{ product.groupon_enable }}"> {{ product.groupon_member_limit + '人团' }} </view>
 		</view>
 
 		<!-- 开通会员提示框 -->
@@ -121,7 +121,7 @@
 			 wx:if="{{ coupons && coupons.length }}"
 			 class="coupons"
 			 catchtap="onShowCouponList"
-			 style="{{ product.groupon_enable === '1' && grouponId ? 'display: none' : ''}} {{ coupons && coupons.length ? '' : 'border:none'}}"
+			 style="{{ product.groupon_enable && grouponId ? 'display: none' : ''}} {{ coupons && coupons.length ? '' : 'border:none'}}"
 			>
 				<form bindsubmit="submitFormId" report-submit="true">
 					<button formType="submit">
@@ -148,13 +148,13 @@
 			</view>
 		</view>
 		<!-- end -->
-		<view wx:if="{{ product.groupon_enable === '1' && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
+		<view wx:if="{{ product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
 			<view class="title">正在开团, 可直接参团</view>
 			<view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
 				<pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
 			</view>
 		</view>
-		<view class="grouponHint" wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
+		<view class="grouponHint" wx:if="{{ product.groupon_enable && !grouponId }}">
 			<view class="title">拼团流程</view>
 			<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
 		</view>
@@ -229,7 +229,7 @@
 					<text>客服</text>
 				</button>
 				<!-- 团购 -->
-				<block wx:if="{{ product.groupon_enable === '1' && !grouponId }}">
+				<block wx:if="{{ product.groupon_enable && !grouponId }}">
 					<view
 					 class="addCart multi"
 					 catchtap="onShowSku"
@@ -252,7 +252,7 @@
 				</block>
 
 				<!-- 被邀请参团  -->
-				<block wx:elif="{{ product.groupon_enable === '1' && grouponId }}">
+				<block wx:elif="{{ product.groupon_enable && grouponId }}">
 					<view
 					 class="buy multi"
 					 catchtap="onShowSku"

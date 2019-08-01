@@ -120,13 +120,13 @@ Page({
         products.forEach(product => {
             product.definePrice = 0;
 
-            if (product.groupon_enable === '1') {
+            if (product.groupon_enable) {
                 product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
                 product.showOriginalPrice = product.groupon_price !== product.original_price;
-            } else if (product.miaosha_enable === '1' && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
+            } else if (product.miaosha_enable && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
                 product.definePrice = product.miaosha_price;
                 product.showOriginalPrice = product.miaosha_price !== product.original_price;
-            } else if (product.seckill_enable === '1' && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
+            } else if (product.seckill_enable && !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp)) {
                 product.definePrice = product.seckill_price;
                 product.showOriginalPrice = product.seckill_price !== product.original_price;
             } else {

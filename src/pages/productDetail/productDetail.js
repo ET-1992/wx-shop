@@ -159,7 +159,7 @@ Page({
         });
         try {
             const data = await api.hei.fetchProduct({ id });
-            const { thumbnail } = data.product;
+            const { thumbnail, miaosha_enable = false, groupon_enable = false } = data.product;
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
@@ -206,13 +206,13 @@ Page({
         const { hasEnd, hasStart, product } = this.data;
         product.definePrice = 0;
 
-        if (product.groupon_enable === '1') {
+        if (product.groupon_enable) {
             product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
             product.showOriginalPrice = product.groupon_price !== product.original_price;
-        } else if (product.miaosha_enable === '1' && !hasEnd && hasStart) {
+        } else if (product.miaosha_enable && !hasEnd && hasStart) {
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
-        } else if (product.seckill_enable === '1' && !hasEnd && hasStart) {
+        } else if (product.seckill_enable && !hasEnd && hasStart) {
             product.definePrice = product.seckill_price;
             product.showOriginalPrice = product.seckill_price !== product.original_price;
         } else {
