@@ -13,29 +13,51 @@ Page({
         isLoading: true
     },
 
-    async onLoad(options) {
-        wx.setNavigationBarTitle({
-            title: '优惠券'
-        });
+    async onLoad(params) {
+        console.log('params', params); // {tplStyle: "vip"}
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        this.setData({
-            tplStyle,
-            themeColor,
-            config
-        });
-        this.loadCoupon();
-        console.log(this.data);
+        if (params.tplStyle === 'vip') { // 会员模板
+            wx.setNavigationBarTitle({
+                title: '会员优惠券'
+            });
+            wx.setNavigationBarColor({
+                frontColor: '#ffffff',
+                backgroundColor: '#333',
+            });
+            this.setData({
+                themeColor,
+                tplStyle: 'vip_tpl',
+                config
+            });
+            this.loadCoupon('vip');
+        } else {
+            const { style_type: tplStyle = 'default' } = config;
+            this.setData({
+                tplStyle,
+                themeColor,
+                config
+            });
+            this.loadCoupon();
+        }
+        console.log('this.data', this.data);
     },
 
-    async loadCoupon() {
-        const { vendor } = app.globalData;
-        const data = await api.hei.fetchCouponList({ vendor });
-        this.setData({
-            ...data,
-            isLoading: false
-        });
+    async loadCoupon(params) {
+        if (params) {
+            const data = await api.hei.fetchCouponList({ membership: 1 });
+            this.setData({
+                ...data,
+                isLoading: false
+            });
+        } else {
+            const { vendor } = app.globalData;
+            const data = await api.hei.fetchCouponList({ vendor });
+            this.setData({
+                ...data,
+                isLoading: false
+            });
+        }
     },
 
     async onReceiveCoupon(id, index) {
@@ -96,17 +118,27 @@ Page({
     },
 
     reLoad() {
-        this.loadCoupon();
+        const { tplStyle } = this.data;
+        if (tplStyle === 'vip_tpl') {
+            this.loadCoupon('vip');
+        } else {
+            this.loadCoupon();
+        }
     },
 
     /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
     onPullDownRefresh: function() {
+        const { tplStyle } = this.data;
         this.setData({
             isLoading: true
         });
-        this.loadCoupon();
+        if (tplStyle === 'vip_tpl') {
+            this.loadCoupon('vip');
+        } else {
+            this.loadCoupon();
+        }
         wx.stopPullDownRefresh();
     }
 

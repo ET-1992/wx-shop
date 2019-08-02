@@ -5,7 +5,15 @@
     </view>
     <view class="bottom">
         <view class="price">
-            <block wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">
+            <!-- 会员专属 -->
+            <block wx:if="{{ product.membership_dedicated_enable }}">
+                <view class="now now-member">
+                    <image src="/icons/vipLogo.svg" class="member-logo"></image>
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
+                </view>
+            </block>
+
+            <block wx:elif="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">
                 <view class="now"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.miaosha_price }} </view>
             </block>
             <block wx:elif="{{ product.groupon_enable }}">
@@ -21,6 +29,14 @@
             </view> -->
         </view>
         <!-- <view class="sold">已售{{ product.sales }}件</view> -->
+        <!-- 非会员专属会员价 -->
+        <view class="member-price" wx:if="{{ product.membership_price_enable && product.membership_price }}">
+            <view class="member-price-number">
+                <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.membership_price }}
+            </view>
+            <view class="member-price-tip">VIP</view>
+        </view>
+
         <view 
             class="tag" 
             wx:if="{{ product.groupon_enable || product.miaosha_enable }}"

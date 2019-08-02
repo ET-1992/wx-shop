@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="190" viewBox="0 0 190 190">
+  <g id="组_3529" data-name="组 3529" transform="translate(-504 -1119)">
+    <g id="组_1380" data-name="组 1380" transform="translate(548.924 1164.442)">
+      <path id="路径_252" data-name="路径 252" d="M103.222,52.929V78.893a24.256,24.256,0,0,1-24.329,24.329H25.329A24.256,24.256,0,0,1,1,78.893V25.329A24.256,24.256,0,0,1,25.329,1H79.1a24.213,24.213,0,0,1,24.124,24.329" transform="translate(-1 -1)" fill="#fff" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_253" data-name="路径 253" d="M51,26.4" transform="translate(51.222 25.529)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_254" data-name="路径 254" d="M51,23" transform="translate(51.222 21.978)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <line id="直线_237" data-name="直线 237" y2="8.587" transform="translate(102.222 34.347)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_255" data-name="路径 255" d="M51,16.8" transform="translate(51.222 15.502)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <path id="路径_256" data-name="路径 256" d="M51,12.9" transform="translate(51.222 11.429)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+      <ellipse id="椭圆_233" data-name="椭圆 233" cx="10.222" cy="10.222" rx="10.222" ry="10.222" transform="translate(16.356 19.013)" fill="#606060"/>
+      <path id="路径_257" data-name="路径 257" d="M25.226,80.14H78.995a24.213,24.213,0,0,0,24.124-24.329V44.976S85.333,23.1,73.884,23.1c-11.653,0-13.7,23.92-23.1,23.92-9.609,0-13.7-13.7-24.533-13.7S1.1,49.678,1.1,49.678v6.133A23.956,23.956,0,0,0,25.226,80.14Z" transform="translate(-0.897 22.082)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+    </g>
+    <circle id="椭圆_234" data-name="椭圆 234" cx="92.5" cy="92.5" r="92.5" transform="translate(506.5 1121.5)" fill="none" stroke="#606060" stroke-miterlimit="10" stroke-width="5"/>
+  </g>
+</svg>

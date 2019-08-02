@@ -1,9 +1,9 @@
 
 <view class="container">
     <view wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
-        <image src="/icons/call.png" mode="aspectFit"></image>
+        <image src="/icons/call.svg" mode="aspectFit"></image>
     </view>
     <button wx:if="{{ customer }}" open-type="contact" session-from="{{ sessionFrom }}">
-        <image src="/icons/customer.png" mode="aspectFit"></image>
+        <image src="/icons/customer.svg" mode="aspectFit"></image>
     </button>
 </view>

@@ -106,6 +106,15 @@
 						font-weight: normal;
 					}
 				}
+				// 会员专属
+				.vipItemPrice {
+					color: $titleColor;
+					.vipLogo {
+						width: 40rpx;
+						height: 25rpx;
+						margin-right: 5rpx;
+					}
+				}
 				.originPrice {
 					color: #707070;
 					text-decoration: line-through;
@@ -117,6 +126,31 @@
 			.tagWrapper {
 				display: felx;
 				align-items: center;
+ 
+				// 会员价
+				.vipTap {
+					display: flex;
+					align-items: center;
+					.vipPrice {
+						font-size: 24rpx;
+						color: #000;
+						margin-right: 8.5rpx;
+					}
+					.vipPriceTip {
+						width: 90rpx;
+						height: 35rpx;
+						font-size: 22rpx;
+						color: white;
+						background: linear-gradient(to right,#F29100, #FC2732);
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+
+				.market-price {
+					font-size: 18rpx;
+				}
 
 				.ItemSold {
 					flex-grow: 1;

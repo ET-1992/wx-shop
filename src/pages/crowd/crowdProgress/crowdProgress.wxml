@@ -96,11 +96,11 @@
 <van-popup show="{{ shareModal }}" bind:close="showShareModal" position="bottom">
     <view class="shareModalContent {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<button class="shareBtn" open-type="share">
-			<image src="/icons/shareFriendIcon.png" mode="aspectFit"></image>
+			<image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
 			<view>分享给好友</view>
 		</button>
 		<view class="shareBtn" bindtap="onShowProductDetailShareModal">
-			<image src="/icons/sharePosterIcon.png" mode="aspectFit"></image>
+			<image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
 			<view>分享商品海报</view>
 		</view>
 	</view>

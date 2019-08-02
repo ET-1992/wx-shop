@@ -6,7 +6,16 @@
             <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
         </view>
         <view class="bottom">
-            <view wx:if="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" class="original">
+            <view wx:if="{{ product.membership_dedicated_enable }}">
+                <image src="/icons/vipLogo-large.svg" class="member-logo"></image>
+            </view>
+            <view class="member-price" wx:elif="{{ product.membership_price }}">
+                    <view class="member-price-tip">VIP</view>
+                    <view class="member-price-number">
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.membership_price }}
+                    </view>
+                </view>
+            <view wx:elif="{{ (product.groupon_price !== product.original_price) && (product.miaosha_price !== product.original_price) && (product.price !== product.original_price) }}" class="original">
                 <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
                 <text>{{ product.original_price }}</text>
             </view>

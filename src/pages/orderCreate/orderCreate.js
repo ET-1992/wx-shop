@@ -15,7 +15,7 @@ Page({
             { title: '送货上门', value: 'delivery', checked: false, visible: false }
         ],
         liftStyle: 'express',
-        listStyleIndex: 0,
+        // liftStyleIndex: 0,
         liftInfo: {
             isCanInput: true,
             isCanNav: true
@@ -64,8 +64,6 @@ Page({
     // },
 
     async onShow() {
-        console.log(this.options);
-        console.log(app.globalData);
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
                 url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
@@ -78,16 +76,13 @@ Page({
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        const { self_lifting_enable, self_lifting_only } = config;
         let liftStyle = 'express';
-        if (self_lifting_enable && self_lifting_only) {
-            liftStyle = 'lift';
-        }
         this.setData({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config
+            config,
+            liftStyle
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -114,7 +109,7 @@ Page({
                 }
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
-                app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
+                app.event.on('setOverseeAddressEvent', this.setOverseeAddressEvent, this);
                 this.firstInit();
                 this.onLoadData();
             });
@@ -126,27 +121,21 @@ Page({
                 showCancel: false,
             });
         }
-
-        // console.log(this.data);
     },
 
     onUnload() {
-        // console.log('--- onUnLoad ----');
         app.globalData.currentOrder = {};
-
-        // console.log(JSON.stringify(app.globalData.currentOrder));
         wx.removeStorageSync('orderCreate');
         app.event.off('getCouponIdEvent', this);
         app.event.off('getLiftInfoEvent', this);
         app.event.off('getStoreInfoEvent', this);
-        app.event.off('setOverseeAdressEvent', this);
+        app.event.off('setOverseeAddressEvent', this);
     },
 
-    onHide() {
-        // console.log('--- onHide ----');
-
-        // wx.clearStorageSync('orderCreate');
-    },
+    // onHide() {
+    //     console.log('--- onHide ----');
+    //     wx.clearStorageSync('orderCreate');
+    // },
 
     onInput(ev) {
         const { value } = ev.detail;
@@ -192,38 +181,29 @@ Page({
 
     // 从 liftList 页面获取自提地址
     getLiftInfoEvent(data) {
-        console.log('getLiftInfoEvent', data);
         const { liftInfo } = this.data;
-
         this.setData({
             liftInfo: { ...liftInfo, ...data }
         });
-        console.log('liftInfo193', this.data.liftInfo);
     },
 
-    setOverseeAdressEvent(selfAddressObj) {
-        // console.log('setOverseeAdressEvent');
-        this.setData({
-            address: selfAddressObj
-        });
+    setOverseeAddressEvent(selfAddressObj) {
+        this.setData({ address: selfAddressObj });
     },
 
     // 从 liftList 页面获取门店地址
     getStoreInfoEvent(data) {
-        // console.log('getStoreInfoEvent', data);
         const times = data[0].times || [];
-        console.log('times', times);
         this.setData({
             storeListAddress: data,
             homeDeliveryTimes: times
+        }, () => {
+            this.onLoadData(data[0].name);
         });
-        console.log('storeListAddress211', this.data.storeListAddress);
-        console.log('homeDeliveryTimes', this.data.homeDeliveryTimes);
     },
 
     // 更新自提地址
     updateLiftInfo(e) {
-        console.log(e);
         const { liftInfo = {}} = this.data;
         this.setData({
             liftInfo: { ...liftInfo, ...e.detail }
@@ -241,8 +221,7 @@ Page({
                 home_delivery_enable
             },
             liftStyles,
-            liftStyle,
-            listStyleIndex
+            liftStyle
         } = this.data;
 
         let configLiftStyles = [
@@ -264,41 +243,33 @@ Page({
             liftStyles.forEach((item, index) => {
                 item.visible = item && (item.value === configLiftStyles[index].value) && configLiftStyles[index].visible;
             });
-            if (!listStyleIndex) {
-                let listStyleIndex = configLiftStyles.findIndex(item => {
-                    return item.visible === true;
-                });
-                console.log(listStyleIndex, 'listStyleIndex');
-                liftStyles[listStyleIndex].checked = true;
-                liftStyle = liftStyles[listStyleIndex].value;
-                this.setData({
-                    liftStyle,
-                    liftStyles
-                });
-            }
+            let liftStyleIndex = configLiftStyles.findIndex(item => {
+                return item.visible === true;
+            });
+            liftStyles[liftStyleIndex].checked = true;
+            liftStyle = liftStyles[liftStyleIndex].value;
+            this.setData({
+                liftStyle,
+                liftStyles
+            });
         }
     },
 
-    async onLoadData() {
+    async onLoadData(params) {
         try {
-            // let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
             let {
                 address,
                 items,
-                totalPrice,
                 user_coupon_ids,
                 isGrouponBuy,
                 liftStyle,
                 grouponId,
-                // seckill_product_id,
-                // seckill,
                 liftStyles,
                 config: {
                     logistics_enable,
                     self_lifting_enable,
                     home_delivery_enable
-                },
-                listStyleIndex
+                }
             } = this.data;
             let requestData = {};
             if (address) {
@@ -326,12 +297,13 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (liftStyle === 'lift') { // 自提订单
+            if (liftStyle === 'lift') { // 自提
                 requestData.shipping_type = 2;
             }
 
-            if (liftStyle === 'delivery') { // 送货上门订单
+            if (liftStyle === 'delivery') { // 送货上门
                 requestData.shipping_type = 4;
+                requestData.receiver_address_name = params;
             }
 
             requestData.posts = JSON.stringify(items);
@@ -340,13 +312,7 @@ Page({
             const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
-            // console.log(maxUseCoin, 'maxUseCoin');
             const useCoin = Math.min(maxUseCoin, wallet.coins);
-            // console.log(useCoin);
-
-            // if (self_lifting_only) {
-            //     liftStyle = 'lift';
-            // }
 
             this.setData({
                 coupons,
@@ -383,6 +349,7 @@ Page({
         }
     },
 
+    // 设置可用花生米
     setUseCoin(e) {
         this.setData({
             useCoin: e.detail || 0
@@ -411,7 +378,6 @@ Page({
     },
 
     async onPay(ev) {
-        // console.log(ev, 'ev');
         const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
@@ -442,7 +408,6 @@ Page({
             detailInfo,
         } = address;
         const { vendor, afcode } = app.globalData;
-        // console.log(vendor, afcode, 'globalData');
 
         if (!userName && !detailInfo && liftStyle !== 'lift' && product_type !== 1) {
             wx.showModal({
@@ -493,7 +458,6 @@ Page({
 
         if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
-            // console.log(orderForm.data, 'orderForm');
             const { annotation, dns_obj } = orderForm.data;
             annotation.forEach((item, index) => {
                 if (item.required && !dns_obj[item.name]) {
@@ -506,7 +470,6 @@ Page({
             const error = annotation.filter((item) => {
                 return (item.isError === true);
             });
-            console.log(error);
             if (error.length > 0) {
                 wx.showModal({
                     title: '提示',
@@ -529,11 +492,6 @@ Page({
                 return;
             }
         }
-
-        wx.showLoading({
-            title: '处理订单中',
-            mark: true,
-        });
 
         if (user_coupon_ids) {
             requestData.user_coupon_ids = user_coupon_ids;
@@ -577,7 +535,6 @@ Page({
             } else {
                 requestData.receiver_delivery_time = homeDeliveryTimes[index];
             }
-            console.log(homeDeliveryTimes[index]);
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
@@ -604,9 +561,13 @@ Page({
             method = 'createOrder';
         }
 
+        wx.showLoading({
+            title: '处理订单中',
+            mark: true,
+        });
+
         try {
             const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order } = await api.hei[method](requestData);
-            // console.log(order_no, status, pay_sign, pay_appid, crowd_pay_no, 'pay');
             wx.hideLoading();
 
             if (crowd && crowd_pay_no) {
@@ -621,15 +582,14 @@ Page({
                 }
 
                 if (pay_sign) {
-                    console.log('自主支付');
+                    // console.log('自主支付');
                     await wxPay(pay_sign, order_no);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
                 }
                 else if (pay_appid) {
-                    console.log('平台支付');
-
+                    // console.log('平台支付');
                     this.setData({
                         modal: {
                             isFatherControl: true,
@@ -670,6 +630,33 @@ Page({
         }
     },
 
+    /* radio选择改变触发 */
+    radioChange(e) {
+        const { liftStyles } = this.data;
+        const { value } = e.detail;
+        if (value === 'lift') {
+            const liftInfo = wx.getStorageSync('liftInfo');
+            if (liftInfo) {
+                this.setData({
+                    liftInfo
+                });
+            }
+        }
+        liftStyles.forEach((item) => {
+            if (item.value === value) {
+                item.checked = true;
+            } else {
+                item.checked = false;
+            }
+        });
+        this.setData({
+            liftStyle: value,
+            liftStyles
+        }, () => {
+            this.onLoadData();
+        });
+    },
+
     onCancel() {
         this.setData({
             'modal.isShowModal': false,
@@ -694,34 +681,6 @@ Page({
         this.setData({
             'authModal.isShowModal': false,
             isShouldRedirect: true
-        });
-    },
-
-    /* radio选择改变触发 */
-    radioChange(e) {
-        const { liftStyles } = this.data;
-        const { value: index } = e.detail;
-        if (liftStyles[index].value === 'lift') {
-            const liftInfo = wx.getStorageSync('liftInfo');
-            if (liftInfo) {
-                this.setData({
-                    liftInfo
-                });
-            }
-        }
-        liftStyles.forEach((item) => {
-            if (item.value === liftStyles[index].value) {
-                item.checked = true;
-            } else {
-                item.checked = false;
-            }
-        });
-        this.setData({
-            liftStyle: liftStyles[index].value,
-            listStyleIndex: index,
-            liftStyles
-        }, () => {
-            this.onLoadData();
         });
     },
 

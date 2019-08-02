@@ -109,5 +109,12 @@ Page({
         wx.navigateBack({
             delta: 1
         });
+    },
+    // 不允许点击的区域
+    warnMessage() {
+        wx.showToast({
+            title: '该区域超出送货范围，不能选择！',
+            icon: 'none',
+        });
     }
 });
