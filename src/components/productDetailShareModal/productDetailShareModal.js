@@ -46,7 +46,19 @@ Component({
         routePath: {
             type: String,
             value: '',
-        }
+        },
+        isGroupon: {
+            type: Boolean,
+            value: false,
+        },
+        isMiaosha: {
+            type: Boolean,
+            value: false,
+        },
+        miaoshaObj: {
+            type: Object,
+            value: {}
+        },
     },
     data: {
         nodeInfo: {},
@@ -66,12 +78,12 @@ Component({
             user,
             themeColor
         }, this.downImg);
-        console.log('ffdfd:', this.data);
+        console.log(this.data);
     },
     methods: {
         drawProductDetailImg() {
             // ctm的wx page和components搞两套语法也就算了 api也搞两套 一下午被兼容搞得头大
-            const { productTitle, productPrice, originalPrice, grouponLimit, remainSecond, remainTime, productImageUrl, qrcodeUrl, user, nodeInfo, routeQuery } = this.data;
+            const { productTitle, productPrice, originalPrice, grouponLimit, remainSecond, remainTime, productImageUrl, qrcodeUrl, user, nodeInfo, routeQuery, isMiaosha, miaoshaObj } = this.data;
             console.log(productImageUrl);
             console.log(productTitle);
             const ctx = wx.createCanvasContext('canvasPoster', this);
@@ -113,11 +125,13 @@ Component({
 
             console.log(textRow);
             const globalData = app.globalData;
-            ctx.beginPath();
-            ctx.setFillStyle('#FC2732');
-            ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
+            if (!isMiaosha) {
+                ctx.beginPath();
+                ctx.setFillStyle('#FC2732');
+                ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
+            }
 
-            if (!routeQuery.grouponId) {
+            if (!routeQuery.grouponId && !isMiaosha) {
                 ctx.beginPath();
                 ctx.moveTo(45 / 540 * width, 670 / 900 * height);
                 ctx.lineTo(500 / 540 * width, 670 / 900 * height);
@@ -158,18 +172,60 @@ Component({
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillStyle = '#FC2732';
                 ctx.fillText(grouponLimit + '人团', 45 / 540 * width + 70, 750 / 900 * height + 45);
-            } else {
+            }
+            if (isMiaosha && miaoshaObj) {
+                ctx.setFillStyle('#000000');
+                ctx.font = 'normal bold 14px PingFang SC';
+                if (!miaoshaObj.hasStart) {
+                    ctx.fillText('距活动开始', 45 / 540 * width, 750 / 900 * height - 15);
+                }
+                if (miaoshaObj.hasStart && !miaoshaObj.hasEnd) {
+                    ctx.fillText('距活动结束', 45 / 540 * width, 750 / 900 * height - 15);
+                }
+                if (miaoshaObj.hasEnd) {
+                    ctx.fillText('活动已结束', 45 / 540 * width, 750 / 900 * height - 15);
+                }
+                if (!miaoshaObj.hasStart || (miaoshaObj.hasStart && !miaoshaObj.hasEnd)) {
+                    ctx.setFillStyle('#FC2732');
+                    ctx.font = 'normal bold 12px PingFang SC';
+                    ctx.fillText(miaoshaObj.remainTime, 45 / 540 * width + 75, 750 / 900 * height - 15);
+                }
+                ctx.setFillStyle('#707070');
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillText('原价购买' + globalData.CURRENCY[globalData.currency] + originalPrice, 45 / 540 * width, 750 / 900 * height + 15);
+
+                ctx.setFillStyle('#FC2732');
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillText(globalData.CURRENCY[globalData.currency], 45 / 540 * width, 750 / 900 * height + 45);
+                ctx.font = 'normal bold 18px PingFang SC';
+                ctx.fillText(productPrice, 45 / 540 * width + 12, 750 / 900 * height + 47);
+
+                ctx.beginPath();
+                ctx.moveTo(45 / 540 * width + 110, 750 / 900 * height + 32);
+                ctx.lineTo(45 / 540 * width + 65, 750 / 900 * height + 32);
+                ctx.lineTo(45 / 540 * width + 65, 750 / 900 * height + 49);
+                ctx.lineTo(45 / 540 * width + 110, 750 / 900 * height + 49);
+                ctx.lineTo(45 / 540 * width + 110, 750 / 900 * height + 32);
+                ctx.closePath();
+                ctx.fillStyle = '#FC2732';
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = '#FC2732';
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.font = 'normal 12px PingFang SC';
+                ctx.fillStyle = '#fff';
+                ctx.fillText('限时价', 45 / 540 * width + 70, 750 / 900 * height + 45);
+            }
+            else {
                 ctx.fillText((user && user.affiliate_share_name) || '好友', 50 / 540 * width, 750 / 900 * height);
                 ctx.fillText(this.data.routeQuery.crowd_pay_no ? '很想要这个商品' : '向你推荐这个商品', 50 / 540 * width, 750 / 900 * height + 15);
                 ctx.fillText(this.data.routeQuery.crowd_pay_no ? '邀请你给TA赞助' : '长按识别小程序访问', 50 / 540 * width, 750 / 900 * height + 30);
             }
             ctx.beginPath();
-            ctx.rect(410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
+            ctx.rect(410 / 540 * width - 55 / 540 * width, (750 / 900 * height + 10) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
             ctx.clip();
-            ctx.drawImage(qrcodeUrl, 410 / 540 * width - 75 / 540 * width, (750 / 900 * height + 15) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
-            // ctx.setFillStyle('#c9c9c9');
-            // ctx.fill();
-            console.log('o00');
+            ctx.drawImage(qrcodeUrl, 410 / 540 * width - 55 / 540 * width, (750 / 900 * height + 10) - 75 / 540 * width, 150 / 540 * width, 150 / 540 * width);
             ctx.draw();
             wx.hideLoading();
         },
@@ -243,7 +299,6 @@ Component({
         detached() {
             wx.hideLoading();
         },
-
         async downImg() {
             try {
                 const { routePath, routeQuery } = this.data;

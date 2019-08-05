@@ -1,9 +1,10 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { getAgainUserForInvalid, updateCart, autoNavigate, go } from 'utils/util';
+import { autoNavigate, go } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
+import getRemainTime from 'utils/getRemainTime';
 
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
@@ -34,6 +35,7 @@ Page({
         hasStart: true,
         hasEnd: false,
         timeLimit: 0,
+        miaoshaObj: {},
         isShowAcitonSheet: false,
         isShowCouponList: false,
         selectedProperties: [],
@@ -107,6 +109,11 @@ Page({
                 timeLimit,
                 hasStart,
                 hasEnd,
+                miaoshaObj: {
+                    remainTime: getRemainTime(timeLimit).join(':'),
+                    hasStart,
+                    hasEnd,
+                }
             }, resolve());
         });
     },
@@ -159,7 +166,7 @@ Page({
         });
         try {
             const data = await api.hei.fetchProduct({ id });
-            const { thumbnail, miaosha_enable = false, groupon_enable = false } = data.product;
+            const { thumbnail } = data.product;
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
@@ -334,7 +341,7 @@ Page({
         let url = '/pages/orderCreate/orderCreate';
         let isMiaoshaBuy = false;
 
-        if (product.miaosha_enable === '1') {
+        if (product.miaosha_enable) {
             const now = Date.now() / 1000;
             const hasStart = now >= product.miaosha_start_timestamp;
             const hasEnd = now >= product.miaosha_end_timestamp;
@@ -565,7 +572,7 @@ Page({
         } = this.data;
         let url = `/pages/orderCreate/orderCreate?crowd=${true}`;
         let isMiaoshaBuy = false;
-        if (product.miaosha_enable === '1') {
+        if (product.miaosha_enable) {
             const now = Date.now() / 1000;
             const hasStart = now >= product.miaosha_start_timestamp;
             const hasEnd = now >= product.miaosha_end_timestamp;

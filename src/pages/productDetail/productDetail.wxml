@@ -26,7 +26,7 @@
 			</swiper>
 		</view>
 
-		<view wx:if="{{ product.miaosha_enable === '1' }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
+		<view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
 			<view class="timeLimit">
@@ -405,8 +405,12 @@
  productImage="{{ product.thumbnail }}"
  productTitle="{{ product.title }}"
  productPrice="{{ product.definePrice }}"
+ originalPrice="{{ product.original_price }}"
  routePath="{{ routePath }}"
  routeQuery="{{ routeQuery }}"
+ isGroupon="{{ product.groupon_enable }}"
+ isMiaosha="{{ product.miaosha_enable }}"
+ miaoshaObj="{{ miaoshaObj }}"
  bindonCloseModal="onCloseProductDetailShareModal"
  wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"
 />
