@@ -543,6 +543,9 @@ Page({
                 return;
             }
         }
+        if (product.miaosha_enable) {
+            await this.countDown();
+        }
         this.setData({
             showShareModal: true
         }, () => {

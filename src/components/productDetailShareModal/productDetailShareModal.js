@@ -125,7 +125,7 @@ Component({
 
             console.log(textRow);
             const globalData = app.globalData;
-            if (!isMiaosha) {
+            if (!isMiaosha && !routeQuery.grouponId) {
                 ctx.beginPath();
                 ctx.setFillStyle('#FC2732');
                 ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
@@ -172,8 +172,7 @@ Component({
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillStyle = '#FC2732';
                 ctx.fillText(grouponLimit + '人团', 45 / 540 * width + 70, 750 / 900 * height + 45);
-            }
-            if (isMiaosha && miaoshaObj) {
+            } else if (isMiaosha && miaoshaObj) {
                 ctx.setFillStyle('#000000');
                 ctx.font = 'normal bold 14px PingFang SC';
                 if (!miaoshaObj.hasStart) {

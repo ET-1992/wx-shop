@@ -192,7 +192,7 @@
 				<text class="dot">•</text>
 			</view>
 			<view class="relateShop">
-				<view class="relateShopItem" wx:for="{{ product.related }}" hover-class="navigator-hover">
+				<view class="relateShopItem" wx:for="{{ product.related }}" wx:key="{{ index }}" hover-class="navigator-hover">
 					<productList
 					 product="{{ item }}"
 					 tplStyle="default"
