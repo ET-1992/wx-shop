@@ -336,3 +336,29 @@ export async function go(e) {
     const { url, type } = e.currentTarget.dataset;
     autoNavigate_({ url, type });
 }
+
+export function autoTransformAddress(address = {}) {
+    if (address.telNumber) {
+        return {
+            receiver_name: address.userName || '',
+            receiver_phone: address.telNumber || '',
+            receiver_country: address.nationalCode || '',
+            receiver_state: address.provinceName || '',
+            receiver_city: address.cityName || '',
+            receiver_district: address.countyName || '',
+            receiver_address: address.detailInfo || '',
+            receiver_zipcode: address.postalCode || '',
+        };
+    } else if (address.receiver_phone) {
+        return {
+            userName: address.receiver_name || '',
+            telNumber: address.receiver_phone || '',
+            nationalCode: address.receiver_country || '',
+            provinceName: address.receiver_state || '',
+            cityName: address.receiver_city || '',
+            countyName: address.receiver_district || '',
+            detailInfo: address.receiver_address || '',
+            postalCode: address.receiver_zipcode || ''
+        };
+    }
+}
