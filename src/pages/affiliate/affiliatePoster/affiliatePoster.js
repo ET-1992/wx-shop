@@ -96,8 +96,11 @@ Page({
     },
 
     async drawPosterImage() {
-        const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
-        const sharePosterBgHttps = imgToHttps(sharePosterBg);
+        /* const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
+				const sharePosterBgHttps = imgToHttps(sharePosterBg); */
+        const { affiliate_qrcode_bg_image } = this.data.config;
+        const sharePosterBgHttps = imgToHttps(affiliate_qrcode_bg_image);
+        console.log(sharePosterBgHttps, 'sharePosterBgHttps');
         const sharePosterBgDownLoad = await downloadFile({ url: sharePosterBgHttps });
 
         if (sharePosterBgDownLoad.statusCode !== 200) {
