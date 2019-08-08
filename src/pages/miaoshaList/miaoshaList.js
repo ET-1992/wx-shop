@@ -22,7 +22,7 @@ Page({
         const { next_cursor, categoryId, isRefresh, products } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            meta_key: 'miaosha_enable',
+            promotion_type: 'miaosha_enable',
         });
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         wx.setNavigationBarTitle({
@@ -65,7 +65,7 @@ Page({
     // 	return {
     // 		title: this.data.share_title,
     // 		imageUrl:this.data.share_image,
-    // 		path:'/pages/miaoshaList/miaoshaList?meta_key=miaosha_enable'
+    // 		path:'/pages/miaoshaList/miaoshaList?promotion_type=miaosha_enable'
     // 	}
     // }
 });
