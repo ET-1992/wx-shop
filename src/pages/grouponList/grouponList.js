@@ -27,7 +27,7 @@ Page({
         const { next_cursor, categoryId, isRefresh, products } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            meta_key: 'groupon_enable',
+            promotion_type: 'groupon_enable',
         });
         console.log(data);
         wx.setNavigationBarTitle({
@@ -74,7 +74,7 @@ Page({
     // 	return {
     // 		title: this.data.share_title,
     // 		imageUrl:this.data.share_image,
-    // 		path:'/pages/grouponList/grouponList?meta_key=groupon_enable'
+    // 		path:'/pages/grouponList/grouponList?promotion_type=groupon_enable'
     // 	}
     // }
 });

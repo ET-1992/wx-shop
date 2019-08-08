@@ -138,7 +138,7 @@ Page({
             // 会员商品请求
             let { current_page, products } = this.data;
             let options = {
-                meta_key: 'membership_dedicated_enable',
+                promotion_type: 'membership_dedicated_enable',
                 paged: current_page,
             };
             this.data.fetchProductListStatus = 'Pending';
