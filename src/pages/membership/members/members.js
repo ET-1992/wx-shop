@@ -70,8 +70,6 @@ Page({
             word: memberHome.data.word,
             memberCouponList: memberHome.data.coupons
         });
-        console.log('memberHome', memberHome);
-        console.log('word', this.data.word);
     },
 
     // 获取用户头像信息
