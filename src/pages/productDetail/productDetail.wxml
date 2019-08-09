@@ -62,17 +62,17 @@
 					</view>
 					<block wx:else>
 						<view class="nowPrice">
-              <view class="currentPrice">
-							  <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
-							  <text class="num">{{ product.definePrice }}</text>
-							  <block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && (product.highest_price > product.definePrice) }}">
-							  	<text>-</text>
-							  	<text class="num">{{ product.highest_price }}</text>
-							  </block>
-						  </view>
+              				<view class="currentPrice">
+								<text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
+								<text class="num">{{ product.definePrice }}</text>
+								<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && (product.highest_price > product.definePrice) }}">
+									<text>-</text>
+									<text class="num">{{ product.highest_price }}</text>
+								</block>
+							</view>
 							<text class="commander" wx:if="{{product.groupon_enable && isGrouponBuy && product.groupon_commander_price}}">(团长优惠价)</text>
 						</view>
-						<!-- 非会员专属会员价 -->
+						<!-- 非会员专属的会员价 -->
 						<view wx:if="{{ product.membership_price_enable }}" class="vipPrice">
 							<text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}</text>
 							<text class="vipTipWrap">会员价</text>
@@ -109,9 +109,17 @@
 		</view>
 
 		<!-- 开通会员提示框 -->
-		<view class="member-wrapper" wx:if="{{ product.membership_dedicated_enable && !user.membership.is_member }}">
+		<!-- 会员专属商品提示框 -->
+		<view class="member-wrapper" wx:if="{{ !user.membership.is_member && product.membership_dedicated_enable }}">
 			<view class="member-tips">
 				<view class="tips-text">会员专属商品，开通会员立享</view>
+				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+			</view>
+		</view>
+		<!-- 会员价商品提示框 -->
+		<view class="member-wrapper" wx:if="{{ !user.membership.is_member && product.membership_price_enable }}">
+			<view class="member-tips">
+				<view class="tips-text">开通会员，立享会员价</view>
 				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
 			</view>
 		</view>
@@ -166,8 +174,8 @@
 		 postId="{{ product.id }}"
 		 replyCount="{{ product.reply_count }}"
 		/>
-		<!-- 商品评论end -->
 
+		<!-- 商品详情 -->
 		<view class="detail">
 			<view class="detailTitle">
 				<text class="dot">•</text>
@@ -185,6 +193,7 @@
 			</view>
 		</view>
 
+		<!-- 为你推荐 -->
 		<view class="promote" wx:if="{{ product.related && product.related.length }}">
 			<view class="label">
 				<text class="dot">•</text>
@@ -202,7 +211,8 @@
 				</view>
 			</view>
 		</view>
-
+		
+		<!-- 底部状态栏 -->
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 			<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>

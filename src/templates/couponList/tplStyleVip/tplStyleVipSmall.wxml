@@ -1,4 +1,4 @@
-<view class="member-coupon">
+<view class="member-coupon" wx:if="{{ memberCouponList.length }}">
 	<view class="rights-item-title">
 		<text>会员优惠券</text>
 	</view>
