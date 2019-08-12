@@ -43,7 +43,7 @@
     		</view>
     </view>
 
-    <view wx:if="{{ position === 'bottom' }}" class="bottomModal">
+    <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
         <image src="/icons/clear.png" class="close" bindtap="close" />
 				<scroll-view scroll-y class="scrollSkus">
 					<view class="head">

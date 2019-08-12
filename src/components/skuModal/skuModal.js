@@ -49,6 +49,10 @@ Component({
         config: {
             type: Object,
             value: {}
+        },
+        isIphoneX: {
+            type: Boolean,
+            value: false
         }
     },
     data: {

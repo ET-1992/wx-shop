@@ -211,7 +211,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 底部状态栏 -->
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
@@ -406,6 +406,7 @@
  isCrowd="{{ isCrowd }}"
  isGrouponBuy="{{ isGrouponBuy }}"
  config="{{ config }}"
+ isIphoneX="{{ isIphoneX }}"
  bind:onSkuConfirm="onSkuConfirm"
 />
 
