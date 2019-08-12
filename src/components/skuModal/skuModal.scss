@@ -106,6 +106,9 @@
 .bottomModal {
 	background-color: #fff;
 	padding: 20rpx 62rpx 130rpx;
+	&.iphoneXTrick{
+		padding-bottom: 170rpx;
+	}
 
 	.scrollSkus {
 		min-height: 200rpx;
@@ -183,6 +186,9 @@
 		z-index: 100;
 		font-size: 0;
 		display: flex;
+		&.iphoneXTrick{
+			padding-bottom: 40rpx;
+		}
 
 		.confirmBt {
 			display: flex;
