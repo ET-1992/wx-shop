@@ -57,9 +57,12 @@
 						<view class="productInfo">
 							<view class="price">
                 <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
-								<view class="groupon" wx:if="{{ product.groupon_enable && isGrouponBuy }}">
-                  {{ product.definePrice }}
-                  <view class="commander" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</view>
+								<view class="groupon" wx:if="{{ product.groupon_enable }}">
+                  <block wx:if="{{ isGrouponBuy }}">
+                    {{ product.definePrice }}
+                    <view class="commander" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</view>
+                  </block>
+                  <block wx:else>{{product.price}}</block>
                 </view>
 								<view wx:elif="{{ !hasEnd && hasStart && (product.miaosha_enable === '1' || product.seckill_enable === '1')}}">{{ product.definePrice }}</view>
                 <view wx:elif="{{selectedSku.id}}">{{ selectedSku.price }}</view>
