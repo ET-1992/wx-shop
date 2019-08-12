@@ -258,13 +258,13 @@ Page({
             cartNumber: CART_NUM,
             globalData: app.globalData
         });
+        this.initPage();
     },
 
     onShow() {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
         this.setData({ config, tplStyle });
-        this.initPage();
     },
 
     onUnload() {
