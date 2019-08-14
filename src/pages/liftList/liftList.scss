@@ -1,3 +1,4 @@
+// 自提点
 .container {
 	width: 100%;
 	height: 100%;
@@ -23,7 +24,8 @@
 			flex-direction: column;
 			align-items: flex-start;
 			flex: 1;
-			font-size: 26rpx;
+			font-size: 24rpx;
+			margin-right: 10rpx;
 
 			.liftInfoTop {
 				color: #333333;
@@ -58,10 +60,81 @@
 		}
 
 		.liftRight {
-			width: 120rpx;
-			color: #707070;
-			font-size: 26rpx;
+			min-width: 120rpx;
+			color: #999;
+			font-size: 24rpx;
 			text-align: center;
 		}
+	}
+}
+
+// 门店列表
+.storeContainer {
+	width: 100%;
+	height: 100%;
+	background-color: #F4F4F4;
+
+	.item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: #fff;
+		padding: 20rpx 30rpx;
+		margin-bottom: 10rpx;
+
+		.storeHeader {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10rpx;
+			.storeLeft{
+				color: #333333;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				.storeImg {
+					width: 60rpx;
+					height: 60rpx;
+					border-radius: 50%;
+				}
+				.storeName {
+					margin-left: 20rpx;
+					font-size: 28rpx;
+				}
+			}
+			.storeRight {
+				min-width: 120rpx;
+				color: #999;
+				font-size: 20rpx;
+				text-align: center;
+			}
+		}
+		.storeCenter {
+			flex: 1;
+			
+			.text {
+				font-size: 24rpx;
+				color: #000000;
+				display: -webkit-box;
+				word-break: break-all;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+			}
+
+			.text-time {
+				margin-top: 8rpx;
+			}
+		}
+
+	}
+
+	.distanceInfor {
+		width: 100%;
+		font-size: 24rpx;
+		color: #707070;
+		margin: 30rpx 0;
+		text-align: center;
 	}
 }

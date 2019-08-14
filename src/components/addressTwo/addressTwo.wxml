@@ -1,0 +1,29 @@
+<view class="container">
+	<view wx:if="{{ !address.userName }}" class="address">
+		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
+	</view>
+
+	<view class="wrapper" wx:if="{{ address.userName }}" style="{{ isShowBorder ? '' : 'border: 0'}}">
+		<view class="address-top">
+			<view class="left">收件地址</view>
+			<view class="right" wx:if="{{ isShowBorder }}">修改
+				<image class="right-icon" src="/icons/right.png"/>
+			</view>
+		</view>
+		<view class="address-info">
+			<view class="address-section">
+				<view class="address-title">姓名</view>
+				<view class="address-userName">{{ address.userName || '无' }}</view>
+			</view>
+			<view class="address-section address-second">
+				<view class="address-title">手机号码</view>
+				<view class="address-phone">{{ address.telNumber || '无' }}</view>
+			</view>
+			<view class="address-section address-bottom">
+				<view class="address-title">地址</view>
+				<view class="address-detail">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
+				<view class="address-detail" wx:if="{{!address.provinceName && !address.cityName && !address.countyName && !address.detailInfo}}">无</view>
+			</view>
+		</view>
+	</view>
+</view>
