@@ -40,6 +40,7 @@
             <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
         </van-panel>
     </van-popup>
+
     <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
         <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
             <view class="logistics">
@@ -65,14 +66,15 @@
         </view>
         <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
-    <view class="logisticsWrap" wx:if="{{ (order.status === 3 || order.status === 31) && order.logistics && order.logistics.length && !otherPeopleGroupon && order.noLogisticsForItem && order.noLogisticsForItem.length > 0 }}">
+
+    <view class="logisticsWrap" wx:if="{{ order.no_logistics_items && order.no_logistics_items.length && !otherPeopleGroupon }}">
         <view class="noLogistics">待发货</view>
-        <productItemSold items="{{ order.noLogisticsForItem }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+        <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
     <!-- 正常订单 -->
-    <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }} {{ groupon.status === 2 ? 'otherPeopleGrouponWrap' : ''}}">
+    <!-- <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }} {{ groupon.status === 2 ? 'otherPeopleGrouponWrap' : ''}}">
         <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
-    </view>
+    </view> -->
     <!-- 参团 -->
     <view wx:if="{{ otherPeopleGroupon }}" class="otherPeopleGrouponWrap">
         <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}" />
