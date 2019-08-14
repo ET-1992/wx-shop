@@ -17,7 +17,8 @@
             <countDown formatTime="{{remainSecond}}" />
             自动确认
         </view>
-    </view>
+	</view>
+    <!-- 自提 -->
     <view wx:if="{{ order.type !== 3 }}" class="liftInfoWrap">
         <!-- 快递 -->
         <!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/> -->
@@ -64,17 +65,14 @@
                 <image src="/icons/right.png" class="right-img" />
             </view>
         </view>
-        <productItemSold items="{{ item.logisticsItems }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
+        <productItemSold items="{{ item.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
 
     <view class="logisticsWrap" wx:if="{{ order.no_logistics_items && order.no_logistics_items.length && !otherPeopleGroupon }}">
         <view class="noLogistics">待发货</view>
         <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
-    <!-- 正常订单 -->
-    <!-- <view wx:if="{{ !order.logistics.length && !otherPeopleGroupon }}" class="{{ !order.logistics.length ? '' : 'logisticsWrap' }} {{ groupon.status === 2 ? 'otherPeopleGrouponWrap' : ''}}">
-        <productItemSold items="{{ order.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
-    </view> -->
+   
     <!-- 参团 -->
     <view wx:if="{{ otherPeopleGroupon }}" class="otherPeopleGrouponWrap">
         <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}" />
