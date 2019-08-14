@@ -57,7 +57,7 @@ Page({
             title: '填写成功',
             icon: 'success'
         });
-        app.event.emit('setOverseeAdressEvent', selfAddressObj);
+        app.event.emit('setOverseeAddressEvent', selfAddressObj);
 
         wx.navigateBack({
             delta: 1
