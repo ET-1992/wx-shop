@@ -6,8 +6,8 @@ Component({
             value: 'storeList Component',
         },
         addresses: {
-            type: Array,
-            value: [],
+            type: Object,
+            value: {},
             observer(newValue) {
                 console.log('newValue12', newValue);
             }

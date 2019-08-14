@@ -193,12 +193,14 @@ Page({
 
     // 从 liftList 页面获取门店地址
     getStoreInfoEvent(data) {
+        console.log('data196', data);
         const times = data[0].times || [];
         this.setData({
-            storeListAddress: data,
-            homeDeliveryTimes: times
+            storeListAddress: data[0],
+            homeDeliveryTimes: times,
+            chooseAreaId: data[0].id
         }, () => {
-            this.onLoadData(data[0].name);
+            this.onLoadData(data[0].id);
         });
     },
 
@@ -303,7 +305,8 @@ Page({
 
             if (liftStyle === 'delivery') { // 送货上门
                 requestData.shipping_type = 4;
-                requestData.receiver_address_name = params;
+                // requestData.receiver_address_name = params;
+                requestData.delivery_store_id = params; // 配送地区id
             }
 
             requestData.posts = JSON.stringify(items);
@@ -512,7 +515,7 @@ Page({
         if (liftStyle === 'delivery') {
             requestData.shipping_type = 4;
             // 获取门店列表的门店名称
-            if (!(storeListAddress && storeListAddress[0] && storeListAddress[0].name)) {
+            if (!(storeListAddress && storeListAddress.name)) {
                 wx.showModal({
                     title: '提示',
                     content: '请选择门店',
@@ -520,7 +523,8 @@ Page({
                 });
                 return;
             } else {
-                requestData.receiver_address_name = storeListAddress[0].name;
+                requestData.receiver_address_name = storeListAddress.name;
+                requestData.delivery_store_id = storeListAddress.id;
             }
             // 直接获取送货上门子组件的任意数据和方法
             const delivery = this.selectComponent('#delivery');
