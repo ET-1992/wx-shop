@@ -457,19 +457,17 @@ Page({
         const { actionType, selectedSku, quantity, formId } = e.detail;
 
         // 非会员不能购买会员专属商品
-        if (!user.membership.is_member && product.membership_dedicated_enable) {
-            wx.showModal({
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
                 content: '该商品是会员专属商品，请开通会员后购买',
-                showCancel: false,
-                success(res) {
-                    if (res.confirm) {
-                        wx.navigateTo({
-                            url: '/pages/membership/members/members'
-                        });
-                    }
-                }
+                showCancel: false
             });
+            if (confirm) {
+                wx.navigateTo({
+                    url: '/pages/membership/members/members'
+                });
+            }
             return;
         }
         this.setData({
