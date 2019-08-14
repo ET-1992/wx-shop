@@ -23,6 +23,7 @@ Page({
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
+        memberExclusiveBanner: '',
         word: ''
     },
 
@@ -68,7 +69,8 @@ Page({
         this.setData({
             user: memberHome.current_user,
             word: memberHome.data.word,
-            memberCouponList: memberHome.data.coupons
+            memberCouponList: memberHome.data.coupons,
+            memberExclusiveBanner: memberHome.data.dedicated_products_banner
         });
     },
 
