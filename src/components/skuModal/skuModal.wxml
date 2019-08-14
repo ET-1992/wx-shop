@@ -1,41 +1,126 @@
-<view class="container {{  isShowSkuModalCss ? 'containerShow' : 'containerClose' }}" wx:if="{{ isShowSkuModal }}">
-	<view class="modal {{ isShowSkuModalCss ? 'skuModalShow' : 'skuModalClose' }}">
-		<view class="header">
-			<view class="headerText">{{ product.title }}</view>
-		<image src="/icons/clear.png" class="close" bindtap="close" />
-		</view>
-		<view class="content">
-			<view class="item" wx:for="{{ product.properties }}">
-				<view class="itemTitle">{{ item.name }}</view>
-				<view class="itemContent">
-					<view
-					class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}"
-					style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}"
-					wx:for="{{ item.items }}"
-					wx:for-item="sku"
-					wx:for-index="skuIndex"
-					data-is-disabled="{{ disableSkuItems[item.name] }}"
-					data-sku-name="{{ sku.name }}"
-					data-key="{{ item.name }}"
-					data-property-index="{{ index }}"
-					catchtap="onSkuItem"
-					>
-					{{ sku.name }}
-					</view>
-				</view>
-			</view>
-		</view>
-		<view class="footer">
-      <view class="money" wx:if="{{ product.groupon_enable === '1' && isGrouponBuy }}">
-					{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
-					<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
-			</view>
-			<view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable === '1' }}">
-					{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
-			</view>
-			<view class="money" wx:else>{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}</view>
+<van-popup show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}">
+    <view wx:if="{{ position === 'center' }}" class="modal">
+    		<view class="header">
+    			<view class="headerText">{{ product.title }}</view>
+    		  <image src="/icons/clear.png" class="close" bindtap="close" />
+    		</view>
+    		<view class="content">
+    			<view class="item" wx:for="{{ properties }}">
+    				<view class="itemTitle">{{ item.name }}</view>
+    				<view class="itemContent">
+    					<view
+    					class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}"
+    					style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}"
+    					wx:for="{{ item.items }}"
+    					wx:for-item="sku"
+    					wx:for-index="skuIndex"
+    					data-is-disabled="{{ disableSkuItems[item.name] }}"
+    					data-sku-name="{{ sku.name }}"
+    					data-key="{{ item.name }}"
+    					data-property-index="{{ index }}"
+    					catchtap="onSkuItem"
+    					>{{ sku.name }}</view>
+    				</view>
+    			</view>
+    		</view>
+    		<view class="footer">
+          <view class="money" wx:if="{{ product.groupon_enable && isGrouponBuy }}">
+    					{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
+    					<text style="font-size:22rpx" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</text>
+    			</view>
+    			<view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable === '1' }}">
+    					{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
+    			</view>
+    			<view class="money" wx:else>{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}</view>
 
-			<view class="addCart" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ themeColor.primaryColor }}">加入购物车</view>
+    			<button
+          class="addCart"
+          disabled="{{ product.skus.length && !selectedSku.id }}"
+          bind:tap="onAddCart"
+          data-id="{{ product.id }}"
+          style="background:{{ product.skus.length && !selectedSku.id ? '#c2c2c2' : themeColor.primaryColor }}"
+          >加入购物车</button>
+    		</view>
+    </view>
+
+    <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+        <image src="/icons/clear.png" class="close" bindtap="close" />
+				<scroll-view scroll-y class="scrollSkus">
+					<view class="head">
+            <image
+            src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}"
+            data-src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}"
+            class="productImage"
+            mode="aspectFill"
+            catchtap="previewImage"
+            />
+						<view class="productInfo">
+							<view class="price">
+                <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
+								<view class="groupon" wx:if="{{ product.groupon_enable }}">
+                  <block wx:if="{{ isGrouponBuy }}">
+                    {{ product.definePrice }}
+                    <view class="commander" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</view>
+                  </block>
+                  <block wx:else>{{product.price}}</block>
+                </view>
+								<view wx:elif="{{ !hasEnd && hasStart && (product.miaosha_enable === '1' || product.seckill_enable === '1')}}">{{ product.definePrice }}</view>
+                <view wx:elif="{{selectedSku.id}}">{{ selectedSku.price }}</view>
+                <view wx:else>{{ (product.highest_price > product.definePrice) ? (product.definePrice + '-' + product.highest_price) : product.definePrice }}</view>
+							</view>
+							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}"> 库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }} </view>
+							<view class="property" wx:if="{{ product.skus.length }}"> 已选择：{{ selectedSku.property_names || '--' }} </view>
+						</view>
+
+					</view>
+					<view class="content {{position}}-content">
+    			  <view class="item" wx:for="{{ properties }}">
+    			  	<view class="itemTitle">{{ item.name }}</view>
+    			  	<view class="itemContent">
+    			  		<view
+    			  		class="itemSku {{ selectedProperties[index].value === sku.name ? 'active' : '' }} {{ disableSkuItems[sku.name] ? 'disable' : '' }}"
+    			  		style="background:{{ selectedProperties[index].value === sku.name ? themeColor.primaryColor : ''}}"
+    			  		wx:for="{{ item.items }}"
+    			  		wx:for-item="sku"
+    			  		wx:for-index="skuIndex"
+    			  		data-is-disabled="{{ disableSkuItems[sku.name] }}"
+    			  		data-sku-name="{{ sku.name }}"
+    			  		data-key="{{ item.name }}"
+    			  		data-property-index="{{ index }}"
+    			  		catchtap="onSkuItem"
+    			  		>{{ sku.name }}</view>
+    			  	</view>
+    			  </view>
+    		  </view>
+        </scroll-view>
+
+				<view class="quantity" wx:if="{{ product.product_type !== 1 }}">
+					<view class="title">数量</view>
+					<numberInput
+						value="{{ quantity }}"
+						postId="{{ product.id }}"
+						skuId="{{ selectedSku.id }}"
+						max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}"
+						bindquantityChangeEvent="updateQuantity"
+						quota="{{ product.quota }}"/>
+        </view>
+
+				<form catchsubmit="onFormSubmit" report-submit="true">
+					<view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+						<button
+							class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+							wx:for="{{ actions }}"
+							wx:key="text"
+							disabled="{{ product.skus.length && !selectedSku.id }}"
+							data-action-type="{{ item.type }}"
+							form-type="submit"
+							bindgetuserinfo="onUserInfo"
+							open-type="getUserInfo"
+							lang="zh_CN"
+							style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}{{ (product.skus.length && !selectedSku.id) ? ';background:#d2d2d2' : ''}}{{ (index + 1 === actions.length) && (product.skus.length && !selectedSku.id) ? ';background: #c2c2c2' : ''}}"
+						>{{ item.text }}</button>
+					</view>
+        </form>
+
 		</view>
-	</view>
-</view>
+</van-popup>

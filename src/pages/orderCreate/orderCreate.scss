@@ -96,7 +96,7 @@ $iphoneXBottomGap: 40rpx;
 
 .textareaWrapper {
 	width: 100%;
-	padding: 0 20rpx;
+	// padding: 0 20rpx;
 	margin: 20rpx 0;
 	.textarea {
 		padding: 20rpx;
@@ -292,41 +292,41 @@ $iphoneXBottomGap: 40rpx;
 }
 
 .pickPayStyle{
-		margin-top: 10rpx;
+	margin-top: 10rpx;
+	display: flex;
+	align-items: center;
+	height: 100rpx;
+	background: #fff;
+	padding-left: 40rpx;
+	font-size: 28rpx;
+	.text{
+		color: #333333;
+	}
+	.radio-group{
+		height: 100%;
+		padding-left: 64rpx;
 		display: flex;
-		align-items: center;
-		height: 100rpx;
-		background: #fff;
-		padding-left: 40rpx;
-		font-size: 28rpx;
-		.text{
-			color: #333333;
-		}
-		.radio-group{
-			height: 100%;
-			padding-left: 64rpx;
+		flex: 1;
+		justify-content: space-around;
+		.radio{
 			display: flex;
-			flex: 1;
-			justify-content: space-around;
-			.radio{
-				display: flex;
-				align-items: center;
-				text{
-					color: #000000;
-				}
-				.circle{
-					display: inline-block;
-    				width: 20rpx;
-    				height: 20rpx;
-    				margin-left: 20rpx;
-    				border-radius: 50%;
-					border: 1px solid #333333;
-					padding: 4rpx;
-				}
-				.checked{
-					background-color: #000000;
-    				background-clip: content-box;
-				}
+			align-items: center;
+			text{
+				color: #000000;
+			}
+			.circle{
+				display: inline-block;
+				width: 20rpx;
+				height: 20rpx;
+				margin-left: 20rpx;
+				border-radius: 50%;
+				border: 1px solid #333333;
+				padding: 4rpx;
+			}
+			.checked{
+				background-color: #000000;
+				background-clip: content-box;
 			}
 		}
 	}
+}

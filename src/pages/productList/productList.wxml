@@ -16,6 +16,7 @@
 					</navigator>
 				</view>
 			</view>
+			<view class="noHint" wx:if="{{ !products.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">暂无商品</view>
 		</view>
 	</block>
 	

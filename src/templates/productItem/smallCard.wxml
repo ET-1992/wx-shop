@@ -9,10 +9,10 @@
       {{ product.title }}
     </view>
     <view class="productItemMeta">
-      <block wx:if="{{ product.miaosha_enable == 1 && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
+      <block wx:if="{{ product.miaosha_enable && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
         <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.miaosha_price }}</view>
       </block>
-      <block wx:elif="{{ product.groupon_enable == 1}}">
+      <block wx:elif="{{ product.groupon_enable }}">
         <view class="productItemPrice"><text style="font-size:10px">￥</text>{{ product.groupon_price }}</view>
       </block>
       <block wx:else>
@@ -29,9 +29,9 @@
       <view class="tagWrapper">
         <view
           class="tag"
-          wx:if="{{ product.groupon_enable === '1' || product.miaosha_enable === '1' }}"
+          wx:if="{{ product.groupon_enable || product.miaosha_enable }}"
         >
-          {{ product.groupon_enable === '1' ? product.groupon_member_limit + '人团' : '限时购' }}
+          {{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}
         </view>
       </view>
     </view>
