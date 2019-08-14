@@ -436,5 +436,10 @@ export const apis = {
         path: 'api/mag.platform_user.weapp.bind.json',
         method: 'POST',
         isForceToken: true
+    },
+    getWeappQrcode: {
+        path: 'api/weapp/qrcode/code.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
