@@ -73,8 +73,8 @@ Component({
         clearInterval(this.intervalId);
     },
     pageLifetimes: {
-        hide() {
-            clearInterval(this.intervalId);
-        }
+        // hide() {
+        //     clearInterval(this.intervalId);
+        // }
     }
 });
