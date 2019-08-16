@@ -42,6 +42,7 @@
         </van-panel>
     </van-popup>
 
+    <!-- 发货订单 -->
     <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
         <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
             <view class="logistics">
@@ -68,10 +69,13 @@
         <productItemSold items="{{ item.items }}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" vip="{{ vip }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
 
-    <view class="logisticsWrap" wx:if="{{ order.no_logistics_items && order.no_logistics_items.length && !otherPeopleGroupon }}">
-        <view class="noLogistics">待发货</view>
-        <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
-    </view>
+    <!-- 待发货订单 -->
+    <block wx:if="{{ !order.logistics }}">
+        <view class="logisticsWrap" wx:if="{{ order.no_logistics_items && order.no_logistics_items.length && !otherPeopleGroupon }}">
+            <view class="noLogistics" >待发货</view>
+            <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+        </view>
+    </block>
    
     <!-- 参团 -->
     <view wx:if="{{ otherPeopleGroupon }}" class="otherPeopleGrouponWrap">
