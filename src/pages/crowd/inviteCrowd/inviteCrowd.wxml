@@ -10,7 +10,7 @@
 	</view>
 	<view class="product">
 		<productItemSold items="{{ items }}" customClass="inviteCrowd"/>
-		<view class="price">订单总价：<text>￥{{ finalPayDispaly }}</text></view>
+		<view class="price">订单总价：<text>{{ globalData.CURRENCY[globalData.currency] }}{{ finalPayDispaly }}</text></view>
 	</view>
 	<view class="content">
 		<textarea

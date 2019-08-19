@@ -21,7 +21,8 @@ Page({
             isIphoneX,
             userInfo,
             config,
-            routePath: this.route
+            routePath: this.route,
+            globalData: app.globalData
         });
     },
     async onShow() {

@@ -8,7 +8,7 @@
                 <view class="top">
                     <view class="nickname">{{ item.nickname }}</view>
                     <view class="amount">
-                       支持 <text class="price">￥{{ item.amount }}</text>
+                       支持 <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.amount }}</text>
                     </view>
                 </view>
                 <view class="word">{{ item.word }}</view>
