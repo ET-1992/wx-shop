@@ -35,7 +35,6 @@ Page({
 
     onShow() {
         app.log('页面onShow');
-        this.getMemberHome();
         this.initPage();
     },
 
@@ -56,21 +55,19 @@ Page({
                 rechargeArray: recharge.data
             });
         }
-        this.setData({
-            isLoading: false,
-            themeColor,
-            config,
-        });
-    },
-
-    // 获取会员信息
-    async getMemberHome() {
+        // 获取会员信息
         const memberHome = await api.hei.membershipCard();
         this.setData({
             user: memberHome.current_user,
             word: memberHome.data.word,
             memberCouponList: memberHome.data.coupons,
             memberExclusiveBanner: memberHome.data.dedicated_products_banner
+        });
+        // 设置全局配置
+        this.setData({
+            isLoading: false,
+            themeColor,
+            config,
         });
     },
 
