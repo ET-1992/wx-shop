@@ -1,9 +1,8 @@
 import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
-import { showToast, showModal, getSystemInfo } from 'utils/wxp';
+import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate } from 'utils/util';
-import { clearInterval } from 'timers';
+import { updateCart, parseScene, splitUserStatus, autoNavigate, go } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -333,5 +332,6 @@ Page({
     touchmove() {
         console.log('点击穿透阻止');
         return;
-    }
+    },
+    go
 });
