@@ -35,8 +35,7 @@ Page({
             'STORE_CARD': '储值卡支付'
         },
 
-        isShowShareModal: false,
-        isOrderDetail: true
+        isShowShareModal: false
     },
 
     onLoad({ isFromCreate = false }) {

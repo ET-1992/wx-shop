@@ -97,7 +97,7 @@
         </scroll-view>
 
 				<view class="quantity" wx:if="{{ product.product_type !== 1 }}">
-					<view class="title">数量</view>
+					<view class="title">购买数量</view>
 					<numberInput
 						value="{{ quantity }}"
 						postId="{{ product.id }}"

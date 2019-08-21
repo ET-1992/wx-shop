@@ -1,12 +1,12 @@
 <view class="container">
-	<view wx:if="{{ !address.userName && isShowBorder }}" class="address" bindtap="onAddress">
+	<view wx:if="{{ !address.userName && !isOrderDetail }}" class="address" bindtap="onAddress">
 		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
 	</view>
 
-	<view class="wrapper" wx:if="{{ address.userName || address.receiver_name }}" style="{{ isShowBorder ? '' : 'border: 0'}}">
+	<view class="wrapper" wx:if="{{ address.userName || address.receiver_name }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
 		<view class="address-top" bindtap="onAddress">
 			<view class="left">收件地址</view>
-			<view class="right" wx:if="{{ isShowBorder }}">修改
+			<view class="right" wx:if="{{ !isOrderDetail }}">修改
 				<image class="right-icon" src="/icons/right.png"/>
 			</view>
 		</view>
@@ -14,32 +14,32 @@
 			<view class="address-section">
 				<view class="address-title">姓名</view>
 				<!-- 确认订单数据 -->
-				<view class="address-userName" wx:if="{{ isShowBorder }}">{{ address.userName || '无' }}</view>
+				<view class="address-userName" wx:if="{{ !isOrderDetail }}">{{ address.userName || '无' }}</view>
 				<!-- 订单详情数据 -->
-				<view class="address-userName" wx:if="{{ !isShowBorder }}">{{ address.receiver_name || '无' }}</view>
+				<view class="address-userName" wx:if="{{ isOrderDetail }}">{{ address.receiver_name || '无' }}</view>
 			</view>
 			<view class="address-section address-second">
 				<view class="address-title">手机号码</view>
 				<!-- 确认订单数据 -->
-				<view class="address-phone" wx:if="{{ isShowBorder }}">{{ address.telNumber || '无' }}</view>
+				<view class="address-phone" wx:if="{{ !isOrderDetail }}">{{ address.telNumber || '无' }}</view>
 				<!-- 订单详情数据 -->
-				<view class="address-phone" wx:if="{{ !isShowBorder }}">{{ address.receiver_phone || '无' }}</view>
+				<view class="address-phone" wx:if="{{ isOrderDetail }}">{{ address.receiver_phone || '无' }}</view>
 			</view>
 			<view class="address-section address-bottom">
 				<view class="address-title">地址</view>
 				<!-- 确认订单数据 -->
-				<view class="address-detail" wx:if="{{ isShowBorder }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
+				<view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
 				<!-- 订单详情数据 -->
-				<view class="address-detail" wx:if="{{ !isShowBorder }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view>
+				<view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view>
 			</view>
 			<view class="address-section receive-time">
 				<view class="address-title">门店配送时间</view>
 				<!-- 确认订单数据 -->
-				<picker bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}" wx:if="{{ isShowBorder }}" class="picker">
+				<picker bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}" wx:if="{{ !isOrderDetail }}" class="picker">
 					<view class="address-time">{{ homeDeliveryTimes[index] || '无' }}</view>
 				</picker>
 				<!-- 订单详情数据 -->
-				<view class="address-orderTime" wx:if="{{ !isShowBorder }}">{{ address.receiver_delivery_time || '无' }}</view>
+				<view class="address-orderTime" wx:if="{{ isOrderDetail }}">{{ address.receiver_delivery_time || '无' }}</view>
 			</view>
 		</view>
 	</view>

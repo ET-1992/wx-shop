@@ -15,9 +15,9 @@ Component({
             type: Array,
             value: []
         },
-        isShowBorder: {
+        isOrderDetail: {
             type: Boolean,
-            value: true
+            value: false
         }
     },
     methods: {

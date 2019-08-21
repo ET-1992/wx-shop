@@ -8,9 +8,9 @@ Component({
             type: Object,
             value: {},
         },
-        isShowBorder: {
+        isOrderDetail: {
             type: Boolean,
-            value: true
+            value: false
         }
     }
 });

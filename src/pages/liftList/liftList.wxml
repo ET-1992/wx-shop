@@ -36,7 +36,7 @@
 			</view>
 		</label>
 	</view>
-	<view class="distanceInfor" wx:if="{{ item.isoutofrange }}">以下门店超出送货范围</view>
+	<view class="distanceInfor">以下门店超出送货范围</view>
 	<view wx:for="{{ address_list }}" wx:key="{{ item.name }}" wx:if="{{ item.isoutofrange }}">
 		<label class="item" data-index="{{ index }}" data-name="{{ item.name }}" bindtap="warnMessage">
 			<view class="storeHeader">
