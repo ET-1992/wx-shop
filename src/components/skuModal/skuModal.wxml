@@ -9,17 +9,19 @@
     				<view class="itemTitle">{{ item.name }}</view>
     				<view class="itemContent">
     					<view
-    					class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}"
-    					style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}"
-    					wx:for="{{ item.items }}"
-    					wx:for-item="sku"
-    					wx:for-index="skuIndex"
-    					data-is-disabled="{{ disableSkuItems[item.name] }}"
-    					data-sku-name="{{ sku.name }}"
-    					data-key="{{ item.name }}"
-    					data-property-index="{{ index }}"
-    					catchtap="onSkuItem"
-    					>{{ sku.name }}</view>
+    					  class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}"
+    					  style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}"
+    					  wx:for="{{ item.items }}"
+    					  wx:for-item="sku"
+    					  wx:for-index="skuIndex"
+    					  data-is-disabled="{{ disableSkuItems[item.name] }}"
+    					  data-sku-name="{{ sku.name }}"
+    					  data-key="{{ item.name }}"
+    					  data-property-index="{{ index }}"
+    					  catchtap="onSkuItem">
+                <image wx:if="{{ sku.thumbnail }}" class="sku_thumbnail" src="{{ sku.thumbnail }}" mode="aspectFill"/>
+                <view class="sku_name">{{ sku.name }}</view>
+              </view>
     				</view>
     			</view>
     		</view>
