@@ -407,6 +407,7 @@
  isGrouponBuy="{{ isGrouponBuy }}"
  config="{{ config }}"
  isIphoneX="{{ isIphoneX }}"
+ miaoshaObj="{{ miaoshaObj }}"
  bind:onSkuConfirm="onSkuConfirm"
 />
 

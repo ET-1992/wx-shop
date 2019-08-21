@@ -91,6 +91,7 @@ Page({
             const {
                 miaosha_end_timestamp,
                 miaosha_start_timestamp,
+                miaosha_price
             } = this.data.product;
             const now = Math.round(Date.now() / 1000);
             let timeLimit = miaosha_end_timestamp - now;
@@ -110,6 +111,7 @@ Page({
                 hasStart,
                 hasEnd,
                 miaoshaObj: {
+                    miaosha_price,
                     remainTime: getRemainTime(timeLimit).join(':'),
                     hasStart,
                     hasEnd,
