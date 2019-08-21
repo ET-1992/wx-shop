@@ -57,18 +57,16 @@
 						<view class="productInfo">
 							<view class="price">
                 <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
-								<view class="groupon" wx:if="{{ product.groupon_enable }}">
-                  <block wx:if="{{ isGrouponBuy }}">
-                    {{ product.definePrice }}
-                    <view class="commander" wx:if="{{product.groupon_commander_price}}">(团长优惠价)</view>
-                  </block>
-                  <block wx:else>{{product.price}}</block>
+								<view class="groupon" wx:if="{{ isGrouponBuy && product.groupon_enable }}">
+                  {{ product.definePrice }}
+                  <view class="commander" wx:if="{{ product.groupon_commander_price }}">(团长优惠价)</view>
                 </view>
+                <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">{{ product.price }}</view>
 								<view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">{{ product.definePrice }}</view>
                 <view wx:elif="{{ selectedSku.id }}">{{ selectedSku.price }}</view>
                 <view wx:else>{{ (product.highest_price > product.definePrice) ? (product.definePrice + '-' + product.highest_price) : product.definePrice }}</view>
 							</view>
-							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}"> 库存：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }} </view>
+							<view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}"> 剩余：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }} </view>
 							<view class="property" wx:if="{{ product.skus.length }}"> 已选择：{{ selectedSku.property_names || '--' }} </view>
 						</view>
 
@@ -78,17 +76,19 @@
     			  	<view class="itemTitle">{{ item.name }}</view>
     			  	<view class="itemContent">
     			  		<view
-    			  		class="itemSku {{ selectedProperties[index].value === sku.name ? 'active' : '' }} {{ disableSkuItems[sku.name] ? 'disable' : '' }}"
-    			  		style="background:{{ selectedProperties[index].value === sku.name ? themeColor.primaryColor : ''}}"
-    			  		wx:for="{{ item.items }}"
-    			  		wx:for-item="sku"
-    			  		wx:for-index="skuIndex"
-    			  		data-is-disabled="{{ disableSkuItems[sku.name] }}"
-    			  		data-sku-name="{{ sku.name }}"
-    			  		data-key="{{ item.name }}"
-    			  		data-property-index="{{ index }}"
-    			  		catchtap="onSkuItem"
-    			  		>{{ sku.name }}</view>
+    			  		  class="itemSku {{ selectedProperties[index].value === sku.name ? 'active' : '' }} {{ disableSkuItems[sku.name] ? 'disable' : '' }}"
+    			  		  style="background: {{ selectedProperties[index].value === sku.name ? themeColor.primaryColor : ''}}"
+    			  		  wx:for="{{ item.items }}"
+    			  		  wx:for-item="sku"
+    			  		  wx:for-index="skuIndex"
+    			  		  data-is-disabled="{{ disableSkuItems[sku.name] }}"
+    			  		  data-sku-name="{{ sku.name }}"
+    			  		  data-key="{{ item.name }}"
+    			  		  data-property-index="{{ index }}"
+    			  		  catchtap="onSkuItem">
+                    <image wx:if="{{ sku.thumbnail }}" class="sku_thumbnail" src="{{ sku.thumbnail }}" mode="aspectFill"/>
+                    <view class="sku_name">{{ sku.name }}</view>
+                </view>
     			  	</view>
     			  </view>
     		  </view>
