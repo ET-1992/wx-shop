@@ -49,16 +49,21 @@
 				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
 				{{ product.miaosha_price }}
 				</view>
-				<view class="origin-price">
+				<!-- <view class="origin-price">
 				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+				</view> -->
+				<view class="price-interval">
+				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}{{ product.price < product.highest_price ? ' ~ ' + product.highest_price : ''}}
 				</view>
 			</view>
 			<view class="time">
 				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
 				<view class="time-text">距结束还有</view>
 				<view class="time-limit" wx:if="{{ !hasEnd }}">
-					<view class="hour">{{ remainTime.day }}</view>
-					<view class="dateTitle">天</view>
+					<block wx:if="{{ remainTime.day > 0 }}">
+						<view class="hour">{{ remainTime.day }}</view>
+						<view class="dateTitle">天</view>
+					</block>
 					<view class="hour">{{ remainTime.hour }}</view>
 					<view class="dateTitle">时</view>
 					<view class="minute">{{ remainTime.minute }}</view>
@@ -70,8 +75,10 @@
 				<view wx:if="{{ !hasStart }}" class="time-section">
 				距开始还有
 				<view class="time-limit" wx:if="{{ !hasEnd }}">
-					<view class="hour">{{ remainTime.day }}</view>
-					<view class="dateTitle">天</view>
+					<block wx:if="{{ remainTime.day > 0 }}">
+						<view class="hour">{{ remainTime.day }}</view>
+						<view class="dateTitle">天</view>
+					</block>
 					<view class="hour">{{ remainTime.hour }}</view>
 					<view class="dateTitle">时</view>
 					<view class="minute">{{ remainTime.minute }}</view>
