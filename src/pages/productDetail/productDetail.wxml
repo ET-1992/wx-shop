@@ -26,7 +26,7 @@
 			</swiper>
 		</view>
 
-		<view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
+		<!-- <view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
 			<view class="timeLimit">
@@ -37,6 +37,50 @@
 					<countDown formatTime="{{ timeLimit }}" />
 				</view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
+			</view>
+		</view> -->
+
+		<!-- 限时购banner -->
+		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{!hasEnd}}" src="/icons/productdetail/time-limited-buy.svg" />
+			<image wx:else src="/icons/productdetail/time-limited-buy-end.svg" />
+			<view class="price-area">
+				<view class="price">
+				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
+				{{ product.miaosha_price }}
+				</view>
+				<view class="origin-price">
+				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+				</view>
+			</view>
+			<view class="time">
+				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+				<view class="time-text">距结束还有</view>
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<view class="hour">{{ remainTime.day }}</view>
+					<view class="dateTitle">天</view>
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ !hasStart }}" class="time-section">
+				距开始还有
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<view class="hour">{{ remainTime.day }}</view>
+					<view class="dateTitle">天</view>
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
 			</view>
 		</view>
 

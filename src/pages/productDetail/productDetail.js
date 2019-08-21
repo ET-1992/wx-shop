@@ -120,6 +120,29 @@ Page({
         });
     },
 
+    // 限时购倒计时
+    todayTimeLimit() {
+        let {
+            timeLimit
+        } = this.data;
+        if (timeLimit && !this.intervalId) {
+            this.intervalId = setInterval(() => {
+                let { timeLimit } = this.data;
+                const [hour, minute, second] = getRemainTime(timeLimit);
+                let day = parseInt(hour / 24, 10);
+                this.setData({
+                    'timeLimit': timeLimit - 1,
+                    remainTime: {
+                        day: day,
+                        hour: hour - day * 24,
+                        minute,
+                        second,
+                    },
+                });
+            }, 1000);
+        }
+    },
+
     loadProductDetailExtra(id) {
         setTimeout(async () => {
             const { coupons, current_user } = await api.hei.fetchShopExtra({
@@ -190,6 +213,12 @@ Page({
             if (product.miaosha_enable) {
                 await this.countDown();
             }
+
+            // 限时购倒计时
+            if (product.miaosha_enable) {
+                this.todayTimeLimit();
+            }
+
             // --------------------
             this.setDefinePrice();
             // ---------------
