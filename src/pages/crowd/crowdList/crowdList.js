@@ -24,7 +24,8 @@ Page({
         this.setData({
             themeColor,
             isIphoneX,
-            status: navbarListData[activeIndex].value
+            status: navbarListData[activeIndex].value,
+            globalData: app.globalData
         });
         this.loadOrders();
     },

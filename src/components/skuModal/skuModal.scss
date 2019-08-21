@@ -1,3 +1,4 @@
+@import '~styles/color';
 .modal {
 	width: 650rpx;
 	background: #ffffff;
@@ -38,7 +39,7 @@
 			}
 
 			.addCart {
-				background: #79BCBE;
+				background: $mainColor;
 				border-radius: 25rpx;
 				width: 200rpx;
 				height: 50rpx;
@@ -63,23 +64,37 @@
 			color: #000000;
 			font-size: 26rpx;
 			margin-bottom: 20rpx;
-			font-weight: bold;
 		}
 
 		.itemContent {
 			.itemSku {
-				color: #ffffff;
-				font-size: 26rpx;
-				line-height: 37rpx;
-				padding: 12rpx 37rpx;
-				margin-right:20rpx;
-				margin-bottom:20rpx;
-				display: inline-block;
-				border: 1rpx solid #707070;
-				color: #000000;
+				position: relative;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+    		min-width: 80rpx;
+    		margin: 0 24rpx 24rpx 0;
+    		overflow: hidden;
+				color: #323233;
+				background: #f7f8fa;
+    		font-size: 26rpx;
+    		line-height: 32rpx;
+    		vertical-align: middle;
+    		border-radius: 8rpx;
+				.sku_thumbnail{
+					z-index: 1;
+					width: 48rpx;
+					height: 48rpx;
+					margin: 8rpx 0 8rpx 8rpx;
+					border-radius: 4rpx;
+				}
+				.sku_name{
+					z-index: 1;
+					padding: 16rpx;
+				}
 			}
 			.active {
-				background: #79BCBE;
+				background: $mainColor;
 				color: #ffffff;
 				border: none;
 			}
@@ -118,6 +133,7 @@
 	.head {
 		margin-bottom: 24rpx;
 		display: flex;
+		padding-bottom: 20rpx;
 
 		.productImage {
 			width: 180rpx;
@@ -129,30 +145,29 @@
 		}
 
 		.productInfo {
-			color: #707070;
+			color: #969799;
 			width: 400rpx;
-			font-size: 32rpx;
+			font-size: 24rpx;
 
 			.stock, .price, .property {
-				margin-bottom: 5rpx;
+				margin-bottom: 10rpx;
 			}
 
 			.price {
 				color: #F52D2D;
-				font-size: 36rpx;
-				font-weight: bold;
+				font-size: 44rpx;
 				display: flex;
 				align-items: center;
 				.currency{
-					font-size: 22rpx;
+					font-size: 24rpx;
 					font-weight: normal;
 				}
 				.groupon{
 					display: flex;
 					align-items: center;
 					.commander{
-						font-size:22rpx;
-						padding-left:10rpx;
+						font-size: 24rpx;
+						padding-left: 10rpx;
 					}
 				}
 			}
@@ -172,7 +187,7 @@
 	.quantity {
 		display: flex;
 		justify-content: space-between;
-		border-top: 1px solid #ddd;
+		border-top: 1rpx solid #ebedf0;
 		padding-top: 40rpx;
 		align-items: center;
 	}
@@ -197,14 +212,14 @@
 			width: 100%;
 			border-radius: 0;
 			height: 90rpx;
-			font-size: 10pt;
-			background-color: #79BCBE;
+			font-size: 28rpx;
+			background-color: $mainColor;
 			color: #fff;
 			background-size: cover;
 		}
 
 		.secondaryBt {
-			background-color: #9bc9ca;
+			background-color: $secondColor;
 		}
 	}
 }

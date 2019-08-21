@@ -91,6 +91,7 @@ Page({
             const {
                 miaosha_end_timestamp,
                 miaosha_start_timestamp,
+                miaosha_price
             } = this.data.product;
             const now = Math.round(Date.now() / 1000);
             let timeLimit = miaosha_end_timestamp - now;
@@ -110,6 +111,7 @@ Page({
                 hasStart,
                 hasEnd,
                 miaoshaObj: {
+                    miaosha_price,
                     remainTime: getRemainTime(timeLimit).join(':'),
                     hasStart,
                     hasEnd,
@@ -291,7 +293,13 @@ Page({
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        const { product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
+        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
+
+        // 非会员不能购买会员专属商品 加入购物车
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
+        }
 
         if (selectedSku.stock === 0) {
             await proxy.showModal({
@@ -329,6 +337,7 @@ Page({
     async onBuy() {
         console.log('onBuy');
         const {
+            user,
             product,
             quantity,
             selectedSku,
@@ -337,6 +346,12 @@ Page({
             isGrouponBuy,
             isCrowd
         } = this.data;
+
+        // 非会员不能购买会员专属商品 立即购买
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
+        }
 
         let url = '/pages/orderCreate/orderCreate';
         let isMiaoshaBuy = false;
@@ -451,7 +466,7 @@ Page({
         return;
     },
 
-    onSkuConfirm(e) {
+    async onSkuConfirm(e) {
         console.log(e);
         const { actionType, selectedSku, quantity, formId } = e.detail;
         this.setData({
@@ -628,5 +643,19 @@ Page({
         this.setData({
             expiredGroupon
         });
+    },
+
+    // 非会员购买会员专属商品提示弹窗
+    async linktoOpenMemberModal() {
+        const { confirm } = await proxy.showModal({
+            title: '温馨提示',
+            content: '该商品是会员专属商品，请开通会员后购买',
+            showCancel: false
+        });
+        if (confirm) {
+            wx.navigateTo({
+                url: '/pages/membership/members/members'
+            });
+        }
     }
 });

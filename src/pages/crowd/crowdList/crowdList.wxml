@@ -10,7 +10,7 @@
 							<view class="itemTitle">{{ item.title }}</view>
 							<view class="property">{{ item.sku_property_names }}</view>
 							<view class="itemPirceInfo">
-								<view class="price">￥{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
+								<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
 								<view class="number">x{{ item.quantity }}</view>
 							</view>
 						</view>

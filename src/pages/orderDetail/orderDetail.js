@@ -124,19 +124,19 @@ Page({
 
         // }
 
-        let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
+        // let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
         order.logistics && order.logistics.forEach((item) => {
-            item.logisticsItems = this.filterItemsForLogistics(order.items, item.item_ids);
-            console.log(item, 'item');
-            logisticsForItem = logisticsForItem.concat(item.item_ids);
+            // item.logisticsItems = this.filterItemsForLogistics(order.items, item.item_ids);
+            // console.log(item, 'item');
+            // logisticsForItem = logisticsForItem.concat(item.item_ids);
             item.logisticsText = valueToText(LOGISTICS_STATUS_TEXT, item.status);
             item.defineTime = formatTime(new Date(item.consign_time * 1000));
         });
 
 
-        order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
-            return logisticsForItem.indexOf(item.id) === -1;
-        });
+        // order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
+        //     return logisticsForItem.indexOf(item.id) === -1;
+        // });
 
         if (statusCode === 3) {
             data.remainSecond = order.auto_confirm_in_seconds;

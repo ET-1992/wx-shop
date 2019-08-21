@@ -20,7 +20,8 @@ Page({
             themeColor,
             isIphoneX,
             config,
-            order_no: options.id
+            order_no: options.id,
+            globalData: app.globalData
         });
         await this.loadOrder(options.id);
     },

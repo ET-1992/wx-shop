@@ -1,5 +1,4 @@
 import { getNodeInfo, getUserInfo, autoDrawText, imgToHttps, auth, authGetUserInfo } from 'utils/util';
-import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { downloadFile, canvasToTempFilePath, saveImageToPhotosAlbum } from 'utils/wxp';
 import api from 'utils/api';
 
@@ -197,7 +196,7 @@ Component({
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillText(globalData.CURRENCY[globalData.currency], 45 / 540 * width, 750 / 900 * height + 45);
                 ctx.font = 'normal bold 18px PingFang SC';
-                ctx.fillText(productPrice, 45 / 540 * width + 12, 750 / 900 * height + 47);
+                ctx.fillText(miaoshaObj.miaosha_price, 45 / 540 * width + 12, 750 / 900 * height + 47);
 
                 ctx.beginPath();
                 ctx.moveTo(45 / 540 * width + 110, 750 / 900 * height + 32);

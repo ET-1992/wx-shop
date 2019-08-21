@@ -1,6 +1,6 @@
 import { wxPay } from 'utils/pageShare';
 import api from 'utils/api';
-
+const app = getApp();
 Component({
     properties: {
         title: {
@@ -30,6 +30,7 @@ Component({
         }
     },
     data: {
+        globalData: app.globalData,
         amount: 0,
         // rechargePrice: ''
     },
