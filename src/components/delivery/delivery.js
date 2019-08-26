@@ -19,9 +19,9 @@ Component({
             type: String,
             value: ''
         },
-        isShowBorder: {
+        isOrderDetail: {
             type: Boolean,
-            value: true
+            value: false
         },
         deliveryAddress: { // 订单详情数据
             type: Object,

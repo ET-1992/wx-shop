@@ -3,10 +3,10 @@
 		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
 	</view>
 
-	<view class="wrapper" wx:if="{{ address.userName }}" style="{{ isShowBorder ? '' : 'border: 0'}}">
+	<view class="wrapper" wx:if="{{ address.userName }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
 		<view class="address-top">
 			<view class="left">收件地址</view>
-			<view class="right" wx:if="{{ isShowBorder }}">修改
+			<view class="right" wx:if="{{ !isOrderDetail }}">修改
 				<image class="right-icon" src="/icons/right.png"/>
 			</view>
 		</view>

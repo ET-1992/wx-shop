@@ -17,7 +17,8 @@
 				</view>
 				<view class="address-section">
 					<view class="address-title">营业时间</view>
-					<view class="address-time">{{ (addresses.time[0] + '-' + addresses.time[1] ) || '无'}}</view>
+					<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 0}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
+					<view class="address-time" wx:if="{{ addresses.time && !addresses.time.length }}">无</view>
 				</view>
 				<view class="address-section address-second">
 					<view class="address-title">商家电话</view>
