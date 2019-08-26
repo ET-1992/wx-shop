@@ -1,3 +1,0 @@
-<view class="container">
-	<image class="rule-image" src="{{ imgUrl }}" mode="widthFix"/>
-</view>

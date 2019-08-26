@@ -53,7 +53,6 @@
 		"pages/membership/consumptionCenter/consumptionCenter",
 		"pages/membership/integralList/integralList",
 		"pages/affiliate/affiliateVisitor/affiliateVisitor",
-		"pages/membership/memberRule/memberRule",
 		"pages/bindWeb/bindWeb"
 	],
 	"window": {
