@@ -6,9 +6,19 @@
 	.address {
 		font-size: 28rpx;
 		line-height: 40rpx;
-		flex: 1;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		border-top: 1px solid $borderColor;
 		padding: 30rpx 0;
+
+		.right-arrow {
+			color: #999999;
+			width: 10rpx;
+			height: 20rpx;
+			margin-right: 40rpx;
+			margin-left: 40rpx;
+		}
 	}
 
 	.wrapper {

@@ -1,6 +1,7 @@
 <view class="container">
 	<view wx:if="{{ !address.userName }}" class="address">
 		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
+		<image src="/icons/right.png" class="right-arrow"></image>
 	</view>
 
 	<view class="wrapper" wx:if="{{ address.userName }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
@@ -21,8 +22,8 @@
 			</view>
 			<view class="address-section address-bottom">
 				<view class="address-title">地址</view>
-				<view class="address-detail">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
-				<view class="address-detail" wx:if="{{!address.provinceName && !address.cityName && !address.countyName && !address.detailInfo}}">无</view>
+				<view class="address-detail" wx:if="{{ selfAddress }}">{{address.detailInfo}}</view>
+				<view class="address-detail" wx:if="{{ !selfAddress }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
 			</view>
 		</view>
 	</view>

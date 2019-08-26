@@ -1,15 +1,6 @@
-import {
-    getAgainUserForInvalid,
-    getUserInfo,
-    go
-} from 'utils/util';
-import {
-    CONFIG,
-    USER_KEY
-} from 'constants/index';
-import {
-    wxPay
-} from 'utils/pageShare';
+import { getAgainUserForInvalid, go } from 'utils/util';
+import { CONFIG } from 'constants/index';
+import { wxPay } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import api from 'utils/api';
 const app = getApp();

@@ -26,7 +26,7 @@
 			</swiper>
 		</view>
 
-		<view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
+		<!-- <view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
 			<view class="timeLimit">
@@ -37,6 +37,57 @@
 					<countDown formatTime="{{ timeLimit }}" />
 				</view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
+			</view>
+		</view> -->
+
+		<!-- 限时购banner -->
+		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{!hasEnd}}" src="/icons/productdetail/time-limited-buy.svg" />
+			<image wx:else src="/icons/productdetail/time-limited-buy-end.svg" />
+			<view class="price-area">
+				<view class="price">
+				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
+				{{ product.miaosha_price }}
+				</view>
+				<!-- <view class="origin-price">
+				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+				</view> -->
+				<view class="price-interval">
+				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}{{ product.price < product.highest_price ? ' ~ ' + product.highest_price : ''}}
+				</view>
+			</view>
+			<view class="time">
+				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+				<view class="time-text">距结束还有</view>
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<block wx:if="{{ remainTime.day > 0 }}">
+						<view class="hour">{{ remainTime.day }}</view>
+						<view class="dateTitle">天</view>
+					</block>
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ !hasStart }}" class="time-section">
+				距开始还有
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<block wx:if="{{ remainTime.day > 0 }}">
+						<view class="hour">{{ remainTime.day }}</view>
+						<view class="dateTitle">天</view>
+					</block>
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
 			</view>
 		</view>
 
@@ -111,16 +162,16 @@
 		<!-- 开通会员提示框 -->
 		<!-- 会员专属商品提示框 -->
 		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_dedicated_enable }}">
-			<view class="member-tips">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">会员专属商品，开通会员立享</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 会员价商品提示框 -->
 		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_price_enable }}">
-			<view class="member-tips">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">开通会员，立享会员价</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 领券&服务说明 -->
@@ -162,9 +213,22 @@
 				<pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
 			</view>
 		</view>
-		<view class="grouponHint" wx:if="{{ product.groupon_enable && !grouponId }}">
+
+		<!-- 拼团流程 -->
+		<!-- <view class="grouponHint" wx:if="{{ product.groupon_enable && !grouponId }}">
 			<view class="title">拼团流程</view>
 			<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
+		</view> -->
+
+		<!-- 拼团玩法 -->
+		<view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
+			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
+			<image class="groupplay-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=groupon" />
+		</view>
+		<!-- 秒杀规则 -->
+		<view class="group-miaosha" wx:if="{{ product.seckill_enable }}">
+			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/miaosharule.png'}}" />
+			<image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" />
 		</view>
 
 		<!-- 商品评论start -->
