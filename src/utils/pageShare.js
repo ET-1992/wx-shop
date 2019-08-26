@@ -57,7 +57,7 @@ function shopShare(path) {
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy, isMiaoshaBuy }) => {
+export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false }) => {
 
     try {
 
@@ -67,7 +67,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             post_id: product.id,
             title: product.title,
             original_price: product.original_price,
-            image_url: product.images[0],
+            image_url: product.thumbnail,
             price: product.price,
             id: product.id,
             postage: product.postage,

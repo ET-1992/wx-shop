@@ -112,7 +112,7 @@
 .close {
 	width: 30rpx;
 	height: 30rpx;
-	position:absolute;
+	position:absolute !important;
 	right:25rpx;
 	top:25rpx;
 	z-index:999;
@@ -120,7 +120,7 @@
 
 .bottomModal {
 	background-color: #fff;
-	padding: 20rpx 62rpx 130rpx;
+	padding: 20rpx 32rpx 130rpx;
 	&.iphoneXTrick{
 		padding-bottom: 170rpx;
 	}

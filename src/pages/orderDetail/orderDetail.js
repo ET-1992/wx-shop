@@ -1,10 +1,11 @@
 import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
-import { formatTime, valueToText, getNodeInfo, splitUserStatus } from 'utils/util';
+import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
-import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
-import { qrcode  } from 'peanut-all';
+import { qrcode } from 'peanut-all';
+import { createCurrentOrder } from 'utils/pageShare';
+import proxy from 'utils/wxProxy';
 
 const app = getApp();
 
@@ -201,18 +202,25 @@ Page({
         });
     },
 
-    // async loadRedpacket(id) {
-    // 	const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
-    // 	this.setData({ redpacket });
-    // },
-
-    /* onShare() {
-        wx.showShareMenu();
-    }, */
+    async bindGetUserInfo(e) {
+        const { isNewUserGroupon, isGrouponBuy = false, isCrowd = false } = e.currentTarget.dataset;
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            const current_user = await getAgainUserForInvalid({ encryptedData, iv });
+            this.onJoin({ current_user, isNewUserGroupon, isGrouponBuy, isCrowd });
+        }
+        else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
 
     onJoin(e) {
-        const { isNewUserGroupon } = e.currentTarget.dataset;
-        const { current_user, groupon } = this.data;
+        const { current_user, isNewUserGroupon, isGrouponBuy, isCrowd } = e;
+        const { groupon, has_joined } = this.data;
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
@@ -221,21 +229,97 @@ Page({
                 content: '您不是新用户不能参与该拼团',
                 showCancel: false
             });
-        } else if (current_user && groupon.user && (current_user.openid === groupon.user.openid)) {
+            return;
+        }
+        if (current_user && groupon.user && (current_user.openid === groupon.user.openid)) {
             wx.showModal({
                 title: '温馨提示',
                 content: '不能参加自己的拼团',
                 showCancel: false
             });
-        } else {
-            const { groupon, order } = this.data;
-            const id = groupon.post_id || order.items[0].post_id;
-            const grouponId = groupon.id || order.groupon.id;
-            wx.navigateTo({
-                url: `/pages/productDetail/productDetail?id=${id}&grouponId=${grouponId}`
-            });
+            return;
         }
+        if (current_user && groupon.user && (current_user.openid !== groupon.user.openid) && has_joined) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '您已参团',
+                showCancel: false
+            });
+            return;
+        }
+
+        this.onShowSku({ isGrouponBuy, isCrowd });
     },
+    onShowSku(obj) {
+        let { product } = this.data;
+        product.definePrice = product.groupon_price;
+        product.showOriginalPrice = product.groupon_price !== product.original_price;
+        if (product.status === 'unpublished' || product.status === 'sold_out') { return }
+        this.setData({
+            isShowAcitonSheet: true,
+            quantity: 1,
+            actions: [],
+            product,
+            ...obj
+        });
+    },
+    async onSkuConfirm(e) {
+        wx.showLoading({
+            title: '请求中...'
+        });
+        const { selectedSku, quantity, formId } = e.detail;
+
+        await api.hei.submitFormId({ form_id: formId });
+
+        const { current_user, product, grouponId, isGrouponBuy, isCrowd } = this.data;
+
+        if (selectedSku.stock === 0) {
+            await proxy.showModal({
+                title: '温馨提示',
+                content: '无法购买库存为0的商品',
+            });
+            return;
+        }
+
+        // 非会员不能购买会员专属商品 立即购买
+        if (current_user && current_user.membership && !current_user.membership.is_member && product.membership_dedicated_enable) {
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '该商品是会员专属商品，请开通会员后购买'
+            });
+            if (confirm) {
+                wx.navigateTo({
+                    url: '/pages/membership/members/members'
+                });
+            }
+            return;
+        }
+
+        let url = '/pages/orderCreate/orderCreate';
+        if (isGrouponBuy && grouponId) {
+            url = url + `?isGrouponBuy=true&grouponId=${grouponId}`;
+        }
+        if (isCrowd) {
+            url = url + '?crowd=true';
+        }
+
+        const currentOrder = createCurrentOrder({
+            selectedSku,
+            quantity,
+            product,
+            isGrouponBuy
+        });
+
+        app.globalData.currentOrder = currentOrder;
+
+        this.setData({
+            isShowAcitonSheet: false
+        });
+
+        wx.navigateTo({ url });
+        wx.hideLoading();
+    },
+
 
     onRelaodOrder(ev) {
         const { orderNo } = ev.detail;
@@ -326,8 +410,8 @@ Page({
     async setClipboardVp(e) {
         const { value } = e.currentTarget.dataset;
         console.log(e);
-        await setClipboardData({ data: String(value) });
-        showToast({
+        await proxy.setClipboardData({ data: String(value) });
+        wx.showToast({
             title: '复制成功',
             icon: 'success'
         });

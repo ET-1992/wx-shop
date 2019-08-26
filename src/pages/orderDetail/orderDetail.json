@@ -12,9 +12,10 @@
     "countDown": "../../components/countDown/countDown",
     "productList": "../../components/productList/index",
     "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal",
-     "addressTwo": "../../components/addressTwo/addressTwo",
-     "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
-     "delivery": "../../components/delivery/delivery",
-     "storeList": "../../components/storeList/storeList"
+    "addressTwo": "../../components/addressTwo/addressTwo",
+    "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
+    "delivery": "../../components/delivery/delivery",
+    "storeList": "../../components/storeList/storeList",
+    "skuModal": "../../components/skuModal/skuModal"
   }
 }

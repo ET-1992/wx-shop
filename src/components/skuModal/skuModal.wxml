@@ -1,4 +1,4 @@
-<van-popup show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}">
+<van-popup show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
     <view wx:if="{{ position === 'center' }}" class="modal">
     		<view class="header">
     			<view class="headerText">{{ product.title }}</view>
@@ -45,8 +45,8 @@
     		</view>
     </view>
 
-    <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-        <image src="/icons/clear.png" class="close" bindtap="close" />
+    <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}" z-index="{{10000}}">
+        <van-icon name="clear" custom-class="close" color="#dcdde0" bind:click="close"/>
 				<scroll-view scroll-y class="scrollSkus">
 					<view class="head">
             <image
@@ -74,13 +74,14 @@
 
 					</view>
 					<view class="content {{position}}-content">
-    			  <view class="item" wx:for="{{ properties }}">
+    			  <view class="item" wx:for="{{ properties }}" wx:key="id">
     			  	<view class="itemTitle">{{ item.name }}</view>
     			  	<view class="itemContent">
     			  		<view
     			  		  class="itemSku {{ selectedProperties[index].value === sku.name ? 'active' : '' }} {{ disableSkuItems[sku.name] ? 'disable' : '' }}"
     			  		  style="background: {{ selectedProperties[index].value === sku.name ? themeColor.primaryColor : ''}}"
     			  		  wx:for="{{ item.items }}"
+                  wx:key="id"
     			  		  wx:for-item="sku"
     			  		  wx:for-index="skuIndex"
     			  		  data-is-disabled="{{ disableSkuItems[sku.name] }}"
@@ -112,7 +113,7 @@
 						<button
 							class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
 							wx:for="{{ actions }}"
-							wx:key="text"
+              wx:key="id"
 							disabled="{{ product.skus.length && !selectedSku.id }}"
 							data-action-type="{{ item.type }}"
 							form-type="submit"
