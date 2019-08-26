@@ -1,3 +1,5 @@
+import { CONFIG } from 'constants/index';
+
 Component({
     properties: {
         title: {
@@ -30,6 +32,13 @@ Component({
     },
     data: {
         index: 0
+    },
+    attached() {
+        const config = wx.getStorageSync(CONFIG);
+        console.log(config.self_address, 'selfAddress');
+        this.setData({
+            selfAddress: config && config.self_address
+        });
     },
     methods: {
         bindPickerChange(e) {

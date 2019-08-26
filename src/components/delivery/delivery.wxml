@@ -27,10 +27,13 @@
 			</view>
 			<view class="address-section address-bottom">
 				<view class="address-title">地址</view>
-				<!-- 确认订单数据 -->
-				<view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
-				<!-- 订单详情数据 -->
-				<view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view>
+				<block wx:if="{{ !selfAddress }}">
+					<!-- 确认订单数据 -->
+					<view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
+					<!-- 订单详情数据 -->
+					<view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view>
+				</block>
+				<view class="address-detail" wx:if="{{selfAddress}}">{{isOrderDetail ? address.receiver_address : address.detailInfo }}</view>
 			</view>
 			<view class="address-section receive-time">
 				<view class="address-title">门店配送时间</view>
