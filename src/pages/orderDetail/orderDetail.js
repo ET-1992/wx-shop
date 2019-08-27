@@ -206,8 +206,8 @@ Page({
         const { isNewUserGroupon, isGrouponBuy = false, isCrowd = false } = e.currentTarget.dataset;
         const { encryptedData, iv } = e.detail;
         if (iv && encryptedData) {
-            const current_user = await getAgainUserForInvalid({ encryptedData, iv });
-            this.onJoin({ current_user, isNewUserGroupon, isGrouponBuy, isCrowd });
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onJoin({ isNewUserGroupon, isGrouponBuy, isCrowd });
         }
         else {
             wx.showModal({
@@ -219,8 +219,10 @@ Page({
     },
 
     onJoin(e) {
-        const { current_user, isNewUserGroupon, isGrouponBuy, isCrowd } = e;
-        const { groupon, has_joined } = this.data;
+        const { isNewUserGroupon, isGrouponBuy, isCrowd } = e;
+        const { groupon, has_joined, product } = this.data;
+        const current_user = wx.getStorageSync(USER_KEY);
+        console.log('current_user:', current_user);
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
@@ -247,20 +249,24 @@ Page({
             });
             return;
         }
-
-        this.onShowSku({ isGrouponBuy, isCrowd });
-    },
-    onShowSku(obj) {
-        let { product } = this.data;
+        if (product.status === 'unpublished' || product.status === 'sold_out') {
+            wx.showModal({
+                title: '温馨提示',
+                content: `商品已${product.status === 'unpublished' ? '下架' : '售罄'}`,
+                showCancel: false
+            });
+            return;
+        }
         product.definePrice = product.groupon_price;
         product.showOriginalPrice = product.groupon_price !== product.original_price;
-        if (product.status === 'unpublished' || product.status === 'sold_out') { return }
+
         this.setData({
+            current_user,
             isShowAcitonSheet: true,
             quantity: 1,
-            actions: [],
             product,
-            ...obj
+            isGrouponBuy,
+            isCrowd
         });
     },
     async onSkuConfirm(e) {
@@ -312,14 +318,10 @@ Page({
 
         app.globalData.currentOrder = currentOrder;
 
-        this.setData({
-            isShowAcitonSheet: false
-        });
-
+        this.setData({ isShowAcitonSheet: false });
         wx.navigateTo({ url });
         wx.hideLoading();
     },
-
 
     onRelaodOrder(ev) {
         const { orderNo } = ev.detail;
