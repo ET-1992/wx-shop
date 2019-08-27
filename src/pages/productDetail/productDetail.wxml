@@ -91,6 +91,24 @@
 			</view>
 		</view>
 
+		<!-- 超值拼团banner -->
+		<view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
+			<view class="price-area">
+				<view class="price">
+				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
+				{{product.definePrice}}
+				</view>
+				<view class="origin-price">
+				单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+				</view>
+			</view>
+			<view class="pintuan-section">
+				<view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
+				<view class="pintuan-count">已团{{ product.sales }}件</view>
+			</view>
+		</view>
+
 		<view class="info">
 			<view class="top">
 				<view class="left">
@@ -156,7 +174,7 @@
 					</block>
 				</view>
 			</view>
-			<view class="tag" wx:if="{{ product.groupon_enable }}"> {{ product.groupon_member_limit + '人团' }} </view>
+			<!-- <view class="tag" wx:if="{{ product.groupon_enable }}"> {{ product.groupon_member_limit + '人团' }} </view> -->
 		</view>
 
 		<!-- 开通会员提示框 -->

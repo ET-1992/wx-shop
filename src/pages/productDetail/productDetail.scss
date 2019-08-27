@@ -2,6 +2,7 @@
 @import "../../utils/wxParse/wxParse.scss";
 $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
+$shareColor: #FE0000;
 
 .container {
 	padding-bottom: $footerHeight;
@@ -178,6 +179,75 @@ video {
 		}
 	}
 
+}
+
+// 超值拼团banner
+.pintuan {
+	width: 750rpx;
+	height: 100rpx;
+	color: #fff;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	position: relative;
+
+	.background-image {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.price-area {
+		position: absolute;
+		top: 8rpx;
+		left: 142rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+
+		.price {
+			font-size: 46rpx;
+			font-weight: bold;
+
+			.price-unit {
+				font-size: 22rpx;
+			}
+		}
+
+		.origin-price {
+			font-size: 22rpx;
+			margin-top: -8rpx;
+		}
+	}
+
+	.pintuan-section {
+		min-width: 118rpx;
+		position: absolute;
+		right: 19rpx;
+		top: 12rpx;
+		color: $shareColor;
+		text-align: right;
+
+		.pintuan-text {
+			font-size: 32rpx;
+			height: 45rpx;
+			line-height: 45rpx;
+			color: #FFFFFF;
+			font-weight: bold;
+		}
+
+		.pintuan-count {
+			// width: 118rpx;
+			// height: 30rpx;
+			font-size: 22rpx;
+			background-color: #FFFFFF;
+			border-radius: 3rpx;
+			text-align: center;
+			padding: 0 8rpx;
+		}
+	}
 }
 
 
