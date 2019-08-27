@@ -1,6 +1,6 @@
 import { Sku } from 'peanut-all';
 import { getAgainUserForInvalid } from 'utils/util';
-import { showModal } from 'utils/wxp';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 Component({
     properties: {
@@ -36,7 +36,7 @@ Component({
         },
         actions: {
             type: Array,
-            value: []
+            value: [{ type: 'onBuy', text: '立即购买' }]
         },
         isCrowd: {
             type: Boolean,
@@ -109,7 +109,7 @@ Component({
             console.log(selectedSku, e, 'erer');
             e.sku_id = selectedSku.id;
             if (selectedSku.stock === 0) {
-                await showModal({
+                await proxy.showModal({
                     title: '温馨提示',
                     content: '商品库存为0',
                 });
@@ -180,7 +180,7 @@ Component({
                 this.onSkuConfirm(actionType);
             }
             else {
-                showModal({
+                wx.showModal({
                     title: '温馨提示',
                     content: '需授权后操作',
                     showCancel: false,

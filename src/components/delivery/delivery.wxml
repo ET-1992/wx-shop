@@ -1,6 +1,7 @@
 <view class="container">
 	<view wx:if="{{ !address.userName && !isOrderDetail }}" class="address" bindtap="onAddress">
 		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
+		<image src="/icons/right.png" class="right-arrow"></image>
 	</view>
 
 	<view class="wrapper" wx:if="{{ address.userName || address.receiver_name }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">

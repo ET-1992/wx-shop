@@ -19,6 +19,13 @@ Page({
 
     onLoad(params) {
         console.log(params);
+        if (params.activeIndex) {
+            this.setData({
+                activeIndex: Number(params.activeIndex),
+                type: '3',
+                next_cursor: 0
+            });
+        }
     },
 
     async onShow() {
@@ -28,7 +35,9 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         // const user = wx.getStorageSync('user');
         const recharge = await api.hei.rechargePrice();
-        recharge.data[0].checked = true;
+        if (recharge && recharge.data && recharge.data[0]) {
+            recharge.data[0].checked = true;
+        }
         this.setData({
             isLoading: false,
             themeColor,

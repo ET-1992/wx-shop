@@ -43,7 +43,7 @@
     </van-popup>
 
     <!-- 发货订单 -->
-    <view wx:for="{{ order.logistics }}" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
+    <view wx:for="{{ order.logistics }}" wx:key="id" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
         <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
             <view class="logistics">
                 <view class="logistics-header">
@@ -74,7 +74,7 @@
         <view class="noLogistics" wx:if="{{ order.status === 31 }}">待发货</view>
         <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
-   
+
     <!-- 参团 -->
     <view wx:if="{{ otherPeopleGroupon }}" class="otherPeopleGrouponWrap">
         <productItemSold items="{{ [product] }}" groupon="{{ groupon }}" itemStyle="{{ 2 }}" />
@@ -120,7 +120,7 @@
     </view>
     <!-- 订单留言 -->
     <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
-        <view wx:for="{{ order.annotation.remarks }}" class="remarkWrapRow">
+        <view wx:for="{{ order.annotation.remarks }}" wx:key="id" class="remarkWrapRow">
             <view>{{ index }}</view>
             <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
             <image wx:if="{{ orderDetail.indexOf(item, 'http:') !== -1 }}" class="remarkImg" src="{{ item }}" />
@@ -136,11 +136,11 @@
         <view class="title otherGroupStatus" wx:if="{{groupon.status === -2}}">该拼团已关闭</view>
         <view class="title" wx:if="{{groupon.status === 3}}">已成团</view>
         <view class="avatar" wx:if="{{groupon.status === 2 || groupon.status === 3 || groupon.status === -1}}">
-            <view wx:for="{{ groupon.members }}" class="avatarItem" wx:if="{{ index < 3 }}">
+            <view wx:for="{{ groupon.members }}" wx:key="id" class="avatarItem" wx:if="{{ index < 3 }}">
                 <image src="{{ item.avatarurl }}" mode="aspectFill"></image>
                 <view wx:if="{{index === 0}}" class="captain">团长</view>
             </view>
-            <view wx:for="{{ grouponDefaultImageArray }}" wx:if="{{ groupon.member_count < 3 && (index < 2)}}" class="avatarItem">
+            <view wx:for="{{ grouponDefaultImageArray }}" wx:key="id" wx:if="{{ groupon.member_count < 3 && (index < 2)}}" class="avatarItem">
                 <image src="{{ item }}" mode="aspectFill"></image>
             </view>
             <view class="ellipsis" wx:if="{{ groupon.member_limit > 3}}">...</view>
@@ -155,11 +155,17 @@
         <button class="nomalizeBt redpacketBannerBt" data-is-redpocket-share="{{ true }}" wx:if="{{ redpacket.pakcet_no && !otherPeopleGroupon }}" open-type="share">
             <image class="redpacketBanner" src="{{ config.cdn_host + '/shop/orderRedpacketBanner.jpg'}}" />
         </button>
-        <button wx:if="{{ order.groupon_id && groupon.status === 2 }}" class="normalizeBt viewProduct" bind:tap="showShareModal" style="background-color: {{ themeColor.primaryColor }}">
-            邀请朋友参团
-        </button>
-        <button wx:if="{{ otherPeopleGroupon }}" class="normalizeBt viewProduct" bindtap="onJoin" data-is-new-user-groupon="{{groupon.type === 'new_user'}}" disabled="{{ groupon.status !== 2 }}" style="color: #fff; background:{{ groupon.status !== 2 ? '#c2c2c2' : themeColor.primaryColor }};">
-            {{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团'}}
+        <button wx:if="{{ order.groupon_id && groupon.status === 2 }}" class="normalizeBt viewProduct" bind:tap="showShareModal" style="background-color: {{ themeColor.primaryColor }}"> 邀请朋友参团 </button>
+        <button
+          wx:if="{{ otherPeopleGroupon }}"
+          class="normalizeBt viewProduct"
+          bindgetuserinfo="bindGetUserInfo"
+          open-type="getUserInfo"
+          data-is-groupon-buy
+          data-is-new-user-groupon="{{groupon.type === 'new_user'}}"
+          disabled="{{ groupon.status !== 2 }}"
+          style="color: #fff;{{ groupon.status !== 2 ? 'background: #c2c2c2' : themeColor.primaryColor }};">
+            {{ groupon.type === 'new_user' ? '新用户立即参团' : '立即参团' }}
         </button>
     </view>
     <!-- 金额模块 -->
@@ -251,3 +257,17 @@
 </van-popup>
 <productDetailShareModal productImage="{{ order.items[0].thumbnail }}" productTitle="{{ order.items[0].title }}" productPrice="{{ order.items[0].price }}" originalPrice="{{ order.items[0].original_price }}" grouponLimit="{{ order.groupon.member_limit }}" remainSecond="{{ remainSecond }}" remainTime="{{ remainTime }}" routePath="{{ routePath }}" routeQuery="{{ routeQuery }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}" />
 <console page="订单详情" />
+
+<skuModal
+ wx:if="{{ otherPeopleGroupon }}"
+ isShowSkuModal="{{ isShowAcitonSheet }}"
+ product="{{ product }}"
+ themeColor="{{ themeColor }}"
+ position="bottom"
+ quantity="{{ quantity }}"
+ isCrowd="{{ isCrowd }}"
+ isGrouponBuy="{{ isGrouponBuy }}"
+ config="{{ config }}"
+ isIphoneX="{{ isIphoneX }}"
+ bind:onSkuConfirm="onSkuConfirm"
+/>

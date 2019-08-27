@@ -180,16 +180,16 @@
 		<!-- 开通会员提示框 -->
 		<!-- 会员专属商品提示框 -->
 		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_dedicated_enable }}">
-			<view class="member-tips">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">会员专属商品，开通会员立享</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 会员价商品提示框 -->
 		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_price_enable }}">
-			<view class="member-tips">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">开通会员，立享会员价</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 领券&服务说明 -->
