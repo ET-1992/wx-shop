@@ -1,23 +1,21 @@
-<view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove" id="myModal"> 
+<view class="modal" style="display: {{ defineModal.isShowModal ? 'flex' : 'none' }}" catchtouchmove="touchmove" id="myModal">
 	<view class="content">
 		<view class="content-header">{{ defineModal.title }}</view>
-		<text class="content-body" decode="{{ true }}" style="{{defineModal.bodyStyle}}">
-			{{ defineModal.body }}
-		</text>
+		<text class="content-body" decode="{{ true }}" style="{{defineModal.bodyStyle}}"> {{ defineModal.body }} </text>
 		<view class="content-footer">
-			<view class="content-footer-cancel" bindtap="onCancel" wx:if="{{ defineModal.isShowCanel }}">{{ defineModal.cancelText }}</view>
-			<button 
-				class="content-footer-confirm" 
-				bindtap="onConfirm" 
-				wx:if="{{ defineModal.type === 'button' }}" 
-				type="default" 
-				plain="{{true}}" 
+			<view class="item-button content-footer-cancel" bindtap="onCancel" wx:if="{{ defineModal.isShowCanel }}">{{ defineModal.cancelText }}</view>
+			<button
+				class="item-button content-footer-confirm"
+				bindtap="onConfirm"
+				wx:if="{{ defineModal.type === 'button' }}"
+				type="default"
+				plain="{{true}}"
 				open-type="{{ defineModal.buttonData.opentype }}"
 				session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'
 				session-from='{"nickName":"{{defineModal.userInfo.nickname}}", "avatarUrl":"{{defineModal.userInfo.avatarurl}}"}'
-				bindgetuserinfo="bindGetUserInfo" 
+				bindgetuserinfo="bindGetUserInfo"
 			>{{ defineModal.confirmText }}</button>
-			<navigator class="content-footer-confirm" bindtap="onConfirm" wx:if="{{ defineModal.type === 'navigate' }}" path="{{ defineModal.navigateData.url }}" target="{{ defineModal.navigateData.target }}" app-id="{{ defineModal.navigateData.appId }}" extra-data="{{ defineModal.navigateData.extraData }}" version="{{ defineModal.navigateData.version }}">{{ defineModal.confirmText }}</navigator>
+			<navigator class="item-button content-footer-confirm" bindtap="onConfirm" wx:if="{{ defineModal.type === 'navigate' }}" path="{{ defineModal.navigateData.url }}" target="{{ defineModal.navigateData.target }}" app-id="{{ defineModal.navigateData.appId }}" extra-data="{{ defineModal.navigateData.extraData }}" version="{{ defineModal.navigateData.version }}">{{ defineModal.confirmText }}</navigator>
 		</view>
 	</view>
 </view>
