@@ -46,15 +46,10 @@
 			<image wx:else src="/icons/productdetail/time-limited-buy-end.svg" />
 			<view class="price-area">
 				<view class="price">
-				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
-				{{ product.miaosha_price }}
-				</view>
-				<!-- <view class="origin-price">
-				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
-				</view> -->
-				<view class="price-interval">
-				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}{{ product.price < product.highest_price ? ' ~ ' + product.highest_price : ''}}
-				</view>
+          <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+          <view>{{ product.miaosha_price }}</view>
+        </view>
+				<view class="price-interval"> 原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}{{ product.price < product.highest_price ? ' ~ ' + product.highest_price : ''}} </view>
 			</view>
 			<view class="time">
 				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
@@ -96,12 +91,10 @@
 			<image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
 			<view class="price-area">
 				<view class="price">
-				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
-				{{product.definePrice}}
-				</view>
-				<view class="origin-price">
-				单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
-				</view>
+          <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+          <view>{{product.definePrice}}</view>
+        </view>
+				<view class="origin-price"> 单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
 			</view>
 			<view class="pintuan-section">
 				<view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
@@ -123,18 +116,20 @@
 			</view>
 			<!-- 价格区间 -->
 			<view class="meta">
+
 				<view class="price">
 					<!-- 会员专属 -->
 					<view wx:if="{{ product.membership_dedicated_enable }}" class="vipHold">
 						<image src="/icons/vipLogo.svg" class="vipLogo"></image>
 						<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
 					</view>
-					<block wx:else>
+
+					<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && !product.membership_dedicated_enable }}">
 						<view class="nowPrice">
-              				<view class="currentPrice">
+              <view class="currentPrice">
 								<text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
 								<text class="num">{{ product.definePrice }}</text>
-								<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && (product.highest_price > product.definePrice) }}">
+								<block wx:if="{{ (product.highest_price > product.definePrice) }}">
 									<text>-</text>
 									<text class="num">{{ product.highest_price }}</text>
 								</block>
@@ -147,34 +142,31 @@
 							<text class="vipTipWrap">会员价</text>
 						</view>
 						<!-- 原价 -->
-						<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
-					</block>
-					<!-- 邮费、已售 -->
-					<view class="default">
-						<view class="postage" wx:if="{{ !product.hide_postage }}">
-						{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
-						</view>
-						<view class="sales">已售：{{ product.sales }}</view>
-					</view>
-				</view>
-				<view class="info-section">
-					<block wx:if="{{ product.product_type !== 1}}">
-						<view class="delivery-section" wx:if="{{ config && config.self_lifting_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							到店自提
-							</view>
-							<view class="delivery-section" wx:if="{{ config && config.home_delivery_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							送货上门
-							</view>
-							<view class="delivery-section" wx:if="{{ config && config.logistics_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							快递
-						</view>
+            <view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 					</block>
 				</view>
+
+				<view class="info-section" wx:if="{{ product.product_type !== 1}}">
+          <view class="left-section">
+            <view class="delivery-section" wx:if="{{ config && config.self_lifting_enable }}">
+              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+              到店自提
+            </view>
+            <view class="delivery-section" wx:if="{{ config && config.home_delivery_enable }}">
+              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+              送货上门
+            </view>
+            <view class="delivery-section" wx:if="{{ config && config.logistics_enable }}">
+              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+              快递
+            </view>
+          </view>
+          <view class="right-section">
+					  <view class="delivery-section" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
+            <view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
+          </view>
+        </view>
 			</view>
-			<!-- <view class="tag" wx:if="{{ product.groupon_enable }}"> {{ product.groupon_member_limit + '人团' }} </view> -->
 		</view>
 
 		<!-- 开通会员提示框 -->
@@ -339,7 +331,7 @@
 					 style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}</view>
-						<view>{{ product.groupon_member_limit }}人团</view>
+						<view>发起拼团</view>
 					</view>
 				</block>
 
@@ -509,3 +501,19 @@
  wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"
 />
 
+<wxs module="productDetail">
+  var formatValue = function(value, num) {
+    return value.toString().length > num ? exchange_num(num).concat('+') : value.toString()
+  };
+  var exchange_num = function(num){
+    var newValue = '1';
+    var i = 0;
+    while (i < num) {
+      newValue += '0';
+      i++;
+    }
+    return newValue;
+  }
+
+  module.exports.formatValue = formatValue;
+</wxs>
