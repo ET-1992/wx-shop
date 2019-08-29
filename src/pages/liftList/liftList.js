@@ -13,7 +13,12 @@ Page({
     onLoad(params) {
         console.log(params.type);
         console.log(typeof (params.type));
-        this.setData({ type: params.type });
+        const { themeColor } = app.globalData;
+        this.setData({
+            type: params.type,
+            themeColor,
+            globalData: app.globalData
+        });
     },
 
     async onShow() {
@@ -21,10 +26,10 @@ Page({
         console.log(platform, 'platform');
         console.log(locationAuthorized, 'locationAuthorized');
         console.log(locationEnabled, 'locationEnabled');
-        if (platform !== 'devtools' && !locationEnabled) {
+        if (platform !== 'devtools' && !(locationEnabled || locationAuthorized)) {
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: '请打开手机地理位置开关',
+                content: '请检查手机定位是否开启、是否允许微信使用手机定位',
                 showCancel: false
             });
             if (confirm) {
