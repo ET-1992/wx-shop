@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
-import { getLocation } from 'utils/wxp';
+import proxy from 'utils/wxProxy';
 
 const app = getApp();
 
@@ -16,7 +16,24 @@ Page({
         this.setData({ type: params.type });
     },
 
-    onShow() {
+    async onShow() {
+        const { platform, locationAuthorized, locationEnabled } = wx.getSystemInfoSync();
+        console.log(platform, 'platform');
+        console.log(locationAuthorized, 'locationAuthorized');
+        console.log(locationEnabled, 'locationEnabled');
+        if (platform !== 'devtools' && !locationEnabled) {
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '请打开手机地理位置开关',
+                showCancel: false
+            });
+            if (confirm) {
+                wx.navigateBack({
+                    delta: 1
+                });
+            }
+            return;
+        }
         this.getLocationData(this.data.type);
     },
 
@@ -26,7 +43,7 @@ Page({
             ctx: this
         });
         if (res) {
-            const data = await getLocation();
+            const data = await proxy.getLocation();
             console.log(data, 'data');
             const { latitude, longitude } = data;
             try {
