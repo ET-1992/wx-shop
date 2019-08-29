@@ -49,7 +49,11 @@
           <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
           <view>{{ product.miaosha_price }}</view>
         </view>
-				<view class="price-interval"> 原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}{{ product.price < product.highest_price ? ' ~ ' + product.highest_price : ''}} </view>
+        <view class="price-interval">
+					<text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+					<!-- 有最高价显示价格区间 -->
+					<text wx:if="{{ product.price < product.highest_price }}">{{ '~' + product.highest_price }}</text>
+				</view>
 			</view>
 			<view class="time">
 				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
