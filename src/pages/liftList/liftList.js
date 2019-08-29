@@ -26,7 +26,7 @@ Page({
         console.log(platform, 'platform');
         console.log(locationAuthorized, 'locationAuthorized');
         console.log(locationEnabled, 'locationEnabled');
-        if (platform !== 'devtools' && !(locationEnabled || locationAuthorized)) {
+        if (platform !== 'devtools' && (!locationEnabled || !locationAuthorized)) {
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
                 content: '请检查手机定位是否开启、是否允许微信使用手机定位',
