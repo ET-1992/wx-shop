@@ -138,21 +138,11 @@ Page({
         }, 1000);
 
         if (this.data.consoleTime >= 5) {
-            app.openConsole = true;
-            app.openConsoleResData = true;
-            app.event.emit('showConsole');
+            wx.setEnableDebug({
+                enableDebug: true
+            });
             this.onLoad();
         }
-        // if (app.openConsole) {
-        //     this.data.openConsoleResDataTime++;
-        //     setTimeout(() => {
-        //         this.data.openConsoleResDataTime = 0;
-        //     }, 1000);
-        //     if (this.data.openConsoleResDataTime >= 3) {
-        //         console.log('openConsoleResData');
-        //         app.openConsoleResData = true;
-        //     }
-        // }
     },
 
     // 签到改变花生米字段
