@@ -134,13 +134,13 @@ video {
 
 	.time {
 		position: absolute;
-		right: 32rpx;
+		right: 25rpx;
 		top: 11rpx;
 		color: $shareColor;
 		text-align: right;
 
 		.time-section {
-			width: 284rpx;
+			min-width: 284rpx;
 			display: flex;
 			flex-direction: column;
 			align-content: flex-start;
@@ -168,6 +168,12 @@ video {
 					color: #fff;
 					font-weight: bold;
 					border-radius: 6rpx;
+					margin: 0 8rpx;
+				}
+				.hour{
+					min-width: 40rpx;
+					width: unset;
+					padding: 0 8rpx;
 				}
 			}
 
