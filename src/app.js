@@ -6,6 +6,9 @@ import { parseScene } from 'utils/util';
 
 App({
     onLaunch() {
+        wx.onError((e) => {
+            console.log(e, 'onError');
+        });
         const { windowWidth, windowHeight, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
         this.systemInfo = {
             windowWidth,
