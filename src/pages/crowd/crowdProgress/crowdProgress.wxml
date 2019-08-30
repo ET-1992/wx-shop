@@ -110,7 +110,7 @@
 <productDetailShareModal
     productImage="{{ items[0].thumbnail }}"
     productTitle="{{ items[0].title }}"
-    productPrice="{{ items[0].price }}"
+    productPrice="{{ order.amount }}"
     routePath="{{ routePath }}"
     routeQuery="{{ routeQuery }}"
     bindonCloseModal="onCloseProductDetailShareModal"

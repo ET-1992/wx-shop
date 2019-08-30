@@ -36,6 +36,7 @@ Page({
 
         let { crowd_pay_no } = order.crowd;
         this.setData({
+            order,
             items: order.items,
             finalPayDispaly: info.finalPayDispaly,
             isLoading: false,
