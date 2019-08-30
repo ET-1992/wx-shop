@@ -161,7 +161,9 @@ Page({
             }
             let routeQuery = {
                 grouponId: order.groupon && order.groupon.id,
-                afcode: current_user && current_user.afcode || ''
+                afcode: current_user && current_user.afcode || '',
+                post_id: order.groupon.post_id,
+                sku_id: order.groupon.sku_id
             };
             this.setData({
                 groupon: order.groupon,
