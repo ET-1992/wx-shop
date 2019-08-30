@@ -120,27 +120,33 @@ Page({
         });
     },
 
-    // 限时购倒计时
+    // 限时购倒计时触发
     todayTimeLimit() {
         let {
             timeLimit
         } = this.data;
         if (timeLimit && !this.intervalId) {
+            this.todayTimeLimitSet();
             this.intervalId = setInterval(() => {
-                let { timeLimit } = this.data;
-                const [hour, minute, second] = getRemainTime(timeLimit);
-                let day = parseInt(hour / 24, 10);
-                this.setData({
-                    'timeLimit': timeLimit - 1,
-                    remainTime: {
-                        day: day,
-                        hour: hour - day * 24,
-                        minute,
-                        second,
-                    },
-                });
+                this.todayTimeLimitSet();
             }, 1000);
         }
+    },
+
+    // 限时购倒计时设置
+    todayTimeLimitSet() {
+        let { timeLimit } = this.data;
+        const [hour, minute, second] = getRemainTime(timeLimit);
+        let day = parseInt(hour / 24, 10);
+        this.setData({
+            'timeLimit': timeLimit - 1,
+            remainTime: {
+                day: day,
+                hour: hour - day * 24,
+                minute,
+                second,
+            },
+        });
     },
 
     loadProductDetailExtra(id) {
@@ -216,7 +222,7 @@ Page({
 
             // 限时购倒计时
             if (product.miaosha_enable) {
-                this.todayTimeLimit();
+                await this.todayTimeLimit();
             }
 
             // --------------------
