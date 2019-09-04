@@ -4,6 +4,8 @@
     "numberInput": "../../components/numberInput/index",
     "console": "../../components/console/console",
     "productList": "../../components/productList/index",
-    "loading": "../../components/loading/index"
+    "loading": "../../components/loading/index",
+    "navbarList": "../../components/navbarList/navbarList",
+    "van-icon": "../../components/vant-weapp/dist/icon/index"
   }
 }

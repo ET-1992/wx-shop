@@ -130,7 +130,7 @@
 
 					<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && !product.membership_dedicated_enable }}">
 						<view class="nowPrice">
-              <view class="currentPrice">
+              				<view class="currentPrice">
 								<text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
 								<text class="num">{{ product.definePrice }}</text>
 								<block wx:if="{{ (product.highest_price > product.definePrice) }}">
@@ -487,6 +487,7 @@
  isIphoneX="{{ isIphoneX }}"
  miaoshaObj="{{ miaoshaObj }}"
  bind:onSkuConfirm="onSkuConfirm"
+ bind:getShippingType="getShippingType"
 />
 
 <console page="商品详情" />

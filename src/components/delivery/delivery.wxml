@@ -4,7 +4,7 @@
 		<image src="/icons/right.png" class="right-arrow"></image>
 	</view>
 
-	<view class="wrapper" wx:if="{{ address.userName || address.receiver_name }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
+	<view class="wrapper" wx:if="{{ address.userName || address.receiver_name }}">
 		<view class="address-top" bindtap="onAddress">
 			<view class="left">收件地址</view>
 			<view class="right" wx:if="{{ !isOrderDetail }}">修改

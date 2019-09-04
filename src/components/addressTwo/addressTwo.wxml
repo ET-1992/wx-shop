@@ -4,7 +4,7 @@
 		<image src="/icons/right.png" class="right-arrow"></image>
 	</view>
 
-	<view class="wrapper" wx:if="{{ address.userName }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
+	<view class="wrapper" wx:if="{{ address.userName }}">
 		<view class="address-top">
 			<view class="left">收件地址</view>
 			<view class="right" wx:if="{{ !isOrderDetail }}">修改

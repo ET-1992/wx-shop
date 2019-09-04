@@ -3,15 +3,13 @@ $meter: 20rpx;
 .container {
 	padding: 0 $meter;
 	background-color: #fff;
-	margin-top: 20rpx;
+	margin-top: 10rpx;
 
 	.storeList-section {
-		// border-top: 1px solid $borderColor;
 		padding: 30rpx 5rpx 30rpx 8rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		// margin-top: 20rpx;
 
 		.right-arrow {
 			color: $tagColor;
@@ -24,9 +22,7 @@ $meter: 20rpx;
 }
 
 .wrapper {
-	// border-top: 1px solid $borderColor;
 	padding: 30rpx 5rpx 30rpx 8rpx;
-	// margin-top: 20rpx;
 
 	.address-top {
 		font-size: 28rpx;

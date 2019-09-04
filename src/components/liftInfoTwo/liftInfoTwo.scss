@@ -5,7 +5,6 @@ $meter: 20rpx;
 	background-color: #fff;
 
 	.liftInfo-section {
-		border-top: 1px solid $borderColor;
 		padding: 30rpx 5rpx 30rpx 8rpx;
 		display: flex;
 		justify-content: space-between;
@@ -22,7 +21,6 @@ $meter: 20rpx;
 	}
 
 	.wrapper {
-		border-top: 1px solid $borderColor;
 		padding: 30rpx 5rpx 30rpx 8rpx;
 
 		.address-top {

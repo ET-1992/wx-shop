@@ -54,10 +54,9 @@ Page({
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
         showShareModal: false,
-
         templateTypeText,
-
-        expiredGroupon: []
+        expiredGroupon: [],
+        shipping_type: 1
     },
 
     go, // 跳转到规则详情页面
@@ -318,11 +317,11 @@ Page({
         });
         this.onShowSku();
     },
-
+    // 加入购物车
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
+        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
 
         // 非会员不能购买会员专属商品 加入购物车
         if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
@@ -344,7 +343,9 @@ Page({
             quantity,
             vendor,
             form_id: formId,
+            shipping_type
         });
+        console.log('data348', data);
         if (!data.errcode) {
             await proxy.showToast({ title: '成功添加' });
             // 更新红点
@@ -523,7 +524,7 @@ Page({
     async reload() {
         await this.initPage();
     },
-
+    // 分享按钮
     onShareAppMessage() {
         this.closeShareModal();
         const { current_user = {}, product } = this.data;
@@ -686,5 +687,14 @@ Page({
                 url: '/pages/membership/members/members'
             });
         }
+    },
+
+    // 从 SKUModel 组件获取配送方式 shipping_type
+    getShippingType(e) {
+        console.log('e690', e);
+        this.setData({
+            shipping_type: e.detail.shipping_type
+        });
+        console.log('shipping_type696', this.data.shipping_type);
     }
 });

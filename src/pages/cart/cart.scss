@@ -41,14 +41,14 @@ page{
 .onGotoLogin {
 	width: 450rpx;
 }
-	.onGotoLogin image{
-		width: 60rpx;
-		height: 60rpx;
-		margin-right: 10rpx;
-	}
+.onGotoLogin image{
+	width: 60rpx;
+	height: 60rpx;
+	margin-right: 10rpx;
+}
 .cartList {
 	height: 90%;
-	// margin-bottom: 150rpx;
+	padding-top: 90rpx;
 }
 
 .stodownloadWrap {
@@ -62,7 +62,6 @@ page{
 
 .radio {
 	$size: 32rpx;
-
 	height: $size;
 	width: $size;
 	margin-right: 20rpx;
@@ -78,7 +77,6 @@ page{
 
 	.radioIcon {
 		$iconSize: 24rpx;
-
 		height: $iconSize;
 		width: $iconSize;
 	}
@@ -159,13 +157,16 @@ page{
 .clearCart {
 	padding: 40rpx 20rpx;
 	color: #ccc;
-	font-size: 10pt;
+	font-size: 26rpx;
 	display: flex;
 	justify-content: flex-end;
+	align-items: center;
+	.van-delete {
+		margin-right: 10rpx;
+	}
 }
 .footer {
 	$footerHeight: 100rpx;
-	
 	height: $footerHeight;
 	display: flex;
 	align-items: center;

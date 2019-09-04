@@ -3,31 +3,29 @@
   <view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
   <!-- 配送方式 -->
   <block wx:if="{{ product_type !== 1 }}">
-    <view class="express" wx:if="{{ self_lifting_enable || home_delivery_enable || logistics_enable }}">
+    <!-- <view class="express" wx:if="{{ self_lifting_enable || home_delivery_enable || logistics_enable }}">
         <text class="item-text">配送方式</text>
         <radio-group class="radio-group" bindchange="radioChange">
             <label wx:for="{{ liftStyles }}" wx:if="{{ item.visible }}" wx:key="{{value}}">
-                <!-- <radio value="{{ index }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
-                <view class="title">{{ item.title }}</view> -->
                 <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
                 <view class="title">{{ item.title }}</view>
             </label>
         </radio-group>
-    </view>
+      </view> -->
     <!-- 自提 -->
-    <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ liftStyle == 'lift' && self_lifting_enable }}" bindupdateLiftInfo="updateLiftInfo"/>
+    <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ shipping_type === '2' }}" bindupdateLiftInfo="updateLiftInfo"/>
     <!-- <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/> -->
 
     <!-- 快递 -->
-    <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' && logistics_enable }}" />
+    <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ shipping_type === '1' }}" />
     <!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" /> -->
 
     <!-- 送货上门 -->
-    <delivery address="{{ address }}" wx:if="{{ liftStyle == 'delivery' && home_delivery_enable }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" />
+    <delivery address="{{ address }}" wx:if="{{ shipping_type === '4' }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" />
   </block>
 
   <!-- 门店列表 -->
-  <storeList addresses="{{ storeListAddress }}" wx:if="{{ liftStyle == 'delivery' }}" id="storeList"></storeList>
+  <storeList addresses="{{ storeListAddress }}" wx:if="{{ shipping_type === '4' }}" id="storeList"></storeList>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />

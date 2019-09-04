@@ -1,5 +1,6 @@
 import { Sku } from 'peanut-all';
 import { getAgainUserForInvalid } from 'utils/util';
+import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
 Component({
@@ -65,9 +66,68 @@ Component({
         disableSkuItems: {},
         skuMap: {},
         globalData: app.globalData,
-        now: Math.round(Date.now() / 1000)
+        now: Math.round(Date.now() / 1000),
+        liftStyles: [
+            { title: '快递', value: 'express', checked: false, visible: false },
+            { title: '自提', value: 'lift', checked: false, visible: false },
+            { title: '送货上门', value: 'delivery', checked: false, visible: false }
+        ],
+        liftStyle: 'express',
+        shipping_type: 1
+    },
+    attached() {
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ config });
+        this.firstInit();
     },
     methods: {
+        // 初始化配送方式
+        firstInit() {
+            console.log('config72', this.data.config);
+            let {
+                config: {
+                    logistics_enable,
+                    self_lifting_enable,
+                    home_delivery_enable
+                },
+                liftStyles,
+                liftStyle
+            } = this.data;
+            let configLiftStyles = [
+                {
+                    value: 'express',
+                    visible: logistics_enable
+                },
+                {
+                    value: 'lift',
+                    visible: self_lifting_enable
+                },
+                {
+                    value: 'delivery',
+                    visible: home_delivery_enable
+                }
+            ];
+
+            if (logistics_enable || self_lifting_enable || home_delivery_enable) {
+                liftStyles.forEach((item, index) => {
+                    item.visible = item && (item.value === configLiftStyles[index].value) && configLiftStyles[index].visible;
+                });
+                let liftStyleIndex = configLiftStyles.findIndex(item => {
+                    return item.visible === true;
+                });
+                console.log('liftStyleIndex', liftStyleIndex);
+                console.log('liftStyles', liftStyles);
+                console.log('liftStyles[liftStyleIndex]', liftStyles[liftStyleIndex]);
+                liftStyles[liftStyleIndex].checked = true;
+                console.log('liftStyleIndex', liftStyleIndex);
+                liftStyle = liftStyles[liftStyleIndex].value;
+                this.setData({
+                    liftStyle,
+                    liftStyles
+                });
+            }
+            console.log('liftStyle', liftStyle, 'liftStyles', liftStyles);
+        },
         close() {
             this.setData({
                 isShowSkuModal: false
@@ -193,6 +253,39 @@ Component({
             console.log(this.data);
             const { selectedSku, quantity, formId } = this.data;
             this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity, formId }, { bubbles: true });
+        },
+
+        /* radio选择改变触发 */
+        radioChange(e) {
+            console.log('2222');
+            const { liftStyles } = this.data;
+            const { value } = e.detail;
+            console.log('radioValue263', value);
+            if (value === 'express') {
+                this.setData({
+                    shipping_type: 1
+                });
+            }
+            if (value === 'lift') {
+                this.setData({
+                    shipping_type: 2
+                });
+            }
+            if (value === 'delivery') {
+                this.setData({
+                    shipping_type: 4
+                });
+            }
+            liftStyles.forEach((item) => {
+                if (item.value === value) {
+                    item.checked = true;
+                } else {
+                    item.checked = false;
+                }
+            });
+            this.setData({ liftStyle: value, liftStyles });
+            console.log('liftStyle', this.data.liftStyle, 'liftStyles', liftStyles, 'shipping_type', this.data.shipping_type);
+            this.triggerEvent('getShippingType', { shipping_type: this.data.shipping_type }, { bubbles: true });
         },
     }
 });
