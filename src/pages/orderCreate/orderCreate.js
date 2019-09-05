@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, CONFIG, PAY_STYLES } from 'constants/index';
+import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -90,11 +90,13 @@ Page({
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
+            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || {};
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
             this.setData({
                 address,
+                liftInfo,
                 totalPrice,
                 items,
                 isGrouponBuy: isGrouponBuy || null,
@@ -638,14 +640,6 @@ Page({
     radioChange(e) {
         const { liftStyles } = this.data;
         const { value } = e.detail;
-        if (value === 'lift') {
-            const liftInfo = wx.getStorageSync('liftInfo');
-            if (liftInfo) {
-                this.setData({
-                    liftInfo
-                });
-            }
-        }
         liftStyles.forEach((item) => {
             if (item.value === value) {
                 item.checked = true;
