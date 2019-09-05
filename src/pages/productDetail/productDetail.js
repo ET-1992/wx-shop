@@ -278,6 +278,7 @@ Page({
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
+        console.log('CART_NUM', typeof CART_NUM);
         this.setData({
             isIphoneX,
             user,
@@ -321,6 +322,7 @@ Page({
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
+        console.log('shipping_type', this.data.shipping_type);
         const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
 
         // 非会员不能购买会员专属商品 加入购物车
@@ -363,7 +365,7 @@ Page({
             }
         }
     },
-
+    // 立即购买
     async onBuy() {
         console.log('onBuy');
         const {
@@ -374,7 +376,8 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
-            isCrowd
+            isCrowd,
+            shipping_type
         } = this.data;
 
         // 非会员不能购买会员专属商品 立即购买
@@ -383,7 +386,7 @@ Page({
             return;
         }
 
-        let url = '/pages/orderCreate/orderCreate';
+        let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
         let isMiaoshaBuy = false;
 
         if (product.miaosha_enable) {
@@ -515,9 +518,9 @@ Page({
     },
 
     async showCartNumber(e) {
-        wx.setStorageSync('CART_NUM', e.toString());
+        wx.setStorageSync('CART_NUM', e);
         this.setData({
-            cartNumber: e.toString()
+            cartNumber: e
         });
     },
 

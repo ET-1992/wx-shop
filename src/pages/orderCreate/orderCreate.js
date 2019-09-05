@@ -50,12 +50,6 @@ Page({
         selectedPayValue: 'weixin',
     },
 
-    // onLoad() {
-    // 	const { themeColor } = app.globalData;
-    // 	const { isIphoneX } = app.systemInfo;
-    // 	this.setData({ themeColor, isIphoneX });
-    // },
-
     async onShow() {
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
@@ -508,9 +502,12 @@ Page({
         });
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order } = await api.hei[method](requestData);
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
             wx.hideLoading();
-
+            console.log('OrderCreatecart507', cart);
+            if (cart && cart.count) {
+                wx.setStorageSync('CART_NUM', cart.count);
+            }
             if (crowd && crowd_pay_no) {
                 wx.redirectTo({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,

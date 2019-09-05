@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
-import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
+import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG, SHIPPING_TYPE } from 'constants/index';
 import { updateCart, autoNavigate } from 'utils/util';
 
 const app = getApp();
@@ -9,24 +9,6 @@ const app = getApp();
 Page({
     data: {
         items: [],
-        liftStyles: [
-            {
-                text: '快递',
-                value: 'express',
-                shipping_type: 1
-            },
-            {
-                text: '自提',
-                value: 'lift',
-                shipping_type: 2
-            },
-            {
-                text: '送货上门',
-                value: 'delivery',
-                shipping_type: 4
-            }
-        ],
-        liftStyle: 'express',
         liftStyleIndex: 0,
         isAllSelected: false,
         totalPrice: 0,
@@ -56,8 +38,6 @@ Page({
         this.setData({ isLogin: true, isLoading: true });
         this.firstInit();
         await this.loadCart();
-        const cartNumber = (this.data.items.length).toString();
-        wx.setStorageSync('CART_NUM', cartNumber);
         this.showCart();
     },
 
@@ -70,8 +50,8 @@ Page({
     },
 
     async loadCart() {
-        const { liftStyle, shipping_type, liftStyles } = this.data;
-        console.log('liftStyle123', liftStyle, 'shipping_type', shipping_type, 'liftStyles', liftStyles);
+        const { shipping_type, liftStyles } = this.data;
+        console.log('shipping_type', shipping_type, 'liftStyles', liftStyles);
         // this.checkPhoneModel();
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
         const data = await api.hei.fetchCartList({ shipping_type });
@@ -90,7 +70,7 @@ Page({
         console.log(isSelectedObject, 'isSelectedObject147');
 
         liftStyles.forEach(item => {
-            item.totalCounts = data.shipping_type_count[item.shipping_type];
+            item.totalCounts = data.shipping_type_count[item.value];
         });
         console.log('liftStyles93', liftStyles);
         this.setData({
@@ -119,7 +99,7 @@ Page({
         });
         this.calculatePrice();
     },
-
+    // 全选商品逻辑
     onSelectAll() {
         let { isSelectedObject, isAllSelected } = this.data;
         for (let key in isSelectedObject) {
@@ -272,61 +252,31 @@ Page({
 
     // 初始化配送方式
     firstInit() {
-        console.log('config275', this.data.config);
+        console.log('config72', this.data.config);
         let {
             config: {
-                logistics_enable,
-                self_lifting_enable,
-                home_delivery_enable
-            },
-            liftStyles,
-            liftStyle
-        } = this.data;
-        let configLiftStyles = [
-            {
-                value: 'express',
-                visible: logistics_enable
-            },
-            {
-                value: 'lift',
-                visible: self_lifting_enable
-            },
-            {
-                value: 'delivery',
-                visible: home_delivery_enable
+                enable_shipping_types
             }
-        ];
-
-        if (logistics_enable || self_lifting_enable || home_delivery_enable) {
-            liftStyles.forEach((item, index) => {
-                item.visible = item && (item.value === configLiftStyles[index].value) && configLiftStyles[index].visible;
-            });
-            let liftStyleIndex = configLiftStyles.findIndex(item => {
-                return item.visible === true;
-            });
-            liftStyle = liftStyles[liftStyleIndex].value;
-            this.setData({
-                liftStyle,
-                liftStyles,
-                liftStyleIndex: 0,
-                shipping_type: 1
-            });
-        }
-        console.log('liftStyle', liftStyle, 'liftStyles', liftStyles, 'liftStyleIndex', this.data.liftStyleIndex, 'shipping_type', this.data.shipping_type);
+        } = this.data;
+        console.log('enable_shipping_types', enable_shipping_types);
+        const liftStyles = SHIPPING_TYPE.filter(item => {
+            return enable_shipping_types.indexOf(item.value) > -1;
+        });
+        console.log('data', liftStyles);
+        this.setData({ liftStyles, shipping_type: 1, liftStyleIndex: 0 });
     },
 
     // 列表导航模块
     changeNavbarList(e) {
-        const { index, value, type } = e.detail;
-        console.log('index297', index, 'value297', value, 'type', type);
+        const { index, value } = e.detail;
+        console.log('index297', index, 'value297', value);
         this.setData({
             items: [],
             liftStyleIndex: index,
-            liftStyle: value,
             isLoading: true,
-            shipping_type: type
+            shipping_type: value
         });
-        console.log('liftStyleIndex323', index, 'liftStyle323', value, 'shipping_type', this.data.shipping_type);
+        console.log('liftStyleIndex323', index, 'shipping_type', this.data.shipping_type);
         this.loadCart();
     },
 });

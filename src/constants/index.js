@@ -115,11 +115,12 @@ export const CURRENCY = {
 //     4: '直接支付'
 // };
 
-// const SHIPPING_TYPE = {
-//     1: '快递物流',
-//     2: '自提',
-//     3: '上门服务'
-// };
+export const SHIPPING_TYPE = [
+    { text: '快递', value: 1 },
+    { text: '自提', value: 2 },
+    { text: '上门服务', value: 3 },
+    { text: '送货上门', value: 4 }
+];
 
 // const coupon_data_type = {
 //     1: '固定日期区间',

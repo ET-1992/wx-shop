@@ -82,9 +82,9 @@
             <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                 <view class="item-text">配送方式</view>
                 <radio-group class="radio-group" bindchange="radioChange">
-                    <label wx:for="{{ liftStyles }}" wx:if="{{ item.visible }}" wx:key="{{value}}">
+                    <label wx:for="{{ liftStyles }}" wx:key="{{value}}">
                         <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
-                        <view class="title">{{ item.title }}</view>
+                        <view class="title">{{ item.text }}</view>
                     </label>
                 </radio-group>
             </view>
