@@ -70,7 +70,7 @@ Page({
         console.log(isSelectedObject, 'isSelectedObject147');
 
         liftStyles.forEach(item => {
-            item.totalCounts = data.shipping_type_count[item.value];
+            item.totalCounts = data.shipping_type_counts[item.value];
         });
         console.log('liftStyles93', liftStyles);
         this.setData({
@@ -255,12 +255,12 @@ Page({
         console.log('config72', this.data.config);
         let {
             config: {
-                enable_shipping_types
+                shipping_types
             }
         } = this.data;
-        console.log('enable_shipping_types', enable_shipping_types);
+        console.log('shipping_types', shipping_types);
         const liftStyles = SHIPPING_TYPE.filter(item => {
-            return enable_shipping_types.indexOf(item.value) > -1;
+            return shipping_types.indexOf(item.value) > -1;
         });
         console.log('data', liftStyles);
         this.setData({ liftStyles, shipping_type: 1, liftStyleIndex: 0 });
