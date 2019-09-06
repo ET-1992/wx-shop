@@ -90,7 +90,7 @@ Page({
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
-            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || {};
+            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
