@@ -56,5 +56,5 @@
 
 <loading isLoading="{{ isLoading }}"/>
 
-<myModal modal="{{authModal}}" />
+<myModal modal="{{authModal}}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
 <console />
