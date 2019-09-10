@@ -82,7 +82,7 @@ Component({
     methods: {
         drawProductDetailImg() {
             // ctm的wx page和components搞两套语法也就算了 api也搞两套 一下午被兼容搞得头大
-            const { productTitle, productPrice, originalPrice, grouponLimit, remainSecond, remainTime, productImageUrl, qrcodeUrl, user, nodeInfo, routeQuery, isMiaosha, miaoshaObj } = this.data;
+            const { productTitle, productPrice, originalPrice, grouponLimit, remainSecond, remainTime, productImageUrl, qrcodeUrl, user, nodeInfo, routeQuery, isMiaosha, miaoshaObj, qvcode } = this.data;
             console.log(productImageUrl);
             console.log(productTitle);
             const ctx = wx.createCanvasContext('canvasPoster', this);
@@ -145,6 +145,8 @@ Component({
             ctx.font = 'normal bold 12px PingFang SC';
 
             if (routeQuery.grouponId) {
+                console.log(qvcode, 'qvcode');
+                const { product = null }  = qvcode;
                 if (remainSecond > 0) {
                     ctx.setFillStyle('#000000');
                     ctx.font = 'normal bold 14px PingFang SC';
@@ -160,7 +162,7 @@ Component({
 
                 ctx.setFillStyle('#707070');
                 ctx.font = 'normal 12px PingFang SC';
-                ctx.fillText('单独购买' + globalData.CURRENCY[globalData.currency] + originalPrice, 45 / 540 * width, 750 / 900 * height + 15);
+                ctx.fillText('单独购买' + globalData.CURRENCY[globalData.currency] + (product ? product.price : originalPrice), 45 / 540 * width, 750 / 900 * height + 15);
 
                 ctx.setFillStyle('#FC2732');
                 ctx.font = 'normal 12px PingFang SC';
@@ -190,7 +192,7 @@ Component({
                 }
                 ctx.setFillStyle('#707070');
                 ctx.font = 'normal 12px PingFang SC';
-                ctx.fillText('原价购买' + globalData.CURRENCY[globalData.currency] + originalPrice, 45 / 540 * width, 750 / 900 * height + 15);
+                ctx.fillText('原价购买' + globalData.CURRENCY[globalData.currency] + miaoshaObj.price + (miaoshaObj.price < miaoshaObj.highest_price ? '~' + miaoshaObj.highest_price : ''), 45 / 540 * width, 750 / 900 * height + 15);
 
                 ctx.setFillStyle('#FC2732');
                 ctx.font = 'normal 12px PingFang SC';
@@ -315,8 +317,10 @@ Component({
                 if (routeQuery.id) {		// 商品详情
                     scene.id = routeQuery.id;
                 }
-                if (routeQuery.grouponId) {		// 拼团
+                if (routeQuery.grouponId) {		// 邀请拼团海报
                     scene.gid = routeQuery.grouponId;
+                    options.post_id = routeQuery.post_id;
+                    options.sku_id = routeQuery.sku_id;
                 }
                 if (routeQuery.crowd_pay_no) {	// 代付
                     scene.c = routeQuery.crowd_pay_no;

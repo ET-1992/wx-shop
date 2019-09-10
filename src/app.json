@@ -86,6 +86,12 @@
 				"selectedIconPath": "icons/default/categorySelected.png"
 			},
 			{
+				"pagePath": "pages/articleList/articleList",
+				"iconPath": "icons/default/articleList.png",
+				"text": "格物",
+				"selectedIconPath": "icons/default/articleListSelected.png"
+			},
+			{
 				"pagePath": "pages/cart/cart",
 				"iconPath": "icons/default/cart.png",
 				"text": "购物车",

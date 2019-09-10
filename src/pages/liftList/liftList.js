@@ -45,7 +45,8 @@ Page({
     async getLocationData(type) {
         const res = await auth({
             scope: 'scope.userLocation',
-            ctx: this
+            ctx: this,
+            isFatherControl: true
         });
         if (res) {
             const data = await proxy.getLocation();
@@ -137,6 +138,17 @@ Page({
         wx.showToast({
             title: '该区域超出送货范围，不能选择！',
             icon: 'none',
+        });
+    },
+
+    onAuthModalCancel() {
+        wx.navigateBack({
+            delta: 1
+        });
+    },
+    onAuthModalConfirm() {
+        this.setData({
+            'authModal.isShowModal': false
         });
     }
 });

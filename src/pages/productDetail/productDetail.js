@@ -90,7 +90,9 @@ Page({
             const {
                 miaosha_end_timestamp,
                 miaosha_start_timestamp,
-                miaosha_price
+                miaosha_price,
+                price,
+                highest_price
             } = this.data.product;
             const now = Math.round(Date.now() / 1000);
             let timeLimit = miaosha_end_timestamp - now;
@@ -110,7 +112,9 @@ Page({
                 hasStart,
                 hasEnd,
                 miaoshaObj: {
+                    price,
                     miaosha_price,
+                    highest_price,
                     remainTime: getRemainTime(timeLimit).join(':'),
                     hasStart,
                     hasEnd,
@@ -119,27 +123,33 @@ Page({
         });
     },
 
-    // 限时购倒计时
+    // 限时购倒计时触发
     todayTimeLimit() {
         let {
             timeLimit
         } = this.data;
         if (timeLimit && !this.intervalId) {
+            this.todayTimeLimitSet();
             this.intervalId = setInterval(() => {
-                let { timeLimit } = this.data;
-                const [hour, minute, second] = getRemainTime(timeLimit);
-                let day = parseInt(hour / 24, 10);
-                this.setData({
-                    'timeLimit': timeLimit - 1,
-                    remainTime: {
-                        day: day,
-                        hour: hour - day * 24,
-                        minute,
-                        second,
-                    },
-                });
+                this.todayTimeLimitSet();
             }, 1000);
         }
+    },
+
+    // 限时购倒计时设置
+    todayTimeLimitSet() {
+        let { timeLimit } = this.data;
+        const [hour, minute, second] = getRemainTime(timeLimit);
+        let day = parseInt(hour / 24, 10);
+        this.setData({
+            'timeLimit': timeLimit - 1,
+            remainTime: {
+                day: day,
+                hour: hour - day * 24,
+                minute,
+                second,
+            },
+        });
     },
 
     loadProductDetailExtra(id) {
@@ -215,7 +225,7 @@ Page({
 
             // 限时购倒计时
             if (product.miaosha_enable) {
-                this.todayTimeLimit();
+                await this.todayTimeLimit();
             }
 
             // --------------------
@@ -405,7 +415,7 @@ Page({
         }
 
         if (isGrouponBuy) {
-            url = url + '?isGrouponBuy=true';
+            url = url + '&isGrouponBuy=true';
 
             // 参团，跳转到orderCreate需要带上grouponId
             if (grouponId) {
@@ -420,7 +430,7 @@ Page({
             }
         }
         if (isCrowd) {
-            url = url + '?crowd=true';
+            url = url + '&crowd=true';
         }
 
         const currentOrder = createCurrentOrder({

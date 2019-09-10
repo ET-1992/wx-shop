@@ -5,64 +5,56 @@
 	text-align:right;
 	border-top:2rpx solid #eee;
 	padding-top:15rpx;
-	line-height:0rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
 	&.iphoneXTrick {
 		padding-bottom: 20rpx;
 	}
 
-	.contactBt {
-		float: left;
-		font-size: 10pt;
+	.left-btn{
 		display: flex;
 		align-items: center;
-		margin-top: 8rpx;
-		border: none;
-		background-color: transparent;
-		line-height: 1.4;
-		padding-right: 50rpx;
+		.contactBt {
+			display: flex;
+			align-items: center;
+			border: none;
+			background-color: transparent;
+			margin-left: 10rpx;
+		}
+		.contactBt::after {
+			display: none;
+		}
+		.contactIcon {
+			$size: 70rpx;
+
+			height: $size;
+			width: $size;
+		}
 	}
 
-	.contactBt::after {
-		display: none;
-	}
-
-	.callBt{
-		float: left;
-		font-size: 10pt;
+	.right-btn{
 		display: flex;
 		align-items: center;
-		margin-top: 8rpx;
-		border: none;
-		background-color: transparent;
-		line-height: 1.4;
-	}
+		.statusBt {
+			border: 1rpx solid rgba(112, 112, 112, 1);
+			border-radius: 10rpx;
+			font-size: 24rpx;
+			margin-left: 20rpx;
+			display: inline-block;
+			color: $titleColor;
+			height: 50rpx;
+			line-height: 50rpx;
+			width: 120rpx;
+			background-color: #fff;
+			text-align:center;
+		}
 
-	.contactIcon {
-		$size: 36rpx;
-
-		height: $size;
-		width: $size;
-		margin-right: 10rpx;
-	}
-
-	.statusBt {
-		border: 1px solid rgba(112, 112, 112, 1);
-		border-radius: 10rpx;
-		font-size: 24rpx;
-		margin-left: 20rpx;
-		display: inline-block;
-		color: $titleColor;
-		height: 50rpx;
-		line-height: 50rpx;
-		width: 120rpx;
-		background-color: #fff;
-		text-align:center;
-	}
-
-	.confirmBt, .payBt {
-		background-color: $priceColor;
-		border: 1px solid $priceColor;
-		color: #fff;
+		.confirmBt, .payBt {
+			background-color: $priceColor;
+			border: 1rpx solid $priceColor;
+			color: #fff;
+		}
 	}
 }

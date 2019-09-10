@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, CONFIG, PAY_STYLES } from 'constants/index';
+import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -69,8 +69,14 @@ Page({
             isIphoneX,
             defineTypeGlobal,
             config,
-            ...params
+            shipping_type: params.shipping_type,
+            free_shipping_amount: config && config.free_shipping_amount
         });
+        // if (params.shipping_type === '1' || params.shipping_type === '2') {
+        //     this.setData({
+        //         free_shipping_amount: config && config.free_shipping_amount
+        //     });
+        // }
         console.log('shipping_type', this.data.shipping_type, typeof (this.data.shipping_type));
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -78,11 +84,13 @@ Page({
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
+            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
             this.setData({
                 address,
+                liftInfo,
                 totalPrice,
                 items,
                 isGrouponBuy: isGrouponBuy || null,
@@ -185,7 +193,8 @@ Page({
         this.setData({
             storeListAddress: data[0],
             homeDeliveryTimes: times,
-            chooseAreaId: data[0].id
+            chooseAreaId: data[0].id,
+            free_shipping_amount: data[0] && data[0].free_amount
         }, () => {
             this.onLoadData(data[0].id);
         });

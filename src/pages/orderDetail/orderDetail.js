@@ -161,7 +161,9 @@ Page({
             }
             let routeQuery = {
                 grouponId: order.groupon && order.groupon.id,
-                afcode: current_user && current_user.afcode || ''
+                afcode: current_user && current_user.afcode || '',
+                post_id: order.groupon.post_id,
+                sku_id: order.groupon.sku_id
             };
             this.setData({
                 groupon: order.groupon,
@@ -220,7 +222,7 @@ Page({
 
     onJoin(e) {
         const { isNewUserGroupon, isGrouponBuy, isCrowd } = e;
-        const { groupon, has_joined, product } = this.data;
+        const { groupon, product } = this.data;
         const current_user = wx.getStorageSync(USER_KEY);
         console.log('current_user:', current_user);
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
@@ -237,14 +239,6 @@ Page({
             wx.showModal({
                 title: '温馨提示',
                 content: '不能参加自己的拼团',
-                showCancel: false
-            });
-            return;
-        }
-        if (current_user && groupon.user && (current_user.openid !== groupon.user.openid) && has_joined) {
-            wx.showModal({
-                title: '温馨提示',
-                content: '您已参团',
                 showCancel: false
             });
             return;

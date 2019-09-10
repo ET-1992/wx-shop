@@ -25,6 +25,10 @@ Component({
         themeColor: {
             type: Object,
             value: {}
+        },
+        freeShippingAmount: {
+            type: String,
+            value: ''
         }
     },
     data: {

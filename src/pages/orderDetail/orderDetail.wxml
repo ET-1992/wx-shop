@@ -72,7 +72,7 @@
     <!-- 待发货订单 -->
     <view class="logisticsWrap" wx:if="{{ order.no_logistics_items && order.no_logistics_items.length && !otherPeopleGroupon }}">
         <view class="noLogistics" wx:if="{{ order.status === 31 }}">待发货</view>
-        <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" wx:if="{{ !otherPeopleGroupon }}" />
+        <productItemSold items="{{ order.no_logistics_items}}" groupon="{{ order.groupon_id ? order.groupon : '' }}" itemStyle="{{ !order.groupon_id ? 1 : 2 }}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" wx:if="{{ !otherPeopleGroupon }}" />
     </view>
 
     <!-- 参团 -->
@@ -255,7 +255,19 @@
   	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
   </view>
 </van-popup>
-<productDetailShareModal productImage="{{ order.items[0].thumbnail }}" productTitle="{{ order.items[0].title }}" productPrice="{{ order.items[0].price }}" originalPrice="{{ order.items[0].original_price }}" grouponLimit="{{ order.groupon.member_limit }}" remainSecond="{{ remainSecond }}" remainTime="{{ remainTime }}" routePath="{{ routePath }}" routeQuery="{{ routeQuery }}" bindonCloseModal="onCloseProductDetailShareModal" wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}" />
+<productDetailShareModal
+ productImage="{{ order.groupon.thumbnail }}"
+ productTitle="{{ order.groupon.title }}"
+ productPrice="{{ order.groupon.price }}"
+ originalPrice="{{ order.items[0].original_price }}"
+ grouponLimit="{{ order.groupon.member_limit }}"
+ remainSecond="{{ remainSecond }}"
+ remainTime="{{ remainTime }}"
+ routePath="{{ routePath }}"
+ routeQuery="{{ routeQuery }}"
+ bindonCloseModal="onCloseProductDetailShareModal"
+ wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}"
+/>
 <console page="订单详情" />
 
 <skuModal
