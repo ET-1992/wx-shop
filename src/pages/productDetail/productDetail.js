@@ -332,7 +332,7 @@ Page({
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        console.log('shipping_type', this.data.shipping_type);
+        console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
         const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
 
         // 非会员不能购买会员专属商品 加入购物车

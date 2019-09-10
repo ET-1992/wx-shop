@@ -67,7 +67,8 @@ Component({
         disableSkuItems: {},
         skuMap: {},
         globalData: app.globalData,
-        now: Math.round(Date.now() / 1000)
+        now: Math.round(Date.now() / 1000),
+        shipping_types: '1'
     },
     attached() {
         const config = wx.getStorageSync(CONFIG);
@@ -127,10 +128,12 @@ Component({
             }
             console.log(this.data, 'onSkuItem');
         },
+        // classify 页面
         async onAddCart(e) {
-            const { selectedSku } = this.data;
+            const { selectedSku, shipping_type } = this.data;
             console.log(selectedSku, e, 'erer');
             e.sku_id = selectedSku.id;
+            e.shipping_type = shipping_type;
             if (selectedSku.stock === 0) {
                 await proxy.showModal({
                     title: '温馨提示',
