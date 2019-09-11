@@ -30,7 +30,8 @@ Page({
             themeColor: globalData.themeColor,
             globalData,
             config,
-            ...systemInfo
+            ...systemInfo,
+            free_shipping_amount: config && config.free_shipping_amount
         });
     },
 
@@ -51,7 +52,7 @@ Page({
 
     async loadCart() {
         const { shipping_type, liftStyles } = this.data;
-        console.log('shipping_type', shipping_type, 'liftStyles', liftStyles);
+        console.log('shipping_type', shipping_type, typeof shipping_type, 'liftStyles', liftStyles);
         // this.checkPhoneModel();
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
         const data = await api.hei.fetchCartList({ shipping_type });

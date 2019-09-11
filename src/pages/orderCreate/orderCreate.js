@@ -72,11 +72,6 @@ Page({
             shipping_type: params.shipping_type,
             free_shipping_amount: config && config.free_shipping_amount
         });
-        // if (params.shipping_type === '1' || params.shipping_type === '2') {
-        //     this.setData({
-        //         free_shipping_amount: config && config.free_shipping_amount
-        //     });
-        // }
         console.log('shipping_type', this.data.shipping_type, typeof (this.data.shipping_type));
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付

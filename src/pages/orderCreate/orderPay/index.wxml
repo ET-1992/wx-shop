@@ -1,7 +1,7 @@
 <form report-submit bindsubmit="onPay">
     <view class="orderPay {{crowd ? 'orderPay-crowd' : ''}} {{ !crowd && isIphoneX ? 'iphoneX-style' : '' }}">
         <view class="pay-text">
-            <view class="pay-top">满{{freeShippingAmount}}免邮</view>
+            <view class="pay-top">满{{ globalData.CURRENCY[globalData.currency] }}{{freeShippingAmount}}免邮</view>
             <view class="pay-bottom">
                 <view class="pay-total">合计：</view>
                 <view class="pay-price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPay }} </view>

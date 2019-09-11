@@ -41,8 +41,8 @@
       </view>
   </view>
 
-    <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
-      <view class="title">您当前的储值卡余额为：{{ store_card.balance }}元</view>
+  <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
+    <view class="title">您当前的储值卡余额为：{{ store_card.balance }}元</view>
   </view>
 
   <!-- 订单金额具体信息 -->

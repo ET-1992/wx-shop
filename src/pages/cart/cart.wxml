@@ -84,14 +84,21 @@
   	  	</view>
   	  	<view class="checkall" bindtap="onSelectAll">全选</view>
   	  	<view class="priceCount">
-            <view class="amount"> 合计： <text class="totalPrice"> {{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }} </text> </view>
-            <view class="priceMeta">
-                <!-- <text class="postage"
-                >运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
-                <text>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</text>
-            </view>
+			<view class="amount">
+				<view class="amount-left">
+					合计：
+					<view class="totalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }} </view>
+				</view>
+				<!-- <view class="amount-right">已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</view> -->
+			</view>
+			<view class="priceMeta">
+				<!-- <text class="postage"
+				>运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
+				<view>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</view>
+				<view class="priceMeta-text" wx:if="{{(shipping_type === 1 || shipping_type === 2) && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
+			</view>
   	  	</view>
-  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor  }}"> 去结算 </button>
+  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>
   	</view>
 </view>
 
