@@ -153,7 +153,7 @@ Page({
             });
             items.splice(index, 1);
             liftStyles.forEach(item => {
-                item.totalCounts = data.shipping_type_count[item.shipping_type];
+                item.totalCounts = data.shipping_type_counts[item.shipping_type];
             });
             this.setData({ items, liftStyles });
             delete isSelectedObject[itemId];
@@ -180,7 +180,7 @@ Page({
                 title: '成功清空购物车',
             });
             liftStyles.forEach(item => {
-                item.totalCounts = data.shipping_type_count[item.shipping_type];
+                item.totalCounts = data.shipping_type_counts[item.shipping_type];
             });
             this.setData({ items: [], isSelectedObject: {}, liftStyles });
             this.calculatePrice();

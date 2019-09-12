@@ -13,15 +13,6 @@ Component({
                 });
             }
         },
-        totalPrice: {
-            type: null,
-            value: 0,
-            observer(newValue) {
-                this.setData({
-                    totalPriceDispaly: Number(newValue).toFixed(2)
-                });
-            }
-        },
         fee: {
             type: Object,
             value: {},
