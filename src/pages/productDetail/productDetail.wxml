@@ -146,30 +146,22 @@
 							<text class="vipTipWrap">会员价</text>
 						</view>
 						<!-- 原价 -->
-            <view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+           				 <view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 					</block>
 				</view>
 
 				<view class="info-section" wx:if="{{ product.product_type !== 1}}">
-          <view class="left-section">
-            <view class="delivery-section" wx:if="{{ config && config.self_lifting_enable }}">
-              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-              到店自提
-            </view>
-            <view class="delivery-section" wx:if="{{ config && config.home_delivery_enable }}">
-              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-              送货上门
-            </view>
-            <view class="delivery-section" wx:if="{{ config && config.logistics_enable }}">
-              <image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-              快递
-            </view>
-          </view>
-          <view class="right-section">
-					  <view class="delivery-section" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
-            <view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
-          </view>
-        </view>
+					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
+						<view class="delivery-section">
+						<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
+						</view>
+					</view>
+					<view class="right-section">
+						<view class="delivery-section" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
+						<view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
+					</view>
+				</view>
 			</view>
 		</view>
 

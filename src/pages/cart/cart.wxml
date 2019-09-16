@@ -95,7 +95,7 @@
 				<!-- <text class="postage"
 				>运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
 				<view>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</view>
-				<view class="priceMeta-text" wx:if="{{(shipping_type === 1 || shipping_type === 2) && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
+				<view class="priceMeta-text" wx:if="{{ shipping_type === 1 && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
 			</view>
   	  	</view>
   	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>

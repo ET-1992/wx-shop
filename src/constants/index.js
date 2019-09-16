@@ -108,12 +108,18 @@ export const CURRENCY = {
     'AUD': '$'
 };
 
-// const ORDER_TYPE = {
+// export const ORDER_TYPE = {
 //     0: '普通订单',
 //     1: '拼团订单',
 //     2: '礼品卡订单',
 //     3: '虚拟商品订单',
 //     4: '直接支付'
+// };
+
+// expore const PRODUCT_TYPE = {
+//     0: '普通商品',
+//     1: '虚拟商品',
+//     2: '服务'
 // };
 
 export const SHIPPING_TYPE = [

@@ -87,8 +87,8 @@
             </view>
         </view>
         <!-- 发货 卡号/兑换码、密码： -->
-        <view class="virtualProduct" wx:if="{{ !virtualProductBtn }}">
-            <view class="virtualProductItem" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code  }}">
+        <view class="virtualProduct" wx:if="{{ !virtualProductBtn && order.annotation.virtual_product && (order.annotation.virtual_product.code || order.annotation.virtual_product.password) }}">
+            <view class="virtualProductItem" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}">
                 兑换码/卡号：{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.code }}
                 <view class="virtualProductItemBtn" bindtap="setClipboardVp" data-value="{{ order.annotation.virtual_product.code }}">
                     复制
@@ -102,7 +102,7 @@
             </view>
         </view>
         <!-- 商家设置的文本 -->
-        <view class="virtualProductText" wx:if="{{ !virtualProductBtn && order.annotation.virtual_product.note }}">
+        <view class="virtualProductText" wx:if="{{ !virtualProductBtn &&  order.annotation.virtual_product && order.annotation.virtual_product.note }}">
             <view class="virtualProductItem">
                 <view class="virtualText">
                     {{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.note }}
@@ -118,6 +118,7 @@
             <image class="virtualImageBarcode" src="{{ order.annotation.virtual_product.barcode }}" wx:if="{{ order.annotation && order.annotation.virtual_product && order.annotation.virtual_product.barcode }}" />
         </view>
     </view>
+
     <!-- 订单留言 -->
     <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
         <view wx:for="{{ order.annotation.remarks }}" wx:key="id" class="remarkWrapRow">
