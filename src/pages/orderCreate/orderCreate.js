@@ -71,11 +71,7 @@ Page({
             config,
             shipping_type: params.shipping_type
         });
-        if (params.shipping_type === '1') {
-            this.setData({
-                free_shipping_amount: config && config.free_shipping_amount
-            });
-        }
+
         console.log('shipping_type', this.data.shipping_type, typeof (this.data.shipping_type));
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -217,7 +213,8 @@ Page({
                 user_coupon_ids,
                 isGrouponBuy,
                 grouponId,
-                shipping_type
+                shipping_type,
+                config
             } = this.data;
             let requestData = {};
             if (address) {
@@ -262,6 +259,12 @@ Page({
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
+
+            if (product_type !== 1 && shipping_type === '1') {
+                this.setData({
+                    free_shipping_amount: config && config.free_shipping_amount
+                });
+            }
 
             this.setData({
                 coupons,
