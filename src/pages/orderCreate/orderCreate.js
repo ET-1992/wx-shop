@@ -59,7 +59,7 @@ Page({
     },
 
     async onLoad(params) {
-        console.log('params', params);
+        console.log('params62', params);
         // this.checkPhoneModel();
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
@@ -68,11 +68,8 @@ Page({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config,
-            shipping_type: params.shipping_type
+            config
         });
-
-        console.log('shipping_type', this.data.shipping_type, typeof (this.data.shipping_type));
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
@@ -93,7 +90,8 @@ Page({
                 totalPostage,
                 isShouldRedirect: false,
                 crowd,
-                groupon_commander_price
+                groupon_commander_price,
+                shipping_type: params.shipping_type
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -242,15 +240,12 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (shipping_type === '2') { // 自提
-                requestData.shipping_type = 2;
-            }
-
             if (shipping_type === '4') { // 送货上门
-                requestData.shipping_type = 4;
                 // requestData.receiver_address_name = params;
                 requestData.delivery_store_id = params; // 配送地区id
             }
+
+            requestData.shipping_type = Number(shipping_type);
 
             requestData.posts = JSON.stringify(items);
 
