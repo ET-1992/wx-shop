@@ -37,6 +37,13 @@ export const ORDER_STATUS_TEXT = [
     { text: '退款成功', value: 6 },
 ];
 
+export const BARGAIN_STATUS_TEXT = [
+    { text: '全部', value: null },
+    { text: '进行中', value: 1 },
+    { text: '砍价成功', value: 2 },
+    { text: '砍价失败', value: 3 }
+];
+
 export const MAGUA_ORDER_STATUS_TEXT = [
     { text: '全部', value: null },
     { text: '待付款', value: 1 },

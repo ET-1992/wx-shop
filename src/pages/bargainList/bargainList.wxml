@@ -1,0 +1,57 @@
+<view class="container">
+	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" />
+	<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}"> 暂无内容 </view>
+	<view class="orderItem">
+		<view class="order" wx:for="{{ orders }}" wx:key="index">
+			<navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
+				<view class="item">
+					<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
+					<view class="itemInfo">
+						<view class="itemTitle">{{ item.title }}</view>
+						<!-- 底价 -->
+						<view class="lowPriceInfo">
+							<view class="text">底价 <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.low_price }}</text></view>
+						</view>
+						<!-- 砍价成功 -->
+						<view class="itemPirceInfo" wx:if="{{ item.status === 2 }}">
+							<view class="commonStyle finish">
+								<view>已完成砍价</view>
+								<view class="finish_tips">数量有限，请尽快下单</view>
+							</view>
+							<view class="btn">
+								<image class="finish-btn" src="/icons/bargainList/finish.svg" alt="立即购买"/>
+							</view>
+						</view>
+						<!-- 砍价进行中 -->
+						<view class="itemPirceInfo" wx:if="{{ item.status === 1 }}">
+							<view class="commonStyle">
+								<view class="bargaining_price">
+									<view>已砍价 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.finish_price }}</text></view>
+								</view>
+								<view class="bargaining_price">
+									<view>还差 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.free_price }}</text></view>
+								</view>
+							</view>
+							<view class="btn bargaining-btn">
+								继续砍价
+							</view>
+						</view>
+						<!-- 砍价失败 -->
+						<view class="itemPirceInfo" wx:if="{{ item.status === 3 }}">
+							<view class="commonStyle">活动结束，砍价失败</view>
+							<view class="btn fail-btn">砍价失败</view>
+						</view>
+					</view>
+				</view>
+				<!-- <view class="itemMeta">
+					<van-progress percentage="50" show-pivot="false" color="linear-gradient(to right, #FFB2B9, #F64753)" wx:if="{{ item.status === 1 }}"/>
+					<van-progress percentage="100" show-pivot="false"  color="linear-gradient(to right, #FFB2B9, #F64753)" wx:if="{{ item.status === 2 }}"/>
+					<van-progress inactive percentage="50" show-pivot="false" wx:if="{{ item.status === 3 }}"/>
+				</view> -->
+			</navigator>
+		</view>
+	</view>
+	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-到底啦-</view>
+</view>
+
+<console page="我的砍价" />

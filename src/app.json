@@ -53,7 +53,8 @@
 		"pages/membership/consumptionCenter/consumptionCenter",
 		"pages/membership/integralList/integralList",
 		"pages/affiliate/affiliateVisitor/affiliateVisitor",
-		"pages/bindWeb/bindWeb"
+		"pages/bindWeb/bindWeb",
+		"pages/bargainList/bargainList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

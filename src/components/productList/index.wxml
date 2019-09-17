@@ -6,6 +6,7 @@
     <include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/productLayout/rightImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/productLayout/articleImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/productLayout/shareProduct.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainProduct' }}" src="/templates/productLayout/bargainProduct.wxml"/>
 </view>
 
 <!-- tplStyleTwo -->

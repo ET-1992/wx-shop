@@ -1,11 +1,26 @@
 <view class="container">
-  <view wx:if="{{ miaosha_banner  && miaosha_banner.length}}">
-    <image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" />
-  </view>
-  <view wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.miaosha_enable=='1'}}">
-    <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
-      <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
-    </navigator>
-  </view>
-  <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>
+    <!-- 限时购 -->
+    <view wx:if="{{ type === 'miaosha'}}">
+        <view wx:if="{{ miaosha_banner && miaosha_banner.length}}">
+            <image src="{{ miaosha_banner }}" class="banner" mode="aspectFill" />
+        </view>
+        <view wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.miaosha_enable=='1'}}">
+            <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
+                <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
+            </navigator>
+        </view>
+    </view>
+    
+    <!-- 砍价列表 -->
+    <view wx:if="{{ type === 'bargain'}}">
+        <view wx:if="{{ bargain_banner && bargain_banner.length}}">
+            <image src="{{ bargain_banner }}" class="banner" mode="aspectFill" />
+        </view>
+        <view wx:for="{{ products }}" wx:key="{{ item.id }}">
+            <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
+                <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}"/>
+            </navigator>
+        </view>
+    </view>
+    <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>
 </view>

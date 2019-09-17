@@ -7,11 +7,8 @@ Page({
     // 页面的初始数据
     data: {
         products: [],
-
         isRefresh: false,
-
         next_cursor: 0,
-
         page_title: '',
         share_title: '',
         post_type_title: '',
@@ -19,10 +16,10 @@ Page({
     },
 
     async loadProducts() {
-        const { next_cursor, categoryId, isRefresh, products } = this.data;
+        const { next_cursor, categoryId, isRefresh, products, type } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            promotion_type: 'miaosha_enable',
+            promotion_type: type === 'seckill' ? 'bargain_enable' : 'miaosha_enable',
         });
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         wx.setNavigationBarTitle({
@@ -32,17 +29,18 @@ Page({
             products: newProducts,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            miaosha_banner: data.miaosha_banner
+            miaosha_banner: data.miaosha_banner || []
+            // bargain_banner: data.bargain_banner || []
         });
         return data;
     },
 
-    async onLoad() {
+    async onLoad({ type }) {
         const { themeColor } = app.globalData;
         this.setData({
-            themeColor
-        });
-        this.loadProducts();
+            themeColor,
+            type
+        }, this.loadProducts);
     },
 
     async onPullDownRefresh() {
