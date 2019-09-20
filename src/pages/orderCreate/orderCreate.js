@@ -9,13 +9,6 @@ const app = getApp();
 Page({
     data: {
         title: 'orderCreate',
-        liftStyles: [
-            { title: '快递', value: 'express', checked: false, visible: false },
-            { title: '自提', value: 'lift', checked: false, visible: false },
-            { title: '送货上门', value: 'delivery', checked: false, visible: false }
-        ],
-        liftStyle: 'express',
-        // liftStyleIndex: 0,
         liftInfo: {
             isCanInput: true,
             isCanNav: true
@@ -57,12 +50,6 @@ Page({
         selectedPayValue: 'weixin',
     },
 
-    // onLoad() {
-    // 	const { themeColor } = app.globalData;
-    // 	const { isIphoneX } = app.systemInfo;
-    // 	this.setData({ themeColor, isIphoneX });
-    // },
-
     async onShow() {
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
@@ -71,18 +58,17 @@ Page({
         }
     },
 
-    async onLoad() {
+    async onLoad(params) {
+        console.log('params62', params);
         // this.checkPhoneModel();
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        let liftStyle = 'express';
         this.setData({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config,
-            liftStyle
+            config
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -104,7 +90,8 @@ Page({
                 totalPostage,
                 isShouldRedirect: false,
                 crowd,
-                groupon_commander_price
+                groupon_commander_price,
+                shipping_type: params.shipping_type
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -112,7 +99,6 @@ Page({
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
                 app.event.on('setOverseeAddressEvent', this.setOverseeAddressEvent, this);
-                this.firstInit();
                 this.onLoadData();
             });
         }
@@ -143,7 +129,7 @@ Page({
         const { value } = ev.detail;
         this.setData({ buyerMessage: value });
     },
-
+    // 自填地址
     async onAddress() {
         const { self_address } = this.data.config;
         if (self_address) {
@@ -200,7 +186,8 @@ Page({
         this.setData({
             storeListAddress: data[0],
             homeDeliveryTimes: times,
-            chooseAreaId: data[0].id
+            chooseAreaId: data[0].id,
+            free_shipping_amount: data[0] && data[0].free_amount
         }, () => {
             this.onLoadData(data[0].id);
         });
@@ -216,49 +203,6 @@ Page({
         });
     },
 
-    // 初始化配送方式
-    firstInit() {
-        let {
-            config: {
-                logistics_enable,
-                self_lifting_enable,
-                home_delivery_enable
-            },
-            liftStyles,
-            liftStyle
-        } = this.data;
-
-        let configLiftStyles = [
-            {
-                value: 'express',
-                visible: logistics_enable
-            },
-            {
-                value: 'lift',
-                visible: self_lifting_enable
-            },
-            {
-                value: 'delivery',
-                visible: home_delivery_enable
-            }
-        ];
-
-        if (logistics_enable || self_lifting_enable || home_delivery_enable) {
-            liftStyles.forEach((item, index) => {
-                item.visible = item && (item.value === configLiftStyles[index].value) && configLiftStyles[index].visible;
-            });
-            let liftStyleIndex = configLiftStyles.findIndex(item => {
-                return item.visible === true;
-            });
-            liftStyles[liftStyleIndex].checked = true;
-            liftStyle = liftStyles[liftStyleIndex].value;
-            this.setData({
-                liftStyle,
-                liftStyles
-            });
-        }
-    },
-
     async onLoadData(params) {
         try {
             let {
@@ -266,14 +210,9 @@ Page({
                 items,
                 user_coupon_ids,
                 isGrouponBuy,
-                liftStyle,
                 grouponId,
-                liftStyles,
-                config: {
-                    logistics_enable,
-                    self_lifting_enable,
-                    home_delivery_enable
-                }
+                shipping_type,
+                config
             } = this.data;
             let requestData = {};
             if (address) {
@@ -301,15 +240,12 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (liftStyle === 'lift') { // 自提
-                requestData.shipping_type = 2;
-            }
-
-            if (liftStyle === 'delivery') { // 送货上门
-                requestData.shipping_type = 4;
+            if (shipping_type === '4') { // 送货上门
                 // requestData.receiver_address_name = params;
                 requestData.delivery_store_id = params; // 配送地区id
             }
+
+            requestData.shipping_type = Number(shipping_type);
 
             requestData.posts = JSON.stringify(items);
 
@@ -318,6 +254,12 @@ Page({
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
+
+            if (product_type !== 1 && shipping_type === '1') {
+                this.setData({
+                    free_shipping_amount: config && config.free_shipping_amount
+                });
+            }
 
             this.setData({
                 coupons,
@@ -330,17 +272,11 @@ Page({
                 user_coupon_ids: (coupons.recommend && coupons.recommend.user_coupon_id) || '',
                 isHaveUseCoupon: (coupons.available && coupons.available.length > 0),
                 isPeanutPay: use_platform_pay || '',
-                selfLiftEnable: self_lifting_enable,
                 isDisablePay: false,
                 order_annotation,
                 product_type,
                 payment_tips,
-                liftStyle,
-                store_card,
-                liftStyles,
-                logistics_enable, // 快递
-                self_lifting_enable, // 自提
-                home_delivery_enable // 送货上门
+                store_card
             }, () => {
                 this.computedFinalPay();
             });
@@ -393,14 +329,13 @@ Page({
             user_coupon_ids,
             useCoin,
             shouldGoinDisplay,
-            liftStyle,
             liftInfo,
             order_annotation,
             product_type,
-            selfLiftEnable,
             selectedPayValue,
             store_card,
-            storeListAddress
+            storeListAddress,
+            shipping_type
         } = this.data;
         const {
             userName,
@@ -414,7 +349,7 @@ Page({
         } = address;
         const { vendor, afcode } = app.globalData;
 
-        if (!userName && !detailInfo && liftStyle !== 'lift' && product_type !== 1) {
+        if (!userName && !detailInfo && shipping_type !== '2' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
@@ -423,7 +358,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_address_name && product_type !== 1 && selfLiftEnable) {
+        if (shipping_type === '2' && !liftInfo.receiver_address_name && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先选择自提地址',
@@ -432,7 +367,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_phone && product_type !== 1 && selfLiftEnable) {
+        if (shipping_type === '2' && !liftInfo.receiver_phone && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
@@ -507,14 +442,14 @@ Page({
         }
 
         // 自提需传数据
-        if (liftStyle === 'lift') {
+        if (shipping_type === '2') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
             wx.setStorageSync('liftInfo', liftInfo);
         }
 
         // 送货上门需传数据
-        if (liftStyle === 'delivery') {
+        if (shipping_type === '4') {
             requestData.shipping_type = 4;
             // 获取门店列表的门店名称
             if (!(storeListAddress && storeListAddress.name)) {
@@ -573,9 +508,12 @@ Page({
         });
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order } = await api.hei[method](requestData);
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
             wx.hideLoading();
-
+            console.log('OrderCreatecart507', cart);
+            if (cart && cart.count) {
+                wx.setStorageSync('CART_NUM', cart.count);
+            }
             if (crowd && crowd_pay_no) {
                 wx.redirectTo({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
@@ -636,25 +574,6 @@ Page({
         }
     },
 
-    /* radio选择改变触发 */
-    radioChange(e) {
-        const { liftStyles } = this.data;
-        const { value } = e.detail;
-        liftStyles.forEach((item) => {
-            if (item.value === value) {
-                item.checked = true;
-            } else {
-                item.checked = false;
-            }
-        });
-        this.setData({
-            liftStyle: value,
-            liftStyles
-        }, () => {
-            this.onLoadData();
-        });
-    },
-
     onCancel() {
         this.setData({
             'modal.isShowModal': false,
@@ -681,7 +600,7 @@ Page({
             isShouldRedirect: true
         });
     },
-
+    // 储值卡支付
     pickPayStyle(e) {
         const { value } = e.currentTarget.dataset;
         const { store_card, finalPay } = this.data;

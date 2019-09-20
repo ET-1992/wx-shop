@@ -108,7 +108,7 @@ export const CURRENCY = {
     'AUD': '$'
 };
 
-// const ORDER_TYPE = {
+// export const ORDER_TYPE = {
 //     0: '普通订单',
 //     1: '拼团订单',
 //     2: '礼品卡订单',
@@ -116,11 +116,18 @@ export const CURRENCY = {
 //     4: '直接支付'
 // };
 
-// const SHIPPING_TYPE = {
-//     1: '快递物流',
-//     2: '自提',
-//     3: '上门服务'
+// expore const PRODUCT_TYPE = {
+//     0: '普通商品',
+//     1: '虚拟商品',
+//     2: '服务'
 // };
+
+export const SHIPPING_TYPE = [
+    { text: '快递', value: 1 },
+    { text: '自提', value: 2 },
+    { text: '上门服务', value: 3 },
+    { text: '送货上门', value: 4 }
+];
 
 // const coupon_data_type = {
 //     1: '固定日期区间',

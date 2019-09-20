@@ -54,10 +54,9 @@ Page({
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
         showShareModal: false,
-
         templateTypeText,
-
-        expiredGroupon: []
+        expiredGroupon: [],
+        shipping_type: 1
     },
 
     go, // 跳转到规则详情页面
@@ -289,6 +288,7 @@ Page({
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
+        console.log('CART_NUM', typeof CART_NUM);
         this.setData({
             isIphoneX,
             user,
@@ -328,11 +328,12 @@ Page({
         });
         this.onShowSku();
     },
-
+    // 加入购物车
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
+        console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
+        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
 
         // 非会员不能购买会员专属商品 加入购物车
         if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
@@ -354,7 +355,9 @@ Page({
             quantity,
             vendor,
             form_id: formId,
+            shipping_type
         });
+        console.log('data348', data);
         if (!data.errcode) {
             await proxy.showToast({ title: '成功添加' });
             // 更新红点
@@ -372,7 +375,7 @@ Page({
             }
         }
     },
-
+    // 立即购买
     async onBuy() {
         console.log('onBuy');
         const {
@@ -383,7 +386,8 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
-            isCrowd
+            isCrowd,
+            shipping_type
         } = this.data;
 
         // 非会员不能购买会员专属商品 立即购买
@@ -392,7 +396,7 @@ Page({
             return;
         }
 
-        let url = '/pages/orderCreate/orderCreate';
+        let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
         let isMiaoshaBuy = false;
 
         if (product.miaosha_enable) {
@@ -411,7 +415,7 @@ Page({
         }
 
         if (isGrouponBuy) {
-            url = url + '?isGrouponBuy=true';
+            url = url + '&isGrouponBuy=true';
 
             // 参团，跳转到orderCreate需要带上grouponId
             if (grouponId) {
@@ -426,7 +430,7 @@ Page({
             }
         }
         if (isCrowd) {
-            url = url + '?crowd=true';
+            url = url + '&crowd=true';
         }
 
         const currentOrder = createCurrentOrder({
@@ -524,16 +528,16 @@ Page({
     },
 
     async showCartNumber(e) {
-        wx.setStorageSync('CART_NUM', e.toString());
+        wx.setStorageSync('CART_NUM', e);
         this.setData({
-            cartNumber: e.toString()
+            cartNumber: e
         });
     },
 
     async reload() {
         await this.initPage();
     },
-
+    // 分享按钮
     onShareAppMessage() {
         this.closeShareModal();
         const { current_user = {}, product } = this.data;
@@ -696,5 +700,14 @@ Page({
                 url: '/pages/membership/members/members'
             });
         }
+    },
+
+    // 从 SKUModel 组件获取配送方式 shipping_type
+    getShippingType(e) {
+        console.log('e690', e);
+        this.setData({
+            shipping_type: e.detail.shipping_type
+        });
+        console.log('shipping_type696', this.data.shipping_type);
     }
 });

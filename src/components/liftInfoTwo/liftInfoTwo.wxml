@@ -1,6 +1,6 @@
 <view class="container">
 	<navigator url="{{ liftInfo.isCanNav ? '/pages/liftList/liftList?type=2' : '' }}">
-		<view class="wrapper" wx:if="{{ liftInfo.receiver_address_name }}" style="{{ isOrderDetail ? 'border: 0' : ''}}">
+		<view class="wrapper" wx:if="{{ liftInfo.receiver_address_name }}">
 			<view class="address-top">自提地址</view>
 			<view class="address-part">
 				<view class="address-name">{{ liftInfo.receiver_address_name || '无' }}</view>

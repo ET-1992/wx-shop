@@ -1,5 +1,6 @@
 import { Sku } from 'peanut-all';
 import { getAgainUserForInvalid } from 'utils/util';
+import { CONFIG, SHIPPING_TYPE } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
 Component({
@@ -14,6 +15,7 @@ Component({
             observer(newValue, oldValue) {
                 console.log(newValue, oldValue);
                 if (newValue.id !== oldValue.id) { // 缓存
+                    this.firstInit();
                     this.setSku();
                 }
             }
@@ -65,9 +67,31 @@ Component({
         disableSkuItems: {},
         skuMap: {},
         globalData: app.globalData,
-        now: Math.round(Date.now() / 1000)
+        now: Math.round(Date.now() / 1000),
+        shipping_types: '1'
+    },
+    attached() {
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ config });
     },
     methods: {
+        // 初始化配送方式
+        firstInit() {
+            const { product } = this.data;
+            console.log('shipping_types', product.shipping_types);
+            let type = product.shipping_types;
+            const liftStyles = SHIPPING_TYPE.filter(item => {
+                return type.indexOf(item.value) > -1;
+            });
+            console.log('data', liftStyles);
+            if (liftStyles && liftStyles[0]) {
+                liftStyles.forEach(item => {
+                    item.checked = false;
+                });
+                liftStyles[0].checked = true;
+                this.setData({ liftStyles });
+            }
+        },
         close() {
             this.setData({
                 isShowSkuModal: false
@@ -104,10 +128,12 @@ Component({
             }
             console.log(this.data, 'onSkuItem');
         },
+        // classify 页面
         async onAddCart(e) {
-            const { selectedSku } = this.data;
+            const { selectedSku, shipping_type } = this.data;
             console.log(selectedSku, e, 'erer');
             e.sku_id = selectedSku.id;
+            e.shipping_type = shipping_type;
             if (selectedSku.stock === 0) {
                 await proxy.showModal({
                     title: '温馨提示',
@@ -193,6 +219,24 @@ Component({
             console.log(this.data);
             const { selectedSku, quantity, formId } = this.data;
             this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity, formId }, { bubbles: true });
+        },
+
+        /* radio选择改变触发 */
+        radioChange(e) {
+            const { liftStyles } = this.data;
+            const { value } = e.detail;
+            console.log('radioValue263', value, typeof value);
+            console.log('liftStyles', liftStyles);
+            liftStyles.forEach((item) => {
+                if (item.value === Number(value)) {
+                    item.checked = true;
+                } else {
+                    item.checked = false;
+                }
+            });
+            this.setData({ liftStyles, shipping_type: value });
+            console.log('liftStyles', liftStyles, 'shipping_type', this.data.shipping_type);
+            this.triggerEvent('getShippingType', { shipping_type: this.data.shipping_type }, { bubbles: true });
         },
     }
 });

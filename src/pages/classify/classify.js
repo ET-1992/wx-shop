@@ -206,6 +206,7 @@ Page({
 
     onAddCart(e) {
         this.addCart(e.detail);
+        console.log('e209', e.detail);
     },
 
     /* 加车 */
@@ -223,6 +224,7 @@ Page({
 
         options.post_id = id;
         options.sku_id = e.sku_id || 0;
+        options.shipping_type = e.shipping_type || 1;
         options.quantity = 1;
         options.vendor = vendor;
         options.form_id = this.data.formId;

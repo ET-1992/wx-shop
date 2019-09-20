@@ -1,0 +1,11 @@
+<view class="cartStyle" style="top: {{ top }}; position: {{ position }}">
+    <view 
+		wx:for="{{ navbarListData }}" 
+        wx:key="{{item.value}}"
+        class="item {{ activeIndex === index ? 'selected' : '' }}" 
+        data-index="{{index}}"
+        data-value="{{item.value}}"
+        bind:tap="changeActive"
+        style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}" 
+    >{{ item.text }}({{item.totalCounts}})</view>
+</view>
