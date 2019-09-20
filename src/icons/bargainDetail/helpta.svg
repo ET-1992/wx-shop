@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="80" viewBox="0 0 300 80">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 32px;
+        font-family: PingFang SC Regular, PingFang SC;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.13" y1="0.589" x2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f96459"/>
+      <stop offset="1" stop-color="#fe2a6b"/>
+      <stop offset="1" stop-color="#ffa158"/>
+    </linearGradient>
+  </defs>
+  <g id="组_4370" data-name="组 4370" transform="translate(-65 -1134)">
+    <rect id="矩形_1881" data-name="矩形 1881" class="cls-1" width="300" height="80" rx="40" transform="translate(65 1134)"/>
+    <text id="帮TA砍价" class="cls-2" transform="translate(147 1185)"><tspan x="0" y="0">帮TA砍价</tspan></text>
+  </g>
+</svg>

@@ -53,6 +53,7 @@
 			.lowPriceInfo {
 				font-size: 24rpx;
 				color: #333333;
+				margin-top: 20rpx;
 				.price {
 					font-size: 30rpx;
 					color: #F52D2D;
@@ -95,17 +96,9 @@
 					font-weight: 500;
 				}
 
-				.finish-btn {
+				.finish-btn, .bargaining-btn, .fail-btn{
 					width: 140rpx;
 					height: 50rpx;
-				}
-	
-				.bargaining-btn {
-					background: linear-gradient(to right, #F96459, #FE2F6A);
-				}
-	
-				.fail-btn {
-					background: linear-gradient(to right, #D5D5D5, #A5A3A3);
 				}
 		
 				.price {

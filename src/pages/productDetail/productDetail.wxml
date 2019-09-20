@@ -42,14 +42,14 @@
 
 		<!-- 限时购banner -->
 		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-			<image wx:if="{{!hasEnd}}" src="/icons/productdetail/time-limited-buy.svg" />
-			<image wx:else src="/icons/productdetail/time-limited-buy-end.svg" />
+			<image wx:if="{{!hasEnd}}" src="/icons/productDetail/time-limited-buy.svg" />
+			<image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
 			<view class="price-area">
 				<view class="price">
-          <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-          <view>{{ product.miaosha_price }}</view>
-        </view>
-        <view class="price-interval">
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view>{{ product.miaosha_price }}</view>
+				</view>
+				<view class="price-interval">
 					<text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
 					<!-- 有最高价显示价格区间 -->
 					<text wx:if="{{ product.price < product.highest_price }}">~{{ product.highest_price }}</text>
@@ -57,34 +57,34 @@
 			</view>
 			<view class="time">
 				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
-				<view class="time-text">距结束还有</view>
-				<view class="time-limit" wx:if="{{ !hasEnd }}">
-					<block wx:if="{{ remainTime.day > 0 }}">
-						<view class="hour">{{ remainTime.day }}</view>
-						<view class="dateTitle">天</view>
-					</block>
-					<view class="hour">{{ remainTime.hour }}</view>
-					<view class="dateTitle">时</view>
-					<view class="minute">{{ remainTime.minute }}</view>
-					<view class="dateTitle">分</view>
-					<view class="second">{{ remainTime.second }}</view>
-					<view class="dateTitle">秒</view>
-				</view>
+					<view class="time-text">距结束还有</view>
+					<view class="time-limit" wx:if="{{ !hasEnd }}">
+						<block wx:if="{{ remainTime.day > 0 }}">
+							<view class="hour">{{ remainTime.day }}</view>
+							<view class="dateTitle">天</view>
+						</block>
+						<view class="hour">{{ remainTime.hour }}</view>
+						<view class="dateTitle">时</view>
+						<view class="minute">{{ remainTime.minute }}</view>
+						<view class="dateTitle">分</view>
+						<view class="second">{{ remainTime.second }}</view>
+						<view class="dateTitle">秒</view>
+					</view>
 				</view>
 				<view wx:if="{{ !hasStart }}" class="time-section">
-				距开始还有
-				<view class="time-limit" wx:if="{{ !hasEnd }}">
-					<block wx:if="{{ remainTime.day > 0 }}">
-						<view class="hour">{{ remainTime.day }}</view>
-						<view class="dateTitle">天</view>
-					</block>
-					<view class="hour">{{ remainTime.hour }}</view>
-					<view class="dateTitle">时</view>
-					<view class="minute">{{ remainTime.minute }}</view>
-					<view class="dateTitle">分</view>
-					<view class="second">{{ remainTime.second }}</view>
-					<view class="dateTitle">秒</view>
-				</view>
+					<view class="time-text">距开始还有</view>
+					<view class="time-limit" wx:if="{{ !hasEnd }}">
+						<block wx:if="{{ remainTime.day > 0 }}">
+							<view class="hour">{{ remainTime.day }}</view>
+							<view class="dateTitle">天</view>
+						</block>
+						<view class="hour">{{ remainTime.hour }}</view>
+						<view class="dateTitle">时</view>
+						<view class="minute">{{ remainTime.minute }}</view>
+						<view class="dateTitle">分</view>
+						<view class="second">{{ remainTime.second }}</view>
+						<view class="dateTitle">秒</view>
+					</view>
 				</view>
 				<view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
 			</view>
@@ -95,14 +95,35 @@
 			<image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
 			<view class="price-area">
 				<view class="price">
-          <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-          <view>{{product.definePrice}}</view>
-        </view>
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view>{{product.definePrice}}</view>
+				</view>
 				<view class="origin-price"> 单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
 			</view>
 			<view class="pintuan-section">
 				<view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
 				<view class="pintuan-count">已团{{ product.sales }}件</view>
+			</view>
+		</view>
+
+		<!-- 砍价banner -->
+		<view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
+			<image wx:else src="/icons/productDetail/bargain.svg" class="background-image" />
+			<view class="price-area">
+				<view class="price">
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view class="bargain-price"> {{product.bargain_price}}</view>
+					<view class="low-price {{product.bargain_mission.status === 3 ? 'low-price-fail' : ''}}">底价</view>
+				</view>
+				<view class="origin-price">直接购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
+			</view>
+			<view class="pintuan-section">
+				<view class="pintuan-text" wx:if="{{!product.bargain_mission}}">未发起</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">进行中</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">砍价成功</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">砍价失败</view>
+				<view class="pintuan-count">{{ product.bargain_finished_count }}人已砍价成功</view>
 			</view>
 		</view>
 
@@ -120,7 +141,6 @@
 			</view>
 			<!-- 价格区间 -->
 			<view class="meta">
-
 				<view class="price">
 					<!-- 会员专属 -->
 					<view wx:if="{{ product.membership_dedicated_enable }}" class="vipHold">
@@ -128,7 +148,7 @@
 						<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
 					</view>
 
-					<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && !product.membership_dedicated_enable }}">
+					<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) && !product.membership_dedicated_enable }}">
 						<view class="nowPrice">
               				<view class="currentPrice">
 								<text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
@@ -153,8 +173,8 @@
 				<view class="info-section" wx:if="{{ product.product_type !== 1}}">
 					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
 						<view class="delivery-section">
-						<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
+							<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
+							{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : (item === 6 ? '寄存' : '快递'))}}
 						</view>
 					</view>
 					<view class="right-section">
@@ -236,6 +256,10 @@
 			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/miaosharule.png'}}" />
 			<image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" />
 		</view>
+		<!-- 砍价规则 -->
+		<view class="bargain-rule" wx:if="{{ product.bargain_enable }}">
+			<image class="bargainImg" src="/icons/productDetail/bargainInfo.svg"/>
+		</view>
 
 		<!-- 商品评论start -->
 		<productComments
@@ -297,14 +321,14 @@
 					<text>购物车</text>
 				</view>
 				<button
-				 open-type="contact"
-				 send-message-title="{{product.title}}"
-				 send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
-				 send-message-img="{{product.thumbnail}}"
-				 show-message-card="{{true}}"
-				 class="cart"
-				 session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
-				>
+					open-type="contact"
+					send-message-title="{{product.title}}"
+					send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
+					send-message-img="{{product.thumbnail}}"
+					show-message-card="{{true}}"
+					class="cart"
+					session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
+					>
 					<image class="icon" src="../../icons/context.png" />
 					<text>客服</text>
 				</button>
@@ -343,22 +367,69 @@
 						<view class="joinGroup">立即参团</view>
 					</view>
 				</block>
+
+				<!-- 砍价 -->
+				<block wx:if="{{ product.bargain_enable }}">
+					<view
+					 class="addCart multi"
+					 catchtap="onShowSku"
+					 data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
+					 style="background-color: {{ themeColor.secondaryColor }}"
+					>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_mission.price }}</view>
+						<view>原价购买</view>
+					</view>
+					<!-- 没有 bargain_mission 表示未进行过砍价；status状态: 1: 进行中，2：已完成，3: 已过期 -->
+					<view 
+						class="buy multi"
+						style="background-color: {{ themeColor.primaryColor }}"
+						catchtap="createBargain"
+						wx:if="{{!product.bargain_mission}}">
+						发起砍价
+					</view>
+					<view 
+						class="buy multi" 
+						catchtap="toBargainDetailPage"
+						data-code="{{product.bargain_mission && product.bargain_mission.code}}"
+						style="background-color: {{ themeColor.primaryColor }}" 
+						wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">
+						查看进度
+					</view>
+					<view
+						class="buy multi"
+						style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku"
+						data-actions="{{[{ type: 'onBuy', text: '立即购买'}]}}"
+						wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
+						<view>立即购买</view>
+					</view>
+					<view
+						class="buy multi"
+						catchtap="createBargain"
+						style="background-color: {{ themeColor.primaryColor }}"
+						wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">
+						发起砍价
+					</view>
+				</block>
+
 				<!-- 秒杀或者普通商品 -->
 				<block wx:else>
 					<view
-					 class="addCart"
-					 catchtap="onShowSku"
-					 data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}"
-					 style="background-color: {{ themeColor.secondaryColor }}"
-					 wx:if="{{ product.product_type !== 1 }}"
-					>加入购物车
+						class="addCart"
+						catchtap="onShowSku"
+						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}"
+						style="background-color: {{ themeColor.secondaryColor }}"
+						wx:if="{{ product.product_type !== 1 }}"
+						>
+						加入购物车
 					</view>
 					<view
-					 class="buy {{ product.product_type === 1 && 'maguaWidthBtn' }}"
-					 catchtap="onShowSku"
-					 data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
-					 style="background-color: {{ themeColor.primaryColor }}"
-					>{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
+						class="buy {{product.product_type === 1 && 'maguaWidthBtn'}}"
+						catchtap="onShowSku"
+						data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买')}]}}"
+						style="background-color: {{ themeColor.primaryColor }}"
+						>
+						{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
 					</view>
 				</block>
 			</view>

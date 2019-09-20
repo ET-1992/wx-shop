@@ -54,7 +54,8 @@
 		"pages/membership/integralList/integralList",
 		"pages/affiliate/affiliateVisitor/affiliateVisitor",
 		"pages/bindWeb/bindWeb",
-		"pages/bargainList/bargainList"
+		"pages/bargainList/bargainList",
+		"pages/bargainDetail/bargainDetail"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

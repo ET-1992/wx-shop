@@ -125,9 +125,7 @@ Page({
 
     // 限时购倒计时触发
     todayTimeLimit() {
-        let {
-            timeLimit
-        } = this.data;
+        let { timeLimit } = this.data;
         if (timeLimit && !this.intervalId) {
             this.todayTimeLimitSet();
             this.intervalId = setInterval(() => {
@@ -709,5 +707,32 @@ Page({
             shipping_type: e.detail.shipping_type
         });
         console.log('shipping_type696', this.data.shipping_type);
+    },
+
+    // 发起砍价
+    async createBargain() {
+        const { product: { id }, selectedSku } = this.data;
+        const { mission } = await api.hei.createBargain({
+            post_id: id,
+            sku_id: selectedSku.id || 0
+        });
+        console.log('mission721', mission);
+        // wx.navigateTo({
+        //     url: `/pages/bargainDetail/bargainDetail?code=${mission.code}`,
+        // });
+        this.toBargainDetailPage(null, mission.code);
+    },
+
+    toBargainDetailPage(e, data) {
+        if (e) {
+            const { code } = e.currentTarget.dataset;
+            console.log('code730', code);
+            wx.navigateTo({
+                url: `/pages/bargainDetail/bargainDetail?code=${code}`
+            });
+        }
+        wx.navigateTo({
+            url: `/pages/bargainDetail/bargainDetail?code=${data}`
+        });
     }
 });

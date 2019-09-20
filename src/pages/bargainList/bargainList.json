@@ -2,6 +2,7 @@
   "navigationBarTitleText": "我的砍价",
   "usingComponents": {
     "console": "../../components/console/console",
-    "navbarList": "../../components/navbarList/navbarList"
+    "navbarList": "../../components/navbarList/navbarList",
+    "loading": "../../components/loading/index"
   }
 }

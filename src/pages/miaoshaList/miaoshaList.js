@@ -13,13 +13,14 @@ Page({
         share_title: '',
         post_type_title: '',
         taxonomy_title: '',
+        isLoading: true
     },
 
     async loadProducts() {
         const { next_cursor, categoryId, isRefresh, products, type } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            promotion_type: type === 'seckill' ? 'bargain_enable' : 'miaosha_enable',
+            promotion_type: type === 'bargain' ? 'bargain_enable' : 'miaosha_enable',
         });
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         wx.setNavigationBarTitle({
@@ -29,8 +30,9 @@ Page({
             products: newProducts,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            miaosha_banner: data.miaosha_banner || []
-            // bargain_banner: data.bargain_banner || []
+            miaosha_banner: data.miaosha_banner || [],
+            bargain_banner: data.bargain_banner || [],
+            isLoading: false
         });
         return data;
     },
@@ -44,7 +46,11 @@ Page({
     },
 
     async onPullDownRefresh() {
-        this.setData({ isRefresh: true, next_cursor: 0 });
+        this.setData({
+            isRefresh: true,
+            next_cursor: 0,
+            isLoading: true
+        });
         await this.loadProducts();
         wx.stopPullDownRefresh();
     },
@@ -56,14 +62,5 @@ Page({
     },
 
     // 页面分享设置
-    onShareAppMessage: onDefaultShareAppMessage,
-
-    // onShareAppMessage:function(res) {
-    // 	console.log(this.data)
-    // 	return {
-    // 		title: this.data.share_title,
-    // 		imageUrl:this.data.share_image,
-    // 		path:'/pages/miaoshaList/miaoshaList?promotion_type=miaosha_enable'
-    // 	}
-    // }
+    onShareAppMessage: onDefaultShareAppMessage
 });

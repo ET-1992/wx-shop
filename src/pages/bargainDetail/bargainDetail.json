@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "砍价商品",
+	"usingComponents": {
+	  "productList": "../../components/productList/index",
+	  "loading": "../../components/loading/index"
+	}
+}

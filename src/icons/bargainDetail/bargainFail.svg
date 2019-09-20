@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="133.717" height="133.717" viewBox="0 0 133.717 133.717">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #707070;
+      }
+
+      .cls-2, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-4, .cls-7 {
+        fill: none;
+      }
+
+      .cls-3, .cls-4 {
+        stroke: #707070;
+      }
+
+      .cls-3 {
+        stroke-linecap: round;
+        stroke-dasharray: 1 5;
+      }
+
+      .cls-4 {
+        stroke-dasharray: 90 21;
+      }
+
+      .cls-5 {
+        font-size: 24px;
+        font-family: PingFang SC Regular, PingFang SC;
+      }
+
+      .cls-6 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="组_2206" data-name="组 2206" transform="matrix(0.899, 0.438, -0.438, 0.899, -270.376, -660.598)">
+    <path id="路径_368" data-name="路径 368" class="cls-1" d="M50,0A50,50,0,1,1,0,50,50,50,0,0,1,50,0Z" transform="translate(572 456)"/>
+    <circle id="椭圆_257" data-name="椭圆 257" class="cls-2" cx="45" cy="45" r="45" transform="translate(577 461)"/>
+    <g id="椭圆_259" data-name="椭圆 259" class="cls-3" transform="translate(579 463)">
+      <circle class="cls-6" cx="43" cy="43" r="43"/>
+      <circle class="cls-7" cx="43" cy="43" r="42.5"/>
+    </g>
+    <g id="椭圆_258" data-name="椭圆 258" class="cls-4" transform="matrix(-0.602, 0.799, -0.799, -0.602, 671.016, 500.111)">
+      <circle class="cls-6" cx="35" cy="35" r="35"/>
+      <circle class="cls-7" cx="35" cy="35" r="34.5"/>
+    </g>
+    <rect id="矩形_1095" data-name="矩形 1095" class="cls-1" width="120" height="35" rx="4" transform="translate(562 489)"/>
+    <text id="砍价失败" class="cls-5" transform="translate(574 515)"><tspan x="0" y="0">砍价失败</tspan></text>
+  </g>
+</svg>

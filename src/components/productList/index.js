@@ -93,6 +93,11 @@ Component({
             type: Boolean,
             value: false
         },
+        // 砍价列表 专属
+        hasBorder: {
+            type: Boolean,
+            value: false
+        }
     },
     data: {
         nowTS: Date.now() / 1000,

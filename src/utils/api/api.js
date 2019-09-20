@@ -450,5 +450,27 @@ export const apis = {
         path: 'api/weapp/qrcode/code.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 发起砍价
+    createBargain: {
+        path: 'api/mag.bargain.mission.create.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 砍价活动详情
+    bargainDetail: {
+        path: 'api/mag.bargain.mission.get.json',
+        isForceToken: true
+    },
+    // 我的砍价列表
+    bargainList: {
+        path: 'api/mag.bargain.mission.list.json',
+        isForceToken: true
+    },
+    // 助力砍价
+    bargainHelp: {
+        path: 'api/mag.bargain.mission.assist.json',
+        method: 'POST',
+        isForceToken: true
     }
 };

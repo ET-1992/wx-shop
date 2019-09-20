@@ -1,4 +1,5 @@
-<view class="container">
+<loading isLoading="{{ isLoading }}" />
+<view class="container" wx:if="{{!isLoading}}">
     <!-- 限时购 -->
     <view wx:if="{{ type === 'miaosha'}}">
         <view wx:if="{{ miaosha_banner && miaosha_banner.length}}">
@@ -18,7 +19,7 @@
         </view>
         <view wx:for="{{ products }}" wx:key="{{ item.id }}">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
-                <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}"/>
+                <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" hasBorder="true"/>
             </navigator>
         </view>
     </view>
