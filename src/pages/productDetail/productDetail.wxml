@@ -42,8 +42,8 @@
 
 		<!-- 限时购banner -->
 		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-			<image wx:if="{{!hasEnd}}" src="/icons/productdetail/time-limited-buy.svg" />
-			<image wx:else src="/icons/productdetail/time-limited-buy-end.svg" />
+			<image wx:if="{{!hasEnd}}" src="/icons/productDetail/time-limited-buy.svg" />
+			<image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
 			<view class="price-area">
 				<view class="price">
           <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
@@ -153,7 +153,7 @@
 				<view class="info-section" wx:if="{{ product.product_type !== 1}}">
 					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
 						<view class="delivery-section">
-						<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
+						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
 						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
 						</view>
 					</view>
