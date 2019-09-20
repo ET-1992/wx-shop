@@ -229,12 +229,12 @@
 		<!-- 拼团玩法 -->
 		<view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
 			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
-			<image class="groupplay-rule" src="/icons/productDetail/rule.png" />
+			<!-- <image class="groupplay-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=groupon" /> -->
 		</view>
 		<!-- 秒杀规则 -->
 		<view class="group-miaosha" wx:if="{{ product.seckill_enable }}">
 			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/miaosharule.png'}}" />
-			<image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" />
+			<!-- <image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" /> -->
 		</view>
 
 		<!-- 商品评论start -->
