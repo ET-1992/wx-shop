@@ -7,7 +7,7 @@
 		<loading isLoading="{{ isLoading }}"/>
 		<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ articles.length && !isLoading }}">
       <navigator class="m-list" wx:for="{{articles}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-        <image src="{{item.banner}}" style="height: {{articleBannerHeight}}rpx;" mode="aspectFill" />
+        <image src="{{item.banner}}" style="height: {{article_banner_height}}rpx;" mode="widthFix" />
         <template is="articleItem" data="{{ article: item}}" />
       </navigator>
 		</view>
