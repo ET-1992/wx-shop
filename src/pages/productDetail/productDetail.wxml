@@ -292,7 +292,7 @@
 					<text>店铺</text>
 				</view>
 				<view class="cart" bind:tap="navigateToCart">
-					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== '0'}}">{{ cartNumber }}</view>
+					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" />
 					<text>购物车</text>
 				</view>

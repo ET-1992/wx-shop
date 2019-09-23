@@ -197,9 +197,15 @@ export function bankCardAttribution(bankCard) {
 
 export function updateCart(e) {
     const CART_NUM  = wx.getStorageSync('CART_NUM');
+<<<<<<< HEAD
     const index = Number(e);
     const text = CART_NUM.toString();
     if (!text || text === '0') {
+||||||| merged common ancestors
+    if (!CART_NUM || CART_NUM === '0') {
+=======
+    if (!CART_NUM || CART_NUM === 0) {
+>>>>>>> a8d8edb87e321a3686f70b976d77cd141d0eda65
         wx.removeTabBarBadge({
             index
         });

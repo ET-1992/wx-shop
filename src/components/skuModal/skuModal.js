@@ -89,8 +89,10 @@ Component({
                     item.checked = false;
                 });
                 liftStyles[0].checked = true;
-                this.setData({ liftStyles });
+                this.setData({ liftStyles, shipping_types: type[0] });
+                this.triggerEvent('getShippingType', { shipping_type: type[0] }, { bubbles: true });
             }
+            console.log('shipping_types94', this.data.shipping_types);
         },
         close() {
             this.setData({
