@@ -256,7 +256,7 @@ Page({
 
         this.setData({
             current_user,
-            isShowAcitonSheet: true,
+            isShowActionSheet: true,
             quantity: 1,
             product,
             isGrouponBuy,
@@ -312,7 +312,7 @@ Page({
 
         app.globalData.currentOrder = currentOrder;
 
-        this.setData({ isShowAcitonSheet: false });
+        this.setData({ isShowActionSheet: false });
         wx.navigateTo({ url });
         wx.hideLoading();
     },

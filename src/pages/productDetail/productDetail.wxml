@@ -538,7 +538,7 @@
 </van-popup>
 
 <skuModal
- isShowSkuModal="{{ isShowAcitonSheet }}"
+ isShowSkuModal="{{ isShowActionSheet }}"
  product="{{ product }}"
  themeColor="{{ themeColor }}"
  position="bottom"

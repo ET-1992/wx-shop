@@ -138,7 +138,7 @@
 			<view wx:if="{{ module.key === 'miaoshas' }}">
 				<view class="section" wx:if="{{ miaoshas && miaoshas.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
 					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ miaoshas.length === 1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
-					<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList">
+					<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
 								<view>查看更多</view>
@@ -151,6 +151,23 @@
 							<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 						</myNavigator>
 					</view>
+				</view>
+			</view>
+			<!-- 砍价 -->
+			<view wx:if="{{ module.key === 'bargains' }}">
+				<view class="section" wx:if="{{ bargains && bargains.length }}">
+					<view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
+					<myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+					<productList product="{{ item }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" />
+					</myNavigator>
+					<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
+					<form bindsubmit="submitFormId" report-submit="true">
+						<button formType="submit" class="moreButton">
+						<span>更多</span>
+						<image class="rightIcon" src="/icons/right.png" />
+						</button>
+					</form>
+					</navigator>
 				</view>
 			</view>
     		<!-- 优惠券 -->

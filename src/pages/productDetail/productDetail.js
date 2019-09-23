@@ -36,7 +36,7 @@ Page({
         hasEnd: false,
         timeLimit: 0,
         miaoshaObj: {},
-        isShowAcitonSheet: false,
+        isShowActionSheet: false,
         isShowCouponList: false,
         selectedProperties: [],
         selectedSku: {},
@@ -66,7 +66,7 @@ Page({
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
-        const updateData = { isShowAcitonSheet: true };
+        const updateData = { isShowActionSheet: true };
         if (ev) {
             const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
             console.log(actions);
@@ -80,7 +80,7 @@ Page({
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
             this.setData({
-                isShowAcitonSheeted: true
+                isShowActionSheeted: true
             });
         });
     },
@@ -497,7 +497,7 @@ Page({
 
     onSkuCancel() {
         this.setData({
-            isShowAcitonSheet: false,
+            isShowActionSheet: false,
             pendingGrouponId: ''
         });
     },

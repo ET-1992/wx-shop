@@ -136,6 +136,17 @@ export const SHIPPING_TYPE = [
     { text: '送货上门', value: 4 }
 ];
 
+// export const PRODUCT_STATUS = [
+//     { text: '售罄', value: 'sold_out' },
+//     { text: '上架', value: 'publish' },
+//     { text: '已下架', value: 'unpublished' },
+//     { text: '拼团', value: 'groupon_enable' },
+//     { text: '限时购', value: 'miaosha_enable' },
+//     { text: '会员价', value: 'membership_price_enable' },
+//     { text: '会员专属', value: 'membership_dedicated_enable' },
+//     { text: '分销', value: 'commission' }
+// ];
+
 // const coupon_data_type = {
 //     1: '固定日期区间',
 //     2: '固定时长' // 领取后计算

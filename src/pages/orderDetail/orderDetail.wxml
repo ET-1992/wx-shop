@@ -273,7 +273,7 @@
 
 <skuModal
  wx:if="{{ otherPeopleGroupon }}"
- isShowSkuModal="{{ isShowAcitonSheet }}"
+ isShowSkuModal="{{ isShowActionSheet }}"
  product="{{ product }}"
  themeColor="{{ themeColor }}"
  position="bottom"
