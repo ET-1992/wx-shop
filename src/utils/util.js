@@ -197,7 +197,7 @@ export function bankCardAttribution(bankCard) {
 
 export function updateCart(e) {
     const CART_NUM  = wx.getStorageSync('CART_NUM');
-    if (!CART_NUM || CART_NUM === '0') {
+    if (!CART_NUM || CART_NUM === 0) {
         wx.removeTabBarBadge({
             index: e
         });
