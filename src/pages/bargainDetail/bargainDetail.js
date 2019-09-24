@@ -2,7 +2,7 @@ import api from 'utils/api';
 import getRemainTime from 'utils/getRemainTime';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
-import { getAgainUserForInvalid, getUserInfo } from 'utils/util';
+import { getAgainUserForInvalid, autoNavigate } from 'utils/util';
 const app = getApp();
 
 Page({
@@ -85,85 +85,45 @@ Page({
     async bindGetUserInfo(e) {
         const { encryptedData, iv } = e.detail;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
-        if (user) {
-            const { code } = e.currentTarget.dataset;
-            console.log('code64', code);
-            try {
-                const data = api.hei.bargainHelp({ code });
-                console.log('data67', data);
-                await proxy.showToast({
-                    title: '砍价成功'
-                });
-                this.setData({ user }, () => { this.onLoadData(code) });
-            } catch (err) {
-                await proxy.showModal({
-                    title: '温馨提示',
-                    content: err.errMsg,
-                    showCancel: false,
-                });
+        console.log('user88', user);
+        const { code } = e.currentTarget.dataset;
+        console.log('code64', code);
+        try {
+            const data = api.hei.bargainHelp({ code });
+            console.log('data67', data);
+            await proxy.showToast({
+                title: '砍价成功'
+            });
+            if (user) {
+                this.setData({ user });
             }
-        } else {
-            this.setData({ noHelp: true });
+            this.setData({ isHelp: true });
+            this.onLoadData(code);
+        } catch (err) {
+            await proxy.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false,
+            });
         }
     },
 
-    async onShowSku(ev) {
-        const { status } = this.data.product;
-        // 若商品售罄或下架显示
-        if (status === 'unpublished' || status === 'sold_out') {
-            await proxy.showModal({
+    // 立即购买
+    async onBuy() {
+        const { product, mission } = this.data;
+        if (product.status === 'unpublished' || product.status === 'sold_out') {
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
                 content: '活动太火爆了，商品已抢光',
                 confirmText: '去看看其他活动商品',
-                mask: true
+                showCancel: false,
             });
             if (confirm) {
-                wx.navigateTo({
-                    url: '/pages/miaoshaList/miaoshaList?type=bargain'
-                });
-                return;
+                autoNavigate('/pages/miaoshaList/miaoshaList?type=bargain');
             }
-            return;
+        } else {
+            autoNavigate(`/pages/productDetail/productDetail?id=${mission.post_id}`);
         }
-        const updateData = { isShowActionSheet: true };
-        if (ev) {
-            const { actions } = ev.currentTarget.dataset;
-            console.log('actions104', actions);
-            updateData.actions = actions;
-        }
-        this.setData(updateData, () => {
-            this.setData({
-                isShowActionSheeted: true
-            });
-        });
-    },
-
-    async onSkuConfirm(e) {
-        console.log(e);
-        const { actionType, selectedSku, quantity, formId } = e.detail;
-        this.setData({
-            selectedSku,
-            quantity,
-            formId
-        });
-        this[actionType]();
-        this.onSkuCancel();
-    },
-
-    onSkuCancel() {
-        this.setData({
-            isShowActionSheet: false,
-            pendingGrouponId: ''
-        });
-    },
-
-    // 从 SKUModel 组件获取配送方式 shipping_type
-    getShippingType(e) {
-        console.log('e161', e);
-        this.setData({
-            shipping_type: e.detail.shipping_type
-        });
-        console.log('shipping_type696', this.data.shipping_type);
     },
 
     onUnload() {

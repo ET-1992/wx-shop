@@ -61,7 +61,7 @@ function shopShare(path) {
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false }) => {
+export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false, isBargainBuy = false }) => {
 
     try {
 
@@ -110,9 +110,10 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
 
         if (isGrouponBuy) {
             item.price = product.groupon_price;
-        }
-        else if (isMiaoshaBuy) {
+        } else if (isMiaoshaBuy) {
             item.price = product.miaosha_price;
+        } else if (isBargainBuy) {
+            item.price = product.bargain_price;
         }
 
         order.items = [item];

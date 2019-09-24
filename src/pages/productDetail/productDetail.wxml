@@ -376,7 +376,7 @@
 					 data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
 					 style="background-color: {{ themeColor.secondaryColor }}"
 					>
-						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_mission.price }}</view>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
 						<view>原价购买</view>
 					</view>
 					<!-- 没有 bargain_mission 表示未进行过砍价；status状态: 1: 进行中，2：已完成，3: 已过期 -->
@@ -389,8 +389,8 @@
 					</view>
 					<view 
 						class="buy multi" 
-						catchtap="toBargainDetailPage"
-						data-code="{{product.bargain_mission && product.bargain_mission.code}}"
+						bindtap="go"
+						data-url="/pages/bargainDetail/bargainDetail?code={{product.bargain_mission && product.bargain_mission.code}}"
 						style="background-color: {{ themeColor.primaryColor }}" 
 						wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">
 						查看进度

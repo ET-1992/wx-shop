@@ -1,8 +1,8 @@
 import api from 'utils/api';
 import { BARGAIN_STATUS_TEXT } from 'constants/index';
-import { valueToText } from 'utils/util';
-
+import { go } from 'utils/util';
 const app = getApp();
+
 Page({
     data: {
         missions: [],
@@ -13,6 +13,8 @@ Page({
         selectedStatus: null,
         isLoading: true
     },
+
+    go,
 
     async loadOrders() {
         const { next_cursor, isRefresh, missions, selectedStatus } = this.data;

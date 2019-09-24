@@ -68,7 +68,8 @@ Page({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config
+            config,
+            bargain_mission_code: params.bargain_mission_code
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -212,7 +213,8 @@ Page({
                 isGrouponBuy,
                 grouponId,
                 shipping_type,
-                config
+                config,
+                bargain_mission_code
             } = this.data;
             let requestData = {};
             if (address) {
@@ -243,6 +245,11 @@ Page({
             if (shipping_type === '4') { // 送货上门
                 // requestData.receiver_address_name = params;
                 requestData.delivery_store_id = params; // 配送地区id
+            }
+
+            if (bargain_mission_code) { // 砍价
+                requestData.promotion_type = 5;
+                requestData.mission_code = bargain_mission_code;
             }
 
             requestData.shipping_type = Number(shipping_type);

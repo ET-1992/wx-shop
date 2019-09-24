@@ -395,6 +395,7 @@ Page({
         }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+
         let isMiaoshaBuy = false;
 
         if (product.miaosha_enable) {
@@ -431,12 +432,17 @@ Page({
             url = url + '&crowd=true';
         }
 
+        if (product.bargain_enable) {
+            url = url + `&bargain_mission_code=${product.bargain_mission && product.bargain_mission.code}`;
+        }
+
         const currentOrder = createCurrentOrder({
             selectedSku,
             quantity,
             product,
             isGrouponBuy,
             isMiaoshaBuy,
+            isBargainBuy: true
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -656,14 +662,13 @@ Page({
         } else {
             const { groupon_commander_price } = product;
             groupon_commander_price && (url = url + '&groupon_commander_price=true');
-            console.log('dddd');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,
             quantity,
             product,
             isGrouponBuy,
-            isMiaoshaBuy,
+            isMiaoshaBuy
         });
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
@@ -717,22 +722,17 @@ Page({
             sku_id: selectedSku.id || 0
         });
         console.log('mission721', mission);
+        autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
         // wx.navigateTo({
         //     url: `/pages/bargainDetail/bargainDetail?code=${mission.code}`,
         // });
-        this.toBargainDetailPage(null, mission.code);
     },
-
-    toBargainDetailPage(e, data) {
-        if (e) {
-            const { code } = e.currentTarget.dataset;
-            console.log('code730', code);
-            wx.navigateTo({
-                url: `/pages/bargainDetail/bargainDetail?code=${code}`
-            });
-        }
-        wx.navigateTo({
-            url: `/pages/bargainDetail/bargainDetail?code=${data}`
-        });
-    }
+    // // 查看进度 跳转至砍价详情页面
+    // toBargainDetailPage(e) {
+    //     const { code } = e.currentTarget.dataset;
+    //     console.log('code730', code);
+    //     wx.navigateTo({
+    //         url: `/pages/bargainDetail/bargainDetail?code=${code}`
+    //     });
+    // }
 });

@@ -61,30 +61,32 @@
 			<view class="second">{{ remainTime.second }}</view>
 			<view class="dateTitle">秒</view>
 		</view>
-		<button class="img" open-type="share">
+		<button class="img" open-type="share" hover-class="none">
 			<!-- 喊好友来帮忙 -->
 			<image src="/icons/bargainDetail/bargainHelp.svg" mode="widthFix"/>
 		</button>
 	</view>
 	<!-- 砍价成功时显示 -->
-	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: '立即购买'}]}}">立即购买</view>
+	<!-- <navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}">立即购买</navigator> -->
+	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" bindtap="onBuy">立即购买</view>
 	<!-- 砍价失败时显示 -->
 	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3}}">
 		<!-- 重新发起 跳转到商品详情-->
-		<navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}">
+		<navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="img-left">
 			<image src="/icons/bargainDetail/bargainAgain.svg" mode="widthFix"/>
 		</navigator>
 		<!-- 看看其他 跳转到砍价专区 -->
-		<navigator url="/pages/miaoshaList/miaoshaList?type=bargain">
+		<navigator url="/pages/miaoshaList/miaoshaList?type=bargain" class="img-right">
 			<image src="/icons/bargainDetail/others.svg" mode="widthFix"/>
 		</navigator>
 	</view>
-	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面-->
+	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
 	<view class="bargain-isOthers" wx:if="{{isOthers}}">
-		<!-- 帮TA砍价 头像授权 砍价榜提示 catchtap="bargainHelp"-->
-		<button style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" data-code="{{mission.code}}">
+		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
+		<button style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" data-code="{{mission.code}}" hover-class="none" wx:if="{{!isHelp}}">
 			<image src="/icons/bargainDetail/helpta.svg" mode="widthFix" />
 		</button>
+		<view class="img-left isHelp" wx:if="{{isHelp}}">已帮TA砍价</view>
 		<!-- 我也砍这件 跳转到商品详情 -->
 		<navigator class="img-right" url="/pages/productDetail/productDetail?id={{ mission.post_id }}">
 			<image src="/icons/bargainDetail/meToo.svg" mode="widthFix"/>
@@ -97,10 +99,9 @@
 			<view wx:for="{{actors}}" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
 				<view class="left">
 					<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}" mode="widthFix"></image>
-					<view class="name">{{item.user.nickname || '好友'}}</view>
+					<view class="name">{{item.user.nickname || '帮砍好友'}}</view>
 				</view>
 				<view class="right">
-					<!-- <view wx:if="{{noHelp}}">帮砍好兄弟</view> -->
 					已帮砍<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{item.actor_price}}</text>
 				</view>
 			</view>
@@ -121,16 +122,3 @@
         </view>
 	</view>
 </view>
-
-<skuModal
- isShowSkuModal="{{ isShowActionSheet }}"
- product="{{ product }}"
- themeColor="{{ themeColor }}"
- position="bottom"
- actions="{{ actions }}"
- quantity="{{ quantity }}"
- config="{{ config }}"
- isIphoneX="{{ isIphoneX }}"
- bind:onSkuConfirm="onSkuConfirm"
- bind:getShippingType="getShippingType"
-/>

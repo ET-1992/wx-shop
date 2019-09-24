@@ -60,6 +60,9 @@
                         <view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">
                             {{ product.definePrice }}
                         </view>
+                        <view wx:elif="{{ product.bargain_enable}}">
+                            {{ product.bargain_price }}
+                        </view>
                         <view wx:elif="{{ selectedSku.id }}">{{ selectedSku.price }}</view>
                         <view wx:else>
                             {{ (product.highest_price > product.definePrice) ? (product.definePrice + '-' + product.highest_price) : product.definePrice }}

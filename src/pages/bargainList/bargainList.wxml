@@ -5,7 +5,8 @@
 	<view class="orderItem">
 		<view class="order" wx:for="{{ missions }}" wx:key="index">
 			<view class="item">
-				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill" />
+				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill" bindtap="go"
+				data-url="/pages/bargainDetail/bargainDetail?code={{item.code}}"/>
 				<view class="itemInfo">
 					<view class="itemTitle">{{ item.post_title }}</view>
 					<!-- 底价 -->

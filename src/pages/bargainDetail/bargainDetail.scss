@@ -216,13 +216,18 @@
 		display: flex;
 		justify-content: center;
 		margin-bottom: 50rpx;
-		image {
+		.img-left,
+		.img-right {
 			width: 300rpx;
 			height: 80rpx;
 
-			&:first-child {
-				margin-right: 20rpx;
+			image {
+				width: 100%;
 			}
+		}
+
+		.img-left {
+			margin-right: 20rpx;
 		}
 	}
 
@@ -232,14 +237,20 @@
 		margin-bottom: 50rpx;
 		.img-left,
 		.img-right {
+			width: 300rpx;
+			height: 80rpx;
 			image {
-				width: 300rpx;
-				height: 80rpx;
+				width: 100%;
 			}
 		}
 
 		.img-left {
 			margin-right: 20rpx;
+		}
+
+		.isHelp {
+			background: #999;
+			border-radius: 20rpx;
 		}
 	}
 
