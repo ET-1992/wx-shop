@@ -1,7 +1,8 @@
 import api from 'utils/api';
-import { showToast, showModal } from 'utils/wxp';
 import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate } from 'utils/util';
 import { CONFIG } from 'constants/index';
+import proxy from 'utils/wxProxy';
+
 const app = getApp();
 Page({
     data: {
@@ -131,7 +132,7 @@ Page({
                 form_id,
                 code: app.globalData.afcode || ''
             });
-            const { confirm } = await showModal({
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
                 content: '提交成功，请等待商户审核通过',
                 showCancel: false,
@@ -141,7 +142,7 @@ Page({
                 autoNavigate('/pages/me/me');
             }
         } catch (e) {
-            await showToast({
+            wx.showToast({
                 title: '提交失败',
                 icon: 'none'
             });
@@ -154,17 +155,17 @@ Page({
             const data = await api.hei.joinShareUser({
                 code: app.globalData.afcode || ''
             });
-            const { confirm }  = await showModal({
+            const { confirm }  = await proxy.showModal({
                 title: '温馨提示',
                 content: '申请成功，您已成为分享家',
                 showCancel: false,
                 mask: true
             });
             if (confirm) {
-                wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
+                autoNavigate('/pages/affiliate/affiliateCenter/affiliateCenter');
             }
         } catch (e) {
-            await showToast({
+            wx.showToast({
                 title: '申请失败',
                 icon: 'none'
             });
@@ -184,26 +185,38 @@ Page({
     },
 
     async redirectToHome() {
-        const { affiliate_enable, is_affiliate_member } = this.data;
+        const { affiliate_enable, is_affiliate_member, audit_status = '' } = this.data;
         if (!affiliate_enable) {
-            const { confirm }  = await showModal({
+            const { confirm }  = await proxy.showModal({
                 title: '温馨提示',
                 content: '商家暂时关闭了分享功能',
                 showCancel: false,
                 mask: true
             });
             if (confirm) {
-                wx.redirectTo({ url: '/pages/home/home' });
+                autoNavigate('/pages/home/home');
             }
-        } else if (is_affiliate_member) {
-            const { confirm }  = await showModal({
+        }
+        if (affiliate_enable && is_affiliate_member && audit_status === '1') {
+            const { confirm }  = await proxy.showModal({
                 title: '温馨提示',
-                content: '您已经是分享家,请前往分享中心',
+                content: '审核中，请等待商户审核通过',
                 showCancel: false,
                 mask: true
             });
             if (confirm) {
-                wx.redirectTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
+                autoNavigate('/pages/home/home');
+            }
+        }
+        if (affiliate_enable && is_affiliate_member && audit_status === '2') {
+            const { confirm }  = await proxy.showModal({
+                title: '温馨提示',
+                content: '您已经是分享家，请前往分享中心',
+                showCancel: false,
+                mask: true
+            });
+            if (confirm) {
+                autoNavigate('/pages/affiliate/affiliateCenter/affiliateCenter');
             }
         }
     },

@@ -129,7 +129,7 @@
 						</form>
 					</view>
 					<navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-						<image src="{{item.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"></image>
+						<image class="m-img" src="{{item.banner}}" mode="aspectFill" mode="widthFix"></image>
 						<template is="articleItem" data="{{ article: item,module:module }}" />
 					</navigator>
 				</view>

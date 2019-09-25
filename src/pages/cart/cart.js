@@ -264,7 +264,11 @@ Page({
             return shipping_types.indexOf(item.value) > -1;
         });
         console.log('data', liftStyles);
-        this.setData({ liftStyles, shipping_type: 1, liftStyleIndex: 0 });
+        this.setData({
+            liftStyles,
+            shipping_type: shipping_types[0],
+            liftStyleIndex: 0
+        });
     },
 
     // 列表导航模块

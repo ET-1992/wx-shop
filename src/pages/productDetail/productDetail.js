@@ -55,8 +55,7 @@ Page({
         isShowProductDetailShareModal: false,
         showShareModal: false,
         templateTypeText,
-        expiredGroupon: [],
-        shipping_type: 1
+        expiredGroupon: []
     },
 
     go, // 跳转到规则详情页面
@@ -286,7 +285,7 @@ Page({
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
-        console.log('CART_NUM', typeof CART_NUM);
+        console.log('CART_NUM', typeof CART_NUM, CART_NUM);
         this.setData({
             isIphoneX,
             user,
@@ -387,6 +386,8 @@ Page({
             isCrowd,
             shipping_type
         } = this.data;
+
+        console.log('shipping_type393', shipping_type);
 
         // 非会员不能购买会员专属商品 立即购买
         if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {

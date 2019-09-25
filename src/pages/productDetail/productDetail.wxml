@@ -173,8 +173,8 @@
 				<view class="info-section" wx:if="{{ product.product_type !== 1}}">
 					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
 						<view class="delivery-section">
-							<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
-							{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : (item === 6 ? '寄存' : '快递'))}}
+						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
+						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
 						</view>
 					</view>
 					<view class="right-section">
@@ -249,12 +249,12 @@
 		<!-- 拼团玩法 -->
 		<view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
 			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
-			<image class="groupplay-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=groupon" />
+			<!-- <image class="groupplay-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=groupon" /> -->
 		</view>
 		<!-- 秒杀规则 -->
 		<view class="group-miaosha" wx:if="{{ product.seckill_enable }}">
 			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/miaosharule.png'}}" />
-			<image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" />
+			<!-- <image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" /> -->
 		</view>
 		<!-- 砍价规则 -->
 		<view class="bargain-rule" wx:if="{{ product.bargain_enable }}">
@@ -316,7 +316,7 @@
 					<text>店铺</text>
 				</view>
 				<view class="cart" bind:tap="navigateToCart">
-					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== '0'}}">{{ cartNumber }}</view>
+					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" />
 					<text>购物车</text>
 				</view>
