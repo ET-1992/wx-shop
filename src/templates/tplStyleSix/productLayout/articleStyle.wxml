@@ -1,5 +1,5 @@
 <view class="articleStyle">
-    <image class="banner" src="{{article.banner}}" mode="aspectFill" style="height: {{module.height}}rpx;"/>
+    <image class="banner" src="{{article.banner}}" mode="widthFix"/>
     <view class="content">
         <view class="title">{{article.title}}</view>
         <view class="desc">{{article.excerpt}}</view>
