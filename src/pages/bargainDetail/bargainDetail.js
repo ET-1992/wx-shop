@@ -56,6 +56,8 @@ Page({
     async onLoadData(code) {
         try {
             const data = await api.hei.bargainDetail({ code });
+            data.mission.needBargainPrice = (Number(data.mission.current_price) - Number(data.mission.target_price)).toFixed(2);
+            console.log('data60', data);
             this.setData({ ...data, isLoading: false }, () => {
                 this.countDown();
                 // 砍价倒计时

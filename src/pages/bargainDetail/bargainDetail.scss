@@ -79,10 +79,59 @@
 
 			.detail-progress {
 				width: 100%;
+				margin-top: 32rpx;
+				overflow: hidden;
+				position: relative;
+				
+				.percent-text {
+					width: 100%;
+					height: 66rpx;
+					overflow: hidden;
+					.float {
+						width: 150rpx;
+						text-align: center;
+						padding: 6rpx;
+						font-size: 20rpx;
+						color: #999;
+						border: 1rpx solid rgba(112, 112, 112, 1);
+						border-radius: 22rpx;
+						position: absolute;
+						top: 0;
+						left: 0;
+
+						&:after {
+							position: absolute;
+							left: 20%;
+							display: table;
+							width: 10rpx;
+							height: 10rpx;
+							content: '';
+							margin-left: -4rpx;
+							transform: rotate(-135deg);
+						}
+
+						&:after {
+							z-index: 1;
+							bottom: -2rpx;
+							background: linear-gradient(-45deg, transparent 7rpx, #fff 0);
+							box-shadow: -1rpx -1rpx 0 rgba(112, 112, 112, 1);
+						}
+					}
+
+					.percent-price {
+						color: #F52D2D;
+					}
+				}
+
+				.detail-percent {
+					margin-bottom: 15rpx;
+					padding: 0 12rpx;
+				}
 
 				.detail-price {
 					display: flex;
 					justify-content: space-between;
+					padding: 0 10rpx;
 
 					.price-left {
 						font-size: 24rpx;

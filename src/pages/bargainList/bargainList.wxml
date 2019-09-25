@@ -27,10 +27,10 @@
 					<view class="itemPirceInfo" wx:if="{{ item.status === 1 }}" >
 						<view class="commonStyle">
 							<view class="bargaining_price">
-								<view>已砍价 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price - item.current_price }}</text></view>
+								<view>已砍价 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.isBargainPrice }}</text></view>
 							</view>
 							<view class="bargaining_price">
-								<view>还差 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.current_price - item.target_price }}</text></view>
+								<view>还差 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.needBargainPrice }}</text></view>
 							</view>
 						</view>
 						<navigator class="btn" url="/pages/bargainDetail/bargainDetail?code={{item.code}}">

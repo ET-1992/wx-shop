@@ -28,6 +28,11 @@ Page({
         const data = await api.hei.bargainList(queryOption);
 
         const newOrders = isRefresh ? data.missions : missions.concat(data.missions);
+        newOrders.forEach(item => {
+            item.isBargainPrice = (Number(item.price) - Number(item.current_price)).toFixed(2);
+            item.needBargainPrice = (Number(item.current_price) - Number(item.target_price)).toFixed(2);
+        });
+
         this.setData({
             missions: newOrders,
             isRefresh: false,

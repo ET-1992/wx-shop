@@ -19,6 +19,13 @@
 				<image class="bg" src="/icons/bargainDetail/bargainFail.svg" mode="widthFix" wx:if="{{mission.status === 3}}"/>
 			</view>
 			<view class="detail-progress">
+				<view class="percent-text" wx:if="{{mission.status === 1}}">
+					<view class="float" style="left: {{mission.progress}}%">还需砍{{ globalData.CURRENCY[globalData.currency] }}<text class="percent-price">{{mission.needBargainPrice}}</text></view>
+				</view>
+				<view class="detail-percent">
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#F30011" backgroundColor="#FFEFEA" border-radius="20" wx:if="{{mission.status === 1 || mission.status === 2}}"/>
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="20" wx:if="{{mission.status === 3}}"/>
+				</view>
 				<view class="detail-price">
 					<view class="price-left">
 						原价: <text class="original-price">{{ globalData.CURRENCY[globalData.currency] }}{{mission.price}}</text>
