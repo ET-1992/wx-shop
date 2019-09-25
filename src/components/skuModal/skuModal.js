@@ -68,7 +68,7 @@ Component({
         skuMap: {},
         globalData: app.globalData,
         now: Math.round(Date.now() / 1000),
-        shipping_types: '1'
+        shipping_type: '1'
     },
     attached() {
         const config = wx.getStorageSync(CONFIG);
@@ -78,7 +78,7 @@ Component({
         // 初始化配送方式
         firstInit() {
             const { product } = this.data;
-            console.log('shipping_types', product.shipping_types);
+            console.log('shipping_type', product.shipping_types);
             let type = product.shipping_types;
             const liftStyles = SHIPPING_TYPE.filter(item => {
                 return type.indexOf(item.value) > -1;
@@ -89,10 +89,10 @@ Component({
                     item.checked = false;
                 });
                 liftStyles[0].checked = true;
-                this.setData({ liftStyles, shipping_types: type[0] });
+                this.setData({ liftStyles, shipping_type: type[0] });
                 this.triggerEvent('getShippingType', { shipping_type: type[0] }, { bubbles: true });
             }
-            console.log('shipping_types94', this.data.shipping_types);
+            console.log('shipping_type94', this.data.shipping_type);
         },
         close() {
             this.setData({
@@ -134,8 +134,9 @@ Component({
         async onAddCart(e) {
             const { selectedSku, shipping_type } = this.data;
             console.log(selectedSku, e, 'erer');
-            e.sku_id = selectedSku.id;
+            e.sku_id = selectedSku.id; // 多规格
             e.shipping_type = shipping_type;
+            console.log('shipping_type139', shipping_type);
             if (selectedSku.stock === 0) {
                 await proxy.showModal({
                     title: '温馨提示',

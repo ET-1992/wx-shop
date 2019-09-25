@@ -21,10 +21,10 @@
     						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
     						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
     					</button>
-    					<button class="addCart" wx:else catch:tap="addCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}">
+    					<button class="addCart" wx:else catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
     						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
     						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
-    					</button>
+							</button>
     			</form>
     			</view>
     		</view>

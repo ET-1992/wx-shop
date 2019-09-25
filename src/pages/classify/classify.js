@@ -1,8 +1,8 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
-import { CONFIG } from 'constants/index';
-import { updateCart } from 'utils/util';
+import { CONFIG, SHIPPING_TYPE } from 'constants/index';
+import { updateCart, valueToText } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -203,7 +203,7 @@ Page({
         const { formId } = ev.detail;
         this.setData({ formId });
     },
-
+    // skuModel 弹窗返回数据
     onAddCart(e) {
         this.addCart(e.detail);
         console.log('e209', e.detail);
@@ -211,6 +211,7 @@ Page({
 
     /* 加车 */
     async addCart(e) {
+        console.log('e214', e);
         let { vendor } = app.globalData;
         let { id, stock } = e.currentTarget.dataset;
         if (stock === 0) {
@@ -223,16 +224,18 @@ Page({
         let options = {};
 
         options.post_id = id;
-        options.sku_id = e.sku_id || 0;
-        options.shipping_type = e.shipping_type || 1;
+        options.sku_id = e.sku_id || 0; // 多规格
+        options.shipping_type = e.shipping_type;
         options.quantity = 1;
         options.vendor = vendor;
         options.form_id = this.data.formId;
+
+        let shippingText = valueToText(SHIPPING_TYPE, Number(e.shipping_type));
         try {
             const data = await api.hei.addCart(options);
             wx.showToast({
                 icon: 'none',
-                title: '加入成功',
+                title: `加入${shippingText}成功`,
             });
             this.reloadCart(data);
             wx.setStorageSync('CART_NUM', String(data.count));
@@ -249,12 +252,26 @@ Page({
         }
     },
 
+    // 选规格弹窗
     isShowSkuModal(e) {
         const { product } = e.currentTarget.dataset;
         this.setData({
             isShowSkuModal: true,
             selectedProduct: product
         });
+    },
+
+    // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
+    // 单规格但多种配送方式 显示弹窗选择 配送方式
+    singleAddCart(e) {
+        console.log('e262', e);
+        const { product } = e.currentTarget.dataset;
+        if (product.shipping_types && (product.shipping_types.length === 1)) {
+            e.shipping_type = product.shipping_types[0];
+            this.addCart(e);
+        } else {
+            this.isShowSkuModal(e);
+        }
     },
 
     touchstart(e) {
