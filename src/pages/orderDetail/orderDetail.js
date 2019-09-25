@@ -263,6 +263,7 @@ Page({
             isCrowd
         });
     },
+
     async onSkuConfirm(e) {
         wx.showLoading({
             title: '请求中...'
@@ -271,7 +272,7 @@ Page({
 
         await api.hei.submitFormId({ form_id: formId });
 
-        const { current_user, product, grouponId, isGrouponBuy, isCrowd } = this.data;
+        const { current_user, product, grouponId, isGrouponBuy, isCrowd, shipping_type } = this.data;
 
         if (selectedSku.stock === 0) {
             await proxy.showModal({
@@ -295,12 +296,12 @@ Page({
             return;
         }
 
-        let url = '/pages/orderCreate/orderCreate';
+        let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
         if (isGrouponBuy && grouponId) {
-            url = url + `?isGrouponBuy=true&grouponId=${grouponId}`;
+            url = url + `&isGrouponBuy=true&grouponId=${grouponId}`;
         }
         if (isCrowd) {
-            url = url + '?crowd=true';
+            url = url + '&crowd=true';
         }
 
         const currentOrder = createCurrentOrder({
@@ -434,5 +435,14 @@ Page({
         this.setData({
             liftInfoModal: false
         });
+    },
+
+    // 从 SKUModel 组件获取配送方式 shipping_type
+    getShippingType(e) {
+        console.log('e690', e);
+        this.setData({
+            shipping_type: e.detail.shipping_type
+        });
+        console.log('shipping_type696', this.data.shipping_type);
     }
 });
