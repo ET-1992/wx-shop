@@ -1,12 +1,11 @@
-<loading isLoading="{{ isLoading }}" />
-<view class="container" wx:if="{{!isLoading}}">
+<view class="container">
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" />
+	<loading isLoading="{{ isLoading }}" />
 	<view class="emptyHint" wx:if="{{ !missions.length && !isRefresh }}"> 暂无内容 </view>
-	<view class="orderItem">
-		<view class="order" wx:for="{{ missions }}" wx:key="index">
+	<view class="orderItem" wx:if="{{!isLoading}}">
+		<navigator class="order" wx:for="{{ missions }}" wx:key="index" url="/pages/bargainDetail/bargainDetail?code={{item.code}}">
 			<view class="item">
-				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill" bindtap="go"
-				data-url="/pages/bargainDetail/bargainDetail?code={{item.code}}"/>
+				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill"/>
 				<view class="itemInfo">
 					<view class="itemTitle">{{ item.post_title }}</view>
 					<!-- 底价 -->
@@ -19,9 +18,9 @@
 							<view>已完成砍价</view>
 							<view class="finish_tips">数量有限，请尽快下单</view>
 						</view>
-						<navigator class="btn" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-							<image class="finish-btn" src="/icons/bargainList/finish.svg" alt="立即购买"/>
-						</navigator>
+						<view class="btn">
+							<image class="finish-btn" src="/icons/bargainList/finish.svg"/>
+						</view>
 					</view>
 					<!-- 砍价进行中 -->
 					<view class="itemPirceInfo" wx:if="{{ item.status === 1 }}" >
@@ -33,16 +32,16 @@
 								<view>还差 <text class="price_text">{{ globalData.CURRENCY[globalData.currency] }}{{ item.needBargainPrice }}</text></view>
 							</view>
 						</view>
-						<navigator class="btn" url="/pages/bargainDetail/bargainDetail?code={{item.code}}">
-							<image class="bargaining-btn" src="/icons/bargainList/again.svg" alt="继续砍价"/>
-						</navigator>
+						<view class="btn">
+							<image class="bargaining-btn" src="/icons/bargainList/again.svg"/>
+						</view>
 					</view> 
 					<!-- 砍价失败 -->
 					<view class="itemPirceInfo" wx:if="{{ item.status === 3 }}" >
 						<view class="commonStyle">活动结束，砍价失败</view>
-						<navigator class="btn" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-							<image class="fail-btn" src="/icons/bargainList/fail.svg" alt="砍价失败"/>
-						</navigator>
+						<view class="btn">
+							<image class="fail-btn" src="/icons/bargainList/fail.svg"/>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -51,9 +50,13 @@
 				<van-progress percentage="100" show-pivot="false"  color="linear-gradient(to right, #FFB2B9, #F64753)" wx:if="{{ item.status === 2 }}"/>
 				<van-progress inactive percentage="50" show-pivot="false" wx:if="{{ item.status === 3 }}"/>
 			</view> -->
-		</view>
+			<view class="itemMeta">
+				<progress percent="{{item.progress}}" stroke-width="8" activeColor="#F30011" show-info font-size="12" active backgroundColor="#FFEFEA" border-radius="10" wx:if="{{item.status === 1 || item.status === 2 }}"/>
+				<progress percent="{{item.progress}}" stroke-width="8" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="10" wx:if="{{item.status === 3 }}"/>
+			</view>
+		</navigator>
 	</view>
-	<view class="bottomHint" wx:if="{{ missions.length && !next_cursor }}">-到底啦-</view>
+	<view class="bottomHint" wx:if="{{ !isLoading && missions.length && !next_cursor }}">-到底啦-</view>
 </view>
 
 <console page="我的砍价" />

@@ -16,6 +16,17 @@ Page({
 
     go,
 
+    async onLoad() {
+        const { themeColor } = app.globalData;
+        this.setData({
+            selectedStatus: null,
+            activeIndex: 0,
+            themeColor,
+            globalData: app.globalData,
+        });
+        this.loadOrders();
+    },
+
     async loadOrders() {
         const { next_cursor, isRefresh, missions, selectedStatus } = this.data;
         const queryOption = { cursor: next_cursor };
@@ -53,29 +64,6 @@ Page({
             next_cursor: 0,
             isLoading: true
         });
-        this.loadOrders();
-    },
-
-    async onLoad() {
-        const { themeColor } = app.globalData;
-        this.setData({
-            selectedStatus: null,
-            activeIndex: 0,
-            themeColor,
-            globalData: app.globalData,
-        });
-        this.loadOrders();
-    },
-
-    async onPullDownRefresh() {
-        this.setData({ isRefresh: true, next_cursor: 0, isLoading: true });
-        await this.loadOrders();
-        wx.stopPullDownRefresh();
-    },
-
-    async onReachBottom() {
-        const { next_cursor } = this.data;
-        if (!next_cursor) { return }
         this.loadOrders();
     }
 });

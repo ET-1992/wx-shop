@@ -12,10 +12,11 @@
 
 .order {
 	background-color: #fff;
-	margin-top: 20rpx;
+	margin: 20rpx;
 	padding: 20rpx 20rpx 16rpx;
-	box-shadow: 0 0 1rpx rgba(0, 0, 0, 0.16);
+	// box-shadow: 0 0 1rpx rgba(0, 0, 0, 0.16);
 	border-radius: 10rpx;
+	border: 1px solid #f0f0f0;
 
 	.item {
 		display: flex;
@@ -112,9 +113,9 @@
 		}
 	}
 
-	// .itemMeta {
-
-	// }
+	.itemMeta {
+		margin-bottom: 20rpx;
+	}
 }
 
 .bottomHint {

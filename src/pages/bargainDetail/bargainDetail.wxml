@@ -23,8 +23,8 @@
 					<view class="float" style="left: {{mission.progress}}%">还需砍{{ globalData.CURRENCY[globalData.currency] }}<text class="percent-price">{{mission.needBargainPrice}}</text></view>
 				</view>
 				<view class="detail-percent">
-					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#F30011" backgroundColor="#FFEFEA" border-radius="20" wx:if="{{mission.status === 1 || mission.status === 2}}"/>
-					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="20" wx:if="{{mission.status === 3}}"/>
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#F30011" backgroundColor="#FFEFEA" border-radius="20" wx:if="{{mission.status === 1 || mission.status === 2 }}"/>
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="20" wx:if="{{mission.status === 3 }}"/>
 				</view>
 				<view class="detail-price">
 					<view class="price-left">
@@ -74,7 +74,6 @@
 		</button>
 	</view>
 	<!-- 砍价成功时显示 -->
-	<!-- <navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}">立即购买</navigator> -->
 	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" bindtap="onBuy">立即购买</view>
 	<!-- 砍价失败时显示 -->
 	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3}}">
@@ -90,13 +89,13 @@
 	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
 	<view class="bargain-isOthers" wx:if="{{isOthers}}">
 		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
-		<button style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" data-code="{{mission.code}}" hover-class="none" wx:if="{{!isHelp}}">
-			<image src="/icons/bargainDetail/helpta.svg" mode="widthFix" />
+		<button style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" wx:if="{{!isHelp}}">
+			<image src="/icons/bargainDetail/helpta.svg"/>
 		</button>
 		<view class="img-left isHelp" wx:if="{{isHelp}}">已帮TA砍价</view>
 		<!-- 我也砍这件 跳转到商品详情 -->
 		<navigator class="img-right" url="/pages/productDetail/productDetail?id={{ mission.post_id }}">
-			<image src="/icons/bargainDetail/meToo.svg" mode="widthFix"/>
+			<image src="/icons/bargainDetail/meToo.svg"/>
 		</navigator>
 	</view>
 	<!-- 砍价榜 -->

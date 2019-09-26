@@ -1,20 +1,22 @@
-<view class="bargainProduct {{ hasBorder ? 'hasBorder' : '' }}">
-    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
-    <view class="meta">
-        <view class="name">{{ product.title }}</view>
-        <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
-        <view class="footer">
-            <view class="footer-left">
-                <view class="low_price">
-                    底价 <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="lowPrice">{{ product.bargain_price }}</text>
+<view class="bargainProduct">
+    <view class="wrapper {{ hasBorder ? 'hasBorder' : '' }}">  
+        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+        <view class="meta">
+            <view class="name">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+            <view class="footer">
+                <view class="footer-left">
+                    <view class="low_price">
+                        底价 <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="lowPrice">{{ product.bargain_price }}</text>
+                    </view>
+                    <view class="singleBuy">
+                        原价购买<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                    </view>
                 </view>
-                <view class="singleBuy">
-                    原价购买<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                <view class="footer-right">
+                    <view class="bargainBtn" style="background-color: {{ themeColor.primaryColor }}">发起砍价</view>
+                    <view class="bargainNumber">{{ product.bargain_finished_count || 0 }}人已砍价成功</view>
                 </view>
-            </view>
-            <view class="footer-right">
-                <view class="bargainBtn" style="background-color: {{ themeColor.primaryColor }}">发起砍价</view>
-                <view class="bargainNumber">{{ product.bargain_finished_count || 0 }}人已砍价成功</view>
             </view>
         </view>
     </view>

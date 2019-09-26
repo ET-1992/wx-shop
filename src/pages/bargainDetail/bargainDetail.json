@@ -1,5 +1,6 @@
 {
 	"navigationBarTitleText": "砍价商品",
+	"enablePullDownRefresh": true,
 	"usingComponents": {
 	  "productList": "../../components/productList/index",
 	  "loading": "../../components/loading/index"

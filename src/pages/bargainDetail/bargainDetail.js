@@ -18,7 +18,7 @@ Page({
     },
 
     onLoad(params) {
-        console.log(params);
+        console.log('params', params);
         const { themeColor } = app.globalData;
         this.setData({
             ...params,
@@ -29,27 +29,30 @@ Page({
         });
     },
 
-    // onShow() {
-    //     const { code } = this.data;
-    //     this.onLoadData(code);
-    // },
+    onShow() {
+        const { code } = this.data;
+        this.onLoadData(code);
+    },
 
     countDown() {
         const { time_expired } = this.data.mission;
         if (time_expired) {
             const now = Math.round(Date.now() / 1000);
             let timeLimit = time_expired - now;
-            const [hour, minute, second] = getRemainTime(timeLimit);
-            let day = parseInt(hour / 24, 10);
-            this.setData({
-                timeLimit,
-                remainTime: {
-                    day: day,
-                    hour: hour - day * 24,
-                    minute,
-                    second
-                }
-            });
+            // console.log('timeLimit', timeLimit, typeof timeLimit);
+            if (timeLimit > 0) {
+                const [hour, minute, second] = getRemainTime(timeLimit);
+                let day = parseInt(hour / 24, 10);
+                this.setData({
+                    timeLimit,
+                    remainTime: {
+                        day: day,
+                        hour: hour - day * 24,
+                        minute,
+                        second
+                    }
+                });
+            }
         }
     },
 
@@ -59,9 +62,9 @@ Page({
             data.mission.needBargainPrice = (Number(data.mission.current_price) - Number(data.mission.target_price)).toFixed(2);
             console.log('data60', data);
             this.setData({ ...data, isLoading: false }, () => {
-                this.countDown();
                 // 砍价倒计时
                 if (data.product.status === 'publish') {
+                    this.countDown();
                     this.intervalId = setInterval(() => {
                         this.countDown();
                     }, 1000);
@@ -69,6 +72,7 @@ Page({
             });
             console.log('mission58', this.data.mission);
         } catch (err) {
+            console.log('err72', err);
             await proxy.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
@@ -86,12 +90,13 @@ Page({
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
         const { encryptedData, iv } = e.detail;
+        const { code } = this.data;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         console.log('user88', user);
-        const { code } = e.currentTarget.dataset;
-        console.log('code64', code);
+        // const { code } = e.currentTarget.dataset;
+        // console.log('code64', code);
         try {
-            const data = api.hei.bargainHelp({ code });
+            const data = await api.hei.bargainHelp({ code });
             console.log('data67', data);
             await proxy.showToast({
                 title: '砍价成功'
@@ -99,15 +104,17 @@ Page({
             if (user) {
                 this.setData({ user });
             }
-            this.setData({ isHelp: true });
-            this.onLoadData(code);
+            // this.onLoadData(code);
+            this.onShow();
         } catch (err) {
+            console.log('err105', err);
             await proxy.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,
             });
         }
+        this.setData({ isHelp: true });
     },
 
     // 立即购买
@@ -132,25 +139,12 @@ Page({
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
-    }
+    },
 
-    // 助力砍价
-    // async bargainHelp(e) {
-    //     const { code } = e.currentTarget.dataset;
-    //     console.log('code64', code);
-    //     try {
-    //         const data = api.hei.bargainHelp({ code });
-    //         console.log('data67', data);
-    //         await proxy.showToast({
-    //             title: '砍价成功'
-    //         });
-    //         this.onLoadData(code);
-    //     } catch (err) {
-    //         await proxy.showModal({
-    //             title: '温馨提示',
-    //             content: err.errMsg,
-    //             showCancel: false,
-    //         });
-    //     }
-    // },
+    onPullDownRefresh() {
+        console.log('onPullDownRefresh');
+        this.setData({ isLoading: true });
+        this.onShow();
+        wx.stopPullDownRefresh();
+    }
 });
