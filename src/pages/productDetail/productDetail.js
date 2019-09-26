@@ -295,7 +295,7 @@ Page({
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
-            cartNumber: CART_NUM,
+            cartNumber: Number(CART_NUM),
             globalData: app.globalData
         });
         this.initPage();
@@ -528,10 +528,10 @@ Page({
         });
     },
 
-    async showCartNumber(e) {
-        wx.setStorageSync('CART_NUM', e);
+    async showCartNumber(count) {
+        wx.setStorageSync('CART_NUM', count);
         this.setData({
-            cartNumber: e
+            cartNumber: Number(count)
         });
     },
 
