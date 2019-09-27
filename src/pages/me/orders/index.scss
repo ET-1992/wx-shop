@@ -12,12 +12,11 @@
 	padding: 20rpx 20rpx;
 	margin: 0 20rpx;
 	border-radius: 5rpx;
-	height: 180rpx;
 	line-height: 2;
 }
 .orderItems {
 	display: flex;
-	margin-top: 20rpx;
+	height: 114rpx;
 	.orderItem {
 		flex-grow: 1;
 		width: 25%;
@@ -41,21 +40,6 @@
 		// height: $size;
 		margin-bottom: 10rpx;
 	}
-	// .unpay{
-	// 	width: 70rpx;
-	// }
-	// .unSend{
-	// 	width: 70rpx;
-	// }
-	// .unGet{
-	// 	width: 64rpx;
-	// }
-	// .service{
-	// 	width: 57rpx;
-	// }
-	// .allOrder{
-	// 	width: 55rpx;
-	// }
 	.orderItemValue {
 		$size: 30rpx;
 		width: $size;
@@ -72,6 +56,7 @@
 		z-index: 2;
 	}
 	.lastItem{
+		// height: 114rpx;
 		border-left: 1rpx solid #707070;
 	}
 }
