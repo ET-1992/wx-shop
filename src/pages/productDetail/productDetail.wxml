@@ -369,7 +369,7 @@
 				</block>
 
 				<!-- 砍价 -->
-				<block wx:if="{{ product.bargain_enable }}">
+				<block wx:elif="{{ product.bargain_enable }}">
 					<view
 					 class="addCart multi"
 					 catchtap="onShowSku"

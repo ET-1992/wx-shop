@@ -24,9 +24,10 @@ Page({
             ...params,
             themeColor,
             globalData: app.globalData,
-        }, () => {
-            this.onLoadData(params.code);
         });
+        // , () => {
+        // 	this.onLoadData(params.code);
+        // }
     },
 
     onShow() {

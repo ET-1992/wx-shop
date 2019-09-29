@@ -433,9 +433,11 @@ Page({
             url = url + '&crowd=true';
         }
 
-        if (product.bargain_enable) {
-            url = url + `&bargain_mission_code=${product.bargain_mission && product.bargain_mission.code}`;
+        if (product.bargain_enable && product.bargain_mission) {
+            url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
+            console.log('url438', url);
         }
+        console.log('url440', url);
 
         const currentOrder = createCurrentOrder({
             selectedSku,
