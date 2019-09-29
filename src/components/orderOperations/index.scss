@@ -37,8 +37,9 @@
 	.right-btn{
 		display: flex;
 		align-items: center;
+		padding: 6rpx 0;
 		.statusBt {
-			border: 1rpx solid rgba(112, 112, 112, 1);
+			border: 2rpx solid rgba(112, 112, 112, 1);
 			border-radius: 10rpx;
 			font-size: 24rpx;
 			margin-left: 20rpx;
