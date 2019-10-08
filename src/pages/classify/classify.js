@@ -238,7 +238,7 @@ Page({
                 title: `加入${shippingText}成功`,
             });
             this.reloadCart(data);
-            wx.setStorageSync('CART_NUM', String(data.count));
+            wx.setStorageSync('CART_NUM', data.count);
             const { categoryIndex } = app.globalData;
             updateCart(categoryIndex);
         } catch (ev) {
