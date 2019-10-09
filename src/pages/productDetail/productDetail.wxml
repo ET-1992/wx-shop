@@ -136,7 +136,11 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<!-- <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image> -->
+					<!-- 推荐好物圈 -->
+					<image class="shareIcon" mode="aspectFit" src="/icons/recommendIcons.svg" bindtap="onRecommended" ></image>
+					<!-- 开启分销 有礼 -->
+					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/affiliateGoods.svg' : '/icons/shareGoods.svg' }}" bindtap="openShareModal" ></image>
 				</view>
 			</view>
 			<!-- 价格区间 -->
@@ -434,7 +438,7 @@
 	 catchtap="onShowSku"
 	 data-is-crowd
 	 data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
-	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1}}"
+	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 }}"
 	>
 		<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 	</view>

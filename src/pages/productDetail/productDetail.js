@@ -725,16 +725,9 @@ Page({
         });
         console.log('mission721', mission);
         autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
-        // wx.navigateTo({
-        //     url: `/pages/bargainDetail/bargainDetail?code=${mission.code}`,
-        // });
     },
-    // // 查看进度 跳转至砍价详情页面
-    // toBargainDetailPage(e) {
-    //     const { code } = e.currentTarget.dataset;
-    //     console.log('code730', code);
-    //     wx.navigateTo({
-    //         url: `/pages/bargainDetail/bargainDetail?code=${code}`
-    //     });
-    // }
+
+    onRecommended() {
+        console.log('onRecommended731');
+    }
 });
