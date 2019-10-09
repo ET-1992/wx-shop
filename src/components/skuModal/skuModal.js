@@ -206,7 +206,17 @@ Component({
         async onUserInfo(e) {
             console.log('onUserInfo', e);
             const { encryptedData, iv } = e.detail;
+            const { product, selectedSku } = this.data;
             if (iv && encryptedData) {
+                if (product.skus && product.skus.length && !selectedSku.id) {
+                    wx.showToast({
+                        title: '请选择商品规格',
+                        icon: 'none',
+                        duration: 2000,
+                        mask: false,
+                    });
+                    return;
+                }
                 const { actionType } = e.target.dataset;
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.onSkuConfirm(actionType);

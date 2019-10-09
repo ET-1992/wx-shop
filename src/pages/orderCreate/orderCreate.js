@@ -453,7 +453,7 @@ Page({
         if (shipping_type === '2') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
-            wx.setStorageSync('liftInfo', liftInfo);
+            wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
         }
 
         // 送货上门需传数据
