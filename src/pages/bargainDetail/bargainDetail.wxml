@@ -101,22 +101,32 @@
 	<!-- 砍价榜 -->
 	<view class="bargain-list" >
 		<view class="label"><text class="dot">•</text> 砍价榜 <text class="dot">•</text></view>
-		<scroll-view scroll-y class="list">
-			<view wx:for="{{actors}}" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
-				<view class="left">
-					<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}" mode="widthFix"></image>
-					<view class="name">{{item.user.nickname || '帮砍好友'}}</view>
+		<!-- <scroll-view scroll-y class="list" bindscrolltolower="loadActorsData"> -->
+		<view class="listWrpper">
+			<view class="list {{!showMore ? 'hiddenmore' : 'showmore'}}">
+				<view wx:for="{{actors}}" wx:for-index="idx" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
+					<view class="left">
+						<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}" mode="widthFix"></image>
+						<view class="name">{{item.user.nickname || '帮砍好友'}}</view>
+					</view>
+					<view class="right">
+						已帮砍<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{item.actor_price}}</text>
+					</view>
 				</view>
-				<view class="right">
-					已帮砍<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{item.actor_price}}</text>
-				</view>
+				<view class="noHelp" wx:if="{{actors && !actors.length}}">暂无好友帮忙砍价</view>
 			</view>
-			<view class="noHelp" wx:if="{{actors && !actors.length}}">暂无好友帮忙砍价</view>
-			<!-- <view class="list-more">
-				查看更多
-				<image class="rightIcon" src="/icons/triangleDownActive.png" mode="widthFix"/>
-			</view> -->
-		</scroll-view>
+			<block wx:if="{{ actors.length > 3 }}">
+				<view wx:if="{{ showMore }}" class="list-more" bindtap="listToggle">
+					收起
+					<image class="rightIcon" src="/icons/triangleUpActive.png" mode="widthFix"/>
+				</view>
+				<view class="list-more" bindtap="listToggle" wx:if="{{ !showMore }}">
+					查看更多
+					<image class="rightIcon" src="/icons/triangleDownActive.png" mode="widthFix"/>
+				</view>
+			</block> 
+		</view>
+		<!-- </scroll-view> -->
 	</view>
 	<!-- 更多推荐 -->
 	<view class="bargain-more">

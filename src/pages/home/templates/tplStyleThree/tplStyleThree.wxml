@@ -111,7 +111,7 @@
            	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </myNavigator>
 			  </view>
-        	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+        	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
         	  <form bindsubmit="submitFormId" report-submit class="form">
         	    <button formType="submit" class="moreButton">
         	      <span>更多</span>

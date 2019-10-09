@@ -184,8 +184,6 @@ Page({
                 coupons,
                 routeQuery
             });
-
-
         }, 300);
     },
 
@@ -303,6 +301,7 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
         this.setData({ config, tplStyle });
+        this.initPage();
     },
 
     onUnload() {

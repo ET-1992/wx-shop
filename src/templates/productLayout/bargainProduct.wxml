@@ -10,7 +10,7 @@
                         底价 <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="lowPrice">{{ product.bargain_price }}</text>
                     </view>
                     <view class="singleBuy">
-                        原价购买<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                        原价<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
                     </view>
                 </view>
                 <view class="footer-right">

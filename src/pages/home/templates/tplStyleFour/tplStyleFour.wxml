@@ -101,7 +101,7 @@
 			<view wx:if="{{ module.key === 'groupons' }}">
 				<view class="section" class="section" wx:if="{{ groupons && groupons.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
 					<view class="sectionTitle" wx:if="{{module.title}}" style="{{ groupons.length === 1 ? 'margin-bottom: 50rpx;' : ''}}">{{module.title}}</view>
-					<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+					<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
 						<form bindsubmit="submitFormId" report-submit class="form">
 							<button formType="submit" class="moreButton">
 								<view>查看更多</view>

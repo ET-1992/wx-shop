@@ -94,7 +94,7 @@
 				<view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
 					<view class="header">
 						<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-						<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+						<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
 							<form bindsubmit="submitFormId" report-submit class="form">
 								<button formType="submit" class="moreButton">
 									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>

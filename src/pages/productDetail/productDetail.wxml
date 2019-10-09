@@ -381,13 +381,6 @@
 					</view>
 					<!-- 没有 bargain_mission 表示未进行过砍价；status状态: 1: 进行中，2：已完成，3: 已过期 -->
 					<view 
-						class="buy multi"
-						style="background-color: {{ themeColor.primaryColor }}"
-						catchtap="createBargain"
-						wx:if="{{!product.bargain_mission}}">
-						发起砍价
-					</view>
-					<view 
 						class="buy multi" 
 						bindtap="go"
 						data-url="/pages/bargainDetail/bargainDetail?code={{product.bargain_mission && product.bargain_mission.code}}"
@@ -407,7 +400,7 @@
 						class="buy multi"
 						catchtap="createBargain"
 						style="background-color: {{ themeColor.primaryColor }}"
-						wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">
+						wx:if="{{!product.bargain_mission ||(product.bargain_mission && product.bargain_mission.status === 3)}}">
 						发起砍价
 					</view>
 				</block>

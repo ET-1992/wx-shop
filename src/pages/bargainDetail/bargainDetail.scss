@@ -31,7 +31,7 @@
 
 	.product-detail {
 		margin: 0 40rpx 40rpx;
-		padding: 40rpx 35rpx;
+		padding: 32rpx 35rpx;
 		background: #fff;
 		display: flex;
 		flex-direction: column;
@@ -173,7 +173,8 @@
 				margin-right: 15rpx;
 				
 				image {
-					width: 100%;
+					width: 90rpx;
+					height: 90rpx;
 					border-radius: 50%;
 				}
 			}
@@ -318,6 +319,7 @@
 		width: 100%;
 		background: #fff;
 		padding-bottom: 70rpx;
+		min-height: 380rpx;
 
 		.label {
 			display: flex;
@@ -334,64 +336,76 @@
 			}
 		}
 
-		.list {
-			margin: 10rpx auto;
-			background: rgba(244, 244, 244, 1);
-			text-align: center;
-			border-radius: 10rpx;
-			padding: 20rpx 35rpx;
-			max-height: 380rpx;
+		.listWrpper {
 			width: 670rpx;
-			.section {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 20rpx 0;
-				border-bottom: 1rpx dashed rgba(153, 153, 153, 1);
-	
-				.left {
+			background: rgba(244, 244, 244, 1);
+			margin: 0 auto;
+			padding: 16rpx 35rpx;
+			border-radius: 10rpx;
+			.list {
+				text-align: center;
+				.section {
 					display: flex;
+					justify-content: space-between;
 					align-items: center;
-					.avatarurl {
-						width: 60rpx;
-						height: 60rpx;
-						border-radius: 50%;
-					}
+					padding: 20rpx 0;
+					border-bottom: 1rpx dashed rgba(153, 153, 153, 1);
 		
-					.name {
-						margin-left: 15rpx;
-						font-size: 28rpx;
+					.left {
+						display: flex;
+						align-items: center;
+						.avatarurl {
+							width: 60rpx;
+							height: 60rpx;
+							border-radius: 50%;
+						}
+			
+						.name {
+							margin-left: 15rpx;
+							font-size: 28rpx;
+							font-weight: 500;
+							color: rgba(51, 51, 51, 1);
+						}
+					}
+					.right {
+						font-size: 24rpx;
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
+		
+						.price {
+							font-size: 28rpx;
+							font-weight: bold;
+							color: #F52D2D;
+						}
 					}
-				}
-				.right {
-					font-size: 24rpx;
-					font-weight: 500;
-					color: rgba(51, 51, 51, 1);
-	
-					.price {
-						font-size: 28rpx;
-						font-weight: bold;
-						color: #F52D2D;
+					&:last-child {
+						border-bottom: 0;
 					}
-				}
-				&:last-child {
-					border-bottom: 0;
 				}
 			}
-
-
+			
+			.hiddenmore {
+				max-height: 320rpx;
+				overflow: hidden;
+			}
+	
+			.showmore {
+				min-height: 320rpx;
+				overflow: visible;
+			}
+			
 			.list-more {
+				height: 60rpx;
 				font-size: 24rpx;
-				margin-top: 44rpx;
+				color: #333;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-
+	
 				.rightIcon {
 					width: 14rpx;
 					height: 7rpx;
+					margin-left: 10rpx;
 				}
 			}
 		}

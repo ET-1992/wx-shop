@@ -43,12 +43,10 @@ page {
 
 		.input-placeholder {
 			color: $originalPriceColor;
-
 		}
 
 		.clearIncon {
 			$size: 40rpx;
-
 			padding: 10rpx;
 			height: $size;
 			width: $size;
@@ -88,7 +86,6 @@ page {
 			color: $titleColor;
 		}
 	}
-
 
 	.indicators {
 		display: flex;

@@ -1,4 +1,4 @@
-<view class="cartStyle" style="top: {{ top }}; position: {{ position }}">
+<view class="cartStyle" style="top: {{ top }}; position: {{ position }}"  wx:if="{{navbarListData.length > 1}}">
     <view 
 		wx:for="{{ navbarListData }}" 
         wx:key="{{item.value}}"

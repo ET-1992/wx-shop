@@ -89,7 +89,7 @@
                     <myNavigator wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
                         <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}" />
                     </myNavigator>
-                    <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+                    <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
                         <form bindsubmit="submitFormId" report-submit class="form">
                             <button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
                                 <span>更多</span>

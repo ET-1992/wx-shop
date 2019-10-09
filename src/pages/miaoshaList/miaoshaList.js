@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 // 创建页面实例对象
@@ -20,8 +21,9 @@ Page({
         const { next_cursor, categoryId, isRefresh, products, type } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            promotion_type: type === 'bargain' ? 'bargain_enable' : 'miaosha_enable',
+            promotion_type: type === 'bargain' ? 'bargain_enable' : (type === 'groupon' ? 'groupon_enable' : 'miaosha_enable'),
         });
+        console.log('miaoshaListdata', data);
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         wx.setNavigationBarTitle({
             title: data.page_title
@@ -32,6 +34,7 @@ Page({
             next_cursor: data.next_cursor,
             miaosha_banner: data.miaosha_banner || [],
             bargain_banner: data.bargain_banner || [],
+            groupon_banner: data.groupon_banner || [],
             isLoading: false
         });
         return data;
@@ -39,10 +42,13 @@ Page({
 
     async onLoad({ type }) {
         const { themeColor } = app.globalData;
+        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
             themeColor,
-            type
-        }, this.loadProducts);
+            type,
+            tplStyle
+        });
+        this.loadProducts();
     },
 
     async onPullDownRefresh() {

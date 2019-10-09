@@ -472,5 +472,16 @@ export const apis = {
         path: 'api/mag.bargain.mission.assist.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 砍价下单接口
+    bargainOrder: {
+        path: 'api/mag.bargain.order.create.json?pay&v2',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 助力者列表
+    bargainActor: {
+        path: 'api/mag.bargain.mission.actor.list.json',
+        isForceToken: true
     }
 };

@@ -47,7 +47,7 @@ Page({
         isShouldRedirect: false,
         isDisablePay: true,
         PAY_STYLES,
-        selectedPayValue: 'weixin',
+        selectedPayValue: 'WEIXIN',
     },
 
     async onShow() {
@@ -342,7 +342,8 @@ Page({
             selectedPayValue,
             store_card,
             storeListAddress,
-            shipping_type
+            shipping_type,
+            bargain_mission_code
         } = this.data;
         const {
             userName,
@@ -429,7 +430,7 @@ Page({
             }
         }
 
-        if (store_card && store_card.store_card_enable && selectedPayValue === 'store_card') {
+        if (store_card && store_card.store_card_enable && selectedPayValue === 'STORE_CARD') {
             const { confirm } = await showModal({
                 title: '提示',
                 content: '您确定要用储值卡支付吗？',
@@ -507,6 +508,12 @@ Page({
             requestData.type = 5;
             requestData.crowd_type = crowdtype;
             method = 'createOrder';
+        }
+
+        // 砍价
+        if (bargain_mission_code) {
+            requestData.code = bargain_mission_code;
+            method = 'bargainOrder';
         }
 
         wx.showLoading({
@@ -611,7 +618,7 @@ Page({
     pickPayStyle(e) {
         const { value } = e.currentTarget.dataset;
         const { store_card, finalPay } = this.data;
-        if (value === 'store_card' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
+        if (value === 'STORE_CARD' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
             wx.showModal({
                 title: '提示',
                 content: '您的储值卡余额不足，请到会员中心充值',

@@ -14,7 +14,11 @@ Page({
             second: '00',
         },
         isOthers: false,
-        isLoading: true
+        isLoading: true,
+        next_cursor: 'begin',
+        isBottom: false,
+        actors: [],
+        showMore: false
     },
 
     onLoad(params) {
@@ -23,8 +27,9 @@ Page({
         this.setData({
             ...params,
             themeColor,
-            globalData: app.globalData,
+            globalData: app.globalData
         });
+        this.loadActorsData();
         // , () => {
         // 	this.onLoadData(params.code);
         // }
@@ -62,7 +67,12 @@ Page({
             const data = await api.hei.bargainDetail({ code });
             data.mission.needBargainPrice = (Number(data.mission.current_price) - Number(data.mission.target_price)).toFixed(2);
             console.log('data60', data);
-            this.setData({ ...data, isLoading: false }, () => {
+            this.setData({
+                mission: data.mission,
+                product: data.product,
+                products: data.products,
+                isLoading: false
+            }, () => {
                 // 砍价倒计时
                 if (data.product.status === 'publish') {
                     this.countDown();
@@ -82,6 +92,42 @@ Page({
         }
     },
 
+    // 砍价榜scroll滚动触底
+    async loadActorsData(e) {
+        console.log('e90', e);
+        const { code, next_cursor, isBottom, actors } = this.data;
+        console.log('actors90', actors);
+        try {
+            if (next_cursor !== 0) {
+                const data = await api.hei.bargainActor({
+                    code,
+                    cursor: next_cursor
+                });
+                console.log('Actordata96', data);
+                const newActors = isBottom ? actors.concat(data.actors) : data.actors;
+                this.setData({
+                    actors: newActors,
+                    isBottom: true,
+                    next_cursor: data.next_cursor
+                });
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    },
+
+    listToggle() {
+        const { showMore, next_cursor } = this.data;
+
+        if (!showMore && next_cursor !== 0) {
+            this.loadActorsData();
+        } else {
+            this.setData({
+                showMore: !showMore
+            });
+        }
+    },
+
     // 分享按钮
     onShareAppMessage() {
         let opts = { isOthers: true };
@@ -91,7 +137,7 @@ Page({
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
         const { encryptedData, iv } = e.detail;
-        const { code } = this.data;
+        const { code, actors } = this.data;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         console.log('user88', user);
         // const { code } = e.currentTarget.dataset;
@@ -105,6 +151,9 @@ Page({
             if (user) {
                 this.setData({ user });
             }
+            this.setData({
+                actors: actors.unshift(data.actor)
+            });
             // this.onLoadData(code);
             this.onShow();
         } catch (err) {
@@ -125,7 +174,8 @@ Page({
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
                 content: '活动太火爆了，商品已抢光',
-                confirmText: '去看看其他活动商品',
+                confirmText: '看看其他',
+                confirmColor: '#05397E',
                 showCancel: false,
             });
             if (confirm) {

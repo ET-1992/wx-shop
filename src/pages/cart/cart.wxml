@@ -19,7 +19,7 @@
     <!-- 导航 -->
     <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
     <!-- 商品 -->
-	<scroll-view scroll-y="{{true}}" class="cartList" wx:if="{{ items.length && !isLoading }}">
+	<scroll-view scroll-y="{{true}}" class="{{liftStyles.length > 1 ?'cartList' : 'scrollHeight'}}" wx:if="{{ items.length && !isLoading }}">
     	<view class="cartItem" wx:for="{{ items }}" wx:key="id">
     	  	<view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 }}"> <view class="stock0Radio" /> </view>
     	  	<view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>

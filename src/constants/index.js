@@ -174,6 +174,6 @@ export const USER_STATUS = {
 };
 
 export const PAY_STYLES = [
-    { text: '微信', value: 'weixin' },
-    { text: '储值卡', value: 'store_card' }
+    { text: '微信', value: 'WEIXIN' },
+    { text: '储值卡', value: 'STORE_CARD' }
 ];
