@@ -29,7 +29,7 @@
         <view class="banner" wx:if="{{ bargain_banner && bargain_banner.length}}">
             <image src="{{ bargain_banner }}" class="banner" mode="aspectFill" />
         </view>
-        <view class="itemWrapper" wx:for="{{ products }}" wx:key="{{ item.id }}">
+        <view class="itemWrapper bargain" wx:for="{{ products }}" wx:key="{{ item.id }}">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
                 <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" hasBorder="true"/>
             </navigator>
