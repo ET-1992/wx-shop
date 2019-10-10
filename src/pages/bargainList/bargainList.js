@@ -24,11 +24,11 @@ Page({
             themeColor,
             globalData: app.globalData,
         });
-        // this.loadOrders();
+        this.loadOrders();
     },
 
     onShow() {
-        this.loadOrders();
+        // this.loadOrders();
     },
 
     async loadOrders() {

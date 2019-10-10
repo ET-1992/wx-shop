@@ -14,7 +14,7 @@
 		<view class="detail-top">
 			<view class="detail-title">{{product.post_title}}</view>
 			<view class="detail-img">
-				<image src="{{product.image_url}}"/>
+				<image src="{{product.image_url}}" mode="aspectFit"/>
 				<image class="bg" src="/icons/bargainDetail/bargainFinish.svg" wx:if="{{mission.status === 2}}"/>
 				<image class="bg" src="/icons/bargainDetail/bargainFail.svg" wx:if="{{mission.status === 3}}"/>
 			</view>
@@ -38,10 +38,12 @@
 		</view>
 		<view class="detail-bottom" wx:if="{{ actors && actors[0] && actors[0].user}}">
 			<view class="bottom-left">
-				<image src="{{ actors[0].user.avatarurl || '/icons/bargainDetail/unlogin.png' }}"/>
+				<image src="{{ current_user.avatarurl }}" wx:if="{{!isOthers}}"/>
+				<image src="{{ actors[0].user.avatarurl || '/icons/bargainDetail/unlogin.png' }}" wx:if="{{isOthers}}"/>
 			</view>
 			<view class="bottom-right">
-				<view class="right-name">{{actors[0].user.nickname}}</view>
+				<view class="right-name" wx:if="{{!isOthers}}">{{current_user.nickname}}</view>
+				<view class="right-name" wx:if="{{isOthers}}">{{actors[0].user.nickname}}</view>
 				<!-- 砍价进行中 -->
 				<view class="right-text" wx:if="{{!isOthers && mission.status === 1}}">已砍<text class="right-price"> {{ globalData.CURRENCY[globalData.currency] }}{{actors[0].actor_price}}</text> 元。活动商品数量有限，快分享给好友继续来砍价~</view>
 				<!-- 砍价成功 -->
@@ -76,7 +78,7 @@
 	<!-- 砍价成功时显示 -->
 	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" bindtap="onBuy">立即购买</view>
 	<!-- 砍价失败时显示 -->
-	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3}}">
+	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3 }}">
 		<!-- 重新发起 跳转到商品详情-->
 		<navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="img-left">
 			<image src="/icons/bargainDetail/bargainAgain.svg"/>
@@ -89,10 +91,12 @@
 	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
 	<view class="bargain-isOthers" wx:if="{{isOthers}}">
 		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
-		<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp}}">
+		<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp && mission.status === 1}}">
 			<image src="/icons/bargainDetail/helpta.svg"/>
 		</button>
-		<view class="img-left isHelp" wx:if="{{isHelp}}">已帮TA砍价</view>
+		<view class="img-left" wx:if="{{isHelp || mission.status !== 1}}">
+			<image src="/icons/bargainDetail/isHelpTa.svg"/>
+		</view>
 		<!-- 我也砍这件 跳转到商品详情 -->
 		<navigator class="img-right" url="/pages/productDetail/productDetail?id={{ mission.post_id }}">
 			<image src="/icons/bargainDetail/meToo.svg"/>

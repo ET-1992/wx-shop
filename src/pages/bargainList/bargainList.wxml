@@ -3,7 +3,7 @@
 	<loading isLoading="{{ isLoading }}" />
 	<view class="emptyHint" wx:if="{{ !missions.length && !isRefresh }}"> 暂无内容 </view>
 	<view class="orderItem" wx:if="{{!isLoading}}">
-		<navigator class="order" wx:for="{{ missions }}" wx:key="index" url="/pages/bargainDetail/bargainDetail?code={{item.code}}">
+		<navigator class="order" wx:for="{{ missions }}" wx:key="index" url="{{(item.status === 2 && item.order_no) ? '/pages/orderDetail/orderDetail?id='+ item.order_no : '/pages/bargainDetail/bargainDetail?code=' + item.code }}">
 			<view class="item">
 				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill"/>
 				<view class="itemInfo">
@@ -12,14 +12,24 @@
 					<view class="lowPriceInfo">
 						<view class="text">底价 <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.target_price }}</text></view>
 					</view>
-					<!-- 砍价成功 -->
-					<view class="itemPirceInfo" wx:if="{{ item.status === 2 }}" >
+					<!-- 砍价成功未下单 立即购买-->
+					<view class="itemPirceInfo" wx:if="{{ item.status === 2 && !item.order_no }}" >
 						<view class="commonStyle finish">
 							<view>已完成砍价</view>
 							<view class="finish_tips">数量有限，请尽快下单</view>
 						</view>
 						<view class="btn">
 							<image class="finish-btn" src="/icons/bargainList/finish.svg"/>
+						</view>
+					</view>
+					<!-- 砍价成功已下单 查看订单-->
+					<view class="itemPirceInfo" wx:if="{{ item.status === 2 && item.order_no}}" >
+						<view class="commonStyle finish">
+							<view>已完成砍价</view>
+							<view class="finish_tips">查看您的订单状态</view>
+						</view>
+						<view class="btn">
+							<image class="finish-btn" src="/icons/bargainList/lookOrders.svg" wx:if="{{item.order_no}}"/>
 						</view>
 					</view>
 					<!-- 砍价进行中 -->
