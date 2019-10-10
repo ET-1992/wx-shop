@@ -29,10 +29,7 @@ Page({
             themeColor,
             globalData: app.globalData
         });
-        this.loadActorsData();
-        // , () => {
-        // 	this.onLoadData(params.code);
-        // }
+        // this.loadActorsData();
     },
 
     onShow() {
@@ -143,9 +140,7 @@ Page({
         const { code, actors } = this.data;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         console.log('user88', user);
-        const { code1 } = e.currentTarget.dataset;
         console.log('code147', code);
-        console.log('code148', code1);
         try {
             const data = await api.hei.bargainHelp({ code });
             console.log('data150', data);
@@ -156,12 +151,9 @@ Page({
                 title: '砍价成功'
             });
             console.log('actors157', actors);
-            this.setData({
-                actors: actors.unshift(data.actor)
-            });
-            // this.onShow();
+            actors.unshift(data.actor);
+            this.setData({ actors }, () => { console.log('actors158', this.data) });
             this.onLoadData(code);
-            console.log('actors160', actors);
         } catch (err) {
             console.log('err105', err);
             await proxy.showModal({
