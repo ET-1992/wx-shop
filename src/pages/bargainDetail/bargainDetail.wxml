@@ -3,10 +3,10 @@
 	<!-- 头部按钮 -->
 	<view class="btn-group">
 		<navigator class="toBargainListPage" url="/pages/bargainList/bargainList">
-			<image mode="aspectFit" src="/icons/bargainDetail/myBargain.svg"/>
+			<image src="/icons/bargainDetail/myBargain.svg"/>
 		</navigator>
 		<navigator class="rule" url="/pages/rulePages/rulePages?key=bargain">
-			<image mode="aspectFit" src="/icons/bargainDetail/bargainRule.svg"/>
+			<image src="/icons/bargainDetail/bargainRule.svg"/>
 		</navigator>
 	</view>
 	<!-- 砍价商品基本信息 -->
@@ -14,9 +14,9 @@
 		<view class="detail-top">
 			<view class="detail-title">{{product.post_title}}</view>
 			<view class="detail-img">
-				<image mode="widthFix" src="{{product.image_url}}"/>
-				<image class="bg" src="/icons/bargainDetail/bargainFinish.svg" mode="widthFix" wx:if="{{mission.status === 2}}"/>
-				<image class="bg" src="/icons/bargainDetail/bargainFail.svg" mode="widthFix" wx:if="{{mission.status === 3}}"/>
+				<image src="{{product.image_url}}"/>
+				<image class="bg" src="/icons/bargainDetail/bargainFinish.svg" wx:if="{{mission.status === 2}}"/>
+				<image class="bg" src="/icons/bargainDetail/bargainFail.svg" wx:if="{{mission.status === 3}}"/>
 			</view>
 			<view class="detail-progress">
 				<view class="percent-text" wx:if="{{mission.status === 1}}">
@@ -38,7 +38,7 @@
 		</view>
 		<view class="detail-bottom" wx:if="{{ actors && actors[0] && actors[0].user}}">
 			<view class="bottom-left">
-				<image src="{{ actors[0].user.avatarurl || '/icons/bargainDetail/unlogin.png' }}" mode="widthFix"/>
+				<image src="{{ actors[0].user.avatarurl || '/icons/bargainDetail/unlogin.png' }}"/>
 			</view>
 			<view class="bottom-right">
 				<view class="right-name">{{actors[0].user.nickname}}</view>
@@ -70,7 +70,7 @@
 		</view>
 		<button class="img" open-type="share" hover-class="none">
 			<!-- 喊好友来帮忙 -->
-			<image src="/icons/bargainDetail/bargainHelp.svg" mode="widthFix"/>
+			<image src="/icons/bargainDetail/bargainHelp.svg"/>
 		</button>
 	</view>
 	<!-- 砍价成功时显示 -->
@@ -79,17 +79,17 @@
 	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3}}">
 		<!-- 重新发起 跳转到商品详情-->
 		<navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="img-left">
-			<image src="/icons/bargainDetail/bargainAgain.svg" mode="widthFix"/>
+			<image src="/icons/bargainDetail/bargainAgain.svg"/>
 		</navigator>
 		<!-- 看看其他 跳转到砍价专区 -->
 		<navigator url="/pages/miaoshaList/miaoshaList?type=bargain" class="img-right">
-			<image src="/icons/bargainDetail/others.svg" mode="widthFix"/>
+			<image src="/icons/bargainDetail/others.svg"/>
 		</navigator>
 	</view>
 	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
 	<view class="bargain-isOthers" wx:if="{{isOthers}}">
 		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
-		<button style="background-color: {{ themeColor.primaryColor }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" wx:if="{{!isHelp}}">
+		<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp}}">
 			<image src="/icons/bargainDetail/helpta.svg"/>
 		</button>
 		<view class="img-left isHelp" wx:if="{{isHelp}}">已帮TA砍价</view>
@@ -104,9 +104,9 @@
 		<!-- <scroll-view scroll-y class="list" bindscrolltolower="loadActorsData"> -->
 		<view class="listWrpper">
 			<view class="list {{!showMore ? 'hiddenmore' : 'showmore'}}">
-				<view wx:for="{{actors}}" wx:for-index="idx" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
+				<view wx:for="{{actors}}" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
 					<view class="left">
-						<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}" mode="widthFix"></image>
+						<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}"></image>
 						<view class="name">{{item.user.nickname || '帮砍好友'}}</view>
 					</view>
 					<view class="right">
@@ -118,11 +118,11 @@
 			<block wx:if="{{ actors.length > 3 }}">
 				<view wx:if="{{ showMore }}" class="list-more" bindtap="listToggle">
 					收起
-					<image class="rightIcon" src="/icons/triangleUpActive.png" mode="widthFix"/>
+					<image class="rightIcon" src="/icons/triangleUpActive.png"/>
 				</view>
 				<view class="list-more" bindtap="listToggle" wx:if="{{ !showMore }}">
 					查看更多
-					<image class="rightIcon" src="/icons/triangleDownActive.png" mode="widthFix"/>
+					<image class="rightIcon" src="/icons/triangleDownActive.png"/>
 				</view>
 			</block> 
 		</view>

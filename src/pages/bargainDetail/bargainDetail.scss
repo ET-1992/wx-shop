@@ -67,7 +67,8 @@
 				position: relative;
 				
 				image {
-					width: 100%;
+					width: 318rpx;
+					height: 318rpx;
 					border-radius: 10rpx;
 				}
 
@@ -291,15 +292,11 @@
 		display: flex;
 		justify-content: center;
 		margin-bottom: 50rpx;
-
-		button {
-			all: unset;
-		}
-
 		.img-left,
 		.img-right {
 			width: 300rpx;
 			height: 80rpx;
+			border: 0;
 			image {
 				width: 100%;
 				height: 80rpx;

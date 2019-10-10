@@ -9,7 +9,7 @@ App({
         wx.onError((e) => {
             console.log(e, 'onError');
         });
-        const { windowWidth, windowHeight, pixelRatio, screenWidth, model } = wx.getSystemInfoSync();
+        const { windowWidth, windowHeight, pixelRatio, screenWidth, model = '' } = wx.getSystemInfoSync();
         this.systemInfo = {
             windowWidth,
             windowHeight,
