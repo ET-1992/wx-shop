@@ -159,12 +159,19 @@ Component({
         },
 
         async onCloseOrder() {
+            const { order, orders, orderNo, orderIndex } = this.data;
+            console.log('order', order, 'orders', orders, 'orderIndex', orderIndex);
+            let content = '确定关闭订单？';
+            if ((orders && orders[orderIndex] && orders[orderIndex].promotion_type === '5') || (order.promotion_type === '5')) {
+                content = '机会只有一次，取消了就不能再下单了喔！';
+            }
+
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: '确定关闭订单？',
+                content: content
             });
+
             if (confirm) {
-                const { orderNo, orderIndex } = this.data;
                 try {
                     await api.hei.closeOrdery({
                         order_no: orderNo,

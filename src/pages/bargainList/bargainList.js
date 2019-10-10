@@ -16,7 +16,7 @@ Page({
 
     go,
 
-    async onLoad() {
+    onLoad(params) {
         const { themeColor } = app.globalData;
         this.setData({
             selectedStatus: null,
@@ -24,6 +24,10 @@ Page({
             themeColor,
             globalData: app.globalData,
         });
+        // this.loadOrders();
+    },
+
+    onShow() {
         this.loadOrders();
     },
 

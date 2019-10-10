@@ -38,6 +38,7 @@ Page({
     onShow() {
         const { code } = this.data;
         this.onLoadData(code);
+        this.loadActorsData();
     },
 
     countDown() {
@@ -71,6 +72,8 @@ Page({
                 mission: data.mission,
                 product: data.product,
                 products: data.products,
+                share_image: data.mission && data.mission.share_image,
+                share_title: data.mission && data.mission.share_title,
                 isLoading: false
             }, () => {
                 // 砍价倒计时
@@ -137,25 +140,27 @@ Page({
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
         const { encryptedData, iv } = e.detail;
-        const { code, actors } = this.data;
+        const { code, actors = [] } = this.data;
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         console.log('user88', user);
         // const { code } = e.currentTarget.dataset;
-        // console.log('code64', code);
+        console.log('code147', code);
         try {
             const data = await api.hei.bargainHelp({ code });
-            console.log('data67', data);
-            await proxy.showToast({
-                title: '砍价成功'
-            });
+            console.log('data150', data);
             if (user) {
                 this.setData({ user });
             }
             this.setData({
-                actors: actors.unshift(data.actor)
+                // actors: actors.unshift(data.actor),
+                isHelp: true
             });
-            // this.onLoadData(code);
+            await proxy.showToast({
+                title: '砍价成功'
+            });
             this.onShow();
+            console.log('actors160', actors);
+            // this.onLoadData(code);
         } catch (err) {
             console.log('err105', err);
             await proxy.showModal({
@@ -164,7 +169,6 @@ Page({
                 showCancel: false,
             });
         }
-        this.setData({ isHelp: true });
     },
 
     // 立即购买
@@ -194,7 +198,7 @@ Page({
 
     onPullDownRefresh() {
         console.log('onPullDownRefresh');
-        this.setData({ isLoading: true });
+        this.setData({ isLoading: true, next_cursor: 'begin', actors: [] });
         this.onShow();
         wx.stopPullDownRefresh();
     }

@@ -38,7 +38,7 @@
 		</view>
 		<view class="detail-bottom" wx:if="{{ actors && actors[0] && actors[0].user}}">
 			<view class="bottom-left">
-				<image src="{{ actors[0].user.avatarurl }}" mode="widthFix"/>
+				<image src="{{ actors[0].user.avatarurl || '/icons/bargainDetail/unlogin.png' }}" mode="widthFix"/>
 			</view>
 			<view class="bottom-right">
 				<view class="right-name">{{actors[0].user.nickname}}</view>

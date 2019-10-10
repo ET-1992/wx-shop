@@ -434,7 +434,7 @@
 	 catchtap="onShowSku"
 	 data-is-crowd
 	 data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
-	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1}}"
+	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable}}"
 	>
 		<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 	</view>

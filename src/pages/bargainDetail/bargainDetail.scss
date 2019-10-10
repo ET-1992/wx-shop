@@ -93,9 +93,9 @@
 					position: relative;
 					margin-right: 150rpx;
 					.float {
-						width: 150rpx;
+						min-width: 150rpx;
 						text-align: center;
-						padding: 6rpx;
+						padding: 4rpx;
 						font-size: 20rpx;
 						color: #999;
 						border: 1px solid #707070;
@@ -291,6 +291,11 @@
 		display: flex;
 		justify-content: center;
 		margin-bottom: 50rpx;
+
+		button {
+			all: unset;
+		}
+
 		.img-left,
 		.img-right {
 			width: 300rpx;
