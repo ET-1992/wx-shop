@@ -20,15 +20,21 @@ Page({
         const { themeColor } = app.globalData;
         this.setData({
             selectedStatus: null,
-            activeIndex: 0,
             themeColor,
             globalData: app.globalData,
         });
-        this.loadOrders();
     },
 
     onShow() {
-        // this.loadOrders();
+        this.setData({
+            missions: [],
+            next_cursor: 0,
+            activeIndex: 0,
+            isRefresh: true,
+            navbarListData: BARGAIN_STATUS_TEXT,
+            selectedStatus: null,
+            isLoading: true
+        }, this.loadOrders);
     },
 
     async loadOrders() {
