@@ -38,10 +38,10 @@
 		</view>
 		<view class="detail-bottom" wx:if="{{ actors && actors[0] }}">
 			<view class="bottom-left">
-				<image src="{{ current_user.avatarurl }}"/>
+				<image src="{{ mission.user && mission.user.avatarurl}}"/>
 			</view>
 			<view class="bottom-right">
-				<view class="right-name">{{current_user.nickname}}</view>
+				<view class="right-name">{{mission.user && mission.user.nickname}}</view>
 				<!-- 砍价进行中 -->
 				<view class="right-text" wx:if="{{!isOthers && mission.status === 1}}">已砍<text class="right-price"> {{ globalData.CURRENCY[globalData.currency] }}{{actors[0].actor_price}}</text> 元。活动商品数量有限，快分享给好友继续来砍价~</view>
 				<!-- 砍价成功 -->

@@ -71,7 +71,6 @@ Page({
                 products: data.products,
                 share_image: data.mission && data.mission.share_image,
                 share_title: data.mission && data.mission.share_title,
-                current_user: data.current_user,
                 isLoading: false
             }, () => {
                 // 砍价倒计时
@@ -137,17 +136,11 @@ Page({
 
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
-        // const { encryptedData, iv } = e.detail;
         const { code, actors } = this.data;
-        // const user = await getAgainUserForInvalid({ encryptedData, iv });
-        // console.log('user88', user);
         console.log('code147', code);
         try {
             const data = await api.hei.bargainHelp({ code });
             console.log('data150', data);
-            // if (user) {
-            //     this.setData({ user });
-            // }
             await proxy.showToast({
                 title: '砍价成功'
             });
