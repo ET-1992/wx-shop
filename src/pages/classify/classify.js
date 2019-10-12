@@ -11,10 +11,10 @@ Page({
         toMainCategory: 0,
         toSubCategory: 0,
 
-        filterListData: [{ name: '销量' }, { name: '价格' }],
+        filterListData: [{ name: '价格' }, { name: '销量' }],
         filterData: {
             filterIndex: 0,
-            filterType: 'Down'
+            filterType: 'Up'
         },
         next_cursor: 0,
         products: [],
@@ -31,7 +31,6 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-
         const { categories } = await api.hei.fetchCategory();
 
         this.setData({
@@ -53,6 +52,7 @@ Page({
     },
 
     changeFilterList(e) {
+        console.log('e56', e);
         this.setData({
             filterData: e.detail,
             current_page: 1,
@@ -63,8 +63,8 @@ Page({
     filterProduct() {
         const { filterData } = this.data;
         const sortText = {
-            1: 'price',
-            0: 'total_sales'
+            0: 'price',
+            1: 'total_sales'
         };
         const sortStatus = {
             'Up': 'asc',
