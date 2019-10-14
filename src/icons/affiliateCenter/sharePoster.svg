@@ -1,13 +1,1 @@
-<svg id="组_3481" data-name="组 3481" xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 176 176">
-  <circle id="椭圆_178" data-name="椭圆 178" cx="88" cy="88" r="88" fill="#fdc522"/>
-  <g id="组_771" data-name="组 771" transform="translate(13.16 13.16)">
-    <path id="路径_134" data-name="路径 134" d="M25.971,2a49.958,49.958,0,0,0-7.871.416A74.631,74.631,0,0,1,90.185,76.841a75.063,75.063,0,0,1-66.7,74.425h2.486a74.659,74.659,0,0,0,74.571-74.841C100.542,35.679,66.985,2,25.971,2Z" transform="translate(49.138 -2)" fill="#f8931e"/>
-    <circle id="椭圆_177" data-name="椭圆 177" cx="74.84" cy="74.84" r="74.84" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="4"/>
-  </g>
-  <g id="组_764" data-name="组 764" transform="translate(62.994 37.207) rotate(19)">
-    <ellipse id="椭圆_171" data-name="椭圆 171" cx="9.344" cy="9.344" rx="9.344" ry="9.344" transform="translate(0 35.819)"/>
-    <circle id="椭圆_172" data-name="椭圆 172" cx="12.459" cy="12.459" r="12.459" transform="translate(35.82 54.507)"/>
-    <circle id="椭圆_173" data-name="椭圆 173" cx="10.901" cy="10.901" r="10.901" transform="translate(52.95 0)"/>
-    <path id="路径_132" data-name="路径 132" d="M0,36.216,39.5,58.592,56.85,0" transform="translate(9.345 8.948)" fill="none" stroke="#000" stroke-width="6"/>
-  </g>
-</svg>
+<svg height="176" viewBox="0 0 176 176" width="176" xmlns="http://www.w3.org/2000/svg"><circle cx="88" cy="88" fill="#fdc522" r="88"/><g transform="translate(13.16 13.16)"><path d="m25.971 2a49.958 49.958 0 0 0 -7.871.416 74.631 74.631 0 0 1 72.085 74.425 75.063 75.063 0 0 1 -66.7 74.425h2.486a74.659 74.659 0 0 0 74.571-74.841c0-40.746-33.557-74.425-74.571-74.425z" fill="#f8931e" transform="translate(49.138 -2)"/><circle cx="74.84" cy="74.84" fill="none" r="74.84" stroke="#000" stroke-miterlimit="10" stroke-width="4"/></g><ellipse cx="9.344" cy="9.344" rx="9.344" ry="9.344" transform="matrix(.94551858 .32556815 -.32556815 .94551858 51.33247443515 71.07453001702)"/><circle cx="12.459" cy="12.459" r="12.459" transform="matrix(.94551858 .32556815 -.32556815 .94551858 79.11673238355 100.40623237306)"/><circle cx="10.901" cy="10.901" r="10.901" transform="matrix(.94551858 .32556815 -.32556815 .94551858 113.059208811 54.4458335425)"/><path d="m0 36.216 39.5 22.376 17.35-58.592" fill="none" stroke="#000" stroke-width="6" transform="matrix(.94551858 .32556815 -.32556815 .94551858 68.9166873239 48.70993461559)"/></svg>

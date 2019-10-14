@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="140" height="50" viewBox="0 0 140 50">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.13" y1="0.589" x2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#ffba44"/>
-      <stop offset="1" stop-color="#fc6141"/>
-      <stop offset="1" stop-color="#ffa158"/>
-    </linearGradient>
-  </defs>
-  <g id="组_4381" data-name="组 4381" transform="translate(-560 -449)">
-    <rect id="矩形_1102" data-name="矩形 1102" width="140" height="50" rx="25" transform="translate(560 449)" fill="url(#linear-gradient)"/>
-    <text id="查看订单" transform="translate(582 483)" fill="#fff" font-size="24" font-family="PingFang SC Regular, PingFang SC"><tspan x="0" y="0">查看订单</tspan></text>
-  </g>
-</svg>
+<svg height="50" viewBox="0 0 140 50" width="140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientUnits="objectBoundingBox" x1=".13" x2="1" y1=".589"><stop offset="0" stop-color="#ffba44"/><stop offset="1" stop-color="#fc6141"/><stop offset="1" stop-color="#ffa158"/></linearGradient><rect fill="url(#a)" height="50" rx="25" width="140"/><text fill="#fff" font-family="PingFang SC Regular, PingFang SC" font-size="24" transform="translate(22 34)"><tspan x="0" y="0">查看订单</tspan></text></svg>
