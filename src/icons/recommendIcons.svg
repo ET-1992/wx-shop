@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="65.5" height="74" viewBox="0 0 65.5 74">
+  <g id="组_3556" data-name="组 3556" transform="translate(-742.5 -4634)">
+    <g id="组_3552" data-name="组 3552" transform="translate(-5)">
+      <text id="推荐" transform="translate(773 4701)" font-size="20" font-family="PingFang SC Regular, PingFang SC"><tspan x="0" y="0">推荐</tspan></text>
+      <g id="组_3550" data-name="组 3550" transform="translate(-181 1560)">
+        <rect id="矩形_1733" data-name="矩形 1733" width="40" height="40" transform="translate(954 3074)" fill="none"/>
+        <g id="组_3546" data-name="组 3546" transform="translate(957.085 3076.068)">
+          <g id="_x31_0_1_" transform="translate(0 7.892)">
+            <path id="路径_49" data-name="路径 49" d="M2.841,20.6H7.6a1.944,1.944,0,0,1,1.942,1.942V36.406A1.944,1.944,0,0,1,7.6,38.349H2.841A1.944,1.944,0,0,1,.9,36.406V22.542A1.863,1.863,0,0,1,2.841,20.6Z" transform="translate(-0.895 -10.306)" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+            <path id="路径_50" data-name="路径 50" d="M14.167,29.866a26.619,26.619,0,0,0,5.291,1.407,98.832,98.832,0,0,0,10.582.268,3.47,3.47,0,0,0,3.416-3.081L34.8,17.61a3.448,3.448,0,0,0-3.483-3.885H26.29a13.487,13.487,0,0,0,0-6.543c-.268-1.206-1-3.158-2.453-3.282h-.128c-1.674,0-1.966,1.352-2.161,3.4a15.194,15.194,0,0,1-.3,2.071c-.787,3.288-2.662,3.684-5.676,5.761l-1.473,1" transform="translate(-5.255 -3.9)" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+          </g>
+          <path id="路径_321" data-name="路径 321" d="M12.324,5.6,9.864,8.128a.383.383,0,0,0-.1.27l.573,3.572c.034.27-.236.472-.438.337L6.865,10.622a.468.468,0,0,0-.3,0L3.5,12.307a.3.3,0,0,1-.438-.337L3.63,8.4a.288.288,0,0,0-.1-.3L1.035,5.567A.325.325,0,0,1,1.2,5.028l3.4-.539a.253.253,0,0,0,.236-.168l1.55-3.269a.294.294,0,0,1,.539,0L8.449,4.287a.253.253,0,0,0,.236.168l3.437.539C12.425,5.1,12.526,5.433,12.324,5.6Z" transform="translate(21.364 -0.875)" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+    <line id="直线_254" data-name="直线 254" y2="50" transform="translate(743 4649.5)" fill="none" stroke="#999" stroke-linecap="round" stroke-width="1" stroke-dasharray="2 4"/>
+  </g>
+</svg>
