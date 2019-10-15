@@ -190,9 +190,7 @@ Page({
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({
-            pendingGrouponId: ''
-        });
+        this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
             const { thumbnail } = data.product;
@@ -727,7 +725,33 @@ Page({
         autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
     },
 
-    onRecommended() {
-        console.log('onRecommended731');
+    onRecommended(e) {
+        console.log('onRecommended731', e);
+        const { id, title, images } = e.currentTarget.dataset;
+        // 微信是否更新至7.0.3及以上版本
+        if (wx.openBusinessView) {
+            wx.openBusinessView({
+                businessType: 'friendGoodsRecommend',
+                extraData: {
+                    product: {
+                        item_code: String(id),
+                        title: title,
+                        image_list: images
+                    }
+                },
+                success: function (res) {
+                    console.log('好物圈调用成功res743', res);
+                    proxy.showToast({ title: '推荐成功' });
+                },
+                fail: function(res) {
+                    console.log('好物圈调用失败747', res);
+                }
+            });
+        } else {
+            proxy.showModal({
+                title: '温馨提示',
+                content: '请检查当前微信版本是否更新至7.0.3及以上版本',
+            });
+        }
     }
 });
