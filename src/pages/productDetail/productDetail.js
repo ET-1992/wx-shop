@@ -50,6 +50,7 @@ Page({
             },
         ],
         isGrouponBuy: false,
+        isBargainBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
@@ -67,14 +68,15 @@ Page({
         }
         const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
+            const { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
             console.log(actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
+            console.log('onShowSku isBargainBuy: ', isBargainBuy);
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
-
+            updateData.isBargainBuy = isBargainBuy;
         }
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
@@ -380,6 +382,7 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
+            isBargainBuy,
             isCrowd,
             shipping_type
         } = this.data;
@@ -430,7 +433,7 @@ Page({
             url = url + '&crowd=true';
         }
 
-        if (product.bargain_enable && product.bargain_mission) {
+        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
             url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
             console.log('url438', url);
         }
@@ -442,7 +445,7 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
-            isBargainBuy: true
+            isBargainBuy
         });
 
         app.globalData.currentOrder = currentOrder;

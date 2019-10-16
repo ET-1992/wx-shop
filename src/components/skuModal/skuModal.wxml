@@ -60,7 +60,7 @@
                         <view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">
                             {{ product.definePrice }}
                         </view>
-                        <view wx:elif="{{ product.bargain_enable}}">
+                        <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
                             {{ product.bargain_price }}
                         </view>
                         <view wx:elif="{{ selectedSku.id }}">{{ selectedSku.price }}</view>
