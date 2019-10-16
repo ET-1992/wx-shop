@@ -48,6 +48,10 @@ Component({
             type: Boolean,
             value: false
         },
+        isBargainBuy: {
+            type: Boolean,
+            value: false
+        },
         config: {
             type: Object,
             value: {}
