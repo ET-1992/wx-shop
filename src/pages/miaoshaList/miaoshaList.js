@@ -19,9 +19,16 @@ Page({
 
     async loadProducts() {
         const { next_cursor, categoryId, isRefresh, products, type } = this.data;
+        let promotion_type = 'miaosha_enable';
+        if (type === 'bargain') {
+            promotion_type = 'bargain_enable';
+        }
+        if (type === 'groupon') {
+            promotion_type = 'groupon_enable';
+        }
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            promotion_type: type === 'bargain' ? 'bargain_enable' : (type === 'groupon' ? 'groupon_enable' : 'miaosha_enable'),
+            promotion_type: promotion_type
         });
         console.log('miaoshaListdata', data);
         const newProducts = isRefresh ? data.products : products.concat(data.products);
@@ -40,7 +47,8 @@ Page({
         return data;
     },
 
-    async onLoad({ type }) {
+    async onLoad({ type = 'miaosha' }) {
+        console.log('type', type);
         const { themeColor } = app.globalData;
         const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
         this.setData({
