@@ -54,7 +54,8 @@
 		"pages/affiliate/affiliateVisitor/affiliateVisitor",
 		"pages/bindWeb/bindWeb",
 		"pages/bargainList/bargainList",
-		"pages/bargainDetail/bargainDetail"
+		"pages/bargainDetail/bargainDetail",
+		"pages/grouponList/grouponList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
