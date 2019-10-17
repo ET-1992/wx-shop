@@ -140,7 +140,7 @@
 				<view class="section" wx:if="{{ bargains && bargains.length }}">
 					<view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
 					<myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-					    <productList product="{{ item }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" />
+					    <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
 					</myNavigator>
 					<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
 					<form bindsubmit="submitFormId" report-submit="true">

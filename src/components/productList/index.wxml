@@ -14,6 +14,7 @@
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleTwo/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaImage' }}" src="/templates/tplStyleTwo/productLayout/miaoshaImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleTwo/productLayout/topImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainStyle' }}" src="/templates/tplStyleTwo/productLayout/bargainStyle.wxml"/>
 </view>
 
 <!-- tplStyleThree -->
@@ -21,6 +22,7 @@
     <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleThree/productLayout/grouponStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleThree/productLayout/miaoshaStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleThree/productLayout/topImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainStyle' }}" src="/templates/tplStyleThree/productLayout/bargainStyle.wxml"/>
 </view>
 
 <!-- tplStyleFour -->
@@ -28,6 +30,7 @@
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleFour/productLayout/topImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleFour/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleFour/productLayout/miaoshaStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainStyle' }}" src="/templates/tplStyleFour/productLayout/bargainStyle.wxml"/>
 </view>
 
 <!-- tplStyleFive -->
@@ -36,6 +39,7 @@
     <include wx:if="{{ productLayoutStyle === 'articleStyle' }}" src="/templates/tplStyleFive/productLayout/articleStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleFive/productLayout/miaoshaStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleFive/productLayout/leftImage.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainStyle' }}" src="/templates/tplStyleFive/productLayout/bargainStyle.wxml"/>
 </view>
 
 <!-- tplStyleSix -->
@@ -44,5 +48,6 @@
     <include wx:if="{{ productLayoutStyle === 'grouponStyle' }}" src="/templates/tplStyleSix/productLayout/grouponStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'miaoshaStyle' }}" src="/templates/tplStyleSix/productLayout/miaoshaStyle.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'articleStyle' }}" src="/templates/tplStyleSix/productLayout/articleStyle.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'bargainStyle' }}" src="/templates/tplStyleSix/productLayout/bargainStyle.wxml"/>
 </view>
 

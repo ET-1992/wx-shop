@@ -165,9 +165,11 @@
 							</button>
 						</form>
 					</navigator>
-					<myNavigator class="bargainItem" wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
-						<productList product="{{ item }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" />
-					</myNavigator>
+					<view class="grouponContainer">
+						<myNavigator class="bargainItem" wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+							<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
+						</myNavigator>
+					</view>
 				</view>
 			</view>
     		<!-- 优惠券 -->
