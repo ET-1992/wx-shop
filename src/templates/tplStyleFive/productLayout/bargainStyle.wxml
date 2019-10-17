@@ -6,7 +6,7 @@
             <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
         </view>
         <view class="bottom">
-            <view class="single-price">原价购买:{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
+            <view class="single-price">原价购买 {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
             <view class="foot">
                 <view class="groupon-price">
                    <view class="text">底价</view>
