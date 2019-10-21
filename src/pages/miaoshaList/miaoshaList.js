@@ -50,7 +50,8 @@ Page({
     async onLoad({ type = 'miaosha' }) {
         console.log('type', type);
         const { themeColor } = app.globalData;
-        const { style_type: tplStyle = 'default' } = wx.getStorageSync(CONFIG);
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         this.setData({
             themeColor,
             type,

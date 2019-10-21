@@ -1,0 +1,19 @@
+<view class="leftItem">
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    <view class="meta">
+        <view class="top">
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        </view>
+        <view class="bottom">
+            <view class="single-price">原价购买 {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
+            <view class="foot">
+                <view class="groupon-price">
+                   <view class="text">底价</view>
+                   <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
+                </view>
+                <view class="groupBt" style="color:{{ themeColor.primaryColor }}; border-color:{{ themeColor.primaryColor }}">去砍价</view>
+            </view>
+        </view>
+    </view>
+</view>

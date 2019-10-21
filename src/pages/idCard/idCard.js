@@ -12,6 +12,35 @@ Page({
         idCardImage2: ''
     },
 
+    onLoad(params) {
+        console.log(params);
+        const { themeColor } = app.globalData;
+        this.setData({
+            themeColor
+        });
+    },
+
+    onShow() {
+        this.init();
+    },
+
+    // 初始化表单内容
+    async init() {
+        // const { userName, idNumber, idCardImage1, idCardImage2 } = this.data;
+        try {
+            const { profile } = await api.hei.getIdentityInfo();
+            console.log(profile);
+            this.setData({
+                userName: profile.name,
+                idNumber: profile.id_card_no,
+                idCardImage1: profile.id_card_image1,
+                idCardImage2: profile.id_card_image2
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
     // 获取真实姓名
     bindNameInput(e) {
         const { value } = e.detail;
@@ -109,34 +138,5 @@ Page({
                 showCancel: false,
             });
         }
-    },
-
-    // 初始化表单内容
-    async init() {
-        const { userName, idNumber, idCardImage1, idCardImage2 } = this.data;
-        try {
-            const { profile } = await api.hei.getIdentityInfo();
-            console.log(profile);
-            this.setData({
-                userName: profile.name,
-                idNumber: profile.id_card_no,
-                idCardImage1: profile.id_card_image1,
-                idCardImage2: profile.id_card_image2
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    },
-
-    onLoad(params) {
-        console.log(params);
-        const { themeColor } = app.globalData;
-        this.setData({
-            themeColor
-        });
-    },
-
-    onShow() {
-        this.init();
     }
 });
