@@ -1,7 +1,15 @@
 <view class="s-comments">
 	<view class="s-comments__content">
 		<view class="c-commentList">
-			<view class="c-comment" wx:for="{{topic.replies}}" wx:key="item.id" bindtap="replyTo" data-openid="{{item.user.openid}}" data-id="{{item.id}}" data-user="{{item.user.nickname}}">
+			<button 
+			  class="c-comment" 
+			  wx:for="{{topic.replies}}" 
+			  wx:key="item.id" 
+			  bindgetuserinfo="bindGetUserInfo" 
+			  open-type="getUserInfo"
+			  data-openid="{{item.user.openid}}" 
+			  data-id="{{item.id}}" 
+			  data-nickname="{{item.user.nickname}}">
 				<image src="{{item.user.avatarurl}}" class="c-comment__avatar" background-size="cover"></image>
 				<view class="c-comment__content">
 					<view class="c-comment__header">
@@ -15,7 +23,7 @@
 						{{item.text}}
 					</view>
 				</view>
-			</view>
+			</button>
 			<!-- END .c-comment -->
 		</view>
 		<!-- END .c-commentList -->

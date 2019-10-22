@@ -18,7 +18,7 @@
         bindgetuserinfo="onUserInfo"
         open-type="getUserInfo"
         lang="zh_CN"
-        style="background-color: {{ themeColor.primaryColor }}"
+        style="background-color: {{ user ? themeColor.primaryColor : '#fafafa'}}"
       >{{ user ? '提交' : '授权后才能评论' }}</button>
 		</view>
 	</form>
