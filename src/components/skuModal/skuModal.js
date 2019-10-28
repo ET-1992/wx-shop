@@ -1,4 +1,4 @@
-import { Sku } from 'peanut-all';
+import { sku } from 'peanut-all';
 import { getAgainUserForInvalid } from 'utils/util';
 import { CONFIG, SHIPPING_TYPE } from 'constants/index';
 import proxy from 'utils/wxProxy';
@@ -158,7 +158,7 @@ Component({
             }
             try {
                 const { skus, properties } = product;
-                this.Sku = new Sku({ max: 3 });
+                this.Sku = new sku({ max: 3 });
                 const skuMap = this.Sku.getSkus(skus);
                 const defalutSelectedProperties = this.Sku.getDefaultSku(skus);
 

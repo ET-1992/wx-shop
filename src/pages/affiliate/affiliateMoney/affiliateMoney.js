@@ -2,7 +2,6 @@ import { checkPhone, bankCardAttribution } from 'utils/util';
 import { BANK_CARD_LIST } from 'utils/bank';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
-import { ENGINE_METHOD_DIGESTS } from 'constants';
 import { showModal } from 'utils/wxp';
 import { Decimal } from 'decimal.js';
 
