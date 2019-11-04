@@ -136,8 +136,17 @@ Component({
         },
         // classify 页面
         async onAddCart(e) {
-            const { selectedSku, shipping_type } = this.data;
+            const { product, selectedSku, shipping_type } = this.data;
             console.log(selectedSku, e, 'erer');
+            if (product.skus && product.skus.length && !selectedSku.id) {
+                wx.showToast({
+                    title: '请选择商品规格',
+                    icon: 'none',
+                    duration: 2000,
+                    mask: false,
+                });
+                return;
+            }
             e.sku_id = selectedSku.id; // 多规格
             e.shipping_type = shipping_type;
             console.log('shipping_type139', shipping_type);

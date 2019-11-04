@@ -37,7 +37,7 @@
             <view class="money" wx:else>
                 {{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}
             </view>
-            <button class="addCart" disabled="{{ product.skus.length && !selectedSku.id }}" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ product.skus.length && !selectedSku.id ? '#c2c2c2' : themeColor.primaryColor }}">
+            <button class="addCart" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ themeColor.primaryColor }}">
                 加入购物车
             </button>
         </view>
