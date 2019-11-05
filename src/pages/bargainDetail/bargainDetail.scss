@@ -360,6 +360,11 @@
 							font-size: 28rpx;
 							font-weight: 500;
 							color: rgba(51, 51, 51, 1);
+							width: 310rpx;
+							text-align: left;
+							overflow: hidden;
+							white-space: nowrap;
+							text-overflow: ellipsis;
 						}
 					}
 					.right {
