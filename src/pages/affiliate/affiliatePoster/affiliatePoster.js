@@ -127,7 +127,8 @@ Page({
         ctx.setFillStyle = '#000000';
         ctx.setTextAlign('center');
 
-        ctx.setFontSize(0.030 * windowWidth);
+        // ctx.setFontSize(0.030 * windowWidth);
+        ctx.font = `${0.030 * windowWidth}px PingFang SC`;
         ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.17 * 2);
 
         ctx.beginPath();
@@ -163,15 +164,18 @@ Page({
         ctx.beginPath();
         ctx.fillStyle = '#000000';
         ctx.setTextAlign('center');
-        ctx.setFontSize(0.030 * windowWidth);
+        // ctx.setFontSize(0.030 * windowWidth);
+        ctx.font = `${0.030 * windowWidth}px PingFang SC`;
         ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.24);
 
         ctx.font = 'normal bold 1px PingFang SC';
-        ctx.setFontSize(0.040 * windowWidth);
+        // ctx.setFontSize(0.040 * windowWidth);
+        ctx.font = `${0.040 * windowWidth}px PingFang SC`;
         ctx.fillText('我发现了一家好店，快来看看！', width / 2, height * 0.35);
 
         ctx.font = 'normal normal 1px PingFang SC';
-        ctx.setFontSize(0.030 * windowWidth);
+        // ctx.setFontSize(0.030 * windowWidth);
+        ctx.font = `${0.030 * windowWidth}px PingFang SC`;
         ctx.fillText('长按识别小程序码访问店铺', width / 2, height * 0.95);
 
         ctx.beginPath();
