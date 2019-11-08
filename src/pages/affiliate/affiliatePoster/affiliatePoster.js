@@ -124,7 +124,7 @@ Page({
         ctx.restore();
 
         ctx.beginPath();
-        ctx.setFillStyle('#000000');
+        ctx.setFillStyle = '#000000';
         ctx.setTextAlign('center');
 
         ctx.setFontSize(0.030 * windowWidth);
@@ -149,7 +149,7 @@ Page({
         console.log(width, height);
 
         ctx.beginPath();
-        ctx.setFillStyle('#fff');
+        ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, width, height);
         ctx.fill();
 
@@ -161,7 +161,7 @@ Page({
         ctx.restore();
 
         ctx.beginPath();
-        ctx.setFillStyle('#000000');
+        ctx.fillStyle = '#000000';
         ctx.setTextAlign('center');
         ctx.setFontSize(0.030 * windowWidth);
         ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.24);

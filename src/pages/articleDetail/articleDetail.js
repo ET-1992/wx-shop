@@ -74,35 +74,6 @@ Page({
             url: '/' + e.currentTarget.dataset.src,
         });
     },
-    // async onFav(e) {
-    // 	console.log(this.data);
-    // 	const data = await api.hei.fav({
-    // 		post_id: e.currentTarget.id,
-    // 	});
-    // 	this.setData({
-    // 		is_faved: true,
-    // 		fav_count: this.data.fav_count + 1,
-    // 	});
-    // 	wx.showToast({
-    // 		title: data.errmsg,
-    // 		icon: 'success',
-    // 		duration: 2000,
-    // 	});
-    // },
-    // async onUnfav(e) {
-    // 	const data = await api.hei.unfav({
-    // 		post_id: e.currentTarget.id,
-    // 	});
-    // 	this.setData({
-    // 		is_faved: false,
-    // 		fav_count: this.data.fav_count - 1,
-    // 	});
-    // 	wx.showToast({
-    // 		title: data.errmsg,
-    // 		icon: 'success',
-    // 		duration: 2000,
-    // 	});
-    // },
 
     async onToggleFav() {
         const { is_faved, article: { id }, fav_count } = this.data;

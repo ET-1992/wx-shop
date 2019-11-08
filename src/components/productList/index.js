@@ -38,6 +38,7 @@ Component({
 
                 if (timeLimit && !this.intervalId) {
                     const intervalId = setInterval(() => {
+                        console.log('123');
                         const { timeLimit } = this.data;
                         const [hour, minute, second] = getRemainTime(timeLimit);
                         let day = parseInt(hour / 24, 10);
@@ -111,12 +112,13 @@ Component({
         timeLimit: 0,
         globalData: app.globalData
     },
+
     detached() {
         clearInterval(this.intervalId);
     },
-    pageLifetimes: {
-        // hide() {
-        //     clearInterval(this.intervalId);
-        // }
-    }
+    // pageLifetimes: {
+    //     hide() {
+    //         clearInterval(this.intervalId);
+    //     }
+    // }
 });
