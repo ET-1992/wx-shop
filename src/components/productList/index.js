@@ -38,7 +38,6 @@ Component({
 
                 if (timeLimit && !this.intervalId) {
                     const intervalId = setInterval(() => {
-                        console.log('123');
                         const { timeLimit } = this.data;
                         const [hour, minute, second] = getRemainTime(timeLimit);
                         let day = parseInt(hour / 24, 10);

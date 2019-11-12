@@ -134,7 +134,7 @@ Component({
                 ctx.beginPath();
                 ctx.moveTo(45 / 540 * width, 670 / 900 * height);
                 ctx.lineTo(500 / 540 * width, 670 / 900 * height);
-                ctx.setLineWidth(1);
+                ctx.lineWidth(1);
                 ctx.strokeStyle = '#c2c2c2';
                 ctx.stroke();
             }
