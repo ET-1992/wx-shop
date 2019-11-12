@@ -81,6 +81,7 @@ Page({
 
     async submitComment() {
         try {
+            wx.showLoading({ title: '提交中' });
             const { formId, text, reply_to, topic, id } = this.data;
             if (!text) {
                 wx.showToast({
@@ -99,6 +100,8 @@ Page({
             };
 
             const { reply } = await api.hei.createReply(args);
+
+            wx.hideLoading();
 
             // status: -1 审核中
             // status: 1 正常
@@ -121,6 +124,7 @@ Page({
                 reply_focus: false,
             });
         } catch (e) {
+            wx.hideLoading();
             wx.showModal({
                 title: '温馨提示',
                 content: e.errMsg,
