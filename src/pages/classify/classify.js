@@ -263,16 +263,16 @@ Page({
 
     // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
     // 单规格但多种配送方式 显示弹窗选择 配送方式
-    singleAddCart(e) {
-        console.log('e262', e);
-        const { product } = e.currentTarget.dataset;
-        if (product.shipping_types && (product.shipping_types.length === 1)) {
-            e.shipping_type = product.shipping_types[0];
-            this.addCart(e);
-        } else {
-            this.isShowSkuModal(e);
-        }
-    },
+    // singleAddCart(e) {
+    //     console.log('e262', e);
+    //     const { product } = e.currentTarget.dataset;
+    //     if (product.shipping_types && (product.shipping_types.length === 1)) {
+    //         e.shipping_type = product.shipping_types[0];
+    //         this.addCart(e);
+    //     } else {
+    //         this.isShowSkuModal(e);
+    //     }
+    // },
 
     touchstart(e) {
         this.data.clineX = e.touches[0].clientX;
