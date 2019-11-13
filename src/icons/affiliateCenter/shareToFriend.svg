@@ -1,13 +1,1 @@
-<svg id="组_3479" data-name="组 3479" xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 176 176">
-  <circle id="椭圆_176" data-name="椭圆 176" cx="88" cy="88" r="88" fill="#fdc522"/>
-  <g id="组_769" data-name="组 769" transform="translate(13.241 13.241)">
-    <path id="路径_134" data-name="路径 134" d="M26.02,2a50.625,50.625,0,0,0-7.92.415C58.116,3.661,90.628,36.472,90.628,76.759c0,38.625-29.595,70.19-67.109,74.343h2.5a74.847,74.847,0,0,0,75.029-74.759C101.049,35.641,67.286,2,26.02,2Z" transform="translate(48.47 -2)" fill="#f8931e"/>
-    <circle id="椭圆_177" data-name="椭圆 177" cx="74.76" cy="74.76" r="74.76" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="4"/>
-  </g>
-  <g id="组_770" data-name="组 770" transform="translate(51.002 48.284)">
-    <ellipse id="XMLID_4_" cx="20.932" cy="20.932" rx="20.932" ry="20.932" stroke-width="6" transform="translate(11.914)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#fff"/>
-    <path id="XMLID_2_" d="M3.5,87.046A32.873,32.873,0,0,1,36.346,54.2" transform="translate(-3.5 -12.254)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="6"/>
-    <line id="直线_163" data-name="直线 163" x2="32.887" transform="translate(41.109 60.841)" fill="none" stroke="#000" stroke-width="6"/>
-    <line id="直线_164" data-name="直线 164" y2="32.887" transform="translate(57.552 44.397)" fill="none" stroke="#000" stroke-width="6"/>
-  </g>
-</svg>
+<svg height="176" viewBox="0 0 176 176" width="176" xmlns="http://www.w3.org/2000/svg"><circle cx="88" cy="88" fill="#fdc522" r="88"/><g transform="translate(13.241 13.241)"><path d="m26.02 2a50.625 50.625 0 0 0 -7.92.415c40.016 1.246 72.528 34.057 72.528 74.344 0 38.625-29.595 70.19-67.109 74.343h2.5a74.847 74.847 0 0 0 75.029-74.759c.001-40.702-33.762-74.343-75.028-74.343z" fill="#f8931e" transform="translate(48.47 -2)"/><circle cx="74.76" cy="74.76" fill="none" r="74.76" stroke="#000" stroke-miterlimit="10" stroke-width="4"/></g><g stroke="#000" stroke-width="6"><ellipse cx="83.848" cy="69.216" fill="#fff" rx="20.932" ry="20.932" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/><path d="m3.5 87.046a32.873 32.873 0 0 1 32.846-32.846" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" transform="translate(47.502 36.03)"/><path d="m92.111 109.125h32.887" fill="none"/><path d="m108.554 92.681v32.887" fill="none"/></g></svg>

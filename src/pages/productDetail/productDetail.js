@@ -1,11 +1,10 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate, go } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
-
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
@@ -721,6 +720,20 @@ Page({
             shipping_type: e.detail.shipping_type
         });
         console.log('shipping_type696', this.data.shipping_type);
+    },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.createBargain();
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
     },
 
     // 发起砍价

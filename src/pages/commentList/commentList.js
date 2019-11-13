@@ -6,47 +6,33 @@ const app = getApp();
 let isSubmiting = false;
 let isFocusing = false;
 Page({
-
-    /**
-	 * 页面的初始数据
-	 */
     data: {
-        id: 0,
-        is_single: true,
         isLoading: true,
-        type: 'topic',
         topic: null,
         user: null,
         text: '',
         reply_to: 0,
-        page_title: '',
-        share_title: '',
         reply_focus: false,
         placeholder: '发布评论',
     },
 
-    /**
-	 * 生命周期函数--监听页面加载
-	 */
     onLoad(options) {
         const { globalData: { themeColor }, systemInfo } = app;
-        const updateData = { themeColor, systemInfo };
-        this.setData(updateData);
+        this.setData({
+            themeColor,
+            systemInfo
+        });
     },
 
     onShow() {
         const { id } = this.options;
         const user = getUserInfo();
-
         this.setData({ user });
         this.getDetail(id);
     },
 
-    /**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
     async getDetail(id) {
-        const data = await api.hei.articleDetail({ id: id });
+        const data = await api.hei.articleDetail({ id });
         this.setData({
             id,
             topic: {
@@ -95,8 +81,9 @@ Page({
 
     async submitComment() {
         try {
+            wx.showLoading({ title: '提交中' });
             const { formId, text, reply_to, topic, id } = this.data;
-            if (text === '' || isSubmiting) {
+            if (!text) {
                 wx.showToast({
                     title: '请输入内容',
                     icon: 'none',
@@ -104,8 +91,6 @@ Page({
                 });
                 return;
             }
-
-            isSubmiting = true;
 
             let args = {
                 text,
@@ -116,8 +101,20 @@ Page({
 
             const { reply } = await api.hei.createReply(args);
 
-            topic.reply_count = topic.reply_count + 1;
-            topic.replies = [].concat(topic.replies, reply);
+            wx.hideLoading();
+
+            // status: -1 审核中
+            // status: 1 正常
+            if (reply.status === 1) {
+                topic.reply_count = topic.reply_count + 1;
+                topic.replies = [].concat(topic.replies, reply);
+            } else if (reply.status === -1) {
+                wx.showToast({
+                    title: '发布成功，请等待后台审核',
+                    icon: 'none',
+                    mask: true
+                });
+            }
 
             this.setData({
                 topic,
@@ -126,8 +123,8 @@ Page({
                 placeholder: '发布评论',
                 reply_focus: false,
             });
-            isSubmiting = false;
         } catch (e) {
+            wx.hideLoading();
             wx.showModal({
                 title: '温馨提示',
                 content: e.errMsg,

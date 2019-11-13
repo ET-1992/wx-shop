@@ -55,6 +55,7 @@
 		"pages/bindWeb/bindWeb",
 		"pages/bargainList/bargainList",
 		"pages/bargainDetail/bargainDetail",
+		"pages/errorPage/errorPage",
 		"pages/grouponList/grouponList"
 	],
 	"window": {
