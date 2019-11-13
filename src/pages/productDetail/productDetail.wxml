@@ -402,13 +402,15 @@
 						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
 						<view>立即购买</view>
 					</view>
-					<view
+					<button
+						bindgetuserinfo="bindGetUserInfo"
+						open-type="getUserInfo"
+						hover-class="none"
 						class="buy multi"
-						catchtap="createBargain"
 						style="background-color: {{ themeColor.primaryColor }}"
 						wx:if="{{!product.bargain_mission ||(product.bargain_mission && product.bargain_mission.status === 3)}}">
 						发起砍价
-					</view>
+					</button>
 				</block>
 
 				<!-- 秒杀或者普通商品 -->
