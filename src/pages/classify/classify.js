@@ -226,7 +226,7 @@ Page({
         options.post_id = id;
         options.sku_id = e.sku_id || 0; // 多规格
         options.shipping_type = e.shipping_type;
-        options.quantity = 1;
+        options.quantity = e.quantity || 1; // 商品数量
         options.vendor = vendor;
         options.form_id = this.data.formId;
 
