@@ -257,7 +257,7 @@
   </view>
 </van-popup>
 <productDetailShareModal
- productImage="{{ order.groupon.thumbnail }}"
+ productImage="{{ order.groupon.image_url + '?imageView2/1/w/540/h/540/q/70#' }}"
  productTitle="{{ order.groupon.title }}"
  productPrice="{{ order.groupon.price }}"
  originalPrice="{{ order.items[0].original_price }}"

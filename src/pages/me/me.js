@@ -73,7 +73,7 @@ Page({
         app.log('页面onShow');
         // this.setData({ isLoading: true });
         const config = wx.getStorageSync(CONFIG);
-        const user = getUserInfo();
+        const user = wx.getStorageSync(USER_KEY);
         this.setData({ user, config, logoObj: config.partner });
         // this.loadOrderCount();
         const { categoryIndex } = app.globalData;

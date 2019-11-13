@@ -8,7 +8,7 @@
             <view class="grouponPrice">
                 <text class="activeBuy">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="nowPrice">{{ product.groupon_price }}</text></view>
         </view>
-        <view class="singleBuy">单独购买<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text></view>
+        <view class="singleBuy">单独购买 <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text></view>
         <view class="footer">
             <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
             <form bindsubmit="submit" report-submit="true">

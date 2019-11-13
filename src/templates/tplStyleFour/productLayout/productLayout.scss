@@ -87,6 +87,7 @@
 	background-color: #fff;
     border: 2rpx solid #E4E4E4;
     padding: 10rpx;
+    margin-bottom: 20rpx;
 
 	.productImage {
 		$size: 260rpx;
@@ -135,6 +136,8 @@
             
             .activeBuy{
                 font-size:24rpx;
+                display: inline-block;
+                margin-left: 10rpx;
             }
 
             .nowPrice{
@@ -145,7 +148,12 @@
 
 		.singleBuy{
 			font-size: 24rpx;
-			color:#000000;
+            color:#000000;
+            
+            .price {
+                display: inline-block;
+                margin-left: 10rpx;
+            }
 		}
 
 		.footer {

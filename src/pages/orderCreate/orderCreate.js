@@ -518,7 +518,7 @@ Page({
 
         wx.showLoading({
             title: '处理订单中',
-            mark: true,
+            mask: true,
         });
 
         try {

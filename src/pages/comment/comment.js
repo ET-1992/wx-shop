@@ -1,6 +1,5 @@
 import api from 'utils/api';
-import { formatTime } from 'utils/util';
-import { showToast, showModal, chooseImage } from 'utils/wxp';
+import proxy from 'utils/wxProxy';
 
 const app = getApp();
 Page({
@@ -25,7 +24,7 @@ Page({
 
     async onUpload() {
         const { images } = this.data;
-        const { tempFilePaths } = await chooseImage({
+        const { tempFilePaths } = await proxy.chooseImage({
             count: 4 - images.length
         });
         try {
@@ -39,7 +38,11 @@ Page({
             }
         }
         catch (err) {
-            console.log(err);
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
 
     },
@@ -68,6 +71,7 @@ Page({
     },
 
     async onSubmit() {
+        wx.showLoading({ title: '提交中' });
         const { formId, rating, text, images, id, orderNo } = this.data;
         try {
             if (!text && !images.length) {
@@ -82,28 +86,39 @@ Page({
                 form_id: formId,
             };
             args.post_id = id;
-            const data = await api.hei.productComment({ ...args });
 
-            const { errcode } = data;
-            if (errcode === 0) {
-                const { confirm } = await showModal({
-                    title: '温馨提示',
-                    content: '提交成功',
-                    showCancel: false,
-                    mask: true
-                });
-                if (confirm) {
-                    wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${orderNo}`
-                    });
-                }
+            const { reply } = await api.hei.productComment({ ...args });
+
+            wx.hideLoading();
+
+            // status: -1 审核中
+            // status: 1 正常
+            let tips_text = '';
+            if (reply.status === 1) {
+                tips_text = '提交成功';
+            } else if (reply.status === -1) {
+                tips_text = '发布成功，请等待后台审核';
             }
-            else {
-                throw new Error(`错误代码：${errcode}`);
+
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: tips_text,
+                showCancel: false,
+                mask: true
+            });
+            if (confirm) {
+                wx.redirectTo({
+                    url: `/pages/orderDetail/orderDetail?id=${orderNo}`
+                });
             }
         }
         catch (err) {
-            console.log(err.message);
+            wx.hideLoading();
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
     },
 

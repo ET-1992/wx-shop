@@ -1,0 +1,15 @@
+<view class="grouponStyle">
+    <image class="grouponImage" mode="aspectFill" src="{{ product.thumbnail }}" />
+    <view class="meta">
+        <view class="content">
+            <view class="title">{{ product.title }}</view>
+        </view>
+        <view class="grouponPrice">
+            <text class="activeBuy">{{ globalData.CURRENCY[globalData.currency] }}</text>
+            <text class="nowPrice">{{ product.bargain_price }}</text>
+        </view>
+        <view class="grouponInfo">
+            <view class="groupNumber">已砍{{ product.bargain_finished_count || 0 }}件</view>
+        </view>
+    </view>
+</view>

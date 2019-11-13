@@ -15,6 +15,10 @@
                     </view>
                 </view>
             </view>
+            <view class="quantity" wx:if="{{ product.product_type !== 1 }}">
+                <view class="title">购买数量</view>
+                <numberInput value="{{ product.uniqueNumber || 1 }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateNumber" quota="{{ product.quota }}" />
+            </view>
             <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
                 <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                     <view class="item-text">配送方式</view>
@@ -37,7 +41,7 @@
             <view class="money" wx:else>
                 {{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.id ? selectedSku.price : product.price }}
             </view>
-            <button class="addCart" disabled="{{ product.skus.length && !selectedSku.id }}" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ product.skus.length && !selectedSku.id ? '#c2c2c2' : themeColor.primaryColor }}">
+            <button class="addCart" bind:tap="onAddCart" data-id="{{ product.id }}" style="background:{{ themeColor.primaryColor }}">
                 加入购物车
             </button>
         </view>
@@ -60,7 +64,7 @@
                         <view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">
                             {{ product.definePrice }}
                         </view>
-                        <view wx:elif="{{ product.bargain_enable}}">
+                        <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
                             {{ product.bargain_price }}
                         </view>
                         <view wx:elif="{{ selectedSku.id }}">{{ selectedSku.price }}</view>

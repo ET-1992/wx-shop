@@ -1,11 +1,10 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate, go } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
-
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
@@ -50,6 +49,7 @@ Page({
             },
         ],
         isGrouponBuy: false,
+        isBargainBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
@@ -67,14 +67,15 @@ Page({
         }
         const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
+            const { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
             console.log(actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
+            console.log('onShowSku isBargainBuy: ', isBargainBuy);
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
-
+            updateData.isBargainBuy = isBargainBuy;
         }
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
@@ -190,9 +191,7 @@ Page({
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({
-            pendingGrouponId: ''
-        });
+        this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
             const { thumbnail } = data.product;
@@ -382,6 +381,7 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
+            isBargainBuy,
             isCrowd,
             shipping_type
         } = this.data;
@@ -432,7 +432,7 @@ Page({
             url = url + '&crowd=true';
         }
 
-        if (product.bargain_enable && product.bargain_mission) {
+        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
             url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
             console.log('url438', url);
         }
@@ -444,7 +444,7 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
-            isBargainBuy: true
+            isBargainBuy
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -716,6 +716,20 @@ Page({
         console.log('shipping_type696', this.data.shipping_type);
     },
 
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.createBargain();
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
     // 发起砍价
     async createBargain() {
         const { product: { id }, selectedSku } = this.data;
@@ -725,16 +739,35 @@ Page({
         });
         console.log('mission721', mission);
         autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
-        // wx.navigateTo({
-        //     url: `/pages/bargainDetail/bargainDetail?code=${mission.code}`,
-        // });
     },
-    // // 查看进度 跳转至砍价详情页面
-    // toBargainDetailPage(e) {
-    //     const { code } = e.currentTarget.dataset;
-    //     console.log('code730', code);
-    //     wx.navigateTo({
-    //         url: `/pages/bargainDetail/bargainDetail?code=${code}`
-    //     });
-    // }
+
+    onRecommended(e) {
+        console.log('onRecommended731', e);
+        const { id, title, images } = e.currentTarget.dataset;
+        // 微信是否更新至7.0.3及以上版本
+        if (wx.openBusinessView) {
+            wx.openBusinessView({
+                businessType: 'friendGoodsRecommend',
+                extraData: {
+                    product: {
+                        item_code: String(id),
+                        title: title,
+                        image_list: images
+                    }
+                },
+                success: function (res) {
+                    console.log('好物圈调用成功res743', res);
+                    proxy.showToast({ title: '推荐成功' });
+                },
+                fail: function(res) {
+                    console.log('好物圈调用失败747', res);
+                }
+            });
+        } else {
+            proxy.showModal({
+                title: '温馨提示',
+                content: '请检查当前微信版本是否更新至7.0.3及以上版本',
+            });
+        }
+    }
 });

@@ -4,7 +4,7 @@ import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForI
 import getRemainTime from 'utils/getRemainTime';
 import templateTypeText from 'constants/templateType';
 import { qrcode } from 'peanut-all';
-import { createCurrentOrder } from 'utils/pageShare';
+import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
 
 const app = getApp();
@@ -51,7 +51,8 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
-            routePath: this.route
+            routePath: this.route,
+            isLoading: true
         });
     },
 
@@ -60,8 +61,7 @@ Page({
         const user = wx.getStorageSync(USER_KEY);
         this.setData({
             user,
-            grouponId,
-            isLoading: true
+            grouponId
         });
 
         id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
@@ -353,36 +353,37 @@ Page({
         });
     },
 
+    /**
+     * 默认隐藏页面分享按钮，待成团页面开启
+     */
     onShareAppMessage({ target }) {
-        const { user, groupon = {}, redpacket = {}, config } = this.data;
-
         console.log('target', target);
-        if (typeof (target) !== 'undefined') {  // 点击按钮进来
-            const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
-            if (isModal || isRedpocketShare) {
-                this.setData({ isShared: true });
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}给你发来了一个红包，快去领取吧`,
-                    path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
-                    imageUrl: `${config.cdn_host}/shop/redpacketShare.jpg`
-                };
-            }
-            if (isShareGroupon && groupon.status === 2) {
-                this.showShareModal();
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                    path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                    imageUrl: groupon.image_url
-                };
-            }
-        } else {    // 右上角转发按钮
-            return {
-                title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                imageUrl: groupon.image_url
-            };
 
+        const { user = {}, groupon = {}, redpacket = {}} = this.data;
+
+        let data = {
+            share_title: `${user.nickname || '好友'}邀请你一起拼团`,
+            share_image: groupon.image_url
+        };
+        let path = `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`;
+
+        if (typeof (target) !== 'undefined') {
+
+            // 点击分享红包
+            const { isRedpocketShare } = target.dataset;
+            if (isRedpocketShare) {
+                data = {
+                    isShared: true,
+                    share_title: `${user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
+                    share_image: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+                };
+                path = `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`;
+            }
         }
+
+        this.setData(data);
+
+        return onDefaultShareAppMessage.call(this, {}, path);
     },
 
     filterItemsForLogistics(items = [], logistics = []) {

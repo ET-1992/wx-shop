@@ -226,7 +226,7 @@ Page({
         options.post_id = id;
         options.sku_id = e.sku_id || 0; // 多规格
         options.shipping_type = e.shipping_type;
-        options.quantity = 1;
+        options.quantity = e.quantity || 1; // 商品数量
         options.vendor = vendor;
         options.form_id = this.data.formId;
 
@@ -263,16 +263,16 @@ Page({
 
     // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
     // 单规格但多种配送方式 显示弹窗选择 配送方式
-    singleAddCart(e) {
-        console.log('e262', e);
-        const { product } = e.currentTarget.dataset;
-        if (product.shipping_types && (product.shipping_types.length === 1)) {
-            e.shipping_type = product.shipping_types[0];
-            this.addCart(e);
-        } else {
-            this.isShowSkuModal(e);
-        }
-    },
+    // singleAddCart(e) {
+    //     console.log('e262', e);
+    //     const { product } = e.currentTarget.dataset;
+    //     if (product.shipping_types && (product.shipping_types.length === 1)) {
+    //         e.shipping_type = product.shipping_types[0];
+    //         this.addCart(e);
+    //     } else {
+    //         this.isShowSkuModal(e);
+    //     }
+    // },
 
     touchstart(e) {
         this.data.clineX = e.touches[0].clientX;

@@ -1,27 +1,27 @@
 <view class="container">
-	<form bindsubmit='formSubmit' class='form'>
-        <view class='form-section'>
-            <view class='form-left'>真实姓名</view>
-            <input class='form-right' type="text" value="{{userName? userName : ''}}" bindinput="bindNameInput" />
+	<form bindsubmit="formSubmit" class="form">
+        <view class="form-section">
+            <view class="form-left first-child">真实姓名</view>
+            <input class="form-right" type="text" value="{{userName? userName : ''}}" bindinput="bindNameInput" placeholder="请输入您本人的真实姓名"  placeholder-class="weui_placeholder"/>
         </view>
-        <view class='form-section'>
-            <view class='form-left'>身份证号</view>
-            <input class='form-right' type="idcard"  value="{{idNumber?  idNumber : ''}}" bindinput="bindNumberInput" maxlength="18"/>
+        <view class="form-section">
+            <view class="form-left">身份证号</view>
+            <input class="form-right" type="idcard" value="{{idNumber? idNumber : ''}}" bindinput="bindNumberInput" maxlength="18" placeholder="请输入您本人的身份证号" placeholder-class="weui_placeholder"/>
         </view>
-        <!-- <view class='form-section' wx:for="{{imgFile}}" wx:key="{{index}}">
-            <view class='form-left'>{{item.info}}</view>
+        <!-- <view class="form-section" wx:for="{{imgFile}}" wx:key="{{index}}">
+            <view class="form-left">{{item.info}}</view>
 			<view class="form-img" >
-				<image class="form-img"  src="{{item.imgSrc ? item.imgSrc: '/icons/uploadIcon.svg'}}" bindtap="onUpload" data-index="{{index}}"/>
+				<image class="form-img"  src="{{item.imgSrc ? item.imgSrc: "/icons/uploadIcon.svg"}}" bindtap="onUpload" data-index="{{index}}"/>
 			</view>
         </view> -->
-        <view class='form-section'>
-            <view class='form-left'>身份证正面</view>
-			<view class="form-img" >
-				<image class="form-img"  src="{{idCardImage1 ? idCardImage1: '/icons/uploadIcon.svg'}}" bindtap="onUploadIDCard"/>
+        <view class="form-section">
+            <view class="form-left">身份证正面</view>
+			<view class="form-img">
+				<image class="form-img" src="{{idCardImage1 ? idCardImage1: '/icons/uploadIcon.svg'}}" bindtap="onUploadIDCard"/>
 			</view>
         </view>
-        <view class='form-section'>
-            <view class='form-left'>身份证反面</view>
+        <view class="form-section">
+            <view class="form-left">身份证反面</view>
 			<view class="form-img" >
 				<image class="form-img"  src="{{idCardImage2 ? idCardImage2: '/icons/uploadIcon.svg'}}" bindtap="onUploadReverseSideOfIDCard"/>
 			</view>
