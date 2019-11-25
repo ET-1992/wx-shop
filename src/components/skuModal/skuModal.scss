@@ -278,6 +278,15 @@
 		border-top: 1rpx solid #ebedf0;
 		padding: 30rpx 0;
 		align-items: center;
+		.rightWrap {
+			display: flex;
+			
+			.least {
+				display: flex;
+				align-items: center;
+				color: #E50000;
+			}
+		}
 	}
 
 	.actionSheetBtGroup {

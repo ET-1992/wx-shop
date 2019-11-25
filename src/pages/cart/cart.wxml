@@ -38,7 +38,7 @@
     	  	  	<view class="meta">
     	  	  	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
     	  	  	  	<view class="metaRight">
-    	  	  	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" isDisabled="{{ true }}" quota="{{ item.quota }}" />
+    	  	  	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" isDisabled="{{ true }}" quota="{{ item.quota }}" least="{{ item.least }}" />
     	  	  	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px" /></view>
     	  	  	  	</view>
     	  	  	</view>
@@ -52,7 +52,7 @@
     	    	<view class="meta">
     	    	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
     	    	  	<view class="metaRight">
-    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" />
+    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" least="{{ item.least }}" />
     	    	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px"/> </view>
     	    	  	</view>
     	    	</view>

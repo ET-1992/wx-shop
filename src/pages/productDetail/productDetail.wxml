@@ -544,7 +544,7 @@
  themeColor="{{ themeColor }}"
  position="bottom"
  actions="{{ actions }}"
- quantity="{{ quantity }}"
+ quantity="{{ product.least || 1 }}"
  isCrowd="{{ isCrowd }}"
  isGrouponBuy="{{ isGrouponBuy }}"
  isBargainBuy="{{isBargainBuy}}"
