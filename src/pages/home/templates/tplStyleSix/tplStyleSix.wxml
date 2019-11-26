@@ -124,12 +124,13 @@
 							</form>
 						</view>
 					</view>
+					<!-- 普通文章或公众号文章 -->
 					<myNavigator
 						wx:for="{{ articles }}"
 						wx:key="id"
 						wx:for-item="article"
 						hover-class="navigator-hover"
-						url="{{ '/pages/articleDetail/articleDetail?id=' + article.id }}"
+						url="{{ article.article_type === 'mp' ? '/pages/webPages/webPages?src='+article.mp_url : '/pages/articleDetail/articleDetail?id='+article.id}}"
 					><productList article="{{ article }}" module="{{ module }}" tplStyle="{{ tplStyle }}" productLayoutStyle="articleStyle" themeColor="{{themeColor}}"/>
 		    		</myNavigator>
 				</view>
