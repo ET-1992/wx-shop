@@ -237,7 +237,7 @@
         </view>
       	</view>
     	<!-- 明星产品 -->
-    	<view wx:if="{{ module.key === 'featured' }}">
+    	<!-- <view wx:if="{{ module.key === 'featured' }}">
         <view class="section" wx:if="{{ featured && featured.length }}">
 			<view class="header">
 				<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}} </view>
@@ -246,7 +246,7 @@
           	  	<image class="starProductItem" src="{{ item.banner }}" />
           	</myNavigator>
         </view>
-    	</view>
+    	</view> -->
     	<!-- 商品列表 -->
     	<view wx:if="{{ module.key === 'products' }}">
         <view class="section" wx:if="{{ products && products.length }}">
