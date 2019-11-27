@@ -95,7 +95,7 @@
         <view class="quantity" wx:if="{{ product.product_type !== 1 }}">
             <view class="title">购买数量</view>
             <view class="rightWrap">
-                <view class="least">（{{ product.least }}件起购）</view>
+                <view class="least" wx:if="{{ product.least }}">（ {{ product.least }}件起购 ）</view>
                  <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
         </view>
