@@ -3,7 +3,6 @@
 	"navigationBarBackgroundColor": "#333333",
 	"enablePullDownRefresh": true,
 	"usingComponents": {
-	  "console": "../../../components/console/console",
 	  "loading": "../../../components/loading/index"
 	}
 }

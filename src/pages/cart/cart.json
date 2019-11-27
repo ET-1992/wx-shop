@@ -2,7 +2,6 @@
   "navigationBarTitleText": "购物车",
   "usingComponents": {
     "numberInput": "../../components/numberInput/index",
-    "console": "../../components/console/console",
     "productList": "../../components/productList/index",
     "loading": "../../components/loading/index",
     "navbarList": "../../components/navbarList/navbarList",

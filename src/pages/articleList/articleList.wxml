@@ -14,4 +14,3 @@
 		<view class="noHint" wx:if="{{ !articles.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">暂无文章</view>
 	</view>
 </view>
-<console page="文章列表" />

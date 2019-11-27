@@ -68,5 +68,3 @@
 	</view>
 	<view class="bottomHint" wx:if="{{ !isLoading && missions.length && !next_cursor }}">-到底啦-</view>
 </view>
-
-<console page="我的砍价" />

@@ -30,5 +30,3 @@
 <manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
 
 <myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />
-
-<console page="个人中心" />

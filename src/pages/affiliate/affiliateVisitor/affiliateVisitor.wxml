@@ -14,5 +14,3 @@
 <view wx:if="{{ !isLoading && !visitorList.length }}" class="emptyHint">
     暂无浏览客户
 </view>
-
-<console page="浏览用户" />

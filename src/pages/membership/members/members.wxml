@@ -96,5 +96,3 @@
 	<!-- 会员充值弹窗 -->
 	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
 </view>
-
-<console page="会员中心" />

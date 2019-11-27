@@ -3,7 +3,6 @@
     "numberInput": "../../components/numberInput/index",
     "pendingGrouponItem": "../../components/pendingGrouponItem/index",
     "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
-    "console": "../../components/console/console",
     "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal",
     "couponList": "../../components/couponList/index",
     "loading": "../../components/loading/index",

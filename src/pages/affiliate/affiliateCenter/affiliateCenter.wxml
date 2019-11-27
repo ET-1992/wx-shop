@@ -119,5 +119,3 @@
 	</view>
 	<view class="popup-footer" bindtap="onEditUserName">确认</view>
 </van-popup>
-
-<console page="分销中心" />

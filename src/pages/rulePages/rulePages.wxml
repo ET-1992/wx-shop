@@ -3,5 +3,3 @@
 	<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ image_url }}" />
 	<view class="noDataText" wx:if="{{ !image_url }}">暂无规则详情</view>
 </view>
-
-<console page="规则说明" />

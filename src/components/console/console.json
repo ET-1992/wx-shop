@@ -1,7 +1,0 @@
-{
-	"component": true,
-	"usingComponents": {
-		"myModal": "../../components/myModal/myModal"
-	}
-}
-

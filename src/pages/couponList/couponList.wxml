@@ -17,4 +17,3 @@
   <view class="viewProduct" bind:tap="navigateToHome" wx:if="{{ tplStyle !== 'vip_tpl' }}" style="background-color: {{ themeColor.primaryColor }}"> 立即使用 </view>
   <view class="noCouponHint" wx:if="{{ !isLoading && !coupons.length }}">暂无可领取优惠券</view>
 </view>
-<console page="优惠劵列表" />

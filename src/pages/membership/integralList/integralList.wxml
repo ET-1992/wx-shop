@@ -18,5 +18,3 @@
     class="bottomHint"
     wx:if="{{ coinList.length && !next_cursor }}"
   >-这是一条底线-</view> -->
-
-  <console page="积分明细" />

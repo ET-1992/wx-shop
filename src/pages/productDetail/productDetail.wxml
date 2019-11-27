@@ -555,8 +555,6 @@
  bind:getShippingType="getShippingType"
 />
 
-<console page="商品详情" />
-
 <productDetailShareModal
  productImage="{{ product.thumbnail }}"
  productTitle="{{ product.title }}"

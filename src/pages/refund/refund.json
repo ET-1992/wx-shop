@@ -1,6 +1,3 @@
 {
-	"navigationBarTitleText": "退款申请",
-	"usingComponents": {
-    	"console": "../../components/console/console"
-  }
+	"navigationBarTitleText": "退款申请"
 }

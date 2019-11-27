@@ -9,7 +9,6 @@
     "orderForm": "./orderForm/orderForm",
     "productItemSold": "../../components/productItemSold/index",
     "myModal": "../../components/myModal/myModal",
-    "console": "../../components/console/console",
     "addressTwo": "../../components/addressTwo/addressTwo",
     "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
     "delivery": "../../components/delivery/delivery",
