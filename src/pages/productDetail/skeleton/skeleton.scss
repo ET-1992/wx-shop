@@ -1,11 +1,19 @@
-$default-background-color: #f2f3f5;
 $deault-tall-height: 50rpx;
-$deault-short-height: 30rpx;
 
 .container {
 	height: 100vh;
 	overflow: hidden;
 	background-color: white;
+	@keyframes van-skeleton-blink {
+		50% {
+			opacity: .6
+		}
+	};
+	.row {
+		height: 32rpx;
+		background-color: #f2f3f5;
+		animation: van-skeleton-blink 1.2s ease-in-out infinite
+	}
 	.header {
 		.header-img {
 			width: 100%;
@@ -27,12 +35,10 @@ $deault-short-height: 30rpx;
 				.banner-title {
 					width: 70rpx;
 					height: 70rpx;
-					background-color: $default-background-color;
 				}
 				.banner-price {
 					width: 120rpx;
 					height: 70rpx;
-					background-color: $default-background-color;
 				}
 			}
 			.right {
@@ -42,7 +48,6 @@ $deault-short-height: 30rpx;
 				.banner-meta {
 					width: 140rpx;
 					height: 70rpx;
-					background-color: $default-background-color;
 				}
 			}
 		}
@@ -56,13 +61,10 @@ $deault-short-height: 30rpx;
 					.title {
 						width: 55%;
 						height: $deault-tall-height;
-						background-color: $default-background-color;
 					}
 					.desc {
 						width: 90%;
-						height: $deault-short-height;
 						margin-top: 10rpx;
-						background-color: $default-background-color;
 					}
 				}
 				.right {
@@ -72,7 +74,6 @@ $deault-short-height: 30rpx;
 					.btn {
 						width: 60rpx;
 						height: 90rpx;
-						background-color: $default-background-color;
 					}
 				}
 			}
@@ -80,21 +81,17 @@ $deault-short-height: 30rpx;
 				width: 20%;
 				margin-top: 20rpx;
 				height: $deault-tall-height;
-				background-color: #fde2e2;
 			}
 			.info-meta {
 				width: 100%;
-				height: $deault-short-height;
 				display: flex;
 				justify-content: space-between;
 				margin-top: 10rpx;
 				.left {
 					width: 50%;
-					background-color: $default-background-color;
 				}
 				.right {
 					width: 10%;
-					background-color: $default-background-color;
 				}
 			}
 		}
@@ -104,9 +101,6 @@ $deault-short-height: 30rpx;
 		.body-coupon {
 			width: 100%;
 			height: $deault-tall-height;
-			background-color: $default-background-color;
-		}
-		.body-serve {
 		}
 		.body-product-detail {
 			margin: 24rpx 0;
@@ -118,12 +112,10 @@ $deault-short-height: 30rpx;
 				width: 50%;
 				margin: 20rpx 0;
 				height: $deault-tall-height;
-				background-color: $default-background-color;
 			}
 			.detail-content {
 				width: 100%;
 				height: 400rpx;
-				background-color: $default-background-color;
 			}
 			
 		}
@@ -143,7 +135,6 @@ $deault-short-height: 30rpx;
 			.btn {
 				width: 20%;
 				height: 60rpx;
-				background-color: $default-background-color;
 			}
 		}
 		.right {
@@ -153,11 +144,9 @@ $deault-short-height: 30rpx;
 			.btn {
 				flex: 1;
 				height: 100rpx;
-				// background-color: #fef0f0;
 				background-color: #B1CA50;
 			}
 			.btn:last-child {
-				// background-color: #F56C6C;
 				background-color: #729153;
 			}
 		}

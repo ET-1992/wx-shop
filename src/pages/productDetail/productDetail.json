@@ -13,6 +13,6 @@
     "skuModal": "../../components/skuModal/skuModal",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
     "productList": "../../components/productList/index",
-    "skeleton": "../../components/skeleton/skeleton"
+    "skeleton": "./skeleton/skeleton"
   }
 }
