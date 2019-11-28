@@ -7,5 +7,10 @@
         data-value="{{item.value}}"
         bind:tap="changeActive"
         style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}" 
-    >{{ item.text }}({{item.totalCounts}})</view>
+    >
+    {{ item.text }}
+     <view class="badge" wx:if="{{ item.totalCounts }}">
+        {{item.totalCounts}}
+    </view>
+    </view>
 </view>
