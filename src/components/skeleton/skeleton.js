@@ -7,6 +7,14 @@ Component({
         isIphoneX: {
             type: Boolean,
             value: false,
+        },
+        hasBanner: {
+            type: Boolean,
+            value: false,
+        },
+        themeColor: {
+            type: Object,
+            value: {},
         }
     }
 });

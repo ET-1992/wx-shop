@@ -3,7 +3,15 @@
 		<!-- 图片 -->
 		<view class="header-img"></view>
 		<!-- 促销banner -->
-		<view class="header-img-banner"></view>
+		<view class="header-img-banner" wx:if="{{ hasBanner }}">
+			<view class="left">
+				<view class="banner-title"></view>
+				<view class="banner-price"></view>
+			</view>
+			<view class="right">
+				<view class="banner-meta"></view>
+			</view>
+		</view>
 		<view class="header-info">
 			<view class="info-title">
 				<view class="left">
@@ -45,7 +53,8 @@
 			<view class="btn" wx:for="aaa"></view>
 		</view>
 		<view class="right">
-			<view class="btn" wx:for="aa"></view>
+			<view class="btn" style="background-color: {{ themeColor.secondaryColor }}"></view>
+			<view class="btn" style="background-color: {{ themeColor.primaryColor }}"></view>
 		</view>
 	</view>
 </view>

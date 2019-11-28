@@ -1,6 +1,7 @@
 <!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
-<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}"></skeleton>
+<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" 
+  hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
