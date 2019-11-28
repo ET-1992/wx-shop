@@ -1,0 +1,60 @@
+<view class="container">
+	<view class="header">
+		<!-- 图片 -->
+		<view class="header-img"></view>
+		<!-- 促销banner -->
+		<view class="header-img-banner" wx:if="{{ hasBanner }}">
+			<view class="left">
+				<view class="banner-title"></view>
+				<view class="banner-price"></view>
+			</view>
+			<view class="right">
+				<view class="banner-meta"></view>
+			</view>
+		</view>
+		<view class="header-info">
+			<view class="info-title">
+				<view class="left">
+					<!-- 标题 -->
+					<view class="title"></view>
+					<!-- 副标题 -->
+					<view class="desc"></view>
+				</view>
+				<view class="right">
+					<!-- 按钮 -->
+					<view class="btn"></view>
+					<view class="btn"></view>
+				</view>
+			</view>
+			<!-- 价格 -->
+			<view class="info-price"></view>
+			<!-- 快递、已售 -->
+			<view class="info-meta">
+				<view class="left"></view>
+				<view class="right"></view>
+			</view>
+		</view>
+	</view>
+	<view class="body">
+		<!-- 优惠券 -->
+		<view class="body-coupon">
+		</view>
+		<!-- 服务 -->
+		<view class="body-serve">
+		</view>
+		<!-- 商品详情 -->
+		<view class="body-product-detail">
+			<view class="detail-title"></view>
+			<view class="detail-content"></view>
+		</view>
+	</view>
+	<view class="foot {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="left">
+			<view class="btn" wx:for="aaa"></view>
+		</view>
+		<view class="right">
+			<view class="btn" style="background-color: {{ themeColor.secondaryColor }}"></view>
+			<view class="btn" style="background-color: {{ themeColor.primaryColor }}"></view>
+		</view>
+	</view>
+</view>
