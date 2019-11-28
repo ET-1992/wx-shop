@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{!isLoading}}">
-    <view class="integralList" wx:for="{{ integralList }}" wx:if="{{ integralList.length }}" >
+    <view class="integralList" wx:for="{{ integralList }}" wx:if="{{ integralList.length }}" wx:key="index">
         <view>
             <view>{{ item.exp_type }}</view>
             <view class="time">{{ item.formatTime }}</view>

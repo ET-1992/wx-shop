@@ -50,9 +50,9 @@ Page({
         const memberHome = await api.hei.membershipCard();
         this.setData({
             user: memberHome.current_user,
-            word: memberHome.data.word,
-            memberCouponList: memberHome.data.coupons,
-            memberExclusiveBanner: memberHome.data.dedicated_products_banner
+            word: (memberHome.data && memberHome.data.word) || '',
+            memberCouponList: memberHome.data && memberHome.data.coupons,
+            memberExclusiveBanner: memberHome.data && memberHome.data.dedicated_products_banner
         });
         // 设置全局配置
         this.setData({
