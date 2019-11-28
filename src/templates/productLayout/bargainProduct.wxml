@@ -1,6 +1,6 @@
 <view class="bargainProduct">
     <view class="wrapper {{ hasBorder ? 'hasBorder' : '' }}">  
-        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"  lazy-load="{{ true }}"/>
         <view class="meta">
             <view class="name">{{ product.title }}</view>
             <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
