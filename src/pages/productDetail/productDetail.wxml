@@ -294,7 +294,7 @@
 		</view>
 
 		<!-- 为你推荐 -->
-		<view class="promote" wx:if="{{ product.related && product.related.length }}">
+		<view class="promote" wx:if="{{ isShowProductRelated }}">
 			<view class="label">
 				<text class="dot">•</text>
 				为你推荐

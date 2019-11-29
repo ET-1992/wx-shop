@@ -1,5 +1,5 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{!isLoading}}">
+<!-- <loading isLoading="{{ isLoading }}"/> -->
+<view class="container">
 	<!-- 头部面板 -->
 	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 

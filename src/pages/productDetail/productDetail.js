@@ -225,6 +225,14 @@ Page({
             // --------------------
             this.setDefinePrice();
             // ---------------
+
+            if (product.related && product.related.length) {
+                setTimeout(() => {
+                    this.setData({
+                        isShowProductRelated: true
+                    });
+                }, 1000);
+            }
         }
         catch (err) {
             if (err && (err.code === 'empty_query')) {
