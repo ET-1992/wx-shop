@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="banner" wx:if="{{ groupon_banner  && groupon_banner.length}}">
+  <view class="banner" wx:if="{{ groupon_banner }}">
     <image src="{{ groupon_banner }}" mode="aspectFill" />
   </view>
   <view class="itemWrapper" wx:for="{{ products }}" wx:if="{{item.groupon_enable=='1'}}" wx:key="id">

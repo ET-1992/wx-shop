@@ -73,7 +73,7 @@
 
       <!-- 服务公告start -->
       <navigator class="instructions" wx:if="{{ instructions && instructions.length }}" url="{{ instruction_path }}">
-        <view wx:for="{{instructions}}" class="instructions-item">
+        <view wx:for="{{instructions}}" class="instructions-item" wx:key="index">
           <image mode="aspectFit" src="/icons/instructions.png"></image>
           <view>{{item}}</view>
         </view>

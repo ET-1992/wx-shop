@@ -2,7 +2,7 @@
 <view class="container" wx:if="{{!isLoading}}">
     <!-- 限时购专区 -->
     <block wx:if="{{ type === 'miaosha'}}">
-        <view class="banner" wx:if="{{ miaosha_banner && miaosha_banner.length}}">
+        <view class="banner" wx:if="{{ miaosha_banner }}">
             <image src="{{ miaosha_banner }}" mode="aspectFill" />
         </view>
         <view class="itemWrapper" wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.miaosha_enable=='1'}}">
@@ -14,7 +14,7 @@
 
     <!-- 拼团专区 -->
     <block wx:if="{{ type === 'groupon'}}">
-        <view class="banner" wx:if="{{ groupon_banner  && groupon_banner.length}}">
+        <view class="banner" wx:if="{{ groupon_banner }}">
             <image src="{{ groupon_banner }}" mode="aspectFill" />
         </view>
         <view class="itemWrapper" wx:for="{{ products }}" wx:key="{{ item.id }}" wx:if="{{item.groupon_enable=='1'}}">
@@ -26,7 +26,7 @@
     
     <!-- 砍价专区 -->
     <block wx:if="{{ type === 'bargain'}}">
-        <view class="banner" wx:if="{{ bargain_banner && bargain_banner.length}}">
+        <view class="banner" wx:if="{{ bargain_banner }}">
             <image src="{{ bargain_banner }}" class="banner" mode="aspectFill" />
         </view>
         <view class="itemWrapper bargain" wx:for="{{ products }}" wx:key="{{ item.id }}">
@@ -36,5 +36,6 @@
         </view>
     </block>
 
+    <view class="noProduct" wx:if="{{ !products.length }}">- 暂无商品 -</view>
     <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>
 </view>
