@@ -63,7 +63,7 @@ Page({
         let isSelectedObject = {};
         let isAllSelected = false;
         items.forEach((item) => {
-            if (item.status !== 0) {
+            if (item.status !== 0 && item.stock !== 0) {
                 isSelectedObject[item.id] = lastSelectedArray ? lastSelectedArray[item.id] || false : false;
             }
         });
