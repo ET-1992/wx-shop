@@ -1,0 +1,157 @@
+$deault-tall-height: 50rpx;
+
+.container {
+	height: 100vh;
+	overflow: hidden;
+	background-color: white;
+	@keyframes van-skeleton-blink {
+		50% {
+			opacity: .6
+		}
+	};
+	.row {
+		height: 32rpx;
+		background-color: #f2f3f5;
+		animation: van-skeleton-blink 1.2s ease-in-out infinite
+	}
+	.header {
+		.header-img {
+			width: 100%;
+			height: 750rpx;
+			background-color: #e9e9eb;
+		}
+		.header-img-banner {
+			width: 100%;
+			height: 100rpx;
+			background-color: #fde2e2;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 20rpx;
+			.left {
+				width: 33%;
+				display: flex;
+				justify-content: space-between;
+				.banner-title {
+					width: 70rpx;
+					height: 70rpx;
+				}
+				.banner-price {
+					width: 120rpx;
+					height: 70rpx;
+				}
+			}
+			.right {
+				width: 33%;
+				display: flex;
+				justify-content: flex-end;
+				.banner-meta {
+					width: 140rpx;
+					height: 70rpx;
+				}
+			}
+		}
+		.header-info {
+			margin: 20rpx 20rpx 30rpx;
+			.info-title {
+				display: flex;
+				justify-content: space-between;
+				.left {
+					flex: 4;
+					.title {
+						width: 55%;
+						height: $deault-tall-height;
+					}
+					.desc {
+						width: 90%;
+						margin-top: 10rpx;
+					}
+				}
+				.right {
+					flex: 1;
+					display: flex;
+					justify-content: space-around;
+					.btn {
+						width: 60rpx;
+						height: 90rpx;
+					}
+				}
+			}
+			.info-price {
+				width: 20%;
+				margin-top: 20rpx;
+				height: $deault-tall-height;
+			}
+			.info-meta {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				margin-top: 10rpx;
+				.left {
+					width: 50%;
+				}
+				.right {
+					width: 10%;
+				}
+			}
+		}
+	}
+	.body {
+		margin: 20rpx;
+		.body-coupon {
+			width: 100%;
+			height: $deault-tall-height;
+		}
+		.body-product-detail {
+			margin: 24rpx 0;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.detail-title {
+				width: 50%;
+				margin: 20rpx 0;
+				height: $deault-tall-height;
+			}
+			.detail-content {
+				width: 100%;
+				height: 400rpx;
+			}
+			
+		}
+	}
+	.foot {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+		background-color: white;
+		padding-top: 20rpx;
+		.left {
+			flex: 1;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			.btn {
+				width: 20%;
+				height: 60rpx;
+			}
+		}
+		.right {
+			flex: 2;
+			display: flex;
+			align-items: center;
+			.btn {
+				flex: 1;
+				height: 100rpx;
+				background-color: #B1CA50;
+			}
+			.btn:last-child {
+				background-color: #729153;
+			}
+		}
+		&.iphoneXTrick {
+			padding-bottom: 40rpx;
+		}
+	}
+}

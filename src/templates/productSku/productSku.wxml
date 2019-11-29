@@ -3,6 +3,7 @@
     src="{{ product.images[0] }}"
     class="skuImg"
     mode="aspectFill"
+    lazy-load="{{ true }}"
   />
 
   <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">

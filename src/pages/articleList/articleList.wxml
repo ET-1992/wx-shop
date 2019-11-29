@@ -6,7 +6,9 @@
 	<view class="container">
 		<loading isLoading="{{ isLoading }}"/>
 		<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ articles.length && !isLoading }}">
-			<navigator class="m-list" wx:for="{{articles}}" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+			<!-- 普通文章或公众号文章 -->
+			<navigator class="m-list" wx:for="{{articles}}" 
+			  url="{{ item.article_type === 'mp' ? '/pages/webPages/webPages?src='+item.mp_url : '/pages/articleDetail/articleDetail?id='+item.id}}">
 				<image class="m-img" src="{{item.banner}}" mode="widthFix" />
 				<template is="articleItem" data="{{ article: item}}" />
 			</navigator>

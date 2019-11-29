@@ -103,7 +103,9 @@
             <view wx:if="{{ module.key === 'articles' }}">
                 <view class="section" wx:if="{{ articles && articles.length }}">
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-                    <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+                    <!-- 普通文章或公众号文章 -->
+                    <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" 
+                      url="{{ item.article_type === 'mp' ? '/pages/webPages/webPages?src='+item.mp_url : '/pages/articleDetail/articleDetail?id='+item.id}}">
                             <image class="m-img" src="{{item.banner}}" mode="widthFix"></image>
                             <template is="articleItem" data="{{ article: item,module:module }}" />
                     </navigator>
@@ -189,7 +191,7 @@
                 </view>
             </view>
             <!-- 明星产品 -->
-            <view wx:if="{{ module.key === 'featured' }}">
+            <!-- <view wx:if="{{ module.key === 'featured' }}">
 
                 <view class="section" wx:if="{{ featured && featured.length }}">
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
@@ -198,7 +200,7 @@
                         <image class="starProductItem" src="{{ item.banner }}" />
                     </myNavigator>
                 </view>
-            </view>
+            </view> -->
             <!-- 最新上架 -->
             <view wx:if="{{ module.key === 'products' }}">
                 <view class="section" wx:if="{{ products && products.length }}">

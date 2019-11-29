@@ -86,6 +86,7 @@ App({
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
+                this.checkWebLogin(res);
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
@@ -97,17 +98,13 @@ App({
         }, 500);
     },
 
-    login() {
-        setTimeout(() => {
-            api.hei.config().then((res) => {
-                const { config, current_user } = res;
-                if (config.web_enable && current_user && !current_user.platform_user_id) {
-                    wx.navigateTo({
-                        url: '/pages/bindWeb/bindWeb',
-                    });
-                }
+    checkWebLogin(configRes) {
+        const { config, current_user } = configRes;
+        if (config.web_enable && current_user && !current_user.platform_user_id) {
+            wx.navigateTo({
+                url: '/pages/bindWeb/bindWeb',
             });
-        }, 500);
+        }
     },
 
     async onShow(options) {
@@ -119,7 +116,7 @@ App({
 
         this.updateConfig();
 
-        this.login();
+        // this.login();
 
         const { query = {}} = options;
         if (query.vendor) {
@@ -142,7 +139,7 @@ App({
                 this.recordAffiliate(query_.afcode);
             }
         }
-        this.updateConfig();
+        // this.updateConfig();
 
         try {
             await wxProxy.checkSession();

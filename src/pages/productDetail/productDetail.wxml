@@ -1,5 +1,7 @@
-<loading isLoading="{{ isLoading }}" />
+<!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
+<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" 
+  hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -292,7 +294,7 @@
 		</view>
 
 		<!-- 为你推荐 -->
-		<view class="promote" wx:if="{{ product.related && product.related.length }}">
+		<view class="promote" wx:if="{{ isShowProductRelated }}">
 			<view class="label">
 				<text class="dot">•</text>
 				为你推荐
@@ -544,7 +546,7 @@
  themeColor="{{ themeColor }}"
  position="bottom"
  actions="{{ actions }}"
- quantity="{{ quantity }}"
+ quantity="{{ product.least || 1 }}"
  isCrowd="{{ isCrowd }}"
  isGrouponBuy="{{ isGrouponBuy }}"
  isBargainBuy="{{isBargainBuy}}"

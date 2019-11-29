@@ -26,6 +26,10 @@ Component({
             type: Number,
             value: 0,
         },
+        least: {
+            type: Number,
+            value: 0,
+        }
     },
 
     methods: {
@@ -33,7 +37,7 @@ Component({
             const { type } = ev.currentTarget.dataset;
 
             let { value: inputValue } = ev.detail;
-            let { value, postId, skuId, max, isDisabled, quota } = this.data;
+            let { value, postId, skuId, max, isDisabled, quota, least } = this.data;
 
             if (isDisabled) {
                 return;
@@ -84,6 +88,15 @@ Component({
                     showCancel: false,
                 });
                 value = quota;
+            }
+
+            if (least > 0 && least > value) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: `每人最低起购${least}件`,
+                    showCancel: false,
+                });
+                value = least;
             }
 
             const updateData = {

@@ -11,6 +11,7 @@
     "magicImg": "../../components/magicImg/magicImg",
     "skuModal": "../../components/skuModal/skuModal",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
-    "productList": "../../components/productList/index"
+    "productList": "../../components/productList/index",
+    "skeleton": "./skeleton/skeleton"
   }
 }

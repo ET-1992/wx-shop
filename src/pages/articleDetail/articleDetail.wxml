@@ -1,4 +1,4 @@
-<loading isLoading="{{ isLoading }}"/>
+<articleDetailSkeleton isIphoneX="{{ isIphoneX }}" wx:if="{{ isLoading }}"/>
 <import src="../../utils/wxParse/wxParse.wxml"/>
 <import src="/templates/productLayout/topImage.wxml"/>
 <view wx:if="{{ !isLoading }}">

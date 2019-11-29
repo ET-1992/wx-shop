@@ -1,5 +1,5 @@
 <navigator class="articleImage" url="/pages/productDetail/productDetail?id={{ product.id }}">
-    <image src="{{product.thumbnail}}" mode="aspectFill"></image>
+    <image src="{{product.thumbnail}}" mode="aspectFill" lazy-load="{{ true }}" ></image>
     <view class="meta">
         <view class="name">{{product.title}}</view>
     </view>
