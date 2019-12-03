@@ -136,6 +136,13 @@ export const SHIPPING_TYPE = [
     { text: '送货上门', value: 4 }
 ];
 
+export const CART_TYPE = [
+    { text: '快递', value: 1 },
+    { text: '自提', value: 2 },
+    { text: '服务', value: 3 },
+    { text: '上门', value: 4 }
+];
+
 // export const PRODUCT_STATUS = [
 //     { text: '售罄', value: 'sold_out' },
 //     { text: '上架', value: 'publish' },

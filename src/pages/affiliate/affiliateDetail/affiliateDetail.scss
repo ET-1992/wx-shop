@@ -44,11 +44,6 @@
 
 	.moneyInfo {
 		width: 100%;
-		//margin-top: 20rpx;
-		// margin-top: 290rpx;
-		// position: absolute;
-		// top: 0;
-		// bottom:0;
 		height: 100%;
 		
 		.moneyInfoHeader {
@@ -67,30 +62,9 @@
 			}
 
 			.picker-search {
-				width: 40rpx;
-				height: 40rpx;
+				width: 36rpx;
+				height: 36rpx;
 			}
-			
-			// .moneyInfoHeader-text {
-			// 	flex: 1;	
-			// 	display: flex;
-			// 	justify-content: center;
-			// 	align-items: center;
-
-			// 	.borderBottom{
-			// 		font-weight: bold;
-			// 		color: #000;
-			// 	}
-
-			// 	.moneyInfoHeader-border {
-			// 		display: flex;
-			// 		justify-content: center;
-			// 		align-items: center;
-			// 		height: 100%;
-			// 		font-size: 28rpx;
-			// 	}
-			// }
-			
 		}
 		.moneyInfoBody {
 			margin-top: 10rpx;
@@ -113,9 +87,6 @@
 					width: 100%;
 					height: 50rpx;
 				}
-			}
-			
-			.moneyInfoBodyList {
 			}
 		}
 	}

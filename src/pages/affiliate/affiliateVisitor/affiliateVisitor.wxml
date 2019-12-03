@@ -11,6 +11,4 @@
 		</view>
 	</view>
 </view>
-<view wx:if="{{ !isLoading && !visitorList.length }}" class="emptyHint">
-    暂无浏览客户
-</view>
+<view wx:if="{{ !isLoading && !visitorList.length }}" class="emptyHint">暂无浏览客户</view>
