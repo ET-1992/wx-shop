@@ -23,7 +23,7 @@
     						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 							</button>
 							<!-- 单规格 -->
-    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (product.product_type !== 1)}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
+    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (product.product_type !== 1 || product.buy_individual)}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
     						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
     						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 							</button>
