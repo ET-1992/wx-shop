@@ -2,7 +2,6 @@
 	"enablePullDownRefresh": true,
 	"navigationBarTitleText": "我的浏览用户",
     "usingComponents": {
-    	"console": "../../../components/console/console",
     	"loading": "../../../components/loading/index"
   	}
 }

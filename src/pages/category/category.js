@@ -8,7 +8,6 @@ Page({
 
     data: {
         categories: [],
-
         selectedIndex: 0,
         isLoading: true,
     },

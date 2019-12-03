@@ -269,7 +269,6 @@
  bindonCloseModal="onCloseProductDetailShareModal"
  wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}"
 />
-<console page="订单详情" />
 
 <skuModal
  wx:if="{{ otherPeopleGroupon }}"

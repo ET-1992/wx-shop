@@ -40,5 +40,3 @@
 	</view>
 	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
 </view>
-
-<console page="订单列表" />

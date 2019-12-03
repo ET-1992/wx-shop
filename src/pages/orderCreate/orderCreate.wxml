@@ -54,5 +54,4 @@
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
 
-<console page="创建订单" />
 <myModal modal="{{authModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>

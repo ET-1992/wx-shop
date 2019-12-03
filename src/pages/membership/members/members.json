@@ -3,7 +3,6 @@
 	"navigationBarBackgroundColor": "#333333",
 	"usingComponents": {
 		"loading": "../../../components/loading/index",
-		"console": "../../../components/console/console",
 		"popup": "../../../components/popup/popup"
 	}
 }

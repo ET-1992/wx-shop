@@ -2,7 +2,6 @@
 	"navigationBarTitleText": "分享中心",
 	"navigationBarBackgroundColor": "#FF0000",
 	"usingComponents": {
-		"console": "../../../components/console/console",
 		"loading": "../../../components/loading/index",
 		"van-popup": "../../../components/vant-weapp/dist/popup/index",
 		"van-cell-group": "../../../components/vant-weapp/dist/cell-group/index",

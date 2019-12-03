@@ -13,5 +13,3 @@
   </navigator>
 </view>
 <view class="emptyHint" wx:if="{{ !products.length && !isLoading }}" >暂无分享商品</view>
-
-<console page="分销商品" />

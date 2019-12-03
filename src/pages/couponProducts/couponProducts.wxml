@@ -31,5 +31,3 @@
 	</view>
 	<view class="noHint" wx:if="{{ !products.length && !isLoading }}">暂无商品</view>
 </view>
-
-<console page="优惠商品" />

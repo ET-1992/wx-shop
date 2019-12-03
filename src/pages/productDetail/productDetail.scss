@@ -9,6 +9,7 @@ $shareColor: #FE0000;
 	color: $titleColor;
 	overflow-x: hidden;
 	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 
 	&.iphoneXTrick {
 	    padding-bottom: $footerHeight + $iphoneXBottomGap;
@@ -845,6 +846,8 @@ button {
 	left: 0;
 	bottom: 0;
 	width: 100%;
+	padding-bottom: constant(safe-area-inset-bottom);
+	padding-bottom: env(safe-area-inset-bottom);
 
 	&.iphoneXTrick {
 		padding-bottom: $iphoneXBottomGap;
@@ -899,7 +902,6 @@ button {
 
 	.icon {
 		$size: 40rpx;
-
 		width: $size;
 		height: $size;
 		display: block;
@@ -1266,8 +1268,8 @@ img,
 
 	.close {
 		position: absolute;
-		width: 40rpx;
-		height: 40rpx;
+		width: 48rpx;
+		height: 48rpx;
 		top: 15rpx;
 		right: 15rpx;
 	}

@@ -102,5 +102,3 @@
   	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>
   	</view>
 </view>
-
-<console page="购物车" />

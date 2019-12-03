@@ -2,7 +2,6 @@
 	"onReachBottomDistance": 100,
 	"usingComponents": {
 		"myModal": "../../../components/myModal/myModal",
-		"loading": "../../../components/loading/index",
-		"console": "../../../components/console/console"
+		"loading": "../../../components/loading/index"
   }
 }

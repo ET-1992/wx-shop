@@ -5,7 +5,6 @@
     "address": "../../components/address/address",
     "liftInfo": "../../components/liftInfo/liftInfo",
     "productItemSold": "../../components/productItemSold/index",
-    "console": "../../components/console/console",
     "loading": "../../components/loading/index",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
     "van-panel": "../../components/vant-weapp/dist/panel/index",

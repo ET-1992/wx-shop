@@ -5,4 +5,3 @@
     <productList product="{{ product }}" tplStyle="{{ tplStyle === 'vip_tpl_three' ? 'default' : tplStyle }}" productLayoutStyle="{{ tplStyle === 'vip_tpl_six' ? 'leftImage' : 'topImage'}}" nextCursor="{{next_cursor}}" themeColor="{{themeColor}}"/>
   </navigator>
 </view>
-<console page="loadProduct" />

@@ -178,6 +178,12 @@ Page({
         }
     },
 
+    onHide() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }
+    },
+
     onUnload() {
         if (this.intervalId) {
             clearInterval(this.intervalId);

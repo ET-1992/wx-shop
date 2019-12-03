@@ -3,7 +3,6 @@
   "navigationBarTitleText": "商品列表",
   "usingComponents": {
     "productList": "../../components/productList/index",
-    "console": "../../components/console/console",
     "loading": "../../components/loading/index",
     "filterList": "../../components/filterList/filterList",
     "navbarList": "../../components/navbarList/navbarList"
