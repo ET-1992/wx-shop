@@ -370,8 +370,8 @@ Page({
         if (typeof (target) !== 'undefined') {
 
             // 点击分享红包
-            const { isRedpocketShare } = target.dataset;
-            if (isRedpocketShare) {
+            const { isModal, isRedpocketShare } = target.dataset;
+            if (isModal || isRedpocketShare) {
                 data = {
                     isShared: true,
                     share_title: `${user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
