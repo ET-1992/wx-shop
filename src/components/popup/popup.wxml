@@ -14,7 +14,7 @@
 				<view class="elsePrice-text-left">其他金额</view>
 				<view class="elsePrice-text-right">{{globalData.CURRENCY[globalData.currency]}}</view>
 			</view>
-			<input type="digit" class="elsePrice-input" placeholder="请输入充值金额" bindblur="inputRechargePrice" bindfocus="inputFocus" value="{{ rechargePrice }}"/>
+			<input type="digit" class="elsePrice-input" placeholder="请输入充值金额" placeholder-class="elsePrice-placeholder" bindblur="inputRechargePrice" bindfocus="inputFocus" value="{{ rechargePrice }}"/>
 		</view>
 	</view>
 	<view class="model-btn" bindtap="rechargePriceEvent">确认支付</view>
