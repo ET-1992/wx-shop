@@ -1,5 +1,6 @@
 
 import { autoNavigate } from 'utils/util';
+import { CONFIG } from 'constants/index';
 
 Page({
     data: {
@@ -8,6 +9,8 @@ Page({
 
     onLoad(params) {
         console.log(params);
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ config });
     },
 
     navigateToHome() {

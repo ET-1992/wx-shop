@@ -1,5 +1,5 @@
 <view class="container">
-		<image class="img" src="/icons/errorPage/500.svg" />
+		<image class="img" src="{{ config.cdn_host + '/shop/errorPage/500.svg'}}" src="/icons/" />
 		<view class="left_tips">服务器错误</view>
 		<view class="text">抱歉，该页面运行有误，工作人员正在抢修中</view>
 		<view bind:tap="navigateToHome" class="btn back_home">返回首页</view>
