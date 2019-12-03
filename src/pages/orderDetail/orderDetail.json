@@ -15,6 +15,7 @@
     "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
     "delivery": "../../components/delivery/delivery",
     "storeList": "../../components/storeList/storeList",
-    "skuModal": "../../components/skuModal/skuModal"
+    "skuModal": "../../components/skuModal/skuModal",
+    "van-count-down": "vant-weapp/dist/count-down/index"
   }
 }
