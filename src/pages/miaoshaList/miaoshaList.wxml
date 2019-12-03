@@ -24,10 +24,22 @@
         </view>
     </block>
     
+    <!-- 秒杀专区 -->
+    <!-- <block wx:if="{{ type === 'seckill'}}">
+        <view class="banner" wx:if="{{ seckill_banner }}">
+            <image src="{{ seckill_banner }}" mode="aspectFill" />
+        </view>
+        <view class="itemWrapper" wx:for="{{ products }}" wx:key="{{ item.id }}">
+            <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
+                <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+            </navigator>
+        </view>
+    </block> -->
+
     <!-- 砍价专区 -->
     <block wx:if="{{ type === 'bargain'}}">
         <view class="banner" wx:if="{{ bargain_banner }}">
-            <image src="{{ bargain_banner }}" class="banner" mode="aspectFill" />
+            <image src="{{ bargain_banner }}" mode="aspectFill" />
         </view>
         <view class="itemWrapper bargain" wx:for="{{ products }}" wx:key="{{ item.id }}">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
@@ -36,6 +48,6 @@
         </view>
     </block>
 
-    <view class="noProduct" wx:if="{{ !products.length }}">- 暂无商品 -</view>
-    <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>
+    <view class="noProduct" wx:if="{{ !bargain_banner && !products.length }}">- 暂无商品 -</view>
+    <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">- 已经到底了 -</view>
 </view>

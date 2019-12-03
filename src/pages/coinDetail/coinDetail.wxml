@@ -24,4 +24,4 @@
 <!-- <view
     class="bottomHint"
     wx:if="{{ coinList.length && !next_cursor }}"
-  >-这是一条底线-</view> -->
+  >- 已经到底了 -</view> -->

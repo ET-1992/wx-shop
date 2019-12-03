@@ -30,7 +30,5 @@
 			<view class="balance">余额: {{ item.balance }} 元</view>
 		</view>
 	</view>
-	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length }}">
-		暂无记录
-	</view>
+	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length }}">暂无记录</view>
 </view>
