@@ -120,9 +120,9 @@
 
 						&:after {
 							z-index: 1;
-							bottom: -3rpx;
+							bottom: -4rpx;
 							background: linear-gradient(-45deg, transparent 2rpx, #fff 0);
-							box-shadow: -1rpx -1rpx 0 rgba(112, 112, 112, 1);
+							box-shadow: -2rpx -2rpx 0 #707070;
 						}
 					}
 
@@ -412,7 +412,7 @@
 		
 		.noHelp {
 			color: #D4D4D4;
-			font-size: 26rpx;
+			font-size: 28rpx;
 		}
 	}
 

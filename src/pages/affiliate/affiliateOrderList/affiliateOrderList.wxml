@@ -2,8 +2,6 @@
 <import src="/templates/share/orderList.wxml"/>
 <block wx:if="{{ !isLoading }}">
     <template wx:if="{{ orders.length }}" is="orderList" data="{{ orders, globalData }}"/>
-    <view class="noDataText" wx:else>
-        暂无订单
-    </view>
-    <view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
+    <view class="noDataText" wx:else>暂无订单</view>
+    <view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">- 已经到底了 -</view>
 </block>
