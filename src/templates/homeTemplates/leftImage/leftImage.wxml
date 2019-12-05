@@ -18,12 +18,12 @@
           </view>
 					<form catchsubmit="onFormSubmit" report-submit="true">
 						<!-- 多规格 -->
-    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
+    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length && (!(product.product_type === 1 || product.individual_buy)) }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
     						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
     						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 							</button>
 							<!-- 单规格 -->
-    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (product.product_type !== 1 || product.buy_individual)}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
+    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (!(product.product_type === 1 || product.individual_buy))}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
     						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
     						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 							</button>
