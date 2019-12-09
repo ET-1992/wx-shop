@@ -5,8 +5,7 @@
 		"pages/cart/cart",
 		"pages/category/category",
 		"pages/classify/classify",
-		"pages/articleList/articleList",
-		"pages/me/aboutUs/aboutUs"
+		"pages/articleList/articleList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -211,6 +210,12 @@
 				"miaoshaList"
 			],
 			"name": "拼团/秒杀/限时购/砍价列表"
+		}, {
+			"root": "pages/me/aboutUs",
+			"pages": [
+				"aboutUs"
+			],
+			"name": "关于我们"
 		}, {
 			"root": "pages/orderCoupons/",
 			"pages": [
