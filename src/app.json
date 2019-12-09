@@ -4,6 +4,7 @@
 		"pages/me/me",
 		"pages/cart/cart",
 		"pages/category/category",
+		"pages/classify/classify",
 		"pages/articleList/articleList",
 		"pages/me/aboutUs/aboutUs"
 	],
@@ -103,12 +104,6 @@
 				"commentList"
 			],
 			"name": "评论列表"
-		}, {
-			"root": "pages/classify/",
-			"pages": [
-				"classify"
-			],
-			"name": "分类"
 		}, {
 			"root": "pages/couponList/",
 			"pages": [
