@@ -77,6 +77,13 @@ page {
 
 			}
 
+			.member-no {
+				font-size: 24rpx;
+				color: $vipGolden;
+				// font-weight: bold;
+				margin-top: 10rpx;
+			}
+
 			.no-member-level {
 				width: 100rpx;
 				height: 35rpx;
@@ -92,11 +99,11 @@ page {
 
 			.integral-text {
 				display: flex;
+				align-items: center;
 				font-size: 24rpx;
 				color: $vipGolden;
-				align-items: center;
 				margin-top: 10rpx;
-				font-weight: bold;
+				// font-weight: bold;
 
 				.cart-arrow {
 					width: 26rpx;

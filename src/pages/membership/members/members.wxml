@@ -13,6 +13,7 @@
 					<!-- 会员 -->
 					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无数据'}}</view>
 				</view>
+				<view class="member-no">会员卡号：{{ user.membership && user.membership.member_no}}</view>
 				<!-- 会员 -->
 				<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
 					<view class="cart-text">会员积分：</view>
