@@ -37,7 +37,10 @@ Component({
         },
         statusCode: {
             type: Number,
-            value: 0
+            value: 0,
+            observer(newValue) {
+                console.log(typeof newValue, newValue, '1111');
+            }
         },
         orderNo: {
             type: String,

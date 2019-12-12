@@ -18,9 +18,9 @@
 					</view>
 				</block>
 			</navigator>
-			<navigator 
+			<navigator
 				wx:if="{{announcement}}"
-				app-id="{{announcement.appid}}" 
+				app-id="{{announcement.appid}}"
 				path="{{announcement.path}}"
 				target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
 				url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
@@ -43,8 +43,8 @@
 				<view class="searchSliders">
 					<swiper autoplay circular current="{{swiperCurrent}}" wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx" bindanimationfinish="swiperChange">
 						<swiper-item wx:for="{{ sliders }}" wx:key="id">
-							<navigator 
-							  app-id="{{item.appid}}" 
+							<navigator
+							  app-id="{{item.appid}}"
 							  path="{{item.path}}"
 							  target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
 							  url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
@@ -70,9 +70,9 @@
 						</view>
 					</block>
 				</navigator>
-				<navigator 
+				<navigator
 					wx:if="{{announcement}}"
-					app-id="{{announcement.appid}}" 
+					app-id="{{announcement.appid}}"
 					path="{{announcement.path}}"
 					target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
 					url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
@@ -94,7 +94,7 @@
 				<view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
 					<view class="header">
 						<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-						<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+						<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
 							<form bindsubmit="submitFormId" report-submit class="form">
 								<button formType="submit" class="moreButton">
 									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
@@ -102,7 +102,7 @@
 							</form>
 						</navigator>
 					</view>
-					<myNavigator  
+					<myNavigator
 						wx:for="{{ groupons }}"
 						wx:for-item="groupon"
 						wx:key="id"
@@ -116,20 +116,21 @@
 				<view class="section" wx:if="{{ articles && articles.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
 					<view class="header">
 						<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-						<navigator class="sectionMore" wx:if="{{articles.length >1}}" url="/pages/articleList/articleList">
+						<view class="sectionMore" wx:if="{{articles.length >1}}" bind:tap="go" data-url="/pages/articleList/articleList">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
 									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
 								</button>
 							</form>
-						</navigator>
+						</view>
 					</view>
-					<myNavigator 
-						wx:for="{{ articles }}" 
-						wx:key="id" 
-						wx:for-item="article" 
-						hover-class="navigator-hover" 
-						url="{{ '/pages/articleDetail/articleDetail?id=' + article.id }}" 
+					<!-- 普通文章或公众号文章 -->
+					<myNavigator
+						wx:for="{{ articles }}"
+						wx:key="id"
+						wx:for-item="article"
+						hover-class="navigator-hover"
+						url="{{ article.article_type === 'mp' ? '/pages/webPages/webPages?src='+article.mp_url : '/pages/articleDetail/articleDetail?id='+article.id}}"
 					><productList article="{{ article }}" module="{{ module }}" tplStyle="{{ tplStyle }}" productLayoutStyle="articleStyle" themeColor="{{themeColor}}"/>
 		    		</myNavigator>
 				</view>
@@ -139,7 +140,7 @@
 				<view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
 					<view class="header">
 						<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-						<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList">
+						<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
 									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
@@ -147,28 +148,46 @@
 							</form>
 						</navigator>
 					</view>
-					<myNavigator 
-						wx:for="{{ miaoshas }}" 
-						url="/pages/productDetail/productDetail?id={{ item.id }}" 
+					<myNavigator
+						wx:for="{{ miaoshas }}"
+						url="/pages/productDetail/productDetail?id={{ item.id }}"
 						wx:key="item.id"
 						><productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 					</myNavigator>
 				</view>
 			</view>
+			<!-- 砍价 -->
+			<view wx:if="{{ module.key === 'bargains' }}">
+				<view class="section" wx:if="{{ bargains && bargains.length }}">
+					<view class="header">
+						<view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
+						<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
+							<form bindsubmit="submitFormId" report-submit class="form">
+								<button formType="submit" class="moreButton">
+									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg" />
+								</button>
+							</form>
+						</navigator>
+					</view>
+					<myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+						<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
+					</myNavigator>
+				</view>
+			</view>
     		<!-- 优惠券 -->
     		<view wx:if="{{ module.key === 'coupons' }}">
-        	<view 
-        		class="couponsWrapper {{ index === 0 && !(instructions && instructions.length) && !announcement ? 'firstCoupon' : ''}}" 
+        	<view
+        		class="couponsWrapper {{ index === 0 && !(instructions && instructions.length) && !announcement ? 'firstCoupon' : ''}}"
         		wx:if="{{ userCoupon.length }}">
         		<view class="coupons">
-				<view 
-					class="coupon" 
-        			wx:for="{{ userCoupon }}" 
-        			wx:key="id" 
-        			bindtap="onCouponClick" 
-        			data-id="{{ item.id }}" 
-        			data-status="{{ item.status }}" 
-        			data-title="{{ item.title }}" 
+				<view
+					class="coupon"
+        			wx:for="{{ userCoupon }}"
+        			wx:key="id"
+        			bindtap="onCouponClick"
+        			data-id="{{ item.id }}"
+        			data-status="{{ item.status }}"
+        			data-title="{{ item.title }}"
         			data-index="{{ index }}"
         			wx:if="{{ index < 2 }}">
         			<form bindsubmit="submitFormId" report-submit="true">
@@ -178,7 +197,7 @@
         			  	  	  	<view class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}<text class="discount" wx:if="{{ item.type == 2 }}">折</text></view>
 							</view>
         			  		<view class="right">
-								<view class="title">优惠券</view>  
+								<view class="title">优惠券</view>
         			  		  	<view class="leastCost">{{ item.least_cost ? ('满' + item.least_cost + '元使用') : '全场无门槛通用'}}</view>
 							</view>
         			  	</view>
@@ -215,12 +234,12 @@
 						</navigator>
 					</view>
 					<!-- 商品列表start -->
-					<myNavigator 
-						wx:for="{{ products }}" 
-						wx:key="id" 
-						wx:for-item="product" 
-						wx:for-index="productIndex" 
-						hover-class="navigator-hover" 
+					<myNavigator
+						wx:for="{{ products }}"
+						wx:key="id"
+						wx:for-item="product"
+						wx:for-index="productIndex"
+						hover-class="navigator-hover"
 						url="/pages/productDetail/productDetail?id={{ product.id }}"
 						><productList product="{{ product }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" nextCursor="{{next_cursor}}" themeColor="{{themeColor}}"/>
 					</myNavigator>
@@ -231,12 +250,12 @@
     		<view wx:if="{{ module.key === 'links' }}">
     		    <view class="categoryBox" wx:if="{{ links && links.length }}">
     		    	<view class="homeCategory" wx:for="{{ links }}" wx:key="id">
-    		        	<navigator 
+    		        	<navigator
     		        	  wx:if="{{ item.type === 'mini_program'}}"
-    		        	  app-id="{{item.appid}}" 
+    		        	  app-id="{{item.appid}}"
     		        	  path="{{item.path}}"
-    		        	  target="miniProgram" 
-    		        	  open-type="navigate" 
+    		        	  target="miniProgram"
+    		        	  open-type="navigate"
     		        	  class="categoryItem"
     		        	><image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
     		        	</navigator>
@@ -245,12 +264,12 @@
     		        		<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
     		        	</navigator>
 
-    		        	<button 
-    		        	  	wx:elif="{{ item.type === 'contact' }}" 
+    		        	<button
+    		        	  	wx:elif="{{ item.type === 'contact' }}"
 				    	    bindtap="{{ item.tips ? 'onModal' : ''}}"
-				    	    data-tips="{{ item.tips }}" 
-				    	    open-type="{{ !item.tips ? 'contact' : ''}}" 
-    		        	  	session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}' 
+				    	    data-tips="{{ item.tips }}"
+				    	    open-type="{{ !item.tips ? 'contact' : ''}}"
+    		        	  	session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'
     		        	  	class="categoryItem categoryBtn"
     		        	><image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
     		        	</button>

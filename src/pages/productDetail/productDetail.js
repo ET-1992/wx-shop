@@ -1,11 +1,10 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate, go } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
-
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
@@ -36,7 +35,7 @@ Page({
         hasEnd: false,
         timeLimit: 0,
         miaoshaObj: {},
-        isShowAcitonSheet: false,
+        isShowActionSheet: false,
         isShowCouponList: false,
         selectedProperties: [],
         selectedSku: {},
@@ -50,38 +49,38 @@ Page({
             },
         ],
         isGrouponBuy: false,
+        isBargainBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
         isShowProductDetailShareModal: false,
         showShareModal: false,
-
         templateTypeText,
-
         expiredGroupon: []
     },
 
-    go,
+    go, // 跳转到规则详情页面
 
     onShowSku(ev) {
         const { status } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
-        const updateData = { isShowAcitonSheet: true };
+        const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
+            const { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
             console.log(actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
+            console.log('onShowSku isBargainBuy: ', isBargainBuy);
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
-
+            updateData.isBargainBuy = isBargainBuy;
         }
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
             this.setData({
-                isShowAcitonSheeted: true
+                isShowActionSheeted: true
             });
         });
     },
@@ -91,6 +90,9 @@ Page({
             const {
                 miaosha_end_timestamp,
                 miaosha_start_timestamp,
+                miaosha_price,
+                price,
+                highest_price
             } = this.data.product;
             const now = Math.round(Date.now() / 1000);
             let timeLimit = miaosha_end_timestamp - now;
@@ -110,11 +112,41 @@ Page({
                 hasStart,
                 hasEnd,
                 miaoshaObj: {
+                    price,
+                    miaosha_price,
+                    highest_price,
                     remainTime: getRemainTime(timeLimit).join(':'),
                     hasStart,
                     hasEnd,
                 }
             }, resolve());
+        });
+    },
+
+    // 限时购倒计时触发
+    todayTimeLimit() {
+        let { timeLimit } = this.data;
+        if (timeLimit && !this.intervalId) {
+            this.todayTimeLimitSet();
+            this.intervalId = setInterval(() => {
+                this.todayTimeLimitSet();
+            }, 1000);
+        }
+    },
+
+    // 限时购倒计时设置
+    todayTimeLimitSet() {
+        let { timeLimit } = this.data;
+        const [hour, minute, second] = getRemainTime(timeLimit);
+        let day = parseInt(hour / 24, 10);
+        this.setData({
+            'timeLimit': timeLimit - 1,
+            remainTime: {
+                day: day,
+                hour: hour - day * 24,
+                minute,
+                second,
+            },
         });
     },
 
@@ -153,17 +185,13 @@ Page({
                 coupons,
                 routeQuery
             });
-
-
         }, 300);
     },
 
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({
-            pendingGrouponId: ''
-        });
+        this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
             const { thumbnail } = data.product;
@@ -188,9 +216,23 @@ Page({
             if (product.miaosha_enable) {
                 await this.countDown();
             }
+
+            // 限时购倒计时
+            if (product.miaosha_enable) {
+                await this.todayTimeLimit();
+            }
+
             // --------------------
             this.setDefinePrice();
             // ---------------
+
+            if (product.related && product.related.length) {
+                setTimeout(() => {
+                    this.setData({
+                        isShowProductRelated: true
+                    });
+                }, 1000);
+            }
         }
         catch (err) {
             if (err && (err.code === 'empty_query')) {
@@ -248,6 +290,7 @@ Page({
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
+        console.log('CART_NUM', typeof CART_NUM, CART_NUM);
         this.setData({
             isIphoneX,
             user,
@@ -255,9 +298,10 @@ Page({
             defineTypeGlobal,
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
-            cartNumber: CART_NUM,
+            cartNumber: Number(CART_NUM),
             globalData: app.globalData
         });
+        this.initPage();
     },
 
     onShow() {
@@ -265,6 +309,12 @@ Page({
         const { style_type: tplStyle = 'default' } = config;
         this.setData({ config, tplStyle });
         this.initPage();
+    },
+
+    onHide() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }
     },
 
     onUnload() {
@@ -287,11 +337,18 @@ Page({
         });
         this.onShowSku();
     },
-
+    // 加入购物车
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
-        const { product, product: { id, is_faved }, selectedSku, quantity, formId } = this.data;
+        console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
+        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
+
+        // 非会员不能购买会员专属商品 加入购物车
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
+        }
 
         if (selectedSku.stock === 0) {
             await proxy.showModal({
@@ -307,7 +364,9 @@ Page({
             quantity,
             vendor,
             form_id: formId,
+            shipping_type
         });
+        console.log('data348', data);
         if (!data.errcode) {
             await proxy.showToast({ title: '成功添加' });
             // 更新红点
@@ -325,20 +384,32 @@ Page({
             }
         }
     },
-
+    // 立即购买
     async onBuy() {
         console.log('onBuy');
         const {
+            user,
             product,
             quantity,
             selectedSku,
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
-            isCrowd
+            isBargainBuy,
+            isCrowd,
+            shipping_type
         } = this.data;
 
-        let url = '/pages/orderCreate/orderCreate';
+        console.log('shipping_type393', shipping_type);
+
+        // 非会员不能购买会员专属商品 立即购买
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
+        }
+
+        let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+
         let isMiaoshaBuy = false;
 
         if (product.miaosha_enable) {
@@ -357,7 +428,7 @@ Page({
         }
 
         if (isGrouponBuy) {
-            url = url + '?isGrouponBuy=true';
+            url = url + '&isGrouponBuy=true';
 
             // 参团，跳转到orderCreate需要带上grouponId
             if (grouponId) {
@@ -372,8 +443,14 @@ Page({
             }
         }
         if (isCrowd) {
-            url = url + '?crowd=true';
+            url = url + '&crowd=true';
         }
+
+        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
+            url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
+            console.log('url438', url);
+        }
+        console.log('url440', url);
 
         const currentOrder = createCurrentOrder({
             selectedSku,
@@ -381,6 +458,7 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
+            isBargainBuy
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -441,7 +519,7 @@ Page({
 
     onSkuCancel() {
         this.setData({
-            isShowAcitonSheet: false,
+            isShowActionSheet: false,
             pendingGrouponId: ''
         });
     },
@@ -451,7 +529,7 @@ Page({
         return;
     },
 
-    onSkuConfirm(e) {
+    async onSkuConfirm(e) {
         console.log(e);
         const { actionType, selectedSku, quantity, formId } = e.detail;
         this.setData({
@@ -469,17 +547,17 @@ Page({
         });
     },
 
-    async showCartNumber(e) {
-        wx.setStorageSync('CART_NUM', e.toString());
+    async showCartNumber(count) {
+        wx.setStorageSync('CART_NUM', count);
         this.setData({
-            cartNumber: e.toString()
+            cartNumber: Number(count)
         });
     },
 
     async reload() {
         await this.initPage();
     },
-
+    // 分享按钮
     onShareAppMessage() {
         this.closeShareModal();
         const { current_user = {}, product } = this.data;
@@ -600,14 +678,13 @@ Page({
         } else {
             const { groupon_commander_price } = product;
             groupon_commander_price && (url = url + '&groupon_commander_price=true');
-            console.log('dddd');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,
             quantity,
             product,
             isGrouponBuy,
-            isMiaoshaBuy,
+            isMiaoshaBuy
         });
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
@@ -628,5 +705,83 @@ Page({
         this.setData({
             expiredGroupon
         });
+    },
+
+    // 非会员购买会员专属商品提示弹窗
+    async linktoOpenMemberModal() {
+        const { confirm } = await proxy.showModal({
+            title: '温馨提示',
+            content: '该商品是会员专属商品，请开通会员后购买',
+            showCancel: false
+        });
+        if (confirm) {
+            wx.navigateTo({
+                url: '/pages/membership/members/members'
+            });
+        }
+    },
+
+    // 从 SKUModel 组件获取配送方式 shipping_type
+    getShippingType(e) {
+        console.log('e690', e);
+        this.setData({
+            shipping_type: e.detail.shipping_type
+        });
+        console.log('shipping_type696', this.data.shipping_type);
+    },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.createBargain();
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    // 发起砍价
+    async createBargain() {
+        const { product: { id }, selectedSku } = this.data;
+        const { mission } = await api.hei.createBargain({
+            post_id: id,
+            sku_id: selectedSku.id || 0
+        });
+        console.log('mission721', mission);
+        autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
+    },
+
+    onRecommended(e) {
+        console.log('onRecommended731', e);
+        const { id, title, images } = e.currentTarget.dataset;
+        // 微信是否更新至7.0.3及以上版本
+        if (wx.openBusinessView) {
+            wx.openBusinessView({
+                businessType: 'friendGoodsRecommend',
+                extraData: {
+                    product: {
+                        item_code: String(id),
+                        title: title,
+                        image_list: images
+                    }
+                },
+                success: function (res) {
+                    console.log('好物圈调用成功res743', res);
+                    proxy.showToast({ title: '推荐成功' });
+                },
+                fail: function(res) {
+                    console.log('好物圈调用失败747', res);
+                }
+            });
+        } else {
+            proxy.showModal({
+                title: '温馨提示',
+                content: '请检查当前微信版本是否更新至7.0.3及以上版本',
+            });
+        }
     }
 });

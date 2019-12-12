@@ -277,8 +277,13 @@
 				color: #333333;
 			}
 			.desc{
-				font-size: 24rpx;
+				font-size: 22rpx;
 				color: #333333;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+				-webkit-line-clamp: 2; /* 控制最多显示几行 */
+				-webkit-box-orient: vertical; 
 			}
 		}
 		.bottom{
@@ -301,6 +306,7 @@
 						font-size: 28rpx;
 						color: #333333;
 						font-weight: bold;
+						margin-left: 10rpx;
 					}
 				}
 				.grouponLimit{

@@ -7,7 +7,7 @@
 			<loading isLoading="{{ isLoading }}"/>
 			<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
 				<view class="productContainer">
-					<navigator wx:for="{{ products }}" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
+					<navigator wx:for="{{ products }}" wx:for-item="product" wx:for-index="productIndex" wx:key="id" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
 						<productList 
 							product="{{ product }}" 
 							productLayoutStyle="topImage" 
@@ -28,7 +28,7 @@
 			<loading isLoading="{{ isLoading }}"/>
 			<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
 				<view class="productContainer" style="{{ tplStyle === 'vip_tpl_four' ? 'padding: 21rpx 40rpx;' : '' }}">
-					<navigator wx:for="{{ products }}" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
+					<navigator wx:for="{{ products }}" wx:for-item="product" wx:for-index="productIndex" wx:key="id" hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
 					<productList 
 						product="{{ product }}" 
 						tplStyle="{{ (tplStyle === 'vip_tpl_three' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? 'default' : tplStyle }}" 
@@ -41,4 +41,3 @@
 		</view>
 	</block>
 </view>
-<console page="商品列表" />

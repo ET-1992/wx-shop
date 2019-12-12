@@ -25,9 +25,9 @@
         <productItemSold items="{{ items }}" customClass="crowd"/>
         <view class="crowding">
             <view class="progress" wx:if="{{ crowd.type === '1' }}">
-                <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
+                <view class="amount">目标金额<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPayDispaly }}</text></view>
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
-                <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
+                <view class="currentPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ crowd.pay_amount }}</view>
             </view>
             <button class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};" bind:tap="showShareModal">请朋友帮忙</button>
             <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
@@ -54,14 +54,14 @@
             <productItemSold items="{{ items }}" customClass="crowd"/>
         </view>
         <view class="progress" wx:if="{{ crowd.type === '1' }}">
-            <view class="amount">目标金额<text class="price">￥{{ finalPayDispaly }}</text></view>
+            <view class="amount">目标金额<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPayDispaly }}</text></view>
             <view class="i-progress">
                 <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
             </view>
-            <view class="currentPrice">￥{{ crowd.pay_amount }}</view>
+            <view class="currentPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ crowd.pay_amount }}</view>
         </view>
         <view class="opera {{crowd.type === '2' ? 'agent' : ''}}">
-            <view class="text" wx:if="{{ crowd.type === '1' && crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>￥{{ rest_amount_display }}</text>元</view>
+            <view class="text" wx:if="{{ crowd.type === '1' && crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>{{ globalData.CURRENCY[globalData.currency] }}{{ rest_amount_display }}</text>元</view>
             <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
             <button class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bind:tap="showPayModal" wx:if="{{crowd.type === '1'}}">我要赞助</button>
             <form report-submit bindsubmit="onPay" wx:if="{{crowd.type === '2'}}">
@@ -82,7 +82,7 @@
             <view class="text">快来助我一臂之力吧！</view>
         </view>
         <view class="inputField">
-            <view class="yuan">￥</view>
+            <view class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</view>
             <input class="input" type="digit" bindinput="setMoneyValue" placeholder="{{ support_amount }}" value="{{ support_amount }}"/>
             <view class="yuan">元</view>
         </view>
@@ -110,7 +110,7 @@
 <productDetailShareModal
     productImage="{{ items[0].thumbnail }}"
     productTitle="{{ items[0].title }}"
-    productPrice="{{ items[0].price }}"
+    productPrice="{{ order.amount }}"
     routePath="{{ routePath }}"
     routeQuery="{{ routeQuery }}"
     bindonCloseModal="onCloseProductDetailShareModal"

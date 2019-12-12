@@ -17,14 +17,16 @@
             <view class="tag" wx:if="{{ product.miaosha_enable || product.seckill_enable }}">{{ product.miaosha_enable ? '限时购' : '秒杀'}}</view>
           </view>
 					<form catchsubmit="onFormSubmit" report-submit="true">
-    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
+						<!-- 多规格 -->
+    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length && (!(product.product_type === 1 || product.individual_buy)) }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
     						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
-    						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
-    					</button>
-    					<button class="addCart" wx:else catch:tap="addCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}">
+    						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
+							</button>
+							<!-- 单规格 -->
+    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (!(product.product_type === 1 || product.individual_buy))}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
     						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
-    						<view class="badge" wx:if="{{items_counts[product.id]}}"></view>
-    					</button>
+    						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
+							</button>
     			</form>
     			</view>
     		</view>

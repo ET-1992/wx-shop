@@ -1,5 +1,7 @@
-<loading isLoading="{{ isLoading }}" />
+<!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
+<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" 
+  hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -26,7 +28,7 @@
 			</swiper>
 		</view>
 
-		<view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
+		<!-- <view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
 			<view class="title">限时购</view>
 			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
 			<view class="timeLimit">
@@ -37,6 +39,93 @@
 					<countDown formatTime="{{ timeLimit }}" />
 				</view>
 				<view wx:if="{{ hasEnd }}">已结束</view>
+			</view>
+		</view> -->
+
+		<!-- 限时购banner -->
+		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{!hasEnd}}" src="/icons/productDetail/time-limited-buy.svg" />
+			<image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
+			<view class="price-area">
+				<view class="price">
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view>{{ product.miaosha_price }}</view>
+				</view>
+				<view class="price-interval">
+					<text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+					<!-- 有最高价显示价格区间 -->
+					<text wx:if="{{ product.price < product.highest_price }}">~{{ product.highest_price }}</text>
+				</view>
+			</view>
+			<view class="time">
+				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+					<view class="time-text">距结束还有</view>
+					<view class="time-limit" wx:if="{{ !hasEnd }}">
+						<block wx:if="{{ remainTime.day > 0 }}">
+							<view class="hour">{{ remainTime.day }}</view>
+							<view class="dateTitle">天</view>
+						</block>
+						<view class="hour">{{ remainTime.hour }}</view>
+						<view class="dateTitle">时</view>
+						<view class="minute">{{ remainTime.minute }}</view>
+						<view class="dateTitle">分</view>
+						<view class="second">{{ remainTime.second }}</view>
+						<view class="dateTitle">秒</view>
+					</view>
+				</view>
+				<view wx:if="{{ !hasStart }}" class="time-section">
+					<view class="time-text">距开始还有</view>
+					<view class="time-limit" wx:if="{{ !hasEnd }}">
+						<block wx:if="{{ remainTime.day > 0 }}">
+							<view class="hour">{{ remainTime.day }}</view>
+							<view class="dateTitle">天</view>
+						</block>
+						<view class="hour">{{ remainTime.hour }}</view>
+						<view class="dateTitle">时</view>
+						<view class="minute">{{ remainTime.minute }}</view>
+						<view class="dateTitle">分</view>
+						<view class="second">{{ remainTime.second }}</view>
+						<view class="dateTitle">秒</view>
+					</view>
+				</view>
+				<view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
+			</view>
+		</view>
+
+		<!-- 超值拼团banner -->
+		<view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
+			<view class="price-area">
+				<view class="price">
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view>{{product.definePrice}}</view>
+				</view>
+				<view class="origin-price"> 单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
+			</view>
+			<view class="pintuan-section">
+				<view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
+				<view class="pintuan-count">已团{{ product.sales }}件</view>
+			</view>
+		</view>
+
+		<!-- 砍价banner -->
+		<view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
+			<image wx:else src="/icons/productDetail/bargain.svg" class="background-image" />
+			<view class="price-area">
+				<view class="price">
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view class="bargain-price"> {{product.bargain_price}}</view>
+					<view class="low-price {{product.bargain_mission.status === 3 ? 'low-price-fail' : ''}}">底价</view>
+				</view>
+				<view class="origin-price">直接购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
+			</view>
+			<view class="pintuan-section">
+				<view class="pintuan-text" wx:if="{{!product.bargain_mission}}">未发起</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">进行中</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">砍价成功</view>
+				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">砍价失败</view>
+				<view class="pintuan-count">{{ product.bargain_finished_count }}人已砍价成功</view>
 			</view>
 		</view>
 
@@ -49,7 +138,11 @@
 				<!-- 分享按钮 -->
 				<view class="right">
 					<!-- 开启分销 -->
-					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image>
+					<!-- <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image> -->
+					<!-- 推荐好物圈 -->
+					<image class="shareIcon" mode="aspectFit" src="/icons/recommendIcons.svg" bindtap="onRecommended" data-id="{{product.id}}" data-title="{{product.title}}" data-images="{{product.images}}" wx:if="{{config.weixin_mall && product.weixin_mall_imported}}"></image>
+					<!-- 开启分销 有礼 -->
+					<image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/affiliateGoods.svg' : '/icons/shareGoods.svg' }}" bindtap="openShareModal" ></image>
 				</view>
 			</view>
 			<!-- 价格区间 -->
@@ -60,12 +153,13 @@
 						<image src="/icons/vipLogo.svg" class="vipLogo"></image>
 						<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
 					</view>
-					<block wx:else>
+
+					<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) && !product.membership_dedicated_enable }}">
 						<view class="nowPrice">
               				<view class="currentPrice">
 								<text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text>
 								<text class="num">{{ product.definePrice }}</text>
-								<block wx:if="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable) && (product.highest_price > product.definePrice) }}">
+								<block wx:if="{{ (product.highest_price > product.definePrice) }}">
 									<text>-</text>
 									<text class="num">{{ product.highest_price }}</text>
 								</block>
@@ -78,49 +172,38 @@
 							<text class="vipTipWrap">会员价</text>
 						</view>
 						<!-- 原价 -->
-						<view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+           				 <view wx:if="{{ product.showOriginalPrice }}" class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 					</block>
-					<!-- 邮费、已售 -->
-					<view class="default">
-						<view class="postage" wx:if="{{ !product.hide_postage }}">
-						{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ?product.postage +'元': (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
+				</view>
+
+				<view class="info-section" wx:if="{{!(product.product_type === 1 || product.individual_buy)}}">
+					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
+						<view class="delivery-section">
+						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
+						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
 						</view>
-						<view class="sales">已售：{{ product.sales }}</view>
+					</view>
+					<view class="right-section">
+						<view class="delivery-section" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
+						<view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
 					</view>
 				</view>
-				<view class="info-section">
-					<block wx:if="{{ product.product_type !== 1}}">
-						<view class="delivery-section" wx:if="{{ config && config.self_lifting_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							到店自提
-							</view>
-							<view class="delivery-section" wx:if="{{ config && config.home_delivery_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							送货上门
-							</view>
-							<view class="delivery-section" wx:if="{{ config && config.logistics_enable }}">
-							<image class="type-icon" mode="aspectFit" src="/icons/productdetail/type.svg" />
-							快递
-						</view>
-					</block>
-				</view>
 			</view>
-			<view class="tag" wx:if="{{ product.groupon_enable }}"> {{ product.groupon_member_limit + '人团' }} </view>
 		</view>
 
 		<!-- 开通会员提示框 -->
 		<!-- 会员专属商品提示框 -->
-		<view class="member-wrapper" wx:if="{{ !user.membership.is_member && product.membership_dedicated_enable }}">
-			<view class="member-tips">
+		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_dedicated_enable }}">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">会员专属商品，开通会员立享</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 会员价商品提示框 -->
-		<view class="member-wrapper" wx:if="{{ !user.membership.is_member && product.membership_price_enable }}">
-			<view class="member-tips">
+		<view class="member-wrapper" wx:if="{{ user.membership && !user.membership.is_member && product.membership_price_enable }}">
+			<view class="member-tips" bindtap="go" data-url="/pages/membership/members/members">
 				<view class="tips-text">开通会员，立享会员价</view>
-				<view class="tips-right" bindtap="go" data-url="/pages/membership/members/members">去开通 ></view>
+				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
 		<!-- 领券&服务说明 -->
@@ -162,9 +245,26 @@
 				<pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
 			</view>
 		</view>
-		<view class="grouponHint" wx:if="{{ product.groupon_enable && !grouponId }}">
+
+		<!-- 拼团流程 -->
+		<!-- <view class="grouponHint" wx:if="{{ product.groupon_enable && !grouponId }}">
 			<view class="title">拼团流程</view>
 			<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
+		</view> -->
+
+		<!-- 拼团玩法 -->
+		<view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
+			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
+			<!-- <image class="groupplay-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=groupon" /> -->
+		</view>
+		<!-- 秒杀规则 -->
+		<view class="group-miaosha" wx:if="{{ product.seckill_enable }}">
+			<image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/miaosharule.png'}}" />
+			<!-- <image class="groupmiaosha-rule" src="/icons/productDetail/rule.png" bindtap="go" data-url="/pages/rulePages/rulePages?key=seckill" /> -->
+		</view>
+		<!-- 砍价规则 -->
+		<view class="bargain-rule" wx:if="{{ product.bargain_enable }}">
+			<image class="bargainImg" src="/icons/productDetail/bargainInfo.svg"/>
 		</view>
 
 		<!-- 商品评论start -->
@@ -194,7 +294,7 @@
 		</view>
 
 		<!-- 为你推荐 -->
-		<view class="promote" wx:if="{{ product.related && product.related.length }}">
+		<view class="promote" wx:if="{{ isShowProductRelated }}">
 			<view class="label">
 				<text class="dot">•</text>
 				为你推荐
@@ -211,7 +311,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 底部状态栏 -->
 		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
@@ -222,19 +322,19 @@
 					<text>店铺</text>
 				</view>
 				<view class="cart" bind:tap="navigateToCart">
-					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== '0'}}">{{ cartNumber }}</view>
+					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" />
 					<text>购物车</text>
 				</view>
 				<button
-				 open-type="contact"
-				 send-message-title="{{product.title}}"
-				 send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
-				 send-message-img="{{product.thumbnail}}"
-				 show-message-card="{{true}}"
-				 class="cart"
-				 session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
-				>
+					open-type="contact"
+					send-message-title="{{product.title}}"
+					send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
+					send-message-img="{{product.thumbnail}}"
+					show-message-card="{{true}}"
+					class="cart"
+					session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
+					>
 					<image class="icon" src="../../icons/context.png" />
 					<text>客服</text>
 				</button>
@@ -257,7 +357,7 @@
 					 style="background-color: {{ themeColor.primaryColor }}"
 					>
 						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price }}</view>
-						<view>{{ product.groupon_member_limit }}人团</view>
+						<view>发起拼团</view>
 					</view>
 				</block>
 
@@ -273,22 +373,66 @@
 						<view class="joinGroup">立即参团</view>
 					</view>
 				</block>
+
+				<!-- 砍价 -->
+				<block wx:elif="{{ product.bargain_enable }}">
+					<view
+					 class="addCart multi"
+					 catchtap="onShowSku"
+					 data-actions="{{ [{ type: 'addCart', text: '加入购物车' }, { type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
+					 style="background-color: {{ themeColor.secondaryColor }}"
+					>
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
+						<view>原价购买</view>
+					</view>
+					<!-- 没有 bargain_mission 表示未进行过砍价；status状态: 1: 进行中，2：已完成，3: 已过期 -->
+					<view 
+						class="buy multi" 
+						bindtap="go"
+						data-url="/pages/bargainDetail/bargainDetail?code={{product.bargain_mission && product.bargain_mission.code}}"
+						style="background-color: {{ themeColor.primaryColor }}" 
+						wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">
+						查看进度
+					</view>
+					<view
+						class="buy multi"
+						style="background-color: {{ themeColor.primaryColor }}"
+						catchtap="onShowSku"
+						data-is-bargain-buy
+						data-actions="{{[{ type: 'onBuy', text: '立即购买'}]}}"
+						wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">
+						<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
+						<view>立即购买</view>
+					</view>
+					<button
+						bindgetuserinfo="bindGetUserInfo"
+						open-type="getUserInfo"
+						hover-class="none"
+						class="buy multi"
+						style="background-color: {{ themeColor.primaryColor }}"
+						wx:if="{{!product.bargain_mission ||(product.bargain_mission && product.bargain_mission.status === 3)}}">
+						发起砍价
+					</button>
+				</block>
+
 				<!-- 秒杀或者普通商品 -->
 				<block wx:else>
 					<view
-					 class="addCart"
-					 catchtap="onShowSku"
-					 data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}"
-					 style="background-color: {{ themeColor.secondaryColor }}"
-					 wx:if="{{ product.product_type !== 1 }}"
-					>加入购物车
+						class="addCart"
+						catchtap="onShowSku"
+						data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}"
+						style="background-color: {{ themeColor.secondaryColor }}"
+						wx:if="{{ !(product.individual_buy || product.product_type === 1) }}"
+						>
+						加入购物车
 					</view>
 					<view
-					 class="buy {{ product.product_type === 1 && 'maguaWidthBtn' }}"
-					 catchtap="onShowSku"
-					 data-actions="{{ [{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买') }] }}"
-					 style="background-color: {{ themeColor.primaryColor }}"
-					>{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
+						class="buy {{product.product_type === 1 && 'maguaWidthBtn'}}"
+						catchtap="onShowSku"
+						data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买')}]}}"
+						style="background-color: {{ themeColor.primaryColor }}"
+						>
+						{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
 					</view>
 				</block>
 			</view>
@@ -300,7 +444,7 @@
 	 catchtap="onShowSku"
 	 data-is-crowd
 	 data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
-	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1}}"
+	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable}}"
 	>
 		<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 	</view>
@@ -397,19 +541,21 @@
 </van-popup>
 
 <skuModal
- isShowSkuModal="{{ isShowAcitonSheet }}"
+ isShowSkuModal="{{ isShowActionSheet }}"
  product="{{ product }}"
  themeColor="{{ themeColor }}"
  position="bottom"
  actions="{{ actions }}"
- quantity="{{ quantity }}"
+ quantity="{{ product.least || 1 }}"
  isCrowd="{{ isCrowd }}"
  isGrouponBuy="{{ isGrouponBuy }}"
+ isBargainBuy="{{isBargainBuy}}"
  config="{{ config }}"
+ isIphoneX="{{ isIphoneX }}"
+ miaoshaObj="{{ miaoshaObj }}"
  bind:onSkuConfirm="onSkuConfirm"
+ bind:getShippingType="getShippingType"
 />
-
-<console page="商品详情" />
 
 <productDetailShareModal
  productImage="{{ product.thumbnail }}"
@@ -425,3 +571,19 @@
  wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"
 />
 
+<wxs module="productDetail">
+  var formatValue = function(value, num) {
+    return value.toString().length > num ? exchange_num(num).concat('+') : value.toString()
+  };
+  var exchange_num = function(num){
+    var newValue = '1';
+    var i = 0;
+    while (i < num) {
+      newValue += '0';
+      i++;
+    }
+    return newValue;
+  }
+
+  module.exports.formatValue = formatValue;
+</wxs>

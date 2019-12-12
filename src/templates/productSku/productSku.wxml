@@ -3,17 +3,18 @@
     src="{{ product.images[0] }}"
     class="skuImg"
     mode="aspectFill"
+    lazy-load="{{ true }}"
   />
 
   <view style="width:100%" wx:if="{{ actions[0].isMiaosha || actions[0].isGroupon  }}">
     <view class="skuInfo">
     <view wx:if="{{ actions[0].isMiaosha && !actions[0].isGroupon  }}">
-      <view class="price" >￥{{ (product.miaosha_end_timestamp  - timestamp > 0) ? product.miaosha_price : product.price }}</view>
+      <view class="price" >{{ globalData.CURRENCY[globalData.currency] }}{{ (product.miaosha_end_timestamp  - timestamp > 0) ? product.miaosha_price : product.price }}</view>
       <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
       <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
     </view>
     <view wx:if="{{ (!actions[0].isMiaosha && actions[0].isGroupon) }}">
-      <view class="price">￥{{ product.groupon_price }}</view>
+      <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</view>
       <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
       <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
     </view>
@@ -63,7 +64,7 @@
   </view>
   <view wx:else  style="width:100%">
     <view class="skuInfo">
-      <view class="price">￥{{ selectedSku.price || product.price }}</view>
+      <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ selectedSku.price || product.price }}</view>
       <view class="stock">库存：{{ selectedSku.stock || product.stock }}</view>
       <view class="property" wx:if="{{ product.skus.length }}">已选择：{{ selectedSku.property_names || '--' }}</view>
     </view>

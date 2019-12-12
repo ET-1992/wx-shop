@@ -1,48 +1,62 @@
 .container {
-	padding: 50rpx 40rpx;
+	width: 700rpx;
+	margin: 30rpx auto;
+	padding: 30rpx 30rpx 65rpx;
+	background-color: #fff;
+	border-radius: 10rpx;
+	box-sizing: border-box;
+	box-shadow: 0rpx 3rpx 6rpx rgba(0, 0, 0, 0.16);
 }
 
-.form-section {
-	display: flex;
-	margin: 20rpx auto 50rpx;
-	justify-content: flex-start;
-	align-items: center;
-}
+.form {
+	.form-section {
+		.form-left {
+			font-size: 28rpx;
+			color: rgba(51, 51, 51, 0.8);
+			min-width: 180rpx;
+			margin-bottom: 20rpx;
+			margin-top: 40rpx;
 
-.form-left {
-	font-size: 30rpx;
-	color: #333;
-	width: 180rpx;
-	text-align: right;
-}
+			&::after {
+				content: '*';
+				font-size: 14px;
+				color: #f44;
+				margin-left: 6rpx;
+			}
+		}
 
-.form-left::after {
-	content: '*';
-	font-size: 14px;
-	color: #f44;
-}
+		.first-child {
+			margin-top: 20rpx;
+		}
+		
+		.form-right {
+			border: 2rpx solid rgba(194, 194, 194, 1);
+			border-radius: 5rpx;
+			height: 80rpx;
+			padding-left: 20rpx;
+			font-size: 28rpx;
 
-.form-right {
-	border: 1rpx solid #ccc;
-	height: 60rpx;
-	margin-left: 28rpx;
-	flex: 2;
-	padding-left:20rpx;
-}
+			.weui_placeholder {
+				font-size: 28rpx;
+				color: rgba(194, 194, 194, 1);
+				font-weight: 400;
+			}
+		}
 
-.form-img {
-	width: 120rpx;
-	height: 120rpx;
-	margin-left: 14rpx;
-}
+		.form-img {
+			width: 120rpx;
+			height: 120rpx;
+		}
+	}
 
-.form-btn {
-	width: 400rpx;
-	height: 80rpx;
-	line-height: 80rpx;
-	border-radius: 20rpx;
-	margin: 50rpx auto;
-	background-color:#729153;
-	color: #fff;
-	font-size: 32rpx;
+	.form-btn {
+		width: 600rpx;
+		height: 80rpx;
+		line-height: 80rpx;
+		border-radius: 40rpx;
+		background-color:#729153;
+		color: #fff;
+		font-size: 32rpx;
+		margin: 60rpx auto 0;
+	}
 }

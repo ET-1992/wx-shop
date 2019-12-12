@@ -5,12 +5,17 @@
     "address": "../../components/address/address",
     "liftInfo": "../../components/liftInfo/liftInfo",
     "productItemSold": "../../components/productItemSold/index",
-    "console": "../../components/console/console",
     "loading": "../../components/loading/index",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
     "van-panel": "../../components/vant-weapp/dist/panel/index",
     "countDown": "../../components/countDown/countDown",
     "productList": "../../components/productList/index",
-    "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal"
+    "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal",
+    "addressTwo": "../../components/addressTwo/addressTwo",
+    "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
+    "delivery": "../../components/delivery/delivery",
+    "storeList": "../../components/storeList/storeList",
+    "skuModal": "../../components/skuModal/skuModal",
+    "van-count-down": "vant-weapp/dist/count-down/index"
   }
 }

@@ -15,7 +15,7 @@
     position: relative;
     padding: 20rpx 0;
     .pay-text{
-        text{
+        .pay-price {
             color: #F52D2D;
             font-size: 28rpx;
             font-weight: bold;
@@ -35,9 +35,25 @@
 }
 
 .pay-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     flex: 1;
-    text-align: right;
-    padding-right: 60rpx;
+    padding-right: 40rpx;
+    .pay-top {
+        text-align: right;
+        color: #D2906B;
+        font-size: 24rpx;
+    }
+    .pay-bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        .pay-price {
+            color: #F52D2D;
+            font-weight: bold;
+        }
+    }
 }
 
 .iphoneX-style{

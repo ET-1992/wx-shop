@@ -1,4 +1,5 @@
 <navigator class="stodownload" target="miniProgram" url="" hover-class="none" open-type="navigate" app-id="wx56c8f077de74b07c" path="/open/function-introduction/function-introduction">
-  <image src="/icons/stodownload.svg" class="stodownloadImg" mode="aspectFit" />
-  <text class="stodownloadText" selectable="false" space="false" decode="false">已同步至微信购物单</text>
+  <image src="https://bs.qpic.cn/mmux/dx4Y70y9XcvyqicYW5TYDPt9u0icul1oxoIKicqxowCqbd4TXm3IBpKYaxesOlCBu0icQsNQiaty7Aiaw/0" class="stodownloadImg" mode="aspectFit" />
+  <!-- <text class="stodownloadText" selectable="false" space="false" decode="false">已同步至微信购物单</text> -->
+  <text class="stodownloadText" selectable="false" space="false" decode="false">已同步到好物圈</text>
 </navigator>

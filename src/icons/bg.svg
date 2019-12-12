@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="258" height="366" viewBox="0 0 258 366">
-  <g id="组_3483" data-name="组 3483" transform="translate(6995.243 1749.243)">
-    <g id="组_3482" data-name="组 3482" transform="translate(-6993.243 -1747.243)">
-      <path id="路径_24" data-name="路径 24" d="M257,129.121c0,69.677-56.838,126.121-127,126.121a127.663,127.663,0,0,1-69.121-20.262c-5.621-3.722-32.062,12.405-37.059,7.857-5.2-4.755,11.034-29.98,6.662-35.355A124.659,124.659,0,0,1,3,129.121C3,59.445,59.838,3,130,3S257,59.445,257,129.121Z" transform="translate(-3 -3)" fill="#fff" stroke="#999" stroke-miterlimit="10" stroke-width="4"/>
-      <path id="路径_25" data-name="路径 25" stroke="#c9c9c9" d="M18.392,117.522c4-13.873,13.75-26.341,6.736-32.576C9.636,65.534-3.085,41.8.661,0" fill="none" transform="matrix(1, -0.017, 0.017, 1, 12.751, 113.039)" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="12" opacity="0.2"/>
-      <g id="组_468" data-name="组 468" transform="translate(68.485 99.395)">
-        <line id="直线_78" data-name="直线 78" x2="117.03" stroke-width="4" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="#fff"/>
-        <line id="直线_79" data-name="直线 79" x2="104.711" transform="translate(0 45.17)" fill="#fff" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="4"/>
-      </g>
-    </g>
-    <text id="还没有留言" transform="translate(-6943.313 -1393.243)" fill="#999" font-size="30" font-family="PingFang SC Regular, PingFang SC"><tspan x="0" y="0">还没有留言</tspan></text>
-  </g>
-</svg>
+<svg height="366" viewBox="0 0 258 366" width="258" xmlns="http://www.w3.org/2000/svg"><g stroke-miterlimit="10"><path d="m257 129.121c0 69.677-56.838 126.121-127 126.121a127.663 127.663 0 0 1 -69.121-20.262c-5.621-3.722-32.062 12.405-37.059 7.857-5.2-4.755 11.034-29.98 6.662-35.355a124.659 124.659 0 0 1 -27.482-78.361c0-69.676 56.838-126.121 127-126.121s127 56.445 127 126.121z" fill="#fff" stroke="#999" stroke-width="4" transform="translate(-1 -1)"/><path d="m18.392 117.522c4-13.873 13.75-26.341 6.736-32.576-15.492-19.412-28.213-43.146-24.467-84.946" style="stroke:#c9c9c9;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:12;opacity:.2" transform="matrix(1 -.017 .017 1 14.751 115.039)"/><path d="m70.485 101.395h117.03" fill="#fff" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/><path d="m70.485 146.565h104.711" fill="#fff" stroke="#999" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/></g><text fill="#999" font-family="PingFang SC Regular, PingFang SC" font-size="30" transform="translate(51.93 356)"><tspan x="0" y="0">还没有留言</tspan></text></svg>

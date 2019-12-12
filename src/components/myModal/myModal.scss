@@ -13,43 +13,48 @@
 	z-index: 10000;
 
 	.content {
-		width: 650rpx;
+		width: 612rpx;
 		background-color: #fff;
-		border-radius: 10rpx;
-		padding: 30rpx 50rpx;
+		border-radius: 8rpx;
 
 		.content-header {
-			font-size: 40rpx;
-			line-height: 56rpx;
-			text-align: center;
+			font-size: 32rpx;
+			padding-top: 48rpx;
+    	font-weight: 500;
+    	line-height: 48rpx;
+    	text-align: center;
 		}
 
 		.content-footer {
 			display: flex;
-			justify-content: space-around;
-			font-size: 36rpx;
-			line-height: 50rpx;
-			height: 50rpx;
+			font-size: 32rpx;
 			align-items: center;
-			.content-footer-cancel {
+			border-top: 1rpx solid #ebedf0;
+
+			.item-button{
+				flex: 1;
+				height: 100rpx;
 				color: #707070;
-				margin-right: 50rpx;
+				line-height: 100rpx;
+				text-align: center;
 			}
 
 			.content-footer-confirm {
 				color: #21C11F;
 				border: none;
-				height: 50rpx;
-				line-height: 50rpx;
+			}
+			.content-footer-cancel{
+				border-right: 1rpx solid #ebedf0;
 			}
 		}
 
 		.content-body {
-			padding: 30rpx 0 50rpx 0;
-			font-size: 36rpx;
-			line-height: 50rpx;
+			padding: 48rpx;
+			padding-top: 24rpx;
+			font-size: 28rpx;
+			line-height: 1.5;
 			text-align: center;
-			color: #707070;
+			color: #7d7e80;
 			display: block;
 		}
 	}

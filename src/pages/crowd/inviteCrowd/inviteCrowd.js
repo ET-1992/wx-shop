@@ -20,7 +20,8 @@ Page({
             themeColor,
             isIphoneX,
             config,
-            order_no: options.id
+            order_no: options.id,
+            globalData: app.globalData
         });
         await this.loadOrder(options.id);
     },
@@ -35,6 +36,7 @@ Page({
 
         let { crowd_pay_no } = order.crowd;
         this.setData({
+            order,
             items: order.items,
             finalPayDispaly: info.finalPayDispaly,
             isLoading: false,

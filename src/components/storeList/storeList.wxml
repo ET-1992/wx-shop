@@ -1,0 +1,35 @@
+<view class="container">
+	<navigator url="/pages/liftList/liftList?type=4">
+		<view class="wrapper" wx:if="{{ addresses.name }}" style="{{ isOrderDetail ? 'margin-bottom: 20rpx' : ''}}">
+			<view class="address-top" wx:if="{{ !isOrderDetail }}">选择门店</view>
+			<view class="address-top" wx:if="{{ isOrderDetail }}">所选门店</view>
+			<view class="address-part">
+				<view class="address-name">{{ addresses.name }}</view>
+				<view class="address-distance" wx:if="{{ !isOrderDetail }}">
+					<text>距您 {{ addresses.distance }} km</text>
+					<image src="/icons/right.png" class="right-arrow"></image>
+				</view>
+			</view>
+			<view class="address-info">
+				<view class="address-section address-first">
+					<view class="address-title">商家地址</view>
+					<view class="address-detail">{{addresses.state}}{{addresses.city}}{{addresses.district}}{{addresses.address}}</view>
+				</view>
+				<view class="address-section">
+					<view class="address-title">营业时间</view>
+					<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 0}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
+					<view class="address-time" wx:if="{{ addresses.time && !addresses.time.length }}">无</view>
+				</view>
+				<view class="address-section address-second">
+					<view class="address-title">商家电话</view>
+					<view class="address-phone">{{ addresses.phone || '无' }}</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="storeList-section" wx:else>
+			<view class="address title">选择门店</view>
+			<image src="/icons/right.png" class="right-arrow"></image>
+		</view>
+	</navigator>
+</view>

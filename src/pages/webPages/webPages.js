@@ -1,5 +1,7 @@
 import { parseScene } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import proxy from 'utils/wxProxy';
+import api from 'utils/api';
 
 const app = getApp();
 Page({
@@ -32,6 +34,29 @@ Page({
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${query.o}`
                 });
+            }
+            if (query.signup) {
+                try {
+                    const { code } = await api.hei.getWeappQrcode({
+                        scene: query.signup
+                    });
+                    const { confirm } = await proxy.showModal({
+                        title: '温馨提示',
+                        content: `您的验证码是：${code}`,
+                        showCancel: false
+                    });
+                    if (confirm) {
+                        wx.switchTab({
+                            url: '/pages/home/home'
+                        });
+                    }
+                } catch (e) {
+                    wx.showModal({
+                        title: '温馨提示',
+                        content: e.errMsg,
+                        showCancel: false
+                    });
+                }
             }
         } else {
             this.setData({ src });

@@ -40,13 +40,13 @@
             justify-content: space-between;
             .info{
                 display: flex;
-                align-items: center;
+                align-items: flex-end;
                 flex: 1;
                 justify-content: space-between;
                 .price{
                     .group-price{
                         font-size: 28rpx;
-                        color: #FC2732;
+                        color: #B71515;
                     }
                     .single-price{
                         font-size: 24rpx;
@@ -174,8 +174,8 @@
 .miaoshaStyle{
     .header{
         display: flex;
-				justify-content: center;
-				align-items: center;
+        justify-content: center;
+        align-items: center;
         background: #fff;
         padding: 20rpx 0 30rpx;
         border-bottom: 1rpx solid #D4D4D4;
@@ -186,8 +186,8 @@
         .time{
             display: flex;
             align-items: center;
-						color: #333333;
-						padding-left: 10rpx;
+            color: #333333;
+            padding-left: 10rpx;
             .day{
                 font-size: 44rpx;
                 font-weight: bold;
@@ -256,7 +256,7 @@
                     .price{
                         .miaosha-price{
                             font-size: 28rpx;
-                            color: #FC2732;
+                            color: #B71515;
                         }
                         .original-price{
                             font-size: 24rpx;

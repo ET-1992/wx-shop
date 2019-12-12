@@ -1,4 +1,5 @@
-.default{
+.default,
+.cartStyle {
 	$height: 90rpx;
 	position: fixed;
 	top: 0;
@@ -20,12 +21,29 @@
 		text-align: center;
 		margin: 0 auto;
 		height: $height;
-		line-height: 120rpx;
+		line-height: 90rpx;
 		display: inline-block;
+		position: relative;
+		
 		&.selected {
 			border-bottom: 4rpx solid #729153;
 			color: #000000;
 		}
+	}
+
+	.badge{
+		border-radius: 100%;
+		width: 25rpx;
+		height: 25rpx;
+		background: #F52D2D;
+		color: #fff;
+		font-size: 18rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 15rpx;
+		right: 13rpx;
 	}
 }
 .fixedStyle{

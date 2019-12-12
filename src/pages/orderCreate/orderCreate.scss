@@ -28,20 +28,37 @@ $iphoneXBottomGap: 40rpx;
 		display: flex;
 		align-items: center;
 		font-size: 28rpx;
-		margin: 10rpx 0;
+		padding: 0 20rpx;
+		line-height: 100rpx;
 
 		.item-text {
 			font-size: 28rpx;
 			color: #000000;
-			padding-left: 40rpx;
-			line-height: 40rpx;
-			width: 200rpx;
+			min-width: 160rpx;
+			padding-left: 10rpx;
+			padding-top: 10rpx;
 		}
 
-		.title{
-			font-size: 28rpx;
-			color: #000000;
-			padding: 10rpx 79rpx 10rpx 10rpx;
+		.radio-group {
+			display: flex;
+			width: 100%;
+
+			label {
+				display: flex;
+				align-items: center;
+
+				.title {
+					font-size: 28rpx;
+					color: #000000;
+					padding: 8rpx 40rpx 0 10rpx;
+				}
+
+				&:last-child .title {
+					padding-right: 0;
+				}
+
+			}
+
 		}
 
 		/*  重写 radio 样式  */
@@ -80,7 +97,7 @@ $iphoneXBottomGap: 40rpx;
 .textareaWrapper {
 	width: 100%;
 	// padding: 0 20rpx;
-	margin: 20rpx 0;
+	margin: 10rpx 0;
 	.textarea {
 		padding: 20rpx;
 		width: 100%;
@@ -92,7 +109,7 @@ $iphoneXBottomGap: 40rpx;
 }
 
 .productItemSoldWrapper {
-	margin: 20rpx 0;
+	margin: 10rpx 0;
 	display: block;
 }
 
@@ -272,6 +289,7 @@ $iphoneXBottomGap: 40rpx;
 	background: #FFF9EC;
 	color: #FB3838;
 	font-size: 24rpx;
+	margin-bottom: 10rpx;
 }
 
 .pickPayStyle{

@@ -1,7 +1,8 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "productList": "../../components/productList/index",
     "categoryList": "../../components/categoryList/index",
-    "console": "../../components/console/console"
+    "loading": "../../components/loading/index"
   }
 }

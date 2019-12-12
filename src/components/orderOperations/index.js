@@ -1,7 +1,7 @@
-import { showModal, showToast } from 'utils/wxp';
+import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
-import { getAgainUserForInvalid } from 'utils/util';
+import { getAgainUserForInvalid, go } from 'utils/util';
 
 const app = getApp();
 
@@ -137,7 +137,7 @@ Component({
         },
 
         async onConfirmOrder() {
-            const { confirm } = await showModal({
+            const { confirm } = await proxy.showModal({
                 title: '确定收货？',
             });
             if (confirm) {
@@ -149,7 +149,7 @@ Component({
                     this.triggerEvent('confirmOrder', { orderNo, orderIndex });
                 }
                 catch (err) {
-                    showModal({
+                    wx.showModal({
                         title: '收货失败',
                         content: err.errMsg,
                         showCancel: false,
@@ -159,23 +159,30 @@ Component({
         },
 
         async onCloseOrder() {
-            const { confirm } = await showModal({
+            const { order, orders, orderNo, orderIndex } = this.data;
+            console.log('order', order, 'orders', orders, 'orderIndex', orderIndex);
+            let content = '确定关闭订单？';
+            if ((orders && orders[orderIndex] && orders[orderIndex].promotion_type === '5') || (order.promotion_type === '5')) {
+                content = '机会只有一次，取消了就不能再下单了喔！';
+            }
+
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: '确定关闭订单？',
+                content: content
             });
+
             if (confirm) {
-                const { orderNo, orderIndex } = this.data;
                 try {
                     await api.hei.closeOrdery({
                         order_no: orderNo,
                     });
-                    await showToast({
+                    wx.showToast({
                         title: '已成功关闭订单',
                     });
                     this.triggerEvent('closeOrder', { orderNo, orderIndex });
                 }
                 catch (err) {
-                    showModal({
+                    wx.showModal({
                         title: '关闭订单失败',
                         content: err.errMsg,
                         showCancel: false,
@@ -205,6 +212,8 @@ Component({
             wx.makePhoneCall({
                 phoneNumber: e.currentTarget.dataset.phone
             });
-        }
+        },
+
+        go
     },
 });

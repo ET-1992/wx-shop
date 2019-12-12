@@ -1,8 +1,8 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
-import { CONFIG } from 'constants/index';
-import { updateCart } from 'utils/util';
+import { CONFIG, SHIPPING_TYPE } from 'constants/index';
+import { updateCart, valueToText } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -11,10 +11,10 @@ Page({
         toMainCategory: 0,
         toSubCategory: 0,
 
-        filterListData: [{ name: '销量' }, { name: '价格' }],
+        filterListData: [{ name: '价格' }, { name: '销量' }],
         filterData: {
             filterIndex: 0,
-            filterType: 'Down'
+            filterType: 'Up'
         },
         next_cursor: 0,
         products: [],
@@ -31,7 +31,6 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-
         const { categories } = await api.hei.fetchCategory();
 
         this.setData({
@@ -53,6 +52,7 @@ Page({
     },
 
     changeFilterList(e) {
+        console.log('e56', e);
         this.setData({
             filterData: e.detail,
             current_page: 1,
@@ -63,8 +63,8 @@ Page({
     filterProduct() {
         const { filterData } = this.data;
         const sortText = {
-            1: 'price',
-            0: 'total_sales'
+            0: 'price',
+            1: 'total_sales'
         };
         const sortStatus = {
             'Up': 'asc',
@@ -203,13 +203,15 @@ Page({
         const { formId } = ev.detail;
         this.setData({ formId });
     },
-
+    // skuModel 弹窗返回数据
     onAddCart(e) {
         this.addCart(e.detail);
+        console.log('e209', e.detail);
     },
 
     /* 加车 */
     async addCart(e) {
+        console.log('e214', e);
         let { vendor } = app.globalData;
         let { id, stock } = e.currentTarget.dataset;
         if (stock === 0) {
@@ -222,18 +224,21 @@ Page({
         let options = {};
 
         options.post_id = id;
-        options.sku_id = e.sku_id || 0;
-        options.quantity = 1;
+        options.sku_id = e.sku_id || 0; // 多规格
+        options.shipping_type = e.shipping_type;
+        options.quantity = e.quantity || 1; // 商品数量
         options.vendor = vendor;
         options.form_id = this.data.formId;
+
+        let shippingText = valueToText(SHIPPING_TYPE, Number(e.shipping_type));
         try {
             const data = await api.hei.addCart(options);
             wx.showToast({
                 icon: 'none',
-                title: '加入成功',
+                title: `加入${shippingText}成功`,
             });
             this.reloadCart(data);
-            wx.setStorageSync('CART_NUM', String(data.count));
+            wx.setStorageSync('CART_NUM', data.count);
             const { categoryIndex } = app.globalData;
             updateCart(categoryIndex);
         } catch (ev) {
@@ -247,6 +252,7 @@ Page({
         }
     },
 
+    // 选规格弹窗
     isShowSkuModal(e) {
         const { product } = e.currentTarget.dataset;
         this.setData({
@@ -254,6 +260,19 @@ Page({
             selectedProduct: product
         });
     },
+
+    // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
+    // 单规格但多种配送方式 显示弹窗选择 配送方式
+    // singleAddCart(e) {
+    //     console.log('e262', e);
+    //     const { product } = e.currentTarget.dataset;
+    //     if (product.shipping_types && (product.shipping_types.length === 1)) {
+    //         e.shipping_type = product.shipping_types[0];
+    //         this.addCart(e);
+    //     } else {
+    //         this.isShowSkuModal(e);
+    //     }
+    // },
 
     touchstart(e) {
         this.data.clineX = e.touches[0].clientX;

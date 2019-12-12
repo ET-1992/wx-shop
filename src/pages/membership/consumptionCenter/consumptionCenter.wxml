@@ -1,20 +1,5 @@
 <loading isLoading="{{ isLoading }}" />
 
-<!-- <view class="header" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{!isLoading}}">
-	<view class="header-text">
-		<view class="header-price">{{ cash_balance }} 元</view>
-		<view class="price-text">充值余额</view>
-	</view>
-	<view class="header-text">
-		<view class="header-price">{{ gift_balance }} 元</view>
-		<view class="price-text">赠送余额</view>
-	</view>
-	<view class="header-btn" style="color: {{ themeColor.primaryColor }}" bindtap="openRechargeModal">充值</view>
-</view> -->
-
-<!-- 会员充值弹窗 -->
-<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
-
 <navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" wx:if="{{!isLoading}}"/>
 
 <view class="wrapper" wx:if="{{!isLoading}}">
@@ -30,9 +15,5 @@
 			<view class="balance">余额: {{ item.balance }} 元</view>
 		</view>
 	</view>
-	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length }}">
-		暂无记录
-	</view>
+	<view class="noConsumptionList" wx:if="{{ !ConsumptionList.length }}">暂无记录</view>
 </view>
-
-<console page="消费记录" />

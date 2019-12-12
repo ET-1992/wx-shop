@@ -7,12 +7,12 @@ Component({
     },
     data: {
         isActive: {
-            0: 'Down'
+            0: 'Up'
         }
     },
     methods: {
         changeActive(e) {
-            console.log(e);
+            console.log('e15', e);
             const { index } = e.currentTarget.dataset;
             let type = 'Up';
             if (this.data.isActive[index] === 'Up') {

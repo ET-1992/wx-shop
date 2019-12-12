@@ -1,5 +1,5 @@
 <view class="leftItem">
-    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill" lazy-load="{{ true }}" />
     <view class="meta">
         <view class="top">
             <image class="icon" src="/icons/smileFace.png"></image>

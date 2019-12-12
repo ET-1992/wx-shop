@@ -45,7 +45,7 @@
 					<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
 					<view class="cart-text">储蓄余额</view>
 				</navigator>
-				<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
+				<navigator url="/pages/membership/consumptionCenter/consumptionCenter?activeIndex=1" class="member-integral-text">
 					<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
 					<view class="cart-text">赠送余额</view>
 				</navigator>
@@ -65,7 +65,7 @@
 			<view class="rights-item-title">
 				<text>会员专享商品</text>
 			</view>
-			<image src="/icons/member/vipGoodsOwnBanner.svg" mode="aspectFill" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
+			<image src="{{ memberExclusiveBanner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
 		</view>
 	</view>
 
@@ -76,7 +76,7 @@
 			<text>我的积分</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
 		</view>
-		<view class="jump-item jump-rule" bindtap="go" data-url="/pages/membership/memberRule/memberRule">
+		<view class="jump-item jump-rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=membership">
 			<image mode="aspectFit" class="jump-icon" src="/icons/member/memberRule.svg"></image>
 			<text>会员规则</text>
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
@@ -96,5 +96,3 @@
 	<!-- 会员充值弹窗 -->
 	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
 </view>
-
-<console page="会员中心" />

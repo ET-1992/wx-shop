@@ -21,9 +21,9 @@
                     </view>
                 </block>
             </navigator>
-            <navigator 
+            <navigator
 				wx:if="{{announcement}}"
-				app-id="{{announcement.appid}}" 
+				app-id="{{announcement.appid}}"
 				path="{{announcement.path}}"
 				target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
 				url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
@@ -47,7 +47,7 @@
                 <swiper indicator-dots autoplay circular wx:if="{{ sliders.length }}" class="banner" style="padding-bottom:0;height:{{module.height}}rpx"
                     indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
                     <swiper-item wx:for="{{ sliders }}" wx:key="id">
-                        <navigator 
+                        <navigator
                             app-id="{{item.appid}}" path="{{item.path}}" target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
                             url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}" style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
                             hover-class="none"  bindfail="miniFail"
@@ -62,9 +62,9 @@
                         <view>{{item}}</view>
                     </view>
                 </navigator>
-                <navigator 
+                <navigator
 					wx:if="{{announcement}}"
-					app-id="{{announcement.appid}}" 
+					app-id="{{announcement.appid}}"
 					path="{{announcement.path}}"
 					target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
 					url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
@@ -89,7 +89,7 @@
                     <myNavigator wx:for="{{ groupons }}" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.id }}">
                         <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="leftImage" themeColor="{{themeColor}}" />
                     </myNavigator>
-                    <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+                    <navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
                         <form bindsubmit="submitFormId" report-submit class="form">
                             <button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
                                 <span>更多</span>
@@ -103,18 +103,20 @@
             <view wx:if="{{ module.key === 'articles' }}">
                 <view class="section" wx:if="{{ articles && articles.length }}">
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-                    <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-                            <image mode="aspectFill" src="{{item.banner}}" style="height: {{module.height}}rpx;"></image>
+                    <!-- 普通文章或公众号文章 -->
+                    <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" 
+                      url="{{ item.article_type === 'mp' ? '/pages/webPages/webPages?src='+item.mp_url : '/pages/articleDetail/articleDetail?id='+item.id}}">
+                            <image class="m-img" src="{{item.banner}}" mode="widthFix"></image>
                             <template is="articleItem" data="{{ article: item,module:module }}" />
                     </navigator>
-                    <navigator class="sectionMore" wx:if="{{articles.length >1}}" url="/pages/articleList/articleList">
+                    <view class="sectionMore" wx:if="{{articles.length >1}}" bind:tap="go" data-url="/pages/articleList/articleList">
                         <form bindsubmit="submitFormId" report-submit="true">
                             <button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
                                 <span>更多</span>
                                 <image class="rightIcon" src="/icons/couponArrow.png" />
                             </button>
                         </form>
-                    </navigator>
+                    </view>
                 </view>
             </view>
             <!-- 限时购 -->
@@ -125,7 +127,7 @@
                         wx:key="item.id">
                         <productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaImage" themeColor="{{themeColor}}" />
                     </myNavigator>
-                    <navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList">
+                    <navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
                         <form bindsubmit="submitFormId" report-submit="true">
                             <button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
                                 <span>更多</span>
@@ -135,6 +137,23 @@
                     </navigator>
                 </view>
             </view>
+            <!-- 砍价 -->
+			<view wx:if="{{ module.key === 'bargains' }}">
+				<view class="section" wx:if="{{ bargains && bargains.length }}">
+					<view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
+					<myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+					    <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
+					</myNavigator>
+					<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
+					<form bindsubmit="submitFormId" report-submit="true">
+						<button formType="submit" class="moreButton" style="background-color: {{ themeColor.primaryColor }}">
+                            <span>更多</span>
+                            <image class="rightIcon" src="/icons/couponArrow.png" />
+						</button>
+					</form>
+					</navigator>
+				</view>
+			</view>
             <!-- 优惠券 -->
             <view wx:if="{{ module.key === 'coupons' }}">
                 <view class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && !(instructions && instructions.length) && !announcement ? 'secondCoupon' : ''}} {{ index === 0 && !(instructions && instructions.length) && !announcement ? 'firstCoupon' : '' }}" wx:if="{{ userCoupon.length }}">
@@ -150,7 +169,7 @@
                                         </view>
                                         <view class="title">满{{ item.least_cost }}元使用</view>
                                     </view>
-                                    
+
                                     <view class="right">
                                         <view class="title">优惠券</view>
                                         <view class="btn" wx:if="{{ item.status == 2 && item.stock_qty }}">点击领取 ></view>
@@ -172,7 +191,7 @@
                 </view>
             </view>
             <!-- 明星产品 -->
-            <view wx:if="{{ module.key === 'featured' }}">
+            <!-- <view wx:if="{{ module.key === 'featured' }}">
 
                 <view class="section" wx:if="{{ featured && featured.length }}">
                     <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
@@ -181,7 +200,7 @@
                         <image class="starProductItem" src="{{ item.banner }}" />
                     </myNavigator>
                 </view>
-            </view>
+            </view> -->
             <!-- 最新上架 -->
             <view wx:if="{{ module.key === 'products' }}">
                 <view class="section" wx:if="{{ products && products.length }}">

@@ -1,15 +1,6 @@
-import {
-    getAgainUserForInvalid,
-    getUserInfo,
-    go
-} from 'utils/util';
-import {
-    CONFIG,
-    USER_KEY
-} from 'constants/index';
-import {
-    wxPay
-} from 'utils/pageShare';
+import { getAgainUserForInvalid, go } from 'utils/util';
+import { CONFIG } from 'constants/index';
+import { wxPay } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import api from 'utils/api';
 const app = getApp();
@@ -23,6 +14,7 @@ Page({
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
+        memberExclusiveBanner: '',
         word: ''
     },
 
@@ -34,7 +26,6 @@ Page({
 
     onShow() {
         app.log('页面onShow');
-        this.getMemberHome();
         this.initPage();
     },
 
@@ -55,20 +46,19 @@ Page({
                 rechargeArray: recharge.data
             });
         }
+        // 获取会员信息
+        const memberHome = await api.hei.membershipCard();
+        this.setData({
+            user: memberHome.current_user,
+            word: (memberHome.data && memberHome.data.word) || '',
+            memberCouponList: memberHome.data && memberHome.data.coupons,
+            memberExclusiveBanner: memberHome.data && memberHome.data.dedicated_products_banner
+        });
+        // 设置全局配置
         this.setData({
             isLoading: false,
             themeColor,
             config,
-        });
-    },
-
-    // 获取会员信息
-    async getMemberHome() {
-        const memberHome = await api.hei.membershipCard();
-        this.setData({
-            user: memberHome.current_user,
-            word: memberHome.data.word,
-            memberCouponList: memberHome.data.coupons
         });
     },
 

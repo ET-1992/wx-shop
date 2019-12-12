@@ -5,6 +5,7 @@ export const UID_KEY = 'uid';
 export const USER_KEY = 'user';
 export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
+export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
 export const OVERSEA_ADDRESS_KEY = 'selfAddressKey';
@@ -34,6 +35,13 @@ export const ORDER_STATUS_TEXT = [
     { text: '订单关闭', value: 7 },
     { text: '系统关闭', value: 8 },
     { text: '退款成功', value: 6 },
+];
+
+export const BARGAIN_STATUS_TEXT = [
+    { text: '全部', value: null },
+    { text: '进行中', value: 1 },
+    { text: '砍价成功', value: 2 },
+    { text: '砍价失败', value: 3 }
 ];
 
 export const MAGUA_ORDER_STATUS_TEXT = [
@@ -107,7 +115,7 @@ export const CURRENCY = {
     'AUD': '$'
 };
 
-// const ORDER_TYPE = {
+// export const ORDER_TYPE = {
 //     0: '普通订单',
 //     1: '拼团订单',
 //     2: '礼品卡订单',
@@ -115,11 +123,36 @@ export const CURRENCY = {
 //     4: '直接支付'
 // };
 
-// const SHIPPING_TYPE = {
-//     1: '快递物流',
-//     2: '自提',
-//     3: '上门服务'
+// expore const PRODUCT_TYPE = {
+//     0: '普通商品',
+//     1: '虚拟商品',
+//     2: '服务'
 // };
+
+export const SHIPPING_TYPE = [
+    { text: '快递', value: 1 },
+    { text: '自提', value: 2 },
+    { text: '上门服务', value: 3 },
+    { text: '送货上门', value: 4 }
+];
+
+export const CART_TYPE = [
+    { text: '快递', value: 1 },
+    { text: '自提', value: 2 },
+    { text: '服务', value: 3 },
+    { text: '上门', value: 4 }
+];
+
+// export const PRODUCT_STATUS = [
+//     { text: '售罄', value: 'sold_out' },
+//     { text: '上架', value: 'publish' },
+//     { text: '已下架', value: 'unpublished' },
+//     { text: '拼团', value: 'groupon_enable' },
+//     { text: '限时购', value: 'miaosha_enable' },
+//     { text: '会员价', value: 'membership_price_enable' },
+//     { text: '会员专属', value: 'membership_dedicated_enable' },
+//     { text: '分销', value: 'commission' }
+// ];
 
 // const coupon_data_type = {
 //     1: '固定日期区间',
@@ -148,6 +181,6 @@ export const USER_STATUS = {
 };
 
 export const PAY_STYLES = [
-    { text: '微信', value: 'weixin' },
-    { text: '储值卡', value: 'store_card' }
+    { text: '微信', value: 'WEIXIN' },
+    { text: '储值卡', value: 'STORE_CARD' }
 ];

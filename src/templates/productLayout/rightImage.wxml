@@ -40,5 +40,5 @@
         </view> -->
       </view>
     </view>
-    <image class="productImage" mode="apsectFit" src="{{ miaosha.thumbnail }}" />
+    <image class="productImage" mode="apsectFit" src="{{ miaosha.thumbnail }}" lazy-load="{{ true }}" />
 </view>  

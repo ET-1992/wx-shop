@@ -3,7 +3,6 @@
     "numberInput": "../../components/numberInput/index",
     "pendingGrouponItem": "../../components/pendingGrouponItem/index",
     "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
-    "console": "../../components/console/console",
     "productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal",
     "couponList": "../../components/couponList/index",
     "loading": "../../components/loading/index",
@@ -12,6 +11,7 @@
     "magicImg": "../../components/magicImg/magicImg",
     "skuModal": "../../components/skuModal/skuModal",
     "van-popup": "../../components/vant-weapp/dist/popup/index",
-    "productList": "../../components/productList/index"
+    "productList": "../../components/productList/index",
+    "skeleton": "./skeleton/skeleton"
   }
 }

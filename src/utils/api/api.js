@@ -10,6 +10,10 @@
  **/
 export const host = 'https://api.wpweixin.com/';
 // export const host = 'https://hei.dev.97866.com/';
+// 翠绿
+// export const host = 'https://api.jcaik.com/';
+// 天枢
+// export const host = 'https://bidaauto.com/';
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -435,6 +439,49 @@ export const apis = {
     bindWebUser: {
         path: 'api/mag.platform_user.weapp.bind.json',
         method: 'POST',
+        isForceToken: true
+    },
+    // 送货上门
+    orderHomeDelivery: {
+        path: 'api/mag/order.deliveryaddress.json',
+        isForceToken: true
+    },
+    getWeappQrcode: {
+        path: 'api/weapp/qrcode/code.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 发起砍价
+    createBargain: {
+        path: 'api/mag.bargain.mission.create.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 砍价活动详情
+    bargainDetail: {
+        path: 'api/mag.bargain.mission.get.json',
+        isForceToken: true
+    },
+    // 我的砍价列表
+    bargainList: {
+        path: 'api/mag.bargain.mission.list.json',
+        isForceToken: true
+    },
+    // 助力砍价
+    bargainHelp: {
+        path: 'api/mag.bargain.mission.assist.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 砍价下单接口
+    bargainOrder: {
+        path: 'api/mag.bargain.order.create.json?pay&v2',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 助力者列表
+    bargainActor: {
+        path: 'api/mag.bargain.mission.actor.list.json',
         isForceToken: true
     }
 };

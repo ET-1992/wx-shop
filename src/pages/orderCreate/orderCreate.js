@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, CONFIG, PAY_STYLES } from 'constants/index';
+import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -9,11 +9,6 @@ const app = getApp();
 Page({
     data: {
         title: 'orderCreate',
-        liftStyles: [
-            { title: '快递', value: 'express', checked: 'true' },
-            { title: '自提', value: 'lift' }
-        ],
-        liftStyle: 'express',
         liftInfo: {
             isCanInput: true,
             isCanNav: true
@@ -52,18 +47,10 @@ Page({
         isShouldRedirect: false,
         isDisablePay: true,
         PAY_STYLES,
-        selectedPayValue: 'weixin'
+        selectedPayValue: 'WEIXIN',
     },
 
-    // onLoad() {
-    // 	const { themeColor } = app.globalData;
-    // 	const { isIphoneX } = app.systemInfo;
-    // 	this.setData({ themeColor, isIphoneX });
-    // },
-
     async onShow() {
-        console.log(this.options);
-        console.log(app.globalData);
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
                 url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
@@ -71,22 +58,18 @@ Page({
         }
     },
 
-    async onLoad() {
+    async onLoad(params) {
+        console.log('params62', params);
         // this.checkPhoneModel();
         const { themeColor, defineTypeGlobal } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        const { self_lifting_enable, self_lifting_only } = config;
-        let liftStyle = 'express';
-        if (self_lifting_enable && self_lifting_only) {
-            liftStyle = 'lift';
-        }
         this.setData({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
             config,
-            liftStyle
+            bargain_mission_code: params.bargain_mission_code
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -94,11 +77,13 @@ Page({
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
-            const totalPrice = currentOrder.totalPrice;
+            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
+            const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
             this.setData({
                 address,
+                liftInfo,
                 totalPrice,
                 items,
                 isGrouponBuy: isGrouponBuy || null,
@@ -106,13 +91,15 @@ Page({
                 totalPostage,
                 isShouldRedirect: false,
                 crowd,
-                groupon_commander_price
+                groupon_commander_price,
+                shipping_type: params.shipping_type
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
                 }
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
-                app.event.on('setOverseeAdressEvent', this.setOverseeAdressEvent, this);
+                app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
+                app.event.on('setOverseeAddressEvent', this.setOverseeAddressEvent, this);
                 this.onLoadData();
             });
         }
@@ -123,32 +110,27 @@ Page({
                 showCancel: false,
             });
         }
-
-        // console.log(this.data);
     },
 
     onUnload() {
-        // console.log('--- onUnLoad ----');
         app.globalData.currentOrder = {};
-
-        // console.log(JSON.stringify(app.globalData.currentOrder));
         wx.removeStorageSync('orderCreate');
         app.event.off('getCouponIdEvent', this);
         app.event.off('getLiftInfoEvent', this);
-        app.event.off('setOverseeAdressEvent', this);
+        app.event.off('getStoreInfoEvent', this);
+        app.event.off('setOverseeAddressEvent', this);
     },
 
-    onHide() {
-        // console.log('--- onHide ----');
-
-        // wx.clearStorageSync('orderCreate');
-    },
+    // onHide() {
+    //     console.log('--- onHide ----');
+    //     wx.clearStorageSync('orderCreate');
+    // },
 
     onInput(ev) {
         const { value } = ev.detail;
         this.setData({ buyerMessage: value });
     },
-
+    // 自填地址
     async onAddress() {
         const { self_address } = this.data.config;
         if (self_address) {
@@ -186,24 +168,34 @@ Page({
         });
     },
 
+    // 从 liftList 页面获取自提地址
     getLiftInfoEvent(data) {
-        // console.log('getLiftInfoEvent', data);
         const { liftInfo } = this.data;
-
         this.setData({
             liftInfo: { ...liftInfo, ...data }
         });
     },
 
-    setOverseeAdressEvent(selfAddressObj) {
-        // console.log('setOverseeAdressEvent');
+    setOverseeAddressEvent(selfAddressObj) {
+        this.setData({ address: selfAddressObj });
+    },
+
+    // 从 liftList 页面获取门店地址
+    getStoreInfoEvent(data) {
+        console.log('data196', data);
+        const times = data[0].times || [];
         this.setData({
-            address: selfAddressObj
+            storeListAddress: data[0],
+            homeDeliveryTimes: times,
+            chooseAreaId: data[0].id,
+            free_shipping_amount: data[0] && data[0].free_amount
+        }, () => {
+            this.onLoadData(data[0].id);
         });
     },
 
+    // 更新自提地址
     updateLiftInfo(e) {
-        // console.log(e);
         const { liftInfo = {}} = this.data;
         this.setData({
             liftInfo: { ...liftInfo, ...e.detail }
@@ -212,10 +204,18 @@ Page({
         });
     },
 
-    async onLoadData() {
+    async onLoadData(params) {
         try {
-            let { address, items, totalPrice, user_coupon_ids, isGrouponBuy, liftStyle, grouponId } = this.data;
-            // console.log(totalPrice, 'totalPrice');
+            let {
+                address,
+                items,
+                user_coupon_ids,
+                isGrouponBuy,
+                grouponId,
+                shipping_type,
+                config,
+                bargain_mission_code
+            } = this.data;
             let requestData = {};
             if (address) {
                 requestData = {
@@ -242,21 +242,30 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (liftStyle === 'lift') {
-                requestData.shipping_type = 2;
+            if (shipping_type === '4') { // 送货上门
+                // requestData.receiver_address_name = params;
+                requestData.delivery_store_id = params; // 配送地区id
             }
 
+            if (bargain_mission_code) { // 砍价
+                requestData.promotion_type = 5;
+                requestData.mission_code = bargain_mission_code;
+            }
+
+            requestData.shipping_type = Number(shipping_type);
+
             requestData.posts = JSON.stringify(items);
-            const { coupons, wallet, coin_in_order, fee, use_platform_pay, self_lifting_enable, order_annotation, product_type, payment_tips, self_lifting_only, store_card } = await api.hei.orderPrepare(requestData);
+
+            const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, store_card } = await api.hei.orderPrepare(requestData);
             const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
-            // console.log(maxUseCoin, 'maxUseCoin');
             const useCoin = Math.min(maxUseCoin, wallet.coins);
-            // console.log(useCoin);
 
-            if (self_lifting_only) {
-                liftStyle = 'lift';
+            if (product_type !== 1 && shipping_type === '1') {
+                this.setData({
+                    free_shipping_amount: config && config.free_shipping_amount
+                });
             }
 
             this.setData({
@@ -270,13 +279,10 @@ Page({
                 user_coupon_ids: (coupons.recommend && coupons.recommend.user_coupon_id) || '',
                 isHaveUseCoupon: (coupons.available && coupons.available.length > 0),
                 isPeanutPay: use_platform_pay || '',
-                selfLiftEnable: self_lifting_enable,
                 isDisablePay: false,
                 order_annotation,
                 product_type,
                 payment_tips,
-                self_lifting_only,
-                liftStyle: liftStyle,
                 store_card
             }, () => {
                 this.computedFinalPay();
@@ -291,6 +297,7 @@ Page({
         }
     },
 
+    // 设置可用花生米
     setUseCoin(e) {
         this.setData({
             useCoin: e.detail || 0
@@ -319,7 +326,6 @@ Page({
     },
 
     async onPay(ev) {
-        // console.log(ev, 'ev');
         const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
@@ -330,13 +336,14 @@ Page({
             user_coupon_ids,
             useCoin,
             shouldGoinDisplay,
-            liftStyle,
             liftInfo,
             order_annotation,
             product_type,
-            selfLiftEnable,
             selectedPayValue,
-            store_card
+            store_card,
+            storeListAddress,
+            shipping_type,
+            bargain_mission_code
         } = this.data;
         const {
             userName,
@@ -349,9 +356,8 @@ Page({
             detailInfo,
         } = address;
         const { vendor, afcode } = app.globalData;
-        // console.log(vendor, afcode, 'globalData');
 
-        if (!userName && !detailInfo && liftStyle !== 'lift' && product_type !== 1) {
+        if (!userName && !detailInfo && shipping_type !== '2' && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
@@ -360,7 +366,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_address_name && product_type !== 1 && selfLiftEnable) {
+        if (shipping_type === '2' && !liftInfo.receiver_address_name && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先选择自提地址',
@@ -369,7 +375,7 @@ Page({
             return;
         }
 
-        if (liftStyle === 'lift' && !liftInfo.receiver_phone && product_type !== 1 && selfLiftEnable) {
+        if (shipping_type === '2' && !liftInfo.receiver_phone && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
@@ -400,7 +406,6 @@ Page({
 
         if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
-            // console.log(orderForm.data, 'orderForm');
             const { annotation, dns_obj } = orderForm.data;
             annotation.forEach((item, index) => {
                 if (item.required && !dns_obj[item.name]) {
@@ -413,7 +418,6 @@ Page({
             const error = annotation.filter((item) => {
                 return (item.isError === true);
             });
-            console.log(error);
             if (error.length > 0) {
                 wx.showModal({
                     title: '提示',
@@ -426,7 +430,7 @@ Page({
             }
         }
 
-        if (store_card && store_card.store_card_enable && selectedPayValue === 'store_card') {
+        if (store_card && store_card.store_card_enable && selectedPayValue === 'STORE_CARD') {
             const { confirm } = await showModal({
                 title: '提示',
                 content: '您确定要用储值卡支付吗？',
@@ -437,11 +441,6 @@ Page({
             }
         }
 
-        wx.showLoading({
-            title: '处理订单中',
-            mark: true,
-        });
-
         if (user_coupon_ids) {
             requestData.user_coupon_ids = user_coupon_ids;
         }
@@ -450,10 +449,41 @@ Page({
             requestData.coins = useCoin;
         }
 
-        if (liftStyle === 'lift') {
+        // 自提需传数据
+        if (shipping_type === '2') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
-            wx.setStorageSync('liftInfo', liftInfo);
+            wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
+        }
+
+        // 送货上门需传数据
+        if (shipping_type === '4') {
+            requestData.shipping_type = 4;
+            // 获取门店列表的门店名称
+            if (!(storeListAddress && storeListAddress.name)) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请选择门店',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.receiver_address_name = storeListAddress.name;
+                requestData.delivery_store_id = storeListAddress.id;
+            }
+            // 直接获取送货上门子组件的任意数据和方法
+            const delivery = this.selectComponent('#delivery');
+            const { homeDeliveryTimes, index } = delivery.data;
+            if (!(homeDeliveryTimes && homeDeliveryTimes[index])) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请到后台设置该门店配送时间',
+                    showCancel: false,
+                });
+                return;
+            } else {
+                requestData.receiver_delivery_time = homeDeliveryTimes[index];
+            }
         }
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
@@ -473,17 +503,31 @@ Page({
             requestData.posts = JSON.stringify(items);
         }
 
+        // 代付
         if (crowd) {
             requestData.type = 5;
             requestData.crowd_type = crowdtype;
             method = 'createOrder';
         }
 
-        try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order } = await api.hei[method](requestData);
-            // console.log(order_no, status, pay_sign, pay_appid, crowd_pay_no, 'pay');
-            wx.hideLoading();
+        // 砍价
+        if (bargain_mission_code) {
+            requestData.code = bargain_mission_code;
+            method = 'bargainOrder';
+        }
 
+        wx.showLoading({
+            title: '处理订单中',
+            mask: true,
+        });
+
+        try {
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
+            wx.hideLoading();
+            console.log('OrderCreatecart507', cart);
+            if (cart && cart.count) {
+                wx.setStorageSync('CART_NUM', cart.count);
+            }
             if (crowd && crowd_pay_no) {
                 wx.redirectTo({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
@@ -496,15 +540,14 @@ Page({
                 }
 
                 if (pay_sign) {
-                    console.log('自主支付');
+                    // console.log('自主支付');
                     await wxPay(pay_sign, order_no);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
                 }
                 else if (pay_appid) {
-                    console.log('平台支付');
-
+                    // console.log('平台支付');
                     this.setData({
                         modal: {
                             isFatherControl: true,
@@ -571,28 +614,11 @@ Page({
             isShouldRedirect: true
         });
     },
-
-    /* radio选择改变触发 */
-    radioChange(e) {
-        if (e.detail.value === 'lift') {
-            const liftInfo = wx.getStorageSync('liftInfo');
-            if (liftInfo) {
-                this.setData({
-                    liftInfo
-                });
-            }
-        }
-        this.setData({
-            liftStyle: e.detail.value
-        }, () => {
-            this.onLoadData();
-        });
-    },
-
+    // 储值卡支付
     pickPayStyle(e) {
         const { value } = e.currentTarget.dataset;
         const { store_card, finalPay } = this.data;
-        if (value === 'store_card' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
+        if (value === 'STORE_CARD' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
             wx.showModal({
                 title: '提示',
                 content: '您的储值卡余额不足，请到会员中心充值',

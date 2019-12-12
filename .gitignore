@@ -13,3 +13,5 @@ lib
 package-lock.json
 jsconfig.json
 .vscode
+.cache-loader
+.git

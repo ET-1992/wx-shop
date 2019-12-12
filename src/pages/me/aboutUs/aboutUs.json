@@ -1,7 +1,6 @@
 {   
     "navigationBarTitleText" : "关于我们",
     "usingComponents": {
-        "console": "../../../components/console/console",
         "loading": "../../../components/loading/index"
     } 
 }

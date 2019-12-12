@@ -1,10 +1,11 @@
 import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
-import { formatTime, valueToText, getNodeInfo, splitUserStatus } from 'utils/util';
+import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
-import { setClipboardData, showToast } from 'utils/wxp';
 import templateTypeText from 'constants/templateType';
-import { qrcode  } from 'peanut-all';
+import { qrcode } from 'peanut-all';
+import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
+import proxy from 'utils/wxProxy';
 
 const app = getApp();
 
@@ -50,7 +51,8 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
-            routePath: this.route
+            routePath: this.route,
+            isLoading: true
         });
     },
 
@@ -59,8 +61,7 @@ Page({
         const user = wx.getStorageSync(USER_KEY);
         this.setData({
             user,
-            grouponId,
-            isLoading: true
+            grouponId
         });
 
         id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
@@ -123,19 +124,19 @@ Page({
 
         // }
 
-        let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
+        // let logisticsForItem = []; // 已发货快递的item ID  后端不吐出未发货字段 自己筛选
         order.logistics && order.logistics.forEach((item) => {
-            item.logisticsItems = this.filterItemsForLogistics(order.items, item.item_ids);
-            console.log(item, 'item');
-            logisticsForItem = logisticsForItem.concat(item.item_ids);
+            // item.logisticsItems = this.filterItemsForLogistics(order.items, item.item_ids);
+            // console.log(item, 'item');
+            // logisticsForItem = logisticsForItem.concat(item.item_ids);
             item.logisticsText = valueToText(LOGISTICS_STATUS_TEXT, item.status);
             item.defineTime = formatTime(new Date(item.consign_time * 1000));
         });
 
 
-        order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
-            return logisticsForItem.indexOf(item.id) === -1;
-        });
+        // order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
+        //     return logisticsForItem.indexOf(item.id) === -1;
+        // });
 
         if (statusCode === 3) {
             data.remainSecond = order.auto_confirm_in_seconds;
@@ -160,7 +161,9 @@ Page({
             }
             let routeQuery = {
                 grouponId: order.groupon && order.groupon.id,
-                afcode: current_user && current_user.afcode || ''
+                afcode: current_user && current_user.afcode || '',
+                post_id: order.groupon.post_id,
+                sku_id: order.groupon.sku_id
             };
             this.setData({
                 groupon: order.groupon,
@@ -201,18 +204,27 @@ Page({
         });
     },
 
-    // async loadRedpacket(id) {
-    // 	const { redpacket } = await api.hei.fetchRedpacket({ order_no: id });
-    // 	this.setData({ redpacket });
-    // },
-
-    /* onShare() {
-        wx.showShareMenu();
-    }, */
+    async bindGetUserInfo(e) {
+        const { isNewUserGroupon, isGrouponBuy = false, isCrowd = false } = e.currentTarget.dataset;
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onJoin({ isNewUserGroupon, isGrouponBuy, isCrowd });
+        }
+        else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
 
     onJoin(e) {
-        const { isNewUserGroupon } = e.currentTarget.dataset;
-        const { current_user, groupon } = this.data;
+        const { isNewUserGroupon, isGrouponBuy, isCrowd } = e;
+        const { groupon, product } = this.data;
+        const current_user = wx.getStorageSync(USER_KEY);
+        console.log('current_user:', current_user);
         let isUserHasPayOrder = current_user ? splitUserStatus(current_user.user_status).isUserHasPayOrder : false;
 
         if (isNewUserGroupon && isUserHasPayOrder) {
@@ -221,20 +233,89 @@ Page({
                 content: '您不是新用户不能参与该拼团',
                 showCancel: false
             });
-        } else if (current_user && groupon.user && (current_user.openid === groupon.user.openid)) {
+            return;
+        }
+        if (current_user && groupon.user && (current_user.openid === groupon.user.openid)) {
             wx.showModal({
                 title: '温馨提示',
                 content: '不能参加自己的拼团',
                 showCancel: false
             });
-        } else {
-            const { groupon, order } = this.data;
-            const id = groupon.post_id || order.items[0].post_id;
-            const grouponId = groupon.id || order.groupon.id;
-            wx.navigateTo({
-                url: `/pages/productDetail/productDetail?id=${id}&grouponId=${grouponId}`
-            });
+            return;
         }
+        if (product.status === 'unpublished' || product.status === 'sold_out') {
+            wx.showModal({
+                title: '温馨提示',
+                content: `商品已${product.status === 'unpublished' ? '下架' : '售罄'}`,
+                showCancel: false
+            });
+            return;
+        }
+        product.definePrice = product.groupon_price;
+        product.showOriginalPrice = product.groupon_price !== product.original_price;
+
+        this.setData({
+            current_user,
+            isShowActionSheet: true,
+            quantity: 1,
+            product,
+            isGrouponBuy,
+            isCrowd
+        });
+    },
+
+    async onSkuConfirm(e) {
+        wx.showLoading({
+            title: '请求中...'
+        });
+        const { selectedSku, quantity, formId } = e.detail;
+
+        await api.hei.submitFormId({ form_id: formId });
+
+        const { current_user, product, grouponId, isGrouponBuy, isCrowd, shipping_type } = this.data;
+
+        if (selectedSku.stock === 0) {
+            await proxy.showModal({
+                title: '温馨提示',
+                content: '无法购买库存为0的商品',
+            });
+            return;
+        }
+
+        // 非会员不能购买会员专属商品 立即购买
+        if (current_user && current_user.membership && !current_user.membership.is_member && product.membership_dedicated_enable) {
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '该商品是会员专属商品，请开通会员后购买'
+            });
+            if (confirm) {
+                wx.navigateTo({
+                    url: '/pages/membership/members/members'
+                });
+            }
+            return;
+        }
+
+        let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+        if (isGrouponBuy && grouponId) {
+            url = url + `&isGrouponBuy=true&grouponId=${grouponId}`;
+        }
+        if (isCrowd) {
+            url = url + '&crowd=true';
+        }
+
+        const currentOrder = createCurrentOrder({
+            selectedSku,
+            quantity,
+            product,
+            isGrouponBuy
+        });
+
+        app.globalData.currentOrder = currentOrder;
+
+        this.setData({ isShowActionSheet: false });
+        wx.navigateTo({ url });
+        wx.hideLoading();
     },
 
     onRelaodOrder(ev) {
@@ -272,36 +353,37 @@ Page({
         });
     },
 
+    /**
+     * 默认隐藏页面分享按钮，待成团页面开启
+     */
     onShareAppMessage({ target }) {
-        const { user, groupon = {}, redpacket = {}, config } = this.data;
-
         console.log('target', target);
-        if (typeof (target) !== 'undefined') {  // 点击按钮进来
-            const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
-            if (isModal || isRedpocketShare) {
-                this.setData({ isShared: true });
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}给你发来了一个红包，快去领取吧`,
-                    path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
-                    imageUrl: `${config.cdn_host}/shop/redpacketShare.jpg`
-                };
-            }
-            if (isShareGroupon && groupon.status === 2) {
-                this.showShareModal();
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                    path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                    imageUrl: groupon.image_url
-                };
-            }
-        } else {    // 右上角转发按钮
-            return {
-                title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                imageUrl: groupon.image_url
-            };
 
+        const { user = {}, groupon = {}, redpacket = {}} = this.data;
+
+        let data = {
+            share_title: `${user.nickname || '好友'}邀请你一起拼团`,
+            share_image: groupon.image_url
+        };
+        let path = `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`;
+
+        if (typeof (target) !== 'undefined') {
+
+            // 点击分享红包
+            const { isModal, isRedpocketShare } = target.dataset;
+            if (isModal || isRedpocketShare) {
+                data = {
+                    isShared: true,
+                    share_title: `${user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
+                    share_image: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+                };
+                path = `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`;
+            }
         }
+
+        this.setData(data);
+
+        return onDefaultShareAppMessage.call(this, {}, path);
     },
 
     filterItemsForLogistics(items = [], logistics = []) {
@@ -326,8 +408,8 @@ Page({
     async setClipboardVp(e) {
         const { value } = e.currentTarget.dataset;
         console.log(e);
-        await setClipboardData({ data: String(value) });
-        showToast({
+        await proxy.setClipboardData({ data: String(value) });
+        wx.showToast({
             title: '复制成功',
             icon: 'success'
         });
@@ -354,5 +436,14 @@ Page({
         this.setData({
             liftInfoModal: false
         });
+    },
+
+    // 从 SKUModel 组件获取配送方式 shipping_type
+    getShippingType(e) {
+        console.log('e690', e);
+        this.setData({
+            shipping_type: e.detail.shipping_type
+        });
+        console.log('shipping_type696', this.data.shipping_type);
     }
 });

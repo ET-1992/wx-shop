@@ -2,7 +2,7 @@
 // 若需要使用this，不能使用箭头函数，不然this为undefinde
 
 import api from 'utils/api';
-import { SHARE_TITLE, CONFIG } from 'constants/index';
+import { SHARE_TITLE, CONFIG, USER_KEY } from 'constants/index';
 import { showModal, showToast, requestPayment } from 'utils/wxp';
 
 // 获取应用实例
@@ -21,11 +21,15 @@ export const onShareHomeAppMessage = () => {
         path: '/pages/home/home'
     };
 };
-
+// 全页面分享
 export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
     const { share_title, share_image } = this.data;
+    const user = wx.getStorageSync(USER_KEY);
     let { options = {}, route } = this;
     options = { ...options, ...params };
+    if (!options.hasOwnProperty('afcode') && user.afcode) {
+        options.afcode = user.afcode;
+    }
     const optionsKeys = Object.keys(options);
     const hasOptions = !!optionsKeys.length;
     let path = path_ || route;
@@ -35,7 +39,7 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
             return `${path}${joinSymbol}${key}=${options[key]}`;
         }, path);
     }
-    console.log(path);
+    console.log('pageShare.js/path42', path);
     const shareMsg = {
         title: share_title,
         path,
@@ -57,7 +61,7 @@ function shopShare(path) {
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy, isMiaoshaBuy }) => {
+export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false, isBargainBuy = false }) => {
 
     try {
 
@@ -67,7 +71,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             post_id: product.id,
             title: product.title,
             original_price: product.original_price,
-            image_url: product.images[0],
+            image_url: product.thumbnail,
             price: product.price,
             id: product.id,
             postage: product.postage,
@@ -106,9 +110,10 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
 
         if (isGrouponBuy) {
             item.price = product.groupon_price;
-        }
-        else if (isMiaoshaBuy) {
+        } else if (isMiaoshaBuy) {
             item.price = product.miaosha_price;
+        } else if (isBargainBuy) {
+            item.price = product.bargain_price;
         }
 
         order.items = [item];

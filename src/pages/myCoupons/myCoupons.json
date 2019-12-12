@@ -1,7 +1,6 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "console": "../../components/console/console",
     "loading": "../../components/loading/index",
     "couponList": "../../components/couponList/index"
   }

@@ -180,13 +180,14 @@
 	display: flex;
 	background-color: #fff;
 	padding-right: 34rpx;
+	margin-bottom: 10rpx;
 
 	.productImage {
 		$size: 280rpx;
-
 		height: $size;
 		width: $size;
 		flex-shrink: 0;
+		border-radius: 10rpx;
 	}
 
 	.meta {
@@ -410,10 +411,10 @@
 
 	.productImage {
 		$size: 280rpx;
-
 		width: $size;
 		height: $size;
 		flex-shrink: 0;
+		border-radius: 10rpx;
 	}
 	.price{
 		font-size: 26rpx;
@@ -490,3 +491,98 @@
 		}
 	}
 }
+
+/* bargain 砍价列表 */
+.bargainProduct {
+	background-color: #fff;
+	padding: 0 10rpx;
+	
+	.wrapper {
+		display: flex;
+		padding-bottom: 10rpx;
+
+		.productImage {
+			$size: 230rpx;
+			height: $size;
+			width: $size;
+			flex-shrink: 0;
+			border-radius: 10rpx;
+		}
+	
+		.meta {
+			display: flex;
+			flex-direction: column;
+			width: 100rpx;
+			flex-grow: 1;
+			margin: 16rpx 0 10rpx 0;
+			padding: 0 6rpx 0 38rpx;
+	
+			.name {
+				font-size: 30rpx;
+				color: $titleColor;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				line-height: 1.2;
+				color: #333333;
+			}
+	
+			.desc {
+				font-size: 24rpx;
+				color: $originalPriceColor;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				margin-top: 10rpx;
+				color: #707070;
+			}
+	
+			.footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+				flex-grow: 1;
+	
+				.footer-left {
+					font-size: 24rpx;
+					color: #707070;
+	
+					.currency {
+						color: #FC2732;
+					}
+	
+					.lowPrice {
+						color: #FC2732;
+						font-weight: bold;
+						font-size: 36rpx;
+					}
+				}
+	
+				.footer-right {
+					font-size: 20rpx;
+					color: #707070;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					.bargainBtn {
+						width: 140rpx;
+						height: 48rpx;
+						background :$mainColor;
+						color: #fff;
+						border-radius: 5rpx;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+			}
+		}
+	}
+
+}
+
+// .hasBorder {
+// 	border-bottom: 1rpx solid rgba(212, 212, 212, 1);
+// }

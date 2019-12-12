@@ -1,7 +1,56 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
-  <include src="../../templates/common/comments.wxml" />
-  <include src="../../templates/common/comment-form.wxml" />
-</view>
+    <view class="s-comments">
+		<view class="s-comments__content">
+			<view class="c-commentList">
+				<button 
+				  class="c-comment" 
+				  wx:for="{{topic.replies}}" 
+				  wx:key="item.id" 
+				  bindgetuserinfo="replyTo" 
+				  open-type="getUserInfo"
+				  data-openid="{{item.user.openid}}" 
+				  data-id="{{item.id}}" 
+				  data-nickname="{{item.user.nickname}}">
+					<image src="{{item.user.avatarurl}}" class="c-comment__avatar" background-size="cover"></image>
+					<view class="c-comment__content">
+						<view class="c-comment__header">
+							<view class="c-comment__user">{{item.user.nickname}}</view>
+							<view class="c-comment__time">{{item.time}}</view>
+						</view>
+						<view class="c-comment__body">
+							<block wx:if="{{item.reply_to.user}}">
+								回复<view class="c-comment__replyto">{{item.reply_to.user ? item.reply_to.user.nickname + ': ' : ''}}</view>
+							</block>
+							{{item.text}}
+						</view>
+					</view>
+				</button>
+			</view>
+		</view>
+	</view>
 
-<console page="评论列表" />
+	<view class="c-commentBar {{ systemInfo.isIphoneX ? 'iphoneXTtrick' : '' }}">
+		<form bindsubmit="formSubmit" report-submit="true">
+			<view class="c-commentBar__form">
+				<input
+					name="text"
+					class="c-commentBar__input"
+					placeholder="{{placeholder}}"
+					focus="{{reply_focus}}"
+					bindfocus="onRepleyFocus"
+					value="{{text}}"
+					bindblur="onReplyBlur"
+					cursor-spacing="14"/>
+				<button
+					class="c-commentBar__btn"
+					form-type="submit"
+					bindgetuserinfo="onUserInfo"
+					open-type="getUserInfo"
+					lang="zh_CN"
+					style="background-color: {{themeColor.primaryColor}}"
+				>提交</button>
+			</view>
+		</form>
+	</view>
+</view>

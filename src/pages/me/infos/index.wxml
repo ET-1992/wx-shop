@@ -7,6 +7,10 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/address.svg" />
         <view class="itemTitle">我的地址</view>
     </view>
+    <navigator class="infoItem" url="/pages/bargainList/bargainList">
+        <image class="itemIcon" mode="widthFix" src="/icons/me/bargain.svg" />
+        <view class="itemTitle">我的砍价</view>
+    </navigator>
     <view class="infoItem" bindtap="openManager" wx:if="{{ defineTypeGlobal === 'magua' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/manager.svg" />
         <view class="itemTitle">我的管家</view>

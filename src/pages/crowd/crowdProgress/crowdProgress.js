@@ -21,7 +21,8 @@ Page({
             isIphoneX,
             userInfo,
             config,
-            routePath: this.route
+            routePath: this.route,
+            globalData: app.globalData
         });
     },
     async onShow() {
@@ -70,6 +71,7 @@ Page({
 
         let { crowd_pay_no } = order.crowd;
         this.setData({
+            order,
             order_no: order.order_no,
             items: order.items,
             crowd: order.crowd,

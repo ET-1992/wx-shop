@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "使用优惠券",
   "usingComponents": {
-    "couponList": "../../components/couponList/index",
-    "console": "../../components/console/console"
+    "couponList": "../../components/couponList/index"
   }
 }

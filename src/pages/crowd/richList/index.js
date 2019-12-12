@@ -14,5 +14,8 @@ Component({
             type: Boolean,
             value: true
         }
+    },
+    data: {
+        globalData: app.globalData
     }
 });
