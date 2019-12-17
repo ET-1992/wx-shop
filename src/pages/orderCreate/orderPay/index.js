@@ -27,8 +27,8 @@ Component({
             value: {}
         },
         freeShippingAmount: {
-            type: String,
-            value: ''
+            type: Number,
+            value: 0
         }
     },
     data: {
