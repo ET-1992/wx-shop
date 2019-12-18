@@ -28,6 +28,7 @@ export const ORDER_STATUS_TEXT = [
     { text: '待付款', value: 1 },
     { text: '待成团', value: 10 },
     { text: '待发货', value: 2 },
+    { text: '待发货', value: 2002 },       // 已打单
     { text: '已发货', value: 3 },
     { text: '已部分发货', value: 31 },
     { text: '退款中', value: 5 },
