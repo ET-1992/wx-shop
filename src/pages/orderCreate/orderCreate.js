@@ -257,7 +257,11 @@ Page({
             requestData.posts = JSON.stringify(items);
 
             const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, store_card } = await api.hei.orderPrepare(requestData);
-            const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+
+            // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
+            const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
+            console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
+
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
