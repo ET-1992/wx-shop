@@ -1,4 +1,4 @@
-<van-popup show="{{ rechargeModal }}" bind:close="closeRechargeModal"  custom-class="popup">
+<van-popup show="{{ showRechargeModal }}" bind:close="closeRechargeModal"  custom-class="popup">
 	<view class="modal-title">请选择充值金额</view>
 	<view class="model-main">
 		<view class="model-priceSection">

@@ -27,13 +27,13 @@
 			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
 				<!-- 已开通储值卡功能 -->
 				<block wx:if="{{ config.store_card_enable }}">
-					<view class="openVip-btn" bindtap="openCommonRechargeModal">立即开通会员</view>
+					<view class="openVip-btn" bindtap="openRechargeModal">立即开通会员</view>
 					<view class="openVip-tip">{{ word }}</view>
 				</block>
 				<!-- 没开储值卡功能 -->
 				<block wx:if="{{ !config.store_card_enable }}">
 					<view class="openVip-btn" bindtap="buyMember">立即开通会员</view>
-					<view class="openVip-tip">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
+					<view class="openVip-tip">开通会员仅需 {{ globalData.CURRENCY[globalData.currency] }}{{ payment }}</view>
 				</block>
 			</view>
 			
@@ -91,9 +91,14 @@
 		</view>
 	</view>
 
-	<!-- 非会员充值弹窗 -->
-	<popup rechargeModal="{{ commonRechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
-
 	<!-- 会员充值弹窗 -->
-	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
+	<popup
+		wx:if="{{!isLoading}}"
+		showRechargeModal="{{ showRechargeModal }}"
+		rechargeArray="{{ rechargeArray }}"
+		user="{{ user }}"
+		config="{{ config }}"
+		bind:onConfirmRecharge="onConfirmRecharge"
+		bind:closeRechargeModal="closeRechargeModal"
+    />
 </view>

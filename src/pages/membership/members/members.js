@@ -8,9 +8,7 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
-        globalData: app.globalData,
-        commonRechargeModal: false,  // 非会员充值弹窗
-        rechargeModal: false,  // 会员充值弹窗
+        showRechargeModal: false, // 会员充值弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
@@ -29,37 +27,42 @@ Page({
         this.initPage();
     },
 
-    // 初始页面配置
+    // 获取会员信息
     async initPage() {
-        const {
-            themeColor
-        } = app.globalData;
-        // 获取全局店铺配置信息
-        const config = wx.getStorageSync(CONFIG);
-        // 获取开启储值卡后充值金额数组
-        if (config.store_card_enable) {
-            const recharge = await api.hei.rechargePrice();
-            if (recharge.data && recharge.data[0]) {
-                recharge.data[0].checked = true;
+        try {
+            // 获取全局店铺配置信息
+            const config = wx.getStorageSync(CONFIG);
+            // 获取开启储值卡后充值金额数组
+            const { current_user, data } = await api.hei.membershipCard();
+            if (config.store_card_enable) {
+                const { data } = await api.hei.rechargePrice();
+                if (data && data[0]) {
+                    data[0].checked = true;
+                }
+                this.setData({
+                    rechargeArray: data
+                });
             }
+            let count = config.membership && config.membership.rules && config.membership.rules.payment;
+            // 获取会员信息
             this.setData({
-                rechargeArray: recharge.data
+                user: current_user,
+                word: data.word || '',
+                memberCouponList: data.coupons,
+                memberExclusiveBanner: data.dedicated_products_banner,
+                isLoading: false,
+                payment: count,
+                config,
+                globalData: app.globalData
+            });
+        } catch (error) {
+            console.log(error);
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
             });
         }
-        // 获取会员信息
-        const memberHome = await api.hei.membershipCard();
-        this.setData({
-            user: memberHome.current_user,
-            word: (memberHome.data && memberHome.data.word) || '',
-            memberCouponList: memberHome.data && memberHome.data.coupons,
-            memberExclusiveBanner: memberHome.data && memberHome.data.dedicated_products_banner
-        });
-        // 设置全局配置
-        this.setData({
-            isLoading: false,
-            themeColor,
-            config,
-        });
     },
 
     // 获取用户头像信息
@@ -129,38 +132,41 @@ Page({
         }
     },
 
-    // 打开非会员充值弹窗
-    openCommonRechargeModal() {
-        this.setData({
-            commonRechargeModal: true
-        });
-    },
-
     // 打开会员充值弹窗
     openRechargeModal() {
         this.setData({
-            rechargeModal: true
+            showRechargeModal: true
         });
+        console.log('showRechargeModal', this.data.rechargeArray);
     },
 
-    // 未开启储值卡功能的开通会员
+    onConfirmRecharge(e) {
+        this.setData({
+            amount: e.detail.amount,
+            showRechargeModal: false
+        });
+        this.buyMember();
+    },
+
+    closeRechargeModal() {
+        this.setData({ showRechargeModal: false });
+    },
+
+    // 开通会员
     async buyMember() {
+        const { amount, config } = this.data;
+        let params = {}; // 未开启储值卡功能的开通会员 不传参数 后台设金额
         try {
-            const {
-                pay_sign
-            } = await api.hei.joinMembership();
-            console.log('付费会员pay_sign', pay_sign);
-            if (pay_sign) {
-                await wxPay(pay_sign);
+            if (config.store_card_enable) { // 开启储值卡功能的开通会员或充值 需传金额参数
+                params.amount = amount;
             }
+            console.log('params160', params);
+            const { pay_sign } = await api.hei.joinMembership(params);
+            console.log('付费会员pay_sign', pay_sign);
+            if (pay_sign) { await wxPay(pay_sign) }
             this.onShow();
         } catch (error) {
             console.log(error);
         }
-    },
-
-    // 微信支付后弹窗回调
-    setConsumptionList() {
-        this.onShow();
     }
 });
