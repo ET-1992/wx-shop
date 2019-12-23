@@ -11,7 +11,11 @@ Component({
                         item.checked = false;
                     });
                     rechargeArray[0].checked = true;
-                    this.setData({ rechargePrice: '', rechargeArray });
+                    this.setData({
+                        rechargePrice: '',
+                        rechargeArray,
+                        amount: rechargeArray && rechargeArray[0] && rechargeArray[0].recharge || 0
+                    });
                 }
             }
         },
@@ -33,11 +37,8 @@ Component({
     },
     attached() {
         console.log('attached');
-        const { rechargeArray } = this.data;
-        console.log('rechargeArray', rechargeArray);
         this.setData({
-            globalData: app.globalData,
-            amount: rechargeArray && rechargeArray[0] && rechargeArray[0].recharge || 0
+            globalData: app.globalData
         });
     },
     methods: {
