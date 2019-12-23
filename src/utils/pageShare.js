@@ -55,9 +55,13 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
 function shopShare(path) {
     const config = wx.getStorageSync(CONFIG);
     if (config.share_enable) {
-        setTimeout(() => {
-            api.hei.shopShare({ share_url: path });
-        }, 1000);
+        console.log(path);
+        if (path.indexOf('webPages/webPages') === -1) {
+            console.log('分享获得积分');
+            setTimeout(() => {
+                api.hei.shopShare({ share_url: path });
+            }, 1000);
+        }
     }
 }
 
