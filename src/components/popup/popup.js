@@ -3,7 +3,17 @@ Component({
     properties: {
         showRechargeModal: {
             type: Boolean,
-            value: false
+            value: false,
+            observer(newValue) {
+                if (newValue) {
+                    const { rechargeArray } = this.data;
+                    rechargeArray.forEach(item => {
+                        item.checked = false;
+                    });
+                    rechargeArray[0].checked = true;
+                    this.setData({ rechargePrice: '', rechargeArray });
+                }
+            }
         },
         rechargeArray: {
             type: Object,
@@ -48,6 +58,7 @@ Component({
                 amount: rechargeArray[activeIndex].recharge
             });
             console.log('rechargeArray', rechargeArray);
+            console.log('amount', this.data.amount);
         },
 
         /* 输入框聚焦时，取消金额选择框的选中状态 */
@@ -68,6 +79,7 @@ Component({
         /* 有储值卡的店铺确认支付按钮事件 */
         async rechargePriceEvent() {
             const { amount } = this.data;
+            console.log('amount', amount);
             if (Number(amount) <= 0) {
                 wx.showToast({
                     title: '请输入大于0的金额',

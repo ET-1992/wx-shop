@@ -36,9 +36,6 @@ Page({
             const { current_user, data } = await api.hei.membershipCard();
             if (config.store_card_enable) {
                 const { data } = await api.hei.rechargePrice();
-                if (data && data[0]) {
-                    data[0].checked = true;
-                }
                 this.setData({
                     rechargeArray: data
                 });
@@ -137,9 +134,9 @@ Page({
         this.setData({
             showRechargeModal: true
         });
-        console.log('showRechargeModal', this.data.rechargeArray);
     },
 
+    // 确认支付
     onConfirmRecharge(e) {
         this.setData({
             amount: e.detail.amount,
@@ -148,6 +145,7 @@ Page({
         this.buyMember();
     },
 
+    // 关闭会员充值弹窗
     closeRechargeModal() {
         this.setData({ showRechargeModal: false });
     },

@@ -23,8 +23,9 @@ page {
 	.member-top {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		height: 200rpx;
-		padding: 45rpx 60rpx 55rpx 50rpx;
+		padding: 44rpx;
 
 		.head-button {
 			display: flex;
@@ -41,30 +42,24 @@ page {
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
-		}
-
-		.member-text {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			margin-left: 30rpx;
-
 			.member-user-wrap {
 				display: flex;
+				flex-direction: column;
+				margin-left: 25rpx;
 				align-items: center;
-
+	
 				.member-user {
 					font-size: 28rpx;
 					font-weight: bold;
 					color: $vipGolden;
+					line-height: 1.8;
 					max-width: 200rpx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
 				}
-
+	
 				.member-level {
-					margin-left: 25rpx;
 					height: 35rpx;
 					width: 110rpx;
 					border-radius: 30rpx;
@@ -74,41 +69,39 @@ page {
 					text-align: center;
 					line-height: 35rpx;
 				}
-
-			}
-
-			.member-no {
-				font-size: 24rpx;
-				color: $vipGolden;
-				// font-weight: bold;
-				margin-top: 10rpx;
-			}
-
-			.no-member-level {
-				width: 100rpx;
-				height: 35rpx;
-				border-radius: 30rpx;
-				font-size: 18rpx;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				background-color: $vipGolden;
-				color: $vipBlack;
-				margin-top: 10rpx;
-			}
-
-			.integral-text {
-				display: flex;
-				align-items: center;
-				font-size: 24rpx;
-				color: $vipGolden;
-				margin-top: 10rpx;
-				// font-weight: bold;
-
-				.cart-arrow {
-					width: 26rpx;
-					height: 16rpx;
+	
+				.no-member-level {
+					width: 100rpx;
+					height: 35rpx;
+					border-radius: 30rpx;
+					font-size: 20rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: $vipGolden;
+					color: $vipBlack;
+					margin-top: 10rpx;
 				}
+			}
+		}
+
+		.member-no, .integral-text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-size: 28rpx;
+			color: $vipGolden;
+		}
+
+		.member-no_text, .cart-text {
+			font-size: 30rpx;
+			font-weight: bold;
+		}
+
+		.integral-text {
+			.cart-arrow {
+				width: 26rpx;
+				height: 16rpx;
 			}
 		}
 

@@ -6,23 +6,28 @@
 		<view class="member-top {{ config.store_card_enable ? '' : 'noCard' }}">
 			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/member/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
-			</button>
-			<view class="member-text">
 				<view class="member-user-wrap">
 					<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
 					<!-- 会员 -->
-					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无数据'}}</view>
+					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无会员等级'}}</view>
+					<!-- 非会员 -->
+					<view class="no-member-level" wx:if="{{ user.membership && !user.membership.is_member }}">普通用户</view>
 				</view>
-				<view class="member-no" wx:if="{{ user.membership && user.membership.is_member }}">会员卡号：{{ user.membership && user.membership.member_no}}</view>
-				<!-- 会员 -->
-				<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
-					<view class="cart-text">会员积分：</view>
-					<view class="cart-price">{{ user.membership.exp || '0' }}分</view>
-					<image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image>
+			</button>
+			<!-- 会员 -->
+			<block wx:if="{{ user.membership && user.membership.is_member }}">
+				<view class="member-no">
+					<view class="member-no_text">卡号</view>
+					<view class="member-no_num">{{ user.membership && user.membership.member_no}}</view>
+				</view>
+				<navigator url="/pages/membership/integralList/integralList" class="integral-text" >
+					<view class="cart-text">积分</view>
+					<view class="cart-price">
+						{{ user.membership.exp || '0' }}分
+						<!-- <image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image> -->
+					</view>
 				</navigator>
-				<!-- 非会员 -->
-				<view class="no-member-level" wx:if="{{ user.membership && !user.membership.is_member }}">普通用户</view>
-			</view>
+			</block>
 			<!-- 非会员 -->
 			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
 				<!-- 已开通储值卡功能 -->
@@ -35,12 +40,10 @@
 					<view class="openVip-btn" bindtap="buyMember">立即开通会员</view>
 					<view class="openVip-tip">开通会员仅需 {{ globalData.CURRENCY[globalData.currency] }}{{ payment }}</view>
 				</block>
-			</view>
-			
+			</view>		
 		</view>
-		<!-- 会员 -->
+		<!-- 会员储值卡功能-->
 		<block wx:if="{{ user.membership && user.membership.is_member }}">
-			<!-- 开通储值卡功能 -->
 			<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
 				<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
 					<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
