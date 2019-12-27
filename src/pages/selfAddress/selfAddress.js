@@ -1,56 +1,18 @@
 import { OVERSEA_ADDRESS_KEY, ADDRESS_KEY } from 'constants/index';
-import { api } from 'peanut-all';
 
 const app = getApp();
 
 Page({
     data: {
         selfAddressObj: {},
-        error: {},
-        isShowAreaModal: false
+        error: {}
     },
 
-    async onLoad() {
+    onLoad(parmas) {
+        console.log(parmas);
         const selfAddressObj = wx.getStorageSync(ADDRESS_KEY) || {};
-        const { themeColor } = app.globalData;
-        const { areaList } = await api.hei.fetchRegionList();
-
         this.setData({
-            areaList,
-            selfAddressObj,
-            themeColor
-        });
-    },
-
-    showAreaModal() {
-        this.setData({
-            isShowAreaModal: true
-        });
-    },
-    closeAreaModal() {
-        const { selfAddressObj, error } = this.data;
-        if (!selfAddressObj.area) {
-            error.area = true;
-        }
-        this.setData({
-            error,
-            isShowAreaModal: false
-        });
-    },
-    onConfirmArea(ev) {
-        const { selfAddressObj, isShowAreaModal, error } = this.data;
-        const { values } = ev.detail;
-        error.area = false;
-
-        selfAddressObj.provinceName = values[0].name;
-        selfAddressObj.cityName = values[1].name;
-        selfAddressObj.countyName = values[2].name;
-        selfAddressObj.areaCode = values[2].code;
-        selfAddressObj.area = `${values[0].name !== values[1].name ? values[0].name + '/' : ''}${values[1].name}/${values[2].name}`;
-        this.setData({
-            error,
-            selfAddressObj,
-            isShowAreaModal: !isShowAreaModal
+            selfAddressObj
         });
     },
 
@@ -68,7 +30,6 @@ Page({
             error[key] = false;
             selfAddressObj[key] = value;
             this.setData({
-                error,
                 selfAddressObj
             });
         }
@@ -76,7 +37,7 @@ Page({
 
     saveSelfAddress() {
         const { selfAddressObj, error } = this.data;
-        if (error.userName || error.telNumber || error.area || error.detailInfo) {
+        if (error.userName || error.telNumber || error.detailInfo) {
             wx.showToast({
                 title: '请检查您的信息',
                 icon: 'none'
