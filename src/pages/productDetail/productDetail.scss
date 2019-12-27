@@ -947,7 +947,7 @@ button {
 .actionSheetContent {
 	$buttonHeight: 90rpx;
 	background-color: #fff;
-	padding: 20rpx 62rpx $buttonHeight+40rpx;
+	padding: 20rpx 62rpx $buttonHeight + 40rpx;
 
 	&.iphoneXTrick {
 		padding-bottom: $buttonHeight + 40rpx + $iphoneXBottomGap;

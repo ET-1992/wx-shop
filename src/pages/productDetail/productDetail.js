@@ -52,10 +52,13 @@ Page({
         isBargainBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
-        isShowProductDetailShareModal: false,
-        showShareModal: false,
+
+        isShowShareModal: false,
+        showPosterModal: false,
         templateTypeText,
-        expiredGroupon: []
+        expiredGroupon: [],
+
+        posterType: 'product'
     },
 
     go, // 跳转到规则详情页面
@@ -85,40 +88,25 @@ Page({
         });
     },
 
-    countDown() {
+    countDown(end, start) {
         return new Promise((resolve) => {
-            const {
-                miaosha_end_timestamp,
-                miaosha_start_timestamp,
-                miaosha_price,
-                price,
-                highest_price
-            } = this.data.product;
             const now = Math.round(Date.now() / 1000);
-            let timeLimit = miaosha_end_timestamp - now;
+            let timeLimit = end - now;
             let hasStart = true;
             let hasEnd = false;
-            if (now < miaosha_start_timestamp) {
+            if (now < start) {
                 hasStart = false;
-                timeLimit = miaosha_start_timestamp - now;
+                timeLimit = start - now;
             }
 
-            if (now > miaosha_end_timestamp) {
+            if (now > end) {
                 hasEnd = true;
                 timeLimit = 0;
             }
             this.setData({
                 timeLimit,
                 hasStart,
-                hasEnd,
-                miaoshaObj: {
-                    price,
-                    miaosha_price,
-                    highest_price,
-                    remainTime: getRemainTime(timeLimit).join(':'),
-                    hasStart,
-                    hasEnd,
-                }
+                hasEnd
             }, resolve());
         });
     },
@@ -205,17 +193,24 @@ Page({
                 data.product.content,
                 this,
             );
+
+            const { product } = data;
+
+            if (product.miaosha_enable) {
+                data.posterType = 'miaosha';
+                const { miaosha_end_timestamp, miaosha_start_timestamp } = product;
+                await this.countDown(
+                    miaosha_end_timestamp,
+                    miaosha_start_timestamp
+                );
+            }
+
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
                 ...data,
                 isLoading: false
             });
-
-            const { product } = this.data;
-            if (product.miaosha_enable) {
-                await this.countDown();
-            }
 
             // 限时购倒计时
             if (product.miaosha_enable) {
@@ -587,27 +582,9 @@ Page({
         });
     },
 
-    async isShowProductDetailShareModal() {
-        this.setSwiperVideoImg();
-        this.setData({
-            isShowProductDetailShareModal: true,
-            showShareModal: false
-        }, () => {
-            this.setData({
-                showShareModaled: false
-            });
-        });
-    },
-
-    onCloseProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: false
-        });
-    },
-
     /* 调起底部弹窗 */
     async openShareModal() {
-        const { product, current_user = {}, config } = this.data;
+        const { current_user = {}, config } = this.data;
         if (config.affiliate_enable && current_user && !current_user.is_affiliate_member && config.affiliate_public) {
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
@@ -621,11 +598,8 @@ Page({
                 return;
             }
         }
-        if (product.miaosha_enable) {
-            await this.countDown();
-        }
         this.setData({
-            showShareModal: true
+            isShowShareModal: true
         }, () => {
             this.setData({
                 showShareModaled: true
@@ -634,7 +608,7 @@ Page({
     },
     closeShareModal() {
         this.setData({
-            showShareModal: false
+            isShowShareModal: false
         }, () => {
             this.setData({
                 showShareModaled: false
@@ -688,13 +662,6 @@ Page({
         });
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
-    },
-
-    navigateToCart() {
-        autoNavigate('/pages/cart/cart');
-    },
-    navigateToHome() {
-        autoNavigate('/pages/home/home');
     },
 
     onExpiredGroupon(e) {
@@ -783,5 +750,60 @@ Page({
                 content: '请检查当前微信版本是否更新至7.0.3及以上版本',
             });
         }
-    }
+    },
+
+
+    onShowPoster() {
+        const {
+            product: {
+                id,
+                thumbnail,
+                title,
+                excerpt,
+                definePrice,
+                original_price,
+                miaosha_enable,
+                miaosha_price,
+                price,
+                highest_price
+            }
+        } = this.data;
+        let posterData = {};
+        if (miaosha_enable) {
+            const { timeLimit, hasStart, hasEnd } = this.data;
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                excerpt,
+                price,
+                miaosha_price,
+                highest_price,
+                timeLimit,
+                hasStart,
+                hasEnd
+            };
+        } else {
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                excerpt,
+                price: definePrice,
+                highest_price,
+                original_price
+            };
+        }
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    },
 });
