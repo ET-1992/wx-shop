@@ -47,7 +47,7 @@ Page({
                 this.setData({ renews: config.renews });
             }
             let count = config.membership && config.membership.rules && config.membership.rules.payment;
-            let memberNo = current_user.membership && current_user.membership.member_no;
+            let memberNo = (current_user.membership && current_user.membership.member_no) || '';
             // 获取会员信息
             this.setData({
                 user: current_user,
@@ -59,6 +59,7 @@ Page({
                 config,
                 globalData: app.globalData
             });
+            console.log('config62', this.data.config);
         } catch (error) {
             console.log(error);
             wx.showModal({
@@ -161,7 +162,7 @@ Page({
 
     // 会员续费确认支付
     onConfirmRenews(e) {
-        console.log('selectRenewal', e, e.detail);
+        console.log('selectRenewal164', e, e.detail);
         this.setData({
             selectRenewal: e.detail.selectRenewal,
             showRenewsModal: false
@@ -187,17 +188,22 @@ Page({
     async buyMember() {
         const { amount, config } = this.data;
         let params = {}; // 未开启储值卡功能的开通会员 不传参数 后台设金额
+        // 开启储值卡功能的开通会员或充值 需传金额参数
+        if (config.store_card_enable) {
+            params.amount = amount;
+        }
+        console.log('params160', params);
         try {
-            if (config.store_card_enable) { // 开启储值卡功能的开通会员或充值 需传金额参数
-                params.amount = amount;
-            }
-            console.log('params160', params);
             const { pay_sign } = await api.hei.joinMembership(params);
-            console.log('付费会员pay_sign', pay_sign);
+            console.log('付费会员pay_sign197', pay_sign);
             if (pay_sign) { await wxPay(pay_sign) }
             this.onShow();
         } catch (error) {
-            console.log(error);
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
+            });
         }
     },
 
@@ -209,9 +215,17 @@ Page({
             renew_id: selectRenewal.id,
             pay_method: 'WEIXIN'
         };
-        const { pay_sign } = await api.hei.renewalPay(params);
-        console.log('续费会员pay_sign', pay_sign);
-        if (pay_sign) { await wxPay(pay_sign) }
-        this.onShow();
+        try {
+            const { pay_sign } = await api.hei.renewalPay(params);
+            console.log('续费会员pay_sign218', pay_sign);
+            if (pay_sign) { await wxPay(pay_sign) }
+            this.onShow();
+        } catch (error) {
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
+            });
+        }
     }
 });
