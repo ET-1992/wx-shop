@@ -23,9 +23,9 @@ page {
 	.member-top {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		height: 200rpx;
-		padding: 44rpx;
+		// height: 200rpx;
+		padding: 70rpx 44rpx 40rpx;
+		position: relative;
 
 		.head-button {
 			display: flex;
@@ -42,10 +42,16 @@ page {
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
+		}
+
+		.member-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			margin-left: 30rpx;
+
 			.member-user-wrap {
 				display: flex;
-				flex-direction: column;
-				margin-left: 25rpx;
 				align-items: center;
 	
 				.member-user {
@@ -68,40 +74,105 @@ page {
 					font-size: 22rpx;
 					text-align: center;
 					line-height: 35rpx;
+					margin-left: 25rpx;
 				}
 	
-				.no-member-level {
-					width: 100rpx;
-					height: 35rpx;
-					border-radius: 30rpx;
-					font-size: 20rpx;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					background-color: $vipGolden;
-					color: $vipBlack;
-					margin-top: 10rpx;
+			}
+			.no-member-level {
+				width: 100rpx;
+				height: 35rpx;
+				border-radius: 30rpx;
+				font-size: 20rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				margin-top: 10rpx;
+			}
+
+			.integral-text {
+				display: flex;
+				align-items: center;
+				font-size: 26rpx;
+				color: $vipGolden;
+				margin-top: 10rpx;
+	
+				.cart-arrow {
+					width: 26rpx;
+					height: 16rpx;
 				}
 			}
 		}
 
-		.member-no, .integral-text {
+		.member_no {
+			position: absolute;
+			right: 28rpx;
+			top: 12rpx;
+			font-size: 20rpx;
+			color: #D6BC6F;
+		}
+
+		.member-renewal {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			margin-left: 25rpx;
+
+			.member-user {
+				font-size: 28rpx;
+				font-weight: bold;
+				color: $vipGolden;
+				line-height: 1.8;
+				max-width: 200rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.member_text {
+				display: flex;
+				font-size: 18rpx;
+				color: $vipGolden;
+
+				.member_num {
+					margin-left: 15rpx;
+				}
+			}
+			.integral-text {
+				display: flex;
+				align-items: center;
+				font-size: 22rpx;
+				color: $vipGolden;
+
+				.cart-arrow {
+					width: 26rpx;
+					height: 16rpx;
+				}
+			}
+		}
+
+		.renewal {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			font-size: 28rpx;
-			color: $vipGolden;
-		}
+			margin-left: auto;
 
-		.member-no_text, .cart-text {
-			font-size: 30rpx;
-			font-weight: bold;
-		}
-
-		.integral-text {
-			.cart-arrow {
-				width: 26rpx;
-				height: 16rpx;
+			.renewal-btn {
+				width: 130rpx;
+				height: 50rpx;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				font-size: 28rpx;
+				border-radius: 30rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-weight: bold;
+			}
+			.renewal-tip {
+				font-size: 22rpx;
+				color: $vipGolden;
+				margin-top: 10rpx;
 			}
 		}
 
@@ -140,7 +211,7 @@ page {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 30rpx 50rpx;
+		padding: 30rpx 20rpx 30rpx 30rpx;
 		color: $vipGolden;
 		border-top: 1px solid $vipGolden;
 		box-sizing: content-box;

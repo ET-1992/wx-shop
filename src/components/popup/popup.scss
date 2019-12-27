@@ -1,5 +1,4 @@
-// 会员充值弹窗
-.popup {
+.popup, .renews-popup {
 	width: 650rpx;
 	min-height: 500rpx;
 	padding-top: 30rpx;
@@ -17,84 +16,127 @@
 		color: #333333;
 	}
 	
-	.model-main {
+	.modal-main {
 		width: 100%;
 		padding: 0 30rpx;
 		margin: 50rpx 0;
 
-		.model-priceSection {
+		.modal-priceSection {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: flex-start;
 	
-			.model-section {
+			.modal-section {
 				width: 180rpx;
-				height: 100rpx;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				color: #333333;
-				font-size: 20rpx;
 				border-radius: 6rpx;
 				margin-bottom: 20rpx;
 				margin-left: 24rpx;
 				background-color: #F4F4F4;
 	
-				.model-price {
-					font-size: 28rpx;
-					font-weight: bold;
-				}
-	
 				&:nth-child(3n+1) {
 					margin-left: 0;
 				}
 			}
-	
+		}
+	}
+
+	// 确认支付按钮
+	.modal-btn {
+		width: 100%;
+		height: 100rpx;
+		text-align: center;
+		line-height: 100rpx;
+		font-size: 32rpx;
+		font-weight: bold;
+	}
+}
+
+// 会员充值弹窗
+.popup {
+	.modal-main {
+		.modal-priceSection {
+			.modal-section {
+				height: 100rpx;
+				color: #333333;
+
+				.modal-price {
+					font-size: 28rpx;
+					font-weight: bold;
+				}
+
+				.modal-text {
+					font-size: 20rpx;
+				}
+			}
 			.checked_recharge {
 				background-color: #43B545;
 				color: #fff;
 			}
 		}
-	
-		// 其他金额
-		.recharge-elsePrice { 
-			padding: 14rpx 20rpx;
+	}
+	// 其他金额
+	.recharge-elsePrice {
+		padding: 14rpx 20rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background-color: #F4F4F4;
+		border-radius: 8rpx;
+
+		.elsePrice-text {
+			min-width: 300rpx;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			background-color: #F4F4F4;
-			border-radius: 8rpx;
-	
-			.elsePrice-text {
-				min-width: 300rpx; 
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				font-size: 30rpx;
-				color: #000000;
-			}
-	
-			.elsePrice-input {
-				padding-left: 16rpx;
-			}
+			font-size: 30rpx;
+			color: #000000;
+		}
 
-			.elsePrice-placeholder {
-				font-size: 28rpx;
+		.elsePrice-input {
+			padding-left: 16rpx;
+		}
+
+		.elsePrice-placeholder {
+			font-size: 28rpx;
+		}
+	}
+	// 确认支付按钮
+	.modal-btn {
+		background-color: #43B545;
+		color: #fff;
+	}
+}
+
+// 会员续费弹窗
+.renews-popup {
+	.modal-main {
+		.modal-priceSection {
+			.modal-section {
+				height: 150rpx;
+				color: #707070;
+				.modal-price {
+					font-size: 24rpx;
+				}
+				.modal-text {
+					margin-top: 10rpx;
+					font-size: 32rpx;
+					font-weight: bold;
+				}
+			}
+			.checked_renews {
+				background-color: #FFFDF6;
+				color: #D6BC6F;
+				border:3rpx solid #D6BC6F;
 			}
 		}
 	}
-
-
 	// 确认支付按钮
-	.model-btn {
-		width: 100%;
-		height: 100rpx;
-		text-align: center;
-		line-height: 100rpx;
-		background-color: #43B545;
-		color: #fff;
-		font-size: 32rpx;
-		font-weight: bold;
+	.modal-btn {
+		background-color: #333333;
+		color: #D6BC6F;
 	}
 }

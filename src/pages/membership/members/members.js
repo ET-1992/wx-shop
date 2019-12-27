@@ -9,11 +9,16 @@ Page({
     data: {
         isLoading: true,
         showRechargeModal: false, // 会员充值弹窗
+        showRenewsModal: false, // 会员续费弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
-        memberExclusiveBanner: '',
-        word: ''
+        // memberExclusiveBanner: '',
+        data: {},
+        word: '',
+        memberNo: 0,
+        payment: 0,
+        selectRenewal: {} // 所选择的续费项
     },
 
     onLoad(params) {
@@ -31,24 +36,26 @@ Page({
     async initPage() {
         try {
             // 获取全局店铺配置信息
-            const config = wx.getStorageSync(CONFIG);
+            // const config = wx.getStorageSync(CONFIG);
             // 获取开启储值卡后充值金额数组
-            const { current_user, data } = await api.hei.membershipCard();
+            const { current_user, data, config } = await api.hei.membershipCard();
             if (config.store_card_enable) {
                 const { data } = await api.hei.rechargePrice();
-                this.setData({
-                    rechargeArray: data
-                });
+                this.setData({ rechargeArray: data });
+            }
+            if (config.renews) {
+                this.setData({ renews: config.renews });
             }
             let count = config.membership && config.membership.rules && config.membership.rules.payment;
+            let memberNo = current_user.membership && current_user.membership.member_no;
             // 获取会员信息
             this.setData({
                 user: current_user,
-                word: data.word || '',
+                data,
                 memberCouponList: data.coupons,
-                memberExclusiveBanner: data.dedicated_products_banner,
                 isLoading: false,
                 payment: count,
+                memberNo,
                 config,
                 globalData: app.globalData
             });
@@ -136,7 +143,14 @@ Page({
         });
     },
 
-    // 确认支付
+    // 打开续费弹窗
+    openRenewsModal() {
+        this.setData({
+            showRenewsModal: true
+        });
+    },
+
+    // 会员充值确认支付
     onConfirmRecharge(e) {
         this.setData({
             amount: e.detail.amount,
@@ -145,9 +159,28 @@ Page({
         this.buyMember();
     },
 
+    // 会员续费确认支付
+    onConfirmRenews(e) {
+        console.log('selectRenewal', e, e.detail);
+        this.setData({
+            selectRenewal: e.detail.selectRenewal,
+            showRenewsModal: false
+        });
+        this.memberShipRenewal();
+    },
+
     // 关闭会员充值弹窗
     closeRechargeModal() {
-        this.setData({ showRechargeModal: false });
+        this.setData({
+            showRechargeModal: false
+        });
+    },
+
+    // 关闭续费弹窗
+    closeRenewsModal() {
+        this.setData({
+            showRenewsModal: false
+        });
     },
 
     // 开通会员
@@ -166,5 +199,19 @@ Page({
         } catch (error) {
             console.log(error);
         }
+    },
+
+    // 会员续费
+    async memberShipRenewal() {
+        const { selectRenewal } = this.data;
+        console.log('selectRenewal', selectRenewal);
+        let params = {
+            renew_id: selectRenewal.id,
+            pay_method: 'WEIXIN'
+        };
+        const { pay_sign } = await api.hei.renewalPay(params);
+        console.log('续费会员pay_sign', pay_sign);
+        if (pay_sign) { await wxPay(pay_sign) }
+        this.onShow();
     }
 });

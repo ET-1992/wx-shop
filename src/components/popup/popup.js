@@ -11,11 +11,31 @@ Component({
                         item.checked = false;
                     });
                     rechargeArray[0].checked = true;
+                    console.log('rechargeArray', rechargeArray);
                     this.setData({
                         rechargePrice: '',
                         rechargeArray,
                         amount: rechargeArray && rechargeArray[0] && rechargeArray[0].recharge || 0
                     });
+                }
+            }
+        },
+        showRenewsModal: {
+            type: Boolean,
+            value: false,
+            observer(newValue) {
+                if (newValue) {
+                    const { renews } = this.data;
+                    renews.forEach(item => {
+                        item.checked = false;
+                    });
+                    renews[0].checked = true;
+                    this.setData({
+                        renews,
+                        selectRenewal: renews && renews[0]
+                    });
+                    console.log('renews40', this.data.renews);
+                    console.log('selectRenewal', this.data.selectRenewal);
                 }
             }
         },
@@ -30,10 +50,19 @@ Component({
         config: {
             type: Object,
             value: {}
+        },
+        tip: {
+            type: String,
+            value: ''
+        },
+        renews: {
+            type: Object,
+            value: []
         }
     },
     data: {
-        rechargePrice: ''
+        rechargePrice: '',
+        selectRenewal: {}
     },
     attached() {
         console.log('attached');
@@ -45,6 +74,10 @@ Component({
         // 关闭会员充值弹窗
         closeRechargeModal() {
             this.triggerEvent('closeRechargeModal', {}, { bubbles: true });
+        },
+        // 关闭续费弹窗
+        closeRenewsModal() {
+            this.triggerEvent('closeRenewsModal', {}, { bubbles: true });
         },
         // 充值金额点击选择事件
         rechargeTap(e) {
@@ -62,6 +95,21 @@ Component({
             console.log('amount', this.data.amount);
         },
 
+        // 续费金额点击选择事件
+        renewsTap(e) {
+            let { index: activeIndex } = e.currentTarget.dataset;
+            const { renews } = this.data;
+            renews.forEach((item, index) => {
+                item.checked = (index === activeIndex);
+            });
+            this.setData({
+                renews,
+                selectRenewal: renews[activeIndex]
+            });
+            console.log('renews110', renews);
+            console.log('selectRenewal', this.data.selectRenewal);
+        },
+
         /* 输入框聚焦时，取消金额选择框的选中状态 */
         inputFocus(e) {
             const { rechargeArray } = this.data;
@@ -77,10 +125,10 @@ Component({
             this.setData({ amount: value });
         },
 
-        /* 有储值卡的店铺确认支付按钮事件 */
+        /* 充值确认支付按钮事件 */
         async rechargePriceEvent() {
             const { amount } = this.data;
-            console.log('amount', amount);
+            console.log('amount129', amount);
             if (Number(amount) <= 0) {
                 wx.showToast({
                     title: '请输入大于0的金额',
@@ -89,6 +137,12 @@ Component({
                 return;
             }
             this.triggerEvent('onConfirmRecharge', { amount }, { bubbles: true });
+        },
+
+        /* 续费确认支付按钮事件 */
+        async renewsPriceEvent() {
+            const { selectRenewal } = this.data;
+            this.triggerEvent('onConfirmRenews', { selectRenewal }, { bubbles: true });
         }
     }
 });

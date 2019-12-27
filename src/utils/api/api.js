@@ -483,5 +483,11 @@ export const apis = {
     bargainActor: {
         path: 'api/mag.bargain.mission.actor.list.json',
         isForceToken: true
+    },
+    // 会员续费
+    renewalPay: {
+        path: 'api/mag.membership.renew.pay.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
