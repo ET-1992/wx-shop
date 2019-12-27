@@ -224,7 +224,20 @@
         </button>
     </block>
     <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !otherPeopleGroupon }}">
-        <orderOperations phone="{{ order.phone_number }}" isOrderDetail="{{true}}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" order="{{ order }}" isShowContact="{{ !order.isDone }}" isShowService="{{ order.isDone }}" isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" user="{{ user }}" bindconfirmOrder="onRelaodOrder" bindpayOrder="onRelaodOrder" bindcloseOrder="onRelaodOrder" />
+        <orderOperations 
+            phone="{{ order.phone_number }}" 
+            isOrderDetail="{{true}}" 
+            statusCode="{{ order.statusCode }}" 
+            orderNo="{{ order.order_no }}" 
+            order="{{ order }}" 
+            isShowContact="{{ !order.isDone }}" 
+            isShowService="{{ order.isDone }}" 
+            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" 
+            user="{{ current_user }}" 
+            bindconfirmOrder="onRelaodOrder" 
+            bindpayOrder="onRelaodOrder" 
+            bindcloseOrder="onRelaodOrder" 
+        />
     </view>
     <view class="promote" wx:if="{{ (order.status === 10 || otherPeopleGroupon ) && products.length }}">
         <view class="label">
@@ -249,7 +262,7 @@
   			<image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
   			<view>分享给好友</view>
   		</button>
-  		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+  		<view class="shareBtn" bindtap="onShowPoster">
   			<image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
   			<view>分享活动海报</view>
   		</view>
@@ -257,19 +270,8 @@
   	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
   </view>
 </van-popup>
-<productDetailShareModal
- productImage="{{ order.groupon.image_url + '?imageView2/1/w/540/h/540/q/70#' }}"
- productTitle="{{ order.groupon.title }}"
- productPrice="{{ order.groupon.price }}"
- originalPrice="{{ order.items[0].original_price }}"
- grouponLimit="{{ order.groupon.member_limit }}"
- remainSecond="{{ remainSecond }}"
- remainTime="{{ remainTime }}"
- routePath="{{ routePath }}"
- routeQuery="{{ routeQuery }}"
- bindonCloseModal="onCloseProductDetailShareModal"
- wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}"
-/>
+
+<poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="grouponBuy" bindonClose="onClosePoster" />
 
 <skuModal
  wx:if="{{ otherPeopleGroupon }}"

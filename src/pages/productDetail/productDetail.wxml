@@ -1,7 +1,6 @@
 <!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
-<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" 
-  hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
+<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -317,11 +316,11 @@
 			<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 			<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
 			<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
-				<view class="shop" bind:tap="navigateToHome">
+				<view class="shop" data-url="/pages/home/home" bind:tap="go">
 					<image class="icon" src="../../icons/store.png" />
 					<text>店铺</text>
 				</view>
-				<view class="cart" bind:tap="navigateToCart">
+				<view class="cart" data-url="/pages/cart/cart" bind:tap="go">
 					<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 					<image class="icon" src="../../icons/shopcart.png" />
 					<text>购物车</text>
@@ -519,24 +518,19 @@
 </van-popup>
 
 <!-- 分享弹窗 -->
-<van-popup show="{{ showShareModal }}" position="bottom" bind:close="closeShareModal">
+<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="closeShareModal">
 	<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view class="shareModalContent">
 			<button class="shareBtn" open-type="share">
 				<image src="../../icons/shareFriendIcon.svg" mode="aspectFit" />
 				<view>分享给好友</view>
 			</button>
-			<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+			<view class="shareBtn" bindtap="onShowPoster">
 				<image src="../../icons/sharePosterIcon.svg" mode="aspectFit" />
 				<view>分享商品海报</view>
 			</view>
 		</view>
-		<image
-		 class="close"
-		 src="/icons/closeModal.png"
-		 mode="aspectFit"
-		 catchtap="closeShareModal"
-		/>
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
 	</view>
 </van-popup>
 
@@ -557,18 +551,12 @@
  bind:getShippingType="getShippingType"
 />
 
-<productDetailShareModal
- productImage="{{ product.thumbnail }}"
- productTitle="{{ product.title }}"
- productPrice="{{ product.definePrice }}"
- originalPrice="{{ product.original_price }}"
- routePath="{{ routePath }}"
- routeQuery="{{ routeQuery }}"
- isGroupon="{{ product.groupon_enable }}"
- isMiaosha="{{ product.miaosha_enable }}"
- miaoshaObj="{{ miaoshaObj }}"
- bindonCloseModal="onCloseProductDetailShareModal"
- wx:if="{{ isShowProductDetailShareModal && product.thumbnail }}"
+<poster 
+	wx:if="{{ showPosterModal }}" 
+	posterData="{{ posterData }}" 
+	user="{{ current_user }}" 
+	posterType="{{ posterType }}"
+	bindonClose="onClosePoster"
 />
 
 <wxs module="productDetail">

@@ -1,0 +1,19 @@
+<view class="container" catchtouchmove="touchmove">
+	<view class="shareModal">
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="onClose" />
+
+		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="1000"/>
+
+		<image v-if="{{ imagePath }}" class="canvasWrap" src="{{ imagePath }}" />
+
+		<view class="btnWtap">
+			<button 
+				class="btn" 
+				bindtap="saveImage" 
+				style="background-color: {{ themeColor.primaryColor }}"
+			>{{ save_button_title || '保存图片到手机' }}</button>
+		</view>
+	</view>
+</view>
+
+<myModal modal="{{ authModal }}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />

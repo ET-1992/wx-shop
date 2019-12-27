@@ -36,7 +36,8 @@ Page({
             'STORE_CARD': '储值卡支付'
         },
 
-        isShowShareModal: false
+        isShowShareModal: false,
+        showPosterModal: false
     },
 
     onLoad({ isFromCreate = false }) {
@@ -51,16 +52,15 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
-            routePath: this.route,
             isLoading: true
         });
     },
 
     async onShow() {
         const { id, grouponId } = this.options;
-        const user = wx.getStorageSync(USER_KEY);
+        const current_user = wx.getStorageSync(USER_KEY);
         this.setData({
-            user,
+            current_user,
             grouponId
         });
 
@@ -72,7 +72,7 @@ Page({
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });
         const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
-        const data = { order, redpacket };
+        const data = { order, redpacket, current_user };
         const statusCode = Number(order.status);
         let address = {};
         address.userName = order.receiver_name;
@@ -159,16 +159,9 @@ Page({
             for (let i = 0; i < (order.groupon.member_limit - order.groupon.member_count); i++) {
                 grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
             }
-            let routeQuery = {
-                grouponId: order.groupon && order.groupon.id,
-                afcode: current_user && current_user.afcode || '',
-                post_id: order.groupon.post_id,
-                sku_id: order.groupon.sku_id
-            };
             this.setData({
                 groupon: order.groupon,
-                grouponDefaultImageArray,
-                routeQuery
+                grouponDefaultImageArray
             });
         }
 
@@ -332,37 +325,16 @@ Page({
         });
     },
 
-    async isShowProductDetailShareModal() {
-        const { order } = this.data;
-        const { time_expired } = order.groupon;
-        const now = Math.round(Date.now() / 1000);
-        let remainSecond = time_expired - now;
-        let remainTime = getRemainTime(remainSecond).join(':');
-
-        this.setData({
-            isShowProductDetailShareModal: true,
-            isShowShareModal: false,
-            remainTime,
-            remainSecond
-        });
-    },
-
-    onCloseProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: false
-        });
-    },
-
     /**
      * 默认隐藏页面分享按钮，待成团页面开启
      */
     onShareAppMessage({ target }) {
         console.log('target', target);
 
-        const { user = {}, groupon = {}, redpacket = {}} = this.data;
+        const { current_user = {}, groupon = {}, redpacket = {}} = this.data;
 
         let data = {
-            share_title: `${user.nickname || '好友'}邀请你一起拼团`,
+            share_title: `${current_user.nickname || '好友'}邀请你一起拼团`,
             share_image: groupon.image_url
         };
         let path = `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`;
@@ -374,7 +346,7 @@ Page({
             if (isModal || isRedpocketShare) {
                 data = {
                     isShared: true,
-                    share_title: `${user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
+                    share_title: `${current_user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
                     share_image: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
                 };
                 path = `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`;
@@ -445,5 +417,35 @@ Page({
             shipping_type: e.detail.shipping_type
         });
         console.log('shipping_type696', this.data.shipping_type);
-    }
+    },
+
+    onShowPoster() {
+        const {
+            order: { groupon }
+        } = this.data;
+
+        const now = Math.round(Date.now() / 1000);
+        let remainSecond = groupon.time_expired - now;
+
+        let posterData = {
+            id: groupon.id,
+            post_id: groupon.post_id,
+            sku_id: groupon.sku_id,
+            price: groupon.price,
+            member_limit: groupon.member_limit,
+            remainSecond
+        };
+
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    },
 });

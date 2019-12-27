@@ -489,5 +489,9 @@ export const apis = {
         path: 'api/mag.membership.renew.pay.json',
         method: 'POST',
         isForceToken: true
+    },
+    fetchRegionList: {
+        path: 'api/mag.region.list.json',
+        method: 'GET'
     }
 };

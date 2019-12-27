@@ -1,9 +1,6 @@
-@import "../../utils/wxParse/wxParse.scss";
-@import "../../styles/color.scss";
-/*.wxParse-inline{
-	font-size:14px;
-	color:#333;
-}*/
+@import "~utils/wxParse/wxParse.scss";
+@import "~styles/color.scss";
+
 page{
 	background:#fff;
 	font-family:"PingFang SC";
@@ -75,13 +72,13 @@ swiper image{
 	width: 100%;
 }
 .product-card{
-	width: 98%;
+	width: 90%;
 	color: #333;
 	padding: 20rpx;
-	// line-height: 1.2;
 	margin: 40rpx auto;
-	box-shadow:2px 2px 12px #ccc;
+	box-shadow: 2px 2px 12px #ccc;
 	border-radius: 10rpx;
+	overflow: hidden !important;
 }
 .product-card-thumbnail{
 	width: 240rpx !important;
@@ -89,24 +86,24 @@ swiper image{
 	float: left;
 }
 .product-card-title{
- 	overflow: hidden;/*超出部分隐藏*/
+ 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	word-break: break-all;
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+    text-overflow: ellipsis;
 	font-size: 16px;
 	font-weight: normal;
 	color: $titleColor;
 	padding: 18rpx 0 0 25rpx;
 	margin-top: 0;
-	width:380rpx;
+	width: 380rpx;
 	height: 110rpx;
 }
 .product-card-except{
-	overflow: hidden;/*超出部分隐藏*/
-    white-space: nowrap;/*不换行*/
-    text-overflow:ellipsis;/*超出部分文字以...显示*/
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
 	font-size: 24rpx;
 	color:$tagColor;
 	padding-left: 20rpx;
@@ -173,7 +170,6 @@ swiper image{
 		text-align: center;
 		align-items: center;
 		color: $titleColor;
-		// padding: 30rpx 0;
 		height: 90rpx;
 		line-height: 90rpx;
 
@@ -250,6 +246,10 @@ swiper image{
 	.footerItem{
 		display: flex;
 	}
+	&.iphoneXTrick{
+		padding-bottom: 40rpx;
+		height: 140rpx;
+	}
 }
 .fav,.comment{
 	display: flex;
@@ -265,14 +265,6 @@ button::after{
 	border: none;
 	outline: none;
 }
-.iphoneXTrick{
-	padding-bottom: 40rpx;
-	height:140rpx;
-}
-
-// .size-full{
-// 	width: 750rpx;
-// }
 
 .relateShop .meta{
 	height: auto;
@@ -290,5 +282,47 @@ button::after{
 	}
 	.relateShopItem:nth-child(even){
 		float: right;
+	}
+}
+
+/* 底部弹窗 */
+.actionShareModal{
+	background-color: #fff;
+	width: 100%;
+	&.iphoneXTrick {
+		padding-bottom: 40rpx;
+	}
+	&.show {
+		transform: translateY(0);
+	}
+	.close {
+		position: absolute;
+		width: 48rpx;
+		height: 48rpx;
+		top: 15rpx;
+		right: 15rpx;
+	}
+	.shareModalContent{
+		height: 280rpx;
+		display: flex;
+		justify-content: space-around;
+		.shareBtn{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-top: 67.5rpx;
+			background-color: transparent;
+	
+			.image{
+				width: 90rpx;
+				height: 90rpx;
+			}
+			.text{
+				padding-top: 20rpx;
+				font-size: 28rpx;
+				line-height: 1.5;
+				color: #333;
+			}
+		}
 	}
 }
