@@ -483,5 +483,9 @@ export const apis = {
     bargainActor: {
         path: 'api/mag.bargain.mission.actor.list.json',
         isForceToken: true
+    },
+    fetchRegionList: {
+        path: 'api/mag.region.list.json',
+        method: 'GET'
     }
 };

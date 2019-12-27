@@ -4,8 +4,8 @@
 		"van-field": "components/vant-weapp/dist/field/index",
 		"van-cell-group": "components/vant-weapp/dist/cell-group/index",
 		"van-cell": "components/vant-weapp/dist/cell/index",
-		"van-area": "vant-weapp/dist/area/index",
-		"van-popup": "vant-weapp/dist/popup/index",
-		"van-button": "vant-weapp/dist/button/index"
+		"van-area": "@vant/weapp/dist/area/index",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"van-button": "@vant/weapp/dist/button/index"
 	  }
 }
