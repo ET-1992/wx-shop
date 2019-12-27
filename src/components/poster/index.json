@@ -1,0 +1,8 @@
+{
+	"component": true,
+	"usingComponents": {
+        "painter":"../painter/painter",
+        "myModal": "../myModal/myModal"
+    }
+}
+
