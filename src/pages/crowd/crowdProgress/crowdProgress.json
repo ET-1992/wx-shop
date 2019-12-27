@@ -1,11 +1,12 @@
 {
 	"usingComponents": {
 		"richList": "../richList/index",
-		"countDown": "../../../components/countDown/countDown",
-		"i-progress": "../../../components/iview-weapp/dist/progress/index",
-		"productItemSold": "../../../components/productItemSold/index",
-		"loading": "../../../components/loading/index",
-		"van-popup": "../../../components/vant-weapp/dist/popup/index",
-		"productDetailShareModal": "../../../components/productDetailShareModal/productDetailShareModal"
+		"countDown": "components/countDown/countDown",
+		"i-progress": "components/iview-weapp/dist/progress/index",
+		"productItemSold": "components/productItemSold/index",
+		"loading": "components/loading/index",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"productDetailShareModal": "components/productDetailShareModal/productDetailShareModal",
+		"poster": "components/poster/index"
 	}
 }

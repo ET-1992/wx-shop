@@ -1,8 +1,9 @@
 {
 	"usingComponents": {
-		"productItemSold": "../../../components/productItemSold/index",
-		"loading": "../../../components/loading/index",
-		"van-popup": "../../../components/vant-weapp/dist/popup/index",
-		"productDetailShareModal": "../../../components/productDetailShareModal/productDetailShareModal"
+		"productItemSold": "components/productItemSold/index",
+		"loading": "components/loading/index",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"productDetailShareModal": "components/productDetailShareModal/productDetailShareModal",
+		"poster": "components/poster/index"
 	}
 }

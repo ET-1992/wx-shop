@@ -7,7 +7,9 @@ Page({
         isLoading: true,
         maxlength: 50,  // 输入框最大字数
         pageShareStatus: false,
-        defaultWord: '就差一点点了，快来助我一臂之力吧'
+        defaultWord: '就差一点点了，快来助我一臂之力吧',
+        showPosterModal: false,
+        isShowShareModal: false
     },
 
     async onLoad(options) {
@@ -26,7 +28,7 @@ Page({
         await this.loadOrder(options.id);
     },
     async loadOrder(id) {
-        const { order } = await api.hei.fetchOrder({ order_no: id });
+        const { current_user, order } = await api.hei.fetchOrder({ order_no: id });
 
         // -----------------处理价格显示
         let info = {};
@@ -34,14 +36,13 @@ Page({
         info.finalPayDispaly = Number(info.finalPay).toFixed(2);
         // -----------------End
 
-        let { crowd_pay_no } = order.crowd;
         this.setData({
             order,
             items: order.items,
             finalPayDispaly: info.finalPayDispaly,
             isLoading: false,
             crowd: order.crowd,
-            routeQuery: { crowd_pay_no }
+            current_user
         });
     },
     bindTextAreaBlur(e) {
@@ -65,28 +66,33 @@ Page({
     },
 
     // 分享弹窗
-    showShareModal() {
-        let { shareModal } = this.data;
-        shareModal ? shareModal = false : shareModal = true;
-        this.setData({ shareModal });
-    },
-
-    async onShowProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: true,
-            shareModal: false
-        });
-        const { order_no, content, defaultWord } = this.data;
+    async showShareModal() {
+        let { isShowShareModal, order_no, content, defaultWord } = this.data;
         await api.hei.crowdCreate({
             order_no,
             word: content ? content : defaultWord,
         });
-    },
-    onCloseProductDetailShareModal() {
         this.setData({
-            isShowProductDetailShareModal: false
+            isShowShareModal: !isShowShareModal
         });
     },
+
+    // async onShowProductDetailShareModal() {
+    //     this.setData({
+    //         isShowProductDetailShareModal: true,
+    //         shareModal: false
+    //     });
+    //     const { order_no, content, defaultWord } = this.data;
+    //     await api.hei.crowdCreate({
+    //         order_no,
+    //         word: content ? content : defaultWord,
+    //     });
+    // },
+    // onCloseProductDetailShareModal() {
+    //     this.setData({
+    //         isShowProductDetailShareModal: false
+    //     });
+    // },
 
     onShareAppMessage() {
         let { content, defaultWord, crowd } = this.data;
@@ -98,4 +104,49 @@ Page({
         this.setData({ pageShareStatus: true });
         return shareMsg;
     },
+
+    async onShowPoster() {
+        const {
+            order: {
+                amount
+            },
+            items: [
+                {
+                    thumbnail,
+                    image_url,
+                    title,
+                    original_price,
+                    price
+                }
+            ],
+            crowd: {
+                crowd_pay_no
+            }
+        } = this.data;
+        let posterData = {
+            banner: image_url || thumbnail,
+            title,
+            crowd_pay_no,
+            price: amount,
+            original_price
+        };
+
+        const { order_no, content, defaultWord } = this.data;
+        await api.hei.crowdCreate({
+            order_no,
+            word: content ? content : defaultWord,
+        });
+
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    }
 });

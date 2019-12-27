@@ -67,7 +67,7 @@
             <form report-submit bindsubmit="onPay" wx:if="{{crowd.type === '2'}}">
                 <button class="btn" form-type="submit" disabled="{{ crowd.status !== '1' ? true : false }}">帮TA付款</button>
             </form>
-            <view class="btn" bind:tap="navigateToHome">我也要下单</view>
+            <view class="btn" data-url="/pages/home/home" bind:tap="go">我也要下单</view>
         </view>
     </view>
 
@@ -93,13 +93,13 @@
 </van-popup>
 
 <!-- 底部弹窗 -->
-<van-popup show="{{ shareModal }}" bind:close="showShareModal" position="bottom">
+<van-popup show="{{ isShowShareModal }}" bind:close="showShareModal" position="bottom">
     <view class="shareModalContent {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<button class="shareBtn" open-type="share">
 			<image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
 			<view>分享给好友</view>
 		</button>
-		<view class="shareBtn" bindtap="onShowProductDetailShareModal">
+		<view class="shareBtn" bindtap="onShowPoster">
 			<image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
 			<view>分享商品海报</view>
 		</view>
@@ -107,12 +107,10 @@
 	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
 </van-popup>
 
-<productDetailShareModal
-    productImage="{{ items[0].thumbnail }}"
-    productTitle="{{ items[0].title }}"
-    productPrice="{{ order.amount }}"
-    routePath="{{ routePath }}"
-    routeQuery="{{ routeQuery }}"
-    bindonCloseModal="onCloseProductDetailShareModal"
-    wx:if="{{ isShowProductDetailShareModal }}"
+<poster 
+	wx:if="{{ showPosterModal }}" 
+	posterData="{{ posterData }}" 
+	user="{{ userInfo }}" 
+	posterType="crowd"
+	bindonClose="onClosePoster"
 />
