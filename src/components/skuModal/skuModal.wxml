@@ -92,7 +92,7 @@
                 </view>
             </view>
         </scroll-view>
-        <view class="quantity">
+        <view class="quantity" wx:if="{{!product.bargain_enable && !isBargainBuy}}">
             <view class="title">购买数量</view>
             <view class="rightWrap">
                 <view class="least" wx:if="{{ product.least }}">（ {{ product.least }}件起购 ）</view>
