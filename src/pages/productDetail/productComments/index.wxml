@@ -1,13 +1,13 @@
 <view class="container">
     <view class="title"> 商品评价（{{ replyCount }}）</view>
     <view class="comments">
-        <view class="item" wx:for="{{ comments }}">
+        <view class="item" wx:for="{{ comments }}" wx:key="id">
            <view class="top">
                 <view class="user">
                     <image class="avatar" src="{{ item.user.avatarurl }}" mode="aspectFit"></image>
                     <view class="nickname">{{ item.user.nickname }}</view>
                 </view>
-               <i-cell><i-rate count="{{ 5 }}" value="{{ item.rating }}" disabled="{{true}}"></i-rate></i-cell>
+                <van-rate readonly color="#f66515" value="{{ item.rating  }}" />
            </view>
            <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
            <view class="images" wx:if="{{ item.images && item.images.length }}">
