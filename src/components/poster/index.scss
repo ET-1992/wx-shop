@@ -36,6 +36,7 @@
 	
 	.btnWtap {
 		margin-top: 60rpx;
+		height: 70rpx;
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
@@ -44,7 +45,7 @@
 	.btn {
 		flex: 1;
 		max-width: 300rpx;
-		height: 70rpx;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;

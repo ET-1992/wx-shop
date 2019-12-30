@@ -27,7 +27,10 @@ Component({
         try {
             const { themeColor } = app.globalData;
             const { posterData, user, posterType } = this.data;
-            wx.showLoading({ title: '绘制图片中...' });
+            wx.showLoading({
+                title: '绘制图片中...',
+                mask: true
+            });
 
             let requestData = {
                 weapp_page: 'pages/webPages/webPages',
