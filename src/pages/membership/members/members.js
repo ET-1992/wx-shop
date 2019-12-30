@@ -1,5 +1,4 @@
 import { getAgainUserForInvalid, go } from 'utils/util';
-import { CONFIG } from 'constants/index';
 import { wxPay } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import api from 'utils/api';
@@ -35,8 +34,6 @@ Page({
     // 获取会员信息
     async initPage() {
         try {
-            // 获取全局店铺配置信息
-            // const config = wx.getStorageSync(CONFIG);
             // 获取开启储值卡后充值金额数组
             const { current_user, data, config } = await api.hei.membershipCard();
             if (config.store_card_enable) {
@@ -151,6 +148,20 @@ Page({
         });
     },
 
+    // 关闭会员充值弹窗
+    closeRechargeModal() {
+        this.setData({
+            showRechargeModal: false
+        });
+    },
+
+    // 关闭续费弹窗
+    closeRenewsModal() {
+        this.setData({
+            showRenewsModal: false
+        });
+    },
+
     // 会员充值确认支付
     onConfirmRecharge(e) {
         this.setData({
@@ -168,20 +179,6 @@ Page({
             showRenewsModal: false
         });
         this.memberShipRenewal();
-    },
-
-    // 关闭会员充值弹窗
-    closeRechargeModal() {
-        this.setData({
-            showRechargeModal: false
-        });
-    },
-
-    // 关闭续费弹窗
-    closeRenewsModal() {
-        this.setData({
-            showRenewsModal: false
-        });
     },
 
     // 开通会员
