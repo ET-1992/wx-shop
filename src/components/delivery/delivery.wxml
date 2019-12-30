@@ -40,7 +40,7 @@
 				<view class="address-title">门店配送时间</view>
 				<!-- 确认订单数据 -->
 				<picker bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}" wx:if="{{ !isOrderDetail }}" class="picker">
-					<view class="address-time">{{ homeDeliveryTimes[index] || '无' }}</view>
+					<view class="address-time">{{ homeDeliveryTimes[index] || '请先选择门店' }}</view>
 				</picker>
 				<!-- 订单详情数据 -->
 				<view class="address-orderTime" wx:if="{{ isOrderDetail }}">{{ address.receiver_delivery_time || '无' }}</view>
