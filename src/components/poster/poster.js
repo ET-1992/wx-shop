@@ -128,8 +128,8 @@ export default class Poster {
             viewsText[2] = `${globalData.CURRENCY[globalData.currency] + price}`;
         }
 
-        const viewsTop = [60, 120, 140];
-        const viewsFontSize = [30, 24, 26];
+        const viewsTop = [50, 110, 130];
+        const viewsFontSize = [28, 24, 26];
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['normal', 'normal', 'normal'];
         const viewsMaxLines = [2, 1, 1];
@@ -157,14 +157,14 @@ export default class Poster {
 
     // 海报中间文字
     titleViews() {
-        const { title, excerpt, product } = this.data;
+        const { title, excerpt = '', product = {}} = this.data;
         const _views = [];
         const viewsText = [
-            title || product.title,
-            excerpt || product.excerpt
+            title || (product && product.title),
+            excerpt || (product && product.excerpt)
         ];
         const viewsTop = [60, 120];
-        const viewsFontSize = [30, 24];
+        const viewsFontSize = [28, 24];
         const viewsLeft = [45, 45];
         const viewsFontWeight = ['normal', 'normal'];
         const viewsMaxLines = [2, 1];
@@ -197,7 +197,7 @@ export default class Poster {
             {
                 type: 'rect',
                 css: {
-                    bottom: '200rpx',
+                    bottom: '220rpx',
                     width: '500rpx',
                     height: '1rpx',
                     color: '#ccc',
@@ -208,7 +208,7 @@ export default class Poster {
                 type: 'image',
                 url: imgToHttps(qrcode_url),
                 css: {
-                    bottom: '20rpx',
+                    bottom: '40rpx',
                     right: '45rpx',
                     width: '150rpx',
                     height: '150rpx'
@@ -233,7 +233,7 @@ export default class Poster {
         let statusText = '';
 
         const viewsLeft = 45;
-        const viewsBottom = 20;
+        const viewsBottom = 40;
 
         if (!hasStart) {
             statusText = '距活动开始';
@@ -347,7 +347,7 @@ export default class Poster {
         let statusText = remainSecond > 0 ? '距拼团结束' : '已结束';
 
         const viewsLeft = 45;
-        const viewsBottom = 20;
+        const viewsBottom = 40;
 
         _views = [
             {
@@ -456,7 +456,7 @@ export default class Poster {
                 ];
                 break;
         }
-        const viewsBottom = [105, 65, 30];
+        const viewsBottom = [125, 85, 50];
         const viewsFontSize = [24, 24, 24];
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['bold', 'normal', 'normal'];

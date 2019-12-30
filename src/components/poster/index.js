@@ -73,7 +73,11 @@ Component({
                 product,
                 globalData: app.globalData
             };
-            const palette = new Poster(Object.assign(posterData, options), user || current_user, posterType).init();
+            const palette = new Poster(
+                Object.assign(posterData, options),
+                user || current_user,
+                posterType
+            ).init();
 
             this.setData({
                 palette,
