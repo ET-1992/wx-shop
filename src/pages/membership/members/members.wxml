@@ -29,7 +29,7 @@
 			</view>	
 
 			<!-- 会员卡号 -->
-			<view class="member_no" wx:if="{{ user.membership && user.membership.is_member}}">卡号:{{memberNo}}</view>
+			<view class="member_no" wx:if="{{ user.membership && user.membership.is_member}}">NO.{{memberNo}}</view>
 
 			<!-- 非会员 储值卡-->
 			<view class="head-openVip" wx:if="{{ user.membership && !user.membership.is_member }}">
