@@ -6,7 +6,7 @@
             <image src="/icons/clear.png" class="close" bindtap="close" />
         </view>
         <view class="content">
-            <view class="item" wx:for="{{ properties }}">
+            <view class="item" wx:for="{{ properties }}" wx:key="name">
                 <view class="itemTitle">{{ item.name }}</view>
                 <view class="itemContent">
                     <view class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}" style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}" wx:for="{{ item.items }}" wx:for-item="sku" wx:for-index="skuIndex" data-is-disabled="{{ disableSkuItems[item.name] }}" data-sku-name="{{ sku.name }}" data-key="{{ item.name }}" data-property-index="{{ index }}" catchtap="onSkuItem">
@@ -23,7 +23,7 @@
                 <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                     <view class="item-text">配送方式</view>
                     <radio-group class="radio-group" bindchange="radioChange">
-                        <label wx:for="{{ liftStyles }}" wx:key="{{value}}">
+                        <label wx:for="{{ liftStyles }}" wx:key="value">
                             <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
                             <view class="title">{{ item.text }}</view>
                         </label>
@@ -103,7 +103,7 @@
             <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                 <view class="item-text">配送方式</view>
                 <radio-group class="radio-group" bindchange="radioChange">
-                    <label wx:for="{{ liftStyles }}" wx:key="{{value}}">
+                    <label wx:for="{{ liftStyles }}" wx:key="value">
                         <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
                         <view class="title">{{ item.text }}</view>
                     </label>

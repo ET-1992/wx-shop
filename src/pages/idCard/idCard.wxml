@@ -8,7 +8,7 @@
             <view class="form-left">身份证号</view>
             <input class="form-right" type="idcard" value="{{idNumber? idNumber : ''}}" bindinput="bindNumberInput" maxlength="18" placeholder="请输入您本人的身份证号" placeholder-class="weui_placeholder"/>
         </view>
-        <!-- <view class="form-section" wx:for="{{imgFile}}" wx:key="{{index}}">
+        <!-- <view class="form-section" wx:for="{{imgFile}}">
             <view class="form-left">{{item.info}}</view>
 			<view class="form-img" >
 				<image class="form-img"  src="{{item.imgSrc ? item.imgSrc: "/icons/uploadIcon.svg"}}" bindtap="onUpload" data-index="{{index}}"/>

@@ -4,7 +4,7 @@
 		<view class="orderItem">
 			<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
 				<navigator url="{{ order.crowd.status === '2' ? '/pages/orderDetail/orderDetail' : '/pages/crowd/crowdProgress/crowdProgress'}}?id={{ order.order_no }}">
-					<view class="item" wx:for="{{ order.items }}">
+					<view class="item" wx:for="{{ order.items }}" wx:key="id">
 						<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
 						<view class="itemInfo">
 							<view class="itemTitle">{{ item.title }}</view>

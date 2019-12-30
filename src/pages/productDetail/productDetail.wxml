@@ -176,7 +176,7 @@
 				</view>
 
 				<view class="info-section" wx:if="{{!(product.product_type === 1 || product.individual_buy)}}">
-					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="index">
+					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="*this">
 						<view class="delivery-section">
 						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
 						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
@@ -221,7 +221,7 @@
 							<view
 							 class="coupon"
 							 wx:for="{{ receivableCoupons }}"
-							 wx:key="{{ item.id }}"
+							 wx:key="id"
 							 wx:if="{{ index< 3}}"
 							>{{ item.title }}
 							</view>
@@ -233,7 +233,7 @@
 			<view wx:if="{{ product.service_instructions && product.service_instructions.length}}" class="service">
 				<view class="text">服务</view>
 				<view class="desc">
-					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="{{ index }}">• {{ item }}</view>
+					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="*this">• {{ item }}</view>
 				</view>
 			</view>
 		</view>
@@ -300,7 +300,7 @@
 				<text class="dot">•</text>
 			</view>
 			<view class="relateShop">
-				<view class="relateShopItem" wx:for="{{ product.related }}" wx:key="{{ index }}" hover-class="navigator-hover">
+				<view class="relateShopItem" wx:for="{{ product.related }}" wx:key="id" hover-class="navigator-hover">
 					<productList
 					 product="{{ item }}"
 					 tplStyle="default"

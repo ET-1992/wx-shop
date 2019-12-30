@@ -6,7 +6,7 @@
 				<button 
 				  class="c-comment" 
 				  wx:for="{{topic.replies}}" 
-				  wx:key="item.id" 
+				  wx:key="id" 
 				  bindgetuserinfo="replyTo" 
 				  open-type="getUserInfo"
 				  data-openid="{{item.user.openid}}" 

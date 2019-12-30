@@ -1,7 +1,7 @@
 <view class="default" style="top: {{ top }}; position: {{ position }}">
     <view 
         wx:for="{{ navbarListData }}"
-        wx:key="index" 
+        wx:key="value" 
         class="item {{ activeIndex === index ? 'selected' : '' }}" 
         data-index="{{index}}"
         data-value="{{item.value}}"

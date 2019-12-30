@@ -133,7 +133,7 @@
 	<!-- 更多推荐 -->
 	<view class="bargain-more">
 		<view class="label"><text class="dot">•</text> 更多推荐 <text class="dot">•</text></view>
-		 <view wx:for="{{ products }}" wx:key="{{ item.id }}" class="wrapper">
+		 <view wx:for="{{ products }}" wx:key="id" class="wrapper">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
                 <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}"/>
             </navigator>
