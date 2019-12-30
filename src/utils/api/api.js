@@ -8,8 +8,8 @@
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.wpweixin.com/';
+export const host = 'https://hei.dev.97866.com/';
 // 翠绿
 // export const host = 'https://api.jcaik.com/';
 // 天枢
@@ -482,6 +482,12 @@ export const apis = {
     // 助力者列表
     bargainActor: {
         path: 'api/mag.bargain.mission.actor.list.json',
+        isForceToken: true
+    },
+    // 会员续费
+    renewalPay: {
+        path: 'api/mag.membership.renew.pay.json',
+        method: 'POST',
         isForceToken: true
     },
     fetchRegionList: {
