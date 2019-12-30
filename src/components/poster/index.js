@@ -95,6 +95,13 @@ Component({
         }
     },
 
+    detached() {
+        this.setData({
+            palette: {},
+            imagePath: ''
+        });
+    },
+
     methods: {
         onClose() {
             this.triggerEvent('onClose');

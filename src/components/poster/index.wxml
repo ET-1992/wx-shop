@@ -4,7 +4,7 @@
 
 		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="1000"/>
 
-		<image v-if="{{ imagePath }}" class="canvasWrap" src="{{ imagePath }}" />
+		<image class="canvasWrap" src="{{ imagePath }}" />
 
 		<view class="btnWtap">
 			<button 
