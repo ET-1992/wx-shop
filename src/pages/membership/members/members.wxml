@@ -14,8 +14,7 @@
 					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无会员等级'}}</view>
 				</view>
 				<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
-					<view class="cart-text">积分:</view>
-					<view class="cart-price">{{ user.membership.exp || '0' }}分</view>
+					<view class="cart-text">积分: {{ user.membership.exp || '0' }}分</view>
 					<image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image>
 				</navigator>
 				<!-- 非会员 -->
