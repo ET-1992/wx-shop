@@ -48,6 +48,11 @@ Component({
                     scene.aid = posterData.id;
                     break;
 
+                // 砍价帮砍海报
+                case 'bargainBuy':
+                    scene.bid = posterData.code;
+                    break;
+
                 // 邀请拼团海报
                 case 'grouponBuy':
                     scene.gid = posterData.id;

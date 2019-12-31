@@ -33,6 +33,7 @@ export default class Poster {
                 break;
 
             // 砍价商品海报
+            case 'bargainBuy':
             case 'bargain':
                 views = [
                     ...this.initHeader(),
@@ -121,6 +122,7 @@ export default class Poster {
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['normal', 'normal', 'normal'];
         const viewsMaxLines = [2, 1, 2];
+        const viewsColor = ['#000000', mainColor, mainColor];
 
         for (let i = 0; i < 3; i++) {
             _views.push({
@@ -133,7 +135,7 @@ export default class Poster {
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
                     fontWeight: viewsFontWeight[i],
-                    color: mainColor
+                    color: viewsColor[i]
                 }
             });
         }
@@ -142,7 +144,7 @@ export default class Poster {
 
     // 普通商品
     productViews() {
-        const { title, price, highest_price = 0, excerpt = '', globalData, posterType, priceColor } = this.data;
+        const { title, price, highest_price = 0, excerpt = '', globalData, posterType, mainColor, priceColor } = this.data;
         const _views = [];
         let viewsText = [
             title,
@@ -158,7 +160,7 @@ export default class Poster {
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['normal', 'normal', 'normal'];
         const viewsMaxLines = [2, 1, 1];
-        const viewsColor = ['', '', priceColor];
+        const viewsColor = ['#000000', mainColor, priceColor];
         const viewsLineHeight = [35, 30, 30];
 
         for (let i = 0; i < 3; i++) {
@@ -204,7 +206,8 @@ export default class Poster {
                     left: `${viewsLeft}rpx`,
                     fontSize: '28rpx',
                     maxLines: 2,
-                    lineHeight: '35rpx'
+                    lineHeight: '35rpx',
+                    color: '#000000'
                 }
             },
             {
@@ -276,6 +279,7 @@ export default class Poster {
         const viewsFontWeight = ['normal', 'normal'];
         const viewsMaxLines = [2, 1];
         const viewsLineHeight = [35, 30];
+        const viewsColors = ['#000000', mainColor];
 
         for (let i = 0; i < 2; i++) {
             _views.push({
@@ -288,7 +292,7 @@ export default class Poster {
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
                     fontWeight: viewsFontWeight[i],
-                    color: mainColor,
+                    color: viewsColors[i],
                     lineHeight: `${viewsLineHeight[i]}rpx`
                 }
             });
@@ -319,7 +323,7 @@ export default class Poster {
             url: imgToHttps(qrcode_url),
             css: {
                 bottom: `${posterType === 'bargain' ? 80 : 40}rpx`,
-                right: '60rpx',
+                right: `${posterType === 'bargain' ? 60 : 45}rpx`,
                 width: '150rpx',
                 height: '150rpx'
             }
