@@ -60,6 +60,7 @@ Component({
                     scene.c = posterData.crowd_pay_no;
                     break;
 
+                case 'bargain':
                 case 'groupon':
                 case 'miaosha':
                 case 'product':

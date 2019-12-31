@@ -209,6 +209,10 @@ Page({
                 data.posterType = 'groupon';
             }
 
+            if (product.bargain_enable) {
+                data.posterType = 'bargain';
+            }
+
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
@@ -771,11 +775,21 @@ Page({
                 groupon_enable,
                 groupon_price,
                 groupon_member_limit,
+                bargain_enable,
+                bargain_price,
                 price,
                 highest_price
             }
         } = this.data;
-        let posterData = {};
+        let posterData = {
+            id,
+            banner: thumbnail,
+            title,
+            excerpt,
+            price: definePrice,
+            highest_price,
+            original_price
+        };
         if (miaosha_enable) {
             const { timeLimit, hasStart, hasEnd } = this.data;
             posterData = {
@@ -790,7 +804,8 @@ Page({
                 hasStart,
                 hasEnd
             };
-        } else if (groupon_enable) {
+        }
+        if (groupon_enable) {
             posterData = {
                 id,
                 banner: thumbnail,
@@ -800,17 +815,17 @@ Page({
                 member_limit: groupon_member_limit,
                 price
             };
-        } else {
+        }
+        if (bargain_enable) {
             posterData = {
                 id,
                 banner: thumbnail,
                 title,
-                excerpt,
-                price: definePrice,
-                highest_price,
-                original_price
+                bargain_price,
+                price
             };
         }
+
         this.setData({
             showPosterModal: true,
             isShowShareModal: false,
