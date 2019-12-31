@@ -28,6 +28,16 @@ export default class Poster {
                 ];
                 break;
 
+            // 拼团商品海报
+            case 'groupon':
+                views = [
+                    ...views,
+                    ...this.grouponViews(),
+                    ...this.initFooter()
+                ];
+                break;
+
+            // 邀请拼团海报
             case 'grouponBuy':
                 views = [
                     ...views,
@@ -153,6 +163,88 @@ export default class Poster {
             });
         }
         return _views;
+    }
+
+    // 拼团商品
+    grouponViews() {
+        const { title, groupon_price, price, member_limit, globalData } = this.data;
+        const viewsLeft = 45;
+        const viewsBottom = 240;
+        let rectWidth = 80;
+        if (member_limit && (member_limit > 9) && (member_limit < 100)) {
+            rectWidth = 92;
+        }
+
+        if (member_limit && member_limit > 99) {
+            rectWidth = 110;
+        }
+
+        return [
+            {
+                type: 'text',
+                text: title,
+                css: {
+                    width: '450rpx',
+                    top: '500rpx',
+                    left: `${viewsLeft}rpx`,
+                    fontSize: '28rpx',
+                    maxLines: 2,
+                    lineHeight: '35rpx'
+                }
+            },
+            {
+                type: 'text',
+                text: `单独购买${globalData.CURRENCY[globalData.currency] + price}`,
+                css: {
+                    bottom: viewsBottom + 50 + 'rpx',
+                    left: `${viewsLeft}rpx`,
+                    fontSize: '18rpx',
+                    color: '#707070'
+                }
+            },
+            {
+                type: 'text',
+                text: `${globalData.CURRENCY[globalData.currency]}`,
+                css: {
+                    bottom: viewsBottom + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '18rpx',
+                    color: '#FC2732'
+                }
+            },
+            {
+                id: 'groupon-price-id',
+                type: 'text',
+                text: `${groupon_price}`,
+                css: {
+                    bottom: viewsBottom + 'rpx',
+                    left: `${viewsLeft + 20}rpx`,
+                    fontSize: '28rpx',
+                    color: '#FC2732'
+                }
+            },
+            {
+                type: 'rect',
+                css: {
+                    bottom: (viewsBottom - 3) + 'rpx',
+                    width: `${rectWidth}rpx`,
+                    height: '30rpx',
+                    color: 'linear-gradient(-135deg, #ff6034 0%, #FC2732 80%)',
+                    left: [`${viewsLeft + 60}rpx`, 'groupon-price-id'],
+                    borderRadius: '5rpx'
+                }
+            },
+            {
+                type: 'text',
+                text: `${member_limit && member_limit > 99 ? '99+' : member_limit}人团`,
+                css: {
+                    bottom: viewsBottom + 3 + 'rpx',
+                    left: [`${viewsLeft + 74}rpx`, 'groupon-price-id'],
+                    fontSize: '20rpx',
+                    color: '#ffffff'
+                }
+            }
+        ];
     }
 
     // 海报中间文字

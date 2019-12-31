@@ -205,6 +205,10 @@ Page({
                 );
             }
 
+            if (product.groupon_enable) {
+                data.posterType = 'groupon';
+            }
+
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
@@ -764,6 +768,9 @@ Page({
                 original_price,
                 miaosha_enable,
                 miaosha_price,
+                groupon_enable,
+                groupon_price,
+                groupon_member_limit,
                 price,
                 highest_price
             }
@@ -782,6 +789,16 @@ Page({
                 timeLimit,
                 hasStart,
                 hasEnd
+            };
+        } else if (groupon_enable) {
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                excerpt,
+                groupon_price,
+                member_limit: groupon_member_limit,
+                price
             };
         } else {
             posterData = {

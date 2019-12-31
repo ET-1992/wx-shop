@@ -4,7 +4,7 @@
 
 		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="800"/>
 
-		<image class="canvasWrap" src="{{ imagePath }}" />
+		<image class="canvasWrap" src="{{ imagePath }}" mode="widthFix"/>
 
 		<view class="btnWtap">
 			<button 
