@@ -27,7 +27,10 @@ Component({
         try {
             const { themeColor } = app.globalData;
             const { posterData, user, posterType } = this.data;
-            wx.showLoading({ title: '绘制图片中...' });
+            wx.showLoading({
+                title: '绘制图片中...',
+                mask: true
+            });
 
             let requestData = {
                 weapp_page: 'pages/webPages/webPages',
@@ -57,6 +60,8 @@ Component({
                     scene.c = posterData.crowd_pay_no;
                     break;
 
+                case 'bargain':
+                case 'groupon':
                 case 'miaosha':
                 case 'product':
                     scene.id = posterData.id;
@@ -93,6 +98,13 @@ Component({
                 content: err.errMsg
             });
         }
+    },
+
+    detached() {
+        this.setData({
+            palette: {},
+            imagePath: ''
+        });
     },
 
     methods: {
