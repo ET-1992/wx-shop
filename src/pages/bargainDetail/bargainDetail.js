@@ -18,15 +18,22 @@ Page({
         next_cursor: 'begin',
         isBottom: false,
         actors: [],
-        showMore: false
+        showMore: false,
+        isShowShareModal: false,
+        showPosterModal: false
     },
 
     onLoad(params) {
         console.log('params', params);
-        const { themeColor } = app.globalData;
+        const {
+            globalData: { themeColor },
+            systemInfo: { isIphoneX }
+        } = app;
+
         this.setData({
             ...params,
             themeColor,
+            isIphoneX,
             globalData: app.globalData
         });
         // this.loadActorsData();
@@ -126,6 +133,35 @@ Page({
                 showMore: !showMore
             });
         }
+    },
+
+    onShare() {
+        const { isShowShareModal } = this.data;
+        this.setData({
+            isShowShareModal: !isShowShareModal
+        });
+    },
+
+    onShowPoster() {
+        const { code, product } = this.data;
+        let posterData = {
+            code,
+            banner: product.thumbnail || product.image_url,
+            title: product.title,
+            bargain_price: product.bargain_price,
+            price: product.price
+        };
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
     },
 
     // 分享按钮
