@@ -60,7 +60,7 @@
     	  	</view>
     	</view>
     	<view class="clearCart" bindtap="onClearCart">
-            <van-icon class="van-delete" name="delete" size="10px"/>
+            <van-icon class="van-delete" name="delete" size="20px"/>
             清空购物车
         </view>
 
