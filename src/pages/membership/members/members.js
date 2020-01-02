@@ -12,7 +12,6 @@ Page({
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
-        // memberExclusiveBanner: '',
         data: {},
         word: '',
         memberNo: 0,
@@ -216,6 +215,7 @@ Page({
             const { pay_sign } = await api.hei.renewalPay(params);
             console.log('续费会员pay_sign218', pay_sign);
             if (pay_sign) { await wxPay(pay_sign) }
+            showToast({ title: '续费成功' });
             this.onShow();
         } catch (error) {
             wx.showModal({
