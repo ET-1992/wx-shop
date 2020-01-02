@@ -27,20 +27,6 @@
 			</swiper>
 		</view>
 
-		<!-- <view wx:if="{{ product.miaosha_enable }}" class="flashCountdown" style="background-color: {{ themeColor.primaryColor }}">
-			<view class="title">限时购</view>
-			<view class="desc" wx:if="{{ !hasEnd && hasStart }}">抢购中</view>
-			<view class="timeLimit">
-				<view wx:if="{{ hasStart && !hasEnd }}">距结束
-					<countDown formatTime="{{ timeLimit }}" />
-				</view>
-				<view wx:if="{{ !hasStart }}">距开始
-					<countDown formatTime="{{ timeLimit }}" />
-				</view>
-				<view wx:if="{{ hasEnd }}">已结束</view>
-			</view>
-		</view> -->
-
 		<!-- 限时购banner -->
 		<view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
 			<image wx:if="{{!hasEnd}}" src="/icons/productDetail/time-limited-buy.svg" />
@@ -48,7 +34,7 @@
 			<view class="price-area">
 				<view class="price">
 					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-					<view>{{ product.miaosha_price }}</view>
+					<view class="time-price">{{ product.miaosha_price }}</view>
 				</view>
 				<view class="price-interval">
 					<text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
@@ -97,9 +83,9 @@
 			<view class="price-area">
 				<view class="price">
 					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-					<view>{{product.definePrice}}</view>
+					<view class="pintuan-price">{{product.definePrice}}</view>
 				</view>
-				<view class="origin-price"> 单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
+				<view class="origin-price">单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
 			</view>
 			<view class="pintuan-section">
 				<view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
@@ -119,12 +105,12 @@
 				</view>
 				<view class="origin-price">直接购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
 			</view>
-			<view class="pintuan-section">
-				<view class="pintuan-text" wx:if="{{!product.bargain_mission}}">未发起</view>
-				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">进行中</view>
-				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">砍价成功</view>
-				<view class="pintuan-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">砍价失败</view>
-				<view class="pintuan-count">{{ product.bargain_finished_count }}人已砍价成功</view>
+			<view class="bargain-section">
+				<view class="bargain-text" wx:if="{{!product.bargain_mission}}">未发起</view>
+				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">进行中</view>
+				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">砍价成功</view>
+				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">砍价失败</view>
+				<view class="bargain-count">{{ product.bargain_finished_count }}人已砍价成功</view>
 			</view>
 		</view>
 
