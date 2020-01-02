@@ -48,7 +48,7 @@
     </view>
     <!-- 商品详情页面 -->
     <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}" z-index="{{10000}}">
-        <van-icon name="clear" custom-class="close" color="#dcdde0" bind:click="close" />
+        <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
         <scroll-view scroll-y class="scrollSkus">
             <view class="head">
                 <image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
