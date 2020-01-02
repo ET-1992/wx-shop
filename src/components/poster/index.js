@@ -98,10 +98,14 @@ Component({
 
         } catch (err) {
             wx.hideLoading();
-            wx.showModal({
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: err.errMsg
+                content: err.errMsg,
+                showCancel: false
             });
+            if (confirm) {
+                this.onClose();
+            }
         }
     },
 

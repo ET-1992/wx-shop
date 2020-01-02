@@ -52,6 +52,7 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
+            globalData: app.globalData,
             isLoading: true
         });
     },

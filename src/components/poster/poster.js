@@ -97,7 +97,7 @@ export default class Poster {
         return [
             {
                 type: 'image',
-                url: imgToHttps(banner || `${product.image_url}?imageView2/1/w/540/h/540/q/70#`),
+                url: imgToHttps(banner || `${product && product.image_url}?imageView2/1/w/540/h/540/q/70#`),
                 css: {
                     width: '450rpx',
                     height: `${posterType === 'article' ? 360 : 450}rpx`,
@@ -122,6 +122,7 @@ export default class Poster {
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['normal', 'normal', 'normal'];
         const viewsMaxLines = [2, 1, 2];
+        const viewsLineHeight = [36, 26, 30];
         const viewsColor = ['#000000', mainColor, mainColor];
 
         for (let i = 0; i < 3; i++) {
@@ -135,7 +136,8 @@ export default class Poster {
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
                     fontWeight: viewsFontWeight[i],
-                    color: viewsColor[i]
+                    color: viewsColor[i],
+                    lineHeight: viewsLineHeight[i] + 'rpx'
                 }
             });
         }
@@ -492,7 +494,7 @@ export default class Poster {
             },
             {
                 type: 'text',
-                text: `单独购买${globalData.CURRENCY[globalData.currency] + product.price}`,
+                text: `单独购买${globalData.CURRENCY[globalData.currency]}${product && product.price}`,
                 css: {
                     bottom: viewsBottom + 70 + 'rpx',
                     left: viewsLeft + 'rpx',

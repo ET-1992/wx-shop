@@ -760,7 +760,6 @@ Page({
         }
     },
 
-
     onShowPoster() {
         const {
             product: {
