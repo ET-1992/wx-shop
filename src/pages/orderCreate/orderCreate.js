@@ -177,7 +177,7 @@ Page({
     },
 
     setOverseeAddressEvent(selfAddressObj) {
-        this.setData({ address: selfAddressObj });
+        this.setData({ address: selfAddressObj }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址
