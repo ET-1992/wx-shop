@@ -1,65 +1,42 @@
 <view class="container">
+    <van-cell-group>
+  <van-field
+    value="{{ selfAddressObj.userName }}"
+    required
+    clearable
+    label="姓名"
+    placeholder="请输入您的姓名"
+    border="{{ true }}"
+    bind:change="check"
+    data-key="userName"
+    error="{{ error.userName }}"
+  />
 
-	<van-cell-group custom-class="cell-group">
-		<van-field
-			value="{{ selfAddressObj.userName }}"
-			required
-			clearable
-			label="姓名"
-			placeholder="请输入您的姓名"
-			border
-			bind:change="check"
-			data-key="userName"
-			error="{{ error.userName }}"
-		/>
+  <van-field
+    value="{{ selfAddressObj.telNumber }}"
+    required
+    clearable
+    label="手机号"
+    placeholder="请输入您的手机号"
+    border="{{ true }}"
+    bind:change="check"
+    data-key="telNumber"
+    error="{{ error.telNumber }}"
+  />
 
-		<van-field
-			value="{{ selfAddressObj.telNumber }}"
-			required
-			clearable
-			label="手机号"
-			placeholder="请输入您的手机号"
-			border
-			bind:change="check"
-			data-key="telNumber"
-			error="{{ error.telNumber }}"
-		/>
+  <van-field
+    value="{{ selfAddressObj.detailInfo }}"
+    required
+    label="详细地址"
+    type="textarea"
+    placeholder="请输入您的详细地址"
+    autosize
+    data-key="detailInfo"
+    border="{{ true }}"
+    bind:change="check"
+    error="{{ error.detailInfo }}"
+  />
+</van-cell-group>
 
-		<van-field
-			value="{{ selfAddressObj.area }}"
-			required
-			is-link
-			disabled
-			readonly
-			border
-			label="地区"
-			placeholder="请选择地区"
-			bind:tap="showAreaModal"
-			data-key="area"
-			error="{{ error.area }}"
-		/>
-
-		<van-field
-			input-class="textarea"
-			value="{{ selfAddressObj.detailInfo }}"
-			required
-			autosize
-			border
-			show-confirm-bar
-			label="详细地址"
-			type="textarea"
-			placeholder="请输入您的详细地址"
-			data-key="detailInfo"
-			bind:change="check"
-			error="{{ error.detailInfo }}"
-		/>
-	</van-cell-group>
-
-	<view class="btnWrap">
-		<van-button custom-class="btn" round bind:click="saveSelfAddress" color="{{ themeColor.primaryColor }}">确定地址</van-button>
-	</view>
+<view class="btnWrap" bindtap="saveSelfAddress">确定地址</view>
 </view>
-
-<van-popup show="{{ isShowAreaModal }}" position="bottom" bind:close="closeAreaModal">
-  <van-area area-list="{{ areaList }}" value="{{ selfAddressObj.areaCode }}" bind:confirm="onConfirmArea" bind:cancel="closeAreaModal"/> 
-</van-popup>

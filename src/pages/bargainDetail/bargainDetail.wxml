@@ -68,10 +68,10 @@
 			<view class="second">{{ remainTime.second }}</view>
 			<view class="dateTitle">秒</view>
 		</view>
-		<button class="img" open-type="share" hover-class="none">
+		<view class="img" bind:tap="onShare">
 			<!-- 喊好友来帮忙 -->
 			<image src="/icons/bargainDetail/bargainHelp.svg"/>
-		</button>
+		</view>
 	</view>
 	<!-- 砍价成功时显示 -->
 	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" bindtap="onBuy">立即购买</view>
@@ -133,10 +133,35 @@
 	<!-- 更多推荐 -->
 	<view class="bargain-more">
 		<view class="label"><text class="dot">•</text> 更多推荐 <text class="dot">•</text></view>
-		 <view wx:for="{{ products }}" wx:key="{{ item.id }}" class="wrapper">
+		 <view wx:for="{{ products }}" wx:key="id" class="wrapper">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
                 <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}"/>
             </navigator>
         </view>
 	</view>
+
+	<!-- 分享弹窗 -->
+	<!-- 分享弹窗 -->
+	<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="onShare">
+		<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="shareModalContent">
+				<button class="shareBtn" open-type="share">
+					<image class="image" src="/icons/shareFriendIcon.svg" mode="aspectFit" />
+					<view class="text">分享给好友</view>
+				</button>
+				<view class="shareBtn" bindtap="onShowPoster">
+					<image class="image" src="/icons/sharePosterIcon.svg" mode="aspectFit" />
+					<view class="text">分享商品海报</view>
+				</view>
+			</view>
+			<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="onShare" />
+		</view>
+	</van-popup>
+
+	<poster 
+		wx:if="{{ showPosterModal }}" 
+		posterData="{{ posterData }}" 
+		posterType="bargainBuy"
+		bindonClose="onClosePoster"
+	/>
 </view>

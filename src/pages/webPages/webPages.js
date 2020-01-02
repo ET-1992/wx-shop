@@ -28,6 +28,12 @@ Page({
                     url: `/pages/articleDetail/articleDetail?id=${query.aid}`
                 });
             }
+            // 邀请砍价海报
+            if (query.bid) {
+                wx.redirectTo({
+                    url: `/pages/bargainDetail/bargainDetail?code=${query.bid}&isOthers=true`
+                });
+            }
             // 邀请拼团海报
             if (query.gid) {
                 wx.redirectTo({

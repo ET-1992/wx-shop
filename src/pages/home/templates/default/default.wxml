@@ -138,7 +138,7 @@
         <view wx:if="{{ module.key === 'miaoshas' }}">
           <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
             <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-            <myNavigator wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+            <myNavigator wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
               <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
             </myNavigator>
               <navigator class="sectionMore" wx:if="{{ miaoshas.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
@@ -155,7 +155,7 @@
         <view wx:if="{{ module.key === 'bargains' }}">
           <view class="section" wx:if="{{ bargains && bargains.length }}">
             <view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
-            <myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+            <myNavigator wx:for="{{ bargains }}"  url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
               <productList product="{{ item }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}" />
             </myNavigator>
             <navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">

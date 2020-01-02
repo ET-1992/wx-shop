@@ -77,23 +77,6 @@ Page({
         });
     },
 
-    // async onShowProductDetailShareModal() {
-    //     this.setData({
-    //         isShowProductDetailShareModal: true,
-    //         shareModal: false
-    //     });
-    //     const { order_no, content, defaultWord } = this.data;
-    //     await api.hei.crowdCreate({
-    //         order_no,
-    //         word: content ? content : defaultWord,
-    //     });
-    // },
-    // onCloseProductDetailShareModal() {
-    //     this.setData({
-    //         isShowProductDetailShareModal: false
-    //     });
-    // },
-
     onShareAppMessage() {
         let { content, defaultWord, crowd } = this.data;
         let shareMsg = {

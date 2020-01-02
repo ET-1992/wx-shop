@@ -146,7 +146,7 @@
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
 			    <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
 			    <view class="grouponContainer" style="justify-content:{{ miaoshas.length <= 2 ? 'center' : 'space-between' }}">
-			    	<myNavigator wx:if="{{ miaoshas.length > 0 && index < 3 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+			    	<myNavigator wx:if="{{ miaoshas.length > 0 && index < 3 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
 			    		<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 			    	</myNavigator>
 			    </view>
@@ -165,7 +165,7 @@
 				<view class="section" wx:if="{{ bargains && bargains.length }}">
           <view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
           <view class="grouponContainer" style="justify-content:{{  bargains.length <= 2 ? 'center' : 'space-between' }}">
-            <myNavigator wx:for="{{ bargains }}" wx:if="{{ index < 3 }}" class="grouponItem {{ bargains.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+            <myNavigator wx:for="{{ bargains }}" wx:if="{{ index < 3 }}" class="grouponItem {{ bargains.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
               <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
             </myNavigator>
           </view>

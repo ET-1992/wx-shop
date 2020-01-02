@@ -149,7 +149,7 @@
 						</form>
 					</navigator>
 					<view class="miaoshaContainer">
-						<myNavigator class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+						<myNavigator class="miaoshaItem" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
 							<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 						</myNavigator>
 					</view>
@@ -168,7 +168,7 @@
 						</form>
 					</navigator>
 					<view class="grouponContainer">
-						<myNavigator class="bargainItem" wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+						<myNavigator class="bargainItem" wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
 							<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
 						</myNavigator>
 					</view>

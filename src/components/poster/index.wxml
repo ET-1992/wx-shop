@@ -2,12 +2,13 @@
 	<view class="shareModal">
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="onClose" />
 
-		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="1000"/>
+		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="800"/>
 
-		<image v-if="{{ imagePath }}" class="canvasWrap" src="{{ imagePath }}" />
+		<image class="canvasWrap" src="{{ imagePath }}" mode="widthFix"/>
 
 		<view class="btnWtap">
 			<button 
+				wx:if="{{ imagePath }}"
 				class="btn" 
 				bindtap="saveImage" 
 				style="background-color: {{ themeColor.primaryColor }}"

@@ -48,11 +48,9 @@ Page({
     },
 
     rate(ev) {
-        const { index } = ev.detail;
-        this.setData({
-            rating: index
-        });
-        console.log(this.data.rating);
+        const rating = ev.detail;
+        this.setData({ rating });
+        console.log(rating);
     },
 
     bindTextAreaBlur(ev) {

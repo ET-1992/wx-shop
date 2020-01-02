@@ -1,5 +1,4 @@
 import { getAgainUserForInvalid, go } from 'utils/util';
-import { CONFIG } from 'constants/index';
 import { wxPay } from 'utils/pageShare';
 import { showToast, showModal } from 'utils/wxp';
 import api from 'utils/api';
@@ -8,14 +7,17 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
-        globalData: app.globalData,
-        commonRechargeModal: false,  // 非会员充值弹窗
-        rechargeModal: false,  // 会员充值弹窗
+        showRechargeModal: false, // 会员充值弹窗
+        showRenewsModal: false, // 会员续费弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
-        memberExclusiveBanner: '',
-        word: ''
+        // memberExclusiveBanner: '',
+        data: {},
+        word: '',
+        memberNo: 0,
+        payment: 0,
+        selectRenewal: {} // 所选择的续费项
     },
 
     onLoad(params) {
@@ -29,37 +31,40 @@ Page({
         this.initPage();
     },
 
-    // 初始页面配置
+    // 获取会员信息
     async initPage() {
-        const {
-            themeColor
-        } = app.globalData;
-        // 获取全局店铺配置信息
-        const config = wx.getStorageSync(CONFIG);
-        // 获取开启储值卡后充值金额数组
-        if (config.store_card_enable) {
-            const recharge = await api.hei.rechargePrice();
-            if (recharge.data && recharge.data[0]) {
-                recharge.data[0].checked = true;
+        try {
+            // 获取开启储值卡后充值金额数组
+            const { current_user, data, config } = await api.hei.membershipCard();
+            if (config.store_card_enable) {
+                const { data } = await api.hei.rechargePrice();
+                this.setData({ rechargeArray: data });
             }
+            if (config.renews) {
+                this.setData({ renews: config.renews });
+            }
+            let count = config.membership && config.membership.rules && config.membership.rules.payment;
+            let memberNo = (current_user.membership && current_user.membership.member_no) || '';
+            // 获取会员信息
             this.setData({
-                rechargeArray: recharge.data
+                user: current_user,
+                data,
+                memberCouponList: data.coupons,
+                isLoading: false,
+                payment: count,
+                memberNo,
+                config,
+                globalData: app.globalData
+            });
+            console.log('config62', this.data.config);
+        } catch (error) {
+            console.log(error);
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
             });
         }
-        // 获取会员信息
-        const memberHome = await api.hei.membershipCard();
-        this.setData({
-            user: memberHome.current_user,
-            word: (memberHome.data && memberHome.data.word) || '',
-            memberCouponList: memberHome.data && memberHome.data.coupons,
-            memberExclusiveBanner: memberHome.data && memberHome.data.dedicated_products_banner
-        });
-        // 设置全局配置
-        this.setData({
-            isLoading: false,
-            themeColor,
-            config,
-        });
     },
 
     // 获取用户头像信息
@@ -129,38 +134,95 @@ Page({
         }
     },
 
-    // 打开非会员充值弹窗
-    openCommonRechargeModal() {
-        this.setData({
-            commonRechargeModal: true
-        });
-    },
-
     // 打开会员充值弹窗
     openRechargeModal() {
         this.setData({
-            rechargeModal: true
+            showRechargeModal: true
         });
     },
 
-    // 未开启储值卡功能的开通会员
+    // 打开续费弹窗
+    openRenewsModal() {
+        this.setData({
+            showRenewsModal: true
+        });
+    },
+
+    // 关闭会员充值弹窗
+    closeRechargeModal() {
+        this.setData({
+            showRechargeModal: false
+        });
+    },
+
+    // 关闭续费弹窗
+    closeRenewsModal() {
+        this.setData({
+            showRenewsModal: false
+        });
+    },
+
+    // 会员充值确认支付
+    onConfirmRecharge(e) {
+        this.setData({
+            amount: e.detail.amount,
+            showRechargeModal: false
+        });
+        this.buyMember();
+    },
+
+    // 会员续费确认支付
+    onConfirmRenews(e) {
+        console.log('selectRenewal164', e, e.detail);
+        this.setData({
+            selectRenewal: e.detail.selectRenewal,
+            showRenewsModal: false
+        });
+        this.memberShipRenewal();
+    },
+
+    // 开通会员
     async buyMember() {
+        const { amount, config } = this.data;
+        let params = {}; // 未开启储值卡功能的开通会员 不传参数 后台设金额
+        // 开启储值卡功能的开通会员或充值 需传金额参数
+        if (config.store_card_enable) {
+            params.amount = amount;
+        }
+        console.log('params160', params);
         try {
-            const {
-                pay_sign
-            } = await api.hei.joinMembership();
-            console.log('付费会员pay_sign', pay_sign);
-            if (pay_sign) {
-                await wxPay(pay_sign);
-            }
+            const { pay_sign } = await api.hei.joinMembership(params);
+            console.log('付费会员pay_sign197', pay_sign);
+            if (pay_sign) { await wxPay(pay_sign) }
             this.onShow();
         } catch (error) {
-            console.log(error);
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
+            });
         }
     },
 
-    // 微信支付后弹窗回调
-    setConsumptionList() {
-        this.onShow();
+    // 会员续费
+    async memberShipRenewal() {
+        const { selectRenewal } = this.data;
+        console.log('selectRenewal', selectRenewal);
+        let params = {
+            renew_id: selectRenewal.id,
+            pay_method: 'WEIXIN'
+        };
+        try {
+            const { pay_sign } = await api.hei.renewalPay(params);
+            console.log('续费会员pay_sign218', pay_sign);
+            if (pay_sign) { await wxPay(pay_sign) }
+            this.onShow();
+        } catch (error) {
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg,
+                showCancel: false
+            });
+        }
     }
 });

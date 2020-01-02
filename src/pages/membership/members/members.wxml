@@ -3,57 +3,61 @@
 <view class="container" wx:if="{{!isLoading}}">
 	<!-- 用户信息及开通会员 -->
 	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}">
-		<view class="member-top {{ config.store_card_enable ? '' : 'noCard' }}">
+		<view class="member-top">
 			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/member/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			</button>
+			<!-- 会员等级、积分 -->
 			<view class="member-text">
 				<view class="member-user-wrap">
 					<view class="member-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
-					<!-- 会员 -->
-					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无数据'}}</view>
+					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无会员等级'}}</view>
 				</view>
-				<!-- 会员 -->
 				<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
-					<view class="cart-text">会员积分：</view>
-					<view class="cart-price">{{ user.membership.exp || '0' }}分</view>
+					<view class="cart-text">积分: {{ user.membership.exp || '0' }}分</view>
 					<image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image>
 				</navigator>
 				<!-- 非会员 -->
 				<view class="no-member-level" wx:if="{{ user.membership && !user.membership.is_member }}">普通用户</view>
 			</view>
-			<!-- 非会员 -->
-			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
+
+			<!-- 会员续费 -->
+			<view class="renewal" wx:if="{{ user.membership && user.membership.is_member && config.renews }}">
+				<view class="renewal-btn" bindtap="openRenewsModal">续费</view>
+				<view class="renewal-tip">{{ data.user && data.user.due_time_str }}</view>
+			</view>	
+
+			<!-- 会员卡号 -->
+			<view class="member_no" wx:if="{{ user.membership && user.membership.is_member}}">NO.{{memberNo}}</view>
+
+			<!-- 非会员 储值卡-->
+			<view class="head-openVip" wx:if="{{ user.membership && !user.membership.is_member }}">
 				<!-- 已开通储值卡功能 -->
 				<block wx:if="{{ config.store_card_enable }}">
-					<view class="openVip-btn" bindtap="openCommonRechargeModal">立即开通会员</view>
-					<view class="openVip-tip">{{ word }}</view>
+					<view class="openVip-btn" bindtap="openRechargeModal">立即开通会员</view>
+					<view class="openVip-tip">{{ data.word }}</view>
 				</block>
 				<!-- 没开储值卡功能 -->
 				<block wx:if="{{ !config.store_card_enable }}">
 					<view class="openVip-btn" bindtap="buyMember">立即开通会员</view>
-					<view class="openVip-tip">开通会员仅需{{ globalData.CURRENCY[globalData.currency] }}{{ config.membership.rules.payment }}</view>
+					<view class="openVip-tip">开通会员仅需 {{ globalData.CURRENCY[globalData.currency] }}{{ payment }}</view>
 				</block>
-			</view>
-			
+			</view>	
 		</view>
-		<!-- 会员 -->
-		<block wx:if="{{ user.membership && user.membership.is_member }}">
-			<!-- 开通储值卡功能 -->
-			<view class="member-bottom" wx:if="{{ config.store_card_enable }}">
-				<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
-					<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
-					<view class="cart-text">储蓄余额</view>
-				</navigator>
-				<navigator url="/pages/membership/consumptionCenter/consumptionCenter?activeIndex=1" class="member-integral-text">
-					<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
-					<view class="cart-text">赠送余额</view>
-				</navigator>
-				<view class="recharge" bindtap="openRechargeModal">
-					<text>充值</text>
-				</view>
+		<!-- 会员储值卡功能-->
+		<view class="member-bottom" wx:if="{{ user.membership && user.membership.is_member && config.store_card_enable }}">
+			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
+				<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
+				<view class="cart-text">储蓄余额</view>
+			</navigator>
+			<navigator url="/pages/membership/consumptionCenter/consumptionCenter?activeIndex=1" class="member-integral-text">
+				<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
+				<view class="cart-text">赠送余额</view>
+			</navigator>
+			<view class="recharge" bindtap="openRechargeModal">
+				<text>充值</text>
 			</view>
-		</block>
+		</view>
 	</view>
 
 	<view class="member-rights">
@@ -65,7 +69,7 @@
 			<view class="rights-item-title">
 				<text>会员专享商品</text>
 			</view>
-			<image src="{{ memberExclusiveBanner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
+			<image src="{{ data.dedicated_products_banner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
 		</view>
 	</view>
 
@@ -90,9 +94,19 @@
 		</view>
 	</view>
 
-	<!-- 非会员充值弹窗 -->
-	<popup rechargeModal="{{ commonRechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" config="{{ config }}"></popup>
-
 	<!-- 会员充值弹窗 -->
-	<popup rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" user="{{ user }}" onsetConsumptionList="setConsumptionList"></popup>
+	<popup
+		wx:if="{{!isLoading}}"
+		showRechargeModal="{{ showRechargeModal }}"
+		showRenewsModal="{{ showRenewsModal }}"
+		rechargeArray="{{ rechargeArray }}"
+		user="{{ user }}"
+		config="{{ config }}"
+		tip="{{ data.user && data.user.due_time_str }}"
+		renews="{{renews}}"
+		bind:onConfirmRecharge="onConfirmRecharge"
+		bind:onConfirmRenews="onConfirmRenews"
+		bind:closeRechargeModal="closeRechargeModal"
+		bind:closeRenewsModal="closeRenewsModal"
+    />
 </view>

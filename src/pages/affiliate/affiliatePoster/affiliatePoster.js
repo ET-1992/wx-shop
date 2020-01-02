@@ -124,7 +124,7 @@ Page({
         ctx.restore();
 
         ctx.beginPath();
-        ctx.setFillStyle = '#000000';
+        ctx.fillStyle = '#000000';
         ctx.setTextAlign('center');
 
         // ctx.setFontSize(0.030 * windowWidth);
