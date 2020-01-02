@@ -7,9 +7,10 @@
  * method: 请求方法，默认GET
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
+ * contentType: 默认x-www-form-urlencode, 可配置json
  **/
 // export const host = 'https://api.wpweixin.com/';
-export const host = 'https://hei.dev.97866.com/';
+export const host = 'https://hei.97866.com/';
 // 翠绿
 // export const host = 'https://api.jcaik.com/';
 // 天枢
@@ -493,5 +494,11 @@ export const apis = {
     fetchRegionList: {
         path: 'api/mag.region.list.json',
         method: 'GET'
+    },
+    subscribe: {
+        path: 'api/weapp/templates/subscribe.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
     }
 };

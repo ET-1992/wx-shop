@@ -1,4 +1,4 @@
-<form report-submit bindsubmit="onPay">
+<form>
     <view class="orderPay {{crowd ? 'orderPay-crowd' : ''}} {{ !crowd && isIphoneX ? 'iphoneX-style' : '' }}">
         <view class="pay-text">
             <view class="pay-top" wx:if="{{freeShippingAmount}}">满{{ globalData.CURRENCY[globalData.currency] }}{{freeShippingAmount}}免邮</view>
@@ -7,11 +7,11 @@
                 <view class="pay-price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPay }} </view>
             </view>
         </view>
-        <button wx:if="{{ !crowd }}" class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">{{ isPeanutPay ? '提交订单' : '去支付' }}</button>
-        <!-- <button wx:if="{{ crowd }}" class="pay-button" form-type="submit" disabled="{{ isDisablePay }}">请好友代付</button> -->
+        <button wx:if="{{ !crowd }}" class="pay-button" bind:tap="onPay" disabled="{{ isDisablePay }}">{{ isPeanutPay ? '提交订单' : '去支付' }}</button>
+        <!-- <button wx:if="{{ crowd }}" class="pay-button" disabled="{{ isDisablePay }}">请好友代付</button> -->
     </view>
     <view wx:if="{{ crowd }}" class="crowBtn {{ isIphoneX ? 'iphoneX-style' : '' }}">
-        <button class="pay-button crowd-pay" form-type="submit" data-crowdType="{{2}}" style="background:{{ isDisablePay ? '#F7F7F7' : themeColor.primaryColor }}" disabled="{{ isDisablePay }}">请好友代付</button>
-        <button class="pay-button crowd-pay" form-type="submit" data-crowdType="{{1}}" style="background:{{ isDisablePay ? '#F7F7F7' : themeColor.primaryColor }}" disabled="{{ isDisablePay }}">找好友众筹</button>
+        <button class="pay-button crowd-pay" bind:tap="onPay" data-crowdType="{{2}}" style="background:{{ isDisablePay ? '#F7F7F7' : themeColor.primaryColor }}" disabled="{{ isDisablePay }}">请好友代付</button>
+        <button class="pay-button crowd-pay" bind:tap="onPay" data-crowdType="{{1}}" style="background:{{ isDisablePay ? '#F7F7F7' : themeColor.primaryColor }}" disabled="{{ isDisablePay }}">找好友众筹</button>
     </view>
 </form>

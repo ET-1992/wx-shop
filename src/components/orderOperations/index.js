@@ -1,7 +1,7 @@
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
-import { getAgainUserForInvalid, go } from 'utils/util';
+import { getAgainUserForInvalid, go, subscribeMessage } from 'utils/util';
 
 const app = getApp();
 
@@ -68,23 +68,24 @@ Component({
 
             wx.hideLoading();
 
+            let subKeys = [{ key: 'order_consigned' }];
+
+            if (currentOrder && currentOrder.groupon && currentOrder.groupon.id) {
+                subKeys.push({ key: 'groupon_finished' });
+            }
+
+
             if (this.data.orderPrice <= 0) {
+                await subscribeMessage(subKeys);
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${orderNo}&isFromCreate=true`,
                 });
             }
 
-            // if (+status === 2) {
-
-            // 	wx.redirectTo({
-            // 		url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-            // 	});
-            // }
-
             if (pay_sign) {
                 console.log('orderOperations: 自主支付');
 
-                await wxPay(pay_sign, orderNo);
+                await wxPay(pay_sign, orderNo, subKeys);
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
                 });
