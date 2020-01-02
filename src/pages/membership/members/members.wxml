@@ -96,17 +96,24 @@
 
 	<!-- 会员充值弹窗 -->
 	<popup
-		wx:if="{{!isLoading}}"
+		wx:if="{{!isLoading && showRechargeModal}}"
 		showRechargeModal="{{ showRechargeModal }}"
-		showRenewsModal="{{ showRenewsModal }}"
 		rechargeArray="{{ rechargeArray }}"
+		user="{{ user }}"
+		config="{{ config }}"
+		bind:onConfirmRecharge="onConfirmRecharge"
+		bind:closeRechargeModal="closeRechargeModal"
+    />
+
+	<!-- 会员续费弹窗 -->
+	<popup
+		wx:if="{{!isLoading && showRenewsModal}}"
+		showRenewsModal="{{ showRenewsModal }}"
 		user="{{ user }}"
 		config="{{ config }}"
 		tip="{{ data.user && data.user.due_time_str }}"
 		renews="{{renews}}"
-		bind:onConfirmRecharge="onConfirmRecharge"
 		bind:onConfirmRenews="onConfirmRenews"
-		bind:closeRechargeModal="closeRechargeModal"
 		bind:closeRenewsModal="closeRenewsModal"
     />
 </view>

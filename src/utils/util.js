@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
@@ -381,5 +381,43 @@ export function autoTransformAddress(address = {}) {
             detailInfo: address.receiver_address || '',
             postalCode: address.receiver_zipcode || ''
         };
+    }
+}
+
+export async function subscribeMessage(keys = []) {
+    const config = wx.getStorageSync(CONFIG);
+    const subscribeMessageTemplates = config.subscribe_message_templates;
+
+    const tmplIds = subscribeMessageTemplates.filter((item) => {
+        return keys.find((keysItem) => {
+            return keysItem.key === item.key;
+        });
+    }).map((item) => {
+        return item.template_id;
+    });
+
+    // console.log(tmplIds, 'tmplIds');
+    try {
+        const subRes = await wxProxy.requestSubscribeMessage({ tmplIds });
+        // console.log(subRes);
+
+        const isSubs = tmplIds.filter((item) => {
+            return subRes[item] === 'accept';
+        });
+
+        // console.log(isSubs);
+
+        const isSubscribeMessageTemplates = subscribeMessageTemplates.filter((item) => {
+            return isSubs.indexOf(item.template_id) > -1;
+        });
+
+        // console.log(isSubscribeMessageTemplates);
+
+
+        await api.hei.subscribe({
+            templates: isSubscribeMessageTemplates
+        });
+    } catch (e) {
+        console.log(e);
     }
 }
