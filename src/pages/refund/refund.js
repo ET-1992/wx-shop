@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { formatTime } from 'utils/util';
+import { formatTime, subscribeMessage } from 'utils/util';
 import { showToast, chooseImage } from 'utils/wxp';
 
 const app = getApp();
@@ -128,6 +128,11 @@ Page({
         const selectdItems = items.filter((item) => item.isSelected);
         console.log('selectedRefundType', selectedRefundType);
         try {
+            wx.showLoading({
+                title: '处理订单中',
+                mask: true,
+            });
+
             if (!selectdItems.length) {
                 throw new Error('必须选择退款商品');
             }
@@ -139,15 +144,16 @@ Page({
             }
             else {
                 const itemsId = selectdItems.map((item) => item.id);
-                const data = await api.hei.refund({
+                const { result, errcode } = await api.hei.refund({
                     order_no,
                     items: JSON.stringify(itemsId),
                     reason: refundReason,
                     type: selectedRefundType,
                     images: refundImages
                 });
-                const { result, errcode } = data;
+                wx.hideLoading();
                 if (result) {
+                    await subscribeMessage([{ key: 'order_cancel_refunded' }]);
                     await showToast({
                         title: '提交成功',
                     });

@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
-import { auth } from 'utils/util';
+import { auth, subscribeMessage } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -330,6 +330,7 @@ Page({
     },
 
     async onPay(ev) {
+        console.log(ev);
         const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
@@ -490,6 +491,8 @@ Page({
             }
         }
 
+        let subKeys = [{ key: 'order_consigned' }];
+
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
         if (isGrouponBuy) {
             requestData.sku_id = items[0].sku_id;
@@ -502,6 +505,8 @@ Page({
                 requestData.post_id = items[0].id;
                 method = 'createGroupon';
             }
+
+            subKeys.push({ key: 'groupon_finished' });
         }
         else {
             requestData.posts = JSON.stringify(items);
@@ -529,6 +534,7 @@ Page({
             const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
             wx.hideLoading();
             console.log('OrderCreatecart507', cart);
+
             if (cart && cart.count) {
                 wx.setStorageSync('CART_NUM', cart.count);
             }
@@ -538,6 +544,7 @@ Page({
                 });
             } else {
                 if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
+                    await subscribeMessage(subKeys);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
@@ -545,7 +552,8 @@ Page({
 
                 if (pay_sign) {
                     // console.log('自主支付');
-                    await wxPay(pay_sign, order_no);
+                    const payRes = await wxPay(pay_sign, order_no, subKeys);
+                    console.log(payRes, 'payRes');
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });

@@ -1,7 +1,31 @@
 page{background: #FFFFFF}
+.rule {
+    display: flex;
+    align-items: center;
+    background: #FCF5E4;
+    padding: 20rpx 40rpx;
+
+    .question {
+        width: 32rpx;
+        height: 32rpx;
+        border-radius: 100%;
+        background: #B48847;
+        color: #fff;
+        font-size: 23rpx;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .instruction {
+        padding-left: 10rpx;
+        font-size: 24rpx;
+        color: #BF995F;
+    }
+}
 .container{
     padding: 0 40rpx 50rpx;
-
     .coinList{
         display: flex;
         justify-content: space-between;
@@ -26,7 +50,9 @@ page{background: #FFFFFF}
                 font-size: 28rpx;
             }
         }
-        .decreaseNum{ color: green}
+        .decreaseNum{ 
+            color: green
+        }
     }
     
     .noHint {
