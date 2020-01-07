@@ -19,7 +19,7 @@
                 <view class="title">购买数量</view>
                 <numberInput value="{{ product.uniqueNumber || 1 }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateNumber" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
-            <view class="deliveryStyle">
+            <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
                 <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                     <view class="item-text">配送方式</view>
                     <radio-group class="radio-group" bindchange="radioChange">
@@ -99,7 +99,7 @@
                  <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
         </view>
-        <view class="deliveryStyle">
+        <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
             <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                 <view class="item-text">配送方式</view>
                 <radio-group class="radio-group" bindchange="radioChange">
