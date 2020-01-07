@@ -210,14 +210,15 @@ Page({
                 data.posterType = 'bargain';
             }
 
-            if (config && config.shipment_template_enable) {
+            if (config && config.shipment_template_enable && product.product_type !== 1) {
                 const { areaList } = await api.hei.fetchRegionList();
                 data.areaList = areaList;
                 const areaObj = wx.getStorageSync(AREA_KEY) || wx.getStorageSync(ADDRESS_KEY);
                 console.log(areaObj, '===============');
                 if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
+                    areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
                     data.areaObj = areaObj;
-                    this.calculatePostage();
+                    this.calculatePostage(areaObj);
                 }
             }
 
@@ -311,7 +312,7 @@ Page({
             cartNumber: Number(CART_NUM),
             globalData: app.globalData
         });
-        this.initPage();
+        // this.initPage();
     },
 
     onShow() {
@@ -871,8 +872,9 @@ Page({
         });
     },
 
-    async calculatePostage() {
-        const { product, areaObj } = this.data;
+    async calculatePostage(obj) {
+        let { product, areaObj } = this.data;
+        areaObj = obj || areaObj;
         try {
             const { postage } = await api.hei.postageCalculate({
                 post_id: product.id,
