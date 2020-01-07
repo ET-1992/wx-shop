@@ -1,7 +1,7 @@
 <!-- 分享中心 浏览用户 -->
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading && visitorList.length }}">
-	<view class="visitorItem" wx:for="{{visitorList}}" wx:key="*this">
+	<view class="visitorItem" wx:for="{{visitorList}}" wx:key="item">
 		<view class="itemAvatar">
 			<image mode="aspectFit" src="{{ item.avatarurl ? item.avatarurl : '/icons/smileFace.png' }}"></image>
 		</view>
