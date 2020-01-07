@@ -490,8 +490,14 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    // 地区列表
     fetchRegionList: {
         path: 'api/mag.region.list.json',
         method: 'GET'
+    },
+    // 邮费计算
+    postageCalculate: {
+        path: 'api/mag.shipment.calculate.json',
+        method: 'POST'
     }
 };

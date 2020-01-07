@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG } from 'constants/index';
+import { USER_KEY, CONFIG, ADDRESS_KEY, AREA_KEY } from 'constants/index';
 import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
@@ -58,7 +58,10 @@ Page({
         templateTypeText,
         expiredGroupon: [],
 
-        posterType: 'product'
+        posterType: 'product',
+
+        areaObj: {},
+        isShowAreaModal: false
     },
 
     go, // 跳转到规则详情页面
@@ -161,17 +164,11 @@ Page({
                 { receivableCoupons: [], receivedCoupons: [] },
             );
 
-            let routeQuery = {
-                id,
-                afcode: current_user.afcode
-            };
-
             this.setData({
                 receivableCoupons,
                 receivedCoupons,
                 current_user,
-                coupons,
-                routeQuery
+                coupons
             });
         }, 300);
     },
@@ -194,7 +191,7 @@ Page({
                 this,
             );
 
-            const { product } = data;
+            const { config, product } = data;
 
             if (product.miaosha_enable) {
                 data.posterType = 'miaosha';
@@ -211,6 +208,17 @@ Page({
 
             if (product.bargain_enable) {
                 data.posterType = 'bargain';
+            }
+
+            if (config && config.shipment_template_enable) {
+                const { areaList } = await api.hei.fetchRegionList();
+                data.areaList = areaList;
+                const areaObj = wx.getStorageSync(AREA_KEY) || wx.getStorageSync(ADDRESS_KEY);
+                console.log(areaObj, '===============');
+                if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
+                    data.areaObj = areaObj;
+                    this.calculatePostage();
+                }
             }
 
             this.setData({
@@ -236,8 +244,7 @@ Page({
                     });
                 }, 1000);
             }
-        }
-        catch (err) {
+        } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
                     title: '温馨提示',
@@ -837,4 +844,48 @@ Page({
             showPosterModal: false
         });
     },
+
+    // 配送地区选择
+    showAreaModal() {
+        const { isShowAreaModal } = this.data;
+        this.setData({
+            isShowAreaModal: !isShowAreaModal
+        });
+    },
+    onConfirmArea(ev) {
+        let areaObj = {};
+        const { values } = ev.detail;
+
+        areaObj.provinceName = values[0].name;
+        areaObj.cityName = values[1].name;
+        areaObj.countyName = values[2].name;
+        areaObj.areaCode = values[2].code;
+        areaObj.area = `${values[0].name !== values[1].name ? values[0].name + '/' : ''}${values[1].name}/${values[2].name}`;
+
+        wx.setStorageSync(AREA_KEY, areaObj);
+        this.setData({
+            areaObj
+        }, () => {
+            this.calculatePostage();
+            this.showAreaModal();
+        });
+    },
+
+    async calculatePostage() {
+        const { product, areaObj } = this.data;
+        try {
+            const { postage } = await api.hei.postageCalculate({
+                post_id: product.id,
+                receiver_state: areaObj.provinceName,
+                receiver_city: areaObj.cityName,
+                receiver_district: areaObj.countyName
+            });
+            this.setData({
+                'product.postage': postage
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 });

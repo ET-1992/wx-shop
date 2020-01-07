@@ -5,6 +5,7 @@ export const UID_KEY = 'uid';
 export const USER_KEY = 'user';
 export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
+export const AREA_KEY = 'areaKey';
 export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';

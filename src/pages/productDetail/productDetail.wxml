@@ -162,14 +162,18 @@
 				</view>
 
 				<view class="info-section" wx:if="{{!(product.product_type === 1 || product.individual_buy)}}">
-					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="*this">
+					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="item">
 						<view class="delivery-section">
 						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
 						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
 						</view>
 					</view>
 					<view class="right-section">
-						<view class="delivery-section" wx:if="{{ !product.hide_postage }}">{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : (templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}</view>
+						<view class="delivery-section" wx:if="{{ !product.hide_postage }}" >
+							{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：
+							{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4):
+							(templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
+						</view>
 						<view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
 					</view>
 				</view>
@@ -192,9 +196,9 @@
 			</view>
 		</view>
 		<!-- 领券&服务说明 -->
-		<view class="sevice-coupon">
+		<view class="sevice-coupon" wx:if="{{ ( coupons && coupons.length ) || ( product && product.service_instructions && product.service_instructions.length ) }}">
 			<view
-			 wx:if="{{ coupons && coupons.length }}"
+			 wx:if="{{ coupons.length }}"
 			 class="coupons"
 			 catchtap="onShowCouponList"
 			 style="{{ product.groupon_enable && grouponId ? 'display: none' : ''}} {{ coupons && coupons.length ? '' : 'border:none'}}"
@@ -204,25 +208,33 @@
 						<view class="couponBtn">领券</view>
 						<!-- 只显示三个 -->
 						<block wx:if="{{ receivableCoupons && receivableCoupons.length}}">
-							<view
-							 class="coupon"
-							 wx:for="{{ receivableCoupons }}"
-							 wx:key="id"
-							 wx:if="{{ index< 3}}"
-							>{{ item.title }}
-							</view>
+							<view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3}}" >{{ item.title }} </view>
 						</block>
 						<view wx:else class="nullCoupon">暂无可领取优惠券</view>
 					</button>
 				</form>
 			</view>
-			<view wx:if="{{ product.service_instructions && product.service_instructions.length}}" class="service">
+			<view wx:if="{{ product.service_instructions.length }}" class="service">
 				<view class="text">服务</view>
 				<view class="desc">
-					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="*this">• {{ item }}</view>
+					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="item">• {{ item }}</view>
 				</view>
 			</view>
 		</view>
+
+		<!-- 运费地区选择 -->
+		<view class="areaPostageBox">
+			<van-field 
+				value="{{ areaObj.area }}"
+				disabled 
+				readonly 
+				is-link
+				label="送至" 
+				placeholder="请选择收货地址" 
+				bind:tap="showAreaModal"
+			/>
+		</view>
+
 		<!-- end -->
 		<view wx:if="{{ product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
 			<view class="title">正在开团, 可直接参团</view>
@@ -253,11 +265,11 @@
 		</view>
 
 		<!-- 商品评论start -->
-		<productComments
-		 wx:if="{{ config.reply_enable && product.reply_count }}"
-		 comments="{{ product.replies }}"
-		 postId="{{ product.id }}"
-		 replyCount="{{ product.reply_count }}"
+		<productComments 
+			wx:if="{{ config.reply_enable && product.reply_count }}" 
+			comments="{{ product.replies }}" 
+			postId="{{ product.id }}" 
+			replyCount="{{ product.reply_count }}" 
 		/>
 
 		<!-- 商品详情 -->
@@ -287,12 +299,7 @@
 			</view>
 			<view class="relateShop">
 				<view class="relateShopItem" wx:for="{{ product.related }}" wx:key="id" hover-class="navigator-hover">
-					<productList
-					 product="{{ item }}"
-					 tplStyle="default"
-					 productLayoutStyle="articleImage"
-					 themeColor="{{ themeColor }}"
-					/>
+					<productList product="{{ item }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
 				</view>
 			</view>
 		</view>
@@ -508,16 +515,20 @@
 	<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view class="shareModalContent">
 			<button class="shareBtn" open-type="share">
-				<image src="../../icons/shareFriendIcon.svg" mode="aspectFit" />
+				<image src="/icons/shareFriendIcon.svg" mode="aspectFit" />
 				<view>分享给好友</view>
 			</button>
 			<view class="shareBtn" bindtap="onShowPoster">
-				<image src="../../icons/sharePosterIcon.svg" mode="aspectFit" />
+				<image src="/icons/sharePosterIcon.svg" mode="aspectFit" />
 				<view>分享商品海报</view>
 			</view>
 		</view>
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
 	</view>
+</van-popup>
+
+<van-popup show="{{ isShowAreaModal }}" position="bottom" bind:close="showAreaModal">
+  <van-area area-list="{{ areaList }}" value="{{ addressObj.areaCode }}" bind:confirm="onConfirmArea" bind:cancel="showAreaModal"/> 
 </van-popup>
 
 <skuModal

@@ -346,7 +346,7 @@ video {
 .info {
 	background-color: #fff;
 	padding: 20rpx 20rpx 30rpx;
-
+	margin-bottom: 10rpx;
 	.tag {
 		border: 1px solid $priceColor;
 		font-size: 8pt;
@@ -504,6 +504,10 @@ video {
 		}
 
 	}
+}
+
+.areaPostageBox{
+	margin: 10rpx auto;
 }
 
 // 开通会员提示框
@@ -1305,4 +1309,9 @@ img,
 	&.iphoneXTrick{
 		bottom: 154rpx + $iphoneXBottomGap;
 	}
+}
+
+.van-picker__cancel,
+.van-picker__confirm {
+	color: $weixinColor !important;
 }
