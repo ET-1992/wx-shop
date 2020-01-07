@@ -1,5 +1,5 @@
 <loading isLoading="{{ isLoading }}"/>
-<navigator class="rule" url="/pages/rulePages/rulePages?key=coin">
+<navigator class="rule" url="/pages/rulePages/rulePages?key=coin" wx:if="{{ !isLoading }}">
     <view class="question">?</view>
     <view class="instruction">查看规则说明</view>
 </navigator>
