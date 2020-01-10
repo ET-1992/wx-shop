@@ -76,7 +76,7 @@ Page({
                 mission: data.mission,
                 product: data.product,
                 products: data.products,
-                share_image: data.mission && data.mission.share_image,
+                share_image: (data.mission && data.mission.share_image) || (data.product && data.product.image_url),
                 share_title: data.mission && data.mission.share_title,
                 isLoading: false
             }, () => {
