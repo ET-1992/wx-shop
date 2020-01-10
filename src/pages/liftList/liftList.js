@@ -101,7 +101,8 @@ Page({
             receiver_address: item.address,
             receiver_address_name: item.name,
             distance: item.distance, // 距离
-            time: item.time // 营业时间
+            time: item.time, // 营业时间
+            remark: item.remark // 商家备注
         };
         app.event.emit('getLiftInfoEvent', liftInfo);
         wx.navigateBack({
