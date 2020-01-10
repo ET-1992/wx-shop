@@ -16,14 +16,17 @@
 				</view>
 				<view class="address-section">
 					<view class="address-title">营业时间</view>
-					<view class="address-time" wx:if="{{ !isOrderDetail && liftInfo.time && liftInfo.time.length }}">{{ liftInfo.time[0] }} - {{ liftInfo.time[1] }}</view>
-					<view class="address-time" wx:if="{{ isOrderDetail && liftInfo.store.time && liftInfo.store.time.length }}">{{ liftInfo.store.time[0] }} - {{ liftInfo.store.time[1] }}</view>
+					<view class="address-time" wx:if="{{ !isOrderDetail && liftInfo.time && liftInfo.time.length > 1 }}">{{ liftInfo.time[0] }} - {{ liftInfo.time[1] }}</view>
+					<view class="address-time" wx:if="{{ !isOrderDetail && liftInfo.time && liftInfo.time.length == 1 }}">{{ liftInfo.time[0] }}</view>
+					<view class="address-time" wx:if="{{ isOrderDetail && liftInfo.store.time && liftInfo.store.time.length > 1 }}">{{ liftInfo.store.time[0] }} - {{ liftInfo.store.time[1] }}</view>
+					<view class="address-time" wx:if="{{ isOrderDetail && liftInfo.store.time && liftInfo.store.time.length == 1 }}">{{ liftInfo.store.time[0] }}</view>
 				</view>
 				<view class="address-section address-second">
 					<view class="address-title">商家电话</view>
 					<view class="address-phone">{{ liftInfo.receiver_address_phone }}</view>
 				</view>
 			</view>
+			<view class="address-remark">商家备注  {{ isOrderDetail ? liftInfo.store.remark : liftInfo.remark }}</view>
 		</view>
 
 		<view class="liftInfo-section" wx:else>
