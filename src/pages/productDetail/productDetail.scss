@@ -508,6 +508,23 @@ video {
 
 .areaPostageBox{
 	margin: 10rpx auto;
+	padding: 0 39rpx 0 31rpx;
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	height: 80rpx;
+	font-size: 24rpx;
+	.label{
+		color: #333333;
+		margin-right: 28rpx;
+	}
+	.value{
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: #999999;
+	}
 }
 
 // 开通会员提示框
