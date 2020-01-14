@@ -84,7 +84,7 @@ swiper image{
 	float: left;
 }
 .product-card-title{
- 	overflow: hidden;
+ 	overflow: hidden !important;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
@@ -95,12 +95,13 @@ swiper image{
 	color: $titleColor;
 	padding: 18rpx 0 0 25rpx;
 	margin-top: 0;
-	height: 110rpx;
+	min-height: 110rpx;
+	line-height: 1.5;
 }
 .product-card-except{
-	overflow: hidden;
+	overflow: hidden !important;
     white-space: nowrap;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
 	font-size: 24rpx;
 	color:$tagColor;
 	padding-left: 20rpx;
@@ -113,6 +114,9 @@ swiper image{
 .product-card-price{
 	color:$priceColor;
 	font-size: 36rpx;
+}
+.product-card-button{
+	margin-top: 0 !important;
 }
 
 .s-comments{
