@@ -33,21 +33,30 @@ Page({
     },
 
     async getDetail(id) {
-        const { article, share_title, page_title, current_user } = await api.hei.articleDetail({ id });
+        try {
+            const { article, share_title, share_image, page_title, current_user } = await api.hei.articleDetail({ id });
 
-        const { themeColor } = this.data;
-        const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
+            const { themeColor } = this.data;
+            const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
 
-        WxParse.wxParse('article_content', 'html', fomatedContent, this);
+            WxParse.wxParse('article_content', 'html', fomatedContent, this);
 
-        this.setData({
-            article,
-            share_title,
-            current_user,
-            isLoading: false
-        });
-        if (page_title) {
-            wx.setNavigationBarTitle({ title: page_title });
+            this.setData({
+                article,
+                share_title,
+                share_image: share_image || article.banner,
+                current_user,
+                isLoading: false
+            });
+            if (page_title) {
+                wx.setNavigationBarTitle({ title: page_title });
+            }
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
     },
 
