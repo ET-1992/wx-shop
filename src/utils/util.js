@@ -388,6 +388,10 @@ export async function subscribeMessage(keys = []) {
     const config = wx.getStorageSync(CONFIG);
     const subscribeMessageTemplates = config.subscribe_message_templates;
 
+    if (!subscribeMessageTemplates) {
+        return;
+    }
+
     const tmplIds = subscribeMessageTemplates.filter((item) => {
         return keys.find((keysItem) => {
             return keysItem.key === item.key;
@@ -395,6 +399,10 @@ export async function subscribeMessage(keys = []) {
     }).map((item) => {
         return item.template_id;
     });
+
+    if (tmplIds.length === 0) {
+        return;
+    }
 
     // console.log(tmplIds, 'tmplIds');
     try {

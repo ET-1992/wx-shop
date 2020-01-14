@@ -14,7 +14,7 @@
     "productList": "components/productList/index",
     "skeleton": "./skeleton/skeleton",
     "poster": "components/poster/index",
-    "van-field": "@vant/weapp/dist/field/index",
+    "van-icon": "@vant/weapp/dist/icon/index",
     "van-area": "@vant/weapp/dist/area/index"
   }
 }

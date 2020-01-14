@@ -1,5 +1,5 @@
 import { ADDRESS_KEY } from 'constants/index';
-import { api } from 'peanut-all';
+import api from 'utils/api';
 
 const app = getApp();
 

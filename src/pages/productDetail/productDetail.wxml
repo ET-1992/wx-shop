@@ -223,16 +223,12 @@
 		</view>
 
 		<!-- 运费地区选择 -->
-		<view class="areaPostageBox" wx:if="{{ config && config.shipment_template_enable && product.product_type !== 1 }}">
-			<van-field 
-				value="{{ areaObj.area }}"
-				disabled 
-				readonly 
-				is-link
-				label="送至" 
-				placeholder="请选择收货地址" 
-				bind:tap="showAreaModal"
-			/>
+		<view class="areaPostageBox" wx:if="{{ config && config.shipment_template_enable && product.product_type !== 1 }}" bind:tap="showAreaModal">
+			<view class="label">送至</view>
+			<view class="value">
+				<view class="text">{{ areaObj.area || '请选择收货地址' }}</view>
+				<van-icon name="arrow" />
+			</view>
 		</view>
 
 		<!-- end -->
