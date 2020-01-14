@@ -214,9 +214,13 @@ Page({
         try {
             const { pay_sign } = await api.hei.renewalPay(params);
             console.log('续费会员pay_sign218', pay_sign);
-            if (pay_sign) { await wxPay(pay_sign) }
-            showToast({ title: '续费成功' });
-            this.onShow();
+            if (pay_sign) {
+                const { isSuccess } = await wxPay(pay_sign);
+                if (isSuccess) {
+                    showToast({ title: '续费成功' });
+                    this.onShow();
+                }
+            }
         } catch (error) {
             wx.showModal({
                 title: '温馨提示',
