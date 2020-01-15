@@ -3,7 +3,7 @@
     <view wx:if="{{ position === 'center' }}" class="modal">
         <view class="header">
             <view class="headerText">{{ product.title }}</view>
-            <image src="/icons/clear.png" class="close" bindtap="close" />
+            <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
         </view>
         <view class="content">
             <view class="item" wx:for="{{ properties }}" wx:key="name">
