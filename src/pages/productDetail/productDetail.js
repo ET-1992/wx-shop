@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG, ADDRESS_KEY, AREA_KEY } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
+import { USER_KEY, CONFIG, ADDRESS_KEY } from 'constants/index';
+import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
@@ -67,17 +67,22 @@ Page({
     go, // 跳转到规则详情页面
 
     onShowSku(ev) {
-        const { status } = this.data.product;
+        const { status, individual_buy } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
         const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
-            console.log(actions);
+            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
+            console.log('actions:', actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
             console.log('onShowSku isBargainBuy: ', isBargainBuy);
+
+            // 单独设置商品留言去掉sku加车按钮
+            if (individual_buy) {
+                actions = actions.filter(({ type }) => type !== 'addCart');
+            }
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
@@ -210,10 +215,9 @@ Page({
                 data.posterType = 'bargain';
             }
 
-            if (config && config.shipment_template_enable && product.product_type !== 1) {
-                const { areaList } = await api.hei.fetchRegionList();
-                data.areaList = areaList;
-                const areaObj = wx.getStorageSync(AREA_KEY) || wx.getStorageSync(ADDRESS_KEY);
+            // 默认使用上次保存的地址
+            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
+                const areaObj = wx.getStorageSync(ADDRESS_KEY);
                 console.log(areaObj, '===============');
                 if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
                     areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
@@ -259,7 +263,7 @@ Page({
                 }
             }
         }
-        console.log(this.data);
+        console.log(this.data, 'this.data');
     },
 
     setDefinePrice() {
@@ -293,6 +297,8 @@ Page({
     },
 
     onLoad(query) {
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -310,15 +316,10 @@ Page({
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             cartNumber: Number(CART_NUM),
-            globalData: app.globalData
+            globalData: app.globalData,
+            config,
+            tplStyle
         });
-        // this.initPage();
-    },
-
-    onShow() {
-        const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        this.setData({ config, tplStyle });
         this.initPage();
     },
 
@@ -846,32 +847,25 @@ Page({
         });
     },
 
-    // 配送地区选择
-    showAreaModal() {
-        const { isShowAreaModal } = this.data;
-        this.setData({
-            isShowAreaModal: !isShowAreaModal
+    // 选择地址
+    async onAddress() {
+        const res = await auth({
+            scope: 'scope.address',
+            ctx: this
         });
-    },
-    onConfirmArea(ev) {
-        let areaObj = {};
-        const { values } = ev.detail;
-
-        areaObj.provinceName = values[0].name;
-        areaObj.cityName = values[1].name;
-        areaObj.countyName = values[2].name;
-        areaObj.areaCode = values[2].code;
-        areaObj.area = `${values[0].name !== values[1].name ? values[0].name + '/' : ''}${values[1].name}/${values[2].name}`;
-
-        wx.setStorageSync(AREA_KEY, areaObj);
-        this.setData({
-            areaObj
-        }, () => {
-            this.calculatePostage();
-            this.showAreaModal();
-        });
+        if (res) {
+            const addressRes = await proxy.chooseAddress();
+            const { provinceName, cityName, countyName } = addressRes;
+            let areaObj = addressRes;
+            areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
+            wx.setStorageSync(ADDRESS_KEY, areaObj);
+            this.setData({ areaObj }, () => {
+                this.calculatePostage();
+            });
+        }
     },
 
+    // 切换地址计算邮费
     async calculatePostage(obj) {
         let { product, areaObj } = this.data;
         areaObj = obj || areaObj;

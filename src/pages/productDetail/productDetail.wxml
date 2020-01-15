@@ -4,7 +4,7 @@
 
 <view wx:if="{{ !isLoading }}">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view class="header" wx:if="{{ !(!product.video && product.images && product.images.length === 0) }}">
+		<view class="header" wx:if="{{ product.video || (product.images && product.images.length) }}">
 			<swiperVideoImg
 			 id="swiperVideoImg"
 			 wx:if="{{product.video}}"
@@ -161,7 +161,7 @@
 					</block>
 				</view>
 
-				<view class="info-section" wx:if="{{!(product.product_type === 1 || product.individual_buy)}}">
+				<view class="info-section" wx:if="{{product.product_type !== 1}}">
 					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="item">
 						<view class="delivery-section">
 						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
@@ -223,7 +223,7 @@
 		</view>
 
 		<!-- 运费地区选择 -->
-		<view class="areaPostageBox" wx:if="{{ config && config.shipment_template_enable && product.product_type !== 1 }}" bind:tap="showAreaModal">
+		<view class="areaPostageBox" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}" bind:tap="onAddress">
 			<view class="label">送至</view>
 			<view class="value">
 				<view class="text">{{ areaObj.area || '请选择收货地址' }}</view>
@@ -523,9 +523,7 @@
 	</view>
 </van-popup>
 
-<van-popup show="{{ isShowAreaModal }}" position="bottom" bind:close="showAreaModal">
-  <van-area area-list="{{ areaList }}" value="{{ areaObj.areaCode }}" bind:confirm="onConfirmArea" bind:cancel="showAreaModal"/> 
-</van-popup>
+<myModal modal="{{authModal}}" />
 
 <skuModal
  isShowSkuModal="{{ isShowActionSheet }}"

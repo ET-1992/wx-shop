@@ -15,6 +15,6 @@
     "skeleton": "./skeleton/skeleton",
     "poster": "components/poster/index",
     "van-icon": "@vant/weapp/dist/icon/index",
-    "van-area": "@vant/weapp/dist/area/index"
+    "myModal": "components/myModal/myModal"
   }
 }
