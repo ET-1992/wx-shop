@@ -415,7 +415,7 @@
 						加入购物车
 					</view>
 					<view
-						class="buy {{product.product_type === 1 && 'maguaWidthBtn'}}"
+						class="buy {{(product.product_type === 1 || product.individual_buy) && 'maguaWidthBtn'}}"
 						catchtap="onShowSku"
 						data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买')}]}}"
 						style="background-color: {{ themeColor.primaryColor }}"
