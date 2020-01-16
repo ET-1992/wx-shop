@@ -222,7 +222,7 @@ Page({
                 if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
                     areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
                     data.areaObj = areaObj;
-                    this.calculatePostage(areaObj);
+                    this.calculatePostage(data);
                 }
             }
 
@@ -866,9 +866,8 @@ Page({
     },
 
     // 切换地址计算邮费
-    async calculatePostage(obj) {
-        let { product, areaObj } = this.data;
-        areaObj = obj || areaObj;
+    async calculatePostage(data) {
+        let { product, areaObj } = data || this.data;
         try {
             const { postage } = await api.hei.postageCalculate({
                 post_id: product.id,
