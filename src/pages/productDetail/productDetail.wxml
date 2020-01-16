@@ -161,15 +161,15 @@
 					</block>
 				</view>
 
-				<view class="info-section" wx:if="{{product.product_type !== 1}}">
-					<view class="left-section" wx:for="{{ product.shipping_types }}" wx:key="item">
+				<view class="info-section">
+					<view class="left-section" wx:if="{{product.product_type !== 1}}" wx:for="{{ product.shipping_types }}" wx:key="item">
 						<view class="delivery-section">
 						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
 						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
 						</view>
 					</view>
 					<view class="right-section">
-						<view class="delivery-section" wx:if="{{ !product.hide_postage }}" >
+						<view class="delivery-section" wx:if="{{ !product.hide_postage && product.product_type !== 1 }}" >
 							{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：
 							{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4):
 							(templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
