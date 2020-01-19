@@ -38,6 +38,7 @@ Page({
             if (config.store_card_enable) {
                 const { data } = await api.hei.rechargePrice();
                 this.setData({ rechargeArray: data });
+                console.log('rechargeArray42', data);
             }
             if (config.renews) {
                 this.setData({ renews: config.renews });
@@ -135,9 +136,18 @@ Page({
 
     // 打开会员充值弹窗
     openRechargeModal() {
-        this.setData({
-            showRechargeModal: true
-        });
+        const { rechargeArray } = this.data;
+        if (rechargeArray && rechargeArray.length) {
+            this.setData({
+                showRechargeModal: true
+            });
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '暂时无法开通会员',
+                showCancel: false
+            });
+        }
     },
 
     // 打开续费弹窗
