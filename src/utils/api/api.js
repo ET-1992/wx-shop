@@ -506,5 +506,9 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
         contentType: 'json'
+    },
+    newHome: {
+        path: 'api/peanut/web/home.json',
+        method: 'GET'
     }
 };
