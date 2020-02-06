@@ -1,7 +1,8 @@
-import { Sku } from 'peanut-all';
-import { getAgainUserForInvalid } from 'utils/util';
+import { sku } from 'peanut-all';
+import { getAgainUserForInvalid, updateCart } from 'utils/util';
 import { CONFIG, SHIPPING_TYPE } from 'constants/index';
 import proxy from 'utils/wxProxy';
+import api from 'utils/api';
 const app = getApp();
 Component({
     properties: {
@@ -13,8 +14,8 @@ Component({
             type: Object,
             value: {},
             observer(newValue, oldValue) {
-                console.log(newValue, oldValue);
-                if (newValue.id !== oldValue.id) { // 缓存
+                console.log(newValue, 'newValue', oldValue, 'oldValue');
+                if (newValue.id !== (oldValue && oldValue.id)) { // 缓存
                     this.firstInit();
                     this.setSku();
                 }
@@ -48,6 +49,10 @@ Component({
             type: Boolean,
             value: false
         },
+        isBargainBuy: {
+            type: Boolean,
+            value: false
+        },
         config: {
             type: Object,
             value: {}
@@ -78,12 +83,10 @@ Component({
         // 初始化配送方式
         firstInit() {
             const { product } = this.data;
-            console.log('shipping_type', product.shipping_types);
             let type = product.shipping_types;
             const liftStyles = SHIPPING_TYPE.filter(item => {
                 return type.indexOf(item.value) > -1;
             });
-            console.log('data', liftStyles);
             if (liftStyles && liftStyles[0]) {
                 liftStyles.forEach(item => {
                     item.checked = false;
@@ -132,11 +135,21 @@ Component({
         },
         // classify 页面
         async onAddCart(e) {
-            const { selectedSku, shipping_type } = this.data;
+            const { product, selectedSku, shipping_type } = this.data;
+            console.log('product142', product);
             console.log(selectedSku, e, 'erer');
+            if (product.skus && product.skus.length && !selectedSku.id) {
+                wx.showToast({
+                    title: '请选择商品规格',
+                    icon: 'none',
+                    duration: 2000,
+                    mask: false,
+                });
+                return;
+            }
             e.sku_id = selectedSku.id; // 多规格
             e.shipping_type = shipping_type;
-            console.log('shipping_type139', shipping_type);
+            e.quantity = Number(product.uniqueNumber);
             if (selectedSku.stock === 0) {
                 await proxy.showModal({
                     title: '温馨提示',
@@ -154,7 +167,7 @@ Component({
             }
             try {
                 const { skus, properties } = product;
-                this.Sku = new Sku({ max: 3 });
+                this.Sku = new sku({ max: 3 });
                 const skuMap = this.Sku.getSkus(skus);
                 const defalutSelectedProperties = this.Sku.getDefaultSku(skus);
 
@@ -198,6 +211,13 @@ Component({
             this.setData({ quantity: value });
         },
 
+        updateNumber({ detail }) {
+            const { value } = detail;
+            this.setData({ 'product.uniqueNumber': value }, () => {
+                console.log('product', this.data.product);
+            });
+        },
+
         onFormSubmit(e) {
             const { formId } = e.detail;
             this.setData({ formId });
@@ -206,7 +226,17 @@ Component({
         async onUserInfo(e) {
             console.log('onUserInfo', e);
             const { encryptedData, iv } = e.detail;
+            const { product, selectedSku } = this.data;
             if (iv && encryptedData) {
+                if (product.skus && product.skus.length && !selectedSku.id) {
+                    wx.showToast({
+                        title: '请选择商品规格',
+                        icon: 'none',
+                        duration: 2000,
+                        mask: false,
+                    });
+                    return;
+                }
                 const { actionType } = e.target.dataset;
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.onSkuConfirm(actionType);
@@ -243,7 +273,7 @@ Component({
             this.setData({ liftStyles, shipping_type: value });
             console.log('liftStyles', liftStyles, 'shipping_type', this.data.shipping_type);
             this.triggerEvent('getShippingType', { shipping_type: this.data.shipping_type }, { bubbles: true });
-        },
+        }
     }
 });
 

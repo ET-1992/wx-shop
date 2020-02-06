@@ -3,7 +3,6 @@
     "enablePullDownRefresh": true,
     "usingComponents": {
 			"couponList": "../../components/couponList/index",
-    	"console": "../../components/console/console",
     	"loading": "../../components/loading/index"
   	}
 }

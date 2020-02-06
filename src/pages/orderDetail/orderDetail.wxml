@@ -120,7 +120,7 @@
     </view>
 
     <!-- 订单留言 -->
-    <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
+    <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks.length }}" class="remarkWrap">
         <view wx:for="{{ order.annotation.remarks }}" wx:key="id" class="remarkWrapRow">
             <view>{{ index }}</view>
             <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
@@ -129,9 +129,10 @@
     </view>
     <!-- 拼团头像 -->
     <view class="group" wx:if="{{ otherPeopleGroupon || order.status === 10 }}">
-        <view class="title" wx:if="{{groupon.status === 2}}">
-            还差{{ groupon.member_limit - groupon.member_count }}人成团，剩余时间
-            <countDown time="{{remainSecond}}" />
+        <view class="title count-down" wx:if="{{groupon.status === 2}}">
+            <view class="text">还差{{ groupon.member_limit - groupon.member_count }}人成团，剩余时间</view>
+            <!-- <countDown time="{{remainSecond}}" /> -->
+            <van-count-down time="{{ remainSecond * 1000 }}" />
         </view>
         <view class="title" wx:if="{{groupon.status === -1}}">该拼团已过期</view>
         <view class="title otherGroupStatus" wx:if="{{groupon.status === -2}}">该拼团已关闭</view>
@@ -188,11 +189,11 @@
             <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.membership_reduce_fee }}</text>
         </view>
         <view wx:if="{{ config.store_card_enable }}" class="row">
-            <text class="text">{{ '储值卡消费' }}</text>
+            <text class="text">储值卡消费</text>
             <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.cashes_fee }}</text>
         </view>
         <view wx:if="{{ config.store_card_enable }}" class="row">
-            <text class="text">{{ '赠送帐户消费' }}</text>
+            <text class="text">赠送帐户消费</text>
             <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ order.gifts_fee }}</text>
         </view>
         <view class="row">
@@ -211,7 +212,7 @@
             <view class="buyerMessageContent">买家留言：{{ order.buyer_message }}</view>
         </view>
         <view class="section orderMeta">
-            <view class="item">支付方式: 微信支付</view>
+            <view class="item">支付方式: {{ order.payMethodText }}支付</view>
             <view class="item">订单编号: {{ order.order_no }}</view>
             <view class="item" wx:if="{{ order.time }}">下单时间: {{ order.createDate }}</view>
             <view class="item" wx:if="{{ order.paytime }}">付款时间: {{ order.payDate }}</view>
@@ -223,7 +224,20 @@
         </button>
     </block>
     <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !otherPeopleGroupon }}">
-        <orderOperations phone="{{ order.phone_number }}" isOrderDetail="{{true}}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" order="{{ order }}" isShowContact="{{ !order.isDone }}" isShowService="{{ order.isDone }}" isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" user="{{ user }}" bindconfirmOrder="onRelaodOrder" bindpayOrder="onRelaodOrder" bindcloseOrder="onRelaodOrder" />
+        <orderOperations 
+            phone="{{ order.phone_number }}" 
+            isOrderDetail="{{true}}" 
+            statusCode="{{ order.statusCode }}" 
+            orderNo="{{ order.order_no }}" 
+            order="{{ order }}" 
+            isShowContact="{{ !order.isDone }}" 
+            isShowService="{{ order.isDone }}" 
+            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" 
+            user="{{ current_user }}" 
+            bindconfirmOrder="onRelaodOrder" 
+            bindpayOrder="onRelaodOrder" 
+            bindcloseOrder="onRelaodOrder" 
+        />
     </view>
     <view class="promote" wx:if="{{ (order.status === 10 || otherPeopleGroupon ) && products.length }}">
         <view class="label">
@@ -248,7 +262,7 @@
   			<image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
   			<view>分享给好友</view>
   		</button>
-  		<view class="shareBtn" bindtap="isShowProductDetailShareModal">
+  		<view class="shareBtn" bindtap="onShowPoster">
   			<image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
   			<view>分享活动海报</view>
   		</view>
@@ -256,24 +270,12 @@
   	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
   </view>
 </van-popup>
-<productDetailShareModal
- productImage="{{ order.groupon.thumbnail }}"
- productTitle="{{ order.groupon.title }}"
- productPrice="{{ order.groupon.price }}"
- originalPrice="{{ order.items[0].original_price }}"
- grouponLimit="{{ order.groupon.member_limit }}"
- remainSecond="{{ remainSecond }}"
- remainTime="{{ remainTime }}"
- routePath="{{ routePath }}"
- routeQuery="{{ routeQuery }}"
- bindonCloseModal="onCloseProductDetailShareModal"
- wx:if="{{ isShowProductDetailShareModal && order.items[0].thumbnail }}"
-/>
-<console page="订单详情" />
+
+<poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="grouponBuy" bindonClose="onClosePoster" />
 
 <skuModal
  wx:if="{{ otherPeopleGroupon }}"
- isShowSkuModal="{{ isShowAcitonSheet }}"
+ isShowSkuModal="{{ isShowActionSheet }}"
  product="{{ product }}"
  themeColor="{{ themeColor }}"
  position="bottom"

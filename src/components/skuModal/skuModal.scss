@@ -24,6 +24,16 @@
 				font-weight: bold;
 			}
 		}
+		// 购买数量
+		.quantity {
+			padding-bottom: 25rpx;
+			.title {
+				margin-bottom: 20rpx;
+				font-size: 28rpx;
+				color: rgba(51, 51, 51, 1);
+				font-weight: bold;
+			}
+		}
 
 		// 配送方式
 		.deliveryStyle {
@@ -187,12 +197,10 @@
 }
 
 .close {
-	width: 30rpx;
-	height: 30rpx;
-	position:absolute !important;
-	right:25rpx;
-	top:25rpx;
-	z-index:999;
+	position: absolute !important;
+	right: 18rpx;
+	top: 18rpx;
+	z-index: 999;
 }
 
 .bottomModal {
@@ -268,6 +276,15 @@
 		border-top: 1rpx solid #ebedf0;
 		padding: 30rpx 0;
 		align-items: center;
+		.rightWrap {
+			display: flex;
+			
+			.least {
+				display: flex;
+				align-items: center;
+				color: #E50000;
+			}
+		}
 	}
 
 	.actionSheetBtGroup {

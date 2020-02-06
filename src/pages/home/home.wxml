@@ -24,5 +24,3 @@
 <view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
     <image class="home-guide_img" src="/icons/guide.svg"/>
 </view>
-
-<console page="首页" />

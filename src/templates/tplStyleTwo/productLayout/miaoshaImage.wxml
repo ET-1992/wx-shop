@@ -1,5 +1,5 @@
 <view class="leftItem">
-    <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill"/>
+    <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill" lazy-load="{{ true }}" />
     <view class="meta">
         <view class="title">{{ miaosha.title }}</view>
         <view class="desc" wx:if="{{ miaosha.excerpt }}">{{ miaosha.excerpt }}</view>

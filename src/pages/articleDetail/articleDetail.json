@@ -1,9 +1,12 @@
 {
     "usingComponents": {
-        "swiperVideoImg": "../../components/swiperVideoImg/swiperVideoImg",
-        "productList": "../../components/productList/index",
-        "magicImg": "../../components/magicImg/magicImg",
-        "console": "../../components/console/console",
-        "loading": "../../components/loading/index"
+        "swiperVideoImg": "components/swiperVideoImg/swiperVideoImg",
+        "productList": "components/productList/index",
+        "magicImg": "components/magicImg/magicImg",
+        "loading": "components/loading/index",
+        "articleDetailSkeleton": "./articleDetailSkeleton/articleDetailSkeleton",
+        "van-popup": "@vant/weapp/dist/popup/index",
+        "van-icon": "@vant/weapp/dist/icon/index",
+        "poster": "components/poster/index"
     }
 }

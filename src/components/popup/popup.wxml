@@ -1,11 +1,12 @@
-<van-popup show="{{ rechargeModal }}" bind:close="closeRechargeModal"  custom-class="popup">
+<!-- 储值卡充值 -->
+<van-popup show="{{ showRechargeModal }}" bind:close="closeRechargeModal"  custom-class="popup">
 	<view class="modal-title">请选择充值金额</view>
-	<view class="model-main">
-		<view class="model-priceSection">
+	<view class="modal-main">
+		<view class="modal-priceSection">
 			<block wx:for="{{ rechargeArray }}" wx:key="index">
-				<view class='model-section {{ item.checked? "checked_recharge" : "" }}' data-index='{{index}}' bindtap='rechargeTap'>
-					<view class="model-price">{{item.recharge}}元</view>
-					<view class="model-text">赠送{{item.gift}}元</view>
+				<view class="modal-section {{ item.checked ? 'checked_recharge' : '' }}" data-index="{{index}}" bindtap="rechargeTap">
+					<view class="modal-price">{{item.recharge}}元</view>
+					<view class="modal-text">赠送{{item.gift}}元</view>
 				</view>
 			</block>
 		</view>
@@ -14,8 +15,25 @@
 				<view class="elsePrice-text-left">其他金额</view>
 				<view class="elsePrice-text-right">{{globalData.CURRENCY[globalData.currency]}}</view>
 			</view>
-			<input type="digit" class="elsePrice-input" placeholder="请输入充值金额" bindblur="inputRechargePrice" bindfocus="inputFocus" value="{{ rechargePrice }}"/>
+			<input type="digit" class="elsePrice-input" placeholder="请输入充值金额" placeholder-class="elsePrice-placeholder" bindblur="inputRechargePrice" bindfocus="inputFocus" value="{{ rechargePrice }}"/>
 		</view>
 	</view>
-	<view class="model-btn" bindtap="rechargePriceEvent">确认支付</view>
+	<view class="modal-btn" bindtap="rechargePriceEvent">确认支付</view>
+</van-popup>
+
+<!-- 续费 -->
+<van-popup show="{{ showRenewsModal }}" bind:close="closeRenewsModal"  custom-class="renews-popup">
+	<view class="modal-title">当前有效期{{tip}}续费后将顺延</view>
+	<view class="modal-main">
+		<view class="modal-priceSection">
+			<block wx:for="{{ renews }}" wx:key="index">
+				<view class="modal-section {{ item.checked ? 'checked_renews' : '' }}" data-index="{{index}}" bindtap="renewsTap">
+					<view class="modal-price" wx:if="{{item.day !== 0}}">{{item.day}}天</view>
+					<view class="modal-price" wx:if="{{item.day === 0}}">永久</view>
+					<view class="modal-text">￥{{item.amount}}</view>
+				</view>
+			</block>
+		</view>
+	</view>
+	<view class="modal-btn" bindtap="renewsPriceEvent">确认支付</view>
 </van-popup>

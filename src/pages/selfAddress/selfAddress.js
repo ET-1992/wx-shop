@@ -1,18 +1,58 @@
-import { OVERSEA_ADDRESS_KEY, ADDRESS_KEY } from 'constants/index';
+import { ADDRESS_KEY } from 'constants/index';
+import api from 'utils/api';
 
 const app = getApp();
 
 Page({
     data: {
+        isLoading: true,
         selfAddressObj: {},
-        error: {}
+        error: {},
+        isShowAreaModal: false
     },
 
-    onLoad(parmas) {
-        console.log(parmas);
+    async onLoad() {
         const selfAddressObj = wx.getStorageSync(ADDRESS_KEY) || {};
+        const { themeColor } = app.globalData;
+        const { areaList } = await api.hei.fetchRegionList();
+
         this.setData({
-            selfAddressObj
+            areaList,
+            selfAddressObj,
+            themeColor,
+            isLoading: false
+        });
+    },
+
+    showAreaModal() {
+        this.setData({
+            isShowAreaModal: true
+        });
+    },
+    closeAreaModal() {
+        const { selfAddressObj, error } = this.data;
+        if (!selfAddressObj.area) {
+            error.area = true;
+        }
+        this.setData({
+            error,
+            isShowAreaModal: false
+        });
+    },
+    onConfirmArea(ev) {
+        const { selfAddressObj, isShowAreaModal, error } = this.data;
+        const { values } = ev.detail;
+        error.area = false;
+
+        selfAddressObj.provinceName = values[0].name;
+        selfAddressObj.cityName = values[1].name;
+        selfAddressObj.countyName = values[2].name;
+        selfAddressObj.areaCode = values[2].code;
+        selfAddressObj.area = `${values[0].name !== values[1].name ? values[0].name + '/' : ''}${values[1].name}/${values[2].name}`;
+        this.setData({
+            error,
+            selfAddressObj,
+            isShowAreaModal: !isShowAreaModal
         });
     },
 
@@ -30,6 +70,7 @@ Page({
             error[key] = false;
             selfAddressObj[key] = value;
             this.setData({
+                error,
                 selfAddressObj
             });
         }
@@ -37,14 +78,14 @@ Page({
 
     saveSelfAddress() {
         const { selfAddressObj, error } = this.data;
-        if (error.userName || error.telNumber || error.detailInfo) {
+        if (error.userName || error.telNumber || error.area || error.detailInfo) {
             wx.showToast({
                 title: '请检查您的信息',
                 icon: 'none'
             });
             return;
         }
-        if (!selfAddressObj.userName || !selfAddressObj.telNumber || !selfAddressObj.detailInfo) {
+        if (!selfAddressObj.userName || !selfAddressObj.telNumber || !selfAddressObj.detailInfo || !selfAddressObj.area) {
             wx.showToast({
                 title: '请注意带*号为必填项',
                 icon: 'none'

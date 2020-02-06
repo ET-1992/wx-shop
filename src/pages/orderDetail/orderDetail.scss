@@ -559,6 +559,14 @@ $footerHeight: 100rpx;
 		color: #000000;
 		padding-bottom: 30rpx;
 	}
+	.count-down{
+		display: flex;
+		align-items: center;
+		line-height: 1;
+		.text{
+			padding-right: 10rpx;
+		}
+	}
 	.otherGroupStatus{
 		font-size: 30rpx;
 		font-weight: bold;

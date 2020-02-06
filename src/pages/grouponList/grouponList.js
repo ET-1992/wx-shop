@@ -2,7 +2,6 @@ import { PRODUCT_LIST_STYLE, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
-
 // 获取全局应用程序实例对象
 const app = getApp();
 
@@ -12,11 +11,8 @@ Page({
     data: {
         products: [],
         // productListStyle: PRODUCT_LIST_STYLE[1],
-
         isRefresh: false,
-
         next_cursor: 0,
-
         page_title: '',
         share_title: '',
         post_type_title: '',
@@ -67,14 +63,6 @@ Page({
     },
 
     // 页面分享设置
-    onShareAppMessage: onDefaultShareAppMessage,
-
-    // onShareAppMessage:function(res) {
-    // 	console.log(this.data)
-    // 	return {
-    // 		title: this.data.share_title,
-    // 		imageUrl:this.data.share_image,
-    // 		path:'/pages/grouponList/grouponList?promotion_type=groupon_enable'
-    // 	}
-    // }
+    onShareAppMessage: onDefaultShareAppMessage
 });
+

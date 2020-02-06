@@ -1,86 +1,101 @@
-<loading isLoading="{{ isLoading }}"/>
+<articleDetailSkeleton isIphoneX="{{ isIphoneX }}" wx:if="{{ isLoading }}"/>
 <import src="../../utils/wxParse/wxParse.wxml"/>
 <import src="/templates/productLayout/topImage.wxml"/>
 <view wx:if="{{ !isLoading }}">
-<view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0)}}">
-	<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
-	<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
-		<block wx:for="{{article.images}}">
-			<swiper-item>
-				<image src="{{item}}" class="slide-image" mode="widthFix" />
-			</swiper-item>
-		</block>
-	</swiper>
-</view>
-<view class="p-single">
-	<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
-		<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
-		<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
-		<view class="borderLine"></view>
-		<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
+	<view class="header" wx:if="{{ !(!article.video && article.images && article.images.length === 0)}}">
+		<swiperVideoImg id="swiperVideoImg" wx:if="{{article.video}}" video="{{article.video}}" images="{{article.images}}" poster="{{article.images[0]}}"></swiperVideoImg>
+		<swiper wx:if="{{!article.video}}" indicator-dots="#47414D" indicator-dots autoplay circular class="swiper">
+			<block wx:for="{{article.images}}" wx:key="index">
+				<swiper-item>
+					<image src="{{item}}" class="slide-image" mode="widthFix" />
+				</swiper-item>
+			</block>
+		</swiper>
 	</view>
-
-	<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
-		<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
-	</view>
-	
-	<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
-		<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
-	</view>
-
-	<view class="promote" wx:if="{{article.products.length}}">
-		<view wx:if="{{ article.label }}" class="label">
-			<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
+	<view class="p-single">
+		<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
+			<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
+			<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
+			<view class="borderLine"></view>
+			<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
 		</view>
-		<view class="relateShop">
-			<view
-				class="relateShopItem"
-				wx:if="{{article.products.length}}"
-				wx:for="{{ article.products }}"
-				wx:key="id"
-				wx:for-item="product"
-				wx:for-index="productIndex"
-				hover-class="navigator-hover"
-			>
-				<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+
+		<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" wx:key="index">
+			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
+		</view>
+		
+		<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
+			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+		</view>
+
+		<view class="promote" wx:if="{{article.products.length}}">
+			<view wx:if="{{ article.label }}" class="label">
+				<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
+			</view>
+			<view class="relateShop">
+				<view
+					class="relateShopItem"
+					wx:if="{{article.products.length}}"
+					wx:for="{{ article.products }}"
+					wx:key="id"
+					wx:for-item="product"
+					wx:for-index="productIndex"
+					hover-class="navigator-hover"
+				>
+					<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+				</view>
 			</view>
 		</view>
 	</view>
-</view>
 
-<!-- 底部评论栏 -->
-<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-	<view class="footerItem">
-		<!-- 返回首页 -->
-		<view class="favItem" bind:tap="navigateToHome">
-			<view class="homeIcon"></view>
-			<text>首页</text>
-		</view>
-		<!-- 分享 -->
-		<button class="favItem" open-type="share">
-			<view class="shareIcon"></view>
-			<text>分享</text>
-		</button>
-	</view>
-
-	<view class="footerItem">
-		<!-- 收藏 -->
-		<view class="fav">
-			<view wx:if="{{is_faved}}" class="favItem" >
-		    	<view class="faved is_faved" id="{{article.id}}"  data-index="{{idx}}" bindtap="onToggleFav"></view>
-		    	<text> {{fav_count}}</text>
+	<!-- 底部评论栏 -->
+	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="left">
+			<!-- 返回首页 -->
+			<view class="item" data-url="/pages/home/home" bind:tap="go">
+				<van-icon class="icon" name="/icons/articleDetail/home.png" size="{{22}}" />
+				<view class="text">首页</view>
 			</view>
-			<view class="favItem" wx:else>
-				<view class="faved"  bindtap="onToggleFav" data-index="{{idx}}" id="{{article.id}}"></view>
-				<text> {{fav_count}}</text>
+			<!-- 分享 -->
+			<view class="item last-item" bind:tap="onShare">
+				<van-icon class="icon" name="/icons/articleDetail/share.png" size="{{22}}" />
+				<view class="text">分享</view>
 			</view>
 		</view>
-		<!-- 评论 -->
-		<navigator url="/pages/commentList/commentList?id={{article.id}}" class="comment">
-			<view class="commentIcon"></view>{{article.reply_count}}
-		</navigator>
+		<view class="right">
+			<view class="item" bind:tap="onToggleFav">
+				<van-icon class="icon" name="{{ article.is_faved ? '/icons/articleDetail/faved.png' : '/icons/articleDetail/fav.png'}}" size="{{22}}" />
+				<view class="text">{{ article.fav_count }}</view>
+			</view>
+			<view class="item last-item" data-url="/pages/commentList/commentList?id={{ article.id }}" bind:tap="go">
+				<van-icon class="icon" name="/icons/articleDetail/comment.png" size="{{22}}" />
+				<view class="text">{{ article.reply_count }}</view>
+			</view>
+		</view>
 	</view>
-</view>
-</view>
 
-<console page="文章详情" />
+	<!-- 分享弹窗 -->
+	<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="onShare">
+		<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="shareModalContent">
+				<button class="shareBtn" open-type="share">
+					<image class="image" src="/icons/shareFriendIcon.svg" mode="aspectFit" />
+					<view class="text">分享给好友</view>
+				</button>
+				<view class="shareBtn" bindtap="onShowPoster">
+					<image class="image" src="/icons/sharePosterIcon.svg" mode="aspectFit" />
+					<view class="text">分享商品海报</view>
+				</view>
+			</view>
+			<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="onShare" />
+		</view>
+	</van-popup>
+
+	<poster 
+		wx:if="{{ showPosterModal }}" 
+		posterData="{{ posterData }}" 
+		user="{{ current_user }}" 
+		posterType="article"
+		bindonClose="onClosePoster"
+	/>
+</view>

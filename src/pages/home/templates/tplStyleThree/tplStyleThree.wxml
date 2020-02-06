@@ -105,13 +105,13 @@
       <!-- 拼团专区 -->
       <view wx:if="{{ module.key === 'groupons' }}">
         <view class="section" class="section" wx:if="{{ groupons && groupons.length }}">
-			<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+			  <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
 		  	<view class="grouponContainer" style="justify-content:{{ groupons.length <= 2 ? 'center' : 'space-between' }}">
           <myNavigator wx:for="{{ groupons }}" wx:if="{{ index < 3 }}" wx:key="id" class="grouponItem {{ groupons.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}">
            	<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="grouponStyle" themeColor="{{themeColor}}"/>
           </myNavigator>
 			  </view>
-        	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/grouponList/grouponList">
+        	<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
         	  <form bindsubmit="submitFormId" report-submit class="form">
         	    <button formType="submit" class="moreButton">
         	      <span>更多</span>
@@ -125,7 +125,9 @@
       <view wx:if="{{ module.key === 'articles' }}">
         <view class="section" wx:if="{{ articles && articles.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
-          <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
+          <!-- 普通文章或公众号文章 -->
+          <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" 
+          url="{{ item.article_type === 'mp' ? '/pages/webPages/webPages?src='+item.mp_url : '/pages/articleDetail/articleDetail?id='+item.id}}">
               <image class="m-img" src="{{item.banner}}" mode="widthFix"></image>
               <template is="articleItem" data="{{ article: item,module:module }}" />
           </navigator>
@@ -144,11 +146,11 @@
         <view class="section" wx:if="{{ miaoshas && miaoshas.length }}">
 			    <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
 			    <view class="grouponContainer" style="justify-content:{{ miaoshas.length <= 2 ? 'center' : 'space-between' }}">
-			    	<myNavigator wx:if="{{ miaoshas.length > 0 && index < 3 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+			    	<myNavigator wx:if="{{ miaoshas.length > 0 && index < 3 }}" class="grouponItem {{ miaoshas.length === 2 && 'grouponTwoItem' }}" wx:for="{{ miaoshas }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
 			    		<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 			    	</myNavigator>
 			    </view>
-          <navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList">
+          <navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
           	<form bindsubmit="submitFormId" report-submit="true">
           	  <button formType="submit" class="moreButton">
           	    <span>更多</span>
@@ -158,6 +160,25 @@
           </navigator>
         </view>
       </view>
+      <!-- 砍价 -->
+			<view wx:if="{{ module.key === 'bargains' }}">
+				<view class="section" wx:if="{{ bargains && bargains.length }}">
+          <view class="sectionTitle" wx:if="{{ module.title }}">{{ module.title }}</view>
+          <view class="grouponContainer" style="justify-content:{{  bargains.length <= 2 ? 'center' : 'space-between' }}">
+            <myNavigator wx:for="{{ bargains }}" wx:if="{{ index < 3 }}" class="grouponItem {{ bargains.length === 2 && 'grouponTwoItem' }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
+              <productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
+            </myNavigator>
+          </view>
+					<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
+            <form bindsubmit="submitFormId" report-submit="true">
+              <button formType="submit" class="moreButton">
+                <span>更多</span>
+                <image class="rightIcon" src="/icons/right.png" />
+              </button>
+            </form>
+					</navigator>
+				</view>
+			</view>
       <!-- 优惠券 -->
       <view wx:if="{{ module.key === 'coupons' }}">
         <view
@@ -204,7 +225,7 @@
         </view>
       </view>
       <!-- 明星产品 -->
-      <view wx:if="{{ module.key === 'featured' }}">
+      <!-- <view wx:if="{{ module.key === 'featured' }}">
 
         <view class="section" wx:if="{{ featured && featured.length }}">
           <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
@@ -212,7 +233,7 @@
             <image class="starProductItem" src="{{ item.banner }}" />
           </myNavigator>
         </view>
-      </view>
+      </view> -->
       <!-- 最新上架 -->
       <view wx:if="{{ module.key === 'products' }}">
         <view class="section" wx:if="{{ products && products.length }}">

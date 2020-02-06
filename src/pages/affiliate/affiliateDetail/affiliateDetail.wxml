@@ -29,33 +29,31 @@
 					{{endDate}}
 				</view>
 			</picker>
-			<image class="picker-search" src="/icons/search.png" mode="widthFix" bindtap="tapSearch"/>
+			<image class="picker-search" src="/icons/search.png" bindtap="tapSearch"/>
 		</view>
 
-		<view class="moneyInfoBody">
+		<view class="moneyInfoBody" style="background-color: {{!showMoneyLogItems.length || !getMoneyLogItems.length ? '#f4f4f4' : '#fff'}}">
 			<!-- <view class="moneyInfoBodySearch" hidden="{{ isActive !== 1 && !isLoading }}">
 				<input class="moneyInfoBodySearch-i" placeholder="请输入订单号或者商品号查找" />
 			</view> -->
 			
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 1 }}">
-				<view wx:for="{{ showMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
+				<view wx:for="{{ showMoneyLogItems }}" wx:if="{{ showMoneyLogItems.length > 0 }}" class="orderItem">
 					<view wx:for="{{ item.order.order_items }}" wx:for-item="order">
 						<template is="orderShareItem" wx:if="{{ item.type === 3 }}" data="{{ order_amount: item.order.order_amount, order, formatTime: item.formatTime, globalData }}" />
 					</view>
 				</view>
-				<view wx:if="{{ showMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
+				<view wx:if="{{ !showMoneyLogItems.length && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>
 
 			<view class="moneyInfoBodyList" hidden="{{ isActive !== 2 && !isLoading }}">
-				<block wx:for="{{ getMoneyLogItems }}" wx:key="{{ index }}" wx:if="{{ getMoneyLogItems.length > 0 }}">
+				<block wx:for="{{ getMoneyLogItems }}" wx:if="{{ getMoneyLogItems.length > 0 }}">
 					<template is="shareMoneyGetItem" data="{{ globalData, ...item }}" />
 				</block>
-				<view wx:if="{{ getMoneyLogItems.length === 0 && !isLoading }}" class="noDataText">暂无数据</view>
+				<view wx:if="{{ !getMoneyLogItems.length && !isLoading }}" class="noDataText">暂无数据</view>
 			</view>
 		</view>
 	</view>
 
 	<myModal modal="{{modal}}" />
 </view>
-
-<console page="分销明细" />

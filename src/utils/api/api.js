@@ -7,9 +7,10 @@
  * method: 请求方法，默认GET
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
+ * contentType: 默认x-www-form-urlencode, 可配置json
  **/
-export const host = 'https://api.wpweixin.com/';
-// export const host = 'https://hei.dev.97866.com/';
+// export const host = 'https://api.97866.com/';
+export const host = 'https://hei.dev.97866.com/';
 // 翠绿
 // export const host = 'https://api.jcaik.com/';
 // 天枢
@@ -450,5 +451,60 @@ export const apis = {
         path: 'api/weapp/qrcode/code.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 发起砍价
+    createBargain: {
+        path: 'api/mag.bargain.mission.create.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 砍价活动详情
+    bargainDetail: {
+        path: 'api/mag.bargain.mission.get.json',
+        isForceToken: true
+    },
+    // 我的砍价列表
+    bargainList: {
+        path: 'api/mag.bargain.mission.list.json',
+        isForceToken: true
+    },
+    // 助力砍价
+    bargainHelp: {
+        path: 'api/mag.bargain.mission.assist.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 砍价下单接口
+    bargainOrder: {
+        path: 'api/mag.bargain.order.create.json?pay&v2',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 助力者列表
+    bargainActor: {
+        path: 'api/mag.bargain.mission.actor.list.json',
+        isForceToken: true
+    },
+    // 会员续费
+    renewalPay: {
+        path: 'api/mag.membership.renew.pay.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 地区列表
+    fetchRegionList: {
+        path: 'api/mag.region.list.json',
+        method: 'GET'
+    },
+    // 邮费计算
+    postageCalculate: {
+        path: 'api/mag.shipment.calculate.json',
+        method: 'POST'
+    },
+    subscribe: {
+        path: 'api/weapp/templates/subscribe.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
     }
 };

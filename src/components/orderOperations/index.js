@@ -1,7 +1,7 @@
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
-import { getAgainUserForInvalid, go } from 'utils/util';
+import { getAgainUserForInvalid, go, subscribeMessage } from 'utils/util';
 
 const app = getApp();
 
@@ -68,23 +68,24 @@ Component({
 
             wx.hideLoading();
 
+            let subKeys = [{ key: 'order_consigned' }];
+
+            if (currentOrder && currentOrder.groupon && currentOrder.groupon.id) {
+                subKeys.push({ key: 'groupon_finished' });
+            }
+
+
             if (this.data.orderPrice <= 0) {
+                await subscribeMessage(subKeys);
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${orderNo}&isFromCreate=true`,
                 });
             }
 
-            // if (+status === 2) {
-
-            // 	wx.redirectTo({
-            // 		url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
-            // 	});
-            // }
-
             if (pay_sign) {
                 console.log('orderOperations: 自主支付');
 
-                await wxPay(pay_sign, orderNo);
+                await wxPay(pay_sign, orderNo, subKeys);
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?id=${orderNo}`,
                 });
@@ -159,12 +160,19 @@ Component({
         },
 
         async onCloseOrder() {
+            const { order, orders, orderNo, orderIndex } = this.data;
+            console.log('order', order, 'orders', orders, 'orderIndex', orderIndex);
+            let content = '确定关闭订单？';
+            if ((orders && orders[orderIndex] && orders[orderIndex].promotion_type === '5') || (order.promotion_type === '5')) {
+                content = '机会只有一次，取消了就不能再下单了喔！';
+            }
+
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: '确定关闭订单？',
+                content: content
             });
+
             if (confirm) {
-                const { orderNo, orderIndex } = this.data;
                 try {
                     await api.hei.closeOrdery({
                         order_no: orderNo,

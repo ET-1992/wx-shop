@@ -90,21 +90,21 @@ Component({
             const { windowWidth } = app.systemInfo;
             console.log(this.data);
             const { width, height } = nodeInfo;
-            ctx.setFillStyle('#fff');
+            ctx.fillStyle = '#fff';
             ctx.fillRect(0, 0, width, height);
 
             ctx.save();
 
             ctx.beginPath();
             ctx.rect(45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height);
-            ctx.setFillStyle('#fff');
+            ctx.fillStyle = '#fff';
             ctx.fill();
             ctx.clip();
             ctx.drawImage(productImageUrl || '', 45 / 540 * width, 32 / 900 * height, 450 / 540 * width, 450 / 900 * height, 450 / 540 * width, 450 / 900 * height);
             ctx.restore();
 
             ctx.beginPath();
-            ctx.setFillStyle('#000000');
+            ctx.fillStyle = '#000000';
             ctx.setTextAlign('left');
 
             const text = productTitle;
@@ -126,7 +126,7 @@ Component({
             const globalData = app.globalData;
             if (!isMiaosha && !routeQuery.grouponId) {
                 ctx.beginPath();
-                ctx.setFillStyle('#FC2732');
+                ctx.fillStyle = '#FC2732';
                 ctx.fillText(globalData.CURRENCY[globalData.currency] + productPrice, 45 / 540 * width, 640 / 900 * height);
             }
 
@@ -134,13 +134,13 @@ Component({
                 ctx.beginPath();
                 ctx.moveTo(45 / 540 * width, 670 / 900 * height);
                 ctx.lineTo(500 / 540 * width, 670 / 900 * height);
-                ctx.setLineWidth(1);
+                ctx.lineWidth = 1;
                 ctx.strokeStyle = '#c2c2c2';
                 ctx.stroke();
             }
 
             ctx.beginPath();
-            ctx.setFillStyle('#000000');
+            ctx.fillStyle = '#000000';
             ctx.setTextAlign('left');
             ctx.font = 'normal bold 12px PingFang SC';
 
@@ -148,23 +148,23 @@ Component({
                 console.log(qvcode, 'qvcode');
                 const { product = null }  = qvcode;
                 if (remainSecond > 0) {
-                    ctx.setFillStyle('#000000');
+                    ctx.fillStyle = '#000000';
                     ctx.font = 'normal bold 14px PingFang SC';
                     ctx.fillText('距拼团结束', 45 / 540 * width, 750 / 900 * height - 15);
-                    ctx.setFillStyle('#FC2732');
+                    ctx.fillStyle = '#FC2732';
                     ctx.font = 'normal bold 12px PingFang SC';
                     ctx.fillText(remainTime, 45 / 540 * width + 75, 750 / 900 * height - 15);
                 } else {
-                    ctx.setFillStyle('#000000');
+                    ctx.fillStyle = '#000000';
                     ctx.font = 'normal bold 14px PingFang SC';
                     ctx.fillText('已结束', 45 / 540 * width, 750 / 900 * height - 15);
                 }
 
-                ctx.setFillStyle('#707070');
+                ctx.fillStyle = '#707070';
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillText('单独购买' + globalData.CURRENCY[globalData.currency] + (product ? product.price : originalPrice), 45 / 540 * width, 750 / 900 * height + 15);
 
-                ctx.setFillStyle('#FC2732');
+                ctx.fillStyle = '#FC2732';
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillText(globalData.CURRENCY[globalData.currency], 45 / 540 * width, 750 / 900 * height + 45);
                 ctx.font = 'normal bold 18px PingFang SC';
@@ -174,7 +174,7 @@ Component({
                 ctx.fillStyle = '#FC2732';
                 ctx.fillText(grouponLimit + '人团', 45 / 540 * width + 70, 750 / 900 * height + 45);
             } else if (isMiaosha && miaoshaObj) {
-                ctx.setFillStyle('#000000');
+                ctx.fillStyle = '#000000';
                 ctx.font = 'normal bold 14px PingFang SC';
                 if (!miaoshaObj.hasStart) {
                     ctx.fillText('距活动开始', 45 / 540 * width, 750 / 900 * height - 15);
@@ -186,15 +186,15 @@ Component({
                     ctx.fillText('活动已结束', 45 / 540 * width, 750 / 900 * height - 15);
                 }
                 if (!miaoshaObj.hasStart || (miaoshaObj.hasStart && !miaoshaObj.hasEnd)) {
-                    ctx.setFillStyle('#FC2732');
+                    ctx.fillStyle = '#FC2732';
                     ctx.font = 'normal bold 12px PingFang SC';
                     ctx.fillText(miaoshaObj.remainTime, 45 / 540 * width + 75, 750 / 900 * height - 15);
                 }
-                ctx.setFillStyle('#707070');
+                ctx.fillStyle = '#707070';
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillText('原价购买' + globalData.CURRENCY[globalData.currency] + miaoshaObj.price + (miaoshaObj.price < miaoshaObj.highest_price ? '~' + miaoshaObj.highest_price : ''), 45 / 540 * width, 750 / 900 * height + 15);
 
-                ctx.setFillStyle('#FC2732');
+                ctx.fillStyle = '#FC2732';
                 ctx.font = 'normal 12px PingFang SC';
                 ctx.fillText(globalData.CURRENCY[globalData.currency], 45 / 540 * width, 750 / 900 * height + 45);
                 ctx.font = 'normal bold 18px PingFang SC';

@@ -1,7 +1,6 @@
 {
-	"navigationBarTitleText": "拼团",
-	"usingComponents": {
-		"productList": "../../components/productList/index",
-    	"console": "../../components/console/console"
-  	}
+  "navigationBarTitleText": "拼团",
+  "usingComponents": {
+    "productList": "../../components/productList/index"
+  }
 }

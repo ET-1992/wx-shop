@@ -3,14 +3,18 @@ import { Decimal } from 'decimal.js';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showModal, showToast } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { autoNavigate } from 'utils/util';
+import { go } from 'utils/util';
 const app = getApp();
 
 Page({
     data: {
         isLoading: true,
-        payModal: false
+        payModal: false,
+        showPosterModal: false,
+        isShowShareModal: false
     },
+
+    go,
 
     onLoad() {
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -41,7 +45,7 @@ Page({
     },
     async loadOrder(queryOption) {
 
-        const { order } = await api.hei.fetchOrder(queryOption);
+        const { current_user, order } = await api.hei.fetchOrder(queryOption);
 
         // -----------------处理价格显示
         let info = {};
@@ -69,9 +73,9 @@ Page({
         }
         // -----------------End
 
-        let { crowd_pay_no } = order.crowd;
         this.setData({
             order,
+            userInfo: current_user,
             order_no: order.order_no,
             items: order.items,
             crowd: order.crowd,
@@ -84,8 +88,7 @@ Page({
             rest_amount_display,
             support_amount,
             progress,
-            isLoading: false,
-            routeQuery: { crowd_pay_no }
+            isLoading: false
         });
     },
 
@@ -202,20 +205,9 @@ Page({
 
     // 分享弹窗
     showShareModal() {
-        let { shareModal } = this.data;
-        shareModal ? shareModal = false : shareModal = true;
-        this.setData({ shareModal });
-    },
-
-    async onShowProductDetailShareModal() {
+        let { isShowShareModal } = this.data;
         this.setData({
-            isShowProductDetailShareModal: true,
-            shareModal: false
-        });
-    },
-    onCloseProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: false
+            isShowShareModal: !isShowShareModal
         });
     },
 
@@ -229,7 +221,41 @@ Page({
         return shareMsg;
     },
 
-    navigateToHome() {
-        autoNavigate('/pages/home/home');
+    onShowPoster() {
+        const {
+            order: {
+                amount
+            },
+            items: [
+                {
+                    thumbnail,
+                    image_url,
+                    title,
+                    original_price,
+                    price
+                }
+            ],
+            crowd: {
+                crowd_pay_no
+            }
+        } = this.data;
+        let posterData = {
+            banner: image_url || thumbnail,
+            title,
+            crowd_pay_no,
+            price: amount,
+            original_price
+        };
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
     }
 });

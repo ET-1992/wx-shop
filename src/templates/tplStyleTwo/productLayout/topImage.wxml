@@ -1,7 +1,7 @@
 <view class="topImage">
     <view class="container">
         <view class="top">
-            <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
+            <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" lazy-load="{{ true }}" ></image>
             <view class="tagWrapper">
                 <view class="sold">已售{{ product.sales }}件</view>
                 <view class="tag" wx:if="{{ product.groupon_enable || product.miaosha_enable }}">

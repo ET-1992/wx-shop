@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
-import { auth } from 'utils/util';
+import { auth, subscribeMessage } from 'utils/util';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -47,7 +47,7 @@ Page({
         isShouldRedirect: false,
         isDisablePay: true,
         PAY_STYLES,
-        selectedPayValue: 'weixin',
+        selectedPayValue: 'WEIXIN',
     },
 
     async onShow() {
@@ -68,7 +68,8 @@ Page({
             themeColor,
             isIphoneX,
             defineTypeGlobal,
-            config
+            config,
+            bargain_mission_code: params.bargain_mission_code
         });
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
@@ -176,7 +177,7 @@ Page({
     },
 
     setOverseeAddressEvent(selfAddressObj) {
-        this.setData({ address: selfAddressObj });
+        this.setData({ address: selfAddressObj }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址
@@ -212,7 +213,8 @@ Page({
                 isGrouponBuy,
                 grouponId,
                 shipping_type,
-                config
+                config,
+                bargain_mission_code
             } = this.data;
             let requestData = {};
             if (address) {
@@ -245,12 +247,21 @@ Page({
                 requestData.delivery_store_id = params; // 配送地区id
             }
 
+            if (bargain_mission_code) { // 砍价
+                requestData.promotion_type = 5;
+                requestData.mission_code = bargain_mission_code;
+            }
+
             requestData.shipping_type = Number(shipping_type);
 
             requestData.posts = JSON.stringify(items);
 
             const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, store_card } = await api.hei.orderPrepare(requestData);
-            const shouldGoinDisplay = coin_in_order.enable && coin_in_order.order_least_cost <= fee.amount && fee.amount;
+
+            // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
+            const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
+            console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
+
             const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
@@ -319,6 +330,7 @@ Page({
     },
 
     async onPay(ev) {
+        console.log(ev);
         const { formId, crowd, crowdtype } = ev.detail;
         const {
             address,
@@ -335,7 +347,8 @@ Page({
             selectedPayValue,
             store_card,
             storeListAddress,
-            shipping_type
+            shipping_type,
+            bargain_mission_code
         } = this.data;
         const {
             userName,
@@ -422,7 +435,7 @@ Page({
             }
         }
 
-        if (store_card && store_card.store_card_enable && selectedPayValue === 'store_card') {
+        if (store_card && store_card.store_card_enable && selectedPayValue === 'STORE_CARD') {
             const { confirm } = await showModal({
                 title: '提示',
                 content: '您确定要用储值卡支付吗？',
@@ -445,7 +458,7 @@ Page({
         if (shipping_type === '2') {
             requestData.shipping_type = 2;
             requestData = { ...requestData, ...liftInfo };
-            wx.setStorageSync('liftInfo', liftInfo);
+            wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
         }
 
         // 送货上门需传数据
@@ -478,6 +491,8 @@ Page({
             }
         }
 
+        let subKeys = [{ key: 'order_consigned' }];
+
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
         if (isGrouponBuy) {
             requestData.sku_id = items[0].sku_id;
@@ -490,6 +505,8 @@ Page({
                 requestData.post_id = items[0].id;
                 method = 'createGroupon';
             }
+
+            subKeys.push({ key: 'groupon_finished' });
         }
         else {
             requestData.posts = JSON.stringify(items);
@@ -502,15 +519,22 @@ Page({
             method = 'createOrder';
         }
 
+        // 砍价
+        if (bargain_mission_code) {
+            requestData.code = bargain_mission_code;
+            method = 'bargainOrder';
+        }
+
         wx.showLoading({
             title: '处理订单中',
-            mark: true,
+            mask: true,
         });
 
         try {
             const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
             wx.hideLoading();
             console.log('OrderCreatecart507', cart);
+
             if (cart && cart.count) {
                 wx.setStorageSync('CART_NUM', cart.count);
             }
@@ -520,6 +544,7 @@ Page({
                 });
             } else {
                 if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
+                    await subscribeMessage(subKeys);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
@@ -527,7 +552,8 @@ Page({
 
                 if (pay_sign) {
                     // console.log('自主支付');
-                    await wxPay(pay_sign, order_no);
+                    const payRes = await wxPay(pay_sign, order_no, subKeys);
+                    console.log(payRes, 'payRes');
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
@@ -604,7 +630,7 @@ Page({
     pickPayStyle(e) {
         const { value } = e.currentTarget.dataset;
         const { store_card, finalPay } = this.data;
-        if (value === 'store_card' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
+        if (value === 'STORE_CARD' && store_card && store_card.store_card_enable && (Number(store_card.balance) < Number(finalPay))) {
             wx.showModal({
                 title: '提示',
                 content: '您的储值卡余额不足，请到会员中心充值',

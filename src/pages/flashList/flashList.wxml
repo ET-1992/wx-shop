@@ -3,7 +3,5 @@
   <view class="itemWrapper" wx:for="{{ products }}" wx:key="id">
     <flashItem product="{{ item }}" />
   </view>
-  <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">-这是一条底线-</view>
+  <view class="bottomHint" wx:if="{{ products.length && !next_cursor }}">- 已经到底了 -</view>
 </view>
-
-<console page="秒杀" />

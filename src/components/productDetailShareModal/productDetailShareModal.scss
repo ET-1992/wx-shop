@@ -13,6 +13,8 @@
 	z-index: 10000;
 	flex-direction: column;
 	padding: 50rpx;
+	padding-bottom: constant(safe-area-inset-bottom);
+	padding-bottom: env(safe-area-inset-bottom);
 
 	.shareModal {
 		background: #fff;

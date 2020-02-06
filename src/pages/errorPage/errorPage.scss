@@ -1,0 +1,37 @@
+.container {
+	padding: 30rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.img {
+		width: 100%;
+	}
+
+	.left_tips {
+		font-size: 36rpx;
+		color: #71A4B5;
+		font-weight: bold;
+		margin-top: 40rpx;
+	}
+
+	.text {
+		font-size: 28rpx;
+		color: #71A4B5;
+		margin-top: 40rpx;
+		margin-bottom: 40rpx;
+	}
+
+	.btn {
+		width: 280rpx;
+		height: 68rpx;
+		font-size: 28rpx;
+		color:#71A4B5;
+		border-radius: 10rpx;
+		border: 2rpx solid #71A4B5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 1px 6px 0 rgba(31, 32, 35, 0.12);
+	}
+}

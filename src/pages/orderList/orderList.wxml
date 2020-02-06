@@ -4,7 +4,7 @@
 	<view class="orderItem {{newIndex==1?'refundItem' : ''}}">
 		<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
 			<navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
-				<view class="item" wx:for="{{ order.items }}">
+				<view class="item" wx:for="{{ order.items }}" wx:key="id">
 					<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
 					<view class="itemInfo">
 						<view class="itemTitle">{{ item.title }}</view>
@@ -38,7 +38,5 @@
 			/>
 		</view>
 	</view>
-	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">-这是一条底线-</view>
+	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">- 已经到底了 -</view>
 </view>
-
-<console page="订单列表" />

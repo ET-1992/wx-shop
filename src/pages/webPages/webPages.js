@@ -15,16 +15,32 @@ Page({
             scene = decodeURIComponent(scene);
             let query = parseScene(scene);
             console.log(query, 'query');
+
+            // 分享商品海报
             if (query.id) {
                 wx.redirectTo({
-                    url: '/pages/productDetail/productDetail?id=' + query.id
+                    url: `/pages/productDetail/productDetail?id=${query.id}`
                 });
             }
+            // 扫描文章海报
+            if (query.aid) {
+                wx.redirectTo({
+                    url: `/pages/articleDetail/articleDetail?id=${query.aid}`
+                });
+            }
+            // 邀请砍价海报
+            if (query.bid) {
+                wx.redirectTo({
+                    url: `/pages/bargainDetail/bargainDetail?code=${query.bid}&isOthers=true`
+                });
+            }
+            // 邀请拼团海报
             if (query.gid) {
                 wx.redirectTo({
                     url: `/pages/orderDetail/orderDetail?grouponId=${query.gid}`
                 });
             }
+            // 代付海报
             if (query.c) {
                 wx.redirectTo({
                     url: `/pages/crowd/crowdProgress/crowdProgress?crowd_pay_no=${query.c}`

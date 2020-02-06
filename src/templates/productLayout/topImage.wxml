@@ -1,5 +1,5 @@
 <view class="topImage">
-    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" />
     <view class="Info">
         <view class="title">
             {{ product.title }}

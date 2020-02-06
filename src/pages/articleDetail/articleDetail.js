@@ -1,7 +1,6 @@
-import { PRODUCT_LAYOUT_STYLE } from 'constants/index';
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { autoNavigate } from 'utils/util';
+import { go } from 'utils/util';
 
 const WxParse = require('utils/wxParse/wxParse.js');
 
@@ -9,116 +8,85 @@ const app = getApp();
 
 Page({
 
-    /**
-	 * 页面的初始数据
-	 */
     data: {
-        id: 0,
         isLoading: true,
-        type: 'topic',
-        topic: null,
-        user: null,
-        page_title: '',
-        share_title: '',
-        headerType: 'images',
-        currentPageLength: 0,
-        productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
+        current_user: {},
+        isShowShareModal: false,
+        showPosterModal: false
     },
 
-    onLoad({ id }) {
-        const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
-        this.setData({ themeColor });
-        const pages = getCurrentPages();
-        this.getDetail(id);
-        this.setData({
-            isIphoneX,
-            currentPageLength: pages.length
-        });
-    },
+    go,
 
-    async getDetail(id) {
-        const { article, share_title, page_title } = await api.hei.articleDetail({
-            id: id,
-        });
-        const { themeColor } = this.data;
-        const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
-
-        WxParse.wxParse(
-            'article_content',
-            'html',
-            fomatedContent,
-            this,
-        );
+    async onLoad({ id }) {
+        const {
+            globalData: { themeColor },
+            systemInfo: { isIphoneX }
+        } = app;
 
         this.setData({
             id,
-            article: article,
-            fav_count: article.fav_count,
-            is_faved: article.is_faved,
-            product: article.products,
-            share_title: share_title,
-            topic: {
-                reply_count: article.replies ? article.replies.length : 0,
-                replies: article.replies,
-            },
-            isLoading: false
+            isIphoneX,
+            themeColor
         });
-        if (page_title) {
-            wx.setNavigationBarTitle({
-                title: page_title,
+
+        this.getDetail(id);
+    },
+
+    async getDetail(id) {
+        try {
+            const { article, share_title, share_image, page_title, current_user } = await api.hei.articleDetail({ id });
+
+            const { themeColor } = this.data;
+            const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
+
+            WxParse.wxParse('article_content', 'html', fomatedContent, this);
+
+            this.setData({
+                article,
+                share_title,
+                share_image: share_image || article.banner,
+                current_user,
+                isLoading: false
+            });
+            if (page_title) {
+                wx.setNavigationBarTitle({ title: page_title });
+            }
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
             });
         }
     },
+
     wxParseTagATap(e) {
         wx.navigateTo({
             url: '/' + e.currentTarget.dataset.src,
         });
     },
-    // async onFav(e) {
-    // 	console.log(this.data);
-    // 	const data = await api.hei.fav({
-    // 		post_id: e.currentTarget.id,
-    // 	});
-    // 	this.setData({
-    // 		is_faved: true,
-    // 		fav_count: this.data.fav_count + 1,
-    // 	});
-    // 	wx.showToast({
-    // 		title: data.errmsg,
-    // 		icon: 'success',
-    // 		duration: 2000,
-    // 	});
-    // },
-    // async onUnfav(e) {
-    // 	const data = await api.hei.unfav({
-    // 		post_id: e.currentTarget.id,
-    // 	});
-    // 	this.setData({
-    // 		is_faved: false,
-    // 		fav_count: this.data.fav_count - 1,
-    // 	});
-    // 	wx.showToast({
-    // 		title: data.errmsg,
-    // 		icon: 'success',
-    // 		duration: 2000,
-    // 	});
-    // },
 
     async onToggleFav() {
-        const { is_faved, article: { id }, fav_count } = this.data;
-        const favMethod = is_faved ? 'unfav' : 'fav';
-        const data = await api.hei[favMethod]({
-            post_id: id,
-        });
-        if (data) {
-            const nextFavCount = is_faved ? fav_count - 1 : fav_count + 1;
+        try {
+            const { article: { id, is_faved, fav_count }} = this.data;
+            const method = is_faved ? 'unfav' : 'fav';
+            const { errmsg, current_user } = await api.hei[method]({ post_id: id });
+
             this.setData({
-                is_faved: !is_faved,
-                fav_count: nextFavCount,
+                'article.is_faved': !is_faved,
+                'article.fav_count': is_faved ? fav_count - 1 : fav_count + 1,
+                current_user
             });
             wx.showToast({
-                title: data.errmsg,
-                icon: 'success',
+                title: errmsg,
+                icon: 'success'
+            });
+
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
             });
         }
     },
@@ -131,61 +99,32 @@ Page({
             current: e.detail.current,
         });
     },
-    clickMe() {
-        const that = this;
-        that.setData({
-            autoplay: false,
-            activeIndex: 1,
-        });
-        this.videoContext.requestFullScreen({
 
-            // direction: 0,
-        });
-    },
-    startPlay() {
+    onShare() {
         this.setData({
-            autoplay: false,
-        });
-    },
-    pause() {
-        this.setData({
-            autoplay: true,
-        });
-    },
-    end() {
-        this.setData({
-            autoplay: true,
-        });
-    },
-    fullScreen(e) {
-        console.log(e.detail.fullScreen);
-        if (e.detail.fullScreen === false) {
-            this.setData({
-                autoplay: true,
-                activeIndex: -1,
-            });
-        }
-    },
-    onHideCouponList() {
-        this.setData({
-            isShowCouponList: false,
+            isShowShareModal: !this.data.isShowShareModal
         });
     },
 
-    navigateToHome() {
-        autoNavigate('/pages/home/home');
+    onShowPoster() {
+        const { id, banner, title, excerpt, author } = this.data.article;
+        let posterData = {
+            id,
+            banner,
+            title,
+            author,
+            excerpt
+        };
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
     },
 
-    async reLoad() {
-        const { id } = this.data;
-        const { article } = await api.hei.articleDetail({ id });
-        const { fav_count, is_faved, replies } = article;
+    onClosePoster() {
         this.setData({
-            fav_count,
-            is_faved,
-            topic: {
-                reply_count: replies ? replies.length : 0,
-            },
+            showPosterModal: false
         });
     },
 

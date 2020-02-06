@@ -10,7 +10,6 @@ const app = getApp(); // eslint-disable-line no-undef
 Page({
     data: {
         pageName: 'home',
-
         products: [],
         product_categories: [],
         home_sliders: {
@@ -29,7 +28,6 @@ Page({
 
         post_type_title: '',
         taxonomy_title: '',
-        share_title: '',
         page_title: '',
         type: '',
         isProductBottom: false,

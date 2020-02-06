@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
-import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG, SHIPPING_TYPE } from 'constants/index';
+import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG, SHIPPING_TYPE, CART_TYPE } from 'constants/index';
 import { updateCart, autoNavigate } from 'utils/util';
 
 const app = getApp();
@@ -63,7 +63,7 @@ Page({
         let isSelectedObject = {};
         let isAllSelected = false;
         items.forEach((item) => {
-            if (item.status !== 0) {
+            if (item.status !== 0 && item.stock !== 0) {
                 isSelectedObject[item.id] = lastSelectedArray ? lastSelectedArray[item.id] || false : false;
             }
         });
@@ -259,8 +259,7 @@ Page({
                 shipping_types
             }
         } = this.data;
-        console.log('shipping_types', shipping_types);
-        const liftStyles = SHIPPING_TYPE.filter(item => {
+        const liftStyles = CART_TYPE.filter(item => {
             return shipping_types.indexOf(item.value) > -1;
         });
         console.log('data', liftStyles);

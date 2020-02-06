@@ -97,7 +97,7 @@ Component({
             }
             else {
                 wx.navigateTo({
-                    url: `/pages/miaoshaList/miaoshaList?id=${id}`
+                    url: `/pages/miaoshaList/miaoshaList?type=miaosha&id=${id}`
                 });
             }
         },

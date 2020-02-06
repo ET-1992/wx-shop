@@ -1,10 +1,10 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG, PAY_STYLES } from 'constants/index';
 import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import templateTypeText from 'constants/templateType';
 import { qrcode } from 'peanut-all';
-import { createCurrentOrder } from 'utils/pageShare';
+import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
 
 const app = getApp();
@@ -36,7 +36,8 @@ Page({
             'STORE_CARD': '储值卡支付'
         },
 
-        isShowShareModal: false
+        isShowShareModal: false,
+        showPosterModal: false
     },
 
     onLoad({ isFromCreate = false }) {
@@ -51,17 +52,17 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
-            routePath: this.route
+            globalData: app.globalData,
+            isLoading: true
         });
     },
 
     async onShow() {
         const { id, grouponId } = this.options;
-        const user = wx.getStorageSync(USER_KEY);
+        const current_user = wx.getStorageSync(USER_KEY);
         this.setData({
-            user,
-            grouponId,
-            isLoading: true
+            current_user,
+            grouponId
         });
 
         id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
@@ -72,7 +73,7 @@ Page({
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });
         const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
-        const data = { order, redpacket };
+        const data = { order, redpacket, current_user };
         const statusCode = Number(order.status);
         let address = {};
         address.userName = order.receiver_name;
@@ -85,6 +86,7 @@ Page({
         address.postalCode = order.receiver_zipcode;
 
         order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
+        order.payMethodText = valueToText(PAY_STYLES, order.pay_method);
         order.statusCode = statusCode;
         order.buyer_message = order.buyer_message || '买家未留言';
         order.createDate = formatTime(new Date(order.time * 1000));
@@ -159,16 +161,9 @@ Page({
             for (let i = 0; i < (order.groupon.member_limit - order.groupon.member_count); i++) {
                 grouponDefaultImageArray.push('/icons/default_groupon_avatar.png');
             }
-            let routeQuery = {
-                grouponId: order.groupon && order.groupon.id,
-                afcode: current_user && current_user.afcode || '',
-                post_id: order.groupon.post_id,
-                sku_id: order.groupon.sku_id
-            };
             this.setData({
                 groupon: order.groupon,
-                grouponDefaultImageArray,
-                routeQuery
+                grouponDefaultImageArray
             });
         }
 
@@ -256,7 +251,7 @@ Page({
 
         this.setData({
             current_user,
-            isShowAcitonSheet: true,
+            isShowActionSheet: true,
             quantity: 1,
             product,
             isGrouponBuy,
@@ -266,7 +261,8 @@ Page({
 
     async onSkuConfirm(e) {
         wx.showLoading({
-            title: '请求中...'
+            title: '请求中...',
+            mask: true
         });
         const { selectedSku, quantity, formId } = e.detail;
 
@@ -313,7 +309,7 @@ Page({
 
         app.globalData.currentOrder = currentOrder;
 
-        this.setData({ isShowAcitonSheet: false });
+        this.setData({ isShowActionSheet: false });
         wx.navigateTo({ url });
         wx.hideLoading();
     },
@@ -332,57 +328,37 @@ Page({
         });
     },
 
-    async isShowProductDetailShareModal() {
-        const { order } = this.data;
-        const { time_expired } = order.groupon;
-        const now = Math.round(Date.now() / 1000);
-        let remainSecond = time_expired - now;
-        let remainTime = getRemainTime(remainSecond).join(':');
-
-        this.setData({
-            isShowProductDetailShareModal: true,
-            isShowShareModal: false,
-            remainTime,
-            remainSecond
-        });
-    },
-
-    onCloseProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: false
-        });
-    },
-
+    /**
+     * 默认隐藏页面分享按钮，待成团页面开启
+     */
     onShareAppMessage({ target }) {
-        const { user, groupon = {}, redpacket = {}, config } = this.data;
-
         console.log('target', target);
-        if (typeof (target) !== 'undefined') {  // 点击按钮进来
-            const { isModal, isRedpocketShare, isShareGroupon } = target.dataset;
-            if (isModal || isRedpocketShare) {
-                this.setData({ isShared: true });
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}给你发来了一个红包，快去领取吧`,
-                    path: `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`,
-                    imageUrl: `${config.cdn_host}/shop/redpacketShare.jpg`
-                };
-            }
-            if (isShareGroupon && groupon.status === 2) {
-                this.showShareModal();
-                return {
-                    title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                    path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                    imageUrl: groupon.image_url
-                };
-            }
-        } else {    // 右上角转发按钮
-            return {
-                title: `${user.nickname ? user.nickname : '好友'}邀请你一起拼团`,
-                path: `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`,
-                imageUrl: groupon.image_url
-            };
 
+        const { current_user = {}, groupon = {}, redpacket = {}} = this.data;
+
+        let data = {
+            share_title: `${current_user.nickname || '好友'}邀请你一起拼团`,
+            share_image: groupon.image_url
+        };
+        let path = `/pages/orderDetail/orderDetail?grouponId=${groupon.id}`;
+
+        if (typeof (target) !== 'undefined') {
+
+            // 点击分享红包
+            const { isModal, isRedpocketShare } = target.dataset;
+            if (isModal || isRedpocketShare) {
+                data = {
+                    isShared: true,
+                    share_title: `${current_user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
+                    share_image: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
+                };
+                path = `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`;
+            }
         }
+
+        this.setData(data);
+
+        return onDefaultShareAppMessage.call(this, {}, path);
     },
 
     filterItemsForLogistics(items = [], logistics = []) {
@@ -444,5 +420,35 @@ Page({
             shipping_type: e.detail.shipping_type
         });
         console.log('shipping_type696', this.data.shipping_type);
-    }
+    },
+
+    onShowPoster() {
+        const {
+            order: { groupon }
+        } = this.data;
+
+        const now = Math.round(Date.now() / 1000);
+        let remainSecond = groupon.time_expired - now;
+
+        let posterData = {
+            id: groupon.id,
+            post_id: groupon.post_id,
+            sku_id: groupon.sku_id,
+            price: groupon.price,
+            member_limit: groupon.member_limit,
+            remainSecond
+        };
+
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    },
 });

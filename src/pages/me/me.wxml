@@ -1,5 +1,5 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{!isLoading}}">
+<!-- <loading isLoading="{{ isLoading }}"/> -->
+<view class="container">
 	<!-- 头部面板 -->
 	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
@@ -30,5 +30,3 @@
 <manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
 
 <myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />
-
-<console page="个人中心" />

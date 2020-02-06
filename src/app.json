@@ -1,77 +1,23 @@
 {
 	"pages": [
 		"pages/home/home",
-		"pages/cart/cart",
 		"pages/me/me",
-		"pages/me/aboutUs/aboutUs",
-		"pages/miaoshaList/miaoshaList",
-		"pages/productDetail/productDetail",
-		"pages/productList/productList",
-		"pages/orderCreate/orderCreate",
-		"pages/orderList/orderList",
-		"pages/orderDetail/orderDetail",
-		"pages/logistics/logistics",
-		"pages/refund/refund",
+		"pages/cart/cart",
 		"pages/category/category",
-		"pages/search/search",
-		"pages/grouponList/grouponList",
-		"pages/flashList/flashList",
-		"pages/peanutPay/index",
-		"pages/myCoupons/myCoupons",
-		"pages/articleDetail/articleDetail",
-		"pages/articleList/articleList",
-		"pages/couponProducts/couponProducts",
-		"pages/orderCoupons/orderCoupons",
-		"pages/commentList/commentList",
-		"pages/loadProduct/loadProduct",
-		"pages/myFav/myFav",
-		"pages/couponList/couponList",
-		"pages/redpacket/redpacket",
-		"pages/coinDetail/coinDetail",
-		"pages/affiliate/affiliateProductList/affiliateProductList",
-		"pages/affiliate/affiliateApply/affiliateApply",
-		"pages/affiliate/affiliateCenter/affiliateCenter",
-		"pages/affiliate/affiliateDetail/affiliateDetail",
-		"pages/affiliate/affiliateFinishUserInfo/affiliateFinishUserInfo",
-		"pages/affiliate/affiliatePoster/affiliatePoster",
-		"pages/affiliate/affiliateMoney/affiliateMoney",
-		"pages/affiliate/affiliateList/affiliateList",
-		"pages/affiliate/affiliateOrderList/affiliateOrderList",
-		"pages/webPages/webPages",
-		"pages/liftList/liftList",
-		"pages/comment/comment",
-		"pages/selfAddress/selfAddress",
-		"pages/directPay/directPay",
-		"pages/directPayResult/directPayResult",
-		"pages/crowd/crowdProgress/crowdProgress",
-		"pages/crowd/inviteCrowd/inviteCrowd",
-		"pages/crowd/crowdList/crowdList",
-		"pages/rulePages/rulePages",
-		"pages/idCard/idCard",
 		"pages/classify/classify",
-		"pages/membership/members/members",
-		"pages/membership/consumptionCenter/consumptionCenter",
-		"pages/membership/integralList/integralList",
-		"pages/affiliate/affiliateVisitor/affiliateVisitor",
-		"pages/bindWeb/bindWeb"
+		"pages/articleList/articleList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
+		"backgroundColor": "#f4f4f4",
 		"navigationBarBackgroundColor": "#729153",
-		"navigationBarBackgroundColorRed": "#3B89D8",
-		"navigationBarBackgroundColorBlue": "#245e74",
-		"navigationBarBackgroundColorGreen": "#22926c",
-		"navigationBarTextStyle": "white",
-		"backgroundColor": "#f4f4f4"
+		"navigationBarTextStyle": "white"
 	},
 	"tabBar": {
 		"color": "#a39896",
-		"selectedColor": "#45424e",
 		"backgroundColor": "#fff",
-		"backgroundColorRed": "#eb7581",
-		"backgroundColorBlue": "#1e8aa6",
-		"backgroundColorGreen": "#71bca8",
 		"borderStyle": "black",
+		"selectedColor": "#45424e",
 		"list": [
 			{
 				"pagePath": "pages/home/home",
@@ -105,6 +51,252 @@
 			}
 		]
 	},
+	"subPackages": [
+		{
+			"root": "pages/affiliate/",
+			"pages": [
+				"affiliateApply/affiliateApply",
+				"affiliateCenter/affiliateCenter",
+				"affiliateDetail/affiliateDetail",
+				"affiliateFinishUserInfo/affiliateFinishUserInfo",
+				"affiliateList/affiliateList",
+				"affiliateMoney/affiliateMoney",
+				"affiliateOrderList/affiliateOrderList",
+				"affiliatePoster/affiliatePoster",
+				"affiliateProductList/affiliateProductList",
+				"affiliateVisitor/affiliateVisitor"
+			],
+			"name": "分销"
+		}, {
+			"root": "pages/articleDetail/",
+			"pages": [
+				"articleDetail"
+			],
+			"name": "文章详情页"
+		}, {
+			"root": "pages/bindWeb/",
+			"pages": [
+				"bindWeb"
+			],
+			"name": "绑定H5"
+		}, {
+			"root": "pages/bargainList/",
+			"pages": [
+				"bargainList"
+			],
+			"name": "砍价列表"
+		}, {
+			"root": "pages/bargainDetail/",
+			"pages": [
+				"bargainDetail"
+			],
+			"name": "砍价详情"
+		}, {
+			"root": "pages/comment/",
+			"pages": [
+				"comment"
+			],
+			"name": "评论"
+		}, {
+			"root": "pages/commentList/",
+			"pages": [
+				"commentList"
+			],
+			"name": "评论列表"
+		}, {
+			"root": "pages/couponList/",
+			"pages": [
+				"couponList"
+			],
+			"name": "优惠券列表"
+		}, {
+			"root": "pages/coinDetail/",
+			"pages": [
+				"coinDetail"
+			],
+			"name": "花生米详情"
+		}, {
+			"root": "pages/couponProducts/",
+			"pages": [
+				"couponProducts"
+			],
+			"name": "优惠商品页"
+		}, {
+			"root": "pages/crowd/",
+			"pages": [
+				"crowdList/crowdList",
+				"crowdProgress/crowdProgress",
+				"inviteCrowd/inviteCrowd",
+				"richList/index"
+			],
+			"name": "代付"
+		}, {
+			"root": "pages/directPay/",
+			"pages": [
+				"directPay"
+			],
+			"name": "扫码支付"
+		}, {
+			"root": "pages/directPayResult/",
+			"pages": [
+				"directPayResult"
+			],
+			"name": "扫码支付结果页"
+		}, {
+			"root": "pages/errorPage/",
+			"pages": [
+				"errorPage"
+			],
+			"name": "出错提示页"
+		}, {
+			"root": "pages/flashList/",
+			"pages": [
+				"flashList"
+			],
+			"name": "秒杀页"
+		}, {
+			"root": "pages/grouponList/",
+			"pages": [
+				"grouponList"
+			],
+			"name": "拼团页"
+		}, {
+			"root": "pages/idCard/",
+			"pages": [
+				"idCard"
+			],
+			"name": "实名认证页"
+		}, {
+			"root": "pages/loadProduct/",
+			"pages": [
+				"loadProduct"
+			],
+			"name": "商品列表更多页面"
+		}, {
+			"root": "pages/liftList/",
+			"pages": [
+				"liftList"
+			],
+			"name": "自提点列表页"
+		}, {
+			"root": "pages/logistics/",
+			"pages": [
+				"logistics"
+			],
+			"name": "物流页"
+		}, {
+		  "root": "pages/membership/",
+		  "pages": [
+		    "consumptionCenter/consumptionCenter",
+		    "integralList/integralList",
+		    "members/members"
+		  ],
+		  "name": "会员"
+		}, {
+			"root": "pages/myFav/",
+			"pages": [
+				"myFav"
+			],
+			"name": "收藏页"
+		}, {
+			"root": "pages/myCoupons/",
+			"pages": [
+				"myCoupons"
+			],
+			"name": "我的优惠券页"
+		}, {
+			"root": "pages/miaoshaList/",
+			"pages": [
+				"miaoshaList"
+			],
+			"name": "拼团/秒杀/限时购/砍价列表"
+		}, {
+			"root": "pages/me/aboutUs",
+			"pages": [
+				"aboutUs"
+			],
+			"name": "关于我们"
+		}, {
+			"root": "pages/orderCoupons/",
+			"pages": [
+				"orderCoupons"
+			],
+			"name": "订单优惠券页"
+		}, {
+			"root": "pages/orderCreate/",
+			"pages": [
+				"orderCreate"
+			],
+			"name": "下单页"
+		}, {
+			"root": "pages/orderList/",
+			"pages": [
+				"orderList"
+			],
+			"name": "订单列表页"
+		}, {
+			"root": "pages/orderDetail/",
+			"pages": [
+				"orderDetail"
+			],
+			"name": "订单详情页"
+		}, {
+			"root": "pages/peanutPay/",
+			"pages": [
+				"index"
+			],
+			"name": "订单支付页"
+		}, {
+		  "root": "pages/productDetail/",
+		  "pages": [
+		    "productDetail",
+		    "productComments/index"
+		  ],
+		  "name": "商品详情页"
+		}, {
+			"root": "pages/productList/",
+			"pages": [
+				"productList"
+			],
+			"name": "商品列表页"
+		}, {
+			"root": "pages/refund/",
+			"pages": [
+				"refund"
+			],
+			"name": "退款页"
+		}, {
+			"root": "pages/rulePages/",
+			"pages": [
+				"rulePages"
+			],
+			"name": "规则页"
+		}, {
+			"root": "pages/redpacket/",
+			"pages": [
+				"redpacket"
+			],
+			"name": "分享红包页"
+		}, {
+			"root": "pages/search/",
+			"pages": [
+				"search"
+			],
+			"name": "搜索页"
+		}, {
+			"root": "pages/selfAddress/",
+			"pages": [
+				"selfAddress"
+			],
+			"name": "自提地址页"
+		}, {
+			"root": "pages/webPages",
+			"pages": [
+				"webPages"
+			],
+			"name": "webPage页"
+		}
+	],
 	"permission": {
 		"scope.userLocation": {
 			"desc": "你的位置信息将用于小程序位置接口的效果展示"

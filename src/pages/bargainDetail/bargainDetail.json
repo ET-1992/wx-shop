@@ -1,0 +1,10 @@
+{
+	"navigationBarTitleText": "砍价商品",
+	"enablePullDownRefresh": true,
+	"usingComponents": {
+	  "productList": "components/productList/index",
+	  "loading": "components/loading/index",
+	  "van-popup": "@vant/weapp/dist/popup/index",
+	  "poster": "components/poster/index"
+	}
+}

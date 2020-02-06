@@ -20,7 +20,7 @@
     <view class="item">
         <text class="item-text">提现方式</text>
         <radio-group class="radio-group" bindchange="radioChange">
-            <label wx:for="{{ payStyles }}" wx:key="{{index}}">
+            <label wx:for="{{ payStyles }}" wx:key="name">
                 <radio value="{{item.value}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" />
                 <text class="payName">{{ item.name }}</text>
             </label>
@@ -111,5 +111,3 @@
 </view>
 
 <navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2" >提现记录</navigator>
-
-<console page="分销提现" />

@@ -43,12 +43,10 @@ page {
 
 		.input-placeholder {
 			color: $originalPriceColor;
-
 		}
 
 		.clearIncon {
 			$size: 40rpx;
-
 			padding: 10rpx;
 			height: $size;
 			width: $size;
@@ -89,7 +87,6 @@ page {
 		}
 	}
 
-
 	.indicators {
 		display: flex;
 		align-items: center;
@@ -120,7 +117,7 @@ page {
 
 	.clearHistory {
 		display: inline-block;
-		padding: 0 20rpx;
+		padding: 4rpx 10rpx;
 		float: right;
 	}
 
@@ -138,12 +135,13 @@ page {
 		font-size: 9pt;
 		color: $titleColor;
 		text-align: center;
+		padding: 6rpx;
 	}
 
 	.searchKey {
 		padding: 0 18rpx;
-		height: 45rpx;
-		line-height: 45rpx;
+		height: 50rpx;
+		line-height: 50rpx;
 		font-size: 9pt;
 		border: 1px solid $originalPriceColor;
 		display: inline-block;

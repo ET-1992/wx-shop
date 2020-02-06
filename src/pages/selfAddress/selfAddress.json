@@ -1,9 +1,12 @@
 {
 	"navigationBarTitleText": "填写地址",
 	"usingComponents": {
-		"van-field": "../../components/vant-weapp/dist/field/index",
-		"van-cell-group": "../../components/vant-weapp/dist/cell-group/index",
-		"van-cell": "../../components/vant-weapp/dist/cell/index",
-		"van-button": "../../components/vant-weapp/dist/button/index"
+		"van-field": "components/vant-weapp/dist/field/index",
+		"van-cell-group": "components/vant-weapp/dist/cell-group/index",
+		"van-cell": "components/vant-weapp/dist/cell/index",
+		"van-area": "@vant/weapp/dist/area/index",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"van-button": "@vant/weapp/dist/button/index",
+		"loading": "components/loading/index"
 	  }
 }

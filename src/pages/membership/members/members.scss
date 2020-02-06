@@ -23,8 +23,9 @@ page {
 	.member-top {
 		display: flex;
 		align-items: center;
-		height: 200rpx;
-		padding: 45rpx 60rpx 55rpx 50rpx;
+		// height: 200rpx;
+		padding: 70rpx 44rpx 40rpx;
+		position: relative;
 
 		.head-button {
 			display: flex;
@@ -52,36 +53,36 @@ page {
 			.member-user-wrap {
 				display: flex;
 				align-items: center;
-
+	
 				.member-user {
 					font-size: 28rpx;
 					font-weight: bold;
 					color: $vipGolden;
+					line-height: 1.8;
 					max-width: 200rpx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
 				}
-
+	
 				.member-level {
-					margin-left: 25rpx;
 					height: 35rpx;
 					width: 110rpx;
 					border-radius: 30rpx;
 					background-color: $vipGolden;
 					color: $vipBlack;
-					font-size: 20rpx;
+					font-size: 22rpx;
 					text-align: center;
 					line-height: 35rpx;
+					margin-left: 25rpx;
 				}
-
+	
 			}
-
 			.no-member-level {
 				width: 100rpx;
 				height: 35rpx;
 				border-radius: 30rpx;
-				font-size: 18rpx;
+				font-size: 20rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -92,16 +93,48 @@ page {
 
 			.integral-text {
 				display: flex;
-				font-size: 24rpx;
-				color: $vipGolden;
-				font-weight: lighter;
 				align-items: center;
+				font-size: 26rpx;
+				color: $vipGolden;
 				margin-top: 10rpx;
-
+	
 				.cart-arrow {
 					width: 26rpx;
 					height: 16rpx;
 				}
+			}
+		}
+
+		.member_no {
+			position: absolute;
+			right: 40rpx;
+			top: 12rpx;
+			font-size: 20rpx;
+			color: #D6BC6F;
+		}
+
+		.renewal {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin-left: auto;
+
+			.renewal-btn {
+				width: 130rpx;
+				height: 50rpx;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				font-size: 28rpx;
+				border-radius: 30rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-weight: bold;
+			}
+			.renewal-tip {
+				font-size: 24rpx;
+				color: $vipGolden;
+				margin-top: 10rpx;
 			}
 		}
 
@@ -132,15 +165,11 @@ page {
 
 	}
 
-	.noCard {
-		border-bottom: none;
-	}
-
 	.member-bottom {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 30rpx 50rpx;
+		padding: 30rpx 20rpx 30rpx 30rpx;
 		color: $vipGolden;
 		border-top: 1px solid $vipGolden;
 		box-sizing: content-box;
@@ -178,7 +207,7 @@ page {
 }
 
 .noMemberCard {
-	height: 200rpx;
+	height: 220rpx;
 }
 
 .member-rights {
@@ -237,7 +266,7 @@ page {
 
 		.member-itemTitle {
 			font-size: 28rpx;
-
+			color: #333;
 		}
 	}
 }

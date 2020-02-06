@@ -1,6 +1,5 @@
 {
 	"usingComponents": {
-		"myModal": "../../../components/myModal/myModal",
-		"console": "../../../components/console/console"
+		"myModal": "../../../components/myModal/myModal"
   }
 }

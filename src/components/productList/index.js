@@ -93,6 +93,11 @@ Component({
             type: Boolean,
             value: false
         },
+        // 砍价列表 专属
+        hasBorder: {
+            type: Boolean,
+            value: false
+        }
     },
     data: {
         nowTS: Date.now() / 1000,
@@ -106,12 +111,13 @@ Component({
         timeLimit: 0,
         globalData: app.globalData
     },
+
     detached() {
         clearInterval(this.intervalId);
     },
-    pageLifetimes: {
-        // hide() {
-        //     clearInterval(this.intervalId);
-        // }
-    }
+    // pageLifetimes: {
+    //     hide() {
+    //         clearInterval(this.intervalId);
+    //     }
+    // }
 });

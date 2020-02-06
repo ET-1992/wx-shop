@@ -61,6 +61,10 @@
             display:flex;
             font-size: 22rpx;
             color: #FF1E1E;
+
+            .grouponPrice {
+                margin-left: 10rpx;
+            }
         }
     }
     .grouponBtn{
@@ -119,6 +123,10 @@
             padding-left: 10rpx;
         }
     }
+}
+
+.bargainStyle {
+    border-bottom: 2rpx dashed #C2C2C2;
 }
 
 /* 上图下文 */

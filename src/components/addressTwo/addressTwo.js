@@ -14,13 +14,6 @@ Component({
             type: Boolean,
             value: false
         }
-    },
-    attached() {
-        const config = wx.getStorageSync(CONFIG);
-        console.log(config.self_address, 'selfAddress');
-        this.setData({
-            selfAddress: config && config.self_address
-        });
     }
 });
 

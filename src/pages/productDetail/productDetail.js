@@ -1,11 +1,10 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate, go } from 'utils/util';
+import { USER_KEY, CONFIG, ADDRESS_KEY } from 'constants/index';
+import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
-
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
@@ -36,7 +35,7 @@ Page({
         hasEnd: false,
         timeLimit: 0,
         miaoshaObj: {},
-        isShowAcitonSheet: false,
+        isShowActionSheet: false,
         isShowCouponList: false,
         selectedProperties: [],
         selectedSku: {},
@@ -50,83 +49,79 @@ Page({
             },
         ],
         isGrouponBuy: false,
+        isBargainBuy: false,
         receivableCoupons: [],
         receivedCoupons: [],
-        isShowProductDetailShareModal: false,
-        showShareModal: false,
+
+        isShowShareModal: false,
+        showPosterModal: false,
         templateTypeText,
-        expiredGroupon: []
+        expiredGroupon: [],
+
+        posterType: 'product',
+
+        areaObj: {},
+        isShowAreaModal: false
     },
 
     go, // 跳转到规则详情页面
 
     onShowSku(ev) {
-        const { status } = this.data.product;
+        const { status, individual_buy } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
-        const updateData = { isShowAcitonSheet: true };
+        const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false } = ev.currentTarget.dataset;
-            console.log(actions);
+            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
+            console.log('actions:', actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
+            console.log('onShowSku isBargainBuy: ', isBargainBuy);
+
+            // 单独设置商品留言去掉sku加车按钮
+            if (individual_buy) {
+                actions = actions.filter(({ type }) => type !== 'addCart');
+            }
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
-
+            updateData.isBargainBuy = isBargainBuy;
         }
         this.setData(updateData, () => {
             this.setSwiperVideoImg();
             this.setData({
-                isShowAcitonSheeted: true
+                isShowActionSheeted: true
             });
         });
     },
 
-    countDown() {
+    countDown(end, start) {
         return new Promise((resolve) => {
-            const {
-                miaosha_end_timestamp,
-                miaosha_start_timestamp,
-                miaosha_price,
-                price,
-                highest_price
-            } = this.data.product;
             const now = Math.round(Date.now() / 1000);
-            let timeLimit = miaosha_end_timestamp - now;
+            let timeLimit = end - now;
             let hasStart = true;
             let hasEnd = false;
-            if (now < miaosha_start_timestamp) {
+            if (now < start) {
                 hasStart = false;
-                timeLimit = miaosha_start_timestamp - now;
+                timeLimit = start - now;
             }
 
-            if (now > miaosha_end_timestamp) {
+            if (now > end) {
                 hasEnd = true;
                 timeLimit = 0;
             }
             this.setData({
                 timeLimit,
                 hasStart,
-                hasEnd,
-                miaoshaObj: {
-                    price,
-                    miaosha_price,
-                    highest_price,
-                    remainTime: getRemainTime(timeLimit).join(':'),
-                    hasStart,
-                    hasEnd,
-                }
+                hasEnd
             }, resolve());
         });
     },
 
     // 限时购倒计时触发
     todayTimeLimit() {
-        let {
-            timeLimit
-        } = this.data;
+        let { timeLimit } = this.data;
         if (timeLimit && !this.intervalId) {
             this.todayTimeLimitSet();
             this.intervalId = setInterval(() => {
@@ -174,29 +169,19 @@ Page({
                 { receivableCoupons: [], receivedCoupons: [] },
             );
 
-            let routeQuery = {
-                id,
-                afcode: current_user.afcode
-            };
-
             this.setData({
                 receivableCoupons,
                 receivedCoupons,
                 current_user,
-                coupons,
-                routeQuery
+                coupons
             });
-
-
         }, 300);
     },
 
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({
-            pendingGrouponId: ''
-        });
+        this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
             const { thumbnail } = data.product;
@@ -210,17 +195,43 @@ Page({
                 data.product.content,
                 this,
             );
+
+            const { config, product } = data;
+
+            if (product.miaosha_enable) {
+                data.posterType = 'miaosha';
+                const { miaosha_end_timestamp, miaosha_start_timestamp } = product;
+                await this.countDown(
+                    miaosha_end_timestamp,
+                    miaosha_start_timestamp
+                );
+            }
+
+            if (product.groupon_enable) {
+                data.posterType = 'groupon';
+            }
+
+            if (product.bargain_enable) {
+                data.posterType = 'bargain';
+            }
+
+            // 默认使用上次保存的地址
+            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
+                const areaObj = wx.getStorageSync(ADDRESS_KEY);
+                console.log(areaObj, '===============');
+                if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
+                    areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
+                    data.areaObj = areaObj;
+                    this.calculatePostage(data);
+                }
+            }
+
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
                 ...data,
                 isLoading: false
             });
-
-            const { product } = this.data;
-            if (product.miaosha_enable) {
-                await this.countDown();
-            }
 
             // 限时购倒计时
             if (product.miaosha_enable) {
@@ -230,8 +241,15 @@ Page({
             // --------------------
             this.setDefinePrice();
             // ---------------
-        }
-        catch (err) {
+
+            if (product.related && product.related.length) {
+                setTimeout(() => {
+                    this.setData({
+                        isShowProductRelated: true
+                    });
+                }, 1000);
+            }
+        } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
                     title: '温馨提示',
@@ -245,7 +263,7 @@ Page({
                 }
             }
         }
-        console.log(this.data);
+        console.log(this.data, 'this.data');
     },
 
     setDefinePrice() {
@@ -279,6 +297,8 @@ Page({
     },
 
     onLoad(query) {
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -296,15 +316,17 @@ Page({
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             cartNumber: Number(CART_NUM),
-            globalData: app.globalData
+            globalData: app.globalData,
+            config,
+            tplStyle
         });
         this.initPage();
     },
 
-    onShow() {
-        const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        this.setData({ config, tplStyle });
+    onHide() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+        }
     },
 
     onUnload() {
@@ -385,6 +407,7 @@ Page({
             grouponId,
             pendingGrouponId,
             isGrouponBuy,
+            isBargainBuy,
             isCrowd,
             shipping_type
         } = this.data;
@@ -398,6 +421,7 @@ Page({
         }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+
         let isMiaoshaBuy = false;
 
         if (product.miaosha_enable) {
@@ -434,12 +458,19 @@ Page({
             url = url + '&crowd=true';
         }
 
+        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
+            url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
+            console.log('url438', url);
+        }
+        console.log('url440', url);
+
         const currentOrder = createCurrentOrder({
             selectedSku,
             quantity,
             product,
             isGrouponBuy,
             isMiaoshaBuy,
+            isBargainBuy
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -500,7 +531,7 @@ Page({
 
     onSkuCancel() {
         this.setData({
-            isShowAcitonSheet: false,
+            isShowActionSheet: false,
             pendingGrouponId: ''
         });
     },
@@ -568,27 +599,9 @@ Page({
         });
     },
 
-    async isShowProductDetailShareModal() {
-        this.setSwiperVideoImg();
-        this.setData({
-            isShowProductDetailShareModal: true,
-            showShareModal: false
-        }, () => {
-            this.setData({
-                showShareModaled: false
-            });
-        });
-    },
-
-    onCloseProductDetailShareModal() {
-        this.setData({
-            isShowProductDetailShareModal: false
-        });
-    },
-
     /* 调起底部弹窗 */
     async openShareModal() {
-        const { product, current_user = {}, config } = this.data;
+        const { current_user = {}, config } = this.data;
         if (config.affiliate_enable && current_user && !current_user.is_affiliate_member && config.affiliate_public) {
             const { confirm } = await proxy.showModal({
                 title: '温馨提示',
@@ -602,11 +615,8 @@ Page({
                 return;
             }
         }
-        if (product.miaosha_enable) {
-            await this.countDown();
-        }
         this.setData({
-            showShareModal: true
+            isShowShareModal: true
         }, () => {
             this.setData({
                 showShareModaled: true
@@ -615,7 +625,7 @@ Page({
     },
     closeShareModal() {
         this.setData({
-            showShareModal: false
+            isShowShareModal: false
         }, () => {
             this.setData({
                 showShareModaled: false
@@ -659,24 +669,16 @@ Page({
         } else {
             const { groupon_commander_price } = product;
             groupon_commander_price && (url = url + '&groupon_commander_price=true');
-            console.log('dddd');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,
             quantity,
             product,
             isGrouponBuy,
-            isMiaoshaBuy,
+            isMiaoshaBuy
         });
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
-    },
-
-    navigateToCart() {
-        autoNavigate('/pages/cart/cart');
-    },
-    navigateToHome() {
-        autoNavigate('/pages/home/home');
     },
 
     onExpiredGroupon(e) {
@@ -710,5 +712,175 @@ Page({
             shipping_type: e.detail.shipping_type
         });
         console.log('shipping_type696', this.data.shipping_type);
+    },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.createBargain();
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    // 发起砍价
+    async createBargain() {
+        const { product: { id }, selectedSku } = this.data;
+        const { mission } = await api.hei.createBargain({
+            post_id: id,
+            sku_id: selectedSku.id || 0
+        });
+        console.log('mission721', mission);
+        autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
+    },
+
+    onRecommended(e) {
+        console.log('onRecommended731', e);
+        const { id, title, images } = e.currentTarget.dataset;
+        // 微信是否更新至7.0.3及以上版本
+        if (wx.openBusinessView) {
+            wx.openBusinessView({
+                businessType: 'friendGoodsRecommend',
+                extraData: {
+                    product: {
+                        item_code: String(id),
+                        title: title,
+                        image_list: images
+                    }
+                },
+                success: function (res) {
+                    console.log('好物圈调用成功res743', res);
+                    proxy.showToast({ title: '推荐成功' });
+                },
+                fail: function(res) {
+                    console.log('好物圈调用失败747', res);
+                }
+            });
+        } else {
+            proxy.showModal({
+                title: '温馨提示',
+                content: '请检查当前微信版本是否更新至7.0.3及以上版本',
+            });
+        }
+    },
+
+    onShowPoster() {
+        const {
+            product: {
+                id,
+                thumbnail,
+                title,
+                excerpt,
+                definePrice,
+                original_price,
+                miaosha_enable,
+                miaosha_price,
+                groupon_enable,
+                groupon_price,
+                groupon_member_limit,
+                bargain_enable,
+                bargain_price,
+                price,
+                highest_price
+            }
+        } = this.data;
+        let posterData = {
+            id,
+            banner: thumbnail,
+            title,
+            excerpt,
+            price: definePrice,
+            highest_price,
+            original_price
+        };
+        if (miaosha_enable) {
+            const { timeLimit, hasStart, hasEnd } = this.data;
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                excerpt,
+                price,
+                miaosha_price,
+                highest_price,
+                timeLimit,
+                hasStart,
+                hasEnd
+            };
+        }
+        if (groupon_enable) {
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                excerpt,
+                groupon_price,
+                member_limit: groupon_member_limit,
+                price
+            };
+        }
+        if (bargain_enable) {
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                bargain_price,
+                price
+            };
+        }
+
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    },
+
+    // 选择地址
+    async onAddress() {
+        const res = await auth({
+            scope: 'scope.address',
+            ctx: this
+        });
+        if (res) {
+            const addressRes = await proxy.chooseAddress();
+            const { provinceName, cityName, countyName } = addressRes;
+            let areaObj = addressRes;
+            areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
+            wx.setStorageSync(ADDRESS_KEY, areaObj);
+            this.setData({ areaObj }, () => {
+                this.calculatePostage();
+            });
+        }
+    },
+
+    // 切换地址计算邮费
+    async calculatePostage(data) {
+        let { product, areaObj } = data || this.data;
+        try {
+            const { postage } = await api.hei.postageCalculate({
+                post_id: product.id,
+                receiver_state: areaObj.provinceName,
+                receiver_city: areaObj.cityName,
+                receiver_district: areaObj.countyName
+            });
+            this.setData({
+                'product.postage': postage
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
+
 });

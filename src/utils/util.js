@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
@@ -20,6 +20,25 @@ export function formatTime(date) {
     const second = date.getSeconds();
 
     return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+}
+
+export function formatConfirmTime(seconds) {
+    let remainSeconds = seconds;
+    const day = Math.floor(remainSeconds / (24 * 60 * 60));
+    remainSeconds = remainSeconds % (24 * 60 * 60);
+    const hour = Math.floor(remainSeconds / (60 * 60));
+    remainSeconds = remainSeconds % (60 * 60);
+    const minute = Math.floor(remainSeconds / 60);
+    const second = remainSeconds % 60;
+    const unit = ['天', '时', '分', '秒'];
+    const dateStr = [day, hour, minute, second].reduce((str, value, index) => {
+        let dateStr = str;
+        if (value) {
+            dateStr = dateStr + value + unit[index];
+        }
+        return dateStr;
+    }, '');
+    return { remainTime: dateStr, remainSecond: seconds };
 }
 
 export function getAgainTokenForInvalid() {
@@ -362,5 +381,51 @@ export function autoTransformAddress(address = {}) {
             detailInfo: address.receiver_address || '',
             postalCode: address.receiver_zipcode || ''
         };
+    }
+}
+
+export async function subscribeMessage(keys = []) {
+    const config = wx.getStorageSync(CONFIG);
+    const subscribeMessageTemplates = config.subscribe_message_templates;
+
+    if (!subscribeMessageTemplates) {
+        return;
+    }
+
+    const tmplIds = subscribeMessageTemplates.filter((item) => {
+        return keys.find((keysItem) => {
+            return keysItem.key === item.key;
+        });
+    }).map((item) => {
+        return item.template_id;
+    });
+
+    if (tmplIds.length === 0) {
+        return;
+    }
+
+    // console.log(tmplIds, 'tmplIds');
+    try {
+        const subRes = await wxProxy.requestSubscribeMessage({ tmplIds });
+        // console.log(subRes);
+
+        const isSubs = tmplIds.filter((item) => {
+            return subRes[item] === 'accept';
+        });
+
+        // console.log(isSubs);
+
+        const isSubscribeMessageTemplates = subscribeMessageTemplates.filter((item) => {
+            return isSubs.indexOf(item.template_id) > -1;
+        });
+
+        // console.log(isSubscribeMessageTemplates);
+
+
+        await api.hei.subscribe({
+            templates: isSubscribeMessageTemplates
+        });
+    } catch (e) {
+        console.log(e);
     }
 }

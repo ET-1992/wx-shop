@@ -4,6 +4,8 @@
 import api from 'utils/api';
 import { SHARE_TITLE, CONFIG, USER_KEY } from 'constants/index';
 import { showModal, showToast, requestPayment } from 'utils/wxp';
+import { auth, subscribeMessage } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -55,13 +57,17 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
 function shopShare(path) {
     const config = wx.getStorageSync(CONFIG);
     if (config.share_enable) {
-        setTimeout(() => {
-            api.hei.shopShare({ share_url: path });
-        }, 1000);
+        console.log(path);
+        if (path.indexOf('webPages/webPages') === -1) {
+            console.log('分享获得积分');
+            setTimeout(() => {
+                api.hei.shopShare({ share_url: path });
+            }, 1000);
+        }
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false }) => {
+export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false, isBargainBuy = false }) => {
 
     try {
 
@@ -110,9 +116,10 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
 
         if (isGrouponBuy) {
             item.price = product.groupon_price;
-        }
-        else if (isMiaoshaBuy) {
+        } else if (isMiaoshaBuy) {
             item.price = product.miaosha_price;
+        } else if (isBargainBuy) {
+            item.price = product.bargain_price;
         }
 
         order.items = [item];
@@ -127,59 +134,26 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
     }
 };
 
-// export const createCurrentOrder = ({ items, selectedSku }) => {
-// 	const order = {
-// 		items: [],
-// 		totalPrice: 0,
-// 		savePrice: 0,
-// 	};
 
-// 	console.log('selectedSku', selectedSku);
-
-// 	if (selectedSku) {
-// 		const item = items[0];
-// 		const { price, id: skuId, property_names, properties, original_price, quantity } = selectedSku;
-// 		const { sku_images } = item;
-// 		const firstSelectedSkuPropValue = properties && properties[0].v;
-// 		const selectedSkuImage = properties ? sku_images[firstSelectedSkuPropValue].thumbnail : null;
-// 		item.post_id = item.id;
-// 		item.quantity = quantity;
-// 		item.sku_id = skuId;
-// 		item.sku_property_names = property_names;
-// 		item.price = price || items[0].price;
-// 		item.original_price = original_price || items[0].original_price;
-// 		item.image_url = selectedSkuImage || item.images[0];
-// 	};
-
-// 	order.items = items;
-// 	console.log('items', items);
-
-// 	items.forEach((item) => {
-// 		const { price, original_price, quantity } = item;
-// 		console.log(original_price, price);
-// 		order.totalPrice = order.totalPrice + (price * quantity);
-// 		order.savePrice = order.savePrice + ((original_price - price) * quantity);
-// 	});
-
-// 	return order;
-// };
-
-export const wxPay = async (options = {}, order_no) => {
-    const { timeStamp, nonceStr, package: pkg, signType, paySign } = options;
+export const wxPay = async (options = {}, order_no, subKeys = []) => {
     try {
-        const res = await requestPayment({
-            timeStamp,
-            nonceStr,
-            package: pkg,
-            signType,
-            paySign,
+        await wxProxy.requestPayment({
+            ...options
         });
+
+        if (subKeys && subKeys.length) {
+            console.log(subKeys, 'subKeys');
+            // 注意一定要紧跟在requestPayment后面
+            await subscribeMessage(subKeys);
+        }
+
+        await showToast({ title: '支付成功' });
+
         if (order_no) {
             api.hei.orderQuery({ order_no }).then((res) => { console.log('orderQuery：', res) });
         }
-        await showToast({ title: '支付成功' });
-        console.log('requestPayment res', res);
-        return res;
+
+        return { isSuccess: true };
     }
     catch (err) {
         console.log('requestPayment err', err);

@@ -2,7 +2,6 @@
 	"navigationBarTitleText": "自提点",
 	"usingComponents": {
 		"myModal": "../../components/myModal/myModal",
-		"console": "../../components/console/console",
 		"loading": "../../components/loading/index"
 	  }
 }

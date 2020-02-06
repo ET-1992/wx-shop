@@ -1,0 +1,167 @@
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
+	<!-- 头部按钮 -->
+	<view class="btn-group">
+		<navigator class="toBargainListPage" url="/pages/bargainList/bargainList">
+			<image src="/icons/bargainDetail/myBargain.svg"/>
+		</navigator>
+		<navigator class="rule" url="/pages/rulePages/rulePages?key=bargain">
+			<image src="/icons/bargainDetail/bargainRule.svg"/>
+		</navigator>
+	</view>
+	<!-- 砍价商品基本信息 -->
+	<view class="product-detail">
+		<view class="detail-top">
+			<view class="detail-title">{{product.post_title}}</view>
+			<view class="detail-img">
+				<image src="{{product.image_url}}" mode="aspectFit"/>
+				<image class="bg" src="/icons/bargainDetail/bargainFinish.svg" wx:if="{{mission.status === 2}}"/>
+				<image class="bg" src="/icons/bargainDetail/bargainFail.svg" wx:if="{{mission.status === 3}}"/>
+			</view>
+			<view class="detail-progress">
+				<view class="percent-text" wx:if="{{mission.status === 1}}">
+					<view class="float" style="left: {{mission.progress}}%">还需砍{{ globalData.CURRENCY[globalData.currency] }}<text class="percent-price">{{mission.needBargainPrice}}</text></view>
+				</view>
+				<view class="detail-percent">
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#F30011" backgroundColor="#FFEFEA" border-radius="20" wx:if="{{mission.status === 1 || mission.status === 2 }}"/>
+					<progress percent="{{mission.progress}}" stroke-width="15" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="20" wx:if="{{mission.status === 3 }}"/>
+				</view>
+				<view class="detail-price">
+					<view class="price-left">
+						原价: <text class="original-price">{{ globalData.CURRENCY[globalData.currency] }}{{mission.price}}</text>
+					</view>
+					<view class="price-right">
+						底价: <text class="target-price">{{ globalData.CURRENCY[globalData.currency] }}{{mission.target_price}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="detail-bottom" wx:if="{{ actors && actors[0] }}">
+			<view class="bottom-left">
+				<image src="{{ mission.user && mission.user.avatarurl}}"/>
+			</view>
+			<view class="bottom-right">
+				<view class="right-name">{{mission.user && mission.user.nickname}}</view>
+				<!-- 砍价进行中 -->
+				<view class="right-text" wx:if="{{!isOthers && mission.status === 1}}">已砍<text class="right-price"> {{ globalData.CURRENCY[globalData.currency] }}{{actors[0].actor_price}}</text> 元。活动商品数量有限，快分享给好友继续来砍价~</view>
+				<!-- 砍价成功 -->
+				<view class="right-text" wx:if="{{!isOthers && mission.status === 2}}">砍价成功！活动商品数量有限，先到先得，请尽快下单。</view>
+				<!-- 砍价失败 -->
+				<view class="right-text" wx:if="{{!isOthers && mission.status === 3}}">砍价失败！请再接再厉。</view>
+				<!-- 收到邀请页面，帮砍显示文字 -->
+				<view class="right-text" wx:if="{{isOthers}}">感谢帮忙，你也来发起你的砍价吧~</view>
+			</view>
+		</view>
+	</view>
+	<!-- 砍价倒计时 砍价进行中 -->
+	<view class="bargain-time" wx:if="{{!isOthers && mission.status === 1}}">
+		<view class="title">砍价倒计时</view>
+		<view class="time-limit">
+			<block wx:if="{{ remainTime.day > 0 }}">
+				<view class="day">{{ remainTime.day }}</view>
+				<view class="dateTitle">天</view>
+			</block>
+			<view class="hour">{{ remainTime.hour }}</view>
+			<view class="dateTitle">时</view>
+			<view class="minute">{{ remainTime.minute }}</view>
+			<view class="dateTitle">分</view>
+			<view class="second">{{ remainTime.second }}</view>
+			<view class="dateTitle">秒</view>
+		</view>
+		<view class="img" bind:tap="onShare">
+			<!-- 喊好友来帮忙 -->
+			<image src="/icons/bargainDetail/bargainHelp.svg"/>
+		</view>
+	</view>
+	<!-- 砍价成功时显示 -->
+	<view class="bargain-buy" wx:if="{{!isOthers && mission.status === 2}}" bindtap="onBuy">立即购买</view>
+	<!-- 砍价失败时显示 -->
+	<view class="bargain-fail" wx:if="{{!isOthers && mission.status === 3 }}">
+		<!-- 重新发起 跳转到商品详情-->
+		<navigator url="/pages/productDetail/productDetail?id={{ mission.post_id }}" class="img-left">
+			<image src="/icons/bargainDetail/bargainAgain.svg"/>
+		</navigator>
+		<!-- 看看其他 跳转到砍价专区 -->
+		<navigator url="/pages/miaoshaList/miaoshaList?type=bargain" class="img-right">
+			<image src="/icons/bargainDetail/others.svg"/>
+		</navigator>
+	</view>
+	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
+	<view class="bargain-isOthers" wx:if="{{isOthers}}">
+		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
+		<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp && mission.status === 1}}">
+			<image src="/icons/bargainDetail/helpta.svg"/>
+		</button>
+		<view class="img-left" wx:if="{{isHelp || mission.status !== 1}}">
+			<image src="/icons/bargainDetail/isHelpTa.svg"/>
+		</view>
+		<!-- 我也砍这件 跳转到商品详情 -->
+		<navigator class="img-right" url="/pages/productDetail/productDetail?id={{ mission.post_id }}">
+			<image src="/icons/bargainDetail/meToo.svg"/>
+		</navigator>
+	</view>
+	<!-- 砍价榜 -->
+	<view class="bargain-list" >
+		<view class="label"><text class="dot">•</text> 砍价榜 <text class="dot">•</text></view>
+		<!-- <scroll-view scroll-y class="list" bindscrolltolower="loadActorsData"> -->
+		<view class="listWrpper">
+			<view class="list {{!showMore ? 'hiddenmore' : 'showmore'}}">
+				<view wx:for="{{actors}}" wx:key="index" class="section" wx:if="{{actors && actors.length}}">
+					<view class="left">
+						<image class="avatarurl" src="{{item.user.avatarurl || '/icons/bargainDetail/unlogin.png'}}"></image>
+						<view class="name">{{item.user.nickname || '帮砍好友'}}</view>
+					</view>
+					<view class="right">
+						已帮砍<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{item.actor_price}}</text>
+					</view>
+				</view>
+				<view class="noHelp" wx:if="{{actors && !actors.length}}">暂无好友帮忙砍价</view>
+			</view>
+			<block wx:if="{{ actors.length > 3 }}">
+				<view wx:if="{{ showMore }}" class="list-more" bindtap="listToggle">
+					收起
+					<image class="rightIcon" src="/icons/triangleUpActive.png"/>
+				</view>
+				<view class="list-more" bindtap="listToggle" wx:if="{{ !showMore }}">
+					查看更多
+					<image class="rightIcon" src="/icons/triangleDownActive.png"/>
+				</view>
+			</block> 
+		</view>
+		<!-- </scroll-view> -->
+	</view>
+	<!-- 更多推荐 -->
+	<view class="bargain-more">
+		<view class="label"><text class="dot">•</text> 更多推荐 <text class="dot">•</text></view>
+		 <view wx:for="{{ products }}" wx:key="id" class="wrapper">
+            <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
+                <productList product="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="bargainProduct" themeColor="{{themeColor}}"/>
+            </navigator>
+        </view>
+	</view>
+
+	<!-- 分享弹窗 -->
+	<!-- 分享弹窗 -->
+	<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="onShare">
+		<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="shareModalContent">
+				<button class="shareBtn" open-type="share">
+					<image class="image" src="/icons/shareFriendIcon.svg" mode="aspectFit" />
+					<view class="text">分享给好友</view>
+				</button>
+				<view class="shareBtn" bindtap="onShowPoster">
+					<image class="image" src="/icons/sharePosterIcon.svg" mode="aspectFit" />
+					<view class="text">分享商品海报</view>
+				</view>
+			</view>
+			<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="onShare" />
+		</view>
+	</van-popup>
+
+	<poster 
+		wx:if="{{ showPosterModal }}" 
+		posterData="{{ posterData }}" 
+		posterType="bargainBuy"
+		bindonClose="onClosePoster"
+	/>
+</view>

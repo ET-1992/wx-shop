@@ -1,5 +1,5 @@
 @import '~styles/color';
-@import './templates/stodownload/index';
+@import 'templates/stodownload/index';
 
 page{
 	// background: #F4F4F4;
@@ -47,8 +47,12 @@ page{
 	margin-right: 10rpx;
 }
 .cartList {
-	height: 90%;
 	padding-top: 90rpx;
+	height: 90%;
+}
+
+.scrollHeight {
+	height: 90%;
 }
 
 .stodownloadWrap {

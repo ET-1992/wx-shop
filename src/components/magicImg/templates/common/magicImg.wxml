@@ -1,7 +1,7 @@
 
 <view class="sectionTitle" wx:if="{{ magicImgData.title }}">{{ magicImgData.title }}</view>
 <view class="rowImgWrap" wx:if="{{ magicImgData.defineType === 'oneLine' }}" style="height: {{ (tplStyle === 'default' || tplStyle === 'vip_tpl_four' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
-    <block wx:for="{{magicImgData.eachNum}}" wx:key="{{ index }}">
+    <block wx:for="{{magicImgData.eachNum}}" wx:key="item">
         <template is="rowImgItem" data="{{magicImgData, index, userInfo}}"></template>
     </block>
 </view>

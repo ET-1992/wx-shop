@@ -11,10 +11,10 @@ Page({
         toMainCategory: 0,
         toSubCategory: 0,
 
-        filterListData: [{ name: '销量' }, { name: '价格' }],
+        filterListData: [{ name: '价格' }, { name: '销量' }],
         filterData: {
             filterIndex: 0,
-            filterType: 'Down'
+            filterType: 'Up'
         },
         next_cursor: 0,
         products: [],
@@ -31,7 +31,6 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-
         const { categories } = await api.hei.fetchCategory();
 
         this.setData({
@@ -53,6 +52,7 @@ Page({
     },
 
     changeFilterList(e) {
+        console.log('e56', e);
         this.setData({
             filterData: e.detail,
             current_page: 1,
@@ -63,8 +63,8 @@ Page({
     filterProduct() {
         const { filterData } = this.data;
         const sortText = {
-            1: 'price',
-            0: 'total_sales'
+            0: 'price',
+            1: 'total_sales'
         };
         const sortStatus = {
             'Up': 'asc',
@@ -226,7 +226,7 @@ Page({
         options.post_id = id;
         options.sku_id = e.sku_id || 0; // 多规格
         options.shipping_type = e.shipping_type;
-        options.quantity = 1;
+        options.quantity = e.quantity || 1; // 商品数量
         options.vendor = vendor;
         options.form_id = this.data.formId;
 
@@ -263,16 +263,16 @@ Page({
 
     // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
     // 单规格但多种配送方式 显示弹窗选择 配送方式
-    singleAddCart(e) {
-        console.log('e262', e);
-        const { product } = e.currentTarget.dataset;
-        if (product.shipping_types && (product.shipping_types.length === 1)) {
-            e.shipping_type = product.shipping_types[0];
-            this.addCart(e);
-        } else {
-            this.isShowSkuModal(e);
-        }
-    },
+    // singleAddCart(e) {
+    //     console.log('e262', e);
+    //     const { product } = e.currentTarget.dataset;
+    //     if (product.shipping_types && (product.shipping_types.length === 1)) {
+    //         e.shipping_type = product.shipping_types[0];
+    //         this.addCart(e);
+    //     } else {
+    //         this.isShowSkuModal(e);
+    //     }
+    // },
 
     touchstart(e) {
         this.data.clineX = e.touches[0].clientX;
