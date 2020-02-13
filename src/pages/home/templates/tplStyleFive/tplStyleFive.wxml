@@ -55,8 +55,9 @@
 				  	style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
 				  	hover-class="none"
            			bindfail="miniFail"
-				>
-				</navigator>
+					wx:if="{{ item.type !== 'contact'}}"
+				></navigator>
+				<button open-type="contact" bindcontact="handleContact" wx:if="{{ item.type === 'contact' }}" style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"></button>
 			</swiper-item>
 			</swiper>
 			<navigator class="searchBox" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key === 'sliders'}}">

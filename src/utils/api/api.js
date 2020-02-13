@@ -9,8 +9,9 @@
  * requestType: 默认request, [request, uploadFile]
  * contentType: 默认x-www-form-urlencode, 可配置json
  **/
-// export const host = 'https://api.97866.com/';
-export const host = 'https://hei.dev.97866.com/';
+export const host = 'https://api.97866.com/';
+// export const host = 'https://hei.dev.97866.com/';
+
 // 翠绿
 // export const host = 'https://api.jcaik.com/';
 // 天枢
