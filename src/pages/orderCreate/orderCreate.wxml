@@ -4,19 +4,19 @@
   <!-- 配送方式 -->
   <block wx:if="{{ product_type !== 1 }}">
     <!-- 自提 -->
-    <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ shipping_type === '2' }}" bindupdateLiftInfo="updateLiftInfo"/>
+    <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ shipping_type === 2 }}" bindupdateLiftInfo="updateLiftInfo"/>
     <!-- <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/> -->
 
     <!-- 快递 -->
-    <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ shipping_type === '1' }}" />
+    <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ shipping_type === 1 }}" />
     <!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ liftStyle == 'express' || !selfLiftEnable }}" /> -->
 
     <!-- 送货上门 -->
-    <delivery address="{{ address }}" wx:if="{{ shipping_type === '4' }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" />
+    <delivery address="{{ address }}" wx:if="{{ shipping_type === 4 }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" />
   </block>
 
   <!-- 门店列表 -->
-  <storeList addresses="{{ storeListAddress }}" wx:if="{{ shipping_type === '4' }}" id="storeList"></storeList>
+  <storeList addresses="{{ storeListAddress }}" wx:if="{{ shipping_type === 4 }}" id="storeList"></storeList>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />

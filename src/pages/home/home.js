@@ -331,5 +331,12 @@ Page({
         console.log('点击穿透阻止');
         return;
     },
-    go
+
+    go,
+
+    // 跳转到客服对话框
+    handleContact(e) {
+        console.log(e.detail.path);
+        console.log(e.detail.query);
+    }
 });

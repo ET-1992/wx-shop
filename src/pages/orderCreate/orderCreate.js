@@ -92,7 +92,7 @@ Page({
                 isShouldRedirect: false,
                 crowd,
                 groupon_commander_price,
-                shipping_type: params.shipping_type
+                shipping_type: Number(params.shipping_type)
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -242,7 +242,7 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (shipping_type === '4') { // 送货上门
+            if (shipping_type === 4) { // 送货上门
                 // requestData.receiver_address_name = params;
                 requestData.delivery_store_id = params; // 配送地区id
             }
@@ -266,7 +266,7 @@ Page({
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
 
-            if (product_type !== 1 && shipping_type === '1') {
+            if (product_type !== 1 && shipping_type === 1) {
                 this.setData({
                     free_shipping_amount: config && config.free_shipping_amount
                 });
@@ -362,7 +362,7 @@ Page({
         } = address;
         const { vendor, afcode } = app.globalData;
 
-        if (!userName && !detailInfo && shipping_type !== '2' && product_type !== 1) {
+        if (!userName && !detailInfo && shipping_type !== 2 && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
@@ -371,7 +371,7 @@ Page({
             return;
         }
 
-        if (shipping_type === '2' && !liftInfo.receiver_address_name && product_type !== 1) {
+        if (shipping_type === 2 && !liftInfo.receiver_address_name && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先选择自提地址',
@@ -380,7 +380,7 @@ Page({
             return;
         }
 
-        if (shipping_type === '2' && !liftInfo.receiver_phone && product_type !== 1) {
+        if (shipping_type === 2 && !liftInfo.receiver_phone && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
@@ -454,16 +454,15 @@ Page({
             requestData.coins = useCoin;
         }
 
+        requestData.shipping_type = shipping_type;
         // 自提需传数据
-        if (shipping_type === '2') {
-            requestData.shipping_type = 2;
+        if (shipping_type === 2) {
             requestData = { ...requestData, ...liftInfo };
             wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
         }
 
         // 送货上门需传数据
-        if (shipping_type === '4') {
-            requestData.shipping_type = 4;
+        if (shipping_type === 4) {
             // 获取门店列表的门店名称
             if (!(storeListAddress && storeListAddress.name)) {
                 wx.showModal({
