@@ -53,7 +53,15 @@
 							  bindfail="miniFail"
 							  wx:if="{{ item.type !== 'contact'}}"
 							></navigator>
-							<button open-type="contact" bindcontact="handleContact" wx:if="{{ item.type === 'contact' }}" style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"></button>
+							<button 
+								wx:if="{{ item.type === 'contact' }}"
+								bindtap="{{ item.tips ? 'onModal' : ''}}"
+								data-tips="{{ item.tips }}"
+								open-type="{{ !item.tips ? 'contact' : ''}}"
+								session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'
+								style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+								hover-class="none"
+							></button>
 						</swiper-item>
 					</swiper>
 					<!-- 自定义idots -->
