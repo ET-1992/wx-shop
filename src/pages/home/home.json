@@ -8,6 +8,10 @@
     "loading": "../../components/loading/index",
     "service": "../../components/service/index",
     "logo": "../../components/logo/logo",
-    "myNavigator": "../../components/myNavigator/myNavigator"
+    "myNavigator": "../../components/myNavigator/myNavigator",
+    "searchBox": "./components/searchBox/searchBox",
+    "slide": "./components/slider/slider",
+    "text": "./components/text/text",
+    "articleList": "./components/articleList/articleList"
   }
 }

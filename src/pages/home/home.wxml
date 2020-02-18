@@ -1,13 +1,28 @@
 <loading isLoading="{{ isLoading }}"/>
 
 <!-- 模板皮肤 -->
-<include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
+<!-- <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
 <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
 <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
 <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
 <include wx:elif="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml"/>
 <include wx:elif="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml"/>
-<include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml"/>
+<include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml"/> -->
+
+<view class="container" wx:if="{{ !isLoading }}">
+    <!-- 搜索框 -->
+    <searchBox wx:if="{{ search_box }}" total="{{ search_box.total }}"/>
+    <view class="{{ search_box ? 'main': '' }}" >
+        <view wx:for="{{ newData.modules }}" wx:for-item="module" wx:key="key" >
+            <!-- 幻灯片 -->
+            <slide wx:if="{{ module.type === 'slider' }}" module="{{ module }}" bindminiFail="miniFail" bindonModal="onModal"/>
+            <!-- 简单文本 -->
+            <text wx:if="{{ module.type === 'text' }}" module="{{ module }}" bindminiFail="miniFail" second="{{ second }}" size="{{ size }}" />
+            <!-- 内容电商 -->
+            <articleList wx:if="{{ module.type === 'article' }}" module="{{ module }}" bindminiFail="miniFail" themeColor="{{ themeColor }}"/>
+        </view>
+    </view>
+</view>
 
 <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->

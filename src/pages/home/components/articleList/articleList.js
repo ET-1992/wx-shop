@@ -1,3 +1,5 @@
+import { go } from 'utils/util';
+
 Component({
     properties: {
         module: {
@@ -15,15 +17,13 @@ Component({
                 });
             }
         },
-
-        size: {
-            type: Number,
-            value: 11
-        },
-
-        second: {
-            type: Number,
-            value: 0
+        themeColor: {
+            type: Object,
+            value: {}
         }
+    },
+
+    methods: {
+        go
     }
 });

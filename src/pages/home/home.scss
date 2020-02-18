@@ -1,12 +1,26 @@
 @import '~styles/color';
 @import '~templates/productLayout/productLayout';
-@import './templates/default/default';
-@import './templates/tplStyleTwo/tplStyleTwo';
-@import './templates/tplStyleThree/tplStyleThree';
-@import './templates/tplStyleFour/tplStyleFour';
-@import './templates/tplStyleFive/tplStyleFive';
-@import './templates/tplStyleSix/tplStyleSix';
+// @import './templates/default/default';
+// @import './templates/tplStyleTwo/tplStyleTwo';
+// @import './templates/tplStyleThree/tplStyleThree';
+// @import './templates/tplStyleFour/tplStyleFour';
+// @import './templates/tplStyleFive/tplStyleFive';
+// @import './templates/tplStyleSix/tplStyleSix';
 @import './templates/newUserCoupon/newUserCoupon';
+
+page {
+    background-color: #fff;
+}
+
+.container {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.main {
+	margin-top: 90rpx;
+}
 
 .home-guide {
     position: fixed;

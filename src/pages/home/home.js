@@ -1,5 +1,5 @@
-import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
+import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart, parseScene, splitUserStatus, autoNavigate, go } from 'utils/util';
@@ -86,6 +86,7 @@ Page({
         });
 
         const data = await api.hei.fetchHome();
+        const newData = await api.hei.newHome();
         console.log('home data:', data);
         const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
 
@@ -119,6 +120,8 @@ Page({
 
         this.setData({
             userCoupon: coupons_home,
+            newData,
+            search_box: newData.module_page && newData.module_page.search_box,
             isLoading: false,
             ...data
         }, this.addGuideSecond);
@@ -332,11 +335,14 @@ Page({
         return;
     },
 
-    go,
+    miniFail(e) {
+        console.log('幻灯片miniFail', e);
+        // const { errMsg } = e.detail;
+        // wx.showModal({
+        //     title: '温馨提示',
+        //     content: errMsg,
+        // });
+    },
 
-    // 跳转到客服对话框
-    handleContact(e) {
-        console.log(e.detail.path);
-        console.log(e.detail.query);
-    }
+    go
 });

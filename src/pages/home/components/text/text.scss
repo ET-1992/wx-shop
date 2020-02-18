@@ -1,0 +1,47 @@
+.announcement {
+	display: flex;
+	height: 70rpx;
+	align-items: center;
+	background: #FFF9EC;
+	font-size: 22rpx;
+	color: #000000;
+
+	.infoIcon {
+		margin: 0 14rpx 0 30rpx;
+		width: 48rpx;
+		height: 35rpx;
+	}
+
+	@keyframes marque {
+    	0% {
+    	    transform: translateX(0);
+    	}
+    	100% {
+    	    transform: translateX(-33.3%);
+    	}
+	}
+	
+	.marquee {
+		width: 100%;
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: clip;
+		position: relative;
+
+		.content {
+			display: inline-block;
+			position: relative;
+			padding-right: 0px;
+			white-space: nowrap;
+			animation-name: marque;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+
+		.content-space {
+			display: inline-block;
+			width: 300px;
+		}
+	}
+}

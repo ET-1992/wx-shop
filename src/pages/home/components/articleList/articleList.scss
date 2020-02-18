@@ -1,0 +1,33 @@
+@import './templates/smallPic/smallPic';
+@import './templates/bigPic/bigPic';
+
+.section {
+	margin-top: 30rpx;
+	border-bottom: 1rpx solid #E0E0E0;
+	.sectionTitle {
+		color: #333333;
+		font-size: 36rpx;
+		font-weight: bold;
+		padding-bottom:10rpx;
+		border-bottom: 1rpx solid #D4D4D4;
+		padding-left: 30rpx;
+	}
+
+	.sectionMore {
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+
+		.moreButton {
+			font-size: 28rpx;
+			color: #707070;
+			background: #fff;
+		}
+
+		.rightIcon {
+			width: 20rpx;
+			height: 20rpx;
+			margin-left: 10rpx;
+		}
+	}
+}

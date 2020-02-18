@@ -1,0 +1,79 @@
+<!-- 圆点型 -->
+<view class="slider" wx:if="{{ setting.style=== 'disc' && content.length }}">
+    <swiper
+        indicator-dots
+        autoplay
+        circular
+        class="banner"
+        style="padding-bottom:0;height:{{setting.height}}rpx" 
+        indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" 
+        indicator-color="#fff">
+        <swiper-item wx:for="{{ content }}" wx:key="id">
+            <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
+                <image src="{{ item.image }}"/>
+              </button> -->
+            <navigator
+                wx:if="{{ item.type !== 'contact'}}"
+                app-id="{{ item.appid }}"
+                path="{{ item.path }}"
+                target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+                url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+                style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%" 
+                hover-class="none"
+                bindfail="miniFail"
+            ></navigator>
+            <button
+                wx:if="{{ item.type === 'contact' }}"
+                bindtap="{{ item.tips ? 'onModal' : ''}}"
+				data-tips="{{ item.tips }}"
+                open-type="{{ !item.tips ? 'contact' : ''}}"
+                session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
+                style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+                hover-class="none"
+            ></button>
+        </swiper-item>
+    </swiper>
+</view>
+
+<!-- 数字型 -->
+<view class="searchSliders" wx:if="{{ setting.style=== 'number' && content.length }}">
+    <swiper
+        autoplay
+        circular
+        current="{{ swiperCurrent }}"
+        class="banner"
+        style="padding-bottom:0;height:{{setting.height}}rpx" 
+        bindanimationfinish="swiperChange" 
+        >
+        <swiper-item wx:for="{{ content }}" wx:key="id">
+            <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
+                <image src="{{ item.image }}"/>
+              </button> -->
+            <navigator
+                wx:if="{{ item.type !== 'contact'}}"
+                app-id="{{ item.appid }}"
+                path="{{ item.path }}"
+                target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+                url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+                style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%" 
+                hover-class="none"
+                bindfail="miniFail"
+            ></navigator>
+            <button
+                wx:if="{{ item.type === 'contact' }}"
+                bindtap="{{ item.tips ? 'onModal' : ''}}"
+				data-tips="{{ item.tips }}"
+                open-type="{{ !item.tips ? 'contact' : ''}}"
+                session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
+                style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+                hover-class="none"
+            ></button>
+        </swiper-item>
+    </swiper>
+    <!-- 自定义idots -->
+    <view class="dots">
+        <view class="dot">
+            {{ swiperCurrent + 1 }} / {{ content.length }}
+        </view>
+    </view>
+</view>

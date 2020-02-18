@@ -1,0 +1,6 @@
+<navigator class="searchBox" style="background:#f4f4f4" url="/pages/search/search">
+    <view class="search">
+      <image src="/icons/search.png" class="searchIcon" />
+      <text>搜索商品，共有{{ total }}款好物</text>
+    </view>
+</navigator>

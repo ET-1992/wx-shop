@@ -1,0 +1,17 @@
+<navigator
+	wx:if="{{ content }}"
+	app-id="{{ content.appid }}"
+	path="{{ content.path }}"
+	target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
+	url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
+	class="announcement"
+	bindfail="miniFail">
+	<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
+	<view class="marquee">
+		<view class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
+			{{content.text}}<text class="content-space"></text>
+			{{content.text}}<text class="content-space"></text>
+			{{content.text}}<text class="content-space"></text>
+		</view>
+	</view>
+</navigator>
