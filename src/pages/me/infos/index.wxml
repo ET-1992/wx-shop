@@ -31,7 +31,7 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/myfav.svg" />
         <view class="itemTitle">我的收藏</view>
     </navigator>
-    <button class="normalizeBt infoItem" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
+    <button class="normalizeBt infoItem" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </button>
