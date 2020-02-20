@@ -28,8 +28,7 @@ Component({
             const { themeColor } = app.globalData;
             const { posterData, user, posterType } = this.data;
             wx.showLoading({
-                title: '绘制图片中...',
-                mask: true
+                title: '绘制图片中...'
             });
 
             let requestData = {
