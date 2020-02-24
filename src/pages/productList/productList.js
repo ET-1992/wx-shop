@@ -66,17 +66,19 @@ Page({
                 config
             });
             await this.loadProducts();
-            const { categories } = this.data;
-            wx.setNavigationBarTitle({ title: categories[0].name });
+            const { categories = [] } = this.data;
+            const parentCategory = categories[0] || {};
+
+            wx.setNavigationBarTitle({ title: parentCategory.name || '商品列表' });
 
             let navbarListData = [];
-            categories[0].children.forEach((item) => {
+            parentCategory.children && parentCategory.children.forEach((item) => {
                 navbarListData.push({
                     text: item.name,
                     value: item.id
                 });
             });
-            navbarListData.unshift({ text: '全部', value: categories[0].id });
+            navbarListData.unshift({ text: '全部', value: parentCategory.id });
             let activeIndex = navbarListData.findIndex((item) => {
                 return item.value === Number(categoryId);
             });
@@ -155,7 +157,7 @@ Page({
             });
         } else {
             // 非会员商品请求
-            let { current_page, categoryId, products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
+            let { current_page, categoryId = '', products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
             let options = {
                 paged: current_page,
                 product_category_id: categoryId,

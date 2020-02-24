@@ -19,46 +19,48 @@ Page({
     },
 
     async loadOrderCount() {
-        const data = await api.hei.myFare();
-        const { themeColor, defineTypeGlobal, vip, user, config } = this.data;
-        this.setData({ wallet: data.wallet });
-        const wallet = this.data.wallet;
+        const { current_user: user, config, wallet, affiliate, phone_number, about_us, shop_phone, order_counts, coupons, affiliate_enable, membership_banner } = await api.hei.myFare();
+        const { themeColor, defineTypeGlobal } = this.data;
 
         const infosComponentData = {
             defineTypeGlobal,
             config,
             user,
             wallet,
-            affiliate: data.affiliate,
-            phone_number: data.phone_number,
-            about_us: data.about_us,
-            shop_phone: data.shop_phone,
+            affiliate,
+            phone_number,
+            about_us,
+            shop_phone,
             crowd_pay_enable: config.crowd_pay_enable
         };
         const ordersComponentData = {
-            order_counts: data.order_counts
+            order_counts
         };
         const personalComponentData = {
             themeColor,
             user,
             wallet,
-            coupons: data.coupons
+            coupons
         };
         const managerComponentData = {
             themeColor,
             user,
-            phoneNumber: data.phone_number,
+            phoneNumber: phone_number,
         };
 
         this.setData({
-            affiliate_enable: data.affiliate_enable,
-            affiliate: data.affiliate,
+            affiliate_enable,
+            affiliate,
             isLoading: false,
             infosComponentData,
             ordersComponentData,
             personalComponentData,
             managerComponentData,
-            membership_banner: data.membership_banner || ''
+            membership_banner: membership_banner || '',
+            user,
+            wallet,
+            logoObj: config.partner,
+            config
         });
     },
 
@@ -70,12 +72,6 @@ Page({
     },
 
     async onShow() {
-        app.log('页面onShow');
-        // this.setData({ isLoading: true });
-        const config = wx.getStorageSync(CONFIG);
-        const user = wx.getStorageSync(USER_KEY);
-        this.setData({ user, config, logoObj: config.partner });
-        // this.loadOrderCount();
         const { categoryIndex } = app.globalData;
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);
