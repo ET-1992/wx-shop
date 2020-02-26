@@ -1,0 +1,45 @@
+<navigator
+    wx:for="{{ content }}"
+    wx:for-item="product"
+    wx:key="id"
+    url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" class="bigPic"> 
+    <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
+    <view class="meta">
+        <view class="name">{{ product.title }}</view>
+        <view class="desc" wx:if="{{  product.excerpt }}">{{  product.excerpt }}</view>
+        <view class="timeLimit">
+            <view class="limitWrapper">
+                <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+                <view wx:if="{{ !hasStart }}">距开始</view>
+                <view wx:if="{{ hasEnd }}">已结束</view>
+            </view>
+            <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+                <view class="day">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+            </block>
+            <view class="hour" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ !hasEnd }}">
+                {{ remainTime.hour }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">时</view>
+            <view class="minute" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">
+                {{ remainTime.minute }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">分</view>
+            <view class="second" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">
+                {{ remainTime.second }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">秒</view>
+        </view>
+        <view class="footer">
+            <view class="allPrice">
+                <view class="originalPrice">
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.original_price }}
+                </view>
+                <view class="miaoshaPrice">
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price }}
+                </view>
+            </view>
+            <view class="btn">立即抢购</view>
+        </view>
+    </view>
+</navigator>

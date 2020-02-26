@@ -1,0 +1,26 @@
+<view class="productContainer">
+	<navigator
+		wx:for="{{ content }}"
+		wx:for-item="product"
+		wx:key="id"
+		url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" class="twoPic">
+			<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" />
+			<view class="Info">
+				<view class="title">{{ product.title }}</view>
+				<view class="meta">
+					<view class="priceWrapper">
+						<view class="ItemPrice">
+							{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}
+						</view>
+						<!-- 原价 -->
+						<view class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
+						</view>
+					</view>
+					<!-- 团购标签 -->
+					<view class="tagWrapper">
+						{{ product.groupon_member_limit + '人团' }}
+					</view>
+				</view>
+			</view>
+	</navigator>
+</view>
