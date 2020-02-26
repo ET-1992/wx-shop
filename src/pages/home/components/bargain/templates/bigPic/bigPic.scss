@@ -1,0 +1,88 @@
+.bigPic {
+	background-color: #fff;
+	padding: 25rpx;
+	border-top: 1rpx solid #D4D4D4;
+	display: flex;
+
+	.productImage {
+		height: 330rpx;
+		width: 330rpx;
+		flex-shrink: 0;
+		border-radius: 10rpx;
+	}
+
+	.meta {
+		display: flex;
+		flex-direction: column;
+		width: 100rpx;
+		flex-grow: 1;
+		margin-top: 16rpx;
+		padding-left: 20rpx;
+
+		.name {
+			font-size: 30rpx;
+			color: #333;
+			line-height: 1.2;
+			font-weight: bold;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.desc {
+			font-size: 24rpx;
+			color: #9fa0a0;
+			margin-top: 20rpx;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			flex-grow: 1;
+
+			.footer-left {
+				font-size: 24rpx;
+				color: #707070;
+
+				.currency {
+					color: #FF1E1E;
+				}
+
+				.lowPrice {
+					color: #FF1E1E;
+					font-weight: bold;
+					font-size: 36rpx;
+				}
+			}
+
+			.footer-right {
+				font-size: 20rpx;
+				color: #999;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				.bargainBtn {
+					width: 150rpx;
+					height: 50rpx;
+					font-size: 24rpx;
+					background: #F89452;
+					color: #fff;
+					border-radius: 5rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+		}
+	}
+
+}

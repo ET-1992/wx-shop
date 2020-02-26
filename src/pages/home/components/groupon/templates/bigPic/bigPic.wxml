@@ -1,0 +1,23 @@
+<navigator
+    wx:for="{{ content }}"
+    wx:for-item="product"
+    wx:key="id"
+    url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" class="bigPic">
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    <view class="meta">
+        <view class="top">
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        </view>
+        <view class="bottom">
+			<view class="price">
+				<view class="single-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
+				<view class="group-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</view>
+			</view>
+			<view class="btn">
+				<view class="count">已团{{ product.sales }}件</view>
+				<view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">去拼团</view>
+			</view>
+        </view>
+    </view>
+</navigator>

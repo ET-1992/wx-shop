@@ -1,17 +1,18 @@
 @import './templates/smallPic/smallPic';
 @import './templates/bigPic/bigPic';
+@import './templates/twoPic/twoPic';
 
 .section {
 	margin-top: 30rpx;
 	border-bottom: 1rpx solid #E0E0E0;
+
 	.sectionTitle {
-		color: #333;
+		color: #333333;
 		height: 100rpx;
 		line-height: 100rpx;
 		font-size: 35rpx;
 		font-weight: bold;
 		text-align: center;
-		border-bottom: 1rpx solid #D4D4D4;
 	}
 
 	.sectionMore {
