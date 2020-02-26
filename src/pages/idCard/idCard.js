@@ -18,11 +18,12 @@ Page({
         this.setData({
             themeColor
         });
-    },
-
-    onShow() {
         this.init();
     },
+
+    // onShow() {
+    //     this.init();
+    // },
 
     // 初始化表单内容
     async init() {
