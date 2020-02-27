@@ -1,0 +1,143 @@
+.largePic {
+    display: flex;
+    flex-direction: column;
+    .image-wrap{
+        .goods_image{
+            width: 100%;
+            height: 600rpx;
+		}
+    }
+    .content-wrap{
+		padding: 35rpx 25rpx 60rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		.left{
+			display: flex;
+			flex-direction: column;
+			color: #333;
+			width: 450rpx;
+			.title{
+				font-size: 28rpx;
+				font-weight: bold;
+				display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+			}
+			.desc{
+				font-size: 24rpx;
+				margin-top: 15rpx;
+				margin-bottom: 15rpx;
+				display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+                text-overflow: ellipsis;
+			}
+			.timeLimit {
+				font-size: 22rpx;
+				margin-top: 30rpx;
+				margin-bottom: 30rpx;
+				display: flex;
+				align-items: flex-end;
+
+				.limitWrapper {
+					margin-right: 30rpx;
+				}
+
+				.hour,
+				.minute,
+				.second {
+					color: #fff;
+					width: 50rpx;
+					height: 40rpx;
+					line-height: 40rpx;
+					text-align: center;
+					background-color: #F89452;
+					margin: 0 6rpx;
+					font-size: 23rpx;
+					border-radius: 5rpx;
+				}
+
+				.day {
+					padding: 0 5rpx;
+					font-size: 36rpx;
+					color: #000;
+					font-weight: bold;
+					margin: 0 6rpx;
+				}
+
+				.dateTitle {
+					font-size: 18rpx;
+					color: #333;
+				}
+			}
+			.price{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				// 会员价-非会员专属商品
+                .member-price {
+                    font-size: 28rpx;
+                    color: #000;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    .member-price-tip {
+                        font-size: 22rpx;
+                        width: 50rpx;
+                        height: 35rpx;
+                        color: #fff;
+                        background:linear-gradient(99deg, rgba(248, 85, 82, 1) 0%, rgba(248, 148, 82, 1) 100%);
+                        border-radius: 5rpx;
+                        display: flex;
+                        justify-content: center;
+						align-items: center;
+						margin-right: 6rpx;
+                    }
+                }
+
+                .now{
+                    font-size: 24rpx;
+                    font-weight: bold;
+					color: #FF1E1E;
+					margin-left: auto;
+					display: flex;
+					align-items: center;
+					.money{
+						display: flex;
+						.mark{
+							margin-top: 6rpx;
+							font-size: 20rpx;
+							padding-left: 5rpx;
+						}
+						.num{
+							font-size: 45rpx;
+						}
+					}
+                }
+                .original{
+                    font-size: 20rpx;
+                    color: #999;
+                    text-decoration: line-through;
+                }
+			}
+		}
+		.right{
+			margin-left: 100rpx;
+			.buyBtn{	
+				width: 150rpx;
+				height: 50rpx;
+				font-size: 24rpx;
+				color: #fff;
+				background: #F89452;
+				border-radius: 5rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+    }
+}

@@ -1,15 +1,8 @@
-<view class="section" wx:if="{{ content && content.length }}">
-	<view class="sectionTitle" wx:if="{{ title }}">{{ title }}</view>
-	<!-- 大图 -->
-	<include wx:if="{{ setting.style === 'big' }}" src="./templates/bigPic/bigPic.wxml"/>
-	<!-- 小图 -->
-	<include wx:if="{{ setting.style === 'left' }}" src="./templates/smallPic/smallPic.wxml"/>
-	<!-- 两列 -->
-	<include wx:if="{{ setting.style === 'per_2' }}" src="./templates/twoPic/twoPic.wxml"/>
-	<view class="sectionMore" wx:if="{{ content.length > 1 }}" bind:tap="go" data-url="/pages/miaoshaList/miaoshaList?type=groupon">
-		<view class="moreButton">
-			<span>更多</span>
-			<image class="rightIcon" src="/icons/rightIcon.png" />
-		</view>
-	</view>
-</view>
+<!-- 超大图 -->
+<include wx:if="{{ status === 'l' }}" src="./templates/largePic/largePic.wxml"/>
+<!-- 大图 -->
+<include wx:if="{{ status === 'm' }}" src="./templates/bigPic/bigPic.wxml"/>
+<!-- 小图 -->
+<include wx:if="{{ status === 's' }}" src="./templates/smallPic/smallPic.wxml"/>
+<!-- 两列 -->
+<include wx:if="{{ status === 'per_2' }}" src="./templates/twoPic/twoPic.wxml"/>

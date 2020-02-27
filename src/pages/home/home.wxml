@@ -17,15 +17,11 @@
             <!-- 幻灯片 -->
             <slide wx:if="{{ module.type === 'slider' }}" module="{{ module }}" bindminiFail="miniFail" bindonModal="onModal"/>
             <!-- 简单文本 -->
-            <text wx:if="{{ module.type === 'text' }}" module="{{ module }}" second="{{ second }}" size="{{ size }}" bindminiFail="miniFail" />
+            <text wx:if="{{ module.type === 'text' }}" module="{{ module }}" second="{{ second }}" size="{{ size }}" />
             <!-- 内容电商 -->
-            <articleList wx:if="{{ module.type === 'article' }}" module="{{ module }}" themeColor="{{ themeColor }}"  bindminiFail="miniFail"/>
-            <!-- 拼团专区 -->
-            <groupon wx:if="{{ module.type === 'product' &&  module.setting &&  module.setting.promotion_type === 'groupon_enable' }}" module="{{ module }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bindminiFail="miniFail" />
-            <!-- 砍价专区 -->
-            <bargain wx:if="{{ module.type === 'product' &&  module.setting &&  module.setting.promotion_type === 'bargain_enable' }}" module="{{ module }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bindminiFail="miniFail"/>
-            <!-- 限时购 -->
-            <flashSale wx:if="{{ module.type === 'product' &&  module.setting &&  module.setting.promotion_type === 'miaosha_enable' }}" module="{{ module }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bindminiFail="miniFail"/>
+            <articleList wx:if="{{ module.type === 'article' }}" module="{{ module }}" themeColor="{{ themeColor }}" />
+            <!-- 商品列表 -->
+            <productsList wx:if="{{ module.type === 'product'}}" module="{{ module }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
         </view>
     </view>
 </view>

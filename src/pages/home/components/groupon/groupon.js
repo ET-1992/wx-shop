@@ -1,19 +1,30 @@
-import { go } from 'utils/util';
+import getRemainTime from 'utils/getRemainTime';
 
 Component({
     properties: {
-        module: {
+        product: {
             type: Object,
             value: {},
             observer(newVal) {
                 if (!newVal) { return }
-                const { content, setting, title, type, id } = newVal;
+                const { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+                const now = Math.round(Date.now() / 1000);
+                let timeLimit = miaosha_end_timestamp - now;
+                let hasStart = true;
+                let hasEnd = false;
+                if (now < miaosha_start_timestamp) {
+                    hasStart = false;
+                    timeLimit = miaosha_start_timestamp - now;
+                }
+
+                if (now > miaosha_end_timestamp) {
+                    hasEnd = true;
+                    timeLimit = 0;
+                }
                 this.setData({
-                    content,
-                    setting,
-                    title,
-                    type,
-                    id
+                    timeLimit,
+                    hasStart,
+                    hasEnd
                 });
             }
         },
@@ -24,10 +35,15 @@ Component({
         globalData: {
             type: Object,
             value: {}
+        },
+        status: {
+            type: String,
+            value: 's'
         }
     },
 
-    methods: {
-        go
+    data: {
+        hasStart: true,
+        hasEnd: false
     }
 });
