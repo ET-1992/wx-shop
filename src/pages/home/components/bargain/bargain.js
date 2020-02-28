@@ -1,21 +1,8 @@
-import { go } from 'utils/util';
-
 Component({
     properties: {
-        module: {
+        product: {
             type: Object,
-            value: {},
-            observer(newVal) {
-                if (!newVal) { return }
-                const { content, setting, title, type, id } = newVal;
-                this.setData({
-                    content,
-                    setting,
-                    title,
-                    type,
-                    id
-                });
-            }
+            value: {}
         },
         themeColor: {
             type: Object,
@@ -24,10 +11,10 @@ Component({
         globalData: {
             type: Object,
             value: {}
+        },
+        status: {
+            type: String,
+            value: 'm'
         }
-    },
-
-    methods: {
-        go
     }
 });

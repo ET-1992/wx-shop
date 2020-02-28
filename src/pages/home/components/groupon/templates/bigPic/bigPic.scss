@@ -7,7 +7,6 @@
 	.productImage {
 		width: 330rpx;
 		height: 330rpx;
-		background: #D4D4D4;
 		border-radius: 10rpx;
 	}
 
@@ -40,6 +39,29 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+
+			.commonStyle {
+				width: 100rpx;
+				height: 35rpx;
+				font-size: 20rpx;
+				color: #fff;
+				text-align: center;
+				line-height: 35rpx;
+				border-radius: 5rpx;
+				margin-top: 20rpx;
+			}
+
+			.start {
+				background-color: #D4D4D4;
+			}
+
+			.going {
+				background-color: #333;
+			}
+
+			.end {
+				background-color: #AAA;
+			}
 		}
 
 		.bottom {
@@ -51,7 +73,7 @@
 				flex-direction: column;
 				.single-price {
 					font-size: 24rpx;
-					color: #333;
+					color: #707070;
 					text-decoration: line-through;
 				}
 				.group-price {
@@ -59,7 +81,6 @@
 					color: #333;
 					font-weight: bold;
 				}
-
 			}
 
 			.btn {

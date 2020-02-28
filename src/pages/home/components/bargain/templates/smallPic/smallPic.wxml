@@ -1,9 +1,4 @@
-<navigator
-    wx:for="{{ content }}"
-    wx:for-item="product"
-    wx:key="id"
-    url="{{ '/pages/productDetail/productDetail?id=' + product.id }}"
-    class="smallPic">
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
     <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill" lazy-load="{{ true }}"/>
     <view class="meta">
         <view class="name">{{ product.title }}</view>

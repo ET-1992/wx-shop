@@ -13,8 +13,6 @@
     "slide": "./components/slider/slider",
     "text": "./components/text/text",
     "articleList": "./components/articleList/articleList",
-    "groupon": "./components/groupon/groupon",
-    "bargain": "./components/bargain/bargain",
-    "flashSale": "./components/flashSale/flashSale"
+    "productsList": "./components/productsList/productsList"
   }
 }

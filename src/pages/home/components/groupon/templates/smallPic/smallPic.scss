@@ -7,7 +7,6 @@
 	.productImage {
 		width: 200rpx;
 		height: 200rpx;
-		background: #D4D4D4;
 		border-radius: 10rpx;
 	}
 
@@ -22,7 +21,7 @@
 			.title {
 				font-size: 28rpx;
 				font-weight: bold;
-				color: #333333;
+				color: #333;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 1;
@@ -32,12 +31,35 @@
 
 			.desc {
 				font-size: 24rpx;
-				color: #999999;
+				color: #999;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 2;
 				overflow: hidden;
 				text-overflow: ellipsis;
+			}
+
+			.commonStyle {
+				width: 100rpx;
+				height: 35rpx;
+				font-size: 20rpx;
+				color: #fff;
+				text-align: center;
+				line-height: 35rpx;
+				border-radius: 5rpx;
+				margin-top: 15rpx;
+			}
+
+			.start {
+				background-color: #D4D4D4;
+			}
+			
+			.going {
+				background-color: #333;
+			}
+
+			.end {
+				background-color: #AAA;
 			}
 		}
 
@@ -60,7 +82,7 @@
 
 					.single-price {
 						font-size: 24rpx;
-						color: #333;
+						color: #707070;
 						text-decoration: line-through;
 						padding-left: 10rpx;
 					}

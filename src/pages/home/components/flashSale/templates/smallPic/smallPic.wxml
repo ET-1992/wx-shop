@@ -1,9 +1,4 @@
-<navigator
-    wx:for="{{ content }}"
-    wx:for-item="product"
-    wx:key="id"
-    url="{{ '/pages/productDetail/productDetail?id=' + product.id }}"
-    class="smallPic">
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
     <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
     <view class="meta">
         <view class="name">{{ product.title }}</view>
@@ -17,17 +12,11 @@
                 <view class="day">{{ remainTime.day }}</view>
                 <view class="dateTitle">天</view>
             </block>
-            <view class="hour" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ !hasEnd }}">
-                {{ remainTime.hour }}
-            </view>
+            <view class="hour" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ !hasEnd }}">{{ remainTime.hour }}</view>
             <view class="dateTitle" wx:if="{{ !hasEnd }}">时</view>
-            <view class="minute" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">
-                {{ remainTime.minute }}
-            </view>
+            <view class="minute" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">{{ remainTime.minute }}</view>
             <view class="dateTitle" wx:if="{{ !hasEnd }}">分</view>
-            <view class="second" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">
-                {{ remainTime.second }}
-            </view>
+            <view class="second" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">{{ remainTime.second }}</view>
             <view class="dateTitle" wx:if="{{ !hasEnd }}">秒</view>
         </view>
         <view class="footer">

@@ -1,0 +1,43 @@
+@import './templates/bigPic/bigPic';
+@import './templates/twoPic/twoPic';
+@import './templates/smallPic/smallPic';
+@import './templates/largePic/largePic';
+
+.section {
+	margin-top: 30rpx;
+	border-bottom: 1rpx solid #E0E0E0;
+
+	.sectionTitle {
+		color: #333;
+		height: 100rpx;
+		line-height: 100rpx;
+		font-size: 35rpx;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.productContainer {
+		display: flex;
+		padding: 25rpx;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.sectionMore {
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+
+		.moreButton {
+			font-size: 28rpx;
+			color: #707070;
+			background: #fff;
+		}
+
+		.rightIcon {
+			width: 20rpx;
+			height: 20rpx;
+			margin-left: 10rpx;
+		}
+	}
+}
