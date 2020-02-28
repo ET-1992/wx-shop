@@ -14,12 +14,16 @@ Component({
                     id
                 });
             }
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
 
     methods: {
-        onModal() {
-            this.triggerEvent('onModal', {}, {
+        submitFormId() {
+            this.triggerEvent('submitFormId', {}, {
                 bubbles: true
             });
         }

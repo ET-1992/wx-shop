@@ -336,7 +336,7 @@ Page({
     },
 
     miniFail(e) {
-        console.log('幻灯片miniFail', e);
+        console.log('miniFail', e);
         // const { errMsg } = e.detail;
         // wx.showModal({
         //     title: '温馨提示',

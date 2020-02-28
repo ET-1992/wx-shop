@@ -18,6 +18,12 @@
             <slide wx:if="{{ module.type === 'slider' }}" module="{{ module }}" bindminiFail="miniFail" bindonModal="onModal"/>
             <!-- 简单文本 -->
             <text wx:if="{{ module.type === 'text' }}" module="{{ module }}" second="{{ second }}" size="{{ size }}" />
+            <!-- 文本列表 -->
+            <textList wx:if="{{ module.type === 'text-list' }}" module="{{ module }}"/>
+            <!-- 优惠券 -->
+            <coupons wx:if="{{ module.type === 'coupon' }}" module="{{ module }}" bindonsubmitFormId="submitFormId"/>
+            <!-- 快捷导航栏 -->
+            <nav wx:if="{{ module.type === 'nav' }}" module="{{ module }}" config="{{ config }}" bindonModal="onModal"/>
             <!-- 内容电商 -->
             <articleList wx:if="{{ module.type === 'article' }}" module="{{ module }}" themeColor="{{ themeColor }}" />
             <!-- 商品列表 -->
@@ -26,9 +32,17 @@
     </view>
 </view>
 
+<!-- 服务 -->
+<service phone="{{ newData.module_page && newData.module_page.phone_number }}" customer="{{  newData.module_page && newData.module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
+
+<!-- 添加到我的小程序 -->
+<view class="home-guide" wx:if="{{ newData.module_page && newData.module_page.add_to_favorites }}">
+    <image class="home-guide_img" src="/icons/guide.svg" />
+</view>
+
 <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
-    <service phone="{{phone}}" customer="{{customer}}" sessionFrom='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'/>
+    <!-- <service phone="{{phone}}" customer="{{customer}}" sessionFrom='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'/> -->
 <!-- </block> -->
 
 <!-- 新用戶优惠券弹框 -->
@@ -38,6 +52,6 @@
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 
 <!-- 添加到小程序指引 -->
-<view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
+<!-- <view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
     <image class="home-guide_img" src="/icons/guide.svg"/>
-</view>
+</view> -->
