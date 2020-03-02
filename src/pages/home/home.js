@@ -218,6 +218,7 @@ Page({
         });
     },
     async onCouponClick(ev) {
+        console.log('ev221', ev);
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);

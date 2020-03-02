@@ -25,6 +25,10 @@ Component({
         config: {
             type: Object,
             value: {},
+        },
+        color: {
+            type: String,
+            value: 'gold'
         }
     },
     data: {

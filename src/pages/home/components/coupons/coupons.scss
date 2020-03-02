@@ -53,7 +53,7 @@
 			position: absolute;
 			z-index: 2;
 			color: #fff;
-			font-size: 18rpx;
+			font-size: 22rpx;
 			height: 136rpx;
 			width: 180rpx;
 			display: flex;
@@ -61,13 +61,20 @@
 			align-items: center;
 			flex-direction: column;
 
-			.reduceCost {
-				font-size: 36rpx;
+			.reduce  {
+				display: flex;
+				align-items: center;
+
+				.reduceCost {
+					font-size: 46rpx;
+					margin: 0 5rpx;
+				}
+	
+				.reduceTitle {
+					font-size: 21rpx;
+				}
 			}
 
-			.title {
-				font-size: 16rpx;
-			}
 		}
 
 		.couponBtn{
