@@ -31,10 +31,6 @@ Component({
             });
         },
 
-        miniFail(e) {
-            this.triggerEvent('miniFail', {}, { bubbles: true });
-        },
-
         showContactModal(e) {
             this.triggerEvent('showContactModal', e, { bubbles: true });
         }
