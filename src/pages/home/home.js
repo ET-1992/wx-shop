@@ -38,7 +38,7 @@ Page({
         size: 11,
         speed: 50,
         second: 0,
-        guide_status: false // 添加到小程序指引是否消失
+        guide_status: false // 添加到小程序指引是否显示
     },
 
     swiperChange(e) {

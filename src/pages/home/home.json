@@ -11,7 +11,7 @@
     "myNavigator": "../../components/myNavigator/myNavigator",
     "searchBox": "./components/searchBox/searchBox",
     "slide": "./components/slider/slider",
-    "text": "./components/text/text",
+    "textMessage": "./components/text/text",
     "textList": "./components/textList/textList",
     "nav": "./components/nav/nav",
     "coupons": "./components/coupons/coupons",

@@ -18,8 +18,8 @@ Component({
     },
 
     methods: {
-        showContactModal() {
-            this.triggerEvent('showContactModal', {}, { bubbles: true });
+        showContactModal(e) {
+            this.triggerEvent('showContactModal', e, { bubbles: true });
         }
     }
 });

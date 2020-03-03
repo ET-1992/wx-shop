@@ -1,5 +1,7 @@
 import api from 'utils/api';
 import { parseScene, go } from 'utils/util';
+// 获取应用实例
+const app = getApp();
 
 Component({
     properties: {
@@ -31,25 +33,30 @@ Component({
 
     data: {
         next_cursor: 0,
-        last_cursor: 0
+        last_cursor: 0,
+        isProductBottom: false,
     },
 
     attached() {
-        let products = this.data.content;
-        if (products && products[products.length - 1]) {
-            let next_cursor = products[products.length - 1].timestamp;
-            this.setData({
-                next_cursor: next_cursor
-            });
-        } else {
-            this.setData({
-                next_cursor: 0
-            });
-        }
+        this.init();
     },
 
     methods: {
         go,
+
+        init() {
+            let products = this.data.content;
+            if (products && products[products.length - 1]) {
+                let next_cursor = products[products.length - 1].timestamp;
+                this.setData({
+                    next_cursor: next_cursor
+                });
+            } else {
+                this.setData({
+                    next_cursor: 0
+                });
+            }
+        },
 
         async loadProducts() {
             const { next_cursor, content: products, modules } = this.data;
@@ -70,6 +77,27 @@ Component({
             });
             console.log(this.data);
             return data;
+        },
+
+        /* 无限加载 */
+        async showProducts() {
+            const { windowHeight } = app.systemInfo;
+            const rect = await this.getDomRect('loadProducts');
+            if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
+                const { next_cursor } = this.data;
+                this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
+                if (next_cursor !== 0) {
+                    this.loadProducts();
+                }
+            }
+        },
+
+        getDomRect(id) {
+            return new Promise((resolve, reject) => {
+                wx.createSelectorQuery().select(`#${id}`).boundingClientRect((rect) => {
+                    resolve(rect);
+                }).exec();
+            });
         },
     }
 });
