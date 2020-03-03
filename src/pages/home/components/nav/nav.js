@@ -1,6 +1,6 @@
 Component({
     properties: {
-        module: {
+        nav: {
             type: Object,
             value: {},
             observer(newVal) {
@@ -18,10 +18,8 @@ Component({
     },
 
     methods: {
-        onModal() {
-            this.triggerEvent('onModal', {}, {
-                bubbles: true
-            });
+        showContactModal() {
+            this.triggerEvent('showContactModal', {}, { bubbles: true });
         }
     }
 });

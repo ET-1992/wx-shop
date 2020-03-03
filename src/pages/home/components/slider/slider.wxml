@@ -28,7 +28,7 @@
                 ></navigator>
                 <button
                     wx:if="{{ item.type === 'contact' }}"
-                    bindtap="{{ item.tips ? 'onModal' : ''}}"
+                    bindtap="{{ item.tips ? 'showContactModal' : ''}}"
                     data-tips="{{ item.tips }}"
                     open-type="{{ !item.tips ? 'contact' : ''}}"
                     session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
@@ -65,7 +65,7 @@
                 ></navigator>
                 <button
                     wx:if="{{ item.type === 'contact' }}"
-                    bindtap="{{ item.tips ? 'onModal' : ''}}"
+                    bindtap="{{ item.tips ? 'showContactModal' : ''}}"
                     data-tips="{{ item.tips }}"
                     open-type="{{ !item.tips ? 'contact' : ''}}"
                     session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'

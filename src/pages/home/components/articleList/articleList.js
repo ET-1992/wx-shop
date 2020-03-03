@@ -2,7 +2,7 @@ import { go } from 'utils/util';
 
 Component({
     properties: {
-        module: {
+        articleList: {
             type: Object,
             value: {},
             observer(newVal) {

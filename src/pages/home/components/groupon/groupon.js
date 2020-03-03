@@ -1,5 +1,3 @@
-import getRemainTime from 'utils/getRemainTime';
-
 Component({
     properties: {
         product: {

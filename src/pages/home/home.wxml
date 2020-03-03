@@ -15,19 +15,19 @@
     <view class="{{ search_box ? 'main': '' }}" >
         <view wx:for="{{ newData.modules }}" wx:key="key" >
             <!-- 幻灯片 -->
-            <slide wx:if="{{ item.type === 'slider' }}" module="{{ item }}" bindminiFail="miniFail" bindonModal="onModal"/>
+            <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" bindminiFail="miniFail" bindshowContactModal="showContactModal"/>
             <!-- 简单文本 -->
-            <text wx:if="{{ item.type === 'text' }}" module="{{ item }}" second="{{ second }}" size="{{ size }}" />
+            <text wx:if="{{ item.type === 'text' }}" text="{{ item }}" second="{{ second }}" size="{{ size }}" />
             <!-- 文本列表 -->
-            <textList wx:if="{{ item.type === 'text-list' }}" module="{{ item }}"/>
+            <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}"/>
             <!-- 优惠券 -->
             <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" />
             <!-- 快捷导航栏 -->
-            <nav wx:if="{{ item.type === 'nav' }}" module="{{ item }}" config="{{ config }}" bindonModal="onModal"/>
+            <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}" bindshowContactModal="showContactModal"/>
             <!-- 内容电商 -->
-            <articleList wx:if="{{ item.type === 'article' }}" module="{{ item }}" themeColor="{{ themeColor }}" />
+            <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
             <!-- 商品列表 -->
-            <productsList wx:if="{{ item.type === 'product'}}" module="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+            <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
         </view>
     </view>
 </view>

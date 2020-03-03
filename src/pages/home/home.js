@@ -315,6 +315,7 @@ Page({
     },
 
     onModal(e) {
+        console.log('e218', e);
         this.setData({
             contactModal: {
                 isFatherControl: false,
@@ -343,6 +344,24 @@ Page({
         //     title: '温馨提示',
         //     content: errMsg,
         // });
+    },
+    //  快捷导航 与 幻灯片 客服对话框显示
+    showContactModal(e) {
+        console.log('e218', e);
+        this.setData({
+            contactModal: {
+                isFatherControl: false,
+                title: '温馨提示',
+                isShowModal: true,
+                body: e.detail.currentTarget.dataset.tips,
+                type: 'button',
+                userInfo: this.data.userInfo,
+                buttonData: {
+                    opentype: 'contact'
+                }
+            }
+        });
+        console.log(this.data.contactModal);
     },
 
     go

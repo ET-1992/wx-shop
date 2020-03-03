@@ -1,14 +1,6 @@
 Component({
     properties: {
-        title: {
-            type: String,
-            value: 'textList Component',
-        },
-        switchData: {
-            type: Boolean,
-            value: false,
-        },
-        module: {
+        textList: {
             type: Object,
             value: {},
             observer(newVal) {
