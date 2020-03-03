@@ -1,6 +1,6 @@
 Component({
     properties: {
-        module: {
+        slide: {
             type: Object,
             value: {},
             observer(newVal) {
@@ -35,8 +35,8 @@ Component({
             this.triggerEvent('miniFail', {}, { bubbles: true });
         },
 
-        onModal() {
-            this.triggerEvent('onModal', {}, { bubbles: true });
+        showContactModal(e) {
+            this.triggerEvent('showContactModal', e, { bubbles: true });
         }
     }
 });

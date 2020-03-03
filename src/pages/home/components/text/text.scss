@@ -1,18 +1,19 @@
+.title {
+	font-size: 35rpx;
+	font-weight: bold;
+	padding: 26rpx 0;
+	text-align: center;
+}
+
 .announcement {
 	display: flex;
 	height: 70rpx;
 	align-items: center;
-	background: #FFF9EC;
 	font-size: 22rpx;
-	color: #000000;
+	color: #ed6a0c;
+	background-color: #fffbe8;
 
-	.infoIcon {
-		margin: 0 14rpx 0 30rpx;
-		width: 48rpx;
-		height: 35rpx;
-	}
-
-	@keyframes marque {
+	@keyframes marquee {
     	0% {
     	    transform: translateX(0);
     	}
@@ -21,7 +22,7 @@
     	}
 	}
 	
-	.marquee {
+	.marqueeWrapper {
 		width: 100%;
 		display: block;
 		overflow: hidden;
@@ -33,6 +34,8 @@
 			display: inline-block;
 			position: relative;
 			padding-right: 0px;
+			animation-duration: 10s;
+			font-size: 28rpx;
 			white-space: nowrap;
 			animation-name: marque;
 			animation-timing-function: linear;

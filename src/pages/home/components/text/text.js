@@ -1,6 +1,6 @@
 Component({
     properties: {
-        module: {
+        text: {
             type: Object,
             value: {},
             observer(newVal) {

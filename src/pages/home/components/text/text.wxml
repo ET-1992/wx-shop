@@ -1,17 +1,21 @@
-<navigator
-	wx:if="{{ content }}"
-	app-id="{{ content.appid }}"
-	path="{{ content.path }}"
-	target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
-	url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
-	class="announcement"
-	bindfail="miniFail">
-	<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
-	<view class="marquee">
-		<view class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
-			{{content.text}}<text class="content-space"></text>
-			{{content.text}}<text class="content-space"></text>
-			{{content.text}}<text class="content-space"></text>
+<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">
+	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+	<navigator
+		wx:if="{{ content }}"
+		app-id="{{ content.appid }}"
+		path="{{ content.path }}"
+		target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
+		url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
+		class="announcement"
+		bindfail="miniFail">
+		<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'announcement'}}"/>
+		<van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'notification'}}"/>
+		<view class="marqueeWrapper {{ setting.effect === 'scroll' ? 'marquee' : ''}}">
+			<view class="content">
+				{{content.text}}<text class="content-space"></text>
+				{{content.text}}<text class="content-space"></text>
+				{{content.text}}<text class="content-space"></text>
+			</view>
 		</view>
-	</view>
-</navigator>
+	</navigator>
+</view>

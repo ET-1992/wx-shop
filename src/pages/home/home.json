@@ -12,6 +12,9 @@
     "searchBox": "./components/searchBox/searchBox",
     "slide": "./components/slider/slider",
     "text": "./components/text/text",
+    "textList": "./components/textList/textList",
+    "nav": "./components/nav/nav",
+    "coupons": "./components/coupons/coupons",
     "articleList": "./components/articleList/articleList",
     "productsList": "./components/productsList/productsList"
   }

@@ -1,8 +1,9 @@
-import { go } from 'utils/util';
+import api from 'utils/api';
+import { parseScene, go } from 'utils/util';
 
 Component({
     properties: {
-        module: {
+        productsList: {
             type: Object,
             value: {},
             observer(newVal) {
@@ -28,7 +29,47 @@ Component({
         }
     },
 
+    data: {
+        next_cursor: 0,
+        last_cursor: 0
+    },
+
+    attached() {
+        let products = this.data.content;
+        if (products && products[products.length - 1]) {
+            let next_cursor = products[products.length - 1].timestamp;
+            this.setData({
+                next_cursor: next_cursor
+            });
+        } else {
+            this.setData({
+                next_cursor: 0
+            });
+        }
+    },
+
     methods: {
-        go
+        go,
+
+        async loadProducts() {
+            const { next_cursor, content: products, modules } = this.data;
+            let hack = {};
+            // if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args) {
+            //     hack = parseScene(modules[modules.length - 1].args);
+            // }
+            const data = await api.hei.fetchProductList({
+                cursor: next_cursor,
+                // ...hack
+            });
+            this.data.isProductBottom = false;
+            const newProducts = products.concat(data.products);
+            this.setData({
+                content: newProducts,
+                next_cursor: data.next_cursor,
+                last_cursor: this.data.next_cursor
+            });
+            console.log(this.data);
+            return data;
+        },
     }
 });

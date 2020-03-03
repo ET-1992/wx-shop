@@ -1,54 +1,16 @@
-<view class="text-list" style="padding-bottom: {{ module.setting.margin + 'rpx'}}">
-  <block wx:if="{{ module.setting.title_display }}">
-    <!-- 标题左对齐 -->
-    <view class="title" wx:if="{{ module.setting.title_position === 'left' }}">
-      <text>{{ module.title }}</text>
-    </view>
-    <!-- 标题居中对齐 -->
-    <view class="title title-center" wx:elif="{{ module.setting.title_position === 'center' }}" >
-      <text>{{ module.title }}</text>
-    </view>
-    <!-- 标题右对齐 -->
-    <view class="title title-right" wx:else>
-      <text>{{ module.title }}</text>
-    </view>
-  </block>
-  <view class="list">
-    <!-- 列表水平对齐 --> 
-    <view class="list-horizontal" wx:if="{{ module.setting.display_direction === 'column' }}">
-      <view class="list-item" wx:for="{{ module.content }}" wx:key="index">
-        <view class="item-icon">
-          <image class="item-icon-img" mode="aspectFit" src="/icons/announcement.png"></image>
+<view class="textList {{ setting.title_display ? '' : 'textWrapper'}}" style="margin-bottom: {{ setting.margin }}rpx">
+    <view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+    <view class="list {{ setting.orientation === 'horizontal' ? 'horizontal' : ''}}">
+        <view class="list-item" wx:for="{{ content }}" wx:key="index">
+            <image class="item-icon-img" mode="aspectFit" src="/icons/instructions.png" wx:if="{{ setting.icon === 'yes' }}"></image>
+            <image class="item-icon-img" mode="aspectFit" src="/icons/love.png" wx:if="{{ setting.icon === 'heart'}}"></image>
+            <navigator
+                class="link-text"
+                app-id="{{ item.appid }}"
+                path="{{ item.path }}"
+                target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+                url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+                >{{ item.text }}</navigator>
         </view>
-        <view class="link-text">
-          <navigator url="{{ item.path }}">{{ item.text }}</navigator>
-        </view>
-      </view>
     </view>
-    <!-- 列表垂直对齐 -->
-    <view class="list-vertical" wx:else>
-      <!-- 列表文字左对齐 -->
-      <block wx:if="{{ true }}">
-        <view class="list-item" wx:for="{{ module.content }}" wx:key="index">
-          <view class="item-icon">
-            <image class="item-icon-img" mode="aspectFit" src="/icons/announcement.png"></image>
-          </view>
-          <view class="link-text">
-            <navigator url="{{ item.path }}">{{ item.text }}</navigator>
-          </view>
-        </view>
-      </block>
-      <!-- 列表文字居中对齐 -->
-      <block wx:else>
-        <view class="list-item list-item-center" wx:for="{{ module.content }}" wx:key="index">
-          <view class="item-icon">
-            <image class="item-icon-img" mode="aspectFit" src="/icons/announcement.png"></image>
-          </view>
-          <view class="link-text">
-            <navigator url="{{ item.path }}">{{ item.text }}</navigator>
-          </view>
-        </view>
-      </block>
-    </view>
-  </view>
 </view>
