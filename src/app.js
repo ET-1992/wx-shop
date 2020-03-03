@@ -23,7 +23,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY' } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor } = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -35,7 +35,7 @@ App({
         }
 
         this.globalData = Object.assign(this.globalData, {
-            themeColor: { primaryColor, secondaryColor },
+            themeColor: { primaryColor, secondaryColor, backgroundColor },
             categoryIndex,
             partner: partner,
             tplStyle: styleType,

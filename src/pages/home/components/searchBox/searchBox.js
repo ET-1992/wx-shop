@@ -3,6 +3,10 @@ Component({
         total: {
             type: String,
             value: ''
+        },
+        themeColor: {
+            type: Object,
+            value: {}
         }
     }
 });
