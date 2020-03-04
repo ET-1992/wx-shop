@@ -60,10 +60,6 @@ Component({
         isIphoneX: {
             type: Boolean,
             value: false
-        },
-        miaoshaObj: {
-            type: Object,
-            value: {}
         }
     },
     data: {

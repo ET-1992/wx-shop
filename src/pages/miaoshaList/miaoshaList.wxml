@@ -5,7 +5,7 @@
         <view class="banner" wx:if="{{ miaosha_banner }}">
             <image src="{{ miaosha_banner }}" mode="aspectFill" />
         </view>
-        <view class="itemWrapper" wx:for="{{ products }}" wx:key="id" wx:if="{{item.miaosha_enable=='1'}}">
+        <view class="itemWrapper" wx:for="{{ products }}" wx:key="id" wx:if="{{item.miaosha_enable}}">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
                 <productList miaosha="{{ item }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
             </navigator>
@@ -17,7 +17,7 @@
         <view class="banner" wx:if="{{ groupon_banner }}">
             <image src="{{ groupon_banner }}" mode="aspectFill" />
         </view>
-        <view class="itemWrapper" wx:for="{{ products }}" wx:key="id" wx:if="{{item.groupon_enable=='1'}}">
+        <view class="itemWrapper" wx:for="{{ products }}" wx:key="id" wx:if="{{item.groupon_enable}}">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
                 <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
             </navigator>

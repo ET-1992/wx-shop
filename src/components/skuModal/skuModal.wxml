@@ -35,7 +35,7 @@
             <view class="money" wx:if="{{ product.groupon_enable && isGrouponBuy }}">
                 {{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
             </view>
-            <view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable === '1' }}">
+            <view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                 {{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
             </view>
             <view class="money" wx:else>
@@ -61,7 +61,7 @@
                         <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
                             {{ product.price }}
                         </view>
-                        <view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">
+                        <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                             {{ product.definePrice }}
                         </view>
                         <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">

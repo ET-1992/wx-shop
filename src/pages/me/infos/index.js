@@ -29,6 +29,8 @@ Component({
             const user = await getAgainUserForInvalid({ encryptedData, iv });
             this.setData({
                 user
+            }, () => {
+                wx.navigateTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
             });
         },
         async onAddress() {

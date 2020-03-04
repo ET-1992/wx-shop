@@ -537,7 +537,6 @@
  isBargainBuy="{{isBargainBuy}}"
  config="{{ config }}"
  isIphoneX="{{ isIphoneX }}"
- miaoshaObj="{{ miaoshaObj }}"
  bind:onSkuConfirm="onSkuConfirm"
  bind:getShippingType="getShippingType"
 />

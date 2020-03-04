@@ -34,7 +34,6 @@ Page({
         hasStart: true,
         hasEnd: false,
         timeLimit: 0,
-        miaoshaObj: {},
         isShowActionSheet: false,
         isShowCouponList: false,
         selectedProperties: [],

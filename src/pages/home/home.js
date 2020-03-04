@@ -157,8 +157,7 @@ Page({
     },
 
     async onLoad(options) {
-        app.log(options, 'onLoad');
-
+        console.log('onLoad');
         const { themeColor, partner = {}} = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();

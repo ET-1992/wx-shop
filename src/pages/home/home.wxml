@@ -27,7 +27,9 @@
             <!-- 内容电商 -->
             <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
             <!-- 商品列表 -->
-            <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}"/>
+            <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+            <!-- 魔方 -->
+            <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
         </view>
     </view>
     <view id="loadProducts" class="logo">
