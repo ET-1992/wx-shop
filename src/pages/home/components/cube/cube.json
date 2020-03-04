@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "magicImg": "components/magicImg/magicImg"
+      } 
+}

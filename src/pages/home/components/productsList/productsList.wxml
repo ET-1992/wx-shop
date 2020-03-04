@@ -18,10 +18,10 @@
 		</block>
 	</view>
 	<!-- 更多 -->
-	<!-- <view class="sectionMore" wx:if="{{ content.length > 1 }}" bind:tap="go" data-url="{{'/pages/loadProduct/loadProduct?' + args }}">
+	<view class="sectionMore" wx:if="{{ content.length > 1 }}" bind:tap="goMore">
 		<view class="moreButton">
 			<span>更多</span>
 			<image class="rightIcon" src="/icons/rightIcon.png" />
 		</view>
-	</view> -->
+	</view>
 </view>

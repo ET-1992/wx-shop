@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { parseScene, go } from 'utils/util';
+import { parseScene, go, autoNavigate_ } from 'utils/util';
 // 获取应用实例
 const app = getApp();
 
@@ -42,7 +42,21 @@ Component({
     },
 
     methods: {
-        go,
+        goMore() {
+            const { setting, id } = this.data;
+            if (setting.promotion_type === 'groupon_enable') {
+                autoNavigate_({url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id })
+            }
+            if (setting.promotion_type === 'bargain_enable') {
+                autoNavigate_({url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id })
+            }
+            if (setting.promotion_type === 'miaosha_enable') {
+                autoNavigate_({url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id })
+            }
+            if (!setting.promotion_type) {
+                autoNavigate_({url: '/pages/loadProduct/loadProduct?module_id=' + id })
+            }
+        },
 
         init() {
             let products = this.data.content;
