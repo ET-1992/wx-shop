@@ -11,7 +11,7 @@
 
 <view class="container" wx:if="{{ !isLoading }}">
     <!-- 搜索框 -->
-    <searchBox wx:if="{{ search_box }}" total="{{ search_box.total }}"/>
+    <searchBox wx:if="{{ search_box }}" total="{{ search_box.total }}" themeColor="{{ themeColor }}"/>
     <view class="{{ search_box ? 'main': '' }}" >
         <view wx:for="{{ newData.modules }}" wx:key="key" >
             <!-- 幻灯片 -->
