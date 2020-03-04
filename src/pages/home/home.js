@@ -38,7 +38,8 @@ Page({
         size: 11,
         speed: 50,
         second: 0,
-        guide_status: false // 添加到小程序指引是否显示
+        guide_status: false, // 添加到小程序指引是否显示
+        isProductLast: false // 判断新首页商品列表是否在最后
     },
 
     swiperChange(e) {
@@ -125,7 +126,7 @@ Page({
             isLoading: false,
             ...data
         }, this.addGuideSecond);
-
+        // 旧首页
         let products = this.data.products;
         if (products && products[products.length - 1]) {
             let next_cursor = products[products.length - 1].timestamp;
@@ -284,15 +285,16 @@ Page({
     /* 无限加载 */
     async showProducts() {
         const { windowHeight } = app.systemInfo;
+        const { next_cursor } = this.data;
         const rect = await this.getDomRect('loadProducts');
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
-            const { next_cursor } = this.data;
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             if (next_cursor !== 0) {
                 this.loadProducts();
             }
         }
     },
+
     onPageScroll() {
         let modules = this.data.modules;
         if (modules && modules.length && modules[modules.length - 1].key === 'products') {
@@ -345,6 +347,7 @@ Page({
         //     content: errMsg,
         // });
     },
+
     //  快捷导航 与 幻灯片 客服对话框显示
     showContactModal(e) {
         console.log('e218', e);

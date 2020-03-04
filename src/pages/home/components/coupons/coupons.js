@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { showToast } from 'utils/wxp';
+import { getAgainUserForInvalid } from 'utils/util';
 
 Component({
     properties: {
@@ -30,8 +31,16 @@ Component({
     },
 
     methods: {
-        submitFormId() {
-            this.triggerEvent('submitFormId', {}, { bubbles: true });
+        async bindGetUserInfo(e) {
+            console.log('2\e', e);
+            const { encryptedData, iv } = e.detail;
+            const user = await getAgainUserForInvalid({ encryptedData, iv });
+            this.setData({ user });
+            if (user) {
+                this.onCouponsClick(e);
+            } else {
+                console.log('用户未授权,无法领取优惠券');
+            }
         },
 
         async onCouponsClick(ev) {

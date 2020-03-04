@@ -3,7 +3,6 @@
 
 .section {
 	margin-top: 30rpx;
-	border-bottom: 1rpx solid #E0E0E0;
 	.sectionTitle {
 		color: #333;
 		height: 100rpx;
@@ -23,6 +22,7 @@
 			font-size: 28rpx;
 			color: #707070;
 			background: #fff;
+			border-bottom: 1rpx solid #D4D4D4;
 		}
 
 		.rightIcon {
