@@ -86,58 +86,74 @@ Page({
             isProductBottom: false
         });
 
-        const data = await api.hei.fetchHome();
-        const newData = await api.hei.newHome();
-        console.log('home data:', data);
-        const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
+        // const data = await api.hei.fetchHome();
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome();
 
-        if (data.modules && data.modules.length) {
-            for (let i = 0; i < data.modules.length; i++) {
-                if (data.modules[i].key === 'sliders') {
-                    this.setData({
-                        hasSliders: true
-                    });
+
+        if (page_title) {
+            wx.setNavigationBarTitle({
+                title: page_title,
+            });
+        }
+
+        if (home_type === 'old') {
+            const data = old_data;
+            const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
+
+            if (data.modules && data.modules.length) {
+                for (let i = 0; i < data.modules.length; i++) {
+                    if (data.modules[i].key === 'sliders') {
+                        this.setData({
+                            hasSliders: true
+                        });
+                    }
                 }
             }
-        }
-
-        /**
-		*	target_user_type 1:所有人可领取, 2:新人专属
-		*	status 2 可使用
-        */
-
-        if (data.page_title) {
-            wx.setNavigationBarTitle({
-                title: data.page_title,
-            });
-        }
-
-        if (data.announcement) {
-            let textLength = data.announcement.text.length * this.data.size;    // 文字长度
-            let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
-            let second = (windowWidth + textLength) / this.data.speed;
-            this.setData({ second });
-        }
-
-        this.setData({
-            userCoupon: coupons_home,
-            newData,
-            search_box: newData.module_page && newData.module_page.search_box,
-            isLoading: false,
-            ...data
-        }, this.addGuideSecond);
-        // 旧首页
-        let products = this.data.products;
-        if (products && products[products.length - 1]) {
-            let next_cursor = products[products.length - 1].timestamp;
+    
+            /**
+            *	target_user_type 1:所有人可领取, 2:新人专属
+            *	status 2 可使用
+            */
+    
+            if (data.announcement) {
+                let textLength = data.announcement.text.length * this.data.size;    // 文字长度
+                let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
+                let second = (windowWidth + textLength) / this.data.speed;
+                this.setData({ second });
+            }
+    
+              // 旧首页
+              let products = this.data.products;
+              if (products && products[products.length - 1]) {
+                  let next_cursor = products[products.length - 1].timestamp;
+                  this.setData({
+                      next_cursor: next_cursor
+                  });
+              } else {
+                  this.setData({
+                      next_cursor: 0
+                  });
+              }
+    
             this.setData({
-                next_cursor: next_cursor
-            });
-        } else {
-            this.setData({
-                next_cursor: 0
-            });
+                userCoupon: coupons_home,
+                home_type,
+                isLoading: false,
+                ...data
+            }, this.addGuideSecond);
         }
+
+        if (home_type === 'new') {
+            this.setData({
+                module_page,
+                modules,
+                share_image,
+                share_title,
+                page_title,
+                isLoading: false,
+            })
+        }
+
     },
 
     // 计时 当second为5时，指引消失

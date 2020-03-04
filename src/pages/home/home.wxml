@@ -11,9 +11,9 @@
 
 <view class="container" wx:if="{{ !isLoading }}">
     <!-- 搜索框 -->
-    <searchBox wx:if="{{ search_box }}" total="{{ search_box.total }}" themeColor="{{ themeColor }}"/>
-    <view class="{{ search_box ? 'main': '' }}" >
-        <view wx:for="{{ newData.modules }}" wx:key="key" >
+    <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" themeColor="{{ themeColor }}"/>
+    <view class="{{ module_page.search_box ? 'main': '' }}" >
+        <view wx:for="{{ modules }}" wx:key="key" >
             <!-- 幻灯片 -->
             <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" bindshowContactModal="showContactModal"/>
             <!-- 简单文本 -->
@@ -38,10 +38,10 @@
 </view>
 
 <!-- 服务 -->
-<service phone="{{ newData.module_page && newData.module_page.phone_number }}" customer="{{  newData.module_page && newData.module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
+<service phone="{{ module_page && module_page.phone_number }}" customer="{{  module_page && module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
 
 <!-- 新首页 添加到我的小程序 -->
-<view class="home-guide" wx:if="{{ guide_status && newData.module_page && newData.module_page.add_to_favorites }}">
+<view class="home-guide" wx:if="{{ guide_status && module_page && module_page.add_to_favorites }}">
     <image class="home-guide_img" src="/icons/guide.svg" />
 </view>
 
