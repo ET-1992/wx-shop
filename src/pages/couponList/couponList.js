@@ -29,8 +29,8 @@ Page({
             });
             this.loadCoupon('vip');
         } else {
-            if (params.tplStyle === 'newHome') {
-                this.setData({ tplStyle: 'newHome', color: params.color });
+            if (params.tplStyle === 'coupon') { // 新首页优惠券模板
+                this.setData({ tplStyle: 'coupon', color: params.color });
             } else {
                 const { style_type: tplStyle = 'default' } = config;
                 this.setData({ tplStyle });

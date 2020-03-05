@@ -60,7 +60,7 @@ Page({
         });
         console.log(data);
     },
-
+    // 新用户优惠券 coupons_newbie
     async loadHomeExtra() {
         setTimeout(async () => {
             const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
@@ -109,32 +109,31 @@ Page({
                     }
                 }
             }
-    
+
             /**
             *	target_user_type 1:所有人可领取, 2:新人专属
             *	status 2 可使用
             */
-    
+
             if (data.announcement) {
                 let textLength = data.announcement.text.length * this.data.size;    // 文字长度
                 let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
                 let second = (windowWidth + textLength) / this.data.speed;
                 this.setData({ second });
             }
-    
-              // 旧首页
-              let products = this.data.products;
-              if (products && products[products.length - 1]) {
-                  let next_cursor = products[products.length - 1].timestamp;
-                  this.setData({
-                      next_cursor: next_cursor
-                  });
-              } else {
-                  this.setData({
-                      next_cursor: 0
-                  });
-              }
-    
+
+            let products = this.data.products;
+            if (products && products[products.length - 1]) {
+                let next_cursor = products[products.length - 1].timestamp;
+                this.setData({
+                    next_cursor: next_cursor
+                });
+            } else {
+                this.setData({
+                    next_cursor: 0
+                });
+            }
+
             this.setData({
                 userCoupon: coupons_home,
                 home_type,
@@ -150,8 +149,9 @@ Page({
                 share_image,
                 share_title,
                 page_title,
+                home_type,
                 isLoading: false,
-            })
+            });
         }
 
     },
@@ -200,7 +200,7 @@ Page({
             logoObj: config.partner
         });
     },
-
+    // 旧首页 领取优惠券
     async onReceiveCoupon(id, index) {
         const { userCoupon } = this.data;
         console.log('第' + index + '个');
@@ -220,6 +220,8 @@ Page({
         updateData[key] = 4;
         this.setData(updateData);
     },
+
+    // 一键领取新人优惠券
     async receiveCouponAll(e) {
         const { id } = e.currentTarget.dataset;
         let result = [];
@@ -233,6 +235,8 @@ Page({
             isNewUser: false
         });
     },
+
+    // 旧首页 优惠券点击跳转
     async onCouponClick(ev) {
         console.log('ev221', ev);
         const { id, index, status, title } = ev.currentTarget.dataset;
@@ -250,6 +254,7 @@ Page({
             isNewUser: false
         });
     },
+
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
@@ -363,7 +368,7 @@ Page({
         // });
     },
 
-    //  快捷导航 与 幻灯片 客服对话框显示
+    //  新首页 快捷导航 与 幻灯片 客服对话框显示
     showContactModal(e) {
         console.log('e218', e);
         this.setData({

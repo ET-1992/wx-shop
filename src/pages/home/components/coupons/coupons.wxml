@@ -43,7 +43,7 @@
 					</block>
 				</view>
 			</button>
-			<navigator class="moreCoupon" url="/pages/couponList/couponList?tplStyle=newHome&color={{setting.color}}" wx:if="{{ content.coupons.length > 1 }}">
+			<navigator class="moreCoupon" url="/pages/couponList/couponList?tplStyle=coupon&color={{setting.color}}" wx:if="{{ content.coupons.length > 1 }}">
                 <view class="moreBtn">查看更多</view>
               </navigator>
 		</view>

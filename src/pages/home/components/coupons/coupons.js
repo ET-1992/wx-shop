@@ -28,6 +28,17 @@ Component({
             type: Object,
             value: {}
         },
+        userCoupon: {
+            type: Object,
+            value: {},
+            observer(newVal) {
+                console.log('newVal35', newVal);
+                if (!newVal) { return }
+                this.setData({
+                    'content.coupons': newVal
+                });
+            }
+        },
     },
 
     methods: {
@@ -39,7 +50,12 @@ Component({
             if (user) {
                 this.onCouponsClick(e);
             } else {
-                console.log('用户未授权,无法领取优惠券');
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '领取优惠券需要授权您的用户信息',
+                    showCancel: false,
+                });
+                console.log('coupons组件: 用户未授权,无法领取优惠券');
             }
         },
 
