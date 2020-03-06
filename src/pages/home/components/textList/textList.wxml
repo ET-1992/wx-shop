@@ -1,4 +1,4 @@
-<view class="textList {{ setting.title_display ? '' : 'textWrapper'}}" style="margin-bottom: {{ setting.margin }}rpx">
+<view class="textList" style="margin-bottom: {{ setting.margin }}rpx">
     <view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
     <view class="list {{ setting.orientation === 'horizontal' ? 'horizontal' : ''}}">
         <view class="list-item" wx:for="{{ content }}" wx:key="index">
