@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -219,6 +219,16 @@ Page({
         const key = `userCoupon[${index}].status`;
         updateData[key] = 4;
         this.setData(updateData);
+    },
+
+    // 用户授权才能领取
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        const user = await getAgainUserForInvalid({ encryptedData, iv });
+        console.log('bindGetUserInfo:user', user);
+        if (user) {
+            this.receiveCouponAll(e);
+        }
     },
 
     // 一键领取新人优惠券
