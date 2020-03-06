@@ -27,6 +27,24 @@ Component({
         globalData: {
             type: Object,
             value: {}
+        },
+        products: {
+            type: Array,
+            value: [],
+            observer(newVal) {
+                if (!newVal || !newVal.length) { return };
+                const { products, isLastModule, content = [] } = this.data;
+                const newContent = content.concat(products);
+                if (isLastModule) {
+                    this.setData({
+                        content: newContent
+                    })
+                }
+            }
+        },
+        isLastModule: {
+            type: Boolean,
+            value: false,
         }
     },
 

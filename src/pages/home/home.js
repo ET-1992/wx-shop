@@ -143,6 +143,11 @@ Page({
         }
 
         if (home_type === 'new') {
+            let timestamp = 0;
+          if ( modules[modules.length - 1].type === 'product' ) {
+            const { content = [] } =  modules[modules.length - 1];
+            timestamp = content[content.length - 1].timestamp;
+          }
             this.setData({
                 module_page,
                 modules,
@@ -151,6 +156,7 @@ Page({
                 page_title,
                 home_type,
                 isLoading: false,
+                next_cursor: timestamp
             });
         }
 
@@ -266,13 +272,18 @@ Page({
     },
 
     async loadProducts() {
-        const { next_cursor, products, modules } = this.data;
+        const { next_cursor, products, modules, home_type } = this.data;
         let hack = {};
-        if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args) {
+        let module_id = '';
+        if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args && home_type === 'old') {
             hack = parseScene(modules[modules.length - 1].args);
+        }
+        if (home_type === 'new') {
+            module_id = modules[modules.length - 1].id;
         }
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
+            module_id,
             ...hack
         });
         this.data.isProductBottom = false;
@@ -316,9 +327,19 @@ Page({
     },
 
     onPageScroll() {
-        let modules = this.data.modules;
-        if (modules && modules.length && modules[modules.length - 1].key === 'products') {
-            this.showProducts();
+        const { home_type } = this.data;
+        if (home_type === 'old') {
+            let modules = this.data.modules;
+            if (modules && modules.length && modules[modules.length - 1].key === 'products') {
+                this.showProducts();
+            }
+        }
+        
+        if (home_type === 'new') {
+            const { modules } = this.data;
+            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {
+                this.showProducts();
+            }
         }
     },
 
