@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -122,7 +122,7 @@ Page({
                 this.setData({ second });
             }
 
-            let products = this.data.products;
+            let products = data.products;
             if (products && products[products.length - 1]) {
                 let next_cursor = products[products.length - 1].timestamp;
                 this.setData({
@@ -230,6 +230,26 @@ Page({
         this.setData(updateData);
     },
 
+    // 用户授权才能领取
+    async bindGetUserInfo(e) {
+        const { isNewUser } = this.data;
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            if (isNewUser) {
+                this.receiveCouponAll(e);
+                return;
+            }
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
     // 一键领取新人优惠券
     async receiveCouponAll(e) {
         const { id } = e.currentTarget.dataset;
@@ -247,7 +267,7 @@ Page({
 
     // 旧首页 优惠券点击跳转
     async onCouponClick(ev) {
-        console.log('ev221', ev);
+        console.log('ev268', ev);
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);
@@ -337,7 +357,7 @@ Page({
                 this.showProducts();
             }
         }
-        
+
         if (home_type === 'new') {
             const { modules } = this.data;
             if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {

@@ -43,19 +43,16 @@ Component({
 
     methods: {
         async bindGetUserInfo(e) {
-            console.log('2\e', e);
             const { encryptedData, iv } = e.detail;
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            this.setData({ user });
-            if (user) {
+            if (iv && encryptedData) {
+                await getAgainUserForInvalid({ encryptedData, iv });
                 this.onCouponsClick(e);
             } else {
                 wx.showModal({
                     title: '温馨提示',
-                    content: '领取优惠券需要授权您的用户信息',
+                    content: '需授权后操作',
                     showCancel: false,
                 });
-                console.log('coupons组件: 用户未授权,无法领取优惠券');
             }
         },
 

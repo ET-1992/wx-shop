@@ -22,7 +22,7 @@
 			 indicator-color="#fff"
 			>
 				<swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
-					<image src="{{ image }}" mode="aspectFill" />
+					<image src="{{ image }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg"/>
 				</swiper-item>
 			</swiper>
 		</view>
