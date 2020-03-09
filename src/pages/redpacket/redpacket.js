@@ -49,6 +49,8 @@ Page({
         const user = await getAgainUserForInvalid({ encryptedData, iv });
         if (user) {
             this.onRecive();
+        } else {
+            console.log('用户未授权不能领取红包');
         }
     },
 
