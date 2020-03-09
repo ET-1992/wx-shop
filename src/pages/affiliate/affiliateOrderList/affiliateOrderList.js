@@ -31,6 +31,11 @@ Page({
         data.orders.forEach((item) => {
             item.formatTime = formatTime(new Date(item.time * 1000));
             item.statusText = valueToText(ORDER_STATUS_TEXT, Number(item.order_status));
+            let sum = 0;
+            item.order_items.forEach(v => {
+                sum += Number(v.amount);
+            });
+            item.items_amount = sum.toFixed(2);
         });
         const newData = this.data.orders.concat(data.orders);
         this.setData({
