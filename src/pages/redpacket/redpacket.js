@@ -46,11 +46,15 @@ Page({
     // 用户授权才能领取
     async bindGetUserInfo(e) {
         const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
-        if (user) {
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
             this.onRecive();
         } else {
-            console.log('用户未授权不能领取红包');
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
         }
     },
 

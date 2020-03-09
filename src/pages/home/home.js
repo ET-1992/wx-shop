@@ -122,7 +122,7 @@ Page({
                 this.setData({ second });
             }
 
-            let products = this.data.products;
+            let products = data.products;
             if (products && products[products.length - 1]) {
                 let next_cursor = products[products.length - 1].timestamp;
                 this.setData({
@@ -144,10 +144,10 @@ Page({
 
         if (home_type === 'new') {
             let timestamp = 0;
-          if ( modules[modules.length - 1].type === 'product' ) {
-            const { content = [] } =  modules[modules.length - 1];
-            timestamp = content[content.length - 1].timestamp;
-          }
+            if (modules[modules.length - 1].type === 'product') {
+                const { content = [] } =  modules[modules.length - 1];
+                timestamp = content[content.length - 1].timestamp;
+            }
             this.setData({
                 module_page,
                 modules,
@@ -229,11 +229,21 @@ Page({
 
     // 用户授权才能领取
     async bindGetUserInfo(e) {
+        const { isNewUser } = this.data;
         const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
-        console.log('bindGetUserInfo:user', user);
-        if (user) {
-            this.receiveCouponAll(e);
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            if (isNewUser) {
+                this.receiveCouponAll(e);
+                return;
+            }
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
         }
     },
 
@@ -254,7 +264,7 @@ Page({
 
     // 旧首页 优惠券点击跳转
     async onCouponClick(ev) {
-        console.log('ev221', ev);
+        console.log('ev268', ev);
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);
@@ -344,7 +354,7 @@ Page({
                 this.showProducts();
             }
         }
-        
+
         if (home_type === 'new') {
             const { modules } = this.data;
             if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {

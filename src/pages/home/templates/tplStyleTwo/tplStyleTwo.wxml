@@ -171,10 +171,16 @@
             <view wx:if="{{ module.key === 'coupons' }}">
                 <view class="couponsWrapper {{ modules[0].key === 'search_box' && index === 1 && !(instructions && instructions.length) && !announcement ? 'secondCoupon' : ''}} {{ index === 0 && !(instructions && instructions.length) && !announcement ? 'firstCoupon' : '' }}" wx:if="{{ userCoupon.length }}">
                     <view class="coupons">
-                        <view class="coupon" wx:for="{{ userCoupon }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}"
-                            data-title="{{ item.title }}" data-index="{{ index }}" wx:if="{{ index < 2 }}">
+                        <view class="coupon" wx:for="{{ userCoupon }}" wx:key="id" wx:if="{{ index < 2 }}">
                             <form bindsubmit="submitFormId" report-submit="true">
-                                <button class="couponInfoList" formType="submit">
+                                <button class="couponInfoList"
+                                    formType="submit"
+                                    open-type="getUserInfo"
+                                    bindgetuserinfo="bindGetUserInfo"
+                                    data-id="{{ item.id }}"
+                                    data-status="{{ item.status }}"
+                                    data-title="{{ item.title }}"
+                                    data-index="{{ index }}">
                                     <view class="couponInfo">
                                         <view class="reduce">
                                             <text class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</text>
