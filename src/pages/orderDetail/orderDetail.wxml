@@ -232,7 +232,7 @@
             order="{{ order }}" 
             isShowContact="{{ !order.isDone }}" 
             isShowService="{{ order.isDone }}" 
-            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method)  }}" 
+            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 2002 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method) }}" 
             user="{{ current_user }}" 
             bindconfirmOrder="onRelaodOrder" 
             bindpayOrder="onRelaodOrder" 
