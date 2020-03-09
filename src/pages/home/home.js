@@ -144,11 +144,14 @@ Page({
 
         if (home_type === 'new') {
             let timestamp = 0;
+            let { products } = this.data;
           if ( modules[modules.length - 1].type === 'product' ) {
             const { content = [] } =  modules[modules.length - 1];
             timestamp = content[content.length - 1].timestamp;
+            products = content;
           }
             this.setData({
+                products,
                 module_page,
                 modules,
                 share_image,
