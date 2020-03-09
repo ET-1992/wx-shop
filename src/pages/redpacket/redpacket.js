@@ -1,7 +1,8 @@
 import api from 'utils/api';
 import proxy from 'utils/wxProxy';
-import { autoNavigate } from 'utils/util';
+import { autoNavigate, getAgainUserForInvalid } from 'utils/util';
 const app = getApp();
+
 Page({
     data: {
         redpacket: {},
@@ -40,6 +41,17 @@ Page({
             isLoading: false
         });
         console.log(this.data);
+    },
+
+    // 用户授权才能领取
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        const user = await getAgainUserForInvalid({ encryptedData, iv });
+        if (user) {
+            this.onRecive();
+        } else {
+            console.log('用户未授权不能领取红包');
+        }
     },
 
     /* 领取 */

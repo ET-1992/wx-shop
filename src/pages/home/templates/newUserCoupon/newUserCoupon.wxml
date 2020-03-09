@@ -26,5 +26,7 @@
             </scroll-view>
         </view>
     </view>
-    <image class="couponConfirm" src="/icons/newCouponBtn.svg" data-id="{{coupons_newbie}}" bindtap="receiveCouponAll"></image>
+    <button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" data-id="{{coupons_newbie}}">
+        <image class="couponConfirm" src="/icons/newCouponBtn.svg"></image>
+    </button>
 </view>
