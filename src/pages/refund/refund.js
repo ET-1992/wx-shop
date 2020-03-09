@@ -108,9 +108,17 @@ Page({
             const data = await api.hei.upload({
                 filePath: tempFilePaths[0]
             });
-            const { url } = JSON.parse(data);
-            refundImages.push(url);
-            this.setData({ refundImages });
+            const { url, errcode, errmsg } = JSON.parse(data);
+            if (errcode) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: errmsg,
+                    showCancel: false
+                });
+            } else {
+                refundImages.push(url);
+                this.setData({ refundImages });
+            }
         }
         catch (err) {
             console.log(err);
@@ -128,11 +136,6 @@ Page({
         const selectdItems = items.filter((item) => item.isSelected);
         console.log('selectedRefundType', selectedRefundType);
         try {
-            wx.showLoading({
-                title: '处理订单中',
-                mask: true,
-            });
-
             if (!selectdItems.length) {
                 throw new Error('必须选择退款商品');
             }
@@ -143,6 +146,10 @@ Page({
                 throw new Error('必须填写退款原因');
             }
             else {
+                wx.showLoading({
+                    title: '处理订单中',
+                    mask: true,
+                });
                 const itemsId = selectdItems.map((item) => item.id);
                 const { result, errcode } = await api.hei.refund({
                     order_no,

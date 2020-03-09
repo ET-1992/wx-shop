@@ -61,6 +61,18 @@ Component({
         },
         setSwiperIndex(e) {
             this.data.swiperIndex = e.detail.current;
+        },
+        // 图片放大
+        previewImg(e) {
+            const { images } = this.data;
+            let { index } = e.currentTarget.dataset;
+            wx.previewImage({
+                current: images[index], // 当前图片地址
+                urls: images, // 所有要预览的图片的地址集合 数组形式
+                fail(res) {
+                    console.log('图片放大失败:', res);
+                },
+            });
         }
     }
 });
