@@ -18,11 +18,12 @@ Page({
         this.setData({
             themeColor
         });
-    },
-
-    onShow() {
         this.init();
     },
+
+    // onShow() {
+    //     this.init();
+    // },
 
     // 初始化表单内容
     async init() {
@@ -71,9 +72,16 @@ Page({
             const data = await api.hei.upload({
                 filePath: tempFilePaths[0]
             });
-            const { url } = JSON.parse(data);
-            console.log(url);
-            return url;
+            const { url, errcode, errmsg } = JSON.parse(data);
+            if (errcode) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: errmsg,
+                    showCancel: false
+                });
+            } else {
+                return url;
+            }
         } catch (err) {
             console.log(err);
         }

@@ -43,10 +43,14 @@ Component({
                 const data = await api.hei.upload({
                     filePath: tempFilePaths[0]
                 });
-                const { url } = JSON.parse(data);
-                console.log(url);
-                if (url) {
-                    // dns_obj.push({ [annotationname]: url });
+                const { url, errcode, errmsg } = JSON.parse(data);
+                if (errcode) {
+                    wx.showModal({
+                        title: '温馨提示',
+                        content: errmsg,
+                        showCancel: false
+                    });
+                } else {
                     dns_obj[annotationname] = url;
                     annotation[index].isError = false;
                     annotation[index].value = url;
