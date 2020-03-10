@@ -304,17 +304,19 @@ Page({
         if (home_type === 'new') {
             module_id = modules[modules.length - 1].id;
         }
+
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
             module_id,
             ...hack
         });
-        this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);
         this.setData({
             products: newProducts,
             next_cursor: data.next_cursor,
             last_coursor: this.data.next_cursor
+        }, () => {
+            this.data.isProductBottom = false;
         });
         console.log(this.data);
         return data;
@@ -339,10 +341,10 @@ Page({
     /* 无限加载 */
     async showProducts() {
         const { windowHeight } = app.systemInfo;
-        const { next_cursor } = this.data;
         const rect = await this.getDomRect('loadProducts');
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
+            const { next_cursor } = this.data;
             if (next_cursor !== 0) {
                 this.loadProducts();
             }
