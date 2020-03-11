@@ -15,6 +15,17 @@ Component({
         isOrderDetail: {
             type: Boolean,
             value: false
+        },
+        homeDeliveryTimes: {
+            type: Array,
+            value: [],
+            observer(newValue) {
+                console.log('newValue15', newValue);
+            }
+        },
+        address: { // 确认订单数据
+            type: Object,
+            value: {},
         }
     },
 

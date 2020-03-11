@@ -476,7 +476,7 @@ Page({
                 requestData.delivery_store_id = storeListAddress.id;
             }
             // 直接获取送货上门子组件的任意数据和方法
-            const delivery = this.selectComponent('#delivery');
+            const delivery = this.selectComponent('#storeList');
             const { homeDeliveryTimes, index } = delivery.data;
             if (!(homeDeliveryTimes && homeDeliveryTimes[index])) {
                 wx.showModal({

@@ -35,7 +35,7 @@
         <delivery address="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '4' }}" isOrderDetail="{{order.shipping_type}}" />
     </view>
     <!-- 门店列表 -->
-    <storeList addresses="{{ order.store_address }}" wx:if="{{ order.shipping_type === '4' }}" isOrderDetail="{{ order.shipping_type }}"></storeList>
+    <storeList addresses="{{ order.store_address }}" address="{{ order }}" wx:if="{{ order.shipping_type === '4' }}" isOrderDetail="{{ order.shipping_type }}"></storeList>
     <van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal" z-index="9999">
         <van-panel title="提货码">
             <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
