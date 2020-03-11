@@ -37,7 +37,10 @@
 			animation-duration: 10s;
 			font-size: 28rpx;
 			white-space: nowrap;
-			animation-name: marque;
+		}
+
+		.marque {
+			animation-name: marquee;
 			animation-timing-function: linear;
 			animation-iteration-count: infinite;
 		}
