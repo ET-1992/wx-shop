@@ -10,30 +10,47 @@ $meter: 20rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
 
-		.right-arrow {
-			color: $tagColor;
-			width: 10rpx;
-			height: $meter;
-			margin-right: 2 * $meter;
-			margin-left: 2 * $meter;
+	.receive-time {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 25rpx 0 28rpx;
+		.left{
+			display: flex;
+			align-items: center;
+			font-size: 24rpx;
+			.title{
+				color: #707070;
+			}
+			.time {
+				margin-left: 30rpx;
+				color: #000000;
+			}
+		}
+	}
+
+	.arrow-right{
+		display: flex;
+		align-items: center;
+		.text{
+			color: #707070;
+			font-size: 24rpx;
 		}
 	}
 }
 
 .wrapper {
-	padding: 30rpx 5rpx 30rpx 8rpx;
+	padding-top: 30rpx;
 
 	.address-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		font-size: 28rpx;
 		color: #000000;
 		margin-bottom: 30rpx;
-	}
-
-	.address-part,
-	.address-info,
-	.address-remark {
-		padding-left: $meter;
 	}
 
 	.address-part {
@@ -52,13 +69,6 @@ $meter: 20rpx;
 		.address-distance {
 			font-size: 24rpx;
 			color: $titleColor;
-
-			.right-arrow {
-				width: $meter/2;
-				height: $meter;
-				display: inline-block;
-				margin-left: $meter;
-			}
 		}
 	}
 
@@ -101,9 +111,4 @@ $meter: 20rpx;
 		}
 	}
 
-	.address-remark {
-		font-size: 24rpx;
-		color: $shareColor;
-		font-weight: bold;
-	}
 }

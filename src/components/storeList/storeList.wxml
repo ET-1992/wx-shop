@@ -1,14 +1,17 @@
 <view class="container">
 	<navigator url="/pages/liftList/liftList?type=4">
-		<view class="wrapper" wx:if="{{ addresses.name }}" style="{{ isOrderDetail ? 'margin-bottom: 20rpx' : ''}}">
-			<view class="address-top" wx:if="{{ !isOrderDetail }}">选择门店</view>
+		<view class="wrapper" wx:if="{{ addresses.name }}">
+			<view class="address-top" wx:if="{{ !isOrderDetail }}">
+				<view class="title">选择门店</view>
+				<view class="arrow-right">
+					<view class="text">修改</view>
+					<van-icon name="arrow" color="#999999"/>
+				</view>
+			</view>
 			<view class="address-top" wx:if="{{ isOrderDetail }}">所选门店</view>
 			<view class="address-part">
 				<view class="address-name">{{ addresses.name }}</view>
-				<view class="address-distance" wx:if="{{ !isOrderDetail }}">
-					<text>距您 {{ addresses.distance }} km</text>
-					<image src="/icons/right.png" class="right-arrow"></image>
-				</view>
+				<view class="address-distance" wx:if="{{ !isOrderDetail }}"> 距您 {{ addresses.distance }} km </view>
 			</view>
 			<view class="address-info">
 				<view class="address-section address-first">
@@ -29,7 +32,31 @@
 
 		<view class="storeList-section" wx:else>
 			<view class="address title">选择门店</view>
-			<image src="/icons/right.png" class="right-arrow"></image>
+			<view class="arrow-right">
+				<view class="text">点击选择</view>
+				<van-icon name="arrow" color="#999999"/>
+			</view>
 		</view>
 	</navigator>
+	
+	<!-- 选择门店配送时间 -->
+	<picker wx:if="{{ homeDeliveryTimes && homeDeliveryTimes[index] && !isOrderDetail }}" bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}">
+		<view class="receive-time">
+			<view class="left">
+				<view class="title">门店配送时间</view>
+				<view class="time">{{ homeDeliveryTimes[index] }}</view>
+			</view>
+			<view class="arrow-right">
+				<view class="text">修改</view>
+				<van-icon name="arrow" color="#999999"/>
+			</view>
+		</view>
+	</picker>
+	<view class="receive-time" wx:if="{{ isOrderDetail }}">
+		<view class="left">
+			<view class="title">门店配送时间</view>
+			<view class="time">{{ address.receiver_delivery_time || '无' }}</view>
+		</view>
+	</view>
+	
 </view>
