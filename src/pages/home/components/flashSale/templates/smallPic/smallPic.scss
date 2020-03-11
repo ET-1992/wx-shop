@@ -1,9 +1,9 @@
 .smallPic {
-	background-color: #fff;
-	padding: 25rpx;
-	border-top: 1rpx solid #D4D4D4;
+	padding: 25rpx 0;
+	margin: 0 25rpx;
 	display: flex;
-	align-items: center;
+	background: #fff;
+	border-bottom: 1rpx solid #f4f4f4;
 
 	.productImage {
 		width: 200rpx;
@@ -53,10 +53,11 @@
 			}
 	
 			.day {
-				padding: 0 5rpx;
 				font-size: 36rpx;
 				color: #000;
 				font-weight: bold;
+				line-height: 34rpx;
+				padding: 0 5rpx;
 				margin: 0 6rpx;
 			}
 	

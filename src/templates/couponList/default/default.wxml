@@ -40,16 +40,8 @@
 				</view>
 			</view>
 		</view>
-		<block wx:if="{{ tplStyle === 'default' }}">
-			<image class="bg" src="{{config.cdn_host + '/shop/couponItem.png'}}" wx:if="{{ status === 'receivable' }}" />
-			<image class="bg" src="{{config.cdn_host + '/shop/couponItemReceived.png'}}" wx:if="{{ status === 'available' || status === 'received' }}" />
-			<image class="bg" src="{{config.cdn_host + '/shop/unableCoupon.png'}}" wx:if="{{ status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable'}}" />
-		</block>
-
-		<block wx:if="{{ tplStyle === 'newHome' }}">
-			<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + color + '/longCoupon.png'}}" wx:if="{{ status === 'receivable' }}" />
-			<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + color + '/longCouponReceived.png'}}" wx:if="{{ status === 'available' || status === 'received' }}" />
-			<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + color + '/longCouponOut.png'}}" wx:if="{{ status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable'}}" />
-		</block>
+		<image class="bg" src="{{config.cdn_host + '/shop/couponItem.png'}}" wx:if="{{ status === 'receivable' }}" />
+		<image class="bg" src="{{config.cdn_host + '/shop/couponItemReceived.png'}}" wx:if="{{ status === 'available' || status === 'received' }}" />
+		<image class="bg" src="{{config.cdn_host + '/shop/unableCoupon.png'}}" wx:if="{{ status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable'}}" />
 	</view>
 </view>

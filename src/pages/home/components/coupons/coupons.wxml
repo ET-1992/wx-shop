@@ -35,11 +35,11 @@
 					</view>
 					<block wx:if="{{ config.cdn_host }}">
 						<!-- 待领取 -->
-						<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + setting.color +'/smallCoupon.png'}}" wx:if="{{ item.status == 2 && item.stock_qty }}" />
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCoupon.png'}}" wx:if="{{ item.status == 2 && item.stock_qty }}" />
 						<!-- 已领取 -->
-						<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + setting.color +'/smallCouponReceived.png'}}" wx:if="{{ item.status == 4 }}" />
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCouponReceived.png'}}" wx:if="{{ item.status == 4 }}" />
 						<!-- 已过期 已使用 已抢光 -->
-						<image class="bg" src="{{ config.cdn_host + '/shop/coupons/' + setting.color +'/smallCouponOut.png'}}" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" />
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCouponOut.png'}}" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" />
 					</block>
 				</view>
 			</button>

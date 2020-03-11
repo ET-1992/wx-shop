@@ -1,8 +1,9 @@
 .bigPic {
-	background-color: #fff;
-	padding: 25rpx;
-	border-top: 1rpx solid #D4D4D4;
 	display: flex;
+	padding: 25rpx 0;
+	margin: 0 25rpx;
+	background: #fff;
+	border-bottom: 1rpx solid #f4f4f4;
 
 	.productImage {
 		width: 330rpx;
@@ -100,6 +101,7 @@
 				color: #fff;
 				font-size: 24rpx;
 				font-weight: 400;
+				border-radius: 5rpx;
 			}
 		}
 	}
