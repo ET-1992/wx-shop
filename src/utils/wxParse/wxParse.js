@@ -123,13 +123,13 @@ function wxAutoImageCal(originalWidth, originalHeight, that, bindName) {
     if (originalWidth > windowWidth) { // 在图片width大于手机屏幕width时候
         autoWidth = windowWidth;
         // console.log("autoWidth" + autoWidth);
-        autoHeight = (autoWidth * originalHeight) / originalWidth;
+        autoHeight = Math.round((autoWidth * originalHeight) / originalWidth);
         // console.log("autoHeight" + autoHeight);
         results.imageWidth = autoWidth;
         results.imageheight = autoHeight;
     } else { // 否则展示原来的数据
         results.imageWidth = originalWidth;
-        results.imageheight = originalHeight;
+        results.imageheight = Math.round(originalHeight);
     }
     return results;
 }
