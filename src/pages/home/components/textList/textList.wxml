@@ -1,6 +1,6 @@
 <view class="textList" style="margin-bottom: {{ setting.margin }}rpx">
     <view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
-    <view class="list {{ setting.orientation === 'horizontal' ? 'horizontal' : ''}}">
+    <view class="{{ setting.orientation === 'horizontal' ? 'horizontal' : 'list'}}">
         <view class="list-item" wx:for="{{ content }}" wx:key="index">
             <image class="item-icon-img" mode="aspectFit" src="/icons/instructions.png" wx:if="{{ setting.icon === 'yes' }}"></image>
             <image class="item-icon-img" mode="aspectFit" src="/icons/love.png" wx:if="{{ setting.icon === 'heart'}}"></image>

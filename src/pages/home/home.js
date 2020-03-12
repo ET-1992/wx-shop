@@ -345,7 +345,7 @@ Page({
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             const { next_cursor } = this.data;
-            if (next_cursor !== 0) {
+            if (next_cursor) {
                 this.loadProducts();
             }
         }

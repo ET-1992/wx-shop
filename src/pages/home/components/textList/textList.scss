@@ -1,19 +1,17 @@
 .textList {
     font-size: 24rpx;
     color: #333;
-    background-color: white;
-    padding: 0 30rpx;
+    background-color: #fff;
     
 	.title {
         font-size: 35rpx;
 		font-weight: bold;
-		padding: 26rpx 25rpx;
+		padding: 26rpx 25rpx 0;
 		text-align: center;
 	}
     
 	.list {
         padding: 30rpx;
-		border: 1rpx solid #E4E4E4;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -25,8 +23,8 @@
 			margin-bottom: 25rpx;
 
             .item-icon-img {
-                width: 30rpx;
-                height: 30rpx;
+                width: 20rpx;
+                height: 20rpx;
             }
 
 			.link-text {
@@ -34,26 +32,37 @@
                 margin-left: 10rpx;
 				font-size: 24rpx;
 				padding: 6rpx 0;
-			}
+            }
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
 		}
     }
     
     .horizontal {
         display: flex;
-        flex-direction: row;
         justify-content: space-around;
+        flex-direction: row;
+        height: 70rpx;
         align-items: center;
 
         .list-item {
-            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+
+            .item-icon-img {
+            	width: 20rpx;
+            	height: 20rpx;
+            }
         }
 
         .link-text {
             margin-left: 10rpx;
+            display: inline;
+            font-size: 20rpx;
+            color: #707070;
+
         }
     }
-}
-
-.textWrapper {
-    margin: 50rpx 0;
 }

@@ -1,6 +1,7 @@
 .largePic {
     display: flex;
-    flex-direction: column;
+	flex-direction: column;
+	margin-top: 25rpx;
     .image-wrap{
         .goods_image{
             width: 100%;
@@ -8,7 +9,7 @@
 		}
     }
     .content-wrap{
-		padding: 35rpx 25rpx 60rpx;
+		padding: 35rpx 25rpx;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

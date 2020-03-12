@@ -10,8 +10,8 @@
 		bindfail="miniFail">
 		<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'announcement'}}"/>
 		<van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'notification'}}"/>
-		<view class="marqueeWrapper {{ setting.effect === 'scroll' ? 'marquee' : ''}}">
-			<view class="content">
+		<view class="marqueeWrapper">
+			<view class="content {{ setting.effect === 'scroll' ? 'marque' : ''}}">
 				{{content.text}}<text class="content-space"></text>
 				{{content.text}}<text class="content-space"></text>
 				{{content.text}}<text class="content-space"></text>
