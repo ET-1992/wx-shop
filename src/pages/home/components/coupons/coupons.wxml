@@ -1,0 +1,51 @@
+<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">
+	<!-- 标题 -->
+	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+
+	<!-- 优惠券 -->
+	<view class="couponsWrapper" wx:if="{{ content.coupons && content.coupons.length }}">
+		<view class="coupons">
+			<button class="coupon"
+				wx:for="{{ content.coupons }}"
+				wx:key="id"
+				open-type="getUserInfo"
+				bindgetuserinfo="bindGetUserInfo"
+				data-id="{{ item.id }}"
+				data-status="{{ item.status }}"
+				data-title="{{ item.title }}"
+				data-index="{{ index }}"
+				wx:if="{{ index < 2 }}"
+				>
+				<view class="couponInfoList">
+					<view class="couponInfo">
+						<view class="reduce">
+							<view wx:if="{{ item.type == 1 }}">{{ globalData.CURRENCY[globalData.currency] }}</view>
+							<view class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</view>
+							<view wx:if="{{ item.type == 2 }}">折</view>
+						</view>
+						<view class="reduceTitle">满{{ item.least_cost }}元使用</view>
+					</view>
+					<view class="couponBtn">
+						<view class="couponUnuse" wx:if="{{ item.status == 2 && item.stock_qty }}" >立即领取</view>
+						<view class="couponUnuse" wx:if="{{ item.status == 4 }}" >立即使用</view>
+						<view class="couponUsed" wx:if="{{ item.status == 5 }}" >已使用</view>
+						<view class="couponUsed" wx:if="{{ item.status == 2 && !item.stock_qty }}" >已抢光</view>
+						<view class="couponUsed" wx:if="{{ item.status == 3 }}" >已过期</view>
+						<image class="arrow" wx:if="{{ item.status == 2 && item.stock_qty || item.status == 4 }}" src="/icons/couponArrow.png" mode="aspectFit"/>
+					</view>
+					<block wx:if="{{ config.cdn_host }}">
+						<!-- 待领取 -->
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCoupon.png'}}" wx:if="{{ item.status == 2 && item.stock_qty }}" />
+						<!-- 已领取 -->
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCouponReceived.png'}}" wx:if="{{ item.status == 4 }}" />
+						<!-- 已过期 已使用 已抢光 -->
+						<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + setting.color +'/smallCouponOut.png'}}" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" />
+					</block>
+				</view>
+			</button>
+			<navigator class="moreCoupon" url="/pages/couponList/couponList?tplStyle=coupon&color={{setting.color}}" wx:if="{{ content.coupons.length > 1 }}">
+                <view class="moreBtn">查看更多</view>
+              </navigator>
+		</view>
+	</view>
+</view>

@@ -10,9 +10,9 @@
   </view>
 
 	<video wx:if="{{  type === 'video' }}" src="{{ video }}" class="video" autoplay controls bindtimeupdate="setVideoTime" initial-time="{{ videoTime }}" bindended="end"
-		bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"
-	>
-			<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="/icons/swiper/video-yes.png" wx:if="{{ type === 'video' }}"></cover-image>
+	bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend"
+		>
+		<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="/icons/swiper/video-yes.png" wx:if="{{ type === 'video' }}"></cover-image>
 		<cover-image class="icon video-icon" catchtap="changeType" data-type="video" src="/icons/swiper/video-no.png" wx:if="{{ type !== 'video' }}"></cover-image>
 		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="/icons/swiper/img-yes.png" wx:if="{{ type === 'img' }}"></cover-image>
 		<cover-image class="icon img-icon" catchtap="changeType" data-type="img" src="/icons/swiper/img-no.png" wx:if="{{ type !== 'img' }}"></cover-image>
@@ -20,16 +20,16 @@
 
 	<view wx:if="{{ type === 'img' }}" class="swiper">
 		<swiper
-				indicator-dots
-        autoplay
-        indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
-				indicator-color="#fff"
-				current="{{ swiperIndex }}"
-				bindchange="setSwiperIndex"
-		>
+			indicator-dots
+			autoplay
+			indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
+			indicator-color="#fff"
+			current="{{ swiperIndex }}"
+			bindchange="setSwiperIndex"
+			>
 			<block wx:for="{{images}}">
 				<swiper-item >
-					<image src="{{item}}" class="slide-image" mode="aspectFill" />
+					<image src="{{item}}" class="slide-image" mode="aspectFill" data-index="{{index}}" bindtap="previewImg"/>
 				</swiper-item>
 			</block>
 		</swiper>

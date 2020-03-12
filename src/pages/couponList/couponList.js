@@ -1,8 +1,5 @@
-// pages/couponList/couponList.js
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-// import { onDefaultShareAppMessage } from 'utils/pageShare';
-// import login from 'utils/login';
 import { autoNavigate } from 'utils/util';
 import { CONFIG } from 'constants/index';
 
@@ -32,9 +29,13 @@ Page({
             });
             this.loadCoupon('vip');
         } else {
-            const { style_type: tplStyle = 'default' } = config;
+            if (params.tplStyle === 'coupon') { // 新首页优惠券模板
+                this.setData({ tplStyle: 'coupon', color: params.color });
+            } else {
+                const { style_type: tplStyle = 'default' } = config;
+                this.setData({ tplStyle });
+            }
             this.setData({
-                tplStyle,
                 themeColor,
                 config
             });

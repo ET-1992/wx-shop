@@ -8,6 +8,15 @@
     "loading": "../../components/loading/index",
     "service": "../../components/service/index",
     "logo": "../../components/logo/logo",
-    "myNavigator": "../../components/myNavigator/myNavigator"
+    "myNavigator": "../../components/myNavigator/myNavigator",
+    "searchBox": "./components/searchBox/searchBox",
+    "slide": "./components/slider/slider",
+    "textMessage": "./components/text/text",
+    "textList": "./components/textList/textList",
+    "nav": "./components/nav/nav",
+    "coupons": "./components/coupons/coupons",
+    "articleList": "./components/articleList/articleList",
+    "productsList": "./components/productsList/productsList",
+    "cube": "./components/cube/cube"
   }
 }

@@ -1,0 +1,30 @@
+.searchBox {
+	height: 90rpx;
+	background-color: #729153;
+	padding: 12rpx 40rpx;
+	position: fixed;
+	left: 0;
+	width: 100%;
+	top: 0;
+	z-index: 9;
+
+	.search {
+		height: 60rpx;
+		text-align: center;
+		font-size: 22rpx;
+		color: #707070;
+		background-color: #fff;
+		border-radius: 100rpx;
+		line-height: 60rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.searchIcon {
+			width: 28rpx;
+			height: 28rpx;
+			line-height: 28rpx;
+			margin-right: 20rpx;
+		}
+	}
+}

@@ -1,0 +1,5 @@
+<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">	
+	<!-- 标题 -->
+	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ cube.title }}</view>
+	 <magicImg magicImgData="{{ magicImgData }}" wx:if="{{ magicImgData }}" />
+</view>

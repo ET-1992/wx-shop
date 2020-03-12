@@ -1,0 +1,24 @@
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    <view class="meta">
+        <view class="top">
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+            <block>
+                <view class="commonStyle going" wx:if="{{ hasStart && !hasEnd }}">进行中</view>
+                <view class="commonStyle start" wx:if="{{ !hasStart }}">未开始</view>
+                <view class="commonStyle end" wx:if="{{ hasEnd }}">已结束</view>
+            </block>
+        </view>
+        <view class="bottom">
+            <view class="info">
+                <view class="price">
+                    <text class="group-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.groupon_price }}</text>
+                    <text class="single-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                </view>
+                <view class="count">已团{{ product.sales }}件</view>
+            </view>
+            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">去拼团</view>
+        </view>
+    </view>
+</navigator>

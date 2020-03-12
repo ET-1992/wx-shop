@@ -8,6 +8,20 @@
 @import './templates/tplStyleSix/tplStyleSix';
 @import './templates/newUserCoupon/newUserCoupon';
 
+page {
+    background-color: #fff;
+}
+
+.container {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.main {
+	margin-top: 90rpx;
+}
+
 .home-guide {
     position: fixed;
     top: 10rpx;

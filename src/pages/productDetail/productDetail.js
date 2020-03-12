@@ -536,9 +536,9 @@ Page({
     },
 
     // 覆盖wxParse中自动浏览图片的方法
-    wxParseImgTap() {
-        return;
-    },
+    // wxParseImgTap() {
+    //     return;
+    // },
 
     async onSkuConfirm(e) {
         console.log(e);
@@ -880,6 +880,17 @@ Page({
         } catch (err) {
             console.log(err);
         }
+    },
+    // 图片放大
+    previewImg(e) {
+        const { product } = this.data;
+        let { index } = e.currentTarget.dataset;
+        wx.previewImage({
+            current: product.images[index], // 当前图片地址
+            urls: product.images, // 所有要预览的图片的地址集合 数组形式
+            fail(res) {
+                console.log('图片放大失败:', res);
+            },
+        });
     }
-
 });

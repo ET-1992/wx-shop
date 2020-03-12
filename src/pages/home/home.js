@@ -1,8 +1,8 @@
-import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
+import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -38,7 +38,8 @@ Page({
         size: 11,
         speed: 50,
         second: 0,
-        guide_status: false // 添加到小程序指引是否消失
+        guide_status: false, // 添加到小程序指引是否显示
+        isProductLast: false // 判断新首页商品列表是否在最后
     },
 
     swiperChange(e) {
@@ -59,7 +60,7 @@ Page({
         });
         console.log(data);
     },
-
+    // 新用户优惠券 coupons_newbie
     async loadHomeExtra() {
         setTimeout(async () => {
             const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
@@ -85,55 +86,83 @@ Page({
             isProductBottom: false
         });
 
-        const data = await api.hei.fetchHome();
-        console.log('home data:', data);
-        const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
+        // const data = await api.hei.fetchHome();
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome();
 
-        if (data.modules && data.modules.length) {
-            for (let i = 0; i < data.modules.length; i++) {
-                if (data.modules[i].key === 'sliders') {
-                    this.setData({
-                        hasSliders: true
-                    });
+
+        if (page_title) {
+            wx.setNavigationBarTitle({
+                title: page_title,
+            });
+        }
+
+        if (home_type === 'old') {
+            const data = old_data;
+            const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
+
+            if (data.modules && data.modules.length) {
+                for (let i = 0; i < data.modules.length; i++) {
+                    if (data.modules[i].key === 'sliders') {
+                        this.setData({
+                            hasSliders: true
+                        });
+                    }
                 }
             }
-        }
 
-        /**
-		*	target_user_type 1:所有人可领取, 2:新人专属
-		*	status 2 可使用
-        */
+            /**
+            *	target_user_type 1:所有人可领取, 2:新人专属
+            *	status 2 可使用
+            */
 
-        if (data.page_title) {
-            wx.setNavigationBarTitle({
-                title: data.page_title,
-            });
-        }
+            if (data.announcement) {
+                let textLength = data.announcement.text.length * this.data.size;    // 文字长度
+                let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
+                let second = (windowWidth + textLength) / this.data.speed;
+                this.setData({ second });
+            }
 
-        if (data.announcement) {
-            let textLength = data.announcement.text.length * this.data.size;    // 文字长度
-            let windowWidth = wx.getSystemInfoSync().windowWidth;   // 屏幕宽度
-            let second = (windowWidth + textLength) / this.data.speed;
-            this.setData({ second });
-        }
+            let products = data.products;
+            if (products && products[products.length - 1]) {
+                let next_cursor = products[products.length - 1].timestamp;
+                this.setData({
+                    next_cursor: next_cursor
+                });
+            } else {
+                this.setData({
+                    next_cursor: 0
+                });
+            }
 
-        this.setData({
-            userCoupon: coupons_home,
-            isLoading: false,
-            ...data
-        }, this.addGuideSecond);
-
-        let products = this.data.products;
-        if (products && products[products.length - 1]) {
-            let next_cursor = products[products.length - 1].timestamp;
             this.setData({
-                next_cursor: next_cursor
-            });
-        } else {
+                userCoupon: coupons_home,
+                home_type,
+                isLoading: false,
+                ...data
+            }, this.addGuideSecond);
+        }
+
+        if (home_type === 'new') {
+            let timestamp = 0;
+            let { products } = this.data;
+            if (modules[modules.length - 1].type === 'product') {
+                const { content = [] } =  modules[modules.length - 1];
+                timestamp = content[content.length - 1].timestamp;
+                products = content;
+            }
             this.setData({
-                next_cursor: 0
+                products,
+                module_page,
+                modules,
+                share_image,
+                share_title,
+                page_title,
+                home_type,
+                isLoading: false,
+                next_cursor: timestamp
             });
         }
+
     },
 
     // 计时 当second为5时，指引消失
@@ -153,8 +182,7 @@ Page({
     },
 
     async onLoad(options) {
-        app.log(options, 'onLoad');
-
+        console.log('onLoad');
         const { themeColor, partner = {}} = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
@@ -181,7 +209,7 @@ Page({
             logoObj: config.partner
         });
     },
-
+    // 旧首页 领取优惠券
     async onReceiveCoupon(id, index) {
         const { userCoupon } = this.data;
         console.log('第' + index + '个');
@@ -201,6 +229,28 @@ Page({
         updateData[key] = 4;
         this.setData(updateData);
     },
+
+    // 用户授权才能领取
+    async bindGetUserInfo(e) {
+        const { isNewUser } = this.data;
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            if (isNewUser) {
+                this.receiveCouponAll(e);
+                return;
+            }
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    // 一键领取新人优惠券
     async receiveCouponAll(e) {
         const { id } = e.currentTarget.dataset;
         let result = [];
@@ -214,7 +264,10 @@ Page({
             isNewUser: false
         });
     },
+
+    // 旧首页 优惠券点击跳转
     async onCouponClick(ev) {
+        console.log('ev268', ev);
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
             await this.onReceiveCoupon(id, index);
@@ -230,6 +283,7 @@ Page({
             isNewUser: false
         });
     },
+
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
@@ -241,21 +295,28 @@ Page({
     },
 
     async loadProducts() {
-        const { next_cursor, products, modules } = this.data;
+        const { next_cursor, products, modules, home_type } = this.data;
         let hack = {};
-        if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args) {
+        let module_id = '';
+        if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args && home_type === 'old') {
             hack = parseScene(modules[modules.length - 1].args);
         }
+        if (home_type === 'new') {
+            module_id = modules[modules.length - 1].id;
+        }
+
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
+            module_id,
             ...hack
         });
-        this.data.isProductBottom = false;
         const newProducts = products.concat(data.products);
         this.setData({
             products: newProducts,
             next_cursor: data.next_cursor,
             last_coursor: this.data.next_cursor
+        }, () => {
+            this.data.isProductBottom = false;
         });
         console.log(this.data);
         return data;
@@ -282,17 +343,28 @@ Page({
         const { windowHeight } = app.systemInfo;
         const rect = await this.getDomRect('loadProducts');
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
-            const { next_cursor } = this.data;
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
-            if (next_cursor !== 0) {
+            const { next_cursor } = this.data;
+            if (next_cursor) {
                 this.loadProducts();
             }
         }
     },
+
     onPageScroll() {
-        let modules = this.data.modules;
-        if (modules && modules.length && modules[modules.length - 1].key === 'products') {
-            this.showProducts();
+        const { home_type } = this.data;
+        if (home_type === 'old') {
+            let modules = this.data.modules;
+            if (modules && modules.length && modules[modules.length - 1].key === 'products') {
+                this.showProducts();
+            }
+        }
+
+        if (home_type === 'new') {
+            const { modules } = this.data;
+            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {
+                this.showProducts();
+            }
         }
     },
 
@@ -311,6 +383,7 @@ Page({
     },
 
     onModal(e) {
+        console.log('e218', e);
         this.setData({
             contactModal: {
                 isFatherControl: false,
@@ -332,11 +405,33 @@ Page({
         return;
     },
 
-    go,
+    miniFail(e) {
+        console.log('miniFail', e);
+        // const { errMsg } = e.detail;
+        // wx.showModal({
+        //     title: '温馨提示',
+        //     content: errMsg,
+        // });
+    },
 
-    // 跳转到客服对话框
-    handleContact(e) {
-        console.log(e.detail.path);
-        console.log(e.detail.query);
-    }
+    //  新首页 快捷导航 与 幻灯片 客服对话框显示
+    showContactModal(e) {
+        console.log('e218', e);
+        this.setData({
+            contactModal: {
+                isFatherControl: false,
+                title: '温馨提示',
+                isShowModal: true,
+                body: e.detail.currentTarget.dataset.tips,
+                type: 'button',
+                userInfo: this.data.userInfo,
+                buttonData: {
+                    opentype: 'contact'
+                }
+            }
+        });
+        console.log(this.data.contactModal);
+    },
+
+    go
 });
