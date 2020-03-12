@@ -100,7 +100,12 @@ App({
 
     checkWebLogin(configRes) {
         const { config, current_user } = configRes;
-        if (config.web_enable && current_user && !current_user.platform_user_id) {
+        /**
+         * 1.web开启
+         * 2.手机号绑定开启
+         * 3.platform_user_id为0
+         */
+        if (config && config.web_enable && config.web && config.web.bind_phone_required && current_user && !current_user.platform_user_id) {
             wx.navigateTo({
                 url: '/pages/bindWeb/bindWeb',
             });
