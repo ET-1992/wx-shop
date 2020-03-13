@@ -31,8 +31,8 @@ Component({
     methods: {
         go,
         goMore() {
-            const { id } = this.data;
-            autoNavigate_({ url: '/pages/articleList/articleList?module_id=' + id });
+            const { article_category_id = '', orderby = ''} = this.data.setting;
+            autoNavigate_({ url: '/pages/articleList/articleList?categoryId=' + article_category_id + '&orderby=' + orderby});
         }
     }
 });
