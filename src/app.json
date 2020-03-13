@@ -6,7 +6,7 @@
 		"pages/category/category",
 		"pages/classify/classify",
 		"pages/articleList/articleList",
-		"pages/module_page/module_page"
+		"pages/modulePage/modulePage"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

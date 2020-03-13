@@ -1,4 +1,5 @@
-import { CONFIG } from 'constants/index';
+
+const app = getApp();
 
 Component({
     properties: {
@@ -14,6 +15,10 @@ Component({
             type: Boolean,
             value: false
         }
-    }
+    },
+    attached() {
+        const { themeColor } = app.globalData;
+        this.setData({ themeColor });
+    },
 });
 

@@ -100,7 +100,8 @@ App({
 
     checkWebLogin(configRes) {
         const { config, current_user } = configRes;
-        if (config.web_enable && current_user && !current_user.platform_user_id) {
+
+        if (config.auth && config.auth.bind_phone_required && current_user && !current_user.platform_user_id) {
             wx.navigateTo({
                 url: '/pages/bindWeb/bindWeb',
             });

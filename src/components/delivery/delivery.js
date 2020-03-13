@@ -1,4 +1,5 @@
 import { CONFIG } from 'constants/index';
+const app = getApp();
 
 Component({
     properties: {
@@ -36,8 +37,10 @@ Component({
     attached() {
         const config = wx.getStorageSync(CONFIG);
         console.log(config.self_address, 'selfAddress');
+        const { themeColor } = app.globalData;
         this.setData({
-            selfAddress: config && config.self_address
+            selfAddress: config && config.self_address,
+            themeColor
         });
     },
     methods: {
