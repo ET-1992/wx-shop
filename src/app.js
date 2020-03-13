@@ -100,8 +100,11 @@ App({
 
     checkWebLogin(configRes) {
         const { config, current_user } = configRes;
+        const pages = getCurrentPages();
+        const currentPage = pages[pages.length - 1];
+        console.log(currentPage, 'currentPage');
 
-        if (config.auth && config.auth.bind_phone_required && current_user && !current_user.platform_user_id) {
+        if (config.auth && config.auth.bind_phone_required && current_user && !current_user.platform_user_id && currentPage.route !== 'pages/bindWeb/bindWeb') {
             wx.navigateTo({
                 url: '/pages/bindWeb/bindWeb',
             });
