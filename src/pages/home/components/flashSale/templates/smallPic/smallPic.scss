@@ -19,11 +19,14 @@
 		flex-direction: column;
 
 		.name {
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 			color: #333;
-			font-size: 32rpx;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		.timeLimit {
