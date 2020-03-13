@@ -1,12 +1,11 @@
 .smallPic {
 	display: flex;
-	padding: 35rpx 0 25rpx;
-	border-bottom: 1rpx solid #f4f4f4;
-	margin: 0 35rpx;
+	padding: 20rpx 35rpx;
 
 	.left{
 		width: 200rpx;
 		height: 200rpx;
+		border-radius: 10rpx;
 	}
 	.right{
 		display: flex;

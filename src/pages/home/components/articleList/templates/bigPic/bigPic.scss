@@ -1,8 +1,6 @@
 .bigPic {
     width: 690rpx;
     margin: auto;
-    margin-top: 20rpx;
-    padding-bottom: 10rpx;
     .desc {
       padding: 26rpx 0 0 30rpx;
       width: 100%;
@@ -32,6 +30,7 @@
     }
 	image{
 		width: 100%;
-		height: 400rpx;
+    height: 400rpx;
+    border-radius: 10rpx;
 	}
 }
