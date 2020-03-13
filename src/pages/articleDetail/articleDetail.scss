@@ -46,9 +46,6 @@ page{
 	.m-header{
 		padding: 30rpx;
 	}
-	.pad-30{
-		padding: 30rpx;
-	}
 	.dash{
 		width: 6rpx;
 		height: 6rpx;
@@ -57,6 +54,16 @@ page{
 		border-radius: 100%;
 	}
 }
+
+.wxParse-img {
+	width: 750rpx;
+}
+.wxParse-section {
+	image {
+		max-width: 100% !important;
+	}
+}
+
 swiper{
 	width: 750rpx;
 	height: 750rpx;
