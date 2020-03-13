@@ -10,7 +10,7 @@
 		<include wx:if="{{ article.mode === 1 }}" src="./templates/smallPic/smallPic.wxml"/>
 		<include wx:if="{{ article.mode === 0 }}" src="./templates/bigPic/bigPic.wxml"/>
 	</navigator>
-	<view class="sectionMore" wx:if="{{ content.length > 1 }}" bind:tap="go" data-url="{{ '/pages/articleList/articleList?module_id=' + id }}">
+	<view class="sectionMore" wx:if="{{ content.length > 1 && isShowMore }}" bind:tap="go" data-url="{{ '/pages/articleList/articleList?module_id=' + id }}" bind:tap="goMore">
 		<view class="moreButton">
 			<span>更多</span>
 			<image class="rightIcon" src="/icons/rightIcon.png" />
