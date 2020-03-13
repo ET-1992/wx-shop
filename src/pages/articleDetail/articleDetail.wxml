@@ -24,7 +24,7 @@
 			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 		</view>
 		
-		<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
+		<view class="peanut-wxParse">
 			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 		</view>
 
