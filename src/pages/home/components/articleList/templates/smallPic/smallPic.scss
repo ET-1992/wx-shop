@@ -1,7 +1,9 @@
 .smallPic {
 	display: flex;
-	padding: 35rpx 35rpx 35rpx 25rpx;
-	border-bottom: 1rpx solid #E0E0E0;
+	padding: 35rpx 0 25rpx;
+	border-bottom: 1rpx solid #f4f4f4;
+	margin: 0 35rpx;
+
 	.left{
 		width: 200rpx;
 		height: 200rpx;
@@ -35,7 +37,6 @@
 			height: 50rpx;
 			color: #fff;
 			font-size: 24rpx;
-			border: 1rpx solid #F89452;
 			background: #F89452;
 			display: flex;
 			align-items: center;

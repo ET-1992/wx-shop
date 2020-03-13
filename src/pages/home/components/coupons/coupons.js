@@ -29,8 +29,8 @@ Component({
             value: {}
         },
         userCoupon: {
-            type: Object,
-            value: {},
+            type: Array,
+            value: [],
             observer(newVal) {
                 console.log('newVal35', newVal);
                 if (!newVal) { return }

@@ -5,14 +5,7 @@
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
 	<view class="container">
 		<loading isLoading="{{ isLoading }}"/>
-		<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ articles.length && !isLoading }}">
-			<!-- 普通文章或公众号文章 -->
-			<navigator class="m-list" wx:for="{{articles}}" wx:key="index" 
-			  url="{{ item.article_type === 'mp' ? '/pages/webPages/webPages?src='+item.mp_url : '/pages/articleDetail/articleDetail?id='+item.id}}">
-				<image class="m-img" src="{{item.banner}}" mode="widthFix" />
-				<template is="articleItem" data="{{ article: item}}" />
-			</navigator>
-		</view>
+		<articleList  articleList="{{ { content: articles } }}" themeColor="{{ themeColor }}" isShowMore="{{ false }}" />
 		<view class="noHint" wx:if="{{ !articles.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">暂无文章</view>
 	</view>
 </view>

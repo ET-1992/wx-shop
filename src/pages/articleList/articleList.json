@@ -2,6 +2,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
       "loading": "../../components/loading/index",
-      "navbarList": "../../components/navbarList/navbarList"
+      "navbarList": "../../components/navbarList/navbarList",
+      "articleList": "../home/components/articleList/articleList"
   }
 }

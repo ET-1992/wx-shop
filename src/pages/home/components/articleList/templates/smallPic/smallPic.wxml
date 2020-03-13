@@ -4,6 +4,6 @@
 	<view class="right">
 		<view class="title">{{ article.title }}</view>
 		<view class="time">{{ article.time }}</view>
-		<view class="btn" style="color: {{ themeColor.primaryColor }}; border-color: {{ themeColor.primaryColor }}">查看</view>
+		<view class="btn" style="background-color: {{ themeColor.primaryColor }}">查看</view>
 	</view>
 </view>
