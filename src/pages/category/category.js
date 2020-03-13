@@ -13,7 +13,7 @@ Page({
     },
 
     async onLoad() {
-        const { share_title, share_image } = wx.getStorageSync(CONFIG);
+        // const { share_title, share_image } = wx.getStorageSync(CONFIG);
         try {
             this.setData({ isLoading: true });
             const data = await api.hei.fetchCategory();
@@ -29,9 +29,7 @@ Page({
 
             this.setData({
                 isLoading: false,
-                ...data,
-                share_title,
-                share_image
+                ...data
             });
         }
         catch (err) {
