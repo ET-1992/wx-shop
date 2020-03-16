@@ -395,6 +395,22 @@ Page({
             }
         }
     },
+
+    // 收藏商品与否逻辑
+    async toggleFavProduct() {
+        let { product } = this.data;
+
+        this.setData({
+            'product.is_faved': Number(!product.is_faved)
+        });
+
+        if (product.is_faved) {
+            await api.hei.favProduct({ post_id: product.id }); // 收藏商品
+        } else {
+            await api.hei.unFavProduct({ post_id: product.id }); // 取消商品收藏
+        }
+    },
+
     // 立即购买
     async onBuy() {
         console.log('onBuy');

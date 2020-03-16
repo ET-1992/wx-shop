@@ -899,32 +899,51 @@ button {
 		width: 100%;
 	}
 
-	.shop,
-	.cart {
-		flex-grow: 1;
-		width: 100rpx;
+	.footer-wrapper {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		font-size: 8pt;
-		background: #fff;
-		position: relative;
-		left: 0;
-		top: 0;
+		flex: 1;
+		padding: 0 20rpx;
 
-		text{
-			color: #333;
-			line-height: 1.5;
+		.shop,
+		.cart,
+		.fav {
+			font-size: 24rpx;
+			background: #fff;
+			position: relative;
+			left: 0;
+			top: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			flex-grow: 1;
+			
+			text{
+				color: #333;
+				line-height: 1.5;
+			}
+	
+			.fav-text {
+				color: $shareColor;
+			}
+	
+			.icon {
+				$size: 48rpx;
+				width: $size;
+				height: $size;
+				display: block;
+				margin-bottom: 5rpx;
+			}
+		}
+
+		.fav {
+			width: 90rpx;
 		}
 	}
 
-	.icon {
-		$size: 40rpx;
-		width: $size;
-		height: $size;
-		display: block;
-		margin-bottom: 10rpx;
+	.shop,
+	.cart {
+		width: 100rpx;
 	}
 
 	.buy,

@@ -305,11 +305,22 @@
 		<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 		<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
 		<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
-			<view class="shop" data-url="/pages/home/home" bind:tap="go">
-				<image class="icon" src="../../icons/store.png" />
-				<text>店铺</text>
+			<view class="footer-wrapper">
+				<!-- 首页 -->
+				<view class="shop" data-url="/pages/home/home" bind:tap="go">
+					<image class="icon" src="/icons/store.png" />
+					<!-- <text>店铺</text> -->
+					<view>首页</view>
+				</view>
+				<!-- 收藏 -->
+				<view class="fav" bindtap="toggleFavProduct">
+					<image class="icon" src="{{ product.is_faved ? '/icons/mibai/faved.png' : '/icons/mibai/disfav.png' }}" />
+					<view class="{{ product.is_faved ? 'fav-text' : ''}}">
+					{{ product.is_faved ? '已收藏' : '收藏' }}
+					</view>
+				</view>
 			</view>
-			<view class="cart" data-url="/pages/cart/cart" bind:tap="go">
+			<!-- <view class="cart" data-url="/pages/cart/cart" bind:tap="go">
 				<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 				<image class="icon" src="../../icons/shopcart.png" />
 				<text>购物车</text>
@@ -325,7 +336,7 @@
 				>
 				<image class="icon" src="../../icons/context.png" />
 				<text>客服</text>
-			</button>
+			</button> -->
 			<!-- 团购 -->
 			<block wx:if="{{ product.groupon_enable && !grouponId }}">
 				<view

@@ -6,49 +6,50 @@
 		"pages/category/category",
 		"pages/classify/classify",
 		"pages/articleList/articleList",
-		"pages/modulePage/modulePage"
+		"pages/modulePage/modulePage",
+		"pages/productList/productList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
-		"backgroundColor": "#f4f4f4",
-		"navigationBarBackgroundColor": "#729153",
-		"navigationBarTextStyle": "white"
+		"navigationBarBackgroundColor": "#fff",
+		"navigationBarTextStyle": "black",
+		"backgroundColor": "#f4f4f4"
 	},
 	"tabBar": {
 		"color": "#a39896",
+		"selectedColor": "#45424e",
 		"backgroundColor": "#fff",
 		"borderStyle": "black",
-		"selectedColor": "#45424e",
 		"list": [
 			{
 				"pagePath": "pages/home/home",
-				"iconPath": "icons/default/home.png",
+				"iconPath": "icons/mebxy/default/home.png",
 				"text": "首页",
-				"selectedIconPath": "icons/default/homeSelected.png"
+				"selectedIconPath": "icons/mebxy/default/homeSelected.png"
 			},
 			{
 				"pagePath": "pages/category/category",
-				"iconPath": "icons/default/category.png",
+				"iconPath": "icons/mebxy/default/classify.png",
 				"text": "分类",
-				"selectedIconPath": "icons/default/categorySelected.png"
+				"selectedIconPath": "icons/mebxy/default/classifySelected.png"
 			},
 			{
 				"pagePath": "pages/articleList/articleList",
-				"iconPath": "icons/default/articleList.png",
+				"iconPath": "icons/mebxy/default/articleList.png",
 				"text": "格物",
-				"selectedIconPath": "icons/default/articleListSelected.png"
+				"selectedIconPath": "icons/mebxy/default/articleListSelected.png"
 			},
 			{
-				"pagePath": "pages/cart/cart",
-				"iconPath": "icons/default/cart.png",
-				"text": "购物车",
-				"selectedIconPath": "icons/default/cartSelected.png"
+				"pagePath": "pages/productList/productList",
+				"iconPath": "icons/mebxy/default/oneCategoryList.png",
+				"text": "商城",
+				"selectedIconPath": "icons/mebxy/default/oneCategoryListSelected.png"
 			},
 			{
 				"pagePath": "pages/me/me",
-				"iconPath": "icons/default/me.png",
+				"iconPath": "icons/mebxy/default/me.png",
 				"text": "我",
-				"selectedIconPath": "icons/default/meSelected.png"
+				"selectedIconPath": "icons/mebxy/default/meSelected.png"
 			}
 		]
 	},
@@ -284,13 +285,6 @@
 				"productComments/index"
 			],
 			"name": "商品详情页"
-		},
-		{
-			"root": "pages/productList/",
-			"pages": [
-				"productList"
-			],
-			"name": "商品列表页"
 		},
 		{
 			"root": "pages/refund/",
