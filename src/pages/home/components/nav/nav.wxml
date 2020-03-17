@@ -1,7 +1,7 @@
 <view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">	
 	<!-- 标题 -->
 	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
-	<view class="categoryBox {{ setting.per_row === 4 ? '' : 'categoryWrapper' }}" wx:if="{{ content && content.length }}">
+	<view class="categoryBox" wx:if="{{ content && content.length }}">
 		<!-- 图标 -->
 		<view class="{{ setting.per_row === 4 ? 'homeCategory' : 'homeWrapper' }}" wx:for="{{ content }}" wx:key="id">
 			<!-- 跳转小程序 -->

@@ -8,21 +8,20 @@
 .categoryBox{
 	width: 100%;
 	display: flex;
-	justify-content: flex-start;
 	flex-flow: row wrap;
 	align-items: center;
 	text-align: center;
-	padding: 0 82rpx;
+	padding: 0 25rpx;
 
 	.homeCategory, 
 	.homeWrapper {
-		width: 100rpx;
+		width: 175rpx;
 		flex-direction: column;
 		.categoryItem{
 			line-height: 0;
 			
 			.categoryImg{
-				width: 100%;
+				width: 100rpx;
 				height: 100rpx;
 				border-radius: 5rpx;
 			}
@@ -46,25 +45,27 @@
 		}
 	}
 
-
-	.homeCategory{
-		margin-right: 62rpx;
-
-		&:nth-child(4n) {
-			margin-right: 0;
-		}
-
-	}
-
 	.homeWrapper {
-		margin-right: 35rpx;
-
-		&:nth-child(5n) {
-			margin-right: 0;
-		}
+		width: 140rpx;
 	}
+
+
+	// .homeCategory{
+
+	// 	&:nth-child(4n) {
+	// 		margin-right: 0;
+	// 	}
+
+	// }
+
+	// .homeWrapper {
+
+	// 	&:nth-child(5n) {
+	// 		margin-right: 0;
+	// 	}
+	// }
 }
 
-.categoryWrapper {
-	padding: 0 55rpx;
-}
+// .categoryWrapper {
+// 	padding: 0 55rpx;
+// }

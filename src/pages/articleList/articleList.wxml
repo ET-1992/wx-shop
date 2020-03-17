@@ -5,7 +5,7 @@
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
 	<view class="container">
 		<loading isLoading="{{ isLoading }}"/>
-		<articleList  articleList="{{ { content: articles } }}" themeColor="{{ themeColor }}" isShowMore="{{ false }}" />
+		<articleList  articleList="{{ { content: articles } }}" themeColor="{{ themeColor }}" isShowMore="{{ false }}" class="list" />
 		<view class="noHint" wx:if="{{ !articles.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">暂无文章</view>
 	</view>
 </view>
