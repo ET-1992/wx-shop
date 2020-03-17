@@ -77,6 +77,45 @@
 			</view>
 		</view>
 
+		<!-- 今日秒杀banner -->
+		<view wx:if="{{ product.seckill_enable }}" class="miaosha-banner" style="background-color: {{ themeColor.primaryColor }}">
+			<image wx:if="{{ config }}" src="{{ config && config.cdn_host +'/shop/mebxy/miao.png'}}" class="background-image" />
+			<view class="price-area">
+				<view class="price">
+				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
+				{{ product.seckill_price }}
+				</view>
+				<view class="origin-price">
+				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+				</view>
+			</view>
+			<view class="time">
+				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+				<view class="time-text">距结束还有</view>
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ !hasStart }}" class="time-section">
+				距开始还有
+				<view class="time-limit" wx:if="{{ !hasEnd }}">
+					<view class="hour">{{ remainTime.hour }}</view>
+					<view class="dateTitle">时</view>
+					<view class="minute">{{ remainTime.minute }}</view>
+					<view class="dateTitle">分</view>
+					<view class="second">{{ remainTime.second }}</view>
+					<view class="dateTitle">秒</view>
+				</view>
+				</view>
+				<view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
+			</view>
+		</view>
+
 		<!-- 超值拼团banner -->
 		<view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
 			<image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
@@ -414,7 +453,17 @@
 				</button>
 			</block>
 
-			<!-- 秒杀或者普通商品 -->
+			<!-- 秒杀状态按钮 -->
+			<block wx:elif="{{ product.seckill_enable }}">
+				<view class="{{ !hasStart ? 'miaosha-begin' : ( hasEnd ? 'miaosha-begin' : 'miaosha-buy')}}" catchtap="{{ hasStart && !hasEnd ? 'onShowSku' : '' }}" data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}" >
+					<view wx:if="{{ !hasStart }}" style="background-color:#22b14c">即将开抢</view>
+					<view wx:elif="{{ product.status === 'sold_out' }}" style="background-color:#999">已抢光</view>
+					<view wx:elif="{{ hasEnd }}" style="background-color:{{themeColor.primaryColor}}">已结束</view>
+					<view wx:else style="background-color:{{themeColor.primaryColor}}">立即购买</view>
+				</view>
+			</block>
+
+			<!-- 普通商品 -->
 			<block wx:else>
 				<view
 					class="addCart"
@@ -437,15 +486,17 @@
 		</view>
 	</view>
 	<!-- 代付按钮 -->
-	<view
-	 class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-	 catchtap="onShowSku"
-	 data-is-crowd
-	 data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
-	 wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable}}"
-	>
-		<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
-	</view>
+	<block wx:if="{{ !product.seckill_enable || (hasStart && !hasEnd) }}">  <!-- 秒杀-未开始或过期隐藏 -->
+		<view
+		class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+		catchtap="onShowSku"
+		data-is-crowd
+		data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
+		wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable}}"
+		>
+			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
+		</view>
+	</block>
 </view>
 
 <!-- 领券弹窗 -->
