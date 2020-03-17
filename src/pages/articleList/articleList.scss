@@ -10,7 +10,11 @@ page{
 }
 .container{
 	padding-top: 90rpx;
+	height: 100%;
+	overflow: auto;
 }
+
+
 .listWrapper {
 	height: 100%;
 }

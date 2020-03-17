@@ -24,6 +24,17 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+
+		.desc {
+			color: #999;
+			// height: 80rpx;
+			overflow: hidden;
+			font-size: 25rpx;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			text-overflow: ellipsis;
+		}
 		.time{
 			font-size: 20rpx;
 			color: #333;
