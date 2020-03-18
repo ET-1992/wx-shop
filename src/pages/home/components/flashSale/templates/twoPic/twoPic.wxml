@@ -5,7 +5,7 @@
 			<view class="meta">
 				<view class="priceWrapper">
 					<view class="ItemPrice">
-						{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_enable }}
+						{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
 					</view>
 					<!-- 原价 -->
 					<view class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}

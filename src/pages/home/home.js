@@ -147,7 +147,7 @@ Page({
             let { products } = this.data;
             if (modules[modules.length - 1].type === 'product') {
                 const { content = [] } =  modules[modules.length - 1];
-                timestamp = content[content.length - 1].timestamp;
+                timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
                 products = content;
             }
             this.setData({
