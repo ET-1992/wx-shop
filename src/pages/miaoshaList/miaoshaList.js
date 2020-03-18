@@ -23,6 +23,9 @@ Page({
         if (type === 'bargain') {
             promotion_type = 'bargain_enable';
         }
+        if (type === 'seckill') {
+            promotion_type = 'seckill_enable';
+        }
         if (type === 'groupon') {
             promotion_type = 'groupon_enable';
         }
@@ -41,6 +44,7 @@ Page({
             isRefresh: false,
             next_cursor: data.next_cursor,
             miaosha_banner: data.miaosha_banner,
+            seckill_banner: data.seckill_banner,
             bargain_banner: data.bargain_banner,
             groupon_banner: data.groupon_banner,
             isLoading: false

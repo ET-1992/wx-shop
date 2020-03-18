@@ -16,7 +16,15 @@ Component({
             value: {},
             observer(newVal) {
                 if (!newVal) { return }
-                const { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+
+                // 兼容秒杀倒计时
+                let { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+                if (!miaosha_end_timestamp || !miaosha_start_timestamp) {
+                    const { seckill_end_timestamp, seckill_start_timestamp } = newVal;
+                    miaosha_end_timestamp = seckill_end_timestamp;
+                    miaosha_start_timestamp = seckill_start_timestamp;
+                }
+
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = miaosha_end_timestamp - now;
                 let hasStart = true;
@@ -87,6 +95,11 @@ Component({
         nextCursor: {
             type: Number,
             value: 0,
+        },
+        // 商品促销类型
+        type: {
+            type: String,
+            value: 'miaosha'
         },
         // 会员专属商品的市场价
         marketPrice: {
