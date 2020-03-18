@@ -64,6 +64,10 @@
                         <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                             {{ product.definePrice }}
                         </view>
+                        <!-- 秒杀 -->
+                        <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
+                            {{ product.seckill_price }}
+                        </view>
                         <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
                             {{ product.bargain_price }}
                         </view>
