@@ -21,6 +21,7 @@
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
 
+   <!-- 买家留言文本框 -->
   <view class="textareaWrapper" wx:if="{{ !order_annotation }}">
     <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
   </view>
