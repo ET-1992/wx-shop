@@ -18,6 +18,15 @@
         width: 500rpx;
         border-radius: 10rpx;
         background: #FFF8E9;
+
+        .close {
+            position: absolute;
+            color: #FFF8E9;
+            right: 0rpx;
+            top: 0rpx;
+            z-index: 1000;
+            width: 50rpx;
+        }
         
         .CouponBottom{
             position:absolute;
@@ -99,7 +108,13 @@
 
     .couponConfirm{
         margin-top: 42rpx;
-        width: 532rpx;
+        width: 500rpx;
         height: 86rpx;
+    }
+
+    .btnWrap {
+        background: #FFF8E9;
+        border-radius: 10rpx;
+        width: 530rpx;
     }
 }

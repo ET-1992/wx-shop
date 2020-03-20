@@ -25,8 +25,9 @@
                 </view>
             </scroll-view>
         </view>
+        <image class="close" src="/icons/close.svg" mode="widthFix" lazy-load="false" bind:tap="closeCoupon" />  
     </view>
-    <button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" data-id="{{coupons_newbie}}">
+    <button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" data-id="{{coupons_newbie}}" class="btnWrap">
         <image class="couponConfirm" src="/icons/newCouponBtn.svg"></image>
     </button>
 </view>
