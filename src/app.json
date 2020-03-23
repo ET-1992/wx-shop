@@ -23,33 +23,33 @@
 		"list": [
 			{
 				"pagePath": "pages/home/home",
-				"iconPath": "icons/mebxy/default/home.png",
+				"iconPath": "icons/mebxy_default/home.png",
 				"text": "首页",
-				"selectedIconPath": "icons/mebxy/default/homeSelected.png"
+				"selectedIconPath": "icons/mebxy_default/homeSelected.png"
 			},
 			{
 				"pagePath": "pages/category/category",
-				"iconPath": "icons/mebxy/default/classify.png",
+				"iconPath": "icons/mebxy_default/classify.png",
 				"text": "分类",
-				"selectedIconPath": "icons/mebxy/default/classifySelected.png"
+				"selectedIconPath": "icons/mebxy_default/classifySelected.png"
 			},
 			{
 				"pagePath": "pages/articleList/articleList",
-				"iconPath": "icons/mebxy/default/articleList.png",
+				"iconPath": "icons/mebxy_default/articleList.png",
 				"text": "格物",
-				"selectedIconPath": "icons/mebxy/default/articleListSelected.png"
+				"selectedIconPath": "icons/mebxy_default/articleListSelected.png"
 			},
 			{
 				"pagePath": "pages/productList/productList",
-				"iconPath": "icons/mebxy/default/oneCategoryList.png",
+				"iconPath": "icons/mebxy_default/oneCategoryList.png",
 				"text": "商城",
-				"selectedIconPath": "icons/mebxy/default/oneCategoryListSelected.png"
+				"selectedIconPath": "icons/mebxy_default/oneCategoryListSelected.png"
 			},
 			{
 				"pagePath": "pages/me/me",
-				"iconPath": "icons/mebxy/default/me.png",
+				"iconPath": "icons/mebxy_default/me.png",
 				"text": "我",
-				"selectedIconPath": "icons/mebxy/default/meSelected.png"
+				"selectedIconPath": "icons/mebxy_default/meSelected.png"
 			}
 		]
 	},
