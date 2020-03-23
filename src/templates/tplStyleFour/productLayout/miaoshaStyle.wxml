@@ -19,6 +19,6 @@
     <image class="miaoshaImage" mode="aspectFill" src="{{ miaosha.thumbnail }}" />
     <view class="title">{{ miaosha.title }}</view>
     <view class="miaoshaPrice">
-        限时价<text class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="price">{{ miaosha.miaosha_price }}</text>
+        限时价<text class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="price">{{ miaosha.seckill_enable ? miaosha.seckill_price : miaosha.miaosha_price }}</text>
     </view>
 </view>
