@@ -96,6 +96,11 @@ Component({
             type: Number,
             value: 0,
         },
+        // 秒杀按钮
+        isShowButton: {
+            type: Boolean,
+            value: false
+        },
         // 商品促销类型
         type: {
             type: String,

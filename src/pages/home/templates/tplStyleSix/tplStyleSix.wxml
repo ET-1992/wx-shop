@@ -166,6 +166,24 @@
 					</myNavigator>
 				</view>
 			</view>
+			<!-- 秒杀 -->
+			<view wx:if="{{ module.key === 'seckills' }}">
+			<view class="section" wx:if="{{ seckills && seckills.length }}">
+				<view class="header">
+				<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+				<navigator class="sectionMore" wx:if="{{seckills.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=seckill">
+					<form bindsubmit="submitFormId" report-submit="true">
+					<button formType="submit" class="moreButton">
+						<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+					</button>
+					</form>
+				</navigator>
+				</view>
+				<myNavigator wx:if="{{ seckills.length > 0 }}" wx:for="{{ seckills }}" url="/pages/productDetail/productDetail?id={{ item.post_id }}" wx:key="item.id">
+				<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}" />
+				</myNavigator>
+			</view>
+			</view>
 			<!-- 砍价 -->
 			<view wx:if="{{ module.key === 'bargains' }}">
 				<view class="section" wx:if="{{ bargains && bargains.length }}">

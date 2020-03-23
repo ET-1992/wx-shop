@@ -1,0 +1,136 @@
+<view class="topImageButtonBottom">
+    <view class="wrapper">
+        <view class="mask" wx:if="{{  product.status === 'sold_out' }}">已售罄</view>
+        <!-- <view class="mask" wx:if="{{  product.status === 'sold_out' }}">已抢光</view> -->
+        <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+    </view>
+    <view class="Info">
+        <!-- 标题 -->
+        <view class="title">{{ product.title }}</view>
+
+        <!-- 拼团 -->
+        <view class="section" wx:if="{{ product.groupon_enable }}">
+            <view class="meta">
+                <view class="priceWrapper">
+                    <block>
+                        <view class="itemPrice">
+                            <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="item_price">{{ product.groupon_price }}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="originPriceWrapper">
+                    <view class="itemSold">
+                        单买价{{ globalData.CURRENCY[globalData.currency] }}
+                        <text class="originPrice">{{ product.original_price }}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="meta">
+                <view class="tagWrapper">
+                    <view class="tag_img">
+                        <image class="imgFill" src="/icons/pingtuan.png"/>
+                    </view>
+                    <view class="tag_text">
+                        <text>{{product.groupon_member_limit + '人团'}}</text>
+                    </view>
+                </view>
+                <view class="soldNumber">已团{{ product.sales }}件</view>
+            </view>
+        </view>
+
+        <!-- 限时购 -->
+        <view class="section" wx:if="{{ product.miaosha_enable }}">
+            <view class="meta">
+                <view class="priceWrapper">
+                    <block>
+                        <view class="itemPrice">
+                            <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="item_price">{{ product.miaosha_price }}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="originPriceWrapper">
+                    <view class="itemSold commonSoldStyle">
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+                    </view>
+                </view>
+            </view>
+            <view class="meta">
+                <view class="tagWrapper">
+                    <view class="tag_img">
+                        <image class="imgFill" src="/icons/miaosha.png" />
+                    </view>
+                    <view class="tag_text">
+                        <text>限时价</text>
+                    </view>
+                </view>
+                <view class="soldNumber">{{ product.sales }}人已抢到</view>
+            </view>
+        </view>
+
+        <!-- 秒杀 -->
+        <view class="section" wx:if="{{ product.seckill_enable }}">
+            <view class="meta">
+                <view class="priceWrapper">
+                    <block>
+                        <view class="itemPrice">
+                            <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="item_price">{{ product.seckill_price }}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="originPriceWrapper">
+                    <view class="itemSold commonSoldStyle">
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+                    </view>
+                </view>
+            </view>
+            <view class="meta">
+                <view class="tagWrapper">
+                    <view class="tag_img">
+                        <image class="imgFill" src="/icons/miaosha.png" />
+                    </view>
+                    <view class="tag_text">
+                        <text>秒杀价</text>
+                    </view>
+                </view>
+                <view class="soldNumber">{{ product.sales }}人已抢到</view>
+            </view>
+        </view>
+
+        <!-- 平常 -->
+        <view class="section" wx:if="{{ !product.groupon_enable && !product.miaosha_enable && !product.seckill_enable }}">
+            <view class="meta">
+                <view class="priceWrapper">
+                    <block>
+                        <view class="itemPrice">
+                            <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text class="item_price">{{ product.price }}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="normalNumber">已售{{ product.sales }}件</view>
+            </view>
+        </view>
+    </view>
+
+    <!-- 开团、售罄、秒杀按钮 -->
+    <view class="btn-area" wx:if="{{ isShowButton }}">
+        <button class="btn" wx:if="{{ product.groupon_enable && product.status !== 'sold_out' }}" style="background-color: {{ themeColor.primaryColor }}">
+            立即开团
+        </button>
+        <button class="btn btn-sold_out" wx:if="{{ product.groupon_enable && product.status === 'sold_out' }}">
+            已售罄
+        </button>
+        <button class="btn" wx:if="{{ product.miaosha_enable && product.status !== 'sold_out' }}" style="background-color: {{ themeColor.primaryColor }}">
+            限时购
+        </button>
+        <button class="btn" wx:if="{{ product.seckill_enable &&  product.status !== 'sold_out' }}" style="background-color: {{ themeColor.primaryColor }}">
+            秒 杀
+        </button>
+        <button class="btn btn-sold_out" wx:if="{{ product.seckill_enable &&  product.status === 'sold_out' }}">
+            已抢光
+        </button>
+    </view>
+</view>
