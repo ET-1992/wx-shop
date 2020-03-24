@@ -1,4 +1,4 @@
-import { CONFIG } from 'constants/index';
+import { CONFIG, COLOR } from 'constants/index';
 const app = getApp();
 Component({
     properties: {
@@ -25,10 +25,6 @@ Component({
         config: {
             type: Object,
             value: {},
-        },
-        color: {
-            type: String,
-            value: 'gold'
         }
     },
     data: {
@@ -38,8 +34,10 @@ Component({
     lifetimes: {
         attached() {
             const config = wx.getStorageSync(CONFIG);
+            const color = wx.getStorageSync(COLOR);
             this.setData({
-                config
+                config,
+                color
             });
         }
     }
