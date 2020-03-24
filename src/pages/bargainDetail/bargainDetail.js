@@ -69,15 +69,15 @@ Page({
 
     async onLoadData(code) {
         try {
-            const { mission, product, products } = await api.hei.bargainDetail({ code });
+            const { mission, product, products, share_image, share_title } = await api.hei.bargainDetail({ code });
             mission.needBargainPrice = (Number(mission.current_price) - Number(mission.target_price)).toFixed(2);
             mission.isBargainPrice = (Number(mission.price) - Number(mission.current_price)).toFixed(2);
             this.setData({
                 mission: mission,
                 product: product,
                 products: products,
-                share_image: (mission && mission.share_image) || (product && product.image_url),
-                share_title: mission && mission.share_title,
+                share_image: share_image,
+                share_title: share_title,
                 isLoading: false
             }, () => {
                 // 砍价倒计时
@@ -110,7 +110,7 @@ Page({
                     code,
                     cursor: next_cursor
                 });
-                console.log('Actordata96', data);
+                console.log('Actor96', data);
                 const newActors = isBottom ? actors.concat(data.actors) : data.actors;
                 this.setData({
                     actors: newActors,

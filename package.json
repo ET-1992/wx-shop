@@ -56,7 +56,7 @@
     "@vant/weapp": "^1.0.1",
     "decimal.js": "^10.0.1",
     "es6-promise": "^4.1.0",
-    "peanut-all": "^1.3.2",
+    "peanut-all": "^1.3.3",
     "vant-weapp": "^1.0.0-beta.4"
   },
   "jest": {

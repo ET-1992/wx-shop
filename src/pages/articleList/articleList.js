@@ -60,7 +60,7 @@ Page({
     },
 
     async getArticleList() {
-        let { current_page, categoryId, activeIndex, articles, categoryParent, config: { share_title, share_image }, orderby } = this.data;
+        let { current_page, categoryId, activeIndex, articles, categoryParent, orderby } = this.data;
         let options = {
             paged: current_page,
             article_category_id: categoryId,
@@ -83,8 +83,6 @@ Page({
         });
         this.setData({
             ...data,
-            share_title,
-            share_image,
             current_page,
             isLoading: false
         });

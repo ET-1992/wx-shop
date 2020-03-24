@@ -43,7 +43,9 @@ Page({
             miaosha_banner: data.miaosha_banner,
             bargain_banner: data.bargain_banner,
             groupon_banner: data.groupon_banner,
-            isLoading: false
+            isLoading: false,
+            share_image: data.share_image,
+            share_title: data.share_title
         });
         return data;
     },
