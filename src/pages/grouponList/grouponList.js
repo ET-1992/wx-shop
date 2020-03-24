@@ -34,7 +34,9 @@ Page({
             products: newProducts,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            groupon_banner: data.groupon_banner
+            groupon_banner: data.groupon_banner,
+            share_image: data.share_image,
+            share_title: data.share_title
         });
         return data;
     },

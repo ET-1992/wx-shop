@@ -44,7 +44,7 @@ Page({
             this.setData({
                 article,
                 share_title,
-                share_image: share_image || article.banner,
+                share_image: share_image,
                 current_user,
                 isLoading: false
             });

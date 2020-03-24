@@ -157,7 +157,7 @@ Page({
             });
         } else {
             // 非会员商品请求
-            let { current_page, categoryId = '', products, categoryParent, filterOrderby, filterOrder, filterData, config: { share_title, share_image }} = this.data;
+            let { current_page, categoryId = '', products, categoryParent, filterOrderby, filterOrder, filterData} = this.data;
             let options = {
                 paged: current_page,
                 product_category_id: categoryId,
@@ -181,8 +181,6 @@ Page({
             this.setData({
                 ...data,
                 current_page,
-                share_title,
-                share_image,
                 isLoading: false
             });
         }
