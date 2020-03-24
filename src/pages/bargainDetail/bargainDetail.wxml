@@ -43,7 +43,7 @@
 			<view class="bottom-right">
 				<view class="right-name">{{mission.user && mission.user.nickname}}</view>
 				<!-- 砍价进行中 -->
-				<view class="right-text" wx:if="{{!isOthers && mission.status === 1}}">已砍<text class="right-price"> {{ globalData.CURRENCY[globalData.currency] }}{{actors[0].actor_price}}</text> 元。活动商品数量有限，快分享给好友继续来砍价~</view>
+				<view class="right-text" wx:if="{{!isOthers && mission.status === 1}}">已砍<text class="right-price"> {{ globalData.CURRENCY[globalData.currency] }}{{mission.isBargainPrice}}</text> 元。活动商品数量有限，快分享给好友继续来砍价~</view>
 				<!-- 砍价成功 -->
 				<view class="right-text" wx:if="{{!isOthers && mission.status === 2}}">砍价成功！活动商品数量有限，先到先得，请尽快下单。</view>
 				<!-- 砍价失败 -->

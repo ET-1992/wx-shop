@@ -14,9 +14,9 @@ Page({
         isInit: true,
         current_page: 1,
         clientX: 0,
-        activeIndex: 0,
+        activeIndex: 0
     },
-    async onLoad({ categoryId = '', categoryParent = '', orderby = ''}) {
+    async onLoad({ categoryId = '', categoryParent = '', orderby = '' }) {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
@@ -60,7 +60,7 @@ Page({
     },
 
     async getArticleList() {
-        let { current_page, categoryId, activeIndex, articles, categoryParent, config: { share_title, share_image }, orderby} = this.data;
+        let { current_page, categoryId, activeIndex, articles, categoryParent, config: { share_title, share_image }, orderby } = this.data;
         let options = {
             paged: current_page,
             article_category_id: categoryId,

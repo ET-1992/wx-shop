@@ -69,19 +69,19 @@ Page({
 
     async onLoadData(code) {
         try {
-            const data = await api.hei.bargainDetail({ code });
-            data.mission.needBargainPrice = (Number(data.mission.current_price) - Number(data.mission.target_price)).toFixed(2);
-            console.log('data60', data);
+            const { mission, product, products } = await api.hei.bargainDetail({ code });
+            mission.needBargainPrice = (Number(mission.current_price) - Number(mission.target_price)).toFixed(2);
+            mission.isBargainPrice = (Number(mission.price) - Number(mission.current_price)).toFixed(2);
             this.setData({
-                mission: data.mission,
-                product: data.product,
-                products: data.products,
-                share_image: (data.mission && data.mission.share_image) || (data.product && data.product.image_url),
-                share_title: data.mission && data.mission.share_title,
+                mission: mission,
+                product: product,
+                products: products,
+                share_image: (mission && mission.share_image) || (product && product.image_url),
+                share_title: mission && mission.share_title,
                 isLoading: false
             }, () => {
                 // 砍价倒计时
-                if (data.product.status === 'publish') {
+                if (product.status === 'publish') {
                     this.countDown();
                     this.intervalId = setInterval(() => {
                         this.countDown();
