@@ -2,7 +2,8 @@
 
 <block wx:if="{{ home_type === 'old'}}">
     <!-- 模板皮肤 -->
-    <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
+    <include wx:if="{{ HOST_TEMPLATE === 'MIBAI' && tplStyle === 'default' }}" src="./templates/tplStyleSeven/tplStyleSeven.wxml"/> <!-- 米白默认 -->
+    <include wx:elif="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
     <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
     <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
     <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>

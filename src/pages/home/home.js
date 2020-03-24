@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { USER_KEY, CONFIG } from 'constants/index';
+import { USER_KEY, CONFIG, HOST_TEMPLATE } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
@@ -10,6 +10,7 @@ const app = getApp(); // eslint-disable-line no-undef
 Page({
     data: {
         pageName: 'home',
+        HOST_TEMPLATE,
         products: [],
         product_categories: [],
         home_sliders: {

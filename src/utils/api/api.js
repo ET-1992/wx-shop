@@ -9,9 +9,9 @@
  * requestType: 默认request, [request, uploadFile]
  * contentType: 默认x-www-form-urlencode, 可配置json
  **/
-export const host = 'https://api.97866.com/';
+// export const host = 'https://api.97866.com/';
 // export const host = 'http://app.dev.97866.com/';
-// export const host = 'https://hei.dev.97866.com/';
+export const host = 'https://hei.dev.97866.com/';
 // export const host = 'https://hei.97866.com/';
 
 // 翠绿
@@ -454,6 +454,12 @@ export const apis = {
         path: 'api/weapp/qrcode/code.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 秒杀
+    seckillOrderCreate: {
+        path: 'api/mag.seckill.order.create.json?pay&v2',
+        isForceToken: true,
+        method: 'POST'
     },
     // 发起砍价
     createBargain: {
