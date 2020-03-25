@@ -103,11 +103,12 @@
         ></video>
 
 
-        <myNavigator
+        <navigator
          wx:else
          class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
          style="background-image: url({{  magicImgData.images[index].image }}); flex: {{ magicImgData.flex ? magicImgData.flex[index] : 1 }}"
          url="{{ magicImgData.images[index].path }}"
-        ></myNavigator>
+        open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
+        ></navigator>
 
     </template>
