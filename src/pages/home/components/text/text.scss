@@ -13,6 +13,10 @@
 	color: #ed6a0c;
 	background-color: #fffbe8;
 
+	.btn {
+		background-color: #fff;
+	}
+
 	@keyframes marquee {
     	0% {
     	    transform: translateX(0);

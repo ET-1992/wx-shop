@@ -34,11 +34,11 @@
         <view class="{{ module_page.search_box ? 'main': '' }}" >
             <view wx:for="{{ modules }}" wx:key="key" >
                 <!-- 幻灯片 -->
-                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" bindshowContactModal="showContactModal"/>
+                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal"/>
                 <!-- 简单文本 -->
-                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" />
+                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal"/>
                 <!-- 文本列表 -->
-                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}"/>
+                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}"  bindshowContactModal="showContactModal"/>
                 <!-- 优惠券 userCoupon 有状态-->
                 <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}"/>
                 <!-- 快捷导航栏 -->

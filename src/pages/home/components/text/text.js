@@ -20,10 +20,20 @@ Component({
             type: Number,
             value: 11
         },
-
         second: {
             type: Number,
             value: 0
+        },
+        userInfo: {
+            type: Object,
+            value: {}
+        }
+    },
+    methods: {
+        showContactModal(e) {
+            this.triggerEvent('showContactModal', e, {
+                bubbles: true
+            });
         }
     }
 });
