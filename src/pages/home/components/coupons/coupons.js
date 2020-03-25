@@ -1,7 +1,7 @@
 import api from 'utils/api';
+const app = getApp();
 import { showToast } from 'utils/wxp';
 import { getAgainUserForInvalid } from 'utils/util';
-import { COLOR } from 'constants/index';
 
 Component({
     properties: {
@@ -12,7 +12,6 @@ Component({
                 console.log('newVal10', newVal);
                 if (!newVal) { return }
                 const { content, setting, title, type, id } = newVal;
-                wx.setStorageSync(COLOR, setting.color);
                 this.setData({
                     content,
                     setting,

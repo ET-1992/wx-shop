@@ -5,7 +5,7 @@
 				<view class="title">选择门店</view>
 				<view class="arrow-right">
 					<view class="text">修改</view>
-					<van-icon name="arrow" color="#999999"/>
+					<van-icon name="arrow" color="#999999" size="10"/>
 				</view>
 			</view>
 		</navigator>
@@ -22,7 +22,8 @@
 			</view>
 			<view class="address-section">
 				<view class="address-title">营业时间</view>
-				<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 0}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
+				<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 1}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
+				<view class="address-time" wx:if="{{ addresses.time && addresses.time.length === 1 }}">{{ addresses.time[0] }}</view>
 				<view class="address-time" wx:if="{{ addresses.time && !addresses.time.length }}">无</view>
 			</view>
 			<view class="address-section address-second">
@@ -37,7 +38,7 @@
 			<view class="address title">选择门店</view>
 			<view class="arrow-right">
 				<view class="text">点击选择</view>
-				<van-icon name="arrow" color="#999999"/>
+				<van-icon name="arrow" color="#FB3838" size="10"/>
 			</view>
 		</view>
 	</navigator>
@@ -46,13 +47,9 @@
 	<view wx:if="{{ !isOrderDetail && addresses.name }}" class="receive-time">
 		<view class="left">
 			<view class="title">门店配送时间</view>
-			<view class="time">{{ homeDeliveryTimes[index] }}</view>
 		</view>
 		<picker wx:if="{{ homeDeliveryTimes && homeDeliveryTimes[index] }}" bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}">
-			<view class="arrow-right">
-				<view class="text">修改</view>
-				<van-icon name="arrow" color="#999999"/>
-			</view>
+			<view class="time">{{ homeDeliveryTimes[index] }}</view>
 		</picker>
 	</view>
 	<view class="receive-time" wx:if="{{ isOrderDetail }}">
