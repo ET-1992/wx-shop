@@ -50,7 +50,7 @@ Page({
             const { themeColor, homeType } = app.globalData;
             const config = wx.getStorageSync(CONFIG);
             const { style_type = 'default' } = config;
-            let tplStyle = homeType === 'new' ? 'coupon' : style_type;
+            let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
             this.setData({
                 isLoading: true,
                 themeColor,

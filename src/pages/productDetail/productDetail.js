@@ -307,7 +307,7 @@ Page({
         const { themeColor, homeType, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         console.log('CART_NUM', typeof CART_NUM, CART_NUM);
-        let tplStyle = homeType === 'new' ? 'coupon' : style_type;
+        let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
         this.setData({
             isIphoneX,
             user,

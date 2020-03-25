@@ -14,7 +14,7 @@ Page({
         console.log('params', params); // {tplStyle: "vip"}
         const { themeColor, homeType } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type } = config;
+        const { style_type = 'default' } = config;
         if (params.tplStyle === 'vip') { // 会员模板
             wx.setNavigationBarTitle({
                 title: '会员优惠券'
@@ -30,7 +30,7 @@ Page({
             });
             this.loadCoupon('vip');
         } else {
-            let tplStyle = homeType === 'new' ? 'coupon' : style_type;
+            let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
             this.setData({
                 themeColor,
                 config,
