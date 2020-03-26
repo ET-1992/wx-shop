@@ -188,7 +188,7 @@ Page({
 
     async onLoad(options) {
         console.log('onLoad');
-        const { themeColor, partner = {}, tabbarPages} = app.globalData;
+        const { themeColor, partner = {}, tabbarPages } = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
