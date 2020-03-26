@@ -19,8 +19,8 @@ Component({
             value: false,
         },
         fromMemberShipPage: {
-            type: String,
-            value: '',
+            type: Boolean,
+            value: false,
         }
     },
     data: {

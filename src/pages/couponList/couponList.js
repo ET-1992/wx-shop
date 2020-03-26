@@ -25,7 +25,7 @@ Page({
             });
             this.setData({
                 tplStyle: 'vip_tpl',
-                fromMemberShipPage: params.fromMemberShipPage
+                fromMemberShipPage: !!params.fromMemberShipPage
             });
             this.loadCoupon('vip');
         } else {
