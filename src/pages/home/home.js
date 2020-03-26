@@ -133,7 +133,7 @@ Page({
                     next_cursor: 0
                 });
             }
-
+            app.globalData.couponBackgroundColor = '';
             this.setData({
                 userCoupon: coupons_home,
                 home_type,
@@ -155,7 +155,6 @@ Page({
             });
             console.log('Home-couponArray', couponArray);
             app.globalData.couponBackgroundColor = couponArray && couponArray[0] && couponArray[0].setting.color;
-            app.globalData.homeType = 'new';
             this.setData({
                 products,
                 module_page,

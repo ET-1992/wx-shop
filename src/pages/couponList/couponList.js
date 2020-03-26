@@ -11,11 +11,11 @@ Page({
     },
 
     async onLoad(params) {
-        console.log('params', params); // {tplStyle: "vip"}
-        const { themeColor, homeType } = app.globalData;
+        console.log('params', params); // {fromMemberShipPage: 'true'}
+        const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type = 'default' } = config;
-        if (params.tplStyle === 'vip') { // 会员模板
+        const { style_type: tplStyle = 'default' } = config;
+        if (params.fromMemberShipPage) { // 会员模板
             wx.setNavigationBarTitle({
                 title: '会员优惠券'
             });
@@ -24,21 +24,14 @@ Page({
                 backgroundColor: '#333',
             });
             this.setData({
-                themeColor,
                 tplStyle: 'vip_tpl',
-                config
+                fromMemberShipPage: params.fromMemberShipPage
             });
             this.loadCoupon('vip');
         } else {
-            let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
-            this.setData({
-                themeColor,
-                config,
-                tplStyle
-            }, () => {
-                this.loadCoupon();
-            });
+            this.setData({ tplStyle }, () => { this.loadCoupon() });
         }
+        this.setData({ themeColor, config });
         console.log('this.data', this.data);
     },
 

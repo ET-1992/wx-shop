@@ -465,7 +465,6 @@
 					>
 						<couponList
 						 wx:if="{{ item.status == 2 && item.stock_qty }}"
-						 tplStyle="{{ tplStyle }}"
 						 coupon="{{ item }}"
 						 status="receivable"
 						 config="{{config}}"
@@ -473,7 +472,6 @@
 						<!-- 未领取 -->
 						<couponList
 						 wx:if="{{ item.status == 4 }}"
-						 tplStyle="{{ tplStyle }}"
 						 coupon="{{ item }}"
 						 status="received"
 						 config="{{config}}"
@@ -490,7 +488,6 @@
 						>
 							<couponList
 							 wx:if="{{ item.status == 4 }}"
-							 tplStyle="{{ tplStyle }}"
 							 coupon="{{ item }}"
 							 status="received"
 							 config="{{config}}"

@@ -42,7 +42,7 @@
 				</button>
 			</form>
 		</view>
-		<navigator class="moreCoupon" url="/pages/couponList/couponList?tplStyle=vip" wx:if="{{ memberCouponList.length > 1 }}">
+		<navigator class="moreCoupon" url="/pages/couponList/couponList?fromMemberShipPage=true" wx:if="{{ memberCouponList.length > 1 }}">
 			<view class="moreBtn">查看更多</view>
 		</navigator>
 	</view>

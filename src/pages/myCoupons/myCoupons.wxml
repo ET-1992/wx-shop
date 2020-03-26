@@ -24,15 +24,15 @@
 		data-usercouponid="{{ item.user_coupon_id }}" 
 		data-status="{{ item.status }}" 
 		data-title="{{ item.title }}">
-  		<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle || 'default'}}" coupon="{{ item }}" status="receivable" config="{{config}}"/>
+  		<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable"/>
   		<!-- 未领取 -->
-  		<couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle || 'default'}}" coupon="{{ item }}" status="received" config="{{config}}"/>
+  		<couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received"/>
   		<!-- 已领取 -->
-  		<couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" tplStyle="{{ tplStyle || 'default'}}" coupon="{{ item }}" status="nullCoupon" config="{{config}}"/>
+  		<couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" coupon="{{ item }}" status="nullCoupon"/>
   		<!-- 已抢光 -->
-  		<couponList wx:if="{{ item.status == 5 }}" tplStyle="{{ tplStyle || 'default' }}" coupon="{{ item }}" status="used" config="{{config}}"/>
+  		<couponList wx:if="{{ item.status == 5 }}" coupon="{{ item }}" status="used"/>
   		<!-- 已使用 -->
-  		<couponList wx:if="{{ item.status == 3 }}" tplStyle="{{ tplStyle || 'default'}}" coupon="{{ item }}" status="expired" config="{{config}}"/>
+  		<couponList wx:if="{{ item.status == 3 }}" coupon="{{ item }}" status="expired"/>
   		<!-- 已过期 -->
   		</view>
 	</view>

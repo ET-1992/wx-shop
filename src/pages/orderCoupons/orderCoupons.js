@@ -1,4 +1,3 @@
-import api from 'utils/api';
 const app = getApp();
 import { CONFIG } from 'constants/index';
 
@@ -21,6 +20,7 @@ Page({
 
     // 生命周期函数--监听页面加载
     async onLoad() {
+        const { themeColor } = app.globalData;
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();
@@ -28,18 +28,7 @@ Page({
         this.setData({
             coupons,
             isIphoneX,
-        });
-    },
-
-    onShow() {
-        const { themeColor, homeType } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
-        const { style_type = 'default' } = config;
-        let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
-        this.setData({
-            themeColor,
-            config,
-            tplStyle
+            themeColor
         });
     },
 
