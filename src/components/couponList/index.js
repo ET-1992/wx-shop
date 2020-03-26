@@ -18,13 +18,9 @@ Component({
             type: Boolean,
             value: false,
         },
-        tplStyle: {
+        fromMemberShipPage: {
             type: String,
-            value: 'default',
-        },
-        config: {
-            type: Object,
-            value: {},
+            value: '',
         }
     },
     data: {
@@ -34,11 +30,18 @@ Component({
     },
     lifetimes: {
         attached() {
+            const { fromMemberShipPage } = this.data;
             const config = wx.getStorageSync(CONFIG);
+            const { style_type = 'default' } = config;
             const color = app.globalData.couponBackgroundColor;
+            let tplStyle = color ? 'coupon' : style_type;
+            if (fromMemberShipPage) {
+                tplStyle = 'vip_tpl';
+            }
             this.setData({
                 config,
-                color
+                color,
+                tplStyle
             });
         }
     }

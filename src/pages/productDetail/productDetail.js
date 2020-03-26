@@ -297,17 +297,16 @@ Page({
 
     onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
-        const { style_type = 'default' } = config;
+        const { style_type: tplStyle = 'default' } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
-        const { themeColor, homeType, defineTypeGlobal } = app.globalData;
+        const { themeColor, defineTypeGlobal } = app.globalData;
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         console.log('CART_NUM', typeof CART_NUM, CART_NUM);
-        let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
         this.setData({
             isIphoneX,
             user,

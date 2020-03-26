@@ -1,6 +1,5 @@
 import api from 'utils/api';
 const app = getApp();
-import { CONFIG } from 'constants/index';
 
 Page({
     data: {
@@ -47,15 +46,10 @@ Page({
 
     async onShow() {
         try {
-            const { themeColor, homeType } = app.globalData;
-            const config = wx.getStorageSync(CONFIG);
-            const { style_type = 'default' } = config;
-            let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
+            const { themeColor } = app.globalData;
             this.setData({
                 isLoading: true,
-                themeColor,
-                config,
-                tplStyle
+                themeColor
             });
             this.loadCoupons();
         }
