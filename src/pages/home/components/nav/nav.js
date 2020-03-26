@@ -1,3 +1,5 @@
+const app = getApp();
+
 Component({
     properties: {
         nav: {
@@ -15,6 +17,11 @@ Component({
                 });
             }
         }
+    },
+
+    attached() {
+        const { tabbarPages } = app.globalData;
+        this.setData({ tabbarPages });
     },
 
     methods: {
