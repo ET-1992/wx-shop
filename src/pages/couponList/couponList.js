@@ -2,8 +2,8 @@ import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
 import { autoNavigate } from 'utils/util';
 import { CONFIG } from 'constants/index';
-
 const app = getApp();
+
 Page({
     data: {
         coupons: [],
@@ -11,10 +11,11 @@ Page({
     },
 
     async onLoad(params) {
-        console.log('params', params); // {tplStyle: "vip"}
+        console.log('params', params); // {fromMemberShipPage: 'true'}
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        if (params.tplStyle === 'vip') { // 会员模板
+        const { style_type: tplStyle = 'default' } = config;
+        if (params.fromMemberShipPage) { // 会员模板
             wx.setNavigationBarTitle({
                 title: '会员优惠券'
             });
@@ -23,24 +24,14 @@ Page({
                 backgroundColor: '#333',
             });
             this.setData({
-                themeColor,
                 tplStyle: 'vip_tpl',
-                config
+                fromMemberShipPage: !!params.fromMemberShipPage
             });
             this.loadCoupon('vip');
         } else {
-            if (params.tplStyle === 'coupon') { // 新首页优惠券模板
-                this.setData({ tplStyle: 'coupon', color: params.color });
-            } else {
-                const { style_type: tplStyle = 'default' } = config;
-                this.setData({ tplStyle });
-            }
-            this.setData({
-                themeColor,
-                config
-            });
-            this.loadCoupon();
+            this.setData({ tplStyle }, () => { this.loadCoupon() });
         }
+        this.setData({ themeColor, config });
         console.log('this.data', this.data);
     },
 

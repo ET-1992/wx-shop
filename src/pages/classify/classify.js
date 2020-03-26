@@ -108,7 +108,9 @@ Page({
             products: productData.products,
             current_page,
             total_pages: productData.total_pages,
-            hasProducts: false
+            hasProducts: false,
+            share_image: productData.share_image,
+            share_title: productData.share_title,
         });
 
         this.setDefinePrice();

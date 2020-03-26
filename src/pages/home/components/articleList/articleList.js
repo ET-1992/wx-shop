@@ -1,4 +1,4 @@
-import { go, autoNavigate_ } from 'utils/util';
+import { autoNavigate_ } from 'utils/util';
 
 Component({
     properties: {
@@ -6,7 +6,7 @@ Component({
             type: Object,
             value: {},
             observer(newVal) {
-                console.log(newVal, 'ddd')
+                console.log(newVal, 'ddd');
                 if (!newVal) { return }
                 const { content, setting, title, type, id } = newVal;
                 this.setData({
@@ -29,10 +29,9 @@ Component({
     },
 
     methods: {
-        go,
         goMore() {
-            const { article_category_id = '', orderby = ''} = this.data.setting;
-            autoNavigate_({ url: '/pages/articleList/articleList?categoryId=' + article_category_id + '&orderby=' + orderby});
+            const { article_category_id = '', orderby = '' } = this.data.setting;
+            autoNavigate_({ url: '/pages/articleList/articleList?categoryId=' + article_category_id + '&orderby=' + orderby });
         }
     }
 });

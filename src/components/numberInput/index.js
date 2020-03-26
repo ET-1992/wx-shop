@@ -31,9 +31,12 @@ Component({
             value: 0,
             observer(newValue) {
                 if (newValue) {
-                    this.setData({
-                        value: newValue
-                    })
+                    const { value } = this.data;
+                    if (value < newValue) {
+                        this.setData({
+                            value: newValue
+                        })
+                    }
                 }
             }
         }

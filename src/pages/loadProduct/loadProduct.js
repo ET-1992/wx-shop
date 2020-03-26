@@ -39,7 +39,9 @@ Page({
         this.setData({
             products: newProducts,
             next_cursor: data.next_cursor,
-            isLoading: false
+            isLoading: false,
+            share_image: data.share_image,
+            share_title: data.share_title
         });
         return data;
     },

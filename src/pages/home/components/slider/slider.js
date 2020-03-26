@@ -1,3 +1,5 @@
+const app = getApp();
+
 Component({
     properties: {
         slide: {
@@ -22,6 +24,10 @@ Component({
     },
     data: {
         swiperCurrent: 0
+    },
+    attached() {
+        const { tabbarPages } = app.globalData;
+        this.setData({ tabbarPages });
     },
     methods: {
         swiperChange(e) {

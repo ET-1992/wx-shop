@@ -64,7 +64,7 @@ $footerHeight: 100rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #eee;
+	// background: #eee;
 	z-index: 2;
 	border-top: 1px solid #eee;
 	padding: 20rpx 0;
@@ -74,13 +74,13 @@ $footerHeight: 100rpx;
 	}
 
 	.cofirmBt {
-		width: 240rpx;
-		height: 60rpx;
-		line-height: 60rpx;
-		font-size: 9pt;
+		width: 650rpx;
+		height: 90rpx;
+		line-height: 90rpx;
+		font-size: 30rpx;
 		color: #fff;
-		border-radius: 5rpx;
 		background-color: $couponMainColor;
+		border-radius: 10rpx;
 	}
 }
 

@@ -12,7 +12,7 @@
 	</view>
 	<view class="couponList">
 	    <view class="couponItemWrapper" wx:for="{{ coupons[selectedStatus] }}" wx:key="id" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
-	      <couponList tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{ selectedStatus === 'available' }}" isSelected="{{ coupons.recommend.id === item.id }}" config="{{config}}"/>
+	      <couponList coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{ selectedStatus === 'available' }}" isSelected="{{ coupons.recommend.id === item.id }}"/>
 	    </view>
 	</view>
 	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">

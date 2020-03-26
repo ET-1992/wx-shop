@@ -3,15 +3,15 @@
 <view class="couponsList" wx:if="{{ !isLoading && coupons.length}}">
   <view class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" bindtap="onCouponClick" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}">
     <!-- 未领取 -->
-    <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="receivable" config="{{config}}" color="{{ color }}"/>
+    <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable"  fromMemberShipPage="{{fromMemberShipPage}}"/>
     <!-- 已领取 -->
-    <couponList wx:if="{{ item.status == 4 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="received" config="{{config}}" color="{{ color }}"/>
+    <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" fromMemberShipPage="{{fromMemberShipPage}}"/>
     <!-- 已抢光 -->
-    <couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="nullCoupon" config="{{config}}" color="{{ color }}"/>
+    <couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" coupon="{{ item }}" status="nullCoupon"  fromMemberShipPage="{{fromMemberShipPage}}"/>
     <!-- 已使用 -->
-    <couponList wx:if="{{ item.status == 5 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="used" config="{{config}}" color="{{ color }}"/>
+    <couponList wx:if="{{ item.status == 5 }}" coupon="{{ item }}" status="used" fromMemberShipPage="{{fromMemberShipPage}}"/>
     <!-- 已过期 -->
-    <couponList wx:if="{{ item.status == 3 }}" tplStyle="{{ tplStyle }}" coupon="{{ item }}" status="expired" config="{{config}}" color="{{ color }}"/>
+    <couponList wx:if="{{ item.status == 3 }}" coupon="{{ item }}" status="expired" fromMemberShipPage="{{fromMemberShipPage}}"/>
   </view>
   <view class="viewProduct" bind:tap="navigateToHome" wx:if="{{ tplStyle === 'vip_tpl' }}" style="background-color: #333"> 立即使用 </view>
   <view class="viewProduct" bind:tap="navigateToHome" wx:if="{{ tplStyle !== 'vip_tpl' }}" style="background-color: {{ themeColor.primaryColor }}"> 立即使用 </view>

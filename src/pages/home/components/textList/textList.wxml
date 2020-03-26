@@ -5,12 +5,24 @@
             <image class="item-icon-img" mode="aspectFit" src="/icons/instructions.png" wx:if="{{ setting.icon === 'yes' }}"></image>
             <image class="item-icon-img" mode="aspectFit" src="/icons/love.png" wx:if="{{ setting.icon === 'heart'}}"></image>
             <navigator
+                wx:if="{{ item.type !== 'contact' }}"
                 class="link-text"
                 app-id="{{ item.appid }}"
                 path="{{ item.path }}"
                 target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
                 url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
-                >{{ item.text }}</navigator>
+                >
+                {{ item.text }}
+            </navigator>
+            <button
+                wx:if="{{ item.type === 'contact' }}"
+                class="link-text btn"
+                bindtap="{{ item.tips ? 'showContactModal' : ''}}"
+                data-tips="{{ item.tips }}"
+                open-type="{{ !item.tips ? 'contact' : ''}}"
+                session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
+                hover-class="none"
+            >{{ item.text }}</button>
         </view>
     </view>
 </view>

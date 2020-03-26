@@ -34,7 +34,7 @@
 			</button>
 
 			<!-- 其他 -->
-			<navigator wx:else url="{{ item.path }}" class="categoryItem" >
+			<navigator wx:else url="{{ item.path }}" class="categoryItem"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" >
 				<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
 			</navigator>
 		

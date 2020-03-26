@@ -11,14 +11,16 @@ Page({
 
     async onLoad({ key }) {
         console.log({ key });
-        const { image_url, title = '规则页' }  = await api.hei.getShopRule({ key });
+        const { image_url, title = '规则页', share_title, share_image }  = await api.hei.getShopRule({ key });
         wx.setNavigationBarTitle({
             title,
         });
         this.setData({
             image_url,
             title,
-            isLoading: false
+            isLoading: false,
+            share_title,
+            share_image
         });
     },
 

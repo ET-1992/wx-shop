@@ -135,7 +135,7 @@ Page({
                     next_cursor: 0
                 });
             }
-
+            app.globalData.couponBackgroundColor = '';
             this.setData({
                 userCoupon: coupons_home,
                 home_type,
@@ -152,6 +152,11 @@ Page({
                 timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
                 products = content;
             }
+            const couponArray = modules.filter(item => {
+                return item.type === 'coupon';
+            });
+            console.log('Home-couponArray', couponArray);
+            app.globalData.couponBackgroundColor = couponArray && couponArray[0] && couponArray[0].setting.color;
             this.setData({
                 products,
                 module_page,
@@ -185,7 +190,7 @@ Page({
 
     async onLoad(options) {
         console.log('onLoad');
-        const { themeColor, partner = {}} = app.globalData;
+        const { themeColor, partner = {}, tabbarPages} = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -194,6 +199,7 @@ Page({
             themeColor,
             isIphoneX,
             userInfo,
+            tabbarPages,
             globalData: app.globalData
         });
     },
@@ -211,7 +217,7 @@ Page({
             logoObj: config.partner
         });
     },
-    // 旧首页 领取优惠券
+    // 领取优惠券
     async onReceiveCoupon(id, index) {
         const { userCoupon } = this.data;
         console.log('第' + index + '个');

@@ -1,4 +1,5 @@
 import api from 'utils/api';
+const app = getApp();
 import { showToast } from 'utils/wxp';
 import { getAgainUserForInvalid } from 'utils/util';
 

@@ -69,6 +69,7 @@
                 style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
                 hover-class="none"
                 bindfail="miniFail"
+                open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
               ></navigator>
               <button 
                 wx:if="{{ item.type === 'contact' }}"
@@ -96,7 +97,9 @@
         target="{{ announcement.type === 'mini_program' ? 'miniProgram' : '' }}"
         url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
         class="announcement"
-            bindfail="miniFail">
+        bindfail="miniFail"
+        open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
+      >
         <image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
         <view class="marquee">
           <view class="content" style="animation-duration: {{ second }}s; font-size: {{size * 2}}rpx;">
@@ -305,7 +308,7 @@
                 <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
               </button>
 
-              <navigator wx:else url="{{ item.path }}" class="categoryItem" >
+              <navigator wx:else url="{{ item.path }}" class="categoryItem"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}">
                 <image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
               </navigator>
               <view class="categoryTitle">{{item.title}}</view>
