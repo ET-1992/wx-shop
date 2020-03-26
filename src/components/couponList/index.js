@@ -1,4 +1,4 @@
-import { CONFIG, COLOR } from 'constants/index';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 Component({
     properties: {
@@ -29,12 +29,13 @@ Component({
     },
     data: {
         globalData: app.globalData,
-        config: null
+        config: null,
+        color: ''
     },
     lifetimes: {
         attached() {
             const config = wx.getStorageSync(CONFIG);
-            const color = wx.getStorageSync(COLOR);
+            const color = app.globalData.couponBackgroundColor;
             this.setData({
                 config,
                 color

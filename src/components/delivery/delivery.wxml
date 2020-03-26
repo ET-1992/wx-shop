@@ -9,7 +9,7 @@
 			<view class="left">收件地址</view>
 			<view class="right" wx:if="{{ !isOrderDetail }}">
 				<view class="text">修改</view>
-				<van-icon name="arrow" color="#999999"/>
+				<van-icon name="arrow" color="#999999" size="10"/>
 			</view>
 		</view>
 		<view class="address-info">

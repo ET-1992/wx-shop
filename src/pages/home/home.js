@@ -150,6 +150,12 @@ Page({
                 timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
                 products = content;
             }
+            const couponArray = modules.filter(item => {
+                return item.type === 'coupon';
+            });
+            console.log('Home-couponArray', couponArray);
+            app.globalData.couponBackgroundColor = couponArray && couponArray[0] && couponArray[0].setting.color;
+            app.globalData.homeType = 'new';
             this.setData({
                 products,
                 module_page,
@@ -210,7 +216,7 @@ Page({
             logoObj: config.partner
         });
     },
-    // 旧首页 领取优惠券
+    // 领取优惠券
     async onReceiveCoupon(id, index) {
         const { userCoupon } = this.data;
         console.log('第' + index + '个');

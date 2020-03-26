@@ -14,7 +14,18 @@ Component({
                     id
                 });
             }
+        },
+        userInfo: {
+            type: Object,
+            value: {}
         }
     },
+    methods: {
+        showContactModal(e) {
+            this.triggerEvent('showContactModal', e, {
+                bubbles: true
+            });
+        }
+    }
 });
 

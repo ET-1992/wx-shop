@@ -40,8 +40,8 @@
 				</view>
 			</view>
 		</view>
-		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCoupon.png'}}" wx:if="{{ status === 'receivable' }}" />
-		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCouponReceived.png'}}" wx:if="{{ status === 'available' || status === 'received' }}" />
-		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCouponOut.png'}}" wx:if="{{ status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable'}}" />
+		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCoupon.png'}}" wx:if="{{ color && status === 'receivable' }}" />
+		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCouponReceived.png'}}" wx:if="{{ color && (status === 'available' || status === 'received') }}" />
+		<image class="bg" src="{{ config.cdn_host + '/shop/coupon/' + color + '/longCouponOut.png'}}" wx:if="{{ color && (status === 'used' || status === 'expired' || status === 'nullCoupon' || status === 'unavailable')}}" />
 	</view>
 </view>

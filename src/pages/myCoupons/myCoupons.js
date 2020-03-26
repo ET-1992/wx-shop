@@ -47,16 +47,17 @@ Page({
 
     async onShow() {
         try {
-            const { themeColor } = app.globalData;
+            const { themeColor, homeType } = app.globalData;
             const config = wx.getStorageSync(CONFIG);
-            const { style_type: tplStyle = 'default' } = config;
+            const { style_type = 'default' } = config;
+            let tplStyle = (homeType === 'new') ? 'coupon' : style_type;
             this.setData({
                 isLoading: true,
                 themeColor,
-                tplStyle,
-                config
+                config,
+                tplStyle
             });
-            await this.loadCoupons();
+            this.loadCoupons();
         }
         catch (err) {
             console.log(err);
