@@ -452,7 +452,7 @@
 						<image src="../../icons/noCoupon.svg"></image>
 						<view>暂无可领取优惠券</view>
 					</view>
-					<view
+					<button
 					 wx:if="{{ receivableCoupons.length }}"
 					 class="couponItemWrapper"
 					 wx:for="{{ receivableCoupons }}"
@@ -461,7 +461,8 @@
 					 data-status="{{ item.status }}"
 					 data-title="{{ item.title }}"
 					 data-index="{{ index }}"
-					 catchtap="onCouponClick"
+					 open-type="getUserInfo"
+					 bindgetuserinfo="bindGetCoupon"
 					>
 						<couponList
 						 wx:if="{{ item.status == 2 && item.stock_qty }}"
@@ -477,7 +478,7 @@
 						 config="{{config}}"
 						/>
 						<!-- 已领取 -->
-					</view>
+					</button>
 					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
 						<view class="couponListTitle">已领取优惠券</view>
 						<navigator
