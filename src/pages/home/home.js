@@ -154,7 +154,7 @@ Page({
                 return item.type === 'coupon';
             });
             console.log('Home-couponArray', couponArray);
-            app.globalData.couponBackgroundColor = couponArray && couponArray[0] && couponArray[0].setting.color;
+            app.globalData.couponBackgroundColor = (couponArray && couponArray[0] && couponArray[0].setting.color) || 'orange';
             this.setData({
                 products,
                 module_page,
