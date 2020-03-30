@@ -1,5 +1,4 @@
 import getRemainTime from 'utils/getRemainTime';
-import { HOST_TEMPLATE } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -119,7 +118,6 @@ Component({
         }
     },
     data: {
-        HOST_TEMPLATE,
         nowTS: Date.now() / 1000,
         remainTime: {
             hour: '00',

@@ -23,7 +23,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {} } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -33,6 +33,9 @@ App({
         if (styleTypeTest.indexOf(styleType) < 0) {
             styleType = 'default';
         }
+
+        // 米白模板
+        let isMibaiTemplate = true;
 
         this.globalData = Object.assign(this.globalData, {
             themeColor: { primaryColor, secondaryColor, backgroundColor },
@@ -44,7 +47,8 @@ App({
             authorizer,
             currency,
             CURRENCY,
-            tabbarPages
+            tabbarPages,
+            isMibaiTemplate: isMibaiTemplate || false,
         });
 
         this.vip = vip;

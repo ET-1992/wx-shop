@@ -344,38 +344,40 @@
 		<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
 		<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
 		<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
-			<view class="footer-wrapper">
-				<!-- 首页 -->
+			<view class="footer-left">
 				<view class="shop" data-url="/pages/home/home" bind:tap="go">
-					<image class="icon" src="/icons/store.png" />
-					<!-- <text>店铺</text> -->
-					<view>首页</view>
+					<image class="icon" src="../../icons/store.png" />
+					<text>店铺</text>
 				</view>
-				<!-- 收藏 -->
-				<view class="fav" bindtap="toggleFavProduct">
+				<!-- 米白收藏按钮 -->
+				<view class="fav" bindtap="toggleFavProduct" wx:if="{{ globalData.isMibaiTemplate }}">
 					<image class="icon" src="{{ product.is_faved ? '/icons/mibai/faved.png' : '/icons/mibai/disfav.png' }}" />
-					<view class="{{ product.is_faved ? 'fav-text' : ''}}">
+					<view class="text {{ product.is_faved ? 'fav-text' : ''}}">
 					{{ product.is_faved ? '已收藏' : '收藏' }}
 					</view>
 				</view>
+				<!-- 状态栏左侧购物车、客服 -->
+				<block wx:else>
+					<view class="cart" data-url="/pages/cart/cart" bind:tap="go">
+						<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
+						<image class="icon" src="../../icons/shopcart.png" />
+						<text>购物车</text>
+					</view>
+					<button
+						open-type="contact"
+						send-message-title="{{product.title}}"
+						send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
+						send-message-img="{{product.thumbnail}}"
+						show-message-card="{{true}}"
+						class="cart"
+						session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
+						>
+						<image class="icon" src="../../icons/context.png" />
+						<text>客服</text>
+					</button>
+				</block>
 			</view>
-			<!-- <view class="cart" data-url="/pages/cart/cart" bind:tap="go">
-				<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
-				<image class="icon" src="../../icons/shopcart.png" />
-				<text>购物车</text>
-			</view>
-			<button
-				open-type="contact"
-				send-message-title="{{product.title}}"
-				send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
-				send-message-img="{{product.thumbnail}}"
-				show-message-card="{{true}}"
-				class="cart"
-				session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
-				>
-				<image class="icon" src="../../icons/context.png" />
-				<text>客服</text>
-			</button> -->
+
 			<!-- 团购 -->
 			<block wx:if="{{ product.groupon_enable && !grouponId }}">
 				<view

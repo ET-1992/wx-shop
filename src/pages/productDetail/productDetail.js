@@ -409,7 +409,7 @@ Page({
         }
     },
 
-    // 收藏商品与否逻辑
+    // 收藏商品
     async toggleFavProduct() {
         let { product } = this.data;
 

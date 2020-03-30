@@ -988,47 +988,37 @@ button {
 		text-align: center;
 		background-color: #fff;
 		width: 100%;
-	}
 
-	.footer-wrapper {
-		display: flex;
-		flex: 1;
-		padding: 0 20rpx;
-
-		.shop,
-		.cart,
-		.fav {
-			font-size: 24rpx;
-			background: #fff;
-			position: relative;
-			left: 0;
-			top: 0;
+		.footer-left {
 			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			flex-grow: 1;
-			
-			text{
-				color: #333;
-				line-height: 1.5;
+			.shop,
+			.cart,
+			.fav {
+				flex-grow: 1;
+				width: 100rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				font-size: 8pt;
+				background: #fff;
+				position: relative;
+				left: 0;
+				top: 0;
+
+				text,.text{
+					color: #333;
+					line-height: 1.5;
+				}
 			}
-	
-			.fav-text {
-				color: $shareColor;
-			}
-	
+
 			.icon {
-				$size: 48rpx;
+				$size: 40rpx;
 				width: $size;
 				height: $size;
 				display: block;
-				margin-bottom: 5rpx;
+				margin-bottom: 10rpx;
 			}
-		}
-
-		.fav {
-			width: 90rpx;
 		}
 	}
 

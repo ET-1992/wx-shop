@@ -1,7 +1,7 @@
 
 <!-- tplStyleSeven -->
 <!-- 新增-米白默认 -->
-<view class="tplStyleSeven" wx:if="{{ HOST_TEMPLATE === 'MIBAI' && tplStyle === 'default'}}">
+<view class="tplStyleSeven" wx:if="{{ globalData.isMibaiTemplate && tplStyle === 'default'}}">
     <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleSeven/productLayout/topImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleSeven/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/tplStyleSeven/productLayout/rightImage.wxml"/>
