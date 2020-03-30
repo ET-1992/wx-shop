@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG, ADDRESS_KEY } from 'constants/index';
+import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
 import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
@@ -60,7 +60,8 @@ Page({
         posterType: 'product',
 
         areaObj: {},
-        isShowAreaModal: false
+        isShowAreaModal: false,
+        PLATFFORM_ENV,
     },
 
     go, // 跳转到规则详情页面
