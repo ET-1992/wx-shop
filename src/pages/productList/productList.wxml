@@ -23,7 +23,7 @@
 	<!-- 非会员商品 -->
 	<block wx:else>
 		<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" />
-		<filterList class="filterList" filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" />
+		<filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
 		<view class="container">
 			<loading isLoading="{{ isLoading }}"/>
 			<view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">

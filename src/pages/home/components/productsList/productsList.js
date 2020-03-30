@@ -50,18 +50,19 @@ Component({
 
     methods: {
         goMore() {
-            const { setting, id } = this.data;
+            const { setting = {}, id } = this.data;
+            const { orderby, product_category_id } = setting;
             if (setting.promotion_type === 'groupon_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id });
+                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }
             if (setting.promotion_type === 'bargain_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id });
+                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }
             if (setting.promotion_type === 'miaosha_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id });
+                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }
             if (!setting.promotion_type) {
-                autoNavigate_({ url: '/pages/loadProduct/loadProduct?module_id=' + id });
+                autoNavigate_({ url: '/pages/productList/productList?module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }
         }
     }
