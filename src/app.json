@@ -11,45 +11,45 @@
 	],
 	"window": {
 		"backgroundTextStyle": "light",
-		"navigationBarBackgroundColor": "#fff",
-		"navigationBarTextStyle": "black",
-		"backgroundColor": "#f4f4f4"
+		"backgroundColor": "#f4f4f4",
+		"navigationBarBackgroundColor": "#729153",
+		"navigationBarTextStyle": "white"
 	},
 	"tabBar": {
 		"color": "#a39896",
-		"selectedColor": "#45424e",
 		"backgroundColor": "#fff",
 		"borderStyle": "black",
+		"selectedColor": "#45424e",
 		"list": [
 			{
 				"pagePath": "pages/home/home",
-				"iconPath": "icons/mebxy_default/home.png",
+				"iconPath": "icons/default/home.png",
 				"text": "首页",
-				"selectedIconPath": "icons/mebxy_default/homeSelected.png"
+				"selectedIconPath": "icons/default/homeSelected.png"
 			},
 			{
 				"pagePath": "pages/category/category",
-				"iconPath": "icons/mebxy_default/classify.png",
+				"iconPath": "icons/default/category.png",
 				"text": "分类",
-				"selectedIconPath": "icons/mebxy_default/classifySelected.png"
+				"selectedIconPath": "icons/default/categorySelected.png"
 			},
 			{
 				"pagePath": "pages/articleList/articleList",
-				"iconPath": "icons/mebxy_default/articleList.png",
+				"iconPath": "icons/default/articleList.png",
 				"text": "格物",
-				"selectedIconPath": "icons/mebxy_default/articleListSelected.png"
+				"selectedIconPath": "icons/default/articleListSelected.png"
 			},
 			{
-				"pagePath": "pages/productList/productList",
-				"iconPath": "icons/mebxy_default/oneCategoryList.png",
-				"text": "商城",
-				"selectedIconPath": "icons/mebxy_default/oneCategoryListSelected.png"
+				"pagePath": "pages/cart/cart",
+				"iconPath": "icons/default/cart.png",
+				"text": "购物车",
+				"selectedIconPath": "icons/default/cartSelected.png"
 			},
 			{
 				"pagePath": "pages/me/me",
-				"iconPath": "icons/mebxy_default/me.png",
+				"iconPath": "icons/default/me.png",
 				"text": "我",
-				"selectedIconPath": "icons/mebxy_default/meSelected.png"
+				"selectedIconPath": "icons/default/meSelected.png"
 			}
 		]
 	},
