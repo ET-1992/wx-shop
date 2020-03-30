@@ -509,6 +509,20 @@ Page({
         }
     },
 
+    async bindGetCoupon(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
     async onCouponClick(ev) {
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
