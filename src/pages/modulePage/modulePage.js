@@ -68,7 +68,7 @@ Page({
     },
 
     async loadHome() {
-		const { id } = this.data;
+        const { id } = this.data;
         this.loadHomeExtra();
         this.setData({
             isLoading: true,
@@ -84,7 +84,7 @@ Page({
                 title: page_title,
             });
         }
-
+        app.globalData.couponBackgroundColor = '';
 
         if (home_type === 'new') {
             let timestamp = 0;
@@ -93,7 +93,12 @@ Page({
                 const { content = [] } =  modules[modules.length - 1];
                 timestamp = content[content.length - 1].timestamp;
                 products = content;
-			}
+            }
+            const couponArray = modules.filter(item => {
+                return item.type === 'coupon';
+            });
+            console.log('Home-couponArray', couponArray);
+            app.globalData.couponBackgroundColor = couponArray && couponArray[0] && couponArray[0].setting.color;
             this.setData({
                 products,
                 module_page,
@@ -106,7 +111,6 @@ Page({
                 next_cursor: timestamp
             });
         }
-
     },
 
 
@@ -120,8 +124,8 @@ Page({
             themeColor,
             isIphoneX,
             userInfo,
-			globalData: app.globalData,
-			id
+            globalData: app.globalData,
+            id
         }, this.loadHome);
     },
 
