@@ -147,8 +147,9 @@
           <view class="section" wx:if="{{ articles && articles.length }}">
             <view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
             <navigator class="m-list" wx:for="{{ articles }}" wx:key="id" url="/pages/articleDetail/articleDetail?id={{ item.id }}">
-                <template is="articleItem" data="{{ article: item, articleBannerHeight: module.height }}"  wx:if="{{ tplStyle !== 'default' }}" />
-                <template is="articlePage" data="{{ article: item}}" wx:if="{{ tplStyle === 'default' }}" />
+                <!-- <template is="articleItem" data="{{ article: item, articleBannerHeight: module.height }}"  wx:if="{{ tplStyle !== 'default' }}" /> -->
+                <!-- <template is="articlePage" data="{{ article: item}}" wx:if="{{ tplStyle === 'default' }}" /> -->
+                <template is="articlePage" data="{{ article: item}}" />
             </navigator>
             <view class="sectionMore" wx:if="{{articles.length >1}}" bindtap="go" data-url="/pages/articleList/articleList">
               <form bindsubmit="submitFormId" report-submit="true">
@@ -296,7 +297,7 @@
         </view>
         <!-- 魔方 -->
         <view wx:if="{{ module.type === 'cube' }}" class="cube">
-          <magicImg tplStyle="{{ tplStyle }}" magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
+          <magicImg tplStyle="{{ tplStyle !== 'vip_tpl_seven' ? tplStyle : 'default'  }}" magicImgData="{{ cubes[module.key] }}" isMarginTopZero="{{ (modules[index-1] && modules[index-1].type === 'cube') && !modules[index-1].spacing && !module.spacing && !module.title  }}" />
         </view>
       </view>
     </view>

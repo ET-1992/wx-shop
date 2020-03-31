@@ -34,9 +34,6 @@ App({
             styleType = 'default';
         }
 
-        // 米白模板
-        let isMibaiTemplate = true;
-
         this.globalData = Object.assign(this.globalData, {
             themeColor: { primaryColor, secondaryColor, backgroundColor },
             categoryIndex,
@@ -48,7 +45,6 @@ App({
             currency,
             CURRENCY,
             tabbarPages,
-            isMibaiTemplate: isMibaiTemplate || false,
         });
 
         this.vip = vip;
