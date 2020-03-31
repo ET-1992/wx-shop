@@ -367,8 +367,8 @@ Page({
         }
 
         if (home_type === 'new') {
-            const { modules } = this.data;
-            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {
+            const { modules, module_page } = this.data;
+            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date' && module_page.infinite_loading) {
                 this.showProducts();
             }
         }
