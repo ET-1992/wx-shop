@@ -3,21 +3,29 @@ import { auth, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
 
 const app = getApp();
+const QQMapWX = require('qqmap-wx-jssdk');
+let qqmapsdk = new QQMapWX({
+    key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H'
+});
 
 Page({
     data: {
         isLoading: true,
-        type: ''
+        type: '',
+        target_latitude: 0,  // 收货地址维度
+        target_longitude: 0 // 收货地址经度
     },
 
     onLoad(params) {
         console.log(params.type);
         console.log(typeof (params.type));
         const { themeColor } = app.globalData;
+        const user_address = wx.getStorageSync('address');
         this.setData({
             type: params.type,
             themeColor,
-            globalData: app.globalData
+            globalData: app.globalData,
+            user_address
         });
     },
 
@@ -40,11 +48,11 @@ Page({
                     const { address_list } = await api.hei.liftList();
                     this.computeDistance(address_list, latitude, longitude);
                 } else if (type === '4') {
-                    wx.setNavigationBarTitle({
-                        title: '门店列表'
-                    });
+                    wx.setNavigationBarTitle({ title: '门店列表' });
                     const { address_list } = await api.hei.orderHomeDelivery({ type: 'home_delivery' });
-                    this.computeDistance(address_list, latitude, longitude);
+                    this.setData({ address_list }, () => {
+                        this.computeGeocoder();
+                    });
                 }
 
                 this.setData({
@@ -86,6 +94,32 @@ Page({
 
         this.setData({ address_list });
         console.log('address_list', address_list);
+    },
+
+    computeGeocoder() {
+        const { user_address } = this.data;
+        const addressDetail = `${user_address.provinceName}${user_address.cityName}${user_address.countyName}${user_address.detailInfo}`;
+        console.log('addressDetail', addressDetail);
+        let _this = this;
+        qqmapsdk.geocoder({
+            // 获取表单传入地址
+            address: addressDetail, // 地址参数，例：固定地址，address: '北京市海淀区彩和坊路海淀西大街74号'
+            success(res) {
+                console.log('res', res);
+                const { lat: latitude, lng: longitude } = res.result.location;
+                // 根据地址解析在地图上标记解析地址位置
+                _this.setData({
+                    target_latitude: latitude,
+                    target_longitude: longitude
+                }, () => {
+                    console.log('target_latitude', _this.data.target_latitude, 'target_longitude', _this.data.target_longitude);
+                    _this.computeDistance(_this.data.address_list, _this.data.target_latitude, _this.data.target_longitude);
+                });
+            },
+            fail(err) {
+                console.log('err', err);
+            }
+        });
     },
 
     getLiftInfo(e) {

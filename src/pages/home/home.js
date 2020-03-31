@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
+import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
@@ -187,8 +187,14 @@ Page({
         }
     },
 
-    async onLoad(options) {
-        console.log('onLoad');
+    async onLoad({ goPath }) {
+        console.log(goPath, 'onLoad');
+
+        if (goPath) {
+            autoNavigate_({
+                url: decodeURIComponent(goPath)
+            })
+        }
         const { themeColor, partner = {}, tabbarPages } = app.globalData;
         this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
@@ -368,8 +374,8 @@ Page({
         }
 
         if (home_type === 'new') {
-            const { modules } = this.data;
-            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date') {
+            const { modules, module_page } = this.data;
+            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date' && module_page.infinite_loading) {
                 this.showProducts();
             }
         }
@@ -410,15 +416,6 @@ Page({
     touchmove() {
         console.log('点击穿透阻止');
         return;
-    },
-
-    miniFail(e) {
-        console.log('miniFail', e);
-        // const { errMsg } = e.detail;
-        // wx.showModal({
-        //     title: '温馨提示',
-        //     content: errMsg,
-        // });
     },
 
     //  新首页 快捷导航 与 幻灯片 客服对话框显示

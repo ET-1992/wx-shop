@@ -14,11 +14,12 @@ Page({
         share_title: '',
         post_type_title: '',
         taxonomy_title: '',
-        isLoading: true
+        isLoading: true,
+        current_page: 1
     },
 
     async loadProducts() {
-        const { next_cursor, categoryId, isRefresh, products, type, module_id } = this.data;
+        let { categoryId, isRefresh, products, type, current_page } = this.data;
         let promotion_type = 'miaosha_enable';
         if (type === 'bargain') {
             promotion_type = 'bargain_enable';
@@ -30,26 +31,27 @@ Page({
             promotion_type = 'groupon_enable';
         }
         const data = await api.hei.fetchProductList({
-            cursor: next_cursor,
             promotion_type: promotion_type,
-            module_id
+            current_page
         });
-        console.log('miaoshaListdata', data);
+        current_page++;
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         wx.setNavigationBarTitle({
             title: data.page_title
         });
+        const { miaosha_banner, seckill_banner, bargain_banner, groupon_banner, total_pages, share_image, share_title } = data;
         this.setData({
             products: newProducts,
             isRefresh: false,
-            next_cursor: data.next_cursor,
-            miaosha_banner: data.miaosha_banner,
-            seckill_banner: data.seckill_banner,
-            bargain_banner: data.bargain_banner,
-            groupon_banner: data.groupon_banner,
+            miaosha_banner,
+            seckill_banner,
+            bargain_banner,
+            groupon_banner,
+            total_pages,
             isLoading: false,
-            share_image: data.share_image,
-            share_title: data.share_title
+            share_image,
+            share_title,
+            current_page
         });
         return data;
     },
@@ -71,16 +73,16 @@ Page({
     async onPullDownRefresh() {
         this.setData({
             isRefresh: true,
-            next_cursor: 0,
-            isLoading: true
+            isLoading: true,
+            current_page: 1
         });
         await this.loadProducts();
         wx.stopPullDownRefresh();
     },
 
     async onReachBottom() {
-        const { next_cursor } = this.data;
-        if (!next_cursor) { return }
+        const { current_page, total_pages } = this.data;
+        if (current_page >= total_pages) { return }
         this.loadProducts();
     },
 

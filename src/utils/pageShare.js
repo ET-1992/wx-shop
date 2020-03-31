@@ -24,7 +24,7 @@ export const onShareHomeAppMessage = () => {
     };
 };
 // 全页面分享
-export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
+export const onDefaultShareAppMessage = function (params = {}, path_ = '', jumpPage = '') {
     const { share_title, share_image } = this.data;
     const user = wx.getStorageSync(USER_KEY);
     let { options = {}, route } = this;
@@ -41,7 +41,10 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
             return `${path}${joinSymbol}${key}=${options[key]}`;
         }, path);
     }
-    console.log('pageShare.js/path42', path);
+
+    if (jumpPage) {
+        path = jumpPage + '?goPath=/' + encodeURIComponent(path)
+    }
     const shareMsg = {
         title: share_title,
         path,
@@ -49,7 +52,7 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '') {
     if (share_image) {
         shareMsg.imageUrl = share_image;
     }
-
+    console.log('pageShare.js/path42', path);
     shopShare(path);
     return shareMsg;
 };

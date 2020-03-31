@@ -128,5 +128,7 @@ Page({
         });
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage() {
+        return onDefaultShareAppMessage.call(this, '','','/pages/home/home');
+    },
 });

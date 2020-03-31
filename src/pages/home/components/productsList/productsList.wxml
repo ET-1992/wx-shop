@@ -18,7 +18,7 @@
 		</block>
 	</view>
 	<!-- 更多 -->
-	<view class="sectionMore" wx:if="{{ content.length > 1 && !(isLastModule  && setting.orderby === 'post_date')}}" bind:tap="goMore">
+	<view class="sectionMore" wx:if="{{ setting.more }}" bind:tap="goMore">
 		<view class="moreButton">
 			<span>更多</span>
 			<image class="rightIcon" src="/icons/rightIcon.png" />

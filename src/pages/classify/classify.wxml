@@ -59,7 +59,7 @@
 				<view class="content" wx:if="{{selectedIndex !== -1}}">
 					<view class="contentTop">
            			 	<view class="title">{{categories[selectedIndex].children[subSelectedIndex - 1].name || '全部'}}</view>
-            			<filterList class="filter" filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" />
+            			<filterList class="filter" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
 					</view>
 					<loading isLoading="{{ hasProducts }}" paddingTop="{{70}}"/>
 					<!-- <include src="/templates/homeTemplates/topImage/topImage.wxml"/> -->
