@@ -23,7 +23,7 @@ Component({
                 console.log('newValue15', newValue);
             }
         },
-        address: { // 确认订单数据
+        address: { // 确认订单数据 或者 收货地址
             type: Object,
             value: {},
         }
@@ -40,6 +40,21 @@ Component({
                 index: e.detail.value
             });
         },
+
+        toLiftListPage() {
+            const { address } = this.data;
+            if (address.userName) {
+                wx.navigateTo({
+                    url: '/pages/liftList/liftList?type=4'
+                });
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '请先填写收件地址',
+                    showCancel: false,
+                });
+            }
+        }
     }
 });
 
