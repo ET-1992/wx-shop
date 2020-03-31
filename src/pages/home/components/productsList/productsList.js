@@ -51,7 +51,7 @@ Component({
     methods: {
         goMore() {
             const { setting = {}, id } = this.data;
-            const { orderby, product_category_id } = setting;
+            const { orderby = '', product_category_id = '' } = setting;
             if (setting.promotion_type === 'groupon_enable') {
                 autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }

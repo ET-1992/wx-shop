@@ -52,7 +52,7 @@ Page({
         }
     },
 
-    async onLoad({ categoryId, categoryParent, memberExclusive, orderby }) {
+    async onLoad({ categoryId = '', categoryParent, memberExclusive, orderby }) {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
          
@@ -62,7 +62,6 @@ Page({
         const index = sortText.findIndex(item => item === orderby);
 
         filterData.filterIndex = index > -1 ? index : 0;
-
          this.setData({
              categoryId,
              categoryParent,
