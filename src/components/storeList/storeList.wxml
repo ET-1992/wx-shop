@@ -33,7 +33,7 @@
 		</view>
 	</view>
 
-	<view wx:if="{{ !isOrderDetail && !addresses.name }}" bindtap="toLiftListPage">
+	<navigator wx:if="{{ !isOrderDetail && !addresses.name }}" url="/pages/liftList/liftList?type=4">
 		<view class="storeList-section">
 			<view class="address title">选择门店</view>
 			<view class="arrow-right">
@@ -41,7 +41,7 @@
 				<van-icon name="arrow" color="#FB3838" size="10"/>
 			</view>
 		</view>
-	</view>
+	</navigator>
 
 	<!-- 选择门店配送时间 -->
 	<view wx:if="{{ !isOrderDetail && addresses.name }}" class="receive-time">
