@@ -1,7 +1,7 @@
 <import src="/templates/articleItem/articleItem.wxml"/>
 <import src="/templates/articleItem/articlePage.wxml" />
 
-<view class="default">
+<view class="tplStyleSeven">
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !isLoading }}">
     <navigator class="searchWrapper" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box'}}">
       <view class="search">
