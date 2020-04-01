@@ -1,7 +1,7 @@
 <loading isLoading="{{ isLoading }}" />
 <image wx:if="{{ !isLoading && vendor.image_url }}" class="vendorImage" src="{{ vendor.image_url }}" mode="widthFix" />
 <view class="couponsList" wx:if="{{ !isLoading && coupons.length}}">
-  <button class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" bindgetuserinfo="bindGetUserInfo" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}">
+  <button class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" bindgetuserinfo="bindGetUserInfo" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" open-type="getUserInfo">
     <!-- 未领取 -->
     <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable"  fromMemberShipPage="{{fromMemberShipPage}}"/>
     <!-- 已领取 -->
