@@ -71,21 +71,28 @@ Page({
          });
          await this.loadProducts();
          const { categories = [] } = this.data;
-         const parentCategory = categories[0] || {};
-
-         wx.setNavigationBarTitle({ title: parentCategory.name || (memberExclusive ? '会员商品' : '商品列表') });
-
          let navbarListData = [];
-         parentCategory.children && parentCategory.children.forEach((item) => {
-             navbarListData.push({
-                 text: item.name,
-                 value: item.id
-             });
-         });
-         navbarListData.unshift({ text: '全部', value: parentCategory.id });
-         let activeIndex = navbarListData.findIndex((item) => {
-             return item.value === Number(categoryId);
-         });
+         let activeIndex;
+         let parentCategory = [];
+
+         if (categories.length <= 1) {
+            wx.setNavigationBarTitle({ title: parentCategory.name || (memberExclusive ? '会员商品' : '商品列表') });
+            parentCategory = categories[0] && categories[0].children;
+         } else {
+            wx.setNavigationBarTitle({ title: this.data.page_title || (memberExclusive ? '会员商品' : '商品列表') });
+            parentCategory=categories;
+         }
+
+         parentCategory && parentCategory.forEach((item) => {
+            navbarListData.push({
+                text: item.name,
+                value: item.id
+            });
+        });
+        navbarListData.unshift({ text: '全部', value: parentCategory.id });
+        activeIndex = navbarListData.findIndex((item) => {
+            return item.value === Number(categoryId);
+        });
 
          this.setData({
              themeColor,
