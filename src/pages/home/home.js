@@ -7,7 +7,7 @@ import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUser
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
 
-Page({
+export const pageObj = {
     data: {
         pageName: 'home',
         products: [],
@@ -439,4 +439,6 @@ Page({
     },
 
     go
-});
+}
+
+Page(pageObj);
