@@ -1,5 +1,4 @@
-<loading isLoading="{{ isLoading }}"/>
-
+<loading isLoading="{{ isLoading }}" />
 <block wx:if="{{ home_type === 'old'}}">
     <!-- 模板皮肤 -->
     <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
@@ -13,37 +12,33 @@
 
     <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
-    <service phone="{{ phone }}" customer="{{ customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'/>
+    <service phone="{{ phone }}" customer="{{ customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
     <!-- </block> -->
-
     <!-- 新用户优惠券弹框 -->
     <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 && config.cdn_host }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
-
     <!-- 添加到小程序指引 -->
     <view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
-        <image class="home-guide_img" src="/icons/guide.svg"/>
+        <image class="home-guide_img" src="/icons/guide.svg" />
     </view>
-
     <!-- 自定义弹窗 -->
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
-
 <block wx:if="{{ home_type === 'new'}}">
     <view class="container" wx:if="{{ !isLoading }}">
         <!-- 搜索框 -->
-        <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" themeColor="{{ themeColor }}"/>
-        <view class="{{ module_page.search_box ? 'main': '' }}" >
-            <view wx:for="{{ modules }}" wx:key="key" >
+        <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" themeColor="{{ themeColor }}" />
+        <view class="{{ module_page.search_box ? 'main': '' }}">
+            <view wx:for="{{ modules }}" wx:key="key">
                 <!-- 幻灯片 -->
-                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal"/>
+                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
                 <!-- 简单文本 -->
-                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal"/>
+                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
                 <!-- 文本列表 -->
-                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}"  bindshowContactModal="showContactModal"/>
-                <!-- 优惠券 userCoupon 有状态-->
-                <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}"/>
+                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
+                <!-- 优惠券 userCoupon 有状态 -->
+                <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}" />
                 <!-- 快捷导航栏 -->
-                <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}" bindshowContactModal="showContactModal"/>
+                <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}" bindshowContactModal="showContactModal" />
                 <!-- 内容电商 -->
                 <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
                 <!-- 商品列表 -->
@@ -58,15 +53,12 @@
     </view>
     <!-- 服务 -->
     <service phone="{{ module_page.phone_number }}" customer="{{ module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
-
     <!-- 新用户优惠券弹框 -->
     <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 && config.cdn_host }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
-
     <!-- 添加到我的小程序 -->
     <view class="home-guide" wx:if="{{ guide_status && module_page && module_page.add_to_favorites }}">
         <image class="home-guide_img" src="/icons/guide.svg" />
     </view>
-
     <!-- 自定义弹窗 -->
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
