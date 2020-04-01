@@ -80,6 +80,7 @@ Page({
     },
 
     async loadHome() {
+        const { id } = this.data;
         this.loadHomeExtra();
         this.setData({
             isLoading: true,
@@ -87,7 +88,7 @@ Page({
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome();
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome({ id });
 
 
         if (page_title) {
@@ -186,7 +187,7 @@ Page({
         }
     },
 
-    async onLoad({ goPath }) {
+    async onLoad({ goPath, id }) {
         console.log(goPath, 'onLoad');
 
         if (goPath) {
@@ -204,6 +205,7 @@ Page({
             isIphoneX,
             userInfo,
             tabbarPages,
+            id,
             globalData: app.globalData
         });
     },
