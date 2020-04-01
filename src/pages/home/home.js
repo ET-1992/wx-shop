@@ -80,7 +80,7 @@ Page({
     },
 
     async loadHome() {
-        const { id } = this.data;
+        const { id = '' } = this.data;
         this.loadHomeExtra();
         this.setData({
             isLoading: true,
@@ -187,7 +187,7 @@ Page({
         }
     },
 
-    async onLoad({ goPath, id }) {
+    async onLoad({ goPath, id = '' }) {
         console.log(goPath, 'onLoad');
 
         if (goPath) {
