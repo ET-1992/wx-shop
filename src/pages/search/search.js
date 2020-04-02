@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 // const app = getApp()
 
 // 创建页面实例对象

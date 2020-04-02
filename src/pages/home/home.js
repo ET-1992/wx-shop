@@ -195,7 +195,7 @@ export const pageObj = {
         if (goPath) {
             autoNavigate_({
                 url: decodeURIComponent(goPath)
-            })
+            });
         }
         const { themeColor, partner = {}, tabbarPages } = app.globalData;
         this.loadHome();
@@ -441,6 +441,6 @@ export const pageObj = {
     },
 
     go
-}
+};
 
 Page(pageObj);
