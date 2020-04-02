@@ -60,11 +60,12 @@
 <!-- tplStyleSeven -->
 <!-- 新增-米白默认 -->
 <view class="tplStyleSeven" wx:elif="{{ tplStyle === 'vip_tpl_seven'}}">
-    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleSeven/productLayout/topImage.wxml"/>
+    <!-- <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/tplStyleSeven/productLayout/topImage.wxml"/> -->
     <include wx:if="{{ productLayoutStyle === 'leftImage' }}" src="/templates/tplStyleSeven/productLayout/leftImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'rightImage' }}" src="/templates/tplStyleSeven/productLayout/rightImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'articleImage' }}" src="/templates/tplStyleSeven/articleItem/articleImage.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'shareProduct' }}" src="/templates/tplStyleSeven/productLayout/shareProduct.wxml"/>
+    <include wx:if="{{ productLayoutStyle === 'topImage' }}" src="/templates/productLayout/topImageButtonBottom.wxml"/> <!-- 与下面这个相同 -->
     <include wx:if="{{ productLayoutStyle === 'topImageButtonBottom' }}" src="/templates/productLayout/topImageButtonBottom.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'bargainProduct' }}" src="/templates/tplStyleSeven/productLayout/bargainProduct.wxml"/>
 </view>
