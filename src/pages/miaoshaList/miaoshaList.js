@@ -32,7 +32,8 @@ Page({
         }
         const data = await api.hei.fetchProductList({
             promotion_type: promotion_type,
-            current_page
+            paged: current_page,
+            product_category_id: categoryId
         });
         current_page++;
         const newProducts = isRefresh ? data.products : products.concat(data.products);
@@ -56,7 +57,7 @@ Page({
         return data;
     },
 
-    async onLoad({ type = 'miaosha', module_id = '' }) {
+    async onLoad({ type = 'miaosha' }) {
         console.log('type', type);
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
@@ -64,8 +65,7 @@ Page({
         this.setData({
             themeColor,
             type,
-            tplStyle,
-            module_id
+            tplStyle
         });
         this.loadProducts();
     },

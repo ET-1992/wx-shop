@@ -89,7 +89,7 @@ export const pageObj = {
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome({ id });
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id });
 
 
         if (page_title) {
@@ -166,7 +166,8 @@ export const pageObj = {
                 page_title,
                 home_type,
                 isLoading: false,
-                next_cursor: timestamp
+                next_cursor: timestamp,
+                config
             });
         }
 
