@@ -42,9 +42,9 @@ Page({
         clientX: 0,
         activeIndex: 0,
         sortText: [
-           'default',
-           'price',
-           'total_sales'
+            'default',
+            'price',
+            'total_sales'
         ],
         sortStatus: {
             'Up': 'asc',
@@ -55,35 +55,35 @@ Page({
     async onLoad({ categoryId = '', categoryParent, memberExclusive, orderby }) {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-         
+
         const { style_type: tplStyle = 'default' } = config;
         const { sortText, filterData } = this.data;
 
         const index = sortText.findIndex(item => item === orderby);
 
         filterData.filterIndex = index > -1 ? index : 0;
-         this.setData({
-             categoryId,
-             categoryParent,
-             config,
-             memberExclusive,
-             filterData
-         });
-         await this.loadProducts();
-         const { categories = [] } = this.data;
-         let navbarListData = [];
-         let activeIndex;
-         let parentCategory = [];
+        this.setData({
+            categoryId,
+            categoryParent,
+            config,
+            memberExclusive,
+            filterData
+        });
+        await this.loadProducts();
+        const { categories = [] } = this.data;
+        let navbarListData = [];
+        let activeIndex;
+        let parentCategory = [];
 
-         if (categories.length <= 1) {
+        if (categories.length <= 1) {
             wx.setNavigationBarTitle({ title: parentCategory.name || (memberExclusive ? '会员商品' : '商品列表') });
             parentCategory = categories[0] && categories[0].children;
-         } else {
+        } else {
             wx.setNavigationBarTitle({ title: this.data.page_title || (memberExclusive ? '会员商品' : '商品列表') });
-            parentCategory=categories;
-         }
+            parentCategory = categories;
+        }
 
-         parentCategory && parentCategory.forEach((item) => {
+        parentCategory && parentCategory.forEach((item) => {
             navbarListData.push({
                 text: item.name,
                 value: item.id
@@ -94,14 +94,14 @@ Page({
             return item.value === Number(categoryId);
         });
 
-         this.setData({
-             themeColor,
-             tplStyle,
-             globalData: app.globalData,
-             navbarListData,
-             activeIndex,
-             isInit: false
-         });
+        this.setData({
+            themeColor,
+            tplStyle,
+            globalData: app.globalData,
+            navbarListData,
+            activeIndex,
+            isInit: false
+        });
     },
 
     // 列表导航模块
