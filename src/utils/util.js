@@ -429,3 +429,13 @@ export async function subscribeMessage(keys = []) {
         console.log(e);
     }
 }
+
+// 米白店铺过期
+export async function isExpired(e) {
+    const { partner } = e;
+    if (partner.is_expired) {
+        wx.reLaunch({
+            url: '/pages/webPages/webPages?isExpired=true'
+        });
+    }
+}

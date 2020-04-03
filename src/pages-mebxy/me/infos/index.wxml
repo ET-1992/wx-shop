@@ -1,0 +1,44 @@
+<view class="infos">
+    <navigator class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/address.svg" />
+        <view class="itemTitle">地址管理</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <navigator class="infoItem" bindtap="openShareModal">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/share.svg" />
+        <view class="itemTitle">分享店铺</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <button class="infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/contact.svg" />
+        <view class="itemTitle">联系客服</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </button>
+    <navigator class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/telephone.svg" />
+        <view class="itemTitle">售后电话</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/about.svg" />
+        <view class="itemTitle">关于我们</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+</view>
+
+<!-- 底部弹窗 -->
+<van-popup show="{{ show }}" position="bottom" bind:close="onClose">
+     <view class="shareModalContent">
+        <button class="shareBtn" open-type="share" data-share-methods="componentShare" data-share-image="{{ infosComponentData.share_image }}" data-share-title="{{ infosComponentData.share_title }}">
+            <image src="/icons/shareFriendIcon.svg" mode="aspectFit"></image>
+            <view>分享给好友</view>
+        </button>
+        <view class="shareBtn" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=2">
+            <image src="/icons/sharePosterIcon.svg" mode="aspectFit"></image>
+            <view>分享店铺海报</view>
+        </view>
+    </view>
+    <image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
+</van-popup>
+
+<myModal modal="{{authModal}}" />

@@ -1,0 +1,29 @@
+<view class="section orders">
+	<view class="orderItems">
+		<navigator class="orderItem" url="/pages/crowd/crowdList/crowdList">
+			<view class="orderItemValue" wx:if="{{ order_counts['12'] && order_counts['11'] }}">{{ order_counts['12'] + order_counts['11'] }}</view>
+			<view class="orderItemValue" wx:if="{{ order_counts['12'] }}">{{ order_counts['12'] }}</view>
+			<view class="orderItemValue" wx:if="{{ order_counts['11'] }}">{{ order_counts['11'] }}</view>
+			<image class="statusIcon" src="/icons/ordersIcon/crowdPay.svg" />
+			<view class="statusText">好友代付</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/orderList/orderList?status=10">
+			<view class="orderItemValue" wx:if="{{ order_counts['10'] }}">{{ order_counts['10'] }}</view>
+			<image class="statusIcon" mode="aspectFit" src="/icons/ordersIcon/myGroup.svg" />
+			<view class="statusText">我的拼团</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/bargainList/bargainList">
+			<image class="statusIcon" src="/icons/ordersIcon/bargain.svg" />
+			<view class="statusText">我的砍价</view>
+		</navigator>
+		<navigator class="orderItem" url="/pages/myFav/myFav">
+			<image class="statusIcon" src="/icons/ordersIcon/myfav.svg" />
+			<view class="statusText">我的收藏</view>
+		</navigator>
+		<!-- <navigator class="orderItem" url="/pages/cart/cart">
+			<view class="orderItemValue" wx:if="{{ cart_no }}">{{ cart_no }}</view>
+			<image class="statusIcon" src="/icons/ordersIcon/car.svg" />
+			<view class="statusText">购物车</view>
+		</navigator> -->
+	</view>
+</view>
