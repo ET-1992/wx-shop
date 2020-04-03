@@ -44,6 +44,7 @@ Component({
 
     methods: {
         async bindGetUserInfo(e) {
+            console.log(e);
             const { encryptedData, iv } = e.detail;
             if (iv && encryptedData) {
                 await getAgainUserForInvalid({ encryptedData, iv });

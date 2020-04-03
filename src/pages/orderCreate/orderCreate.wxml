@@ -1,4 +1,4 @@
-<view class="orderCreateWrap {{ !crowd && isIphoneX ? 'iphoneXTrick' : ''}}" style="{{ crowd ? 'padding:0' : '' }} ">
+<view class="orderCreateWrap {{ !crowd && isIphoneX ? 'iphoneXTrick' : ''}}" >
   <!-- 支付提示 -->
   <view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
   <!-- 配送方式 -->

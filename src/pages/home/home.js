@@ -5,7 +5,7 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
-const app = getApp(); // eslint-disable-line no-undef
+const app = getApp();
 
 export const pageObj = {
     data: {
@@ -88,7 +88,7 @@ export const pageObj = {
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title } = await api.hei.newHome({ id });
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id });
 
 
         if (page_title) {
@@ -165,7 +165,8 @@ export const pageObj = {
                 page_title,
                 home_type,
                 isLoading: false,
-                next_cursor: timestamp
+                next_cursor: timestamp,
+                config
             });
         }
 
@@ -193,10 +194,9 @@ export const pageObj = {
         if (goPath) {
             autoNavigate_({
                 url: decodeURIComponent(goPath)
-            })
+            });
         }
         const { themeColor, partner = {}, tabbarPages } = app.globalData;
-        this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -207,7 +207,7 @@ export const pageObj = {
             tabbarPages,
             id,
             globalData: app.globalData
-        });
+        }, this.loadHome);
     },
 
     async onShow() {
@@ -439,6 +439,6 @@ export const pageObj = {
     },
 
     go
-}
+};
 
 Page(pageObj);
