@@ -13,7 +13,11 @@
 // export const host = 'http://app.dev.97866.com/';
 // export const host = 'https://hei.dev.97866.com/';
 // export const host = 'https://hei.97866.com/';
+
+// 米白
 export const host = 'https://api.mebxy.com/';
+// 触享
+// export const host = 'https://api.chuxianghulian.com/';
 
 // 翠绿
 // export const host = 'https://api.jcaik.com/';
