@@ -1,4 +1,4 @@
-<navigator class="searchBox" style="background-color: {{ themeColor.backgroundColor }}" url="/pages/search/search">
+<navigator class="searchBox" style="background-color: {{ themeColor.backgroundColor }}" url="/pages/search/search" hover-class="none">
     <view class="search">
       <image src="/icons/search.png" class="searchIcon" />
       <text>搜索商品，共有{{ total }}款好物</text>

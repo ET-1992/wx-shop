@@ -274,12 +274,12 @@
 <poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="grouponBuy" bindonClose="onClosePoster" />
 
 <skuModal
- wx:if="{{ otherPeopleGroupon }}"
+ wx:if="{{ otherPeopleGroupon && isShowActionSheet }}"
  isShowSkuModal="{{ isShowActionSheet }}"
  product="{{ product }}"
  themeColor="{{ themeColor }}"
  position="bottom"
- quantity="{{ quantity }}"
+ quantity="{{ product.least || 1  }}"
  isCrowd="{{ isCrowd }}"
  isGrouponBuy="{{ isGrouponBuy }}"
  config="{{ config }}"

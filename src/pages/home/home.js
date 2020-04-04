@@ -5,7 +5,7 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
-const app = getApp(); // eslint-disable-line no-undef
+const app = getApp();
 
 export const pageObj = {
     data: {
@@ -194,10 +194,9 @@ export const pageObj = {
         if (goPath) {
             autoNavigate_({
                 url: decodeURIComponent(goPath)
-            })
+            });
         }
         const { themeColor, partner = {}, tabbarPages } = app.globalData;
-        this.loadHome();
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -208,7 +207,7 @@ export const pageObj = {
             tabbarPages,
             id,
             globalData: app.globalData
-        });
+        }, this.loadHome);
     },
 
     async onShow() {
@@ -440,6 +439,6 @@ export const pageObj = {
     },
 
     go
-}
+};
 
 Page(pageObj);
