@@ -36,7 +36,7 @@ Page({
         try {
             const { article, share_title, share_image, page_title, current_user } = await api.hei.articleDetail({ id });
 
-            const { themeColor } = this.data;
+            const { themeColor = {} } = this.data;
             const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
 
             WxParse.wxParse('article_content', 'html', fomatedContent, this);
