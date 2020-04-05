@@ -80,15 +80,18 @@
 		<!-- 今日秒杀banner -->
 		<view wx:if="{{ product.seckill_enable }}" class="miaosha-banner" style="background-color: {{ themeColor.primaryColor }}">
 			<image wx:if="{{ config }}" src="{{ config && config.cdn_host +'/shop/mebxy/miao.png'}}" class="background-image" />
-			<view class="price-area">
+			  <view class="price-area">
 				<view class="price">
-				<text class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</text>
-				{{ product.seckill_price }}
+					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+					<view class="price-count">{{ product.seckill_price }}</view>
+					<view class="origin-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
 				</view>
-				<view class="origin-price">
-				原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
-				</view>
-			</view>
+        <!-- <view class="count-only-wrap"> -->
+				<view class="count-only" wx:if="{{ !hasStart }}">限量{{ product.stock }}件</view>
+				<view class="count-only" wx:if="{{ hasStart && !hasEnd }}">仅剩{{ product.stock }}件</view>
+        <!-- </view> -->
+      			</view>
+
 			<view class="time">
 				<view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
 				<view class="time-text">距结束还有</view>
