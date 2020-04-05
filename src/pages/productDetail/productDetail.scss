@@ -211,27 +211,42 @@ video {
 
 	.price-area {
 		position: absolute;
-		top: 8rpx;
-		left: 142rpx;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		// align-items: center;
+		top: 2px;
+		left: 145rpx;
 
 		.price {
-			font-size: 46rpx;
-			font-weight: bold;
-
 			.price-unit {
-				font-size: 22rpx;
+				font-size: 20rpx;
+				display: inline-block;
+				font-weight: bold;
+			}
+
+			.price-count {
+				display: inline-block;
+				font-size: 17x;
+				margin-left: 5rpx;
+				font-weight: bold;
+			}
+
+			.origin-price {
+				display: inline-block;
+				font-size: 20rpx;
+				text-decoration: line-through;
+				margin-left: 10rpx;
+				color: #fff;
 			}
 		}
-
-		.origin-price {
-			font-size: 22rpx;
-			text-decoration: line-through;
-			margin-top: -8rpx;
-		}
+		// .count-only-wrap {
+			// text-align: center;
+			.count-only {
+				font-size: 8px;
+				border: 1rpx solid #fff;
+				font-weight: bold;
+				color: #fff;
+				display:inline-block;
+				padding: 2px;
+			}
+		// }
 	}
 
 	.time {
