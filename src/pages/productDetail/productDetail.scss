@@ -1025,7 +1025,8 @@ button {
 	// 底部按钮-秒杀相关
 	.miaosha-buy,
 	.miaosha-begin {
-		width: 490rpx;
+		flex: 1;
+		// width: 490rpx;
 		height: 100rpx;
 		color: #fff;
 		font-weight: bold;
