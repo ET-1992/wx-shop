@@ -22,12 +22,13 @@
         <view class="footer">
             <view class="allPrice">
                 <view class="flashPrice">
-                    <view class="flashPriceTitle">限时价</view>
+                    <view class="flashPriceTitle" wx:if="{{ product.seckill_enable }}">秒杀价</view>
+                    <view class="flashPriceTitle" wx:else>限时价</view>
                     <view class="unit">
                         {{ globalData.CURRENCY[globalData.currency] }}
                     </view>
                     <view class="miaoshaPrice">
-                        {{ product.miaosha_price }}
+                        {{ product.miaosha_price || product.seckill_price }}
                     </view>
                 </view>
                 <view>
