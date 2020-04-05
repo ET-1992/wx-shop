@@ -23,6 +23,7 @@
         wx:for="{{ categories[selectedIndex].children }}"
         wx:key="id"
         url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) }}"
+        open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
       >
         <image
           class="subCategoryItemThumb"

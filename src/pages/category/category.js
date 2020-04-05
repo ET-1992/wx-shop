@@ -13,6 +13,7 @@ Page({
     },
 
     async onLoad() {
+        const { tabbarPages } = app.globalData;
         // const { share_title, share_image } = wx.getStorageSync(CONFIG);
         try {
             this.setData({ isLoading: true });
@@ -29,6 +30,7 @@ Page({
 
             this.setData({
                 isLoading: false,
+                tabbarPages,
                 ...data
             });
         }
