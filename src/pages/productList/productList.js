@@ -93,6 +93,9 @@ Page({
         activeIndex = navbarListData.findIndex((item) => {
             return item.value === Number(categoryId);
         });
+        if (activeIndex < 0) {
+            activeIndex = 0;
+        }
 
         this.setData({
             themeColor,
