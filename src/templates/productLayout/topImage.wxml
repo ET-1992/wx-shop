@@ -24,6 +24,12 @@
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.groupon_price }}
                     </view>
                 </block>
+                <!-- 秒杀价 -->
+                <block wx:elif="{{ product.seckill_enable }}">
+                    <view class="ItemPrice">
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.seckill_price }}
+                    </view>
+                </block>
                 <block wx:else>
                     <view class="ItemPrice">
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
@@ -38,6 +44,11 @@
                 <!-- 团购或限时购标签 -->
                 <view class="tag" wx:if="{{ product.groupon_enable || product.miaosha_enable }}">
                     {{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}
+                </view>
+
+                <!-- 秒杀 -->
+                <view class="tag" wx:elif="{{ product.seckill_enable }}">
+                    {{ '秒杀' }}
                 </view>
 
                 <!-- 会员价及标签 -->
