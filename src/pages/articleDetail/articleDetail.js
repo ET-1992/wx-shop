@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { PLATFFORM_ENV } from 'constants/index';
 import { go } from 'utils/util';
 
 const WxParse = require('utils/wxParse/wxParse.js');
@@ -12,7 +13,8 @@ Page({
         isLoading: true,
         current_user: {},
         isShowShareModal: false,
-        showPosterModal: false
+        showPosterModal: false,
+        PLATFFORM_ENV,  // 米白环境变量
     },
 
     go,
@@ -36,7 +38,7 @@ Page({
         try {
             const { article, share_title, share_image, page_title, current_user } = await api.hei.articleDetail({ id });
 
-            const { themeColor = {} } = this.data;
+            const { themeColor = {}} = this.data;
             const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
 
             WxParse.wxParse('article_content', 'html', fomatedContent, this);
@@ -46,7 +48,8 @@ Page({
                 share_title,
                 share_image: share_image,
                 current_user,
-                isLoading: false
+                isLoading: false,
+                product: article.products || [],
             });
             if (page_title) {
                 wx.setNavigationBarTitle({ title: page_title });
@@ -91,6 +94,21 @@ Page({
         }
     },
 
+    // 一键加车逻辑
+    async addCard() {
+        const { vendor } = app.globalData;
+        let { product } = this.data;
+
+        let params = product.map((item) => ({ post_id: item.id, vendor }));
+        const data = await api.hei.addCart({ posts: JSON.stringify(params) });
+        console.log(data);
+        if (!data.errcode) {
+            wx.showToast({
+                title: '成功添加'
+            });
+        }
+    },
+
     onReady() {
         this.videoContext = wx.createVideoContext('myVideo');
     },
@@ -129,6 +147,6 @@ Page({
     },
 
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this, '','','/pages/home/home');
+        return onDefaultShareAppMessage.call(this, '', '', '/pages/home/home');
     },
 });

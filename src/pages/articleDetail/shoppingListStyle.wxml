@@ -1,0 +1,22 @@
+<view class="shoppingListStyle">
+    <navigator class="content" wx:if="{{article.products.length}}"  wx:for="{{ article.products }}" wx:key="id" wx:for-item="product"
+	wx:for-index="productIndex"  hover-class="navigator-hover" url="/pages/productDetail/productDetail?id={{ product.id }}">
+        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill" />
+        <view class="meta">
+            <view class="top">
+                <view class="title">{{ product.title }}</view>
+                <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+            </view>
+            <view class="bottom">
+                <view class="info">
+                    <view class="price">
+                        <view class="product-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+                        <view class="product-price">{{ product.price }}</view>
+                        <view class="original-price">{{ globalData.CURRENCY[globalData.currency] }} {{ product.original_price }}</view>
+                    </view>
+                </view>
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">去购买</view>
+            </view>
+        </view>
+    </navigator>
+</view>
