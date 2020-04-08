@@ -4,7 +4,7 @@ import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 const app = getApp();
 
-Page({
+export const pageObj = {
     data: {
         filterListData: [
             {
@@ -220,4 +220,6 @@ Page({
     },
 
     onShareAppMessage: onDefaultShareAppMessage,
-});
+};
+
+Page(pageObj);

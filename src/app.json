@@ -1,13 +1,13 @@
 {
 	"pages": [
 		"pages/home/home",
-		"pages-chuxiang/me/me",
+		"pages-mebxy/me/me",
 		"pages/cart/cart",
 		"pages/category/category",
 		"pages/classify/classify",
 		"pages/articleList/articleList",
 		"pages/modulePage/modulePage",
-		"pages/productList/productList"
+		"pages/shopList/shopList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -34,9 +34,9 @@
 				"selectedIconPath": "icons/default/categorySelected.png"
 			},
 			{
-				"pagePath": "pages/articleList/articleList",
+				"pagePath": "pages/shopList/shopList",
 				"iconPath": "icons/default/articleList.png",
-				"text": "格物",
+				"text": "商城",
 				"selectedIconPath": "icons/default/articleListSelected.png"
 			},
 			{
@@ -46,7 +46,7 @@
 				"selectedIconPath": "icons/default/cartSelected.png"
 			},
 			{
-				"pagePath": "pages-chuxiang/me/me",
+				"pagePath": "pages-mebxy/me/me",
 				"iconPath": "icons/default/me.png",
 				"text": "我",
 				"selectedIconPath": "icons/default/meSelected.png"

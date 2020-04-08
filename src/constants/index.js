@@ -23,6 +23,15 @@ export const CONFIG = 'CONFIG';
 // export const PLATFFORM_ENV = 'PEANUT';
 export const PLATFFORM_ENV = 'MIBAI';
 
+export const HOST_ARRAY = [
+    { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
+    { text: 'MIBAI', value: 'https://api.mebxy.com/' },
+    { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
+    { text: 'AU', value: 'https://au.wpweixin.com/' },
+    { text: 'CUILV', value: 'https://api.jcaik.com/' },  // 翠绿
+    { text: 'AUH', value: 'https://wechat.bebridge.cn/' }  // 澳洲香港服務器
+];
+
 // export const STATUS_TEXT = ['', '未付款', '等待发货', '已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭'];
 
 export const STATUS_TEXT = ['', '等待买家付款', '待发货', '卖家已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭', '', '待成团'];
