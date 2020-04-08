@@ -1,11 +1,21 @@
 <view class="topImage">
     <view class="container">
         <view class="top">
-            <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" lazy-load="{{ true }}" ></image>
+            <view class="wrapper">
+                <view class="mask" wx:if="{{ product.status === 'sold_out' }}">
+                    <!-- 售罄背景图 -->
+                    <image src="/icons/soldOut.svg" class="mask-img"/>
+                </view>
+                <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+            </view>
+            <!-- <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" lazy-load="{{ true }}" ></image> -->
             <view class="tagWrapper">
                 <view class="sold">已售{{ product.sales }}件</view>
                 <view class="tag" wx:if="{{ product.groupon_enable || product.miaosha_enable }}">
                     {{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}
+                </view>
+                <view class="tag" wx:elif="{{ product.seckill_enable }}">
+                    {{ '秒杀' }}
                 </view>
             </view>
         </view>

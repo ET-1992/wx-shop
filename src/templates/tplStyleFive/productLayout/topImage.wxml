@@ -1,6 +1,13 @@
 <view class="topImage">
     <view class="image-wrap" wx:if="{{product.thumbnail}}">
-        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
+        <view class="wrapper">
+            <view class="mask" wx:if="{{ product.status === 'sold_out' }}">
+                <!-- 售罄背景图 -->
+                <image src="/icons/soldOut.svg" class="mask-img"/>
+            </view>
+            <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+        </view>
+        <!-- <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image> -->
         <view class="triangle_border_up"></view>
     </view>
     <view class="content-wrap">
@@ -40,6 +47,7 @@
                             <text class="mark">{{ globalData.CURRENCY[globalData.currency] }}</text>
                             <text class="num" wx:if="{{ product.miaosha_enable && (nowTS >= product.miaosha_start_timestamp) && (nowTS <= product.miaosha_end_timestamp) }}">{{ product.miaosha_price }}</text>
                             <text class="num" wx:elif="{{ product.groupon_enable }}">{{ product.groupon_price }}</text>
+                            <text class="num" wx:elif="{{ product.seckill_enable }}">{{ product.seckill_price }}</text>
                             <text class="num" wx:else>{{ product.price }}</text>
                        </view>
                     </block>
