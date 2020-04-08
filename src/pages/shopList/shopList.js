@@ -76,8 +76,9 @@ export const pageObj = {
         let parentCategory = [];
 
         if (categories.length <= 1) {
-            wx.setNavigationBarTitle({ title: parentCategory.name || this.data.page_title || (memberExclusive ? '会员商品' : '商品列表') });
-            parentCategory = categories[0] && categories[0].children;
+            let single = categories[0] || {};  // 非空处理
+            wx.setNavigationBarTitle({ title: single.name || (memberExclusive ? '会员商品' : '商品列表') });
+            parentCategory = single.children;
         } else {
             wx.setNavigationBarTitle({ title: this.data.page_title || (memberExclusive ? '会员商品' : '商品列表') });
             parentCategory = categories;
