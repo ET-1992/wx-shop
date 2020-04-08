@@ -1,6 +1,6 @@
 <view class="topImageButtonBottom">
     <view class="wrapper">
-        <view class="mask" wx:if="{{  product.groupon_enable && product.status === 'sold_out' }}">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">
             <image src="/icons/soldOut.svg" class="mask-img"/>
         </view>
         <!-- <view class="mask" wx:if="{{  product.status === 'sold_out' }}">已抢光</view> -->
