@@ -13,7 +13,7 @@
     <view class="item">
         <text class="item-text">本次提现</text>
         <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
-        <input class="input" type="digit" focus bindinput="setMoneyValue" bindblur="saveMoneyValue" placeholder="0.00" />
+        <input class="input" type="digit" focus bindblur="saveMoneyValue" placeholder="0.00" />
     </view>
 </view>
 <view class="container">
