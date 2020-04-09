@@ -166,7 +166,8 @@ Page({
         ctx.setTextAlign('center');
         ctx.setFontSize(0.030 * windowWidth);
         // ctx.font = `${0.030 * windowWidth}px PingFang SC`;
-        ctx.fillText(this.data.user.affiliate_share_name, width / 2, height * 0.24);
+        let userName = this.data.user.affiliate_share_name || this.data.user.nickname || '';
+        ctx.fillText(userName, width / 2, height * 0.24);
 
         ctx.font = 'normal bold 1px PingFang SC';
         ctx.setFontSize(0.040 * windowWidth);
