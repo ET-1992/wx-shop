@@ -132,3 +132,19 @@ radio .wx-radio-input{
 	align-items: center;
 	margin-top: 100rpx;
 }
+
+
+.checkbox_item {
+	border: none;
+	margin-top: 50rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.checkbox_text {
+		margin-left: 16rpx;
+		.rule {
+			color: #458DFA;
+		}
+	}
+}

@@ -106,6 +106,13 @@
     </view>
 </view>
 
+<view class="item checkbox_item">
+		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange"></van-checkbox>
+		<view class="checkbox_text">
+			阅读并同意<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
+		</view>
+</view>
+
 <view class="saveBtnWrap" >
 	<view class="saveBtn" bindtap="{{ payStyle == 'weixin' ? 'submitWechat' : 'submitBank'}}">申请提现</view>
 </view>

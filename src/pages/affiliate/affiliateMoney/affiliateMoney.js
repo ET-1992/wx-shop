@@ -30,7 +30,8 @@ Page({
         phoneNumber: '',    // 手机号
         bankName: '',   // 银行
         bankNumber: '',  // 银行卡
-        isGetingMoney: false
+        isGetingMoney: false,
+        checked: false
     },
 
     onLoad(parmas) {
@@ -177,6 +178,11 @@ Page({
 
     async getShareMoney() {
         this.saveShareUserInfo();
+
+        if (!this.data.checked) {
+            wx.showToast({ title: '请阅读并同意《用户服务协议》与《隐私政策》', icon: 'none', image: '', duration: 1000 });
+            return false;
+        }
         const { isGetingMoney } = this.data;
         if (isGetingMoney) {
             return;
@@ -262,6 +268,13 @@ Page({
                 }
             });
         }
+    },
+
+    onChange(event) {
+        this.setData({
+            checked: event.detail
+        });
+        console.log('checked', this.data.checked);
     },
 
     // 页面分享设置
