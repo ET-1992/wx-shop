@@ -53,6 +53,11 @@ Page({
     },
 
     async onLoad({ categoryId = '', categoryParent, memberExclusive, orderby }) {
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
 
@@ -102,9 +107,9 @@ Page({
             tplStyle,
             globalData: app.globalData,
             navbarListData,
-            activeIndex,
-            isInit: false
+            activeIndex
         });
+        wx.hideLoading();
     },
 
     // 列表导航模块
