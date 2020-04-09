@@ -14,10 +14,10 @@ Page({
     async onLoad() {
         const selfAddressObj = wx.getStorageSync(ADDRESS_KEY) || {};
         const { themeColor } = app.globalData;
-        const { areaList } = await api.hei.fetchRegionList();
+        // const { areaList } = await api.hei.fetchRegionList();
 
         this.setData({
-            areaList,
+            // areaList,
             selfAddressObj,
             themeColor,
             isLoading: false
@@ -78,14 +78,14 @@ Page({
 
     saveSelfAddress() {
         const { selfAddressObj, error } = this.data;
-        if (error.userName || error.telNumber || error.area || error.detailInfo) {
+        if (error.userName || error.telNumber || error.detailInfo) {
             wx.showToast({
                 title: '请检查您的信息',
                 icon: 'none'
             });
             return;
         }
-        if (!selfAddressObj.userName || !selfAddressObj.telNumber || !selfAddressObj.detailInfo || !selfAddressObj.area) {
+        if (!selfAddressObj.userName || !selfAddressObj.telNumber || !selfAddressObj.detailInfo) {
             wx.showToast({
                 title: '请注意带*号为必填项',
                 icon: 'none'
