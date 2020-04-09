@@ -1,28 +1,27 @@
 <loading isLoading="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
-	<scroll-view class="mainCategory" scroll-y>
+ <scroll-view class="mainCategory" scroll-y  scroll-with-animation="{{ 300 }}" scroll-into-view="{{ 'm4' }}">
     <view
-      class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}"
+      class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}"
       wx:for="{{ categories }}"
       wx:key="id"
       data-index="{{ index }}"
       bindtap="onMainCategoryItemClick"
+      id="{{ 'm' + index }}"
     >{{ item.name }}</view>
   </scroll-view>
-  <scroll-view class="subCategory" scroll-y>
-    <image
-      class="subCategoryBanner"
-      src="{{ categories[selectedIndex].banner }}"
-      mode="aspectFill"
-    />
-    <view class="categoryTitle">{{ categories[selectedIndex].name }}</view>
+  <scroll-view class="subCategory" scroll-y scroll-into-view="{{'c' + selectedIndex}}" scroll-with-animation="{{ 300 }}" bindscroll="onScroll">
+    <view wx:for="{{ categories }}" id="{{ 'c' + index }}">
+  
+    <view class="categoryTitle">{{ item.name }}</view>
 
     <view class="subCategoryItems">
       <navigator
         class="subCategoryItem"
-        wx:for="{{ categories[selectedIndex].children }}"
+        wx:for="{{ item.children }}"
         wx:key="id"
         url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) }}"
+        open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
       >
         <image
           class="subCategoryItemThumb"
@@ -32,5 +31,12 @@
         <view class="subCategoryName">{{ item.name }}</view>
       </navigator>
     </view >
+          <image
+      class="subCategoryBanner"
+      src="{{ item.banner }}"
+      mode="aspectFill"
+      wx:if="{{ item.banner }}"
+    />
+    </view>
   </scroll-view>
 </view>

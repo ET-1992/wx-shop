@@ -43,7 +43,7 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '', jumpP
     }
 
     if (jumpPage) {
-        path = jumpPage + '?goPath=/' + encodeURIComponent(path)
+        path = jumpPage + '?goPath=/' + encodeURIComponent(path);
     }
     const shareMsg = {
         title: share_title,

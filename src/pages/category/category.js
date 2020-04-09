@@ -13,7 +13,6 @@ Page({
     },
 
     async onLoad() {
-        // const { share_title, share_image } = wx.getStorageSync(CONFIG);
         try {
             this.setData({ isLoading: true });
             const data = await api.hei.fetchCategory();
@@ -31,6 +30,8 @@ Page({
                 isLoading: false,
                 ...data
             });
+
+            this.getCategoryTop();
         }
         catch (err) {
             console.log('load category error: ', err);
@@ -45,14 +46,48 @@ Page({
         }
     },
 
+
+    getDomRect(id) {
+        return new Promise((resolve, reject) => {
+            wx.createSelectorQuery().select(`#${id}`).boundingClientRect((rect) => {
+                resolve(rect);
+            }).exec();
+        });
+    },
+
+    async getCategoryTop() {
+        const { categories = [] } = this.data;
+        const categoryTops = [];
+        for (const i in categories) {
+            console.log(i);
+            // const rect = await this.getDomRect('c');
+            const rect = await this.getDomRect('c' + i);
+            categoryTops.push(rect.top);
+        }
+        this.setData({ categoryTops });
+        console.log(categoryTops, 'ooo');
+    },
+
+    async onScroll(e) {
+        const { windowHeight } = app.systemInfo;
+        const { categoryTops } = this.data;
+        const { scrollTop } = e.detail;
+        const index = categoryTops.findIndex((item) => {
+            return item >= scrollTop;
+        });
+        this.setData({
+            showIndex: index
+        });
+    },
+
     onMainCategoryItemClick(ev) {
         const { index } = ev.currentTarget.dataset;
         this.setData({ selectedIndex: index });
     },
     onShareAppMessage: onDefaultShareAppMessage,
 
-    async onPullDownRefresh() {
-        this.onLoad();
-        wx.stopPullDownRefresh();
-    }
+    // async onPullDownRefresh() {
+    //     this.onLoad();
+    //     wx.stopPullDownRefresh();
+    // }
 });
