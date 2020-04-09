@@ -59,8 +59,6 @@ Page({
         const { categories = [] } = this.data;
         const categoryTops = [];
         for (const i in categories) {
-            console.log(i);
-            // const rect = await this.getDomRect('c');
             const rect = await this.getDomRect('c' + i);
             categoryTops.push(rect.top);
         }
@@ -69,7 +67,6 @@ Page({
     },
 
     async onScroll(e) {
-        const { windowHeight } = app.systemInfo;
         const { categoryTops } = this.data;
         const { scrollTop } = e.detail;
         const index = categoryTops.findIndex((item) => {
