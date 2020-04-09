@@ -71,9 +71,12 @@ Page({
         const { categoryTops } = this.data;
         if (categoryTops) {
             const { scrollTop } = e.detail;
-            const index = categoryTops.findIndex((item) => {
+            let index = categoryTops.findIndex((item) => {
                 return item >= scrollTop;
             });
+            if (scrollTop > categoryTops[categoryTops.length - 1]) {
+                index = categoryTops.length - 1;
+            }
             this.setData({
                 showIndex: index
             });
