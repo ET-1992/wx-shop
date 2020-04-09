@@ -2,6 +2,6 @@
 	"navigationBarTitleText": "分类",
 	"enablePullDownRefresh": true,
 	"usingComponents": {
-    	"loading": "../../components/loading/index"
+    	"searchBox": "../home/components/searchBox/searchBox"
   	}
 }

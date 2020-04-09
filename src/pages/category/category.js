@@ -82,7 +82,9 @@ Page({
 
     onMainCategoryItemClick(ev) {
         const { index } = ev.currentTarget.dataset;
-        this.setData({ selectedIndex: index });
+        this.setData({
+            selectedIndex: index
+        });
     },
     onShareAppMessage: onDefaultShareAppMessage,
 
