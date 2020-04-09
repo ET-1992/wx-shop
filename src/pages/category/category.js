@@ -10,6 +10,7 @@ Page({
         categories: [],
         selectedIndex: 0,
         isLoading: true,
+        showIndex: 0
     },
 
     async onLoad() {
@@ -68,13 +69,15 @@ Page({
 
     async onScroll(e) {
         const { categoryTops } = this.data;
-        const { scrollTop } = e.detail;
-        const index = categoryTops.findIndex((item) => {
-            return item >= scrollTop;
-        });
-        this.setData({
-            showIndex: index
-        });
+        if (categoryTops) {
+            const { scrollTop } = e.detail;
+            const index = categoryTops.findIndex((item) => {
+                return item >= scrollTop;
+            });
+            this.setData({
+                showIndex: index
+            });
+        }
     },
 
     onMainCategoryItemClick(ev) {
