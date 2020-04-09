@@ -25,9 +25,8 @@
 			error="{{ error.telNumber }}"
 		/>
 
-		<van-field
+		<!-- <van-field
 			value="{{ selfAddressObj.area }}"
-			required
 			is-link
 			disabled
 			readonly
@@ -37,7 +36,7 @@
 			bind:tap="showAreaModal"
 			data-key="area"
 			error="{{ error.area }}"
-		/>
+		/> -->
 
 		<van-field
 			input-class="textarea"
