@@ -1,5 +1,5 @@
-<loading isLoading="{{ isInit }}"/>
-<view class="wrap" wx:if="{{ !isInit }}">
+<!-- <loading isLoading="{{ isInit }}"/> -->
+<view class="wrap">
 	<!-- 会员商品 -->
 	<block wx:if="{{ memberExclusive }}">
 		<view class="container" style="padding-top: 0">

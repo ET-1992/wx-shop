@@ -627,7 +627,7 @@ Page({
                 afcode: current_user.afcode || ''
             };
         }
-        return onDefaultShareAppMessage.call(this, opts,'','/pages/home/home');
+        return onDefaultShareAppMessage.call(this, opts, '', '/pages/home/home');
     },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频

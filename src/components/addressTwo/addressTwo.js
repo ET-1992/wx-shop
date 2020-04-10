@@ -1,6 +1,5 @@
-
+import { CONFIG } from 'constants/index';
 const app = getApp();
-
 Component({
     properties: {
         title: {
@@ -18,7 +17,10 @@ Component({
     },
     attached() {
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({
+            themeColor,
+            selfAddress: config && config.self_address
+        });
     },
 });
-

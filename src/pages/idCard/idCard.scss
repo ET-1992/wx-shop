@@ -60,3 +60,19 @@
 		margin: 60rpx auto 0;
 	}
 }
+
+
+.checkbox_item {
+	border: none;
+	margin-top: 50rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.checkbox_text {
+		margin-left: 16rpx;
+		.rule {
+			color: #458DFA;
+		}
+	}
+}
