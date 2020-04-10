@@ -36,7 +36,7 @@ page{
 
 .saveBtnWrap {
 	width: 100%;
-	margin-top: 100rpx;
+	margin-top: 50rpx;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -130,7 +130,7 @@ radio .wx-radio-input{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 100rpx;
+	margin-top: 50rpx;
 }
 
 
@@ -140,6 +140,7 @@ radio .wx-radio-input{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	font-size: 28rpx;
 
 	.checkbox_text {
 		margin-left: 16rpx;
