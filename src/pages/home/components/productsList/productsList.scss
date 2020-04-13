@@ -12,6 +12,17 @@
 		text-align: center;
 	}
 
+	.productThreePicContainer {
+		width: 100%;
+		display: flex;
+		padding: 25rpx;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		.twoPicMore {
+			// 穿透子组件
+			margin-right: 25rpx;
+		}
+	}
 	.productContainer {
 		display: flex;
 		padding: 25rpx;
