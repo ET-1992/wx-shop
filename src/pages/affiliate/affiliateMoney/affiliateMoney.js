@@ -1,4 +1,4 @@
-import { checkPhone, bankCardAttribution } from 'utils/util';
+import { checkPhone, bankCardAttribution, go } from 'utils/util';
 import { BANK_CARD_LIST } from 'utils/bank';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
@@ -276,6 +276,8 @@ Page({
         });
         console.log('checked', this.data.checked);
     },
+
+    go,
 
     // 页面分享设置
     onShareAppMessage: onDefaultShareAppMessage

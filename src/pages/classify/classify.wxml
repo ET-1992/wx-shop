@@ -1,3 +1,4 @@
+<searchBox themeColor="{{ themeColor }}" />
 <view class="container">
   <view class="category">
 		<scroll-view

@@ -16,6 +16,7 @@ Page({
     async onLoad() {
         const { tabbarPages } = app.globalData;
         try {
+            const { themeColor, partner = {}, tabbarPages } = app.globalData;
             this.setData({ isLoading: true });
             const data = await api.hei.fetchCategory();
             const { categories = [] } = data;
@@ -31,6 +32,7 @@ Page({
             this.setData({
                 isLoading: false,
                 tabbarPages,
+                themeColor,
                 ...data
             });
 
