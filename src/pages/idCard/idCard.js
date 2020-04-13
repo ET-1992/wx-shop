@@ -1,4 +1,4 @@
-import { checkIdNameNum } from 'utils/util';
+import { checkIdNameNum, go } from 'utils/util';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 const app = getApp();
@@ -160,4 +160,6 @@ Page({
         });
         console.log('checked', this.data.checked);
     },
+
+    go
 });
