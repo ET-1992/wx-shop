@@ -1,0 +1,3 @@
+<view class="three">
+  <include src="../twoPic/twoPic.wxml" />
+</view>;
