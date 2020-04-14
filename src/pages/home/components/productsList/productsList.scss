@@ -12,14 +12,14 @@
 		text-align: center;
 	}
 
-	.productThreePicContainer {
+	// 可滑动商品列表块
+	.swiperProductContainer {
 		width: 100%;
 		display: flex;
 		padding: 25rpx;
 		flex-wrap: nowrap;
 		justify-content: space-between;
-		.twoPicMore {
-			// 穿透子组件
+		.swiperProduct {
 			margin-right: 25rpx;
 		}
 	}
