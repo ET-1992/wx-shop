@@ -1,0 +1,15 @@
+.threePic {
+	// 覆盖二图图片大小
+	.twoPic {
+		width: 220rpx;
+
+		.ItemImage {
+			width: 220rpx;
+			height: 220rpx;
+		}
+
+		.tagWrapper {
+			display: none !important;
+		}
+	}
+}
