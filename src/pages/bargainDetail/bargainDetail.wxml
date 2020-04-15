@@ -1,5 +1,5 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{!isLoading}}">
+<!-- <loading isLoading="{{ isLoading }}"/> -->
+<view class="container">
 	<!-- 头部按钮 -->
 	<view class="btn-group">
 		<navigator class="toBargainListPage" url="/pages/bargainList/bargainList">

@@ -28,6 +28,10 @@ Page({
 
     async onLoad({ sku_id, post_id, code, isOthers }) {
         // console.log('params', params);
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
         const {
             globalData: { themeColor },
             systemInfo: { isIphoneX }
@@ -45,8 +49,9 @@ Page({
             globalData: app.globalData
         });
 
-        this.onLoadData();
-        this.loadActorsData();
+        await this.onLoadData();
+        await this.loadActorsData();
+        wx.hideLoading();
     },
 
     async createBargain(post_id, sku_id) {
