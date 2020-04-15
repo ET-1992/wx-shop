@@ -210,7 +210,7 @@ Page({
             console.log('actors157', actors);
             actors.unshift(data.actor);
             this.setData({ actors }, () => { console.log('actors158', this.data) });
-            this.onLoadData(code);
+            this.onLoadData();
         } catch (err) {
             console.log('err105', err);
             await proxy.showModal({
