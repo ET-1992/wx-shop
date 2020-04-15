@@ -26,49 +26,35 @@ Page({
         sku_id: 0
     },
 
-    onLoad(params) {
-        console.log('params', params); // post_id、sku_id、code
+    async onLoad({ sku_id, post_id, code, isOthers }) {
+        // console.log('params', params);
         const {
             globalData: { themeColor },
             systemInfo: { isIphoneX }
         } = app;
 
+        if (post_id) {
+            code = await this.createBargain(post_id, sku_id);
+        }
+
         this.setData({
-            sku_id: Number(params.sku_id),
-            post_id: Number(params.post_id),
-            code: params.code,
+            isOthers,
+            code,
             themeColor,
             isIphoneX,
             globalData: app.globalData
-        }, () => {
-            if (!params.code) {
-                this.createBargain();
-            }
-
-            if (params.code) {
-                this.onLoadData();
-                this.loadActorsData();
-            }
         });
+
+        this.onLoadData();
+        this.loadActorsData();
     },
 
-    // onShow() {
-    //     if (code) {
-    // this.onLoadData(code);
-    // this.loadActorsData();
-    //     }
-    // },
-
-    async createBargain() {
-        const { post_id, sku_id } = this.data;
+    async createBargain(post_id, sku_id) {
         const { mission } = await api.hei.createBargain({
             post_id: post_id,
             sku_id: sku_id || 0
         });
-        this.setData({ code: mission.code }, () => {
-            this.onLoadData();
-            this.loadActorsData();
-        });
+        return mission.code;
     },
 
     countDown() {
@@ -170,13 +156,13 @@ Page({
     },
 
     onShowPoster() {
-        const { code, product } = this.data;
+        const { code, product: { thumbnail, image_url, title, bargain_price, price }} = this.data;
         let posterData = {
             code,
-            banner: product.thumbnail || product.image_url,
-            title: product.title,
-            bargain_price: product.bargain_price,
-            price: product.price
+            banner: thumbnail || image_url,
+            title: title,
+            bargain_price: bargain_price,
+            price: price
         };
         this.setData({
             showPosterModal: true,
