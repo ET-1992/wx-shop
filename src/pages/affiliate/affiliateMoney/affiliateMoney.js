@@ -133,9 +133,9 @@ Page({
         }
 
         if (payStyle === 'bank') {
-            if (username.length === 0) { error = '用户名不能为空' }
-            if (!bankNumber) { error = '银行卡号不能为空' }
             if (!bankName) { error = '开户行不能为空' }
+            if (!bankNumber) { error = '银行卡号不能为空' }
+            if (username.length === 0) { error = '用户名不能为空' }
         }
 
         if (!checkPhone(phoneNumber)) { error = '请输入正确的手机号' }
