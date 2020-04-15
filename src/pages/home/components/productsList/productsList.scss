@@ -2,6 +2,7 @@
 @import './templates/twoPic/twoPic';
 @import './templates/smallPic/smallPic';
 @import './templates/largePic/largePic';
+@import './templates/threePic/threePic';
 
 .section {
 	.sectionTitle {
@@ -11,6 +12,17 @@
 		text-align: center;
 	}
 
+	// 可滑动商品列表块
+	.swiperProductContainer {
+		width: 100%;
+		display: flex;
+		padding: 25rpx;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		.swiperProduct {
+			margin-right: 25rpx;
+		}
+	}
 	.productContainer {
 		display: flex;
 		padding: 25rpx;

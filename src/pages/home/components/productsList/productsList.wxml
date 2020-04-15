@@ -1,22 +1,18 @@
 <view class="section" wx:if="{{ content && content.length }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<!-- 标题 -->
 	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
+	<!-- 滑动 商品列表 -->
+	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ false }}">  <!-- 等待后端字段 -->
+		<view class="swiperProductContainer">
+			<view class="swiperProduct" wx:for="{{ content }}" wx:for-item="product" wx:key="id"> 
+				<include src="./templates/index/index.wxml"></include>
+			</view>
+		</view>
+	</scroll-view>
 	<!-- 渲染 商品列表 -->
-	<view class="{{ setting.style === 'per_2' ?'productContainer' : ''}}">
+	<view class="{{ setting.style === 'per_2'  ?'productContainer' : ''}}">
 		<block wx:for="{{ content }}" wx:for-item="product" wx:key="id"> 
-			<!-- 拼团专区 -->
-			<groupon wx:if="{{ product.promotion_type === 'groupon_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
-			<!-- 砍价专区 -->
-			<bargain wx:elif="{{ product.promotion_type === 'bargain_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
-			<!-- 限时购 -->
-			<flashSale wx:elif="{{ product.promotion_type === 'miaosha_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
-			<!-- 秒杀 -->
-			<flashSale wx:elif="{{ product.promotion_type === 'seckill_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
-			<!-- 普通、会员专属、会员价商品 -->
-			<include wx:elif="{{ setting.style === 'l' && product.promotion_type !== 'groupon_enable' && product.promotion_type !== 'miaosha_enable' && product.promotion_type !== 'bargain_enable' }}" src="./templates/largePic/largePic.wxml"/>
-			<include wx:elif="{{ setting.style === 'm' && product.promotion_type !== 'groupon_enable' && product.promotion_type !== 'miaosha_enable' && product.promotion_type !== 'bargain_enable' }}" src="./templates/bigPic/bigPic.wxml"/>
-			<include wx:elif="{{ setting.style === 's' && product.promotion_type !== 'groupon_enable' && product.promotion_type !== 'miaosha_enable' && product.promotion_type !== 'bargain_enable' }}" src="./templates/smallPic/smallPic.wxml"/>
-			<include wx:elif="{{ setting.style === 'per_2' && product.promotion_type !== 'groupon_enable' && product.promotion_type !== 'miaosha_enable' && product.promotion_type !== 'bargain_enable' }}" src="./templates/twoPic/twoPic.wxml"/>
+			<include src="./templates/index/index.wxml"></include>
 		</block>
 	</view>
 	<!-- 更多 -->

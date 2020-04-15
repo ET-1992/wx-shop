@@ -1,3 +1,4 @@
+<!-- 使用 ^ 来引用父组件的样式 -->
 <navigator class="twoPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
 		<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
 		<view class="Info">

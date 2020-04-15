@@ -62,6 +62,7 @@ Page({
         areaObj: {},
         isShowAreaModal: false,
         PLATFFORM_ENV,
+        bargain_mission: {}
     },
 
     go, // 跳转到规则详情页面
@@ -149,7 +150,7 @@ Page({
 
     loadProductDetailExtra(id) {
         setTimeout(async () => {
-            const { coupons, current_user } = await api.hei.fetchShopExtra({
+            const { coupons, current_user, bargain_mission } = await api.hei.fetchShopExtra({
                 weapp_page: 'productDetail',
                 id
             });
@@ -174,7 +175,8 @@ Page({
                 receivableCoupons,
                 receivedCoupons,
                 current_user,
-                coupons
+                coupons,
+                bargain_mission
             });
         }, 300);
     },
@@ -438,7 +440,8 @@ Page({
             isGrouponBuy,
             isBargainBuy,
             isCrowd,
-            shipping_type
+            shipping_type,
+            bargain_mission
         } = this.data;
 
         console.log('shipping_type393', shipping_type);
@@ -492,11 +495,10 @@ Page({
             url = `${url}&seckill=true&seckill_product_id=${product.seckill_product_id}`;
         }
 
-        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
-            url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
+        if (product.bargain_enable && bargain_mission && isBargainBuy) {
+            url = url + `&bargain_mission_code=${bargain_mission.code}`;
             console.log('url438', url);
         }
-        console.log('url440', url);
 
         const currentOrder = createCurrentOrder({
             selectedSku,
@@ -778,13 +780,16 @@ Page({
 
     // 发起砍价
     async createBargain() {
-        const { product: { id }, selectedSku } = this.data;
-        const { mission } = await api.hei.createBargain({
-            post_id: id,
-            sku_id: selectedSku.id || 0
-        });
-        console.log('mission721', mission);
-        autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
+        const { product: { id, bargain_enable }, selectedSku } = this.data;
+        if (!bargain_enable) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '该店铺未开启砍价功能',
+                showCancel: false,
+            });
+            return;
+        }
+        autoNavigate(`/pages/bargainDetail/bargainDetail?post_id=${id}&sku_id=${selectedSku.id}`);
     },
 
     onRecommended(e) {

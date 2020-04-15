@@ -20,29 +20,55 @@ Page({
         actors: [],
         showMore: false,
         isShowShareModal: false,
-        showPosterModal: false
+        showPosterModal: false,
+        code: '',
+        post_id: 0,
+        sku_id: 0
     },
 
     onLoad(params) {
-        console.log('params', params);
+        console.log('params', params); // post_id、sku_id、code
         const {
             globalData: { themeColor },
             systemInfo: { isIphoneX }
         } = app;
 
         this.setData({
-            ...params,
+            sku_id: Number(params.sku_id),
+            post_id: Number(params.post_id),
+            code: params.code,
             themeColor,
             isIphoneX,
             globalData: app.globalData
+        }, () => {
+            if (!params.code) {
+                this.createBargain();
+            }
+
+            if (params.code) {
+                this.onLoadData();
+                this.loadActorsData();
+            }
         });
-        // this.loadActorsData();
     },
 
-    onShow() {
-        const { code } = this.data;
-        this.onLoadData(code);
-        this.loadActorsData();
+    // onShow() {
+    //     if (code) {
+    // this.onLoadData(code);
+    // this.loadActorsData();
+    //     }
+    // },
+
+    async createBargain() {
+        const { post_id, sku_id } = this.data;
+        const { mission } = await api.hei.createBargain({
+            post_id: post_id,
+            sku_id: sku_id || 0
+        });
+        this.setData({ code: mission.code }, () => {
+            this.onLoadData();
+            this.loadActorsData();
+        });
     },
 
     countDown() {
@@ -67,7 +93,8 @@ Page({
         }
     },
 
-    async onLoadData(code) {
+    async onLoadData() {
+        const { code } = this.data;
         try {
             const { mission, product, products, share_image, share_title } = await api.hei.bargainDetail({ code });
             mission.needBargainPrice = (Number(mission.current_price) - Number(mission.target_price)).toFixed(2);
@@ -101,7 +128,7 @@ Page({
 
     // 砍价榜scroll滚动触底
     async loadActorsData(e) {
-        console.log('e90', e);
+        console.log('loadActorsDataE90', e);
         const { code, next_cursor, isBottom, actors } = this.data;
         console.log('actors90', actors);
         try {
@@ -229,7 +256,8 @@ Page({
     onPullDownRefresh() {
         console.log('onPullDownRefresh');
         this.setData({ isLoading: true, next_cursor: 'begin', actors: [] });
-        this.onShow();
+        this.onLoadData();
+        this.loadActorsData();
         wx.stopPullDownRefresh();
     }
 });
