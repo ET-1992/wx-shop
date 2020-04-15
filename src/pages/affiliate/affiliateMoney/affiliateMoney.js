@@ -121,68 +121,45 @@ Page({
     },
 
     /* 银行卡提交 */
-    async submitBank() {
-        let that = this;
-        if (that.data.balance === '0') {
-            wx.showToast({ title: '可提现金额为0', icon: 'none', image: '', duration: 1000 });
-            return false;
-        }
-        if (that.data.username.length === 0) {
-            wx.showToast({ title: '用户名不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (that.data.phoneNumber.length === 0) {
-            wx.showToast({ title: '手机号不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (that.data.phoneNumber.length !== 11) {
-            wx.showToast({ title: '手机号长度有误', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (!checkPhone(that.data.phoneNumber)) {
-            wx.showToast({ title: '请输入正确的手机号', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (!that.data.bankNumber) {
-            wx.showToast({ title: '银行卡号不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (!that.data.bankName) {
-            wx.showToast({ title: '开户行不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else {
-            console.log('submitBank');
+    async submitChecked() {
+        const { balance, phoneNumber, wechatId, money, username, bankNumber, bankName, payStyle, checked } = this.data;
+        console.log('submitChecked', balance, username, phoneNumber, bankNumber, bankName, money, wechatId, checked, payStyle);
+        let error = '';
+
+        if (!checked) { error = '请阅读并同意《用户服务协议》与《隐私政策》' }
+
+        if (payStyle === 'weixin') {
+            if (wechatId.length === 0) { error = '微信号不能为空' }
         }
 
-        this.getShareMoney();
-    },
+        if (payStyle === 'bank') {
+            if (username.length === 0) { error = '用户名不能为空' }
+            if (!bankNumber) { error = '银行卡号不能为空' }
+            if (!bankName) { error = '开户行不能为空' }
+        }
 
-    async submitWechat() {
-        let that = this;
-        if (that.data.balance === '0') {
-            wx.showToast({ title: '可提现金额为0', icon: 'none', image: '', duration: 1000 });
-            return false;
+        if (!checkPhone(phoneNumber)) { error = '请输入正确的手机号' }
+        if (phoneNumber.length !== 11) { error = '手机号长度有误' }
+        if (phoneNumber.length === 0) { error = '手机号不能为空' }
+        if (Number(money) > Number(balance)) { error = '申请金额已超过可提现金额' }
+        if (Number(balance) === 0) { error = '可提现金额为0' }
+        if (!Number(money)) { error = '提现金额不能为空' }
+
+        if (error) {
+            wx.showToast({
+                title: error,
+                icon: 'none',
+                duration: 1000
+            });
+            return;
         }
-        if (that.data.phoneNumber.length === 0) {
-            wx.showToast({ title: '手机号不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (!checkPhone(this.data.phoneNumber)) {
-            wx.showToast({ title: '请输入正确的手机号', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (that.data.phoneNumber.length !== 11) {
-            wx.showToast({ title: '手机号长度有误', icon: 'none', image: '', duration: 1000 });
-            return false;
-        } else if (that.data.wechatId.length === 0) {
-            wx.showToast({ title: '微信号不能为空', icon: 'none', image: '', duration: 1000 });
-            return false;
-        }
-        console.log(that.data);
-        console.log('submitWechat');
+
         this.getShareMoney();
     },
 
     async getShareMoney() {
         this.saveShareUserInfo();
 
-        if (!this.data.checked) {
-            wx.showToast({ title: '请阅读并同意《用户服务协议》与《隐私政策》', icon: 'none', image: '', duration: 1000 });
-            return false;
-        }
         const { isGetingMoney } = this.data;
         if (isGetingMoney) {
             return;
@@ -226,15 +203,6 @@ Page({
             }
         }
 
-    },
-
-    setMoneyValue(e) {
-        const { value } = e.detail;
-        const { balance } = this.data;
-        if (Number(value) > Number(balance)) {
-            return balance;
-        }
-        return value;
     },
 
     saveMoneyValue(e) {

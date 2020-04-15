@@ -13,7 +13,7 @@
     <view class="item">
         <text class="item-text">本次提现</text>
         <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
-        <input class="input" type="digit" focus bindblur="saveMoneyValue" placeholder="0.00" />
+        <input class="input" type="digit" focus bindinput="saveMoneyValue" placeholder="0.00" value="{{money}}"/>
     </view>
 </view>
 <view class="container">
@@ -114,7 +114,7 @@
 </view>
 
 <view class="saveBtnWrap" >
-	<view class="saveBtn" bindtap="{{ payStyle == 'weixin' ? 'submitWechat' : 'submitBank'}}">申请提现</view>
+	<view class="saveBtn" bindtap="submitChecked">申请提现</view>
 </view>
 
 <navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2" >提现记录</navigator>
