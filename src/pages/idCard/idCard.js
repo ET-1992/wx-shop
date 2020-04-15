@@ -108,14 +108,10 @@ Page({
 
     // 提交表单内容
     async formSubmit() {
-        const { userName, idNumber = '', idCardImage1, idCardImage2 } =  this.data;
+        const { userName, idNumber = '', idCardImage1, idCardImage2, checked } =  this.data;
         let error = '';
 
-        if (!this.data.checked) {
-            wx.showToast({ title: '请阅读并同意《用户服务协议》与《隐私政策》', icon: 'none', image: '', duration: 1000 });
-            return false;
-        }
-
+        !checked && (error = '请阅读并同意《用户服务协议》与《隐私政策》');
         !checkIdNameNum(idNumber) && (error = '请输入正确的身份证号码');
         !idCardImage1 && (error = '请上传身份证正面照');
         !idCardImage2 && (error = '请上传身份证反面照');
