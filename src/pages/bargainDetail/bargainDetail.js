@@ -14,20 +14,16 @@ Page({
             second: '00',
         },
         isOthers: false,
-        isLoading: true,
         next_cursor: 'begin',
         isBottom: false,
         actors: [],
         showMore: false,
         isShowShareModal: false,
         showPosterModal: false,
-        code: '',
-        post_id: 0,
-        sku_id: 0
+        code: ''
     },
 
     async onLoad({ sku_id, post_id, code, isOthers }) {
-        // console.log('params', params);
         wx.showLoading({
             title: '加载中',
             mask: true
@@ -95,8 +91,7 @@ Page({
                 product: product,
                 products: products,
                 share_image: share_image,
-                share_title: share_title,
-                isLoading: false
+                share_title: share_title
             }, () => {
                 // 砍价倒计时
                 if (product.status === 'publish') {
@@ -246,7 +241,7 @@ Page({
 
     onPullDownRefresh() {
         console.log('onPullDownRefresh');
-        this.setData({ isLoading: true, next_cursor: 'begin', actors: [] });
+        this.setData({ next_cursor: 'begin', actors: [] });
         this.onLoadData();
         this.loadActorsData();
         wx.stopPullDownRefresh();
