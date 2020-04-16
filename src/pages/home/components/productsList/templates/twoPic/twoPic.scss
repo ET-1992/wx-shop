@@ -4,10 +4,29 @@
 	padding-bottom: 10rpx;
 	margin-bottom: 10rpx;
 
-	.ItemImage {
+	.wrapper {
+		position: relative;
 		width: 340rpx;
 		height: 340rpx;
-		border-radius: 10rpx;
+		.mask {
+			font-size: 32rpx;
+			font-weight: bold;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+		}
+		.ItemImage {
+			width: 100%;
+			height: 100%;
+			border-radius: 10rpx;
+		}
 	}
 
 	.Info {
