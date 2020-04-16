@@ -47,10 +47,14 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
         <view class="itemTitle">关于我们</view>
     </navigator>
-    <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
+    <!-- <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shopPhone.svg" />
         <view class="itemTitle">售后电话</view>
-    </view>
+    </view> -->
+    <navigator class="infoItem" url="/pages/rulePages/rulePages?key=after_sales">
+        <image class="itemIcon" mode="widthFix" src="/icons/me/afterService.svg" />
+        <view class="itemTitle">售后说明</view>
+    </navigator>
     <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/idCart.svg" />
         <view class="itemTitle">身份信息</view>
