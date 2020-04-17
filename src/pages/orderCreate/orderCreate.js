@@ -3,6 +3,7 @@ import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth, subscribeMessage } from 'utils/util';
+import { Decimal } from 'decimal.js';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -262,7 +263,8 @@ Page({
             const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
             console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
 
-            const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+            // const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+            const maxUseCoin =  new Decimal(fee.amount - fee.postage).mul(coin_in_order.percent_in_order).toNumber();
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
 
