@@ -95,21 +95,21 @@
 
 		<!-- 砍价banner -->
 		<view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
-			<image wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
+			<image wx:if="{{bargain_mission && bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
 			<image wx:else src="/icons/productDetail/bargain.svg" class="background-image" />
 			<view class="price-area">
 				<view class="price">
 					<view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
 					<view class="bargain-price"> {{product.bargain_price}}</view>
-					<view class="low-price {{product.bargain_mission.status === 3 ? 'low-price-fail' : ''}}">底价</view>
+					<view class="low-price {{bargain_mission.status === 3 ? 'low-price-fail' : ''}}">底价</view>
 				</view>
 				<view class="origin-price">直接购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }} </view>
 			</view>
 			<view class="bargain-section">
-				<view class="bargain-text" wx:if="{{!product.bargain_mission}}">未发起</view>
-				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">进行中</view>
-				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">砍价成功</view>
-				<view class="bargain-text" wx:if="{{product.bargain_mission && product.bargain_mission.status === 3}}">砍价失败</view>
+				<view class="bargain-text" wx:if="{{!bargain_mission}}">未发起</view>
+				<view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 1}}">进行中</view>
+				<view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 2}}">砍价成功</view>
+				<view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 3}}">砍价失败</view>
 				<view class="bargain-count">{{ product.bargain_finished_count }}人已砍价成功</view>
 			</view>
 		</view>
@@ -377,9 +377,9 @@
 				<view 
 					class="buy multi" 
 					bindtap="go"
-					data-url="/pages/bargainDetail/bargainDetail?code={{product.bargain_mission && bargain_mission.code}}"
+					data-url="/pages/bargainDetail/bargainDetail?code={{bargain_mission && bargain_mission.code}}"
 					style="background-color: {{ themeColor.primaryColor }}" 
-					wx:if="{{product.bargain_mission && product.bargain_mission.status === 1}}">
+					wx:if="{{bargain_mission && bargain_mission.status === 1}}">
 					查看进度
 				</view>
 				<view
@@ -388,7 +388,7 @@
 					catchtap="onShowSku"
 					data-is-bargain-buy
 					data-actions="{{[{ type: 'onBuy', text: '立即购买'}]}}"
-					wx:if="{{product.bargain_mission && product.bargain_mission.status === 2}}">
+					wx:if="{{bargain_mission && bargain_mission.status === 2}}">
 					<view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
 					<view>立即购买</view>
 				</view>
@@ -398,7 +398,7 @@
 					hover-class="none"
 					class="buy multi"
 					style="background-color: {{ themeColor.primaryColor }}"
-					wx:if="{{!product.bargain_mission ||(product.bargain_mission && product.bargain_mission.status === 3)}}">
+					wx:if="{{!bargain_mission ||(bargain_mission && bargain_mission.status === 3)}}">
 					发起砍价
 				</button>
 			</block>
