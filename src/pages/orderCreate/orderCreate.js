@@ -264,7 +264,7 @@ Page({
             console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
 
             // const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
-            const maxUseCoin =  new Decimal(fee.amount - fee.postage).mul(coin_in_order.percent_in_order).toNumber();
+            const maxUseCoin = new Decimal(fee.amount - fee.postage).mul(coin_in_order.percent_in_order || 0).toNumber();
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
 
