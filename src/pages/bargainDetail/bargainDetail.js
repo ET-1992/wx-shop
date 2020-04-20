@@ -24,6 +24,7 @@ Page({
     },
 
     async onLoad({ sku_id, post_id, code, isOthers }) {
+        console.log('code27', sku_id, post_id, code, isOthers);
         wx.showLoading({
             title: '加载中',
             mask: true
@@ -32,14 +33,11 @@ Page({
             globalData: { themeColor },
             systemInfo: { isIphoneX }
         } = app;
-
-        if (post_id) {
-            code = await this.createBargain(post_id, sku_id);
-        }
+        let mission_code = post_id && !isOthers ? await this.createBargain(post_id, sku_id) : code;
 
         this.setData({
             isOthers,
-            code,
+            code: mission_code,
             themeColor,
             isIphoneX,
             globalData: app.globalData
@@ -48,6 +46,7 @@ Page({
         await this.onLoadData();
         await this.loadActorsData();
         wx.hideLoading();
+        console.log('code49', this.data.code);
     },
 
     async createBargain(post_id, sku_id) {
@@ -179,7 +178,7 @@ Page({
 
     // 分享按钮
     onShareAppMessage() {
-        let opts = { isOthers: true };
+        let opts = { isOthers: true, code: this.data.code };
         return onDefaultShareAppMessage.call(this, opts);
     },
 

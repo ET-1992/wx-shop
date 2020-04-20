@@ -755,7 +755,7 @@ Page({
             });
             return;
         }
-        autoNavigate(`/pages/bargainDetail/bargainDetail?post_id=${id}&sku_id=${selectedSku.id}`);
+        autoNavigate(`/pages/bargainDetail/bargainDetail?post_id=${id}&sku_id=${selectedSku.id || 0}`);
     },
 
     onRecommended(e) {
