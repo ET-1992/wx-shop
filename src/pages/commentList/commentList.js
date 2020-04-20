@@ -1,128 +1,147 @@
 import api from 'utils/api';
-import { getAgainUserForInvalid, getUserInfo } from 'utils/util';
+import { go, getAgainUserForInvalid, getUserInfo, autoNavigate_ } from 'utils/util';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 
-const app = getApp();
-
-let isSubmiting = false;
-let isFocusing = false;
 Page({
     data: {
-        isLoading: true,
-        topic: null,
-        user: null,
-        text: '',
-        reply_to: 0,
-        reply_focus: false,
-        placeholder: '发布评论',
+        comment: '',
+        comments: [],
+        replyParentId: null,
+        placeholder: '请输入评论',
+        isShowInputBox: false,
+        showPosterModal: false,
+        posterData: {}
     },
 
-    onLoad(options) {
-        const { globalData: { themeColor }, systemInfo } = app;
+    onLoad(parmas) {
+        console.log(parmas);
         this.setData({
-            themeColor,
-            systemInfo
-        });
+            ...parmas
+        }, this.articleDetail);
     },
 
-    onShow() {
-        const { id } = this.options;
-        const user = getUserInfo();
-        this.setData({ user });
-        this.getDetail(id);
-    },
+    go,
 
-    async getDetail(id) {
-        const data = await api.hei.articleDetail({ id });
-        this.setData({
-            id,
-            topic: {
-                reply_count: data.article.replies ? data.article.replies.length : 0,
-                replies: data.article.replies,
-            },
-            isLoading: false
-        });
-        if (data.page_title) {
-            wx.setNavigationBarTitle({
-                title: data.page_title,
-            });
+    async goPage(e) {
+        const { item } = e.currentTarget.dataset;
+        if (item.format === 'link') {
+            autoNavigate_({ url: `/pages/webPages/webPages?src=${item.format_content.link}` });
+        } else {
+            autoNavigate_({ url: `/pages/articleDetail/articleDetail?id=${item.id}` });
         }
     },
-    wxParseTagATap(e) {
-        wx.navigateTo({
-            url: '/' + e.currentTarget.dataset.src,
-            success: function (res) {
-                console.log('跳转成功');
-            },
-        });
-    },
 
-    async onUserInfo(ev) {
+    async bindGetUserInfo(ev) {
+        const { method } = ev.currentTarget.dataset;
         const { encryptedData, iv } = ev.detail;
-        if (encryptedData && iv) {
+        if (iv && encryptedData) {
             await getAgainUserForInvalid({ encryptedData, iv });
-            await this.submitComment();
-        }
-        else {
+            const user = getUserInfo();
+            this.setData({ current_user: user }, this[method]);
+        } else {
             wx.showModal({
                 title: '温馨提示',
                 content: '需授权后操作',
                 showCancel: false,
             });
         }
-
     },
 
-    async formSubmit(ev) {
-        console.log(ev);
-        const text = ev.detail.value.text.trim();
-        const formId = ev.detail.formId;
-        this.setData({ text, formId });
-    },
-
-    async submitComment() {
+    async onDiggComment(ev) {
         try {
-            wx.showLoading({ title: '提交中' });
-            const { formId, text, reply_to, topic, id } = this.data;
-            if (!text) {
-                wx.showToast({
-                    title: '请输入内容',
-                    icon: 'none',
-                    mask: true
-                });
+            const { index, childIndex, commentId, isDigged } = ev.currentTarget.dataset;
+            let method = isDigged ? 'undiggComment' : 'diggComment';
+            const { comment: { is_digged, digg_count }} = await api.hei[method]({ comment_id: commentId });
+            let item = childIndex >= 0 ? `comments[${index}].children[${childIndex}]` : `comments[${index}]`;
+            this.setData({
+                [`${item}.is_digged`]: is_digged,
+                [`${item}.digg_count`]: digg_count
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
+    async articleDetail() {
+        try {
+            wx.showLoading({ title: '加载中', mask: true });
+            const { id = '' } = this.data;
+            const data = await api.hei.articleDetail({ id });
+            const { replies } = data.article;
+            this.setData({
+                ...data,
+                comments: replies
+            });
+            const { page_title } = this.data;
+            wx.setNavigationBarTitle({
+                title: page_title
+            });
+            wx.hideLoading();
+        } catch (err) {
+            console.log(err);
+            wx.hideLoading();
+        }
+
+    },
+
+    showInputBox() {
+        const { isShowInputBox } = this.data;
+        this.setData({
+            isShowInputBox: !isShowInputBox
+        });
+    },
+
+    onComment() {
+        this.setData({
+            placeholder: '请输入评论'
+        }, this.showInputBox);
+    },
+
+    onReply(ev) {
+        console.log(ev);
+        const { replyParentId, replyUser } = ev.currentTarget.dataset;
+        this.setData({
+            replyParentId,
+            placeholder: `回复${replyUser}`
+        }, this.showInputBox);
+    },
+
+    onChangeInput(ev) {
+        console.log(ev);
+        const { value } = ev.detail;
+        this.setData({ comment: value });
+    },
+
+    async onSubmit() {
+        try {
+            const { id, comment, replyParentId } = this.data;
+            if (!comment) {
+                wx.showToast({ title: '评论内容不能为空', icon: 'none' });
                 return;
             }
-
-            let args = {
-                text,
-                reply_to,
-                form_id: formId,
-                post_id: id
-            };
-
-            const { reply } = await api.hei.createReply(args);
-
-            wx.hideLoading();
-
-            // status: -1 审核中
-            // status: 1 正常
-            if (reply.status === 1) {
-                topic.reply_count = topic.reply_count + 1;
-                topic.replies = [].concat(topic.replies, reply);
-            } else if (reply.status === -1) {
-                wx.showToast({
-                    title: '发布成功，请等待后台审核',
-                    icon: 'none',
-                    mask: true
-                });
-            }
-
-            this.setData({
-                topic,
-                text: '',
-                reply_to: 0,
-                placeholder: '发布评论',
-                reply_focus: false,
+            wx.showLoading({
+                title: '请求中...',
+                mask: true
             });
+            let requestData = {
+                post_id: id,
+                comment
+            };
+            if (replyParentId) {
+                requestData.parent = replyParentId;
+            }
+            await api.hei.createReply(requestData);
+            this.setData({
+                comment: '',
+                replyParentId: null,
+                isShowInputBox: false
+            });
+            wx.hideLoading();
+            wx.showToast({
+                title: '评论成功！',
+                icon: 'success'
+            });
+            this.articleDetail();
         } catch (e) {
             wx.hideLoading();
             wx.showModal({
@@ -133,86 +152,27 @@ Page({
         }
     },
 
-    // async deleteReply(comment_id) {
-    //     try {
-    //         const { topic } = this.data;
-    //         await api.hei.deleteReply({ id: comment_id, });
-    //         topic.reply_count = topic.reply_count - 1;
-    //         topic.replies = topic.replies.filter((item) => item.id !== comment_id);
-    //         this.setData({ topic });
-    //         isSubmiting = false;
-    //     } catch (e) {
-    //         wx.showModal({
-    //             title: '温馨提示',
-    //             content: e.errMsg,
-    //             showCancel: false
-    //         });
-    //     }
-    // },
-
-    async replyTo(e) {
-        const { iv, encryptedData } = e.detail;
-        const { id, nickname, openid } = e.currentTarget.dataset;
-        const { user } = this.data;
-        if (!user || !user.openid) {
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            this.setData({ user });
-        }
-        if (openid === user.openid) {
-            // 自己评论则删除
-            console.log('删除评论');
-            // let that = this;
-            // wx.showActionSheet({
-            //     itemList: ['删除评论'],
-            //     itemColor: '#e74c3c',
-            //     success: (res) => {
-            //         if (res.tapIndex === 0) {
-            //             that.deleteReply(id);
-            //         }
-            //     }
-            // });
-        } else {
-            // 其他人评论则回复
-            isFocusing = true;
-            this.setData({
-                reply_to: id,
-                placeholder: '回复' + nickname + ':',
-                reply_focus: true
-            });
-        }
+    onShowPoster() {
+        const { id, banner, title, excerpt, author } = this.data.article;
+        let posterData = {
+            id,
+            banner,
+            title,
+            author,
+            excerpt
+        };
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
     },
 
-    onReplyBlur(e) {
-        console.log('onReplyBlur', isFocusing);
-        if (!isFocusing) {
-            const text = e.detail.value.trim();
-
-            // 只有输入内容为空的时候, 输入框失焦才会重置回复对象
-            if (text === '') {
-
-                // 保证先提交评论再重置
-                // setTimeout(() => {
-                this.setData({
-                    reply_to: 0,
-                    placeholder: '发布评论',
-                    reply_focus: false,
-                });
-
-                // }, 50)
-            }
-        }
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
     },
 
-    onRepleyFocus() {
-        isFocusing = false;
-        console.log('onRepleyFocus', isFocusing);
-        if (!this.data.reply_focus) {
-            this.setData({ reply_focus: true });
-        }
-    },
-
-    reLoad() {
-        const user = getUserInfo;
-        this.setData({ user });
-    },
+    onShareAppMessage: onDefaultShareAppMessage
 });
