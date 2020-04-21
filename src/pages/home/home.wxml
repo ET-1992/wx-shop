@@ -1,13 +1,15 @@
 <loading isLoading="{{ isLoading }}" />
 <block wx:if="{{ home_type === 'old'}}">
     <!-- 模板皮肤 -->
-    <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml" />
-    <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml" />
-    <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml" />
-    <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml" />
-    <include wx:elif="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml" />
-    <include wx:elif="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml" />
-    <include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml" />
+    <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml"/>
+    <include wx:elif="{{ tplStyle === 'vip_tpl_seven' }}" src="./templates/tplStyleSeven/tplStyleSeven.wxml"/>
+    <include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml"/>
+
     <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
     <service phone="{{ phone }}" customer="{{ customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />

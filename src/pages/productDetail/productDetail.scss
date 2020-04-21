@@ -191,6 +191,112 @@ video {
 
 }
 
+// 今日秒杀banner
+.miaosha-banner {
+	width: 750rpx;
+	height: 100rpx;
+	color: #fff;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	position: relative;
+
+	.background-image {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.price-area {
+		position: absolute;
+		top: 2px;
+		left: 145rpx;
+
+		.price {
+			.price-unit {
+				font-size: 20rpx;
+				display: inline-block;
+				font-weight: bold;
+			}
+
+			.price-count {
+				display: inline-block;
+				font-size: 17x;
+				margin-left: 5rpx;
+				font-weight: bold;
+			}
+
+			.origin-price {
+				display: inline-block;
+				font-size: 20rpx;
+				text-decoration: line-through;
+				margin-left: 10rpx;
+				color: #fff;
+			}
+		}
+		// .count-only-wrap {
+			// text-align: center;
+			.count-only {
+				font-size: 8px;
+				border: 1rpx solid #fff;
+				font-weight: bold;
+				color: #fff;
+				display:inline-block;
+				padding: 2px;
+			}
+		// }
+	}
+
+	.time {
+		position: absolute;
+		right: 32rpx;
+		top: 11rpx;
+		color: $shareColor;
+		text-align: right;
+
+		.time-section {
+			width: 242rpx;
+			display: flex;
+			flex-direction: column;
+			align-content: flex-start;
+			font-size: 24rpx;
+			font-weight: bold;
+
+			// .time-text {
+			// 	margin-bottom: 8rpx;
+			// }
+
+			.time-limit {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 8rpx;
+
+				.hour,
+				.minute,
+				.second {
+					width: 40rpx;
+					height: 35rpx;
+					line-height: 35rpx;
+					text-align: center;
+					background-color: $shareColor;
+					color: #fff;
+					font-weight: bold;
+				}
+			}
+
+		}
+
+		.end {
+			transform: translateY(50%);
+			font-size: 30rpx;
+		}
+	}
+
+}
+
 // 超值拼团banner
 .pintuan {
 	width: 100%;
@@ -897,34 +1003,62 @@ button {
 		text-align: center;
 		background-color: #fff;
 		width: 100%;
+
+		.footer-left {
+			display: flex;
+			.shop,
+			.cart,
+			.fav {
+				flex-grow: 1;
+				width: 100rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				font-size: 8pt;
+				background: #fff;
+				position: relative;
+				left: 0;
+				top: 0;
+
+				text,.text{
+					color: #333;
+					line-height: 1.5;
+				}
+			}
+
+			.icon {
+				$size: 40rpx;
+				width: $size;
+				height: $size;
+				display: block;
+				margin-bottom: 10rpx;
+			}
+		}
+	}
+
+	// 底部按钮-秒杀相关
+	.miaosha-buy,
+	.miaosha-begin {
+		flex: 1;
+		// width: 490rpx;
+		height: 100rpx;
+		color: #fff;
+		font-weight: bold;
+		font-size: 32rpx;
+		line-height: 100rpx;
+	}
+	.miaosha-buy {
+		background-color: $mainColor;
+		// background-color: $shareColor;
+	}
+	.miaosha-begin {
+		background-color: $tagColor;
 	}
 
 	.shop,
 	.cart {
-		flex-grow: 1;
 		width: 100rpx;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		font-size: 8pt;
-		background: #fff;
-		position: relative;
-		left: 0;
-		top: 0;
-
-		text{
-			color: #333;
-			line-height: 1.5;
-		}
-	}
-
-	.icon {
-		$size: 40rpx;
-		width: $size;
-		height: $size;
-		display: block;
-		margin-bottom: 10rpx;
 	}
 
 	.buy,

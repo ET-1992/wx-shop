@@ -1,12 +1,13 @@
 {
 	"pages": [
 		"pages/home/home",
-		"pages/me/me",
+		"pages-mebxy/me/me",
 		"pages/cart/cart",
 		"pages/category/category",
 		"pages/classify/classify",
 		"pages/articleList/articleList",
-		"pages/modulePage/modulePage"
+		"pages/modulePage/modulePage",
+		"pages/shopList/shopList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -33,9 +34,9 @@
 				"selectedIconPath": "icons/default/categorySelected.png"
 			},
 			{
-				"pagePath": "pages/articleList/articleList",
+				"pagePath": "pages/shopList/shopList",
 				"iconPath": "icons/default/articleList.png",
-				"text": "格物",
+				"text": "商城",
 				"selectedIconPath": "icons/default/articleListSelected.png"
 			},
 			{
@@ -45,7 +46,7 @@
 				"selectedIconPath": "icons/default/cartSelected.png"
 			},
 			{
-				"pagePath": "pages/me/me",
+				"pagePath": "pages-mebxy/me/me",
 				"iconPath": "icons/default/me.png",
 				"text": "我",
 				"selectedIconPath": "icons/default/meSelected.png"
@@ -286,13 +287,6 @@
 			"name": "商品详情页"
 		},
 		{
-			"root": "pages/productList/",
-			"pages": [
-				"productList"
-			],
-			"name": "商品列表页"
-		},
-		{
 			"root": "pages/refund/",
 			"pages": [
 				"refund"
@@ -333,6 +327,13 @@
 				"webPages"
 			],
 			"name": "webPage页"
+		},
+		{
+			"root": "pages/productList",
+			"pages": [
+				"productList"
+			],
+			"name": "productList页"
 		}
 	],
 	"permission": {

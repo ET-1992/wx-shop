@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <g id="组_3579" data-name="组 3579" transform="translate(-7327 -1880)">
+    <rect id="矩形_1839" data-name="矩形 1839" width="64" height="64" transform="translate(7327 1880)" fill="none"/>
+    <path id="路径_715" data-name="路径 715" d="M33.707.5V6.328S19.394,6.633,17.45,19.821a19.6,19.6,0,0,1,16.257-4.7v6.133l10.021-9.966Z" transform="translate(7328.285 1900.766)" fill="#d4d4d4" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <g id="组_3580" data-name="组 3580" transform="translate(7186.5 696)">
+      <path id="路径_821" data-name="路径 821" d="M190.5,1206.5v-4.119a8.4,8.4,0,0,0-8.381-8.381H178" transform="translate(4)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="路径_822" data-name="路径 822" d="M163,1194h-4.119a8.4,8.4,0,0,0-8.381,8.381v4.119" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="路径_823" data-name="路径 823" d="M150.5,1221.5v4.119a8.4,8.4,0,0,0,8.381,8.381H163" transform="translate(0 4)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="路径_824" data-name="路径 824" d="M178,1234h4.119a8.4,8.4,0,0,0,8.381-8.381V1221.5" transform="translate(4 4)" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

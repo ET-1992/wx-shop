@@ -44,7 +44,7 @@ App({
             authorizer,
             currency,
             CURRENCY,
-            tabbarPages
+            tabbarPages,
         });
 
         this.vip = vip;

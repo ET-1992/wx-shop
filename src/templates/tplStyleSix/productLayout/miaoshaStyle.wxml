@@ -26,7 +26,7 @@
             <view class="bottom">
                 <view class="info">
                     <view class="price">
-                        <text class="miaosha-price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.miaosha_enable ? miaosha.miaosha_price : miaosha.price }}</text>
+                        <text class="miaosha-price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.seckill_enable ? miaosha.seckill_price : miaosha.miaosha_price }}</text>
                         <text class="original-price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
                     </view>
                 </view>

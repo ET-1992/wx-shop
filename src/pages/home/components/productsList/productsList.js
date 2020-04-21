@@ -58,6 +58,9 @@ Component({
             if (setting.promotion_type === 'bargain_enable') {
                 autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }
+            if (setting.promotion_type === 'seckill_enable') {  // 秒杀
+                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=seckill&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
+            }
             if (setting.promotion_type === 'miaosha_enable') {
                 autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
             }

@@ -7,7 +7,13 @@ Component({
             value: {},
             observer(newVal) {
                 if (!newVal) { return }
-                const { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+                let { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+
+                // 兼容秒杀时间戳
+                let { seckill_end_timestamp, seckill_start_timestamp } = newVal;
+                miaosha_end_timestamp = miaosha_end_timestamp || seckill_end_timestamp
+                miaosha_start_timestamp = miaosha_start_timestamp || seckill_start_timestamp
+
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = miaosha_end_timestamp - now;
                 let hasStart = true;
