@@ -514,5 +514,29 @@ export const apis = {
     newHome: {
         path: 'api/module/page.json',
         method: 'GET'
-    }
+    },
+    getReceiverList: {
+        path: 'api/mag.platform_user.receiver.list.json',
+        isForceToken: true
+    },
+    addReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.add.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    getReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.get.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    updateReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.update.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    deleteReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.delete.json',
+        method: 'POST',
+        isForceToken: true
+    },
 };
