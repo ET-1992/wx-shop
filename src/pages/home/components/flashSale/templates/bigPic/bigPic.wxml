@@ -35,7 +35,7 @@
                     {{ globalData.CURRENCY[globalData.currency] }}{{  product.original_price }}
                 </view>
                 <view class="miaoshaPrice">
-                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price }}
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price || product.seckill_price }}
                 </view>
             </view>
             <view class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>

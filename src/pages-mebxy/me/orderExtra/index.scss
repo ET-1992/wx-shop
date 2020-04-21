@@ -1,0 +1,73 @@
+@import '~styles/color';
+.section {
+	background-color: #fff;
+	margin-bottom: 10rpx;
+	padding: 20rpx 20rpx;
+}
+.section:last-child{
+	text-align: center;
+	font-size: 14px;
+}
+.orders {
+	margin: 20rpx 20rpx;
+	border-radius: 10rpx;
+	height: 180rpx;
+	line-height: 2;
+
+	.orderItems {
+		display: flex;
+		margin-top: 20rpx;
+		.orderItem {
+			flex-grow: 1;
+			width: 25%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			left: 0;
+			top: 0;
+			font-size: 22rpx;
+			color: #333333;
+			.statusText{
+				font-size: 22rpx;
+				color: #333333;
+			}
+
+			.orderItemValue {
+				$size: 28rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				font-size: 18rpx;
+				color: #fff;
+				text-align: center;
+				line-height: 30rpx;
+				background-color: $priceColor;
+				position: absolute;
+				right: 34rpx;
+				top: -6rpx;
+				z-index: 2;
+			}
+			
+		}
+		.statusIcon {
+			$size: 64rpx;
+			height: $size;
+			width: $size;
+			margin-bottom: 10rpx;
+		}
+		.unpay{
+			width: 70rpx;
+		}
+		.unSend{
+			width: 70rpx;
+		}
+		.unGet{
+			width: 64rpx;
+		}
+		.allOrder{
+			width: 55rpx;
+		}
+	}
+}

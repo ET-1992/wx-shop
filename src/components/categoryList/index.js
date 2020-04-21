@@ -14,7 +14,12 @@ Component({
             value: ''
         }
     },
-
+    attached() {
+        const { tabbarPages } = app.globalData;
+        this.setData({
+            tabbarPages
+        });
+    },
     methods: {
         onClick(ev) {
             console.log(ev.detail.value);

@@ -23,7 +23,7 @@
 			<view class="title">{{ product.title }}</view>
 			<view class="miaoshaPrice">
 				<view class="price">
-					{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_enable ? product.miaosha_price : product.price }}
+					{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_enable ? product.miaosha_price : ( product.seckill_enable ? || product.seckill_price : product.price) }}
 				</view>
 				<view class="originalPrice">
 					{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}

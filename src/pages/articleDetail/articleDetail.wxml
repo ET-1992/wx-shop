@@ -28,24 +28,43 @@
 			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 		</view>
 
-		<view class="promote" wx:if="{{article.products.length}}">
-			<view wx:if="{{ article.label }}" class="label">
-				<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
-			</view>
-			<view class="relateShop">
-				<view
-					class="relateShopItem"
-					wx:if="{{article.products.length}}"
-					wx:for="{{ article.products }}"
-					wx:key="id"
-					wx:for-item="product"
-					wx:for-index="productIndex"
-					hover-class="navigator-hover"
-				>
-					<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+		<block wx:if="{{ article.products && article.products.length }}">
+			<!-- 购物清单 米白 -->
+			<view class="fast-add-cart" wx:if="{{ PLATFFORM_ENV === 'MIBAI' }}">
+				<view class="promote-top">
+					<view class="promote-left">
+						<image class="shopping-list" src="/icons/shoppingList.png"/>
+						<text class="shopping-text">购买清单</text>
+					</view>
+					<view class="promote-right" bindtap="addCard">
+						<image class="add-cart" src="/icons/addCart.png"/>
+						<text class="addCart-text">一键加车</text>
+					</view>
+				</view>
+				<view class="promote-list">
+					<include src="./shoppingListStyle.wxml" />
 				</view>
 			</view>
-		</view>
+			<!-- 相关产品 -->
+			<view class="promote" wx:else>
+				<view wx:if="{{ article.label }}" class="label">
+					<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
+				</view>
+				<view class="relateShop">
+					<view
+						class="relateShopItem"
+						wx:if="{{article.products.length}}"
+						wx:for="{{ article.products }}"
+						wx:key="id"
+						wx:for-item="product"
+						wx:for-index="productIndex"
+						hover-class="navigator-hover"
+					>
+						<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+					</view>
+				</view>
+			</view>
+		</block>
 	</view>
 
 	<!-- 底部评论栏 -->

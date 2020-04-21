@@ -32,10 +32,11 @@
                 </view>
 
                 <view class="now" style="color: {{ themeColor.primaryColor }}">
-					<view>限时价</view>
+					<view wx:if="{{ product.seckill_enable }}">秒杀价</view>
+					<view wx:else>限时价</view>
 					<view class="money">
 						<view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
-						<view class="num">{{ product.miaosha_price }}</view>
+						<view class="num">{{ product.miaosha_price || product.seckill_price }}</view>
 					</view>
                 </view>
             </view>

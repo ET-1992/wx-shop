@@ -1,0 +1,29 @@
+<view class="shareProduct">
+    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFit" />
+    <view class="shareInfo">
+        <view class="title">
+            {{ product.title }}
+        </view>
+        <view class="shareItem">
+            <block wx:if="{{ product.miaosha_enable && nowTS >= product.miaosha_start_timestamp && nowTS <= product.miaosha_end_timestamp  }}">
+                <view class="ItemPrice">
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.miaosha_price }}
+                </view>
+            </block>
+            <block wx:elif="{{ product.groupon_enable}}">
+                <view class="ItemPrice">
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.groupon_price }}
+                </view>
+            </block>
+            <block wx:else>
+                <view class="ItemPrice">
+                    <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
+                </view>
+            </block>
+            <view class="tagWrapper">
+                <view class="ItemSold">佣金：{{ product.commission_percent_level_1 || 0 }}%</view>
+                <view class="ItemSold">已售：{{ product.sales }}</view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -14,6 +14,7 @@ Page({
     },
 
     async onLoad() {
+        const { tabbarPages } = app.globalData;
         try {
             const { themeColor, partner = {}, tabbarPages } = app.globalData;
             this.setData({ isLoading: true });
@@ -30,6 +31,7 @@ Page({
 
             this.setData({
                 isLoading: false,
+                tabbarPages,
                 themeColor,
                 ...data
             });

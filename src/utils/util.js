@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
@@ -215,6 +215,7 @@ export function bankCardAttribution(bankCard) {
 }
 
 export function updateCart(e) {
+    if (PLATFFORM_ENV === 'MIBAI') { return }
     const CART_NUM  = wx.getStorageSync('CART_NUM');
     const index = Number(e);
     const text = CART_NUM.toString();
@@ -427,5 +428,15 @@ export async function subscribeMessage(keys = []) {
         });
     } catch (e) {
         console.log(e);
+    }
+}
+
+// 米白店铺过期
+export async function isExpired(e) {
+    const { partner } = e;
+    if (partner.is_expired) {
+        wx.reLaunch({
+            url: '/pages/webPages/webPages?isExpired=true'
+        });
     }
 }

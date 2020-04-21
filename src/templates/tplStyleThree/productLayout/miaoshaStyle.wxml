@@ -12,8 +12,11 @@
         <view class="miaoshaPrice">
             <view class="newPrice">
                 <text class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</text>
-                <text class="price">{{ miaosha.miaosha_price }}</text>
-                <text class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+                <text class="price">{{ miaosha.seckill_enable ? miaosha.seckill_price : miaosha.miaosha_price }}</text>
+                <!-- 限时购价格 -->
+                <text class="originalPrice" wx:if="{{ miaosha.miaosha_enable && miaosha.miaosha_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+                <!-- 秒杀价格 -->
+                <text class="originalPrice" wx:if="{{ miaosha.seckill_enable && miaosha.seckill_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
             </view>
         </view>
     </view>

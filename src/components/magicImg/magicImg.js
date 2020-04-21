@@ -1,4 +1,7 @@
 import { USER_KEY } from 'constants/index';
+
+const app = getApp();
+
 Component({
     properties: {
         isMarginTopZero: {
@@ -31,9 +34,11 @@ Component({
         }
     },
     attached() {
+        const { tabbarPages } = app.globalData;
         const userInfo = wx.getStorageSync(USER_KEY);
         this.setData({
-            userInfo
+            userInfo,
+            tabbarPages
         });
     },
     methods: {

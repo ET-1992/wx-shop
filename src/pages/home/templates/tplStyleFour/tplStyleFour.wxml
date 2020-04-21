@@ -168,6 +168,28 @@
 					</view>
 				</view>
 			</view>
+			<!-- 秒杀 -->
+			<view wx:if="{{ module.key === 'seckills' }}">
+				<view class="section" wx:if="{{ seckills && seckills.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">
+					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}}</view>
+					<navigator class="sectionMore" wx:if="{{ seckills.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=seckill">
+						<form bindsubmit="submitFormId" report-submit="true">
+							<button formType="submit" class="moreButton">
+								<view>查看更多</view>
+								<image mode="aspectFit" src="/icons/triangleUpActive.png"></image>
+							</button>
+						</form>
+					</navigator>
+					<view class="miaoshaContainer">
+						<!-- <navigator wx:if="{{ miaoshas.length == 1}}" class="miaoshaItem" url="/pages/miaoshaList/miaoshaList">
+							<productList miaosha="{{ miaoshas[0] }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+						</navigator> -->
+						<myNavigator wx:if="{{ seckills.length > 0 }}" class="miaoshaItem" wx:for="{{ seckills }}" url="/pages/productDetail/productDetail?id={{ item.post_id }}" wx:key="item.id">
+							<productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+						</myNavigator>
+					</view>
+				</view>
+			</view>
 			<!-- 砍价 -->
 			<view wx:if="{{ module.key === 'bargains' }}">
 				<view class="section" wx:if="{{ bargains && bargains.length }}" style="{{ index === modules.length-1 ? 'border: none' : ''}}">

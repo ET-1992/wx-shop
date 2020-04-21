@@ -1,6 +1,5 @@
-
-// const host = 'https://shenghuogou.wpweixin.com/';
-// const host = 'https://dpm.wpweixin.com/';
+import { PLATFFORM_ENV, HOST_ARRAY } from 'constants/index';
+import { textToValue } from 'utils/util';
 
 /**
  * path: 接口路径
@@ -9,16 +8,9 @@
  * requestType: 默认request, [request, uploadFile]
  * contentType: 默认x-www-form-urlencode, 可配置json
  **/
-export const host = 'https://api.97866.com/';
-// export const host = 'http://app.dev.97866.com/';
-// export const host = 'https://hei.dev.97866.com/';
-// export const host = 'https://hei.97866.com/';
-// export const host = 'https://666.dev.97866.com/';
 
-// 翠绿
-// export const host = 'https://api.jcaik.com/';
-// 天枢
-// export const host = 'https://bidaauto.com/';
+export const host = textToValue(HOST_ARRAY, PLATFFORM_ENV);
+
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -455,6 +447,12 @@ export const apis = {
         path: 'api/weapp/qrcode/code.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 秒杀
+    seckillOrderCreate: {
+        path: 'api/mag.seckill.order.create.json?pay&v2',
+        isForceToken: true,
+        method: 'POST'
     },
     // 发起砍价
     createBargain: {

@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG, ADDRESS_KEY } from 'constants/index';
+import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
 import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
@@ -61,6 +61,7 @@ Page({
 
         areaObj: {},
         isShowAreaModal: false,
+        PLATFFORM_ENV,
         bargain_mission: {}
     },
 
@@ -96,6 +97,7 @@ Page({
         });
     },
 
+    // 倒计时初始化
     countDown(end, start) {
         return new Promise((resolve) => {
             const now = Math.round(Date.now() / 1000);
@@ -119,7 +121,7 @@ Page({
         });
     },
 
-    // 限时购倒计时触发
+    // 倒计时触发
     todayTimeLimit() {
         let { timeLimit } = this.data;
         if (timeLimit && !this.intervalId) {
@@ -130,7 +132,7 @@ Page({
         }
     },
 
-    // 限时购倒计时设置
+    // 倒计时设置
     todayTimeLimitSet() {
         let { timeLimit } = this.data;
         const [hour, minute, second] = getRemainTime(timeLimit);
@@ -206,6 +208,13 @@ Page({
                     miaosha_end_timestamp,
                     miaosha_start_timestamp
                 );
+            } else if (product.seckill_enable) {
+                // 秒杀初始化
+                const { seckill_end_timestamp, seckill_start_timestamp } = product;
+                await this.countDown(
+                    seckill_end_timestamp,
+                    seckill_start_timestamp,
+                );
             }
 
             if (product.groupon_enable) {
@@ -236,6 +245,10 @@ Page({
 
             // 限时购倒计时
             if (product.miaosha_enable) {
+                await this.todayTimeLimit();
+            }
+            // 秒杀倒计时
+            if (product.seckill_enable) {
                 await this.todayTimeLimit();
             }
 
@@ -278,6 +291,7 @@ Page({
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
         } else if (product.seckill_enable && !hasEnd && hasStart) {
+            // 秒杀相关价格显示
             product.definePrice = product.seckill_price;
             product.showOriginalPrice = product.seckill_price !== product.original_price;
         } else {
@@ -397,6 +411,22 @@ Page({
             }
         }
     },
+
+    // 收藏商品
+    async toggleFavProduct() {
+        let { product } = this.data;
+
+        this.setData({
+            'product.is_faved': Number(!product.is_faved)
+        });
+
+        if (product.is_faved) {
+            await api.hei.favProduct({ post_id: product.id }); // 收藏商品
+        } else {
+            await api.hei.unFavProduct({ post_id: product.id }); // 取消商品收藏
+        }
+    },
+
     // 立即购买
     async onBuy() {
         console.log('onBuy');
@@ -460,11 +490,15 @@ Page({
             url = url + '&crowd=true';
         }
 
+        // 秒杀
+        if (product.seckill_enable) {
+            url = `${url}&seckill=true&seckill_product_id=${product.seckill_product_id}`;
+        }
+
         if (product.bargain_enable && bargain_mission && isBargainBuy) {
             url = url + `&bargain_mission_code=${bargain_mission.code}`;
             console.log('url438', url);
         }
-        console.log('url440', url);
 
         const currentOrder = createCurrentOrder({
             selectedSku,

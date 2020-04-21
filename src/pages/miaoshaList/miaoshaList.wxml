@@ -25,16 +25,16 @@
     </block>
     
     <!-- 秒杀专区 -->
-    <!-- <block wx:if="{{ type === 'seckill'}}">
+    <block wx:if="{{ type === 'seckill'}}">
         <view class="banner" wx:if="{{ seckill_banner }}">
             <image src="{{ seckill_banner }}" mode="aspectFill" />
         </view>
         <view class="itemWrapper" wx:for="{{ products }}" wx:key="id">
             <navigator url="/pages/productDetail/productDetail?id={{ item.id }}">
-                <productList product="{{ item }}" tplStyle="default" productLayoutStyle="leftImage" themeColor="{{themeColor}}"/>
+                <productList miaosha="{{ item }}" type="{{ type }}" tplStyle="default" productLayoutStyle="rightImage" themeColor="{{themeColor}}"/>
             </navigator>
         </view>
-    </block> -->
+    </block>
 
     <!-- 砍价专区 -->
     <block wx:if="{{ type === 'bargain'}}">

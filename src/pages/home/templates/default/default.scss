@@ -183,7 +183,11 @@
     	}
 
     	.grouponItemWrapper{
-    		padding-bottom: 10rpx;
+    		// padding-bottom: 10rpx;
+			display:flex;
+			padding:0 25rpx;
+			flex-wrap:wrap;
+			justify-content:space-between;
     	}
 
     	.sectionMore {
