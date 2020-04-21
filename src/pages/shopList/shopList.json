@@ -1,0 +1,11 @@
+{
+	"enablePullDownRefresh": true,
+	"navigationBarTitleText": "商城",
+	"usingComponents": {
+	  "productList": "../../components/productList/index",
+	  "loading": "../../components/loading/index",
+	  "filterList": "../../components/filterList/filterList",
+	  "navbarList": "../../components/navbarList/navbarList"
+	}
+  }
+  

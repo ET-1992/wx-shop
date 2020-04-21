@@ -1,5 +1,5 @@
 <view class="leftItem">
-    <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill" lazy-load="{{ true }}" />
+    <image class="productImage" src="{{ miaosha.thumbnail }}" mode="aspectFill"/>
     <view class="meta">
         <view class="title">{{ miaosha.title }}</view>
         <view class="desc" wx:if="{{ miaosha.excerpt }}">{{ miaosha.excerpt }}</view>
@@ -9,10 +9,16 @@
         <view class="miaoshaPrice">
             <view class="newPrice">
                 <text class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</text>
-                <text class="price">{{ miaosha.miaosha_price }}</text>
+                <text class="price" wx:if="{{ miaosha.miaosha_enable }}">{{ miaosha.miaosha_price }}</text>
+                <text class="price"  wx:if="{{ miaosha.seckill_enable }}">{{ miaosha.seckill_price }}</text>
             </view>
-            <view class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">
+            <!-- 限时购价格 -->
+            <view class="originalPrice" wx:if="{{ miaosha.miaosha_enable && miaosha.miaosha_price !== miaosha.original_price }}">
                 <text>{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+            </view>
+            <!-- 秒杀价格 -->
+            <view class="originalPrice" wx:if="{{ miaosha.seckill_enable && miaosha.seckill_enable !== miaosha.original_price }}">
+                <text>{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.seckill_price }}</text>
             </view>
         </view>
     </view>

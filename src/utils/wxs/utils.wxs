@@ -1,0 +1,32 @@
+/* eslint-disable */
+var ellipsisValue = function(value, num) {
+    return value.toString().length > num ? exchange_num(num).concat('+') : value.toString();
+}
+var exchange_num = function(num) {
+    var newValue = '1';
+    var i = 0;
+    while (i < num) {
+        newValue += '0';
+        i++;
+    }
+    return newValue;
+}
+var formatTime = function(date) {
+    var date = getDate(date);
+    var year = date.getFullYear();
+    var month = formatNumber(date.getMonth() + 1);
+    var day = formatNumber(date.getDate());
+    var hour = formatNumber(date.getHours());
+    var minute = formatNumber(date.getMinutes());
+    var second = formatNumber(date.getSeconds());
+    return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':');
+}
+function formatNumber(n) {
+    var x;
+    x = n.toString();
+    return x[1] ? x : '0' + x;
+}
+module.exports = {
+    ellipsisValue: ellipsisValue,
+    formatTime: formatTime
+};

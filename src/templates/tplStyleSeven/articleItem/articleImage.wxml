@@ -1,0 +1,12 @@
+<navigator class="articleImage" url="/pages/productDetail/productDetail?id={{ product.id }}">
+    <image src="{{product.thumbnail}}" mode="aspectFill"></image>
+    <view class="meta">
+        <view class="name">{{product.title}}</view>
+    </view>
+    <view class="price">
+        <view class="originalPrice" wx:if="{{product.miaosha_enable}}">{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.miaosha_price}}</text></view>
+        <view class="originalPrice" wx:elif="{{product.groupon_enable}}">{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.groupon_price}}</text></view>
+        <view class="originalPrice" wx:else>{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.price}}</text></view>
+        <view class="toBuy" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
+    </view>
+</navigator>

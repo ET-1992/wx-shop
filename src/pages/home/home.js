@@ -39,6 +39,7 @@ export const pageObj = {
         speed: 50,
         second: 0,
         guide_status: false, // 添加到小程序指引是否显示
+        isShowButton: true, // 是否显示抢购、秒杀按钮
         isProductLast: false // 判断新首页商品列表是否在最后
     },
 

@@ -1,5 +1,12 @@
 <view class="topImage">
-    <image class="productImage" mode="aspectFill" src="{{ product.thumbnail }}"></image>
+    <view class="wrapper">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">
+            <image src="/icons/soldOut.svg" class="mask-img"/>
+        </view>
+        <!-- <view class="mask" wx:if="{{  product.status === 'sold_out' }}">已抢光</view> -->
+        <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+    </view>
+    <!-- <image class="productImage" mode="aspectFill" src="{{ product.thumbnail }}"></image> -->
     <view class="content">
         <view class="title"> {{ product.title }}</view>
     </view>
@@ -41,5 +48,9 @@
             class="tag" 
             wx:if="{{ product.groupon_enable || product.miaosha_enable }}"
         >{{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}</view>
+        <view 
+            class="tag" 
+            wx:elif="{{ product.seckill_enable }}"
+        >{{ '秒杀' }}</view>
     </view>
 </view>

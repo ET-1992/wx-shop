@@ -20,10 +20,13 @@
       <view class="footer">
         <view class="allprice">
           <view class="flashPrice">
-            <text class="flashPriceTitle">限时价</text>
-            <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="miaoshaPrice">{{ miaosha.miaosha_price }}</text>
+            <!-- 促销名字 -->
+            <text class="flashPriceTitle">{{ type === 'seckill' ? '秒杀价' : '限时价' }}</text>
+            <!-- 促销价格 -->
+            <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="miaoshaPrice">{{ type === 'seckill' ? miaosha.seckill_price : miaosha.miaosha_price }}</text>
           </view>
-          <view  wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}" >
+          <!-- 商品原价 -->
+          <view  wx:if="{{ (type === 'seckill' ? miaosha.seckill_price : miaosha.miaosha_price) !== miaosha.original_price }}" >
             <text class="originalPriceTitle"></text>
             <text class="originalPrice" >{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
           </view>

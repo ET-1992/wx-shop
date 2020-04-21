@@ -24,6 +24,9 @@ Page({
         if (type === 'bargain') {
             promotion_type = 'bargain_enable';
         }
+        if (type === 'seckill') {
+            promotion_type = 'seckill_enable';
+        }
         if (type === 'groupon') {
             promotion_type = 'groupon_enable';
         }
@@ -37,11 +40,12 @@ Page({
         wx.setNavigationBarTitle({
             title: data.page_title
         });
-        const { miaosha_banner, bargain_banner, groupon_banner, total_pages, share_image, share_title } = data;
+        const { miaosha_banner, seckill_banner, bargain_banner, groupon_banner, total_pages, share_image, share_title } = data;
         this.setData({
             products: newProducts,
             isRefresh: false,
             miaosha_banner,
+            seckill_banner,
             bargain_banner,
             groupon_banner,
             total_pages,

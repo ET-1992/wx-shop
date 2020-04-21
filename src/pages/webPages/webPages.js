@@ -10,7 +10,7 @@ Page({
     },
 
     async onLoad(parmas) {
-        let { src, scene } = parmas;
+        let { src, scene, isExpired = false } = parmas;
         if (scene) {
             scene = decodeURIComponent(scene);
             let query = parseScene(scene);
@@ -74,6 +74,9 @@ Page({
                     });
                 }
             }
+        } else if (isExpired) {
+            // 米白过期店铺
+            this.setData({ isExpired: true });
         } else {
             this.setData({ src });
         }

@@ -3,6 +3,7 @@ import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
 import { auth, subscribeMessage } from 'utils/util';
+import { Decimal } from 'decimal.js';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -74,6 +75,8 @@ Page({
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
+            // 新增秒杀
+            const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -82,6 +85,8 @@ Page({
             // let totalPostage = 0;
 
             this.setData({
+                seckill,
+                seckill_product_id,
                 address,
                 liftInfo,
                 totalPrice,
@@ -206,6 +211,8 @@ Page({
 
     async onLoadData(params) {
         try {
+            // 秒杀
+            let { seckill_product_id, seckill } = this.data;
             let {
                 address,
                 items,
@@ -247,6 +254,11 @@ Page({
                 requestData.delivery_store_id = params; // 配送地区id
             }
 
+            if (seckill) { // 秒杀
+                requestData.seckill_pid = seckill_product_id;
+                requestData.order_method = 1;
+            }
+
             if (bargain_mission_code) { // 砍价
                 requestData.promotion_type = 5;
                 requestData.mission_code = bargain_mission_code;
@@ -262,7 +274,8 @@ Page({
             const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
             console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
 
-            const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+            // const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+            const maxUseCoin = new Decimal(fee.amount - fee.postage).mul(coin_in_order.percent_in_order || 0).toNumber();
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
 
@@ -332,6 +345,8 @@ Page({
     async onPay(ev) {
         console.log(ev);
         const { formId, crowd, crowdtype } = ev.detail;
+        // 秒杀
+        const { seckill, seckill_product_id } = this.data;
         const {
             address,
             items,
@@ -519,6 +534,12 @@ Page({
             method = 'createOrder';
         }
 
+        // 秒杀
+        if (seckill) {
+            requestData.pid = seckill_product_id;
+            method = 'seckillOrderCreate';
+        }
+
         // 砍价
         if (bargain_mission_code) {
             requestData.code = bargain_mission_code;
@@ -531,7 +552,7 @@ Page({
         });
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order = {}, cart } = await api.hei[method](requestData);
             wx.hideLoading();
             console.log('OrderCreatecart507', cart);
 

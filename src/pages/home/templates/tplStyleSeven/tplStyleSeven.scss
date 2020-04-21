@@ -1,0 +1,368 @@
+.tplStyleSeven{
+	@import '~templates/articleItem/articleItem';
+	@import '~templates/articleItem/articlePage';
+
+	$searchWrapper: 97rpx;
+	$zeroMarginTop: 20rpx;
+
+    swiper{
+    	// margin-bottom: 15rpx;
+    }
+    .container {
+    	height: auto;
+    	width: 100%;
+    	box-sizing: border-box; 
+    }
+    /* 搜索start */
+    .searchWrapper {
+    	height: $searchWrapper;
+    	background-color: $backgroundColor;
+    	padding: 12rpx 40rpx;
+    	position: fixed;
+    	left: 0;
+    	width: 100%;
+    	top: 0;
+    	z-index: 999;
+
+    	.searchIcon {
+    		$size: 36rpx;
+    		width: $size;
+    		height: $size;
+    		line-height:$size;
+    		margin-right: 20rpx;
+    	}
+
+    	.search {
+    		height: 70rpx;
+    		text-align: center;
+    		font-size: 9pt;
+    		color: $titleColor;
+    		background-color: #fff;
+    		border-radius: 100rpx;
+    		line-height: 70rpx;
+    		border: 1px solid #ddd;
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    	}
+	}
+	/* 搜索end */
+
+    .main {
+    	margin-top: $searchWrapper;
+    }
+
+    .zeroMarginTop {
+    	margin-top: -$zeroMarginTop;
+	}
+	.MarginTop{
+		margin-top: $zeroMarginTop;
+	}
+
+    .banner,.banner button, .banner image {
+    	width: 100%;
+    	height: 100%;
+	}
+	
+    .flashItem .meta{
+    	padding: 40rpx;
+    }
+
+	/* 优惠券start */
+    .couponsWrapper {
+    	padding-left: 10rpx;
+    	font-size: 0;
+    	z-index: 9;
+    	margin: 20rpx 0;
+
+    	.coupons {
+    		display: flex;
+    	}
+
+    	.coupon {
+    		width: 300rpx;
+    		height: 136rpx;
+    		position: relative;
+    		line-height: 1.2;
+    		margin-left: 20rpx;
+    	}
+    
+    	.moreCoupon{
+    		width: 101rpx;
+    		height: 136rpx;
+    		position: relative;
+    		line-height: 1.2;
+
+    		.moreBtn{
+    			position:absolute;
+    			width:20rpx;
+    			color:#707070;
+    			font-size:20rpx;
+    			left:40rpx;
+    			top:26rpx;
+    		}
+    	}
+
+    	.couponInfoList {
+    		position: absolute;
+    		z-index: 2;
+    		color: #fff;
+    		font-size: 9pt;
+    		height: 136rpx;
+    		width: 300rpx;
+    		display: flex;
+    		line-height: 1.4;
+
+    		.couponInfo {
+    			position: absolute;
+    			z-index: 2;
+    			color: #fff;
+    			font-size: 9pt;
+    			height: 136rpx;
+    			width: 180rpx;
+    			display: flex;
+    			justify-content: center;
+    			align-items: center;
+    			flex-direction: column;
+
+    			.reduceCost {
+    				font-size: 18pt;
+    			}
+
+    			.title {
+    				font-size: 8pt;
+    			}
+    		}
+
+    		.couponBtn{
+    			position:absolute;
+    			z-index:2;
+    			color:#fff;
+    			font-size: 23rpx;
+    			height:136rpx;
+    			display:flex;
+    			justify-content:center;
+    			align-items:center;
+    			flex-direction:column;
+    			right: 43rpx;
+
+    			.couponUnuse{
+    				width: 46rpx;
+    				line-height: 1.2;
+    			}
+    			.arrow{
+    				position:absolute;
+    				z-index:2;
+    				right:-25rpx;
+    				width: 11rpx;
+    			}
+    		}
+    	}
+
+    	.bg {
+    		width: 300rpx;
+    		height: 136rpx;
+    		position: absolute;
+    		z-index: 1;
+    	}
+    }
+    .firstCoupon{
+    	margin-top: 20rpx + $zeroMarginTop;
+    }
+	/* 优惠券end */
+
+    .section {
+    	background-color: #fff;
+    	margin-top: $zeroMarginTop;
+
+    	.sectionTitle {
+    		text-align:center;
+    		padding:36rpx;
+    		color:#333;
+    		font-size:17px;
+    	}
+
+    	.grouponItemWrapper{
+			// padding-bottom: 10rpx;
+			display:flex;
+			padding:0 25rpx;
+			flex-wrap:wrap;
+			justify-content:space-between;
+    	}
+
+    	.sectionMore {
+    		height: 80rpx;
+    		line-height: 80rpx;
+    		color: $titleColor;
+    		border-top: 1px solid #eee;
+    		padding: 10rpx 0;
+
+    		.form {
+    			width: 100%;
+    		}
+
+    		.moreButton{
+    			font-size: 26rpx;
+    			background: none;
+    		}
+    	}
+
+    	.rightIcon {
+    		width: 14rpx;
+    		height: 20rpx;
+    		margin-left: 10rpx;
+    	}
+    }
+
+    .starProductItem {
+    	margin-bottom: 15rpx;
+    	width: 100%;
+    	height: 100%;
+    }
+
+    button{
+    	margin: 0;
+    	padding: 0;
+    	border: none;
+    	outline: none;
+    	border-radius: 0;
+    }
+
+    button::after {
+    	outline: 0;
+    	border-radius: 0;
+    	border: 0;
+    }
+
+    .bottomHint {
+    	text-align: center;
+    	color: #ccc;
+    	font-size: 10pt;
+    	padding:40rpx 0 0 20rpx;
+    	margin-bottom: 20rpx;
+    }
+
+    /* 首页分类start */
+    .categoryBox{
+    	padding: 0 15rpx 39rpx;
+    	width: 100%;
+    	display: flex;
+      	justify-content: flex-start;
+    	flex-flow: row wrap;
+    	align-items: center;
+    	text-align: center;
+    	.homeCategory{
+    		flex-direction: column;
+    		.categoryItem{
+    			padding: 42rpx 35rpx 0;
+    			line-height: 0;
+
+    			.categoryImg{
+    				width: 110rpx;
+    				height: 110rpx;
+    				border-radius: 5rpx;
+    			}
+    		}
+    		.categoryBtn{
+    			background-color:transparent;
+    			color: 333333;
+    			font-size: 24rpx;
+    		}
+    		.categoryTitle{
+    			padding-top: 12rpx;
+    			font-size: 24rpx;
+    			color: #333333;
+    			width: 180rpx;
+    			overflow: hidden;
+    			white-space: nowrap;
+    			text-overflow: ellipsis;
+    			font-weight: normal;
+    		}
+    	}
+	}
+	/* 首页分类end */
+
+    .iphoneXTrick {
+		padding-bottom: 1rpx; 
+	}
+
+	/* 商品列表 */
+    .productContainer{
+    	display: flex;
+		// padding: 21rpx 30rpx;
+		padding: 0 20rpx;
+    	flex-wrap: wrap;
+    	justify-content: space-between;
+	}
+	
+	/* 服务说明 */
+    .instructions{
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        height: 70rpx;
+        align-items: center;
+
+        .instructions-item{
+			display: flex;
+			align-items: center;
+            image{
+                width: 20rpx;
+                height: 20rpx;
+            }
+            view{
+                padding-left: 10rpx;
+                display: inline;
+                font-size: 20rpx;
+                color: #707070;
+            }
+        }
+    }
+    .announcement{
+        display: flex;
+        height: 70rpx;
+        align-items: center;
+		background: #FFF9EC;
+		font-size: 22rpx;
+		color: #000000;
+	
+		.infoIcon{
+			margin: 0 14rpx 0 30rpx;
+			width: 48rpx;
+			height: 35rpx;
+		}
+		
+	}
+
+	@keyframes marque {
+    	0% {
+    	    transform: translateX(0);
+    	}
+    	100% {
+    	    transform: translateX(-33.3%);
+    	}
+	}
+	.marquee {
+		width: 100%;
+  		display: block;
+  		overflow: hidden;
+  		white-space: nowrap;
+  		text-overflow: clip;
+		position: relative;
+		color: #BB8946;
+		  
+		.content {
+			display: inline-block;
+			position: relative;
+			padding-right: 0px;
+			white-space: nowrap;
+			animation-name: marque;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+		}
+		.content-space{
+			display: inline-block;
+			width: 300px;
+		}
+	}
+}

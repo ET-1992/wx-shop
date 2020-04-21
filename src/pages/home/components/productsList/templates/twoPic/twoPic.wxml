@@ -1,6 +1,6 @@
 <navigator class="twoPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
 		<view class="wrapper">
-			<view class="mask" wx:if="{{  true || product.status === 'sold_out' }}">已售罄</view>
+			<view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
 			<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" />
 		</view>
 		<view class="Info">

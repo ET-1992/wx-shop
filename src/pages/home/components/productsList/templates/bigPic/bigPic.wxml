@@ -1,5 +1,8 @@
 <navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" >
-    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    <view class="wrap">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    </view>
     <view class="meta">
         <view class="top">
             <view class="title">{{ product.title }}</view>

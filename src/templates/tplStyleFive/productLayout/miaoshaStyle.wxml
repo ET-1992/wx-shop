@@ -20,7 +20,10 @@
     <image class="miaoshaImage" mode="aspectFill" src="{{ miaosha.thumbnail }}" />
     <view class="title">{{miaosha.title}}</view>
     <view class="miaoshaPrice">
-        <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.miaosha_enable ? miaosha.miaosha_price : miaosha.price }}</text>
-        <text class="originalPrice" wx:if="{{ miaosha.miaosha_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+        <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.seckill_enable ? miaosha.seckill_price : miaosha.miaosha_price }}</text>
+        <!-- 限时价格 -->
+        <text class="originalPrice" wx:if="{{ miaosha.miaosha_enable &&  miaosha.miaosha_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
+        <!-- 秒杀价格 -->
+        <text class="originalPrice" wx:if="{{ miaosha.seckill_enable &&  miaosha.seckill_price !== miaosha.original_price }}">{{ globalData.CURRENCY[globalData.currency] }}{{ miaosha.original_price }}</text>
     </view>
 </view>

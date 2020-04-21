@@ -9,6 +9,7 @@
     wx:for-index="categoryIndex"
     hover-class="navigator-hover"
     url="/pages/productList/productList?categoryId={{ category.id }}"
+    open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
   >
     <image
       wx:if="{{ categoryListStyle !== 'text' }}"
