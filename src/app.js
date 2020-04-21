@@ -23,7 +23,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {} } = extConfig;
+        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -87,7 +87,6 @@ App({
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
-                this.checkWebLogin(res);
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
@@ -97,19 +96,6 @@ App({
                 wx.setStorageSync(USER_KEY, current_user || '');
             });
         }, 500);
-    },
-
-    checkWebLogin(configRes) {
-        const { config, current_user } = configRes;
-        const pages = getCurrentPages();
-        const currentPage = pages[pages.length - 1];
-        console.log(currentPage, 'currentPage');
-
-        if (config.auth && config.auth.bind_phone_required && current_user && !current_user.platform_user_id && currentPage.route !== 'pages/bindWeb/bindWeb') {
-            wx.navigateTo({
-                url: '/pages/bindWeb/bindWeb',
-            });
-        }
     },
 
     async onShow(options) {
