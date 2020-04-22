@@ -46,7 +46,7 @@
 				"selectedIconPath": "icons/default/cartSelected.png"
 			},
 			{
-				"pagePath": "pages-mebxy/me/me",
+				"pagePath": "pages/me/me",
 				"iconPath": "icons/default/me.png",
 				"text": "我",
 				"selectedIconPath": "icons/default/meSelected.png"
