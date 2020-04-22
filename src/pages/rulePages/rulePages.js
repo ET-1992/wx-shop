@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import proxy from 'utils/wxProxy';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 const app = getApp();
@@ -6,79 +7,95 @@ const app = getApp();
 Page({
 
     data: {
-        isLoading: true
+        after_sales_imgs: [],
+        config: {},
+        current_user: {},
+        wechat_number: '',
+        phone_number: '',
+        image_url: '',
+        title: '',
+        key: '',
+        share_title: '',
+        share_image: '',
     },
 
     async onLoad({ key }) {
         console.log({ key });
-        const { image_url, title = '规则页', share_title, share_image }  = await api.hei.getShopRule({ key });
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+        const {
+            image_url,
+            title = '规则页',
+            share_title,
+            share_image,
+            phone_number,
+            wechat_number,
+            after_sales_imgs,
+            config,
+            current_user
+        } = await api.hei.getShopRule({
+            key
+        });
         wx.setNavigationBarTitle({
             title,
         });
         this.setData({
             image_url,
             title,
-            isLoading: false,
             share_title,
-            share_image
+            share_image,
+            phone_number,
+            wechat_number,
+            after_sales_imgs,
+            current_user,
+            key,
+            config
+        });
+        wx.hideLoading();
+    },
+
+    /* 拨打售后电话 */
+    call(e) {
+        if (this.data.phone_number) {
+            wx.makePhoneCall({
+                phoneNumber: e.currentTarget.dataset.phone
+            });
+            return;
+        }
+        wx.showToast({
+            title: '无售后电话可拨打',
+            icon: 'none'
+        });
+    },
+
+    /* 复制 */
+    async setClipboardVp(e) {
+        const { value } = e.currentTarget.dataset;
+        console.log(e);
+        if (value) {
+            await proxy.setClipboardData({ data: String(value) });
+            wx.showToast({
+                title: '复制成功',
+                icon: 'success'
+            });
+            return;
+        }
+        wx.showToast({
+            title: '无内容可复制',
+            icon: 'none'
+        });
+    },
+    /* 点击图片放大 */
+    preview(e) {
+        const { after_sales_imgs } = this.data;
+        const { index } = e.currentTarget.dataset;
+        wx.previewImage({
+            current: after_sales_imgs[index], // 当前显示图片的http链接
+            urls: after_sales_imgs // 需要预览的图片http链接列表
         });
     },
 
     onShareAppMessage: onDefaultShareAppMessage,
 });
-
-// Page({
-
-//     data: {
-//         id: 0,
-//         isLoading: true,
-//         type: 'topic',
-//         topic: null,
-//         user: null,
-//         page_title: '',
-//         share_title: ''
-//     },
-
-//     onLoad({ id }) {
-//         const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
-//         this.setData({
-//             isIphoneX,
-//             themeColor
-//         });
-//         this.getDetail(id);
-//     },
-
-//     async getDetail(id) {
-//         const { post, share_title, page_title } = await api.hei.getRule({
-//             id: id,
-//         });
-//         const { themeColor } = this.data;
-//         const fomatedContent = post.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
-
-//         WxParse.wxParse(
-//             'article_content',
-//             'html',
-//             fomatedContent,
-//             this,
-//         );
-
-//         this.setData({
-//             id,
-//             article: post,
-//             share_title: share_title,
-//             isLoading: false
-//         });
-//         if (page_title) {
-//             wx.setNavigationBarTitle({
-//                 title: page_title,
-//             });
-//         }
-//     },
-//     wxParseTagATap(e) {
-//         wx.navigateTo({
-//             url: '/' + e.currentTarget.dataset.src,
-//         });
-//     },
-
-//     onShareAppMessage: onDefaultShareAppMessage,
-// });
