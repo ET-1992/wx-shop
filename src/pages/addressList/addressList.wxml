@@ -1,0 +1,24 @@
+<view class="container">
+    <view class="address">
+		<van-radio-group class="radio-group" value="{{ radioSelected }}" bindchange="radioChange">
+			<van-radio icon-class="radio-icon" label-class="radio-label" class="radio-wrap"  checked-color="#07c160" wx:for="{{ 5 }}" wx:key="index" name="{{ index }}">
+				<view class="radio-middle">
+					<view class="middle-top">
+						<text>张无忌 </text>
+						<text>13318031412</text>
+					</view>
+					<view class="middle-bottom">
+						<text>广东省广州市天河区测试详细地址</text>
+					</view>
+				</view>
+				<view class="radio-right" data-type="update" catch:tap="onAddressEdit">
+					<van-icon name="edit" />
+				</view>
+			</van-radio>
+		</van-radio-group>
+	</view>
+	<view class="btns">
+		<button class="btn wechat-add" bindtap="onImportAddress">微信添加地址</button>
+		<button class="btn" data-type="add" catch:tap="onAddressEdit">手动添加地址</button>
+	</view>
+</view>

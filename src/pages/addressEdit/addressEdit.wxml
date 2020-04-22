@@ -1,0 +1,25 @@
+<view class="container">
+
+  <!-- 添加地址 -->
+  <view class="add" wx:if="{{ type === 'add' }}">
+    <van-cell-group>
+		<block wx:for="{{ form }}" wx:key="index">
+			<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+			  placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
+		</block>
+	</van-cell-group>
+	<button class="btns" bind:tap="onSaveForm" >保存</button>
+  </view>
+
+  <!-- 编辑地址 -->
+  <view class="update" wx:if="{{ type === 'update' }}">
+    <van-cell-group>
+		<block wx:for="{{ form }}" wx:key="index">
+			<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+			  placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
+		</block>
+	</van-cell-group>
+	<button class="btns" bind:tap="onSaveForm" >保存</button>
+	<button class="btns delete-btn">删除</button>
+  </view>
+</view>
