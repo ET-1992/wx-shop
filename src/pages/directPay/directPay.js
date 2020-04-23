@@ -73,12 +73,9 @@ Page({
                 if (pay_sign) {
                     console.log('自主支付');
                     const res = await wxPay(pay_sign, order_no);
-                    if (res.errMsg === 'requestPayment:ok') {
-                        console.log(res);
-                        wx.redirectTo({
-                            url: `/pages/directPayResult/directPayResult?order_no=${order_no}`
-                        });
-                    }
+                    wx.redirectTo({
+                        url: `/pages/directPayResult/directPayResult?order_no=${order_no}`
+                    });
                 }
             }
         } catch (e) {
