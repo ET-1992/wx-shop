@@ -22,7 +22,8 @@ Page({
             return;
         }
         try {
-            await api.hei.bindWebUser({
+            await api.hei.bindWeb({
+                decrypted: true,
                 encrypted_data: encryptedData,
                 iv,
             });
