@@ -1,25 +1,35 @@
 <view class="container">
-
-  <!-- 添加地址 -->
-  <view class="add" wx:if="{{ type === 'add' }}">
-    <van-cell-group>
-		<block wx:for="{{ form }}" wx:key="index">
-			<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
-			  placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
-		</block>
-	</van-cell-group>
-	<button class="btns" bind:tap="onSaveForm" >保存</button>
-  </view>
-
-  <!-- 编辑地址 -->
-  <view class="update" wx:if="{{ type === 'update' }}">
-    <van-cell-group>
-		<block wx:for="{{ form }}" wx:key="index">
-			<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
-			  placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
-		</block>
-	</van-cell-group>
-	<button class="btns" bind:tap="onSaveForm" >保存</button>
-	<button class="btns delete-btn">删除</button>
-  </view>
+	<loading isLoading="{{ isLoading }}" />
+	<!-- 添加地址 -->
+	<view class="add" wx:if="{{ !isLoading }}">
+		<van-cell-group>
+			<block wx:for="{{ form }}" wx:key="index">
+				<block wx:if="{{ form[index].key === 'address' }}">
+					<!-- 地区级联选择器 -->
+					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+					placeholder="选择国家、地区" data-key="{{ item.key }}" data-code="{{ areacode }}" bind:tap="onShowArea" readonly is-link />
+				</block>
+				<block wx:else>
+					<!-- 普通文本框 -->
+					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
+				</block>
+			</block>
+		</van-cell-group>
+		<button class="btns" bind:tap="onSaveForm" >保存</button>
+		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
+	</view>
 </view>
+<!-- 级联选择器面板 -->
+<van-popup
+  show="{{ showAreaPanel }}"
+  position="bottom"
+  bind:close="onCloseArea"
+>
+	<van-area 
+	  area-list="{{ areaList }}" 
+	  bind:cancel="onCloseArea"
+	  bind:confirm="onConfirmArea"
+	  value="{{ areacode }}" 
+	/>
+</van-popup>
