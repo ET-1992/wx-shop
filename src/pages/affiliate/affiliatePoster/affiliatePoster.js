@@ -89,7 +89,7 @@ Page({
         } catch (e) {
             wx.hideLoading();
             wx.showToast({
-                title: '异常错误,请重试',
+                title: e.errMsg || '异常错误，请重试',
                 icon: 'none'
             });
         }

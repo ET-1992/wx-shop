@@ -11,10 +11,13 @@ Page({
         toMainCategory: 0,
         toSubCategory: 0,
 
-        filterListData: [{ name: '价格' }, { name: '销量' }],
+        filterListData: [
+            { name: '价格' },
+            { name: '销量' },
+        ],
         filterData: {
-            filterIndex: 0,
-            filterType: 'Up'
+            filterIndex: 2, // 控制箭头位置 还有 sortText排序
+            filterType: 'Down' // 控制箭头上下 还有 sortStatus排序顺序
         },
         next_cursor: 0,
         products: [],
@@ -23,7 +26,16 @@ Page({
         current_page: 1,
         isLoading: true,
         hasProducts: true,
-        isShowPopup: false
+        isShowPopup: false,
+        sortText: [
+            'price',
+            'total_sales',
+            'default'
+        ],
+        sortStatus: {
+            'Up': 'asc',
+            'Down': 'desc'
+        }
     },
 
     async onLoad() {
@@ -43,7 +55,7 @@ Page({
             isLoading: false,
         });
 
-        await this.filterProduct();
+        await this.loadProducts();
     },
 
     async onShow() {
@@ -58,25 +70,10 @@ Page({
             current_page: 1,
             products: [],
             hasProducts: true
-        }, this.filterProduct);
-    },
-    filterProduct() {
-        const { filterData } = this.data;
-        const sortText = {
-            0: 'price',
-            1: 'total_sales'
-        };
-        const sortStatus = {
-            'Up': 'asc',
-            'Down': 'desc'
-        };
-        this.setData({
-            filterOrderby: sortText[filterData.filterIndex],
-            filterOrder: sortStatus[filterData.filterType]
         }, this.loadProducts);
     },
     async loadProducts() {
-        let { categories, selectedIndex, subSelectedIndex, current_page, filterOrderby, filterOrder, products } = this.data;
+        let { categories, selectedIndex, subSelectedIndex, current_page, products, filterData, sortText, sortStatus } = this.data;
         let options = {
             paged: current_page,
             product_category_parent: categories[selectedIndex].id
@@ -86,12 +83,9 @@ Page({
         } else {
             options.product_category_id = categories[selectedIndex].id;
         }
-        if (filterOrderby) {
-            options.orderby = filterOrderby;
-        }
-        if (filterOrder) {
-            options.order = filterOrder;
-        }
+
+        options.orderby = sortText[filterData.filterIndex];
+        options.order = sortStatus[filterData.filterType];
 
         this.data.fetchProductListStatus = 'Pending';
 
@@ -168,7 +162,11 @@ Page({
             toSubCategory: 0,
             products: [],
             current_page: 1,
-            hasProducts: true
+            hasProducts: true,
+            filterData: {
+                filterIndex: 2,
+                filterType: 'Down'
+            }
         });
         this.loadProducts();
     },

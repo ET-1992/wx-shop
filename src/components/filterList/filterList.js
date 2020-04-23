@@ -11,9 +11,9 @@ Component({
                 if (newValue) {
                     this.setData({
                         isActive: {
-                            [newValue.filterIndex]: newValue.filterType 
+                            [newValue.filterIndex]: newValue.filterType
                         }
-                    })
+                    });
                 }
             }
         }
