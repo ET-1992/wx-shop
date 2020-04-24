@@ -192,19 +192,34 @@ Component({
             }
         },
 
-        async onRefund() {
+        async onRefund(e) {
+            const user = await this.bindGetUserInfo(e);
             const { orderNo } = this.data;
-            wx.redirectTo({
-                url: `/pages/refund/refund?id=${orderNo}`,
-            });
+            if (user) {
+                wx.redirectTo({
+                    url: `/pages/refund/refund?id=${orderNo}`,
+                });
+            }
+        },
+        async onPay(e) {
+            const user = await this.bindGetUserInfo(e);
+            if (user) {
+                this.onPayOrder();
+            }
         },
 
         async bindGetUserInfo(e) {
             const { encryptedData, iv } = e.detail;
             console.log('来到支付这里');
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            if (user) {
-                this.onPayOrder();
+            if (iv && encryptedData) {
+                const user = await getAgainUserForInvalid({ encryptedData, iv });
+                return user;
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '需授权后操作',
+                    showCancel: false,
+                });
             }
         },
 

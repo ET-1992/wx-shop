@@ -520,7 +520,7 @@
 						<view>暂无可领取优惠券</view>
 					</view>
 					<button
-					 wx:if="{{ receivableCoupons.length }}"
+					 wx:if="{{ receivableCoupons && receivableCoupons.length }}"
 					 class="couponItemWrapper"
 					 wx:for="{{ receivableCoupons }}"
 					 wx:key="id"
@@ -548,12 +548,15 @@
 					</button>
 					<block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
 						<view class="couponListTitle">已领取优惠券</view>
-						<navigator
-						 class="couponItemWrapper"
-						 wx:for="{{ receivedCoupons }}"
-						 wx:key="id"
-						 url="/pages/couponProducts/couponProducts?couponId={{ item.id }}&couponTitle={{ item.title }}"
-						>
+						<button
+						open-type="getUserInfo"
+						bindgetuserinfo="bindGetCoupon"
+						class="couponItemWrapper"
+						wx:for="{{ receivedCoupons }}"
+						wx:key="id"
+						data-id="{{ item.id }}"
+						data-status="{{ item.status }}"
+						data-title="{{ item.title }}">
 							<couponList
 							 wx:if="{{ item.status == 4 }}"
 							 coupon="{{ item }}"
@@ -561,7 +564,7 @@
 							 config="{{config}}"
 							/>
 							<!-- 已领取 -->
-						</navigator>
+						</button>
 					</block>
 				</view>
 				<view class="gap" />

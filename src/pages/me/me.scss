@@ -1,13 +1,15 @@
 @import '~styles/color';
 
-.member {
+.member-btn {
+	background: rgba(0, 0, 0, 0);
+	border: 0 !important;
 	margin: 20rpx;
 	height: 130rpx;
+}
 
-	.image {
-		width: 100%;
-		height: 100%;
-	}
+.member-image {
+	width: 100%;
+	height: 100%;
 }
 
 .affiliate{
