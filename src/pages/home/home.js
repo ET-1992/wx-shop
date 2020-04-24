@@ -22,8 +22,6 @@ export const pageObj = {
         coupons_home: [],
         coupons_newbie: [],
         hasNewUserCoupons: false,
-
-        isRefresh: false,
         isLoading: false,
 
         post_type_title: '',
@@ -124,17 +122,6 @@ export const pageObj = {
                 this.setData({ second });
             }
 
-            let products = data.products;
-            if (products && products[products.length - 1]) {
-                let next_cursor = products[products.length - 1].timestamp;
-                this.setData({
-                    next_cursor: next_cursor
-                });
-            } else {
-                this.setData({
-                    next_cursor: 0
-                });
-            }
             app.globalData.couponBackgroundColor = '';
             this.setData({
                 userCoupon: coupons_home,
@@ -145,11 +132,11 @@ export const pageObj = {
         }
 
         if (home_type === 'new') {
-            let timestamp = 0;
+            // let timestamp = 0;
             let { products } = this.data;
             if (modules[modules.length - 1].type === 'product') {
                 const { content = [] } =  modules[modules.length - 1];
-                timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
+                // timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
                 products = content;
             }
             const couponArray = modules.filter(item => {
@@ -166,7 +153,7 @@ export const pageObj = {
                 page_title,
                 home_type,
                 isLoading: false,
-                next_cursor: timestamp,
+                // next_cursor: timestamp,
                 config
             });
         }
@@ -301,16 +288,17 @@ export const pageObj = {
 
     async onPullDownRefresh() {
         this.setData({
-            isRefresh: true,
-            next_cursor: 0,
-            hasSliders: false
+            // isRefresh: true,
+            // next_cursor: 0,
+            hasSliders: false,
+            productListPage: 1
         });
         await this.loadHome();
         wx.stopPullDownRefresh();
     },
 
     async loadProducts() {
-        const { next_cursor, products, modules, home_type } = this.data;
+        let { products, modules, home_type, productListPage = 1 } = this.data;
         let hack = {};
         let module_id = '';
         if (modules && modules.length && modules[modules.length - 1] && modules[modules.length - 1].args && home_type === 'old') {
@@ -320,16 +308,19 @@ export const pageObj = {
             module_id = modules[modules.length - 1].id;
         }
 
+        productListPage++;
+
         const data = await api.hei.fetchProductList({
-            cursor: next_cursor,
+            paged: productListPage,
             module_id,
             ...hack
         });
+
         const newProducts = products.concat(data.products);
         this.setData({
+            productListPage,
             products: newProducts,
-            next_cursor: data.next_cursor,
-            last_coursor: this.data.next_cursor
+            productListTotalPages: data.total_pages
         }, () => {
             this.data.isProductBottom = false;
         });
@@ -359,9 +350,17 @@ export const pageObj = {
         const rect = await this.getDomRect('loadProducts');
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
-            const { next_cursor } = this.data;
-            if (next_cursor) {
+            const { productListTotalPages = 2, productListPage = 1 } = this.data;
+            if (productListPage <= productListTotalPages) {
                 this.loadProducts();
+            } else {
+                wx.showToast({
+                    title: '到底了',
+                    icon: 'none',
+                    duration: 1500,
+                    mask: false
+                });
+
             }
         }
     },
@@ -377,7 +376,7 @@ export const pageObj = {
 
         if (home_type === 'new') {
             const { modules, module_page } = this.data;
-            if (modules[modules.length - 1].type === 'product' && modules[modules.length - 1].setting.orderby === 'post_date' && module_page.infinite_loading) {
+            if (modules[modules.length - 1].type === 'product' && module_page.infinite_loading) {
                 this.showProducts();
             }
         }

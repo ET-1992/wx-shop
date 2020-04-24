@@ -20,7 +20,7 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
 
-export const PLATFFORM_ENV = 'PEANUT';
+export const PLATFFORM_ENV = 'PEAUNT';
 // export const PLATFFORM_ENV = 'MIBAI';
 
 export const HOST_ARRAY = [
