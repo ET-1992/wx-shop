@@ -442,9 +442,9 @@ export async function isExpired(e) {
 }
 
 /**
- * 转换微信默认地址字段名为接口格式
+ * 转换微信默认地址字段名为接口格式-改自H5
  */
-export function wxTransformReceiver(address = {}) {
+export function wxReceriverPairs(address = {}) {
     if (address.telNumber) {
         return {
             receiver_country: '',
@@ -456,6 +456,18 @@ export function wxTransformReceiver(address = {}) {
             receiver_district: address.countyName || '', // 区-小程序专属
             receiver_address: address.detailInfo || '', // 详细地址
             receiver_zipcode: address.postalCode || '' // 邮编
+        };
+    } else if (address.receiver_phone) {
+        return {
+            id: address.id || '', // 地址ID
+            nationalCode: address.receiver_areacode || '', // 地区代码
+            userName: address.receiver_name || '',
+            telNumber: address.receiver_phone || '',
+            provinceName: address.receiver_state || '', // 省
+            cityName: address.receiver_city || '',
+            countyName: address.receiver_district || '', // 区-小程序专属
+            detailInfo: address.receiver_address || '', // 详细地址
+            postalCode: address.receiver_zipcode || '' // 邮编
         };
     }
     return address;

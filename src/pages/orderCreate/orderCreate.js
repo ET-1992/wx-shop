@@ -105,6 +105,7 @@ Page({
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
                 app.event.on('setOverseeAddressEvent', this.setOverseeAddressEvent, this);
+                app.event.on('setAddressListEvent', this.setAddressListEvent, this);
                 this.onLoadData();
             });
         }
@@ -124,6 +125,7 @@ Page({
         app.event.off('getLiftInfoEvent', this);
         app.event.off('getStoreInfoEvent', this);
         app.event.off('setOverseeAddressEvent', this);
+        app.event.off('setAddressListEvent', this);
     },
 
     // onHide() {
@@ -143,17 +145,10 @@ Page({
                 url: '/pages/selfAddress/selfAddress'
             });
             return;
-        }
-        const res = await auth({
-            scope: 'scope.address',
-            ctx: this,
-            isFatherControl: true
-        });
-        if (res) {
-            const addressRes = await chooseAddress();
-            this.setData({ address: addressRes });
-            wx.setStorageSync(ADDRESS_KEY, addressRes);
-            this.onLoadData();
+        } else {
+            wx.navigateTo({
+                url: `/pages/addressList/addressList`
+            });
         }
     },
 
@@ -183,6 +178,12 @@ Page({
 
     setOverseeAddressEvent(selfAddressObj) {
         this.setData({ address: selfAddressObj }, () => { this.onLoadData() });
+    },
+
+    // 设置地址列表返回的数据
+    setAddressListEvent(address) {
+        console.log('从地址列表返回的地址', address);
+        this.setData({ address: address }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址

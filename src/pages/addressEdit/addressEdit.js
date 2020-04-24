@@ -23,7 +23,7 @@ Page({
             'addressInfo': 'receiver_address',
             'code': 'receiver_zipcode',
         },  // 前后端数据键对
-        isLoading: false,
+        isLoading: true,
         areaList: {},  // 省市区列表数据格式
         showAreaPanel: false,  // 省市区弹出框
         areacode: '',  // 省市区编码值
@@ -48,6 +48,10 @@ Page({
         });
         if (id) {
             this.getAddressInfo();
+        } else {
+            this.setData({
+                isLoading: false,
+            });
         }
         this.getAreaData();
     },
@@ -58,7 +62,6 @@ Page({
         let { id } = this.data;
         let data = await api.hei.getReceiverInfo({ receiver_id: id });
         this.setData({
-            isLoading: false,
             originForm: data.receiver,
         });
         this.showFormData();
@@ -83,6 +86,7 @@ Page({
         this.setData({
             form,
             areacode,
+            isLoading: false,
         });
     },
 
