@@ -308,13 +308,13 @@ export const pageObj = {
             module_id = modules[modules.length - 1].id;
         }
 
+        productListPage++;
+
         const data = await api.hei.fetchProductList({
             paged: productListPage,
             module_id,
             ...hack
         });
-
-        productListPage++;
 
         const newProducts = products.concat(data.products);
         this.setData({
@@ -350,7 +350,7 @@ export const pageObj = {
         const rect = await this.getDomRect('loadProducts');
         if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
-            const { productListTotalPages = 1, productListPage = 1 } = this.data;
+            const { productListTotalPages = 2, productListPage = 1 } = this.data;
             if (productListPage <= productListTotalPages) {
                 this.loadProducts();
             } else {
