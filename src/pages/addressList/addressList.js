@@ -54,9 +54,10 @@ Page({
             const getData = await chooseAddress();
             wx.setStorageSync(ADDRESS_KEY, getData);
             let tranData = wxTransformReceiver(getData);
-            let addData = await api.hei.addReceiverInfo(tranData);
+            await api.hei.addReceiverInfo(tranData);
             wx.showToast({
                 title: '添加地址成功',
+                duration: 1000,
             });
             this.getAddressList();
         }

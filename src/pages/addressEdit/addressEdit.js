@@ -5,17 +5,29 @@ Page({
     data: {
         title: 'addressEdit',
         type: 'update',  // 地址更新或添加
+        typeToTitle: {
+            'update': '地址编辑',
+            'add': '地址添加',
+        },  // 地址增/改标题
         form: [
             { key: 'name', value: '', label: '姓名' },
             { key: 'phone', value: '', label: '电话' },
-            { key: 'address', value: '', label: '国家/地区', areacode: '' },
+            { key: 'address', value: [], label: '国家/地区', areacode: '' },
             { key: 'addressInfo', value: '', label: '详细地址' },
             { key: 'code', value: '', label: '邮政编码' },
-        ],
+        ],  // 页面表单数据
+        keyPairs: {
+            'name': 'receiver_name',
+            'phone': 'receiver_phone',
+            'address': ['receiver_state', 'receiver_city', 'receiver_district'],
+            'addressInfo': 'receiver_address',
+            'code': 'receiver_zipcode',
+        },  // 前后端数据键对
         isLoading: false,
-        areaList: {},
-        showAreaPanel: false,
-        areacode: '',
+        areaList: {},  // 省市区列表数据格式
+        showAreaPanel: false,  // 省市区弹出框
+        areacode: '',  // 省市区编码值
+        originForm: '',  // 后端返回的地址表单
     },
 
     onLoad(params) {
@@ -30,11 +42,7 @@ Page({
 
     // 设置页面
     async setPage() {
-        let { type = 'update', id } = this.data;
-        const typeToTitle = {
-            'update': '地址编辑',
-            'add': '地址添加',
-        };
+        let { type = 'update', id, typeToTitle } = this.data;
         wx.setNavigationBarTitle({
             title: typeToTitle[type],
         });
@@ -47,45 +55,34 @@ Page({
     // 获取具体地址
     async getAddressInfo() {
         this.setData({ isLoading: true });
-        let { id, form } = this.data;
+        let { id } = this.data;
         let data = await api.hei.getReceiverInfo({ receiver_id: id });
-        const {
-            receiver_name,
-            receiver_phone,
-            receiver_country,
-            receiver_state,
-            receiver_city,
-            receiver_district,
-            receiver_address,
-            receiver_zipcode,
-            receiver_default,
-            receiver_areacode
-        } = data.receiver;
-        form.forEach(item => {
-            switch (item.key) {
-                case 'name':
-                    item.value = receiver_name;
-                    break;
-                case 'phone':
-                    item.value = receiver_phone;
-                    break;
-                case 'address':
-                    item.value = `${receiver_state}/${receiver_city}/${receiver_district}`;
-                    this.setData({ areacode: receiver_areacode });
-                    break;
-                case 'addressInfo':
-                    item.value = receiver_address;
-                    break;
-                case 'code':
-                    item.value = receiver_zipcode;
-                    break;
-                default:
-                    item.value = '';
-            }
-        });
         this.setData({
             isLoading: false,
+            originForm: data.receiver,
+        });
+        this.showFormData();
+    },
+
+    // 在页面上展示具体地址
+    showFormData() {
+        let { form, originForm, keyPairs } = this.data;
+        // 遍历对应字段表
+        for (let [k, v] of Object.entries(keyPairs)) {
+            // 遍历表单数组
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    // 地址
+                    elem.value = v.map(item => originForm[item]);
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    elem.value = originForm[v];
+                }
+            }
+        }
+        let areacode = originForm.receiver_areacode;
+        this.setData({
             form,
+            areacode,
         });
     },
 
@@ -103,10 +100,10 @@ Page({
     },
 
     // 保存表单
-    onSaveForm() {
-        let { form } = this.data;
+    async onSaveForm() {
         try {
             this.checkForm();
+            await this.sendForm();
         } catch (error) {
             wx.showModal({
                 title: '温馨提示',
@@ -116,6 +113,45 @@ Page({
         }
     },
 
+    // 发送表单数据
+    async sendForm() {
+        let { form, keyPairs, areacode, type, id } = this.data;
+        let finalForm = {};
+        // 遍历对应字段表
+        for (let [k, v] of Object.entries(keyPairs)) {
+            // 遍历表单数组
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    // 地址
+                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    finalForm[v] = elem.value;
+                }
+            }
+        }
+        let apiMethod = 'addReceiverInfo';
+        let modalContent = '地址添加成功';
+        // 省市区编号和地址ID
+        finalForm.receiver_areacode = areacode;
+        if (type === 'update') {
+            // 更改地址
+            finalForm.receiver_id = id;
+            apiMethod = 'updateReceiverInfo';
+            modalContent = '地址修改成功';
+        }
+        // 国家和是否默认地址
+        finalForm.receiver_country = '';
+        finalForm.receiver_default = 0;
+        await api.hei[apiMethod](finalForm);
+        wx.showModal({
+            title: '温馨提示',
+            content: modalContent,
+            showCancel: false,
+            success: () => wx.navigateBack(),
+        });
+    },
+
+    // 删除地址表单
     async onDeleteForm() {
         let { id } = this.data;
         await api.hei.deleteReceiverInfo({ receiver_id: id });
@@ -140,18 +176,16 @@ Page({
     // 校验表单
     checkForm() {
         let { form } = this.data;
-        let success = form.every(item => item.value);
+        let success = form.every(item => item.value.length);
         if (!success) {
-            throw new Error('请填写完整表单');
+            throw new Error('请填写完整的地址信息');
         }
     },
 
     // 弹出级联选择器
-    onShowArea(e) {
-        let { code } = e.currentTarget.dataset;
+    onShowArea() {
         this.setData({
             showAreaPanel: true,
-            areacode: code,
         });
     },
 
@@ -168,12 +202,13 @@ Page({
         let { values = [] } = e.detail;
         // 级联ID
         let areacode = values[values.length - 1].code;
-        // 地区拼接
-        let areaStr = values.reduce((accumulator, currentValue) => accumulator + currentValue);
+        // 更改地址数据
+        form[2].value = values.map(item => item.name);
+        form[2].areacode = areacode;
         this.setData({
             areacode,
+            form,
         });
-        console.log('areacode', areacode);
         this.onCloseArea();
     },
 });

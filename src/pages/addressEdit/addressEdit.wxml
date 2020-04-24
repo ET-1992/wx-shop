@@ -6,8 +6,8 @@
 			<block wx:for="{{ form }}" wx:key="index">
 				<block wx:if="{{ form[index].key === 'address' }}">
 					<!-- 地区级联选择器 -->
-					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
-					placeholder="选择国家、地区" data-key="{{ item.key }}" data-code="{{ areacode }}" bind:tap="onShowArea" readonly is-link />
+					<van-field value="{{ string.join(form[index]['value']) }}" label="{{ item.label }}" 
+					placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
 				</block>
 				<block wx:else>
 					<!-- 普通文本框 -->
@@ -33,3 +33,15 @@
 	  value="{{ areacode }}" 
 	/>
 </van-popup>
+<wxs module="string">
+var join = function(arr){
+	if(arr && arr.length) {
+		return arr.join('/')
+	} else {
+		return ''
+	}
+}
+module.exports = {
+	join: join
+}
+</wxs>
