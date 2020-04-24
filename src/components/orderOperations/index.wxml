@@ -39,7 +39,7 @@
     <button
       wx:if="{{ statusCode === 1 }}"
       class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onCloseOrder"
+      bindgetuserinfo="onCloseOrder" open-type="getUserInfo"
     >取消订单</button>
     <button
       wx:if="{{ statusCode === 1 }}"
@@ -51,7 +51,7 @@
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button class="statusBt confirmBt" bindtap="onConfirmOrder" wx:if="{{ statusCode === 3 }}">确认收货</button>
+    <button class="statusBt confirmBt" wx:if="{{ statusCode === 3 }}" bindgetuserinfo="onConfirmOrder" open-type="getUserInfo">确认收货</button>
   </view>
 </view>
 
