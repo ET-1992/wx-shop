@@ -82,7 +82,7 @@
 			"pages": [
 				"bindWeb"
 			],
-			"name": "绑定H5"
+			"name": "绑定手机"
 		},
 		{
 			"root": "pages/bargainList/",

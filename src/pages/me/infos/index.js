@@ -26,13 +26,37 @@ Component({
     methods: {
         async bindGetUserInfo(e) {
             const { encryptedData, iv } = e.detail;
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            this.setData({
-                user
-            }, () => {
-                wx.navigateTo({ url: '/pages/affiliate/affiliateCenter/affiliateCenter' });
-            });
+            if (iv && encryptedData) {
+                const user = await getAgainUserForInvalid({ encryptedData, iv });
+                this.setData({ user });
+                return user;
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '需授权后操作',
+                    showCancel: false,
+                });
+            }
         },
+
+        async toMemberPage(e) {
+            const user = await this.bindGetUserInfo(e);
+            if (user) {
+                wx.navigateTo({
+                    url: '/pages/membership/members/members'
+                });
+            }
+        },
+
+        async toAffiliatePage(e) {
+            const user = await this.bindGetUserInfo(e);
+            if (user) {
+                wx.navigateTo({
+                    url: '/pages/affiliate/affiliateCenter/affiliateCenter'
+                });
+            }
+        },
+
         async onAddress() {
             const res = await auth({
                 scope: 'scope.address',

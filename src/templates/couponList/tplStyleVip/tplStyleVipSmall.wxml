@@ -3,10 +3,11 @@
 		<text>会员优惠券</text>
 	</view>
 	<view class="coupon-list">
-		<view class="coupon"
+		<button class="coupon"
 		wx:for="{{ memberCouponList }}"
 		wx:key="id"
-		bindtap="onCouponClick"
+		open-type="getUserInfo"
+		bindgetuserinfo="onCouponClick"
 		data-id="{{ item.id }}"
 		data-status="{{ item.status }}"
 		data-title="{{ item.title }}"
@@ -41,7 +42,7 @@
 					</block>
 				</button>
 			</form>
-		</view>
+		</button>
 		<navigator class="moreCoupon" url="/pages/couponList/couponList?fromMemberShipPage=true" wx:if="{{ memberCouponList.length > 1 }}">
 			<view class="moreBtn">查看更多</view>
 		</navigator>
