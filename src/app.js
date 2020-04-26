@@ -72,6 +72,17 @@ App({
         }, 500);
     },
 
+    async bindWebConfirm(config) {
+        if (!(config.web && config.web.confirm)) {
+            setTimeout(() => {
+                console.log('触发confirm');
+                api.hei.bindWebConfirm().then((res) => {
+                    console.log(res);
+                });
+            }, 500);
+        }
+    },
+
     async recordAffiliate(afcode) {
         setTimeout(() => {
             console.log('afcode触发recordAffiliateBrowse');
@@ -87,6 +98,7 @@ App({
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
                 }
+                this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync(USER_KEY, current_user || '');
             });

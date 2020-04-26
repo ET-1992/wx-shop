@@ -537,4 +537,7 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    bindWebConfirm: {
+        path: 'api/mag.shop.web.confirm.json'
+    }
 };
