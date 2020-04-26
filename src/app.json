@@ -7,9 +7,7 @@
 		"pages/classify/classify",
 		"pages/articleList/articleList",
 		"pages/modulePage/modulePage",
-		"pages/shopList/shopList",
-		"pages/addressList/addressList",
-		"pages/addressEdit/addressEdit"
+		"pages/shopList/shopList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -329,6 +327,20 @@
 				"webPages"
 			],
 			"name": "webPage页"
+		},
+		{
+			"root": "pages/addressEdit",
+			"pages": [
+				"addressEdit"
+			],
+			"name": "地址编辑页"
+		},
+		{
+			"root": "pages/addressList",
+			"pages": [
+				"addressList"
+			],
+			"name": "地址列表页"
 		},
 		{
 			"root": "pages/productList",
