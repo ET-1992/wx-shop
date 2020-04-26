@@ -4,7 +4,7 @@
 	<!-- 用户信息及开通会员 -->
 	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}">
 		<view class="member-top">
-			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+			<button class="head-button" bindgetuserinfo="getUserInformation" open-type="getUserInfo">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/member/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			</button>
 			<!-- 会员等级、积分 -->

@@ -69,18 +69,26 @@ Page({
 
     // 获取用户头像信息
     async bindGetUserInfo(e) {
-        const {
-            encryptedData,
-            iv
-        } = e.detail;
-        if (!this.updateAgainUserForInvalid) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
             const user = await getAgainUserForInvalid({
                 encryptedData,
                 iv
             });
-            this.setData({
-                user
-            }, this.onShow);
+            return user;
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    async getUserInformation(e) {
+        if (!this.updateAgainUserForInvalid) {
+            const user = await this.bindGetUserInfo(e);
+            this.setData({ user }, this.onShow);
             this.updateAgainUserForInvalid = true;
         }
     },
@@ -95,16 +103,19 @@ Page({
 
     // 点击优惠券
     async onCouponClick(ev) {
-        const { id, index, status, title } = ev.currentTarget.dataset;
-        if (Number(status) === 2) {
-            // 立即领取
-            await this.onReceiveCoupon(id, index);
-        } else if (Number(status) === 4) {
-            // 立即使用
-            wx.navigateTo({
-                url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
-            });
-        } else { return }
+        const user = await this.bindGetUserInfo(ev);
+        if (user) {
+            const { id, index, status, title } = ev.currentTarget.dataset;
+            if (Number(status) === 2) {
+                // 立即领取
+                await this.onReceiveCoupon(id, index);
+            } else if (Number(status) === 4) {
+                // 立即使用
+                wx.navigateTo({
+                    url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
+                });
+            } else { return }
+        }
     },
 
     // 领取优惠券

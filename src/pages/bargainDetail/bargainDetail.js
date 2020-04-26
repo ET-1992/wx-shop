@@ -184,21 +184,24 @@ Page({
 
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
-        const { code, actors } = this.data;
-        console.log('code147', code);
         try {
+            const { encryptedData, iv } = e.detail;
+            if (iv && encryptedData) {
+                await getAgainUserForInvalid({ encryptedData, iv });
+            }
+            const { code, actors } = this.data;
             const data = await api.hei.bargainHelp({ code });
-            console.log('data150', data);
-            await proxy.showToast({
-                title: '砍价成功'
+            wx.showToast({
+                title: '砍价成功',
+                icon: 'success'
             });
-            console.log('actors157', actors);
             actors.unshift(data.actor);
-            this.setData({ actors }, () => { console.log('actors158', this.data) });
-            this.onLoadData();
+            this.setData({
+                actors
+            }, this.onLoadData);
         } catch (err) {
             console.log('err105', err);
-            await proxy.showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,

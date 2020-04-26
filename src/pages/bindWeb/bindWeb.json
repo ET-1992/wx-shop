@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "van-field": "../../components/vant-weapp/dist/field/index"
+    "van-button": "@vant/weapp/dist/button/index",
+    "van-checkbox": "@vant/weapp/dist/checkbox/index"
   }
 }
