@@ -4,7 +4,7 @@
 import api from 'utils/api';
 import { SHARE_TITLE, CONFIG, USER_KEY } from 'constants/index';
 import { showModal, showToast, requestPayment } from 'utils/wxp';
-import { auth, subscribeMessage } from 'utils/util';
+import { auth, subscribeMessage, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
 
 // 获取应用实例
@@ -24,27 +24,25 @@ export const onShareHomeAppMessage = () => {
     };
 };
 // 全页面分享
-export const onDefaultShareAppMessage = function (params = {}, path_ = '', jumpPage = '') {
+export const onDefaultShareAppMessage = function (params = {}, path_ = '', redirectObj) {
     const { share_title, share_image } = this.data;
     const user = wx.getStorageSync(USER_KEY);
     let { options = {}, route } = this;
-    options = { ...options, ...params };
-    if (!options.hasOwnProperty('afcode') && user.afcode) {
-        options.afcode = user.afcode;
-    }
-    const optionsKeys = Object.keys(options);
-    const hasOptions = !!optionsKeys.length;
+    options = { ...options, ...params }; // 页面参数
+    console.log(options, '页面参数');
+
     let path = path_ || route;
-    if (hasOptions) {
-        path = optionsKeys.reduce((path, key, index) => {
-            const joinSymbol = index ? '&' : '?';
-            return `${path}${joinSymbol}${key}=${options[key]}`;
-        }, path);
+
+    path = joinUrl(path, options);
+
+    if (redirectObj) {
+        path = redirectObj.key + '?goPath=/' + encodeURIComponent(path);
     }
 
-    if (jumpPage) {
-        path = jumpPage + '?goPath=/' + encodeURIComponent(path);
-    }
+    const appParams = { afcode: user.afcode }; // 全局参数
+
+    path = joinUrl(path, appParams);
+
     const shareMsg = {
         title: share_title,
         path,
@@ -60,7 +58,6 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '', jumpP
 function shopShare(path) {
     const config = wx.getStorageSync(CONFIG);
     if (config.share_enable) {
-        console.log(path);
         if (path.indexOf('webPages/webPages') === -1) {
             console.log('分享获得积分');
             setTimeout(() => {

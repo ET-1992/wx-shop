@@ -48,16 +48,9 @@ App({
         });
 
         this.vip = vip;
-
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
     },
 
     onHide() {
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
         this.updateConfig();
     },
 
@@ -72,6 +65,7 @@ App({
 
     async bindShare(afcode) {
         setTimeout(() => {
+            console.log('afcode触发bindShare');
             api.hei.bindShare({ code: afcode }).then((res) => {
                 console.log(res);
             });
@@ -80,6 +74,7 @@ App({
 
     async recordAffiliate(afcode) {
         setTimeout(() => {
+            console.log('afcode触发recordAffiliateBrowse');
             api.hei.recordAffiliateBrowse({ code: afcode });
         });
     },
@@ -99,15 +94,8 @@ App({
     },
 
     async onShow(options) {
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
         console.log(options, 'options');
-        this.logData.push(options);
-
         this.updateConfig();
-
-        // this.login();
 
         const { query = {}} = options;
         if (query.vendor) {
@@ -157,20 +145,5 @@ App({
 
     systemInfo: {},
 
-    event: new Event(),
-
-    log(data) {
-        if (this.openConsole) {
-            this.logData.push(data);
-            this.event.emit('log');
-        }
-    },
-
-    logData: [],
-
-    openConsole: false,
-
-    consoleShowRes: false,
-
-    openConsoleResData: false
+    event: new Event()
 });
