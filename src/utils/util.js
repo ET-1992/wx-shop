@@ -440,3 +440,30 @@ export async function isExpired(e) {
         });
     }
 }
+
+export function isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}
+
+export function isObject(o) {
+    return Object.prototype.toString.call(o) === '[object Object]';
+}
+
+export function joinUrl(url, params) {
+    if (!isObject(params)) {
+        return;
+    }
+
+    let paramsArray = [];
+
+    const joinSymbol = url.indexOf('?') > 0 ? '&' : '?';
+
+    Object.keys(params).forEach((key) => {
+        params[key] && paramsArray.push(`${key}=${params[key]}`);
+    });
+
+    const paramsString = paramsArray.join('&');
+
+    return url + joinSymbol + paramsString;
+
+}

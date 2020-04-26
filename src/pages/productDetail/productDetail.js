@@ -622,14 +622,7 @@ Page({
     // 分享按钮
     onShareAppMessage() {
         this.closeShareModal();
-        const { current_user = {}, product } = this.data;
-        let opts = {};
-        if (product.affiliate_enable && current_user.is_affiliate_member) {
-            opts = {
-                afcode: current_user.afcode || ''
-            };
-        }
-        return onDefaultShareAppMessage.call(this, opts, '', '/pages/home/home');
+        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
     },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频

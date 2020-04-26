@@ -202,6 +202,14 @@ export const pageObj = {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
         const { categoryIndex } = app.globalData;
+        const { page_title } = this.data; // 兼容商品详情分享
+
+        if (page_title) {
+            wx.setNavigationBarTitle({
+                title: page_title,
+            });
+        }
+
         if (categoryIndex !== -1) {
             updateCart(categoryIndex);
         }
