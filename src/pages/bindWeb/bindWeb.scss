@@ -33,9 +33,9 @@ page{
 		.checkbox_item {
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			border: none;
 			margin-top: 20rpx;
-			background-color: #f4f4f4;
 			font-size: 24rpx;
 			padding: 20rpx;
 			border-radius: 5rpx;
@@ -45,6 +45,22 @@ page{
 					color: #458DFA;
 				}
 			}
+		}
+	}
+	.logo {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		padding: 50rpx 0;
+		font-size: 14px;
+		color: #999;
+		flex-direction: row;
+		justify-content: center;
+		&.iphoneX{
+			bottom: 40rpx;
 		}
 	}
 }

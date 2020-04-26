@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "van-button": "@vant/weapp/dist/button/index",
-    "van-checkbox": "@vant/weapp/dist/checkbox/index"
+    "van-checkbox": "@vant/weapp/dist/checkbox/index",
+    "logo": "components/logo/logo"
   }
 }

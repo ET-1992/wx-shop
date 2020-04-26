@@ -1,5 +1,4 @@
 import api from 'utils/api';
-import { CONFIG } from 'constants/index';
 import { go } from 'utils/util';
 const app = getApp();
 
@@ -10,11 +9,13 @@ Page({
 
     go,
 
-    onLoad() {
+    async onLoad() {
         const { themeColor } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
+        const { isIphoneX } = app.systemInfo;
+        const { config } = await api.hei.config();
         this.setData({
             themeColor,
+            isIphoneX,
             config
         });
     },
