@@ -10,4 +10,7 @@
             </view>
         </view>
     </view>
+    <view class="logo {{ isIphoneX ? 'iphoneX' : '' }}">
+        <logo logoObj="{{ config.partner }}" />
+    </view>
 </view>
