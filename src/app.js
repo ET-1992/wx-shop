@@ -142,7 +142,6 @@ App({
 
     onError(err) {
         console.error('[APP ERROR]', err);
-        this.logData.push(err);
     },
 
     globalData: {
