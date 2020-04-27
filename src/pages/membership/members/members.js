@@ -26,7 +26,6 @@ Page({
     go,
 
     onShow() {
-        app.log('页面onShow');
         this.initPage();
     },
 

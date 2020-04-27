@@ -1,5 +1,5 @@
 import { PLATFFORM_ENV, HOST_ARRAY } from 'constants/index';
-import { textToValue } from 'utils/util';
+import { textToValue, failToBindWeb } from 'utils/util';
 
 /**
  * path: 接口路径
@@ -7,6 +7,8 @@ import { textToValue } from 'utils/util';
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
  * contentType: 默认x-www-form-urlencode, 可配置json
+ * successFnc: 成功回调函数 参数data
+ * failFnc： 失败回调函数 参数data
  **/
 
 export const host = textToValue(HOST_ARRAY, PLATFFORM_ENV);
@@ -38,6 +40,9 @@ export const apis = {
         path: 'api/mag.cart.add.json',
         method: 'POST',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     updateCart: {
         path: 'api/mag.cart.update.json',
@@ -57,10 +62,16 @@ export const apis = {
     fetchOrderList: {
         path: 'api/mag.order.list.json',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     fetchOrder: {
         path: 'api/mag.order.get.json',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     fetchOrderCount: {
         path: 'api/mag.order.counts.json',
@@ -70,21 +81,33 @@ export const apis = {
         path: 'api/mag.order.create.json?pay&v2',
         method: 'POST',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     createOrder: {
         path: 'api/mag.order.create.json',
         method: 'POST',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     orderPrepare: {
         path: 'api/mag.order.prepare.json',
         method: 'POST',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     payOrder: {
         path: 'api/mag.order.pay.json?pay&v2',
         method: 'POST',
         isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     },
     peanutPayOrder: {
         path: 'api/mag.order.pay.peanut.json',
@@ -538,6 +561,13 @@ export const apis = {
         isForceToken: true
     },
     bindWebConfirm: {
-        path: 'api/mag.shop.web.confirm.json'
+        path: 'api/mag.shop.web.confirm.json' // 给后端更新后信息
+    },
+    checkUserBind: {
+        path: 'api/mag.user_center.bind.required.json',
+        isForceToken: true,
+        failFnc(data) {
+            failToBindWeb(data);
+        }
     }
 };
