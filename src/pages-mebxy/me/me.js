@@ -64,7 +64,6 @@ Page({
     },
 
     onLoad() {
-        app.log('页面onLoad');
         // user用户客服对接
         const { themeColor, partner = {}, defineTypeGlobal, vip } = app.globalData;
         this.setData({ themeColor, isShowConsole: app.openConsole, defineTypeGlobal, vip });
@@ -72,7 +71,6 @@ Page({
     },
 
     async onShow() {
-        app.log('页面onShow');
         const config = wx.getStorageSync(CONFIG);
         const CART_NUM  = wx.getStorageSync('CART_NUM');
         const user = wx.getStorageSync(USER_KEY);

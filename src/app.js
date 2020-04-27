@@ -108,8 +108,16 @@ App({
         }, 500);
     },
 
+    checkBind() {
+        setTimeout(async () => {
+            await api.hei.checkUserBind();
+        }, 500);
+    },
+
     async onShow(options) {
         console.log(options, 'options');
+
+        this.checkBind();
         this.updateConfig();
 
         const { query = {}} = options;

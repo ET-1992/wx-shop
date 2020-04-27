@@ -499,3 +499,11 @@ export function joinUrl(url, params) {
     return url + joinSymbol + paramsString;
 
 }
+
+export function failToBindWeb(data) {
+    if (data.errcode === 'bind_required') {
+        wx.navigateTo({
+            url: '/pages/bindWeb/bindWeb',
+        });
+    }
+}
