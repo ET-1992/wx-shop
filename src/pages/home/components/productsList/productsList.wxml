@@ -2,7 +2,7 @@
 	<!-- 标题 -->
 	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
 	<!-- 滑动 商品列表 -->
-	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ false }}">  <!-- 等待后端字段 -->
+	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ settingStyle.isScroll(setting.style) }}">
 		<view class="swiperProductContainer">
 			<view class="swiperProduct" wx:for="{{ content }}" wx:for-item="product" wx:key="id"> 
 				<include src="./templates/index/index.wxml"></include>
@@ -10,7 +10,7 @@
 		</view>
 	</scroll-view>
 	<!-- 渲染 商品列表 -->
-	<view class="{{ setting.style === 'per_2'  ?'productContainer' : ''}}">
+	<view class="{{ settingStyle.isMultiple(setting.style) ? 'productContainer' : ''}}" wx:else>
 		<block wx:for="{{ content }}" wx:for-item="product" wx:key="id"> 
 			<include src="./templates/index/index.wxml"></include>
 		</block>
@@ -23,3 +23,24 @@
 		</view>
 	</view>
 </view>
+
+<wxs module="settingStyle">
+// 判断商品列表是否支持滚动
+var isScroll = function(style){
+	var pattern = '_h$';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style)
+}
+
+// 判断商品列表是否为多图模式
+var isMultiple = function(style){
+	var pattern = '^per';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style)
+}
+
+module.exports = {
+	isScroll: isScroll,
+	isMultiple: isMultiple
+}
+</wxs>
