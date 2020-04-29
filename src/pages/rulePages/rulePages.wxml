@@ -29,10 +29,10 @@
 				<view class="item-btn right" bindtap="setClipboardVp" data-value="{{ wechat_number }}">复制</view>
 			</view>
 		</view>
+		<image class="rule-img" src="{{ image_url }}" mode="widthFix" wx:if="{{ image_url }}" />
 		<view class="rule-image" wx:if="{{ after_sales_imgs && after_sales_imgs.length }}" wx:for="{{ after_sales_imgs }}">
 			<image src="{{ item }}" mode="widthFix" data-index="{{index}}" bindtap="preview"/>
 		</view>
-		<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ !(after_sales_imgs && after_sales_imgs.length) }}" />
 	</view>
 
 	<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ key !== 'after_sales' && image_url }}" />

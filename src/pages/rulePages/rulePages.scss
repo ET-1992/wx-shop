@@ -81,10 +81,13 @@ page {
 		}
 	}
 
-	.rule-image {
+	.rule-img {
 		border-top: 1rpx solid #f4f4f4;
 		padding-top: 20rpx;
+		width: 100%;
+	}
 
+	.rule-image {
 		image {
 			width: 100%;
 		}

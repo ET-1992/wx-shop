@@ -18,6 +18,10 @@ Component({
         config: {
             type: Object,
             value: {}
+        },
+        themeColor: {
+            type: Object,
+            value: {}
         }
     },
     methods: {
