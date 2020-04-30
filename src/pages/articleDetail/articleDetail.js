@@ -147,6 +147,6 @@ Page({
     },
 
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this, '', '', { key: '/pages/home/home' });
+        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
     },
 });
