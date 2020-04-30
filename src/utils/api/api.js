@@ -560,6 +560,11 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    // 直播列表
+    getLiveRooms: {
+        path: 'api/mag.live.rooms.json',
+        isForceToken: true
+    },
     bindWebConfirm: {
         path: 'api/mag.shop.web.confirm.json' // 给后端更新后信息
     },
