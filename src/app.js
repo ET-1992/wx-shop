@@ -117,7 +117,7 @@ App({
     async onShow(options) {
         console.log(options, 'options');
 
-        this.checkBind();
+        // this.checkBind();
         this.updateConfig();
 
         const { query = {}} = options;
@@ -192,6 +192,16 @@ App({
         orderDetail: {
             items: []
         },
+        bindWebApiWhite: [
+            'api/mag.shop.extra.json',
+            'api/module/page.json',
+            'api/mag.product.list.json',
+            'api/mag.product.get.json',
+            'api/mag.article.get.json',
+            'api/mag.article.list.json',
+            'api/mag.affiliate.bind.json',
+            'api/mag.affiliate.browse.record.json'
+        ]
     },
 
     systemInfo: {},
