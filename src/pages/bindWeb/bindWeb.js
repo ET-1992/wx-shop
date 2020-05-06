@@ -37,6 +37,14 @@ Page({
                     encrypted_data: encryptedData,
                     iv,
                 });
+                const { config } = this.data;
+                const { afcode } = app.globalData;
+                if (afcode) {
+                    await api.hei.recordAffiliateBrowse({ code: afcode });
+                    if (!config.affiliate_bind_after_order) {
+                        await api.hei.bindShare({ code: afcode });
+                    }
+                }
                 this.back();
             } catch (err) {
                 console.log(err);

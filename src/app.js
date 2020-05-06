@@ -26,7 +26,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
+        let { primaryColor = '#729153', secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -117,7 +117,7 @@ App({
     async onShow(options) {
         console.log(options, 'options');
 
-        this.checkBind();
+        // this.checkBind();
         this.updateConfig();
 
         const { query = {}} = options;
@@ -192,6 +192,16 @@ App({
         orderDetail: {
             items: []
         },
+        bindWebApiWhite: [
+            'api/mag.shop.extra.json',
+            'api/module/page.json',
+            'api/mag.product.list.json',
+            'api/mag.product.get.json',
+            'api/mag.article.get.json',
+            'api/mag.article.list.json',
+            'api/mag.affiliate.bind.json',
+            'api/mag.affiliate.browse.record.json'
+        ]
     },
 
     systemInfo: {},
