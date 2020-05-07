@@ -54,10 +54,24 @@ Page({
         });
     },
 
-    // 点击跳转按钮
+    // 直播间跳转
     onClickBtn(e) {
         let { status, id } = e.currentTarget.dataset;
         console.log('status', status);
-        console.log('id', id);
+        let liveObj = { '101': '直播', '102': '直播预告', '103': '精彩回放' };
+        let roomId = id;
+        let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/index/index', pid: 1 }));
+        let url = `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}&custom_params=${customParams}`;
+        wx.hideToast();
+        wx.navigateTo({
+            url,
+            fail(e) {
+                console.log('e', e);
+                wx.showToast({
+                    title: `查看${liveObj[status]}失败`,
+                    icon: 'none',
+                });
+            },
+        });
     },
 });
