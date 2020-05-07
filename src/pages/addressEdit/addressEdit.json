@@ -4,6 +4,7 @@
 		"van-field": "@vant/weapp/dist/field/index",
 		"loading": "../../components/loading/index",
 		"van-area": "@vant/weapp/dist/area/index",
+		"van-cell": "@vant/weapp/dist/cell/index",
 		"van-popup": "@vant/weapp/dist/popup/index"
 	}
 }

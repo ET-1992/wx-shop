@@ -28,6 +28,9 @@ Page({
         showAreaPanel: false,  // 省市区弹出框
         areacode: '',  // 省市区编码值
         originForm: '',  // 后端返回的地址表单
+        mapList: [],  // 腾讯地图搜索结果列表
+        mapListPanel: false,  // 地图展示面板
+        selectedMap: {},  // 地图选中项
     },
 
     onLoad(params) {
@@ -101,6 +104,80 @@ Page({
         this.setData({
             form: form,
         });
+    },
+
+    // 收起展示面板
+    onCloseAddress() {
+        this.setData({ mapListPanel: false });
+    },
+
+    // 详细地址输入框变化
+    onAddressInfo: debounce(function(e) {
+        let { detail } = e;
+        if (detail) {
+            this.searchAddress(detail);
+        } else {
+            this.setData({ mapListPanel: false });
+        }
+    }, 400, true),
+
+    // 搜索地址请求
+    async searchAddress(value) {
+        let { form } = this.data;
+        let formCity = form[2].value[1];
+        this.setData({ mapListPanel: true });
+        let city = formCity || '广州';
+        let keyword = value;
+        let data = {
+            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            keyword: keyword,
+            boundary: `region(${city})`,
+        };
+        let url = 'https://apis.map.qq.com/ws/place/v1/search';
+        wx.request({
+            url,
+            data,
+            success: (res) => {
+                let list = res.data.data || [];
+                let mapList = list.filter(item => item.type === 0) || [];
+                this.setData({ mapList });
+            },
+            fail(error) {
+                console.log('error', error);
+            }
+        });
+    },
+
+    // 点击搜索地图单项
+    onSelectAddress(e) {
+        let { mapList } = this.data;
+        let { id } = e.currentTarget.dataset;
+        let selectedMap = mapList.find((n) => {
+            return n.id === id;
+        });
+        selectedMap = selectedMap || {};
+        this.setData({
+            selectedMap,
+            mapListPanel: false,
+        });
+        this.updateAddressForm();
+    },
+
+    // 点击详细地址更改表单数据
+    updateAddressForm() {
+        let { selectedMap, form } = this.data;
+        let { address, ad_info = {}} = selectedMap;
+        let { adcode, province, city, district } = ad_info;
+        // 表单地区
+        form[2].value = [province, city, district];
+        form[2].areacode = adcode;
+        // 表单详细地址
+        form[3].value = address;
+        this.setData({
+            areacode: adcode,
+            form,
+        });
+        console.log('selectedMap', selectedMap);
     },
 
     // 保存表单
@@ -216,3 +293,17 @@ Page({
         this.onCloseArea();
     },
 });
+
+// 防抖
+function debounce(event, time, flag) {
+    let timer = null;
+    return function (...args) {
+        clearTimeout(timer);
+        if (flag && !timer) {
+            event.apply(this, args);
+        }
+        timer = setTimeout(() => {
+            event.apply(this, args);
+        }, time);
+    };
+}

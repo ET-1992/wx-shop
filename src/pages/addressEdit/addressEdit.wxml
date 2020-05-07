@@ -9,13 +9,37 @@
 					<van-field value="{{ string.join(form[index]['value']) }}" label="{{ item.label }}" 
 					placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
 				</block>
+				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
+					<!-- 带联想的详细地址 -->
+					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
+					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
+					bind:change="onAddressInfo" bind:clear="onCloseAddress"
+					clearable type="textarea" autosize />
+				</block>
 				<block wx:else>
 					<!-- 普通文本框 -->
 					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
-					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" bind:change="onChange" />
+					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
+					bind:change="onChange" bind:focus="onCloseAddress" />
 				</block>
 			</block>
 		</van-cell-group>
+		<view class="addressPanel" wx:if="{{ mapListPanel }}">
+			<van-cell-group>
+				<block wx:if="{{ mapList.length }}">
+					<van-cell wx:for="{{ mapList }}" wx:key="index" use-label-slot icon="location-o" 
+					bind:click="onSelectAddress" data-id="{{ item.id }}">
+						<view slot="title">
+							<text>{{ item.title || '-' }}</text>
+						</view>
+						<view slot="label">
+							<text>{{ item.address || '-' }}</text>
+						</view>
+					</van-cell>
+				</block>
+				<view class="panel-air" wx:else>没有搜索结果</view>
+			</van-cell-group>
+		</view>
 		<button class="btns" bind:tap="onSaveForm" >保存</button>
 		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
 	</view>
@@ -33,7 +57,9 @@
 	  value="{{ areacode }}" 
 	/>
 </van-popup>
+
 <wxs module="string">
+// 拼接地区信息
 var join = function(arr){
 	if(arr && arr.length) {
 		return arr.join('/')
