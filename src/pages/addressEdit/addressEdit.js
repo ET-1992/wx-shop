@@ -124,8 +124,14 @@ Page({
     // 搜索地址请求
     async searchAddress(value) {
         let { form } = this.data;
+        // 搜索地区
         let formCity = form[2].value[1];
-        this.setData({ mapListPanel: true });
+        // 详细地址填入
+        form[3].value = value;
+        this.setData({
+            mapListPanel: true,
+            form: form,
+        });
         let city = formCity || '广州';
         let keyword = value;
         let data = {
@@ -196,6 +202,9 @@ Page({
 
     // 发送表单数据
     async sendForm() {
+        wx.showLoading({
+            title: '加载中',
+        });
         let { form, keyPairs, areacode, type, id } = this.data;
         let finalForm = {};
         // 遍历对应字段表
@@ -224,6 +233,7 @@ Page({
         finalForm.receiver_country = '';
         finalForm.receiver_default = 0;
         await api.hei[apiMethod](finalForm);
+        wx.hideLoading();
         wx.showModal({
             title: '温馨提示',
             content: modalContent,
@@ -234,8 +244,12 @@ Page({
 
     // 删除地址表单
     async onDeleteForm() {
+        wx.showLoading({
+            title: '加载中',
+        });
         let { id } = this.data;
         await api.hei.deleteReceiverInfo({ receiver_id: id });
+        wx.hideLoading();
         wx.showModal({
             title: '温馨提示',
             content: '删除成功',
