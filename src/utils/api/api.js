@@ -39,10 +39,7 @@ export const apis = {
     addCart: {
         path: 'api/mag.cart.add.json',
         method: 'POST',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     updateCart: {
         path: 'api/mag.cart.update.json',
@@ -61,17 +58,11 @@ export const apis = {
     },
     fetchOrderList: {
         path: 'api/mag.order.list.json',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     fetchOrder: {
         path: 'api/mag.order.get.json',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     fetchOrderCount: {
         path: 'api/mag.order.counts.json',
@@ -80,34 +71,22 @@ export const apis = {
     createOrderAndPay: {
         path: 'api/mag.order.create.json?pay&v2',
         method: 'POST',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     createOrder: {
         path: 'api/mag.order.create.json',
         method: 'POST',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     orderPrepare: {
         path: 'api/mag.order.prepare.json',
         method: 'POST',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     payOrder: {
         path: 'api/mag.order.pay.json?pay&v2',
         method: 'POST',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     },
     peanutPayOrder: {
         path: 'api/mag.order.pay.peanut.json',
@@ -570,9 +549,6 @@ export const apis = {
     },
     checkUserBind: {
         path: 'api/mag.user_center.bind.required.json',
-        isForceToken: true,
-        failFnc(data) {
-            failToBindWeb(data);
-        }
+        isForceToken: true
     }
 };
