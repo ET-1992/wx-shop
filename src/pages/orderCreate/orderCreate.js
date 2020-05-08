@@ -344,6 +344,9 @@ Page({
 
     async onPay(ev) {
         console.log(ev);
+
+        let subKeys = [{ key: 'order_consigned' }];
+
         const { formId, crowd, crowdtype } = ev.detail;
         // 秒杀
         const { seckill, seckill_product_id } = this.data;
@@ -474,6 +477,7 @@ Page({
         if (shipping_type === 2) {
             requestData = { ...requestData, ...liftInfo };
             wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
+            subKeys.push({ key: 'order_stock_up' });
         }
 
         // 送货上门需传数据
@@ -505,8 +509,6 @@ Page({
                 requestData.receiver_delivery_time = homeDeliveryTimes[index];
             }
         }
-
-        let subKeys = [{ key: 'order_consigned' }];
 
         // 如果团购 团购接口 上传的数据 不是直接上传posts, 需要上传sku_id, quantity, post_id|id(grouponId)
         if (isGrouponBuy) {
