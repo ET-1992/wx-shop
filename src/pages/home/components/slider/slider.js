@@ -20,7 +20,11 @@ Component({
         userInfo: {
             type: Object,
             value: {}
-        }
+        },
+        themeColor: {
+            type: Object,
+            value: {}
+        },
     },
     data: {
         swiperCurrent: 0

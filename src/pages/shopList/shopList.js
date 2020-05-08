@@ -80,9 +80,12 @@ export const pageObj = {
         let activeIndex;
         let parentCategory = [];
 
+        let allId = '';
+
         if (categories.length <= 1) {
             wx.setNavigationBarTitle({ title: parentCategory.name || (memberExclusive ? '会员商品' : '商品列表') });
             parentCategory = categories[0] && categories[0].children;
+            allId = categories[0] && categories[0].id;
         } else {
             wx.setNavigationBarTitle({ title: this.data.page_title || (memberExclusive ? '会员商品' : '商品列表') });
             parentCategory = categories;
@@ -94,7 +97,7 @@ export const pageObj = {
                 value: item.id
             });
         });
-        navbarListData.unshift({ text: '全部', value: parentCategory.id });
+        navbarListData.unshift({ text: '全部', value: allId });
         activeIndex = navbarListData.findIndex((item) => {
             return item.value === Number(categoryId);
         });

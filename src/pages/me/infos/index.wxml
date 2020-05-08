@@ -7,7 +7,7 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/address.svg" />
         <view class="itemTitle">我的地址</view>
     </view> -->
-    <navigator class="infoItem" url="/pages/bargainList/bargainList">
+    <navigator class="infoItem" url="/pages/bargainList/bargainList" wx:if="{{ config.bargain_enable }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/bargain.svg" />
         <view class="itemTitle">我的砍价</view>
     </navigator>

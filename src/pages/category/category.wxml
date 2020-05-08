@@ -13,7 +13,14 @@
   </scroll-view>
   <scroll-view class="subCategory" scroll-y scroll-into-view="{{'c' + selectedIndex}}" scroll-with-animation="{{ 300 }}" bindscroll="onScroll">
     <view class="subCategory-item" wx:for="{{ categories }}" id="{{ 'c' + index }}">
-  
+
+    <image
+      class="subCategoryBanner"
+      src="{{ item.banner }}"
+      mode="aspectFill"
+      wx:if="{{ item.banner }}"
+    />
+
     <view class="categoryTitle">{{ item.name }}</view>
 
     <view class="subCategoryItems">
@@ -32,12 +39,6 @@
         <view class="subCategoryName">{{ item.name }}</view>
       </navigator>
     </view >
-          <image
-      class="subCategoryBanner"
-      src="{{ item.banner }}"
-      mode="aspectFill"
-      wx:if="{{ item.banner }}"
-    />
     </view>
   </scroll-view>
 </view>

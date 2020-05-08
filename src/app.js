@@ -26,7 +26,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
+        let { primaryColor = '#729153', secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -98,6 +98,9 @@ App({
             api.hei.config().then((res) => {
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
+
+                this.updateTabbar(config);
+
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
                 }
@@ -117,7 +120,7 @@ App({
     async onShow(options) {
         console.log(options, 'options');
 
-        this.checkBind();
+        // this.checkBind();
         this.updateConfig();
 
         const { query = {}} = options;
@@ -184,6 +187,30 @@ App({
         });
     },
 
+    updateTabbar(config) {
+        const { tabbar } = config;
+        if (tabbar) {
+            const { list = [], color, selectedColor, backgroundColor, borderStyle } = tabbar;
+
+            wx.setTabBarStyle({
+                color,
+                selectedColor,
+                backgroundColor,
+                borderStyle
+            });
+
+            list.forEach((item, index) => {
+                const { iconPath, selectedIconPath, text } = item;
+                wx.setTabBarItem({
+                    index,
+                    text,
+                    iconPath,
+                    selectedIconPath
+                });
+            });
+        }
+    },
+
     globalData: {
         vendor: '',
         currentOrder: {
@@ -192,6 +219,16 @@ App({
         orderDetail: {
             items: []
         },
+        bindWebApiWhite: [
+            'api/mag.shop.extra.json',
+            'api/module/page.json',
+            'api/mag.product.list.json',
+            'api/mag.product.get.json',
+            'api/mag.article.get.json',
+            'api/mag.article.list.json',
+            'api/mag.affiliate.bind.json',
+            'api/mag.affiliate.browse.record.json'
+        ]
     },
 
     systemInfo: {},
