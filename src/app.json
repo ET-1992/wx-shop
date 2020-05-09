@@ -334,6 +334,13 @@
 				"productList"
 			],
 			"name": "productList页"
+		},
+		{
+			"root": "pages/liveRooms",
+			"pages": [
+				"liveRooms"
+			],
+			"name": "直播列表"
 		}
 	],
 	"permission": {
