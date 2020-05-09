@@ -37,21 +37,31 @@ Page({
 
     // 获取直播列表
     async getListData() {
-        this.setData({ isLoading: true });
-        let {
-            tabActive,
-            indexToStatus,
-        } = this.data;
-        let status = indexToStatus[tabActive];
-        let data = await api.hei.getLiveRooms({
-            status,
-        });
-        let { banner, live_rooms } = data;
-        this.setData({
-            isLoading: false,
-            banner,
-            roomList: live_rooms,
-        });
+        try {
+            this.setData({ isLoading: true });
+            let {
+                tabActive,
+                indexToStatus,
+            } = this.data;
+            let status = indexToStatus[tabActive];
+            let data = await api.hei.getLiveRooms({
+                status,
+            });
+            let { banner, live_rooms } = data;
+            this.setData({
+                isLoading: false,
+                banner,
+                roomList: live_rooms,
+            });
+        } catch (e) {
+            wx.showModal({
+                title: '温馨提示',
+                content: e.errMsg,
+                showCancel: false,
+                confirmText: '确定',
+                confirmColor: '#3CC51F'
+            });
+        }
     },
 
     // 直播间跳转
