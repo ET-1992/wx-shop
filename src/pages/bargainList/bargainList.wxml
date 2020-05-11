@@ -1,8 +1,7 @@
 <view class="container">
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="default" bindchangeNavbarList="changeNavbarList" />
-	<loading isLoading="{{ isLoading }}" />
 	<view class="emptyHint" wx:if="{{ !missions.length && !isRefresh }}"> 暂无内容 </view>
-	<view class="orderItem" wx:if="{{!isLoading}}">
+	<view class="orderItem">
 		<navigator class="order" wx:for="{{ missions }}" wx:key="index" url="{{(item.status === 2 && item.order_no) ? '/pages/orderDetail/orderDetail?id='+ item.order_no : '/pages/bargainDetail/bargainDetail?code=' + item.code }}">
 			<view class="item">
 				<image class="itemImage" src="{{ item.post_image_url }}" mode="aspectFill"/>
@@ -55,16 +54,11 @@
 					</view>
 				</view>
 			</view>
-			<!-- <view class="itemMeta">
-				<van-progress percentage="50" show-pivot="false" color="linear-gradient(to right, #FFB2B9, #F64753)" wx:if="{{ item.status === 1 }}"/>
-				<van-progress percentage="100" show-pivot="false"  color="linear-gradient(to right, #FFB2B9, #F64753)" wx:if="{{ item.status === 2 }}"/>
-				<van-progress inactive percentage="50" show-pivot="false" wx:if="{{ item.status === 3 }}"/>
-			</view> -->
 			<view class="itemMeta">
 				<progress percent="{{item.progress}}" stroke-width="8" activeColor="#F30011" show-info font-size="12" active backgroundColor="#FFEFEA" border-radius="10" wx:if="{{item.status === 1 || item.status === 2 }}"/>
 				<progress percent="{{item.progress}}" stroke-width="8" activeColor="#707070" backgroundColor="#DBDBDB" border-radius="10" wx:if="{{item.status === 3 }}"/>
 			</view>
 		</navigator>
 	</view>
-	<view class="bottomHint" wx:if="{{ !isLoading && missions.length && !next_cursor }}">-到底啦-</view>
+	<view class="bottomHint" wx:if="{{ missions.length && !next_cursor }}">-到底啦-</view>
 </view>
