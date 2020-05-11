@@ -1,0 +1,105 @@
+.smallPic {
+	padding: 25rpx 0;
+	margin: 0 25rpx;
+	background: #fff;
+	display: flex;
+	border-bottom: 1rpx solid #f4f4f4;
+
+	.wrapper {
+		position: relative;
+		width: 200rpx;
+		height: 200rpx;
+		.mask {
+			font-size: 32rpx;
+			font-weight: bold;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+		}
+		
+		.productImage {
+			width: 200rpx;
+			height: 200rpx;
+			flex-shrink: 0;
+			border-radius: 10rpx;
+		}
+	}
+
+	.meta {
+		display: flex;
+		flex-direction: column;
+		width: 100rpx;
+		flex-grow: 1;
+		margin-top: 16rpx;
+		padding-left: 20rpx;
+
+		.name {
+			font-size: 28rpx;
+			color: #333;
+			font-weight: bold;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.desc {
+			font-size: 24rpx;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin-top: 10rpx;
+			color: #999;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			flex-grow: 1;
+
+			.footer-left {
+				font-size: 24rpx;
+				color: #999;
+
+				.currency {
+					color: #FF1E1E;
+				}
+
+				.lowPrice {
+					color: #FF1E1E;
+					font-weight: bold;
+					font-size: 36rpx;
+				}
+			}
+
+			.footer-right {
+				font-size: 20rpx;
+				color: #999;
+				display: flex;
+				align-items: flex-end;
+
+				.bargainBtn {
+					width: 140rpx;
+					height: 50rpx;
+					background: #F89452;
+					font-size: 24rpx;
+					color: #fff;
+					border-radius: 5rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					margin-left: 22rpx;
+				}
+			}
+		}
+	}
+}

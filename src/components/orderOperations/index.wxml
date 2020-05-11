@@ -22,13 +22,13 @@
 
   <view class="right-btn">
     <button
-      class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onRefund"
       wx:if="{{ isShowRefund }}"
+      class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+      bindgetuserinfo="onRefund" open-type="getUserInfo"
     >申请退款</button>
     <button
-      class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       wx:if="{{ isShowService }}"
+      class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       open-type="contact"
       send-message-title="{{order.items[0].title}}"
 	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
@@ -37,21 +37,21 @@
       session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
     >申请售后</button>
     <button
-      class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onCloseOrder"
       wx:if="{{ statusCode === 1 }}"
+      class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+      bindgetuserinfo="onCloseOrder" open-type="getUserInfo"
     >取消订单</button>
     <button
-      class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo"
       wx:if="{{ statusCode === 1 }}"
+      class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+      bindgetuserinfo="onPay" open-type="getUserInfo"
     >去支付</button>
     <!-- <navigator
       class="statusBt"
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button class="statusBt confirmBt" bindtap="onConfirmOrder" wx:if="{{ statusCode === 3 }}">确认收货</button>
+    <button class="statusBt confirmBt" wx:if="{{ statusCode === 3 }}" bindgetuserinfo="onConfirmOrder" open-type="getUserInfo">确认收货</button>
   </view>
 </view>
 

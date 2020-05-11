@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { PLATFFORM_ENV } from 'constants/index';
 import { go } from 'utils/util';
 
 const WxParse = require('utils/wxParse/wxParse.js');
@@ -12,7 +13,8 @@ Page({
         isLoading: true,
         current_user: {},
         isShowShareModal: false,
-        showPosterModal: false
+        showPosterModal: false,
+        PLATFFORM_ENV,  // 米白环境变量
     },
 
     go,
@@ -33,21 +35,31 @@ Page({
     },
 
     async getDetail(id) {
-        const { article, share_title, page_title, current_user } = await api.hei.articleDetail({ id });
+        try {
+            const { article, share_title, share_image, page_title, current_user } = await api.hei.articleDetail({ id });
 
-        const { themeColor } = this.data;
-        const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
+            const { themeColor = {}} = this.data;
+            const fomatedContent = article.content.replace(/class="product-card-button"/g, `class="product-card-button" style="background-color: ${themeColor.primaryColor}"`);
 
-        WxParse.wxParse('article_content', 'html', fomatedContent, this);
+            WxParse.wxParse('article_content', 'html', fomatedContent, this);
 
-        this.setData({
-            article,
-            share_title,
-            current_user,
-            isLoading: false
-        });
-        if (page_title) {
-            wx.setNavigationBarTitle({ title: page_title });
+            this.setData({
+                article,
+                share_title,
+                share_image: share_image,
+                current_user,
+                isLoading: false,
+                product: article.products || [],
+            });
+            if (page_title) {
+                wx.setNavigationBarTitle({ title: page_title });
+            }
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
     },
 
@@ -78,6 +90,21 @@ Page({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false
+            });
+        }
+    },
+
+    // 一键加车逻辑
+    async addCard() {
+        const { vendor } = app.globalData;
+        let { product } = this.data;
+
+        let params = product.map((item) => ({ post_id: item.id, vendor }));
+        const data = await api.hei.addCart({ posts: JSON.stringify(params) });
+        console.log(data);
+        if (!data.errcode) {
+            wx.showToast({
+                title: '成功添加'
             });
         }
     },
@@ -119,5 +146,7 @@ Page({
         });
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage() {
+        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
+    },
 });

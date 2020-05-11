@@ -1,0 +1,44 @@
+<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">	
+	<!-- 标题 -->
+	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+	<view class="categoryBox" wx:if="{{ content && content.length }}">
+		<!-- 图标 -->
+		<view class="{{ setting.per_row === 4 ? 'homeCategory' : 'homeWrapper' }}" wx:for="{{ content }}" wx:key="id">
+			<!-- 跳转小程序 -->
+			<navigator
+				wx:if="{{ item.type === 'mini_program'}}"
+				app-id="{{ item.appid }}"
+				path="{{ item.path }}"
+				target="miniProgram"
+				open-type="navigate"
+				class="categoryItem"
+			>
+				<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+			</navigator>
+
+			<!-- 公众号文章 -->
+			<navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="categoryItem" >
+				<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+			</navigator>
+
+			<!-- 客服对话框 -->
+			<button
+				wx:elif="{{ item.type === 'contact' }}"
+				bindtap="{{ item.tips ? 'showContactModal' : ''}}"
+				data-tips="{{ item.tips }}"
+				open-type="{{ !item.tips ? 'contact' : ''}}"
+				session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
+				class="categoryItem categoryBtn"
+				>
+				<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+			</button>
+
+			<!-- 其他 -->
+			<navigator wx:else url="{{ item.path }}" class="categoryItem"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" >
+				<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
+			</navigator>
+		
+			<view class="categoryTitle">{{item.title}}</view>
+		</view>
+	</view>
+</view>

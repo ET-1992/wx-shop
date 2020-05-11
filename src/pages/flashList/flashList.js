@@ -26,7 +26,9 @@ Page({
             products: newProducts,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            miaosha_banner: data.miaosha_banner
+            miaosha_banner: data.miaosha_banner,
+            share_image: data.share_image,
+            share_title: data.share_title
         });
         return data;
     },

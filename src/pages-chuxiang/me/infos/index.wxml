@@ -1,0 +1,29 @@
+<view class="infos">
+    <navigator class="infoItem" url="/pages/crowd/crowdList/crowdList" wx:if="{{ config.crowd_pay_enable }}">
+        <image class="itemIcon" src="/icons/meIcon/crowdPay.svg" />
+        <view class="itemTitle">好友代付</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <navigator class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/address.svg" />
+        <view class="itemTitle">地址管理</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <button class="infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/contact.svg" />
+        <view class="itemTitle">联系客服</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </button>
+    <navigator class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/telephone.svg" />
+        <view class="itemTitle">售后电话</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+    <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
+        <image class="itemIcon" mode="aspectFit" src="/icons/meIcon/about.svg" />
+        <view class="itemTitle">关于我们</view>
+        <image src="/icons/right.png" class="itemRight"/>
+    </navigator>
+</view>
+
+<myModal modal="{{authModal}}" />

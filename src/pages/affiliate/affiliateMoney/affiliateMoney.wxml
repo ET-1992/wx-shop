@@ -13,14 +13,14 @@
     <view class="item">
         <text class="item-text">本次提现</text>
         <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
-        <input class="input" type="digit" focus bindinput="setMoneyValue" bindblur="saveMoneyValue" placeholder="0.00" />
+        <input class="input" type="digit" focus bindinput="saveMoneyValue" placeholder="0.00" value="{{money}}"/>
     </view>
 </view>
 <view class="container">
     <view class="item">
         <text class="item-text">提现方式</text>
         <radio-group class="radio-group" bindchange="radioChange">
-            <label wx:for="{{ payStyles }}" wx:key="{{index}}">
+            <label wx:for="{{ payStyles }}" wx:key="name">
                 <radio value="{{item.value}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" />
                 <text class="payName">{{ item.name }}</text>
             </label>
@@ -106,8 +106,15 @@
     </view>
 </view>
 
+<view class="checkbox_item">
+		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange"></van-checkbox>
+		<view class="checkbox_text">
+			阅读并同意<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
+		</view>
+</view>
+
 <view class="saveBtnWrap" >
-	<view class="saveBtn" bindtap="{{ payStyle == 'weixin' ? 'submitWechat' : 'submitBank'}}">申请提现</view>
+	<view class="saveBtn" bindtap="submitChecked">申请提现</view>
 </view>
 
 <navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2" >提现记录</navigator>

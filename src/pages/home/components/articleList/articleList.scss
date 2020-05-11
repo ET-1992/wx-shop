@@ -1,0 +1,30 @@
+@import './templates/smallPic/smallPic';
+@import './templates/bigPic/bigPic';
+
+.section {
+	.sectionTitle {
+		font-size: 35rpx;
+		font-weight: bold;
+		padding: 26rpx 25rpx;
+		text-align: center;
+		border-bottom: 1rpx solid #D4D4D4;
+	}
+
+	.sectionMore {
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+
+		.moreButton {
+			font-size: 28rpx;
+			color: #707070;
+			background: #fff;
+		}
+
+		.rightIcon {
+			width: 20rpx;
+			height: 20rpx;
+			margin-left: 10rpx;
+		}
+	}
+}

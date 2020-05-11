@@ -1,0 +1,21 @@
+<navigator class="twoPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+		<view class="wrapper">
+			<view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+			<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+		</view>
+		<view class="Info">
+			<view class="title">{{ product.title }}</view>
+			<view class="meta">
+				<view class="priceWrapper">
+					<view class="ItemPrice">
+						{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}
+					</view>
+					<!-- 原价 -->
+					<view class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
+					</view>
+				</view>
+				<!-- 砍价标签 -->
+				<view class="tagWrapper">砍价</view>
+			</view>
+		</view>
+</navigator>

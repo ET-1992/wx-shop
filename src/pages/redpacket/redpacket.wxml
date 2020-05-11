@@ -20,7 +20,7 @@
     	  	<view class="number"> {{goldNumer || '--'}} <text>个</text> </view>
     	  	<view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
     	</view>
-    	<button class="normalizeBt receiveRedpacketBg" bindtap="onRecive" wx:if="{{ !hasRecived }}"> 立即领取 </button>
+    	<button class="normalizeBt receiveRedpacketBg" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:if="{{ !hasRecived }}"> 立即领取 </button>
     	<view class="btGroup" wx:if="{{ hasRecived }}">
     	  	<button class="normalizeBt useBt" bindtap="onUse">立即使用</button>
     	  	<button class="normalizeBt shareBt" open-type="share">继续分享</button>

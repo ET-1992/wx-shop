@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import { BANK_CARD_LIST } from 'utils/bank';
@@ -215,6 +215,7 @@ export function bankCardAttribution(bankCard) {
 }
 
 export function updateCart(e) {
+    if (PLATFFORM_ENV === 'MIBAI') { return }
     const CART_NUM  = wx.getStorageSync('CART_NUM');
     const index = Number(e);
     const text = CART_NUM.toString();
@@ -381,5 +382,96 @@ export function autoTransformAddress(address = {}) {
             detailInfo: address.receiver_address || '',
             postalCode: address.receiver_zipcode || ''
         };
+    }
+}
+
+export async function subscribeMessage(keys = []) {
+    const config = wx.getStorageSync(CONFIG);
+    const subscribeMessageTemplates = config.subscribe_message_templates;
+
+    if (!subscribeMessageTemplates) {
+        return;
+    }
+
+    const tmplIds = subscribeMessageTemplates.filter((item) => {
+        return keys.find((keysItem) => {
+            return keysItem.key === item.key;
+        });
+    }).map((item) => {
+        return item.template_id;
+    });
+
+    if (tmplIds.length === 0) {
+        return;
+    }
+
+    // console.log(tmplIds, 'tmplIds');
+    try {
+        const subRes = await wxProxy.requestSubscribeMessage({ tmplIds });
+        // console.log(subRes);
+
+        const isSubs = tmplIds.filter((item) => {
+            return subRes[item] === 'accept';
+        });
+
+        // console.log(isSubs);
+
+        const isSubscribeMessageTemplates = subscribeMessageTemplates.filter((item) => {
+            return isSubs.indexOf(item.template_id) > -1;
+        });
+
+        // console.log(isSubscribeMessageTemplates);
+
+
+        await api.hei.subscribe({
+            templates: isSubscribeMessageTemplates
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// 米白店铺过期
+export async function isExpired(e) {
+    const { partner } = e;
+    if (partner.is_expired) {
+        wx.reLaunch({
+            url: '/pages/webPages/webPages?isExpired=true'
+        });
+    }
+}
+
+export function isArray(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+}
+
+export function isObject(o) {
+    return Object.prototype.toString.call(o) === '[object Object]';
+}
+
+export function joinUrl(url, params) {
+    if (!isObject(params)) {
+        return;
+    }
+
+    let paramsArray = [];
+
+    const joinSymbol = url.indexOf('?') > 0 ? '&' : '?';
+
+    Object.keys(params).forEach((key) => {
+        params[key] && paramsArray.push(`${key}=${params[key]}`);
+    });
+
+    const paramsString = paramsArray.join('&');
+
+    return url + joinSymbol + paramsString;
+
+}
+
+export function failToBindWeb(data) {
+    if (data.errcode === 'bind_required') {
+        wx.navigateTo({
+            url: '/pages/bindWeb/bindWeb',
+        });
     }
 }

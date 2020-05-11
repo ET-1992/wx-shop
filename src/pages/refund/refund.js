@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { formatTime } from 'utils/util';
+import { formatTime, subscribeMessage } from 'utils/util';
 import { showToast, chooseImage } from 'utils/wxp';
 
 const app = getApp();
@@ -108,9 +108,17 @@ Page({
             const data = await api.hei.upload({
                 filePath: tempFilePaths[0]
             });
-            const { url } = JSON.parse(data);
-            refundImages.push(url);
-            this.setData({ refundImages });
+            const { url, errcode, errmsg } = JSON.parse(data);
+            if (errcode) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: errmsg,
+                    showCancel: false
+                });
+            } else {
+                refundImages.push(url);
+                this.setData({ refundImages });
+            }
         }
         catch (err) {
             console.log(err);
@@ -138,16 +146,21 @@ Page({
                 throw new Error('必须填写退款原因');
             }
             else {
+                wx.showLoading({
+                    title: '处理订单中',
+                    mask: true,
+                });
                 const itemsId = selectdItems.map((item) => item.id);
-                const data = await api.hei.refund({
+                const { result, errcode } = await api.hei.refund({
                     order_no,
                     items: JSON.stringify(itemsId),
                     reason: refundReason,
                     type: selectedRefundType,
                     images: refundImages
                 });
-                const { result, errcode } = data;
+                wx.hideLoading();
                 if (result) {
+                    await subscribeMessage([{ key: 'order_cancel_refunded' }]);
                     await showToast({
                         title: '提交成功',
                     });

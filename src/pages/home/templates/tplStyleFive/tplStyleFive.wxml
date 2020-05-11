@@ -55,8 +55,18 @@
 				  	style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
 				  	hover-class="none"
            			bindfail="miniFail"
-				>
-				</navigator>
+					wx:if="{{ item.type !== 'contact'}}"
+				></navigator>
+				<button 
+					wx:if="{{ item.type === 'contact' }}"
+					bindtap="{{ item.tips ? 'onModal' : ''}}"
+					data-tips="{{ item.tips }}"
+					open-type="{{ !item.tips ? 'contact' : ''}}"
+					session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'
+					style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+					hover-class="none"
+					open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
+				></button>
 			</swiper-item>
 			</swiper>
 			<navigator class="searchBox" url="/pages/search/search" wx:if="{{modules[0].key === 'search_box' && modules[1].key === 'sliders'}}">
@@ -83,6 +93,7 @@
 			url="{{announcement.type === 'web_view' ? '/pages/webPages/webPages?src=' + announcement.src : announcement.path }}"
 			class="announcement"
            	bindfail="miniFail"
+			 open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
 		>
 			<image class="infoIcon" mode="aspectFit" src="/icons/announcement.png"></image>
 			<view class="marquee">
@@ -164,12 +175,38 @@
 						wx:if="{{ miaoshas.length > 0 && index < 2}}"
 						wx:for="{{ miaoshas }}"
 						url="/pages/productDetail/productDetail?id={{ item.id }}"
-						wx:key="item.id"
+						wx:key="id"
 					><productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
 					</myNavigator>
 				</view>
 			</view>
 		</view>
+		<!-- 秒杀 -->
+      	<view wx:if="{{ module.key === 'seckills' }}">
+			<view class="section" wx:if="{{ seckills && seckills.length }}">
+				<view class="header">
+					<view class="sectionTitle" wx:if="{{module.title}}">{{module.title}} </view>
+					<navigator class="sectionMore" wx:if="{{ seckills.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=seckill">
+						<form bindsubmit="submitFormId" report-submit="true">
+							<button formType="submit" class="moreButton">
+								<view>更多</view>
+								<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+							</button>
+						</form>
+					</navigator>
+				</view>
+				<view class="miaoshasWrap">
+					<myNavigator
+						class="miaoshasItem"
+						wx:if="{{ seckills.length > 0 && index < 2}}"
+						wx:for="{{ seckills }}"
+						url="/pages/productDetail/productDetail?id={{ item.post_id }}"
+						wx:key="item.id"
+					><productList miaosha="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="miaoshaStyle" themeColor="{{themeColor}}"/>
+					</myNavigator>
+				</view>
+			</view>
+      	</view>
 		<!-- 砍价 -->
         <view wx:if="{{ module.key === 'bargains' }}">
           	<view class="section" wx:if="{{ bargains && bargains.length }}">
@@ -184,7 +221,7 @@
 						</form>
 					</navigator>
 				</view>
-				<myNavigator wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="item.id">
+				<myNavigator wx:for="{{ bargains }}" url="/pages/productDetail/productDetail?id={{ item.id }}" wx:key="id">
 					<productList product="{{ item }}" tplStyle="{{ tplStyle }}" productLayoutStyle="bargainStyle" themeColor="{{themeColor}}" />
 				</myNavigator>
           </view>
@@ -196,34 +233,33 @@
         wx:if="{{ userCoupon.length }}">
         <view class="coupons">
 			<view
-			class="coupon"
-            wx:for="{{ userCoupon }}"
-            wx:key="id"
-            bindtap="onCouponClick"
-            data-id="{{ item.id }}"
-            data-status="{{ item.status }}"
-            data-title="{{ item.title }}"
-            data-index="{{ index }}"
-            wx:if="{{ index < 2 }}">
+				class="coupon"
+				wx:for="{{ userCoupon }}"
+				wx:key="id"
+				wx:if="{{ index < 2 }}">
             	<form bindsubmit="submitFormId" report-submit="true">
-            	  	<button class="couponInfoList" formType="submit">
-            	  	  <view class="left">
-							      <view
-                      class="tip {{ item.status == 2 && item.stock_qty ? 'color-receivable' : ''}} {{ item.status == 4 ? 'color-received' : ''}}"
-                      style="{{item.type == 1 ? 'left: 30rpx;' : 'right: 10rpx;'}}"
-                      >{{ item.type == 1 ? globalData.CURRENCY[globalData.currency] : '折' }}</view>
-            	  	  	  <view class="reduce" style="color:{{ item.status == 2 && item.stock_qty ? '#F85552;' : ''}} {{ item.status == 4 ? '#ff9892;' : ''}}">
-            	  	  	    	<view class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</view>
-								              <view class="title">优惠券</view>
-							          </view>
-            	  	  </view>
-            	  	  <view class="right">
-            	  	  	<view class="leastCost">{{ item.least_cost ? ('满' + item.least_cost + '元使用') : '全场无门槛通用'}}</view>
-            	  	  	<view class="btn color-receivable" wx:if="{{ item.status == 2 && item.stock_qty }}">点击领取</view>
-					  	  	    <view class="btn color-received" wx:if="{{ item.status == 4 }}">立即使用</view>
-					  	  	    <view class="btn color-unable" wx:if="{{ item.status == 2 && !item.stock_qty }}">已抢光</view>
-					  	  	    <view class="btn color-unable" wx:if="{{ item.status == 5 }}">已使用</view>
-					  	  	    <view class="btn color-unable" wx:if="{{ item.status == 3 }}">已过期</view>
+            	  	<button class="couponInfoList" 
+						formType="submit"
+						open-type="getUserInfo"
+						bindgetuserinfo="bindGetUserInfo"
+						data-id="{{ item.id }}"
+						data-status="{{ item.status }}"
+						data-title="{{ item.title }}"
+						data-index="{{ index }}">
+            	  	    <view class="left">
+							<view class="tip {{ item.status == 2 && item.stock_qty ? 'color-receivable' : ''}} {{ item.status == 4 ? 'color-received' : ''}}" style="{{item.type == 1 ? 'left: 30rpx;' : 'right: 10rpx;'}}">{{ item.type == 1 ? globalData.CURRENCY[globalData.currency] : '折' }}</view>
+							<view class="reduce" style="color:{{ item.status == 2 && item.stock_qty ? '#F85552;' : ''}} {{ item.status == 4 ? '#ff9892;' : ''}}">
+							<view class="reduceCost">{{ item.type == 1 ? item.reduce_cost : (100 - item.discount) / 10 }}</view>
+								<view class="title">优惠券</view>
+							</view>
+            	  	  	</view>
+            	  	  	<view class="right">
+							<view class="leastCost">{{ item.least_cost ? ('满' + item.least_cost + '元使用') : '全场无门槛通用'}}</view>
+							<view class="btn color-receivable" wx:if="{{ item.status == 2 && item.stock_qty }}">点击领取</view>
+							<view class="btn color-received" wx:if="{{ item.status == 4 }}">立即使用</view>
+							<view class="btn color-unable" wx:if="{{ item.status == 2 && !item.stock_qty }}">已抢光</view>
+							<view class="btn color-unable" wx:if="{{ item.status == 5 }}">已使用</view>
+							<view class="btn color-unable" wx:if="{{ item.status == 3 }}">已过期</view>
             		  	</view>
             		  	<image class="bg" src="{{config.cdn_host + '/shop/tpl5/homeReceivable.png'}}" wx:if="{{ item.status == 2 && item.stock_qty }}" /> <!-- 待领取 -->
             		  	<image class="bg" src="{{config.cdn_host + '/shop/tpl5/homeReceived.png'}}" wx:if="{{ item.status == 4 }}" /> <!-- 已领取 -->
@@ -293,7 +329,7 @@
 		  	  		open-type="{{ !item.tips ? 'contact' : ''}}"
     	  	  		session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}", "from":"home"}'
     	  	  		class="categoryItem categoryBtn"><image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image></button>
-    	  	  	<navigator wx:else url="{{ item.path }}" class="categoryItem" >
+    	  	  	<navigator wx:else url="{{ item.path }}" class="categoryItem"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}">
     	  	  	  	<image src="{{ item.icon }}" class="categoryImg" mode="aspectFill"></image>
     	  	  	</navigator>
     	  	  	<view class="categoryTitle">{{item.title}}</view>

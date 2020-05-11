@@ -36,13 +36,12 @@ Component({
     },
     methods: {
         onPay(e) {
-            const { formId, target } = e.detail;
-            const { crowdtype } = target.dataset;
+            const { crowdtype } = e.currentTarget.dataset;
             const { crowd, finalPay } = this.data;
             if (crowd) {
                 finalPay > 0
                     ?
-                    this.triggerEvent('onpay', { formId, crowd, crowdtype }, { bubbles: true })
+                    this.triggerEvent('onpay', { crowd, crowdtype }, { bubbles: true })
                     :
                     wx.showModal({
                         title: '温馨提示',
@@ -52,7 +51,7 @@ Component({
                         confirmColor: '#3CC51F',
                     });
             } else {
-                this.triggerEvent('onpay', { formId }, { bubbles: true });
+                this.triggerEvent('onpay', {}, { bubbles: true });
             }
         }
     }

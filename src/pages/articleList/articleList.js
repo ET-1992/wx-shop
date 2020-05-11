@@ -14,16 +14,17 @@ Page({
         isInit: true,
         current_page: 1,
         clientX: 0,
-        activeIndex: 0,
+        activeIndex: 0
     },
-    async onLoad({ categoryId = '', categoryParent = '' }) {
+    async onLoad({ categoryId = '', categoryParent = '', orderby = '' }) {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
         this.setData({
             categoryId,
             categoryParent,
-            config
+            config,
+            orderby
         });
         await this.getArticleList();
         const { categories } = this.data;
@@ -59,11 +60,12 @@ Page({
     },
 
     async getArticleList() {
-        let { current_page, categoryId, activeIndex, articles, categoryParent, config: { share_title, share_image }} = this.data;
+        let { current_page, categoryId, activeIndex, articles, categoryParent, orderby } = this.data;
         let options = {
             paged: current_page,
             article_category_id: categoryId,
             article_category_parent: categoryParent,
+            orderby
         };
 
         this.data.fetchProductListStatus = 'Pending';
@@ -81,8 +83,6 @@ Page({
         });
         this.setData({
             ...data,
-            share_title,
-            share_image,
             current_page,
             isLoading: false
         });

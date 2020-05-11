@@ -1,12 +1,9 @@
-// pages/couponList/couponList.js
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-// import { onDefaultShareAppMessage } from 'utils/pageShare';
-// import login from 'utils/login';
-import { autoNavigate } from 'utils/util';
+import { autoNavigate, getAgainUserForInvalid } from 'utils/util';
 import { CONFIG } from 'constants/index';
-
 const app = getApp();
+
 Page({
     data: {
         coupons: [],
@@ -14,10 +11,11 @@ Page({
     },
 
     async onLoad(params) {
-        console.log('params', params); // {tplStyle: "vip"}
+        console.log('params', params); // {fromMemberShipPage: 'true'}
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        if (params.tplStyle === 'vip') { // 会员模板
+        const { style_type: tplStyle = 'default' } = config;
+        if (params.fromMemberShipPage) { // 会员模板
             wx.setNavigationBarTitle({
                 title: '会员优惠券'
             });
@@ -26,20 +24,14 @@ Page({
                 backgroundColor: '#333',
             });
             this.setData({
-                themeColor,
                 tplStyle: 'vip_tpl',
-                config
+                fromMemberShipPage: !!params.fromMemberShipPage
             });
             this.loadCoupon('vip');
         } else {
-            const { style_type: tplStyle = 'default' } = config;
-            this.setData({
-                tplStyle,
-                themeColor,
-                config
-            });
-            this.loadCoupon();
+            this.setData({ tplStyle }, () => { this.loadCoupon() });
         }
+        this.setData({ themeColor, config });
         console.log('this.data', this.data);
     },
 
@@ -82,6 +74,20 @@ Page({
             await showModal({
                 title: '温馨提示',
                 content: err.errMsg,
+                showCancel: false,
+            });
+        }
+    },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
                 showCancel: false,
             });
         }

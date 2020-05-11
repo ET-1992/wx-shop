@@ -3,6 +3,19 @@ Component({
         filterListData: {
             type: Array,
             value: []
+        },
+        filterData: {
+            type: Object,
+            value: {},
+            observer(newValue) {
+                if (newValue) {
+                    this.setData({
+                        isActive: {
+                            [newValue.filterIndex]: newValue.filterType
+                        }
+                    });
+                }
+            }
         }
     },
     data: {
@@ -18,17 +31,11 @@ Component({
             if (this.data.isActive[index] === 'Up') {
                 type = 'Down';
             }
-            this.setData({
-                isActive: {
-                    [index]: type
-                }
-            }, () => {
-                const filter = {
-                    filterIndex: index,
-                    filterType: type
-                };
-                this.triggerEvent('changeFilterList', filter, { bubbles: true });
-            });
+            const filter = {
+                filterIndex: index,
+                filterType: type
+            };
+            this.triggerEvent('changeFilterList', filter, { bubbles: true });
         }
     }
 });

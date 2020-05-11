@@ -1,13 +1,13 @@
 <view class="infos">
-    <navigator class="infoItem" url="/pages/membership/members/members" wx:if="{{ config.membership_enable && user.membership.is_member }}">
+    <button class="normalizeBt infoItem" open-type="getUserInfo" bindgetuserinfo="toMemberPage" wx:if="{{ config.membership_enable && user.membership.is_member }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>
-    </navigator>
-    <view class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
+    </button>
+    <!-- <view class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/address.svg" />
         <view class="itemTitle">我的地址</view>
-    </view>
-    <navigator class="infoItem" url="/pages/bargainList/bargainList">
+    </view> -->
+    <navigator class="infoItem" url="/pages/bargainList/bargainList" wx:if="{{ config.bargain_enable }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/bargain.svg" />
         <view class="itemTitle">我的砍价</view>
     </navigator>
@@ -31,7 +31,7 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/myfav.svg" />
         <view class="itemTitle">我的收藏</view>
     </navigator>
-    <button class="normalizeBt infoItem" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="redirectToShareCenter" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
+    <button class="normalizeBt infoItem" bindgetuserinfo="toAffiliatePage" open-type="getUserInfo" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </button>
@@ -47,10 +47,14 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
         <view class="itemTitle">关于我们</view>
     </navigator>
-    <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
+    <!-- <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shopPhone.svg" />
         <view class="itemTitle">售后电话</view>
-    </view>
+    </view> -->
+    <navigator class="infoItem" url="/pages/rulePages/rulePages?key=after_sales">
+        <image class="itemIcon" mode="widthFix" src="/icons/me/afterService.svg" />
+        <view class="itemTitle">售后说明</view>
+    </navigator>
     <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/idCart.svg" />
         <view class="itemTitle">身份信息</view>

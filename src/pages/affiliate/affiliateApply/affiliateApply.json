@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "loading": "../../../components/loading/index"
+    "loading": "../../../components/loading/index",
+    "van-checkbox": "@vant/weapp/dist/checkbox/index"
   }
 }

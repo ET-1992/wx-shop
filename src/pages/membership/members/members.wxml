@@ -4,7 +4,7 @@
 	<!-- 用户信息及开通会员 -->
 	<view class="member-header {{ config.store_card_enable ? '' : 'noMemberCard' }}">
 		<view class="member-top">
-			<button class="head-button" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+			<button class="head-button" bindgetuserinfo="getUserInformation" open-type="getUserInfo">
 				<image src="{{ user.avatarurl ? user.avatarurl : '/icons/member/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			</button>
 			<!-- 会员等级、积分 -->
@@ -14,8 +14,7 @@
 					<view class="member-level" wx:if="{{ user.membership && user.membership.is_member }}">{{ user.membership.level_name || '暂无会员等级'}}</view>
 				</view>
 				<navigator url="/pages/membership/integralList/integralList" class="integral-text" wx:if="{{ user.membership && user.membership.is_member }}">
-					<view class="cart-text">积分:</view>
-					<view class="cart-price">{{ user.membership.exp || '0' }}分</view>
+					<view class="cart-text">积分: {{ user.membership.exp || '0' }}分</view>
 					<image mode="aspectFit" class="cart-arrow" src="/icons/member/score-arrow.svg"></image>
 				</navigator>
 				<!-- 非会员 -->
@@ -24,7 +23,7 @@
 
 			<!-- 会员续费 -->
 			<view class="renewal" wx:if="{{ user.membership && user.membership.is_member && config.renews }}">
-				<view class="renewal-btn" bindtap="openRenewsModal">续费</view>
+				<view class="renewal-btn" bindtap="openRenewsModal" wx:if="{{ (data.user && data.user.due_time) !== 0 }}">续费</view>
 				<view class="renewal-tip">{{ data.user && data.user.due_time_str }}</view>
 			</view>	
 
@@ -97,17 +96,24 @@
 
 	<!-- 会员充值弹窗 -->
 	<popup
-		wx:if="{{!isLoading}}"
+		wx:if="{{!isLoading && showRechargeModal}}"
 		showRechargeModal="{{ showRechargeModal }}"
-		showRenewsModal="{{ showRenewsModal }}"
 		rechargeArray="{{ rechargeArray }}"
+		user="{{ user }}"
+		config="{{ config }}"
+		bind:onConfirmRecharge="onConfirmRecharge"
+		bind:closeRechargeModal="closeRechargeModal"
+    />
+
+	<!-- 会员续费弹窗 -->
+	<popup
+		wx:if="{{!isLoading && showRenewsModal}}"
+		showRenewsModal="{{ showRenewsModal }}"
 		user="{{ user }}"
 		config="{{ config }}"
 		tip="{{ data.user && data.user.due_time_str }}"
 		renews="{{renews}}"
-		bind:onConfirmRecharge="onConfirmRecharge"
 		bind:onConfirmRenews="onConfirmRenews"
-		bind:closeRechargeModal="closeRechargeModal"
 		bind:closeRenewsModal="closeRenewsModal"
     />
 </view>

@@ -1,0 +1,24 @@
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+    <view class="wrapper">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+        <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
+    </view>
+    <view class="meta">
+        <view class="name">{{ product.title }}</view>
+        <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        <view class="footer">
+            <view class="footer-left">
+                <view class="low_price">
+                    底价 <text class="currency">{{ globalData.CURRENCY[globalData.currency] }}</text><text class="lowPrice">{{ product.bargain_price }}</text>
+                </view>
+                <view class="singleBuy">
+                    原价<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                </view>
+            </view>
+            <view class="footer-right">
+                <view class="bargainNumber">已砍{{  product.bargain_finished_count }}件</view>
+                <view class="bargainBtn" style="background-color: {{ themeColor.primaryColor }}">发起砍价</view>
+            </view>
+        </view>
+    </view>
+</navigator>

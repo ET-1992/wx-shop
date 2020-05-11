@@ -1,6 +1,7 @@
 <view class="fixedStyle" style="top: {{ top }}">
     <view 
         wx:for="{{ navbarListData }}" 
+        wx:key="value" 
         class="item {{ activeIndex === index ? 'selected' : '' }}" 
         data-index="{{index}}"
         data-value="{{item.value}}"

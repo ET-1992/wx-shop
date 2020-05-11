@@ -1,0 +1,101 @@
+@import "~templates/mock/mock";
+
+.infos{
+	display: flex;
+	flex-direction: column;
+	// flex-wrap: wrap;
+	background: #fff;
+	margin: 15rpx 20rpx;
+	border-radius: 5rpx;
+	padding: 20rpx 35rpx;
+	align-content: center;
+
+	.infoItem{
+		display: flex;
+		// flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		// line-height: 2;
+		background: #fff;
+		margin-bottom: 40rpx;
+		
+		.itemIcon {
+			width: 50rpx;
+			height: 50rpx;
+		}
+		.itemTitle {
+			flex-grow: 1;
+			font-size: 28rpx;
+			color: #333333;
+			margin-left: 25rpx;
+		}
+		.itemRight {
+			width: 14rpx;
+			height: 20rpx;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	button {
+		text-align: left;
+	}
+}
+
+/* 底部弹窗 */
+.actionShareModal {
+	background-color: #fff;
+	position: fixed;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	z-index: 100;
+	transform: translateY(120%);
+	transition: transform 0.4s ease;
+
+	&.iphoneXTrick {
+		padding-bottom: 40rpx;
+	}
+
+	&.show {
+		transform: translateY(0);
+	}
+
+	
+	
+}
+.shareModalContent {
+height: 280rpx;
+display: flex;
+justify-content: space-around;
+
+.shareBtn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 67.5rpx;
+	background-color: transparent;
+
+	image {
+		width: 90rpx;
+		height: 90rpx;
+	}
+
+	view {
+		padding-top: 20rpx;
+		font-size: 28rpx;
+		line-height: 1.5;
+		color: #333;
+	}
+}
+}
+
+.close {
+	position: absolute;
+	width: 40rpx;
+	height: 40rpx;
+	top: 15rpx;
+	right: 15rpx;
+}

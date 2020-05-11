@@ -137,6 +137,18 @@
 					}
 				}
 			}
+
+			.checkbox_item {
+				border: none;
+				margin-top: 20rpx;
+
+				.checkbox_text {
+					margin-left: 16rpx;
+					.rule {
+						color: #458DFA;
+					}
+				}
+			}
 		}
 
 		button{

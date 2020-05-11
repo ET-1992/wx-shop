@@ -57,6 +57,23 @@
 		background-color:#729153;
 		color: #fff;
 		font-size: 32rpx;
-		margin: 60rpx auto 0;
+		margin: 40rpx auto 0;
+	}
+}
+
+
+.checkbox_item {
+	border: none;
+	margin-top: 50rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 28rpx;
+
+	.checkbox_text {
+		margin-left: 16rpx;
+		.rule {
+			color: #458DFA;
+		}
 	}
 }

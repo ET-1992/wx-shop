@@ -6,7 +6,22 @@
 @import './templates/tplStyleFour/tplStyleFour';
 @import './templates/tplStyleFive/tplStyleFive';
 @import './templates/tplStyleSix/tplStyleSix';
+@import './templates/tplStyleSeven/tplStyleSeven';
 @import './templates/newUserCoupon/newUserCoupon';
+
+page {
+    background-color: #fff;
+}
+
+.container {
+	height: auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.main {
+	margin-top: 90rpx;
+}
 
 .home-guide {
     position: fixed;

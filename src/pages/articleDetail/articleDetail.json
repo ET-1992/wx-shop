@@ -6,6 +6,7 @@
         "loading": "components/loading/index",
         "articleDetailSkeleton": "./articleDetailSkeleton/articleDetailSkeleton",
         "van-popup": "@vant/weapp/dist/popup/index",
+        "van-icon": "@vant/weapp/dist/icon/index",
         "poster": "components/poster/index"
     }
 }

@@ -32,12 +32,19 @@ Page({
                 const data = await api.hei.upload({
                     filePath: tempFilePaths[i]
                 });
-                const { url } = JSON.parse(data);
-                images.push(url);
-                this.setData({ images });
+                const { url, errcode, errmsg } = JSON.parse(data);
+                if (errcode) {
+                    wx.showModal({
+                        title: '温馨提示',
+                        content: errmsg,
+                        showCancel: false
+                    });
+                } else {
+                    images.push(url);
+                    this.setData({ images });
+                }
             }
-        }
-        catch (err) {
+        } catch (err) {
             wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
@@ -48,11 +55,9 @@ Page({
     },
 
     rate(ev) {
-        const { index } = ev.detail;
-        this.setData({
-            rating: index
-        });
-        console.log(this.data.rating);
+        const rating = ev.detail;
+        this.setData({ rating });
+        console.log(rating);
     },
 
     bindTextAreaBlur(ev) {

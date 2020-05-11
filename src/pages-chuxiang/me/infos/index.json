@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"myModal": "../../../components/myModal/myModal",
+		"van-popup": "../../../components/vant-weapp/dist/popup/index"
+	}
+}

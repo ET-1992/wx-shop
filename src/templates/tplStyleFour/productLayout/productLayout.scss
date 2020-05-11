@@ -243,3 +243,34 @@
         }
     }
 }
+.wrapper {
+    position: relative;
+    width: 340rpx;
+    height: 340rpx;
+
+    .ItemImage {
+        width: 100%;
+        height: 100%;
+    }
+
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 32rpx;
+        font-weight: bold;
+
+        .mask-img {
+            width: 225rpx;
+            height: 225rpx;
+        }
+    }
+}

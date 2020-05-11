@@ -1,7 +1,7 @@
 <view class="itemList itemList-{{ customClass }}">
-	<block wx:for="{{ products }}">
+	<block wx:for="{{ products }}" wx:key="id">
 		<navigator class="item" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-			<image src="{{ item.imageUrl || item.thumbnail }}" class="itemImage itemImage-{{ customClass }}" mode="aspectFill" lazy-load="{{ true }}" />
+			<image src="{{ item.imageUrl }}" class="itemImage itemImage-{{ customClass }}" mode="aspectFill" lazy-load="{{ true }}" />
 			<view class="itemInfo">
 				<view class="itemName .itemName-{{ customClass }}">{{ item.title }}</view>
 				<view class="propertyNames propertyNames-{{ customClass }}" wx:if="{{ item.property && customClass !== 'inviteCrowd' }}">{{ item.property }}</view>
@@ -16,7 +16,7 @@
 			</view>
 		</navigator>
 		<view class="comment" wx:if="{{ config.reply_enable && statusCode === 4 }}">
-			<navigator class="btn" url="/pages/comment/comment?id={{ item.post_id }}&orderNo={{ orderNo }}&imageUrl={{ item.thumbnail }}" >评价</navigator>
+			<navigator class="btn" url="/pages/comment/comment?id={{ item.post_id }}&orderNo={{ orderNo }}&imageUrl={{ item.imageUrl }}" >评价</navigator>
 		</view>
 	</block>
 </view>

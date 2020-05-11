@@ -15,10 +15,10 @@ Component({
                 products = newValue.map((item) => {
                     return {
                         ...item,
-                        imageUrl: item.image_url,
+                        imageUrl: item.thumbnail || item.image_url,
                         property: item.sku_property_names,
                         price: (item.miaosha_end_timestamp >= nowTime && nowTime >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price,
-                        post_id: item.post_id ? item.post_id : item.id
+                        post_id: item.post_id || item.id
                     };
                 });
                 this.setData({

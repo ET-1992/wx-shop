@@ -1,4 +1,4 @@
-import { checkIdNameNum } from 'utils/util';
+import { checkIdNameNum, go } from 'utils/util';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 const app = getApp();
@@ -9,7 +9,8 @@ Page({
         userName: '',
         idNumber: '',
         idCardImage1: '',
-        idCardImage2: ''
+        idCardImage2: '',
+        checked: false
     },
 
     onLoad(params) {
@@ -18,11 +19,12 @@ Page({
         this.setData({
             themeColor
         });
-    },
-
-    onShow() {
         this.init();
     },
+
+    // onShow() {
+    //     this.init();
+    // },
 
     // 初始化表单内容
     async init() {
@@ -71,9 +73,16 @@ Page({
             const data = await api.hei.upload({
                 filePath: tempFilePaths[0]
             });
-            const { url } = JSON.parse(data);
-            console.log(url);
-            return url;
+            const { url, errcode, errmsg } = JSON.parse(data);
+            if (errcode) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: errmsg,
+                    showCancel: false
+                });
+            } else {
+                return url;
+            }
         } catch (err) {
             console.log(err);
         }
@@ -99,9 +108,10 @@ Page({
 
     // 提交表单内容
     async formSubmit() {
-        const { userName, idNumber = '', idCardImage1, idCardImage2 } =  this.data;
+        const { userName, idNumber = '', idCardImage1, idCardImage2, checked } =  this.data;
         let error = '';
 
+        !checked && (error = '请阅读并同意《用户服务协议》与《隐私政策》');
         !checkIdNameNum(idNumber) && (error = '请输入正确的身份证号码');
         !idCardImage1 && (error = '请上传身份证正面照');
         !idCardImage2 && (error = '请上传身份证反面照');
@@ -138,5 +148,14 @@ Page({
                 showCancel: false,
             });
         }
-    }
+    },
+
+    onChange(event) {
+        this.setData({
+            checked: event.detail
+        });
+        console.log('checked', this.data.checked);
+    },
+
+    go
 });

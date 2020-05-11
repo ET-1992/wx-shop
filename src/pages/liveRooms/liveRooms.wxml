@@ -1,0 +1,82 @@
+<view class="container">
+  <view class="head">
+    <image class="head-img" src="{{ banner }}" />
+  </view>
+  <view class="body">
+  	<!-- 列表标签tabs -->
+    <view class="tabs-wrap">
+      <van-tabs active="{{ tabActive }}" bind:change="onTabChange" color="{{ themeColor.primaryColor || '#729153' }}">
+        <van-tab title="直播列表"></van-tab>
+        <van-tab title="直播预告"></van-tab>
+        <van-tab title="精彩回放"></van-tab>
+      </van-tabs>
+    </view>
+	<loading isLoading="{{ isLoading }}" />
+	<block wx:if="{{ !isLoading }}">
+		<view class="list-air" wx:if="{{ !roomList || !roomList.length }}">暂无内容</view>
+		<view class="live-list" wx:else>
+			<view class="live-wrap" wx:for="{{ roomList }}" wx:key="index">
+				<view class="live-left">
+				<image class="live-img" src="{{ item.cover_img }}" />
+				</view>
+				<view class="live-right">
+				<view class="live-title">{{ item.name || '-' }}</view>
+				<view class="live-content">
+					<view class="live-line">
+					<text>开播 </text>
+					<text>{{ item.start_time || '-' }}</text>
+					</view>
+					<view class="live-line">
+					<text>结束 </text>
+					<text>{{ item.end_time || '-' }}</text>
+					</view>
+					<view class="live-line">
+					<text>主播：</text>
+					<text>{{ item.anchor_name || '-' }}</text>
+					</view>
+				</view>
+				<!-- 直播状态和按钮 -->
+				<view class="live-btn-wrap" style="color: {{ themeColor.primaryColor }}">
+					<text>{{ live.getStatusName(item.live_status) }}</text>
+					<button class="live-btn" style="background-color: {{ themeColor.primaryColor }}"
+					  data-status="{{ item.live_status }}" data-id="{{ item.roomid }}" bind:tap="onClickBtn"
+					  >{{ live.getStatusBtn(item.live_status) }}</button>
+				</view>
+				</view>
+			</view>
+		</view>
+	</block>
+  </view>
+</view>
+
+<wxs module="live">
+var arr = [
+	{status: 101, name: '直播中', btnText: '马上围观'},
+	{status: 102, name: '未开始', btnText: '先去订阅'},
+	{status: 103, name: '已结束', btnText: '去看回放'},
+]
+// 获取状态名字
+var getStatusName = function(status){
+	var name = '-';
+	arr.forEach(function(item){
+		if(status === item.status) {
+			name = item.name;
+		}
+	})
+	return name
+};
+// 获取状态按钮
+var getStatusBtn = function(status){
+	var btnText = '-';
+	arr.forEach(function(item){
+		if(status === item.status) {
+			btnText = item.btnText;
+		}
+	})
+	return btnText
+};
+module.exports = {
+	getStatusName: getStatusName,
+	getStatusBtn: getStatusBtn,
+}
+</wxs>

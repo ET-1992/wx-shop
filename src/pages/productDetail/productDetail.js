@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
-import { USER_KEY, CONFIG } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid } from 'utils/util';
+import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
+import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
@@ -34,7 +34,6 @@ Page({
         hasStart: true,
         hasEnd: false,
         timeLimit: 0,
-        miaoshaObj: {},
         isShowActionSheet: false,
         isShowCouponList: false,
         selectedProperties: [],
@@ -58,23 +57,33 @@ Page({
         templateTypeText,
         expiredGroupon: [],
 
-        posterType: 'product'
+        posterType: 'product',
+
+        areaObj: {},
+        isShowAreaModal: false,
+        PLATFFORM_ENV,
+        bargain_mission: {}
     },
 
     go, // 跳转到规则详情页面
 
     onShowSku(ev) {
-        const { status } = this.data.product;
+        const { status, individual_buy } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
         const updateData = { isShowActionSheet: true };
         if (ev) {
-            const { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
-            console.log(actions);
+            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
+            console.log('actions:', actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
             console.log('onShowSku isBargainBuy: ', isBargainBuy);
+
+            // 单独设置商品留言去掉sku加车按钮
+            if (individual_buy) {
+                actions = actions.filter(({ type }) => type !== 'addCart');
+            }
             updateData.actions = actions;
             updateData.isGrouponBuy = isGrouponBuy;
             updateData.isCrowd = isCrowd;
@@ -88,6 +97,7 @@ Page({
         });
     },
 
+    // 倒计时初始化
     countDown(end, start) {
         return new Promise((resolve) => {
             const now = Math.round(Date.now() / 1000);
@@ -111,7 +121,7 @@ Page({
         });
     },
 
-    // 限时购倒计时触发
+    // 倒计时触发
     todayTimeLimit() {
         let { timeLimit } = this.data;
         if (timeLimit && !this.intervalId) {
@@ -122,7 +132,7 @@ Page({
         }
     },
 
-    // 限时购倒计时设置
+    // 倒计时设置
     todayTimeLimitSet() {
         let { timeLimit } = this.data;
         const [hour, minute, second] = getRemainTime(timeLimit);
@@ -140,7 +150,7 @@ Page({
 
     loadProductDetailExtra(id) {
         setTimeout(async () => {
-            const { coupons, current_user } = await api.hei.fetchShopExtra({
+            const { coupons, current_user, bargain_mission } = await api.hei.fetchShopExtra({
                 weapp_page: 'productDetail',
                 id
             });
@@ -161,17 +171,12 @@ Page({
                 { receivableCoupons: [], receivedCoupons: [] },
             );
 
-            let routeQuery = {
-                id,
-                afcode: current_user.afcode
-            };
-
             this.setData({
                 receivableCoupons,
                 receivedCoupons,
                 current_user,
                 coupons,
-                routeQuery
+                bargain_mission
             });
         }, 300);
     },
@@ -194,7 +199,7 @@ Page({
                 this,
             );
 
-            const { product } = data;
+            const { config, product } = data;
 
             if (product.miaosha_enable) {
                 data.posterType = 'miaosha';
@@ -203,6 +208,32 @@ Page({
                     miaosha_end_timestamp,
                     miaosha_start_timestamp
                 );
+            } else if (product.seckill_enable) {
+                // 秒杀初始化
+                const { seckill_end_timestamp, seckill_start_timestamp } = product;
+                await this.countDown(
+                    seckill_end_timestamp,
+                    seckill_start_timestamp,
+                );
+            }
+
+            if (product.groupon_enable) {
+                data.posterType = 'groupon';
+            }
+
+            if (product.bargain_enable) {
+                data.posterType = 'bargain';
+            }
+
+            // 默认使用上次保存的地址
+            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
+                const areaObj = wx.getStorageSync(ADDRESS_KEY);
+                console.log(areaObj, '===============');
+                if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
+                    areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
+                    data.areaObj = areaObj;
+                    this.calculatePostage(data);
+                }
             }
 
             this.setData({
@@ -214,6 +245,10 @@ Page({
 
             // 限时购倒计时
             if (product.miaosha_enable) {
+                await this.todayTimeLimit();
+            }
+            // 秒杀倒计时
+            if (product.seckill_enable) {
                 await this.todayTimeLimit();
             }
 
@@ -228,8 +263,7 @@ Page({
                     });
                 }, 1000);
             }
-        }
-        catch (err) {
+        } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
                     title: '温馨提示',
@@ -243,7 +277,7 @@ Page({
                 }
             }
         }
-        console.log(this.data);
+        console.log(this.data, 'this.data');
     },
 
     setDefinePrice() {
@@ -257,6 +291,7 @@ Page({
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
         } else if (product.seckill_enable && !hasEnd && hasStart) {
+            // 秒杀相关价格显示
             product.definePrice = product.seckill_price;
             product.showOriginalPrice = product.seckill_price !== product.original_price;
         } else {
@@ -277,6 +312,8 @@ Page({
     },
 
     onLoad(query) {
+        const config = wx.getStorageSync(CONFIG);
+        const { style_type: tplStyle = 'default' } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -294,15 +331,10 @@ Page({
             isGrouponBuy: !!query.grouponId,
             routePath: this.route,
             cartNumber: Number(CART_NUM),
-            globalData: app.globalData
+            globalData: app.globalData,
+            config,
+            tplStyle
         });
-        this.initPage();
-    },
-
-    onShow() {
-        const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        this.setData({ config, tplStyle });
         this.initPage();
     },
 
@@ -379,6 +411,22 @@ Page({
             }
         }
     },
+
+    // 收藏商品
+    async toggleFavProduct() {
+        let { product } = this.data;
+
+        this.setData({
+            'product.is_faved': Number(!product.is_faved)
+        });
+
+        if (product.is_faved) {
+            await api.hei.favProduct({ post_id: product.id }); // 收藏商品
+        } else {
+            await api.hei.unFavProduct({ post_id: product.id }); // 取消商品收藏
+        }
+    },
+
     // 立即购买
     async onBuy() {
         console.log('onBuy');
@@ -392,7 +440,8 @@ Page({
             isGrouponBuy,
             isBargainBuy,
             isCrowd,
-            shipping_type
+            shipping_type,
+            bargain_mission
         } = this.data;
 
         console.log('shipping_type393', shipping_type);
@@ -441,11 +490,15 @@ Page({
             url = url + '&crowd=true';
         }
 
-        if (product.bargain_enable && product.bargain_mission && isBargainBuy) {
-            url = url + `&bargain_mission_code=${product.bargain_mission.code}`;
+        // 秒杀
+        if (product.seckill_enable) {
+            url = `${url}&seckill=true&seckill_product_id=${product.seckill_product_id}`;
+        }
+
+        if (product.bargain_enable && bargain_mission && isBargainBuy) {
+            url = url + `&bargain_mission_code=${bargain_mission.code}`;
             console.log('url438', url);
         }
-        console.log('url440', url);
 
         const currentOrder = createCurrentOrder({
             selectedSku,
@@ -493,6 +546,20 @@ Page({
         }
     },
 
+    async bindGetCoupon(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
     async onCouponClick(ev) {
         const { id, index, status, title } = ev.currentTarget.dataset;
         if (Number(status) === 2) {
@@ -520,9 +587,9 @@ Page({
     },
 
     // 覆盖wxParse中自动浏览图片的方法
-    wxParseImgTap() {
-        return;
-    },
+    // wxParseImgTap() {
+    //     return;
+    // },
 
     async onSkuConfirm(e) {
         console.log(e);
@@ -555,14 +622,7 @@ Page({
     // 分享按钮
     onShareAppMessage() {
         this.closeShareModal();
-        const { current_user = {}, product } = this.data;
-        let opts = {};
-        if (product.affiliate_enable && current_user.is_affiliate_member) {
-            opts = {
-                afcode: current_user.afcode || ''
-            };
-        }
-        return onDefaultShareAppMessage.call(this, opts);
+        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
     },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频
@@ -713,13 +773,16 @@ Page({
 
     // 发起砍价
     async createBargain() {
-        const { product: { id }, selectedSku } = this.data;
-        const { mission } = await api.hei.createBargain({
-            post_id: id,
-            sku_id: selectedSku.id || 0
-        });
-        console.log('mission721', mission);
-        autoNavigate(`/pages/bargainDetail/bargainDetail?code=${mission.code}`);
+        const { product: { id, bargain_enable }, selectedSku } = this.data;
+        if (!bargain_enable) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '该店铺未开启砍价功能',
+                showCancel: false,
+            });
+            return;
+        }
+        autoNavigate(`/pages/bargainDetail/bargainDetail?post_id=${id}&sku_id=${selectedSku.id || 0}`);
     },
 
     onRecommended(e) {
@@ -752,7 +815,6 @@ Page({
         }
     },
 
-
     onShowPoster() {
         const {
             product: {
@@ -764,11 +826,24 @@ Page({
                 original_price,
                 miaosha_enable,
                 miaosha_price,
+                groupon_enable,
+                groupon_price,
+                groupon_member_limit,
+                bargain_enable,
+                bargain_price,
                 price,
                 highest_price
             }
         } = this.data;
-        let posterData = {};
+        let posterData = {
+            id,
+            banner: thumbnail,
+            title,
+            excerpt,
+            price: definePrice,
+            highest_price,
+            original_price
+        };
         if (miaosha_enable) {
             const { timeLimit, hasStart, hasEnd } = this.data;
             posterData = {
@@ -783,17 +858,28 @@ Page({
                 hasStart,
                 hasEnd
             };
-        } else {
+        }
+        if (groupon_enable) {
             posterData = {
                 id,
                 banner: thumbnail,
                 title,
                 excerpt,
-                price: definePrice,
-                highest_price,
-                original_price
+                groupon_price,
+                member_limit: groupon_member_limit,
+                price
             };
         }
+        if (bargain_enable) {
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                bargain_price,
+                price
+            };
+        }
+
         this.setData({
             showPosterModal: true,
             isShowShareModal: false,
@@ -806,4 +892,52 @@ Page({
             showPosterModal: false
         });
     },
+
+    // 选择地址
+    async onAddress() {
+        const res = await auth({
+            scope: 'scope.address',
+            ctx: this
+        });
+        if (res) {
+            const addressRes = await proxy.chooseAddress();
+            const { provinceName, cityName, countyName } = addressRes;
+            let areaObj = addressRes;
+            areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
+            wx.setStorageSync(ADDRESS_KEY, areaObj);
+            this.setData({ areaObj }, () => {
+                this.calculatePostage();
+            });
+        }
+    },
+
+    // 切换地址计算邮费
+    async calculatePostage(data) {
+        let { product, areaObj } = data || this.data;
+        try {
+            const { postage } = await api.hei.postageCalculate({
+                post_id: product.id,
+                receiver_state: areaObj.provinceName,
+                receiver_city: areaObj.cityName,
+                receiver_district: areaObj.countyName
+            });
+            this.setData({
+                'product.postage': postage
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // 图片放大
+    previewImg(e) {
+        const { product } = this.data;
+        let { index } = e.currentTarget.dataset;
+        wx.previewImage({
+            current: product.images[index], // 当前图片地址
+            urls: product.images, // 所有要预览的图片的地址集合 数组形式
+            fail(res) {
+                console.log('图片放大失败:', res);
+            },
+        });
+    }
 });

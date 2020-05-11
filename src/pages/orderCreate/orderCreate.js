@@ -2,7 +2,8 @@ import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
-import { auth } from 'utils/util';
+import { auth, subscribeMessage } from 'utils/util';
+import { Decimal } from 'decimal.js';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
 
@@ -74,6 +75,8 @@ Page({
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
+            // 新增秒杀
+            const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
             const address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -82,6 +85,8 @@ Page({
             // let totalPostage = 0;
 
             this.setData({
+                seckill,
+                seckill_product_id,
                 address,
                 liftInfo,
                 totalPrice,
@@ -92,7 +97,7 @@ Page({
                 isShouldRedirect: false,
                 crowd,
                 groupon_commander_price,
-                shipping_type: params.shipping_type
+                shipping_type: Number(params.shipping_type)
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -177,7 +182,7 @@ Page({
     },
 
     setOverseeAddressEvent(selfAddressObj) {
-        this.setData({ address: selfAddressObj });
+        this.setData({ address: selfAddressObj }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址
@@ -206,6 +211,8 @@ Page({
 
     async onLoadData(params) {
         try {
+            // 秒杀
+            let { seckill_product_id, seckill } = this.data;
             let {
                 address,
                 items,
@@ -242,9 +249,14 @@ Page({
                 requestData.groupon_id = grouponId;
             }
 
-            if (shipping_type === '4') { // 送货上门
+            if (shipping_type === 4) { // 送货上门
                 // requestData.receiver_address_name = params;
                 requestData.delivery_store_id = params; // 配送地区id
+            }
+
+            if (seckill) { // 秒杀
+                requestData.seckill_pid = seckill_product_id;
+                requestData.order_method = 1;
             }
 
             if (bargain_mission_code) { // 砍价
@@ -262,11 +274,11 @@ Page({
             const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
             console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
 
-            const maxUseCoin = Math.floor((fee.amount - fee.postage) * coin_in_order.percent_in_order);
+            const maxUseCoin = Number(new Decimal(fee.amount).sub(new Decimal(fee.postage)).mul(coin_in_order.percent_in_order || 0));
 
             const useCoin = Math.min(maxUseCoin, wallet.coins);
 
-            if (product_type !== 1 && shipping_type === '1') {
+            if (product_type !== 1 && shipping_type === 1) {
                 this.setData({
                     free_shipping_amount: config && config.free_shipping_amount
                 });
@@ -330,7 +342,13 @@ Page({
     },
 
     async onPay(ev) {
+        console.log(ev);
+
+        let subKeys = [{ key: 'order_consigned' }];
+
         const { formId, crowd, crowdtype } = ev.detail;
+        // 秒杀
+        const { seckill, seckill_product_id } = this.data;
         const {
             address,
             items,
@@ -361,7 +379,7 @@ Page({
         } = address;
         const { vendor, afcode } = app.globalData;
 
-        if (!userName && !detailInfo && shipping_type !== '2' && product_type !== 1) {
+        if (!userName && !detailInfo && shipping_type !== 2 && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先填写地址',
@@ -370,7 +388,7 @@ Page({
             return;
         }
 
-        if (shipping_type === '2' && !liftInfo.receiver_address_name && product_type !== 1) {
+        if (shipping_type === 2 && !liftInfo.receiver_address_name && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请先选择自提地址',
@@ -379,7 +397,7 @@ Page({
             return;
         }
 
-        if (shipping_type === '2' && !liftInfo.receiver_phone && product_type !== 1) {
+        if (shipping_type === 2 && !liftInfo.receiver_phone && product_type !== 1) {
             wx.showModal({
                 title: '提示',
                 content: '请输入正确的手机号',
@@ -453,16 +471,16 @@ Page({
             requestData.coins = useCoin;
         }
 
+        requestData.shipping_type = shipping_type;
         // 自提需传数据
-        if (shipping_type === '2') {
-            requestData.shipping_type = 2;
+        if (shipping_type === 2) {
             requestData = { ...requestData, ...liftInfo };
             wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
+            subKeys.push({ key: 'order_stock_up' });
         }
 
         // 送货上门需传数据
-        if (shipping_type === '4') {
-            requestData.shipping_type = 4;
+        if (shipping_type === 4) {
             // 获取门店列表的门店名称
             if (!(storeListAddress && storeListAddress.name)) {
                 wx.showModal({
@@ -476,7 +494,8 @@ Page({
                 requestData.delivery_store_id = storeListAddress.id;
             }
             // 直接获取送货上门子组件的任意数据和方法
-            const delivery = this.selectComponent('#delivery');
+            const delivery = this.selectComponent('#storeList');
+            console.log(delivery, '门店组件数据');
             const { homeDeliveryTimes, index } = delivery.data;
             if (!(homeDeliveryTimes && homeDeliveryTimes[index])) {
                 wx.showModal({
@@ -502,6 +521,8 @@ Page({
                 requestData.post_id = items[0].id;
                 method = 'createGroupon';
             }
+
+            subKeys.push({ key: 'groupon_finished' });
         }
         else {
             requestData.posts = JSON.stringify(items);
@@ -512,6 +533,12 @@ Page({
             requestData.type = 5;
             requestData.crowd_type = crowdtype;
             method = 'createOrder';
+        }
+
+        // 秒杀
+        if (seckill) {
+            requestData.pid = seckill_product_id;
+            method = 'seckillOrderCreate';
         }
 
         // 砍价
@@ -526,9 +553,10 @@ Page({
         });
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order, cart } = await api.hei[method](requestData);
+            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order = {}, cart } = await api.hei[method](requestData);
             wx.hideLoading();
             console.log('OrderCreatecart507', cart);
+
             if (cart && cart.count) {
                 wx.setStorageSync('CART_NUM', cart.count);
             }
@@ -538,6 +566,7 @@ Page({
                 });
             } else {
                 if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
+                    await subscribeMessage(subKeys);
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });
@@ -545,7 +574,8 @@ Page({
 
                 if (pay_sign) {
                     // console.log('自主支付');
-                    await wxPay(pay_sign, order_no);
+                    const payRes = await wxPay(pay_sign, order_no, subKeys);
+                    console.log(payRes, 'payRes');
                     wx.redirectTo({
                         url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
                     });

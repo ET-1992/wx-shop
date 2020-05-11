@@ -23,9 +23,9 @@
 			<view class="couponBt">
 				<view class="btn color-receivable" wx:if="{{ status === 'receivable' }}">点击领取</view>
 				<view class="btn color-received" wx:if="{{ status === 'received' }}">立即使用</view>
-				<view class="btn color-unable" wx:if="{{ status === 'expired' }}">已抢光</view>
+				<view class="btn color-unable" wx:if="{{ status === 'expired' }}">已过期</view>
 				<view class="btn color-unable" wx:if="{{ status === 'used' }}">已使用</view>
-				<view class="btn color-unable" wx:if="{{ status === 'nullCoupon' }}">已过期</view>
+				<view class="btn color-unable" wx:if="{{ status === 'nullCoupon' }}">已抢光</view>
 			</view>
 		</view>
 		<image class="bg" src="{{config.cdn_host + '/shop/tpl6/receivable.png'}}" wx:if="{{ status === 'receivable' }}" />

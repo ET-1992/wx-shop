@@ -1,6 +1,6 @@
 import api from 'utils/api';
+import { getAgainUserForInvalid } from 'utils/util';
 const app = getApp();
-import { CONFIG } from 'constants/index';
 
 Page({
     data: {
@@ -48,15 +48,11 @@ Page({
     async onShow() {
         try {
             const { themeColor } = app.globalData;
-            const config = wx.getStorageSync(CONFIG);
-            const { style_type: tplStyle = 'default' } = config;
             this.setData({
                 isLoading: true,
-                themeColor,
-                tplStyle,
-                config
+                themeColor
             });
-            await this.loadCoupons();
+            this.loadCoupons();
         }
         catch (err) {
             console.log(err);
@@ -64,14 +60,17 @@ Page({
     },
 
     async onCouponClick(ev) {
-        const { selectedStatus } = this.data;
-        const { usercouponid, title } = ev.currentTarget.dataset;
-        console.log(selectedStatus);
-        if (selectedStatus !== 'available') { return }
-        wx.navigateTo({
-            url: `/pages/couponProducts/couponProducts?userCouponId=${usercouponid}&couponTitle=${title}`
-        });
-        console.log(usercouponid);
+        const user = await this.bindGetUserInfo(ev);
+        if (user) {
+            const { selectedStatus } = this.data;
+            const { usercouponid, title } = ev.currentTarget.dataset;
+            console.log(selectedStatus);
+            if (selectedStatus !== 'available') { return }
+            wx.navigateTo({
+                url: `/pages/couponProducts/couponProducts?userCouponId=${usercouponid}&couponTitle=${title}`
+            });
+            console.log(usercouponid);
+        }
     },
 
     onStautsItemClick(ev) {
@@ -99,5 +98,20 @@ Page({
             title: 'share title',
             path: '/pages/myCoupons/myCoupons'
         };
+    },
+
+    async bindGetUserInfo(e) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            const user = await getAgainUserForInvalid({ encryptedData, iv });
+            this.setData({ user });
+            return user;
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
     }
 });

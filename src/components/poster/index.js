@@ -27,7 +27,9 @@ Component({
         try {
             const { themeColor } = app.globalData;
             const { posterData, user, posterType } = this.data;
-            wx.showLoading({ title: '绘制图片中...' });
+            wx.showLoading({
+                title: '绘制图片中...'
+            });
 
             let requestData = {
                 weapp_page: 'pages/webPages/webPages',
@@ -45,6 +47,11 @@ Component({
                     scene.aid = posterData.id;
                     break;
 
+                // 砍价帮砍海报
+                case 'bargainBuy':
+                    scene.bid = posterData.code;
+                    break;
+
                 // 邀请拼团海报
                 case 'grouponBuy':
                     scene.gid = posterData.id;
@@ -57,6 +64,8 @@ Component({
                     scene.c = posterData.crowd_pay_no;
                     break;
 
+                case 'bargain':
+                case 'groupon':
                 case 'miaosha':
                 case 'product':
                     scene.id = posterData.id;
@@ -88,11 +97,22 @@ Component({
 
         } catch (err) {
             wx.hideLoading();
-            wx.showModal({
+            const { confirm } = await proxy.showModal({
                 title: '温馨提示',
-                content: err.errMsg
+                content: err.errMsg,
+                showCancel: false
             });
+            if (confirm) {
+                this.onClose();
+            }
         }
+    },
+
+    detached() {
+        this.setData({
+            palette: {},
+            imagePath: ''
+        });
     },
 
     methods: {

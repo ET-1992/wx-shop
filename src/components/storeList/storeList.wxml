@@ -1,35 +1,62 @@
 <view class="container">
-	<navigator url="/pages/liftList/liftList?type=4">
-		<view class="wrapper" wx:if="{{ addresses.name }}" style="{{ isOrderDetail ? 'margin-bottom: 20rpx' : ''}}">
-			<view class="address-top" wx:if="{{ !isOrderDetail }}">选择门店</view>
-			<view class="address-top" wx:if="{{ isOrderDetail }}">所选门店</view>
-			<view class="address-part">
-				<view class="address-name">{{ addresses.name }}</view>
-				<view class="address-distance" wx:if="{{ !isOrderDetail }}">
-					<text>距您 {{ addresses.distance }} km</text>
-					<image src="/icons/right.png" class="right-arrow"></image>
+	<view class="wrapper" wx:if="{{ addresses.name }}">
+		<navigator wx:if="{{ !isOrderDetail }}" url="/pages/liftList/liftList?type=4">
+			<view class="address-top">
+				<view class="title">选择门店</view>
+				<view class="arrow-right">
+					<view class="text">修改</view>
+					<van-icon name="arrow" color="#999999" size="10"/>
 				</view>
 			</view>
-			<view class="address-info">
-				<view class="address-section address-first">
-					<view class="address-title">商家地址</view>
-					<view class="address-detail">{{addresses.state}}{{addresses.city}}{{addresses.district}}{{addresses.address}}</view>
-				</view>
-				<view class="address-section">
-					<view class="address-title">营业时间</view>
-					<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 0}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
-					<view class="address-time" wx:if="{{ addresses.time && !addresses.time.length }}">无</view>
-				</view>
-				<view class="address-section address-second">
-					<view class="address-title">商家电话</view>
-					<view class="address-phone">{{ addresses.phone || '无' }}</view>
-				</view>
+		</navigator>
+
+		<view class="address-top" wx:if="{{ isOrderDetail }}">所选门店</view>
+		<view class="address-part">
+			<view class="address-name">{{ addresses.name }}</view>
+			<view class="address-distance" wx:if="{{ !isOrderDetail }}"> 距您 {{ addresses.distance }} km </view>
+		</view>
+		<view class="address-info">
+			<view class="address-section address-first">
+				<view class="address-title">商家地址</view>
+				<view class="address-detail">{{addresses.state}}{{addresses.city}}{{addresses.district}}{{addresses.address}}</view>
+			</view>
+			<view class="address-section">
+				<view class="address-title">营业时间</view>
+				<view class="address-time" wx:if="{{ addresses.time && addresses.time.length > 1}}">{{ addresses.time[0] }} - {{ addresses.time[1] }}</view>
+				<view class="address-time" wx:if="{{ addresses.time && addresses.time.length === 1 }}">{{ addresses.time[0] }}</view>
+				<view class="address-time" wx:if="{{ addresses.time && !addresses.time.length }}">无</view>
+			</view>
+			<view class="address-section address-second">
+				<view class="address-title">商家电话</view>
+				<view class="address-phone">{{ addresses.phone || '无' }}</view>
 			</view>
 		</view>
+	</view>
 
-		<view class="storeList-section" wx:else>
+	<navigator wx:if="{{ !isOrderDetail && !addresses.name }}" url="/pages/liftList/liftList?type=4">
+		<view class="storeList-section">
 			<view class="address title">选择门店</view>
-			<image src="/icons/right.png" class="right-arrow"></image>
+			<view class="arrow-right">
+				<view class="text">点击选择</view>
+				<van-icon name="arrow" color="#FB3838" size="10"/>
+			</view>
 		</view>
 	</navigator>
+
+	<!-- 选择门店配送时间 -->
+	<view wx:if="{{ !isOrderDetail && addresses.name }}" class="receive-time">
+		<view class="left">
+			<view class="title">门店配送时间</view>
+		</view>
+		<picker wx:if="{{ homeDeliveryTimes && homeDeliveryTimes[index] }}" bindchange="bindPickerChange" value="{{ index }}" range="{{ homeDeliveryTimes }}">
+			<view class="time">{{ homeDeliveryTimes[index] }}</view>
+		</picker>
+	</view>
+	<view class="receive-time" wx:if="{{ isOrderDetail }}">
+		<view class="left">
+			<view class="title">门店配送时间</view>
+			<view class="time">{{ address.receiver_delivery_time || '无' }}</view>
+		</view>
+	</view>
+	
 </view>

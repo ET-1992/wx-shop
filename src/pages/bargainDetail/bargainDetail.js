@@ -14,28 +14,47 @@ Page({
             second: '00',
         },
         isOthers: false,
-        isLoading: true,
         next_cursor: 'begin',
         isBottom: false,
         actors: [],
-        showMore: false
+        showMore: false,
+        isShowShareModal: false,
+        showPosterModal: false,
+        code: ''
     },
 
-    onLoad(params) {
-        console.log('params', params);
-        const { themeColor } = app.globalData;
+    async onLoad({ sku_id, post_id, code, isOthers }) {
+        console.log('code27', sku_id, post_id, code, isOthers);
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+        const {
+            globalData: { themeColor },
+            systemInfo: { isIphoneX }
+        } = app;
+        let mission_code = post_id && !isOthers ? await this.createBargain(post_id, sku_id) : code;
+
         this.setData({
-            ...params,
+            isOthers,
+            code: mission_code,
             themeColor,
+            isIphoneX,
             globalData: app.globalData
         });
-        // this.loadActorsData();
+
+        await this.onLoadData();
+        await this.loadActorsData();
+        wx.hideLoading();
+        console.log('code49', this.data.code);
     },
 
-    onShow() {
-        const { code } = this.data;
-        this.onLoadData(code);
-        this.loadActorsData();
+    async createBargain(post_id, sku_id) {
+        const { mission } = await api.hei.createBargain({
+            post_id: post_id,
+            sku_id: sku_id || 0
+        });
+        return mission.code;
     },
 
     countDown() {
@@ -60,21 +79,21 @@ Page({
         }
     },
 
-    async onLoadData(code) {
+    async onLoadData() {
+        const { code } = this.data;
         try {
-            const data = await api.hei.bargainDetail({ code });
-            data.mission.needBargainPrice = (Number(data.mission.current_price) - Number(data.mission.target_price)).toFixed(2);
-            console.log('data60', data);
+            const { mission, product, products, share_image, share_title } = await api.hei.bargainDetail({ code });
+            mission.needBargainPrice = (Number(mission.current_price) - Number(mission.target_price)).toFixed(2);
+            mission.isBargainPrice = (Number(mission.price) - Number(mission.current_price)).toFixed(2);
             this.setData({
-                mission: data.mission,
-                product: data.product,
-                products: data.products,
-                share_image: data.mission && data.mission.share_image,
-                share_title: data.mission && data.mission.share_title,
-                isLoading: false
+                mission: mission,
+                product: product,
+                products: products,
+                share_image: share_image,
+                share_title: share_title
             }, () => {
                 // 砍价倒计时
-                if (data.product.status === 'publish') {
+                if (product.status === 'publish') {
                     this.countDown();
                     this.intervalId = setInterval(() => {
                         this.countDown();
@@ -94,7 +113,7 @@ Page({
 
     // 砍价榜scroll滚动触底
     async loadActorsData(e) {
-        console.log('e90', e);
+        console.log('loadActorsDataE90', e);
         const { code, next_cursor, isBottom, actors } = this.data;
         console.log('actors90', actors);
         try {
@@ -103,7 +122,7 @@ Page({
                     code,
                     cursor: next_cursor
                 });
-                console.log('Actordata96', data);
+                console.log('Actor96', data);
                 const newActors = isBottom ? actors.concat(data.actors) : data.actors;
                 this.setData({
                     actors: newActors,
@@ -128,29 +147,61 @@ Page({
         }
     },
 
+    onShare() {
+        const { isShowShareModal } = this.data;
+        this.setData({
+            isShowShareModal: !isShowShareModal
+        });
+    },
+
+    onShowPoster() {
+        const { code, product: { thumbnail, image_url, title, bargain_price, price }} = this.data;
+        let posterData = {
+            code,
+            banner: thumbnail || image_url,
+            title: title,
+            bargain_price: bargain_price,
+            price: price
+        };
+        this.setData({
+            showPosterModal: true,
+            isShowShareModal: false,
+            posterData
+        });
+    },
+
+    onClosePoster() {
+        this.setData({
+            showPosterModal: false
+        });
+    },
+
     // 分享按钮
     onShareAppMessage() {
-        let opts = { isOthers: true };
+        let opts = { isOthers: true, code: this.data.code };
         return onDefaultShareAppMessage.call(this, opts);
     },
 
     // 获取用户信息 并 助力砍价
     async bindGetUserInfo(e) {
-        const { code, actors } = this.data;
-        console.log('code147', code);
         try {
+            const { encryptedData, iv } = e.detail;
+            if (iv && encryptedData) {
+                await getAgainUserForInvalid({ encryptedData, iv });
+            }
+            const { code, actors } = this.data;
             const data = await api.hei.bargainHelp({ code });
-            console.log('data150', data);
-            await proxy.showToast({
-                title: '砍价成功'
+            wx.showToast({
+                title: '砍价成功',
+                icon: 'success'
             });
-            console.log('actors157', actors);
             actors.unshift(data.actor);
-            this.setData({ actors }, () => { console.log('actors158', this.data) });
-            this.onLoadData(code);
+            this.setData({
+                actors
+            }, this.onLoadData);
         } catch (err) {
             console.log('err105', err);
-            await proxy.showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,
@@ -192,8 +243,9 @@ Page({
 
     onPullDownRefresh() {
         console.log('onPullDownRefresh');
-        this.setData({ isLoading: true, next_cursor: 'begin', actors: [] });
-        this.onShow();
+        this.setData({ next_cursor: 'begin', actors: [] });
+        this.onLoadData();
+        this.loadActorsData();
         wx.stopPullDownRefresh();
     }
 });

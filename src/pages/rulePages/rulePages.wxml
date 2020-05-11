@@ -1,5 +1,40 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="rule-wrap"  wx:if="{{ !isLoading }}">
-	<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ image_url }}" />
-	<view class="noDataText" wx:if="{{ !image_url }}">- 暂无规则详情 -</view>
+<!-- <loading isLoading="{{ isLoading }}"/> -->
+<view class="rule-wrap">
+	<view class="after-sale" wx:if="{{ key === 'after_sales'}}">
+		<view class="header">
+			<view class="header-title">{{ config.shop_name}}</view>
+			<view class="header-text">客服联系方式：</view>
+		</view>
+		<view class="content">
+			<view class="item left">
+				<image class="item-img" src="/icons/me/afterContact.svg" mode="widthFix" />
+				<button
+				class="rule-concat" 
+				data-name="contact"
+				open-type="contact"
+				session-from='{"nickName":"{{ current_user.nickname }}", "avatarUrl":"{{ current_user.avatarurl }}", "from":"me"}'>点击联系在线客服</button>
+			</view>
+			<view class="item">
+				<view class="left">
+					<image class="item-img" src="/icons/me/afterPhone.svg" mode="widthFix" />
+					<view class="item-text">售后电话：{{ phone_number }}</view>
+				</view>
+				<view class="item-btn right" bindtap="call" data-phone="{{ phone_number }}">拨打</view>
+			</view>
+			<view class="item">
+				<view class="left">
+					<image class="item-img" src="/icons/me/afterWechat.svg" mode="widthFix" />
+					<view class="item-text">客服微信：{{ wechat_number }}</view>
+				</view>
+				<view class="item-btn right" bindtap="setClipboardVp" data-value="{{ wechat_number }}">复制</view>
+			</view>
+		</view>
+		<image class="rule-img" src="{{ image_url }}" mode="widthFix" wx:if="{{ image_url }}" />
+		<view class="rule-image" wx:if="{{ after_sales_imgs && after_sales_imgs.length }}" wx:for="{{ after_sales_imgs }}">
+			<image src="{{ item }}" mode="widthFix" data-index="{{index}}" bindtap="preview"/>
+		</view>
+	</view>
+
+	<image class="rule-image" src="{{ image_url }}" mode="widthFix" wx:if="{{ key !== 'after_sales' && image_url }}" />
+	<view class="noDataText" wx:if="{{ key !== 'after_sales' && !image_url }}">- 暂无内容 -</view>
 </view>

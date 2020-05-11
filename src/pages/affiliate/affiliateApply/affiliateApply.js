@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate } from 'utils/util';
+import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate, go } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 
@@ -15,7 +15,10 @@ Page({
         wechatId: '',   // 微信号
         qqId: '',   // qq号
         phoneNumber: '',    // 手机号
+        checked: false
     },
+
+    go,
 
     onLoad(parmas) {
         const { themeColor } = app.globalData;
@@ -94,6 +97,9 @@ Page({
             }
         } else if (!that.data.wechatId) {
             wx.showToast({ title: '微信号不能为空', icon: 'none', image: '', duration: 1000 });
+            return false;
+        } else if (!that.data.checked) {
+            wx.showToast({ title: '请阅读并同意《用户服务协议》与《隐私政策》', icon: 'none', image: '', duration: 1000 });
             return false;
         }
         that.joinShareUser();
@@ -228,5 +234,12 @@ Page({
         });
         console.log('data', data);
         this.setData({ phoneNumber: data.phone });
+    },
+
+    onChange(event) {
+        this.setData({
+            checked: event.detail
+        });
+        console.log('checked', this.data.checked);
     }
 });

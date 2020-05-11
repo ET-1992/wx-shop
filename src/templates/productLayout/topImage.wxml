@@ -1,5 +1,12 @@
 <view class="topImage">
-    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" />
+    <view class="wrapper">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">
+            <!-- 售罄背景图 -->
+            <image src="/icons/soldOut.svg" class="mask-img"/>
+        </view>
+        <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+    </view>
+    <!-- <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" /> -->
     <view class="Info">
         <view class="title">
             {{ product.title }}
@@ -24,6 +31,12 @@
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.groupon_price }}
                     </view>
                 </block>
+                <!-- 秒杀价 -->
+                <block wx:elif="{{ product.seckill_enable }}">
+                    <view class="ItemPrice">
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.seckill_price }}
+                    </view>
+                </block>
                 <block wx:else>
                     <view class="ItemPrice">
                         <text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
@@ -38,6 +51,11 @@
                 <!-- 团购或限时购标签 -->
                 <view class="tag" wx:if="{{ product.groupon_enable || product.miaosha_enable }}">
                     {{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}
+                </view>
+
+                <!-- 秒杀 -->
+                <view class="tag" wx:elif="{{ product.seckill_enable }}">
+                    {{ '秒杀' }}
                 </view>
 
                 <!-- 会员价及标签 -->

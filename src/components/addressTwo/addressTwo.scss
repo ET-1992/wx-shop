@@ -4,19 +4,14 @@
 	background-color: #fff;
 
 	.address {
-		font-size: 28rpx;
-		line-height: 40rpx;
+		height: 120rpx;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		padding: 30rpx 0;
-
-		.right-arrow {
-			color: #999999;
-			width: 10rpx;
-			height: 20rpx;
-			margin-right: 40rpx;
-			margin-left: 40rpx;
+		justify-content: center;
+		.text{
+			margin-left: 10rpx;
+			font-size: 26rpx;
+			color: #333333;
 		}
 	}
 
@@ -77,5 +72,3 @@
 		}
 	}
 }
-
-

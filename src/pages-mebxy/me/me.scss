@@ -1,0 +1,161 @@
+@import '~styles/color';
+
+.member {
+	margin: 20rpx;
+	height: 130rpx;
+
+	.image {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.affiliate{
+	margin: 15rpx 20rpx;
+	border-radius: 5rpx;
+	height: 90rpx;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	.itemTitle{
+		font-size: 28rpx;
+		color: #000000;
+		padding-left: 10rpx;
+	}
+
+	.itemIcon{
+		width: 40rpx;
+	}
+}
+
+.sectionItem {
+	height:90rpx;
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	align-items: center;
+
+	.itemIcon {
+		$size: 34rpx;
+
+		width: $size;
+		height: $size;
+		flex-shrink: 0;
+		margin-right: 10rpx;
+	}
+
+	.rightIcon {
+		flex-shrink: 0;
+	}
+
+	.itemTitle {
+		flex-grow: 1;
+		font-size: 28rpx;
+		color: #000000;
+	}
+
+	.myAddress{
+		width: 30rpx;
+		margin: 0 12rpx 0 4rpx;
+	}
+	.myGroup{
+		width: 35rpx;
+		height: 30rpx;
+	}
+	.contactIcon{
+		width: 36rpx;
+		height: 31rpx;
+	}
+	.couponIcon{
+		width: 36rpx;
+	}
+	.shareIcon{
+		width: 38rpx;
+	}
+
+}
+
+.sectionItem:last-child {
+	border: none;
+}
+
+.orderHeader {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20rpx;
+	align-items:center;
+
+	.viewAll {
+		font-size: 10pt;
+		display: flex;
+		align-items: center;
+	}
+}
+
+.rightIcon {
+	width: 16rpx;
+	height: 26rpx;
+	margin-left: 10rpx;
+}
+
+.contact{
+	margin: 20rpx 0 50rpx;
+}
+
+.contactBt {
+	text-align: left;
+	font-size: 12pt;
+	line-height: 1.4;
+}
+
+.mask{
+	background: rgba(0,0,0,0.8);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	.con{
+		width:80%;
+		min-height:800rpx;
+		margin:90rpx auto;
+		border-radius:20rpx;
+		background:#fff;
+
+		.cont{
+			padding: 40rpx;
+			font-size: 14px;
+			.title{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				image{
+					width: 80rpx;
+					height: 80rpx;
+				}
+			}
+			view{
+				text{
+					display: block;
+					margin: 20rpx 0;
+				}
+			}
+		}
+	}
+	.close{
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 5px;
+		margin: auto;
+		width: 70rpx;
+		image{
+			width: 70rpx;
+			height: 70rpx;
+		}
+	}
+}

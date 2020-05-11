@@ -3,10 +3,10 @@
     <view wx:if="{{ position === 'center' }}" class="modal">
         <view class="header">
             <view class="headerText">{{ product.title }}</view>
-            <image src="/icons/clear.png" class="close" bindtap="close" />
+            <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
         </view>
         <view class="content">
-            <view class="item" wx:for="{{ properties }}">
+            <view class="item" wx:for="{{ properties }}" wx:key="name">
                 <view class="itemTitle">{{ item.name }}</view>
                 <view class="itemContent">
                     <view class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}" style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}" wx:for="{{ item.items }}" wx:for-item="sku" wx:for-index="skuIndex" data-is-disabled="{{ disableSkuItems[item.name] }}" data-sku-name="{{ sku.name }}" data-key="{{ item.name }}" data-property-index="{{ index }}" catchtap="onSkuItem">
@@ -19,11 +19,11 @@
                 <view class="title">购买数量</view>
                 <numberInput value="{{ product.uniqueNumber || 1 }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateNumber" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
-            <view class="deliveryStyle">
+            <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
                 <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                     <view class="item-text">配送方式</view>
                     <radio-group class="radio-group" bindchange="radioChange">
-                        <label wx:for="{{ liftStyles }}" wx:key="{{value}}">
+                        <label wx:for="{{ liftStyles }}" wx:key="value">
                             <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
                             <view class="title">{{ item.text }}</view>
                         </label>
@@ -35,7 +35,7 @@
             <view class="money" wx:if="{{ product.groupon_enable && isGrouponBuy }}">
                 {{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}
             </view>
-            <view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable === '1' }}">
+            <view class="money" wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                 {{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price }}
             </view>
             <view class="money" wx:else>
@@ -48,7 +48,7 @@
     </view>
     <!-- 商品详情页面 -->
     <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}" z-index="{{10000}}">
-        <van-icon name="clear" custom-class="close" color="#dcdde0" bind:click="close" />
+        <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
         <scroll-view scroll-y class="scrollSkus">
             <view class="head">
                 <image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
@@ -61,8 +61,12 @@
                         <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
                             {{ product.price }}
                         </view>
-                        <view wx:elif="{{ !miaoshaObj.hasEnd && miaoshaObj.hasStart && (product.miaosha_enable || product.seckill_enable) }}">
+                        <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                             {{ product.definePrice }}
+                        </view>
+                        <!-- 秒杀 -->
+                        <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
+                            {{ product.seckill_price }}
                         </view>
                         <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
                             {{ product.bargain_price }}
@@ -92,18 +96,18 @@
                 </view>
             </view>
         </scroll-view>
-        <view class="quantity" wx:if="{{ !product.bargain_enable && !isBargainBuy}}">
+        <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
             <view class="title">购买数量</view>
             <view class="rightWrap">
                 <view class="least" wx:if="{{ product.least }}">（ {{ product.least }}件起购 ）</view>
                  <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
         </view>
-        <view class="deliveryStyle">
+        <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
             <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                 <view class="item-text">配送方式</view>
                 <radio-group class="radio-group" bindchange="radioChange">
-                    <label wx:for="{{ liftStyles }}" wx:key="{{value}}">
+                    <label wx:for="{{ liftStyles }}" wx:key="value">
                         <radio value="{{ item.value }}" checked="{{item.checked}}" style="border-color:{{ themeColor.primaryColor || '#FE0000' }}" color="{{ themeColor.primaryColor || '#FE0000' }}" />
                         <view class="title">{{ item.text }}</view>
                     </label>

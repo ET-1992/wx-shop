@@ -5,7 +5,6 @@ page {
 
 .rule-wrap {
 	height: 100%;
-	padding-top: 20rpx;
 	box-sizing: border-box;
 
 	.rule-image {
@@ -20,5 +19,77 @@ page {
 		text-align: center;
 		padding-top: 200rpx;
 		color: #707070;
+	}
+}
+
+.after-sale {
+	padding: 40rpx;
+	font-size: 28rpx;
+	color: #333;
+	text-align: center;
+
+	.header {
+		display: flex;
+		margin-bottom: 20rpx;
+		font-size: 30rpx;
+		padding: 0 10rpx;
+
+		.header-title {
+			font-weight: bold;
+			margin-right: 10rpx;
+		}
+	}
+
+	.content {
+		padding: 0 10rpx;
+		.item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 30rpx;
+
+			.rule-concat {
+				font-size: 28rpx;
+				background: #fff;
+				color: #4959BA;
+				line-height: 1.6;
+			}
+
+			.item-img {
+				width: 36rpx;
+				// height: 20rpx;
+				margin-right: 20rpx;
+			}
+
+			.item-btn {
+				width: 100rpx;
+				height: 45rpx;
+				font-size: 24rpx;
+				background: #EE2936;
+				color: #fff;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5rpx;
+			}
+		}
+
+		.left {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+		}
+	}
+
+	.rule-img {
+		border-top: 1rpx solid #f4f4f4;
+		padding-top: 20rpx;
+		width: 100%;
+	}
+
+	.rule-image {
+		image {
+			width: 100%;
+		}
 	}
 }

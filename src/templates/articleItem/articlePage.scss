@@ -1,0 +1,47 @@
+@import '~styles/color';
+
+.article-list {
+	width: 690rpx;
+	margin: auto;
+	padding-top: 35rpx;
+	padding-bottom: 35rpx;
+	$f-fs-24: 24rpx;
+	$f-fs-28: 28rpx;
+	display: flex;
+	border-bottom: 1px solid #D4D4D4;
+
+	.article-img {
+		height: 180rpx;
+		image {
+			width: 180rpx;
+			height: 180rpx;
+		}
+	}
+
+	.article-desc {
+		padding-left: 20rpx;
+
+		.article-title {
+			font-size: $f-fs-28;
+			color: $titleColor;
+			font-weight: bold;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			margin-top: 5rpx;
+		}
+
+		.article-info {
+			font-size: $f-fs-24;
+			color: $titleColor;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			margin-top: 15rpx;
+		}
+	}
+}

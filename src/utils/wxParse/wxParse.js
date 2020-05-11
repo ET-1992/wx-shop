@@ -62,12 +62,12 @@ function wxParseImgTap(e) {
     let that = this;
     let nowImgUrl = e.target.dataset.src;
     let tagFrom = e.target.dataset.from;
-    // if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
-    //   wx.previewImage({
-    //     current: nowImgUrl, // 当前显示图片的http链接
-    //     urls: that.data[tagFrom].imageUrls // 需要预览的图片http链接列表
-    //   })
-    // }
+    if (typeof (tagFrom) != 'undefined' && tagFrom.length > 0) {
+      wx.previewImage({
+        current: nowImgUrl, // 当前显示图片的http链接
+        urls: that.data[tagFrom].imageUrls // 需要预览的图片http链接列表
+      })
+    }
 }
 
 /**
@@ -123,13 +123,13 @@ function wxAutoImageCal(originalWidth, originalHeight, that, bindName) {
     if (originalWidth > windowWidth) { // 在图片width大于手机屏幕width时候
         autoWidth = windowWidth;
         // console.log("autoWidth" + autoWidth);
-        autoHeight = (autoWidth * originalHeight) / originalWidth;
+        autoHeight = Math.round((autoWidth * originalHeight) / originalWidth);
         // console.log("autoHeight" + autoHeight);
         results.imageWidth = autoWidth;
         results.imageheight = autoHeight;
     } else { // 否则展示原来的数据
         results.imageWidth = originalWidth;
-        results.imageheight = originalHeight;
+        results.imageheight = Math.round(originalHeight);
     }
     return results;
 }

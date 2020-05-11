@@ -10,9 +10,9 @@
         display: flex;
         line-height: 30rpx;
         flex-direction: column;
+    }
 
-        .shareMoneyGetItemLeft-t {
-
-        }
+    &:last-child {
+        border: 0;
     }
 }

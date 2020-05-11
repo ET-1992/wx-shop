@@ -25,18 +25,21 @@ Page({
     onLoad(params) {
         console.log('params', params);
         const { globalData, systemInfo } = app;
-        const config = wx.getStorageSync(CONFIG);
         this.setData({
             themeColor: globalData.themeColor,
             globalData,
-            config,
-            ...systemInfo,
-            free_shipping_amount: config && config.free_shipping_amount
+            ...systemInfo
         });
     },
 
     async onShow() {
-        this.setData({ isLogin: true, isLoading: true });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({
+            isLogin: true,
+            isLoading: true,
+            config,
+            free_shipping_amount: config && config.free_shipping_amount
+        });
         this.firstInit();
         await this.loadCart();
         this.showCart();
@@ -55,11 +58,8 @@ Page({
         console.log('shipping_type', shipping_type, typeof shipping_type, 'liftStyles', liftStyles);
         // this.checkPhoneModel();
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
-        const data = await api.hei.fetchCartList({ shipping_type });
-        console.log('data77', data);
-        const cartNumber = data.count;
-        wx.setStorageSync('CART_NUM', cartNumber);
-        const items = data && data.items || [];
+        const { count, items, shipping_type_counts, products } = await api.hei.fetchCartList({ shipping_type });
+        wx.setStorageSync('CART_NUM', count);
         let isSelectedObject = {};
         let isAllSelected = false;
         items.forEach((item) => {
@@ -71,15 +71,15 @@ Page({
         console.log(isSelectedObject, 'isSelectedObject147');
 
         liftStyles.forEach(item => {
-            item.totalCounts = data.shipping_type_counts[item.value];
+            item.totalCounts = shipping_type_counts[item.value];
         });
         console.log('liftStyles93', liftStyles);
         this.setData({
-            items,
+            items: items || [],
             isSelectedObject,
             isAllSelected,
             isLoading: false,
-            products: data.products,
+            products: products,
             liftStyles
         });
         this.calculatePrice();

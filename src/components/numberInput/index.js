@@ -29,6 +29,16 @@ Component({
         least: {
             type: Number,
             value: 0,
+            observer(newValue) {
+                if (newValue) {
+                    const { value } = this.data;
+                    if (value < newValue) {
+                        this.setData({
+                            value: newValue
+                        })
+                    }
+                }
+            }
         }
     },
 

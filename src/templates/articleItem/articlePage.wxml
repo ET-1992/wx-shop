@@ -1,0 +1,15 @@
+<template name="articlePage">
+    <view  class="article-list">
+        <view class="article-img">
+            <!-- style="height: {{articleBannerHeight}}rpx;" -->
+            <image src="{{article.banner}}" mode="aspectFill" />
+        </view>
+        <view class='article-desc'>
+            <view class='article-title'>{{article.title}}</view>
+            <view class='article-info'>
+                {{article.excerpt}}
+                <!-- <view class='article-detail'>{{article.excerpt}}</view> -->
+            </view>
+        </view>
+    </view>
+</template>

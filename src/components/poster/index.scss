@@ -13,8 +13,8 @@
 	z-index: 10000;
 	flex-direction: column;
 	padding: 50rpx;
-	padding-bottom: constant(safe-area-inset-bottom);
-	padding-bottom: env(safe-area-inset-bottom);
+	// padding-bottom: constant(safe-area-inset-bottom);
+	// padding-bottom: env(safe-area-inset-bottom);
 
 	.shareModal {
 		background: #fff;
@@ -36,6 +36,7 @@
 	
 	.btnWtap {
 		margin-top: 60rpx;
+		height: 70rpx;
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
@@ -44,7 +45,7 @@
 	.btn {
 		flex: 1;
 		max-width: 300rpx;
-		height: 70rpx;
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;

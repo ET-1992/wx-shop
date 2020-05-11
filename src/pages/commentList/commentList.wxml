@@ -1,56 +1,168 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{ !isLoading }}">
-    <view class="s-comments">
-		<view class="s-comments__content">
-			<view class="c-commentList">
-				<button 
-				  class="c-comment" 
-				  wx:for="{{topic.replies}}" 
-				  wx:key="item.id" 
-				  bindgetuserinfo="replyTo" 
-				  open-type="getUserInfo"
-				  data-openid="{{item.user.openid}}" 
-				  data-id="{{item.id}}" 
-				  data-nickname="{{item.user.nickname}}">
-					<image src="{{item.user.avatarurl}}" class="c-comment__avatar" background-size="cover"></image>
-					<view class="c-comment__content">
-						<view class="c-comment__header">
-							<view class="c-comment__user">{{item.user.nickname}}</view>
-							<view class="c-comment__time">{{item.time}}</view>
-						</view>
-						<view class="c-comment__body">
-							<block wx:if="{{item.reply_to.user}}">
-								回复<view class="c-comment__replyto">{{item.reply_to.user ? item.reply_to.user.nickname + ': ' : ''}}</view>
-							</block>
-							{{item.text}}
-						</view>
-					</view>
-				</button>
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+
+<view class="container"> 
+	<view class="header">
+		<view class="title">{{ article.title }}</view>
+		<image class="banner" src="{{ article.thumbnail || article.banner }}" mode="widthFix" />
+		<view class="bottom">
+			<view class="author">
+				<image class="avatar" src="{{ article.author.avatar }}" />
+				<view class="nickname">{{ article.author.name }}</view>
+				<view class="time">{{ article.modified }}</view>
 			</view>
+			<view
+				class="more" 
+				hover-class="hover" 
+				data-item="{{ article }}"
+				bind:tap="goPage"
+			>查看原文</view>
 		</view>
 	</view>
 
-	<view class="c-commentBar {{ systemInfo.isIphoneX ? 'iphoneXTtrick' : '' }}">
-		<form bindsubmit="formSubmit" report-submit="true">
-			<view class="c-commentBar__form">
-				<input
-					name="text"
-					class="c-commentBar__input"
-					placeholder="{{placeholder}}"
-					focus="{{reply_focus}}"
-					bindfocus="onRepleyFocus"
-					value="{{text}}"
-					bindblur="onReplyBlur"
-					cursor-spacing="14"/>
-				<button
-					class="c-commentBar__btn"
-					form-type="submit"
-					bindgetuserinfo="onUserInfo"
-					open-type="getUserInfo"
-					lang="zh_CN"
-					style="background-color: {{themeColor.primaryColor}}"
-				>提交</button>
-			</view>
-		</form>
+	<view class="content-box">
+		<view class="title">-全部评论-</view>
+		<view class="comments" wx:if="{{ comments && comments.length }}" >
+            <view class="item" wx:for="{{ comments }}" wx:key="id">
+                <image class="avatar" src="{{ item.author.avatar }}" />
+                <view class="right">
+
+					<view class="meta">
+                    	<view class="nickname">{{ item.author.nickname || '热心网友'}}</view>
+						<view 
+							class="digg-box" 
+							wx:if="{{ article.comment_digg }}" 
+							data-index="{{ index }}"
+							data-comment-id="{{ item.id }}"
+							data-is-digged="{{ item.is_digged }}" 
+							bind:tap="onDiggComment"
+						>
+							<view class="text" wx:if="{{ item.digg_count }}" >{{ WXS.ellipsisValue(item.digg_count, 7) }}</view>
+							<van-icon 
+								slot="icon" 
+								class-prefix="sweet" 
+								name="digg" 
+								size="40rpx" 
+								color="{{ item.is_digged ? '#2782D7' : '#999999' }}"
+							/>
+						</view>
+					</view>
+
+                    <view class="options" >
+                        <view class="time">{{ WXS.formatTime(item.timestamp * 1000) }}</view>
+                        <view 
+							class="replyBt"
+							wx:if="{{ article.reply_type === 'all' }}" 
+							data-reply-parent-id="{{ item.id }}" 
+							data-reply-user="{{ item.author.nickname || '热心网友' }}" 
+							catch:tap="onReply"
+						>回复</view>
+                    </view>
+
+                    <view class="content">
+                        <text class="text" wx:if="{{ item.reply_to && item.parent }}" style="margin-right: 10rpx">@{{item.reply_to}}</text>
+						<text class="text" selectable decode>{{item.content}}</text>
+						<view class="text approved" wx:if="{{ !item.approved }}"> 您的评论正在审核中...</view>
+                    </view>
+
+					<view class="replies" wx:if="{{ item.children && item.children.length }}">
+						<view class="item" wx:for="{{ item.children }}" wx:for-item="child" wx:for-index="childIndex" wx:key="id">
+							<image wx:if="{{ article.reply_type !== 'admin_reply' }}" class="avatar" src="{{ child.author.avatar }}" />
+							<view class="right">
+								<view class="meta">
+									<view 
+										class="nickname {{ article.reply_type === 'admin_reply' ? 'admin' : ''}}"
+										>{{ article.reply_type === 'admin_reply' ? '作者' : (child.author.nickname || '热心网友') }}</view>
+									<view 
+										class="digg-box" 
+										wx:if="{{ article.comment_digg }}" 
+										data-index="{{ index }}"
+										data-comment-id="{{ child.id }}"
+										data-child-index="{{ childIndex }}"
+										data-is-digged="{{ child.is_digged }}" 
+										bind:tap="onDiggComment"
+									>
+										<view class="text" wx:if="{{ child.digg_count }}" >{{ WXS.ellipsisValue(child.digg_count, 7) }}</view>
+										<van-icon 
+											slot="icon" 
+											class-prefix="sweet" 
+											name="digg" 
+											size="40rpx" 
+											color="{{ child.is_digged ? '#2782D7' : '#999999' }}"
+										/>
+									</view>
+								</view>
+								<view class="options">
+									<view class="time">{{ WXS.formatTime(child.timestamp * 1000) }}</view>
+									<view 
+										wx:if="{{ article.reply_type === 'all' }}"
+										class="replyBt"
+										data-reply-parent-id="{{ child.id }}" 
+										data-reply-user="{{ child.author.nickname || '热心网友'}}" 
+										catch:tap="onReply" 
+									>回复</view>
+								</view>
+								<view class="content">
+									<text class="text" wx:if="{{ child.reply_to && child.parent }}" style="margin-right: 10rpx">@{{child.reply_to}}</text>
+									<text class="text" selectable decode>{{child.content}}</text>
+									<view class="text approved" wx:if="{{ !child.approved }}"> 您的评论正在审核中...</view>
+								</view>
+							</view>
+						</view>
+					</view>
+                </view>
+            </view>
+        </view>
 	</view>
+	  
+	<van-goods-action safe-area-inset-bottom>
+		<van-button 
+			round 
+			custom-class="button-box" 
+			style="width: 100%" 
+			color="#f4f4f4" 
+			open-type="getUserInfo" 
+			bind:getuserinfo="bindGetUserInfo"
+			data-method="onComment"
+			disabled="{{ article.comment_status === 'closed' }}"
+		>
+			<view class="inner-button">
+				<van-icon name="edit" color="#333"/>
+				<view>{{article.comment_status === 'closed' ? '评论已关闭' : '请输入评论'}}</view>
+			</view>
+		</van-button>
+
+		<van-goods-action-icon open-type="share">
+			<van-icon slot="icon" class-prefix="sweet" name="weixin" size="40rpx" color="#1AAD19"/>
+		</van-goods-action-icon>
+		
+		<van-goods-action-icon
+			icon="/icons/articleDetail/moments.svg"
+			open-type="getUserInfo"
+			bind:getuserinfo="bindGetUserInfo"
+			data-method="onShowPoster"
+		/>
+	</van-goods-action>
+
+	<van-popup show="{{ isShowInputBox }}" position="bottom" safe-area-inset-bottom bind:close="showInputBox">
+		<view class="input-box">
+			<view class="field-box">
+                <textarea
+					fixed
+					class="textarea"
+					value="{{ comment }}"
+					placeholder="{{ placeholder }}"
+					placeholder-class="placeholder"
+					focus="{{ isShowInputBox }}"
+					cursor-spacing="{{ 20 }}"
+					show-confirm-bar
+					bindinput="onChangeInput"
+				/>
+            </view>
+			<view class="comment-button-box">
+				<van-button custom-class="comment-button" bind:click="onSubmit">发布</van-button>
+			</view>  
+		</view>
+	</van-popup>
+
+	<poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="article" bindonClose="onClosePoster" />
 </view>

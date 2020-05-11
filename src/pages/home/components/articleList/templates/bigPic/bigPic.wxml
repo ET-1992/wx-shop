@@ -1,0 +1,9 @@
+<view class="bigPic">
+	<image class="img" src="{{ article.banner }}" mode="widthFix"></image>
+	<view class='desc'>
+		<view class='title'>{{ article.title }}</view>
+		<view class='detail'>
+			<view class='excerpt'>{{ article.excerpt }}</view>
+		</view>
+	</view>
+</view>

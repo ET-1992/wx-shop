@@ -1,39 +1,67 @@
 @import "~styles/color";
 $meter: 20rpx;
 .container {
-	padding: 0 $meter;
+	padding: 0 30rpx;
 	background-color: #fff;
 	margin-top: 10rpx;
 
 	.storeList-section {
-		padding: 30rpx 5rpx 30rpx 8rpx;
+		padding: 30rpx 0 30rpx 8rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		font-size: 28rpx;
+		// color: #e90000;
 
-		.right-arrow {
-			color: $tagColor;
-			width: 10rpx;
-			height: $meter;
-			margin-right: 2 * $meter;
-			margin-left: 2 * $meter;
+		.arrow-right {
+			.text {
+				color: #FB3838;
+			}
+		}
+	}
+
+	.receive-time {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 25rpx 0 28rpx;
+		.left{
+			display: flex;
+			align-items: center;
+			font-size: 24rpx;
+			line-height: 1;
+			.title{
+				color: #707070;
+			}
+		}
+		.time {
+			color: #000;
+			width: 460rpx;
+			text-align: center;
+			font-size: 28rpx;
+		}
+	}
+
+	.arrow-right{
+		display: flex;
+		align-items: center;
+		.text{
+			color: #707070;
+			font-size: 24rpx;
 		}
 	}
 }
 
 .wrapper {
-	padding: 30rpx 5rpx 30rpx 8rpx;
+	padding-top: 30rpx;
 
 	.address-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		font-size: 28rpx;
 		color: #000000;
 		margin-bottom: 30rpx;
-	}
-
-	.address-part,
-	.address-info,
-	.address-remark {
-		padding-left: $meter;
 	}
 
 	.address-part {
@@ -52,13 +80,6 @@ $meter: 20rpx;
 		.address-distance {
 			font-size: 24rpx;
 			color: $titleColor;
-
-			.right-arrow {
-				width: $meter/2;
-				height: $meter;
-				display: inline-block;
-				margin-left: $meter;
-			}
 		}
 	}
 
@@ -101,9 +122,4 @@ $meter: 20rpx;
 		}
 	}
 
-	.address-remark {
-		font-size: 24rpx;
-		color: $shareColor;
-		font-weight: bold;
-	}
 }

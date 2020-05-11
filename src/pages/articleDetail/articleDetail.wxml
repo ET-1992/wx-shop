@@ -24,61 +24,71 @@
 			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 		</view>
 		
-		<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
+		<view class="peanut-wxParse">
 			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
 		</view>
 
-		<view class="promote" wx:if="{{article.products.length}}">
-			<view wx:if="{{ article.label }}" class="label">
-				<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
-			</view>
-			<view class="relateShop">
-				<view
-					class="relateShopItem"
-					wx:if="{{article.products.length}}"
-					wx:for="{{ article.products }}"
-					wx:key="id"
-					wx:for-item="product"
-					wx:for-index="productIndex"
-					hover-class="navigator-hover"
-				>
-					<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+		<block wx:if="{{ article.products && article.products.length }}">
+			<!-- 购物清单 米白 -->
+			<view class="fast-add-cart" wx:if="{{ PLATFFORM_ENV === 'MIBAI' }}">
+				<view class="promote-top">
+					<view class="promote-left">
+						<image class="shopping-list" src="/icons/shoppingList.png"/>
+						<text class="shopping-text">购买清单</text>
+					</view>
+					<view class="promote-right" bindtap="addCard">
+						<image class="add-cart" src="/icons/addCart.png"/>
+						<text class="addCart-text">一键加车</text>
+					</view>
+				</view>
+				<view class="promote-list">
+					<include src="./shoppingListStyle.wxml" />
 				</view>
 			</view>
-		</view>
+			<!-- 相关产品 -->
+			<view class="promote" wx:else>
+				<view wx:if="{{ article.label }}" class="label">
+					<text class="dot">•</text>{{article.label}}<text class="dot">•</text>
+				</view>
+				<view class="relateShop">
+					<view
+						class="relateShopItem"
+						wx:if="{{article.products.length}}"
+						wx:for="{{ article.products }}"
+						wx:key="id"
+						wx:for-item="product"
+						wx:for-index="productIndex"
+						hover-class="navigator-hover"
+					>
+						<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}"/>
+					</view>
+				</view>
+			</view>
+		</block>
 	</view>
 
 	<!-- 底部评论栏 -->
 	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view class="footerItem">
+		<view class="left">
 			<!-- 返回首页 -->
-			<view class="favItem" data-url="/pages/home/home" bind:tap="go">
-				<view class="homeIcon"></view>
-				<text>首页</text>
+			<view class="item" data-url="/pages/home/home" bind:tap="go">
+				<van-icon class="icon" name="/icons/articleDetail/home.png" size="{{22}}" />
+				<view class="text">首页</view>
 			</view>
 			<!-- 分享 -->
-			<view class="favItem" bind:tap="onShare">
-				<view class="shareIcon"></view>
-				<text>分享</text>
+			<view class="item last-item" bind:tap="onShare">
+				<van-icon class="icon" name="/icons/articleDetail/share.png" size="{{22}}" />
+				<view class="text">分享</view>
 			</view>
 		</view>
-
-		<view class="footerItem">
-			<!-- 收藏 -->
-			<view class="fav">
-				<view wx:if="{{ article.is_faved }}" class="favItem" >
-					<view class="faved is_faved" bindtap="onToggleFav"></view>
-					<text> {{ article.fav_count }}</text>
-				</view>
-				<view class="favItem" wx:else>
-					<view class="faved" bindtap="onToggleFav"></view>
-					<text> {{ article.fav_count }}</text>
-				</view>
+		<view class="right">
+			<view class="item" bind:tap="onToggleFav">
+				<van-icon class="icon" name="{{ article.is_faved ? '/icons/articleDetail/faved.png' : '/icons/articleDetail/fav.png'}}" size="{{22}}" />
+				<view class="text">{{ article.fav_count }}</view>
 			</view>
-			<!-- 评论 -->
-			<view class="comment" data-url="/pages/commentList/commentList?id={{ article.id }}" bind:tap="go">
-				<view class="commentIcon"></view>
-				<text>{{article.reply_count}}</text>
+			<view class="item last-item" data-url="/pages/commentList/commentList?id={{ article.id }}" bind:tap="go">
+				<van-icon class="icon" name="/icons/articleDetail/comment.png" size="{{22}}" />
+				<view class="text">{{ article.reply_count }}</view>
 			</view>
 		</view>
 	</view>

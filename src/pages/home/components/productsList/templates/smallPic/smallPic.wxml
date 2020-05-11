@@ -1,0 +1,41 @@
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" >
+    <view class="wrapper">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+        <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
+    </view>
+    <view class="meta">
+        <view class="top">
+            <view class="title">{{ product.title }}</view>
+            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        </view>
+        <view class="bottom">
+            <view class="bottom-left">
+                <!-- 会员专属 -->
+                <block wx:if="{{ product.membership_dedicated_enable }}">
+                    <image src="/icons/vipLogo-large.svg" class="member-logo"></image>
+                </block>
+                <!-- vip -->
+                <view class="member-price" wx:elif="{{  product.membership_price_enable }}">
+                    <view class="member-price-tip">VIP</view>
+                    <view class="member-price-number">
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}
+                    </view>
+                </view>
+                <!-- 普通商品 -->
+                <view wx:else class="original">
+                    <view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+                </view>
+                <!-- 价格 -->
+                <view class="price">
+                    <view class="dedicatedPrice" wx:if="{{ product.membership_dedicated_enable }}">
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+                    </view>
+                    <view class="num" wx:else>
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+                    </view>
+                </view>
+            </view>
+            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
+        </view>
+    </view>
+</navigator>

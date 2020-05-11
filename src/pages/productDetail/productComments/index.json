@@ -1,6 +1,6 @@
 {
 	"component": true,
 	"usingComponents": {
-		"i-rate": "../../../components/iview-weapp/dist/rate/index"
+		"van-rate": "@vant/weapp/dist/rate/index"
 	}
 }

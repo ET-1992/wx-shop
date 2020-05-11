@@ -181,10 +181,7 @@ Page({
     // 赞助弹窗
     showPayModal() {
         let { payModal } = this.data;
-        payModal ? payModal = false : payModal = true;
-        this.setData({
-            payModal
-        });
+        this.setData({ payModal: !payModal });
     },
 
     // 输入赞助金额

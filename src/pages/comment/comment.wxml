@@ -3,9 +3,7 @@
 		<image wx:if="{{ imageUrl }}" class="left" src="{{ imageUrl }}" mode="aspectFill"></image>
 		<view class="right">
 			<view class="title">商品评分</view>
-			<i-cell>
-				<i-rate bind:change="rate" value="{{rating}}" size="30"></i-rate>
-			</i-cell>
+			<van-rate color="#f66515" value="{{ rating }}" bind:change="rate"/>
 		</view>
 	</view>
 	<textarea class="content" maxlength="{{ maxlength }}" bindinput="bindTextAreaBlur" placeholder="分享一下你的购买心得吧~" placeholder-class="textarea-placeholder">

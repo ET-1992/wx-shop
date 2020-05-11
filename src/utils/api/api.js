@@ -1,19 +1,18 @@
-
-// const host = 'https://shenghuogou.wpweixin.com/';
-// const host = 'https://dpm.wpweixin.com/';
+import { PLATFFORM_ENV, HOST_ARRAY } from 'constants/index';
+import { textToValue, failToBindWeb } from 'utils/util';
 
 /**
  * path: 接口路径
  * method: 请求方法，默认GET
  * isForceToken: 是否需要带token，默认false
  * requestType: 默认request, [request, uploadFile]
+ * contentType: 默认x-www-form-urlencode, 可配置json
+ * successFnc: 成功回调函数 参数data
+ * failFnc： 失败回调函数 参数data
  **/
-// export const host = 'https://api.wpweixin.com/';
-export const host = 'https://hei.dev.97866.com/';
-// 翠绿
-// export const host = 'https://api.jcaik.com/';
-// 天枢
-// export const host = 'https://bidaauto.com/';
+
+export const host = textToValue(HOST_ARRAY, PLATFFORM_ENV);
+
 export const apis = {
     login: {
         // path: `api/mag.auth.signon.json?appid=${APPID}`,
@@ -40,7 +39,7 @@ export const apis = {
     addCart: {
         path: 'api/mag.cart.add.json',
         method: 'POST',
-        isForceToken: true,
+        isForceToken: true
     },
     updateCart: {
         path: 'api/mag.cart.update.json',
@@ -59,11 +58,11 @@ export const apis = {
     },
     fetchOrderList: {
         path: 'api/mag.order.list.json',
-        isForceToken: true,
+        isForceToken: true
     },
     fetchOrder: {
         path: 'api/mag.order.get.json',
-        isForceToken: true,
+        isForceToken: true
     },
     fetchOrderCount: {
         path: 'api/mag.order.counts.json',
@@ -72,22 +71,22 @@ export const apis = {
     createOrderAndPay: {
         path: 'api/mag.order.create.json?pay&v2',
         method: 'POST',
-        isForceToken: true,
+        isForceToken: true
     },
     createOrder: {
         path: 'api/mag.order.create.json',
         method: 'POST',
-        isForceToken: true,
+        isForceToken: true
     },
     orderPrepare: {
         path: 'api/mag.order.prepare.json',
         method: 'POST',
-        isForceToken: true,
+        isForceToken: true
     },
     payOrder: {
         path: 'api/mag.order.pay.json?pay&v2',
         method: 'POST',
-        isForceToken: true,
+        isForceToken: true
     },
     peanutPayOrder: {
         path: 'api/mag.order.pay.peanut.json',
@@ -436,8 +435,8 @@ export const apis = {
         isForceToken: true
     },
     // 绑定h5
-    bindWebUser: {
-        path: 'api/mag.platform_user.weapp.bind.json',
+    bindWeb: {
+        path: 'api/user_center/bind.json',
         method: 'POST',
         isForceToken: true
     },
@@ -450,6 +449,12 @@ export const apis = {
         path: 'api/weapp/qrcode/code.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 秒杀
+    seckillOrderCreate: {
+        path: 'api/mag.seckill.order.create.json?pay&v2',
+        isForceToken: true,
+        method: 'POST'
     },
     // 发起砍价
     createBargain: {
@@ -490,8 +495,60 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    // 地区列表
     fetchRegionList: {
         path: 'api/mag.region.list.json',
         method: 'GET'
+    },
+    // 邮费计算
+    postageCalculate: {
+        path: 'api/mag.shipment.calculate.json',
+        method: 'POST'
+    },
+    subscribe: {
+        path: 'api/weapp/templates/subscribe.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
+    },
+    newHome: {
+        path: 'api/module/page.json',
+        method: 'GET'
+    },
+    getReceiverList: {
+        path: 'api/mag.platform_user.receiver.list.json',
+        isForceToken: true
+    },
+    addReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.add.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    getReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.get.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    updateReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.update.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    deleteReceiverInfo: {
+        path: 'api/mag.platform_user.receiver.delete.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 直播列表
+    getLiveRooms: {
+        path: 'api/mag.live.rooms.json',
+        isForceToken: true
+    },
+    bindWebConfirm: {
+        path: 'api/mag.shop.web.confirm.json' // 给后端更新后信息
+    },
+    checkUserBind: {
+        path: 'api/mag.user_center.bind.required.json',
+        isForceToken: true
     }
 };

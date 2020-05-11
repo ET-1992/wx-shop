@@ -117,11 +117,19 @@
 					text-align: center;
 					.showItemNum {
 						color: #000000;
-						font-size: 36rpx;
+						font-size: 34rpx;
 					}
 					.showItemText {
 						font-size: 24rpx;
 					}
+				}
+
+				.showLeftText {
+					text-align: left;
+				}
+
+				.showRightText {
+					text-align: right;
 				}
 
 				// 今日
@@ -133,7 +141,7 @@
 				// 本月、累计
 				.monneyShowBottom {
 					display: flex;
-					padding-top: 46rpx;
+					padding-top: 40rpx;
 					justify-content: space-between;
 				}
 			}
@@ -145,7 +153,7 @@
 				justify-content: space-between;
 				align-items: center;
 				border-left: 0.5px #D4D4D4 solid;
-				padding-left: 60rpx;
+				padding-left: 40rpx;
 				margin: 16rpx 0;
 
 				.monneyTakeView {

@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG, PAY_STYLES } from 'constants/index';
 import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import templateTypeText from 'constants/templateType';
@@ -52,6 +52,7 @@ Page({
             isIphoneX,
             isFromCreate,
             config,
+            globalData: app.globalData,
             isLoading: true
         });
     },
@@ -85,6 +86,7 @@ Page({
         address.postalCode = order.receiver_zipcode;
 
         order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
+        order.payMethodText = valueToText(PAY_STYLES, order.pay_method);
         order.statusCode = statusCode;
         order.buyer_message = order.buyer_message || '买家未留言';
         order.createDate = formatTime(new Date(order.time * 1000));
@@ -259,7 +261,8 @@ Page({
 
     async onSkuConfirm(e) {
         wx.showLoading({
-            title: '请求中...'
+            title: '请求中...',
+            mask: true
         });
         const { selectedSku, quantity, formId } = e.detail;
 

@@ -107,54 +107,16 @@ page {
 
 		.member_no {
 			position: absolute;
-			right: 28rpx;
+			right: 40rpx;
 			top: 12rpx;
 			font-size: 20rpx;
 			color: #D6BC6F;
 		}
 
-		.member-renewal {
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			margin-left: 25rpx;
-
-			.member-user {
-				font-size: 28rpx;
-				font-weight: bold;
-				color: $vipGolden;
-				line-height: 1.8;
-				max-width: 200rpx;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			}
-			.member_text {
-				display: flex;
-				font-size: 18rpx;
-				color: $vipGolden;
-
-				.member_num {
-					margin-left: 15rpx;
-				}
-			}
-			.integral-text {
-				display: flex;
-				align-items: center;
-				font-size: 22rpx;
-				color: $vipGolden;
-
-				.cart-arrow {
-					width: 26rpx;
-					height: 16rpx;
-				}
-			}
-		}
-
 		.renewal {
 			display: flex;
 			flex-direction: column;
-			align-items: center;
+			align-items: flex-end;
 			margin-left: auto;
 
 			.renewal-btn {
@@ -170,7 +132,7 @@ page {
 				font-weight: bold;
 			}
 			.renewal-tip {
-				font-size: 22rpx;
+				font-size: 24rpx;
 				color: $vipGolden;
 				margin-top: 10rpx;
 			}

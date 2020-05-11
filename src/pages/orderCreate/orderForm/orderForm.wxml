@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="wrapper" wx:for="{{ annotation }}" wx:key="{{ index }}">
+	<view class="wrapper" wx:for="{{ annotation }}" wx:key="item">
 		<!-- 身份证号码 -->
 		<view class="item" wx:if="{{ item.type === 'id_number' }}">
 			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>

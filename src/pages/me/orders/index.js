@@ -8,6 +8,10 @@ Component({
                     ...newValue
                 });
             }
+        },
+        themeColor: {
+            type: Object,
+            value: {}
         }
     }
 });

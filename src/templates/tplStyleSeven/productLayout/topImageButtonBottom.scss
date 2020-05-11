@@ -1,0 +1,181 @@
+ /* topImageButtonBottom */
+ .topImageButtonBottom {
+	width: 340rpx;
+	background-color: #fff;
+	padding-bottom: 10rpx;
+	margin-bottom: 10rpx;
+
+
+	.wrapper {
+		position: relative;
+		width: 340rpx;
+		height: 340rpx;
+
+		.ItemImage {
+			width: 100%;
+			height: 100%;
+		}
+
+		.mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 99;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+			font-size: 32rpx;
+			font-weight: bold;
+
+			.mask-img {
+				width: 225rpx;
+				height: 225rpx;
+			}
+		}
+	}
+
+
+	.Info {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		padding: 20rpx 10rpx 0 10rpx;
+		height: 150rpx;
+
+		.title {
+			color: #333333;
+			font-size: 28rpx;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.section {
+			.meta {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+	
+				.priceWrapper {
+					display: flex;
+					align-items: center;
+	
+					.itemPrice {
+						color: $priceColor;
+						font-size: 36rpx;
+						font-weight: bold;
+						align-items: center;
+						display: flex;
+						padding-left: 10rpx;
+	
+						text {
+							font-size: 22rpx;
+						}
+	
+						.item_price {
+							font-size: 36rpx;
+							text-indent: 10rpx;
+						}
+					}
+				}
+	
+				.originPriceWrapper {
+					display: flex;
+					align-items: center;
+	
+					.itemSold {
+						flex-grow: 1;
+						font-size: 18rpx;
+						color: #999999;
+						
+						.originPrice {
+							font-weight: bold;
+						}
+					}
+
+					.commonSoldStyle {
+						font-size: 18rpx;
+						text-decoration: line-through;
+						font-weight: bold;
+					}
+				}
+	
+				.tagWrapper {
+					font-size: 16rpx;
+					padding-left: 10rpx;
+					display:flex;
+	
+					.tag_img {
+						width: 33rpx;
+						height: 32rpx;
+						background-color: $shareColor;
+						border: 1rpx solid $shareColor;
+						border-right-width: 0;
+						border-top-left-radius: 30rpx;
+						border-bottom-left-radius: 30rpx;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						.imgFill {
+							width: 21rpx;
+							height: 21rpx;
+						}
+					}
+	
+					.tag_text {
+						width: 62rpx;
+						height: 32rpx;
+						border: 1rpx solid $shareColor;
+						border-top-right-radius: 30rpx;
+						border-bottom-right-radius: 30rpx;
+						color: $shareColor;
+						display: flex;
+						font-size: 16rpx;
+						// font-weight: bold;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+	
+				.soldNumber {
+					font-size: 20rpx;
+					color: $shareColor;
+				}
+
+				.normalNumber {
+					font-size: 20rpx;
+					color: $titleColor;
+				}
+			}
+		}
+	}
+	.btn-area {
+		font-weight: bold;
+		margin-top: 23rpx;
+		display: flex;
+		justify-content: center;
+		
+		.btn {
+			width: 310rpx;
+			height: 60rpx;
+			color: #fff;
+			border-radius: 30rpx;
+			display: inline-block;
+			text-align: center;
+			line-height: 64rpx;
+			font-size: 32rpx;
+			box-shadow: 0 3rpx 6rpx 1rpx rgba(0, 0, 0, 0.2);
+			background-color: $mainColor;
+		}
+
+		.btn-sold_out {
+			background-color: $tagColor;
+		}
+	}
+}

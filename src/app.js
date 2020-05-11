@@ -6,6 +6,9 @@ import { parseScene } from 'utils/util';
 
 App({
     onLaunch() {
+
+        this.updateApp();
+
         wx.onError((e) => {
             console.log(e, 'onError');
         });
@@ -23,7 +26,7 @@ App({
         // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor, secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY' } = extConfig;
+        let { primaryColor = '#729153', secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -35,7 +38,7 @@ App({
         }
 
         this.globalData = Object.assign(this.globalData, {
-            themeColor: { primaryColor, secondaryColor },
+            themeColor: { primaryColor, secondaryColor, backgroundColor },
             categoryIndex,
             partner: partner,
             tplStyle: styleType,
@@ -43,20 +46,14 @@ App({
             vip,
             authorizer,
             currency,
-            CURRENCY
+            CURRENCY,
+            tabbarPages,
         });
 
         this.vip = vip;
-
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
     },
 
     onHide() {
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
         this.updateConfig();
     },
 
@@ -71,14 +68,27 @@ App({
 
     async bindShare(afcode) {
         setTimeout(() => {
+            console.log('afcode触发bindShare');
             api.hei.bindShare({ code: afcode }).then((res) => {
                 console.log(res);
             });
         }, 500);
     },
 
+    async bindWebConfirm(config) {
+        if (!(config.web && config.web.confirm)) {
+            setTimeout(() => {
+                console.log('触发confirm');
+                api.hei.bindWebConfirm().then((res) => {
+                    console.log(res);
+                });
+            }, 500);
+        }
+    },
+
     async recordAffiliate(afcode) {
         setTimeout(() => {
+            console.log('afcode触发recordAffiliateBrowse');
             api.hei.recordAffiliateBrowse({ code: afcode });
         });
     },
@@ -86,37 +96,32 @@ App({
     updateConfig() {
         setTimeout(() => {
             api.hei.config().then((res) => {
-                this.checkWebLogin(res);
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
+
+                this.updateTabbar(config);
+
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
                 }
+                this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync(USER_KEY, current_user || '');
             });
         }, 500);
     },
 
-    checkWebLogin(configRes) {
-        const { config, current_user } = configRes;
-        if (config.web_enable && current_user && !current_user.platform_user_id) {
-            wx.navigateTo({
-                url: '/pages/bindWeb/bindWeb',
-            });
-        }
+    checkBind() {
+        setTimeout(async () => {
+            await api.hei.checkUserBind();
+        }, 500);
     },
 
     async onShow(options) {
-        this.logData = [];
-        this.openConsole = false;
-        this.openConsoleResData = false;
         console.log(options, 'options');
-        this.logData.push(options);
 
+        // this.checkBind();
         this.updateConfig();
-
-        // this.login();
 
         const { query = {}} = options;
         if (query.vendor) {
@@ -151,7 +156,59 @@ App({
 
     onError(err) {
         console.error('[APP ERROR]', err);
-        this.logData.push(err);
+    },
+
+    // 启动时应用更新版本
+    updateApp() {
+        const updateManager = wx.getUpdateManager();
+
+        updateManager.onCheckForUpdate(function (res) {
+            // 请求完新版本信息的回调
+            console.log('hasUpdate', res.hasUpdate);
+        });
+
+        updateManager.onUpdateReady(function () {
+            wx.showModal({
+                title: '更新提示',
+                content: '新版本已经准备好，重启后立刻应用',
+                showCancel: false,
+                success(res) {
+                    if (res.confirm) {
+                        // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                        updateManager.applyUpdate();
+                    }
+                }
+            });
+        });
+
+        updateManager.onUpdateFailed(function () {
+            // 新版本下载失败
+            console.log('新版本下载失败');
+        });
+    },
+
+    updateTabbar(config) {
+        const { tabbar } = config;
+        if (tabbar) {
+            const { list = [], color, selectedColor, backgroundColor, borderStyle } = tabbar;
+
+            wx.setTabBarStyle({
+                color,
+                selectedColor,
+                backgroundColor,
+                borderStyle
+            });
+
+            list.forEach((item, index) => {
+                const { iconPath, selectedIconPath, text } = item;
+                wx.setTabBarItem({
+                    index,
+                    text,
+                    iconPath,
+                    selectedIconPath
+                });
+            });
+        }
     },
 
     globalData: {
@@ -162,24 +219,19 @@ App({
         orderDetail: {
             items: []
         },
+        bindWebApiWhite: [
+            'api/mag.shop.extra.json',
+            'api/module/page.json',
+            'api/mag.product.list.json',
+            'api/mag.product.get.json',
+            'api/mag.article.get.json',
+            'api/mag.article.list.json',
+            'api/mag.affiliate.bind.json',
+            'api/mag.affiliate.browse.record.json'
+        ]
     },
 
     systemInfo: {},
 
-    event: new Event(),
-
-    log(data) {
-        if (this.openConsole) {
-            this.logData.push(data);
-            this.event.emit('log');
-        }
-    },
-
-    logData: [],
-
-    openConsole: false,
-
-    consoleShowRes: false,
-
-    openConsoleResData: false
+    event: new Event()
 });

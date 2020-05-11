@@ -1,4 +1,3 @@
-import api from 'utils/api';
 const app = getApp();
 import { CONFIG } from 'constants/index';
 
@@ -20,22 +19,16 @@ Page({
     },
 
     // 生命周期函数--监听页面加载
-
-
     async onLoad() {
         const { themeColor } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
         const coupons = wx.getStorageSync('orderCoupon');
         const { available, unavailable } = coupons;
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
         this.setData({
             coupons,
-            themeColor,
             isIphoneX,
-            tplStyle,
-            config
+            themeColor
         });
     },
 

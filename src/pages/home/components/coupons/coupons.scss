@@ -1,0 +1,111 @@
+.title {
+	font-size: 35rpx;
+	font-weight: bold;
+	padding: 26rpx 25rpx;
+	text-align: center;
+}
+
+.couponsWrapper {
+	padding-left: 10rpx;
+	font-size: 0;
+	z-index: 9;
+
+	.coupons {
+		display: flex;
+	}
+
+	.coupon {
+		width: 300rpx;
+		height: 136rpx;
+		position: relative;
+		line-height: 1.2;
+		margin-left: 20rpx;
+	}
+
+	.moreCoupon{
+		width: 101rpx;
+		height: 136rpx;
+		position: relative;
+		line-height: 1.2;
+
+		.moreBtn{
+			position: absolute;
+			width: 20rpx;
+			color: #707070;
+			font-size: 20rpx;
+			left: 40rpx;
+			top: 26rpx;
+		}
+	}
+
+	.couponInfoList {
+		position: absolute;
+		z-index: 2;
+		color: #fff;
+		font-size: 18rpx;
+		height: 136rpx;
+		width: 300rpx;
+		display: flex;
+		line-height: 1.4;
+
+		.couponInfo {
+			position: absolute;
+			z-index: 2;
+			color: #fff;
+			font-size: 22rpx;
+			height: 136rpx;
+			width: 180rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+
+			.reduce  {
+				display: flex;
+				align-items: center;
+
+				.reduceCost {
+					font-size: 46rpx;
+					margin: 0 5rpx;
+				}
+	
+				.reduceTitle {
+					font-size: 21rpx;
+				}
+			}
+
+		}
+
+		.couponBtn{
+			position: absolute;
+			z-index: 2;
+			color:#fff;
+			font-size: 23rpx;
+			height: 136rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			right: 43rpx;
+
+			.couponUnuse{
+				width: 46rpx;
+				line-height: 1.2;
+			}
+
+			.arrow{
+				position: absolute;
+				z-index: 2;
+				right: -25rpx;
+				width: 11rpx;
+			}
+		}
+	}
+
+	.bg {
+		width: 300rpx;
+		height: 136rpx;
+		position: absolute;
+		z-index: 1;
+	}
+}

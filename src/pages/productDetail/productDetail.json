@@ -13,6 +13,8 @@
     "van-popup": "@vant/weapp/dist/popup/index",
     "productList": "components/productList/index",
     "skeleton": "./skeleton/skeleton",
-    "poster": "components/poster/index"
+    "poster": "components/poster/index",
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "myModal": "components/myModal/myModal"
   }
 }

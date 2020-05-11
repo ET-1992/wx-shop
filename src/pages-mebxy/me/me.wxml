@@ -1,0 +1,40 @@
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
+
+	<!-- 头部面板 -->
+	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen"/>
+	
+	<!-- 订单面板 -->
+	<orders ordersComponentData="{{ ordersComponentData }}" />
+
+	<!-- 订单面板第二部分 -->
+	<extra ordersComponentData="{{ ordersComponentData }}"/>
+
+	<!-- 会员专区 -->
+	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ config.membership_enable && membership_banner }}">
+		<image class="image" src="{{ membership_banner }}" />
+	</navigator>
+
+	<!-- 推广面板 -->
+	<share config="{{ config }}" infosComponentData="{{ infosComponentData }}"/>
+
+	<!-- 功能面板 -->
+	<infos infosComponentData="{{ infosComponentData }}"/>
+
+	<!-- 分享计划 -->
+	<!-- <navigator 
+		class="affiliate" 
+		url="/pages/affiliate/affiliateApply/affiliateApply" 
+		wx:if="{{ ((config.affiliate_enable && !affiliate.is_affiliate_member) || (config.affiliate_enable && affiliate.member && affiliate.member.audit_status === '3')) && config.affiliate_public }}">
+		<image class="itemIcon" mode="aspectFit" src="../../icons/affiliate.png" />
+		<view class="itemTitle">{{ config.platform_name }}分享计划 >></view>
+	</navigator> -->
+	
+</view>
+<view class="peanut-logo logo">
+	<logo logoObj="{{ logoObj }}" />
+</view>
+
+<manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
+
+<myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />

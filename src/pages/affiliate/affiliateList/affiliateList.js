@@ -75,7 +75,7 @@ Page({
             order: filterOrder
         });
         if (members.length > 0) {
-            data.members = data.members.concat(members);
+            data.members = members.concat(data.members);
         }
         this.setData({
             ...data,
@@ -103,7 +103,7 @@ Page({
 
     async onReachBottom() {
         const { current_page, total_pages } = this.data;
-        if (current_page === total_pages) { return }
+        if (current_page >= total_pages) { return }
         this.getCustomerList();
     }
 });

@@ -1,6 +1,6 @@
 <loading isLoading="{{ isLoading }}"/>
 <import src="/templates/share/shareList.wxml"/>
-<filterList filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList" class="filterList"></filterList>
+<filterList filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" class="filterList"></filterList>
 <view wx:if="{{ !isLoading && members.length }}" class="content">
     <template is="shareList" data="{{ members, user_type, globalData}}"/>
 </view>

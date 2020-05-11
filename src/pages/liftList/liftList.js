@@ -22,44 +22,25 @@ Page({
     },
 
     async onShow() {
-        const { platform, locationAuthorized, locationEnabled } = wx.getSystemInfoSync();
-        console.log(platform, 'platform');
-        console.log(locationAuthorized, 'locationAuthorized');
-        console.log(locationEnabled, 'locationEnabled');
-        if (platform !== 'devtools' && (!locationEnabled || !locationAuthorized)) {
-            const { confirm } = await proxy.showModal({
-                title: '温馨提示',
-                content: '请检查手机定位是否开启、是否允许微信使用手机定位',
-                showCancel: false
-            });
-            if (confirm) {
-                wx.navigateBack({
-                    delta: 1
-                });
-            }
-            return;
-        }
         this.getLocationData(this.data.type);
     },
 
     async getLocationData(type) {
-        const res = await auth({
-            scope: 'scope.userLocation',
-            ctx: this,
-            isFatherControl: true
-        });
-        if (res) {
-            const data = await proxy.getLocation();
-            console.log(data, 'data');
-            const { latitude, longitude } = data;
-            try {
+        try {
+            const res = await auth({
+                scope: 'scope.userLocation',
+                ctx: this,
+                isFatherControl: true
+            });
+            if (res) {
+                const data = await proxy.getLocation();
+                console.log(data, 'data');
+                const { latitude, longitude } = data;
                 if (type === '2') {
                     const { address_list } = await api.hei.liftList();
                     this.computeDistance(address_list, latitude, longitude);
                 } else if (type === '4') {
-                    wx.setNavigationBarTitle({
-                        title: '门店列表'
-                    });
+                    wx.setNavigationBarTitle({ title: '门店列表' });
                     const { address_list } = await api.hei.orderHomeDelivery({ type: 'home_delivery' });
                     this.computeDistance(address_list, latitude, longitude);
                 }
@@ -67,8 +48,25 @@ Page({
                 this.setData({
                     isLoading: false
                 });
-            } catch (e) {
-                console.log(e);
+            }
+        } catch (e) {
+            const { platform, locationAuthorized, locationEnabled } = wx.getSystemInfoSync();
+            console.log(platform, 'platform');
+            console.log(locationAuthorized, 'locationAuthorized');
+            console.log(locationEnabled, 'locationEnabled');
+            console.log(e);
+            if (platform !== 'devtools' && (!locationEnabled || !locationAuthorized)) {
+                const { confirm } = await proxy.showModal({
+                    title: '温馨提示',
+                    content: '请检查手机定位是否开启、是否允许微信使用手机定位',
+                    showCancel: false
+                });
+                if (confirm) {
+                    wx.navigateBack({
+                        delta: 1
+                    });
+                }
+                return;
             }
         }
     },
@@ -101,7 +99,8 @@ Page({
             receiver_address: item.address,
             receiver_address_name: item.name,
             distance: item.distance, // 距离
-            time: item.time // 营业时间
+            time: item.time, // 营业时间
+            remark: item.remark // 商家备注
         };
         app.event.emit('getLiftInfoEvent', liftInfo);
         wx.navigateBack({

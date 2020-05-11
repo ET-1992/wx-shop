@@ -5,6 +5,7 @@ export const UID_KEY = 'uid';
 export const USER_KEY = 'user';
 export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
+export const AREA_KEY = 'areaKey';
 export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
@@ -18,6 +19,18 @@ export const PRODUCT_LIST_STYLE = ['bigCard', 'smallCard', 'list'];
 export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
+
+export const PLATFFORM_ENV = 'PEAUNT';
+// export const PLATFFORM_ENV = 'MIBAI';
+
+export const HOST_ARRAY = [
+    { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
+    { text: 'MIBAI', value: 'https://api.mebxy.com/' },
+    { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
+    { text: 'AU', value: 'https://au.wpweixin.com/' },
+    { text: 'CUILV', value: 'https://api.jcaik.com/' },  // 翠绿
+    { text: 'AUH', value: 'https://wechat.bebridge.cn/' }  // 澳洲香港服務器
+];
 
 // export const STATUS_TEXT = ['', '未付款', '等待发货', '已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭'];
 

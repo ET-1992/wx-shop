@@ -1,18 +1,18 @@
 <!-- <loading isLoading="{{ isLoading }}"/> -->
 <view class="container">
 	<!-- 头部面板 -->
-	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+	<personal personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 会员专区 -->
-	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ config.membership_enable && membership_banner }}">
-		<image class="image" src="{{ membership_banner }}" />
-	</navigator>
+	<button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
+		<image class="member-image" src="{{ membership_banner }}"/>
+	</button>
 
 	<!-- 功能面板 -->
-	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}"/>
+	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}" themeColor="{{ themeColor }}" />
 
 	<navigator
 		class="affiliate"
@@ -27,6 +27,6 @@
 	<logo logoObj="{{ logoObj }}" />
 </view>
 
-<manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
+<manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" themeColor="{{ themeColor }}"/>
 
 <myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />

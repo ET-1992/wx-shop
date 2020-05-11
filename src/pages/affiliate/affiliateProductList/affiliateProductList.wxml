@@ -1,5 +1,5 @@
 <loading isLoading="{{ isLoading }}" />
-<filterList class="filterList" filterListData="{{ filterListData }}" bindchangeFilterList="changeFilterList"/>
+<filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList"/>
 <view wx:if="{{ !isLoading && products.length }}" class="shareProductListWrap">
   <navigator 
     hover-class="navigator-hover" 

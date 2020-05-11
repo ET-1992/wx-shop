@@ -4,6 +4,10 @@ $footerHeight: 100rpx;
 $iphoneXBottomGap: 40rpx;
 $shareColor: #FE0000;
 
+page {
+	position: relative;
+}
+
 .container {
 	padding-bottom: $footerHeight;
 	color: $titleColor;
@@ -106,21 +110,22 @@ video {
 
 	.price-area {
 		position: absolute;
-		top: 8rpx;
+		top: 14rpx;
 		left: 142rpx;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
-		// align-items: center;
 
 		.price {
-			font-size: 46rpx;
-			font-weight: bold;
-			display: flex;
-			align-items: center;
-
 			.price-unit {
 				font-size: 22rpx;
+				display: inline-block;
+			}
+
+			.time-price {
+				display: inline-block;
+				line-height: 40rpx;
+				font-size: 46rpx;
+				font-weight: bold;
 			}
 		}
 
@@ -136,21 +141,17 @@ video {
 	.time {
 		position: absolute;
 		right: 14rpx;
-		top: 11rpx;
+		top: 12rpx;
 		color: $shareColor;
 		text-align: right;
 
 		.time-section {
-			min-width: 284rpx;
+			// min-width: 284rpx;
 			display: flex;
 			flex-direction: column;
 			align-content: flex-start;
-			font-size: 24rpx;
+			font-size: 22rpx;
 			font-weight: bold;
-
-			// .time-text {
-			// 	margin-bottom: 8rpx;
-			// }
 
 			.time-limit {
 				display: flex;
@@ -183,6 +184,113 @@ video {
 		.end {
 			color: white;
 			transform: translateY(50%);
+			margin-top: -10rpx;
+			font-size: 30rpx;
+		}
+	}
+
+}
+
+// 今日秒杀banner
+.miaosha-banner {
+	width: 750rpx;
+	height: 100rpx;
+	color: #fff;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	position: relative;
+
+	.background-image {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.price-area {
+		position: absolute;
+		top: 2px;
+		left: 145rpx;
+
+		.price {
+			.price-unit {
+				font-size: 20rpx;
+				display: inline-block;
+				font-weight: bold;
+			}
+
+			.price-count {
+				display: inline-block;
+				font-size: 17x;
+				margin-left: 5rpx;
+				font-weight: bold;
+			}
+
+			.origin-price {
+				display: inline-block;
+				font-size: 20rpx;
+				text-decoration: line-through;
+				margin-left: 10rpx;
+				color: #fff;
+			}
+		}
+		// .count-only-wrap {
+			// text-align: center;
+			.count-only {
+				font-size: 8px;
+				border: 1rpx solid #fff;
+				font-weight: bold;
+				color: #fff;
+				display:inline-block;
+				padding: 2px;
+			}
+		// }
+	}
+
+	.time {
+		position: absolute;
+		right: 32rpx;
+		top: 11rpx;
+		color: $shareColor;
+		text-align: right;
+
+		.time-section {
+			width: 242rpx;
+			display: flex;
+			flex-direction: column;
+			align-content: flex-start;
+			font-size: 24rpx;
+			font-weight: bold;
+
+			// .time-text {
+			// 	margin-bottom: 8rpx;
+			// }
+
+			.time-limit {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 8rpx;
+
+				.hour,
+				.minute,
+				.second {
+					width: 40rpx;
+					height: 35rpx;
+					line-height: 35rpx;
+					text-align: center;
+					background-color: $shareColor;
+					color: #fff;
+					font-weight: bold;
+				}
+			}
+
+		}
+
+		.end {
+			transform: translateY(50%);
 			font-size: 30rpx;
 		}
 	}
@@ -209,47 +317,48 @@ video {
 
 	.price-area {
 		position: absolute;
-		top: 8rpx;
+		top: 12rpx;
 		left: 142rpx;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
 
 		.price {
-			font-size: 46rpx;
-			font-weight: bold;
-			display: flex;
-			align-items: center;
-
 			.price-unit {
 				font-size: 22rpx;
+				display: inline-block;
+			}
+
+			.pintuan-price {
+				display: inline-block;
+				line-height: 40rpx;
+				font-size: 46rpx;
+				font-weight: bold;
 			}
 		}
 
 		.origin-price {
+			margin-top: 5rpx;
 			font-size: 22rpx;
 		}
 	}
 
 	.pintuan-section {
-		min-width: 118rpx;
+		min-width: 120rpx;
 		position: absolute;
-		right: 19rpx;
+		right: 18rpx;
 		top: 12rpx;
 		color: $shareColor;
 		text-align: right;
 
 		.pintuan-text {
-			font-size: 32rpx;
-			height: 45rpx;
-			line-height: 45rpx;
+			font-size: 28rpx;
+			height: 42rpx;
+			line-height: 42rpx;
 			color: #FFFFFF;
 			font-weight: bold;
 		}
 
 		.pintuan-count {
-			// width: 118rpx;
-			// height: 30rpx;
 			font-size: 22rpx;
 			background-color: #FFFFFF;
 			border-radius: 3rpx;
@@ -283,13 +392,8 @@ video {
 		left: 142rpx;
 		display: flex;
 		flex-direction: column;
-		// justify-content: flex-start;
-		// align-items: center;
 
 		.price {
-			// display: flex;
-			// align-items: center;
-
 			.price-unit {
 				font-size: 22rpx;
 				display: inline-block;
@@ -327,7 +431,7 @@ video {
 		}
 	}
 
-	.pintuan-section {
+	.bargain-section {
 		min-width: 156rpx;
 		position: absolute;
 		right: 20rpx;
@@ -335,14 +439,14 @@ video {
 		color: $shareColor;
 		text-align: right;
 
-		.pintuan-text {
+		.bargain-text {
 			font-size: 28rpx;
 			height: 40rpx;
 			color: #FFFFFF;
 			font-weight: bold;
 		}
 
-		.pintuan-count {
+		.bargain-count {
 			font-size: 20rpx;
 			color:rgba(255, 255, 255, 1);
 		}
@@ -352,7 +456,7 @@ video {
 .info {
 	background-color: #fff;
 	padding: 20rpx 20rpx 30rpx;
-
+	margin-bottom: 10rpx;
 	.tag {
 		border: 1px solid $priceColor;
 		font-size: 8pt;
@@ -512,6 +616,27 @@ video {
 	}
 }
 
+.areaPostageBox{
+	margin: 10rpx auto;
+	padding: 0 39rpx 0 31rpx;
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	height: 80rpx;
+	font-size: 24rpx;
+	.label{
+		color: #333333;
+		margin-right: 28rpx;
+	}
+	.value{
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: #999999;
+	}
+}
+
 // 开通会员提示框
 .member-wrapper {
 	background-color: #fff;
@@ -534,7 +659,7 @@ video {
 }
 
 .sevice-coupon{
-	margin: 20rpx 0 10rpx;
+	margin: 10rpx 0 10rpx;
 	padding: 0 39rpx 0 31rpx;
 	background-color: #fff;
 
@@ -846,8 +971,8 @@ button {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	padding-bottom: constant(safe-area-inset-bottom);
-	padding-bottom: env(safe-area-inset-bottom);
+	// padding-bottom: constant(safe-area-inset-bottom);
+	// padding-bottom: env(safe-area-inset-bottom);
 
 	&.iphoneXTrick {
 		padding-bottom: $iphoneXBottomGap;
@@ -878,34 +1003,62 @@ button {
 		text-align: center;
 		background-color: #fff;
 		width: 100%;
+
+		.footer-left {
+			display: flex;
+			.shop,
+			.cart,
+			.fav {
+				flex-grow: 1;
+				width: 100rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				font-size: 8pt;
+				background: #fff;
+				position: relative;
+				left: 0;
+				top: 0;
+
+				text,.text{
+					color: #333;
+					line-height: 1.5;
+				}
+			}
+
+			.icon {
+				$size: 40rpx;
+				width: $size;
+				height: $size;
+				display: block;
+				margin-bottom: 10rpx;
+			}
+		}
+	}
+
+	// 底部按钮-秒杀相关
+	.miaosha-buy,
+	.miaosha-begin {
+		flex: 1;
+		// width: 490rpx;
+		height: 100rpx;
+		color: #fff;
+		font-weight: bold;
+		font-size: 32rpx;
+		line-height: 100rpx;
+	}
+	.miaosha-buy {
+		background-color: $mainColor;
+		// background-color: $shareColor;
+	}
+	.miaosha-begin {
+		background-color: $tagColor;
 	}
 
 	.shop,
 	.cart {
-		flex-grow: 1;
 		width: 100rpx;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		font-size: 8pt;
-		background: #fff;
-		position: relative;
-		left: 0;
-		top: 0;
-
-		text{
-			color: #333;
-			line-height: 1.5;
-		}
-	}
-
-	.icon {
-		$size: 40rpx;
-		width: $size;
-		height: $size;
-		display: block;
-		margin-bottom: 10rpx;
 	}
 
 	.buy,
@@ -1195,47 +1348,46 @@ img,
 	color: #333;
 	padding: 20rpx;
 	margin: 40rpx auto;
-	box-shadow:2px 2px 12px #ccc;
+	box-shadow: 2px 2px 12px #ccc;
 	border-radius: 10rpx;
+	overflow: hidden !important;
 }
 .product-card-thumbnail{
 	width: 240rpx !important;
 	height: 240rpx !important;
 	float: left;
 }
-.product-card-title {
-	overflow: hidden;
+.product-card-title{
+ 	overflow: hidden !important;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	word-break: break-all;
-	text-overflow: ellipsis;
+    text-overflow: ellipsis;
 	font-size: 16px;
 	font-weight: normal;
-	color: #333;
+	color: $titleColor;
 	padding: 18rpx 0 0 25rpx;
 	margin-top: 0;
-	width: 380rpx;
-	height: 110rpx;
+	min-height: 110rpx;
+	line-height: 1.5;
 }
-.product-card-meta {
+.product-card-except{
+	overflow: hidden !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	font-size: 24rpx;
+	color:$tagColor;
+	padding-left: 20rpx;
+	height: 30rpx;
+}
+.product-card-meta{
 	display: flex;
 	padding: 30rpx 0 0 20rpx;
 }
-.product-card-price {
-	color: #FC2732;
+.product-card-price{
+	color:$priceColor;
 	font-size: 36rpx;
-	width: 240rpx;
-}
-.product-card-except {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	font-size: 24rpx;
-	color: #999999;
-	padding-left: 20rpx;
-	width: 380rpx;
-	height: 30rpx;
 }
 /* 红点 */
 .orderItemValue {
@@ -1311,4 +1463,9 @@ img,
 	&.iphoneXTrick{
 		bottom: 154rpx + $iphoneXBottomGap;
 	}
+}
+
+.van-picker__cancel,
+.van-picker__confirm {
+	color: $weixinColor !important;
 }

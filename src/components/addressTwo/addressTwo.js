@@ -1,5 +1,5 @@
 import { CONFIG } from 'constants/index';
-
+const app = getApp();
 Component({
     properties: {
         title: {
@@ -16,11 +16,11 @@ Component({
         }
     },
     attached() {
+        const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        console.log(config.self_address, 'selfAddress');
         this.setData({
+            themeColor,
             selfAddress: config && config.self_address
         });
-    }
+    },
 });
-

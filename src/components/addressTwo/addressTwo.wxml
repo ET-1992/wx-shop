@@ -1,7 +1,7 @@
 <view class="container">
 	<view wx:if="{{ !address.userName }}" class="address">
-		{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
-		<image src="/icons/right.png" class="right-arrow"></image>
+		<van-icon name="add-square" size="{{ 15 }}" color="{{ themeColor.primaryColor }}"/>
+		<view class="text">{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '点此填写收件地址' }}</view>
 	</view>
 
 	<view class="wrapper" wx:if="{{ address.userName }}">

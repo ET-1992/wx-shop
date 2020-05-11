@@ -6,3 +6,5 @@
 <include wx:if="{{ tplStyle === 'vip_tpl_six' && config }}" src="/templates/couponList/tplStyleSix/tplStyleSix.wxml" />
 <!-- 会员优惠券模板 -->
 <include wx:if="{{ tplStyle === 'vip_tpl' && config }}" src="/templates/couponList/tplStyleVip/tplStyleVip.wxml" />
+<!-- 新首页优惠券模板 -->
+<include wx:if="{{ tplStyle === 'coupon' && config }}" src="/templates/couponList/coupon/coupon.wxml" />

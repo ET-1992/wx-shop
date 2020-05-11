@@ -1,0 +1,22 @@
+<navigator class="twoPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+		<view class="wrapper">
+			<view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+			<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+		</view>
+		<view class="Info">
+			<view class="title">{{ product.title }}</view>
+			<view class="meta">
+				<view class="priceWrapper">
+					<view class="ItemPrice">
+						{{ globalData.CURRENCY[globalData.currency] }}{{ product.miaosha_price || product.seckill_price }}
+					</view>
+					<!-- 原价 -->
+					<view class="originPrice"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
+					</view>
+				</view>
+				<!-- 限时购标签 -->
+				<view class="tagWrapper" wx:if="{{ product.seckill_enable }}">秒杀</view>
+				<view class="tagWrapper" wx:else>限时购</view>
+			</view>
+		</view>
+</navigator>

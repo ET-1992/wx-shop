@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 // const app = getApp()
 
 // 创建页面实例对象
@@ -70,7 +71,9 @@ Page({
             isRefresh: false,
             currentPage: data.current_page,
             totalPages: data.total_pages,
-            isLoading: false
+            isLoading: false,
+            share_image: data.share_image,
+            share_title: data.share_title
         });
         return data;
     },
@@ -223,10 +226,5 @@ Page({
     },
 
     // 页面分享设置
-    onShareAppMessage() {
-        return {
-            title: 'share title',
-            path: '/pages/search/search'
-        };
-    }
+    onShareAppMessage: onDefaultShareAppMessage
 });

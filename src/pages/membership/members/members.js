@@ -12,7 +12,6 @@ Page({
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
         memberCouponList: {}, // 会员优惠券
-        // memberExclusiveBanner: '',
         data: {},
         word: '',
         memberNo: 0,
@@ -27,7 +26,6 @@ Page({
     go,
 
     onShow() {
-        app.log('页面onShow');
         this.initPage();
     },
 
@@ -39,6 +37,7 @@ Page({
             if (config.store_card_enable) {
                 const { data } = await api.hei.rechargePrice();
                 this.setData({ rechargeArray: data });
+                console.log('rechargeArray42', data);
             }
             if (config.renews) {
                 this.setData({ renews: config.renews });
@@ -69,18 +68,26 @@ Page({
 
     // 获取用户头像信息
     async bindGetUserInfo(e) {
-        const {
-            encryptedData,
-            iv
-        } = e.detail;
-        if (!this.updateAgainUserForInvalid) {
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
             const user = await getAgainUserForInvalid({
                 encryptedData,
                 iv
             });
-            this.setData({
-                user
-            }, this.onShow);
+            return user;
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    async getUserInformation(e) {
+        if (!this.updateAgainUserForInvalid) {
+            const user = await this.bindGetUserInfo(e);
+            this.setData({ user }, this.onShow);
             this.updateAgainUserForInvalid = true;
         }
     },
@@ -95,16 +102,19 @@ Page({
 
     // 点击优惠券
     async onCouponClick(ev) {
-        const { id, index, status, title } = ev.currentTarget.dataset;
-        if (Number(status) === 2) {
-            // 立即领取
-            await this.onReceiveCoupon(id, index);
-        } else if (Number(status) === 4) {
-            // 立即使用
-            wx.navigateTo({
-                url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
-            });
-        } else { return }
+        const user = await this.bindGetUserInfo(ev);
+        if (user) {
+            const { id, index, status, title } = ev.currentTarget.dataset;
+            if (Number(status) === 2) {
+                // 立即领取
+                await this.onReceiveCoupon(id, index);
+            } else if (Number(status) === 4) {
+                // 立即使用
+                wx.navigateTo({
+                    url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
+                });
+            } else { return }
+        }
     },
 
     // 领取优惠券
@@ -136,9 +146,18 @@ Page({
 
     // 打开会员充值弹窗
     openRechargeModal() {
-        this.setData({
-            showRechargeModal: true
-        });
+        const { rechargeArray } = this.data;
+        if (rechargeArray && rechargeArray.length) {
+            this.setData({
+                showRechargeModal: true
+            });
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '暂时无法开通会员',
+                showCancel: false
+            });
+        }
     },
 
     // 打开续费弹窗
@@ -215,8 +234,13 @@ Page({
         try {
             const { pay_sign } = await api.hei.renewalPay(params);
             console.log('续费会员pay_sign218', pay_sign);
-            if (pay_sign) { await wxPay(pay_sign) }
-            this.onShow();
+            if (pay_sign) {
+                const { isSuccess } = await wxPay(pay_sign);
+                if (isSuccess) {
+                    showToast({ title: '续费成功' });
+                    this.onShow();
+                }
+            }
         } catch (error) {
             wx.showModal({
                 title: '温馨提示',

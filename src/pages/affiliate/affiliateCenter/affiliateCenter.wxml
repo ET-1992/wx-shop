@@ -34,23 +34,23 @@
 			<view class="incomeDataBody">
 				<view class="monneyShow">
 					<view class="monneyShowTop">
-						<view class="showItem">
+						<view class="showItem showLeftText">
 							<text class="showItemNum">{{ member.commission_day || 0 }}</text>
-							<text class="showItemText showTodayText">今日(元)</text>
+							<text class="showItemText">今日(元)</text>
 						</view>
-						<view class="showItem">
+						<view class="showItem showRightText">
 							<text class="showItemNum">{{ member.commission_month || 0 }}</text>
-							<text class="showItemText showTodayText">本月(元)</text>
+							<text class="showItemText">本月(元)</text>
 						</view>
 					</view>
 					<view class="monneyShowBottom">
-						<view class="showItem">
+						<view class="showItem showLeftText">
 							<text class="showItemNum">{{ member.commission_total || 0 }}</text>
-							<text class="showItemText showTodayText">累计(元)</text>
+							<text class="showItemText">累计(元)</text>
 						</view>
-						<view class="showItem">
+						<view class="showItem showRightText">
 							<text class="showItemNum">{{ wallet.affiliate_income_pending || 0 }}</text>
-							<text class="showItemText showTodayText">未结算(元)</text>
+							<text class="showItemText">未结算(元)</text>
 						</view>
 					</view>
 				</view>

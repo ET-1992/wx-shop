@@ -1,0 +1,15 @@
+<!-- 整合所有单个商品 -->
+
+<!-- 拼团专区 -->
+<groupon wx:if="{{ product.promotion_type === 'groupon_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<!-- 砍价专区 -->
+<bargain wx:elif="{{ product.promotion_type === 'bargain_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<!-- 限时购 -->
+<flashSale wx:elif="{{ product.promotion_type === 'miaosha_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<!-- 普通、会员专属、会员价商品 -->
+<include wx:elif="{{ setting.style === 'l' }}" src="../largePic/largePic.wxml"/>
+<include wx:elif="{{ setting.style === 'm' }}" src="../bigPic/bigPic.wxml"/>
+<include wx:elif="{{ setting.style === 's' }}" src="../smallPic/smallPic.wxml"/>
+<include wx:elif="{{ setting.style === 'per_2' }}" src="../twoPic/twoPic.wxml"/>
+<include wx:elif="{{ setting.style === 'per_3' }}" src="../threePic/threePic.wxml"/>
+		

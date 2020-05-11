@@ -17,9 +17,9 @@
 			<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
 				<view class="btn" wx:if="{{ status === 'receivable' }}">点击领取</view>
 				<view class="btn" wx:if="{{ status === 'received' }}">立即使用</view>
-				<view class="btn unable" wx:if="{{ status === 'expired' }}">已抢光</view>
+				<view class="btn unable" wx:if="{{ status === 'expired' }}">已过期</view>
 				<view class="btn unable" wx:if="{{ status === 'used' }}">已使用</view>
-				<view class="btn unable" wx:if="{{ status === 'nullCoupon' }}">已过期</view>
+				<view class="btn unable" wx:if="{{ status === 'nullCoupon' }}">已抢光</view>
 			</block>
 			<view class="radio {{ isSelected ? 'selected' : '' }}" wx:if="{{ canChoice }}" >
 				<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelected }}" />

@@ -15,6 +15,17 @@ Component({
         isOrderDetail: {
             type: Boolean,
             value: false
+        },
+        homeDeliveryTimes: {
+            type: Array,
+            value: [],
+            observer(newValue) {
+                console.log('newValue15', newValue);
+            }
+        },
+        address: { // 确认订单数据
+            type: Object,
+            value: {},
         }
     },
 
@@ -22,6 +33,13 @@ Component({
         index: 0
     },
 
-    methods: {}
+    methods: {
+        bindPickerChange(e) {
+            console.log('picker发送选择改变，携带值为', e.detail.value);
+            this.setData({
+                index: e.detail.value
+            });
+        },
+    }
 });
 

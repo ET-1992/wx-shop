@@ -60,10 +60,6 @@ Component({
         isIphoneX: {
             type: Boolean,
             value: false
-        },
-        miaoshaObj: {
-            type: Object,
-            value: {}
         }
     },
     data: {
@@ -73,7 +69,7 @@ Component({
         skuMap: {},
         globalData: app.globalData,
         now: Math.round(Date.now() / 1000),
-        shipping_type: '1'
+        shipping_type: 1
     },
     attached() {
         const config = wx.getStorageSync(CONFIG);
@@ -82,21 +78,40 @@ Component({
     methods: {
         // 初始化配送方式
         firstInit() {
+            const shippingState = wx.getStorageSync('shippingType');
+            console.log('shipping_type91', shippingState, typeof shippingState);
             const { product } = this.data;
-            let type = product.shipping_types;
+            let type = product.shipping_types; // [1,2,4]
             const liftStyles = SHIPPING_TYPE.filter(item => {
                 return type.indexOf(item.value) > -1;
             });
-            if (liftStyles && liftStyles[0]) {
-                liftStyles.forEach(item => {
-                    item.checked = false;
+            liftStyles.forEach(item => { item.checked = false });
+            const isHasState = liftStyles.find(item => { // 判断缓存配送方式是否已开启
+                return item.value === shippingState;
+            });
+            console.log('data96', liftStyles);
+            console.log('isHasStyles101', isHasState);
+            if (liftStyles && isHasState) {
+                liftStyles.forEach((item) => {
+                    if (item.value === Number(shippingState)) {
+                        item.checked = true;
+                    }
                 });
+                console.log('shippingState106', shippingState, typeof shippingState);
+                this.setData({ liftStyles, shipping_type: shippingState });
+                this.triggerEvent('getShippingType', { shipping_type: shippingState }, { bubbles: true });
+            } else {
                 liftStyles[0].checked = true;
                 this.setData({ liftStyles, shipping_type: type[0] });
                 this.triggerEvent('getShippingType', { shipping_type: type[0] }, { bubbles: true });
+                console.log('shipping_type115', typeof type[0]);
+                wx.setStorage({
+                    key: 'shippingType',
+                    data: type[0]
+                });
             }
-            console.log('shipping_type94', this.data.shipping_type);
         },
+
         close() {
             this.setData({
                 isShowSkuModal: false
@@ -270,9 +285,13 @@ Component({
                     item.checked = false;
                 }
             });
-            this.setData({ liftStyles, shipping_type: value });
-            console.log('liftStyles', liftStyles, 'shipping_type', this.data.shipping_type);
+            this.setData({ liftStyles, shipping_type: Number(value) });
+            console.log('liftStyles', liftStyles, 'shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
             this.triggerEvent('getShippingType', { shipping_type: this.data.shipping_type }, { bubbles: true });
+            wx.setStorage({
+                key: 'shippingType',
+                data: this.data.shipping_type
+            });
         }
     }
 });
