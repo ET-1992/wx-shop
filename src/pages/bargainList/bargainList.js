@@ -11,7 +11,6 @@ Page({
         isRefresh: true,
         navbarListData: BARGAIN_STATUS_TEXT,
         selectedStatus: null,
-        isLoading: true
     },
 
     go,
@@ -33,7 +32,6 @@ Page({
             isRefresh: true,
             navbarListData: BARGAIN_STATUS_TEXT,
             selectedStatus: null,
-            isLoading: true
         }, this.loadOrders);
     },
 
@@ -43,9 +41,10 @@ Page({
         if (selectedStatus) {
             queryOption.status = selectedStatus;
         }
-        if (isRefresh) {
-            wx.showLoading();
-        }
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
         const data = await api.hei.bargainList(queryOption);
 
         const newOrders = isRefresh ? data.missions : missions.concat(data.missions);
@@ -58,7 +57,6 @@ Page({
             missions: newOrders,
             isRefresh: false,
             next_cursor: data.next_cursor,
-            isLoading: false,
             share_image: data.share_image,
             share_title: data.share_title,
         });
@@ -74,8 +72,13 @@ Page({
             activeIndex: index,
             isRefresh: true,
             next_cursor: 0,
-            isLoading: true
         });
         this.loadOrders();
-    }
+    },
+
+    async onReachBottom() {
+        const { next_cursor } = this.data;
+        if (!next_cursor) { return }
+        this.loadOrders();
+    },
 });
