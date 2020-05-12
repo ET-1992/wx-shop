@@ -17,6 +17,7 @@
     "coupons": "./components/coupons/coupons",
     "articleList": "./components/articleList/articleList",
     "productsList": "./components/productsList/productsList",
+    "categoryProducts": "./components/categoryProducts/categoryProducts",
     "cube": "./components/cube/cube"
   }
 }

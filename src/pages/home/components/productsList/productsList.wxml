@@ -2,7 +2,7 @@
 	<!-- 标题 -->
 	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
 	<!-- 滑动 商品列表 -->
-	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ settingStyle.isScroll(setting.style) }}">
+	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ settingStyle.isScroll(setting.style) }}" scrollLeft="{{ scrollLeft }}" scroll-with-animation>
 		<view class="swiperProductContainer">
 			<view class="swiperProduct" wx:for="{{ content }}" wx:for-item="product" wx:key="id"> 
 				<include src="./templates/index/index.wxml"></include>
