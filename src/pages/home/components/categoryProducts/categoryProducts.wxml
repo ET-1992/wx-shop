@@ -1,0 +1,22 @@
+<view class="container" style="margin-bottom: {{ setting.margin }}rpx">
+	<!-- 标题 -->
+	<view class="sectionTitle" wx:if="{{ titleDisplay }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
+	<!-- 标签导航 -->
+	<view class="category-wrap">
+		<view class="category-item" wx:for="{{ categories }}" wx:key="index" 
+		data-index="{{ index }}" data-id="{{ item.product_category_id }}" bind:tap="onClickBtn">
+			<button class="category-btn single-line {{ index === currentIndex ? 'selected-btn' : '' }}"
+			hover-class="none">{{ item.text || '-' }}</button>
+			<view class="category-info single-line {{ index === currentIndex ? 'selected-info' : '' }}">
+				{{ item.desc || '' }}
+			</view>
+		</view>
+	</view>
+	<view class="category-product-list" wx:if="{{ !productList || !productList.content || productList.content.length < 1 }}">
+		<view class="product-air">暂无该分类下的商品</view>
+	</view>
+	<!-- 商品列表 -->
+	<block wx:else>
+		<productsList productsList="{{ productList }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+	</block>
+</view>

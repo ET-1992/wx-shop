@@ -10,6 +10,6 @@
 <include wx:elif="{{ setting.style === 'l' }}" src="../largePic/largePic.wxml"/>
 <include wx:elif="{{ setting.style === 'm' }}" src="../bigPic/bigPic.wxml"/>
 <include wx:elif="{{ setting.style === 's' }}" src="../smallPic/smallPic.wxml"/>
-<include wx:elif="{{ setting.style === 'per_2' }}" src="../twoPic/twoPic.wxml"/>
-<include wx:elif="{{ setting.style === 'per_3' }}" src="../threePic/threePic.wxml"/>
+<include wx:elif="{{ setting.style === 'per_2' || setting.style === 'per_2_h' }}" src="../twoPic/twoPic.wxml"/>
+<include wx:elif="{{ setting.style === 'per_3' || setting.style === 'per_3_h' }}" src="../threePic/threePic.wxml"/>
 		

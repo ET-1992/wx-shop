@@ -12,6 +12,7 @@ Component({
                 if (!newVal) { return }
                 const { content, setting, title, type, id } = newVal;
                 this.setData({
+                    scrollLeft: 0,
                     content,
                     setting,
                     title,

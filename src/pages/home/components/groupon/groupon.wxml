@@ -5,6 +5,6 @@
 <!-- 小图 -->
 <include wx:if="{{ status === 's' }}" src="./templates/smallPic/smallPic.wxml"/>
 <!-- 两列 -->
-<include wx:if="{{ status === 'per_2' }}" src="./templates/twoPic/twoPic.wxml"/>
+<include wx:if="{{ status === 'per_2' || status === 'per_2_h' }}" src="./templates/twoPic/twoPic.wxml"/>
 <!-- 三列 -->
-<include wx:if="{{ status === 'per_3' }}" src="./templates/threePic/threePic.wxml"/>
+<include wx:if="{{ status === 'per_3' || status === 'per_3_h' }}" src="./templates/threePic/threePic.wxml"/>

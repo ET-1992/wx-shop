@@ -31,7 +31,9 @@
                 color: #000;
                 margin-left: 10rpx;
 				font-size: 24rpx;
-				padding: 6rpx 0;
+                padding: 6rpx 0;
+                flex: 1;
+                word-break: break-all;
             }
 
             .btn {
@@ -48,12 +50,14 @@
         display: flex;
         justify-content: space-around;
         flex-direction: row;
-        height: 70rpx;
+        // height: 70rpx;
         align-items: center;
+        padding: 15rpx;
 
         .list-item {
             display: flex;
             align-items: center;
+            width: 50%;
 
             .item-icon-img {
             	width: 20rpx;
@@ -66,7 +70,8 @@
             display: inline;
             font-size: 20rpx;
             color: #707070;
-
+            flex: 1;
+            word-break: break-all;
         }
     }
 }

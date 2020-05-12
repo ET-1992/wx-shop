@@ -352,13 +352,15 @@ Page({
                     share_title: `${current_user.nickname || '好友'}给你发来了一个红包，快去领取吧`,
                     share_image: 'http://cdn2.wpweixin.com/shop/redpacketShare.jpg'
                 };
-                path = `/pages/redpacket/redpacket?id=${redpacket.pakcet_no}`;
+                path = '/pages/redpacket/redpacket';
             }
         }
 
         this.setData(data);
 
-        return onDefaultShareAppMessage.call(this, {}, path);
+        return onDefaultShareAppMessage.call(this, {
+            id: redpacket.pakcet_no
+        }, path);
     },
 
     filterItemsForLogistics(items = [], logistics = []) {
