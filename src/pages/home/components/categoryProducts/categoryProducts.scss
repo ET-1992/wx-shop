@@ -64,4 +64,17 @@
 			}
 		}
 	}
+
+	.category-product-list {
+		min-width: 100%;
+		height: 508rpx;
+		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.product-air {
+			font-size: 28rpx;
+			color: #707070;
+		}
+	}
 }

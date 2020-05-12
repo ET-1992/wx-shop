@@ -12,8 +12,11 @@
 			</view>
 		</view>
 	</view>
-	<!-- 商品列表 -->
-	<view class="product-list">
-		<productsList productsList="{{ productList }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+	<view class="category-product-list" wx:if="{{ !productList || !productList.content || productList.content.length < 1 }}">
+		<view class="product-air">暂无该分类下的商品</view>
 	</view>
+	<!-- 商品列表 -->
+	<block wx:else>
+		<productsList productsList="{{ productList }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+	</block>
 </view>

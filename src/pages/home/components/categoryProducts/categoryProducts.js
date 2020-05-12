@@ -53,16 +53,13 @@ Component({
     },
     methods: {
         // 点击标签栏
-        async onClickBtn(e) {
+        onClickBtn(e) {
+            let { currentIndex } = this.data;
             let { index, id } = e.currentTarget.dataset;
-            try {
-                await this.loadProducts(id);
-            } catch (e) {
-                wx.showToast({
-                    title: e.errMsg || e.message,
-                    icon: 'none'
-                });
+            if (currentIndex === index) {
+                return;
             }
+            this.loadProducts(id);
             this.setData({ currentIndex: index });
         },
 
@@ -73,18 +70,19 @@ Component({
                 product_category_id: id,
                 orderby,
             };
-            let data = await api.hei.fetchProductList(options);
-            let { products: newProducts } = data;
-            this.setData({ newProducts });
-            this.updateProducts(id);
+            try {
+                let data = await api.hei.fetchProductList(options);
+                let { products: newProducts } = data;
+                this.setData({ newProducts });
+                this.updateProducts(id);
+            } catch (e) {
+                console.log('分组商品列表请求出错，出错提示：', e);
+            }
         },
 
         // 更新商品列表
         updateProducts(id) {
             let { productList, newProducts } = this.data;
-            if (!newProducts || !newProducts.length) {
-                throw new Error('没有该分类商品');
-            }
             productList.content = newProducts;
             productList.setting.product_category_id = id;
             this.setData({
