@@ -80,6 +80,8 @@ export const pageObj = {
 
     async loadHome() {
         const { id = '' } = this.data;
+        const { page_type = '' } = this;
+
         this.loadHomeExtra();
         this.setData({
             isLoading: true,
@@ -87,7 +89,7 @@ export const pageObj = {
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id });
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: page_type });
 
 
         if (page_title) {
@@ -446,7 +448,9 @@ export const pageObj = {
         console.log(this.data.contactModal);
     },
 
-    go
+    go,
+
+    page_type: 'home'
 };
 
 Page(pageObj);
