@@ -27,8 +27,8 @@ Component({
     },
     lifetimes: {
         attached: function () {
-            let { productList } = this.data;
-            console.log('productList', productList);
+            let { themeColor } = this.data;
+            console.log('themeColor', themeColor);
         },
     },
     observers: {
@@ -40,7 +40,6 @@ Component({
                 // 隐藏商品列表的标题
                 titleDisplay = value.setting.title_display;
                 value.setting.title_display = false;
-                value.setting.more = true;
             }
             this.setData({
                 productList: value,
