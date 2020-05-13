@@ -1,4 +1,4 @@
-import { pageObj } from '../home/home';
+import { pageObj } from '../home/homePage';
 
 pageObj.page_type = 'discovery';
 

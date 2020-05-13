@@ -110,7 +110,7 @@
 						<navigator class="sectionMore" wx:if="{{groupons.length >1}}" url="/pages/miaoshaList/miaoshaList?type=groupon">
 							<form bindsubmit="submitFormId" report-submit class="form">
 								<button formType="submit" class="moreButton">
-									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+									<image mode="aspectFit" src="/icons/right_arrow.svg"></image>
 								</button>
 							</form>
 						</navigator>
@@ -132,7 +132,7 @@
 						<view class="sectionMore" wx:if="{{articles.length >1}}" bind:tap="go" data-url="/pages/articleList/articleList">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
-									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+									<image mode="aspectFit" src="/icons/right_arrow.svg"></image>
 								</button>
 							</form>
 						</view>
@@ -156,7 +156,7 @@
 						<navigator class="sectionMore" wx:if="{{miaoshas.length > 1}}" url="/pages/miaoshaList/miaoshaList?type=miaosha">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
-									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+									<image mode="aspectFit" src="/icons/right_arrow.svg"></image>
 								</button>
 							</form>
 						</navigator>
@@ -177,7 +177,7 @@
 				<navigator class="sectionMore" wx:if="{{seckills.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=seckill">
 					<form bindsubmit="submitFormId" report-submit="true">
 					<button formType="submit" class="moreButton">
-						<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+						<image mode="aspectFit" src="/icons/right_arrow.svg"></image>
 					</button>
 					</form>
 				</navigator>
@@ -195,7 +195,7 @@
 						<navigator class="sectionMore" wx:if="{{ bargains.length > 1 }}" url="/pages/miaoshaList/miaoshaList?type=bargain">
 							<form bindsubmit="submitFormId" report-submit class="form">
 								<button formType="submit" class="moreButton">
-									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg" />
+									<image mode="aspectFit" src="/icons/right_arrow.svg" />
 								</button>
 							</form>
 						</navigator>
@@ -260,7 +260,7 @@
 						<navigator class="sectionMore" wx:if="{{products.length > 1 && index !== modules.length-1}}" url="{{'/pages/loadProduct/loadProduct?' + module.args }}">
 							<form bindsubmit="submitFormId" report-submit="true">
 								<button formType="submit" class="moreButton">
-									<image mode="aspectFit" src="/icons/vip_tpl_six/right_arrow.svg"></image>
+									<image mode="aspectFit" src="/icons/right_arrow.svg"></image>
 								</button>
 							</form>
 						</navigator>
