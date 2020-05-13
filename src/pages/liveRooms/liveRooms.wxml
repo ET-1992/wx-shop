@@ -1,7 +1,5 @@
 <view class="container">
-  <view class="head">
-    <image class="head-img" src="{{ banner }}" />
-  </view>
+ <image class="head-img" src="{{ banner }}" mode="widthFix" />
   <view class="body">
   	<!-- 列表标签tabs -->
     <view class="tabs-wrap">
