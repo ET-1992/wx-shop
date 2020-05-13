@@ -24,6 +24,15 @@
 			justify-content: center;
 			max-width: 20%;
 			padding: 0 14rpx;
+			&.selected-item{
+				// .category-btn {
+				// 	color: #FF5F5F;
+				// }
+				.category-info {
+					color: white;
+					// background-color: #FF5F5F;
+				}
+			}
 
 			.single-line {
 				overflow: hidden;
@@ -41,10 +50,6 @@
 				background-color: transparent;
 				border-radius: 99rpx;
 
-
-				&.selected-btn {
-					color: #FF5F5F;
-				}
 			}
 
 			.category-info {
@@ -57,10 +62,6 @@
 				box-sizing: content-box;
 				width: 100%;
 
-				&.selected-info {
-					color: white;
-					background-color: #FF5F5F;
-				}
 			}
 		}
 	}

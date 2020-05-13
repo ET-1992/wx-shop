@@ -3,11 +3,11 @@
 	<view class="sectionTitle" wx:if="{{ titleDisplay }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
 	<!-- 标签导航 -->
 	<view class="category-wrap">
-		<view class="category-item" wx:for="{{ categories }}" wx:key="index" 
+		<view class="category-item {{ index === currentIndex ? 'selected-item' : '' }}" wx:for="{{ categories }}" wx:key="index" 
 		data-index="{{ index }}" data-id="{{ item.product_category_id }}" bind:tap="onClickBtn">
-			<button class="category-btn single-line {{ index === currentIndex ? 'selected-btn' : '' }}"
+			<button class="category-btn single-line" style="color: {{ index === currentIndex && themeColor.primaryColor }}"
 			hover-class="none">{{ item.text || '-' }}</button>
-			<view class="category-info single-line {{ index === currentIndex ? 'selected-info' : '' }}">
+			<view class="category-info single-line" style="background-color: {{ index === currentIndex && themeColor.primaryColor }}">
 				{{ item.desc || '' }}
 			</view>
 		</view>
