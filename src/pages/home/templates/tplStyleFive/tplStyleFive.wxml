@@ -115,7 +115,7 @@
         	  		<form bindsubmit="submitFormId" report-submit class="form">
         	  		  	<button formType="submit" class="moreButton">
         	  		  	  	<view>更多</view>
-        	  		  	  	<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+        	  		  	  	<image class="rightIcon" src="/icons/right_arrow.svg" />
         	  		  	</button>
         	  		</form>
         		</navigator>
@@ -139,7 +139,7 @@
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
 								<view>更多</view>
-								<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+								<image class="rightIcon" src="/icons/right_arrow.svg" />
 							</button>
 						</form>
 					</view>
@@ -164,7 +164,7 @@
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
 								<view>更多</view>
-								<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+								<image class="rightIcon" src="/icons/right_arrow.svg" />
 							</button>
 						</form>
 					</navigator>
@@ -190,7 +190,7 @@
 						<form bindsubmit="submitFormId" report-submit="true">
 							<button formType="submit" class="moreButton">
 								<view>更多</view>
-								<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+								<image class="rightIcon" src="/icons/right_arrow.svg" />
 							</button>
 						</form>
 					</navigator>
@@ -216,7 +216,7 @@
 						<form bindsubmit="submitFormId" report-submit="true" class="form">
 							<button formType="submit" class="moreButton">
 								<view>更多</view>
-								<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+								<image class="rightIcon" src="/icons/right_arrow.svg" />
 							</button>
 						</form>
 					</navigator>
@@ -293,7 +293,7 @@
                   	<form bindsubmit="submitFormId" report-submit="true">
                   	  	<button formType="submit" class="moreButton">
                   	  	  	<view>更多</view>
-                  	  	  	<image class="rightIcon" src="/icons/vip_tpl_five/right_arrow.svg" />
+                  	  	  	<image class="rightIcon" src="/icons/right_arrow.svg" />
                   	  	</button>
                   	</form>
                 </navigator>
