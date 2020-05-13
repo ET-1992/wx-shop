@@ -66,13 +66,25 @@
 		}
 	}
 
-	.category-product-list {
+	.product-wrap {
 		min-width: 100%;
-		height: 508rpx;
+		// height: 510rpx;
 		background-color: #fff;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		&.two-img {
+			height: 558rpx;
+		}
+		&.three-img {
+			height: 438rpx;
+		}
+		&.scroll-two-img {
+			height: 508rpx;
+		}
+		&.scroll-three-img {
+			height: 398rpx;
+		}
 		.product-air {
 			font-size: 28rpx;
 			color: #707070;
