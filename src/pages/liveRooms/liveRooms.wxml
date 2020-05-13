@@ -17,7 +17,7 @@
 		<view class="live-list" wx:else>
 			<view class="live-wrap" wx:for="{{ roomList }}" wx:key="index">
 				<view class="live-left">
-				<image class="live-img" src="{{ item.cover_img }}" />
+				<image class="live-img" src="{{ item.share_img }}" mode="aspectFill" />
 				</view>
 				<view class="live-right">
 				<view class="live-title">{{ item.name || '-' }}</view>
