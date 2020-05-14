@@ -107,6 +107,7 @@ App({
                 this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync(USER_KEY, current_user || '');
+                // wx.showTabBar();
             });
         }, 500);
     },
@@ -119,7 +120,6 @@ App({
 
     async onShow(options) {
         console.log(options, 'options');
-
         // this.checkBind();
         this.updateConfig();
 

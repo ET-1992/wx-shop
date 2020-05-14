@@ -9,7 +9,8 @@
 		"pages/modulePage/modulePage",
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
-		"pages/webBar/webBar"
+		"pages/webBar/webBar",
+		"pages/liveRooms/liveRooms"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -336,13 +337,6 @@
 				"productList"
 			],
 			"name": "productList页"
-		},
-		{
-			"root": "pages/liveRooms",
-			"pages": [
-				"liveRooms"
-			],
-			"name": "直播列表"
 		}
 	],
 	"permission": {
