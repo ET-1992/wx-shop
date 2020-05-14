@@ -10,7 +10,8 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/liveRooms/liveRooms"
+		"pages/liveRooms/liveRooms",
+		"pages/payCashier/payCashier"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
