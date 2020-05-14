@@ -2,34 +2,34 @@
 <view class="sectionTitle" wx:if="{{ magicImgData.title }}">{{ magicImgData.title }}</view>
 <view class="rowImgWrap" wx:if="{{ magicImgData.defineType === 'oneLine' }}" style="height: {{ (tplStyle === 'default' || tplStyle === 'vip_tpl_four' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <block wx:for="{{magicImgData.eachNum}}" wx:key="item">
-        <template is="rowImgItem" data="{{magicImgData, index, userInfo}}"></template>
+        <template is="rowImgItem" data="{{magicImgData, index, userInfo, tabbarPages}}"></template>
     </block>
 </view>
 
 <view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-2' }}" style="height: {{ (tplStyle === 'default' || tplStyle === 'vip_tpl_four' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
-    <template is="rowImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
+    <template is="rowImgItem" data="{{magicImgData, index: 0, userInfo, tabbarPages}}"></template>
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
-        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
-        <template is="columnImgItem" data="{{magicImgData, index: 2, userInfo}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo, tabbarPages}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 2, userInfo, tabbarPages}}"></template>
     </view>
 </view>
 
 <view class="rowImgWrap" wx:if="{{ magicImgData.layout === '3-3' }}" style="height: {{ (tplStyle === 'default' || tplStyle === 'vip_tpl_four' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
-        <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
-        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo, tabbarPages}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo, tabbarPages}}"></template>
     </view>
-    <template is="rowImgItem" data="{{magicImgData, index: 2, userInfo}}"></template>
+    <template is="rowImgItem" data="{{magicImgData, index: 2, userInfo, tabbarPages}}"></template>
 </view>
 
 <view class="rowImgWrap" wx:if="{{ magicImgData.layout === '4-2' }}" style="height: {{ (tplStyle === 'default' || tplStyle === 'vip_tpl_four' || tplStyle === 'vip_tpl_five' || tplStyle === 'vip_tpl_six') ? magicImgData.height : 690 * (magicImgData.height / 750 )}}rpx">
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
-        <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo}}"></template>
-        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 0, userInfo, tabbarPages}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 1, userInfo, tabbarPages}}"></template>
     </view>
     <view class="rowImgItem columnImgWrap {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }}">
-        <template is="columnImgItem" data="{{magicImgData, index: 2, userInfo}}"></template>
-        <template is="columnImgItem" data="{{magicImgData, index: 3, userInfo}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 2, userInfo, tabbarPages}}"></template>
+        <template is="columnImgItem" data="{{magicImgData, index: 3, userInfo, tabbarPages}}"></template>
     </view>
 </view>
 <form report-submit='true' bind:submit='test'>
@@ -47,7 +47,6 @@
             style="background-image: url({{  magicImgData.images[index].image }})" 
         ></button>
 
-
         <navigator
             wx:elif="{{ magicImgData.images[index].type === 'web_view' ||  magicImgData.images[index].type === 'mini_program' }}"
             class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
@@ -59,14 +58,13 @@
             hover-class="none"
         ></navigator>
 
-        <view
+        <navigator 
             wx:else
             class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
             style="background-image: url({{ magicImgData.images[index].image }})"
-        >
-            <!-- <myNavigator url="{{  magicImgData.images[index].path }}"></myNavigator> -->
-            <navigator url="{{ magicImgData.images[index].path }}" open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"></navigator>
-        </view>
+            url="{{ magicImgData.images[index].path }}" 
+            open-type="{{ tabbarPages[magicImgData.images[index].page_key] ? 'switchTab' : 'navigate' }}"
+        ></navigator>
     </template>
         
     <template name="rowImgItem">
@@ -109,7 +107,7 @@
          class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
          style="background-image: url({{  magicImgData.images[index].image }}); flex: {{ magicImgData.flex ? magicImgData.flex[index] : 1 }}"
          url="{{ magicImgData.images[index].path }}"
-        open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
+         open-type="{{ tabbarPages[magicImgData.images[index].page_key] ? 'switchTab' : 'navigate' }}"
         ></navigator>
-
+       
     </template>
