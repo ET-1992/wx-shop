@@ -20,10 +20,10 @@ Component({
         setting: {},  // 标题设置
         title: '',  // 标题文字
         titleDisplay: false,  // 标题显隐
-        currentIndex: 0,  // 导航选中项
         categories: [],  // 分类导航列表
         newProducts: [],  // 选中商品列表
-        selectedId: [],  // 选中类型id
+        currentIndex: 0,  // 导航选中项
+        currentId: '',  // 选中类型id
     },
     lifetimes: {
         attached: function () {
@@ -58,32 +58,38 @@ Component({
             if (currentIndex === index) {
                 return;
             }
-            this.loadProducts(id);
-            this.setData({ currentIndex: index });
+            this.setData({
+                currentIndex: index,
+                currentId: id,
+            });
+            this.loadProducts();
         },
 
         // 获取标签商品列表
-        async loadProducts(id) {
-            let { orderby = '' } = this.data.setting;
+        async loadProducts() {
+            let { currentId } = this.data;
+            let { orderby = '', number, style } = this.data.setting;
             let options = {
-                product_category_id: id,
+                product_category_id: currentId,
+                posts_per_page: number,
+                style,
                 orderby,
             };
             try {
                 let data = await api.hei.fetchProductList(options);
                 let { products: newProducts } = data;
                 this.setData({ newProducts });
-                this.updateProducts(id);
+                this.updateProducts();
             } catch (e) {
                 console.log('分组商品列表请求出错，出错提示：', e);
             }
         },
 
         // 更新商品列表
-        updateProducts(id) {
-            let { productList, newProducts } = this.data;
+        updateProducts() {
+            let { productList, newProducts, currentId } = this.data;
             productList.content = newProducts;
-            productList.setting.product_category_id = id;
+            productList.setting.product_category_id = currentId;
             this.setData({
                 productList,
             });
