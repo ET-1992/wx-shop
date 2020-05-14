@@ -64,7 +64,8 @@
             class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}" 
             style="background-image: url({{ magicImgData.images[index].image }})"
         >
-            <myNavigator url="{{  magicImgData.images[index].path }}"></myNavigator>
+            <!-- <myNavigator url="{{  magicImgData.images[index].path }}"></myNavigator> -->
+            <navigator url="{{ magicImgData.images[index].path }}" open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"></navigator>
         </view>
     </template>
         
