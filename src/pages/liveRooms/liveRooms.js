@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 const app = getApp();
 Page({
@@ -84,4 +85,6 @@ Page({
             },
         });
     },
+
+    onShareAppMessage: onDefaultShareAppMessage
 });
