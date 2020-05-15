@@ -75,7 +75,7 @@ Page({
     onClickBtn(e) {
         let { status, id } = e.currentTarget.dataset;
         console.log('status', status);
-        let liveObj = { '101': '直播', '102': '直播预告', '103': '精彩回放' };
+        let liveObj = { '101': '视频', '102': '精彩预告', '103': '精彩回放' };
         let roomId = id;
         let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/index/index', pid: 1 }));
         let url = `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}&custom_params=${customParams}`;
