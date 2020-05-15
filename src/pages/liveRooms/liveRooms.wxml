@@ -4,8 +4,8 @@
   	<!-- 列表标签tabs -->
     <view class="tabs-wrap">
       <van-tabs active="{{ tabActive }}" bind:change="onTabChange" color="{{ themeColor.primaryColor || '#729153' }}">
-        <van-tab title="直播列表"></van-tab>
-        <van-tab title="直播预告"></van-tab>
+        <van-tab title="全部列表"></van-tab>
+        <van-tab title="精彩预告"></van-tab>
         <van-tab title="精彩回放"></van-tab>
       </van-tabs>
     </view>

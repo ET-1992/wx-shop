@@ -48,7 +48,13 @@ Page({
             let data = await api.hei.getLiveRooms({
                 status,
             });
-            let { banner, live_rooms } = data;
+            let { banner, live_rooms, page_title = '全部列表' } = data;
+
+            wx.setNavigationBarTitle({
+                title: page_title
+            });
+
+
             this.setData({
                 isLoading: false,
                 banner,
