@@ -244,15 +244,26 @@ export const pageObj = {
 
     // 用户授权才能领取
     async bindGetUserInfo(e) {
-        const { isNewUser } = this.data;
+        console.log(e, 'onCouponClick');
         const { encryptedData, iv } = e.detail;
         if (iv && encryptedData) {
             await getAgainUserForInvalid({ encryptedData, iv });
-            if (isNewUser) {
-                this.receiveCouponAll(e);
-                return;
-            }
             this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    async receiveNewUserCoupon(e) {
+        console.log(e, 'receiveNewUserCoupon');
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.receiveCouponAll(e);
         } else {
             wx.showModal({
                 title: '温馨提示',
@@ -264,9 +275,9 @@ export const pageObj = {
 
     // 一键领取新人优惠券
     async receiveCouponAll(e) {
-        const { id } = e.currentTarget.dataset;
+        const { couponsNewbie = [] } = e.currentTarget.dataset;
         let result = [];
-        id.map(({ id, target_user_type }, index) => {
+        couponsNewbie.map(({ id, target_user_type }, index) => {
             if (target_user_type === '2') result.push(id);
         });
         const allResult = result.join(',');
