@@ -29,7 +29,7 @@
 					<text>{{ item.end_time || '-' }}</text>
 					</view>
 					<view class="live-line">
-					<text>主播：</text>
+					<text>作者：</text>
 					<text>{{ item.anchor_name || '-' }}</text>
 					</view>
 				</view>
