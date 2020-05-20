@@ -7,7 +7,9 @@
 		"pages/classify/classify",
 		"pages/articleList/articleList",
 		"pages/modulePage/modulePage",
-		"pages/shopList/shopList"
+		"pages/shopList/shopList",
+		"pages/webBar/webBar",
+		"pages/liveRooms/liveRooms"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
