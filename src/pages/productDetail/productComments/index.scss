@@ -15,6 +15,9 @@
         .top{
             display: flex;
             justify-content: space-between;
+            .top-section {
+                display: flex;
+            }
             .user{
                 display: flex;
                 align-items: center;

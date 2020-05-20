@@ -33,10 +33,8 @@ Component({
         },
         previewImage(ev) {
             const newImages = [];
-            const { items } = ev.currentTarget.dataset;
-            const { index } = ev.currentTarget.dataset;
-            console.log(index);
-            console.log(items);
+            const { items, index } = ev.currentTarget.dataset;
+            console.log(index, items);
             items.forEach(item => {
                 newImages.push(item.original);
             });
