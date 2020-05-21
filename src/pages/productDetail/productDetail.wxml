@@ -360,7 +360,7 @@
 					</view>
 				</view> -->
 				<!-- 状态栏左侧购物车、客服 -->
-				<block wx:else>
+				<block>
 					<view class="cart" data-url="/pages/cart/cart" bind:tap="go">
 						<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 						<image class="icon" src="../../icons/shopcart.png" />
