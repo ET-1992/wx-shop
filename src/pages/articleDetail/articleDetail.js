@@ -14,7 +14,7 @@ Page({
         current_user: {},
         isShowShareModal: false,
         showPosterModal: false,
-        PLATFFORM_ENV,  // 米白环境变量
+        PLATFFORM_ENV,  // 平台环境变量
     },
 
     go,

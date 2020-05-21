@@ -1,7 +1,7 @@
 {
 	"pages": [
 		"pages/home/home",
-		"pages/me/me",
+		"pages-chuxiang/me/me",
 		"pages/cart/cart",
 		"pages/category/category",
 		"pages/classify/classify",
@@ -49,7 +49,7 @@
 				"selectedIconPath": "icons/default/cart-selected.png"
 			},
 			{
-				"pagePath": "pages/me/me",
+				"pagePath": "pages-chuxiang/me/me",
 				"iconPath": "icons/default/me.png",
 				"text": "我",
 				"selectedIconPath": "icons/default/me-selected.png"
