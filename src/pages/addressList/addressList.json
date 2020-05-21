@@ -1,0 +1,9 @@
+{
+	"navigationBarTitleText": "地址列表",
+	"usingComponents": {
+		"van-icon": "@vant/weapp/dist/icon/index",
+		"van-radio": "@vant/weapp/dist/radio/index",
+		"van-radio-group": "@vant/weapp/dist/radio-group/index",
+		"loading": "../../components/loading/index"
+	}
+}

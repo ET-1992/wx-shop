@@ -332,6 +332,20 @@
 			"name": "webPage页"
 		},
 		{
+			"root": "pages/addressEdit",
+			"pages": [
+				"addressEdit"
+			],
+			"name": "地址编辑页"
+		},
+		{
+			"root": "pages/addressList",
+			"pages": [
+				"addressList"
+			],
+			"name": "地址列表页"
+		},
+		{
 			"root": "pages/productList",
 			"pages": [
 				"productList"

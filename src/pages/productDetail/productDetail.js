@@ -336,6 +336,8 @@ Page({
             tplStyle
         });
         this.initPage();
+        // 绑定运费地区监听
+        app.event.on('setAddressListEvent', this.setAddressListEvent, this);
     },
 
     onHide() {
@@ -348,6 +350,8 @@ Page({
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
+        // 卸载运费地区监听
+        app.event.off('setAddressListEvent', this);
     },
 
     grouponListener({ detail }) {
@@ -895,20 +899,33 @@ Page({
 
     // 选择地址
     async onAddress() {
-        const res = await auth({
-            scope: 'scope.address',
-            ctx: this
+        wx.navigateTo({
+            url: `/pages/addressList/addressList`,
         });
-        if (res) {
-            const addressRes = await proxy.chooseAddress();
-            const { provinceName, cityName, countyName } = addressRes;
-            let areaObj = addressRes;
-            areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
-            wx.setStorageSync(ADDRESS_KEY, areaObj);
-            this.setData({ areaObj }, () => {
-                this.calculatePostage();
-            });
-        }
+        // const res = await auth({
+        //     scope: 'scope.address',
+        //     ctx: this
+        // });
+        // if (res) {
+        //     const addressRes = await proxy.chooseAddress();
+        //     const { provinceName, cityName, countyName } = addressRes;
+        //     let areaObj = addressRes;
+        //     areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
+        //     wx.setStorageSync(ADDRESS_KEY, areaObj);
+        //     this.setData({ areaObj }, () => {
+        //         this.calculatePostage();
+        //     });
+        // }
+    },
+
+    // 设置地址列表返回的数据
+    setAddressListEvent(address) {
+        const { provinceName, cityName, countyName } = address;
+        let area = [provinceName, cityName, countyName].join('/');
+        console.log('从地址列表返回的地址', address);
+        address.area = area;
+        this.setData({ areaObj: address });
+        this.calculatePostage();
     },
 
     // 切换地址计算邮费
