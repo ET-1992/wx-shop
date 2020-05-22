@@ -7,26 +7,64 @@ const app = getApp();
 Page({
     data: {
         title: 'multiStoreList',
+        isLoading: true,
+        latitude: '', // 纬度
+        longitude: '', // 经度
+        locationStr: '获取位置失败',  // 位置名字
+        originStoreList: [],  // 原始门店列表
+        storeList: [],  // 门店列表
     },
 
-    onLoad(params) {
-        console.log(params);
+    // onLoad() {
+    //     this.getStoreList();
+    // },
+
+    onShow() {
+        this.gitInitList();
     },
 
-    // 管理地址
+    // 首次获取列表
+    async gitInitList() {
+        let { latitude, longitude } = this.data;
+        if (!latitude || !longitude) {
+            this.getStoreList();
+            await this.getLocationData();
+            this.computeDistance();
+        }
+    },
+
+    // 管理定位
+    async onClickLocation() {
+        await this.getLocationData();
+        await this.getlocationAgain();
+        this.computeDistance();
+    },
+
+    // 换取新坐标
+    async getlocationAgain() {
+        let { latitude, longitude } = this.data;
+        let data = await proxy.chooseLocation({
+            latitude,
+            longitude,
+        });
+        let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
+        this.setData({
+            locationStr: address + name,
+            latitude: newLatitude,
+            longitude: newLongitude,
+        });
+        console.log('data', data);
+    },
+
+    // 管理收获地址地址
     onClickAddress() {
         wx.navigateTo({
             url: '/pages/addressList/addressList'
         });
     },
 
-    // 管理定位
-    onClickLocation() {
-        this.getLocationData();
-    },
-
-    // 获取列表
-    async getLocationData(type) {
+    // 获取授权地址
+    async getLocationData() {
         try {
             const res = await auth({
                 scope: 'scope.userLocation',
@@ -36,18 +74,10 @@ Page({
             if (res) {
                 const data = await proxy.getLocation();
                 console.log(data, 'data');
-                const { latitude, longitude } = data;
-                if (type === '2') {
-                    const { address_list } = await api.hei.liftList();
-                    this.computeDistance(address_list, latitude, longitude);
-                } else if (type === '4') {
-                    wx.setNavigationBarTitle({ title: '门店列表' });
-                    const { address_list } = await api.hei.orderHomeDelivery({ type: 'home_delivery' });
-                    this.computeDistance(address_list, latitude, longitude);
-                }
-
+                let { latitude, longitude } = data;
                 this.setData({
-                    isLoading: false
+                    latitude,
+                    longitude,
                 });
             }
         } catch (e) {
@@ -72,85 +102,47 @@ Page({
         }
     },
 
-    // 计算距离
-    async computeDistance(address_list, latitude, longitude) {
-        address_list.forEach((item) => {
+    // 获取门店列表
+    async getStoreList() {
+        let { stores } = await api.hei.getMultiStoreList();
+        this.setData({
+            originStoreList: stores,
+        });
+    },
+
+    // 计算距离获取地址
+    computeDistance() {
+        this.setData({ isLoading: true });
+        let { originStoreList } = this.data;
+        let { latitude, longitude } = this.data;
+        originStoreList.forEach((item) => {
             let distance = getDistance(latitude, longitude, Number(item.latitude), Number(item.longtitude));
             item.distance = Number(distance).toFixed(2);
             item.isoutofrange = Number(item.distance) >= item.distance_limit;
         });
 
-        address_list.sort((a, b) => {
+        originStoreList.sort((a, b) => {
             return Number(a.distance) - Number(b.distance);
         });
-
-        this.setData({ address_list });
-        console.log('address_list', address_list);
-    },
-
-    getLiftInfo(e) {
-        const { address_list } = this.data;
-        const { value } = e.detail;
-        this.setTrueLiftItem(Number(value));
-        const item = address_list[Number(value)] || {};
-        const liftInfo = {
-            receiver_address_phone: item.phone,
-            receiver_state: item.state,
-            receiver_city: item.city,
-            receiver_district: item.district,
-            receiver_address: item.address,
-            receiver_address_name: item.name,
-            distance: item.distance, // 距离
-            time: item.time, // 营业时间
-            remark: item.remark // 商家备注
-        };
-        app.event.emit('getLiftInfoEvent', liftInfo);
-        wx.navigateBack({
-            delta: 1
-        });
-    },
-
-    setTrueLiftItem(index) {
-        const { address_list } = this.data;
-        address_list.forEach((item) => {
-            item.checked = false;
-        });
-        address_list[index].checked = true;
+        console.log('storeList', originStoreList);
         this.setData({
-            address_list
+            storeList: originStoreList,
+            isLoading: false,
         });
     },
 
-    goOrderCreatePage(e) {
-        const { index, name } = e.currentTarget.dataset;
-        const { address_list: address } = this.data;
-        console.log('index', index);
-        const storeAddress = address.filter(item => {
-            return item.name === name;
-        });
-        console.log(storeAddress);
-        app.event.emit('getStoreInfoEvent', storeAddress);
-        wx.navigateBack({
-            delta: 1
-        });
-    },
-
-    // 不允许点击的区域
-    warnMessage() {
-        wx.showToast({
-            title: '该区域超出送货范围，不能选择！',
-            icon: 'none',
-        });
-    },
-
+    // 授权取消
     onAuthModalCancel() {
         wx.navigateBack({
             delta: 1
         });
     },
+
+    // 授权确认
     onAuthModalConfirm() {
         this.setData({
             'authModal.isShowModal': false
         });
     }
+
 });

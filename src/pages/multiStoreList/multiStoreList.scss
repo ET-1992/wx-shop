@@ -8,18 +8,33 @@
 		.location-content {
 			margin-top: 12rpx;
 			display: flex;
-			justify-content: space-between;
 
 			.location-left {
 				font-size: 28rpx;
-				line-height: 40rpx;
 				color: #333;
+				flex: 1;
+				position: relative;
+
+				.left-icon {
+					position: absolute;
+					left: 0;
+					top: 3rpx;
+					width: 24rpx;
+					height: 29rpx;
+				}
+				.left-text {
+					display: inline-block;
+					text-indent: 30rpx;
+				}
+
 			}
 
 			.location-btn {
+				// padding-left: 20rpx;
 				margin-left: 20rpx;
 				font-size: 24rpx;
 				width: 120rpx;
+				height: 40rpx;
 				line-height: 40rpx;
 			}
 		}
@@ -39,6 +54,14 @@
 
 		.list-wrap {
 			margin: 25rpx 0;
+		}
+
+		.store-air {
+			margin: 200rpx 0;
+			font-size: 22rpx;
+			line-height: 30rpx;
+			color: #333;
+			text-align: center;
 		}
 
 		.store-wrap {

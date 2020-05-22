@@ -4,8 +4,8 @@
 		<view class="location-text">当前定位</view>
 		<view class="location-content">
 			<div class="location-left">
-				<van-icon name="location-o" size="28rpx" />
-				<text>广州市天河区天河北路609号</text>
+				<image src="/icons/address.png" mode="widthFix" class="left-icon" />
+				<text class="left-text">{{ locationStr }}</text>
 			</div>
 			<button class="location-btn" bind:tap="onClickLocation">重新定位</button>
 		</view>
@@ -15,23 +15,48 @@
 		<view class="location-text">收货地址</view>
 		<view class="location-content">
 			<div class="location-left">
-				<van-icon name="location-o" size="28rpx" />
-				<text>广州市天河区天河北路609号</text>
+				<image src="/icons/address.png" mode="widthFix" class="left-icon" />
+				<text class="left-text">广州市天河区天河北路609号</text>
 			</div>
-			<button class="location-btn" bind:tap="onClickLocation">地址管理</button>
+			<button class="location-btn" bind:tap="onClickAddress">地址管理</button>
 		</view>
 	</view>
 	<view class="store-list">
 		<view class="store-text">根据你的定位，推荐以下门店</view>
 		<view class="list-wrap">
-			<view class="store-wrap" wx:for="{{ 5 }}">
-				<view class="store-title">广州曜一城购物中心店</view>
-				<view class="store-address">广东省广州市天河北路711-715号曜一城购物中心一楼中庭位</view>
-				<view class="store-bottom">
-					<view class="store-bottom-left">距离59m</view>
-					<button class="store-bottom-right">选择门店</button>
-				</view>
+			<view class="store-loading" wx:if="{{ isLoading }}">
+				<loading isLoading="{{ isLoading }}"/>
 			</view>
+			<view class="store-air" wx:elif="{{ !storeList || !storeList.length }}">
+				<text>查询不到门店列表</text>
+			</view>
+			<block wx:else>
+				<view class="store-wrap" wx:for="{{ storeList }}">
+					<view class="store-title">{{ item.name || '-' }}</view>
+					<view class="store-address">{{ address.splice(item) }}</view>
+					<view class="store-bottom">
+						<view class="store-bottom-left">距离{{ item.distance || '-' }}m</view>
+						<button class="store-bottom-right">选择门店</button>
+					</view>
+				</view>
+			</block>
 		</view>
 	</view>
 </view>
+
+<!-- 授权弹窗 -->
+<myModal modal="{{authModal}}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
+
+<wxs module="address">
+var splice = function(obj){
+	var str = '';
+	str += obj.state || ''
+	str += obj.city || ''
+	str += obj.district || ''
+	str += obj.address|| ''
+	return str;
+}
+module.exports = {
+	splice: splice,
+}
+</wxs>
