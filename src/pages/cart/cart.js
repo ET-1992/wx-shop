@@ -21,6 +21,7 @@ Page({
         phoneModel: '',
         isShowConsole: false,
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
+        multiStoreEnable: false,  // 判断店铺多门店开关
     },
     onLoad(params) {
         console.log('params', params);
@@ -34,10 +35,12 @@ Page({
 
     async onShow() {
         const config = wx.getStorageSync(CONFIG);
+        let multiStoreEnable = Boolean(config.offline_store_enable);
         this.setData({
             isLogin: true,
             isLoading: true,
             config,
+            multiStoreEnable,
             free_shipping_amount: config && config.free_shipping_amount
         });
         this.firstInit();

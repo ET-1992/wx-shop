@@ -10,20 +10,20 @@
   	  	</button>
 	</view>
 	<!-- 多门店   -->
-	<div class="multiStore">
+	<div class="multiStore" wx:if="{{ multiStoreEnable }}">
 		<multiStore />
 	</div>
     <!-- 购物车为空 -->
-  	<view wx:if="{{ !items.length && !isLoading && isLogin }}">
+  	<view wx:if="{{ !items.length && !isLoading && isLogin }}" class="{{ multiStoreEnable ? 'cart-multiStore' : '' }}">
   	  	<image class="emptyHint" src="../../icons/bigCart.svg"></image>
   	  	<view class="empty">购物车空空如也~</view>
   	  	<view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
 	</view>
 	<!-- 购物车有商品 -->
     <!-- 导航 -->
-    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="98rpx" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
+    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="{{ multiStoreEnable ? '98rpx' : '' }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
     <!-- 商品 -->
-	<scroll-view scroll-y="{{true}}" class="{{liftStyles.length > 1 ?'cartList' : 'scrollHeight'}}" wx:if="{{ items.length && !isLoading }}">
+	<scroll-view scroll-y="{{true}}" class="product-list {{ classSet.product(liftStyles, multiStoreEnable) }}" wx:if="{{ items.length && !isLoading }}">
     	<view class="cartItem" wx:for="{{ items }}" wx:key="id">
     	  	<view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 || item.stock === 0 }}"> <view class="stock0Radio" /> </view>
     	  	<view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>
@@ -105,3 +105,21 @@
   	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>
   	</view>
 </view>
+
+<!-- 切换标签的类名 -->
+<wxs module="classSet">
+	// 商品
+	var product = function(liftStyles, multiStoreEnable) {
+		var className = 'scrollHeight';
+		if(liftStyles.length > 1) {
+			className = 'cartList';
+		}
+		if(multiStoreEnable) {
+			className += '-multiStore';
+		}
+		return className;
+	}
+	module.exports = {
+		product: product
+	};
+</wxs>
