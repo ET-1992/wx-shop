@@ -37,15 +37,16 @@ Page({
             'Down': 'desc'
         },
         config: {},
+        multiStoreEnable: false,  // 判断店铺多门店开关
     },
 
     async onLoad() {
         const { themeColor } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
+        const { style_type: tplStyle = 'default', offline_store_enable } = config;
         const { categories } = await api.hei.fetchCategory();
-
+        let multiStoreEnable = Boolean(offline_store_enable);
         this.setData({
             categories,
             isIphoneX,
@@ -53,6 +54,7 @@ Page({
             tplStyle,
             globalData: app.globalData,
             config,
+            multiStoreEnable,
             isLoading: false,
         });
 

@@ -12,8 +12,13 @@ page{
 	right: 0;
 	top: 90rpx;
 }
+.container-multiStore {
+	padding-top: 90rpx+98rpx !important;
+}
+.subContent-multiStore {
+	padding-bottom: 70rpx+90rpx+98rpx !important;
+}
 .container{
-	// padding-top: 90rpx+98rpx;
 	padding-top: 90rpx;
 	height: 100%;
 	.category{
@@ -189,7 +194,7 @@ page{
 			}
 			.subContent{
 				height:100%;
-				padding-bottom:70rpx;
+				padding-bottom:70rpx+90rpx;
 				overflow: auto;
 				.banner_image{
 					height: 200rpx;
