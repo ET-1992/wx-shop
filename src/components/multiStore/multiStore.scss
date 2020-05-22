@@ -1,0 +1,13 @@
+.container {
+	width: 100%;
+	background-color: #fff;
+	font-size: 24rpx;
+	height: 98rpx;
+	display: flex;
+	padding: 0 38rpx;
+	justify-content: space-between;
+	align-items: center;
+	.left {
+		font-size: 28rpx;
+	}
+}

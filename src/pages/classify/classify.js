@@ -35,7 +35,8 @@ Page({
         sortStatus: {
             'Up': 'asc',
             'Down': 'desc'
-        }
+        },
+        config: {},
     },
 
     async onLoad() {

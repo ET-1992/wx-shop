@@ -8,16 +8,20 @@
   	  	  	<image src="../../icons/webchat.png"></image>
   	  	  	<text>微信用户快速登录</text>
   	  	</button>
-    </view>
+	</view>
+	<!-- 多门店   -->
+	<div class="multiStore">
+		<multiStore />
+	</div>
     <!-- 购物车为空 -->
   	<view wx:if="{{ !items.length && !isLoading && isLogin }}">
   	  	<image class="emptyHint" src="../../icons/bigCart.svg"></image>
   	  	<view class="empty">购物车空空如也~</view>
   	  	<view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
-  	</view>
-    <!-- 购物车有商品 -->
+	</view>
+	<!-- 购物车有商品 -->
     <!-- 导航 -->
-    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
+    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="98rpx" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
     <!-- 商品 -->
 	<scroll-view scroll-y="{{true}}" class="{{liftStyles.length > 1 ?'cartList' : 'scrollHeight'}}" wx:if="{{ items.length && !isLoading }}">
     	<view class="cartItem" wx:for="{{ items }}" wx:key="id">

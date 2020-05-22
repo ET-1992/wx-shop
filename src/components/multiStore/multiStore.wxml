@@ -1,0 +1,11 @@
+<!-- 多门店组件 -->
+<view class="container">
+	<div class="left">
+		<van-icon name="cart-circle" />
+		<text>广州市曜一城购物中心店</text>
+	</div>
+	<div class="right" bind:tap="onChangeStore">
+		<van-icon name="cart-circle" />
+		<text>切换门店</text>
+	</div>
+</view>

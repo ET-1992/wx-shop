@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "选择门店",
+	"usingComponents": {
+		"van-icon": "@vant/weapp/dist/icon/index"
+	  }
+}

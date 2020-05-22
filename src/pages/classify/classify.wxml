@@ -1,6 +1,10 @@
 <searchBox themeColor="{{ themeColor }}" />
+<!-- 多门店 -->
+<!-- <div class="multiStore" wx:if="{{ config.offline_store_enable }}">
+	<multiStore />
+</div> -->
 <view class="container">
-  <view class="category">
+	<view class="category">
 		<scroll-view
 			class="mainCategory hidding-scrollbar"
 			scroll-y="{{true}}"
