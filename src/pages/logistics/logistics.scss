@@ -89,6 +89,26 @@
 	font-size: 28rpx;
 }
 
+.link {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.link_url {
+		flex-wrap: wrap;
+		flex: 2;
+	}
+
+	.setClipboard {
+		font-size: 26rpx;
+		padding: 10rpx 20rpx;
+		margin: 0;
+		line-height: 2;
+		height: 70rpx;
+	}
+
+}
+
 .item {
 	display: flex;
 	padding: 0 20rpx;
