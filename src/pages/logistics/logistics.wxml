@@ -2,7 +2,7 @@
 <view class="container" wx:if="{{ !isLoading }}">
   <view class="section header">
     <image class="prodcuctImage" src="{{ logistics.thumbnail }}">
-      <view class="productCount">共{{ logistics.item_ids.length }}件商品</view>
+      <view class="productCount">共{{ logistics.item_ids && logistics.item_ids.length }}件商品</view>
     </image>
     <view class="logistics">
       <view class="logisticsInfo">
@@ -21,7 +21,7 @@
         <text class="phone">{{ order.receiver_phone }}</text>
       </view>
       <view>
-        收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
+        收货地址：{{ order.receiver_state }}{{ order.receiver_city }}{{ order.receiver_district }}{{ order.receiver_address }}
       </view>
     </view>
   </view>
@@ -35,8 +35,8 @@
   </view>
 
   <view class="section">
-    <view class="emptyHint" wx:if="{{ !logistics.list.length }}">暂无物流信息</view>
-    <view class="item" wx:if="{{ logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">
+    <view class="emptyHint" wx:if="{{ !(logistics.list && logistics.list.length) }}">暂无物流信息</view>
+    <view class="item" wx:if="{{ logistics.list && logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">
       <view class="datetime">
         <view>{{ item.date }}</view>
         <view class="time">{{ item.time }}</view>
