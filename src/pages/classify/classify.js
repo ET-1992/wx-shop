@@ -38,6 +38,7 @@ Page({
         },
         config: {},
         multiStoreEnable: false,  // 判断店铺多门店开关
+        multiStoreName: '获取门店失败',  // 店铺选择门店名称
     },
 
     async onLoad() {
@@ -59,11 +60,16 @@ Page({
         });
 
         await this.loadProducts();
+        app.event.on('setMultiStoreEvent', this.setMultiStoreEvent, this);
     },
 
     async onShow() {
         const data = await api.hei.fetchCartList();
         this.reloadCart(data);
+    },
+
+    onUnload() {
+        Number(app.event.off('setMultiStoreEvent', this));
     },
 
     changeFilterList(e) {
@@ -322,5 +328,17 @@ Page({
             }
         }
     },
-    onShareAppMessage: onDefaultShareAppMessage
+    onShareAppMessage: onDefaultShareAppMessage,
+
+    // 监听选择多门店数据
+    setMultiStoreEvent(store) {
+        console.log('从多门店列表返回的数据', store);
+        let { name } = store;
+        // let appStore = app.globalData.store;
+        // console.log('app.store', appStore);
+        this.setData({
+            multiStoreName: name,
+        });
+        this.loadProducts();
+    },
 });

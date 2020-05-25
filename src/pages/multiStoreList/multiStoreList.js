@@ -1,7 +1,6 @@
 import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
-import { MULTI_STORE_KEY } from 'constants/index';
 
 const app = getApp();
 
@@ -151,7 +150,7 @@ Page({
         let { storeList } = this.data;
         let { index } = e.currentTarget.dataset;
         let store = storeList[index];
-        wx.setStorageSync(MULTI_STORE_KEY, store);
+        app.globalData.store = store;
         app.event.emit('setMultiStoreEvent', store);
         wx.navigateBack();
     },

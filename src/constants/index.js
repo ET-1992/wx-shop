@@ -10,7 +10,6 @@ export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
 export const OVERSEA_ADDRESS_KEY = 'selfAddressKey';
-export const MULTI_STORE_KEY = 'multiStore';
 
 export const SHARE_TITLE = '小黑店';
 
