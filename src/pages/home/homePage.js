@@ -62,19 +62,22 @@ export const pageObj = {
     // 新用户优惠券 coupons_newbie
     async loadHomeExtra() {
         setTimeout(async () => {
-            const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
-                weapp_page: 'home'
-            });
+            try {
+                const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
+                    weapp_page: 'home'
+                });
 
-            /* 判断是否新人 */
-            const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
-            console.log(isUserGetRedPacket, 'i');
+                /* 判断是否新人 */
+                const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
 
-            this.setData({
-                isNewUser: !isUserGetRedPacket,
-                coupons_newbie,
-                userCoupon: coupons_home
-            });
+                this.setData({
+                    isNewUser: !isUserGetRedPacket,
+                    coupons_newbie,
+                    userCoupon: coupons_home
+                });
+            } catch (e) {
+                console.log(e);
+            }
         }, 300);
     },
 
@@ -155,7 +158,6 @@ export const pageObj = {
                 page_title,
                 home_type,
                 isLoading: false,
-                // next_cursor: timestamp,
                 config
             });
         }
