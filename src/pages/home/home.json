@@ -18,7 +18,8 @@
     "articleList": "./components/articleList/articleList",
     "productsList": "./components/productsList/productsList",
     "categoryProducts": "./components/categoryProducts/categoryProducts",
-    "cube": "./components/cube/cube"
+    "cube": "./components/cube/cube",
+    "lvList": "./components/lvList/lvList"
   },
-  "warning": "改完这里记得同步到 modulePage discovery页面"
+  "warning": "改完这里记得同步到 modulePage discovery featured页面"
 }
