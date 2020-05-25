@@ -72,6 +72,12 @@ Page({
                 await api.hei.bindShare({ code: afcode });
             }
         }
+        wx.showToast({ title: '设置成功', icon: 'success' });
+        await new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, 500);
+        });
         this.back();
     },
     onChange(ev) {
