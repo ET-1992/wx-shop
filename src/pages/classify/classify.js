@@ -240,7 +240,9 @@ Page({
             this.reloadCart(data);
             wx.setStorageSync('CART_NUM', data.count);
             const { categoryIndex } = app.globalData;
-            updateCart(categoryIndex);
+            if (categoryIndex !== -1) {
+                updateCart(categoryIndex);
+            }
         } catch (ev) {
             if (ev.code === 'system_error') {
                 return;

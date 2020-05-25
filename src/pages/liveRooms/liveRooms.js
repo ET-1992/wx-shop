@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-
+import { updateCart } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -19,6 +19,18 @@ Page({
     onLoad() {
         this.getInit();
         this.getListData();
+    },
+
+    onShow() {
+        this.showCart();
+    },
+
+    // 更新购物车数量标识
+    showCart() {
+        const { categoryIndex } = app.globalData;
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex);
+        }
     },
 
     // 获取配置内容
