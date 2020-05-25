@@ -550,5 +550,10 @@ export const apis = {
     checkUserBind: {
         path: 'api/mag.user_center.bind.required.json',
         isForceToken: true
+    },
+    checkUserExisted: {
+        path: 'api/mag.user_center.user.existed.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
