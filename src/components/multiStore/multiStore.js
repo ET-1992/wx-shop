@@ -1,9 +1,9 @@
 Component({
     properties: {
-        title: {
+        storeName: {
             type: String,
-            value: 'multiStore Component',
-        }
+            value: '获取门店失败',
+        },
     },
     methods: {
         // 切换门店

@@ -22,6 +22,7 @@ Page({
         isShowConsole: false,
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
         multiStoreEnable: false,  // 判断店铺多门店开关
+        multiStoreName: '获取门店失败',  // 店铺选择门店名称
     },
     onLoad(params) {
         console.log('params', params);
@@ -31,6 +32,7 @@ Page({
             globalData,
             ...systemInfo
         });
+        app.event.on('setMultiStoreEvent', this.setMultiStoreEvent, this);
     },
 
     async onShow() {
@@ -54,6 +56,7 @@ Page({
 
     onUnload() {
         wx.setStorageSync(CART_LIST_KEY, this.data.isSelectedObject);
+        app.event.off('setMultiStoreEvent', this);
     },
 
     async loadCart() {
@@ -285,5 +288,14 @@ Page({
         });
         console.log('liftStyleIndex323', index, 'shipping_type', this.data.shipping_type);
         this.loadCart();
+    },
+
+    // 监听选择多门店数据
+    setMultiStoreEvent(store) {
+        console.log('从多门店列表返回的数据', store);
+        let { name } = store;
+        this.setData({
+            multiStoreName: name,
+        });
     },
 });

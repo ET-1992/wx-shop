@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
+import { MULTI_STORE_KEY } from 'constants/index';
 
 const app = getApp();
 
@@ -143,6 +144,16 @@ Page({
         let arr = [provinceName, cityName, countyName, detailInfo];
         let addressStr = arr.join('');
         this.setData({ addressStr });
+    },
+
+    // 选择门店
+    onSeleteStore(e) {
+        let { storeList } = this.data;
+        let { index } = e.currentTarget.dataset;
+        let store = storeList[index];
+        wx.setStorageSync(MULTI_STORE_KEY, store);
+        app.event.emit('setMultiStoreEvent', store);
+        wx.navigateBack();
     },
 
     // 授权取消

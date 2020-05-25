@@ -11,7 +11,7 @@
 	</view>
 	<!-- 多门店   -->
 	<div class="multiStore" wx:if="{{ multiStoreEnable }}">
-		<multiStore />
+		<multiStore storeName="{{ multiStoreName }}" />
 	</div>
     <!-- 购物车为空 -->
   	<view wx:if="{{ !items.length && !isLoading && isLogin }}" class="{{ multiStoreEnable ? 'cart-multiStore' : '' }}">

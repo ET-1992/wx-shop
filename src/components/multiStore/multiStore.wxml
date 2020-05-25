@@ -2,7 +2,7 @@
 <view class="container">
 	<div class="left">
 		<image class="icon" src="/icons/multiStore/store.svg" alt="" />
-		<text>广州市曜一城购物中心店</text>
+		<text>{{ storeName }}</text>
 	</div>
 	<div class="right" bind:tap="onChangeStore">
 		<image class="icon" src="/icons/multiStore/change.svg" alt="" />

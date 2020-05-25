@@ -550,5 +550,10 @@ export const apis = {
     checkUserBind: {
         path: 'api/mag.user_center.bind.required.json',
         isForceToken: true
+    },
+    // 多门店列表
+    getMultiStoreList: {
+        path: 'api/mag.offline_store.list.json',
+        isForceToken: true
     }
 };
