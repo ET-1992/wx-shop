@@ -33,8 +33,7 @@ Component({
             type: Array,
             value: [],
             observer(newVal) {
-                console.log('newVal35', newVal);
-                if (!newVal) { return }
+                if (!newVal || newVal.length === 0) { return }
                 this.setData({
                     'content.coupons': newVal
                 });
@@ -76,7 +75,7 @@ Component({
                 return;
             }
 
-            api.hei.receiveCoupon({
+            await api.hei.receiveCoupon({
                 coupon_id: id,
             });
 

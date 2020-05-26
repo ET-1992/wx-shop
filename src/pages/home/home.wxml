@@ -47,6 +47,8 @@
                 <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" />
                 <!-- 魔方 -->
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
+                <!-- 直播列表 -->
+                <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
             </view>
         </view>
         <view id="loadProducts" class="logo">

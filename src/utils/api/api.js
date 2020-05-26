@@ -555,5 +555,10 @@ export const apis = {
     getMultiStoreList: {
         path: 'api/mag.offline_store.list.json',
         isForceToken: true
+    },
+    checkUserExisted: {
+        path: 'api/mag.user_center.user.existed.json',
+        method: 'POST',
+        isForceToken: true
     }
 };

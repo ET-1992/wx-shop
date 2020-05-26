@@ -11,7 +11,8 @@
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
 		"pages/liveRooms/liveRooms",
-		"pages/multiStoreList/multiStoreList"
+		"pages/multiStoreList/multiStoreList",
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

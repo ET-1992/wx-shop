@@ -50,10 +50,11 @@ Page({
 
         console.log(this.data);
     },
-    setClipboard() {
-        console.log(this.data.logistics.no);
+    setClipboard(e) {
+        const { no } = e.currentTarget.dataset;
+        console.log('setClipboard', no);
         wx.setClipboardData({
-            data: this.data.logistics.no,
+            data: no,
             success: function(res) {
                 wx.getClipboardData({
                     success: function(res) {
@@ -66,5 +67,5 @@ Page({
                 });
             }
         });
-    },
+    }
 });

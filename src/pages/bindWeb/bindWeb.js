@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { go } from 'utils/util';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 
 Page({
@@ -32,20 +33,22 @@ Page({
         const { encryptedData, iv } = ev.detail;
         if (encryptedData && iv) {
             try {
-                await api.hei.bindWeb({
+                const { exist_code, tips, phone, code } = await api.hei.checkUserExisted({
                     decrypted: true,
                     encrypted_data: encryptedData,
                     iv,
                 });
-                const { config } = this.data;
-                const { afcode } = app.globalData;
-                if (afcode) {
-                    await api.hei.recordAffiliateBrowse({ code: afcode });
-                    if (!config.affiliate_bind_after_order) {
-                        await api.hei.bindShare({ code: afcode });
+                if (exist_code) {
+                    const { confirm } = await proxy.showModal({
+                        title: '温馨提示',
+                        content: tips
+                    });
+                    if (confirm) {
+                        this.submit({ phone, code });
                     }
+                } else {
+                    this.submit({ phone, code });
                 }
-                this.back();
             } catch (err) {
                 console.log(err);
                 wx.showModal({
@@ -55,6 +58,27 @@ Page({
                 });
             }
         }
+    },
+    async submit({ phone, code }) {
+        await api.hei.bindWeb({
+            phone,
+            code
+        });
+        const { config } = this.data;
+        const { afcode } = app.globalData;
+        if (afcode) {
+            await api.hei.recordAffiliateBrowse({ code: afcode });
+            if (!config.affiliate_bind_after_order) {
+                await api.hei.bindShare({ code: afcode });
+            }
+        }
+        wx.showToast({ title: '设置成功', icon: 'success' });
+        await new Promise(resolve => {
+            setTimeout(() => {
+                resolve();
+            }, 500);
+        });
+        this.back();
     },
     onChange(ev) {
         this.setData({
