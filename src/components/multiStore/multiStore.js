@@ -16,11 +16,10 @@ Component({
         longitude: '', // 经度
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
-        currentStore: {},  // 当前门店
     },
     lifetimes: {
         attached: function () {
-            this.updateStoreName();
+            this.updateStore();
         },
     },
     methods: {
@@ -31,41 +30,54 @@ Component({
             });
         },
 
-        // 更新门店名称
-        async updateStoreName() {
+        // 更新最新门店
+        async updateStore() {
             let { storeName } = this.data;
             if (storeName) { return }
             let newStoreName = '获取门店失败';
+            // 主动接口更新
             let res = await this.getCurrentStore();
-            if (res && res.length) {
-                newStoreName = res[0].name;
+            if (res && res.name) {
+                newStoreName = res.name;
+                app.globalData.currentStore = res;
             }
             this.setData({
                 storeName: newStoreName,
             });
         },
 
-        // 获取用户最近门店
+        // 获取最近门店
         async getCurrentStore() {
-            let originStoreList = [];
+            let { currentStore } = app.globalData;
+            let store = {};
+            // APP_GLOBAL获取当前门店
+            if (currentStore.name) {
+                store = currentStore;
+            } else {
+                await this.getStoreList();
+                let { storeList = [] } = this.data;
+                store = storeList[0] || {};
+            }
+            return store;
+        },
+
+        // 获取排序后的门店列表
+        async getStoreList() {
             let { storeList } = app.globalData;
+            let originStoreList = [];
+            // APP_GLOBAL获取门店列表
             if (storeList && storeList.length) {
                 originStoreList = storeList;
             } else {
-                let res = await api.hei.getMultiStoreList();
-                originStoreList = res.stores;
+                // 接口获取门店列表
+                let { stores = [] } = await api.hei.getMultiStoreList();
+                originStoreList = stores;
             }
             this.setData({
                 originStoreList,
             });
             await this.getLocationData();
             this.computeDistance();
-            let { storeList: res } = this.data;
-            this.setData({
-                currentStore: res[0],
-            });
-            app.globalData.currentStore = res;
-            return res;
         },
 
         // 获取授权地址
