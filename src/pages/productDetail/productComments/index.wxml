@@ -4,10 +4,10 @@
         <view class="item" wx:for="{{ comments }}" wx:key="id">
            <view class="top">
                 <view class="user">
-                    <image class="avatar" src="{{ item.user.avatarurl }}" mode="aspectFit"></image>
-                    <view class="nickname">{{ item.user.nickname }}</view>
+                    <image class="avatar" src="{{ item.user && item.user.avatarurl }}" mode="aspectFit"></image>
+                    <view class="nickname">{{ foo.hideName(item.user && item.user.nickname) }}</view>
                 </view>
-                <van-rate readonly color="#f66515" value="{{ item.rating  }}" />
+                <van-rate readonly color="#f66515" value="{{ item.rating }}" />
            </view>
            <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
            <view class="images" wx:if="{{ item.images && item.images.length }}">
@@ -23,3 +23,18 @@
     </view>
     <view wx:if="{{ hasMore && replyCount > 2 }}" class="moreComments" bindtap="moreComments">查看全部评价</view>
 </view>
+
+<wxs module="foo">
+    // 显示第一个字符，其余为星号
+    var hideName = function(str) {
+        var len = str.length-1;
+        var xing = '';
+        for (var i=0 ; i<len; i++) {
+            xing += '*';
+        }
+        return str.substring(0,1) + xing;
+    };
+    module.exports = {
+        hideName: hideName
+    }
+</wxs>
