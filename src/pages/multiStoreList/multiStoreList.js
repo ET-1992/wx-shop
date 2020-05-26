@@ -12,6 +12,7 @@ Page({
         longitude: '', // 经度
         locationStr: '获取位置失败',  // 位置名字
         addressStr: '请选择您的收获地址',  // 收获地址名字
+        addressObj: {},  // 地址全部数据
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
     },
@@ -34,18 +35,19 @@ Page({
         if (!latitude || !longitude) {
             this.getStoreList();
             await this.getLocationData();
-            this.computeDistance();
+            this.getSortList();
+            this.parseLocation();
         }
     },
 
-    // 管理定位
+    // 重新定位
     async onClickLocation() {
         await this.getLocationData();
         await this.getlocationAgain();
-        this.computeDistance();
+        this.getSortList();
     },
 
-    // 久坐标换取新坐标
+    // 重新获取定位信息
     async getlocationAgain() {
         let { latitude, longitude } = this.data;
         let data = await proxy.chooseLocation({
@@ -58,7 +60,6 @@ Page({
             latitude: newLatitude,
             longitude: newLongitude,
         });
-        console.log('data', data);
     },
 
     // 管理收获地址
@@ -115,9 +116,18 @@ Page({
         });
     },
 
-    // 计算距离获取地址
-    computeDistance() {
+    // 获取排序后的门店列表
+    getSortList() {
         this.setData({ isLoading: true });
+        let list = this.computeDistance();
+        this.setData({
+            storeList: list,
+            isLoading: false,
+        });
+    },
+
+    // 计算距离获取地址列表
+    computeDistance() {
         let { originStoreList } = this.data;
         let { latitude, longitude } = this.data;
         originStoreList.forEach((item) => {
@@ -129,20 +139,29 @@ Page({
         originStoreList.sort((a, b) => {
             return Number(a.distance) - Number(b.distance);
         });
-        console.log('storeList', originStoreList);
-        this.setData({
-            storeList: originStoreList,
-            isLoading: false,
-        });
+
+        return originStoreList;
     },
 
-    // 设置地址列表返回的数据
-    setAddressListEvent(address) {
+    // 接收收货地址
+    async setAddressListEvent(address) {
         console.log('从地址列表返回的地址', address);
-        let { provinceName = '', cityName = '', countyName = '', detailInfo = '' } = address;
+        let { provinceName = '', cityName = '', countyName = '', detailInfo = '', latitude, longtitude: longitude } = address;
         let arr = [provinceName, cityName, countyName, detailInfo];
         let addressStr = arr.join('');
-        this.setData({ addressStr });
+        this.setData({
+            addressStr,
+            addressObj: address,
+        });
+        if (!latitude || !longitude) {
+            this.parseAddress();
+        } else {
+            this.setData({
+                longitude,
+                latitude,
+            });
+        }
+        this.getSortList();
     },
 
     // 选择门店
@@ -150,9 +169,62 @@ Page({
         let { storeList } = this.data;
         let { index } = e.currentTarget.dataset;
         let store = storeList[index];
-        app.globalData.store = store;
+        app.globalData.currentStore = store;
         app.event.emit('setMultiStoreEvent', store);
         wx.navigateBack();
+    },
+
+    // 微信经纬度定位解析
+    parseLocation() {
+        let { latitude, longitude } = this.data;
+        let data = {
+            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            location: `${latitude},${longitude}`
+        };
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        wx.request({
+            url,
+            data,
+            success: (res) => {
+                // console.log('res', res);
+                if (res.data && res.data.status === 0) {
+                    this.setData({
+                        locationStr: res.data.result.address
+                    });
+                }
+            },
+            fail(error) {
+                console.log('error', error);
+            }
+        });
+    },
+
+    // 地址解析经纬度
+    parseAddress() {
+        let { addressObj, addressStr } = this.data;
+        let data = {
+            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            address: addressStr,
+            region: addressObj.provinceName,
+        };
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        wx.request({
+            url,
+            data,
+            success: (res) => {
+                // console.log('res', res);
+                if (res.data && res.data.status === 0) {
+                    let { lat, lng } = res.data.result.location;
+                    this.setData({
+                        latitude: lat,
+                        longitude: lng,
+                    });
+                }
+            },
+            fail(error) {
+                console.log('error', error);
+            }
+        });
     },
 
     // 授权取消

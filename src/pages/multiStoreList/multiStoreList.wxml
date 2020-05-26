@@ -22,7 +22,7 @@
 		</view>
 	</view>
 	<view class="store-list">
-		<view class="store-text">根据你的定位，推荐以下门店</view>
+		<view class="store-text">根据你的定位/收货地址，推荐以下门店</view>
 		<view class="list-wrap">
 			<view class="store-loading" wx:if="{{ isLoading }}">
 				<loading isLoading="{{ isLoading }}"/>
