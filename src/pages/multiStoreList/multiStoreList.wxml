@@ -31,7 +31,8 @@
 				<text>查询不到门店列表</text>
 			</view>
 			<block wx:else>
-				<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" data-index="{{ index }}">
+				<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
+				wx:key="index" data-index="{{ index }}">
 					<view class="store-title">{{ item.name || '-' }}</view>
 					<view class="store-address">{{ address.splice(item) }}</view>
 					<view class="store-bottom">
@@ -45,7 +46,7 @@
 </view>
 
 <!-- 授权弹窗 -->
-<myModal modal="{{authModal}}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
+<myModal modal="{{ authModal }}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
 
 <wxs module="address">
 var splice = function(obj){

@@ -22,7 +22,7 @@ Page({
         isShowConsole: false,
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
         multiStoreEnable: false,  // 判断店铺多门店开关
-        multiStoreName: '获取门店失败',  // 店铺选择门店名称
+        multiStoreName: '',  // 店铺选择门店名称
     },
     onLoad(params) {
         console.log('params', params);

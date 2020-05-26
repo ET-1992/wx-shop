@@ -37,6 +37,11 @@ App({
             styleType = 'default';
         }
 
+        let storeObj = {
+            currentStore: {},  // 当前门店
+            storeList: [],  // 门店列表
+        };
+
         this.globalData = Object.assign(this.globalData, {
             themeColor: { primaryColor, secondaryColor, backgroundColor },
             categoryIndex,
@@ -48,6 +53,7 @@ App({
             currency,
             CURRENCY,
             tabbarPages,
+            ...storeObj,
         });
 
         this.vip = vip;
@@ -73,6 +79,20 @@ App({
                 console.log(res);
             });
         }, 500);
+    },
+
+    // 获取多门店列表
+    async updateStoreList() {
+        setTimeout(() => {
+            console.log('APPJS更新STORELIST');
+            api.hei.getMultiStoreList().then((res) => {
+                let list = [];
+                if (res && res.stores && res.stores.length) {
+                    list = res.stores;
+                }
+                this.globalData.storeList = list;
+            });
+        }, 0);
     },
 
     async bindWebConfirm(config) {
@@ -103,6 +123,9 @@ App({
 
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
+                }
+                if (config.offline_store_enable) {
+                    this.updateStoreList();
                 }
                 this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);

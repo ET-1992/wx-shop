@@ -9,3 +9,5 @@
 		<text>切换门店</text>
 	</div>
 </view>
+<!-- 授权弹窗 -->
+<myModal modal="{{authModal}}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
