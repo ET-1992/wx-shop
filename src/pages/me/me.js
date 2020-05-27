@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { getUserInfo, updateCart, getAgainUserForInvalid } from 'utils/util';
 import { USER_KEY, CONFIG } from 'constants/index';
+import { updateTabbar } from '../../utils/util';
 const app = getApp();
 
 Page({
@@ -71,10 +72,7 @@ Page({
     },
 
     async onShow() {
-        const { categoryIndex } = app.globalData;
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
-        }
+        updateTabbar({ pageKey: 'me' });
 
         this.loadOrderCount();
     },
