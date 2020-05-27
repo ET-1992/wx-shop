@@ -35,11 +35,16 @@ Component({
             let { storeName } = this.data;
             if (storeName) { return }
             let newStoreName = '获取门店失败';
-            // 主动接口更新
-            let res = await this.getCurrentStore();
-            if (res && res.name) {
-                newStoreName = res.name;
-                app.globalData.currentStore = res;
+            let currentStore = app.globalData.currentStore;
+            if (currentStore.name) {
+                newStoreName = currentStore.name;
+            } else {
+                // 主动接口更新
+                let res = await this.getCurrentStore();
+                if (res && res.name) {
+                    newStoreName = res.name;
+                    app.globalData.currentStore = res;
+                }
             }
             this.setData({
                 storeName: newStoreName,

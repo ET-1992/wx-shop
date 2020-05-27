@@ -31,9 +31,9 @@ Page({
 
     // 首次获取列表
     async gitInitList() {
-        let { latitude, longitude } = this.data;
-        if (!latitude || !longitude) {
-            this.getStoreList();
+        let { latitude, longitude, storeList } = this.data;
+        if (!latitude || !longitude || !storeList.length) {
+            await this.getStoreList();
             await this.getLocationData();
             this.getSortList();
             this.parseLocation();
