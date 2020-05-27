@@ -154,7 +154,7 @@ Page({
             addressObj: address,
         });
         if (!latitude || !longitude) {
-            this.parseAddress();
+            await this.parseAddress();
         } else {
             this.setData({
                 longitude,
@@ -175,56 +175,55 @@ Page({
     },
 
     // 微信经纬度定位解析
-    parseLocation() {
+    async parseLocation() {
         let { latitude, longitude } = this.data;
         let data = {
             key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             location: `${latitude},${longitude}`
         };
         let url = 'https://apis.map.qq.com/ws/geocoder/v1';
-        wx.request({
-            url,
-            data,
-            success: (res) => {
-                // console.log('res', res);
-                if (res.data && res.data.status === 0) {
-                    this.setData({
-                        locationStr: res.data.result.address
-                    });
-                }
-            },
-            fail(error) {
-                console.log('error', error);
+        try {
+            let res = await proxy.request({
+                url,
+                data,
+            });
+            console.log('逆解析结果：', res);
+            if (res.data && res.data.status === 0) {
+                this.setData({
+                    locationStr: res.data.result.address
+                });
             }
-        });
+        } catch (error) {
+            console.log('逆解析错误', error);
+        }
     },
 
     // 地址解析经纬度
-    parseAddress() {
+    async parseAddress() {
         let { addressObj, addressStr } = this.data;
         let data = {
             key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             address: addressStr,
-            region: addressObj.provinceName,
+            region: addressObj.cityName,
         };
         let url = 'https://apis.map.qq.com/ws/geocoder/v1';
-        wx.request({
-            url,
-            data,
-            success: (res) => {
-                // console.log('res', res);
-                if (res.data && res.data.status === 0) {
-                    let { lat, lng } = res.data.result.location;
-                    this.setData({
-                        latitude: lat,
-                        longitude: lng,
-                    });
-                }
-            },
-            fail(error) {
-                console.log('error', error);
+        try {
+            let res = await proxy.request({
+                url,
+                data,
+            });
+            console.log('收获地址解析结果：', res);
+            if (res.data && res.data.status === 0) {
+                let { lat, lng } = res.data.result.location;
+                this.setData({
+                    latitude: lat,
+                    longitude: lng,
+                });
             }
-        });
+        } catch (error) {
+            console.log('地址解析错误', error);
+        }
+
     },
 
     // 授权取消
