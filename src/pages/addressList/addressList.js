@@ -21,7 +21,7 @@ Page({
         this.getAddressList();
     },
 
-    // 进入页面查找选中项
+    // 默认地址选中项
     findRadioSeleted() {
         let { radioSelected, addressList = [] } = this.data;
         if (radioSelected) {
@@ -32,7 +32,6 @@ Page({
         let index = addressList.findIndex(value => {
             return value.id === id;
         });
-        console.log('index', index);
         if (index > -1) {
             this.setData({
                 radioSelected: index,
@@ -40,14 +39,13 @@ Page({
         }
     },
 
-    // 地址单选框选中
+    // 地址单选框选中时
     radioChange: function (event) {
         let { addressList } = this.data;
         let index = event.detail;
         let address = addressList[index];
         // 选中地址对象
         let selectedAddress = wxReceriverPairs(address);
-        wx.removeStorageSync(ADDRESS_KEY);
         wx.setStorageSync(ADDRESS_KEY, selectedAddress);
         this.setData({
             radioSelected: index,
@@ -72,6 +70,7 @@ Page({
         let { type, id } = e.currentTarget.dataset;
         let url = `../addressEdit/addressEdit?type=${type}`;
         if (id) {
+            // 编辑地址需携带ID
             url += `&id=${id}`;
         }
         wx.navigateTo({
@@ -88,19 +87,31 @@ Page({
             scope: 'scope.address',
             ctx: this
         });
-        if (res) {
-            const getData = await chooseAddress();
-            let res = await this.parseAddress(getData) || {};
-            let tranData = wxReceriverPairs(getData);
-            tranData = Object.assign(tranData, res);
-            await api.hei.addReceiverInfo(tranData);
+        if (!res) { return }
+        try {
+            await this.postAddress();
             wx.hideLoading();
             wx.showToast({
                 title: '添加地址成功',
                 duration: 1000,
             });
             this.getAddressList();
+        } catch (error) {
+            wx.showModal({
+                title: '温馨提示',
+                content: error.errMsg || '提交失败',
+                showCancel: false,
+            });
         }
+    },
+
+    // 发送微信地址
+    async postAddress() {
+        const address = await chooseAddress();
+        let locationObj = await this.parseAddress(address) || {};
+        let tranData = wxReceriverPairs(address);
+        tranData = Object.assign(tranData, locationObj);
+        await api.hei.addReceiverInfo(tranData);
     },
 
     // 微信地址解析

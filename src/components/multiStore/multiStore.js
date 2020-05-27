@@ -35,16 +35,10 @@ Component({
             let { storeName } = this.data;
             if (storeName) { return }
             let newStoreName = '获取门店失败';
-            let currentStore = app.globalData.currentStore;
-            if (currentStore.name) {
-                newStoreName = currentStore.name;
-            } else {
-                // 主动接口更新
-                let res = await this.getCurrentStore();
-                if (res && res.name) {
-                    newStoreName = res.name;
-                    app.globalData.currentStore = res;
-                }
+            let res = await this.getCurrentStore();
+            if (res && res.name) {
+                newStoreName = res.name;
+                app.globalData.currentStore = res;
             }
             this.setData({
                 storeName: newStoreName,
@@ -55,7 +49,6 @@ Component({
         async getCurrentStore() {
             let { currentStore } = app.globalData;
             let store = {};
-            // APP_GLOBAL获取当前门店
             if (currentStore.name) {
                 store = currentStore;
             } else {
@@ -70,7 +63,6 @@ Component({
         async getStoreList() {
             let { storeList } = app.globalData;
             let originStoreList = [];
-            // APP_GLOBAL获取门店列表
             if (storeList && storeList.length) {
                 originStoreList = storeList;
             } else {

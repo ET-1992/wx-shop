@@ -65,8 +65,7 @@ Page({
             this.getAddressInfo();
         } else if (type === 'orderEdit') {
             this.renderOrderEdit();
-        }
-        else {
+        } else {
             this.setData({
                 isLoading: false,
             });
@@ -296,7 +295,6 @@ Page({
 
     // 收货地址解析
     async parseAddress(form) {
-        // let { address, addressInfo } = form;
         let address = form[2].value;
         let addressInfo = form[3].value;
         let addressStr = [...address, addressInfo].join('');

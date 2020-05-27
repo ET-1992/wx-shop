@@ -174,7 +174,7 @@ Page({
         wx.navigateBack();
     },
 
-    // 微信经纬度定位解析
+    // 经纬度解析成地址
     async parseLocation() {
         let { latitude, longitude } = this.data;
         let data = {
@@ -187,18 +187,18 @@ Page({
                 url,
                 data,
             });
-            console.log('逆解析结果：', res);
+            console.log('经纬度解析的结果：', res);
             if (res.data && res.data.status === 0) {
                 this.setData({
                     locationStr: res.data.result.address
                 });
             }
         } catch (error) {
-            console.log('逆解析错误', error);
+            console.log('经纬度解析的错误', error);
         }
     },
 
-    // 地址解析经纬度
+    // 地址解析成经纬度
     async parseAddress() {
         let { addressObj, addressStr } = this.data;
         let data = {
@@ -212,7 +212,7 @@ Page({
                 url,
                 data,
             });
-            console.log('收获地址解析结果：', res);
+            console.log('收获地址解析的结果：', res);
             if (res.data && res.data.status === 0) {
                 let { lat, lng } = res.data.result.location;
                 this.setData({
@@ -221,7 +221,7 @@ Page({
                 });
             }
         } catch (error) {
-            console.log('地址解析错误', error);
+            console.log('收获地址解析的错误', error);
         }
 
     },
