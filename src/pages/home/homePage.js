@@ -401,7 +401,10 @@ export const pageObj = {
         }
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    // 分享按钮
+    onShareAppMessage() {
+        return onDefaultShareAppMessage.call(this, { goPath: '' });
+    },
 
     reLoad() {
         this.loadHome();
