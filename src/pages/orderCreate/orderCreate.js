@@ -137,19 +137,24 @@ Page({
         const { value } = ev.detail;
         this.setData({ buyerMessage: value });
     },
-    // 自填地址
+
+    // 收获地址修改
     async onAddress() {
-        const { self_address } = this.data.config;
+        const { self_address, offline_store_enable } = this.data.config;
+        let url = '';
         if (self_address) {
-            wx.navigateTo({
-                url: '/pages/selfAddress/selfAddress'
-            });
-            return;
-        } else {
-            wx.navigateTo({
-                url: `/pages/addressList/addressList`
-            });
+            // 自填地址
+            url = `/pages/selfAddress/selfAddress`;
+        } else if (offline_store_enable) {
+            // 多门店地址
+            let type = 'orderEdit';
+            url = `../addressEdit/addressEdit?type=${type}`;
         }
+        else {
+            // 普通地址列表
+            url = `/pages/addressList/addressList`;
+        }
+        wx.navigateTo({ url });
     },
 
     async getCouponId() {

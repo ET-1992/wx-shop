@@ -1,5 +1,7 @@
 
 import api from 'utils/api/index';
+import { ADDRESS_KEY } from 'constants/index';
+const app = getApp();
 
 Page({
     data: {
@@ -8,6 +10,7 @@ Page({
         typeToTitle: {
             'update': '地址编辑',
             'add': '地址添加',
+            'orderEdit': '订单地址编辑',
         },  // 地址增/改标题
         form: [
             { key: 'name', value: '', label: '姓名' },
@@ -23,6 +26,13 @@ Page({
             'addressInfo': 'receiver_address',
             'code': 'receiver_zipcode',
         },  // 前后端数据键对
+        formWechatkeyPairs: {
+            'name': 'userName',
+            'phone': 'telNumber',
+            'address': ['provinceName', 'cityName', 'countyName'],
+            'addressInfo': 'detailInfo',
+            'code': 'postalCode',
+        },  // 表单与微信地址键值对
         isLoading: true,
         areaList: {},  // 省市区列表数据格式
         showAreaPanel: false,  // 省市区弹出框
@@ -49,9 +59,12 @@ Page({
         wx.setNavigationBarTitle({
             title: typeToTitle[type],
         });
-        if (id) {
+        if (type === 'update') {
             this.getAddressInfo();
-        } else {
+        } else if (type === 'orderEdit') {
+            this.renderOrderEdit();
+        }
+        else {
             this.setData({
                 isLoading: false,
             });
@@ -86,6 +99,35 @@ Page({
             }
         }
         let areacode = originForm.receiver_areacode;
+        this.setData({
+            form,
+            areacode,
+            isLoading: false,
+        });
+    },
+
+    // 渲染多门店订单地址编辑
+    renderOrderEdit() {
+        let { form, formWechatkeyPairs } = this.data;
+        let address = wx.getStorageSync(ADDRESS_KEY) || {};
+        if (!address.userName) {
+            this.setData({
+                isLoading: false,
+            });
+            return;
+        }
+        for (let [k, v] of Object.entries(formWechatkeyPairs)) {
+            // 遍历表单数组
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    // 地址
+                    elem.value = v.map(item => address[item]);
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    elem.value = address[v];
+                }
+            }
+        }
+        let areacode = address.nationalCode;
         this.setData({
             form,
             areacode,
@@ -188,8 +230,13 @@ Page({
 
     // 保存表单
     async onSaveForm() {
+        let { type } = this.data;
         try {
             this.checkForm();
+            if (type === 'orderEdit') {
+                this.saveStorage();
+                return;
+            }
             await this.sendForm();
         } catch (error) {
             wx.showModal({
@@ -198,6 +245,36 @@ Page({
                 showCancel: false,
             });
         }
+    },
+
+    // 保存到缓存并返回
+    saveStorage() {
+        wx.showLoading({
+            title: '加载中',
+        });
+        let { form, formWechatkeyPairs, areacode, type, id } = this.data;
+        let finalForm = {};
+        // 遍历对应字段表
+        for (let [k, v] of Object.entries(formWechatkeyPairs)) {
+            // 遍历表单数组
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    // 地址
+                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    finalForm[v] = elem.value;
+                }
+            }
+        }
+        wx.setStorageSync(ADDRESS_KEY, finalForm);
+        app.event.emit('setAddressListEvent', finalForm);
+        wx.hideLoading();
+        wx.showModal({
+            title: '温馨提示',
+            content: '地址编辑成功',
+            showCancel: false,
+            success: () => wx.navigateBack(),
+        });
     },
 
     // 发送表单数据
