@@ -1,6 +1,7 @@
 import { auth, wxReceriverPairs } from 'utils/util';
 import { chooseAddress } from 'utils/wxp';
 import { ADDRESS_KEY } from 'constants/index';
+import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 
 const app = getApp();
@@ -80,19 +81,55 @@ Page({
 
     // 微信导入地址
     async onImportAddress() {
+        wx.showLoading({
+            title: '加载中',
+        });
         const res = await auth({
             scope: 'scope.address',
             ctx: this
         });
         if (res) {
             const getData = await chooseAddress();
+            let res = await this.parseAddress(getData) || {};
             let tranData = wxReceriverPairs(getData);
+            tranData = Object.assign(tranData, res);
             await api.hei.addReceiverInfo(tranData);
+            wx.hideLoading();
             wx.showToast({
                 title: '添加地址成功',
                 duration: 1000,
             });
             this.getAddressList();
+        }
+    },
+
+    // 微信地址解析
+    async parseAddress(res) {
+        let { provinceName, cityName, countyName, detailInfo } = res;
+        let addressStr = [provinceName, cityName, countyName, detailInfo].join('');
+        let data = {
+            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            address: addressStr,
+            region: cityName,
+        };
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        try {
+            let res = await proxy.request({
+                url,
+                data,
+            });
+            console.log('收货地址解析结果：', res);
+            let lat = '',
+                lng = '';
+            if (res.data && res.data.status === 0) {
+                ({ lat, lng } = res.data.result.location);
+            }
+            return {
+                latitude: lat,
+                longtitude: lng,
+            };
+        } catch (error) {
+            console.log('地址解析错误', error);
         }
     },
 });

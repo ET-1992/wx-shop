@@ -1,6 +1,7 @@
 
 import api from 'utils/api/index';
 import { ADDRESS_KEY } from 'constants/index';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 
 Page({
@@ -277,6 +278,39 @@ Page({
         });
     },
 
+    // 收货地址解析
+    async parseAddress(form) {
+        // let { address, addressInfo } = form;
+        let address = form[2].value;
+        let addressInfo = form[3].value;
+        let addressStr = [...address, addressInfo].join('');
+        let cityName = address[1];
+        let data = {
+            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            address: addressStr,
+            region: cityName,
+        };
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        try {
+            let res = await proxy.request({
+                url,
+                data,
+            });
+            console.log('收货地址解析结果：', res);
+            let lat = '',
+                lng = '';
+            if (res.data && res.data.status === 0) {
+                ({ lat, lng } = res.data.result.location);
+            }
+            return {
+                latitude: lat,
+                longtitude: lng,
+            };
+        } catch (error) {
+            console.log('地址解析错误', error);
+        }
+    },
+
     // 发送表单数据
     async sendForm() {
         wx.showLoading({
@@ -298,6 +332,7 @@ Page({
         }
         let apiMethod = 'addReceiverInfo';
         let modalContent = '地址添加成功';
+        let { latitude, longtitude } = await this.parseAddress(form) || {};
         // 省市区编号和地址ID
         finalForm.receiver_areacode = areacode;
         if (type === 'update') {
@@ -309,6 +344,9 @@ Page({
         // 国家和是否默认地址
         finalForm.receiver_country = '';
         finalForm.receiver_default = 0;
+        // 添加经纬度
+        finalForm.latitude = latitude;
+        finalForm.longtitude = longtitude;
         await api.hei[apiMethod](finalForm);
         wx.hideLoading();
         wx.showModal({
