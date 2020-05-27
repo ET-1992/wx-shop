@@ -3,6 +3,7 @@ import api from 'utils/api/index';
 import { ADDRESS_KEY } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
+import { auth, getDistance } from 'utils/util';
 
 Page({
     data: {
@@ -249,7 +250,7 @@ Page({
     },
 
     // 保存到缓存并返回
-    saveStorage() {
+    async saveStorage() {
         wx.showLoading({
             title: '加载中',
         });
@@ -267,15 +268,30 @@ Page({
                 }
             }
         }
-        wx.setStorageSync(ADDRESS_KEY, finalForm);
-        app.event.emit('setAddressListEvent', finalForm);
-        wx.hideLoading();
-        wx.showModal({
-            title: '温馨提示',
-            content: '地址编辑成功',
-            showCancel: false,
-            success: () => wx.navigateBack(),
-        });
+        let locationObj = await this.parseAddress(form) || {};
+        let { latitude, longitude } = locationObj;
+        // 添加经纬度
+        finalForm.latitude = latitude;
+        finalForm.longitude = longitude;
+        try {
+            this.checkOrderAddress({ latitude, longitude });
+            wx.setStorageSync(ADDRESS_KEY, finalForm);
+            app.event.emit('setAddressListEvent', finalForm);
+            wx.showModal({
+                title: '温馨提示',
+                content: '地址编辑成功',
+                showCancel: false,
+                success: () => wx.navigateBack(),
+            });
+        } catch (error) {
+            wx.showModal({
+                title: '温馨提示',
+                content: error.message || error.errMsg || '提交失败',
+                showCancel: false,
+            });
+        } finally {
+            wx.hideLoading();
+        }
     },
 
     // 收货地址解析
@@ -304,7 +320,7 @@ Page({
             }
             return {
                 latitude: lat,
-                longtitude: lng,
+                longitude: lng,
             };
         } catch (error) {
             console.log('地址解析错误', error);
@@ -332,7 +348,7 @@ Page({
         }
         let apiMethod = 'addReceiverInfo';
         let modalContent = '地址添加成功';
-        let { latitude, longtitude } = await this.parseAddress(form) || {};
+        let { latitude, longitude } = await this.parseAddress(form) || {};
         // 省市区编号和地址ID
         finalForm.receiver_areacode = areacode;
         if (type === 'update') {
@@ -346,7 +362,7 @@ Page({
         finalForm.receiver_default = 0;
         // 添加经纬度
         finalForm.latitude = latitude;
-        finalForm.longtitude = longtitude;
+        finalForm.longitude = longitude;
         await api.hei[apiMethod](finalForm);
         wx.hideLoading();
         wx.showModal({
@@ -420,6 +436,27 @@ Page({
             form,
         });
         this.onCloseArea();
+    },
+
+    // 校验地址是否超出配送范围
+    checkOrderAddress(obj) {
+        let { latitude, longitude } = obj;
+        let { currentStore } = app.globalData;
+        console.log('currentStore', currentStore);
+        if (!currentStore.latitude || !currentStore.longtitude) {
+            throw new Error('获取门店信息失败');
+        }
+        let distance = getDistance(latitude, longitude, Number(currentStore.latitude), Number(currentStore.longtitude));
+        distance = Number(distance).toFixed(2);
+        console.log('地址范围', distance);
+        let rangeOut = false;
+        if (currentStore.distance_limit) {
+            rangeOut = Number(distance) >= currentStore.distance_limit;
+        }
+        if (rangeOut) {
+            throw new Error('该地址超出门店所配送范围');
+        }
+        console.log('门店范围校验通过');
     },
 });
 
