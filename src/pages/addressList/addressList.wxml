@@ -38,7 +38,8 @@
 
 <wxs module="address">
 var splice = function(obj){
-	var str = obj.receiver_country + obj.receiver_state + obj.receiver_city + obj.receiver_district + obj.receiver_address;
+	// var str = obj.receiver_country + obj.receiver_state + obj.receiver_city + obj.receiver_district + obj.receiver_address;
+	var str = obj.receiver_address || '';
 	return str;
 }
 module.exports = {
