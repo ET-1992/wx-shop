@@ -167,6 +167,14 @@ App({
         }
         // this.updateConfig();
 
+        if (query.storeId) {
+            // 重置当前门店
+            let currentStore = {
+                id: query.storeId,
+            };
+            this.globalData.currentStore = currentStore;
+        }
+
         try {
             await wxProxy.checkSession();
         }

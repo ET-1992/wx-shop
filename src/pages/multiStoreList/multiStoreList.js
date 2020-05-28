@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
 
 const app = getApp();
@@ -237,6 +238,7 @@ Page({
         this.setData({
             'authModal.isShowModal': false
         });
-    }
+    },
 
+    onShareAppMessage: onDefaultShareAppMessage,
 });

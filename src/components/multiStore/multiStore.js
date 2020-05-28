@@ -16,6 +16,7 @@ Component({
         longitude: '', // 经度
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
+        currentStore: {},  // 当前门店
     },
     lifetimes: {
         attached: function () {
@@ -30,51 +31,76 @@ Component({
             });
         },
 
-        // 更新最新门店
+        // 更新门店
         async updateStore() {
             let { storeName } = this.data;
             if (storeName) { return }
             let newStoreName = '获取门店失败';
-            let res = await this.getCurrentStore();
-            if (res && res.name) {
-                newStoreName = res.name;
-                app.globalData.currentStore = res;
+            await this.getCurrentStore();
+            let { currentStore } = this.data;
+            if (currentStore && currentStore.name) {
+                newStoreName = currentStore.name;
+                app.globalData.currentStore = currentStore;
             }
             this.setData({
                 storeName: newStoreName,
             });
         },
 
-        // 获取最近门店
+        // 获取门店
         async getCurrentStore() {
             let { currentStore } = app.globalData;
             let store = {};
             if (currentStore.name) {
+                // 优先获取全局数据
                 store = currentStore;
-            } else {
-                await this.getStoreList();
+            } else if (currentStore.id) {
+                // 获取分享门店
+                store = await this.getSingleStore(currentStore.id);
+            }
+            else {
+                // 获取最近门店
+                await this.getFinalStoreList();
                 let { storeList = [] } = this.data;
                 store = storeList[0] || {};
             }
-            return store;
+            this.setData({
+                currentStore: store,
+            });
         },
 
-        // 获取排序后的门店列表
-        async getStoreList() {
+        // 获取排序后的最近门店列表
+        async getFinalStoreList() {
             let { storeList } = app.globalData;
-            let originStoreList = [];
             if (storeList && storeList.length) {
-                originStoreList = storeList;
+                this.setData({
+                    originStoreList: storeList,
+                });
             } else {
-                // 接口获取门店列表
-                let { stores = [] } = await api.hei.getMultiStoreList();
-                originStoreList = stores;
+                await this.getOriginStoreList();
             }
-            this.setData({
-                originStoreList,
-            });
             await this.getLocationData();
             this.computeDistance();
+        },
+
+        // 获取原始门店列表
+        async getOriginStoreList() {
+            let data = await api.hei.getMultiStoreList();
+            let { stores = [] } = data;
+            this.setData({
+                originStoreList: stores,
+            });
+        },
+
+        // 获取单个ID门店
+        async getSingleStore(id) {
+            let data = await api.hei.getMultiStoreDetail({
+                store_id: id,
+            });
+            let { store = {}} = data;
+            let str = `ID：${id}，门店：`;
+            console.log(str, store);
+            return store;
         },
 
         // 获取授权地址
@@ -118,8 +144,7 @@ Component({
 
         // 计算距离获取地址
         computeDistance() {
-            let { originStoreList } = this.data;
-            let { latitude, longitude } = this.data;
+            let { originStoreList, latitude, longitude } = this.data;
             originStoreList.forEach((item) => {
                 let distance = getDistance(latitude, longitude, Number(item.latitude), Number(item.longtitude));
                 item.distance = Number(distance).toFixed(2);
