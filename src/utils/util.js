@@ -214,21 +214,64 @@ export function bankCardAttribution(bankCard) {
     return _getBankInfoByCardNo(bankCard);
 }
 
-export function updateCart(e) {
-    const CART_NUM  = wx.getStorageSync('CART_NUM');
-    const index = Number(e);
-    const text = CART_NUM.toString();
-    if (!text || text === '0') {
-        wx.removeTabBarBadge({
-            index
+export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {
+    const app = getApp();
+    const { categoryIndex } = app.globalData;
+    const config =  wx.getStorageSync(CONFIG);
+
+    const { tabbar } = config;
+
+    if (tabbar) {
+        const { list = [], color, selectedColor, backgroundColor, borderStyle } = tabbar;
+
+        const tabbarItem = list.find((item) => {
+            return item.page_key === pageKey;
         });
-    } else {
-        wx.setTabBarBadge({
-            index,
-            text
-        });
+
+        // 判定当前是否tabbar页
+        if (tabbarItem) {
+            console.log('当前是tabbar页：' + pageKey);
+
+            // 更新tabbar样式
+            if (!tabbarStyleDisable) {
+                wx.setTabBarStyle({
+                    color,
+                    selectedColor,
+                    backgroundColor,
+                    borderStyle
+                });
+
+                list.forEach((item, index) => {
+                    const { iconPath, selectedIconPath, text } = item;
+                    wx.setTabBarItem({
+                        index,
+                        text,
+                        iconPath,
+                        selectedIconPath
+                    });
+                });
+            }
+
+            // 更新购物车红点
+            if (categoryIndex !== -1 && !tabbarCartNumDisable) {
+                const CART_NUM  = wx.getStorageSync('CART_NUM');
+                const index = Number(categoryIndex);
+                const text = CART_NUM.toString();
+                if (!text || text === '0') {
+                    wx.removeTabBarBadge({
+                        index
+                    });
+                } else {
+                    wx.setTabBarBadge({
+                        index,
+                        text
+                    });
+                }
+            }
+        }
     }
 }
+
 export function textToValue(array = [], text = '') {
     const filterValue =  array.filter((item) => {
         return item.text === text;

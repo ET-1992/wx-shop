@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
 import { CONFIG, SHIPPING_TYPE } from 'constants/index';
-import { updateCart, valueToText } from 'utils/util';
+import { updateTabbar, valueToText } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -59,6 +59,8 @@ Page({
     },
 
     async onShow() {
+        updateTabbar({ pageKey: 'product_classify' });
+
         const data = await api.hei.fetchCartList();
         this.reloadCart(data);
     },
@@ -239,10 +241,7 @@ Page({
             });
             this.reloadCart(data);
             wx.setStorageSync('CART_NUM', data.count);
-            const { categoryIndex } = app.globalData;
-            if (categoryIndex !== -1) {
-                updateCart(categoryIndex);
-            }
+            updateTabbar({ tabbarStyleDisable: true, pageKey: 'product_classify' });
         } catch (ev) {
             if (ev.code === 'system_error') {
                 return;

@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart } from 'utils/util';
+import { updateTabbar } from 'utils/util';
 const app = getApp();
 
 Page({
@@ -53,10 +53,7 @@ Page({
         });
     },
     onShow() {
-        const { categoryIndex } = app.globalData;
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
-        }
+        updateTabbar({ pageKey: 'article_list' });
     },
 
     async getArticleList() {

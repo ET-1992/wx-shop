@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG, SHIPPING_TYPE, CART_TYPE } from 'constants/index';
-import { updateCart, autoNavigate } from 'utils/util';
+import { updateTabbar, autoNavigate } from 'utils/util';
 
 const app = getApp();
 
@@ -42,7 +42,7 @@ Page({
         });
         this.firstInit();
         await this.loadCart();
-        this.showCart();
+        updateTabbar({ pageKey: 'cart' });
     },
 
     onHide() {
@@ -160,7 +160,7 @@ Page({
             this.calculatePrice();
             const cartNumber = data.count;
             wx.setStorageSync('CART_NUM', cartNumber);
-            this.showCart();
+            updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
         }
     },
     // 清空某一配送方式购物车全部商品逻辑
@@ -186,7 +186,7 @@ Page({
             this.calculatePrice();
             const cartNumber = data.count;
             wx.setStorageSync('CART_NUM', cartNumber);
-            this.showCart();
+            updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
         }
     },
 
@@ -238,13 +238,6 @@ Page({
         let isShouldPay = items.filter((item) => isSelectedObject[item.id]) && items.filter((item) => isSelectedObject[item.id]).length > 0;
 
         this.setData({ totalPrice, savePrice, totalPostage, isShouldPay });
-    },
-
-    showCart() {
-        const { categoryIndex } = app.globalData;
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
-        }
     },
 
     navigateToHome() {
