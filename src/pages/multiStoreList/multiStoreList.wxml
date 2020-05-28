@@ -16,7 +16,7 @@
 		<view class="location-content">
 			<div class="location-left">
 				<image src="/icons/address.png" mode="widthFix" class="left-icon" />
-				<text class="left-text">{{ addressStr }}</text>
+				<text class="left-text">{{ addressObj.detailInfo || '请选择您的收货地址' }}</text>
 			</div>
 			<button class="location-btn" bind:tap="onClickAddress">地址管理</button>
 		</view>

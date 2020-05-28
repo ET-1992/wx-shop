@@ -11,8 +11,7 @@ Page({
         latitude: '', // 纬度
         longitude: '', // 经度
         locationStr: '获取位置失败',  // 位置名字
-        addressStr: '请选择您的收获地址',  // 收获地址名字
-        addressObj: {},  // 地址全部数据
+        addressObj: {},  // 收货地址对象
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
     },
@@ -62,7 +61,7 @@ Page({
         });
     },
 
-    // 管理收获地址
+    // 管理收货地址
     onClickAddress() {
         wx.navigateTo({
             url: '/pages/addressList/addressList'
@@ -146,11 +145,8 @@ Page({
     // 接收收货地址
     async setAddressListEvent(address) {
         console.log('从地址列表返回的地址', address);
-        let { provinceName = '', cityName = '', countyName = '', detailInfo = '', latitude, longtitude: longitude } = address;
-        let arr = [provinceName, cityName, countyName, detailInfo];
-        let addressStr = arr.join('');
+        let { latitude, longtitude: longitude } = address;
         this.setData({
-            addressStr,
             addressObj: address,
         });
         if (!latitude || !longitude) {
@@ -200,7 +196,10 @@ Page({
 
     // 地址解析成经纬度
     async parseAddress() {
-        let { addressObj, addressStr } = this.data;
+        let { addressObj } = this.data;
+        let { provinceName = '', cityName = '', countyName = '', detailInfo = '' } = addressObj;
+        let arr = [provinceName, cityName, countyName, detailInfo];
+        let addressStr = arr.join('');
         let data = {
             key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             address: addressStr,
@@ -212,7 +211,7 @@ Page({
                 url,
                 data,
             });
-            console.log('收获地址解析的结果：', res);
+            console.log('收货地址解析的结果：', res);
             if (res.data && res.data.status === 0) {
                 let { lat, lng } = res.data.result.location;
                 this.setData({
@@ -221,7 +220,7 @@ Page({
                 });
             }
         } catch (error) {
-            console.log('收获地址解析的错误', error);
+            console.log('收货地址解析的错误', error);
         }
 
     },

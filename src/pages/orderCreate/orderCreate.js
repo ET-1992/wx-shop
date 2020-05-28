@@ -138,7 +138,7 @@ Page({
         this.setData({ buyerMessage: value });
     },
 
-    // 收获地址修改
+    // 收货地址修改
     async onAddress() {
         const { self_address, offline_store_enable } = this.data.config;
         let url = '';
