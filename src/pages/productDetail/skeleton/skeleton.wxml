@@ -50,8 +50,8 @@
 			<view class="btn row" wx:for="aaa"></view>
 		</view>
 		<view class="right">
-			<view class="btn row" style="background-color: {{ themeColor.secondaryColor }}"></view>
-			<view class="btn row" style="background-color: {{ themeColor.primaryColor }}"></view>
+			<view class="btn row"></view>
+			<view class="btn row"></view>
 		</view>
 	</view>
 </view>
