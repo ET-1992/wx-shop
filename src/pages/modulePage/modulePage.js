@@ -1,5 +1,5 @@
 import { pageObj } from '../home/homePage';
 
-pageObj.page_type = 'module_page';
+pageObj.pageKey = 'module_page';
 
 Page(pageObj);

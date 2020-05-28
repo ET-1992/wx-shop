@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -83,7 +83,7 @@ export const pageObj = {
 
     async loadHome() {
         const { id = '' } = this.data;
-        const { page_type = '' } = this;
+        const { pageKey = '' } = this;
 
         this.loadHomeExtra();
         this.setData({
@@ -92,7 +92,7 @@ export const pageObj = {
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: page_type });
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: pageKey });
 
 
         if (page_title) {
@@ -203,19 +203,15 @@ export const pageObj = {
     },
 
     async onShow() {
+        updateTabbar({ pageKey: this.pageKey });
+
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-        const { categoryIndex } = app.globalData;
         const { page_title } = this.data; // 兼容商品详情分享
-
         if (page_title) {
             wx.setNavigationBarTitle({
                 title: page_title,
             });
-        }
-
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
         }
         this.setData({
             tplStyle,
@@ -405,7 +401,10 @@ export const pageObj = {
         }
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    // 分享按钮
+    onShareAppMessage() {
+        return onDefaultShareAppMessage.call(this, { goPath: '' });
+    },
 
     reLoad() {
         this.loadHome();
@@ -461,7 +460,5 @@ export const pageObj = {
         console.log(this.data.contactModal);
     },
 
-    go,
-
-    page_type: 'home'
+    go
 };

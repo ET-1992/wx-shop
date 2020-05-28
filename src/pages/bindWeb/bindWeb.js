@@ -67,9 +67,9 @@ Page({
         const { config } = this.data;
         const { afcode } = app.globalData;
         if (afcode) {
-            await api.hei.recordAffiliateBrowse({ code: afcode });
+            api.hei.recordAffiliateBrowse({ code: afcode });
             if (!config.affiliate_bind_after_order) {
-                await api.hei.bindShare({ code: afcode });
+                api.hei.bindShare({ code: afcode });
             }
         }
         wx.showToast({ title: '设置成功', icon: 'success' });

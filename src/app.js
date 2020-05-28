@@ -119,8 +119,6 @@ App({
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
 
-                this.updateTabbar(config);
-
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
                 }
@@ -208,30 +206,6 @@ App({
             // 新版本下载失败
             console.log('新版本下载失败');
         });
-    },
-
-    updateTabbar(config) {
-        const { tabbar } = config;
-        if (tabbar) {
-            const { list = [], color, selectedColor, backgroundColor, borderStyle } = tabbar;
-
-            wx.setTabBarStyle({
-                color,
-                selectedColor,
-                backgroundColor,
-                borderStyle
-            });
-
-            list.forEach((item, index) => {
-                const { iconPath, selectedIconPath, text } = item;
-                wx.setTabBarItem({
-                    index,
-                    text,
-                    iconPath,
-                    selectedIconPath
-                });
-            });
-        }
     },
 
     globalData: {
