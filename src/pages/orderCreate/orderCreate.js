@@ -79,10 +79,17 @@ Page({
             const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
-            const address = wx.getStorageSync(ADDRESS_KEY) || {};
+            let address = wx.getStorageSync(ADDRESS_KEY) || {};
             const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
+
+            // 多门店默认不选择地址
+            if (config.offline_store_enable) {
+                address = {
+                    userName: '',
+                };
+            }
 
             this.setData({
                 seckill,
