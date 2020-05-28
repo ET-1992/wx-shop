@@ -230,15 +230,15 @@ Page({
     },
 
     // 保存表单
-    async onSaveForm() {
+    async onConfirmForm() {
         let { type } = this.data;
         try {
             this.checkForm();
             if (type === 'orderEdit') {
-                this.saveStorage();
-                return;
+                await this.saveStoreAddress();
+            } else {
+                await this.saveListAddress();
             }
-            await this.sendForm();
         } catch (error) {
             wx.showModal({
                 title: '温馨提示',
@@ -248,12 +248,30 @@ Page({
         }
     },
 
-    // 保存到缓存并返回
-    async saveStorage() {
+    // 多门店确定地址
+    async saveStoreAddress() {
         wx.showLoading({
             title: '加载中',
         });
-        let { form, formWechatkeyPairs, areacode, type, id } = this.data;
+        try {
+            let finalForm = await this.saveStorageAddrss();
+            app.event.emit('setAddressListEvent', finalForm);
+            wx.showModal({
+                title: '温馨提示',
+                content: '地址编辑成功',
+                showCancel: false,
+                success: () => wx.navigateBack(),
+            });
+        } catch (err) {
+            throw (err);
+        } finally {
+            wx.hideLoading();
+        }
+    },
+
+    // 保存多门店编辑地址
+    async saveStorageAddrss() {
+        let { form, formWechatkeyPairs, areacode } = this.data;
         let finalForm = {};
         // 遍历对应字段表
         for (let [k, v] of Object.entries(formWechatkeyPairs)) {
@@ -272,25 +290,9 @@ Page({
         // 添加经纬度
         finalForm.latitude = latitude;
         finalForm.longitude = longitude;
-        try {
-            this.checkOrderAddress({ latitude, longitude });
-            wx.setStorageSync(ADDRESS_KEY, finalForm);
-            app.event.emit('setAddressListEvent', finalForm);
-            wx.showModal({
-                title: '温馨提示',
-                content: '地址编辑成功',
-                showCancel: false,
-                success: () => wx.navigateBack(),
-            });
-        } catch (error) {
-            wx.showModal({
-                title: '温馨提示',
-                content: error.message || error.errMsg || '提交失败',
-                showCancel: false,
-            });
-        } finally {
-            wx.hideLoading();
-        }
+        this.checkOrderAddress({ latitude, longitude });
+        wx.setStorageSync(ADDRESS_KEY, finalForm);
+        return finalForm;
     },
 
     // 收货地址解析
@@ -322,14 +324,38 @@ Page({
             };
         } catch (error) {
             console.log('地址解析错误', error);
+            throw new Error('找不到该地址的地理位置');
         }
     },
 
-    // 发送表单数据
-    async sendForm() {
+    // 地址列表确定地址
+    async saveListAddress() {
         wx.showLoading({
             title: '加载中',
         });
+        let { type } = this.data;
+        let modalContent = '地址添加成功';
+        if (type === 'update') {
+            modalContent = '地址修改成功';
+        }
+        try {
+            await this.submitListAddress();
+            wx.showModal({
+                title: '温馨提示',
+                content: modalContent,
+                showCancel: false,
+                success: () => wx.navigateBack(),
+            });
+        } catch (err) {
+            throw (err);
+        } finally {
+            wx.hideLoading();
+        }
+
+    },
+
+    // 向后端提交地址请求
+    async submitListAddress() {
         let { form, keyPairs, areacode, type, id } = this.data;
         let finalForm = {};
         // 遍历对应字段表
@@ -345,7 +371,6 @@ Page({
             }
         }
         let apiMethod = 'addReceiverInfo';
-        let modalContent = '地址添加成功';
         let { latitude, longitude } = await this.parseAddress(form) || {};
         // 省市区编号和地址ID
         finalForm.receiver_areacode = areacode;
@@ -353,7 +378,6 @@ Page({
             // 更改地址
             finalForm.receiver_id = id;
             apiMethod = 'updateReceiverInfo';
-            modalContent = '地址修改成功';
         }
         // 国家和是否默认地址
         finalForm.receiver_country = '';
@@ -362,13 +386,6 @@ Page({
         finalForm.latitude = latitude;
         finalForm.longitude = longitude;
         await api.hei[apiMethod](finalForm);
-        wx.hideLoading();
-        wx.showModal({
-            title: '温馨提示',
-            content: modalContent,
-            showCancel: false,
-            success: () => wx.navigateBack(),
-        });
     },
 
     // 删除地址表单

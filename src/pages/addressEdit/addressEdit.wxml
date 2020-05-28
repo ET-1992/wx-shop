@@ -40,7 +40,7 @@
 				<view class="panel-air" wx:else>没有搜索结果</view>
 			</van-cell-group>
 		</view>
-		<button class="btns" bind:tap="onSaveForm" >保存</button>
+		<button class="btns" bind:tap="onConfirmForm" >保存</button>
 		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
 	</view>
 </view>
