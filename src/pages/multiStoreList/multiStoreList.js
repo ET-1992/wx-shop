@@ -15,6 +15,7 @@ Page({
         addressObj: {},  // 收货地址对象
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
+        activeNames: ['1', '2'],
     },
 
     onLoad() {
@@ -33,10 +34,12 @@ Page({
     async gitInitList() {
         let { latitude, longitude, storeList } = this.data;
         if (!latitude || !longitude || !storeList.length) {
+            this.setData({ isLoading: true });
             await this.getStoreList();
             await this.getLocationData();
             this.getSortList();
             this.parseLocation();
+            this.setData({ isLoading: false });
         }
     },
 
@@ -118,11 +121,9 @@ Page({
 
     // 获取排序后的门店列表
     getSortList() {
-        this.setData({ isLoading: true });
         let list = this.computeDistance();
         this.setData({
             storeList: list,
-            isLoading: false,
         });
     },
 
@@ -237,6 +238,12 @@ Page({
     onAuthModalConfirm() {
         this.setData({
             'authModal.isShowModal': false
+        });
+    },
+
+    onChange(event) {
+        this.setData({
+            activeNames: event.detail,
         });
     },
 
