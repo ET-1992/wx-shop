@@ -1,6 +1,6 @@
 
 import api from 'utils/api/index';
-import { ADDRESS_KEY } from 'constants/index';
+import { ADDRESS_KEY, LOCATION_KEY } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
 import { auth, getDistance } from 'utils/util';
@@ -43,6 +43,8 @@ Page({
         mapList: [],  // 腾讯地图搜索结果列表
         mapListPanel: false,  // 地图展示面板
         selectedMap: {},  // 地图选中项
+        // latitude: {},  // 地址纬度
+        // longitude: {},  // 地址纬度
     },
 
     onLoad(params) {
@@ -107,16 +109,45 @@ Page({
         });
     },
 
-    // 渲染多门店订单地址编辑
+    // 多门店地址解析
     renderOrderEdit() {
+        let location = wx.getStorageSync(LOCATION_KEY) || false;
+        let address = wx.getStorageSync(ADDRESS_KEY) || {};
+        if(location) {
+            this.renderLocation();
+        } else if(address.userName) {
+            this.renderAddress();
+        } 
+        this.setData({
+            isLoading: false,
+        });
+        
+    },
+
+    // 多门店定位地址解析
+    renderLocation() {
+        let { form } = this.data;
+        let locationObj = wx.getStorageSync(LOCATION_KEY) || {};
+        let { address, ad_info, location } = locationObj;
+        let { lat, lng } = location || {};
+        let { adcode, province, city, district } = ad_info || {};
+        // 表单地址选项
+        form[2].value = [province, city, district];
+        form[2].areacode = adcode;
+        // 表单详细地址选项
+        form[3].value = address;
+        this.setData({
+            areacode: adcode,
+            form,
+            // latitude: lat,
+            // longitude: lng,
+        });
+    },
+
+    // 多门店收货地址解析
+    renderAddress() {
         let { form, formWechatkeyPairs } = this.data;
         let address = wx.getStorageSync(ADDRESS_KEY) || {};
-        if (!address.userName) {
-            this.setData({
-                isLoading: false,
-            });
-            return;
-        }
         for (let [k, v] of Object.entries(formWechatkeyPairs)) {
             // 遍历表单数组
             for (let elem of form.values()) {
@@ -132,7 +163,6 @@ Page({
         this.setData({
             form,
             areacode,
-            isLoading: false,
         });
     },
 
@@ -217,10 +247,10 @@ Page({
         let { selectedMap, form } = this.data;
         let { address, ad_info = {}} = selectedMap;
         let { adcode, province, city, district } = ad_info;
-        // 表单地区
+        // 表单地址选项
         form[2].value = [province, city, district];
         form[2].areacode = adcode;
-        // 表单详细地址
+        // 表单详细地址选项
         form[3].value = address;
         this.setData({
             areacode: adcode,
@@ -235,8 +265,10 @@ Page({
         try {
             this.checkForm();
             if (type === 'orderEdit') {
+                // 多门店地址编辑
                 await this.saveStoreAddress();
             } else {
+                // 地址列表编辑
                 await this.saveListAddress();
             }
         } catch (error) {

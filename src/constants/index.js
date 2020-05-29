@@ -5,6 +5,7 @@ export const UID_KEY = 'uid';
 export const USER_KEY = 'user';
 export const SEARCH_KEY = 'searchKey';
 export const ADDRESS_KEY = 'address';
+export const LOCATION_KEY = 'location';
 export const AREA_KEY = 'areaKey';
 export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
@@ -24,8 +25,8 @@ export const PLATFFORM_ENV = 'PEAUNT';
 // export const PLATFFORM_ENV = 'MIBAI';
 
 export const HOST_ARRAY = [
-    { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
-    // { text: 'PEAUNT', value: 'https://hei.dev.97866.com/' },
+    // { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
+    { text: 'PEAUNT', value: 'https://hei.dev.97866.com/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },

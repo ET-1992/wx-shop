@@ -2,6 +2,7 @@ import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
+import { LOCATION_KEY } from 'constants/index';
 
 const app = getApp();
 
@@ -17,6 +18,7 @@ Page({
         storeList: [],  // 门店列表
         activeNames: ['1', '2'],
         lastClick: 'location',  // 最后操作 定位/收货地址
+        locationObj: {},  // 定位地址对象
     },
 
     onLoad() {
@@ -28,6 +30,12 @@ Page({
     },
 
     onUnload() {
+        let { lastClick, locationObj } = this.data;
+        let obj = null;
+        if(lastClick === 'location') {
+            obj = locationObj;
+        } 
+        wx.setStorageSync(LOCATION_KEY, obj);
         app.event.off('setAddressListEvent', this);
     },
 
@@ -186,14 +194,14 @@ Page({
         };
         let url = 'https://apis.map.qq.com/ws/geocoder/v1';
         try {
-            let res = await proxy.request({
-                url,
-                data,
-            });
+            let res = await proxy.request({ url, data });
             console.log('经纬度解析的结果：', res);
             if (res.data && res.data.status === 0) {
+                let { result = {} } = res.data;
+                let { address } = result;
                 this.setData({
-                    locationStr: res.data.result.address
+                    locationObj: result,
+                    locationStr: address
                 });
             }
         } catch (error) {
