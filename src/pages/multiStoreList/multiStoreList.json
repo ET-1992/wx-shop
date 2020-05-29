@@ -2,6 +2,9 @@
 	"navigationBarTitleText": "选择门店",
 	"usingComponents": {
 		"loading": "../../components/loading/index",
-		"myModal": "../../components/myModal/myModal"
+		"myModal": "../../components/myModal/myModal",
+		"van-tag": "@vant/weapp/dist/tag/index",
+		"van-collapse": "@vant/weapp/dist/collapse/index",
+  		"van-collapse-item": "@vant/weapp/dist/collapse-item/index"
 	  }
 }

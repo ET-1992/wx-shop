@@ -22,7 +22,7 @@
 		</view>
 	</view>
 	<view class="store-list">
-		<view class="store-text">根据你的定位/收货地址，推荐以下门店</view>
+		<view class="store-text">根据你的定位/收货地址，有如下门店</view>
 		<view class="list-wrap">
 			<view class="store-loading" wx:if="{{ isLoading }}">
 				<loading isLoading="{{ isLoading }}"/>
@@ -31,15 +31,38 @@
 				<text>查询不到门店列表</text>
 			</view>
 			<block wx:else>
-				<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
-				wx:key="index" data-index="{{ index }}">
-					<view class="store-title">{{ item.name || '-' }}</view>
-					<view class="store-address">{{ address.splice(item) }}</view>
-					<view class="store-bottom">
-						<view class="store-bottom-left">距离{{ item.distance || '-' }}m</view>
-						<button class="store-bottom-right">选择门店</button>
-					</view>
-				</view>
+				<van-collapse value="{{ activeNames }}" bind:change="onChange">
+					<!-- 配送范围内门店 -->
+					<van-collapse-item title="推荐门店" name="1">
+						<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
+							wx:key="index" data-index="{{ index }}" wx:if="{{ item.offline_store || !item.isoutofrange }}">
+							<view class="store-title">
+								<text>{{ item.name || '-' }}</text>
+								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+							</view>
+							<view class="store-address">{{ address.splice(item) }}</view>
+							<view class="store-bottom">
+								<view class="store-bottom-left">距离{{ item.distance || '-' }}m</view>
+								<button class="store-bottom-right">选择门店</button>
+							</view>
+						</view>
+					</van-collapse-item>
+					<van-collapse-item title="超出距离的门店" name="2">
+						<!-- 配送范围外门店 -->
+						<view class="store-wrap" wx:for="{{ storeList }}"
+							wx:key="index" data-index="{{ index }}" wx:if="{{ !item.offline_store && item.isoutofrange }}">
+							<view class="store-title">
+								<text>{{ item.name || '-' }}</text>
+								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+							</view>
+							<view class="store-address">{{ address.splice(item) }}</view>
+							<view class="store-bottom">
+								<view class="store-bottom-left">距离{{ item.distance || '-' }}m</view>
+								<button class="store-bottom-right disabled-btn" >选择门店</button>
+							</view>
+						</view>
+					</van-collapse-item>
+				</van-collapse>
 			</block>
 		</view>
 	</view>
