@@ -68,10 +68,19 @@
 			<view class="type">
 				  <checkbox-group bindchange="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
 				  	   <label class="checkbox" wx:for="{{ item.options }}" wx:for-item="boxItem" wx:for-index="boxIndex">
-							<checkbox value="{{ boxItem }}" checked="{{ item.value[boxIndex] === boxItem }}" />{{ boxItem }}
+							<checkbox value="{{ boxItem }}" checked="{{ orderForm.indexOf(item.value, boxItem) }}" />{{ boxItem }}
 						</label>
 				  </checkbox-group>
 			</view>
 		</view>
 	</view>
 </view>
+
+
+<wxs module="orderForm">
+  var indexOf = function(array, value) {
+    return array.indexOf(value) > -1;
+  };
+
+  module.exports.indexOf = indexOf;
+</wxs>
