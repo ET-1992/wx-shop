@@ -16,6 +16,7 @@ Page({
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
         activeNames: ['1', '2'],
+        lastClick: 'location',  // 最后操作 定位/收货地址
     },
 
     onLoad() {
@@ -59,6 +60,7 @@ Page({
         });
         let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
         this.setData({
+            lastClick: 'location',
             locationStr: address + name,
             latitude: newLatitude,
             longitude: newLongitude,
@@ -159,6 +161,9 @@ Page({
                 latitude,
             });
         }
+        this.setData({
+            lastClick: 'address',
+        });
         this.getSortList();
     },
 

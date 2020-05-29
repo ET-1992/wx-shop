@@ -4,7 +4,11 @@
 		<view class="location-text">当前定位</view>
 		<view class="location-content">
 			<div class="location-left">
-				<image src="/icons/address.png" mode="widthFix" class="left-icon" />
+				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+				<view class="left-icons">
+					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'location' }}"/>
+					<van-icon custom-class="left-icon" name="location-o" wx:else />
+				</view>
 				<text class="left-text">{{ locationStr }}</text>
 			</div>
 			<button class="location-btn" bind:tap="onClickLocation">重新定位</button>
@@ -15,7 +19,11 @@
 		<view class="location-text">收货地址</view>
 		<view class="location-content">
 			<div class="location-left">
-				<image src="/icons/address.png" mode="widthFix" class="left-icon" />
+				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+				<view class="left-icons">
+					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'address' }}"/>
+					<van-icon custom-class="left-icon" name="location-o" wx:else />
+				</view>
 				<text class="left-text">{{ addressObj.detailInfo || '请选择您的收货地址' }}</text>
 			</div>
 			<button class="location-btn" bind:tap="onClickAddress">地址管理</button>

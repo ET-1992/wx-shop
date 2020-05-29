@@ -14,17 +14,16 @@
 				color: #333;
 				flex: 1;
 				position: relative;
+				display: flex;
+				align-items: center;
 
-				.left-icon {
-					position: absolute;
-					left: 0;
-					top: 3rpx;
-					width: 24rpx;
-					height: 29rpx;
+				.left-icons {
+					display: flex;
+					align-items: center;
 				}
 				.left-text {
 					display: inline-block;
-					text-indent: 30rpx;
+					padding-left: 14rpx;
 				}
 
 			}
