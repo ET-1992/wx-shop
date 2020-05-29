@@ -66,3 +66,8 @@
     <!-- 自定义弹窗 -->
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
+
+<!-- 多门店 -->
+<view class="multiStore" wx:if="{{ multiStoreEnable }}">
+    <multiStore bind:updatestore="updatestore" />
+</view>

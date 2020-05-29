@@ -1,7 +1,7 @@
 <searchBox themeColor="{{ themeColor }}" />
 <!-- 多门店 -->
 <div class="multiStore" wx:if="{{ multiStoreEnable }}">
-	<multiStore storeName="{{ multiStoreName }}" />
+	<multiStore bind:updatestore="updateStoreData" />
 </div>
 <view class="container {{ multiStoreEnable ? 'container-multiStore': '' }}">
 	<view class="category">

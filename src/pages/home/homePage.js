@@ -82,7 +82,7 @@ export const pageObj = {
     },
 
     async loadHome() {
-        const { id = '' } = this.data;
+        const { id = '', isStoreFinish } = this.data;
         const { pageKey = '' } = this;
 
         this.loadHomeExtra();
@@ -93,6 +93,18 @@ export const pageObj = {
 
         // const data = await api.hei.fetchHome();
         const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: pageKey });
+
+
+        let multiStoreEnable = Boolean(config.offline_store_enable);
+
+        this.setData({
+            multiStoreEnable
+        })
+
+         // 多门店模式，未获取门店ID
+         if(multiStoreEnable && !isStoreFinish) {
+           return;
+        }
 
 
         if (page_title) {
@@ -458,6 +470,13 @@ export const pageObj = {
             }
         });
         console.log(this.data.contactModal);
+    },
+
+    updatestore() {
+        this.setData({
+            isStoreFinish: true
+        })
+        this.loadHome();
     },
 
     go

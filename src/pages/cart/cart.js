@@ -22,7 +22,6 @@ Page({
         isShowConsole: false,
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
         multiStoreEnable: false,  // 判断店铺多门店开关
-        multiStoreName: '',  // 店铺选择门店名称
     },
     onLoad(params) {
         console.log('params', params);
@@ -32,7 +31,6 @@ Page({
             globalData,
             ...systemInfo
         });
-        app.event.on('setMultiStoreEvent', this.setMultiStoreEvent, this);
     },
 
     async onShow() {
@@ -46,7 +44,10 @@ Page({
             free_shipping_amount: config && config.free_shipping_amount
         });
         this.firstInit();
-        await this.loadCart();
+        // 非多门店模式
+        if(!multiStoreEnable) {
+            await this.loadCart();
+        }
         updateTabbar({ pageKey: 'cart' });
     },
 
@@ -56,7 +57,11 @@ Page({
 
     onUnload() {
         wx.setStorageSync(CART_LIST_KEY, this.data.isSelectedObject);
-        app.event.off('setMultiStoreEvent', this);
+    },
+
+    // 选择门店重新刷新
+    async updateStoreData() {
+        await this.loadCart();
     },
 
     async loadCart() {
@@ -281,14 +286,5 @@ Page({
         });
         console.log('liftStyleIndex323', index, 'shipping_type', this.data.shipping_type);
         this.loadCart();
-    },
-
-    // 监听选择多门店数据
-    setMultiStoreEvent(store) {
-        console.log('从多门店列表返回的数据', store);
-        let { name } = store;
-        this.setData({
-            multiStoreName: name,
-        });
     },
 });

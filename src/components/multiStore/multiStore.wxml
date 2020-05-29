@@ -2,7 +2,7 @@
 <view class="container">
 	<div class="left">
 		<image class="icon" src="/icons/multiStore/store.svg" alt="" />
-		<text>{{ storeName }}</text>
+		<text>{{ currentStore.name || '-' }}</text>
 	</div>
 	<div class="right" bind:tap="onChangeStore">
 		<image class="icon" src="/icons/multiStore/change.svg" alt="" />

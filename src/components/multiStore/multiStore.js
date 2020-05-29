@@ -5,12 +5,6 @@ import proxy from 'utils/wxProxy';
 const app = getApp();
 
 Component({
-    properties: {
-        storeName: {
-            type: String,
-            value: '',
-        },
-    },
     data: {
         latitude: '', // 纬度
         longitude: '', // 经度
@@ -18,8 +12,13 @@ Component({
         storeList: [],  // 门店列表
         currentStore: {},  // 当前门店
     },
+    pageLifetimes: {
+        show: function () {
+            this.updateStore();
+        },
+    },
     lifetimes: {
-        attached: function () {
+        attached: function() {
             this.updateStore();
         },
     },
@@ -33,18 +32,18 @@ Component({
 
         // 更新门店
         async updateStore() {
-            let { storeName } = this.data;
-            if (storeName) { return }
-            let newStoreName = '获取门店失败';
             await this.getCurrentStore();
             let { currentStore } = this.data;
             if (currentStore && currentStore.name) {
-                newStoreName = currentStore.name;
                 app.globalData.currentStore = currentStore;
+                this.triggerEvent('updatestore', {}, {})
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '附近没有合适的门店',
+                    showCancel: false,
+                })
             }
-            this.setData({
-                storeName: newStoreName,
-            });
         },
 
         // 获取门店

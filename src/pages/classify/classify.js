@@ -38,7 +38,6 @@ Page({
         },
         config: {},
         multiStoreEnable: false,  // 判断店铺多门店开关
-        multiStoreName: '',  // 店铺选择门店名称
     },
 
     async onLoad() {
@@ -46,10 +45,8 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable } = config;
-        const { categories } = await api.hei.fetchCategory();
         let multiStoreEnable = Boolean(offline_store_enable);
         this.setData({
-            categories,
             isIphoneX,
             themeColor,
             tplStyle,
@@ -59,19 +56,35 @@ Page({
             isLoading: false,
         });
 
-        await this.loadProducts();
-        app.event.on('setMultiStoreEvent', this.setMultiStoreEvent, this);
+        
     },
 
     async onShow() {
         updateTabbar({ pageKey: 'product_classify' });
+        this.loadAllData();
 
-        const data = await api.hei.fetchCartList();
-        this.reloadCart(data);
+        
     },
 
-    onUnload() {
-        Number(app.event.off('setMultiStoreEvent', this));
+    async loadAllData() {
+        let { isStoreFinish, config } = this.data;
+        let multiStoreEnable = Boolean(config.offline_store_enable);
+
+        this.setData({
+            multiStoreEnable
+        })
+
+         // 多门店模式，未获取门店ID
+         if(multiStoreEnable && !isStoreFinish) {
+           return;
+        }
+        const { categories } = await api.hei.fetchCategory();
+        this.setData({
+            categories,
+        })
+        await this.loadProducts();
+        const data = await api.hei.fetchCartList();
+        this.reloadCart(data);
     },
 
     changeFilterList(e) {
@@ -329,15 +342,11 @@ Page({
     },
     onShareAppMessage: onDefaultShareAppMessage,
 
-    // 监听选择多门店数据
-    setMultiStoreEvent(store) {
-        console.log('从多门店列表返回的数据', store);
-        let { name } = store;
-        // let appStore = app.globalData.store;
-        // console.log('app.store', appStore);
+    // 选择门店重新刷新
+    async updateStoreData() {
         this.setData({
-            multiStoreName: name,
-        });
-        this.loadProducts();
+            isStoreFinish: true
+        })
+        await this.loadAllData();
     },
 });
