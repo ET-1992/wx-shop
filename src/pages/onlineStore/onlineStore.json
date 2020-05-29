@@ -1,0 +1,25 @@
+{
+	"enablePullDownRefresh": true,
+	"usingComponents": {
+	  "productList": "../../components/productList/index",
+	  "categoryList": "../../components/categoryList/index",
+	  "magicImg": "../../components/magicImg/magicImg",
+	  "myModal": "../../components/myModal/myModal",
+	  "loading": "../../components/loading/index",
+	  "service": "../../components/service/index",
+	  "logo": "../../components/logo/logo",
+	  "myNavigator": "../../components/myNavigator/myNavigator",
+
+	  "searchBox": "../home/components/searchBox/searchBox",
+	  "slide": "../home/components/slider/slider",
+	  "textMessage": "../home/components/text/text",
+	  "textList": "../home/components/textList/textList",
+	  "nav": "../home/components/nav/nav",
+	  "coupons": "../home/components/coupons/coupons",
+	  "articleList": "../home/components/articleList/articleList",
+	  "productsList": "../home/components/productsList/productsList",
+	  "categoryProducts": "../home/components/categoryProducts/categoryProducts",
+	  "cube": "../home/components/cube/cube",
+	  "lvList": "../home/components/lvList/lvList"
+	}
+  }
