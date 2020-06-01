@@ -62,5 +62,25 @@
 				</picker>
 			</view>
 		</view>
+		<!-- 复选框 -->
+		<view class="item" wx:if="{{ item.type === 'checkbox' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				  <checkbox-group bindchange="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+				  	   <label class="checkbox" wx:for="{{ item.options }}" wx:for-item="boxItem" wx:for-index="boxIndex">
+							<checkbox value="{{ boxItem }}" checked="{{ orderForm.indexOf(item.value, boxItem) }}" />{{ boxItem }}
+						</label>
+				  </checkbox-group>
+			</view>
+		</view>
 	</view>
 </view>
+
+
+<wxs module="orderForm">
+  var indexOf = function(array, value) {
+    return array.indexOf(value) > -1;
+  };
+
+  module.exports.indexOf = indexOf;
+</wxs>
