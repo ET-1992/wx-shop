@@ -22,6 +22,10 @@ Page({
     },
 
     onLoad() {
+        const { themeColor } = app.globalData;
+        this.setData({
+            themeColor,
+        });
         app.event.on('setAddressListEvent', this.setAddressListEvent, this);
     },
 
@@ -58,7 +62,7 @@ Page({
         await this.getlocationAgain();
         this.getSortList();
         proxy.showToast({
-            title: '成功更新门店信息'
+            title: '成功更新门店'
         });
     },
 
@@ -173,7 +177,7 @@ Page({
         this.getSortList();
         setTimeout(() => {
             proxy.showToast({
-                title: '成功更新门店信息',
+                title: '成功更新门店',
             });
         }, 400);
     },
