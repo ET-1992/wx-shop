@@ -1,5 +1,5 @@
 <!-- 多门店组件 -->
-<view class="container">
+<view class="container" wx:if="{{ multiStoreEnable }}">
 	<div class="left">
 		<image class="icon" src="/icons/multiStore/store.svg" alt="" />
 		<text>{{ currentStore.name || '-' }}</text>

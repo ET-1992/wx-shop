@@ -10,8 +10,8 @@
   	  	</button>
 	</view>
 	<!-- 多门店   -->
-	<div class="multiStore" wx:if="{{ multiStoreEnable }}">
-		<multiStore bind:updatestore="updateStoreData" />
+	<div class="multiStore">
+		<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
 	</div>
     <!-- 购物车为空 -->
   	<view wx:if="{{ !items.length && !isLoading && isLogin }}" class="{{ multiStoreEnable ? 'cart-multiStore' : '' }}">

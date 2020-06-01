@@ -38,7 +38,8 @@ export const pageObj = {
         second: 0,
         guide_status: false, // 添加到小程序指引是否显示
         isShowButton: true, // 是否显示抢购、秒杀按钮
-        isProductLast: false // 判断新首页商品列表是否在最后
+        isProductLast: false, // 判断新首页商品列表是否在最后
+        isStoreFinish: false,  // 判断店铺多门店ID是否已获取
     },
 
     swiperChange(e) {
@@ -99,11 +100,11 @@ export const pageObj = {
 
         this.setData({
             multiStoreEnable
-        })
+        });
 
-         // 多门店模式，未获取门店ID
-         if(multiStoreEnable && !isStoreFinish) {
-           return;
+        // 多门店模式，未获取门店ID
+        if (multiStoreEnable && !isStoreFinish) {
+            return;
         }
 
 
@@ -472,10 +473,11 @@ export const pageObj = {
         console.log(this.data.contactModal);
     },
 
+    // 选择门店刷新页面
     updatestore() {
         this.setData({
             isStoreFinish: true
-        })
+        });
         this.loadHome();
     },
 

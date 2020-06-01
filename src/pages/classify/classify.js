@@ -38,50 +38,55 @@ Page({
         },
         config: {},
         multiStoreEnable: false,  // 判断店铺多门店开关
+        isStoreFinish: false,  // 判断店铺多门店ID是否已获取
     },
 
     async onLoad() {
         const { themeColor } = app.globalData;
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default', offline_store_enable } = config;
-        let multiStoreEnable = Boolean(offline_store_enable);
+        const { style_type: tplStyle = 'default' } = config;
         this.setData({
             isIphoneX,
             themeColor,
             tplStyle,
             globalData: app.globalData,
             config,
-            multiStoreEnable,
             isLoading: false,
         });
-
-        
     },
 
     async onShow() {
         updateTabbar({ pageKey: 'product_classify' });
+
+        // setTimeout(() => {
+        //     this.setData({
+        //         multiStoreEnable: true
+        //     });
+        // }, 6000);
         this.loadAllData();
 
-        
+
     },
 
     async loadAllData() {
-        let { isStoreFinish, config } = this.data;
+        let { isStoreFinish, config = {}} = this.data;
         let multiStoreEnable = Boolean(config.offline_store_enable);
 
         this.setData({
             multiStoreEnable
-        })
+        });
 
-         // 多门店模式，未获取门店ID
-         if(multiStoreEnable && !isStoreFinish) {
-           return;
+        // 多门店模式，未获取门店ID
+        if (multiStoreEnable && !isStoreFinish) {
+            return;
         }
         const { categories } = await api.hei.fetchCategory();
         this.setData({
             categories,
-        })
+            current_page: 1,
+            products: [],
+        });
         await this.loadProducts();
         const data = await api.hei.fetchCartList();
         this.reloadCart(data);
@@ -96,6 +101,7 @@ Page({
             hasProducts: true
         }, this.loadProducts);
     },
+
     async loadProducts() {
         let { categories, selectedIndex, subSelectedIndex, current_page, products, filterData, sortText, sortStatus } = this.data;
         let options = {
@@ -342,11 +348,11 @@ Page({
     },
     onShareAppMessage: onDefaultShareAppMessage,
 
-    // 选择门店重新刷新
+    // 选择门店刷新页面
     async updateStoreData() {
         this.setData({
             isStoreFinish: true
-        })
+        });
         await this.loadAllData();
     },
 });

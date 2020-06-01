@@ -12,14 +12,27 @@ Component({
         storeList: [],  // 门店列表
         currentStore: {},  // 当前门店
     },
+    properties: {
+        multiStoreEnable: {
+            type: Boolean,
+            value: false,
+            observer(newValue) {
+                if (newValue) {
+                    this.updateStore();
+                }
+            }
+        },
+    },
     pageLifetimes: {
         show: function () {
-            this.updateStore();
+            const { multiStoreEnable } = this.data;
+            multiStoreEnable && this.updateStore();
         },
     },
     lifetimes: {
         attached: function() {
-            this.updateStore();
+            // console.log('22222222222222222');
+            // this.updateStore();
         },
     },
     methods: {
@@ -36,13 +49,13 @@ Component({
             let { currentStore } = this.data;
             if (currentStore && currentStore.name) {
                 app.globalData.currentStore = currentStore;
-                this.triggerEvent('updatestore', {}, {})
+                this.triggerEvent('updatestore', {}, {});
             } else {
                 wx.showModal({
                     title: '温馨提示',
                     content: '附近没有合适的门店',
                     showCancel: false,
-                })
+                });
             }
         },
 

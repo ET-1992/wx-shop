@@ -45,7 +45,7 @@ Page({
         });
         this.firstInit();
         // 非多门店模式
-        if(!multiStoreEnable) {
+        if (!multiStoreEnable) {
             await this.loadCart();
         }
         updateTabbar({ pageKey: 'cart' });
