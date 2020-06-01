@@ -55,7 +55,7 @@
 							</view>
 						</view>
 					</van-collapse-item>
-					<van-collapse-item title="超出距离的门店" name="2">
+					<van-collapse-item title="不可选门店" name="2" custom-class="store-disable">
 						<!-- 配送范围外门店 -->
 						<view class="store-wrap" wx:for="{{ storeList }}"
 							wx:key="index" data-index="{{ index }}" wx:if="{{ !item.offline_store && item.isoutofrange }}">

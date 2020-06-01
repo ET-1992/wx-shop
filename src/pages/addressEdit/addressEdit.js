@@ -113,15 +113,15 @@ Page({
     renderOrderEdit() {
         let location = wx.getStorageSync(LOCATION_KEY) || false;
         let address = wx.getStorageSync(ADDRESS_KEY) || {};
-        if(location) {
+        if (location) {
             this.renderLocation();
-        } else if(address.userName) {
+        } else if (address.userName) {
             this.renderAddress();
-        } 
+        }
         this.setData({
             isLoading: false,
         });
-        
+
     },
 
     // 多门店定位地址解析
@@ -416,7 +416,7 @@ Page({
         finalForm.receiver_default = 0;
         // 添加经纬度
         finalForm.latitude = latitude;
-        finalForm.longitude = longitude;
+        finalForm.longtitude = longitude;  // 注意经度字段
         await api.hei[apiMethod](finalForm);
     },
 

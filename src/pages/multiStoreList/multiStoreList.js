@@ -32,9 +32,9 @@ Page({
     onUnload() {
         let { lastClick, locationObj } = this.data;
         let obj = null;
-        if(lastClick === 'location') {
+        if (lastClick === 'location') {
             obj = locationObj;
-        } 
+        }
         wx.setStorageSync(LOCATION_KEY, obj);
         app.event.off('setAddressListEvent', this);
     },
@@ -57,6 +57,9 @@ Page({
         await this.getLocationData();
         await this.getlocationAgain();
         this.getSortList();
+        proxy.showToast({
+            title: '成功更新门店信息'
+        });
     },
 
     // 重新获取定位信息
@@ -157,22 +160,22 @@ Page({
     // 接收收货地址
     async setAddressListEvent(address) {
         console.log('从地址列表返回的地址', address);
-        let { latitude, longtitude: longitude } = address;
-        this.setData({
-            addressObj: address,
-        });
+        let { latitude, longitude } = address;
+        this.setData({ addressObj: address, });
         if (!latitude || !longitude) {
-            await this.parseAddress();
-        } else {
-            this.setData({
-                longitude,
-                latitude,
-            });
+            ({ latitude, longitude } = await this.parseAddress());
         }
         this.setData({
+            longitude,
+            latitude,
             lastClick: 'address',
         });
         this.getSortList();
+        setTimeout(() => {
+            proxy.showToast({
+                title: '成功更新门店信息',
+            });
+        }, 400);
     },
 
     // 选择门店
@@ -197,7 +200,7 @@ Page({
             let res = await proxy.request({ url, data });
             console.log('经纬度解析的结果：', res);
             if (res.data && res.data.status === 0) {
-                let { result = {} } = res.data;
+                let { result = {}} = res.data;
                 let { address } = result;
                 this.setData({
                     locationObj: result,
@@ -228,11 +231,11 @@ Page({
             });
             console.log('收货地址解析的结果：', res);
             if (res.data && res.data.status === 0) {
-                let { lat, lng } = res.data.result.location;
-                this.setData({
+                let { lat = '', lng = '' } = res.data.result.location;
+                return {
                     latitude: lat,
                     longitude: lng,
-                });
+                };
             }
         } catch (error) {
             console.log('收货地址解析的错误', error);

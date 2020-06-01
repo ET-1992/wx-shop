@@ -46,6 +46,9 @@ Page({
         let address = addressList[index];
         // 选中地址对象
         let selectedAddress = wxReceriverPairs(address);
+        // 添加经纬度
+        let { latitude, longtitude: longitude } = address;
+        selectedAddress = Object.assign(selectedAddress, { latitude, longitude });
         wx.setStorageSync(ADDRESS_KEY, selectedAddress);
         this.setData({
             radioSelected: index,
@@ -136,6 +139,7 @@ Page({
                 ({ lat, lng } = res.data.result.location);
             }
             return {
+                // 后端适配字段
                 latitude: lat,
                 longtitude: lng,
             };
