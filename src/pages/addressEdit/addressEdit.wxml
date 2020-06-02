@@ -62,7 +62,11 @@
 // 拼接地区信息
 var join = function(arr){
 	if(arr && arr.length) {
-		return arr.join('/')
+		// 过滤空值
+		var res = arr.filter(function(item) {
+			return item
+		});
+		return res.join('/')
 	} else {
 		return ''
 	}
