@@ -64,13 +64,13 @@ Page({
         //         multiStoreEnable: true
         //     });
         // }, 6000);
+        this.setData({ isStoreFinish: false });
         this.loadAllData();
-
-
     },
 
     async loadAllData() {
-        let { isStoreFinish, config = {}} = this.data;
+        const config = wx.getStorageSync(CONFIG);
+        let { isStoreFinish } = this.data;
         let multiStoreEnable = Boolean(config.offline_store_enable);
 
         this.setData({
