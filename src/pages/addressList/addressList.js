@@ -93,18 +93,23 @@ Page({
         if (!res) { return }
         try {
             await this.postAddress();
-            wx.hideLoading();
             wx.showToast({
                 title: '添加地址成功',
                 duration: 1000,
             });
             this.getAddressList();
         } catch (error) {
-            wx.showModal({
-                title: '温馨提示',
-                content: error.errMsg || '提交失败',
-                showCancel: false,
-            });
+            console.log('error', error);
+            // 忽略主动取消报错
+            if (error && error.code) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: error.errMsg || '提交失败',
+                    showCancel: false,
+                });
+            }
+        } finally {
+            wx.hideLoading();
         }
     },
 
