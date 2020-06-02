@@ -12,7 +12,7 @@ Page({
         isLoading: true,
         latitude: '', // 纬度
         longitude: '', // 经度
-        locationStr: '获取位置失败',  // 位置名字
+        locationStr: '-',  // 位置名字
         addressObj: {},  // 收货地址对象
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表

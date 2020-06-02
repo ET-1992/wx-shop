@@ -74,14 +74,14 @@ Component({
                 // 获取最近门店
                 await this.getFinalStoreList();
                 let { storeList = [] } = this.data;
-                store = storeList[0] || {};
+                store = storeList.find(item => !item.isoutofrange) || {};
             }
             this.setData({
                 currentStore: store,
             });
         },
 
-        // 获取排序后的最近门店列表
+        // 获取排序后的门店列表
         async getFinalStoreList() {
             let { storeList } = app.globalData;
             if (storeList && storeList.length) {
