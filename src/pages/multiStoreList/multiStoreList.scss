@@ -68,6 +68,12 @@
 		}
 
 		.store-wrap {
+			&:first-child {
+				padding-top: 0rpx;
+			}
+			&.disabled-store {
+				opacity: .5;
+			}
 			padding: 25rpx 0;
 			border-bottom: 1rpx solid #C2C2C2;
 			background-color: #fff;
@@ -105,9 +111,6 @@
 					text-align: center;
 					border-radius: 999rpx;
 					background-color: #D1483E;
-					&.disabled-btn {
-						opacity: 0.5
-					}
 				}
 			}
 		}

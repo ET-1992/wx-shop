@@ -61,6 +61,7 @@ Page({
         await this.getLocationData();
         await this.getlocationAgain();
         this.getSortList();
+        await this.parseLocation();
         proxy.showToast({
             title: '成功更新门店'
         });
@@ -69,17 +70,26 @@ Page({
     // 重新获取定位信息
     async getlocationAgain() {
         let { latitude, longitude } = this.data;
-        let data = await proxy.chooseLocation({
-            latitude,
-            longitude,
-        });
-        let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
-        this.setData({
-            lastClick: 'location',
-            locationStr: address + name,
-            latitude: newLatitude,
-            longitude: newLongitude,
-        });
+        try {
+            let data = await proxy.chooseLocation({
+                latitude,
+                longitude,
+            });
+            let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
+            this.setData({
+                lastClick: 'location',
+                locationStr: address + name,
+                latitude: newLatitude,
+                longitude: newLongitude,
+            });
+        } catch (e) {
+            proxy.showModal({
+                title: '温馨提示',
+                content: e.errMsg || '获取定位失败',
+                showCancel: false
+            });
+            throw e;
+        }
     },
 
     // 管理收货地址
