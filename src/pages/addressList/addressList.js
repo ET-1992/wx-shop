@@ -1,6 +1,6 @@
 import { auth, wxReceriverPairs } from 'utils/util';
 import { chooseAddress } from 'utils/wxp';
-import { ADDRESS_KEY } from 'constants/index';
+import { ADDRESS_KEY, CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 
@@ -8,6 +8,7 @@ const app = getApp();
 
 Page({
     data: {
+        config: {},
         addressList: [],  // 地址列表
         isLoading: true,
         radioSelected: '',  // 地址选中项
@@ -15,10 +16,19 @@ Page({
 
     onLoad(params) {
         console.log(params);
+        this.getBasicData();
     },
 
     onShow() {
         this.getAddressList();
+    },
+
+
+    getBasicData() {
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({
+            config,
+        });
     },
 
     // 默认地址选中项
@@ -47,8 +57,8 @@ Page({
         // 选中地址对象
         let selectedAddress = wxReceriverPairs(address);
         // 添加经纬度
-        let { latitude, longtitude: longitude } = address;
-        selectedAddress = Object.assign(selectedAddress, { latitude, longitude });
+        let { latitude, longtitude: longitude, room } = address;
+        selectedAddress = Object.assign(selectedAddress, { latitude, longitude, room });
         wx.setStorageSync(ADDRESS_KEY, selectedAddress);
         this.setData({
             radioSelected: index,

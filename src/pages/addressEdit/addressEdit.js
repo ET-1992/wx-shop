@@ -1,6 +1,6 @@
 
 import api from 'utils/api/index';
-import { ADDRESS_KEY, LOCATION_KEY } from 'constants/index';
+import { ADDRESS_KEY, LOCATION_KEY, CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
 import { auth, getDistance } from 'utils/util';
@@ -21,14 +21,14 @@ Page({
             { key: 'addressInfo', value: '', label: '详细地址' },
             { key: 'code', value: '', label: '邮政编码' },
         ],  // 页面表单数据
-        keyPairs: {
+        formBackEnd: {
             'name': 'receiver_name',
             'phone': 'receiver_phone',
             'address': ['receiver_state', 'receiver_city', 'receiver_district'],
             'addressInfo': 'receiver_address',
             'code': 'receiver_zipcode',
-        },  // 前后端数据键对
-        formWechatkeyPairs: {
+        },  // 表单与后端地址键值对
+        formWechat: {
             'name': 'userName',
             'phone': 'telNumber',
             'address': ['provinceName', 'cityName', 'countyName'],
@@ -43,26 +43,30 @@ Page({
         mapList: [],  // 腾讯地图搜索结果列表
         mapListPanel: false,  // 地图展示面板
         selectedMap: {},  // 地图选中项
-        // latitude: {},  // 地址纬度
-        // longitude: {},  // 地址纬度
+        config: {},
     },
 
     onLoad(params) {
         console.log(params);
         let { type, id = 0 } = params;
+        const config = wx.getStorageSync(CONFIG);
         this.setData({
             type,
             id,
+            config,
         });
         this.setPage();
     },
 
     // 设置页面
     async setPage() {
-        let { type = 'update', id, typeToTitle } = this.data;
+        let { type = 'update', typeToTitle, config } = this.data;
         wx.setNavigationBarTitle({
             title: typeToTitle[type],
         });
+        if (config.offline_store_enable) {
+            this.addFormItem();
+        }
         if (type === 'update') {
             this.getAddressInfo();
         } else if (type === 'orderEdit') {
@@ -73,6 +77,21 @@ Page({
             });
         }
         this.getAreaData();
+    },
+
+    // 表单添加门牌号
+    addFormItem() {
+        let { form, formBackEnd, formWechat } = this.data;
+        let index = form.findIndex(item => item.key === 'addressInfo') + 1;
+        let formItem = { key: 'houseNumber', value: '', label: '门牌号' };
+        formBackEnd['houseNumber'] = 'room';
+        formWechat['houseNumber'] = 'room';
+        form.splice(index, 0, formItem);
+        this.setData({
+            form,
+            formBackEnd,
+            formWechat,
+        });
     },
 
     // 获取具体地址
@@ -88,9 +107,9 @@ Page({
 
     // 在页面上展示具体地址
     showFormData() {
-        let { form, originForm, keyPairs } = this.data;
+        let { form, originForm, formBackEnd } = this.data;
         // 遍历对应字段表
-        for (let [k, v] of Object.entries(keyPairs)) {
+        for (let [k, v] of Object.entries(formBackEnd)) {
             // 遍历表单数组
             for (let elem of form.values()) {
                 if (elem.key === k && Array.isArray(v)) {
@@ -109,7 +128,7 @@ Page({
         });
     },
 
-    // 多门店地址解析
+    // 导入多门店两种地址
     renderOrderEdit() {
         let location = wx.getStorageSync(LOCATION_KEY) || false;
         let address = wx.getStorageSync(ADDRESS_KEY) || {};
@@ -124,12 +143,11 @@ Page({
 
     },
 
-    // 多门店定位地址解析
+    // 导入多门店定位地址
     renderLocation() {
         let { form } = this.data;
         let locationObj = wx.getStorageSync(LOCATION_KEY) || {};
-        let { address, ad_info, location } = locationObj;
-        let { lat, lng } = location || {};
+        let { address, ad_info } = locationObj;
         let { adcode, province, city, district } = ad_info || {};
         // 表单地址选项
         form[2].value = [province, city, district];
@@ -139,16 +157,15 @@ Page({
         this.setData({
             areacode: adcode,
             form,
-            // latitude: lat,
-            // longitude: lng,
         });
     },
 
-    // 多门店收货地址解析
+    // 导入多门店收货地址
     renderAddress() {
-        let { form, formWechatkeyPairs } = this.data;
+        let { form, formWechat } = this.data;
         let address = wx.getStorageSync(ADDRESS_KEY) || {};
-        for (let [k, v] of Object.entries(formWechatkeyPairs)) {
+        console.log('formWechat', formWechat);
+        for (let [k, v] of Object.entries(formWechat)) {
             // 遍历表单数组
             for (let elem of form.values()) {
                 if (elem.key === k && Array.isArray(v)) {
@@ -265,10 +282,10 @@ Page({
         try {
             this.checkForm();
             if (type === 'orderEdit') {
-                // 多门店地址编辑
+                // 多门店地址
                 await this.saveStoreAddress();
             } else {
-                // 地址列表编辑
+                // 地址列表
                 await this.saveListAddress();
             }
         } catch (error) {
@@ -301,12 +318,12 @@ Page({
         }
     },
 
-    // 保存多门店编辑地址
+    // 保存多门店编辑
     async saveStorageAddrss() {
-        let { form, formWechatkeyPairs, areacode } = this.data;
+        let { form, formWechat, areacode } = this.data;
         let finalForm = {};
         // 遍历对应字段表
-        for (let [k, v] of Object.entries(formWechatkeyPairs)) {
+        for (let [k, v] of Object.entries(formWechat)) {
             // 遍历表单数组
             for (let elem of form.values()) {
                 if (elem.key === k && Array.isArray(v)) {
@@ -365,11 +382,8 @@ Page({
         wx.showLoading({
             title: '加载中',
         });
-        let { type } = this.data;
-        let modalContent = '地址添加成功';
-        if (type === 'update') {
-            modalContent = '地址修改成功';
-        }
+        let { type = 'update', typeToTitle } = this.data;
+        let modalContent = `${typeToTitle[type]}成功`;
         try {
             await this.submitListAddress();
             wx.showModal({
@@ -388,10 +402,10 @@ Page({
 
     // 向后端提交地址请求
     async submitListAddress() {
-        let { form, keyPairs, areacode, type, id } = this.data;
+        let { form, formBackEnd, areacode, type, id } = this.data;
         let finalForm = {};
         // 遍历对应字段表
-        for (let [k, v] of Object.entries(keyPairs)) {
+        for (let [k, v] of Object.entries(formBackEnd)) {
             // 遍历表单数组
             for (let elem of form.values()) {
                 if (elem.key === k && Array.isArray(v)) {
@@ -407,7 +421,7 @@ Page({
         // 省市区编号和地址ID
         finalForm.receiver_areacode = areacode;
         if (type === 'update') {
-            // 更改地址
+            // 地址编辑操作
             finalForm.receiver_id = id;
             apiMethod = 'updateReceiverInfo';
         }
@@ -449,7 +463,7 @@ Page({
     // 校验表单
     checkForm() {
         let { form } = this.data;
-        let success = form.every(item => item.value.length);
+        let success = form.every(item => item.key === 'houseNumber' || item.value.length);
         if (!success) {
             throw new Error('请填写完整的地址信息');
         }
