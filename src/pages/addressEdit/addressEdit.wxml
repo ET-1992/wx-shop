@@ -10,11 +10,19 @@
 					placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
 				</block>
 				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
-					<!-- 带联想的详细地址 -->
-					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
-					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
-					bind:change="onAddressInfo" bind:clear="onCloseAddress"
-					clearable type="textarea" autosize />
+					<block wx:if="{{ config.offline_store_enable }}">
+						<!-- 微信地图的详细地址 -->
+						<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
+						placeholder="选择地址" data-key="{{ item.key }}" 
+						bind:tap="onChooseLocation" readonly is-link type="textarea" autosize />
+					</block>
+					<block wx:else>
+						<!-- 带联想的详细地址 -->
+						<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
+						placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
+						bind:change="onAddressInfo" bind:clear="onCloseAddress"
+						clearable type="textarea" autosize />
+					</block>
 				</block>
 				<block wx:else>
 					<!-- 普通文本框 -->

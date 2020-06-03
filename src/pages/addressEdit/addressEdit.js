@@ -320,6 +320,7 @@ Page({
 
     // 保存多门店编辑
     async saveStorageAddrss() {
+        let location = wx.getStorageSync(LOCATION_KEY) || false;
         let { form, formWechat, areacode } = this.data;
         let finalForm = {};
         // 遍历对应字段表
@@ -340,6 +341,10 @@ Page({
         finalForm.latitude = latitude;
         finalForm.longitude = longitude;
         this.checkOrderAddress({ latitude, longitude });
+        if (location) {
+            // 定位信息完善为地址信息
+            wx.setStorageSync(LOCATION_KEY, null);
+        }
         wx.setStorageSync(ADDRESS_KEY, finalForm);
         return finalForm;
     },
@@ -469,14 +474,14 @@ Page({
         }
     },
 
-    // 弹出级联选择器
+    // 弹出地区级联选择器
     onShowArea() {
         this.setData({
             showAreaPanel: true,
         });
     },
 
-    // 关闭级联选择器
+    // 关闭地区级联选择器
     onCloseArea() {
         this.setData({
             showAreaPanel: false,
@@ -493,12 +498,25 @@ Page({
         let index = form.findIndex(item => item.key === 'address');
         form[index].value = values.map(item => item.name);
         form[index].areacode = areacode;
-        form[index + 1].value = '';
+        // form[index + 1].value = '';
         this.setData({
             areacode,
             form,
         });
         this.onCloseArea();
+    },
+
+    // 打开微信定位获取详细地址
+    async onChooseLocation() {
+        let { form } = this.data;
+        let data = await proxy.chooseLocation();
+        let { address, name, latitude, longitude } = data;
+        // 更改详细地址数据
+        let index = form.findIndex(item => item.key === 'addressInfo');
+        form[index].value = address + name;
+        this.setData({
+            form,
+        });
     },
 
     // 校验地址是否超出配送范围

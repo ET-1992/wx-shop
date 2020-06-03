@@ -70,26 +70,17 @@ Page({
     // 重新获取定位信息
     async getlocationAgain() {
         let { latitude, longitude } = this.data;
-        try {
-            let data = await proxy.chooseLocation({
-                latitude,
-                longitude,
-            });
-            let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
-            this.setData({
-                lastClick: 'location',
-                locationStr: address + name,
-                latitude: newLatitude,
-                longitude: newLongitude,
-            });
-        } catch (e) {
-            proxy.showModal({
-                title: '温馨提示',
-                content: e.errMsg || '获取定位失败',
-                showCancel: false
-            });
-            throw e;
-        }
+        let data = await proxy.chooseLocation({
+            latitude,
+            longitude,
+        });
+        let { address, name, latitude: newLatitude, longitude: newLongitude } = data;
+        this.setData({
+            lastClick: 'location',
+            locationStr: address + name,
+            latitude: newLatitude,
+            longitude: newLongitude,
+        });
     },
 
     // 管理收货地址
