@@ -490,8 +490,10 @@ Page({
         // 级联ID
         let areacode = values[values.length - 1].code;
         // 更改地址数据
-        form[2].value = values.map(item => item.name);
-        form[2].areacode = areacode;
+        let index = form.findIndex(item => item.key === 'address');
+        form[index].value = values.map(item => item.name);
+        form[index].areacode = areacode;
+        form[index + 1].value = '';
         this.setData({
             areacode,
             form,
