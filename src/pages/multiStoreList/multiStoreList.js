@@ -214,6 +214,7 @@ Page({
             }
         } catch (error) {
             console.log('经纬度解析的错误', error);
+            throw error;
         }
     },
 

@@ -43,6 +43,7 @@
 var splice = function(obj){
 	// var str = obj.receiver_country + obj.receiver_state + obj.receiver_city + obj.receiver_district + obj.receiver_address;
 	var str = obj.receiver_address || '';
+  str += obj.room || '';
 	return str;
 }
 module.exports = {
