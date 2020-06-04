@@ -1,5 +1,8 @@
 <view class="container">
-  <loading isLoading="{{ isLoading }}" />
+  <loading isLoading="{{ isLoading }}" wx:if="{{ isLoading }}" />
+  <view class="address-air" wx:elif="{{ !addressList.length }}">
+    这里是空的
+  </view>
   <view class="address" >
       <van-radio-group class="radio-group" value="{{ radioSelected }}" bindchange="radioChange">
         <van-radio
