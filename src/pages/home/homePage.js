@@ -82,13 +82,15 @@ export const pageObj = {
         }, 300);
     },
 
-    async loadHome() {
+    async loadHome(e = {}) {
         const { id = '', isStoreFinish } = this.data;
         const { pageKey = '' } = this;
+        // 默认展示加载条
+        let { isLoading = true } = e;
 
         this.loadHomeExtra();
         this.setData({
-            isLoading: true,
+            isLoading: isLoading,
             isProductBottom: false
         });
 
@@ -474,11 +476,16 @@ export const pageObj = {
     },
 
     // 选择门店刷新页面
-    updatestore() {
+    async updatestore() {
+        wx.showLoading({
+            title: '加载中'
+        });
         this.setData({
             isStoreFinish: true
         });
-        this.loadHome();
+        let obj = { isLoading: false };
+        await this.loadHome(obj);
+        wx.hideLoading();
     },
 
     go
