@@ -8,8 +8,9 @@
 		"pages/articleList/articleList",
 		"pages/modulePage/modulePage",
 		"pages/shopList/shopList",
+		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/liveRooms/liveRooms"
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
