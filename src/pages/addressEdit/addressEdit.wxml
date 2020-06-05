@@ -5,12 +5,16 @@
 		<van-cell-group>
 			<block wx:for="{{ form }}" wx:key="index">
 				<block wx:if="{{ form[index].key === 'address' }}">
-					<!-- 地区级联选择器 -->
-					<van-field value="{{ string.join(form[index]['value']) }}" label="{{ item.label }}" 
-					placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
+					<!-- 默认隐藏 -->
+					<block wx:if="{{ false }}">
+						<!-- 地区级联选择器 -->
+						<van-field value="{{ string.join(form[index]['value']) }}" label="{{ item.label }}" 
+						placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
+					</block>
 				</block>
 				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
-					<block wx:if="{{ config.offline_store_enable }}">
+					<!-- 默认开启/先不管多门店 -->
+					<block wx:if="{{ true || config.offline_store_enable }}">
 						<!-- 微信地图的详细地址 -->
 						<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
 						placeholder="选择地址" data-key="{{ item.key }}" 
@@ -32,6 +36,7 @@
 				</block>
 			</block>
 		</van-cell-group>
+		<!-- 带联想的详细地址弹出框 -->
 		<view class="addressPanel" wx:if="{{ mapListPanel }}">
 			<van-cell-group>
 				<block wx:if="{{ mapList.length }}">
