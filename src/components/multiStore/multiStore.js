@@ -51,11 +51,15 @@ Component({
                 app.globalData.currentStore = currentStore;
                 this.triggerEvent('updatestore', {}, {});
             } else {
-                wx.showModal({
+                this.triggerEvent('updatestore', {}, {});
+                let { confirm } = await proxy.showModal({
                     title: '温馨提示',
                     content: '附近没有合适的门店',
                     showCancel: false,
                 });
+                if (confirm) {
+                    wx.navigateTo({ url: '/pages/multiStoreList/multiStoreList' });
+                }
             }
         },
 
