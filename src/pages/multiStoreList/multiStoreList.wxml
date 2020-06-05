@@ -65,7 +65,7 @@
 							</view>
 							<view class="store-address">{{ address.splice(item) }}</view>
 							<view class="store-bottom">
-								<view class="store-bottom-left">距离{{ item.distance || '-' }}m</view>
+								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
 								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
 							</view>
 						</view>
