@@ -50,14 +50,13 @@
         display: flex;
         justify-content: space-around;
         flex-direction: row;
-        // height: 70rpx;
+        height: 70rpx;
         align-items: center;
-        padding: 15rpx;
+        padding: 0 10rpx;
 
         .list-item {
             display: flex;
             align-items: center;
-            width: 50%;
 
             .item-icon-img {
             	width: 20rpx;
@@ -70,7 +69,6 @@
             display: inline;
             font-size: 20rpx;
             color: #707070;
-            flex: 1;
             word-break: break-all;
         }
     }

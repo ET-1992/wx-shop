@@ -18,6 +18,8 @@
 	  "coupons": "../home/components/coupons/coupons",
 	  "articleList": "../home/components/articleList/articleList",
 	  "productsList": "../home/components/productsList/productsList",
-	  "cube": "../home/components/cube/cube"
+	  "categoryProducts": "../home/components/categoryProducts/categoryProducts",
+	  "cube": "../home/components/cube/cube",
+	  "lvList": "../home/components/lvList/lvList"
 	}
   }

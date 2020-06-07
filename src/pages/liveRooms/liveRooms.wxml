@@ -4,8 +4,8 @@
   	<!-- 列表标签tabs -->
     <view class="tabs-wrap">
       <van-tabs active="{{ tabActive }}" bind:change="onTabChange" color="{{ themeColor.primaryColor || '#729153' }}">
-        <van-tab title="直播列表"></van-tab>
-        <van-tab title="直播预告"></van-tab>
+        <van-tab title="全部列表"></van-tab>
+        <van-tab title="精彩预告"></van-tab>
         <van-tab title="精彩回放"></van-tab>
       </van-tabs>
     </view>
@@ -29,7 +29,7 @@
 					<text>{{ item.end_time || '-' }}</text>
 					</view>
 					<view class="live-line">
-					<text>主播：</text>
+					<text>播主：</text>
 					<text>{{ item.anchor_name || '-' }}</text>
 					</view>
 				</view>
@@ -49,7 +49,7 @@
 
 <wxs module="live">
 var arr = [
-	{status: 101, name: '直播中', btnText: '马上围观'},
+	{status: 101, name: '进行中', btnText: '马上围观'},
 	{status: 102, name: '未开始', btnText: '先去订阅'},
 	{status: 103, name: '已结束', btnText: '去看回放'},
 ]

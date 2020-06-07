@@ -65,7 +65,14 @@ Page({
             grouponId
         });
 
-        id ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
+
+        if (grouponId) {
+            await this.loadGroupon(grouponId);
+        } else {
+            await this.loadOrder(id);
+        }
+
+        // grouponId ? await this.loadOrder(id) : await this.loadGroupon(grouponId);
 
         console.log(this.data);
     },

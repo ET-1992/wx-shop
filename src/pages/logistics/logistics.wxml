@@ -2,15 +2,15 @@
 <view class="container" wx:if="{{ !isLoading }}">
   <view class="section header">
     <image class="prodcuctImage" src="{{ logistics.thumbnail }}">
-      <view class="productCount">共{{ logistics.item_ids.length }}件商品</view>
+      <view class="productCount">共{{ logistics.item_ids && logistics.item_ids.length }}件商品</view>
     </image>
     <view class="logistics">
       <view class="logisticsInfo">
-        <view class="status">{{ logistics.logisticsText }}</view>
-        <view class="company">快递公司：{{ logistics.company }}</view>
+        <!-- <view class="status">{{ logistics.logisticsText }}</view> -->
+        <view class="company">快递公司：{{ logistics.company || logistics.company_name }}</view>
         <view class="no">快递单号：{{ logistics.no }}</view>
       </view>
-      <button class="setClipboard" bindtap="setClipboard">复制单号</button>
+      <button class="setClipboard" bindtap="setClipboard" data-no="{{logistics.no}}">复制单号</button>
     </view>
   </view>
   <view class="section address">
@@ -21,18 +21,22 @@
         <text class="phone">{{ order.receiver_phone }}</text>
       </view>
       <view>
-        收货地址：{{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
+        收货地址：{{ order.receiver_state }}{{ order.receiver_city }}{{ order.receiver_district }}{{ order.receiver_address }}
       </view>
     </view>
   </view>
 
   <view class="section tips">
-    <view >物流信息以{{ logistics.company }}的官方查询为准，如长时间无物流信息请复制单号到{{ logistics.company }}官网查询</view>
+    <view wx:if="{{ !logistics.company_name }}">物流信息以{{ logistics.company }}的官方查询为准，如长时间无物流信息请复制单号到{{ logistics.company }}官网查询</view>
+    <view wx:if="{{ logistics.company_name }}" class="link">
+      <view class="link_url">物流官网 {{ logistics.link }}</view>
+      <button class="setClipboard" bindtap="setClipboard" data-no="{{ logistics.link }}">复制网址</button>
+    </view>
   </view>
 
   <view class="section">
-    <view class="emptyHint" wx:if="{{ !logistics.list.length }}">暂无信息</view>
-    <view class="item" wx:if="{{ logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">
+    <view class="emptyHint" wx:if="{{ !(logistics.list && logistics.list.length) }}">暂无物流信息</view>
+    <view class="item" wx:if="{{ logistics.list && logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">
       <view class="datetime">
         <view>{{ item.date }}</view>
         <view class="time">{{ item.time }}</view>
