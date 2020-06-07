@@ -1,27 +1,18 @@
 <van-loading type="spinner" custom-class="van-loading-class" wx:if="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
-    <view class="innerWrap" wx:if="{{order.status === 1 || from_page === 'crowd' || from_page === 'member'}}">
-        
+    <view class="innerWrap" wx:if="{{ order.statusCode === 1 || !!from_page }}">
         <view class="header">
             <view class="amount">
-                <view class="currency" wx:if="{{ selectedPayment.pay_method === 'CREDITCARD' }}">{{ globalData.CURRENCY[ stripe && stripe.currency ]}}</view>
-                <view class="currency" wx:elif="{{ selectedPayment.pay_method === 'WEIXIN' ||  selectedPayment.pay_method === 'TRANSFER_PAY' }}">￥</view>
-                <view class="currency" wx:else>{{ globalData.CURRENCY[ config.currency ]}}</view>
+                <view class="currency">¥</view>
                 <view>{{ exchange_amount }}</view>
             </view>
-
-            <view class="countTime" wx:if="{{ order.status === 1 }}">
+            <view class="countTime" wx:if="{{ order.statusCode === 1 }}">
                 <view>支付剩余时间：</view>
                 <van-count-down time="{{ order.timeLimit }}" bind:finish="onReload"/>
             </view>
         </view>
-        
-        <!-- <van-cell-group custom-class="exchange-detail-wrap" wx:if="{{ selectedPayment.pay_method === 'WEIXIN' ||  selectedPayment.pay_method === 'TRANSFER_PAY' }}">
-            <van-cell title="外币标价" custom-class="exchange-detail" title-class="exchange-detail-title" value-class="exchange-detail-value" value="${{amount}}" border="{{ false }}" />
-            <van-cell title="优惠汇率" custom-class="exchange-detail" title-class="exchange-detail-title" value-class="exchange-detail-value" value="1AUD={{config.exchange_rate}}CNY" border="{{ false }}" />
-        </van-cell-group> -->
 
-        <view class="payments_wrap" wx:if="{{payments.length}}">
+        <view class="payments_wrap" wx:if="{{ payments && payments.length }}">
             <radio-group class="radio-group">
 				<van-cell-group>
 					<van-cell
@@ -57,10 +48,14 @@
     <view wx:else class="invalid-order">
         <image class="img" src="/icons/invalidOrder.svg" mode="aspectFit" />
         <view class="text">交易已结束</view>
-        <van-button custom-class="btn" color="{{globalData.themeColor.primaryColor}}" bind:click="go" data-type="redirectTo" data-url="/pages/orderDetail/orderDetail?id={{order.order_no}}">确定</van-button>
+        <van-button 
+            custom-class="btn" 
+            color="{{ globalData.themeColor.primaryColor }}" 
+            bind:click="go" 
+            data-type="redirectTo" 
+            data-url="/pages/orderDetail/orderDetail?id={{order.order_no}}"
+        >确定</van-button>
     </view>
 </view>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" bind:openMiniProgram="openMiniProgram"></myModal>
-<!-- stripe 支付 -->
-<!-- <stripePay isShowStripePayModal="{{isShowStripePayModal}}" currency="{{ stripe && stripe.currency }}" amount="{{ exchange_amount }}" bind:closeStripePayModal="closePayModal" bind:onStripePay="onStripePay" /> -->

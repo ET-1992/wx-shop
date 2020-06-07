@@ -555,5 +555,25 @@ export const apis = {
         path: 'api/mag.user_center.user.existed.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 支付方式
+    fetchPayments: {
+        path: 'api/mag.shop.payments.json',
+        isForceToken: true
+    },
+    fetchPaymentInfo: {
+        path: 'api/mag.transfer.setting.json',
+        isForceToken: true
+    },
+    paymentCheck: {
+        path: 'api/mag.order.pay.transfer.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 预支付
+    orderPreparePay: {
+        path: 'api/mag.order.prepare.pay.json',
+        method: 'POST',
+        isForceToken: true
     }
 };
