@@ -1,4 +1,4 @@
-<view class="newUserCoupon" catchtouchmove="touchmove" >
+<view wx:if="{{ config.cdn_host }}" class="newUserCoupon" catchtouchmove="touchmove" >
     <view class="couponContainer">
         <image class="CouponBottom" src="{{ config.cdn_host + '/shop/CouponBottom.png'}}"></image>
         <view class="couponBox">
@@ -27,7 +27,7 @@
         </view>
         <image class="close" src="/icons/close.svg" mode="widthFix" lazy-load="false" bind:tap="closeCoupon" />  
     </view>
-    <button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" data-id="{{coupons_newbie}}" class="btnWrap">
+    <button bindgetuserinfo="receiveNewUserCoupon" open-type="getUserInfo" data-coupons-newbie="{{coupons_newbie}}" class="btnWrap">
         <image class="couponConfirm" src="/icons/newCouponBtn.svg"></image>
     </button>
 </view>

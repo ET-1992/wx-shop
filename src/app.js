@@ -23,10 +23,22 @@ App({
         };
 
         const extConfig = wx.getExtConfigSync() || {};
-        // const extConfig = { primaryColor: 'red', secondaryColor: 'blue', categoryIndex: 2 };
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
-        let { primaryColor = '#729153', secondaryColor, categoryIndex = -1, partner = {}, styleType = 'default', templateType = 'default', vip = {}, authorizer, currency = 'CNY', backgroundColor, tabbarPages = {}} = extConfig;
+        let {
+            primaryColor = '#729153',
+            secondaryColor = '#B1CA50',
+            categoryIndex = -1,
+            partner = {},
+            styleType = 'default',
+            templateType = 'default',
+            vip = {},
+            authorizer,
+            currency = 'CNY',
+            backgroundColor,
+            tabbarPages = {}
+        } = extConfig;
+        console.log('extConfig2', extConfig);
 
         const templateTypeTest = ['magua'];
         if (templateTypeTest.indexOf(templateType) < 0) {
@@ -98,8 +110,6 @@ App({
             api.hei.config().then((res) => {
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
-
-                this.updateTabbar(config);
 
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
@@ -185,30 +195,6 @@ App({
             // 新版本下载失败
             console.log('新版本下载失败');
         });
-    },
-
-    updateTabbar(config) {
-        const { tabbar } = config;
-        if (tabbar) {
-            const { list = [], color, selectedColor, backgroundColor, borderStyle } = tabbar;
-
-            wx.setTabBarStyle({
-                color,
-                selectedColor,
-                backgroundColor,
-                borderStyle
-            });
-
-            list.forEach((item, index) => {
-                const { iconPath, selectedIconPath, text } = item;
-                wx.setTabBarItem({
-                    index,
-                    text,
-                    iconPath,
-                    selectedIconPath
-                });
-            });
-        }
     },
 
     globalData: {

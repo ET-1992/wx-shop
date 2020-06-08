@@ -1,0 +1,36 @@
+	
+<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">	
+	<!-- 标题 -->
+	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+
+     <view class="live-list">
+			<view class="live-wrap" wx:for="{{ content }}" wx:key="index"   data-status="{{ item.status }}" data-id="{{ item.id }}" bind:tap="onClickBtn">
+				<view class="live-left">
+				<image class="live-img" src="{{ item.share_img }}" mode="aspectFill" />
+				</view>
+				<view class="live-right">
+				<view class="live-title">{{ item.name || '-' }}</view>
+				<view class="live-content">
+					<view class="live-line">
+					<text>开播 </text>
+					<text>{{ item.start_time || '-' }}</text>
+					</view>
+					<view class="live-line">
+					<text>结束 </text>
+					<text>{{ item.end_time || '-' }}</text>
+					</view>
+					<view class="live-line">
+					<text>播主：</text>
+					<text>{{ item.anchor_name || '-' }}</text>
+					</view>
+				</view>
+				<!-- 直播状态和按钮 -->
+				<view class="live-btn-wrap" style="color: {{ themeColor.primaryColor }}">
+					<text>{{ lvStatusText[item.status]  }}</text>
+					<button class="live-btn" style="background-color: {{ themeColor.primaryColor }}"
+					  >{{ lvBtnText[item.status] }}</button>
+				</view>
+				</view>
+			</view>
+	</view>
+</view>

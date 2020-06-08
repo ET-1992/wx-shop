@@ -353,14 +353,14 @@
 					<text>店铺</text>
 				</view>
 				<!-- 米白收藏按钮 -->
-				<view class="fav" bindtap="toggleFavProduct" wx:if="{{ PLATFFORM_ENV === 'MIBAI' }}">
+				<!-- <view class="fav" bindtap="toggleFavProduct" wx:if="{{ PLATFFORM_ENV === 'MIBAI' || PLATFFORM_ENV === 'MIBAI' }}">
 					<image class="icon" src="{{ product.is_faved ? '/icons/mibai/faved.png' : '/icons/mibai/disfav.png' }}" />
 					<view class="text {{ product.is_faved ? 'fav-text' : ''}}">
 					{{ product.is_faved ? '已收藏' : '收藏' }}
 					</view>
-				</view>
+				</view> -->
 				<!-- 状态栏左侧购物车、客服 -->
-				<block wx:else>
+				<block>
 					<view class="cart" data-url="/pages/cart/cart" bind:tap="go">
 						<view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">{{ cartNumber }}</view>
 						<image class="icon" src="../../icons/shopcart.png" />

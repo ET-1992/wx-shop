@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-import { updateCart, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -62,25 +62,28 @@ export const pageObj = {
     // 新用户优惠券 coupons_newbie
     async loadHomeExtra() {
         setTimeout(async () => {
-            const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
-                weapp_page: 'home'
-            });
+            try {
+                const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
+                    weapp_page: 'home'
+                });
 
-            /* 判断是否新人 */
-            const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
-            console.log(isUserGetRedPacket, 'i');
+                /* 判断是否新人 */
+                const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
 
-            this.setData({
-                isNewUser: !isUserGetRedPacket,
-                coupons_newbie,
-                userCoupon: coupons_home
-            });
+                this.setData({
+                    isNewUser: !isUserGetRedPacket,
+                    coupons_newbie,
+                    userCoupon: coupons_home
+                });
+            } catch (e) {
+                console.log(e);
+            }
         }, 300);
     },
 
     async loadHome() {
         const { id = '' } = this.data;
-        const { page_type = '' } = this;
+        const { pageKey = '' } = this;
 
         this.loadHomeExtra();
         this.setData({
@@ -89,7 +92,7 @@ export const pageObj = {
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: page_type });
+        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: pageKey });
 
 
         if (page_title) {
@@ -155,7 +158,6 @@ export const pageObj = {
                 page_title,
                 home_type,
                 isLoading: false,
-                // next_cursor: timestamp,
                 config
             });
         }
@@ -201,19 +203,15 @@ export const pageObj = {
     },
 
     async onShow() {
+        updateTabbar({ pageKey: this.pageKey });
+
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-        const { categoryIndex } = app.globalData;
         const { page_title } = this.data; // 兼容商品详情分享
-
         if (page_title) {
             wx.setNavigationBarTitle({
                 title: page_title,
             });
-        }
-
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
         }
         this.setData({
             tplStyle,
@@ -244,15 +242,26 @@ export const pageObj = {
 
     // 用户授权才能领取
     async bindGetUserInfo(e) {
-        const { isNewUser } = this.data;
+        console.log(e, 'onCouponClick');
         const { encryptedData, iv } = e.detail;
         if (iv && encryptedData) {
             await getAgainUserForInvalid({ encryptedData, iv });
-            if (isNewUser) {
-                this.receiveCouponAll(e);
-                return;
-            }
             this.onCouponClick(e);
+        } else {
+            wx.showModal({
+                title: '温馨提示',
+                content: '需授权后操作',
+                showCancel: false,
+            });
+        }
+    },
+
+    async receiveNewUserCoupon(e) {
+        console.log(e, 'receiveNewUserCoupon');
+        const { encryptedData, iv } = e.detail;
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.receiveCouponAll(e);
         } else {
             wx.showModal({
                 title: '温馨提示',
@@ -264,9 +273,9 @@ export const pageObj = {
 
     // 一键领取新人优惠券
     async receiveCouponAll(e) {
-        const { id } = e.currentTarget.dataset;
+        const { couponsNewbie = [] } = e.currentTarget.dataset;
         let result = [];
-        id.map(({ id, target_user_type }, index) => {
+        couponsNewbie.map(({ id, target_user_type }, index) => {
             if (target_user_type === '2') result.push(id);
         });
         const allResult = result.join(',');
@@ -392,7 +401,10 @@ export const pageObj = {
         }
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    // 分享按钮
+    onShareAppMessage() {
+        return onDefaultShareAppMessage.call(this, { goPath: '' });
+    },
 
     reLoad() {
         this.loadHome();
@@ -448,7 +460,5 @@ export const pageObj = {
         console.log(this.data.contactModal);
     },
 
-    go,
-
-    page_type: 'home'
+    go
 };

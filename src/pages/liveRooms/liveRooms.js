@@ -1,5 +1,6 @@
 import api from 'utils/api';
-
+import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { updateCart } from 'utils/util';
 const app = getApp();
 Page({
     data: {
@@ -18,6 +19,18 @@ Page({
     onLoad() {
         this.getInit();
         this.getListData();
+    },
+
+    onShow() {
+        this.showCart();
+    },
+
+    // 更新购物车数量标识
+    showCart() {
+        const { categoryIndex } = app.globalData;
+        if (categoryIndex !== -1) {
+            updateCart(categoryIndex);
+        }
     },
 
     // 获取配置内容
@@ -47,7 +60,13 @@ Page({
             let data = await api.hei.getLiveRooms({
                 status,
             });
-            let { banner, live_rooms } = data;
+            let { banner, live_rooms, page_title = '全部列表' } = data;
+
+            wx.setNavigationBarTitle({
+                title: page_title
+            });
+
+
             this.setData({
                 isLoading: false,
                 banner,
@@ -68,7 +87,7 @@ Page({
     onClickBtn(e) {
         let { status, id } = e.currentTarget.dataset;
         console.log('status', status);
-        let liveObj = { '101': '直播', '102': '直播预告', '103': '精彩回放' };
+        let liveObj = { '101': '视频', '102': '精彩预告', '103': '精彩回放' };
         let roomId = id;
         let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/index/index', pid: 1 }));
         let url = `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${roomId}&custom_params=${customParams}`;
@@ -84,4 +103,6 @@ Page({
             },
         });
     },
+
+    onShareAppMessage: onDefaultShareAppMessage
 });

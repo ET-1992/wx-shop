@@ -430,7 +430,7 @@ Page({
             const orderForm = this.selectComponent('#orderForm');
             const { annotation, dns_obj } = orderForm.data;
             annotation.forEach((item, index) => {
-                if (item.required && !dns_obj[item.name]) {
+                if (item.required && (!dns_obj[item.name] || !dns_obj[item.name].length)) {
                     item.isError = true;
                 }
             });

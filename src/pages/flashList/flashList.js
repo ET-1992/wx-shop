@@ -18,8 +18,7 @@ Page({
         const { next_cursor, categoryId, isRefresh, products } = this.data;
         const data = await api.hei.fetchProductList({
             cursor: next_cursor,
-            promotion_type: 'miaosha_enable',
-            meta_value: '1'
+            promotion_type: 'miaosha_enable'
         });
         const newProducts = isRefresh ? data.products : products.concat(data.products);
         this.setData({

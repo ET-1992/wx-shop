@@ -7,7 +7,10 @@
 		"pages/classify/classify",
 		"pages/articleList/articleList",
 		"pages/modulePage/modulePage",
-		"pages/shopList/shopList"
+		"pages/shopList/shopList",
+		"pages/discovery/discovery",
+		"pages/webBar/webBar",
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

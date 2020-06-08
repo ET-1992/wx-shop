@@ -25,6 +25,7 @@ export const PLATFFORM_ENV = 'PEAUNT';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
+    // { text: 'PEAUNT', value: 'https://hei.dev.97866.com/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },

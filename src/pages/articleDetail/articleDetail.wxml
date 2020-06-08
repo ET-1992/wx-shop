@@ -30,7 +30,7 @@
 
 		<block wx:if="{{ article.products && article.products.length }}">
 			<!-- 购物清单 米白 -->
-			<view class="fast-add-cart" wx:if="{{ PLATFFORM_ENV === 'MIBAI' }}">
+			<view class="fast-add-cart" wx:if="{{ PLATFFORM_ENV === 'MIBAI' || PLATFFORM_ENV === 'MIBAI' }}">
 				<view class="promote-top">
 					<view class="promote-left">
 						<image class="shopping-list" src="/icons/shoppingList.png"/>
