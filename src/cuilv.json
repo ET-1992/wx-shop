@@ -1,12 +1,18 @@
 {
 	"pages": [
 		"pages/home/home",
-		"pages/cart/cart",
 		"pages-cuilv/me/me",
+		"pages/cart/cart",
 		"pages/category/category",
-		"pages/articleList/articleList",
 		"pages/classify/classify",
-		"pages/modulePage/modulePage"
+		"pages/articleList/articleList",
+		"pages/modulePage/modulePage",
+		"pages/shopList/shopList",
+		"pages/discovery/discovery",
+		"pages/webBar/webBar",
+		"pages/liveRooms/liveRooms",
+		"pages/payCashier/payCashier",
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -81,7 +87,21 @@
 			"pages": [
 				"bindWeb"
 			],
-			"name": "绑定H5"
+			"name": "绑定手机"
+		},
+		{
+			"root": "pages/bargainList/",
+			"pages": [
+				"bargainList"
+			],
+			"name": "砍价列表"
+		},
+		{
+			"root": "pages/bargainDetail/",
+			"pages": [
+				"bargainDetail"
+			],
+			"name": "砍价详情"
 		},
 		{
 			"root": "pages/comment/",
@@ -141,6 +161,13 @@
 				"directPayResult"
 			],
 			"name": "扫码支付结果页"
+		},
+		{
+			"root": "pages/errorPage/",
+			"pages": [
+				"errorPage"
+			],
+			"name": "出错提示页"
 		},
 		{
 			"root": "pages/flashList/",
@@ -265,13 +292,6 @@
 			"name": "商品详情页"
 		},
 		{
-			"root": "pages/productList/",
-			"pages": [
-				"productList"
-			],
-			"name": "商品列表页"
-		},
-		{
 			"root": "pages/refund/",
 			"pages": [
 				"refund"
@@ -312,6 +332,13 @@
 				"webPages"
 			],
 			"name": "webPage页"
+		},
+		{
+			"root": "pages/productList",
+			"pages": [
+				"productList"
+			],
+			"name": "productList页"
 		},
 		{
 			"root": "pages/getCoupon",
