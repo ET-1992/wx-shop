@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "卡券领取",
+	"usingComponents": {
+		"van-loading": "@vant/weapp/dist/loading/index"
+	}
+}

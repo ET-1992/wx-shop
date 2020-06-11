@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "",
+	"usingComponents": {
+		"van-loading": "vant-weapp/dist/loading/index"
+	}
+}

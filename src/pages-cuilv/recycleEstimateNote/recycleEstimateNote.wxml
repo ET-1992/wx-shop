@@ -1,0 +1,35 @@
+<!-- 预估金额说明页 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}" />
+	<view wx:if="{{ !isLoading }}" class="main">
+		<view class="fee">
+			<view class="fee-item">
+				<text class="name">预估订单金额:</text>
+				<text class="value">{{ fee.estimate_order_amount || 0 }}</text>元
+			</view>
+			<view class="fee-item">
+				<text class="name">预估黄金金额:</text>
+				<text class="value">{{ fee.estimate_gold_amount || 0 }}</text>元
+			</view>
+			<view class="fee-item">
+				<text class="name">服务费:</text>
+				<text class="value">{{ fee.service_fee || 0 }}</text>元
+			</view>
+			<view class="fee-item">
+				<text class="name">检测费:</text>
+				<text class="value">{{ fee.evaluate_fee || 0 }}</text>元
+			</view>
+			<view class="fee-item">
+				<text class="name">物流费:</text>
+				<text class="value">{{ fee.postage || 0 }}</text>元
+			</view>
+			<view class="fee-item">
+				<text class="name">保价费:</text>
+				<text class="value">{{ fee.insurance_fee || 0 }}</text>元
+			</view>
+		</view>
+		<view class="rules">
+			<text class="rule">{{ rules.text || '暂无说明' }}</text>
+		</view>
+	</view>
+</view>

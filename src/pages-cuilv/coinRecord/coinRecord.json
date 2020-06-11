@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "历史记录",
+	"usingComponents": {
+		"van-loading": "vant-weapp/dist/loading/index"
+	}
+}

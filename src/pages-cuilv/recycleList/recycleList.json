@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": true,
+	"onReachBottomDistance": 100,
+	"usingComponents": {
+		"loading": "components/loading/index",
+		"dropdownMenu": "components/dropdownMenu/dropdownMenu"
+	}
+}

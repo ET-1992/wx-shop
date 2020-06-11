@@ -1,0 +1,192 @@
+@import '~styles/color';
+
+.container {
+	.head {
+		font-size: 24rpx;
+		color: #707070;
+		line-height: 34rpx;
+		height: 240rpx;
+		background: white;
+		padding: 0 40rpx;
+		margin-top: 10rpx;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		.evaluate-price {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			.price {
+				margin-bottom: 10rpx;
+			}
+			.price-tip {
+				position: relative;
+				.rule-icon {
+					position: absolute;
+					margin-left: 18rpx;
+				}
+			}
+		}
+		.evaluate-other {
+			width: 100%;
+			height: 80rpx;
+			display: flex;
+			view {
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 4rpx 0;
+				margin: 20rpx 0;
+			}
+			.gold-price {
+				border-right: 1rpx solid #C2C2C2;
+			}
+		}
+		.num {
+			color: $priceText;
+		}
+		.num-big {
+			font-size: 36rpx;
+		}
+	}
+	.body {
+		margin: 40rpx;
+		margin-bottom: 80rpx;
+		padding: 0 40rpx;
+		background: white;
+		overflow: hidden;
+		.section {
+			margin: 40rpx 0;
+			.section-title {
+				margin-bottom: 34rpx;
+			}
+			.recycle-way {
+				display: flex;
+				align-content: center;
+				align-items: center;
+				image {
+					padding: 0 10rpx;
+					box-sizing: content-box;
+				}
+			}
+			// 黄金回收方式单选框组
+			.section-radio-group {
+				display: flex;
+				justify-content: space-around;
+				.radio-item {
+					width: 164rpx;
+				}
+				.radio-value {
+					display: none;
+				}
+				.radio-box {
+					image {
+						width: 164rpx;
+						height: 124rpx;
+					}
+					.bg {
+						position: relative;
+						.bg-opacity {
+							position: absolute;
+							top: 0;
+							bottom: 0;
+							left: 0;
+							right: 0;
+						}
+						text {
+							text-align: center;
+							font-size: 28rpx;
+							line-height: 40rpx;
+							position: absolute;
+							color: white;
+							left: 50%;
+							top: 50%;
+							transform: translate(-50%, -50%)
+						}
+						.radio-single {
+							width: 30rpx;
+							height: 30rpx;
+							position: absolute;
+							right: 12rpx;
+							bottom: 12rpx;
+						}
+					}
+				}
+				.recycle-way-tip {
+					width: 105%;
+					height: 66rpx;
+					font-size: 24rpx;
+					line-height: 33rpx;
+					color: $priceText;
+					margin-top: 13rpx;
+					display: flex;
+					text-align: center;
+				}
+			}
+			// 取货地址
+			.section-address {
+				color: #333;
+				font-size: 28rpx;
+				line-height: 40rpx;
+				display: flex;
+				align-items: center;
+				image {
+					margin: 0 18rpx 0 40rpx;
+				}
+			}
+			// 银行卡信息输入
+			.section-input-group {
+				input {
+					padding: 20rpx;
+					border: 1rpx solid #C2C2C2;
+					box-sizing: content-box;
+					margin-bottom: 10rpx;
+					border-radius: 5rpx;
+				}
+			}
+		}
+	}
+	.foot {
+		margin: 80rpx 40rpx 88rpx;
+		.form-btn {
+			display: flex;
+			justify-content: center;
+			.btn {
+				color: $priceText;
+				font-size: 32rpx;
+				line-height: 45rpx;
+				width: 250rpx;
+				height: 80rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: white;
+				border-radius: 40rpx;
+			}
+			.submit-btn {
+				color: white;
+				background: $priceBtn;
+				margin-left: 70rpx;
+			}
+		}
+		// 服务协议
+		.service-agreement {
+			font-size: 24rpx;
+			line-height: 34rpx;
+			color: #999999;
+			display: flex;
+			justify-content: center;
+			margin: 30rpx 0 88rpx;
+			.agreement-title {
+				color: $priceText;
+			}
+		}
+	}
+	.icon {
+		width: 30rpx;
+		height: 30rpx;
+	}
+}

@@ -1,0 +1,74 @@
+<view class="container">
+	<view class="card-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view class="wrap" wx:else>
+		<view class="head-wrap">
+		   	<block wx:if="{{ !hasRecived }}">
+				<view class="user">
+					<image src="{{ sender.avatarurl ? sender.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				</view>
+				<view class="userName">{{ sender.nickname || '-' }}</view>
+				<view class="head-tip">送你一张充值卡</view>
+			</block>
+			<!-- 领取成功 -->
+		   	<block wx:else>
+				<view class="user">
+					<image src="/icons/goldCoinMall/receiveSuccess.svg" mode="aspectFit" class="avatar"></image>
+				</view>
+				<view class="userName">领取成功</view>
+				<view class="head-tip">充值卡已放入您的账户</view>
+			</block>
+		</view>
+		<view class="card-wrap">
+			<image class="card-bg" src="/icons/goldCoinMall/coinCardBg.svg">
+				<view class="card-top">No.{{ card.card_no || '-' }}</view>
+				<view class="card-body">
+					<text>{{ card.coin_quota || '-' }}</text>
+					<view class="card-right">
+						<text class="card-right-top">送你一张</text>
+						<view class="card-right-bottom">
+							<text class="min-text">{{ config.coin_name || '金彩' }}</text>
+							<text >充值卡</text>
+						</view>
+					</view>
+				</view>
+				<view class="card-bottom">
+					<text>有效期：{{ tool.getDateTime(card.expired_time) }}</text>
+				</view>
+			</image>
+		</view>
+		<view class="btn-wrap">
+			<!-- 已领取 -->
+			<button class="normalize receive-btn" wx:if="{{ hasRecived }}"
+			  bind:tap="go" 
+			  style="background-color: {{ themeColor.primaryColor  }}"
+			  data-url="/pages-cuilv/cardCollection/cardCollection?tab=card">去查看</button>
+			<!-- 未领取 -->
+			<button class="normalize receive-btn" wx:else
+			  style="background-color: {{ themeColor.primaryColor  }}"
+			  bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo"
+			  bind:tap="receiveCard">立即领取</button>
+		</view>
+	</view>
+</view>
+
+<wxs module="tool">
+	var filter = {
+    // 将时间戳转换成具体时间
+    getDateTime: function (value) {
+        //不能使用 new Date()
+        var time = getDate(value*1000);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        return year + "-" + month + "-" + date ;
+    }
+  }
+  // 导出对外暴露的属性
+  module.exports = {
+    getDateTime: filter.getDateTime
+  }
+</wxs>

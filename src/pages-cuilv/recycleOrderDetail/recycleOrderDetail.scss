@@ -1,0 +1,142 @@
+@import '~styles/color'; 
+
+.container {
+	.head {
+		font-size: 28rpx;
+		line-height: 40rpx;
+		color: white;
+		width: 100%;
+		padding: 20rpx 30rpx 30rpx;
+		background-color:#729153;
+		.order-status {
+			margin-bottom: 20rpx;
+		}
+		.order-follow {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.follow-text {
+				display: flex;
+				flex-direction: column;
+			}
+			.follow-btn {
+				color: white;
+				width: 140rpx;
+				height: 50rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1rpx solid white;
+				border-radius: 30rpx;
+			}
+		}
+	}
+	.body {
+		margin-bottom: 160rpx;
+		.buy-step {
+			display: flex;
+			justify-content: center;
+			background: white;
+			margin: 20rpx 0;
+			padding: 40rpx 0;
+			image {
+				width: 656rpx;
+				height: 120rpx;
+			}
+		}
+		.check-result {
+			padding: 30rpx;
+			background: white;
+			margin: 20rpx 0;
+			.result-title {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				button {
+					line-height: 28rpx;
+					color: #033277;
+					font-size: 20rpx;
+				}
+			}
+			// 检测结果-子项目
+			.result-item {
+				margin-top: 20rpx;
+				display: flex;
+				.result-item-key {
+					max-width: 400rpx;
+					margin-left: auto;
+				}
+			}
+			// 检测结果-子项目产品
+			.result-product {
+				color: #707070;
+				font-size: 20rpx;
+				padding: 12rpx 0 24rpx;
+				// 实际重量
+				.result-actual-weight {
+					color: black;
+					font-weight: bold;
+				}
+			}
+			// 检测结果-子项目价格
+			.result-price {
+				color: #707070;
+				font-size: 20rpx;
+				padding: 5rpx 0 30rpx;
+				border-top: 1rpx solid #E0E0E0;
+				// 总金额
+				.result-total-amount {
+					color: black;
+					font-size: 28rpx;
+					line-height: 40rpx;
+					font-weight: bold;
+					margin-top: 30rpx;
+					display: flex;
+					flex-direction: row-reverse;
+				}
+			}
+		}
+	}
+	.foot {
+		font-size: 28rpx;
+		line-height: 40rpx;
+		width: 100%;
+		height: 100rpx;
+		padding: 0 34rpx;
+		background: white;
+		position: fixed;
+		bottom: 0;
+		display: flex;
+		align-items: center;
+		&.iphoneXTrick {
+			height: 140rpx;
+			padding-bottom: 40rpx;
+		}
+		.contact-icon {
+			width: 34rpx;
+			height: 34rpx;
+			margin-right: 16rpx;
+		}
+		.foot-btn {
+			font-size: 24rpx;
+			margin-left: auto;
+			display: flex;
+			button {
+				color: $priceText;
+				width: 140rpx;
+				height: 50rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: 1rpx solid $priceText;
+				border-radius: 30rpx;
+			}
+			.confirm-btn {
+				color: white;
+				width: 200rpx;
+				margin-left: 20rpx;
+				background-color: $priceBtn;
+			}
+		}
+	}
+}

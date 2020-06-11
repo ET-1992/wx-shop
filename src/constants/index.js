@@ -10,6 +10,7 @@ export const LIFT_INFO_KEY = 'liftInfo';
 export const CART_LIST_KEY = 'cartList';
 export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
 export const OVERSEA_ADDRESS_KEY = 'selfAddressKey';
+export const CLOUD_CART_LIST_KEY = 'cloudCartList';
 
 export const SHARE_TITLE = '小黑店';
 
@@ -20,8 +21,9 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
 
-export const PLATFFORM_ENV = 'PEAUNT';
+// export const PLATFFORM_ENV = 'PEAUNT';
 // export const PLATFFORM_ENV = 'MIBAI';
+export const PLATFFORM_ENV = 'CUILV';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
@@ -199,3 +201,135 @@ export const PAY_STYLES = [
     { text: '微信', value: 'WEIXIN' },
     { text: '储值卡', value: 'STORE_CARD' }
 ];
+
+
+// 订单详情展示结构
+export const ORDERINFO = [
+    {
+        text: '订单号',
+        contentKey: 'repo_no'
+    },
+    {
+        text: '黄金类型',
+        contentKey: 'gold_type_str'
+    },
+    {
+        text: '克重',
+        contentKey: 'weight'
+    },
+    {
+        text: '回收方式',
+        contentKey: 'repo_type_str'
+    },
+    {
+        text: '取件信息',
+        contentKey: 'address'
+    },
+    // {
+    //     text: '收款账号',
+    //     contentKey: 'bank'
+    // },
+    {
+        text: '下单时间',
+        contentKey: 'time'
+    },
+];
+
+// 检测结果-产品
+export const CHECKPRODUCT = [
+    {
+        text: '产品类型',
+        contentKey: 'gold_type'
+    },
+    {
+        text: '样品编号',
+        contentKey: 'specimen_no'
+    },
+    {
+        text: '来样重量',
+        contentKey: 'origin_weight'
+    },
+    {
+        text: '产品成色',
+        contentKey: 'golden_quality'
+    },
+    {
+        text: '检测时间',
+        contentKey: 'evaluate_time'
+    },
+];
+
+// 检测结果-价格
+export const CHECKPPRICE = [
+    {
+        text: '实收金价',
+        contentKey: 'actual_gold_price'
+    },
+    {
+        text: '来样总额',
+        contentKey: 'specimen_amount'
+    },
+    {
+        text: '手续费',
+        contentKey: 'service_fee'
+    },
+    {
+        text: '物流费',
+        contentKey: 'postage'
+    },
+    {
+        text: '保险费',
+        contentKey: 'insurance_fee'
+    },
+    {
+        text: '检测费',
+        contentKey: 'evaluate_fee'
+    },
+];
+
+// 回购记录类型
+export const REPO_STATUS = [
+    {
+        key: 'TYPE_REPO_INCOME',
+        value: 14,
+        name: '收入',
+        income: true,
+    },
+    {
+        key: 'TYPE_REPO_ORDER',
+        value: 145,
+        name: '订单消费',
+        income: false,
+    },
+    {
+        key: 'TYPE_REPO_ORDER_REFUND',
+        value: 146,
+        name: '订单退款',
+        income: true,
+    },
+    {
+        key: 'TYPE_REPO_ORDER_CLOSE',
+        value: 149,
+        name: '订单关闭',
+        income: true,
+    },
+    {
+        key: 'TYPE_REPO_WITHDRAWAL',
+        value: 141,
+        name: '银行卡提现',
+        income: false,
+    },
+    {
+        key: 'TYPE_REPO_DEPOSIT_WITHDRAWAL',
+        value: 148,
+        name: '寄存金提现',
+        income: true,
+    },
+];
+
+// 寄存记录类型
+export const DEPOSIT_STATUS = {
+    TYPE_DEPOSIT_INCOME: 15,  // 寄存收入
+    TYPE_DEPOSIT_WITHDRAWAL: 151,  // 寄存提取
+};
+

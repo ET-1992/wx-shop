@@ -1,0 +1,23 @@
+@import '~styles/color';
+@import "~templates/listItem/order/order.scss";
+@import "~templates/listItem/deposit/deposit.scss";
+@import "~templates/listItem/repo/repo.scss";
+
+.container {
+	.body {
+		font-size: 24rpx;
+		line-height: 33rpx;
+		margin-top: 10rpx;
+	}
+
+	.emptyHint {
+		padding-top: 300rpx;
+		text-align: center;
+		color: $originalPriceColor;
+	}
+	.bottomHint {
+		padding: 20rpx 0;
+		text-align: center;
+		color: $originalPriceColor;
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "计算结果",
+	"usingComponents": {
+		"van-loading": "vant-weapp/dist/loading/index"
+	}
+}

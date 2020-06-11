@@ -1,0 +1,99 @@
+@import '~styles/color.scss';
+
+.container {
+	.card-loading {
+		display: flex;
+		justify-content: center;
+	}
+	.wrap {
+		margin: 40rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.head-wrap {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.user {
+				width: 100rpx;
+				height: 100rpx;
+				margin-bottom: 10rpx;
+				.avatar {
+					width: 100rpx;
+					height: 100rpx;
+					border-radius: 50%;
+				}
+			}
+			.userName {
+				font-weight: bold;
+				margin: 10rpx 0;
+				font-size: 36rpx;
+				line-height: 50rpx;
+			}
+			.head-tip {
+				font-weight: lighter;
+				margin: 10rpx 0 40rpx;
+			}
+		}
+		.card-wrap {
+			.card-bg {
+				width: 670rpx;
+				height: 290rpx;
+				position: relative;
+				color: #FDF1BE;
+				.card-top {
+					font-size: 24rpx;
+					position: absolute;
+					top: 25rpx;
+					left: 25rpx;
+				}
+				.card-body {
+					font-size: 100rpx;
+					position: absolute;
+					left: 82rpx;
+					right: 82rpx;
+					top: 68rpx;
+					bottom: 82rpx;
+					display: flex;
+					justify-content: space-between;
+					.card-right {
+						display: flex;
+						flex-direction: column;
+						.card-right-top {
+							vertical-align: text-top;
+							font-size: 40rpx;
+							padding-bottom: 10rpx;
+							border-bottom: 1rpx solid white;
+							margin-bottom: 4rpx;
+						}
+						.card-right-bottom {
+							font-size: 30rpx;
+							.min-text {
+								font-size: 24rpx;
+								margin-right: 10rpx;
+							}
+						}
+					}
+				}
+				.card-bottom {
+					font-size: 20rpx;
+					position: absolute;
+					left: 50%;
+					bottom: 30rpx;
+					transform: translateX(-50%);
+				}
+			}
+		}
+		.btn-wrap {
+			margin-top: 80rpx;
+			.receive-btn {
+				color: white;
+				background-color: $mainColor;
+				font-size: 32rpx;
+				width: 670rpx;
+				line-height: 80rpx;
+				border-radius: 40rpx;
+			}
+		}
+	}
+}

@@ -1,0 +1,110 @@
+<!-- 金币兑换-商品详情 -->
+<import src="../../utils/wxParse/wxParse.wxml" />
+
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<view class="head">
+			<view class="medio">
+				 <swiper indicator-dots="{{ true }}" class="swiper">
+					<block wx:for="{{ product.images }}" wx:key="*this">
+						<swiper-item>
+							<view class="head-img">
+								<image class="head-img-inner" src="{{ item }}" />
+							</view>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+			<view class="info">
+				<view class="info-left">
+					<view class="title">{{ product.title || '-'}}</view>
+					<view class="subtitle">{{ product.excerpt || '-'}}</view>
+					<view class="price">{{ (product.coin_fee || product.coin_price) ? product.coin_fee + (config.coin_name || '金彩') + '+' + product.coin_price + '元' : '-' }}</view>
+				</view>
+				<view class="info-right">
+					<image class="shareIcon" mode="aspectFit" 
+					src="{{ '/icons/shareGoods.png' }}" bindtap="openShareModal" 
+					></image>
+				</view>
+			</view>
+		</view>
+		<!-- 商品详情 -->
+		<view class="body">
+		  <view class="body-title">
+			<text class="dot">•</text>
+			商品详情
+			<text class="dot">•</text>
+		  </view>
+		  <view class="body-content">
+			  <template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+		  </view>
+		</view>
+		<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="goods-action">
+				<view class="action-left">
+					<view class="action-left-item" bind:tap="go" data-url="/pages-cuilv/goldCoinMall/goldCoinMall">
+						<image class="left-img" src="/icons/store.png" />
+						<text >首页</text>
+					</view>
+					<view class="action-left-item">
+						<image class="left-img" src="/icons/context.png" />
+						<text >客服</text>
+					</view>
+				</view>
+				<view class="action-right">
+					<button class="normalizeBt action-right-bt" style="background-color: {{ themeColor.primaryColor  }}"
+					  bind:tap="onShowSku">立即兑换</button>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>
+
+<skuModal 
+  isShowSkuModal="{{ isShowAcitonSheet }}" 
+  position="bottom"
+  themeColor="{{ themeColor }}"
+  product="{{ product }}"
+  quantity="{{ 1 }}"
+  config="{{ config }}"
+  isIphoneX="{{ isIphoneX }}"
+  actions="{{ [{ type: 'onBuy', text: '立即兑换' }] }}"
+  bind:onSkuConfirm="onSkuConfirm"
+  bind:getShippingType="getShippingType"
+/>
+
+<!-- 分享弹窗 -->
+<van-popup show="{{ showShareModal }}" position="bottom" bind:close="closeShareModal">
+	<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="shareModalContent">
+			<button class="shareBtn" open-type="share">
+				<image src="/icons/shareFriendIcon.svg" mode="aspectFit" />
+				<view>分享给好友</view>
+			</button>
+			<view class="shareBtn" bindtap="openPosterModal">
+				<image src="/icons/sharePosterIcon.svg" mode="aspectFit" />
+				<view>分享商品海报</view>
+			</view>
+		</view>
+		<image
+		 class="close"
+		 src="/icons/closeModal.png"
+		 mode="aspectFit"
+		 catchtap="closeShareModal"
+		/>
+	</view>
+</van-popup>
+
+<!-- 海报弹窗 -->
+<productDetailShareModal
+	productImage="{{ product.thumbnail }}"
+	productTitle="{{ product.title }}"
+	productPrice="{{ product.coin_price || 0 }}"
+	routePath="{{ routePath }}"
+	routeQuery="{{ routeQuery }}"
+	bindonCloseModal="closePosterModal"
+	wx:if="{{ posterModal && product.thumbnail }}"
+/>

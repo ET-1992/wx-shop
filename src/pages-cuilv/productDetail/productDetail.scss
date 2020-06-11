@@ -1,0 +1,314 @@
+@import '~styles/color';
+$footerHeight: 100rpx;
+$iphoneXBottomGap: 40rpx;
+
+.container {
+	padding-bottom: $footerHeight;
+	.product-before {
+		margin: 10rpx 0;
+		background-color: #fff;
+		--tabs-line-height: 80rpx;
+	}
+	.top {
+		background-color: #fff;
+		.top-img {
+			.swiper {
+				height: 100%;
+			}
+			width: 100%;
+			height: 650rpx;
+			background-color: #D9D9D9;
+			.top-img-inner {
+				width: 100%;
+				height: 650rpx;
+			}
+		}
+		.top-title {
+			padding: 18rpx 30rpx 0;
+			display: flex;
+			.top-title-left {
+				width: 90%;
+				.title {
+					margin-bottom: 18rpx;
+				}
+				.subtitle {
+					margin-top: 18rpx;
+					font-size: 24rpx;
+					color: #707070;
+				}
+			}
+			.top-title-right {
+				height:90rpx;
+				.shareIcon{
+					width: 90rpx;
+					height: 91rpx;
+					padding-right: 10rpx;
+				}
+			}
+		}
+		.top-info {
+			padding: 20rpx 30rpx 15rpx;
+			display: flex;
+			.info-left {
+				font-size: 28rpx;
+				color: #F52D2D;
+				margin-right: 100rpx;
+			}
+			.info-right {
+				color: #333333;
+				font-size: 24rpx;
+				flex: 1;
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+		.top-progress {
+			padding: 16rpx 30rpx;
+		}
+
+	}
+	.middle {
+		.middle-current {
+			font-size: 24rpx;
+			padding: 26rpx 38rpx 21rpx;
+			background-color: #fff;
+			margin-top: 10rpx;
+			.current-top {
+				display: flex;
+				justify-content: space-between;
+				padding-bottom: 25rpx;
+				border-bottom: 1rpx solid #C2C2C2;
+				margin-bottom: 15rpx;
+				.current-top-item {
+					font-size: 24rpx;
+					font-weight: bold;
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					text-align: center;
+					.item-value {
+						font-weight: normal;
+						font-size: 20rpx;
+						line-height: 25rpx;
+						height: 50rpx;
+						margin-top: 10rpx;
+					}
+					.single-row-item-value {
+						font-size: 24rpx;
+						line-height: 50rpx;
+					}
+				}
+			}
+			.current-bottom {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.lucky-num-inner {
+					margin-left: 40rpx;
+					color: #F52D2D;
+				}
+				.compute-btn {
+					font-size: 24rpx;
+					width: 200rpx;
+					line-height: 45rpx;
+					color: white;
+					background-color: $mainColor;
+				}
+			}
+		}
+		.middle-last {
+			line-height: 33rpx;
+			margin: 20rpx 0;
+			padding: 11rpx 30rpx 25rpx;
+			background-color: #fff;
+			.middle-winner {
+				font-size: 24rpx;
+				font-weight: bold;
+				color: #F52D2D;
+				margin-bottom: 20rpx;
+				.middle-winner-inner {
+					margin-left: 20rpx;
+				}
+			}
+			.middle-more {
+				color: #333333;
+				font-size: 20rpx;
+				line-height: 28rpx;
+				.more-item {
+					display: flex;
+					margin-bottom: 5rpx;
+					.more-left {
+						width: 276rpx;
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		margin-top: 10rpx;
+		width: 100%;
+		background-color: #fff;
+		.bottom-title {
+			padding: 26rpx 0 ;
+			font-size: 28rpx;
+			line-height: 40rpx;
+			display: flex;
+			justify-content: center;
+			.dot {
+				padding: 0 14rpx;
+			}
+		}
+		.bottom-content {
+			width: 100%;
+			background-color: #fff;
+		}
+	}
+	.good-action-wrap {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		background-color: #fff;
+		.good-action {
+			width: 100%;
+			height: 100rpx;
+			padding: 0 24rpx;
+			display: flex;
+			justify-content: space-between;
+			.action-left {
+				font-size: 20rpx;
+				display: flex;
+				.action-left-item {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					margin-right: 16rpx;
+					.action-img {
+						width: 45rpx;
+						height: 45rpx;
+					}
+				}
+			}
+			.action-right {
+				display: flex;
+				align-items: center;
+				.action-right-btn {
+					color: white;
+					font-size: 32rpx;
+					line-height: 80rpx;
+					width: 250rpx;
+					height: 80rpx;
+					background-color: $mainColor;
+					border-radius: 5rpx;
+					margin-left: 10rpx;
+					&.second {
+						background-color: $secondColor;
+					}
+					&.third {
+						width: 510rpx;
+					}
+				}
+			}
+		}
+	}
+}
+// 参与弹窗
+.join-popup-wrap {
+	.join-pop {
+		.top {
+			margin: 56rpx 60rpx 0;
+			padding: 0 4rpx 40rpx;
+			border-bottom: 1rpx solid #E0E0E0;
+			display: flex;
+			.left {
+				width: 175rpx;
+				height: 175rpx;
+				background-color: #999999;
+				.left-img {
+					width: 175rpx;
+					height: 175rpx;
+				}
+			}
+			.right {
+				font-size: 28rpx;
+				margin-left: 43rpx;
+				display: flex;
+				flex-direction: column;
+				.right-worth {
+					font-size: 32rpx;
+					color: #F52D2D;
+					line-height: 45rpx;
+				}
+				.right-num {
+					margin-top: auto;
+				}
+			}
+		}
+		.body {
+			font-size: 28rpx;
+			display: flex;
+			justify-content: space-between;
+			padding: 40rpx 60rpx 38rpx;
+		}
+		.bottom {
+
+			.bottom-btn {
+				font-size: 32rpx;
+				color: white;
+				width: 100%;
+				line-height: 90rpx;
+				background-color: $mainColor;
+			}
+		}
+	}
+}
+
+// 分享弹窗
+.actionShareModal{
+	background-color: #fff;
+	width: 100%;
+
+	&.iphoneXTrick {
+		padding-bottom: 40rpx;
+	}
+
+	&.show {
+		transform: translateY(0);
+	}
+
+	.close {
+		position: absolute;
+		width: 40rpx;
+		height: 40rpx;
+		top: 15rpx;
+		right: 15rpx;
+	}
+}
+.shareModalContent{
+	height: 280rpx;
+	display: flex;
+	justify-content: space-around;
+
+	.shareBtn{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 67.5rpx;
+		background-color: transparent;
+
+		image{
+			width: 90rpx;
+			height: 90rpx;
+		}
+		view{
+			padding-top: 20rpx;
+			font-size: 28rpx;
+			line-height: 1.5;
+			color: #333;
+		}
+	}
+}
+
+.iphoneXTrick {
+	padding-bottom: $iphoneXBottomGap !important;
+}

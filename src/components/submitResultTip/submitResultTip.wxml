@@ -1,0 +1,22 @@
+<!-- 提交结果提示 -->
+<view class="container">
+	<view class="head">
+		<view class="result-img">
+			<image src="/icons/fastDeposit/result-icon.svg" />
+		</view>
+		<view class="title">
+			<text>{{ title }}</text>
+		</view>
+		<view class="subtitle">
+			<text>{{ subTitle }}</text>
+		</view>
+		<view class="result-btns">
+			<!-- 跳转至订单详情 -->
+			<button class="normalizeBt" wx:if="{{ navigateUrl === 'order' }}" 
+			  bind:tap="go" data-url="/pages-cuilv/recycleOrderDetail/recycleOrderDetail?orderId={{ orderNo }}">查看订单</button>
+			<!-- 跳转至上一页 -->
+			<button class="normalizeBt" wx:elif="{{ navigateUrl === 'back' }}" bind:tap="onBack">返回</button>
+			<button class="normalizeBt" wx:else bind:tap="go" data-url="/pages/home/home">返回首页</button>
+		</view>
+	</view>
+</view>

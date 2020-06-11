@@ -1,0 +1,6 @@
+{
+	"usingComponents": {
+        "loading": "components/loading/index",
+        "magicImg": "components/magicImg/magicImg"
+    }
+}

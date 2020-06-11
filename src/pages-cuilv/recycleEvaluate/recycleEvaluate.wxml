@@ -1,0 +1,80 @@
+<!-- 在线估价 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}"></loading>
+	<block class="main" wx:if="{{ !isLoading }}">
+		<!-- 流程和金价 -->
+		<view class="head">
+			<view class="steps">
+				<image class="steps-img" src="/icons/fastDeposit/order-steps.svg" mode="aspectFil" />
+			</view>
+			<view class="price">
+				<view class="price-now">
+					<text>实时金价：</text>
+					<text class="price-num">{{ goldPrice || 0 }}</text>
+					<text>元/克</text>
+				</view>
+				<view class="price-evaluate">
+					<text>预估金额：</text>
+					<text class="price-num">{{ goldAmount || 0 }}</text>
+					<text>元</text>
+				</view>
+				<image src="/icons/fastDeposit/questionMark.svg" class="question-mark" bind:tap="showRule" data-type="ESTIMATE" />
+			</view>
+		</view>
+		<!-- 表单 -->
+		<view class="form">
+			<view class="section">
+				<view class="section-title">1. 请选择黄金类型</view>
+				<radio-group name="radio-group" class="section-radio-group" bindchange="radioChange">
+					<label wx:for="{{ typeSetting.gold_type }}" wx:key="index" class="radio-label">
+						<radio value="{{ item.type }}" class="radio-value"/>
+						<view class="radio-box">
+							<image src="{{ item.image || '/icons/fastDeposit/goldTypeBg.png'}}" class="bg">
+								<image src="/icons/fastDeposit/goldTypeBgOpacity.svg" class="bg-opacity"/>
+								<text>{{ item.title || '-' }}</text>
+								<!-- 选中 -->
+								<image wx:if="{{ sellGoldForm.goldType == item.type }}" src="/icons/fastDeposit/radio-selected.svg" class="radio-single"/>
+								<!-- 非选中 -->
+								<image wx:else src="/icons/fastDeposit/radio.svg" class="radio-single"/>
+							</image>
+						</view>
+					</label>
+				</radio-group>
+			</view>
+			<view class="section">
+				<view class="section-title">2. 请输入黄金克重</view>
+				<view class="section-input {{ weightDisable ? 'inputDsable' : '' }}">
+					<input name="input" value="{{ sellGoldForm.weight }}" 
+						type="digit" bindinput="inputWeight"
+						maxlength="8" placeholder="0.00" 
+						disabled="{{ weightDisable }}" />
+					<text class="input-unit">克</text>
+				</view>
+			</view>
+			<view class="section">
+				<view class="autograph-tip">
+					<view class="section-title">3. 请上传购买发票或本人亲自签字的说明</view>
+					<image src="/icons/fastDeposit/questionMark.svg" class="autograph-expound" bind:tap="showRule" data-type="EXPOUND" />
+				</view>
+				<view class="autograph-upload">
+					<!-- 已上传 -->
+					<view class="autograph-item" wx:for="{{ sellGoldForm.images }}" wx:key="index">
+						<image src="{{ item }}" class="upload-img" mode="aspectFill" 
+						  data-index="{{ index }}" bindtap="onPreviewImg" />
+						<!-- 删除 -->
+						<image src="/icons/fastDeposit/upload-delete.png" class="upload-icon upload-delete" 
+						  data-index="{{ index }}" bindtap="onDeleteImg" />
+					</view>
+					<!-- 添加图片 -->
+					<view class="autograph-item add-image" bind:tap="onUploadImg" wx:if="{{ sellGoldForm.images.length < 9 }}">
+						<image src="/icons/fastDeposit/upload-add.png" class="upload-icon upload-add" />
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 下一步按钮 -->
+		<view class="next-btn">
+			<button bind:tap="onSubmit">下一步</button>
+		</view>
+	</block>
+</view>

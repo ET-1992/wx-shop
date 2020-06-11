@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "提交结果",
+	"usingComponents": {
+		"infoPanel": "components/orderInfoPanel/orderInfoPanel",
+		"loading": "components/loading/index",
+		"resultTip": "components/submitResultTip/submitResultTip"
+	}
+}

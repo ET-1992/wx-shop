@@ -1,0 +1,33 @@
+<!-- 实名认证 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}" />
+	<view class="verify-form" wx:if="{{ !isLoading }}">
+		<form>
+			<view class='form-section'>
+				<view class='form-name'>真实姓名</view>
+				<input class='form-input' placeholder="请输入您本人的真实姓名" type="text" 
+				  value="{{userName? userName : ''}}" bindinput="getInput" 
+				  data-name="userName"/>
+			</view>
+			<view class='form-section'>
+				<view class='form-name'>身份证号</view>
+				<input class='form-input' placeholder="请输入您本人的身份证号" type="idcard"  
+				  value="{{idNumber?  idNumber : ''}}" bindinput="getInput" 
+				  data-name="idNumber" maxlength="18"/>
+			</view>
+			<view class='form-section'>
+				<view class='form-name'>身份证正面</view>
+				<view class="form-img" bind:tap="onUploadImg" data-key="{{ 0 }}">
+					<image src="{{idCardFront ? idCardFront: '/icons/fastDeposit/camera-add.png'}}" />
+				</view>
+			</view>
+			<view class='form-section'>
+				<view class='form-name'>身份证反面</view>
+				<view class="form-img" bind:tap="onUploadImg" data-key="{{ 1 }}">
+					<image src="{{idCardBack ? idCardBack: '/icons/fastDeposit/camera-add.png'}}" />
+				</view>
+			</view>
+			<button form-type="submit" class="normalizeBt form-btn" bind:tap="onSubmit">提 交</button>
+		</form>
+	</view>
+</view>

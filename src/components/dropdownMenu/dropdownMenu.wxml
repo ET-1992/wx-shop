@@ -1,0 +1,22 @@
+<!-- 列表筛选下拉菜单组件 -->
+<view class="container">
+	<view class="nav">
+		<!-- 类型 -->
+		<picker class="picker-item" value="{{ typeIndex }}" range="{{ typeArray }}" 
+		  bindchange="onPickerChange" bindcancel="onPickerCancel" data-name="typeIndex">
+			<view class="picker">
+				<text>{{ typeArray[typeIndex] }}</text>
+				<view class="picker-logo"></view>
+			</view>
+		</picker>
+		<!-- 时间 -->
+		<picker class="picker-item" value="{{ dateIndex }}" mode="date" 
+		  fields="month" start="2019-01" end="2022-12"
+		  bindchange="onPickerChange" bindcancel="onPickerCancel" data-name="dateIndex">
+			<view class="picker">
+				<text>{{ dateIndex || '全部时间' }}</text>
+				<view class="picker-logo"></view>
+			</view>
+		</picker>
+	</view>
+</view>

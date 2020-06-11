@@ -1,0 +1,36 @@
+<!-- 回购订单 orderItem -->
+<import src="/templates/listItem/order/order.wxml"/>
+<!-- 寄存订单 depositItem -->
+<import src="/templates/listItem/deposit/deposit.wxml"/>
+<!-- 余额明细 repoItem -->
+<import src="/templates/listItem/repo/repo.wxml"/>
+
+<view class="container">
+	<!-- 下拉菜单 -->
+	<dropdownMenu class="dropdownMenu" typeArray="{{ localPage.typeArray }}" 
+	  bindpickerChange="updateData" />
+	<view class="body">
+		<loading isLoading="{{ isLoading }}" wx:if="{{ isLoading }}" />
+		<view class="emptyHint" wx:elif="{{ !listData.length }}">暂无内容</view>
+		<!-- 订单记录 -->
+		<block wx:elif="{{ localPage.id === 0 }}">
+			<template is="orderItem" data="{{ listData }}"/>
+		</block>
+
+		<!-- 余额明细 -->
+		<block wx:elif="{{ localPage.id === 1 }}">
+			<template is="repoItem" data="{{ listData, REPO_STATUS }}"/>
+		</block>
+
+		<!-- 寄存记录 -->
+		<block wx:elif="{{ localPage.id === 2 }}">
+			<template is="depositItem" data="{{ listData }}"/>
+		</block>
+
+		<!-- 复用页面出错提示 -->
+		<view wx:else class="emptyHint">页面出错</view>
+	</view>
+
+	<!-- 底线提示 -->
+	<view wx:if="{{ listData.length && !next_cursor }}" class="bottomHint">这是一条底线</view>
+</view>

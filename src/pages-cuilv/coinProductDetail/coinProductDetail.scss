@@ -1,0 +1,162 @@
+@import '~styles/color';
+$footerHeight: 100rpx;
+$iphoneXBottomGap: 40rpx;
+
+.container {
+	padding-bottom: $footerHeight;
+	.head {
+		.medio {
+			width: 100%;
+			height: 724rpx;
+			.swiper {
+				height: 100%;
+			}
+			.head-img {
+				width: 100%;
+				height: 724rpx;
+				background-color: #D9D9D9;
+				.head-img-inner {
+					width: 100%;
+					height: 724rpx;
+				}
+			}
+		}
+		// 标题信息
+		.info {
+			padding: 18rpx 30rpx 23rpx;
+			background-color: #fff;
+			margin-top: 10rpx;
+			display: flex;
+			.info-left {
+				width: 90%;
+				.title {
+					font-size: 33rpx;
+					line-height: 41rpx;
+				}
+				.subtitle {
+					color: #707070;
+					font-size: 24rpx;
+					line-height: 33rpx;
+					margin: 7rpx 0;
+				}
+				.price {
+					font-size: 32rpx;
+					line-height: 45rpx;
+					color: #F52D2D;
+				}
+			}
+			.info-right {
+				height:90rpx;
+				.shareIcon{
+					width: 90rpx;
+					height: 91rpx;
+					padding-right: 10rpx;
+				}
+			}
+		}	
+	}
+	.body {
+		margin-top: 20rpx;
+		width: 100%;
+		background-color: #fff;
+		.body-title {
+			text-align: center;
+			padding: 26rpx 0 ;
+			font-size: 28rpx;
+			line-height: 40rpx;
+			.dot {
+				padding: 0 14rpx;
+			}
+		}
+		.body-content {
+			width: 100%;
+			background: white;
+		}
+	}
+	.footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		background-color: #fff;
+		&.iphoneXTrick{
+			padding-bottom: $iphoneXBottomGap;
+		}
+		.goods-action {
+			width: 100%;
+			height: 100rpx;
+			display: flex;
+			padding: 0 22rpx;
+			align-items: center;
+			justify-content: space-between;
+			.action-left {
+				flex: 1;
+				font-size: 22rpx;
+				display: flex;
+				justify-content: space-around;
+				.action-left-item {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					.left-img {
+						width: 45rpx;
+						height: 45rpx;
+					}
+				}
+			}
+			.action-right {
+				.action-right-bt {
+					font-size: 32rpx;
+					color: white;
+					width: 510rpx;
+					line-height: 80rpx;
+					background-color: $mainColor;
+				}
+			}
+		}
+	}
+}
+// 分享弹窗
+.actionShareModal{
+	background-color: #fff;
+	width: 100%;
+
+	&.iphoneXTrick {
+		padding-bottom: 40rpx;
+	}
+
+	&.show {
+		transform: translateY(0);
+	}
+
+	.close {
+		position: absolute;
+		width: 40rpx;
+		height: 40rpx;
+		top: 15rpx;
+		right: 15rpx;
+	}
+}
+.shareModalContent{
+	height: 280rpx;
+	display: flex;
+	justify-content: space-around;
+
+	.shareBtn{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 67.5rpx;
+		background-color: transparent;
+
+		image{
+			width: 90rpx;
+			height: 90rpx;
+		}
+		view{
+			padding-top: 20rpx;
+			font-size: 28rpx;
+			line-height: 1.5;
+			color: #333;
+		}
+	}
+}

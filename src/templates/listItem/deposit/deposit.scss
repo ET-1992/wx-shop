@@ -1,0 +1,35 @@
+// 寄存记录
+.deposit-item-wrap {
+    background: white;
+    padding: 0 30rpx;
+    &:last-child {
+        padding-bottom: 40rpx;
+    }
+    .deposit-item {
+        background: white;
+        padding: 25rpx 0;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1rpx solid #E0E0E0;
+        .deposit-left {
+            display: flex;
+            flex-direction: column;
+            .deposit-type {
+                margin: 0 30rpx 4rpx 0;
+            }
+            .deposit-time {
+                color: #999999;
+                font-size: 20rpx;
+                line-height: 28rpx;
+            }
+        }
+        .deposit-right {
+            .income {
+                color: $priceText;
+            }
+            .expense {
+                color: #333333;
+            }
+        }
+    }
+}

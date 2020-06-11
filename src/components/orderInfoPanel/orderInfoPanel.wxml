@@ -1,0 +1,30 @@
+<!-- 订单详情信息面板 -->
+<view class="container">
+	<view class="info-item" wx:for="{{ info }}" wx:key="index">
+		<text>{{ item.text }}</text>
+		<!-- 重量 -->
+		<block wx:if="{{ item.contentKey === 'weight' }}">
+			<text class="item-res">{{ order[item.contentKey] + '克' || '' }}</text>
+		</block>
+		<!-- 地址 -->
+		<block wx:elif="{{ item.contentKey === 'address' }}">
+			<text class="item-res">{{ order.customer_state + order.customer_city + 
+			  order.customer_district + order.customer_address + '\n' + 
+			  order.customer_name + ' ' +order.customer_phone || '' }}</text>
+		</block>
+		<!-- 时间 -->
+		<block wx:elif="{{ item.contentKey === 'time' }}">
+			<text class="item-res">{{ filter.getDateTime(order[item.contentKey]) || '' }}</text>
+		</block>
+		<!-- 收款账号 -->
+		<!-- <block wx:elif="{{ item.contentKey === 'bank' }}">
+			<text wx:if="{{ order.bank_account && order.bank_account !== 'undefined' }}" class="item-res"
+			  >{{ order.bank_name + ' ' + order.bank_account }}
+			</text>
+			<text wx:else class="item-res">无</text>
+		</block> -->
+		<!-- 订单号、黄金类型、回收方式 -->
+		<text wx:else class="item-res">{{ order[item.contentKey] || '' }}</text>
+	</view>
+</view>
+<wxs src="utils/wxs/timeTranslate.wxs" module="filter" />

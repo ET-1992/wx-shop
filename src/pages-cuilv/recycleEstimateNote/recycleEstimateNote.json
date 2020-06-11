@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "预估金额说明",
+	"usingComponents": {
+		"loading": "components/loading/index"
+	}
+}

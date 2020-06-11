@@ -1,0 +1,205 @@
+
+.container {
+	.top {
+		margin-top: 10rpx;
+	}
+	.result {
+		.check {
+			padding: 30rpx 35rpx;
+			background-color: #fff;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			margin: 10rpx 0 16rpx;
+			.check-left {
+				.check-item {
+					font-size: 24rpx;
+					line-height: 34rpx;
+					color: black;
+					&:first-child {
+						margin-bottom: 20rpx;
+					}
+					.check-res {
+						color: #F52D2D;
+					}
+				}
+			}
+			.check-right {
+				.check-btn {
+					width: 200rpx;
+					line-height: 45rpx;
+					background-color: #F52D2D;
+					color: white;
+					font-size: 24rpx;
+				}
+			}
+		}
+		.send {
+			margin: 16rpx 0;
+			padding: 28rpx 35rpx;
+			background-color: white;
+			.send-tips {
+				font-size: 24rpx;
+				line-height: 40rpx;
+				color: black;
+			}
+			.send-address {
+				.address-no {
+					display: flex;
+					flex-direction: column;
+					height: 188rpx;
+					justify-content: center;
+					.address-add {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.add-icon {
+							width: 30rpx;
+							height: 30rpx;
+						}
+						.add-btn {
+							margin-left: 4rpx;
+							font-size: 28rpx;
+							line-height: 42rpx;
+							color: #333333;
+							background-color: transparent;
+						}
+					}
+				}
+				.address-have {
+					display: flex;
+					align-items: center;
+					height: 188rpx;
+					.address-img {
+						margin: 0 28rpx 0 8rpx;
+						.address-icon {
+							width: 31rpx;
+							height: 38rpx;
+						}
+					}
+					.address-info {
+						display: flex;
+						flex-wrap: wrap;
+						.info-item {
+							font-size: 28rpx;
+							line-height: 40rpx;
+							margin-right: 34rpx;
+						}
+					}
+				}
+				.address-btns {
+					display: flex;
+					.btns-wrap {
+						display: flex;
+						margin-left: auto;
+					}
+					button {
+						font-size: 24rpx;
+						color: white;
+						width: 200rpx;
+						line-height: 45rpx;
+						background-color: #F52D2D;
+					}
+					.address-revise {
+						margin-right: 10rpx;
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		font-size: 24rpx;
+		line-height: 34rpx;
+		margin-top: 10rpx;
+		padding: 35rpx 25rpx;
+		background-color: #fff;
+		.lucky-wrap {
+			display: flex;
+			flex-wrap: wrap;
+			margin-top: 10rpx;
+			.lucky-num {
+				font-family: "Courier New", Courier, monospace;
+				width: 82px;
+				.win-code {
+					color: #F52D2D;
+				}
+			}
+		}
+	}
+}
+
+// 列表项模板
+.orderRecord {
+	margin-bottom: 10rpx;
+	padding: 0 20rpx;
+	background-color: #fff;
+	&:last-child {
+		margin: 0;
+	}
+	.top {
+		padding: 28rpx 0 30rpx;
+		display: flex;
+		border-bottom: 1rpx solid #E0E0E0;
+		.top-left {
+			background-color: #C9C9C9;
+			width: 140rpx;
+			height: 140rpx;
+			.order-img {
+				width: 140rpx;
+				height: 140rpx;
+			}
+		}
+		.top-right {
+			font-size: 24rpx;
+			margin: 0 15rpx;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			.order-name {
+				font-size: 28rpx;
+			}
+			.order-others {
+				flex: 1;
+				margin-top: 15rpx;
+				display: flex;
+				position: relative;
+				.top-finish {
+					color: #F52D2D;
+				}
+				.top-unfinish {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					.people-num {
+						color: #F52D2D;
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		padding: 10rpx;
+		display: flex;
+		.bottom-left {
+			font-size: 28rpx;
+			color: #F52D2D;
+		}
+		.bottom-right {
+			flex: 1;
+			font-size: 24rpx;
+			display: flex;
+			.bottom-unfinish {
+				margin-left: auto;
+				font-size: 20rpx;
+			}
+			.bottom-finish {
+				flex: 1;
+				display: flex;
+				.bottom-item {
+					flex: 1;
+					text-align: end;
+				}
+			}
+		}
+	}
+}

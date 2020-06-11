@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "最新揭晓",
+	"usingComponents": {
+		"van-loading": "@vant/weapp/dist/loading/index"
+	}
+}

@@ -1,0 +1,36 @@
+@import '~styles/color';
+
+.container {
+	.verify-form {
+		padding: 30rpx;
+		margin: 25rpx;
+		background: white;
+		.form-section {
+			margin-bottom: 40rpx;
+			.form-name {
+				margin-bottom: 20rpx;
+			}
+			.form-input {
+				font-size: 28rpx;
+				line-height: 40rpx;
+				padding: 20rpx;
+				border: 1rpx solid #C2C2C2;
+				border-radius: 5rpx;
+				box-sizing: content-box;
+			}
+			.form-img image{
+				width: 120rpx;
+				height: 120rpx;
+			}
+		}
+		.form-btn {
+			color: white;
+			font-size: 32rpx;
+			width: 600rpx;
+			height: 80rpx;
+			background: $priceBtn;
+			border-radius: 40rpx;
+			margin: 0 auto;
+		}
+	}
+}
