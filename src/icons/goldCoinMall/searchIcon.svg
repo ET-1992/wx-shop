@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #333;
+        stroke-width: 2px;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="组_4478" data-name="组 4478" transform="translate(-592 -1349)">
+    <rect id="矩形_2060" data-name="矩形 2060" class="cls-1" width="30" height="30" transform="translate(592 1349)"/>
+    <g id="组_4410" data-name="组 4410" transform="translate(592 1349)">
+      <g id="椭圆_140" data-name="椭圆 140" class="cls-2">
+        <circle class="cls-4" cx="14" cy="14" r="14"/>
+        <circle class="cls-1" cx="14" cy="14" r="13"/>
+      </g>
+      <line id="直线_85" data-name="直线 85" class="cls-3" x2="6" y2="6" transform="translate(23 23)"/>
+    </g>
+  </g>
+</svg>

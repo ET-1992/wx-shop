@@ -575,5 +575,214 @@ export const apis = {
         path: 'api/mag.order.prepare.pay.json',
         method: 'POST',
         isForceToken: true
-    }
+    },
+    // 寄存箱首页
+    getDepositHome: {
+        path: 'api/repo/shop/home.json',
+        isForceToken: true
+    },
+    // 寄存箱文章咨询
+    getDepositArticle: {
+        path: 'api/mag.information.get.json',
+        isForceToken: true
+    },
+    // 回购-账户中心
+    getAccount: {
+        path: 'api/repo/wallet/account.json',
+        isForceToken: true,
+    },
+    // 回购-黄金提取至余额
+    postGoldToWallet: {
+        path: 'api/repo/wallet/withdrawal/balance.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 回购-黄金提取
+    postAccount: {
+        path: 'api/repo/wallet/withdrawal.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 获取实名信息
+    getRepoIdentity: {
+        path: 'api/repo/user/Identity/get.json',
+        isForceToken: true,
+    },
+    // 上传实名信息
+    postIdentity: {
+        path: 'api/repo/user/Identity/verifie.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 获取提现记录
+    getCashLogs: {
+        path: 'api/repo/wallet/withdrawal/logs.json',
+        isForceToken: true,
+    },
+    // 回购-获取寄存记录
+    getRepositList: {
+        path: 'api/repo/wallet/logs.json',
+        isForceToken: true,
+    },
+    // 回购-获取订单记录
+    getOrderList: {
+        path: 'api/repo/order/list.json',
+        isForceToken: true,
+    },
+    // 回购-在线估价
+    prepareOrder: {
+        path: 'api/repo/order/prepare.json'
+    },
+    // 回购-预计金价
+    getGoldPrice: {
+        path: 'api/repo/order/estimate.json'
+    },
+    // 绑定跳转小程序
+    postBindShop: {
+        path: 'api/repo/shop.bind.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 创建订单
+    postOrder: {
+        path: 'api/repo/order/create.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 获取订单
+    getOrder: {
+        path: 'api/repo/order/get.json',
+        isForceToken: true,
+    },
+    // 确定订单
+    getOrderConfirm: {
+        path: 'api/repo/order/confirm.json',
+        isForceToken: true,
+    },
+    // 取消订单
+    getOrdercancel: {
+        path: 'api/repo/order/cancel.json',
+        isForceToken: true,
+    },
+    // 寄存订单列表
+    getDepositOrderList: {
+        path: 'api/mag.supplier.deposit.list.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    // 寄存订单详情
+    getDepositOrder: {
+        path: 'api/mag.supplier.deposit.get.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    // 寄存发货
+    postDepositDelivery: {
+        path: 'api/mag.supplier.deposit.consign.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 寄存回购
+    postDepositReturn: {
+        path: 'api/mag.supplier.deposit.repo.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 寄存订单确定收货
+    confirmDeposit: {
+        path: 'api/mag.supplier.deposit.confirm.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 领取赠送优惠券
+    postCouponGift: {
+        path: 'api/mag.coupon.gift.receive.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 我的卡包
+    getCoinCard: {
+        path: 'api/mag.coin_card.my.json',
+        isForceToken: true,
+    },
+    // 购买金币卡
+    postCoinCard: {
+        path: 'api/mag.coin_card.buy.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 金币卡记录
+    getCoinCardLog: {
+        path: 'api/mag.coin_card.log.json',
+        isForceToken: true,
+    },
+    // 赠送金币卡详情
+    getCoinCardShareDetail: {
+        path: 'api/mag.coin_card.share.get.json',
+        isForceToken: false,
+    },
+    // 领取赠送金币卡
+    getCoinCardShareReceive: {
+        path: 'api/mag.coin_card.receive.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 兑换金币卡
+    postExchangeCoinCard: {
+        path: 'api/mag.coin_card.recharge.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 金币商城首页
+    getCoinMallHome: {
+        path: 'api/mag.coin_mall.home.json',
+        isForceToken: true,
+    },
+    // 金币商品下单
+    postCreatCoinOrder: {
+        path: 'api/mag.coin_mall.coin.order.create.json?pay&v2',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 云购列表
+    fetchCoinProductList: {
+        path: 'api/mag.cloud.product.list.json',
+    },
+    // 云购商品详情
+    fetchCoinProduct: {
+        path: 'api/mag.cloud.product.get.json',
+    },
+    // 云购商品下单
+    postCreatDrawOrder: {
+        path: 'api/mag.coin_mall.luckydraw.participate.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 云购商品填写地址
+    postDrawAddress: {
+        path: 'api/mag.coin_mall.luckydraw.activity.convert.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    // 云购商品记录-商品
+    fetchDrawOrderList: {
+        path: 'api/mag.coin_mall.luckydraw.record.list.json',
+    },
+    // 云购商品记录-用户
+    fetchDrawOrderPersonList: {
+        path: 'api/mag.coin_mall.luckydraw.activity.list.json',
+    },
+    // 云购商品详情
+    fetchDrawPersonOrder: {
+        path: 'api/mag.coin_mall.luckydraw.activity.get.json',
+    },
+    // 云购商品计算结果
+    fetchDrawProductCompute: {
+        path: 'api/mag.coin_mall.luckydraw.activity.result.json',
+    },
+    // 获取图片说明
+    getPicture: {
+        path: 'api/repo/shop/rule.json',
+        isForceToken: true,
+    },
 };

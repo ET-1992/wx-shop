@@ -2,7 +2,7 @@
 	"pages": [
 		"pages/home/home",
 		"pages/cart/cart",
-		"pages/me/me",
+		"pages-cuilv/me/me",
 		"pages/category/category",
 		"pages/articleList/articleList",
 		"pages/classify/classify",
@@ -45,7 +45,7 @@
 				"selectedIconPath": "icons/default/cart-selected.png"
 			},
 			{
-				"pagePath": "pages/me/me",
+				"pagePath": "pages-cuilv/me/me",
 				"iconPath": "icons/default/me.png",
 				"text": "我",
 				"selectedIconPath": "icons/default/me-selected.png"

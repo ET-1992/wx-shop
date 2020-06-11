@@ -1,0 +1,12 @@
+{
+	"navigationBarTitleText": "个人中心",
+	"usingComponents": {
+		"manager": "./manager/index",
+		"loading": "../../components/loading/index",
+		"logo": "../../components/logo/logo",
+		"infos": "./infos/index",
+		"orders": "./orders/index",
+		"personal": "./personal/index",
+		"myModal": "../../components/myModal/myModal"
+	  }
+}

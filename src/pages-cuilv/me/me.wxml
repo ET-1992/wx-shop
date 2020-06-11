@@ -1,0 +1,32 @@
+<loading isLoading="{{ isLoading }}"/>
+<view class="container" wx:if="{{!isLoading}}">
+	<!-- 头部面板 -->
+	<personal personalComponentData="{{ personalComponentData }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+
+	<!-- 订单面板 -->
+	<orders ordersComponentData="{{ ordersComponentData }}" />
+
+	<!-- 会员专区 -->
+	<navigator class="member" url="/pages/membership/members/members" wx:if="{{ config.membership_enable && membership_banner }}">
+		<image class="image" src="{{ membership_banner }}" />
+	</navigator>
+
+	<!-- 功能面板 -->
+	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}"/>
+
+	<navigator
+		class="affiliate"
+		url="/pages/affiliate/affiliateApply/affiliateApply"
+		wx:if="{{ ((config.affiliate_enable && !affiliate.is_affiliate_member) || (config.affiliate_enable && affiliate.member && affiliate.member.audit_status === '3')) && config.affiliate_public }}">
+		<image class="itemIcon" mode="widthFix" src="../../icons/affiliate.png" />
+		<view class="itemTitle">{{ config.affiliate_name }} >></view>
+	</navigator>
+
+</view>
+<view class="peanut-logo logo">
+	<logo logoObj="{{ logoObj }}" />
+</view>
+
+<manager managerComponentData="{{ managerComponentData }}" openManager="{{ openManager }}" manager="{{ dedicated_manager }}" no_dedicated_manager_text="{{ no_dedicated_manager_text }}" />
+
+<myModal modal="{{infoModal}}" bindonConfirm="onInfoConfirm" />

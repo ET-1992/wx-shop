@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36.686" height="29.137" viewBox="0 0 36.686 29.137">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-4 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-width: 2px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 14 15;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="组_3866" data-name="组 3866" transform="translate(-75 -1886)">
+    <g id="组_3864" data-name="组 3864" transform="translate(18)">
+      <g id="组_3863" data-name="组 3863" transform="translate(58 1887)">
+        <path id="路径_11" data-name="路径 11" class="cls-1" d="M.5.5H3.374A1.609,1.609,0,0,1,5,1.877L8.371,20.9a1.666,1.666,0,0,0,1.749,1.5H28.487" transform="translate(-0.5 -0.5)"/>
+        <path id="路径_12" data-name="路径 12" class="cls-2" d="M7.6,4H27.091a1.755,1.755,0,0,1,1.624,2l-1.874,8.51a1.864,1.864,0,0,1-1.624,1.5L9.474,18.393" transform="translate(1.271 0.38)"/>
+        <ellipse id="椭圆_6" data-name="椭圆 6" class="cls-3" cx="1.5" cy="1.5" rx="1.5" ry="1.5" transform="translate(10.353 25.137)"/>
+        <ellipse id="椭圆_7" data-name="椭圆 7" class="cls-3" cx="1.5" cy="1.5" rx="1.5" ry="1.5" transform="translate(23.847 25.137)"/>
+      </g>
+    </g>
+    <g id="组_3865" data-name="组 3865" transform="translate(415 -157.254)">
+      <path id="路径_158" data-name="路径 158" class="cls-4" d="M-312.314,2048.058h8" transform="translate(0 0.576)"/>
+      <path id="路径_159" data-name="路径 159" class="cls-4" d="M0,0H8" transform="translate(-308.314 2044.634) rotate(90)"/>
+    </g>
+  </g>
+</svg>

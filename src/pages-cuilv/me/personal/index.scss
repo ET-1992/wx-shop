@@ -1,0 +1,126 @@
+@import '~styles/color';
+.header {
+	margin: 20rpx;
+	border-radius: 10rpx;
+	background-color: $mainColor;
+
+	.header-top {
+		padding: 30rpx;
+		text-align: center;
+		color: #fff;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.head-button {
+			background-color: $mainColor;
+			display: flex;
+			// flex-direction: column;
+			align-items: center;
+	
+			.avatar {
+				$size: 120rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 1rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+	
+			.head-text {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				margin: 10rpx 16rpx;
+	
+				.head-user {
+					font-size: 26rpx;
+					font-weight: bold;
+					color: #fff;
+					max-width: 200rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+	
+				.head-level {
+					width: 142rpx;
+					border-radius: 20rpx;
+					background-color: #fff;
+					color: #729153;
+					font-size: 24rpx;
+					text-align: center;
+					line-height: 40rpx;
+					border: 1px solid #fff;
+				}
+			}
+		}
+
+		.welfare {
+			line-height: 1.7;
+
+			.number {
+				font-size: 32rpx;
+				font-weight: bold;
+			}
+
+			.title {
+				font-size: 28rpx;
+			}
+		}
+
+		.check-buttons {
+			.check-btn {
+				font-size: 28rpx;
+				line-height: 48rpx;
+				width: 130rpx;
+				background-color: white;
+				border-radius: 24rpx;
+				color: #729153;
+			}
+			.click-end {
+				color: white;
+				background-color: #D7D7D7;
+			}
+		}
+	}
+	.header-bottom {
+		font-size: 22rpx;
+		color: white;
+		padding: 30rpx 10rpx;
+		margin: 0 25rpx 24rpx;
+		border-top: 1rpx solid white;
+		display: flex;
+		// justify-content: space-between;
+		.bottom-item {
+			width: 22%;
+			text-align: center;
+			padding-right: 8rpx;
+			.item-title {
+				line-height: 30rpx;
+			}
+			.item-num {
+				line-height: 37rpx;
+				font-size: 28rpx;
+				margin-top: 7rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+		.bottom-more {
+			width: 14%;
+			display: flex;
+			align-items: center;
+			flex-direction: row-reverse;
+			margin-left: auto;
+			.more-nav {
+				padding-left: 22rpx;
+				border-left: 1rpx solid white;
+			}
+		}
+
+	}
+}
