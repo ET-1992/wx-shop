@@ -3,26 +3,46 @@
     <view class="question">?</view>
     <view class="instruction">查看规则说明</view>
 </navigator>
-<view class="container">
-    <view 
-        class="coinList" 
-        wx:for="{{coinList}}" 
-        wx:if="{{ !isLoading && coinList.length }}" 
-        style="{{ item.amount == 0 || item.expense == item.income ? 'display: none' : ''}}">
-        <view>
-            <view>{{ item.type_name }}</view>
-            <view class="time">{{item.formatTime}}</view>
+<view class="container-wrap">
+    <!-- 个人信息 -->
+    <view class="header" style="background-color: {{ themeColor.primaryColor  }}">
+        <view class="header-left">
+            <view class="left-avatar">
+                <image src="{{ headData.avatarurl ? headData.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+            </view>
+            <view class="left-avatar-ohters">
+                <view>{{ headData.nickname || '-' }}</view>
+                <view class="left-coin">
+                    <text>{{ config.coin_name || '花生米' }}：</text>
+                    <text class="left-coin-num">{{ headData.coins || 0 }}</text>
+                </view>
+            </view>
         </view>
-        <view wx:if="{{item.expense}}" class="coinNum decreaseNum">
-            -<text>{{item.expense}}</text>
-        </view>
-        <view wx:if="{{item.income}}" class="coinNum">
-            +<text>{{item.income}}</text>
+        <view class="header-right" wx:if="{{ PLATFFORM_ENV === 'CUILV' && config.coin_card_enable }}">
+            <button class="right-btn" bind:tap="go" data-url="/pages-cuilv/cardCollection/cardCollection">充值</button>
         </view>
     </view>
-    <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
-        <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
-        <view>还没有{{ config.coin_name || '花生米' }}</view>
+    <view class="container">
+        <view 
+            class="coinList" 
+            wx:for="{{coinList}}" 
+            wx:if="{{ !isLoading && coinList.length }}" 
+            style="{{ item.amount == 0 || item.expense == item.income ? 'display: none' : ''}}">
+            <view>
+                <view>{{ item.type_name }}</view>
+                <view class="time">{{item.formatTime}}</view>
+            </view>
+            <view wx:if="{{item.expense}}" class="coinNum decreaseNum">
+                -<text>{{item.expense}}</text>
+            </view>
+            <view wx:if="{{item.income}}" class="coinNum">
+                +<text>{{item.income}}</text>
+            </view>
+        </view>
+        <view wx:if="{{ !isLoading && coinList.length == 0 }}" class="noHint">
+            <image class="Bg" src="{{ config.cdn_host +'/shop/nocoin.png'}}"></image>
+            <view>还没有{{ config.coin_name || '花生米' }}</view>
+        </view>
     </view>
 </view>
 <!-- <view
