@@ -10,7 +10,6 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/payCashier/payCashier",
 		"pages/featured/featured"
 	],
 	"window": {
@@ -352,6 +351,13 @@
 				"productList"
 			],
 			"name": "productList页"
+		},
+		{
+			"root": "pages/payCashier/",
+			"pages": [
+				"payCashier"
+			],
+			"name": "支付页"
 		}
 	],
 	"permission": {
