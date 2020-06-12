@@ -10,7 +10,7 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/liveRooms/liveRooms",
+		"pages/payCashier/payCashier",
 		"pages/featured/featured"
 	],
 	"window": {
