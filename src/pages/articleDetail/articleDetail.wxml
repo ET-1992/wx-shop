@@ -20,6 +20,40 @@
 			<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view>
 		</view>
 
+		<!-- 金价显示 -->
+		<view wx:if="{{ article.show_gold_data && article.gold }}" class="gold">
+			<view class="gold-price">
+				<!-- 实时金价 -->
+				<view class="gold-price-item price-now">
+				<text class="now-text">实时金价 (元/克）</text>
+				<view class="now-num">
+					<text>{{ article.gold.base_price || 0 }}</text>
+					<!-- 涨 -->
+					<view wx:if="{{ article.gold.sign === 1 }}" class="range range-up">
+						<image class="range-img" src="/icons/gold-up.svg" />
+						<text class="range-num">{{ article.gold.limit || '0%' }}</text>
+					</view>
+					<!-- 跌 -->
+					<view wx:elif="{{ article.gold.sign === 0 }}" class="range range-down">
+						<image class="range-img" src="/icons/gold-down.svg" />
+						<text class="range-num">{{ article.gold.limit || '0%' }}</text>
+					</view>
+				</view>
+				</view>
+				<!-- 今日金价 -->
+				<view class="gold-price-item price-today">
+				<view class="today-item">
+					<text>今日最低金价(元/克)</text>
+					<text class="today-num">{{ article.gold.min_price || 0 }}</text>
+				</view>
+				<view class="today-item today-max">
+					<text>今日最高金价(元/克)</text>
+					<text class="today-num">{{ article.gold.max_price || 0 }}</text>
+				</view>
+				</view>
+			</view>
+		</view>
+
 		<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" wx:key="index">
 			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
 		</view>
