@@ -1,18 +1,14 @@
-<loading isLoading="{{ isLoading }}"/>
-
-<view class="container" wx:if="{{ !isLoading }}">
+<view class="container">
 	<view class="shop">
 		<image wx:if="{{ authorizer.head_img }}" class="avatar" src="{{ authorizer.head_img }}" mode="aspectFit" ></image>
 		<view class="title">{{ authorizer.nick_name || '向商户付款'}}</view>
 	</view>
-	<view class="input_money" bind:tap="clickInput">
+	<view class="input_money">
 		<view class="title"> 付款金额 </view>
 		<view class="money">
 			<view class="yuan">{{ globalData.CURRENCY[globalData.currency] }}</view>
-			<input class="num" type="digit" focus="{{ isFocus }}" bindinput='getLen' bindinput="saveValue" />
+			<input class="num" type="digit" bindinput="saveValue" />
 		</view>
 	</view>
-	<form report-submit bindsubmit="onPay">
-		<button class="confirmPay" form-type="submit" style="background-color: {{ isDisablePay ? '#d4d4d4' : themeColor.primaryColor }}" >确认支付</button>
-</form>
+	<button class="confirmPay" style="background-color: {{ isDisablePay ? '#d4d4d4' : themeColor.primaryColor }}" bind:tap="onPay">确认支付</button>
 </view>

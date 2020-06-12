@@ -210,7 +210,7 @@ Page({
         }
         console.log('params160', params);
         try {
-            const { pay_sign } = await api.hei.joinMembership(params);
+            const { pay_sign } = await api.hei.membershipPay(params);
             console.log('付费会员pay_sign197', pay_sign);
             if (pay_sign) { await wxPay(pay_sign) }
             this.onShow();

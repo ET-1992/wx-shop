@@ -51,7 +51,18 @@
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button class="statusBt confirmBt" wx:if="{{ statusCode === 3 }}" bindgetuserinfo="onConfirmOrder" open-type="getUserInfo">确认收货</button>
+    <button 
+      class="statusBt confirmBt" 
+      wx:if="{{ statusCode === 3 }}" 
+      bindgetuserinfo="onConfirmOrder" 
+      open-type="getUserInfo"
+    >确认收货</button>
+    <button
+      class="statusBt"
+      open-type="getUserInfo"
+      bindgetuserinfo="toPaymentVouchersPage" 
+      wx:if="{{ statusCode === 1010 || order.statusCode == 1011 }}"
+    >查看凭证</button>
   </view>
 </view>
 

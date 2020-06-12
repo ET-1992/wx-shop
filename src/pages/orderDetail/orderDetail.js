@@ -21,7 +21,7 @@ Page({
         groupon: {},
         logistics: {},
         redpacket: {},
-        isFromCreate: false,
+        isFromCreate: 0,
 
         isLoading: false,
 
@@ -40,7 +40,9 @@ Page({
         showPosterModal: false
     },
 
-    onLoad({ isFromCreate = false }) {
+    onLoad({ isFromCreate = 0 }) {
+        console.log(typeof (isFromCreate), '--------------------------');
+        console.log(Number(isFromCreate), '--------------------------');
         wx.hideShareMenu();
         const { globalData: { themeColor, defineTypeGlobal, vip }, systemInfo: { isIphoneX }} = app;
         const config = wx.getStorageSync(CONFIG);
@@ -50,7 +52,7 @@ Page({
             vip,
             defineTypeGlobal,
             isIphoneX,
-            isFromCreate,
+            isFromCreate: Number(isFromCreate),
             config,
             globalData: app.globalData,
             isLoading: true

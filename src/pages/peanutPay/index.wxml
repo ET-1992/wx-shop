@@ -1,68 +1,52 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{ !isLoading }}">
-<view class="section">
-  <address address="{{ address }}" class="addressWrapper"></address>
-</view>
-<view class="itemList">
- <view
-  class="item"
-  wx:for="{{ order }}"
-  wx:key="id"
-  >
-    <image
-      src="{{ item.image_url }}"
-      class="itemImage"
-      mode="aspectFill"
-    />
-    <view class="itemInfo">
-      <view class="left">
-        <view class="itemName">{{ item.title }}</view>
-        <view class="properties">{{ item.sku_property_names }}</view>
-      </view>
-      <view class="right">
-        <view>
-          <view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
-          <view class="originalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ item.original_price }}</view>
-        </view>
-        <view class="itemQuantity">x{{ item.quantity }}</view>
-      </view>
-    </view>
-  </view>
-
-
-<view class="section priceInfo">
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">商品总价</view>
-    <view class="priceInfoItemValue">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }}</view>
-  </view>
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">附加服务费</view>
-    <view class="priceInfoItemValue">+{{ globalData.CURRENCY[globalData.currency] }}{{ postage || 0 }}</view>
-  </view>
-  <view class="priceInfoItem">
-    <view class="priceInoItemTitle">优惠券</view>
-    <view class="priceInfoItemValue">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponPrice || 0 }}</view>
-  </view>
-   <view class="priceInfoItem">
-    <view class="priceInoItemTitle">金币</view>
-    <view class="priceInfoItemValue">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinPrice || 0 }}</view>
-  </view>
-  <view class="priceInfoItem priceTotal">
-    <view class="priceInoItemTitle">实付款</view>
-    <view class="priceInfoItemValue">{{ globalData.CURRENCY[globalData.currency] }}{{ orderPrice || 0 }}</view>
-  </view>
-</view>
-
-<view class="section buyerMessage">
-  <view class="buyerMessageContent">
-    买家留言：{{ buyer_message }}
-  </view>
-</view>
-
-<view class="section orderMeta">
-  <view class="item">支付方式: 微信支付</view>
-  <view class="item">订单编号: {{ orderNo }}</view>
-</view>
-
-  </view>
+<view class="container" wx:if="{{ from_page !== 'member' }}">
+	<view class="section">
+		<address address="{{ address }}" class="addressWrapper"></address>
+	</view>
+	<view class="itemList">
+		<view class="item" wx:for="{{ order }}" wx:key="id">
+			<image src="{{ item.image_url }}" class="itemImage" mode="aspectFill" />
+			<view class="itemInfo">
+				<view class="left">
+					<view class="itemName">{{ item.title }}</view>
+					<view class="properties">{{ item.sku_property_names }}</view>
+				</view>
+				<view class="right">
+					<view>
+						<view class="price">{{ globalData.currency_sign }}{{ item.price }}</view>
+						<view class="originalPrice">{{ globalData.currency_sign }}{{ item.original_price }}</view>
+					</view>
+					<view class="itemQuantity">x{{ item.quantity }}</view>
+				</view>
+			</view>
+		</view>
+		<view class="section priceInfo">
+			<view class="priceInfoItem">
+				<view class="priceInoItemTitle">商品总价</view>
+				<view class="priceInfoItemValue">{{ globalData.currency_sign }}{{ totalPrice }}</view>
+			</view>
+			<view class="priceInfoItem">
+				<view class="priceInoItemTitle">附加服务费</view>
+				<view class="priceInfoItemValue">+{{ globalData.currency_sign }}{{ postage || 0 }}</view>
+			</view>
+			<view class="priceInfoItem">
+				<view class="priceInoItemTitle">优惠券</view>
+				<view class="priceInfoItemValue">-{{ globalData.currency_sign }}{{ couponPrice || 0 }}</view>
+			</view>
+			<view class="priceInfoItem">
+				<view class="priceInoItemTitle">{{ config.coin_name || '花生米' }}</view>
+				<view class="priceInfoItemValue">-{{ globalData.currency_sign }}{{ coinPrice || 0 }}</view>
+			</view>
+			<view class="priceInfoItem priceTotal">
+				<view class="priceInoItemTitle">实付款</view>
+				<view class="priceInfoItemValue">{{ globalData.currency_sign }}{{ orderPrice || 0 }}</view>
+			</view>
+		</view>
+		<view class="section buyerMessage">
+			<view class="buyerMessageContent"> 买家留言：{{ buyer_message }} </view>
+		</view>
+		<view class="section orderMeta">
+			<view class="item">支付方式: 微信支付</view>
+			<view class="item">订单编号: {{ orderNo }}</view>
+		</view>
+	</view>
 </view>

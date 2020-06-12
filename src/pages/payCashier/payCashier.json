@@ -1,3 +1,13 @@
 {
-	"navigationBarTitleText": "收银台"
+	"navigationBarTitleText": "收银台",
+	"usingComponents": {
+		"myModal": "components/myModal/myModal",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"van-cell": "@vant/weapp/dist/cell/index",
+		"van-cell-group": "@vant/weapp/dist/cell-group/index",
+  		"van-transition": "@vant/weapp/dist/transition/index",
+		"van-loading": "@vant/weapp/dist/loading/index",
+		"van-count-down": "@vant/weapp/dist/count-down/index",
+		"van-button": "@vant/weapp/dist/button/index"
+	}
 }

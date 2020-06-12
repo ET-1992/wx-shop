@@ -68,13 +68,8 @@ export const apis = {
         path: 'api/mag.order.counts.json',
         isForceToken: true,
     },
-    createOrderAndPay: {
-        path: 'api/mag.order.create.json?pay&v2',
-        method: 'POST',
-        isForceToken: true
-    },
     createOrder: {
-        path: 'api/mag.order.create.json',
+        path: 'api/mag.order.create.json?v2',
         method: 'POST',
         isForceToken: true
     },
@@ -84,12 +79,18 @@ export const apis = {
         isForceToken: true
     },
     payOrder: {
-        path: 'api/mag.order.pay.json?pay&v2',
+        path: 'api/mag.order.pay.json?v2',
         method: 'POST',
         isForceToken: true
     },
     peanutPayOrder: {
         path: 'api/mag.order.pay.peanut.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 会员充值跳转小程序支付
+    membershipPeanutPay: {
+        path: 'api/mag.membership.pay.peanut.json',
         method: 'POST',
         isForceToken: true,
     },
@@ -116,12 +117,12 @@ export const apis = {
         path: 'api/mag.product.category.list.json',
     },
     createGroupon: {
-        path: 'api/mag.groupon.create.json?pay&v2',
+        path: 'api/mag.groupon.create.json?v2',
         method: 'POST',
         isForceToken: true,
     },
     joinGroupon: {
-        path: 'api/mag.groupon.join.json?pay&v2',
+        path: 'api/mag.groupon.join.json?v2',
         method: 'POST',
         isForceToken: true,
     },
@@ -307,7 +308,7 @@ export const apis = {
         isForceToken: true
     },
     payDirect: {
-        path: 'api/mag.order.pay.direct.json',
+        path: 'api/mag.order.pay.direct.json?v2',
         method: 'POST',
         isForceToken: true
     },
@@ -371,8 +372,14 @@ export const apis = {
         isForceToken: true
     },
     // 开通会员,充值金额
-    joinMembership: {
+    membershipPay: {
         path: 'api/mag.membership.pay.json',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 会员多支付
+    membershipMultipay: {
+        path: 'api/mag.membership.multipay.json',
         isForceToken: true,
         method: 'POST'
     },
@@ -452,7 +459,7 @@ export const apis = {
     },
     // 秒杀
     seckillOrderCreate: {
-        path: 'api/mag.seckill.order.create.json?pay&v2',
+        path: 'api/mag.seckill.order.create.json?v2',
         isForceToken: true,
         method: 'POST'
     },
@@ -480,7 +487,7 @@ export const apis = {
     },
     // 砍价下单接口
     bargainOrder: {
-        path: 'api/mag.bargain.order.create.json?pay&v2',
+        path: 'api/mag.bargain.order.create.json?v2',
         method: 'POST',
         isForceToken: true
     },
@@ -555,5 +562,27 @@ export const apis = {
         path: 'api/mag.user_center.user.existed.json',
         method: 'POST',
         isForceToken: true
-    }
+    },
+    // 支付方式
+    fetchPayments: {
+        path: 'api/mag.shop.payments.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    fetchPaymentInfo: {
+        path: 'api/mag.transfer.setting.json',
+        method: 'GET',
+        isForceToken: true
+    },
+    paymentCheck: {
+        path: 'api/mag.order.pay.transfer.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 预支付
+    orderPreparePay: {
+        path: 'api/mag.order.prepare.pay.json',
+        method: 'POST',
+        isForceToken: true
+    },
 };

@@ -1,3 +1,4 @@
+const app = getApp();
 Component({
     properties: {
         navbarListData: {
@@ -34,7 +35,14 @@ Component({
             observer(newvalue) {
                 console.log(newvalue);
             }
-        }
+        },
+        customStyle: {
+            type: String,
+            value: ''
+        },
+    },
+    attached() {
+        this.setData({ themeColor: app.globalData.themeColor });
     },
     methods: {
         changeActive(e) {

@@ -1,0 +1,12 @@
+<view class="multiStyle" style="{{ customStyle }}">
+    <view 
+        wx:for="{{ navbarListData }}" 
+        wx:key="item" 
+        class="item {{ activeIndex === index ? 'active' : '' }}" 
+        data-index="{{ index }}"
+        data-value="{{ item.value }}"
+        bind:tap="changeActive"
+        style="background-color: {{ activeIndex === index ? themeColor.primaryColor : '#f1f1f1'}}; color: {{ activeIndex === index ? '#ffffff' : '' }}" 
+    >{{ item.text }}</view>
+    <view class="item"></view>
+</view>

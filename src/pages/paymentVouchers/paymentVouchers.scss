@@ -1,0 +1,198 @@
+.loading {
+	width: 100%;
+	margin-top: 200rpx;
+	text-align: center;
+}
+.container {
+	background: #F4F4F4;
+	color: #000;
+
+	.header {
+		background: #fff;
+
+		.header-top {
+			padding: 20rpx 25rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.countTime {
+				display: flex;
+				align-items: center;
+				font-size: 24rpx;
+				.van-count-down {
+					font-size: 24rpx;
+				}
+			}
+		}
+
+		.amount {
+			.exchange-total-title {
+				margin-top: 20rpx;
+				font-size: 32rpx;
+			}
+
+			.exchange-total-value {
+				margin-top: 20rpx;
+				font-size: 32rpx;
+				color: #000;
+				font-weight: bold;
+			}
+
+			.exchange-detail-title {
+				font-size: 22rpx;
+				color: #000;
+			}
+
+			.exchange-detail-value {
+				font-size: 24rpx;
+				color: #000;
+			}
+		}
+
+		.van-cell {
+			padding: 10rpx 25rpx;
+		}
+
+		.van-cell:after {
+			border: 0;
+		}
+	}
+
+	.center {
+		margin-top: 20rpx;
+		position: relative;
+		background: #fff;
+		text-align: center;
+
+		.centerImg {
+			width: 650rpx;
+			height: 347rpx;
+			margin-top: 25rpx;
+		}
+		
+		.centerWraper {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 30rpx 50rpx;
+
+			.left {
+				width: 500rpx;
+				height: 45rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 1;
+				display: flex;
+				align-items: center;
+
+				.field_name {
+					font-size: 24rpx;
+					margin-right: 34rpx;
+					width: 150rpx;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 1;
+					text-align: left;
+				}
+
+				.content {
+					font-size: 24rpx;
+				}
+			}
+
+			.cropyBtn {
+				width: 120rpx;
+				height: 45rpx;
+				background: #ee0a24;
+				color: #fff;
+				font-size: 24rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 5rpx;
+			}
+		}
+	}
+
+	.bottom {
+		display: flex;
+		background: #fff;
+		margin-top: 20rpx;
+		padding: 20rpx 25rpx;
+		height: 130rpx;
+		justify-content: space-between;
+		align-items: center;
+
+		.text {
+			font-size: 28rpx;
+		}
+
+		.uploadGroup {
+			display: flex;
+			background: #fff;
+			height: 90rpx;
+
+			.uploadItem {
+				margin-right: 30rpx;
+				position: relative;
+				left: 0;
+				top: 0;
+
+				.imageItem {
+					$size: 90rpx;
+					height: $size;
+					width: $size;
+				}
+
+				.deleteIcon {
+					$size: 30rpx;
+					width: $size;
+					height: $size;
+					position: absolute;
+					top: 0;
+					right: 0;
+					margin-right: -$size / 2;
+					margin-top: -$size / 2;
+					z-index: 9;
+				}
+			}
+
+			.uploadItem:nth-child(4) {
+				margin: 0;
+			}
+
+			.addImage {
+				$size: 90rpx;
+				height: $size;
+				width: $size;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				display: flex;
+				border-radius: 5rpx;
+				border: 1rpx solid #E0E0E0;
+
+				.camera {
+					width: 40rpx;
+					height: 40rpx;
+				}
+
+				.text {
+					padding-top: 5rpx;
+					font-size: 18rpx;
+					color: #707070;
+				}
+			}
+		}
+	}
+
+	.btn {
+		width: 500rpx;
+		height: 90rpx;
+		margin: 86rpx auto;
+	}
+}
