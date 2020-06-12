@@ -1,6 +1,6 @@
 import api from 'utils/api';
-import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG, PAY_STYLES } from 'constants/index';
-import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid } from 'utils/util';
+import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG, PAY_STYLES, PLATFFORM_ENV } from 'constants/index';
+import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid, go } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import templateTypeText from 'constants/templateType';
 import { qrcode } from 'peanut-all';
@@ -35,9 +35,10 @@ Page({
             'WEIXIN': '微信支付',
             'STORE_CARD': '储值卡支付'
         },
+        PLATFFORM_ENV,
 
         isShowShareModal: false,
-        showPosterModal: false
+        showPosterModal: false,
     },
 
     onLoad({ isFromCreate = false }) {
@@ -76,6 +77,8 @@ Page({
 
         console.log(this.data);
     },
+
+    go,
 
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });

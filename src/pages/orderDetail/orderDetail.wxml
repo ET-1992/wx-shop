@@ -223,6 +223,12 @@
             <image class="redpacketBanner" src="{{ config.cdn_host + '/shop/orderRedpacketBanner.jpg'}}" />
         </button>
     </block>
+    <!-- 寄存付款订单才显示 -->
+    <view class="checkBox viewProduct" bind:tap="go" data-url="/pages-cuilv/fastDeposit/fastDeposit" 
+      style="background-color: {{ themeColor.primaryColor }}"
+      wx:if="{{ order.shipping_type == 6 && order.status == 4 && PLATFFORM_ENV === 'CUILV' }}">
+        <text>查看回购单</text>
+    </view>
     <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !otherPeopleGroupon }}">
         <orderOperations 
             phone="{{ order.phone_number }}" 
