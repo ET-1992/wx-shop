@@ -296,6 +296,39 @@
                 />
             </view>
 
+            <!-- 金价显示 -->
+            <view wx:if="{{ module.type === 'gold' }}" class="gold">
+                <view class="gold-price">
+                <!-- 实时金价 -->
+                <view class="gold-price-item price-now">
+                    <text class="now-text">实时金价 (元/克）</text>
+                    <view class="now-num">
+                    <text>{{ gold.base_price || 0 }}</text>
+                    <!-- 涨 -->
+                    <view wx:if="{{ gold.sign === 1 }}" class="range range-up">
+                        <image class="range-img" src="/icons/gold-up.svg" />
+                        <text class="range-num">{{ gold.limit || '0%' }}</text>
+                    </view>
+                    <!-- 跌 -->
+                    <view wx:elif="{{ gold.sign === 0 }}" class="range range-down">
+                        <image class="range-img" src="/icons/gold-down.svg" />
+                        <text class="range-num">{{ gold.limit || '0%' }}</text>
+                    </view>
+                    </view>
+                </view>
+                <!-- 今日金价 -->
+                <view class="gold-price-item price-today">
+                    <view class="today-item">
+                    <text>今日最低金价(元/克)</text>
+                    <text class="today-num">{{ gold.min_price || 0 }}</text>
+                    </view>
+                    <view class="today-item today-max">
+                    <text>今日最高金价(元/克)</text>
+                    <text class="today-num">{{ gold.max_price || 0 }}</text>
+                    </view>
+                </view>
+                </view>
+            </view>
         </view>
     </view>
     <view id="loadProducts" class="logo">
