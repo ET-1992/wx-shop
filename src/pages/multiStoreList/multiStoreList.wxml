@@ -24,7 +24,7 @@
 					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'address' }}"/>
 					<van-icon custom-class="left-icon" name="location-o" wx:else />
 				</view>
-				<text class="left-text">{{ addressObj.detailInfo || '请选择您的收货地址' }}</text>
+				<text class="left-text">{{ address.user(addressObj) || '请选择您的收货地址' }}</text>
 			</div>
 			<button class="location-btn" bind:tap="onClickAddress">地址管理</button>
 		</view>
@@ -48,7 +48,7 @@
 								<text>{{ item.name || '-' }}</text>
 								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
 							</view>
-							<view class="store-address">{{ address.splice(item) }}</view>
+							<view class="store-address">{{ address.store(item) }}</view>
 							<view class="store-bottom">
 								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
 								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
@@ -63,7 +63,7 @@
 								<text>{{ item.name || '-' }}</text>
 								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
 							</view>
-							<view class="store-address">{{ address.splice(item) }}</view>
+							<view class="store-address">{{ address.store(item) }}</view>
 							<view class="store-bottom">
 								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
 								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
@@ -80,7 +80,15 @@
 <myModal modal="{{ authModal }}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
 
 <wxs module="address">
-var splice = function(obj){
+// 收获地址拼接
+var user = function(obj){
+	var str = '';
+	str += obj.detailInfo || ''
+	str += obj.room || ''
+	return str;
+}
+// 店铺地址拼接
+var store = function(obj){
 	var str = '';
 	str += obj.state || ''
 	str += obj.city || ''
@@ -89,6 +97,7 @@ var splice = function(obj){
 	return str;
 }
 module.exports = {
-	splice: splice,
+	user: user,
+	store: store,
 }
 </wxs>

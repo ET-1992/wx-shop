@@ -23,6 +23,11 @@ Page({
         this.getAddressList();
     },
 
+    // onUnload() {
+    //     let { radioSelected } = this.data;
+    //     if (radioSelected === '') { return }
+    //     this.keepSelectedAddress();
+    // },
 
     getBasicData() {
         const config = wx.getStorageSync(CONFIG);
@@ -50,21 +55,26 @@ Page({
     },
 
     // 地址单选框选中时
-    radioChange: function (event) {
-        let { addressList } = this.data;
+    radioChange(event) {
         let index = event.detail;
-        let address = addressList[index];
+        this.setData({
+            radioSelected: index,
+        });
+        this.keepSelectedAddress();
+        wx.navigateBack();
+    },
+
+    // 保存选中地址
+    keepSelectedAddress() {
+        let { addressList, radioSelected } = this.data;
+        let address = addressList[radioSelected];
         // 选中地址对象
         let selectedAddress = wxReceriverPairs(address);
         // 添加经纬度
         let { latitude, longtitude: longitude, room } = address;
         selectedAddress = Object.assign(selectedAddress, { latitude, longitude, room });
         wx.setStorageSync(ADDRESS_KEY, selectedAddress);
-        this.setData({
-            radioSelected: index,
-        });
         app.event.emit('setAddressListEvent', selectedAddress);
-        wx.navigateBack();
     },
 
     // 获取地址列表
