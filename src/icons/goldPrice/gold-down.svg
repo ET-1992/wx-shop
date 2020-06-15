@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="11.467" height="21.581" viewBox="0 0 11.467 21.581">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #2fc170;
+        stroke-linecap: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-1 {
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <g id="组_4292" data-name="组 4292" transform="translate(193.683 74.743) rotate(180)">
+    <path id="路径_21" data-name="路径 21" class="cls-1" d="M187.275,64.353l4.793-5.44,4.559,5.44" transform="translate(-4 -5)"/>
+    <path id="路径_22" data-name="路径 22" class="cls-2" d="M192,78.993V59.516" transform="translate(-4 -5)"/>
+  </g>
+</svg>

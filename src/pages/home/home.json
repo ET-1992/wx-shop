@@ -19,7 +19,8 @@
     "productsList": "./components/productsList/productsList",
     "categoryProducts": "./components/categoryProducts/categoryProducts",
     "cube": "./components/cube/cube",
-    "lvList": "./components/lvList/lvList"
+    "lvList": "./components/lvList/lvList",
+    "gold-price": "./components/goldPrice/goldPrice"
   },
   "warning": "改完这里记得同步到 modulePage discovery featured页面"
 }

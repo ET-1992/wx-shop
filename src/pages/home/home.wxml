@@ -49,6 +49,8 @@
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
                 <!-- 直播列表 -->
                 <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
+                <!-- 金价模块 -->
+                <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
             </view>
         </view>
         <view id="loadProducts" class="logo">
