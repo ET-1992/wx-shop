@@ -482,10 +482,10 @@
 				<view
 					class="buy {{(product.product_type === 1 || product.individual_buy) && 'maguaWidthBtn'}}"
 					catchtap="onShowSku"
-					data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买')}]}}"
+					data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}"
 					style="background-color: {{ themeColor.primaryColor }}"
 					>
-					{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
+					{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) }}
 				</view>
 			</block>
 		</view>
@@ -631,4 +631,18 @@
   }
 
   module.exports.formatValue = formatValue;
+</wxs>
+
+<!-- 购买按钮文字 -->
+<wxs module="btn">
+var text = function (config) {
+    var name = '立即购买';
+	if(config && config.order_only) {
+		name = '立即下单'
+	};
+    return name
+}
+module.exports = {
+    text: text
+}
 </wxs>

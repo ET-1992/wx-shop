@@ -1,4 +1,5 @@
 import getRemainTime from 'utils/getRemainTime';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -138,4 +139,10 @@ Component({
     //         clearInterval(this.intervalId);
     //     }
     // }
+    lifetimes: {
+        attached: function() {
+            const config = wx.getStorageSync(CONFIG);
+            this.setData({ config });
+        },
+    },
 });
