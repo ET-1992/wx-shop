@@ -58,6 +58,7 @@ App({
             vip,
             authorizer,
             currency,
+            currency_sign: '￥',
             CURRENCY,
             tabbarPages,
         });

@@ -10,7 +10,6 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/liveRooms/liveRooms",
 		"pages/payCashier/payCashier",
 		"pages/featured/featured"
 	],
@@ -290,6 +289,20 @@
 				"productComments/index"
 			],
 			"name": "商品详情页"
+		},
+		{
+			"root": "pages/payCashier/",
+			"pages": [
+				"payCashier"
+			],
+			"name": "支付页"
+		},
+		{
+			"root": "pages/paymentVouchers/",
+			"pages": [
+				"paymentVouchers"
+			],
+			"name": "转账页"
 		},
 		{
 			"root": "pages/refund/",

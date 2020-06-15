@@ -12,6 +12,7 @@ function globalSuccessFnc({ res, options }) {
         wx.setStorageSync(CONFIG, config);
         app && app.globalData && (app.globalData.config = config);
         app.globalData.currency = config.currency || 'CNY';
+        app.globalData.currency_sign = config.currency_sign || '￥';
     }
     if (current_user) {
         wx.setStorageSync(USER_KEY, current_user);

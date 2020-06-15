@@ -1,87 +1,65 @@
 import api from 'utils/api';
 import { checkNumber } from 'utils/util';
 import { wxPay } from 'utils/pageShare';
-import { CONFIG } from 'constants/index';
+import { Decimal } from 'decimal.js';
 
 const app = getApp();
 
 Page({
     data: {
-        isFocus: true,
-        size: 15,
         isDisablePay: true,
-        amount: 0,
-        isLoading: true
+        amount: 0
     },
 
-    async onShow(parmas) {
-        console.log(parmas);
+    async onShow() {
         const { config } = await api.hei.config();
         const { themeColor } = app.globalData;
         this.setData({
             themeColor,
             authorizer: config.authorizer,
             globalData: app.globalData,
-            isLoading: false
+            config
         });
     },
-    clickInput() {
+    saveValue(ev) {
+        const { value } = ev.detail;
         this.setData({
-            isFocus: true
+            money: value,
+            isDisablePay: !(value > 0 && checkNumber(value))
         });
     },
-    getLen(e) {
-        let len = e.detail.value.length * this.data.size;
-        this.setData({
-            len
-        });
-    },
-    saveValue(e) {
-        const { value } = e.detail;
-        console.log(value);
-        if (value > 0 && checkNumber(value)) {
-            this.setData({
-                isDisablePay: false
-            });
-        } else {
-            this.setData({
-                isDisablePay: true
-            });
-        }
-        this.setData({
-            money: value
-        });
-    },
-    async onPay(ev) {
-        console.log(ev);
-        const { formId } = ev.detail;
+    async onPay() {
         const { vendor } = app.globalData;
-        const { money, isDisablePay } = this.data;
+        const { money, isDisablePay, config } = this.data;
         if (isDisablePay) {
-            wx.showToast({ title: '请输入金额', icon: 'none', image: '', duration: 1000 });
+            wx.showToast({ title: '请输入金额', icon: 'none' });
             return;
         }
+        let queryData = {};
+
+        if (!config.cashier_enable) {
+            queryData.pay = '';
+        }
+
         try {
-            const data = await api.hei.payDirect({
-                formId,
-                vendor,
-                amount: Number(money) * 100
-            });
-            console.log(data);
-            if (data.errcode === 0) {
-                const { order_no, pay_sign } = data;
-                if (pay_sign) {
-                    console.log('自主支付');
-                    const { isSuccess } = await wxPay(pay_sign, order_no);
-                    if (isSuccess) {
-                        wx.redirectTo({
-                            url: `/pages/directPayResult/directPayResult?order_no=${order_no}`
-                        });
-                    }
-                }
+            const amount = Math.floor(new Decimal(money).mul(100));
+            const { order_no, pay_sign } = await api.hei.payDirect({ vendor, amount }, { ...queryData });
+
+            if (config.cashier_enable) {
+                wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${order_no}&from_page=directPay` });
+                return;
             }
-        } catch (e) {
-            wx.showToast({ title: '支付失败，请重试', icon: 'none', image: '', duration: 1000 });
+
+            if (pay_sign) {
+                await wxPay(pay_sign, order_no);
+                wx.redirectTo({ url: `/pages/directPayResult/directPayResult?order_no=${order_no}` });
+            }
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false,
+            });
         }
     },
 });

@@ -27,7 +27,7 @@ export const PLATFFORM_ENV = 'CUILV';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
-    // { text: 'PEAUNT', value: 'https://hei.dev.97866.com/' },
+    { text: 'dev', value: 'https://hei.dev.97866.com/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },
@@ -43,16 +43,18 @@ export const STATUS_TEXT = ['', '等待买家付款', '待发货', '卖家已发
 export const ORDER_STATUS_TEXT = [
     { text: '全部', value: null },
     { text: '待付款', value: 1 },
+    { text: '审核中', value: 1010 },    // 转账支付审核中
     { text: '待成团', value: 10 },
     { text: '待发货', value: 2 },
-    { text: '待发货', value: 2002 },       // 已打单
+    { text: '待发货', value: 2002 },    // 已打单
     { text: '已发货', value: 3 },
     { text: '已部分发货', value: 31 },
+    { text: '审核驳回', value: 1011 },    // 转账支付审核驳回
     { text: '退款中', value: 5 },
     { text: '已完成', value: 4 },
     { text: '订单关闭', value: 7 },
     { text: '系统关闭', value: 8 },
-    { text: '退款成功', value: 6 },
+    { text: '退款成功', value: 6 }
 ];
 
 export const BARGAIN_STATUS_TEXT = [

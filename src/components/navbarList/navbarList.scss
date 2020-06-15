@@ -102,3 +102,28 @@
 		}
 	}
 }
+
+.multiStyle{
+	position: fixed;
+	width: 100%;
+	background-color: #FFFFFF;
+	color: #333;
+	font-size: 24rpx;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 10rpx 30rpx;
+	align-items: center;
+	justify-content: space-between;
+	box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.16);
+	.item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 120rpx;
+		height: 54rpx;
+		border-radius: 40rpx;
+	}
+}
