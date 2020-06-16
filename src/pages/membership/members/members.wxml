@@ -32,11 +32,7 @@
 
 			<!-- 非会员 储值卡-->
 			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
-				<view
-					class="openVip-btn"
-					data-type="{{ config.store_card_enable ? 2 : 1 }}"
-					bindtap="{{ config.store_card_enable ? 'openRechargeModal' : 'onPay' }}"
-				>立即开通会员</view>
+				<view class="openVip-btn" bindtap="{{ config.store_card_enable ? 'openRechargeModal' : 'buyMember' }}" >立即开通会员</view>
 				<view class="openVip-tip">
 					<text wx:if="{{ config.store_card_enable }}">{{ data.word }}</text>
 					<text wx:else>开通会员仅需{{ globalData.currency_sign }}{{ config.membership.rules.payment }}</text>
@@ -113,6 +109,6 @@
 		tip="{{ data.user && data.user.due_time_str }}"
 		renews="{{renews}}"
 		bind:onConfirmRenews="onConfirmRenews"
-		bind:closeRenewsModal="closeRenewsModal"
+		bind:closeRenewsModal="openRenewsModal"
     />
 </view>
