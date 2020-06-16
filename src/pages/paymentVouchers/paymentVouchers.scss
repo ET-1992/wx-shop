@@ -69,7 +69,7 @@
 			height: 347rpx;
 			margin-top: 25rpx;
 		}
-		
+
 		.centerWraper {
 			display: flex;
 			justify-content: space-between;
@@ -115,6 +115,10 @@
 				align-items: center;
 				border-radius: 5rpx;
 			}
+		}
+
+		.van-tabs__line{
+			background-color: #fff;
 		}
 	}
 

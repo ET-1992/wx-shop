@@ -10,12 +10,12 @@
 		</view>
 		<view class="amount">
 			<van-cell-group custom-class="exchange-detail-wrap">
-				<van-cell 
-					title="合计" 
-					custom-class="exchange-detail" 
-					title-class="exchange-total-title" 
-					value-class="exchange-total-value" 
-					value="{{ exchange_info.to_currency_sign || '￥' }} {{ exchange_info.exchange_amount || amount }}" 
+				<van-cell
+					title="合计"
+					custom-class="exchange-detail"
+					title-class="exchange-total-title"
+					value-class="exchange-total-value"
+					value="{{ exchange_info.to_currency_sign || '￥' }} {{ exchange_info.exchange_amount || amount }}"
 					border="{{ false }}" />
 			</van-cell-group>
 		</view>
