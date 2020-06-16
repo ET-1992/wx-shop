@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
+import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
 import { auth, subscribeMessage } from 'utils/util';
 import { Decimal } from 'decimal.js';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
@@ -79,13 +79,14 @@ Page({
             const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
+            let location = wx.getStorageSync(LOCATION_KEY) || false;
             let address = wx.getStorageSync(ADDRESS_KEY) || {};
             const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
-            // 多门店默认不选择地址
-            if (config.offline_store_enable) {
+            // 多门店如果有定位不显示
+            if (config.offline_store_enable && location) {
                 address = {
                     userName: '',
                 };
@@ -246,7 +247,8 @@ Page({
                     receiver_city: address.cityName || '',
                     receiver_district: address.countyName || '',
                     receiver_address: address.detailInfo || '',
-                    receiver_zipcode: address.postalCode || ''
+                    receiver_zipcode: address.postalCode || '',
+                    room: address.room || '',
                 };
             }
 
@@ -389,6 +391,7 @@ Page({
             postalCode,
             nationalCode,
             detailInfo,
+            room,
         } = address;
         const { vendor, afcode } = app.globalData;
 
@@ -432,6 +435,7 @@ Page({
             receiver_district: countyName || '',
             receiver_address: detailInfo || '',
             receiver_zipcode: postalCode || '',
+            room: room || '',
             buyer_message: buyerMessage,
             form_id: formId,
             vendor,
