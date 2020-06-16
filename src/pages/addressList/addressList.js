@@ -73,7 +73,7 @@ Page({
         // 添加经纬度
         let { latitude, longtitude: longitude, room } = address;
         selectedAddress = Object.assign(selectedAddress, { latitude, longitude, room });
-        wx.setStorageSync(ADDRESS_KEY, selectedAddress);
+        // wx.setStorageSync(ADDRESS_KEY, selectedAddress);
         app.event.emit('setAddressListEvent', selectedAddress);
     },
 

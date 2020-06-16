@@ -196,6 +196,7 @@ Page({
     // 设置地址列表返回的数据
     setAddressListEvent(address) {
         console.log('从地址列表返回的地址', address);
+        wx.setStorageSync(ADDRESS_KEY, address);
         this.setData({ address: address }, () => { this.onLoadData() });
     },
 

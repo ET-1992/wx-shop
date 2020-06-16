@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
-import { LOCATION_KEY } from 'constants/index';
+import { LOCATION_KEY, ADDRESS_KEY } from 'constants/index';
 
 const app = getApp();
 
@@ -185,10 +185,14 @@ Page({
 
     // 选择门店
     onSeleteStore(e) {
-        let { storeList } = this.data;
+        let { storeList, lastClick, addressObj } = this.data;
         let { index } = e.currentTarget.dataset;
         let store = storeList[index];
         app.globalData.currentStore = store;
+        if (lastClick === 'address') {
+            // 更新缓存地址
+            wx.setStorageSync(ADDRESS_KEY, addressObj);
+        }
         app.event.emit('setMultiStoreEvent', store);
         wx.navigateBack();
     },
