@@ -1,4 +1,4 @@
-import { CONFIG } from 'constants/index';
+import { CONFIG, PLATFFORM_ENV } from 'constants/index';
 const app = getApp();
 Component({
     properties: {
@@ -26,7 +26,8 @@ Component({
     data: {
         globalData: app.globalData,
         config: null,
-        color: ''
+        color: '',
+        PLATFFORM_ENV,
     },
     lifetimes: {
         attached() {
@@ -44,5 +45,10 @@ Component({
                 tplStyle
             });
         }
-    }
+    },
+    methods: {
+        onGiveCoupon() {
+            console.log('阻止事件冒泡');
+        }
+    },
 });

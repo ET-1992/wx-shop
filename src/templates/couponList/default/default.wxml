@@ -23,10 +23,20 @@
 
 			<view class="right {{ canChoice ? 'rightCenter' : '' }}">
 				<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
-					<view class="btn" wx:if="{{ status === 'received' }}">
-						<view class="useBtn">立即使用</view>
-						<view class="arrow"><image src="/icons/couponArrow.png" mode="aspectFit"/></view>
-					</view>
+					<!-- 已领取 -->
+					<block wx:if="{{ status === 'received' }}">
+						<button wx:if="{{ PLATFFORM_ENV === 'CUILV' }}" class="normalizeBt btn" 
+						  open-type="share" data-id="{{ coupon.user_coupon_id }}" catch:tap="onGiveCoupon">
+							<view class="useBtn">立即赠送</view>
+							<view class="arrow"><image src="/icons/couponArrow.png" mode="aspectFit"/></view>
+						</button>
+						<view class="btn" wx:else>
+							<view class="useBtn">立即使用</view>
+							<view class="arrow"><image src="/icons/couponArrow.png" mode="aspectFit"/></view>
+						</view>
+					</block>
+
+					<!-- 未领取 -->
 					<view class="btn" wx:if="{{status === 'receivable' }}">
 						<view class="useBtn">立即领取</view>
 						<view class="arrow"> <image src="/icons/couponArrow.png" mode="aspectFit"/> </view>

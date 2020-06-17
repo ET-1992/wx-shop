@@ -1,5 +1,8 @@
 import api from 'utils/api';
 import { getAgainUserForInvalid } from 'utils/util';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
+
 const app = getApp();
 
 Page({
@@ -16,10 +19,13 @@ Page({
             'expired': [],
         },
         isLoading: true,
+        current_user: {},
+        receiveInfo: {},  // 全站领取信息
     },
 
     async loadCoupons() {
-        const { available = [], unavailable = [] } = await api.hei.fetchMyCouponList();
+        const myCouponsData = await api.hei.fetchMyCouponList();
+        const { available = [], unavailable = [], current_user, extends: receiveInfo } = myCouponsData;
         const { used, expired } = unavailable.reduce((coupons, coupon) => {
             const { used, expired } = coupons;
             if (Number(coupon.status) === 3) {
@@ -35,7 +41,9 @@ Page({
             'coupons.available': available,
             'coupons.used': used,
             'coupons.expired': expired,
-            isLoading: false
+            isLoading: false,
+            current_user,
+            receiveInfo,
         });
     },
 
@@ -47,10 +55,12 @@ Page({
 
     async onShow() {
         try {
+            const config = wx.getStorageSync(CONFIG);
             const { themeColor } = app.globalData;
             this.setData({
                 isLoading: true,
-                themeColor
+                themeColor,
+                config,
             });
             this.loadCoupons();
         }
@@ -93,11 +103,18 @@ Page({
     },
 
     // 页面分享设置
-    onShareAppMessage() {
-        return {
-            title: 'share title',
-            path: '/pages/myCoupons/myCoupons'
-        };
+    onShareAppMessage(e) {
+        let { current_user, config } = this.data;
+        let id = e.target.dataset.id || 0;  // 优惠券id
+        let nickname = current_user.nickname || '用户';
+
+        this.setData({
+            share_title: `好友${nickname}给你发来了一个红包，快去领取吧`,
+            share_image: `${config.cdn_host}/shop/redpacketShare.jpg`,
+        });
+        let opts = { id };
+        let path =  `pages/getCoupon/getCoupon`;
+        return onDefaultShareAppMessage.call(this, opts, path);
     },
 
     async bindGetUserInfo(e) {
