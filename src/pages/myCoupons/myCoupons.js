@@ -21,6 +21,7 @@ Page({
         isLoading: true,
         current_user: {},
         receiveInfo: {},  // 全站领取信息
+        showNotice: false,  // 展示优惠券领取公告面板
     },
 
     async loadCoupons() {
@@ -48,19 +49,23 @@ Page({
     },
 
     async onLoad() {
+        const config = wx.getStorageSync(CONFIG);
         wx.setNavigationBarTitle({
             title: '我的优惠券'
+        });
+        let showNotice = config && config.show_coupon_receive_records || false;
+        this.setData({
+            config,
+            showNotice,
         });
     },
 
     async onShow() {
         try {
-            const config = wx.getStorageSync(CONFIG);
             const { themeColor } = app.globalData;
             this.setData({
                 isLoading: true,
                 themeColor,
-                config,
             });
             this.loadCoupons();
         }
