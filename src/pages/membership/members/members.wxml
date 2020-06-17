@@ -25,24 +25,19 @@
 			<view class="renewal" wx:if="{{ user.membership && user.membership.is_member && config.renews }}">
 				<view class="renewal-btn" bindtap="openRenewsModal" wx:if="{{ (data.user && data.user.due_time) !== 0 }}">续费</view>
 				<view class="renewal-tip">{{ data.user && data.user.due_time_str }}</view>
-			</view>	
+			</view>
 
 			<!-- 会员卡号 -->
 			<view class="member_no" wx:if="{{ user.membership && user.membership.is_member}}">NO.{{memberNo}}</view>
 
 			<!-- 非会员 储值卡-->
-			<view class="head-openVip" wx:if="{{ user.membership && !user.membership.is_member }}">
-				<!-- 已开通储值卡功能 -->
-				<block wx:if="{{ config.store_card_enable }}">
-					<view class="openVip-btn" bindtap="openRechargeModal">立即开通会员</view>
-					<view class="openVip-tip">{{ data.word }}</view>
-				</block>
-				<!-- 没开储值卡功能 -->
-				<block wx:if="{{ !config.store_card_enable }}">
-					<view class="openVip-btn" bindtap="buyMember">立即开通会员</view>
-					<view class="openVip-tip">开通会员仅需 {{ globalData.CURRENCY[globalData.currency] }}{{ payment }}</view>
-				</block>
-			</view>	
+			<view class="head-openVip"  wx:if="{{ user.membership && !user.membership.is_member }}">
+				<view class="openVip-btn" bindtap="{{ config.store_card_enable ? 'openRechargeModal' : 'buyMember' }}" >立即开通会员</view>
+				<view class="openVip-tip">
+					<text wx:if="{{ config.store_card_enable }}">{{ data.word }}</text>
+					<text wx:else>开通会员仅需{{ globalData.currency_sign }}{{ config.membership.rules.payment }}</text>
+				</view>
+			</view>
 		</view>
 		<!-- 会员储值卡功能-->
 		<view class="member-bottom" wx:if="{{ user.membership && user.membership.is_member && config.store_card_enable }}">
@@ -63,7 +58,7 @@
 	<view class="member-rights">
 		<!-- 会员优惠券 -->
 		<include src="/templates/couponList/tplStyleVip/tplStyleVipSmall.wxml" />
-		
+
 		<!-- 会员专属商品 -->
 		<view class="member-goods-banner">
 			<view class="rights-item-title">
@@ -94,10 +89,10 @@
 		</view>
 	</view>
 
-	<!-- 会员充值弹窗 -->
+  	<!-- 会员充值弹窗 -->
 	<popup
-		wx:if="{{!isLoading && showRechargeModal}}"
-		showRechargeModal="{{ showRechargeModal }}"
+		wx:if="{{ rechargeModal }}"
+		rechargeModal="{{ rechargeModal }}"
 		rechargeArray="{{ rechargeArray }}"
 		user="{{ user }}"
 		config="{{ config }}"
@@ -107,13 +102,13 @@
 
 	<!-- 会员续费弹窗 -->
 	<popup
-		wx:if="{{!isLoading && showRenewsModal}}"
+		wx:if="{{showRenewsModal}}"
 		showRenewsModal="{{ showRenewsModal }}"
 		user="{{ user }}"
 		config="{{ config }}"
 		tip="{{ data.user && data.user.due_time_str }}"
 		renews="{{renews}}"
 		bind:onConfirmRenews="onConfirmRenews"
-		bind:closeRenewsModal="closeRenewsModal"
+		bind:closeRenewsModal="openRenewsModal"
     />
 </view>

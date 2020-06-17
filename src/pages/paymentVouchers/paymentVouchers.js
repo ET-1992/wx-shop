@@ -2,7 +2,6 @@ import api from 'utils/api';
 import { ORDER_STATUS_TEXT, CONFIG } from 'constants/index';
 import { valueToText, subscribeMessage } from 'utils/util';
 import proxy from 'utils/wxProxy';
-import { showModal, chooseImage } from 'utils/wxp';
 
 const app = getApp();
 
@@ -82,7 +81,7 @@ Page({
     },
 
     async onUpload() {
-        const { tempFilePaths } = await chooseImage({ count: 1 });
+        const { tempFilePaths } = await proxy.chooseImage({ count: 1 });
         wx.showLoading({ title: '上传中', mask: true });
         try {
             const data = await api.hei.upload({ filePath: tempFilePaths[0] });
@@ -135,7 +134,7 @@ Page({
 
         await subscribeMessage(subKeys);
 
-        const { confirm } = await showModal({
+        const { confirm } = await proxy.showModal({
             title: '温馨提示',
             content: '确认提交付款凭证？',
             confirmText: '我确定',
@@ -153,7 +152,7 @@ Page({
                 const data = await api.hei.paymentCheck({ ...args });
                 const { errcode } = data;
                 if (errcode === 0) {
-                    const { confirm } = await showModal({
+                    const { confirm } = await proxy.showModal({
                         title: '温馨提示',
                         content: '提交成功',
                         showCancel: false,
