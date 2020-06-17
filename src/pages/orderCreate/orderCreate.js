@@ -84,6 +84,7 @@ Page({
             let location = wx.getStorageSync(LOCATION_KEY) || false;
             let address = wx.getStorageSync(ADDRESS_KEY) || {};
             let liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
+            let storeUpdateEnable = true;
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
@@ -95,9 +96,12 @@ Page({
                 }
                 // 自提配置
                 liftInfo = { isCanInput: true, isCanNav: false };
+                // 门店不可选配置
+                storeUpdateEnable = false;
             }
 
             this.setData({
+                storeUpdateEnable,
                 seckill,
                 seckill_product_id,
                 address,
@@ -333,7 +337,6 @@ Page({
                 } else if (shipping_type === 4) {
                     // 送货上门
                     this.setData({
-                        storeUpdateEnable: false,
                         storeListAddress: store,
                         homeDeliveryTimes: store.times || [],
                         chooseAreaId: store.id,
