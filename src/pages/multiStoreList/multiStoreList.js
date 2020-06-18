@@ -85,8 +85,14 @@ Page({
 
     // 管理收货地址
     onClickAddress() {
+        let { addressObj } = this.data;
+        let id = addressObj.id || '';
+        let url = '/pages/addressList/addressList';
+        if (id) {
+            url += `?id=${id}`;
+        }
         wx.navigateTo({
-            url: '/pages/addressList/addressList'
+            url: url
         });
     },
 

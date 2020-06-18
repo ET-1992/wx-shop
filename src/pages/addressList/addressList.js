@@ -12,11 +12,16 @@ Page({
         addressList: [],  // 地址列表
         isLoading: true,
         radioSelected: '',  // 地址选中项
+        seletedId: '',  // 进入时地址选中项ID
     },
 
     onLoad(params) {
         console.log(params);
+        let { id: seletedId = '' } = params;
         this.getBasicData();
+        this.setData({
+            seletedId,
+        });
     },
 
     onShow() {
@@ -38,12 +43,13 @@ Page({
 
     // 默认地址选中项
     findRadioSeleted() {
-        let { radioSelected, addressList = [] } = this.data;
+        let { radioSelected, addressList = [], seletedId } = this.data;
         if (radioSelected) {
             return;
         }
         let address = wx.getStorageSync(ADDRESS_KEY);
-        let { id } = address;
+        // 先获取页面传递地址，后读取缓存地址
+        let id = Number(seletedId) || address.id;
         let index = addressList.findIndex(value => {
             return value.id === id;
         });
