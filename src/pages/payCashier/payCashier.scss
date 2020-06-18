@@ -20,6 +20,15 @@ page{
         }
         .cell-title-class{
             padding-left: 10rpx;
+            display: flex;
+            align-items: center;
+            .cell-title-slot-icon {
+                width: 30rpx;
+                height: 30rpx;
+                box-sizing: content-box;
+                padding: 4rpx;
+                padding-right: 10rpx;
+            }
         }
         .cell-slot-icon{
             height: 35rpx;
@@ -136,6 +145,30 @@ page{
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+    }
+}
+
+// 混合余额弹出层
+.mix-pay {
+    margin: 26rpx;
+    margin-top: 70rpx;
+    font-size: 28rpx;
+    line-height: 1.5;
+    .mix-pay-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    .mix-pay-info {
+        margin: 12rpx 0;
+        .mix-pay-info-title {
+            display: flex;
+            .mix-pay-info-name {
+                margin-right: 6rpx;
+            }
+            .mix-pay-info-extra {
+                margin-left: auto;
+            }
         }
     }
 }

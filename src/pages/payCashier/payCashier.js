@@ -16,6 +16,8 @@ Page({
         isFromCreate: 0,
         from_page: '', // member会员页支付, crowd代付页支付, 空值为普通订单支付
         renewalId: '', // 所选择的续费项id
+        mixPayModal: false, // 混合支付弹出层
+        mixpay: [], // 混合支付信息
     },
 
     go,
@@ -43,7 +45,7 @@ Page({
     // 初始化支付方式
     async initPayments() {
         try {
-            const { currency, current_user, payments, stripe } = await api.hei.fetchPayments();
+            const { currency, current_user, payments, stripe, mixpay = [] } = await api.hei.fetchPayments();
             if (payments && payments.length) {
                 this.setData({
                     payments,
@@ -51,6 +53,7 @@ Page({
                     currency,
                     stripe,
                     current_user,
+                    mixpay,
                     isLoading: false
                 });
                 this.onSelectPayment();
@@ -291,7 +294,8 @@ Page({
                 });
             }
 
-            if (selectedPayment.pay_method === 'STORE_CARD') {
+            // 储值卡/混合余额支付
+            if (selectedPayment.pay_method === 'STORE_CARD' || selectedPayment.pay_method === 'BALANCE_MIXPAY') {
                 if (subKeys && subKeys.length) {
                     await subscribeMessage(subKeys);
                 }
@@ -341,6 +345,16 @@ Page({
         } else {
             wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=${isFromCreate}` });
         }
+    },
+
+    // 点击支付标题说明
+    onClickTitleIcon() {
+        this.setData({ mixPayModal: true });
+    },
+
+    // 关闭混合余额弹出层
+    onmixPayClose() {
+        this.setData({ mixPayModal: false });
     },
 
     onUnload() {

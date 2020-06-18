@@ -21,14 +21,22 @@
 					 wx:for="{{ payments }}"
 					 wx:key="index"
 					 custom-class="cell-custom-class"
-					 title-class="cell-title-class"
-					 title="{{ item.text }}"
                      data-value="{{ item }}"
                      clickable="{{ !WXS.disabledPay(item.pay_method, from_page) }}"
                      label="{{ WXS.disabledPay(item.pay_method, from_page) ? '该方式暂时不可用' : '' }}"
                      bind:tap="onChangeRadio"
-                    >
+                    >   
 						<image slot="icon" class="cell-slot-icon" src="{{ item.icon_url }}" mode="widthFix" />
+                        <!-- 左侧标题 -->
+                        <view slot="title" class="cell-title-class">
+                            <text class="van-cell-text">{{ item.text }}</text>
+                            <image slot="icon" 
+                                wx:if="{{ item.pay_method === 'BALANCE_MIXPAY' }}"
+                                class="cell-title-slot-icon" 
+                                src="/icons/fastDeposit/questionMark.svg" 
+                                mode="widthFix" 
+                                catch:tap="onClickTitleIcon" />
+                        </view>
 						<radio 
                             value="{{ item.pay_method }}" 
                             color="{{ globalData.themeColor.primaryColor }}"
@@ -56,6 +64,22 @@
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" bind:openMiniProgram="openMiniProgram"></myModal>
 
+<!-- 混合余额支付扣款说明 -->
+<van-popup show="{{ mixPayModal }}" bind:close="onmixPayClose" position="bottom" closeable>
+    <view class="mix-pay">
+        <view class="mix-pay-title">余额账户</view>
+        <view class="mix-pay-info">
+            <view class="mix-pay-info-title" wx:for="{{ mixpay }}">
+                <text class="mix-pay-info-name">{{ (item.name || '-') + '：' }}</text>
+                <view class="mix-pay-info-value">
+                    <text wx:if="{{ item.key !== 'coin' }}">{{ globalData.CURRENCY[globalData.currency] }}</text>
+                    <text>{{ item.balance || 0 }}</text>
+                </view>
+                <text wx:if="{{ item.key === 'coin' }}" class="mix-pay-info-extra">（100金币=￥1）</text>
+            </view>
+        </view>
+    </view>
+</van-popup>
 
 <wxs module="WXS">
     //不可用的支付方式

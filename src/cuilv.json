@@ -10,7 +10,6 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/payCashier/payCashier",
 		"pages/featured/featured"
 	],
 	"window": {
@@ -557,6 +556,13 @@
 				"drawList"
 			],
 			"name": "抽奖列表"
+		},
+		{
+			"root": "pages/payCashier/",
+			"pages": [
+				"payCashier"
+			],
+			"name": "支付页"
 		}
 	],
 	"permission": {
