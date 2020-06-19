@@ -347,12 +347,12 @@
               <text>{{ gold.base_price || 0 }}</text>
               <!-- 涨 -->
               <view wx:if="{{ gold.sign === 1 }}" class="range range-up">
-                <image class="range-img" src="/icons/gold-up.svg" />
+                <image class="range-img" src="/icons/goldPrice/gold-up.svg" />
                 <text class="range-num">{{ gold.limit || '0%' }}</text>
               </view>
               <!-- 跌 -->
               <view wx:elif="{{ gold.sign === 0 }}" class="range range-down">
-                <image class="range-img" src="/icons/gold-down.svg" />
+                <image class="range-img" src="/icons/goldPrice/gold-down.svg" />
                 <text class="range-num">{{ gold.limit || '0%' }}</text>
               </view>
             </view>
