@@ -30,7 +30,7 @@ Page({
         this.setData({ isLoading: true });
         const data = await api.hei.getCoinMallHome();
         let { current_user, coin_module, cloud_module } = data;
-        if (Object.keys(current_user).length === 0) {
+        if (!current_user || Object.keys(current_user).length === 0) {
             current_user = wx.getStorageSync(USER_KEY);
         }
         this.setData({

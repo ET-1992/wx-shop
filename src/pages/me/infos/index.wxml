@@ -1,4 +1,25 @@
 <view class="infos">
+    <!-- 回购箱 -->
+    <navigator class="infoItem" url="/pages-cuilv/depositIndex/depositIndex" wx:if="{{ config.repo_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
+        <view class="itemTitle">回购箱</view>
+    </navigator>
+    <!-- 寄存订单 -->
+    <navigator class="infoItem" url="/pages-cuilv/fastDeposit/fastDeposit" wx:if="{{ config.repo_button_show }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
+        <view class="itemTitle">寄存订单</view>
+    </navigator>
+    <!-- 金币商城 -->
+    <navigator class="infoItem" url="/pages-cuilv/goldCoinMall/goldCoinMall" wx:if="{{ config.coin_mall_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/cardCollection.svg" />
+        <view class="itemTitle">{{ config.coin_name || '金彩' }}商城</view>
+    </navigator>
+    <!-- 我的卡包 -->
+    <navigator class="infoItem" url="/pages-cuilv/cardCollection/cardCollection?tab=card" wx:if="{{ config.coin_card_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/coinMall.svg" />
+        <view class="itemTitle">我的卡包</view>
+    </navigator>
+
     <button class="normalizeBt infoItem" open-type="getUserInfo" bindgetuserinfo="toMemberPage" wx:if="{{ config.membership_enable && user.membership.is_member }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>

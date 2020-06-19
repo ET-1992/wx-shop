@@ -1,7 +1,8 @@
 <!-- <loading isLoading="{{ isLoading }}"/> -->
 <view class="container">
 	<!-- 头部面板 -->
-	<personal personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+	<personal-more wx:if="{{ PLATFFORM_ENV === 'CUILV' }}" personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+	<personal wx:else personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
