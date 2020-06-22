@@ -41,16 +41,32 @@ Component({
             value: ''
         },
     },
+    data: {
+        isShowPopup: false,
+        selectedPopupIndex: 0
+    },
     attached() {
         this.setData({ themeColor: app.globalData.themeColor });
     },
     methods: {
-        changeActive(e) {
-            const res = e.currentTarget.dataset;
-            let data = { activeIndex: res.index };
-            data.toView = `tab${res.index}`;
-            this.setData(data);
-            this.triggerEvent('changeNavbarList', res, { bubbles: true });
+        changeActive(ev) {
+            console.log(ev, '--ev');
+            const { navbarListData } = this.data;
+            let index = ev.detail.index || ev.currentTarget.dataset.index;
+            let value = navbarListData[index] && navbarListData[index].value;
+            this.setData({
+                activeIndex: index,
+                toView: `tab${index}`,
+                isShowPopup: false
+            });
+            this.triggerEvent('changeNavbarList', { index, value }, { bubbles: true });
+        },
+        onShowPopup() {
+            let { isShowPopup, activeIndex } = this.data;
+            this.setData({
+                isShowPopup: !isShowPopup,
+                selectedPopupIndex: activeIndex
+            });
         }
     }
 });
