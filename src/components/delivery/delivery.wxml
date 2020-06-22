@@ -31,9 +31,11 @@
 				<view class="address-title">地址</view>
 				<block wx:if="{{ !selfAddress }}">
 					<!-- 确认订单数据 -->
-					<view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}{{address.room || ''}}</view>
+					<!-- <view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}{{address.room || ''}}</view> -->
+					<view class="address-detail" wx:if="{{ !isOrderDetail }}">{{address.detailInfo}}{{address.room || ''}}</view>
 					<!-- 订单详情数据 -->
-					<view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view>
+					<!-- <view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_state}}{{address.receiver_city }}{{address.receiver_district}}{{address.receiver_address}}</view> -->
+					<view class="address-detail" wx:if="{{ isOrderDetail }}">{{address.receiver_address}}{{address.room || ''}}</view>
 				</block>
 				<view class="address-detail" wx:if="{{selfAddress}}">{{isOrderDetail ? address.receiver_address : address.detailInfo }}</view>
 			</view>
