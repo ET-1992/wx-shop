@@ -75,11 +75,12 @@
     <!-- 为你推荐 -->
   	<view class="promote" wx:if="{{ !items.length && products.length && !isLoading }}">
   	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
-  	  	<view class="relateShop">
+		<home-product-list products="{{ products }}" isLastModule />
+  	  	<!-- <view class="relateShop">
   	  	  	<view class="relateShopItem" wx:if="{{products.length}}" wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover">
   	  	  	  	<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
   	  	  	</view>
-  	  	</view>
+  	  	</view> -->
   	</view>
 
   	<view class="footer" wx:if="{{ items.length && !isLoading }}">
