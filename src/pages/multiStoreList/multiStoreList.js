@@ -2,7 +2,8 @@ import api from 'utils/api';
 import { auth, getDistance } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
-import { LOCATION_KEY, ADDRESS_KEY } from 'constants/index';
+import { LOCATION_KEY, ADDRESS_KEY, CONFIG } from 'constants/index';
+
 
 const app = getApp();
 
@@ -10,6 +11,7 @@ Page({
     data: {
         title: 'multiStoreList',
         isLoading: true,
+        config: {},
         latitude: '', // 纬度
         longitude: '', // 经度
         locationStr: '-',  // 位置名字
@@ -23,8 +25,10 @@ Page({
 
     onLoad() {
         const { themeColor } = app.globalData;
+        const config = wx.getStorageSync(CONFIG);
         this.setData({
             themeColor,
+            config,
         });
         app.event.on('setAddressListEvent', this.setAddressListEvent, this);
     },
@@ -205,9 +209,9 @@ Page({
 
     // 经纬度解析成地址
     async parseLocation() {
-        let { latitude, longitude } = this.data;
+        let { latitude, longitude, config } = this.data;
         let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             location: `${latitude},${longitude}`
         };
         let url = 'https://apis.map.qq.com/ws/geocoder/v1';
@@ -230,12 +234,12 @@ Page({
 
     // 地址解析成经纬度
     async parseAddress() {
-        let { addressObj } = this.data;
+        let { addressObj, config } = this.data;
         let { provinceName = '', cityName = '', countyName = '', detailInfo = '' } = addressObj;
         let arr = [provinceName, cityName, countyName, detailInfo];
         let addressStr = arr.join('');
         let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             address: addressStr,
             region: addressObj.cityName,
         };

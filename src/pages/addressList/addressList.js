@@ -150,10 +150,11 @@ Page({
 
     // 微信地址解析
     async parseAddress(res) {
+        let { config } = this.data;
         let { provinceName, cityName, countyName, detailInfo } = res;
         let addressStr = [provinceName, cityName, countyName, detailInfo].join('');
         let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+            key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
             address: addressStr,
             region: cityName,
         };
