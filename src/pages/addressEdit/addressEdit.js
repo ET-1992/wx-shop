@@ -3,185 +3,121 @@ import api from 'utils/api/index';
 import { ADDRESS_KEY, LOCATION_KEY, CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
-import { auth, getDistance } from 'utils/util';
+import { getDistance } from 'utils/util';
 
 Page({
     data: {
-        type: 'update',  // 地址更新或添加
+        config: {},
+        isLoading: true,
+        // 当前页面类型
+        type: 'update',
+        // 页面标题映射
         typeToTitle: {
             'update': '地址编辑',
             'add': '地址添加',
             'orderEdit': '订单地址编辑',
-        },  // 地址增/改标题
+        },
+        // 映射页面表单
         form: [
             { key: 'name', value: '', label: '姓名' },
             { key: 'phone', value: '', label: '电话' },
             { key: 'address', value: [], label: '国家/地区', areacode: '' },
             { key: 'addressInfo', value: '', label: '详细地址' },
+            { key: 'houseNumber', value: '', label: '门牌号' },
             { key: 'code', value: '', label: '邮政编码' },
-        ],  // 页面表单数据
+        ],
+        // 映射后端数据
         formBackEnd: {
             'name': 'receiver_name',
             'phone': 'receiver_phone',
             'address': ['receiver_state', 'receiver_city', 'receiver_district'],
             'addressInfo': 'receiver_address',
+            'houseNumber': 'room',
             'code': 'receiver_zipcode',
-        },  // 表单与后端地址键值对
+        },
+        // 映射微信表单
         formWechat: {
             'name': 'userName',
             'phone': 'telNumber',
             'address': ['provinceName', 'cityName', 'countyName'],
             'addressInfo': 'detailInfo',
+            'houseNumber': 'room',
             'code': 'postalCode',
-        },  // 表单与微信地址键值对
-        isLoading: true,
-        originForm: '',  // 后端返回的地址表单
-        config: {},
+        },
         qqAddress: {},  // 腾讯地图逆地址解析结果
         qqLocation: {},  // 腾讯地图地址解析结果
-        locationObj: {},  // 地址坐标对象
+        // 当前地址定位
+        locationObj: {
+            latitude: '',
+            longitude: '',
+        },
     },
 
     onLoad(params) {
-        console.log(params);
-        let { type, id = 0 } = params;
+        let { type = 'update', id = 0 } = params;
         const config = wx.getStorageSync(CONFIG);
-        this.setData({
-            type,
-            id,
-            config,
-        });
-        this.setPage();
+        this.setData({ type, id, config, });
+        this.loadPage();
     },
 
-    // 设置页面
-    async setPage() {
-        let { type = 'update', typeToTitle, config } = this.data;
+    // 设置和渲染页面
+    async loadPage() {
+        let { type, typeToTitle } = this.data;
         wx.setNavigationBarTitle({
             title: typeToTitle[type],
         });
-        // if (config.offline_store_enable) {
-        this.addFormItem();
-        // }
         if (type === 'update') {
-            this.getUpdateAddressInfo();
+            await this.showUpdateAddress();
         } else if (type === 'orderEdit') {
-            this.getOrderAddress();
-        } else {
-            this.setData({
-                isLoading: false,
-            });
-        }
-    },
-
-    // 表单添加门牌号
-    addFormItem() {
-        let { form, formBackEnd, formWechat } = this.data;
-        let index = form.findIndex(item => item.key === 'addressInfo') + 1;
-        let formItem = { key: 'houseNumber', value: '', label: '门牌号' };
-        formBackEnd['houseNumber'] = 'room';
-        formWechat['houseNumber'] = 'room';
-        // 在详细地址后面插入
-        form.splice(index, 0, formItem);
-        this.setData({
-            form,
-            formBackEnd,
-            formWechat,
-        });
-    },
-
-    // 获取具体地址
-    async getUpdateAddressInfo() {
-        this.setData({ isLoading: true });
-        let { id } = this.data;
-        let data = await api.hei.getReceiverInfo({ receiver_id: id });
-        this.setData({
-            originForm: data.receiver,
-        });
-        this.showUpdateAddress();
-    },
-
-    // 在页面上展示具体地址
-    showUpdateAddress() {
-        let { form, originForm, formBackEnd } = this.data;
-        let { latitude, longtitude } = originForm;
-        // 遍历对应字段表
-        for (let [k, v] of Object.entries(formBackEnd)) {
-            // 遍历表单数组
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    // 地址
-                    elem.value = v.map(item => originForm[item]);
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    elem.value = originForm[v];
-                }
-            }
-        }
-        this.setData({
-            locationObj: { latitude, longitude: longtitude },
-            form,
-            isLoading: false,
-        });
-    },
-
-    // 导入多门店两种地址
-    getOrderAddress() {
-        let location = wx.getStorageSync(LOCATION_KEY) || false;
-        let address = wx.getStorageSync(ADDRESS_KEY) || {};
-        if (location) {
-            this.showOrderLocation();
-        } else if (address.userName) {
             this.showOrderAddress();
         }
         this.setData({
             isLoading: false,
         });
-
     },
 
-    // 展示多门店定位地址
-    showOrderLocation() {
-        let { form } = this.data;
-        let locationObj = wx.getStorageSync(LOCATION_KEY) || {};
-        let { address, location } = locationObj;
-        let { lat, lng } = location;
-        // let { adcode, province, city, district } = ad_info || {};
-        // 表单地址选项
-        let index = form.findIndex(item => item.key === 'address');
-        // form[index].value = [province, city, district];
-        // 表单详细地址选项
-        form[index + 1].value = address;
+    // 展示待更新地址
+    async showUpdateAddress() {
+        this.setData({ isLoading: true });
+        let { id, formBackEnd } = this.data;
+        let data = await api.hei.getReceiverInfo({ receiver_id: id });
+        let { receiver: originFormData } = data;
+        // 注意后端经度字段
+        let resForm = this.transformFrontEnd(originFormData, formBackEnd);
+        let { latitude, longtitude: longitude } = originFormData;
         this.setData({
-            form,
-            locationObj: { latitude: lat, longitude: lng }
+            locationObj: { latitude, longitude },
+            form: resForm,
         });
     },
 
-    // 展示多门店收货地址
+    // 展示多门店地址
     showOrderAddress() {
-        let { form, formWechat } = this.data;
-        let address = wx.getStorageSync(ADDRESS_KEY) || {};
-        console.log('formWechat', formWechat);
-        for (let [k, v] of Object.entries(formWechat)) {
-            // 遍历表单数组
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    // 地址
-                    elem.value = v.map(item => address[item]);
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    elem.value = address[v];
-                }
-            }
+        let { form, formWechat } = this.data,
+            locationObj = {},
+            LocationStorage = wx.getStorageSync(LOCATION_KEY) || false,
+            addressStorage = wx.getStorageSync(ADDRESS_KEY) || {};
+        if (LocationStorage) {
+            // 展示定位地址
+            let { address, location: { lat, lng }} = LocationStorage;
+            // 手动录入详细地址
+            let index = form.findIndex(item => item.key === 'addressInfo');
+            form[index].value = address;
+            locationObj = { latitude: lat, longitude: lng };
+        } else if (addressStorage.userName) {
+            // 展示收货地址
+            form = this.transformFrontEnd(addressStorage, formWechat);
+            let { latitude, longitude } = addressStorage;
+            locationObj = { latitude, longitude };
         }
-        let { latitude, longitude } = address;
         this.setData({
             form,
-            locationObj: { latitude, longitude }
+            locationObj,
         });
     },
 
     // 输入框变化
-    onChange(e) {
+    onInputChange(e) {
         let { form } = this.data;
         let { detail, target: { dataset: { key }}} = e;
         let index = form.findIndex(item => {
@@ -221,10 +157,8 @@ Page({
             await this.parseLocationData();
             this.checkAddressForm();
             if (type === 'orderEdit') {
-                // 确认多门店地址表单
                 await this.confirmStoreAddress();
             } else {
-                // 确定收货地址表单
                 await this.confirmListAddress();
             }
         } catch (error) {
@@ -252,30 +186,16 @@ Page({
 
     // 保存多门店地址
     async saveStoreAddress() {
+        let { form, formWechat, locationObj, qqLocation: { ad_info }} = this.data;
         let location = wx.getStorageSync(LOCATION_KEY) || false;
-        let { form, formWechat, locationObj, qqLocation } = this.data;
-        let { ad_info } = qqLocation;
         let { province, city, district } = ad_info;
+        // 手动填入省市区
         let index = form.findIndex(item => item.key === 'address');
         form[index].value = [province, city, district];
-        let finalForm = {};
-        // 遍历对应字段表
-        for (let [k, v] of Object.entries(formWechat)) {
-            // 遍历表单数组
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    // 地址
-                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    finalForm[v] = elem.value;
-                }
-            }
-        }
-        let { latitude, longitude } = locationObj;
-        // 添加经纬度
-        finalForm.latitude = latitude;
-        finalForm.longitude = longitude;
-        this.checkOrderAddress({ latitude, longitude });
+        let finalForm = this.transformOthers(formWechat);
+        Object.assign(finalForm, locationObj);
+        console.log('finalForm', finalForm);
+        this.checkOrderAddress();
         if (location) {
             // 定位信息完善为地址信息
             wx.setStorageSync(LOCATION_KEY, null);
@@ -286,17 +206,19 @@ Page({
 
     // 地址解析
     async parseAddressData() {
-        let { form } = this.data;
-        let address = form[2].value || [];
-        let addressInfo = form[3].value;
-        let addressStr = [...address, addressInfo].join('');
-        let cityName = address[1];
-        let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
-            address: addressStr,
-            region: cityName,
-        };
-        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        let { form, config } = this.data;
+        let index = form.findIndex(item => item.key === 'address');
+        let address = form[index].value || [],
+            addressInfo = form[index + 1].value;
+        // 城市地址
+        let cityName = address[1],
+            addressStr = [...address, addressInfo].join('');
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1',
+            data = {
+                key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+                address: addressStr,
+                region: cityName,
+            };
         try {
             let res = await proxy.request({ url, data });
             console.log('地址解析结果：', res);
@@ -315,12 +237,12 @@ Page({
 
     // 地址逆解析
     async parseLocationData() {
-        let { latitude, longitude } = this.data.locationObj;
-        let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
-            location: `${latitude},${longitude}`
-        };
-        let url = 'https://apis.map.qq.com/ws/geocoder/v1';
+        let { config, locationObj: { latitude, longitude }} = this.data;
+        let url = 'https://apis.map.qq.com/ws/geocoder/v1',
+            data = {
+                key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
+                location: `${latitude},${longitude}`
+            };
         try {
             let res = await proxy.request({ url, data });
             console.log('经纬度解析的结果：', res);
@@ -347,42 +269,31 @@ Page({
             showCancel: false,
             success: () => wx.navigateBack(),
         });
-
     },
 
     // 向后端提交地址请求
     async submitListAddress() {
-        let { form, formBackEnd, type, id, qqLocation } = this.data;
-        let { location, ad_info } = qqLocation;
-        let { lat: latitude, lng: longitude } = location;
-        let { province, city, district } = ad_info;
+        let { form, formBackEnd, type, id, qqLocation: { location, ad_info }} = this.data;
+        let { lat: latitude, lng: longitude } = location,
+            { province, city, district } = ad_info;
+        // 手动填入省市区
         let index = form.findIndex(item => item.key === 'address');
         form[index].value = [province, city, district];
-        let finalForm = {};
-        // 遍历对应字段表
-        for (let [k, v] of Object.entries(formBackEnd)) {
-            // 遍历表单数组
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    // 地址
-                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    finalForm[v] = elem.value;
-                }
-            }
-        }
+        let finalForm = this.transformOthers(formBackEnd);
         let apiMethod = 'addReceiverInfo';
         if (type === 'update') {
-            // 地址编辑操作
-            finalForm.receiver_id = id;
+            // 地址更新
+            Object.assign(finalForm, { receiver_id: id });
             apiMethod = 'updateReceiverInfo';
         }
-        // 国家和是否默认地址
-        finalForm.receiver_country = '';
-        finalForm.receiver_default = 0;
-        // 添加经纬度
-        finalForm.latitude = latitude;
-        finalForm.longtitude = longitude;  // 注意经度字段
+        let addForm = {
+            receiver_country: '',
+            receiver_default: 0,
+            // 注意后端经度字段
+            longtitude: longitude,
+            latitude,
+        };
+        Object.assign(finalForm, addForm);
         await api.hei[apiMethod](finalForm);
     },
 
@@ -412,9 +323,9 @@ Page({
         });
     },
 
-    // 校验地址是否超出配送范围
-    checkOrderAddress(obj) {
-        let { latitude, longitude } = obj;
+    // 校验订单地址是否超出配送范围
+    checkOrderAddress() {
+        let { latitude, longitude } = this.data.locationObj;
         let { currentStore } = app.globalData;
         console.log('currentStore', currentStore);
         if (!currentStore.latitude || !currentStore.longtitude) {
@@ -429,9 +340,41 @@ Page({
         if (currentStore.distance_limit) {
             rangeOut = Number(distance) >= currentStore.distance_limit;
         }
+        console.log(`实际距离${distance}km，限制距离${currentStore.distance_limit}km`);
         if (rangeOut) {
             throw new Error('该地址超出门店所配送范围');
         }
-        console.log(`门店范围校验通过，实际距离${distance}km，限制距离${currentStore.distance_limit}km`);
+        console.log(`门店范围校验通过`);
+    },
+
+    // 前端字段转换成微信/后端字段
+    transformOthers(rule) {
+        let finalForm = {},
+            { form } = this.data;
+        for (let [k, v] of Object.entries(rule)) {
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    finalForm[v] = elem.value;
+                }
+            }
+        }
+        return finalForm;
+    },
+
+    // 地址转换成前端字段
+    transformFrontEnd(origin, rule) {
+        let { form } = this.data;
+        for (let [k, v] of Object.entries(rule)) {
+            for (let elem of form.values()) {
+                if (elem.key === k && Array.isArray(v)) {
+                    elem.value = v.map(item => origin[item]);
+                } else if (elem.key === k && !Array.isArray(v)) {
+                    elem.value = origin[v];
+                }
+            }
+        }
+        return form;
     },
 });

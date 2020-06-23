@@ -16,7 +16,7 @@
 					<!-- 普通文本框 -->
 					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
 					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
-					bind:change="onChange" />
+					bind:change="onInputChange" />
 				</block>
 			</block>
 		</van-cell-group>
