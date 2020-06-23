@@ -140,6 +140,10 @@
 			width: calc(100% - 80rpx);
 			z-index: 999;
 		}
+		.multi-nav > view{
+				background-color: #fff;
+		}
+
 		.multi-popup{
 			display: flex;
 			align-items: center;

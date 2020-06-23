@@ -1,6 +1,6 @@
 <view class="multiStyle">
   <view class="multi-header">
-    <van-tabs custom-class="multi-tabs" active="{{ activeIndex }}" color="{{ themeColor.primaryColor }}" border="{{ false }}" bind:click="changeActive">
+    <van-tabs custom-class="multi-tabs" active="{{ activeIndex }}" color="{{ themeColor.primaryColor }}" nav-class="multi-nav" border="{{ false }}" bind:click="changeActive">
       <van-tab wx:for="{{ navbarListData }}" wx:key="item" title="{{ item.text }}"></van-tab>
     </van-tabs>
     <div class="multi-popup" bindtap="onShowPopup">
