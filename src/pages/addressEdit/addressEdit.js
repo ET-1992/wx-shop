@@ -40,8 +40,6 @@ Page({
         showAreaPanel: false,  // 省市区弹出框
         areacode: '',  // 省市区编码值
         originForm: '',  // 后端返回的地址表单
-        mapList: [],  // 腾讯地图关键词搜索结果列表
-        mapListPanel: false,  // 地图展示面板
         selectedMap: {},  // 地图选中项
         config: {},
         qqAddress: {},  // 腾讯地图逆地址解析结果
@@ -205,86 +203,6 @@ Page({
         this.setData({
             form: form,
         });
-    },
-
-    // 联想地址输入框变化
-    onAddressInfo: debounce(function(e) {
-        let { detail } = e;
-        if (detail) {
-            this.searchAddress(detail);
-        } else {
-            this.setData({ mapListPanel: false });
-        }
-    }, 400, true),
-
-    // 收起联想地址弹出框
-    onCloseAddress() {
-        this.setData({ mapListPanel: false });
-    },
-
-    // 联想地址请求
-    async searchAddress(value) {
-        let { form } = this.data;
-        // 搜索地区
-        let formCity = form[2].value[1];
-        // 详细地址填入
-        form[3].value = value;
-        this.setData({
-            mapListPanel: true,
-            form: form,
-        });
-        let city = formCity || '广州';
-        let keyword = value;
-        let data = {
-            key: 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
-            keyword: keyword,
-            boundary: `region(${city})`,
-        };
-        let url = 'https://apis.map.qq.com/ws/place/v1/search';
-        wx.request({
-            url,
-            data,
-            success: (res) => {
-                let list = res.data.data || [];
-                let mapList = list.filter(item => item.type === 0) || [];
-                this.setData({ mapList });
-            },
-            fail(error) {
-                console.log('error', error);
-            }
-        });
-    },
-
-    // 选择联想地址框
-    onSelectAddress(e) {
-        let { mapList } = this.data;
-        let { id } = e.currentTarget.dataset;
-        let selectedMap = mapList.find((n) => {
-            return n.id === id;
-        });
-        selectedMap = selectedMap || {};
-        this.setData({
-            selectedMap,
-            mapListPanel: false,
-        });
-        this.updateAddressForm();
-    },
-
-    // 触发联想地址结果
-    updateAddressForm() {
-        let { selectedMap, form } = this.data;
-        let { address, ad_info = {}} = selectedMap;
-        let { adcode, province, city, district } = ad_info;
-        // 表单地址选项
-        form[2].value = [province, city, district];
-        form[2].areacode = adcode;
-        // 表单详细地址选项
-        form[3].value = address;
-        this.setData({
-            areacode: adcode,
-            form,
-        });
-        console.log('selectedMap', selectedMap);
     },
 
     // 删除地址表单
@@ -570,17 +488,3 @@ Page({
         console.log(`门店范围校验通过，实际距离${distance}km，限制距离${currentStore.distance_limit}km`);
     },
 });
-
-// 防抖
-function debounce(event, time, flag) {
-    let timer = null;
-    return function (...args) {
-        clearTimeout(timer);
-        if (flag && !timer) {
-            event.apply(this, args);
-        }
-        timer = setTimeout(() => {
-            event.apply(this, args);
-        }, time);
-    };
-}
