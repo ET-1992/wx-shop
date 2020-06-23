@@ -7,7 +7,6 @@ import { auth, getDistance } from 'utils/util';
 
 Page({
     data: {
-        title: 'addressEdit',
         type: 'update',  // 地址更新或添加
         typeToTitle: {
             'update': '地址编辑',
@@ -36,11 +35,7 @@ Page({
             'code': 'postalCode',
         },  // 表单与微信地址键值对
         isLoading: true,
-        areaList: {},  // 省市区列表数据格式
-        showAreaPanel: false,  // 省市区弹出框
-        areacode: '',  // 省市区编码值
         originForm: '',  // 后端返回的地址表单
-        selectedMap: {},  // 地图选中项
         config: {},
         qqAddress: {},  // 腾讯地图逆地址解析结果
         qqLocation: {},  // 腾讯地图地址解析结果
@@ -122,11 +117,9 @@ Page({
                 }
             }
         }
-        let areacode = originForm.receiver_areacode;
         this.setData({
             locationObj: { latitude, longitude: longtitude },
             form,
-            areacode,
             isLoading: false,
         });
     },
@@ -156,11 +149,9 @@ Page({
         // 表单地址选项
         let index = form.findIndex(item => item.key === 'address');
         // form[index].value = [province, city, district];
-        // form[index].areacode = adcode;
         // 表单详细地址选项
         form[index + 1].value = address;
         this.setData({
-            // areacode: adcode,
             form,
             locationObj: { latitude: lat, longitude: lng }
         });
@@ -182,11 +173,9 @@ Page({
                 }
             }
         }
-        let areacode = address.nationalCode;
         let { latitude, longitude } = address;
         this.setData({
             form,
-            areacode,
             locationObj: { latitude, longitude }
         });
     },
@@ -363,7 +352,7 @@ Page({
 
     // 向后端提交地址请求
     async submitListAddress() {
-        let { form, formBackEnd, areacode, type, id, qqLocation } = this.data;
+        let { form, formBackEnd, type, id, qqLocation } = this.data;
         let { location, ad_info } = qqLocation;
         let { lat: latitude, lng: longitude } = location;
         let { province, city, district } = ad_info;
@@ -383,8 +372,6 @@ Page({
             }
         }
         let apiMethod = 'addReceiverInfo';
-        // 省市区编号和地址ID
-        finalForm.receiver_areacode = areacode;
         if (type === 'update') {
             // 地址编辑操作
             finalForm.receiver_id = id;
