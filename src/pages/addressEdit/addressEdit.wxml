@@ -1,16 +1,10 @@
 <view class="container">
 	<loading isLoading="{{ isLoading }}" />
-	<!-- 添加地址 -->
 	<view class="add" wx:if="{{ !isLoading }}">
 		<van-cell-group>
 			<block wx:for="{{ form }}" wx:key="index">
 				<block wx:if="{{ form[index].key === 'address' }}">
-					<!-- 默认隐藏 -->
-					<block wx:if="{{ false }}">
-						<!-- 地区级联选择器 -->
-						<van-field value="{{ string.join(form[index]['value']) }}" label="{{ item.label }}" 
-						placeholder="选择国家、地区" data-key="{{ item.key }}" bind:tap="onShowArea" readonly is-link />
-					</block>
+				<!-- 页面隐藏省市区表单 -->
 				</block>
 				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
 					<!-- 微信地图的详细地址 -->
@@ -30,34 +24,3 @@
 		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
 	</view>
 </view>
-<!-- 级联选择器面板 -->
-<van-popup
-  show="{{ showAreaPanel }}"
-  position="bottom"
-  bind:close="onCloseArea"
->
-	<van-area 
-	  area-list="{{ areaList }}" 
-	  bind:cancel="onCloseArea"
-	  bind:confirm="onConfirmArea"
-	  value="{{ areacode }}" 
-	/>
-</van-popup>
-
-<wxs module="string">
-// 拼接地区信息
-var join = function(arr){
-	if(arr && arr.length) {
-		// 过滤空值
-		var res = arr.filter(function(item) {
-			return item
-		});
-		return res.join('/')
-	} else {
-		return ''
-	}
-}
-module.exports = {
-	join: join
-}
-</wxs>

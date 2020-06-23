@@ -77,7 +77,6 @@ Page({
                 isLoading: false,
             });
         }
-        // this.getAreaData();
     },
 
     // 表单添加门牌号
@@ -408,45 +407,6 @@ Page({
         if (!success) {
             throw new Error('请填写必要的信息');
         }
-    },
-
-    // 获取地区选择器数据
-    async getAreaData() {
-        let data = await api.hei.fetchRegionList();
-        let { areaList } = data;
-        this.setData({ areaList });
-    },
-
-    // 弹出地区级联选择器
-    onShowArea() {
-        this.setData({
-            showAreaPanel: true,
-        });
-    },
-
-    // 关闭地区级联选择器
-    onCloseArea() {
-        this.setData({
-            showAreaPanel: false,
-        });
-    },
-
-    // 提交地区级联选择器
-    onConfirmArea(e) {
-        let { form } = this.data;
-        let { values = [] } = e.detail;
-        // 级联ID
-        let areacode = values[values.length - 1].code;
-        // 更改地址数据
-        let index = form.findIndex(item => item.key === 'address');
-        form[index].value = values.map(item => item.name);
-        form[index].areacode = areacode;
-        // form[index + 1].value = '';
-        this.setData({
-            areacode,
-            form,
-        });
-        this.onCloseArea();
     },
 
     // 打开微信定位获取详细地址
