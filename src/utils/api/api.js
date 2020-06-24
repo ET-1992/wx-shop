@@ -32,6 +32,10 @@ export const apis = {
     fetchProduct: {
         path: 'api/mag.product.get.json?v2'
     },
+    // 获取分类商品下的SKU
+    fetchProductSkus: {
+        path: 'api/mag.product.skus.json'
+    },
     fetchCartList: {
         path: 'api/mag.cart.get.json',
         isForceToken: true,
