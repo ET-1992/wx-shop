@@ -69,7 +69,7 @@
     <view class="mix-pay">
         <view class="mix-pay-title">余额账户</view>
         <view class="mix-pay-info">
-            <view class="mix-pay-info-title" wx:for="{{ mixpay }}">
+            <view class="mix-pay-info-title" wx:for="{{ mixpay }}" wx:key="index">
                 <text class="mix-pay-info-name">{{ (item.name || '-') + '：' }}</text>
                 <view class="mix-pay-info-value">
                     <text wx:if="{{ item.key !== 'coin' }}">{{ globalData.CURRENCY[globalData.currency] }}</text>
