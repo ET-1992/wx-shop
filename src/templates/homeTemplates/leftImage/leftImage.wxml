@@ -12,7 +12,7 @@
     			<!-- <view class="desc">{{ product.excerpt }}</view> -->
     			<view class="bottom">
           <view class="left">
-    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}<text wx:if="{{ product.skus && product.skus.length }}">起</text></view>
+    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}<text wx:if="{{ product.skus && product.skus.length || (PLATFFORM_ENV === 'CUILV' && product.is_multi_sku) }}">起</text></view>
             <view class="tag" wx:if="{{ product.groupon_enable }}">{{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}</view>
             <view class="tag" wx:if="{{ product.miaosha_enable || product.seckill_enable }}">{{ product.miaosha_enable ? '限时购' : '秒杀'}}</view>
           </view>
