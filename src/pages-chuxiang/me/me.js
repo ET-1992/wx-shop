@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { updateCart, go, isExpired } from 'utils/util';
 import { USER_KEY, CONFIG } from 'constants/index';
+import { updateTabbar } from '../../utils/util';
 const app = getApp();
 
 Page({
@@ -82,10 +83,7 @@ Page({
         });
         this.loadOrderCount();
 
-        const { categoryIndex } = app.globalData;
-        if (categoryIndex !== -1) {
-            updateCart(categoryIndex);
-        }
+        updateTabbar({ pageKey: 'me' });
         isExpired(config);
     },
 
