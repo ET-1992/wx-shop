@@ -24,7 +24,7 @@ Page({
         selectedProduct: {},
         isShowCouponList: false,
         current_page: 1,
-        isLoading: true,
+        // isLoading: true,
         hasProducts: true,
         isShowPopup: false,
         sortText: [
@@ -52,7 +52,7 @@ Page({
             tplStyle,
             globalData: app.globalData,
             config,
-            isLoading: false,
+            // isLoading: false,
         });
     },
 

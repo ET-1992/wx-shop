@@ -143,16 +143,11 @@ Component({
                 console.log(locationEnabled, 'locationEnabled');
                 console.log(e);
                 if (platform !== 'devtools' && (!locationEnabled || !locationAuthorized)) {
-                    const { confirm } = await proxy.showModal({
+                    await proxy.showModal({
                         title: '温馨提示',
                         content: '请检查手机定位是否开启、是否允许微信使用手机定位',
                         showCancel: false
                     });
-                    if (confirm) {
-                        wx.navigateBack({
-                            delta: 1
-                        });
-                    }
                     return;
                 }
             }
