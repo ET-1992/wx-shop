@@ -1,0 +1,11 @@
+.popup-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.box {
+		display: flex;
+		.box-img {
+			margin-right: 20rpx;
+		}
+	}
+}

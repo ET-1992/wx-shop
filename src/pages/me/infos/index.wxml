@@ -60,7 +60,13 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </view>
-    <button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
+    <!-- 企业微信客服 -->
+    <button class="normalizeBt infoItem" bind:tap="onShowContact" wx:if="{{ true || config.aaa }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
+        <view class="itemTitle">联系客服</view>
+    </button>
+    <!-- 普通客服 -->
+    <button class="normalizeBt infoItem" wx:else data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
         <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
         <view class="itemTitle">联系客服</view>
     </button>
@@ -83,3 +89,5 @@
 </view>
 
 <myModal modal="{{authModal}}" />
+<!-- 企业微信客服弹窗 -->
+<companyContact show="{{ showCompanyContact }}" wx:if="{{ true || config.aaa }}"/>

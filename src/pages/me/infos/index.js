@@ -25,7 +25,11 @@ Component({
         themeColor: {
             type: Object,
             value: {}
-        }
+        },
+        config: {
+            type: Object,
+            value: {}
+        },
     },
     methods: {
         async bindGetUserInfo(e) {
@@ -107,5 +111,12 @@ Component({
                 phoneNumber: e.currentTarget.dataset.phone
             });
         },
+        // 展示企业微信联系方式
+        onShowContact() {
+            let showCompanyContact = true;
+            this.setData({
+                showCompanyContact,
+            });
+        }
     }
 });
