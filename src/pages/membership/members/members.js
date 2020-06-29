@@ -233,6 +233,12 @@ Page({
                 showCancel: false
             });
         }
-
-    }
+    },
+    // 展示企业微信联系方式
+    onCustomService() {
+        let customServiceModal = true;
+        this.setData({
+            customServiceModal,
+        });
+    },
 });

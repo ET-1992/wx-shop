@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "myModal": "../myModal/myModal"
+    "myModal": "../myModal/myModal",
+    "companyContact": "../companyContact/companyContact"
   }
 }

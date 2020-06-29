@@ -112,11 +112,11 @@ Component({
             });
         },
         // 展示企业微信联系方式
-        onShowContact() {
-            let showCompanyContact = true;
+        onCustomService() {
+            let customServiceModal = true;
             this.setData({
-                showCompanyContact,
+                customServiceModal,
             });
-        }
+        },
     }
 });

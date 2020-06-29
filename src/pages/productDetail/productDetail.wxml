@@ -372,11 +372,13 @@
 						send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
 						send-message-img="{{product.thumbnail}}"
 						show-message-card="{{true}}"
-						class="cart"
+						class="normalizeBt cart"
 						session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
 						>
-						<image class="icon" src="../../icons/context.png" />
-						<text>客服</text>
+						<view class="cart-contact" catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+							<image class="icon" src="../../icons/context.png" />
+							<text>客服</text>
+						</view>
 					</button>
 				</block>
 			</view>
@@ -589,6 +591,12 @@
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
 	</view>
 </van-popup>
+
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>
 
 <myModal modal="{{authModal}}" />
 

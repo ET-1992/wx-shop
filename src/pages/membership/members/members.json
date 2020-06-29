@@ -3,6 +3,7 @@
 	"navigationBarBackgroundColor": "#333333",
 	"usingComponents": {
 		"loading": "components/loading/index",
-		"popup": "components/popup/popup"
+		"popup": "components/popup/popup",
+		"companyContact": "components/companyContact/companyContact"
 	}
 }

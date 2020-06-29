@@ -11,6 +11,10 @@ Component({
         sessionFrom: {
             type: String,
             value: ''
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
     methods: {
@@ -18,6 +22,13 @@ Component({
             wx.makePhoneCall({
                 phoneNumber: e.currentTarget.dataset.phone
             });
-        }
+        },
+        // 展示企业微信联系方式
+        onCustomService() {
+            let customServiceModal = true;
+            this.setData({
+                customServiceModal,
+            });
+        },
     }
 });

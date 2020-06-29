@@ -1021,6 +1021,14 @@ button {
 				left: 0;
 				top: 0;
 
+				.cart-contact {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+
 				text,.text{
 					color: #333;
 					line-height: 1.5;
