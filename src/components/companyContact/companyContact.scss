@@ -4,8 +4,12 @@
 	align-items: center;
 	.box {
 		display: flex;
+		align-items: center;
 		.box-img {
 			margin-right: 20rpx;
+		}
+		.box-title {
+			line-height: 60rpx;
 		}
 	}
 }

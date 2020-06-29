@@ -61,7 +61,7 @@
         <view class="itemTitle">分享中心</view>
     </view>
     <!-- 企业微信客服 -->
-    <button class="normalizeBt infoItem" bind:tap="onShowContact" wx:if="{{ true || config.aaa }}">
+    <button class="normalizeBt infoItem" bind:tap="onShowContact" wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
         <view class="itemTitle">联系客服</view>
     </button>
@@ -90,4 +90,7 @@
 
 <myModal modal="{{authModal}}" />
 <!-- 企业微信客服弹窗 -->
-<companyContact show="{{ showCompanyContact }}" wx:if="{{ true || config.aaa }}"/>
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ showCompanyContact }}"
+    plugid="{{ config.contact.plugid }}"
+/>
