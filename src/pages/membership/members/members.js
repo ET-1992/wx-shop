@@ -211,6 +211,7 @@ Page({
     async memberShipRenewal() {
         const { selectRenewal, config } = this.data;
         const { cashier_enable } = config;
+        const type = 3;
         if (cashier_enable && selectRenewal.amount > 0) {
             wx.navigateTo({ url: `/pages/payCashier/payCashier?renewalId=${selectRenewal.id}&member_amount=${selectRenewal.amount}&member_type=${type}&from_page=member` });
             return;
@@ -219,7 +220,7 @@ Page({
             const { pay_sign } = await api.hei.membershipMultipay({
                 renew_id: selectRenewal.id,
                 pay_method: 'WEIXIN',
-                type: 3
+                type
             });
             if (pay_sign && selectRenewal.amount > 0) {
                 await wxPay(pay_sign);
