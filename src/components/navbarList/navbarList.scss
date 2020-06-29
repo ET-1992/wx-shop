@@ -24,7 +24,7 @@
 		line-height: 90rpx;
 		display: inline-block;
 		position: relative;
-		
+
 		&.selected {
 			border-bottom: 4rpx solid #729153;
 			color: #000000;
@@ -104,26 +104,78 @@
 }
 
 .multiStyle{
-	position: fixed;
-	width: 100%;
-	background-color: #FFFFFF;
-	color: #333;
-	font-size: 24rpx;
-	z-index: 10000;
-	left: 0;
-	top: 0;
-	display: flex;
-	flex-wrap: wrap;
-	padding: 10rpx 30rpx;
-	align-items: center;
-	justify-content: space-between;
-	box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.16);
-	.item {
+	.arrow {
+		animation: arrow-down 0.5s ease-in-out;
+		animation-fill-mode: forwards;
+	}
+	@keyframes arrow-up {
+		from  {
+			transform: rotate(-180deg);
+		}
+		to {
+			transform: rotate(0deg);
+		}
+	}
+	@keyframes arrow-down {
+		from  {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(-180deg);
+		}
+	}
+	.reverse-arrow{
+		animation: arrow-up 0.5s ease-in-out;
+		animation-fill-mode: forwards;
+	}
+	.multi-header{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: auto;
+		z-index: 999;
+		border-bottom: 2rpx solid #eee;
+		.multi-tabs{
+			width: calc(100% - 80rpx);
+			z-index: 999;
+		}
+		.multi-nav > view{
+				background-color: #fff;
+		}
+
+		.multi-popup{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			height: 100%;
+			width: 80rpx;
+			background: #fff;
+			top: 0;
+			right: 0;
+			z-index: 1000;
+		}
+	}
+	.popup-box{
+		width: 100%;
+		background-color: #FFFFFF;
+		color: #333;
+		font-size: 24rpx;
 		display: flex;
+		flex-wrap: wrap;
+		padding: 20rpx 30rpx 0;
 		align-items: center;
-		justify-content: center;
-		width: 120rpx;
-		height: 54rpx;
-		border-radius: 40rpx;
+		justify-content: space-between;
+		box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.16);
+		.item {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 120rpx;
+				height: 54rpx;
+				margin-bottom: 20rpx;
+				border-radius: 40rpx;
+		}
 	}
 }
