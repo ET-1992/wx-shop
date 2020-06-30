@@ -49,10 +49,19 @@ export const pageObj = {
         sortStatus: {
             'Up': 'asc',
             'Down': 'desc'
-        }
+        },
+        // 促销方式
+        promotionType: '',
     },
 
-    async onLoad({ categoryId = '', categoryParent, memberExclusive, orderby }) {
+    async onLoad(params) {
+        let {
+            categoryId = '',
+            categoryParent,
+            memberExclusive,
+            orderby,
+            promotionType = '',
+        } = params;
         wx.showLoading({
             title: '加载中',
             mask: true
@@ -72,6 +81,7 @@ export const pageObj = {
             categoryParent,
             config,
             memberExclusive,
+            promotionType,
             filterData
         });
         await this.loadProducts();
@@ -148,12 +158,16 @@ export const pageObj = {
 
     // 加载商品列表
     async loadProducts() {
-        let { current_page, categoryId = '', products, categoryParent = '', memberExclusive, filterData, sortText, sortStatus } = this.data;
+        let { current_page, categoryId = '', products, categoryParent = '', promotionType, memberExclusive, filterData, sortText, sortStatus } = this.data;
+        // 兼容会员中心会员商品
+        if (!promotionType && memberExclusive) {
+            promotionType = 'membership_dedicated_enable';
+        }
         let options = {
             paged: current_page,
             product_category_id: categoryId,
             product_category_parent: categoryParent,
-            promotion_type: memberExclusive ? 'membership_dedicated_enable' : '',
+            promotion_type: promotionType,
         };
         if (filterData.filterIndex) {
             options.orderby = sortText[filterData.filterIndex];
