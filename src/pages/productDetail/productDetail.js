@@ -603,11 +603,11 @@ Page({
         this.onSkuCancel();
     },
 
-    async submitFormId(ev) {
-        await api.hei.submitFormId({
-            form_id: ev.detail.formId,
-        });
-    },
+    // async submitFormId(ev) {
+    //     await api.hei.submitFormId({
+    //         form_id: ev.detail.formId,
+    //     });
+    // },
 
     async showCartNumber(count) {
         wx.setStorageSync('CART_NUM', count);
