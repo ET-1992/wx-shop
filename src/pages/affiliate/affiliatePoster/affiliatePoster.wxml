@@ -1,6 +1,12 @@
 <view class="container">
-	<canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: {{ hiddenCanvas ? 'none' : 'block' }}"/>
-	<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>
+
+	<!-- <canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: {{ hiddenCanvas ? 'none' : 'block' }}"/>
+	<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>-->
+	<poster 
+		posterData="{{ posterData }}" 
+		user="{{ current_user }}" 
+		posterType="{{ posterType }}"
+	/>
 
 	<view class="btnWtap">
 		<button class="btn" open-type="share" style="background-color: {{ themeColor.primaryColor }}">分享给好友</button>
