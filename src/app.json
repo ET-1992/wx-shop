@@ -10,7 +10,9 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/featured/featured"
+		"pages/multiStoreList/multiStoreList",
+		"pages/featured/featured",
+		"pages/onlineStore/onlineStore"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -330,6 +332,20 @@
 				"webPages"
 			],
 			"name": "webPage页"
+		},
+		{
+			"root": "pages/addressEdit",
+			"pages": [
+				"addressEdit"
+			],
+			"name": "地址编辑页"
+		},
+		{
+			"root": "pages/addressList",
+			"pages": [
+				"addressList"
+			],
+			"name": "地址列表页"
 		},
 		{
 			"root": "pages/productList",

@@ -1,6 +1,10 @@
 <searchBox themeColor="{{ themeColor }}" />
-<view class="container">
-  <view class="category">
+<!-- 多门店 -->
+<div class="multiStore">
+	<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
+</div>
+<view class="container {{ multiStoreEnable ? 'container-multiStore': '' }}">
+	<view class="category">
 		<scroll-view
 			class="mainCategory hidding-scrollbar"
 			scroll-y="{{true}}"
@@ -49,7 +53,7 @@
 				</view>
 			</scroll-view>
 			<scroll-view
-				class="subContent"
+				class="subContent {{ multiStoreEnable ? 'subContent-multiStore': '' }}"
 				scroll-y="{{true}}"
 				bindscroll="{{selectedIndex !== -1 ? 'subContentScroll':''}}"
 				bindscrolltolower="{{selectedIndex !== -1 ? 'subScrolltolower':''}}"

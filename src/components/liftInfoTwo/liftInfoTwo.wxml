@@ -6,7 +6,7 @@
 				<view class="address-name">{{ liftInfo.receiver_address_name || '无' }}</view>
 				<view class="address-distance" wx:if="{{ !isOrderDetail && liftInfo.distance }}">
 					<text>距您 {{ liftInfo.distance }} km</text>
-					<image src="/icons/right.png" class="right-arrow"></image>
+					<image src="/icons/right.png" class="right-arrow" wx:if="{{ liftInfo.isCanNav }}"></image>
 				</view>
 			</view>
 			<view class="address-info">

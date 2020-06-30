@@ -91,6 +91,7 @@ Page({
         address.countyName = order.receiver_district;
         address.detailInfo = order.receiver_address;
         address.postalCode = order.receiver_zipcode;
+        address.room = order.room;
 
         order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
         order.payMethodText = valueToText(PAY_STYLES, order.pay_method);

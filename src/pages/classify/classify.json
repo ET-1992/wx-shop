@@ -6,6 +6,7 @@
 		"filterList": "../../components/filterList/filterList",
 		"skuModal": "../../components/skuModal/skuModal",
 		"van-popup": "../../components/vant-weapp/dist/popup/index",
-		"searchBox": "../home/components/searchBox/searchBox"
+		"searchBox": "../home/components/searchBox/searchBox",
+		"multiStore": "../../components/multiStore/multiStore"
 	  }
 }

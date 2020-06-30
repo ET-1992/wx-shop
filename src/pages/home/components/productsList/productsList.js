@@ -49,6 +49,17 @@ Component({
         }
     },
 
+    data: {
+        content: [],
+        setting: {
+            margin: 0,
+            title_display: false,
+            title_position: 'left',
+            style: 'per_2',
+            orderby: 'post_date'
+        },
+    },
+
     methods: {
         goMore() {
             const { setting = {}, id } = this.data;

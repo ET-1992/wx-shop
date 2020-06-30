@@ -1,0 +1,52 @@
+<view class="container">
+  <loading isLoading="{{ isLoading }}" wx:if="{{ isLoading }}" />
+  <view class="address-air" wx:elif="{{ !addressList.length }}">
+    这里是空的
+  </view>
+  <view class="address" >
+      <van-radio-group class="radio-group" value="{{ radioSelected }}" bindchange="radioChange">
+        <van-radio
+          icon-class="radio-icon"
+          label-class="radio-label"
+          class="radio-wrap"
+          checked-color="#07c160"
+          wx:for="{{ addressList }}"
+          wx:key="index"
+          name="{{ index }}"
+        >
+          <view class="radio-middle">
+            <view class="middle-top">
+              <text>{{ item.receiver_name || '-' }} </text>
+              <text>{{ item.receiver_phone || '-' }}</text>
+            </view>
+            <view class="middle-bottom">
+              <text>{{ address.splice(item) }}</text>
+            </view>
+          </view>
+          <view class="radio-right" data-type="update" data-id="{{ item.id }}" catch:tap="onAddressEdit">
+            <van-icon name="edit" />
+          </view>
+        </van-radio>
+      </van-radio-group>
+  </view>
+  <view class="btns">
+    <button class="btn wechat-add" bindtap="onImportAddress" wx:if="{{ !config.offline_store_enable }}">
+      微信添加地址
+    </button>
+    <button class="btn" data-type="add" catch:tap="onAddressEdit">
+      手动添加地址
+    </button>
+  </view>
+</view>
+
+<wxs module="address">
+var splice = function(obj){
+	// var str = obj.receiver_country + obj.receiver_state + obj.receiver_city + obj.receiver_district + obj.receiver_address;
+	var str = obj.receiver_address || '';
+  str += obj.room || '';
+	return str;
+}
+module.exports = {
+	splice: splice,
+}
+</wxs>

@@ -1,6 +1,7 @@
 <view class="container">
 	<view class="wrapper" wx:if="{{ addresses.name }}">
-		<navigator wx:if="{{ !isOrderDetail }}" url="/pages/liftList/liftList?type=4">
+		<!-- 没有门店信息并且可更新 -->
+		<navigator wx:if="{{ !isOrderDetail && updateEnable }}" url="/pages/liftList/liftList?type=4">
 			<view class="address-top">
 				<view class="title">选择门店</view>
 				<view class="arrow-right">

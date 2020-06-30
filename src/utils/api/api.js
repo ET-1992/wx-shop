@@ -551,6 +551,16 @@ export const apis = {
         path: 'api/mag.user_center.bind.required.json',
         isForceToken: true
     },
+    // 多门店列表
+    getMultiStoreList: {
+        path: 'api/mag.offline_store.list.json',
+        isForceToken: true
+    },
+    // 具体门店
+    getMultiStoreDetail: {
+        path: 'api/mag.offline_store.get.json',
+        isForceToken: true
+    },
     checkUserExisted: {
         path: 'api/mag.user_center.user.existed.json',
         method: 'POST',

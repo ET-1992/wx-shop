@@ -5,6 +5,8 @@
     "productList": "../../components/productList/index",
     "loading": "../../components/loading/index",
     "navbarList": "../../components/navbarList/navbarList",
-    "van-icon": "@vant/weapp/dist/icon/index"
+    "multiStore": "../../components/multiStore/multiStore",
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "home-product-list": "../home/components/productsList/productsList"
   }
 }

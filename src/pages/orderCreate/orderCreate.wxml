@@ -16,7 +16,9 @@
   </block>
 
   <!-- 门店列表 -->
-  <storeList addresses="{{ storeListAddress }}" address="{{ address }}" wx:if="{{ shipping_type === 4 }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" id="storeList"></storeList>
+  <storeList wx:if="{{ shipping_type === 4 }}" addresses="{{ storeListAddress }}" 
+    address="{{ address }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" id="storeList"
+    updateEnable="{{ storeUpdateEnable }}"></storeList>
 
   <!-- 商品信息 -->
   <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
