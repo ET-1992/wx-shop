@@ -382,7 +382,7 @@ export const pageObj = {
     async showProducts() {
         const { windowHeight } = app.systemInfo;
         const rect = await this.getDomRect('loadProducts');
-        if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
+        if (rect && rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             const { productListTotalPages = 2, productListPage = 1 } = this.data;
             if (productListPage <= productListTotalPages) {

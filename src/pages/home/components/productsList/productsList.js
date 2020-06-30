@@ -64,21 +64,28 @@ Component({
         goMore() {
             const { setting = {}, id } = this.data;
             const { orderby = '', product_category_id = '' } = setting;
+            let promotionUrl = '/pages/miaoshaList/miaoshaList',
+                paramsStr = `?module_id=${id}&orderby=${orderby}&categoryId=${product_category_id}`;
+            // 最终传递URL
+            let finalUrl = '';
+            promotionUrl += paramsStr;
             if (setting.promotion_type === 'groupon_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
+                // 拼团
+                finalUrl = promotionUrl + '&type=groupon';
+            } else if (setting.promotion_type === 'bargain_enable') {
+                // 砍价
+                finalUrl = promotionUrl + '&type=bargain';
+            } else if (setting.promotion_type === 'seckill_enable') {
+                // 秒杀
+                finalUrl = promotionUrl + '&type=seckill';
+            } else if (setting.promotion_type === 'miaosha_enable') {
+                // 限时购
+                finalUrl = promotionUrl + '&type=miaosha';
+            } else {
+                // 会员/普通
+                finalUrl = '/pages/productList/productList' + paramsStr;
             }
-            if (setting.promotion_type === 'bargain_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (setting.promotion_type === 'seckill_enable') {  // 秒杀
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=seckill&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (setting.promotion_type === 'miaosha_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (!setting.promotion_type) {
-                autoNavigate_({ url: '/pages/productList/productList?module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
+            autoNavigate_({ url: finalUrl });
         }
     }
 });
