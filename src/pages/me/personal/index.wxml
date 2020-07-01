@@ -1,9 +1,13 @@
 <view class="header" style="background-color: {{ themeColor.primaryColor }}">
 	<view class="header-top">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
-			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+			<image src="{{ (user.avatarurl && !updateAvatar) ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<view class="head-text">
-				<view class="head-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
+				<view class="head-user">
+					<text wx:if="{{ updateAvatar }}">点击更新头像</text>
+					<text wx:elif="{{ user.nickname }}">{{ user.nickname }}</text>
+					<text wx:else>点击头像登录</text>
+				</view>
 				<view class="head-level">{{ user.membership.level_name ? user.membership.level_name : '普通用户'}}</view>
 			</view>
 		</button>
