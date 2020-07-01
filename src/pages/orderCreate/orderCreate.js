@@ -1,8 +1,9 @@
 import api from 'utils/api';
 import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES } from 'constants/index';
-import { auth, subscribeMessage } from 'utils/util';
+import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
+import { auth, subscribeMessage, getDistance } from 'utils/util';
+import proxy from 'utils/wxProxy';
 import { Decimal } from 'decimal.js';
 // import { CART_LIST_KEY, phoneStyle } from 'constants/index';
 const app = getApp();
@@ -49,6 +50,7 @@ Page({
         isDisablePay: true,
         PAY_STYLES,
         selectedPayValue: 'WEIXIN',
+        storeUpdateEnable: true,  // 门店可修改
     },
 
     async onShow() {
@@ -79,12 +81,27 @@ Page({
             const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
             const { items, totalPostage } = currentOrder;
-            const address = wx.getStorageSync(ADDRESS_KEY) || {};
-            const liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
+            let location = wx.getStorageSync(LOCATION_KEY) || false;
+            let address = wx.getStorageSync(ADDRESS_KEY) || {};
+            let liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
+            let storeUpdateEnable = true;
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
 
+            // 多门店模式
+            if (config.offline_store_enable) {
+                if (location) {
+                    // 地址清空
+                    address = { userName: '', };
+                }
+                // 自提配置
+                liftInfo = { isCanInput: true, isCanNav: false };
+                // 门店不可选配置
+                storeUpdateEnable = false;
+            }
+
             this.setData({
+                storeUpdateEnable,
                 seckill,
                 seckill_product_id,
                 address,
@@ -105,6 +122,7 @@ Page({
                 app.event.on('getLiftInfoEvent', this.getLiftInfoEvent, this);
                 app.event.on('getStoreInfoEvent', this.getStoreInfoEvent, this);
                 app.event.on('setOverseeAddressEvent', this.setOverseeAddressEvent, this);
+                app.event.on('setAddressListEvent', this.setAddressListEvent, this);
                 this.onLoadData();
             });
         }
@@ -124,6 +142,7 @@ Page({
         app.event.off('getLiftInfoEvent', this);
         app.event.off('getStoreInfoEvent', this);
         app.event.off('setOverseeAddressEvent', this);
+        app.event.off('setAddressListEvent', this);
     },
 
     // onHide() {
@@ -135,26 +154,24 @@ Page({
         const { value } = ev.detail;
         this.setData({ buyerMessage: value });
     },
-    // 自填地址
+
+    // 收货地址修改
     async onAddress() {
-        const { self_address } = this.data.config;
+        const { self_address, offline_store_enable } = this.data.config;
+        let url = '';
         if (self_address) {
-            wx.navigateTo({
-                url: '/pages/selfAddress/selfAddress'
-            });
-            return;
+            // 自填地址
+            url = `/pages/selfAddress/selfAddress`;
+        } else if (offline_store_enable) {
+            // 多门店地址
+            let type = 'orderEdit';
+            url = `../addressEdit/addressEdit?type=${type}`;
         }
-        const res = await auth({
-            scope: 'scope.address',
-            ctx: this,
-            isFatherControl: true
-        });
-        if (res) {
-            const addressRes = await chooseAddress();
-            this.setData({ address: addressRes });
-            wx.setStorageSync(ADDRESS_KEY, addressRes);
-            this.onLoadData();
+        else {
+            // 普通地址列表
+            url = `/pages/addressList/addressList`;
         }
+        wx.navigateTo({ url });
     },
 
     async getCouponId() {
@@ -183,6 +200,13 @@ Page({
 
     setOverseeAddressEvent(selfAddressObj) {
         this.setData({ address: selfAddressObj }, () => { this.onLoadData() });
+    },
+
+    // 设置地址列表返回的数据
+    setAddressListEvent(address) {
+        console.log('从地址列表返回的地址', address);
+        wx.setStorageSync(ADDRESS_KEY, address);
+        this.setData({ address: address }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址
@@ -221,7 +245,8 @@ Page({
                 grouponId,
                 shipping_type,
                 config,
-                bargain_mission_code
+                bargain_mission_code,
+                liftInfo,
             } = this.data;
             let requestData = {};
             if (address) {
@@ -233,7 +258,8 @@ Page({
                     receiver_city: address.cityName || '',
                     receiver_district: address.countyName || '',
                     receiver_address: address.detailInfo || '',
-                    receiver_zipcode: address.postalCode || ''
+                    receiver_zipcode: address.postalCode || '',
+                    room: address.room || '',
                 };
             }
 
@@ -268,7 +294,57 @@ Page({
 
             requestData.posts = JSON.stringify(items);
 
-            const { coupons, wallet, coin_in_order, fee, use_platform_pay, order_annotation, product_type, payment_tips, store_card } = await api.hei.orderPrepare(requestData);
+            const orderPrepareData = await api.hei.orderPrepare(requestData);
+            const {
+                coupons,
+                wallet,
+                coin_in_order,
+                fee,
+                use_platform_pay,
+                order_annotation,
+                product_type,
+                payment_tips,
+                store_card,
+                store,
+            } = orderPrepareData;
+
+            // 多门店模式下的下单门店
+            if (store && store.id) {
+                let { longtitude, latitude } = store;
+                let distance = '';
+                try {
+                    const data = await proxy.getLocation();
+                    distance = getDistance(latitude, longtitude, data.latitude, data.longitude);
+                } catch (e) {
+                    console.log('获取不到定位信息');
+                    distance = '-';
+                }
+                Object.assign(store, { distance });
+                if (shipping_type === 2) {
+                    // 自提
+                    let currentStore = {
+                        receiver_address_phone: store.phone,
+                        receiver_state: store.state,
+                        receiver_city: store.city,
+                        receiver_district: store.district,
+                        receiver_address: store.address,
+                        receiver_address_name: store.name,
+                        distance: store.distance, // 距离
+                        time: store.time, // 营业时间
+                        remark: store.remark // 商家备注
+                    };
+                    Object.assign(liftInfo, currentStore);
+                } else if (shipping_type === 4) {
+                    // 送货上门
+                    this.setData({
+                        storeListAddress: store,
+                        homeDeliveryTimes: store.times || [],
+                        chooseAreaId: store.id,
+                        free_shipping_amount: store && store.free_amount,
+                    });
+                }
+            }
+
 
             // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
             const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
@@ -299,7 +375,8 @@ Page({
                 order_annotation,
                 product_type,
                 payment_tips,
-                store_card
+                store_card,
+                liftInfo,
             }, () => {
                 this.computedFinalPay();
             });
@@ -376,6 +453,7 @@ Page({
             postalCode,
             nationalCode,
             detailInfo,
+            room,
         } = address;
         const { vendor, afcode } = app.globalData;
 
@@ -419,6 +497,7 @@ Page({
             receiver_district: countyName || '',
             receiver_address: detailInfo || '',
             receiver_zipcode: postalCode || '',
+            room: room || '',
             buyer_message: buyerMessage,
             form_id: formId,
             vendor,

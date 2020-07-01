@@ -46,13 +46,19 @@ page{
 	height: 60rpx;
 	margin-right: 10rpx;
 }
+
+// 商品列表
+.product-list {
+	height: 100%;
+	padding-bottom: 100rpx;
+}
+// 多购物车
 .cartList {
 	padding-top: 90rpx;
-	height: 90%;
 }
-
+// 普通购物车
 .scrollHeight {
-	height: 90%;
+	padding-top: 0;
 }
 
 .stodownloadWrap {
@@ -179,6 +185,7 @@ page{
 	bottom: 0;
 	width: 100%;
 	background-color: #fff;
+	z-index: 2;
 	// border-top: 1px solid #eee;
 	padding-left: 20rpx;
 
@@ -321,4 +328,22 @@ page{
 	.relateShopItem:nth-child(even){
 		float: right;
 	}
+}
+
+// 多门店
+.multiStore {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 3;
+}
+.scrollHeight-multiStore {
+	padding-top: 98rpx !important;
+}
+.cartList-multiStore {
+	padding-top: 90rpx + 98rpx !important;
+}
+.cart-multiStore {
+	padding-top: 98rpx !important;
 }

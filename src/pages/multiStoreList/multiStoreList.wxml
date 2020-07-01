@@ -1,0 +1,103 @@
+<view class="container">
+	<!-- 当前定位 -->
+	<view class="location">
+		<view class="location-text">当前定位</view>
+		<view class="location-content">
+			<div class="location-left">
+				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+				<view class="left-icons">
+					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'location' }}"/>
+					<van-icon custom-class="left-icon" name="location-o" wx:else />
+				</view>
+				<text class="left-text">{{ locationStr }}</text>
+			</div>
+			<button class="location-btn" bind:tap="onClickLocation">重新定位</button>
+		</view>
+	</view>
+	<!-- 地址列表 -->
+	<view class="location address">
+		<view class="location-text">收货地址</view>
+		<view class="location-content">
+			<div class="location-left">
+				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+				<view class="left-icons">
+					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'address' }}"/>
+					<van-icon custom-class="left-icon" name="location-o" wx:else />
+				</view>
+				<text class="left-text">{{ address.user(addressObj) || '请选择您的收货地址' }}</text>
+			</div>
+			<button class="location-btn" bind:tap="onClickAddress">地址管理</button>
+		</view>
+	</view>
+	<view class="store-list">
+		<view class="store-text">根据你的定位/收货地址，有如下门店</view>
+		<view class="list-wrap">
+			<view class="store-loading" wx:if="{{ isLoading }}">
+				<loading isLoading="{{ isLoading }}"/>
+			</view>
+			<view class="store-air" wx:elif="{{ !storeList || !storeList.length }}">
+				<text>查询不到门店列表</text>
+			</view>
+			<block wx:else>
+				<van-collapse value="{{ activeNames }}" bind:change="onChange">
+					<!-- 配送范围内门店 -->
+					<van-collapse-item title="推荐门店" name="1">
+						<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
+							wx:key="index" data-index="{{ index }}" wx:if="{{ !item.isoutofrange }}">
+							<view class="store-title">
+								<text>{{ item.name || '-' }}</text>
+								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+							</view>
+							<view class="store-address">{{ address.store(item) }}</view>
+							<view class="store-bottom">
+								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
+								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
+							</view>
+						</view>
+					</van-collapse-item>
+					<van-collapse-item title="不可选门店" name="2" custom-class="store-disable">
+						<!-- 配送范围外门店 -->
+						<view class="store-wrap disabled-store" wx:for="{{ storeList }}"
+							wx:key="index" data-index="{{ index }}" wx:if="{{ item.isoutofrange }}">
+							<view class="store-title">
+								<text>{{ item.name || '-' }}</text>
+								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+							</view>
+							<view class="store-address">{{ address.store(item) }}</view>
+							<view class="store-bottom">
+								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
+								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
+							</view>
+						</view>
+					</van-collapse-item>
+				</van-collapse>
+			</block>
+		</view>
+	</view>
+</view>
+
+<!-- 授权弹窗 -->
+<myModal modal="{{ authModal }}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
+
+<wxs module="address">
+// 收获地址拼接
+var user = function(obj){
+	var str = '';
+	str += obj.detailInfo || ''
+	str += obj.room || ''
+	return str;
+}
+// 店铺地址拼接
+var store = function(obj){
+	var str = '';
+	str += obj.state || ''
+	str += obj.city || ''
+	str += obj.district || ''
+	str += obj.address|| ''
+	return str;
+}
+module.exports = {
+	user: user,
+	store: store,
+}
+</wxs>

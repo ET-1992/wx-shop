@@ -54,9 +54,10 @@
                 </view>
 
                 <!-- 秒杀 -->
-                <view class="tag" wx:elif="{{ product.seckill_enable }}">
-                    {{ '秒杀' }}
-                </view>
+                <view class="tag" wx:elif="{{ product.seckill_enable }}"> {{ '秒杀' }} </view>
+
+                <!-- 砍价 -->
+                <view class="tag" wx:elif="{{ product.bargain_enable }}"> {{ '砍价' }} </view>
 
                 <!-- 会员价及标签 -->
                 <view class="vipTap" wx:elif="{{ !product.membership_dedicated_enable && product.membership_price_enable }}">

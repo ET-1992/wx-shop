@@ -1,0 +1,32 @@
+.container {
+	width: 100%;
+	background-color: #fff;
+	font-size: 24rpx;
+	height: 98rpx;
+	display: flex;
+	padding: 0 38rpx;
+	justify-content: space-between;
+	align-items: center;
+
+	.icon {
+		width: 24rpx;
+		height: 22rpx;
+		margin-right: 12rpx;
+	}
+
+	.left,
+	.right {
+		display: flex;
+		padding: 20rpx 0 20rpx 20rpx;
+		align-items: center;
+	}
+
+	.left {
+		font-size: 28rpx;
+
+		.icon {
+			width: 32rpx;
+			height: 30rpx;
+		}
+	}
+}

@@ -24,7 +24,7 @@ Page({
         selectedProduct: {},
         isShowCouponList: false,
         current_page: 1,
-        isLoading: true,
+        // isLoading: true,
         hasProducts: true,
         isShowPopup: false,
         sortText: [
@@ -35,7 +35,10 @@ Page({
         sortStatus: {
             'Up': 'asc',
             'Down': 'desc'
-        }
+        },
+        config: {},
+        multiStoreEnable: false,  // 判断店铺多门店开关
+        isStoreFinish: false,  // 判断店铺多门店ID是否已获取
     },
 
     async onLoad() {
@@ -43,24 +46,48 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
-        const { categories } = await api.hei.fetchCategory();
-
         this.setData({
-            categories,
             isIphoneX,
             themeColor,
             tplStyle,
             globalData: app.globalData,
             config,
-            isLoading: false,
+            // isLoading: false,
         });
-
-        await this.loadProducts();
     },
 
     async onShow() {
         updateTabbar({ pageKey: 'product_classify' });
 
+        // setTimeout(() => {
+        //     this.setData({
+        //         multiStoreEnable: true
+        //     });
+        // }, 6000);
+        this.setData({ isStoreFinish: false });
+        this.loadAllData();
+    },
+
+    async loadAllData() {
+        const config = wx.getStorageSync(CONFIG);
+        let { isStoreFinish } = this.data;
+        let multiStoreEnable = Boolean(config.offline_store_enable);
+
+        this.setData({
+            multiStoreEnable
+        });
+
+        // 多门店模式，未获取门店ID
+        if (multiStoreEnable && !isStoreFinish) {
+            return;
+        }
+        const { categories } = await api.hei.fetchCategory();
+        this.setData({
+            categories,
+            current_page: 1,
+            products: [],
+        });
+        await this.loadProducts();
         const data = await api.hei.fetchCartList();
         this.reloadCart(data);
     },
@@ -74,6 +101,7 @@ Page({
             hasProducts: true
         }, this.loadProducts);
     },
+
     async loadProducts() {
         let { categories, selectedIndex, subSelectedIndex, current_page, products, filterData, sortText, sortStatus } = this.data;
         let options = {
@@ -318,5 +346,13 @@ Page({
             }
         }
     },
-    onShareAppMessage: onDefaultShareAppMessage
+    onShareAppMessage: onDefaultShareAppMessage,
+
+    // 选择门店刷新页面
+    async updateStoreData() {
+        this.setData({
+            isStoreFinish: true
+        });
+        await this.loadAllData();
+    },
 });

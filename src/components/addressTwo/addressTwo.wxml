@@ -23,8 +23,21 @@
 			<view class="address-section address-bottom">
 				<view class="address-title">地址</view>
 				<view class="address-detail" wx:if="{{ selfAddress }}">{{address.detailInfo}}</view>
-				<view class="address-detail" wx:if="{{ !selfAddress }}">{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</view>
+				<view class="address-detail" wx:if="{{ !selfAddress }}">{{ addressModule.user(address) }}</view>
 			</view>
 		</view>
 	</view>
 </view>
+
+<wxs module="addressModule">
+// 收获地址拼接
+var user = function(obj){
+	var str = '';
+	str += obj.detailInfo || ''
+	str += obj.room || ''
+	return str;
+}
+module.exports = {
+	user: user,
+}
+</wxs>

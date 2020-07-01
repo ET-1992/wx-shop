@@ -1,5 +1,4 @@
 {
-	"navigationBarTitleText": "自提点",
 	"usingComponents": {
 		"myModal": "../../components/myModal/myModal",
 		"loading": "../../components/loading/index"

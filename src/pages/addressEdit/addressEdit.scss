@@ -1,0 +1,24 @@
+.container {
+	padding: 20rpx;
+	.btns {
+		margin: 24rpx 0;
+		line-height: 88rpx;
+		width: 100%;
+		background-color: #ee0a24;
+		border-radius: 999rpx;
+		color: white;
+		font-size: 28rpx;
+	}
+	.delete-btn {
+		background-color: #fff;
+		color: black;
+	}
+	.addressPanel {
+		background-color: #fff;
+		.panel-air {
+			color: #C2C2C2;
+			padding: 60rpx 0;
+			text-align: center;
+		}
+	}
+}

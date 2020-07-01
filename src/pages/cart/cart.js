@@ -21,6 +21,7 @@ Page({
         phoneModel: '',
         isShowConsole: false,
         productLayoutStyle: PRODUCT_LAYOUT_STYLE[3],
+        multiStoreEnable: false,  // 判断店铺多门店开关
     },
     onLoad(params) {
         console.log('params', params);
@@ -34,14 +35,19 @@ Page({
 
     async onShow() {
         const config = wx.getStorageSync(CONFIG);
+        let multiStoreEnable = Boolean(config.offline_store_enable);
         this.setData({
             isLogin: true,
             isLoading: true,
             config,
+            multiStoreEnable,
             free_shipping_amount: config && config.free_shipping_amount
         });
         this.firstInit();
-        await this.loadCart();
+        // 非多门店模式
+        if (!multiStoreEnable) {
+            await this.loadCart();
+        }
         updateTabbar({ pageKey: 'cart' });
     },
 
@@ -51,6 +57,11 @@ Page({
 
     onUnload() {
         wx.setStorageSync(CART_LIST_KEY, this.data.isSelectedObject);
+    },
+
+    // 选择门店重新刷新
+    async updateStoreData() {
+        await this.loadCart();
     },
 
     async loadCart() {

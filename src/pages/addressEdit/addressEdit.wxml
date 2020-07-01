@@ -1,0 +1,26 @@
+<view class="container">
+	<loading isLoading="{{ isLoading }}" />
+	<view class="add" wx:if="{{ !isLoading }}">
+		<van-cell-group>
+			<block wx:for="{{ form }}" wx:key="index">
+				<block wx:if="{{ form[index].key === 'address' }}">
+				<!-- 页面隐藏省市区表单 -->
+				</block>
+				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
+					<!-- 微信地图的详细地址 -->
+					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
+					placeholder="选择地址" data-key="{{ item.key }}" 
+					bind:tap="onChooseLocation" readonly is-link type="textarea" autosize />
+				</block>
+				<block wx:else>
+					<!-- 普通文本框 -->
+					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
+					bind:change="onInputChange" />
+				</block>
+			</block>
+		</van-cell-group>
+		<button class="btns" bind:tap="onConfirmForm" >保存</button>
+		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
+	</view>
+</view>

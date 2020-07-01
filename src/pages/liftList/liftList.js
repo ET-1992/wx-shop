@@ -37,6 +37,7 @@ Page({
                 console.log(data, 'data');
                 const { latitude, longitude } = data;
                 if (type === '2') {
+                    wx.setNavigationBarTitle({ title: '自提点' });
                     const { address_list } = await api.hei.liftList();
                     this.computeDistance(address_list, latitude, longitude);
                 } else if (type === '4') {

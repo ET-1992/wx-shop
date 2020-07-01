@@ -27,6 +27,9 @@ export const onShareHomeAppMessage = () => {
 export const onDefaultShareAppMessage = function (params = {}, path_ = '', redirectObj) {
     const { share_title, share_image } = this.data;
     const user = wx.getStorageSync(USER_KEY);
+    const config = wx.getStorageSync(CONFIG);
+
+    let { currentStore } = app.globalData;
     let { options = {}, route } = this;
     options = { ...options, ...params }; // 页面参数
     console.log(options, '页面参数');
@@ -40,6 +43,11 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '', redir
     }
 
     const appParams = { afcode: user.afcode }; // 全局参数
+
+    if (config.offline_store_enable) {
+        // 多门店的ID数据
+        appParams.storeId = currentStore.id;
+    }
 
     path = joinUrl(path, appParams);
 

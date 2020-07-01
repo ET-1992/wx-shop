@@ -8,18 +8,22 @@
   	  	  	<image src="../../icons/webchat.png"></image>
   	  	  	<text>微信用户快速登录</text>
   	  	</button>
-    </view>
+	</view>
+	<!-- 多门店   -->
+	<div class="multiStore">
+		<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
+	</div>
     <!-- 购物车为空 -->
-  	<view wx:if="{{ !items.length && !isLoading && isLogin }}">
+  	<view wx:if="{{ !items.length && !isLoading && isLogin }}" class="{{ multiStoreEnable ? 'cart-multiStore' : '' }}">
   	  	<image class="emptyHint" src="../../icons/bigCart.svg"></image>
   	  	<view class="empty">购物车空空如也~</view>
   	  	<view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
-  	</view>
-    <!-- 购物车有商品 -->
+	</view>
+	<!-- 购物车有商品 -->
     <!-- 导航 -->
-    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
+    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="{{ multiStoreEnable ? '98rpx' : '' }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
     <!-- 商品 -->
-	<scroll-view scroll-y="{{true}}" class="{{liftStyles.length > 1 ?'cartList' : 'scrollHeight'}}" wx:if="{{ items.length && !isLoading }}">
+	<scroll-view scroll-y="{{true}}" class="product-list {{ classSet.product(liftStyles, multiStoreEnable) }}" wx:if="{{ items.length && !isLoading }}">
     	<view class="cartItem" wx:for="{{ items }}" wx:key="id">
     	  	<view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 || item.stock === 0 }}"> <view class="stock0Radio" /> </view>
     	  	<view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>
@@ -71,11 +75,12 @@
     <!-- 为你推荐 -->
   	<view class="promote" wx:if="{{ !items.length && products.length && !isLoading }}">
   	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
-  	  	<view class="relateShop">
+		<home-product-list products="{{ products }}" isLastModule />
+  	  	<!-- <view class="relateShop">
   	  	  	<view class="relateShopItem" wx:if="{{products.length}}" wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover">
   	  	  	  	<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
   	  	  	</view>
-  	  	</view>
+  	  	</view> -->
   	</view>
 
   	<view class="footer" wx:if="{{ items.length && !isLoading }}">
@@ -101,3 +106,21 @@
   	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>
   	</view>
 </view>
+
+<!-- 切换标签的类名 -->
+<wxs module="classSet">
+	// 商品
+	var product = function(liftStyles, multiStoreEnable) {
+		var className = 'scrollHeight';
+		if(liftStyles.length > 1) {
+			className = 'cartList';
+		}
+		if(multiStoreEnable) {
+			className += '-multiStore';
+		}
+		return className;
+	}
+	module.exports = {
+		product: product
+	};
+</wxs>

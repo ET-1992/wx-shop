@@ -38,7 +38,8 @@ export const pageObj = {
         second: 0,
         guide_status: false, // 添加到小程序指引是否显示
         isShowButton: true, // 是否显示抢购、秒杀按钮
-        isProductLast: false // 判断新首页商品列表是否在最后
+        isProductLast: false, // 判断新首页商品列表是否在最后
+        isStoreFinish: false,  // 判断店铺多门店ID是否已获取
     },
 
     swiperChange(e) {
@@ -81,18 +82,32 @@ export const pageObj = {
         }, 300);
     },
 
-    async loadHome() {
-        const { id = '' } = this.data;
+    async loadHome(e = {}) {
+        const { id = '', isStoreFinish } = this.data;
         const { pageKey = '' } = this;
+        // 默认展示加载条
+        let { isLoading = true } = e;
 
         this.loadHomeExtra();
         this.setData({
-            isLoading: true,
+            isLoading: isLoading,
             isProductBottom: false
         });
 
         // const data = await api.hei.fetchHome();
-        const { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config } = await api.hei.newHome({ id, key: pageKey });
+        const newHomeData = await api.hei.newHome({ id, key: pageKey });
+        let { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config = {}} = newHomeData;
+
+        let multiStoreEnable = Boolean(config.offline_store_enable);
+
+        this.setData({
+            multiStoreEnable
+        });
+
+        // 多门店模式，未获取门店ID
+        if (multiStoreEnable && !isStoreFinish) {
+            return;
+        }
 
 
         if (page_title) {
@@ -367,7 +382,7 @@ export const pageObj = {
     async showProducts() {
         const { windowHeight } = app.systemInfo;
         const rect = await this.getDomRect('loadProducts');
-        if (rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
+        if (rect && rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             const { productListTotalPages = 2, productListPage = 1 } = this.data;
             if (productListPage <= productListTotalPages) {
@@ -458,6 +473,19 @@ export const pageObj = {
             }
         });
         console.log(this.data.contactModal);
+    },
+
+    // 选择门店刷新页面
+    async updatestore() {
+        wx.showLoading({
+            title: '加载中'
+        });
+        this.setData({
+            isStoreFinish: true
+        });
+        let obj = { isLoading: false };
+        await this.loadHome(obj);
+        wx.hideLoading();
     },
 
     go

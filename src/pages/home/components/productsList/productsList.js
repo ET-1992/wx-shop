@@ -49,25 +49,46 @@ Component({
         }
     },
 
+    data: {
+        content: [],
+        setting: {
+            margin: 0,
+            title_display: false,
+            title_position: 'left',
+            style: 'per_2',
+            orderby: 'post_date'
+        },
+    },
+
     methods: {
         goMore() {
             const { setting = {}, id } = this.data;
-            const { orderby = '', product_category_id = '' } = setting;
-            if (setting.promotion_type === 'groupon_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=groupon&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
+            const { orderby = '', product_category_id = '', promotion_type = '' } = setting;
+            let promotionUrl = '/pages/miaoshaList/miaoshaList',
+                paramsStr = `?module_id=${id}&orderby=${orderby}&categoryId=${product_category_id}`;
+            // 最终传递URL
+            let finalUrl = '';
+            promotionUrl += paramsStr;
+            if (promotion_type === 'groupon_enable') {
+                // 拼团
+                finalUrl = promotionUrl + '&type=groupon';
+            } else if (promotion_type === 'bargain_enable') {
+                // 砍价
+                finalUrl = promotionUrl + '&type=bargain';
+            } else if (promotion_type === 'seckill_enable') {
+                // 秒杀
+                finalUrl = promotionUrl + '&type=seckill';
+            } else if (promotion_type === 'miaosha_enable') {
+                // 限时购
+                finalUrl = promotionUrl + '&type=miaosha';
+            } else {
+                // 会员/普通
+                finalUrl = '/pages/productList/productList' + paramsStr;
+                if (promotion_type) {
+                    finalUrl += `&promotionType=${promotion_type}`;
+                }
             }
-            if (setting.promotion_type === 'bargain_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=bargain&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (setting.promotion_type === 'seckill_enable') {  // 秒杀
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=seckill&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (setting.promotion_type === 'miaosha_enable') {
-                autoNavigate_({ url: '/pages/miaoshaList/miaoshaList?type=miaosha&module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
-            if (!setting.promotion_type) {
-                autoNavigate_({ url: '/pages/productList/productList?module_id=' + id + '&orderby=' + orderby + '&categoryId=' + product_category_id });
-            }
+            autoNavigate_({ url: finalUrl });
         }
     }
 });

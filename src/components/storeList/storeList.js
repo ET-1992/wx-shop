@@ -26,6 +26,10 @@ Component({
         address: { // 确认订单数据
             type: Object,
             value: {},
+        },
+        updateEnable: { // 可修改门店
+            type: Boolean,
+            value: true,
         }
     },
 

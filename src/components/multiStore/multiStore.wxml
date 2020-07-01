@@ -1,0 +1,13 @@
+<!-- 多门店组件 -->
+<view class="container" wx:if="{{ multiStoreEnable }}">
+	<div class="left">
+		<image class="icon" src="/icons/multiStore/store.svg" alt="" />
+		<text>{{ currentStore.name || '-' }}</text>
+	</div>
+	<div class="right" bind:tap="onChangeStore">
+		<image class="icon" src="/icons/multiStore/change.svg" alt="" />
+		<text>切换门店</text>
+	</div>
+</view>
+<!-- 授权弹窗 -->
+<myModal modal="{{authModal}}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
