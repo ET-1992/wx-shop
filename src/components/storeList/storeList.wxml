@@ -34,7 +34,7 @@
 		</view>
 	</view>
 
-	<navigator wx:if="{{ !isOrderDetail && !addresses.name }}" url="/pages/liftList/liftList?type=4">
+	<navigator wx:if="{{ !isOrderDetail && !addresses.name && updateEnable }}" url="/pages/liftList/liftList?type=4">
 		<view class="storeList-section">
 			<view class="address title">选择门店</view>
 			<view class="arrow-right">

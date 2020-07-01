@@ -362,6 +362,19 @@ export function getDistance(lat1, lng1, lat2, lng2) {
     return s;
 }
 
+export function checkBeyondDistance(current, target, limitDistance) {
+    let { latitude: lat1, longitude: lng1 } = current,
+        { latitude: lat2, longitude: lng2 } = target,
+        inRange = false;
+    let distance = getDistance(lat1, lng1, lat2, lng2);
+    inRange = Number(distance) <= Number(limitDistance);
+    console.log(`实际距离${Number(distance)}km，限制距离${Number(limitDistance)}km`);
+    if (!inRange) {
+        throw new Error('地址超出门店所配送范围');
+    }
+    console.log(`门店范围校验通过`);
+}
+
 export function splitUserStatus(status) {
     const userStatus = {};
     Object.keys(USER_STATUS).forEach((key) => {
