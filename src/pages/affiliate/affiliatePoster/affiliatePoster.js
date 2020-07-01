@@ -17,7 +17,7 @@ Page({
 
     onLoad(options) {
         // postertype: 1 推广好店 2 申请分享家 3 分享商品
-        this.postertype = (options && options.postertype) || '2';
+        const postertype = (options && options.postertype) || '2';
         // this.posterFnc = {
         //     '1': this.drawPosterImage,
         //     '2': this.drawFriendImage
@@ -26,7 +26,7 @@ Page({
             '2': 'pages/home/home',
             '1': 'pages/affiliate/affiliateApply/affiliateApply'
         };
-        if (this.postertype === '2') {
+        if (postertype === '2') {
             wx.setNavigationBarTitle({
                 title: '推广海报'
             });
@@ -37,7 +37,11 @@ Page({
         }
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ themeColor, config });
+        const user = wx.getStorageSync('user');
+        const posterData = {
+            qrcodePath: this.qrcodePath
+        };
+        this.setData({ themeColor, posterData, user, postertype });
     },
 
     async onShow() {
@@ -95,9 +99,9 @@ Page({
         // }
     },
 
-    async drawPosterImage() {
-        /* const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
-				const sharePosterBgHttps = imgToHttps(sharePosterBg); */
+    /* async drawPosterImage() {
+        const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
+		const sharePosterBgHttps = imgToHttps(sharePosterBg);
         const { affiliate_qrcode_bg_image } = this.data.config;
         const sharePosterBgHttps = imgToHttps(affiliate_qrcode_bg_image);
         console.log(sharePosterBgHttps, 'sharePosterBgHttps');
@@ -246,7 +250,7 @@ Page({
             });
         }
     },
-
+ */
     onShareAppMessage(res) {
         let { current_user = {}, share_title = '' } = this.data;
         const opts = {

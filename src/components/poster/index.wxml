@@ -1,12 +1,13 @@
 <view class="container" catchtouchmove="touchmove">
 	<view class="shareModal">
-		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="onClose" />
+		<image class="close" src="/icons/closeModal.png" mode="aspectFit" bindtap="onClose" wx:if="{{posterType != '1' && posterType != '2'}}"/>
 
 		<painter style="position:fixed;top:-9999rpx" palette="{{ palette }}" bind:imgOK="onImgOK" widthPixels="800"/>
 
 		<image class="canvasWrap" src="{{ imagePath }}" mode="widthFix"/>
 
 		<view class="btnWtap">
+		<button wx:if="{{ imagePath && (posterType === '1' || posterType === '2')}}" class="btn" open-type="share" style="background-color: {{ themeColor.primaryColor }}">分享给好友</button>
 			<button 
 				wx:if="{{ imagePath }}"
 				class="btn" 

@@ -2,16 +2,16 @@
 
 	<!-- <canvas  canvas-id="canvasPoster" class="canvasWrap" id="canvasPosterId" style="display: {{ hiddenCanvas ? 'none' : 'block' }}"/>
 	<view class="canvasWrap" wx:if="{{ hiddenCanvas }}"></view>-->
-	<poster 
-		posterData="{{ posterData }}" 
-		user="{{ current_user }}" 
-		posterType="{{ posterType }}"
+	<poster
+	 	wx:if="{{ posterData.qrcodePath }}"
+		posterData="{{posterData}}" 
+		user="{{ user }}" 
+		posterType="{{ postertype }}"
 	/>
-
-	<view class="btnWtap">
+	<!-- <view class="btnWtap">
 		<button class="btn" open-type="share" style="background-color: {{ themeColor.primaryColor }}">分享给好友</button>
 		<button class="btn" bindtap="saveCanvasToImg" style="background-color: {{ themeColor.primaryColor }}">{{ qrcode.save_button_title ? qrcode.save_button_title : '保存图片到手机' }}</button>
-	</view>
+	</view> -->
 </view>
 
-<myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" />
+<!-- <myModal modal="{{authModal}}" bindonCancel="onModalCancel" bindonConfirm="onModalConfirm" bindonSaveUserInfo="onSaveUserInfo" /> -->
