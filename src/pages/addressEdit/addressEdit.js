@@ -3,7 +3,7 @@ import api from 'utils/api/index';
 import { ADDRESS_KEY, LOCATION_KEY, CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
-import { getDistance } from 'utils/util';
+import { checkBeyondDistance } from 'utils/util';
 
 Page({
     data: {
@@ -187,15 +187,19 @@ Page({
     // 保存多门店地址
     async saveStoreAddress() {
         let { form, formWechat, locationObj, qqLocation: { ad_info }} = this.data;
+        let { currentStore } = app.globalData;
         let location = wx.getStorageSync(LOCATION_KEY) || false;
         let { province, city, district } = ad_info;
         // 手动填入省市区
         let index = form.findIndex(item => item.key === 'address');
         form[index].value = [province, city, district];
+        // 整理保存信息
         let finalForm = this.transformOthers(formWechat);
         Object.assign(finalForm, locationObj);
         console.log('finalForm', finalForm);
-        this.checkOrderAddress();
+        // 校验距离范围
+        let { latitude, longtitude: longitude, distance_limit } = currentStore;
+        checkBeyondDistance(locationObj, { longitude, latitude }, distance_limit);
         if (location) {
             // 定位信息完善为地址信息
             wx.setStorageSync(LOCATION_KEY, null);
@@ -321,30 +325,6 @@ Page({
             form,
             locationObj,
         });
-    },
-
-    // 校验订单地址是否超出配送范围
-    checkOrderAddress() {
-        let { latitude, longitude } = this.data.locationObj;
-        let { currentStore } = app.globalData;
-        console.log('currentStore', currentStore);
-        if (!currentStore.latitude || !currentStore.longtitude) {
-            throw new Error('获取门店信息失败');
-        }
-        let distance = getDistance(latitude, longitude, Number(currentStore.latitude), Number(currentStore.longtitude));
-        if (!distance) {
-            throw new Error('计算门店距离失败');
-        }
-        distance = Number(distance).toFixed(2);
-        let rangeOut = false;
-        if (currentStore.distance_limit) {
-            rangeOut = Number(distance) >= currentStore.distance_limit;
-        }
-        console.log(`实际距离${distance}km，限制距离${currentStore.distance_limit}km`);
-        if (rangeOut) {
-            throw new Error('该地址超出门店所配送范围');
-        }
-        console.log(`门店范围校验通过`);
     },
 
     // 前端字段转换成微信/后端字段

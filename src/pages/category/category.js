@@ -62,7 +62,7 @@ Page({
         const categoryTops = [];
         for (const i in categories) {
             const rect = await this.getDomRect('c' + i);
-            categoryTops.push(rect.top);
+            categoryTops.push(rect && rect.top);
         }
         this.setData({ categoryTops });
         console.log(categoryTops, 'ooo');
