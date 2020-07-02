@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { LOGISTICS_STATUS_TEXT } from 'constants/index';
 import { valueToText } from 'utils/util';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 
 // 创建页面实例对象
@@ -13,59 +14,52 @@ Page({
             list: [],
             status: '',
         },
-        order: {},
-        isLoading: true
+        order: {}
     },
 
-    async onLoad({ orderNo, logisticsIndex = 0, logisticId = '' }) {
-
-        const { order } = await api.hei.fetchOrder({ order_no: orderNo });
-
-        const { logistics } = await api.hei.fetchLogistic({
-            order_no: orderNo,
-            logistic_id: logisticId
-        });
-
-        const updateData = { order };
-
-        if (logistics) {
-            logistics.list = logistics.list || [];
-
-            logistics.logisticsText = valueToText(LOGISTICS_STATUS_TEXT, logistics.status);
-
-            logistics.list = logistics.list.reduce((list, item) => {
-                const [date, time] = item.datetime.split(' ');
-                item.date = date.substr(5);
-                item.time = time.substr(0, 5);
-                list.unshift(item);
-                return list;
-            }, []);
-
-            updateData.logistics = logistics;
-        }
-
-        updateData.isLoading = false;
-
-        this.setData(updateData);
-
-        console.log(this.data);
-    },
-    setClipboard(e) {
-        const { no } = e.currentTarget.dataset;
-        console.log('setClipboard', no);
-        wx.setClipboardData({
-            data: no,
-            success: function(res) {
-                wx.getClipboardData({
-                    success: function(res) {
-                        wx.showToast({
-                            title: '复制成功！',
-                            icon: 'success',
-                            duration: 2400
-                        });
-                    }
-                });
+    async onLoad({ orderNo, logisticId = '' }) {
+        try {
+            wx.showLoading({ title: '加载中...', mask: true });
+            const { order } = await api.hei.fetchOrder({ order_no: orderNo });
+            const { logistics } = await api.hei.fetchLogistic({ order_no: orderNo, logistic_id: logisticId });
+            const updateData = { order };
+            if (logistics) {
+                logistics.list = logistics.list || [];
+                logistics.logisticsText = valueToText(LOGISTICS_STATUS_TEXT, logistics.status);
+                updateData.logistics = logistics;
             }
+            this.setData({
+                ...updateData,
+                globalData: app.globalData
+            });
+            wx.hideLoading();
+        } catch (err) {
+            wx.hideLoading();
+            const { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
+            if (confirm) {
+                wx.navigateBack({ delta: 1 });
+            }
+        }
+    },
+    async setClipboard(ev) {
+        try {
+            const { data } = ev.currentTarget.dataset;
+            await proxy.setClipboardData({ data: String(data) });
+            wx.showToast({ title: '复制成功！', icon: 'success' });
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    navigateToMiniProgram(ev) {
+        const { no } = ev.currentTarget.dataset;
+        wx.navigateToMiniProgram({
+            appId: 'wx6885acbedba59c14',
+            path: `pages/result/result?nu=${no}&com=&querysource=third_xcx`,
+            envVersion: 'release'
         });
     }
 });

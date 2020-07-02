@@ -1,51 +1,51 @@
-<loading isLoading="{{ isLoading }}"/>
-<view class="container" wx:if="{{ !isLoading }}">
+<view class="container">
   <view class="section header">
-    <image class="prodcuctImage" src="{{ logistics.thumbnail }}">
-      <view class="productCount">共{{ logistics.item_ids && logistics.item_ids.length }}件商品</view>
-    </image>
-    <view class="logistics">
-      <view class="logisticsInfo">
-        <!-- <view class="status">{{ logistics.logisticsText }}</view> -->
-        <view class="company">快递公司：{{ logistics.company || logistics.company_name }}</view>
-        <view class="no">快递单号：{{ logistics.no }}</view>
-      </view>
-      <button class="setClipboard" bindtap="setClipboard" data-no="{{logistics.no}}">复制单号</button>
-    </view>
-  </view>
+		<image class="prodcuctImage" src="{{ logistics.thumbnail }}">
+			<view class="productCount">共{{ order.items && order.items.length }}件商品</view>
+		</image>
+		<view class="logistics">
+			<view class="logisticsInfo">
+				<!-- <view class="status">{{ logistics.logisticsText }}</view>  -->
+				<view class="company">快递公司：{{ logistics.company || logistics.company_name }}</view>
+				<view class="no">快递单号：{{ logistics.no || '' }}</view>
+			</view>
+			<van-button custom-class="setClipboard" size="small" color="{{ globalData.themeColor.primaryColor }}" data-data="{{ logistics.no }}" bind:click="setClipboard">复制单号</van-button>
+		</view>
+	</view>
+
   <view class="section address">
-    <image class="addressIcon" mode="aspectFit" src="/icons/address.png" />
-    <view class="addressInfo">
-      <view>
-        <text>收货人：{{ order.receiver_name }}</text>
-        <text class="phone">{{ order.receiver_phone }}</text>
-      </view>
-      <view>
-        收货地址：{{ order.receiver_state }}{{ order.receiver_city }}{{ order.receiver_district }}{{ order.receiver_address }}
-      </view>
-    </view>
-  </view>
+		<image class="addressIcon" mode="aspectFit" src="/icons/address.png" />
+		<view class="addressInfo">
+			<view>
+				收货人：<text selectable decode>{{ order.receiver_name }}</text>
+				<text selectable decode class="phone">{{ order.receiver_phone }}</text>
+			</view>
+			<view> 收货地址：<text selectable decode>{{ order.receiver_state }}{{ order.receiver_city }}{{ order.receiver_district }}{{ order.receiver_address }}</text></view>
+		</view>
+	</view>
 
   <view class="section tips">
-    <view wx:if="{{ !logistics.company_name }}">物流信息以{{ logistics.company }}的官方查询为准，如长时间无物流信息请复制单号到{{ logistics.company }}官网查询</view>
-    <view wx:if="{{ logistics.company_name }}" class="link">
-      <view class="link_url">物流官网 {{ logistics.link }}</view>
-      <button class="setClipboard" bindtap="setClipboard" data-no="{{ logistics.link }}">复制网址</button>
-    </view>
-  </view>
+		<view wx:if="{{ !logistics.company_name }}">
+			<view>如长时间无物流显示，请复制单号到{{ logistics.company }}官网查询，或点击下方按钮查询。</view>
+			<view class="miniprogramBtn">
+				<van-button size="small" color="{{ globalData.themeColor.primaryColor }}" data-no="{{ logistics.no }}" bind:click="navigateToMiniProgram">打开快递100</van-button>
+			</view>
+		</view>
+		<view wx:else class="link">
+			<view class="link_url">物流官网 {{ logistics.link }}</view>
+			<van-button custom-class="setClipboard" size="small" color="{{ globalData.themeColor.primaryColor }}" data-data="{{ logistics.link }}" bind:click="setClipboard">复制网址</van-button>
+		</view>
+	</view>
 
   <view class="section">
-    <view class="emptyHint" wx:if="{{ !(logistics.list && logistics.list.length) }}">暂无物流信息</view>
-    <view class="item" wx:if="{{ logistics.list && logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="datetime">
-      <view class="datetime">
-        <view>{{ item.date }}</view>
-        <view class="time">{{ item.time }}</view>
-      </view>
-      <view class="decorator">
-        <view class="code" />
-        <view class="line" />
-      </view>
-      <view class="itemContent">{{ item.remark }}</view>
-    </view>
-  </view>
+		<view class="emptyHint" wx:if="{{ !(logistics.list && logistics.list.length) }}">暂无物流信息</view>
+		<view class="item" wx:if="{{ logistics.list && logistics.list.length }}" wx:for="{{ logistics.list }}" wx:key="item">
+			<view class="datetime"> {{ item.datetime }} </view>
+			<view class="decorator">
+				<view class="code" />
+				<view class="line" />
+			</view>
+			<view class="itemContent">{{ item.remark }}</view>
+		</view>
+	</view>
 </view>

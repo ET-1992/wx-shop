@@ -57,8 +57,6 @@
 	font-size: 11pt;
 }
 
-
-
 .address {
 	padding: 20rpx;
 	display: flex;
@@ -87,6 +85,10 @@
 .tips {
 	color: $priceColor;
 	font-size: 28rpx;
+	.miniprogramBtn{
+		margin-top: 20rpx;
+		text-align: right;
+	}
 }
 
 .link {
@@ -171,7 +173,6 @@
 .emptyHint {
 	height: 100rpx;
 	line-height: 100rpx;
-	font-size: 28rpx;
 	text-align: center;
 	color: $originalPriceColor;
 }
