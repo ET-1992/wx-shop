@@ -30,58 +30,82 @@ Component({
             wx.showLoading({
                 title: '绘制图片中...'
             });
+            let requestData = {},
+                options = {},
+                current_user = {},
+                save_button_title = '',
+                save_success_tips = '';
+            if (posterType === '1' || posterType === '2') {
+                console.log(posterData.qrcodePath[posterType]);
+                requestData = {
+                    weapp_page: posterData.qrcodePath[posterType],
+                    width: 150
+                };
 
-            let requestData = {
-                weapp_page: 'pages/webPages/webPages',
-                width: 150
-            };
+                const data = await api.hei.getShareQrcode({
+                    ...requestData
+                });
+                console.log(data, 'getShareQrcodegetShareQrcodegetShareQrcode');
+                const { qrcode_url } = data;
+                options = {
+                    qrcode_url
+                };
 
-            let scene = {};
-            if (user && user.afcode) {
-                scene.afcode = user.afcode;
             }
-
-            switch (posterType) {
+            else {
+                requestData = {
+                    weapp_page: 'pages/webPages/webPages',
+                    width: 150
+                };
+                let scene = {};
+                if (user && user.afcode) {
+                    scene.afcode = user.afcode;
+                }
+                switch (posterType) {
                 // 文章海报
-                case 'article':
-                    scene.aid = posterData.id;
-                    break;
+                    case 'article':
+                        scene.aid = posterData.id;
+                        break;
 
-                // 砍价帮砍海报
-                case 'bargainBuy':
-                    scene.bid = posterData.code;
-                    break;
+                        // 砍价帮砍海报
+                    case 'bargainBuy':
+                        scene.bid = posterData.code;
+                        break;
 
-                // 邀请拼团海报
-                case 'grouponBuy':
-                    scene.gid = posterData.id;
-                    requestData.post_id = posterData.post_id;
-                    requestData.sku_id = posterData.sku_id;
-                    break;
+                        // 邀请拼团海报
+                    case 'grouponBuy':
+                        scene.gid = posterData.id;
+                        requestData.post_id = posterData.post_id;
+                        requestData.sku_id = posterData.sku_id;
+                        break;
 
-                // 代付海报
-                case 'crowd':
-                    scene.c = posterData.crowd_pay_no;
-                    break;
+                        // 代付海报
+                    case 'crowd':
+                        scene.c = posterData.crowd_pay_no;
+                        break;
 
-                case 'bargain':
-                case 'groupon':
-                case 'miaosha':
-                case 'product':
-                    scene.id = posterData.id;
-                    break;
+                    case 'bargain':
+                    case 'groupon':
+                    case 'miaosha':
+                    case 'product':
+                        scene.id = posterData.id;
+                        break;
+                }
+                const data = await api.hei.getShopQrcode({
+                    ...requestData,
+                    scene: Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&')
+                });
+                const { qrcode_url, product = {}} = data;
+
+                options = {
+                    qrcode_url,
+                    product,
+                    globalData: app.globalData
+                };
+                save_button_title = data.save_button_title;
+                save_success_tips = data.save_success_tips;
+                current_user = data.current_user || {};
             }
-
-            const { qrcode_url, save_button_title = '', save_success_tips = '', product = {}, current_user = {}} = await api.hei.getShopQrcode({
-                ...requestData,
-                scene: Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&')
-            });
-
-            let options = {
-                qrcode_url,
-                product,
-                globalData: app.globalData
-            };
             const palette = new Poster(
                 Object.assign(posterData, options),
                 user || current_user,

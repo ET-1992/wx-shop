@@ -17,16 +17,16 @@ Page({
 
     onLoad(options) {
         // postertype: 1 推广好店 2 申请分享家 3 分享商品
-        this.postertype = (options && options.postertype) || '2';
-        this.posterFnc = {
-            '1': this.drawPosterImage,
-            '2': this.drawFriendImage
-        };
+        const postertype = (options && options.postertype) || '2';
+        // this.posterFnc = {
+        //     '1': this.drawPosterImage,
+        //     '2': this.drawFriendImage
+        // };
         this.qrcodePath = {
             '2': 'pages/home/home',
             '1': 'pages/affiliate/affiliateApply/affiliateApply'
         };
-        if (this.postertype === '2') {
+        if (postertype === '2') {
             wx.setNavigationBarTitle({
                 title: '推广海报'
             });
@@ -37,67 +37,71 @@ Page({
         }
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ themeColor, config });
+        const user = wx.getStorageSync('user');
+        const posterData = {
+            qrcodePath: this.qrcodePath
+        };
+        this.setData({ themeColor, posterData, user, postertype });
     },
 
     async onShow() {
-        try {
-            wx.showLoading({
-                title: '绘制图片中'
-            });
-            const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
-            if (data && data.qrcode_url && data.errcode === 0) {
-                const qrcodeUrl = imgToHttps(data.qrcode_url);
-                const user = getUserInfo();
-                console.log(user);
-                if (user && user.avatarurl) {
-                    const avatarUrlPromise = downloadFile({ url: user.avatarurl });
-                    const qrcodeUrlPromise = downloadFile({ url: qrcodeUrl });
-                    const datas = await Promise.all([avatarUrlPromise, qrcodeUrlPromise]);
-                    console.log(datas, 'datas');
-                    const avatarUrlData = datas[0];
-                    const qrcodeUrlData = datas[1];
-                    // //const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
-                    // console.log(httpsimg, 'httpsimg');
-                    // const downloadData = await downloadFile({ url: httpsimg });
-                    // if (downloadData.statusCode === 200) {
-                    //     this.data.tempFilePath = downloadData.tempFilePath;
-                    //     const nodeInfo = await getNodeInfo('canvasPosterId');
-                    //     console.log(nodeInfo, 'nodeInfo');
-                    //     this.data.nodeInfo = nodeInfo;
-                    //     this.drawPosterImage();
-                    // }
+        // try {
+        //     wx.showLoading({
+        //         title: '绘制图片中'
+        //     });
+        //     const data = await api.hei.getShareQrcode({ weapp_page: this.qrcodePath[this.postertype] });
+        //     if (data && data.qrcode_url && data.errcode === 0) {
+        //         const qrcodeUrl = imgToHttps(data.qrcode_url);
+        //         const user = getUserInfo();
+        //         console.log(user);
+        //         if (user && user.avatarurl) {
+        //             const avatarUrlPromise = downloadFile({ url: user.avatarurl });
+        //             const qrcodeUrlPromise = downloadFile({ url: qrcodeUrl });
+        //             const datas = await Promise.all([avatarUrlPromise, qrcodeUrlPromise]);
+        //             console.log(datas, 'datas');
+        //             const avatarUrlData = datas[0];
+        //             const qrcodeUrlData = datas[1];
+        //             // //const httpsimg = imgToHttps(this.data.options.productImg) + '?imageView2/1/w/450/h/450/interlace/1/q/70#';
+        //             // console.log(httpsimg, 'httpsimg');
+        //             // const downloadData = await downloadFile({ url: httpsimg });
+        //             // if (downloadData.statusCode === 200) {
+        //             //     this.data.tempFilePath = downloadData.tempFilePath;
+        //             //     const nodeInfo = await getNodeInfo('canvasPosterId');
+        //             //     console.log(nodeInfo, 'nodeInfo');
+        //             //     this.data.nodeInfo = nodeInfo;
+        //             //     this.drawPosterImage();
+        //             // }
 
-                    if (avatarUrlData.statusCode === 200 && qrcodeUrlData.statusCode === 200) {
-                        const nodeInfo = await getNodeInfo('canvasPosterId');
-                        this.setData({
-                            nodeInfo,
-                            avatarUrl: avatarUrlData.tempFilePath,
-                            qrcodeUrl: qrcodeUrlData.tempFilePath,
-                            user,
-                            current_user: data.current_user,
-                            qrcode: data
-                        }, this.posterFnc[this.postertype]);
-                    }
-                } else {
-                    authGetUserInfo({
-                        ctx: this
-                    });
-                }
+        //             if (avatarUrlData.statusCode === 200 && qrcodeUrlData.statusCode === 200) {
+        //                 const nodeInfo = await getNodeInfo('canvasPosterId');
+        //                 this.setData({
+        //                     nodeInfo,
+        //                     avatarUrl: avatarUrlData.tempFilePath,
+        //                     qrcodeUrl: qrcodeUrlData.tempFilePath,
+        //                     user,
+        //                     current_user: data.current_user,
+        //                     qrcode: data
+        //                 }, this.posterFnc[this.postertype]);
+        //             }
+        //         } else {
+        //             authGetUserInfo({
+        //                 ctx: this
+        //             });
+        //         }
 
-            }
-        } catch (e) {
-            wx.hideLoading();
-            wx.showToast({
-                title: e.errMsg || '异常错误，请重试',
-                icon: 'none'
-            });
-        }
+        //     }
+        // } catch (e) {
+        //     wx.hideLoading();
+        //     wx.showToast({
+        //         title: e.errMsg || '异常错误，请重试',
+        //         icon: 'none'
+        //     });
+        // }
     },
 
-    async drawPosterImage() {
-        /* const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
-				const sharePosterBgHttps = imgToHttps(sharePosterBg); */
+    /* async drawPosterImage() {
+        const sharePosterBg = `${this.data.config.cdn_host}/shop/sharePosterBg.png`;
+		const sharePosterBgHttps = imgToHttps(sharePosterBg);
         const { affiliate_qrcode_bg_image } = this.data.config;
         const sharePosterBgHttps = imgToHttps(affiliate_qrcode_bg_image);
         console.log(sharePosterBgHttps, 'sharePosterBgHttps');
@@ -246,7 +250,7 @@ Page({
             });
         }
     },
-
+ */
     onShareAppMessage(res) {
         let { current_user = {}, share_title = '' } = this.data;
         const opts = {

@@ -1,5 +1,6 @@
 {
 	"usingComponents": {
-		"myModal": "../../../components/myModal/myModal"
+		"myModal": "../../../components/myModal/myModal",
+		"poster": "components/poster/index"
   }
 }
