@@ -1,0 +1,20 @@
+.container {
+	color: #333333;
+	font-size: 24rpx;
+	line-height: 33rpx;
+	padding: 5rpx 40rpx;
+	background: white;
+	.info-item {
+		padding: 25rpx 0;
+		border-bottom: 1rpx solid #E0E0E0;
+		display: flex;
+		&:last-of-type {
+			border-bottom: none;
+		}
+		.item-res {
+			text-align: right;
+			margin-left: auto;
+			max-width: 438rpx;
+		}
+	}
+}

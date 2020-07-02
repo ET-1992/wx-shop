@@ -1,35 +1,91 @@
 @import '~styles/color';
-$height: 90rpx;
+$status-height: 90rpx;
+$notice-height: 280rpx;
 page{
 	background: #F4F4F4;
 }
 .container{
-	padding-top: $height;
-	.statusBar {
-		background-color:#FFFFFF;
-		color:#707070;
-		font-size:28rpx;
-		position:fixed;
-		left:0;
-		top:0;
-		white-space:nowrap;
-		box-shadow:0 0 2rpx rgba(0, 0, 0, 0.16);
-		z-index:999;
+	padding-top: $status-height;
+	&.notice-container {
+		padding-top: $status-height + $notice-height;
+	}
+	.fixed-bar {
 		width: 100%;
-		.statusItem {
-			width: 33%;
-			display: inline-block;
-			text-align: center;
-		}
-		.statusItemName {
-			margin: 0 auto;
-			height: $height;
-			padding-top: 35rpx;
-			display: inline-block;
-			&.selected {
-				border-bottom: 8rpx solid $mainColor;
-				color: #000000;
+		position:fixed;
+		top:0;
+		z-index:999;
+		.notice-bar {
+			font-size: 24rpx;
+			color: #A27435;
+			width: 100%;
+			padding: 28rpx 50rpx 32rpx;
+			height: $notice-height;
+			background-color: #FEF5E4;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			.notice-tips {
 				font-weight: bold;
+				line-height: 34rpx;
+				.notice-num {
+					margin: 0 16rpx;
+					color: #FF0000;
+				}
+			}
+			.notice-list {
+				font-size: 20rpx;
+				height: 118rpx;
+				background: white;
+				border-radius: 10rpx;
+				border: 1rpx solid #A27435;
+				padding: 4rpx 34rpx;
+				display: flex;
+				flex-direction: column;
+				.wx-swiper {
+					height: 100%;
+				}
+				.record-item {
+					margin-bottom: 5rpx;
+					display: flex;
+					align-items: center;
+					.item-avatar {
+						width:25rpx;
+						height:25rpx;
+						background:rgba(112,112,112,1);
+						border-radius:50%;
+						margin-right: 10rpx;
+						image {
+							width: 100%;
+							height: 100%;
+							background:rgba(112,112,112,1);
+							border-radius:50%;
+						}
+					}
+				}
+			}
+		}
+		.statusBar {
+			background-color:#FFFFFF;
+			color:#707070;
+			font-size:28rpx;
+			white-space:nowrap;
+			box-shadow:0 0 2rpx rgba(0, 0, 0, 0.16);
+			width: 100%;
+			.statusItem {
+				width: 33%;
+				display: inline-block;
+				text-align: center;
+			}
+			.statusItemName {
+				margin: 0 auto;
+				height: $status-height;
+				padding-top: 35rpx;
+				display: inline-block;
+				&.selected {
+					border-bottom: 8rpx solid $mainColor;
+					color: #000000;
+					font-weight: bold;
+				}
 			}
 		}
 	}

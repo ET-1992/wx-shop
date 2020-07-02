@@ -1,0 +1,126 @@
+@import '~styles/color';
+.container {
+    .header {
+        margin: 20rpx;
+        border-radius: 10rpx;
+        background-color: $mainColor;
+    
+        .header-top {
+            padding: 30rpx;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    
+            .head-button {
+                background-color: $mainColor;
+                display: flex;
+                // flex-direction: column;
+                align-items: center;
+        
+                .avatar {
+                    $size: 120rpx;
+                    width: $size;
+                    height: $size;
+                    border-radius: 50%;
+                    border: 1rpx solid #F1F1F1;
+                    overflow: hidden;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+        
+                .head-text {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    margin: 10rpx 16rpx;
+        
+                    .head-user {
+                        font-size: 26rpx;
+                        font-weight: bold;
+                        color: #fff;
+                        max-width: 200rpx;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+        
+                    .head-level {
+                        width: 142rpx;
+                        border-radius: 20rpx;
+                        background-color: #fff;
+                        color: #729153;
+                        font-size: 24rpx;
+                        text-align: center;
+                        line-height: 40rpx;
+                        border: 1px solid #fff;
+                    }
+                }
+            }
+            .welfare {
+                line-height: 1.7;
+    
+                .number {
+                    font-size: 32rpx;
+                    font-weight: bold;
+                    max-width: 240rpx;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: normal;
+                }
+    
+                .title {
+                    font-size: 28rpx;
+                }
+            }
+        }
+    }
+    .body {
+        margin: 20rpx;
+        .account {
+            margin: 20rpx 0;
+            padding: 10rpx 20rpx;
+            background-color: white;
+            border-radius: 10rpx;
+            .account-title {
+                line-height: 34rpx;
+                font-size: 24rpx;
+                padding-bottom: 7rpx;
+                border-bottom: 1rpx solid #E0E0E0;
+                .title {
+                    padding: 0 16rpx;
+                    border-left: 6rpx solid #729153;
+                }
+            }
+            .account-body {
+                font-size: 22rpx;
+                line-height: 30rpx;
+                display: flex;
+                margin: 20rpx 20rpx 10rpx;
+                align-items: center;
+                .account-value {
+                    flex: 1;
+                    display: flex;
+                    justify-content: space-around;
+                    .value-item {
+                        text-align: center;
+                        .item-num {
+                            font-size: 28rpx;
+                            line-height: 36rpx;
+                            font-weight: bold;
+                            color: black;
+                            margin-bottom: 13rpx;
+                            padding-right: 4rpx;
+                        }
+                    }
+                }
+                .account-more {
+                    width: 105rpx;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

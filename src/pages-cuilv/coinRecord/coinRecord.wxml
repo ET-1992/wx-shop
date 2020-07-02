@@ -1,0 +1,42 @@
+<!-- 金币卡历史记录 -->
+<view class="container">
+  <view class="record-loading" wx:if="{{ isLoading }}">
+    <van-loading />
+  </view>
+  <view class="record-null" wx:elif="{{ !recordList || recordList.length < 1 }}">暂无记录</view>
+	<view class="record" wx:else>
+		<view class="record-item" wx:for="{{ recordList }}" wx:key="{{ index }}">
+			<view class="top">
+				<view class="top-left">{{ item.type_str + '面额' + item.coin_quota + (config.coin_name || '金彩') + '卡'}}</view>
+				<view class="top-right">卡号：{{ item.card_no }}</view>
+			</view>
+			<view class="bottom">{{ tool.getDateTime(item.time) }}</view>
+    </view>
+	</view>
+</view>
+
+<wxs module="tool">
+	var filter = {
+    // 将时间戳转换成具体时间
+    getDateTime: function (value) {
+        //不能使用 new Date()
+        var time = getDate(value*1000);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        hour = hour < 10 ? "0" + hour : hour;
+        minute = minute < 10 ? "0" + minute : minute;
+        second = second < 10 ? "0" + second : second;
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+    }
+  }
+  // 导出对外暴露的属性
+  module.exports = {
+    getDateTime: filter.getDateTime
+  }
+</wxs>

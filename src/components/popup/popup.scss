@@ -15,7 +15,7 @@
 		font-weight: bold;
 		color: #333333;
 	}
-	
+
 	.modal-main {
 		width: 100%;
 		padding: 0 30rpx;
@@ -25,7 +25,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: flex-start;
-	
+
 			.modal-section {
 				width: 180rpx;
 				display: flex;
@@ -36,7 +36,7 @@
 				margin-bottom: 20rpx;
 				margin-left: 24rpx;
 				background-color: #F4F4F4;
-	
+
 				&:nth-child(3n+1) {
 					margin-left: 0;
 				}
@@ -98,10 +98,6 @@
 
 		.elsePrice-input {
 			padding-left: 16rpx;
-		}
-
-		.elsePrice-placeholder {
-			font-size: 28rpx;
 		}
 	}
 	// 确认支付按钮

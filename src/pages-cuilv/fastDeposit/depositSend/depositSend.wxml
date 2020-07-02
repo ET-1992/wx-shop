@@ -1,0 +1,27 @@
+<view class="container">
+	<loading isLoading="{{ isLoading }}"></loading>
+	<view wx:if="{{ !isLoading }}">
+		<view class="send">
+			<view class="goods">
+				<!-- 图片 -->
+				<view class="goods-left">
+					<image src="{{ order.image_url }}" mode="aspectFill"></image>
+				</view>
+				<!-- 标题 -->
+				<view class="goods-middle">
+					<text>{{ order.title }}</text>
+					<!-- <view class="goods-weight">重量：100g</view> -->
+				</view>
+				<!-- 数量 -->
+				<view class="goods-right">
+					<text>x</text>
+					<text>{{ order.quantity }}</text>
+				</view>
+			</view>
+			<addressTwo address="{{ address }}" bind:tap="onAddress"></addressTwo>
+		</view>
+		<view class="send-btn">
+			<button bind:tap="submitForm">确认提交</button>
+		</view>
+	</view>
+</view>

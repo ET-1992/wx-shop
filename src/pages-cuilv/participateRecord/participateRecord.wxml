@@ -1,0 +1,61 @@
+<!-- 商品详情-参与记录 -->
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<block wx:if="{{ activity.is_outflow }}">
+			<van-notice-bar color="{{ themeColor.primaryColor || '#ed6a0c' }}" text="很抱歉，该期商品已经被当作流局处理了。" />
+		</block>
+		<view class="page-empty" wx:if="{{ records.length < 1 }}">暂无数据</view>
+		<view class="list" wx:else>
+			<van-collapse value="{{ activeNames }}" bind:change="onCollapseChange" accordion>
+				<van-collapse-item  wx:for="{{ records }}" wx:key="index" name="{{ item.id }}">
+					<view slot="title">
+						<view class="item">
+							<view>{{ item.user.nickname }}</view>
+							<view class="bottom">
+								<view class="join">
+									<text>参与了</text>
+									<text class="num">{{ item.count }}</text>
+									<text>人次</text>
+								</view>
+								<view class="time">{{ tool.getDateTime(item.time) }}</view>
+							</view>
+						</view>
+					</view>
+					<view class="lucky-nums">
+						<view class="nums-label">该用户的幸运码是：</view>
+						<view class="nums-value" wx:if="{{ item.codes && item.codes.length }}">
+							<text class="num-text" wx:for="{{ item.codes }}" 
+								wx:for-item="num" wx:key="index">{{ num || '---' }}</text>
+						</view>
+						<view wx:else>---</view>
+					</view>
+				</van-collapse-item>
+			</van-collapse>
+		</view>
+	</block>
+</view>
+<wxs module="tool">
+var getDateTime = function (value) {
+	//不能使用 new Date()
+	var time = getDate(value*1000);
+	var year = time.getFullYear();
+	var month = time.getMonth() + 1;
+	var date = time.getDate();
+	var hour = time.getHours();
+	var minute = time.getMinutes();
+	var second = time.getSeconds();
+	month = month < 10 ? "0" + month : month;
+	date = date < 10 ? "0" + date : date;
+	hour = hour < 10 ? "0" + hour : hour;
+	minute = minute < 10 ? "0" + minute : minute;
+	second = second < 10 ? "0" + second : second;
+	return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+}
+  // 导出对外暴露的属性
+  module.exports = {
+    getDateTime: getDateTime
+  }
+</wxs>

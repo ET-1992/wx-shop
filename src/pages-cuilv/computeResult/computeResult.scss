@@ -1,0 +1,77 @@
+$bar-tabs: 80rpx;
+
+.container {
+	.page-empty {
+		text-align: center;
+	}
+	.bar {
+		background-color: #fff;
+		.bar-tip {
+			font-size: 24rpx;
+			line-height: 1.5;
+			color: white;
+			width: 100%;
+			background-color: #F52D2D;
+			padding: 35rpx;
+			.bar-time-show {
+				display: flex;
+				flex-direction: column;
+			}
+			.bar-compute-show {
+				margin-top: 35rpx;
+				display: flex;
+				flex-direction: column;
+				// .compute-tip {
+				// 	padding-left: 2rem;
+				// 	text-indent: -2rem;
+				// }
+			}
+		}
+		.bar-tabs {
+			color: #333333;
+			font-size: 24rpx;
+			width: 100%;
+			height: $bar-tabs;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 0 35rpx;
+			.bar-tab {
+				flex: 1;
+			}
+			// .tab-first {
+			// 	flex: 2;
+			// 	text-align: left;
+			// 	text-indent: 82rpx;
+			// }
+		}
+	}
+	.content {
+		color: #333333;
+		font-size: 22rpx;
+		line-height: 35rpx;
+		margin-top: 10rpx;
+		padding: 0 35rpx 50rpx;
+		background-color: #fff;
+		.item {
+			border-bottom: 1rpx solid #E0E0E0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+
+		}
+		.value {
+			flex: 1;
+			padding: 20rpx 12rpx;
+			word-break: break-all;
+			
+		}
+		.value-first {
+			// flex: 1;
+			// text-align: left;
+			word-break: normal;
+		}
+	}
+}

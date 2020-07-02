@@ -1,5 +1,6 @@
 {
 	"usingComponents": {
-        "loading": "../../components/loading/index"
+        "loading": "../../components/loading/index",
+        "companyContact": "components/companyContact/companyContact"
     }
 }

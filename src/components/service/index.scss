@@ -8,10 +8,13 @@ image{
     right: 20rpx;
     z-index: 9999;
 
-    button{
+    .btn{
         width: 90rpx;
         height: 90rpx;
         border-radius: 100%;
         background: transparent;
+        &::after {
+            display: none;
+        }
     }
 }

@@ -1,0 +1,23 @@
+<!-- 云购商品进度条 -->
+<view class="container">
+	<view class="progress">
+		<van-progress percentage="{{ numPercentage }}" 
+		show-pivot="{{ false }}" stroke-width="8" color="#ee0a24" 
+		/>
+	</view>
+	<view class="tips">
+		<view class="num">
+			<text class="num-go">{{ currentNum || 0 }}</text>
+			<text>已参与</text>
+		</view>
+		<view class="num">
+			<text>{{ totalNum || 0 }}</text>
+			<text>总需人次</text>
+		</view>
+		<view class="num">
+			<text>{{ restNum || 0 }}</text>
+			<text>剩余</text>
+		</view>
+	</view>
+</view>
+

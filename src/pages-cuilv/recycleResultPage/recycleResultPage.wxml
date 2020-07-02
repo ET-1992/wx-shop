@@ -1,0 +1,43 @@
+<!-- 提交结果 -->
+<view class="container">
+	<!-- 订单完成 -->
+	<block wx:if="{{ pageId == 1 }}">
+		<resultTip 
+		title="您的订单已经提交成功！"
+		subTitle="请留意审核成功后的短信通知！"
+		navigateUrl="order"
+		orderNo="{{ orderData.repo_no }}"
+		></resultTip>
+		<!-- 订单信息 -->
+		<loading isLoading="{{ isLoading }}" />
+		<view class="body" wx:if="{{ !isLoading }}">
+			<infoPanel order="{{ orderData }}" />
+		</view>
+	</block>
+
+	<!-- 提取黄金至银行卡 -->
+	<block wx:if="{{ pageId == 2 }}">
+		<resultTip 
+		title="恭喜，您的订单已经提交成功！"
+		subTitle="回收款￥{{ amount }} 将在 T+1 个工作日内发放到您提供的银行卡中，记得查收喔。"
+		></resultTip>
+	</block>
+
+	<!-- 提取黄金至钱包 -->
+	<block wx:if="{{ pageId == 3 }}">
+		<resultTip 
+		title="恭喜，您的订单已经提交成功！"
+		subTitle="提取的{{ weight }} 克黄金已顺利发放到您的钱包中，请查收。"
+		navigateUrl="back"
+		></resultTip>
+	</block>
+
+	<!-- 提取余额至银行卡 -->
+	<block wx:if="{{ pageId == 4 }}">
+		<resultTip 
+		title="恭喜，您的申请已经提交成功！"
+		subTitle="提取款￥{{ amount }} 将在 T+1 个工作日内发放到您提供的微信或银行卡中，记得查收喔。"
+		navigateUrl="back"
+		></resultTip>
+	</block>
+</view>

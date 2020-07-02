@@ -1,0 +1,92 @@
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<view class="top">
+      <!-- 下单地址 -->
+			<addressTwo address="{{ address }}" bindtap="onAddress" 
+        class="addressWrapper" wx:if="{{ pageValue == 1 }}"/>
+		</view>
+		<view class="body">
+			<!-- 金币订单 -->
+			<block wx:if="{{ pageValue == 1 }}">
+				<view class="coin-order" wx:for="{{ items }}">
+					<view class="coin-left">
+						<image class="coin-img" src="{{ item.image_url }}" />
+					</view>
+					<view class="coin-right">
+						<view class="right-title text-ellipsis-2">{{ item.title }}</view>
+						<view class="right-subtitle">{{ item.sku_property_names }}</view>
+						<view class="right-bottom">
+							<text class="bottom-price">{{ item.coin_fee + (config.coin_name || '金彩') +'+'+ item.coin_price+ '元' }}</text>
+							<text class="bottom-num">{{ 'x' + item.quantity }}</text>
+						</view>
+					</view>
+				</view>
+			</block>
+			<!-- 抽奖订单 -->
+			<block wx:elif="{{ pageValue == 2 }}">
+				<view class="draw-order" wx:for="{{ cloudOrder }}">
+					<view class="draw-left">
+						<image class="draw-img" src="{{ item.thumbnail }}"></image>
+					</view>
+					<view class="draw-right">
+						<view class="draw-top text-ellipsis-2">{{ '(第' + (item.round || '-') +  '期) ' + (item.title || '-') }}</view>
+						<view class="draw-bottom">
+							<text class="bottom-item">已参与：{{ item.current_quantity || '0' }}</text>
+							<text class="bottom-item">剩余：{{ item.realQuantity - item.current_quantity || '0' }}</text>
+							<text class="bottom-num">X{{ item.quantity }}</text>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+		<view class="bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<!-- 金币兑换按钮 -->
+			<view class="coin-buy" wx:if="{{ pageValue == 1 }}">
+				<view class="price">
+					<view class="price-have">
+						<text>现有{{ config.coin_name || '金彩' }}：</text>
+						<text>{{ current_user && current_user.wallet && current_user.wallet.coins || '0' }}</text>
+					</view>
+					<view class="price-need">
+						<text>合计：</text>
+						<text class="num">{{ fee.coins_fee + (config.coin_name || '金彩') +'+'+ fee.amount+ '元' }}</text>
+					</view>
+				</view>
+				<button class="normalizeBt pay" 
+				  style="background-color: {{ themeColor.primaryColor  }}"
+				  bind:tap="onExchangePay">立即支付</button>
+			</view>
+			<!-- 金币抽奖按钮 -->
+			<view class="coin-buy" wx:elif="{{ pageValue == 2 }}">
+				<view class="price">
+					<view class="price-have">
+						<text>现有{{ config.coin_name || '金彩' }}：</text>
+						<text>{{ current_user && current_user.wallet && current_user.wallet.coins || '0' }}</text>
+					</view>
+					<view class="price-need">
+						<text>合计{{ config.coin_name || '金彩' }}：</text>
+						<text class="num">{{ toll.computeTotalPrice( cloudOrder ) }}</text>
+					</view>
+				</view>
+				<button class="normalizeBt pay" style="background-color: {{ themeColor.primaryColor  }}"
+				bind:tap="onCoinPay">确认支付</button>
+			</view>
+		</view>
+	</block>
+</view>
+<wxs module="toll">
+// 计算云购总金额
+var computeTotalPrice = function(order) {
+	var totalPrice = 0;
+	order.forEach( function (item) {
+		totalPrice += item.unit_price * item.quantity
+	})
+  return totalPrice;
+}
+module.exports = {
+  computeTotalPrice: computeTotalPrice
+};
+</wxs>

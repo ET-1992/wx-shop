@@ -49,6 +49,8 @@
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
                 <!-- 直播列表 -->
                 <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
+                <!-- 金价模块 -->
+                <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
             </view>
         </view>
         <view id="loadProducts" class="logo">
@@ -56,7 +58,7 @@
         </view>
     </view>
     <!-- 服务 -->
-    <service phone="{{ module_page.phone_number }}" customer="{{ module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
+    <service phone="{{ module_page.phone_number }}" customer="{{ module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' config="{{ config }}" />
     <!-- 新用户优惠券弹框 -->
     <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
     <!-- 添加到我的小程序 -->

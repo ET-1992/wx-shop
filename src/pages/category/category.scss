@@ -22,16 +22,29 @@ page {
 		color: $tagColor;
 		border-right: 1px solid #f0f0f0;
 
+		// .mainCategoryItem {
+		// 	height: 100rpx;
+		// 	line-height: 100rpx;
+		// 	margin-bottom:20rpx;
+		// 	&.selected {
+		// 		font-size: 15px;
+		// 		font-weight: bold;
+		// 		color: $titleColor;
+		// 		background-color: #ffffff;
+		// 		// border-left: 2px solid red;
+		// 	}
+		// }
 		.mainCategoryItem {
-			height: 100rpx;
-			line-height: 100rpx;
-			margin-bottom:20rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			min-height: 100rpx;
+			padding: 20rpx;
 			&.selected {
-				font-size: 15px;
 				font-weight: bold;
 				color: $titleColor;
 				background-color: #ffffff;
-				// border-left: 2px solid red;
 			}
 		}
 	}
@@ -45,7 +58,7 @@ page {
 		.subCategory-item:last-child{
 			padding-bottom: 300rpx;
 		}
-		
+
 		.subCategoryBanner {
 			width: 100%;
 			height: 195rpx;
@@ -93,11 +106,11 @@ page {
 			.subCategoryName {
 				color: $nameColor;
 				font-size: 9pt;
-				overflow:hidden; 
+				overflow:hidden;
 				text-overflow:ellipsis;
-				display:-webkit-box; 
+				display:-webkit-box;
 				-webkit-box-orient:vertical;
-				-webkit-line-clamp:2; 
+				-webkit-line-clamp:2;
 			}
 		}
 	}

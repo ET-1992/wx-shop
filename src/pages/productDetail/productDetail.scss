@@ -663,11 +663,16 @@ video {
 	padding: 0 39rpx 0 31rpx;
 	background-color: #fff;
 
+	// 优惠券/服务分割线
+	.sevice-coupon-line {
+		height: 0;
+		border-bottom: 1rpx solid #D7D7D7;
+	}
 	.coupons {
 		padding: 24rpx 0;
 		color: $originalPriceColor;
 		font-size: 24rpx;
-		border-bottom: 1rpx solid #D7D7D7;
+		// border-bottom: 1rpx solid #D7D7D7;
 
 		button {
 			color: $originalPriceColor;
@@ -695,18 +700,6 @@ video {
 			border-radius: 5rpx;
 			text-align: center;
 			padding: 0 10rpx;
-		}
-		.nullCoupon {
-			color: #707070;
-			margin-right: 20rpx;
-			display: inline-block;
-			min-width: 100rpx;
-			height: 32rpx;
-			line-height: 32rpx;
-			border-radius: 5rpx;
-			text-align: center;
-			padding: 0 10rpx;
-			font-size: 24rpx;
 		}
 
 		.rightIcon {
@@ -1020,6 +1013,14 @@ button {
 				position: relative;
 				left: 0;
 				top: 0;
+
+				.cart-contact {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
 
 				text,.text{
 					color: #333;

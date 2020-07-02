@@ -1,11 +1,10 @@
 import api from 'utils/api';
-import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
 import { auth, subscribeMessage, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
 import { Decimal } from 'decimal.js';
-// import { CART_LIST_KEY, phoneStyle } from 'constants/index';
+
 const app = getApp();
 
 Page({
@@ -57,7 +56,7 @@ Page({
     async onShow() {
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
-                url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
+                url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=1`,
             });
         }
     },
@@ -373,12 +372,13 @@ Page({
                 store_card,
                 liftInfo,
                 orderMultiStore: store,
+                config,
             }, () => {
                 this.computedFinalPay();
             });
         } catch (err) {
             console.log(err);
-            showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,
@@ -390,9 +390,7 @@ Page({
     setUseCoin(e) {
         this.setData({
             useCoin: e.detail || 0
-        }, () => {
-            this.computedFinalPay();
-        });
+        }, this.computedFinalPay);
     },
 
     computedFinalPay() {
@@ -416,13 +414,11 @@ Page({
 
     async onPay(ev) {
         console.log(ev);
-
         let subKeys = [{ key: 'order_consigned' }];
-
         const { formId, crowd, crowdtype } = ev.detail;
-        // 秒杀
-        const { seckill, seckill_product_id } = this.data;
         const {
+            seckill,
+            seckill_product_id,
             address,
             items,
             buyerMessage,
@@ -440,6 +436,7 @@ Page({
             shipping_type,
             bargain_mission_code,
             config,
+            finalPay,
             orderMultiStore,
         } = this.data;
         const {
@@ -499,7 +496,7 @@ Page({
 
         wx.setStorageSync(ADDRESS_KEY, address);
 
-        let method = 'createOrderAndPay';
+        let method = 'createOrder';
 
         let requestData = {
             receiver_name: userName || '',
@@ -517,6 +514,8 @@ Page({
             afcode,
             pay_method: selectedPayValue
         };
+
+        let queryData = {}; // 接口url带的get参数
 
         if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
@@ -545,7 +544,7 @@ Page({
         }
 
         if (store_card && store_card.store_card_enable && selectedPayValue === 'STORE_CARD') {
-            const { confirm } = await showModal({
+            const { confirm } = await proxy.showModal({
                 title: '提示',
                 content: '您确定要用储值卡支付吗？',
                 showCancel: true,
@@ -639,74 +638,92 @@ Page({
             method = 'bargainOrder';
         }
 
-        wx.showLoading({
-            title: '处理订单中',
-            mask: true,
-        });
+        wx.showLoading({ title: '处理订单中', mask: true, });
+
+        if (finalPay <= 0) {
+            queryData.pay = '';
+        }
+
+        if (!config.cashier_enable) {
+            queryData.pay = '';
+        }
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order = {}, cart } = await api.hei[method](requestData);
+            const {
+                order_no,
+                status,
+                pay_sign,
+                pay_appid,
+                crowd_pay_no,
+                order = {},
+                cart
+            } = await api.hei[method]({
+                ...requestData
+            }, { ...queryData });
+
             wx.hideLoading();
-            console.log('OrderCreatecart507', cart);
 
             if (cart && cart.count) {
                 wx.setStorageSync('CART_NUM', cart.count);
             }
+
             if (crowd && crowd_pay_no) {
                 wx.redirectTo({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
                 });
-            } else {
-                if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
-                    await subscribeMessage(subKeys);
-                    wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                    });
-                }
-
-                if (pay_sign) {
-                    // console.log('自主支付');
-                    const payRes = await wxPay(pay_sign, order_no, subKeys);
-                    console.log(payRes, 'payRes');
-                    wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                    });
-                }
-                else if (pay_appid) {
-                    // console.log('平台支付');
-                    this.setData({
-                        modal: {
-                            isFatherControl: true,
-                            title: '温馨提示',
-                            isShowModal: true,
-                            body: '确定要提交订单吗？',
-                            type: 'navigate',
-                            navigateData: {
-                                url: `/pages/peanutPay/index?order_no=${order_no}`,
-                                appId: pay_appid,
-                                target: 'miniProgram',
-                                version: 'develop',
-                                extraData: {
-                                    order_no: order_no,
-                                    address: this.data.address,
-                                    items: this.data.items,
-                                    totalPrice: this.data.totalPrice,
-                                    totalPostage: this.data.fee.postage,
-                                    orderPrice: this.data.finalPay,
-                                    coupons: this.data.fee.coupon_reduce_fee,
-                                    buyerMessage: this.data.buyerMessage,
-                                    coinPrice: this.data.useCoin,
-                                }
-                            }
-                        },
-                    });
-                }
+                return;
             }
-        }
-        catch (err) {
+
+            if (finalPay <= 0 || order.pay_method === 'STORE_CARD') {
+                await subscribeMessage(subKeys);
+                wx.redirectTo({
+                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=1`,
+                });
+                return;
+            }
+
+            if (config.cashier_enable) {
+                wx.redirectTo({ url: `/pages/payCashier/payCashier?order_no=${order_no}&subKeys=${JSON.stringify(subKeys)}&isFromCreate=1` });
+                return;
+            }
+
+            if (pay_sign) {
+                const payRes = await wxPay(pay_sign, order_no, subKeys);
+                console.log(payRes, 'payRes');
+                wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=1` });
+            } else if (pay_appid) {
+                const { address, items, totalPrice, fee, buyerMessage, useCoin } = this.data;
+                this.setData({
+                    modal: {
+                        isFatherControl: true,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: '确定要提交订单吗？',
+                        type: 'navigate',
+                        navigateData: {
+                            url: `/pages/peanutPay/index?order_no=${order_no}`,
+                            appId: pay_appid,
+                            target: 'miniProgram',
+                            version: 'develop',
+                            extraData: {
+                                order_no,
+                                address,
+                                items,
+                                totalPrice,
+                                totalPostage: fee.postage,
+                                orderPrice: finalPay,
+                                coupons: fee.coupon_reduce_fee,
+                                buyerMessage,
+                                coinPrice: useCoin
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (err) {
             console.log(err);
             wx.hideLoading();
-            showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,

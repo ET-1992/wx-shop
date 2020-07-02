@@ -7,6 +7,6 @@
         <view class="originalPrice" wx:if="{{product.miaosha_enable}}">{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.miaosha_price}}</text></view>
         <view class="originalPrice" wx:elif="{{product.groupon_enable}}">{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.groupon_price}}</text></view>
         <view class="originalPrice" wx:else>{{ globalData.CURRENCY[globalData.currency] }}<text>{{product.price}}</text></view>
-        <view class="toBuy" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
+        <view class="toBuy" style="background-color: {{ themeColor.primaryColor }}">{{ btn.text(config) }}</view>
     </view>
 </navigator>

@@ -1,0 +1,33 @@
+@import '~styles/color';
+
+.container {
+	.page-empty {
+		text-align: center;
+	}
+	.money-get-list {
+		padding: 0 30rpx;
+		.moneyGetItem {
+			padding: 30rpx 0;
+			display: flex;
+			align-items: center;
+			border-bottom: 1rpx solid #c9c9c9;
+			font-size: 22rpx;
+		
+			.moneyGetItemLeft {
+				flex: 1;
+				display: flex;
+				line-height: 30rpx;
+				flex-direction: column;
+			}
+
+			.moneyGetItemRight {
+				.get-status {
+					color: $priceText;
+				}
+				.reject {
+					color: red;
+				}
+			}
+		}
+	}
+}

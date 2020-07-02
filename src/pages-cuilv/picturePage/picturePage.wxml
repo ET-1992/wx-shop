@@ -1,0 +1,8 @@
+<!-- 图片说明页面 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}"/>
+	<view class="pictue-wrap"  wx:if="{{ !isLoading }}">
+		<image class="rule-image" src="{{ imgUrl }}" mode="widthFix" wx:if="{{ imgUrl }}" />
+		<view class="noDataText" wx:if="{{ !imgUrl }}">暂无相关内容</view>
+	</view>
+</view>

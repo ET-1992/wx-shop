@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "黄金首页",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-loading": "vant-weapp/dist/loading/index"
+  }
+}

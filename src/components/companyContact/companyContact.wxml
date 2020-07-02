@@ -1,0 +1,29 @@
+<!-- 企业微信联系 -->
+<view class="container">
+	<van-popup show="{{ show }}" position="bottom" custom-style="height: 20%;" bind:close="onClose" custom-class="popup-content">
+		<!-- 成功提示 -->
+		<view class="box" wx:if="{{ showSuccess }}">
+			<van-image width="60" height="60" src="{{ serviceHeadurl }}" custom-class="box-img" />
+			<view class="box-ctn">
+				<view class="box-title">客服人员：{{ serviceName || '-' }}</view>
+				<view class="box-desc" wx:if="{{ hasFrend }}">客服人员已经是您的好友</view>
+				<view class="box-desc" wx:else>邀请通知已发送至您的微信</view>
+			</view>
+		</view>
+		<!-- 失败提示 -->
+		<view class="box" wx:elif="{{ showFail }}">
+			<icon class="box-img" type="warn" size="26"></icon>
+			<view class="box-ctn">
+				<view class="box-title">错误提示</view>
+				<view class="box-desc">获取客服企业微信失败</view>
+			</view>
+		</view>
+		<block wx:else>
+			<!-- 联系名片 -->
+			<cell bind:startmessage="startmessage"
+				bind:completemessage="completemessage" 
+				plugid="{{ plugid }}"
+			/>
+		</block>
+	</van-popup>
+</view>

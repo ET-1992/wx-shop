@@ -1,4 +1,10 @@
 {
-	"component": true
+  "component": true,
+  "usingComponents": {
+    "van-popup": "@vant/weapp/dist/popup/index",
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "van-tabs": "@vant/weapp/dist/tabs/index",
+    "van-tab": "@vant/weapp/dist/tab/index"
+  }
 }
 

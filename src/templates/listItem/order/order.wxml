@@ -1,0 +1,36 @@
+<template name="orderItem">
+    <view class="order-item-wrap" wx:for="{{ listData }}" wx:key="{{ index }}">
+        <view class="order-item" bind:tap="go" data-url="/pages-cuilv/recycleOrderDetail/recycleOrderDetail?orderId={{ item.repo_no }}">
+            <view class="order-left">
+                <image src="{{ item.repo_type_image || '/icons/fastDeposit/goldTypeBg.png' }}" class="bg">
+                    <view class="bg-content bg-opacity"></view>
+                    <text class="bg-content bg-text">{{ item.repo_type_str }}</text>
+                </image>
+                <view class="order-info">
+                    <view class="order-info-item">
+                        <text>黄金类型：</text>
+                        <text class="order-info-item-content">{{ item.gold_type_str }}</text>
+                    </view>
+                    <view class="order-info-item">
+                        <text>黄金克重：</text>
+                        <text class="order-info-item-content">{{ item.weight + '克' }}</text>
+                    </view>
+                    <view class="order-info-item">
+                        <text>订单编号：</text>
+                        <text class="order-info-item-content">{{ item.repo_no }}</text>
+                    </view>
+                    <view class="order-info-item">
+                        <text>下单时间：</text>
+                        <text class="order-info-item-content">{{ filter.getDateTime(item.time) }}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="order-right">
+                <!-- <text>审核中</text> -->
+                <text>{{ order_status.getStatusName(item.status) }}</text>
+            </view>
+        </view>
+    </view>
+</template>
+<wxs src="utils/wxs/orderStatus.wxs" module="order_status" />
+<wxs module="filter" src="utils/wxs/timeTranslate.wxs" />

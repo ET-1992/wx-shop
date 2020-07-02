@@ -1,0 +1,40 @@
+<!-- 金币兑换列表 -->
+<view class="container">
+	<view class="search-wrap">
+		<van-search
+			value="{{ searchContent }}"
+			placeholder="请输入搜索关键词"
+			show-action
+			bind:change="onSearchChange"
+			bind:search="getListData"
+			use-action-slot>
+			 <view slot="action" bind:tap="getListData">搜索</view>
+		</van-search>
+	</view>
+	<view class="filter-list">
+		<van-dropdown-menu active-color="{{ themeColor.primaryColor || '#729153' }}">
+			<van-dropdown-item value="{{ optionTypeValue }}" options="{{ optionType }}" bind:change="onTypeChange" />
+			<van-dropdown-item value="{{ optionSortValue }}" options="{{ optionSort }}" bind:change="onSortChange" />
+		</van-dropdown-menu>
+
+	</view>
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view wx:elif="{{ !products || products.length < 1 }}" class="page-empty">暂无内容</view>
+	<view class="product-list"  wx:else>
+		<view class="product-item" wx:for="{{ products }}" wx:key="{{ item.id }}"
+			bind:tap="go" data-url="/pages-cuilv/coinProductDetail/coinProductDetail?id={{ item.id }}">
+			<view class="product">
+				<view class="img">
+					<image src="{{ item.thumbnail }}" class="img-inner"/>
+				</view>
+				<view class="other">
+					<view class="title text-ellipsis-2">{{ item.title }}</view>
+					<view class="price">{{ item.coin_fee + (config.coin_name || '金彩') + '+' + item.coin_price }}元</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+

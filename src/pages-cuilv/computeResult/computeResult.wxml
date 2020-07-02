@@ -1,0 +1,59 @@
+<!-- 计算结果 -->
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view wx:elif="{{ !records || records.length < 1 }}" class="page-empty">暂无内容</view>
+	<block wx:else>
+		<view class="bar">
+			<view class="bar-tip" style="background-color: {{ themeColor.primaryColor  }}">
+				<view class="bar-time-show">
+					<text>截止获得时间【{{ tool.getTime(activity.finish_milliseconds, 'a') }}】</text>
+					<text>最后100条全站购买时间记录</text>
+				</view>
+				<view class="bar-compute-show">
+					<text class="compute-tip">求和：{{ sum }}（以下100条购买时间转换数据相加之和）</text>
+					<text class="compute-tip">取余：{{ sum }}（100组时间和）除以{{ activity.quantity || '-' }}（本商品所需人次），余数为{{ remainder }}</text>
+					<text class="compute-tip">计算结果：{{ remainder }}（余数）+ {{ base_code }} = {{ activity.win_code || '-' }}</text>
+				</view>
+			</view>
+			<view class="bar-tabs">
+				<view class="bar-tab tab-first">购买时间</view>
+				<view class="bar-tab">转换数据</view>
+				<view class="bar-tab">会员账号</view>
+			</view>
+		</view>
+		<view class="content">
+			<view class="item" wx:for="{{ records }}">
+				<view class="value value-first">{{ tool.getTime(item.milliseconds) }}</view>
+				<view class="value">{{ item.result || '-' }}</view>
+				<view class="value">{{ item.user.nickname || '-' }}</view>
+			</view>
+		</view>
+	</block>
+</view>
+
+<wxs module="tool">
+	// 格式化毫秒时间戳
+	var getTime = function (value) {
+		if (!value) return '-';
+        var time = getDate(value);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var milliseconds = time.getMilliseconds();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        hour = hour < 10 ? "0" + hour : hour;
+        minute = minute < 10 ? "0" + minute : minute;
+		second = second < 10 ? "0" + second : second;
+		milliseconds = milliseconds > 100 ? milliseconds : ( milliseconds > 10 ? ( "0" + milliseconds ) : ( "00" + milliseconds ) )
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second + "." + milliseconds;
+	}
+	module.exports = {
+		getTime: getTime,
+	}
+</wxs>

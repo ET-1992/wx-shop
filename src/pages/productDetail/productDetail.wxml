@@ -237,26 +237,30 @@
 				<view class="tips-right">去开通 ></view>
 			</view>
 		</view>
-		<!-- 领券&服务说明 -->
-		<view class="sevice-coupon" wx:if="{{ ( coupons && coupons.length ) || ( product && product.service_instructions && product.service_instructions.length ) }}">
-			<view
-			 wx:if="{{ coupons.length }}"
-			 class="coupons"
-			 catchtap="onShowCouponList"
-			 style="{{ product.groupon_enable && grouponId ? 'display: none' : ''}} {{ coupons && coupons.length &&  product.service_instructions.length ? '' : 'border:none'}}"
-			>
-				<form bindsubmit="submitFormId" report-submit="true">
-					<button formType="submit">
-						<view class="couponBtn">领券</view>
-						<!-- 只显示三个 -->
-						<block wx:if="{{ receivableCoupons && receivableCoupons.length}}">
-							<view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3}}" >{{ item.title }} </view>
-						</block>
-						<view wx:else class="nullCoupon">暂无可领取优惠券</view>
-					</button>
-				</form>
-			</view>
-			<view wx:if="{{ product.service_instructions.length }}" class="service">
+		<view class="sevice-coupon" wx:if="{{ product }}">
+			<block  wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
+				<!-- 优惠券-非拼团商品 -->
+				<view wx:if="{{ !(product.groupon_enable && grouponId) }}" class="coupons" catchtap="onShowCouponList">
+					<!-- <form bindsubmit="submitFormId" report-submit="true">
+						<button formType="submit"> </button>
+					</form> -->
+					<view class="couponBtn">领券</view>
+					<!-- 可领取 -->
+					<block wx:if="{{ receivableCoupons.length }}">
+						<!-- 最多显示三个 -->
+						<view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3 }}" >{{ item.title }} </view>
+					</block>
+					<!-- 已领取 -->
+					<block wx:if="{{ receivableCoupons.length < 3 && receivedCoupons.length }}">
+						<!-- 凑满三个 -->
+						<view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 3 - receivedCoupons.length }}" >{{ item.title }} </view>
+					</block>
+				</view>
+				<!-- 分割线 -->
+				<view class="sevice-coupon-line" wx:if="{{ product.service_instructions && product.service_instructions.length }}"></view>
+			</block>
+			<!-- 服务说明 -->
+			<view wx:if="{{ product.service_instructions && product.service_instructions.length }}" class="service">
 				<view class="text">服务</view>
 				<view class="desc">
 					<view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="item">• {{ item }}</view>
@@ -372,11 +376,13 @@
 						send-message-path="/pages/productDetail/productDetail?id={{product.id}}"
 						send-message-img="{{product.thumbnail}}"
 						show-message-card="{{true}}"
-						class="cart"
+						class="normalizeBt cart"
 						session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'
 						>
-						<image class="icon" src="../../icons/context.png" />
-						<text>客服</text>
+						<view class="cart-contact" catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+							<image class="icon" src="../../icons/context.png" />
+							<text>客服</text>
+						</view>
 					</button>
 				</block>
 			</view>
@@ -482,10 +488,10 @@
 				<view
 					class="buy {{(product.product_type === 1 || product.individual_buy) && 'maguaWidthBtn'}}"
 					catchtap="onShowSku"
-					data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买')}]}}"
+					data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}"
 					style="background-color: {{ themeColor.primaryColor }}"
 					>
-					{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || '立即购买' }}
+					{{ templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) }}
 				</view>
 			</block>
 		</view>
@@ -590,6 +596,12 @@
 	</view>
 </van-popup>
 
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>
+
 <myModal modal="{{authModal}}" />
 
 <skuModal
@@ -631,4 +643,18 @@
   }
 
   module.exports.formatValue = formatValue;
+</wxs>
+
+<!-- 购买按钮文字 -->
+<wxs module="btn">
+var text = function (config) {
+    var name = '立即购买';
+	if(config && config.order_only) {
+		name = '立即下单'
+	};
+    return name
+}
+module.exports = {
+    text: text
+}
 </wxs>

@@ -562,3 +562,35 @@ export function failToBindWeb(data) {
         });
     }
 }
+
+/* 函数防抖 */
+export function debounce(fn, interval) {
+    let timer = null;
+    // 间隔时间，如果interval不传，则默认1000ms
+    let gapTime = interval || 1000;
+    return function() {
+        clearTimeout(timer);
+        let context = this;
+        // 保存此处的arguments，因为setTimeout是全局的，arguments不是防抖函数需要的。
+        let args = arguments;
+        timer = setTimeout(function() {
+            fn.call(context, args);
+        }, gapTime);
+    };
+}
+
+// 将微信地址转为回购预下单地址
+export function transformAddressToCustomer(address = {}) {
+    let newAddress = {
+        customer_name: address.userName || '',
+        customer_phone: address.telNumber || '',
+        customer_country: address.nationalCode || '',
+        customer_state: address.provinceName || '',
+        customer_city: address.cityName || '',
+        customer_district: address.countyName || '',
+        customer_address: address.detailInfo || '',
+        customer_zipcode: address.postalCode || '',
+    };
+    return newAddress;
+}
+

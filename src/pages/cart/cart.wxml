@@ -103,7 +103,7 @@
 				<view class="priceMeta-text" wx:if="{{ shipping_type === 1 && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
 			</view>
   	  	</view>
-  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> 去结算 </button>
+  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
   	</view>
 </view>
 

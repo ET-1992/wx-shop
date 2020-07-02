@@ -1,0 +1,140 @@
+@import '~styles/color';
+
+$iphoneXBottomGap: 40rpx;
+
+.container {
+	.body {
+		margin-top: 20rpx;
+		background-color: #fff;
+		overflow: hidden;
+		padding-bottom: 40rpx;
+		.coin-order {
+			padding: 28rpx 38rpx 30rpx 20rpx;
+			display: flex;
+			.coin-left {
+				width: 140rpx;
+				height: 140rpx;
+				background-color: #C9C9C9;
+				.coin-img {
+					width: 140rpx;
+					height: 140rpx;
+				}
+			}
+			.coin-right {
+				flex: 1;
+				margin-left: 15rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.right-title {
+					font-size: 28rpx;
+					line-height: 30rpx;
+					height: 70rpx;
+					color: #000000;
+				}
+				.right-subtitle {
+					font-size: 22rpx;
+					line-height: 26rpx;
+					color: #9FA0A0;
+				}
+				.right-bottom {
+					display: flex;
+					justify-content: space-between;
+					.bottom-price {
+						font-size: 32rpx;
+						line-height: 45rpx;
+						color: #F52D2D;
+					}
+					.bottom-num {
+						font-size: 27rpx;
+						line-height: 45rpx;
+						color: black;
+					}
+				}
+			}
+		}
+		.draw-order {
+			display: flex;
+			margin: 0 20rpx;
+			border-bottom: 1rpx solid #E0E0E0;
+			padding: 20rpx 0;
+			.draw-left {
+				width: 140rpx;
+				height: 140rpx;
+				background-color: #c9c9c9;
+				.draw-img {
+					width: 140rpx;
+					height: 140rpx;
+				}
+			}
+			.draw-right {
+				flex: 1;
+				font-size: 28rpx;
+				line-height: 30rpx;
+				margin-left: 15rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.draw-top {
+					line-height: 35rpx;
+					height: 70rpx;
+					color: black;
+				}
+				.draw-bottom {
+					display: flex;
+					.bottom-item {
+						margin-right: 28rpx;
+					}
+					.bottom-num {
+						margin-left: auto;
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		position: fixed;
+		bottom: 0;
+		background-color: #fff;
+		width: 100%;
+		box-sizing: border-box;
+		&.iphoneXTrick {
+			padding-bottom: $iphoneXBottomGap;
+		}
+		.coin-buy {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 100rpx;
+			.price {
+				font-size: 25rpx;
+				line-height: 30rpx;
+				color: #333333;
+				margin-left: 55rpx;
+				margin: 0 12rpx 0 auto;
+				text-align: right;
+				.price-have {
+					font-size: 22rpx;
+				}
+				.price-need {
+					.num {
+						color: #F52D2D;
+						font-size: 32rpx;
+					}
+				}
+			}
+			.pay {
+				color: white;
+				width: 250rpx;
+				font-size: 32rpx;
+				line-height: 100rpx;
+				background-color: $mainColor;
+				font-weight: bold;
+				&[disabled] {
+					background-color: #ccc !important;
+				}
+			}
+		}
+	}
+}

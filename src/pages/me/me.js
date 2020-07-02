@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { getUserInfo, updateCart, getAgainUserForInvalid } from 'utils/util';
-import { USER_KEY, CONFIG } from 'constants/index';
+import { USER_KEY, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar } from '../../utils/util';
 const app = getApp();
 
@@ -16,7 +16,8 @@ Page({
         consoleTime: 0,
         isLoading: true,
         isShowConsole: false,
-        infoModalTime: 0
+        infoModalTime: 0,
+        PLATFFORM_ENV,
     },
 
     async loadOrderCount() {

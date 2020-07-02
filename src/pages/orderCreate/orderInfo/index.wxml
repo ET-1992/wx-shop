@@ -1,4 +1,10 @@
 <view class="orderInfo">
+
+  <!-- 克重 -->
+  <view wx:if="{{ fee.total_weight }}">
+    <text class="text">总计克重（g）</text>
+    <text class="money">{{ fee.total_weight }}</text>
+  </view>
   <view>
     <text class="text">商品金额</text>
     <text class="money">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPriceDispaly }}<text wx:if="{{isGrouponCommanderPrice}}">(团长优惠)</text></text>

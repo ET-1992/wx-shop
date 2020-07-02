@@ -1,0 +1,38 @@
+.container {
+	width: 100%;
+	.record-loading {
+		display: flex;
+		justify-content: center;
+	}
+	.record-null {
+		font-size: 28rpx;
+		text-align: center;
+	}
+	.record {
+		margin-top: 10rpx;
+		background-color: white;
+		padding: 34rpx 30rpx;
+		.record-item {
+			font-size: 20rpx;
+			padding-bottom: 18rpx;
+			border-bottom: 1rpx solid #E0E0E0;
+			margin-bottom: 18rpx;
+			display: flex;
+			flex-direction: column;
+			.top {
+				color: #333333;
+				display: flex;
+				justify-content: space-between;
+				line-height: 40rpx;
+				.top-left {
+					font-size: 28rpx;
+					color: black;
+				}
+			}
+			.bottom {
+				margin-top: 6rpx;
+				color: #707070;
+			}
+		}
+	}
+}

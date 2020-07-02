@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { parseScene, go, autoNavigate_ } from 'utils/util';
+import { CONFIG } from 'constants/index';
 // 获取应用实例
 const app = getApp();
 
@@ -57,6 +58,13 @@ Component({
             title_position: 'left',
             style: 'per_2',
             orderby: 'post_date'
+        },
+    },
+
+    lifetimes: {
+        attached: function() {
+            const config = wx.getStorageSync(CONFIG);
+            this.setData({ config });
         },
     },
 

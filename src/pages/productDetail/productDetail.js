@@ -607,11 +607,11 @@ Page({
         this.onSkuCancel();
     },
 
-    async submitFormId(ev) {
-        await api.hei.submitFormId({
-            form_id: ev.detail.formId,
-        });
-    },
+    // async submitFormId(ev) {
+    //     await api.hei.submitFormId({
+    //         form_id: ev.detail.formId,
+    //     });
+    // },
 
     async showCartNumber(count) {
         wx.setStorageSync('CART_NUM', count);
@@ -956,5 +956,12 @@ Page({
                 console.log('图片放大失败:', res);
             },
         });
-    }
+    },
+    // 展示企业微信联系方式
+    onCustomService() {
+        let customServiceModal = true;
+        this.setData({
+            customServiceModal,
+        });
+    },
 });

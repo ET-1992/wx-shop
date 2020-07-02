@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
-import { CONFIG, SHIPPING_TYPE } from 'constants/index';
+import { CONFIG, SHIPPING_TYPE, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar, valueToText } from 'utils/util';
 const app = getApp();
 Page({
@@ -39,6 +39,7 @@ Page({
         config: {},
         multiStoreEnable: false,  // 判断店铺多门店开关
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
+        PLATFFORM_ENV,
     },
 
     async onLoad() {
@@ -282,8 +283,14 @@ Page({
     },
 
     // 选规格弹窗
-    isShowSkuModal(e) {
+    // leftImage模板
+    async onShowSkuModal(e) {
+        let { PLATFFORM_ENV } = this.data;
         const { product } = e.currentTarget.dataset;
+        if (PLATFFORM_ENV === 'CUILV') {
+            const { skus, sku_images, properties } = await api.hei.fetchProductSkus({ post_id: product.id });
+            Object.assign(product, { skus, sku_images, properties });
+        }
         this.setData({
             isShowSkuModal: true,
             selectedProduct: product

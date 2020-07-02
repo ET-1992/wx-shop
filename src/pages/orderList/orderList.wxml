@@ -1,42 +1,51 @@
 <view class="container">
-	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="fixedStyle" bindchangeNavbarList="changeNavbarList" />
-	<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}"> 暂无内容 </view>
-	<view class="orderItem {{newIndex==1?'refundItem' : ''}}">
-		<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
-			<navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
-				<view class="item" wx:for="{{ order.items }}" wx:key="id">
-					<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
-					<view class="itemInfo">
-						<view class="itemTitle">{{ item.title }}</view>
-						<view class="property">{{ item.sku_property_names }}</view>
-						<view class="itemPirceInfo">
-							<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
-							<view class="number">x{{ item.quantity }}</view>
+	<navbarList
+		navbarListData="{{ navbarListData }}"
+		activeIndex="{{ activeIndex }}"
+		themeColor="{{ themeColor }}"
+		template="multiStyle"
+		bindchangeNavbarList="changeNavbarList"
+	/>
+	<view class="inner-wrapper" style="padding-top: 44px">
+		<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}"> 暂无内容 </view>
+		<view class="orderItem {{newIndex==1?'refundItem' : ''}}">
+			<view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
+				<navigator url="/pages/orderDetail/orderDetail?id={{ order.order_no }}">
+					<view class="item" wx:for="{{ order.items }}" wx:key="id">
+						<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
+						<view class="itemInfo">
+							<view class="itemTitle">{{ item.title }}</view>
+							<view class="property">{{ item.sku_property_names }}</view>
+							<view class="itemPirceInfo">
+								<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
+								<view class="number">x{{ item.quantity }}</view>
+							</view>
 						</view>
 					</view>
-				</view>
-				<view class="orderMeta">
-					<view class="status">{{ order.statusText }}</view>
-					<view class="count">
-						<view>共{{ order.productCount }}件商品</view>
-						<view class="orderPrice">
-							{{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}}
-							<text class="orderPriceValue">{{ globalData.CURRENCY[globalData.currency] }}{{ order.amount }}</text>
+					<view class="orderMeta">
+						<view class="status">{{ order.statusText }}</view>
+						<view class="count">
+							<view>共{{ order.productCount }}件商品</view>
+							<view class="orderPrice">
+								{{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}}
+								<text class="orderPriceValue">{{ globalData.CURRENCY[globalData.currency] }}{{ order.amount }}</text>
+							</view>
 						</view>
 					</view>
-				</view>
-			</navigator>
-			<orderOperations 
-				wx:if="{{ order.statusCode == 1 || order.statusCode == 3 }}" 
-				statusCode="{{ order.statusCode }}" 
-				orderNo="{{ order.order_no }}" 
-				orderIndex="{{ orderIndex }}" 
-				orders="{{orders}}"
-				bindconfirmOrder="onConfirmOrder" 
-				bindpayOrder="onPayOrder" 
-				bindcloseOrder="onCloseOrder" 
-			/>
+				</navigator>
+				<orderOperations
+					wx:if="{{ order.statusCode === 1 || order.statusCode === 1010 || order.statusCode === 1011 || order.statusCode === 3 }}"
+					statusCode="{{ order.statusCode }}"
+					orderNo="{{ order.order_no }}"
+					orderIndex="{{ orderIndex }}"
+					orders="{{ orders }}"
+					config="{{ config }}"
+					bindconfirmOrder="onConfirmOrder"
+					bindpayOrder="onPayOrder"
+					bindcloseOrder="onCloseOrder"
+				/>
+			</view>
 		</view>
+		<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">- 已经到底了 -</view>
 	</view>
-	<view class="bottomHint" wx:if="{{ orders.length && !next_cursor }}">- 已经到底了 -</view>
 </view>

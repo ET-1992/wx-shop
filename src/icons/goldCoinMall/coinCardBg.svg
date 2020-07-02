@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="670" height="290" viewBox="0 0 670 290">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-7);
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient-8);
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-11);
+      }
+
+      .cls-8 {
+        fill: url(#linear-gradient-14);
+      }
+
+      .cls-9 {
+        fill: none;
+        stroke: #fff;
+        stroke-dasharray: 4 2;
+      }
+
+      .cls-10 {
+        filter: url(#椭圆_1_副本);
+      }
+
+      .cls-11 {
+        filter: url(#圆角矩形_1);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.08" y1="0.098" x2="0.924" y2="0.733" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f4814c"/>
+      <stop offset="1" stop-color="#f1583f"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <rect id="矩形_489" data-name="矩形 489" class="cls-1" width="670" height="290" rx="20" transform="translate(791 -447)"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-3" x1="0.692" y1="1" x2="0.308" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f1583f"/>
+      <stop offset="1" stop-color="#f5874e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.065" x2="0.935" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f1583f"/>
+      <stop offset="1" stop-color="#f5853c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-7" x1="0.139" x2="0.861" xlink:href="#linear-gradient-4"/>
+    <linearGradient id="linear-gradient-8" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f1583f"/>
+      <stop offset="1" stop-color="#f9a04d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-11" x1="1" y1="0.385" x2="0" y2="0.615" xlink:href="#linear-gradient-3"/>
+    <filter id="圆角矩形_1" x="-117.361" y="146.5" width="321.756" height="288.931" filterUnits="userSpaceOnUse">
+      <feOffset dx="12" dy="20.785" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="21.5" result="blur"/>
+      <feFlood flood-color="#ef472c" flood-opacity="0.38"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-14" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f1583f"/>
+      <stop offset="1" stop-color="#e78c50"/>
+    </linearGradient>
+    <filter id="椭圆_1_副本" x="506.5" y="-18.715" width="224" height="225" filterUnits="userSpaceOnUse">
+      <feOffset dx="12" dy="20.785" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="21.5" result="blur-2"/>
+      <feFlood flood-color="#ef472c" flood-opacity="0.38"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_4483" data-name="组 4483" transform="translate(-40 -437)">
+    <g id="组_4481" data-name="组 4481">
+      <rect id="矩形_488" data-name="矩形 488" class="cls-1" width="670" height="290" rx="20" transform="translate(40 437)"/>
+      <g id="蒙版组_2" data-name="蒙版组 2" class="cls-2" transform="translate(-751 884)">
+        <g id="组_497" data-name="组 497" transform="translate(-3042 -70)">
+          <g id="组_6" data-name="组 6" transform="translate(3798.169 -456.303)">
+            <circle id="椭圆_1" data-name="椭圆 1" class="cls-3" cx="65.5" cy="65.5" r="65.5" transform="translate(14.831 257.303)"/>
+            <ellipse id="椭圆_1_副本_2" data-name="椭圆 1 副本 2" class="cls-4" cx="29" cy="28" rx="29" ry="28" transform="translate(148.831 179.303)"/>
+            <ellipse id="椭圆_1_副本_3" data-name="椭圆 1 副本 3" class="cls-3" cx="29" cy="28" rx="29" ry="28" transform="translate(506.831 311.303)"/>
+            <ellipse id="椭圆_1_副本_5" data-name="椭圆 1 副本 5" class="cls-3" cx="15.5" cy="16" rx="15.5" ry="16" transform="translate(514.831 101.303)"/>
+            <path id="圆角矩形_1_副本_3" data-name="圆角矩形 1 副本 3" class="cls-5" d="M-299.481-152.881-142.739-276.8a18.006,18.006,0,0,1,25.292,2.958,18.006,18.006,0,0,1-2.958,25.292L-277.148-124.631a18.006,18.006,0,0,1-25.292-2.958A18.006,18.006,0,0,1-299.481-152.881Z" transform="translate(306.321 308.792)"/>
+            <path id="圆角矩形_1_副本" data-name="圆角矩形 1 副本" class="cls-6" d="M1425.518-273.881,1582.261-397.8a18.006,18.006,0,0,1,25.292,2.958,18.006,18.006,0,0,1-2.958,25.292L1447.852-245.631a18.006,18.006,0,0,1-25.292-2.958A18.006,18.006,0,0,1,1425.518-273.881Z" transform="translate(-1017.898 401.68)"/>
+            <ellipse id="椭圆_1_副本_4" data-name="椭圆 1 副本 4" class="cls-3" cx="19" cy="19.5" rx="19" ry="19.5" transform="translate(154.831 323.303)"/>
+            <ellipse id="椭圆_1_副本_6" data-name="椭圆 1 副本 6" class="cls-3" cx="41.5" cy="41" rx="41.5" ry="41" transform="translate(254.831 326.303)"/>
+            <ellipse id="椭圆_1_副本_7" data-name="椭圆 1 副本 7" class="cls-7" cx="40.5" cy="41.5" rx="40.5" ry="41.5" transform="translate(173.831 60.303)"/>
+            <path id="圆角矩形_1_副本_2" data-name="圆角矩形 1 副本 2" class="cls-6" d="M2063.326,979.578l98.8-78.126a11.352,11.352,0,0,1,14.078,17.811l-98.8,78.126a11.351,11.351,0,0,1-14.078-17.811Z" transform="translate(-1509.461 -596.809)"/>
+          </g>
+          <g id="正面装饰" transform="translate(3805.139 -351.785)">
+            <g class="cls-11" transform="matrix(1, 0, 0, 1, 27.86, -25.22)">
+              <path id="圆角矩形_1-2" data-name="圆角矩形 1" class="cls-6" d="M-269.482,744.119-112.739,620.2a18.006,18.006,0,0,1,25.292,2.958,18.006,18.006,0,0,1-2.958,25.292L-247.148,772.369a18.006,18.006,0,0,1-25.292-2.958A18.006,18.006,0,0,1-269.482,744.119Z" transform="translate(211.46 -426.1)"/>
+            </g>
+            <g class="cls-10" transform="matrix(1, 0, 0, 1, 27.86, -25.22)">
+              <ellipse id="椭圆_1_副本-2" data-name="椭圆 1 副本" class="cls-8" cx="47.5" cy="48" rx="47.5" ry="48" transform="translate(559 25)"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <path id="路径_13" data-name="路径 13" class="cls-9" d="M3901.658-137.912h130" transform="translate(-3780 822)"/>
+    <path id="路径_14" data-name="路径 14" class="cls-9" d="M3901.658-137.912h130" transform="translate(-3404 822)"/>
+  </g>
+</svg>

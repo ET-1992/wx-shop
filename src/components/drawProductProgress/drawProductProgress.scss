@@ -1,0 +1,21 @@
+.container {
+	width: 100%;
+	font-size: 22rpx;
+	position: relative;
+	.progress {
+		padding: 12rpx 0;
+	}
+	.tips {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		.num {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.num-go {
+				color: #F52D2D;
+			}
+		}
+	}
+}

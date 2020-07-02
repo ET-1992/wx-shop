@@ -1,0 +1,146 @@
+@import '~styles/color';
+
+$iphoneXBottomGap: 40rpx;
+
+.container {
+	.tips {
+		.empty{
+			color:#333333;
+			font-size: 28rpx;
+			height:80%;
+			text-align:center;
+			width:100%;
+			padding-top:20rpx;
+		}
+		.emptyHint {
+			width: 400rpx;
+			height:262rpx;
+			/*text-align:center;*/
+			margin: 100rpx auto 0;
+			display: block;
+		}
+		.onGotoBuy {
+			display: flex;
+			width: 320rpx;
+			height: 75rpx;
+			background-color: $mainColor;
+			color: #fff;
+			margin: 80rpx auto;
+			padding: 14rpx 0;
+			align-items: center;
+			justify-content: center;
+			font-size: 32rpx;
+			border-radius: 40rpx;
+		}
+	}
+	.list {
+		padding-bottom: 120rpx;
+		.item {
+			margin: 10rpx 0;
+			padding: 22rpx 21rpx 25rpx;
+			background-color: #fff;
+			display: flex;
+			.checkbox {
+				display: flex;
+				align-items: center;
+			}
+			.product {
+				margin-left: 20rpx;
+				flex: 1;
+				font-size: 24rpx;
+				line-height: 30rpx;
+				display: flex;
+				.img-wrap {
+					width: 178rpx;
+					height: 178rpx;
+					border: 2rpx solid #C2C2C2;
+					box-sizing: content-box;
+					.img {
+						width: 178rpx;
+						height: 178rpx;
+					}
+				}
+				.info {
+					margin-left: auto;
+					width: 420rpx;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					.title {
+						height: 63rpx;
+					}
+					.num {
+						width: 280rpx;
+						display: flex;
+						.remain-num {
+							margin-left: auto;
+						}
+					}
+					.right {
+						display: flex;
+						justify-content: flex-end;
+						align-items: flex-end;
+						.delete {
+							font-size: 24rpx;
+							color: #C2C2C2;
+							margin-left: 9rpx;
+						}
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		position: fixed;
+		bottom: 0;
+		background-color: #fff;
+		width: 100%;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		z-index: 2;
+		&.iphoneXTrick {
+			padding-bottom: $iphoneXBottomGap;
+		}
+		.select-all {
+			margin-left: 20rpx;
+			font-size: 32rpx;
+			line-height: 32rpx;
+		}
+		.coin-buy {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			height: 100rpx;
+			.price {
+				font-size: 25rpx;
+				line-height: 30rpx;
+				color: #333333;
+				margin-left: 55rpx;
+				margin: 0 12rpx 0 auto;
+				text-align: right;
+				.price-have {
+					font-size: 22rpx;
+				}
+				.price-need {
+					.num {
+						color: #F52D2D;
+						font-size: 32rpx;
+					}
+				}
+			}
+			.pay {
+				color: white;
+				width: 250rpx;
+				font-size: 32rpx;
+				line-height: 100rpx;
+				background-color: $mainColor;
+				font-weight: bold;
+				&[disabled] {
+					background-color: #ccc !important;
+				}
+			}
+		}
+	}
+}

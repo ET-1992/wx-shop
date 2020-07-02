@@ -1,0 +1,65 @@
+
+var index = require('./index.wxs');
+
+// 获取状态名字
+var getStatusName = function (value) {
+    var orderStatus = index.ORDERSTATUS;
+    var status = '未知状态';
+    orderStatus.forEach(function (item) {
+        if (item.value === Number(value)) {
+            status = item.text
+        }
+    })
+    return status;
+}
+
+// 获取状态步骤
+var getStep = function (value) {
+    var arr = [[101,1,2,3,4], [5,6,7,13,14,15],[8,9,10,11],[12]]
+    var num = 0;
+    arr.forEach(function(item, index){
+        item.forEach(function(subitem) {
+            if (subitem === Number(value)) {
+                num = index + 1 
+            }
+        })
+    })
+    return num
+}
+
+// 是否为显示检测报告
+var whetherHasReport = function (value) {
+    var result = false;
+    value = Number(value)
+    if ( value >= 8 && value != 101 ) {
+        result = true
+    } 
+    return result
+}
+
+// 是否为检测完成状态
+var whetherFinish = function (value) {
+    var result = false;
+    if ( value === '8') {
+        result = true
+    } 
+    return result
+}
+
+// 是否展示快递追踪
+var whetherShowExpress = function (value) {
+    var result = false;
+    if ( value === '5' || value === '6') {
+        result = true
+    } 
+    return result
+}
+
+
+module.exports = {
+    getStatusName: getStatusName,
+    getStep: getStep,
+    whetherFinish: whetherFinish,
+    whetherShowExpress: whetherShowExpress,
+    whetherHasReport: whetherHasReport,
+};

@@ -1,0 +1,50 @@
+<view class="container">
+	<loading isLoading="{{ isLoading }}"></loading>
+	<view wx:if="{{ !isLoading }}">
+		<view class="container-head">
+			<view class="head-top">
+				<view>
+					实时金价：<text class="num">{{ goldPrice }}</text>元
+				</view>
+				<view>
+					回购重量：<text class="num">{{ goldWeight }}</text>克
+				</view>
+			</view>
+			<view class="head-bottom">
+				预估金额：<text class="num bigger-num">{{ totalPrice }}</text>元
+			</view>
+		</view>
+		<view class="container-body">
+			<view class="form-title">
+				<text>请填写收款银行卡信息</text>
+			</view>
+			<view class="form-content">
+				<view class="form-item">
+					<text>手机号码</text>
+					<input type="number" placeholder="请输入手机号码"
+						value="{{form.phoneNumber}}" bindinput="bindinputValue" data-name="form.phoneNumber"
+					/>
+				</view>
+				<view class="form-item">
+					<text>开户行</text>
+					<picker bindchange="bindPickerChange" value="{{ index }}" range="{{ banks }}" range-key="bankName">
+						<input class="item-input" placeholder="请输入开户行" value='{{ form.bank }}' disabled />
+					</picker>
+					<!-- <input type="text" placeholder="请输入开户行"
+						value="{{form.bank}}" bindinput="bindinputValue" data-name="form.bank"
+					/> -->
+				</view>
+				<view class="form-item">
+					<text>银行卡号</text>
+					<input type="number" placeholder="请输入银行卡号"
+						value="{{form.bankNumber}}" bindinput="bindinputValue" data-name="form.bankNumber"
+					/>
+				</view>
+	
+			</view>
+		</view>
+		<view class="container-btn">
+			<button bindtap="submitForm">确认提交</button>
+		</view>
+	</view>
+</view>

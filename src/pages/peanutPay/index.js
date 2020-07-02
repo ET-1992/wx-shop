@@ -1,49 +1,76 @@
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
 
 const app = getApp();
 
 Page({
     data: {
-        orderNo: '',
+        orderNo: ''
     },
 
-    onLoad: function () {
-        const { items, totalPrice, postage, address, buyer_message, couponPrice, orderPrice, order_no, coinPrice } = app.globalData.extraData;
-        this.setData({
-            orderNo: order_no,
-            order: items,
+    async onLoad() {
+        const {
+            items,
             totalPrice,
             postage,
             address,
             buyer_message,
             couponPrice,
             orderPrice,
+            order_no,
             coinPrice,
-            globalData: app.globalData
-        });
+            from_page
+        } = app.globalData.extraData;
+
+        const config = wx.getStorageSync(CONFIG);
+
+        let data = {};
+        if (from_page !== 'member') {
+            data = {
+                order: items,
+                totalPrice,
+                postage,
+                address,
+                buyer_message,
+                couponPrice,
+                orderPrice,
+                coinPrice,
+                globalData: app.globalData,
+            };
+        }
+        this.setData({
+            config,
+            orderNo: order_no,
+            from_page,
+            ...data
+        }, this.peanutPay);
     },
 
-    async onShow() {
-        console.log(this.data);
-        const { orderNo } = this.data;
+    async peanutPay() {
+        const { orderNo, from_page } = this.data;
+        let method = 'peanutPayOrder';
+
+        if (from_page === 'member') {
+            method = 'membershipPeanutPay';
+        }
+
         try {
-            const { pay_sign } = await api.hei.peanutPayOrder({
-                order_no: orderNo,
-            });
-
+            const { pay_sign } = await api.hei[method]({ order_no: orderNo });
             const { isCancel } = await wxPay(pay_sign, orderNo);
-
             wx.navigateBackMiniProgram({
                 extraData: {
-                    order_no: this.data.orderNo,
+                    order_no: orderNo,
                     isCancel,
                     isPeanutPayOk: true
                 }
             });
-        }
-        catch (err) {
-            console.log(err);
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
     },
 });

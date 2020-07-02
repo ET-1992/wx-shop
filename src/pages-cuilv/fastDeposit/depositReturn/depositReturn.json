@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "确定回购",
+	"usingComponents": {
+		"loading": "../../../components/loading/index"
+	}
+}

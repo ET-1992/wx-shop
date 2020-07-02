@@ -20,6 +20,7 @@
 	  "productsList": "../home/components/productsList/productsList",
 	  "categoryProducts": "../home/components/categoryProducts/categoryProducts",
 	  "cube": "../home/components/cube/cube",
-	  "lvList": "../home/components/lvList/lvList"
+	  "lvList": "../home/components/lvList/lvList",
+	  "gold-price": "../home/components/goldPrice/goldPrice"
 	}
   }

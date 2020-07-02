@@ -1,0 +1,28 @@
+@import '~styles/color';
+
+.container {
+	background: white;
+	padding: 40rpx;
+	height: 100vh;
+	.fee {
+		font-size: 26rpx;
+		font-weight: bold;
+		.fee-item {
+			display: flex;
+			padding-bottom: 12rpx;
+			.name {
+				flex: 1;
+			}
+			.value {
+				padding: 0 4rpx 0 14rpx;
+				color: $priceText;
+			}
+		}
+	}
+	.rules {
+		margin-top: 12rpx;
+		text-align: justify;
+		font-size: 28rpx;
+		color: #707070;
+	}
+}

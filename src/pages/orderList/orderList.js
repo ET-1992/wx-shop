@@ -11,7 +11,7 @@ const o = {
 const D_ORDER_STATUS_TEXT = o[app.globalData.defineTypeGlobal] || ORDER_STATUS_TEXT;
 
 const dataStatus = D_ORDER_STATUS_TEXT.filter((item) => {
-    const o = [1, 10, 2, 3, 5, 4];
+    const o = [1, 10, 2, 3, 5, 4, 1010, 1011];
     return o.indexOf(item.value) > -1;
 });
 
@@ -54,6 +54,7 @@ Page({
             orders: newOrders,
             isRefresh: false,
             next_cursor: data.next_cursor,
+            config: data.config
         });
 
         wx.hideLoading();

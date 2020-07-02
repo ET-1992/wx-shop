@@ -1,0 +1,61 @@
+<!-- 黄金首页-我的黄金 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}"></loading>
+	<view class="wrap" wx:if="{{ !isLoading }}">
+		<view class="head">
+			<text class="view-records" bind:tap="go" data-url="/pages-cuilv/recycleList/recycleList?id=2">查看寄存记录 ></text>
+			<!-- <text class="view-records">查看寄存记录 ></text> -->
+			<view class="gold-show">
+				<view class="gold-show-item show-price">
+					<view bind:tap="showRule">
+						<text>回收金价(元/克)</text>
+						<image src="/icons/fastDeposit/questionMark.svg" />
+					</view>
+					<text class="price-num">{{ goldPrice || '0' }}</text>
+				</view>
+				<view class="gold-show-vertical-line"></view>
+				<view class="gold-show-item">
+					<view>
+						<text>黄金克重(克)</text>
+					</view>
+					<text class="price-num">{{ goldWeight || '0' }}</text>
+				</view>
+			</view>
+		</view>
+
+		<view class="body">
+			<view class="amount">
+				<text>预计到账金额 ￥</text>
+				<text class="amount-num"
+				  >{{ gold_price.getIncomeAmount( goldPrice, weight, loss) || '0' }}</text>
+			</view>
+			<view class="pick-form">
+				<view class="form-item">
+					<text>请输入提取重量</text>
+					<view class="pick-weight">
+						<input type="digit" placeholder="0.00" 
+						  value="{{ weight }}" data-name="weight" 
+						  maxlength="8"  bind:input="onInput" />
+						<text class="pick-weight-unit">克</text>
+					</view>
+				</view>
+			</view>
+			<view class="pick-form-btn">
+				<button class="normalizeBt" bind:tap="onPickUp">立即提取到余额账户</button>
+			</view>
+		</view>
+	</view>
+</view>
+
+<wxs module="gold_price">
+// 计算到账金额
+var getIncomeAmount = function (price, weight, loss){
+    var res = price * weight * (100-loss) * 0.001 || 0;
+    res = res.toFixed(2);
+    return res;
+};
+
+module.exports = {
+    getIncomeAmount: getIncomeAmount,
+}
+</wxs>
