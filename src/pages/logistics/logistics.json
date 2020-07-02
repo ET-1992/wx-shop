@@ -1,6 +1,6 @@
 {
 	"navigationBarTitleText": "物流跟踪",
 	"usingComponents": {
-    	"loading": "../../components/loading/index"
-  	}
+      "van-button": "@vant/weapp/dist/button/index"
+  }
 }
