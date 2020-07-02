@@ -742,7 +742,9 @@ video {
 	}
 
 }
-
+.productParamList{
+	margin-bottom: 10rpx;
+}
 swiper-item {
 	position: relative;
 }
@@ -1468,4 +1470,47 @@ img,
 .van-picker__cancel,
 .van-picker__confirm {
 	color: $weixinColor !important;
+}
+
+.ProductParamList{
+	padding: 0 15rpx 80rpx 15rpx;
+	font-size: 28rpx;
+	.title{
+		position: fixed;
+		left: 0;
+		right: 0;
+		text-align: center;
+		color: #000000;
+		background-color: #ffffff;
+		padding:20rpx 0;
+	}
+	.itemList{
+		padding-top: 65rpx;
+		.item{
+			display: flex;
+			padding: 25rpx 0;
+			border-bottom: 1rpx solid #DCDCDC;
+			align-items: center;
+			.name{
+				width: 130rpx;
+				font-size: 26rpx;
+				font-weight: 500;
+			}
+			.param{
+				width: 500rpx;
+				font-size: 22rpx;
+				color: #808080;
+				margin-left: 30rpx;
+			}
+		}
+	}
+}
+.product-param-bottom{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 90rpx;
+	padding: 0 15rpx;
+	background-color: #ffffff;
 }

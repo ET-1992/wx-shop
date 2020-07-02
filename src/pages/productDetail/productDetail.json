@@ -8,6 +8,7 @@
     "loading": "components/loading/index",
     "countDown": "components/countDown/countDown",
     "productComments": "./productComments/index",
+    "productParams": "./productParam/productParam",
     "magicImg": "components/magicImg/magicImg",
     "skuModal": "components/skuModal/skuModal",
     "van-popup": "@vant/weapp/dist/popup/index",
@@ -15,6 +16,7 @@
     "skeleton": "./skeleton/skeleton",
     "poster": "components/poster/index",
     "van-icon": "@vant/weapp/dist/icon/index",
-    "myModal": "components/myModal/myModal"
+    "myModal": "components/myModal/myModal",
+    "van-button": "@vant/weapp/dist/button/index"
   }
 }

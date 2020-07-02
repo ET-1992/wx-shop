@@ -1,0 +1,29 @@
+<view class="wrapper">
+    <view class="list" bindtap="popupShow">
+        <view class="content">
+            <view class="title">{{title}}</view>
+            <view class="value">{{paramKeys}}</view>
+        </view>
+        <view class="link">
+            <text>详情</text>
+            <image class="arrow" src="/icons/productDetail/arrow.svg"/>
+        </view>
+    </view>
+</view>
+
+
+ <!-- 产品参数弹窗 -->
+    <cover-view class="aaa">
+        <cover-view class="ProductParamList">
+            <cover-view class="title">产品参数</cover-view>
+            <cover-view class="itemList">
+                <cover-view class="item" wx:for="{{product.attributes}}" wx:key="item">
+                    <cover-view class="name">{{item.key}}</cover-view>
+                    <cover-view class="param">{{item.value}}</cover-view>
+                </cover-view>
+            </cover-view>
+        </cover-view>
+        <cover-view class="product-param-bottom" bindtap="onHideProductParam">
+            <!-- <van-button type="primary" block round :style="{'background-color': global_Data.themeColor.primaryColor }">完成</van-button> -->
+        </cover-view>
+    </cover-view>
