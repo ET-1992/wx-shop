@@ -82,7 +82,7 @@ export default class Poster {
                 views = [
                     ...this.initHeader(),
                     ...this.initQrcode(),
-                    ...this.shareShopFooter()
+                    ...this.inviteFriendFooter()
                 ];
                 break;
             case '2':
@@ -659,7 +659,7 @@ export default class Poster {
         ];
     }
     // 邀请好友
-    shareShopFooter() {
+    inviteFriendFooter() {
         const { mainColor, user } = this.data;
         const viewsTop = 620;
         const userName = (user && user.nickname) || '好友';
@@ -709,7 +709,7 @@ export default class Poster {
         ];
     }
 
-    // 分享店铺
+    // 分享店铺   ----分享店铺和邀请好友代码相同 可抽离公用代码 通过传类型判断。 可以尝试和initFooter、shareShopFooter、shareShop合并
     shareShop() {
         const { mainColor, user } = this.data;
         const viewsTop = 620;
