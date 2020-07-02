@@ -21,6 +21,8 @@ Page({
         activeNames: [0, 1],
         lastClick: 'location',  // 最后操作 定位/收货地址
         locationObj: {},  // 定位地址对象
+        recommendStores: {},  // 推荐门店列表
+        limitStores: {},  // 超出配送范围门店列表
     },
 
     onLoad() {
@@ -150,8 +152,23 @@ Page({
     // 获取排序后的门店列表
     getSortList() {
         let list = this.computeDistance();
+        let { recommendStores, limitStores } = list && list.reduce(
+            (acc, cur) => {
+                const { recommendStores, limitStores } = acc;
+                if (!cur.isoutofrange) {
+                    recommendStores.push(cur);
+                }
+                else {
+                    limitStores.push(cur);
+                }
+                return acc;
+            },
+            { recommendStores: [], limitStores: [] },
+        );
         this.setData({
             storeList: list,
+            recommendStores,
+            limitStores,
         });
     },
 
