@@ -18,7 +18,7 @@ Page({
         addressObj: {},  // 收货地址对象
         originStoreList: [],  // 原始门店列表
         storeList: [],  // 门店列表
-        activeNames: ['1', '2'],
+        activeNames: [0, 1],
         lastClick: 'location',  // 最后操作 定位/收货地址
         locationObj: {},  // 定位地址对象
     },

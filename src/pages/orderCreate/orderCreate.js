@@ -51,6 +51,7 @@ Page({
         PAY_STYLES,
         selectedPayValue: 'WEIXIN',
         storeUpdateEnable: true,  // 门店可修改
+        orderMultiStore: {},  // 多门店情况下单门店
     },
 
     async onShow() {
@@ -305,23 +306,17 @@ Page({
                 product_type,
                 payment_tips,
                 store_card,
-                store,
+                store = {},
             } = orderPrepareData;
 
-            // 多门店模式下的下单门店
+            // 多门店模式下-默认下单门店
             if (store && store.id) {
                 let { longtitude, latitude } = store;
-                let distance = '';
-                try {
-                    const data = await proxy.getLocation();
-                    distance = getDistance(latitude, longtitude, data.latitude, data.longitude);
-                } catch (e) {
-                    console.log('获取不到定位信息');
-                    distance = '-';
-                }
+                let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
+                distance = Number(distance) || '-';
                 Object.assign(store, { distance });
                 if (shipping_type === 2) {
-                    // 自提
+                    // 自提注入多门店
                     let currentStore = {
                         receiver_address_phone: store.phone,
                         receiver_state: store.state,
@@ -335,7 +330,7 @@ Page({
                     };
                     Object.assign(liftInfo, currentStore);
                 } else if (shipping_type === 4) {
-                    // 送货上门
+                    // 送货上门诸如多门店
                     this.setData({
                         storeListAddress: store,
                         homeDeliveryTimes: store.times || [],
@@ -377,6 +372,7 @@ Page({
                 payment_tips,
                 store_card,
                 liftInfo,
+                orderMultiStore: store,
             }, () => {
                 this.computedFinalPay();
             });
@@ -442,7 +438,9 @@ Page({
             store_card,
             storeListAddress,
             shipping_type,
-            bargain_mission_code
+            bargain_mission_code,
+            config,
+            orderMultiStore,
         } = this.data;
         const {
             userName,
@@ -482,6 +480,21 @@ Page({
                 showCancel: false,
             });
             return;
+        }
+
+        // 多门店信息校验
+        if (config.offline_store_enable) {
+            let content = '';
+            let { distance, distance_limit, id } = orderMultiStore;
+            if (!id || distance !== '-' || !distance_limit) {
+                content = '门店信息获取失败';
+            } else if (distance > distance_limit) {
+                content = '地址超出门店配送范围';
+            }
+            if (content) {
+                wx.showModal({ title: '温馨提示', content, showCancel: false, });
+                return;
+            }
         }
 
         wx.setStorageSync(ADDRESS_KEY, address);

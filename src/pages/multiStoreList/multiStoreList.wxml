@@ -39,37 +39,25 @@
 				<text>查询不到门店列表</text>
 			</view>
 			<block wx:else>
+				<!-- 门店 -->
 				<van-collapse value="{{ activeNames }}" bind:change="onChange">
-					<!-- 配送范围内门店 -->
-					<van-collapse-item title="推荐门店" name="1">
-						<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
-							wx:key="index" data-index="{{ index }}" wx:if="{{ !item.isoutofrange }}">
-							<view class="store-title">
-								<text>{{ item.name || '-' }}</text>
-								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+					<block wx:for="{{ ['推荐门店', '不在配送范围内门店'] }}" wx:for-item="storeTitle" wx:for-index="storeName">
+						<van-collapse-item title="{{ storeTitle }}" name="{{ storeName }}">
+							<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
+								wx:key="index" data-index="{{ index }}" 
+								wx:if="{{ storeName === 0 ? !item.isoutofrange : item.isoutofrange }}">
+								<view class="store-title">
+									<text>{{ item.name || '-' }}</text>
+									<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
+								</view>
+								<view class="store-address">{{ address.store(item) }}</view>
+								<view class="store-bottom">
+									<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
+									<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
+								</view>
 							</view>
-							<view class="store-address">{{ address.store(item) }}</view>
-							<view class="store-bottom">
-								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
-								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
-							</view>
-						</view>
-					</van-collapse-item>
-					<van-collapse-item title="不可选门店" name="2" custom-class="store-disable">
-						<!-- 配送范围外门店 -->
-						<view class="store-wrap disabled-store" wx:for="{{ storeList }}"
-							wx:key="index" data-index="{{ index }}" wx:if="{{ item.isoutofrange }}">
-							<view class="store-title">
-								<text>{{ item.name || '-' }}</text>
-								<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
-							</view>
-							<view class="store-address">{{ address.store(item) }}</view>
-							<view class="store-bottom">
-								<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
-								<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>
-							</view>
-						</view>
-					</van-collapse-item>
+						</van-collapse-item>
+					</block>
 				</van-collapse>
 			</block>
 		</view>
