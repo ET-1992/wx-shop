@@ -10,7 +10,6 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/multiStoreList/multiStoreList",
 		"pages/featured/featured",
 		"pages/onlineStore/onlineStore"
 	],
@@ -346,6 +345,13 @@
 				"webPages"
 			],
 			"name": "webPage页"
+		},
+		{
+			"root": "pages/multiStoreList",
+			"pages": [
+				"multiStoreList"
+			],
+			"name": "地址列表"
 		},
 		{
 			"root": "pages/addressEdit",
