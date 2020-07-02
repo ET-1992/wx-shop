@@ -15,7 +15,7 @@
 			<icon class="box-img" type="warn" size="26"></icon>
 			<view class="box-ctn">
 				<view class="box-title">错误提示</view>
-				<view class="box-desc">获取客服企业微信失败</view>
+				<view class="box-desc">{{ failTip ? failTip : '获取客服企业微信失败' }}</view>
 			</view>
 		</view>
 		<block wx:else>

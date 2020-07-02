@@ -70,6 +70,9 @@
 			font-size: 22rpx;
 			line-height: 30rpx;
 			color: #333;
+			&:last-child {
+				border-bottom: none;
+			}
 			.store-title {
 				font-size: 28rpx;
 				line-height: 40rpx;
