@@ -82,14 +82,16 @@ export default class Poster {
                 views = [
                     ...this.initHeader(),
                     ...this.initQrcode(),
-                    ...this.inviteFriendFooter()
+                    ...this.inviteFriendFooter(),
+                    ...this.initFooter()
                 ];
                 break;
             case '2':
                 views = [
                     ...this.initHeader(),
                     ...this.initQrcode(),
-                    ...this.shareShop()
+                    ...this.shareShop(),
+                    ...this.initFooter()
                 ];
                 break;
         }
@@ -674,42 +676,11 @@ export default class Poster {
                     color: mainColor,
                     fontWeight: 'bold'
                 }
-            },
-            {
-                type: 'text',
-                text: `${userName}`,
-                css: {
-                    top: viewsTop + 100 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor,
-                    fontWeight: 'bold'
-                }
-            },
-            {
-                type: 'text',
-                text: '向你发出邀请',
-                css: {
-                    top: viewsTop + 140 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor
-                }
-            },
-            {
-                type: 'text',
-                text: '长按识别小程序码访问店铺',
-                css: {
-                    top: viewsTop + 180 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor
-                }
             }
         ];
     }
 
-    // 分享店铺   ----分享店铺和邀请好友代码相同 可抽离公用代码 通过传类型判断。 可以尝试和initFooter、shareShopFooter、shareShop合并
+    // 分享店铺   ----分享店铺和邀请好友代码相同 可抽离公用代码 通过传类型判断。 可以尝试和initFooter、inviteFriendFooter、shareShop合并
     shareShop() {
         const { mainColor, user } = this.data;
         const viewsTop = 620;
@@ -724,37 +695,6 @@ export default class Poster {
                     fontSize: '32rpx',
                     color: mainColor,
                     fontWeight: 'bold'
-                }
-            },
-            {
-                type: 'text',
-                text: `${userName}`,
-                css: {
-                    top: viewsTop + 100 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor,
-                    fontWeight: 'bold'
-                }
-            },
-            {
-                type: 'text',
-                text: '向你推荐这个店铺',
-                css: {
-                    top: viewsTop + 140 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor
-                }
-            },
-            {
-                type: 'text',
-                text: '长按识别小程序码访问店铺',
-                css: {
-                    top: viewsTop + 180 + 'rpx',
-                    left: ['80rpx', 'qr_code'],
-                    fontSize: '24rpx',
-                    color: mainColor
                 }
             }
         ];
@@ -781,7 +721,20 @@ export default class Poster {
                     '邀请你给TA赞助'
                 ];
                 break;
-
+            case '1':
+                viewsText = [
+                    ...viewsText,
+                    '向你发出邀请',
+                    '长按识别小程序码访问店铺'
+                ];
+                break;
+            case '2':
+                viewsText = [
+                    ...viewsText,
+                    '向你推荐这个店铺',
+                    '长按识别小程序码访问店铺'
+                ];
+                break;
             default:
                 viewsText = [
                     ...viewsText,
