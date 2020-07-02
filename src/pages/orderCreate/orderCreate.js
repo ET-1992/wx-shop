@@ -483,13 +483,14 @@ Page({
         if (config.offline_store_enable) {
             let content = '';
             let { distance, distance_limit, id } = orderMultiStore;
-            if (!id || distance !== '-' || !distance_limit) {
+            if (!id || distance === '-' || !distance_limit) {
                 content = '门店信息获取失败';
             } else if (distance > distance_limit) {
                 content = '地址超出门店配送范围';
             }
             if (content) {
                 wx.showModal({ title: '温馨提示', content, showCancel: false, });
+                console.log('orderMultiStore', orderMultiStore);
                 return;
             }
         }
