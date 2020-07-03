@@ -213,8 +213,8 @@ Page({
     // 选择门店
     onSeleteStore(e) {
         let { storeList, lastClick, addressObj } = this.data;
-        let { index } = e.currentTarget.dataset;
-        let store = storeList[index];
+        let { id } = e.currentTarget.dataset;
+        let store = storeList.find((item) => item.id === id);
         app.globalData.currentStore = store;
         if (lastClick === 'address') {
             // 更新缓存地址

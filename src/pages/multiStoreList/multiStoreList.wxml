@@ -48,7 +48,7 @@
 							</block>
 							<!-- 遍历可选/不可选门店内容 -->
 							<view class="store-wrap" wx:for="{{ storeName === 0 ? recommendStores : limitStores }}" bind:tap="onSeleteStore" 
-								wx:key="index" data-index="{{ index }}">
+								wx:key="index" data-id="{{ item.id }}">
 								<view class="store-title">
 									<text>{{ item.name || '-' }}</text>
 									<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
