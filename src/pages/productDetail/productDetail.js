@@ -62,7 +62,8 @@ Page({
         areaObj: {},
         isShowAreaModal: false,
         PLATFFORM_ENV,
-        bargain_mission: {}
+        bargain_mission: {},
+        multiStoreEnable: false,
     },
 
     go, // 跳转到规则详情页面
@@ -314,6 +315,7 @@ Page({
     onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
+        let multiStoreEnable = Boolean(config.offline_store_enable);
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -333,7 +335,8 @@ Page({
             cartNumber: Number(CART_NUM),
             globalData: app.globalData,
             config,
-            tplStyle
+            tplStyle,
+            multiStoreEnable,
         });
         this.initPage();
         // 绑定运费地区监听
