@@ -50,7 +50,7 @@ Page({
         PAY_STYLES,
         selectedPayValue: 'WEIXIN',
         storeUpdateEnable: true,  // 门店可修改
-        orderMultiStore: {},  // 多门店情况下单门店
+        storeListAddress: {},  // 送货上门的门店
     },
 
     async onShow() {
@@ -157,13 +157,13 @@ Page({
 
     // 收货地址修改
     async onAddress() {
-        const { self_address, offline_store_enable } = this.data.config;
+        let { shipping_type, config: { self_address, offline_store_enable }} = this.data;
         let url = '';
         if (self_address) {
             // 自填地址
             url = `/pages/selfAddress/selfAddress`;
-        } else if (offline_store_enable) {
-            // 多门店地址
+        } else if (offline_store_enable && shipping_type === 4) {
+            // 多门店送货上门
             let type = 'orderEdit';
             url = `../addressEdit/addressEdit?type=${type}`;
         }
@@ -371,7 +371,6 @@ Page({
                 payment_tips,
                 store_card,
                 liftInfo,
-                orderMultiStore: store,
                 config,
             }, () => {
                 this.computedFinalPay();
@@ -437,7 +436,6 @@ Page({
             bargain_mission_code,
             config,
             finalPay,
-            orderMultiStore,
         } = this.data;
         const {
             userName,
@@ -477,22 +475,6 @@ Page({
                 showCancel: false,
             });
             return;
-        }
-
-        // 多门店信息校验
-        if (config.offline_store_enable) {
-            let content = '';
-            let { distance, distance_limit, id } = orderMultiStore;
-            if (!id || distance === '-' || !distance_limit) {
-                content = '门店信息获取失败';
-            } else if (distance > distance_limit) {
-                content = '地址超出门店配送范围';
-            }
-            if (content) {
-                wx.showModal({ title: '温馨提示', content, showCancel: false, });
-                console.log('orderMultiStore', orderMultiStore);
-                return;
-            }
         }
 
         wx.setStorageSync(ADDRESS_KEY, address);
@@ -571,19 +553,28 @@ Page({
             subKeys.push({ key: 'order_stock_up' });
         }
 
-        // 送货上门需传数据
+        // 送货上门校验和添加请求信息
         if (shipping_type === 4) {
-            // 获取门店列表的门店名称
-            if (!(storeListAddress && storeListAddress.name)) {
-                wx.showModal({
-                    title: '提示',
-                    content: '请选择门店',
-                    showCancel: false,
-                });
+            let { name, id, distance, distance_limit } = storeListAddress,
+                content = '';
+            if (!name) {
+                // 店不存在
+                content = '请选择合适的门店';
+            } else if (config.offline_store_enable) {
+                // 店距离校验
+                if (distance === '-' || !distance_limit) {
+                    content = '门店信息获取失败';
+                } else if (distance > distance_limit) {
+                    content = '地址超出门店配送范围';
+                }
+            }
+            // 通过弹窗提醒
+            if (content) {
+                wx.showModal({ title: '温馨提示', content, showCancel: false, });
                 return;
             } else {
-                requestData.receiver_address_name = storeListAddress.name;
-                requestData.delivery_store_id = storeListAddress.id;
+                requestData.receiver_address_name = name;
+                requestData.delivery_store_id = id;
             }
             // 直接获取送货上门子组件的任意数据和方法
             const delivery = this.selectComponent('#storeList');
