@@ -310,31 +310,49 @@ Page({
 
             // 多门店模式下-默认下单门店
             if (store && store.id) {
-                let { longtitude, latitude } = store;
-                let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
-                distance = Number(distance) || '-';
-                Object.assign(store, { distance });
+                let {
+                    id,
+                    longtitude, latitude,
+                    phone: receiver_address_phone,
+                    state: receiver_state,
+                    city: receiver_city,
+                    district: receiver_district,
+                    address: receiver_address,
+                    name: receiver_address_name,
+                    time, remark,
+                    times = [],
+                    free_amount
+                } = store;
                 if (shipping_type === 2) {
+                    let distance = '-';
+                    try {
+                        const data = await proxy.getLocation();
+                        distance = getDistance(latitude, longtitude, data.latitude, data.longitude);
+                    } catch (error) {
+                        console.log('error', error);
+                    }
                     // 自提注入多门店
-                    let currentStore = {
-                        receiver_address_phone: store.phone,
-                        receiver_state: store.state,
-                        receiver_city: store.city,
-                        receiver_district: store.district,
-                        receiver_address: store.address,
-                        receiver_address_name: store.name,
-                        distance: store.distance, // 距离
-                        time: store.time, // 营业时间
-                        remark: store.remark // 商家备注
-                    };
-                    Object.assign(liftInfo, currentStore);
+                    Object.assign(liftInfo, {
+                        receiver_address_phone,
+                        receiver_state,
+                        receiver_city,
+                        receiver_district,
+                        receiver_address,
+                        receiver_address_name,
+                        distance: distance,
+                        time,
+                        remark,
+                    });
                 } else if (shipping_type === 4) {
+                    let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
+                    distance = Number(distance) || '-';
                     // 送货上门诸如多门店
+                    Object.assign(store, { distance });
                     this.setData({
                         storeListAddress: store,
-                        homeDeliveryTimes: store.times || [],
-                        chooseAreaId: store.id,
-                        free_shipping_amount: store && store.free_amount,
+                        homeDeliveryTimes: times,
+                        chooseAreaId: id,
+                        free_shipping_amount: free_amount,
                     });
                 }
             }
