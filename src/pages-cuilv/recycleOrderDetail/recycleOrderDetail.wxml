@@ -27,7 +27,7 @@
 			<view class="buy-step">
 				<block wx:for="{{ [1, 2, 3, 4] }}" wx:key="index">
 					<image wx:if="{{ order_status.getStep( orderData.status ) == item }}" 
-					  src="/icons/fastDeposit/{{ orderData.repo_type == 2 ? 'orderStepDeposit' : 'orderStepPayment' }}{{item}}.svg" />
+					  src="/icons-cuilv/fastDeposit/{{ orderData.repo_type == 2 ? 'orderStepDeposit' : 'orderStepPayment' }}{{item}}.svg" />
 				</block>
 			</view>
 			<!-- 检测结果 -->

@@ -138,11 +138,11 @@
 					<view class="action-left-item" 
 					  bind:tap="go" 
 					  data-url="/pages-cuilv/participateRecord/participateRecord?post_id={{ post_id }}&activity_id={{ activity_id }}">
-						<image class="action-img" src="/icons/goldCoinMall/participationRecords.svg" />
+						<image class="action-img" src="/icons-cuilv/goldCoinMall/participationRecords.svg" />
 						<text >参与记录</text>
 					</view>
 					<view class="action-left-item" bind:tap="go" data-url="/pages-cuilv/cloudCart/cloudCart">
-						<image class="action-img" src="/icons/goldCoinMall/wishListIcon.svg" />
+						<image class="action-img" src="/icons-cuilv/goldCoinMall/wishListIcon.svg" />
 						<text >心愿单</text>
 					</view>
 				</view>

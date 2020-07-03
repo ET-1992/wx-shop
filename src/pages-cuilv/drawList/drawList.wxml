@@ -40,7 +40,7 @@
 				<view class="handle-add" catch:tap="addCloudCart"
 				  style="background-color: {{ themeColor.primaryColor  }}"
 				  data-post-id="{{ item.id }}" data-blog-id="{{ item.blog_id }}">
-					<image class="add-icon" src="/icons/goldCoinMall/shoppingCart.svg" />
+					<image class="add-icon" src="/icons-cuilv/goldCoinMall/shoppingCart.svg" />
 				</view>
 			</view>
 		</view>
@@ -50,15 +50,15 @@
 <!-- <template name="filter">
 	<view class="filter">
 		<view class="left">
-			<image class="left-icon" src="/icons/goldCoinMall/classifyIcon.svg" />
+			<image class="left-icon" src="/icons-cuilv/goldCoinMall/classifyIcon.svg" />
 			<text>分类</text>
 		</view>
 		<view class="middle">
 			<text>金币排序</text>
-			<image class="middle-icon" src="/icons/goldCoinMall/filter.svg" />
+			<image class="middle-icon" src="/icons-cuilv/goldCoinMall/filter.svg" />
 		</view>
 		<view class="right">
-			<image class="right-icon" src="/icons/goldCoinMall/searchIcon.svg" />
+			<image class="right-icon" src="/icons-cuilv/goldCoinMall/searchIcon.svg" />
 			<text>搜索</text>
 		</view>
 	</view>

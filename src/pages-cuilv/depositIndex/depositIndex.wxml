@@ -65,19 +65,19 @@
     <!-- 其它跳转 -->
     <view class="jump-list">
       <view class="jump-item" bindtap="go" data-url="/pages-cuilv/recycleAccount/recycleAccount">
-        <image mode="aspectFit" class="jump-icon" src="/icons/fastDeposit/myGold.svg"></image>
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/myGold.svg"></image>
         <text>我的黄金(克）</text>
         <text class="jump-num">{{ account.deposit_balance || 0 }}</text>
         <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
       </view>
       <view class="jump-item" bindtap="go" data-url="/pages-cuilv/accountBalance/accountBalance">
-        <image mode="aspectFit" class="jump-icon" src="/icons/fastDeposit/accountBalance.svg"></image>
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/accountBalance.svg"></image>
         <text>账户余额(元）</text>
         <text class="jump-num">{{ account.repo_balance || 0 }}</text>
         <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
       </view>
       <view class="jump-item" bindtap="go" data-url="/pages-cuilv/recycleList/recycleList?id=0">
-        <image mode="aspectFit" class="jump-icon" src="/icons/fastDeposit/orderList.svg"></image>
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/orderList.svg"></image>
         <text>订单列表</text>
         <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
       </view>
@@ -91,7 +91,7 @@
       <view class="jump-articles">
         <view class="article" wx:for="{{ articles }}" wx:key="index"
           bind:tap="go" data-url="/pages-cuilv/informationArticle/informationArticle?id={{ item.ID }}">
-            <image mode="aspectFit" class="jump-icon" src="/icons/fastDeposit/informationArticle.svg"></image>
+            <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/informationArticle.svg"></image>
             <text class="jump-title text-ellipsis-2">{{ item.title }}</text> 
         </view>
       </view>

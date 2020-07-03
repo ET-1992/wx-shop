@@ -104,7 +104,7 @@
 						  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.post_id }}&&round={{ item.round }}">
 							<view class="item-img">
 								<view class="item-mask">
-									<image class="item-mask-img" src="/icons/goldCoinMall/priceTimeMask.svg">
+									<image class="item-mask-img" src="/icons-cuilv/goldCoinMall/priceTimeMask.svg">
 										<text class="item-mask-tip">第{{ item.round || '0' }}期</text>
 									</image>
 								</view>
@@ -144,7 +144,7 @@
 								<view class="handle-add" style="background-color: {{ themeColor.primaryColor }}"
 								  catch:tap="addCloudCart"
 				  				  data-post-id="{{ item.id }}" data-blog-id="{{ item.blog_id }}">
-									<image class="add-icon" src="/icons/goldCoinMall/shoppingCart.svg" />
+									<image class="add-icon" src="/icons-cuilv/goldCoinMall/shoppingCart.svg" />
 								</view>
 							</view>
 						</view>
@@ -153,7 +153,7 @@
 			</view>
 			<!-- 悬浮球 -->
 			<view class="floating">
-				<image class="floating-cart" src="/icons/goldCoinMall/wishList.svg" bind:tap="go" data-url="/pages-cuilv/cloudCart/cloudCart"/>
+				<image class="floating-cart" src="/icons-cuilv/goldCoinMall/wishList.svg" bind:tap="go" data-url="/pages-cuilv/cloudCart/cloudCart"/>
 			</view>
 		</view>
 	</block>

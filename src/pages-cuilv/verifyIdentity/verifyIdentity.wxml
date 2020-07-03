@@ -18,13 +18,13 @@
 			<view class='form-section'>
 				<view class='form-name'>身份证正面</view>
 				<view class="form-img" bind:tap="onUploadImg" data-key="{{ 0 }}">
-					<image src="{{idCardFront ? idCardFront: '/icons/fastDeposit/camera-add.png'}}" />
+					<image src="{{idCardFront ? idCardFront: '/icons-cuilv/fastDeposit/camera-add.png'}}" />
 				</view>
 			</view>
 			<view class='form-section'>
 				<view class='form-name'>身份证反面</view>
 				<view class="form-img" bind:tap="onUploadImg" data-key="{{ 1 }}">
-					<image src="{{idCardBack ? idCardBack: '/icons/fastDeposit/camera-add.png'}}" />
+					<image src="{{idCardBack ? idCardBack: '/icons-cuilv/fastDeposit/camera-add.png'}}" />
 				</view>
 			</view>
 			<button form-type="submit" class="normalizeBt form-btn" bind:tap="onSubmit">提 交</button>

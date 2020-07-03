@@ -38,7 +38,7 @@
 					<!-- 未填地址 -->
 					<view class="address-no" wx:if="{{ !haveAddress }}">
 						<view class="address-add" bind:tap="onAddress">
-							<image src="/icons/goldCOinMall/addAddress.svg" class="add-icon"></image>
+							<image src="/icons-cuilv/goldCoinMall/addAddress.svg" class="add-icon"></image>
 							<button class="add-btn">点此填写收货地址</button>
 						</view>
 					</view>

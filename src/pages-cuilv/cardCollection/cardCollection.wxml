@@ -64,7 +64,7 @@
 				<view class="card">
 					<view class="card-top">
 						<view class="top-left">
-							<image class="top-icon" src="/icons/goldCoinMall/myCardIcon.svg" />我的卡</view>
+							<image class="top-icon" src="/icons-cuilv/goldCoinMall/myCardIcon.svg" />我的卡</view>
 						<view class="top-right" bind:tap="go" data-url="/pages-cuilv/coinRecord/coinRecord">历史记录</view>
 					</view>
 					<view class="card-body" wx:if="{{ cardList.length > 0 }}">

@@ -2,7 +2,7 @@
     <view class="order-item-wrap" wx:for="{{ listData }}" wx:key="{{ index }}">
         <view class="order-item" bind:tap="go" data-url="/pages-cuilv/recycleOrderDetail/recycleOrderDetail?orderId={{ item.repo_no }}">
             <view class="order-left">
-                <image src="{{ item.repo_type_image || '/icons/fastDeposit/goldTypeBg.png' }}" class="bg">
+                <image src="{{ item.repo_type_image || '/icons-cuilv/fastDeposit/goldTypeBg.png' }}" class="bg">
                     <view class="bg-content bg-opacity"></view>
                     <text class="bg-content bg-text">{{ item.repo_type_str }}</text>
                 </image>

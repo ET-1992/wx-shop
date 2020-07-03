@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="head">
 		<view class="result-img">
-			<image src="/icons/fastDeposit/result-icon.svg" />
+			<image src="/icons-cuilv/fastDeposit/result-icon.svg" />
 		</view>
 		<view class="title">
 			<text>{{ title }}</text>

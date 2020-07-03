@@ -14,14 +14,14 @@
 			<!-- 领取成功 -->
 		   	<block wx:else>
 				<view class="user">
-					<image src="/icons/goldCoinMall/receiveSuccess.svg" mode="aspectFit" class="avatar"></image>
+					<image src="/icons-cuilv/goldCoinMall/receiveSuccess.svg" mode="aspectFit" class="avatar"></image>
 				</view>
 				<view class="userName">领取成功</view>
 				<view class="head-tip">充值卡已放入您的账户</view>
 			</block>
 		</view>
 		<view class="card-wrap">
-			<image class="card-bg" src="/icons/goldCoinMall/coinCardBg.svg">
+			<image class="card-bg" src="/icons-cuilv/goldCoinMall/coinCardBg.svg">
 				<view class="card-top">No.{{ card.card_no || '-' }}</view>
 				<view class="card-body">
 					<text>{{ card.coin_quota || '-' }}</text>
