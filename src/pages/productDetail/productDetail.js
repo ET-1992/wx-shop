@@ -956,14 +956,5 @@ Page({
                 console.log('图片放大失败:', res);
             },
         });
-    },
-    showProductParam(ev) {
-        const { isShowProductParam } = ev.detail;
-        this.setData({ isShowProductParam });
-    },
-    onHideProductParam() {
-        this.setData({
-            isShowProductParam: false
-        });
     }
 });

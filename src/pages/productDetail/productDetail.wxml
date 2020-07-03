@@ -266,7 +266,7 @@
 
 		<!-- 产品参数 -->
 		<view class="productParamList">
-			<productParams product="{{product}}" bind:showProductParam="showProductParam"/>
+			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
 
 		<!-- 运费地区选择 -->

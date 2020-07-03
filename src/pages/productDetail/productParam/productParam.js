@@ -12,6 +12,10 @@ Component({
         type: {
             type: String,
             value: 'default'
+        },
+        isIphoneX: {
+            type: Boolean,
+            value: true
         }
     },
     data: {
@@ -31,7 +35,9 @@ Component({
     },
     methods: {
         popupShow() {
-            this.triggerEvent('showProductParam', { isShowProductParam: true });
+            this.setData({
+                isShowProductParam: true
+            });
         },
         // 获得产品参数的所有标题
         getAllParamKey(params) {
@@ -41,6 +47,11 @@ Component({
             let paramKeys = keys.join(' ');
             this.setData({
                 paramKeys
+            });
+        },
+        onHideProductParam() {
+            this.setData({
+                isShowProductParam: false
             });
         }
     }
