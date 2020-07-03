@@ -23,5 +23,5 @@
     "multiStore": "components/multiStore/multiStore",
     "gold-price": "./components/goldPrice/goldPrice"
   },
-  "warning": "改完这里记得同步到 modulePage discovery featured页面"
+  "warning": "改完这里记得同步到 modulePage discovery featured onlineStore 页面"
 }
