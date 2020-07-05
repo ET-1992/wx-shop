@@ -9,7 +9,6 @@
     "countDown": "components/countDown/countDown",
     "productComments": "./productComments/index",
     "productParams": "./productParam/productParam",
-    "footer": "./footer/footer",
     "magicImg": "components/magicImg/magicImg",
     "skuModal": "components/skuModal/skuModal",
     "van-popup": "@vant/weapp/dist/popup/index",

@@ -13,18 +13,18 @@
 
 <!-- show="{{isShowProductParam}}" bind:close="onHideProductParam" position="bottom" custom-style="height: 70%;" -->
  <!-- 产品参数弹窗 -->
- <view class="overlay" wx:if="{{isShowProductParam}}" catchtap="onHideProductParam"></view>
+ <view class="overlay" wx:if="{{isShowProductParam}}" catchtap="onHideProductParam" catchtouchmove="preventTouchMove"></view>
  <view class="param-popup" wx:if="{{isShowProductParam}}">
     <view class="title">产品参数</view>
-    <scroll-view class="ProductParamList" scroll-y="{{true}}">
-        <view class="itemList  {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <scroll-view class="ProductParamList {{ isIphoneX ? 'iphoneXTrick' : '' }}" scroll-y="{{true}}">
+        <view class="itemList">
             <view class="item" wx:for="{{product.attributes}}" wx:key="item">
                 <view class="name">{{item.key}}</view>
                 <view class="param">{{item.value}}</view>
             </view>
         </view>
+        <cover-view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onHideProductParam" catchtouchmove="preventTouchMove">
+            <cover-view class="closeBtn">完成</cover-view>
+        </cover-view>
     </scroll-view>
-    <cover-view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onHideProductParam">
-        <cover-view class="closeBtn">完成</cover-view>
-    </cover-view>
 </view> 
