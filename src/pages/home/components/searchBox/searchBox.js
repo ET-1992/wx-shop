@@ -14,6 +14,11 @@ Component({
             type: Object,
             value: {}
         },
+        // 是否只显示搜索框
+        onlySearchBox: {
+            type: Boolean,
+            value: true,
+        }
     },
     data: {
         config: {},

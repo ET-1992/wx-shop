@@ -5,7 +5,7 @@
         <text>搜索商品<text wx:if="{{ total }}">，共有{{ total }}款好物</text></text>
       </view>
   </navigator>
-  <navigator class="box-right" wx:if="{{ config. offline_store_enable }}" url="/pages/multiStoreList/multiStoreList">
+  <navigator class="box-right" wx:if="{{ !onlySearchBox && config.offline_store_enable }}" url="/pages/multiStoreList/multiStoreList">
     <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>
     <text> ></text>
   </navigator>
