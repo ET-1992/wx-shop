@@ -18,7 +18,7 @@
 						{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
 					</view>
 					<!-- 原价 普通商品显示 -->
-					<view class="originPrice" wx:if="{{!product.membership_dedicated_enable && !product.membership_price_enable}}">
+					<view class="originPrice" wx:if="{{!product.membership_dedicated_enable && !product.membership_price_enable && product.price !== product.original_price}}">
 						{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
 					</view>
 				</view>
