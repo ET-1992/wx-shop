@@ -204,9 +204,17 @@ Page({
 
     // 设置地址列表返回的数据
     setAddressListEvent(address) {
+        let { storeListAddress = {}} = this.data;
         console.log('从地址列表返回的地址', address);
         wx.setStorageSync(ADDRESS_KEY, address);
-        this.setData({ address: address }, () => { this.onLoadData() });
+        if (storeListAddress.name) {
+            let distance = getDistance(address.latitude, address.longitude, storeListAddress.latitude, storeListAddress.longtitude);
+            storeListAddress.distance = Number(distance) || '-';
+        }
+        this.setData({
+            address: address,
+            storeListAddress,
+        }, () => { this.onLoadData() });
     },
 
     // 从 liftList 页面获取门店地址
@@ -577,13 +585,11 @@ Page({
             if (!name) {
                 // 店不存在
                 content = '请选择合适的门店';
-            } else if (config.offline_store_enable) {
+            } else if (distance === '-' || !distance_limit) {
                 // 店距离校验
-                if (distance === '-' || !distance_limit) {
-                    content = '门店信息获取失败';
-                } else if (distance > distance_limit) {
-                    content = '地址超出门店配送范围';
-                }
+                content = '门店地址信息获取失败';
+            } else if (distance > distance_limit) {
+                content = '地址超出门店配送范围';
             }
             // 通过弹窗提醒
             if (content) {
