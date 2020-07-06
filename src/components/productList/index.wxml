@@ -69,3 +69,16 @@
     <include wx:if="{{ productLayoutStyle === 'topImageButtonBottom' }}" src="/templates/productLayout/topImageButtonBottom.wxml"/>
     <include wx:if="{{ productLayoutStyle === 'bargainProduct' }}" src="/templates/tplStyleSeven/productLayout/bargainProduct.wxml"/>
 </view>
+
+<wxs module="btn">
+var text = function (config) {
+    var name = '立即购买';
+	if(config && config.order_only) {
+		name = '立即下单'
+	};
+    return name
+}
+module.exports = {
+    text: text
+}
+</wxs>

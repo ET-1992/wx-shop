@@ -1,0 +1,109 @@
+<!-- 订单详情 -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}" />
+	<block wx:if="{{ !isLoading }}">
+		<view class="head" style="background-color: {{ themeColor.primaryColor }}">
+			<view class="order-status">
+				<!-- 订单状态 -->
+				<text>{{ order_status.getStatusName(orderData.status) }}</text>
+			</view>
+			<view class="order-follow" wx:if="{{ order_status.whetherShowExpress( orderData.status ) }}">
+				<!-- 已取件的快递的追踪 -->
+				<view class="follow-text" wx:if="{{ orderData.logistic }}">
+					<text>{{ orderData.logistic.logistic_company }}</text>
+					<text>{{ orderData.logistic.logistic_no }}</text>
+				</view>
+				<button class="normalizeBt follow-btn" bind:tap="go" data-url="/pages/logistics/logistics?orderNo={{orderData.repo_no}}">订单追踪</button>
+			</view>
+			<view class="order-status-tip" wx:else>
+				<!-- 非快递的订单状态提示 -->
+				<text>{{ orderData.tip }}</text>
+			</view>
+		</view>
+		<view class="body">
+			<!-- 订单具体信息 -->
+			<infoPanel order="{{ orderData }}" />
+			<!-- 订单流程 -->
+			<view class="buy-step">
+				<block wx:for="{{ [1, 2, 3, 4] }}" wx:key="index">
+					<image wx:if="{{ order_status.getStep( orderData.status ) == item }}" 
+					  src="/icons-cuilv/fastDeposit/{{ orderData.repo_type == 2 ? 'orderStepDeposit' : 'orderStepPayment' }}{{item}}.svg" />
+				</block>
+			</view>
+			<!-- 检测结果 -->
+			<view class="check-result" wx:if="{{ order_status.whetherHasReport( orderData.status ) }}">
+				<view class="result-title">
+					<text>检测结果</text>
+					<button class="normalizeBt" bind:tap="go" 
+					  data-url="/pages-cuilv/picturePage/picturePage?pic={{ reportData.evaluate_report_url}}"
+					  >查看详细报告></button>
+				</view>
+				<view class="result-product">
+					<view class="result-item" wx:for="{{ checkProduct }}" wx:key="index">
+						<text>{{ item.text }}</text>
+						<!-- 来样重量 -->
+						<block wx:if="{{ item.contentKey === 'origin_weight' }}">
+							<text class="result-item-key">{{ reportData[item.contentKey] + 'g' }}</text>
+						</block>
+						<!-- 产品成色 -->
+						<block wx:elif="{{ item.contentKey === 'golden_quality' }}">
+							<text class="result-item-key">{{ reportData[item.contentKey] + '‰' }}</text>
+						</block>
+						<!-- 时间 -->
+						<block wx:elif="{{ item.contentKey === 'evaluate_time' }}">
+							<text class="result-item-key">{{ filter.getDateTime(reportData[item.contentKey]) }}</text>
+						</block>
+						<!-- 类型、编号 -->
+						<text wx:else class="result-item-key">{{ reportData[item.contentKey] }}</text>
+					</view>
+					<view class="result-item result-actual-weight" wx:if="{{ orderData.repo_type == 2 }}">
+						<text>实收重量</text>
+						<text class="result-item-key">{{ reportData.actual_weight + '克' }}</text>
+					</view>
+				</view>
+				<!-- 直接变现 -->
+				<view class="result-price" wx:if="{{ orderData.repo_type == 1 }}">
+					<view class="result-item" wx:for="{{ checkPrice }}" wx:key="index">
+						<text>{{ item.text }}</text>
+						<!-- 金价 -->
+						<block wx:if="{{ item.contentKey === 'actual_gold_price' }}">
+							<text class="result-item-key">{{ reportData[item.contentKey] + '元/克' }}</text>
+						</block>
+						<!-- 来样总额、手续费、物流费、保险费、检测费 -->
+						<text wx:else class="result-item-key">{{ reportData[item.contentKey] + '元' }}</text>
+					</view>
+					<view class="result-total-amount">
+						<text>{{'总计：'+ (reportData.repo_amount || '-') + '元'}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="foot {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<image src="/icons/contact.png" class="contact-icon"/>
+			<button class="normalizeBt navigation-item" data-name="contact" 
+				open-type="contact" 
+				session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
+				<text>联系客服</text>
+			</button>
+			<!-- <text>联系客服</text> -->
+			<view class="foot-btn">
+				<block wx:if="{{ order_status.whetherFinish( orderData.status ) }}">
+					<button class="normalizeBt" 
+					  data-order="{{ orderData.repo_no }}" 
+					  data-handle="{{ 2 }}"
+					  bind:tap="onHandleOrder"
+					  >放弃回购</button>
+					<button class="normalizeBt confirm-btn" 
+					  data-order="{{ orderData.repo_no }}" 
+					  data-handle="{{ 1 }}"
+					  bind:tap="onHandleOrder"
+					  >确认订单</button>
+				</block>
+				<button wx:else class="normalizeBt" 
+				  bind:tap="go" data-url="/pages-cuilv/depositIndex/depositIndex">黄金首页</button>
+			</view>
+		</view>
+	</block>
+</view>
+<wxs src="utils/wxs/orderStatus.wxs" module="order_status" />
+<wxs module="filter" src="utils/wxs/timeTranslate.wxs" />

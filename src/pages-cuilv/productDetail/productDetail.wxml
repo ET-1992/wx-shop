@@ -1,0 +1,253 @@
+<import src="../../utils/wxParse/wxParse.wxml" />
+
+<view class="container">
+	<!-- 期数标签栏 -->
+	<view class="product-before">
+		<van-tabs active="{{ activeTab }}" bind:change="onChangeTabs">
+			<block  wx:for="{{ totalRound }}" wx:key="index">
+				<van-tab title="{{ '第' + (totalRound - item) + '期' }}"></van-tab>
+			</block>
+		</van-tabs>
+	</view>
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<view class="top">
+			<block wx:if="{{ product.activity && product.activity.is_outflow }}">
+				<van-notice-bar color="{{ themeColor.primaryColor || '#ed6a0c' }}" text="很抱歉，该期商品已经被当作流局处理了。" />
+			</block>
+			<!-- 商品图片信息 -->
+			<view class="top-img">
+				<!-- <image src="{{ product.images && product.images[0]}}" class="top-img-inner" /> -->
+				<swiper indicator-dots="{{ true }}" class="swiper">
+					<block wx:for="{{ product.images }}" wx:key="index">
+						<swiper-item>
+							<image class="top-img-inner" src="{{ item }}" />
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+			<!-- 商品标题信息 -->
+			<view class="top-title">
+				<view class="top-title-left">
+					<view class="title">{{ '(第' + (product.activity.round || '-') +  '期) ' + (product.title || '-') }}</view>
+					<text class="subtitle">{{ product.excerpt || '-'}}</text>
+				</view>
+				<!-- 分享按钮 -->
+				<view class="top-title-right">
+					<image class="shareIcon" mode="aspectFit" 
+					src="{{ '/icons/shareGoods.png' }}" bindtap="openShareModal" 
+					></image>
+				</view>
+			</view>
+			<!-- 商品参与信息 -->
+			<view class="top-info">
+				<view class="info-left">价值：￥{{ product.luckydraw.price || '0'}}</view>
+				<view class="info-right">
+					<text>{{ (product.activity.unit_price || '-') + '金币/次' }}</text>
+					<!-- <block wx:if="{{ status == 1 }}">
+						<view class="info-right-item">
+							<text>已参与：</text>
+							<text>{{ product.activity.current_quantity || '0'}}</text>
+						</view>
+						<view class="info-right-item">
+							<text>剩余：</text>
+							<text>{{ (product.activity.quantity - product.activity.current_quantity) || '0'}}</text>
+						</view>
+					</block> -->
+					<!-- <text wx:if="{{ status == 3 }}" class="info-right-item info-right-item-finish">已过期</text>
+					<text wx:elif="{{ status == 4 }}" class="info-right-item info-right-item-finish">本期已揭晓</text> -->
+				</view>
+			</view>
+			<view class="top-progress">
+				<draw-product-progress activity="{{ product.activity }}" />
+			</view>
+		</view>
+		<view class="middle">
+			<!-- 当期获奖信息 -->
+			<view class="middle-current" wx:if="{{ status != 1 && product.current_win_record }}">
+				<view class="current-top">
+					<view class="current-top-item">
+						<text class="item-name">商品获得者</text>
+						<text class="item-value single-row-item-value">{{ product.current_win_record.user.nickname || '-' }}</text>
+					</view>
+					<view class="current-top-item">
+						<text class="item-name">总共购买</text>
+						<text class="item-value single-row-item-value">{{ product.current_win_record.count || '-' }}人次</text>
+					</view>
+					<view class="current-top-item">
+						<text class="item-name">购买时间</text>
+						<text class="item-value">{{ tool.getTime(product.current_win_record.milliseconds) }}</text>
+					</view>
+					<view class="current-top-item">
+						<text class="item-name">获得时间</text>
+						<text class="item-value">{{ tool.getTime(product.current_win_record.milliseconds) }}</text>
+					</view>
+				</view>
+				<vieww class="current-bottom">
+					<view class="lucky-num">
+						<text>幸运购买码</text>
+						<text class="lucky-num-inner">{{ product.current_win_record.code || '-' }}</text>
+					</view>
+					<button class="normalizeBt compute-btn" 
+					  style="background-color: {{ themeColor.primaryColor  }}"
+					  bind:tap="go" data-url="/pages-cuilv/computeResult/computeResult?id={{ activity_id }}"
+					  >查看计算结果</button>
+				</vieww>
+			</view>
+			<!-- 上期获奖信息 -->
+			<view class="middle-last" wx:if="{{ product.last_win_record && product.lastest_activity }}">
+				<view class="middle-winner">
+					<text>上期获得者</text>
+					<text class="middle-winner-inner">{{ product.last_win_record.user.nickname || '-' }}</text>
+				</view>
+				<view class="middle-more">
+					<view class="more-item">
+						<view class="more-left">
+							<text>总共购买：</text>
+							<text>{{ product.last_win_record.count }}人次</text>
+						</view>
+						<view class="more-right">获得时间：{{ tool.getTime(product.lastest_activity.finish_milliseconds) }}</view>
+					</view>
+					<view class="more-item">
+						<view class="more-left">
+							<text>幸运购买码：</text>
+							<text>{{ product.lastest_activity.win_code }}</text>
+						</view>
+						<view class="more-right">购买时间：{{ tool.getTime(product.last_win_record.milliseconds) }}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 商品详情 -->
+		<view class="bottom">
+			<view class="bottom-title">
+				<text class="dot">•</text>
+				商品详情
+				<text class="dot">•</text>
+			</view>
+			<view class="bottom-content">
+				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+			</view>
+		</view>
+		<!-- 商品导航栏 -->
+		<view class="good-action-wrap {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+			<view class="good-action">
+				<view class="action-left">
+					<view class="action-left-item" 
+					  bind:tap="go" 
+					  data-url="/pages-cuilv/participateRecord/participateRecord?post_id={{ post_id }}&activity_id={{ activity_id }}">
+						<image class="action-img" src="/icons-cuilv/goldCoinMall/participationRecords.svg" />
+						<text >参与记录</text>
+					</view>
+					<view class="action-left-item" bind:tap="go" data-url="/pages-cuilv/cloudCart/cloudCart">
+						<image class="action-img" src="/icons-cuilv/goldCoinMall/wishListIcon.svg" />
+						<text >心愿单</text>
+					</view>
+				</view>
+				<view class="action-right">
+					<block wx:if="{{ status == 1 }}">
+						<button class="normalizeBt action-right-btn" style="background-color: {{ themeColor.primaryColor  }}" 
+						  bind:tap="showJoinPopup">立即参与</button>
+						<button class="normalizeBt action-right-btn second" style="background-color: {{ themeColor.secondaryColor  }}"
+						  bind:tap="addCloudCart">加入心愿单</button>
+					</block>
+					<button wx:else class="normalizeBt action-right-btn third" style="background-color: {{ themeColor.primaryColor  }}"
+					  bind:tap="onShiftLatest">查看最新一期</button>
+				</view>
+			</view>
+		</view>
+	</block>
+</view>
+<!-- 立即参与弹窗 -->
+<van-popup
+  show="{{ joinShow }}"
+  closeable
+  position="bottom"
+  custom-class="join-popup-wrap {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+  bind:close="onCloseJoinPopup"
+>
+	<view class="join-pop">
+		<view class="top">
+			<view class="left">
+				<image src="{{ product.thumbnail }}" class="left-img" />
+			</view>
+			<view class="right">
+				<view class="right-worth">价值￥{{ product.luckydraw.price || '0'}}</view>
+				<view class="right-num">已参与：{{ product.activity.current_quantity || '0'}}</view>
+				<view class="right-rest">剩余：{{ product.activity.quantity - product.activity.current_quantity || '0'}}</view>
+			</view>
+		</view>
+		<view class="body">
+			<text >数量</text>
+			<van-stepper value="{{ productNum }}" bind:change="onNumChange" />
+		</view>
+		<view class="bottom">
+			<button class="normalizeBt bottom-btn" 
+			  style="background-color: {{ themeColor.primaryColor  }}"
+			  bind:tap="createOrder">立即参与</button>
+		</view>
+	</view>
+</van-popup>
+
+<!-- 分享弹窗 -->
+<van-popup show="{{ showShareModal }}" position="bottom" bind:close="closeShareModal">
+	<view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+		<view class="shareModalContent">
+			<button class="shareBtn" open-type="share">
+				<image src="/icons/shareFriendIcon.svg" mode="aspectFit" />
+				<view>分享给好友</view>
+			</button>
+			<view class="shareBtn" bindtap="openPosterModal">
+				<image src="/icons/sharePosterIcon.svg" mode="aspectFit" />
+				<view>分享商品海报</view>
+			</view>
+		</view>
+		<image
+		 class="close"
+		 src="/icons/closeModal.png"
+		 mode="aspectFit"
+		 catchtap="closeShareModal"
+		/>
+	</view>
+</van-popup>
+
+<!-- 海报弹窗 -->
+<productDetailShareModal
+	productImage="{{ product.thumbnail }}"
+	productTitle="{{ product.title }}"
+	productPrice="{{ product.luckydraw.price || 0 }}"
+	routePath="{{ routePath }}"
+	routeQuery="{{ routeQuery }}"
+	bindonCloseModal="closePosterModal"
+	wx:if="{{ posterModal && product.thumbnail }}"
+/>
+
+<wxs module="tool">
+	// 格式化毫秒时间戳
+	var getTime = function (value) {
+        var time = getDate(value);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var milliseconds = time.getMilliseconds();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        hour = hour < 10 ? "0" + hour : hour;
+        minute = minute < 10 ? "0" + minute : minute;
+        second = second < 10 ? "0" + second : second;
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second + "." + milliseconds;
+	}
+	var getCurrentTime = function () {
+		var currentTime = getDate();
+		return getTime(currentTime);
+	}
+	module.exports = {
+		getTime: getTime,
+		getCurrentTime: getCurrentTime,
+	}
+</wxs>

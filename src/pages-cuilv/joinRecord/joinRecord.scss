@@ -1,0 +1,123 @@
+
+@import '~styles/color';
+
+// 主体结构
+.container {
+	.tabs-wrap {
+		position: fixed;
+		left: 0;
+		top: 0;
+		right: 0;
+		z-index: 2;
+		--tabs-line-height: 80rpx;
+	}
+	.content-wrap {
+		margin-top: 90rpx;
+		.page-empty {
+			text-align: center;
+		}
+	}
+}
+
+// 列表项模板
+.orderRecord {
+	margin-bottom: 10rpx;
+	padding: 0 20rpx;
+	background-color: #fff;
+	.top {
+		padding: 28rpx 0 30rpx;
+		display: flex;
+		border-bottom: 1rpx solid #E0E0E0;
+		.top-left {
+			background-color: #C9C9C9;
+			width: 140rpx;
+			height: 140rpx;
+			.order-img {
+				width: 140rpx;
+				height: 140rpx;
+			}
+		}
+		.top-right {
+			font-size: 24rpx;
+			margin: 0 15rpx;
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			.order-name {
+				font-size: 28rpx;
+			}
+			.order-others {
+				flex: 1;
+				margin-top: 15rpx;
+				display: flex;
+				position: relative;
+				.top-finish {
+					color: #F52D2D;
+				}
+				.top-unfinish {
+					.unfinish-left {
+						position: absolute;
+						left: 0;
+						bottom: 0;
+						color: #F52D2D;
+					}
+					.unfinish-right {
+						position: absolute;
+						right: 0;
+						bottom: 0;
+						.people-num {
+							color: #F52D2D;
+						}
+					}
+				}
+			}
+		}
+	}
+	.bottom {
+		padding: 10rpx;
+		display: flex;
+		line-height: 40rpx;
+		.finish {
+			display: flex;
+			flex: 1;
+			height: 160rpx;
+			align-items: center;
+			.progress {
+				flex: 1;
+			}
+			.bottom-btn {
+				padding-left: 30rpx;
+				.go-on-btn {
+					color: white;
+					font-size: 24rpx;
+					width: 140rpx;
+					line-height: 60rpx;
+					background-color: $mainColor;
+					border-radius: 6rpx;
+	
+				}
+			}
+		}
+		.bottom-left {
+			font-size: 28rpx;
+			color: #F52D2D;
+		}
+		.bottom-right {
+			flex: 1;
+			font-size: 24rpx;
+			display: flex;
+			.bottom-unfinish {
+				margin-left: auto;
+				font-size: 20rpx;
+			}
+			.bottom-finish {
+				flex: 1;
+				display: flex;
+				.bottom-item {
+					flex: 1;
+					text-align: end;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "填写收件信息",
+	"usingComponents": {
+		"addressTwo": "../../../components/addressTwo/addressTwo",
+		"loading": "../../../components/loading/index"
+	}
+}

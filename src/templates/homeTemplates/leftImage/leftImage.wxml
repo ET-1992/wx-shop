@@ -12,21 +12,28 @@
     			<!-- <view class="desc">{{ product.excerpt }}</view> -->
     			<view class="bottom">
           <view class="left">
-    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}<text wx:if="{{ product.skus && product.skus.length }}">起</text></view>
+    				<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.definePrice }}<text wx:if="{{ product.skus && product.skus.length || (PLATFFORM_ENV === 'CUILV' && product.is_multi_sku) }}">起</text></view>
             <view class="tag" wx:if="{{ product.groupon_enable }}">{{ product.groupon_enable ? product.groupon_member_limit + '人团' : '限时购' }}</view>
             <view class="tag" wx:if="{{ product.miaosha_enable || product.seckill_enable }}">{{ product.miaosha_enable ? '限时购' : '秒杀'}}</view>
           </view>
-					<form catchsubmit="onFormSubmit" report-submit="true">
+				<form catchsubmit="onFormSubmit" report-submit="true">
+					<!-- 非虚拟商品或非单独购买商品 -->
+					<block wx:if="{{ product.product_type !== 1 && !product.individual_buy }}">
 						<!-- 多规格 -->
-    					<button class="pickSku" wx:if="{{ product.skus && product.skus.length && (!(product.product_type === 1 || product.individual_buy)) }}" catch:tap="isShowSkuModal" data-product="{{ product }}">
-    						<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
-    						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
-							</button>
-							<!-- 单规格 -->
-    					<button class="addCart" wx:if="{{ product.skus && !product.skus.length && (!(product.product_type === 1 || product.individual_buy))}}" catch:tap="isShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
-    						<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
-    						<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
-							</button>
+						<!-- SKU存在多个或为翠绿的多规格 -->
+						<button class="pickSku" 
+							wx:if="{{ (product.skus && product.skus.length) || (PLATFFORM_ENV === 'CUILV' && product.is_multi_sku) }}" 
+							catch:tap="onShowSkuModal" 
+							data-product="{{ product }}">
+							<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
+							<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
+						</button>
+						<!-- 单规格 -->
+						<button class="addCart" wx:else catch:tap="onShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
+							<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
+							<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
+						</button>
+					</block>
     			</form>
     			</view>
     		</view>

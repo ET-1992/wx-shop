@@ -1,0 +1,125 @@
+@import '~styles/color';
+
+// 金价文字和按钮
+$priceText: #D0AA59;
+$priceBtn: #D1AB5A;
+
+.container {
+	.wrap {
+		.header {
+			margin: 20rpx;
+			border-radius: 10rpx;
+			background-color: white;
+		
+			.header-top {
+				padding: 30rpx;
+				text-align: center;
+				color: $priceText;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+		
+				.head-button {
+					background-color: white;
+					display: flex;
+					// flex-direction: column;
+					align-items: center;
+			
+					.avatar {
+						$size: 120rpx;
+						width: $size;
+						height: $size;
+						border-radius: 50%;
+						border: 1rpx solid #F1F1F1;
+						overflow: hidden;
+						background-repeat: no-repeat;
+						background-size: cover;
+					}
+				}
+				.balance {
+					.balance-title {
+						margin-bottom: 12rpx;
+					}
+				}
+				.welfare {
+					line-height: 1.7;
+					.title {
+						font-size: 28rpx;
+					}
+				}
+			}
+		}
+
+		.body {
+			background: white;
+			padding: 15rpx 30rpx 65rpx;
+			margin: 20rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.pick-form {
+				font-size: 28rpx;
+				width: 100%;
+				margin: 50rpx 0 42rpx;
+				overflow: hidden;
+				.form-item {
+					margin-bottom: 38rpx;
+					.form-item-text {
+						display: block;
+						margin-bottom: 26rpx;
+					}
+					.pick-input {
+						padding: 20rpx;
+						box-sizing: content-box;
+						border: 1rpx solid #C2C2C2;
+						margin-bottom: 10rpx;
+						border-radius: 5rpx;
+					}
+					.pick-num {
+						display: flex;
+						justify-content: space-between;
+						padding: 20rpx;
+						box-sizing: content-box;
+						border: 1rpx solid #C2C2C2;
+						border-radius: 5rpx;
+						.pick-num-unit {
+							color: black;
+							font-weight: bold;
+						}
+					}
+					.radio-group {
+						display: flex;
+						.redio-label {
+							display: flex;
+							align-items: center;
+							flex: 1;
+						}
+					}
+				}
+			}
+			.pick-form-btn button {
+				color: white;
+				font-size: 32rpx;
+				line-height: 45rpx;
+				width: 600rpx;
+				height: 80rpx;
+				background: $priceBtn;
+				border-radius: 40rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.pick-log {
+				width: 100%;
+				height: 40rpx;
+				color: #032F9A;
+				font-size: 28rpx;
+				text-decoration: underline;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-top: 100rpx;
+			}
+		}
+	}
+}

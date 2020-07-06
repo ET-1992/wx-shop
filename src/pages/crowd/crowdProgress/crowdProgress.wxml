@@ -12,9 +12,7 @@
            <!--  <view wx:if="{{ crowd.status === '3' }}">
                 还剩<countDown time="{{ crowd.surplus_time }}"/>付尾款
             </view> -->
-            <view wx:if="{{ crowd.status === '3' }}">
-                待支付尾款
-            </view>
+            <view wx:if="{{ crowd.status === '3' }}"> 待支付尾款 </view>
             <view wx:if="{{ crowd.status === '2' }}"> 已完成 </view>
             <view wx:if="{{ crowd.status === '4' }}"> 已结束 </view>
         </view>
@@ -31,15 +29,11 @@
             </view>
             <button class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};" bind:tap="showShareModal">请朋友帮忙</button>
             <view class="ownPay" wx:if="{{ crowd.status === '3' }}">
-                <form report-submit bindsubmit="crowdRefund">
-                    <button class="refund" form-type="submit">
-                        <view>放弃代付</view>
-                        <view>原路退回</view>
-                    </button>
-                </form>
-                <form report-submit bindsubmit="payTailMoney">
-                    <button class="payTail" form-type="submit" style="background-color: {{ themeColor.primaryColor }};">付尾款</button>
-                </form>
+                <button class="refund" bindtap="crowdRefund">
+                    <view>放弃代付</view>
+                    <view>原路退回</view>
+                </button>
+                <button class="payTail" style="background-color: {{ themeColor.primaryColor }};" bindtap="payTailMoney">付尾款</button>
             </view>
         </view>
         <view class="crowded" wx:if="{{ crowd.status === '2' }}">助力已完成，请等待商家发货</view>
@@ -64,9 +58,7 @@
             <view class="text" wx:if="{{ crowd.type === '1' && crowd.status !== '2' }}">已助力<text>{{ crowd.pay_amount }}</text>元，还差<text>{{ globalData.CURRENCY[globalData.currency] }}{{ rest_amount_display }}</text>元</view>
             <view class="text" wx:if="{{ crowd.status === '2' }}">已完成助力</view>
             <button class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bind:tap="showPayModal" wx:if="{{crowd.type === '1'}}">我要赞助</button>
-            <form report-submit bindsubmit="onPay" wx:if="{{crowd.type === '2'}}">
-                <button class="btn" form-type="submit" disabled="{{ crowd.status !== '1' ? true : false }}">帮TA付款</button>
-            </form>
+            <button wx:if="{{crowd.type === '2'}}" class="btn" disabled="{{ crowd.status !== '1' ? true : false }}" bindtap="onPay">帮TA付款</button>
             <view class="btn" data-url="/pages/home/home" bind:tap="go">我也要下单</view>
         </view>
     </view>
@@ -86,9 +78,7 @@
             <input class="input" type="digit" bindinput="setMoneyValue" placeholder="{{ support_amount }}" value="{{ support_amount }}"/>
             <view class="yuan">元</view>
         </view>
-        <form report-submit bindsubmit="onPay">
-            <button class="support" form-type="submit" disabled="{{ support_amount <= 0 }}">赞助TA</button>
-        </form>
+        <button class="support" disabled="{{ support_amount <= 0 }}" bindtap="onPay">赞助TA</button>
     </view>
 </van-popup>
 
@@ -107,10 +97,10 @@
 	<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="showShareModal"/>
 </van-popup>
 
-<poster 
-	wx:if="{{ showPosterModal }}" 
-	posterData="{{ posterData }}" 
-	user="{{ userInfo }}" 
+<poster
+	wx:if="{{ showPosterModal }}"
+	posterData="{{ posterData }}"
+	user="{{ userInfo }}"
 	posterType="crowd"
 	bindonClose="onClosePoster"
 />

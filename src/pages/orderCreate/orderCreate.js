@@ -1,11 +1,10 @@
 import api from 'utils/api';
-import { chooseAddress, showModal, getSetting, authorize } from 'utils/wxp';
 import { wxPay } from 'utils/pageShare';
 import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
 import { auth, subscribeMessage, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
 import { Decimal } from 'decimal.js';
-// import { CART_LIST_KEY, phoneStyle } from 'constants/index';
+
 const app = getApp();
 
 Page({
@@ -51,13 +50,13 @@ Page({
         PAY_STYLES,
         selectedPayValue: 'WEIXIN',
         storeUpdateEnable: true,  // 门店可修改
-        orderMultiStore: {},  // 多门店情况下单门店
+        storeListAddress: {},  // 送货上门的门店
     },
 
     async onShow() {
         if (app.globalData.extraData && app.globalData.extraData.isPeanutPayOk && this.data.isShouldRedirect) {
             wx.redirectTo({
-                url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=true`,
+                url: `/pages/orderDetail/orderDetail?id=${app.globalData.extraData.order_no}&isFromCreate=1`,
             });
         }
     },
@@ -158,13 +157,13 @@ Page({
 
     // 收货地址修改
     async onAddress() {
-        const { self_address, offline_store_enable } = this.data.config;
+        let { shipping_type, config: { self_address, offline_store_enable }} = this.data;
         let url = '';
         if (self_address) {
             // 自填地址
             url = `/pages/selfAddress/selfAddress`;
-        } else if (offline_store_enable) {
-            // 多门店地址
+        } else if (offline_store_enable && shipping_type === 4) {
+            // 多门店送货上门
             let type = 'orderEdit';
             url = `../addressEdit/addressEdit?type=${type}`;
         }
@@ -311,31 +310,49 @@ Page({
 
             // 多门店模式下-默认下单门店
             if (store && store.id) {
-                let { longtitude, latitude } = store;
-                let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
-                distance = Number(distance) || '-';
-                Object.assign(store, { distance });
+                let {
+                    id,
+                    longtitude, latitude,
+                    phone: receiver_address_phone,
+                    state: receiver_state,
+                    city: receiver_city,
+                    district: receiver_district,
+                    address: receiver_address,
+                    name: receiver_address_name,
+                    time, remark,
+                    times = [],
+                    free_amount
+                } = store;
                 if (shipping_type === 2) {
+                    let distance = '-';
+                    try {
+                        const data = await proxy.getLocation();
+                        distance = getDistance(latitude, longtitude, data.latitude, data.longitude);
+                    } catch (error) {
+                        console.log('error', error);
+                    }
                     // 自提注入多门店
-                    let currentStore = {
-                        receiver_address_phone: store.phone,
-                        receiver_state: store.state,
-                        receiver_city: store.city,
-                        receiver_district: store.district,
-                        receiver_address: store.address,
-                        receiver_address_name: store.name,
-                        distance: store.distance, // 距离
-                        time: store.time, // 营业时间
-                        remark: store.remark // 商家备注
-                    };
-                    Object.assign(liftInfo, currentStore);
+                    Object.assign(liftInfo, {
+                        receiver_address_phone,
+                        receiver_state,
+                        receiver_city,
+                        receiver_district,
+                        receiver_address,
+                        receiver_address_name,
+                        distance: distance,
+                        time,
+                        remark,
+                    });
                 } else if (shipping_type === 4) {
+                    let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
+                    distance = Number(distance) || '-';
                     // 送货上门诸如多门店
+                    Object.assign(store, { distance });
                     this.setData({
                         storeListAddress: store,
-                        homeDeliveryTimes: store.times || [],
-                        chooseAreaId: store.id,
-                        free_shipping_amount: store && store.free_amount,
+                        homeDeliveryTimes: times,
+                        chooseAreaId: id,
+                        free_shipping_amount: free_amount,
                     });
                 }
             }
@@ -372,13 +389,13 @@ Page({
                 payment_tips,
                 store_card,
                 liftInfo,
-                orderMultiStore: store,
+                config,
             }, () => {
                 this.computedFinalPay();
             });
         } catch (err) {
             console.log(err);
-            showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,
@@ -390,9 +407,7 @@ Page({
     setUseCoin(e) {
         this.setData({
             useCoin: e.detail || 0
-        }, () => {
-            this.computedFinalPay();
-        });
+        }, this.computedFinalPay);
     },
 
     computedFinalPay() {
@@ -416,13 +431,11 @@ Page({
 
     async onPay(ev) {
         console.log(ev);
-
         let subKeys = [{ key: 'order_consigned' }];
-
         const { formId, crowd, crowdtype } = ev.detail;
-        // 秒杀
-        const { seckill, seckill_product_id } = this.data;
         const {
+            seckill,
+            seckill_product_id,
             address,
             items,
             buyerMessage,
@@ -440,7 +453,7 @@ Page({
             shipping_type,
             bargain_mission_code,
             config,
-            orderMultiStore,
+            finalPay,
         } = this.data;
         const {
             userName,
@@ -482,24 +495,9 @@ Page({
             return;
         }
 
-        // 多门店信息校验
-        if (config.offline_store_enable) {
-            let content = '';
-            let { distance, distance_limit, id } = orderMultiStore;
-            if (!id || distance !== '-' || !distance_limit) {
-                content = '门店信息获取失败';
-            } else if (distance > distance_limit) {
-                content = '地址超出门店配送范围';
-            }
-            if (content) {
-                wx.showModal({ title: '温馨提示', content, showCancel: false, });
-                return;
-            }
-        }
-
         wx.setStorageSync(ADDRESS_KEY, address);
 
-        let method = 'createOrderAndPay';
+        let method = 'createOrder';
 
         let requestData = {
             receiver_name: userName || '',
@@ -517,6 +515,8 @@ Page({
             afcode,
             pay_method: selectedPayValue
         };
+
+        let queryData = {}; // 接口url带的get参数
 
         if (order_annotation && order_annotation.length > 0) {
             const orderForm = this.selectComponent('#orderForm');
@@ -545,7 +545,7 @@ Page({
         }
 
         if (store_card && store_card.store_card_enable && selectedPayValue === 'STORE_CARD') {
-            const { confirm } = await showModal({
+            const { confirm } = await proxy.showModal({
                 title: '提示',
                 content: '您确定要用储值卡支付吗？',
                 showCancel: true,
@@ -571,19 +571,28 @@ Page({
             subKeys.push({ key: 'order_stock_up' });
         }
 
-        // 送货上门需传数据
+        // 送货上门校验和添加请求信息
         if (shipping_type === 4) {
-            // 获取门店列表的门店名称
-            if (!(storeListAddress && storeListAddress.name)) {
-                wx.showModal({
-                    title: '提示',
-                    content: '请选择门店',
-                    showCancel: false,
-                });
+            let { name, id, distance, distance_limit } = storeListAddress,
+                content = '';
+            if (!name) {
+                // 店不存在
+                content = '请选择合适的门店';
+            } else if (config.offline_store_enable) {
+                // 店距离校验
+                if (distance === '-' || !distance_limit) {
+                    content = '门店信息获取失败';
+                } else if (distance > distance_limit) {
+                    content = '地址超出门店配送范围';
+                }
+            }
+            // 通过弹窗提醒
+            if (content) {
+                wx.showModal({ title: '温馨提示', content, showCancel: false, });
                 return;
             } else {
-                requestData.receiver_address_name = storeListAddress.name;
-                requestData.delivery_store_id = storeListAddress.id;
+                requestData.receiver_address_name = name;
+                requestData.delivery_store_id = id;
             }
             // 直接获取送货上门子组件的任意数据和方法
             const delivery = this.selectComponent('#storeList');
@@ -639,74 +648,92 @@ Page({
             method = 'bargainOrder';
         }
 
-        wx.showLoading({
-            title: '处理订单中',
-            mask: true,
-        });
+        wx.showLoading({ title: '处理订单中', mask: true, });
+
+        if (finalPay <= 0) {
+            queryData.pay = '';
+        }
+
+        if (!config.cashier_enable) {
+            queryData.pay = '';
+        }
 
         try {
-            const { order_no, status, pay_sign, pay_appid, crowd_pay_no, order = {}, cart } = await api.hei[method](requestData);
+            const {
+                order_no,
+                status,
+                pay_sign,
+                pay_appid,
+                crowd_pay_no,
+                order = {},
+                cart
+            } = await api.hei[method]({
+                ...requestData
+            }, { ...queryData });
+
             wx.hideLoading();
-            console.log('OrderCreatecart507', cart);
 
             if (cart && cart.count) {
                 wx.setStorageSync('CART_NUM', cart.count);
             }
+
             if (crowd && crowd_pay_no) {
                 wx.redirectTo({
                     url: `/pages/crowd/inviteCrowd/inviteCrowd?id=${order_no}&crowd_pay_no=${crowd_pay_no}`,
                 });
-            } else {
-                if (this.data.finalPay <= 0 || order.pay_method === 'STORE_CARD') {
-                    await subscribeMessage(subKeys);
-                    wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                    });
-                }
-
-                if (pay_sign) {
-                    // console.log('自主支付');
-                    const payRes = await wxPay(pay_sign, order_no, subKeys);
-                    console.log(payRes, 'payRes');
-                    wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=true`,
-                    });
-                }
-                else if (pay_appid) {
-                    // console.log('平台支付');
-                    this.setData({
-                        modal: {
-                            isFatherControl: true,
-                            title: '温馨提示',
-                            isShowModal: true,
-                            body: '确定要提交订单吗？',
-                            type: 'navigate',
-                            navigateData: {
-                                url: `/pages/peanutPay/index?order_no=${order_no}`,
-                                appId: pay_appid,
-                                target: 'miniProgram',
-                                version: 'develop',
-                                extraData: {
-                                    order_no: order_no,
-                                    address: this.data.address,
-                                    items: this.data.items,
-                                    totalPrice: this.data.totalPrice,
-                                    totalPostage: this.data.fee.postage,
-                                    orderPrice: this.data.finalPay,
-                                    coupons: this.data.fee.coupon_reduce_fee,
-                                    buyerMessage: this.data.buyerMessage,
-                                    coinPrice: this.data.useCoin,
-                                }
-                            }
-                        },
-                    });
-                }
+                return;
             }
-        }
-        catch (err) {
+
+            if (finalPay <= 0 || order.pay_method === 'STORE_CARD') {
+                await subscribeMessage(subKeys);
+                wx.redirectTo({
+                    url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=1`,
+                });
+                return;
+            }
+
+            if (config.cashier_enable) {
+                wx.redirectTo({ url: `/pages/payCashier/payCashier?order_no=${order_no}&subKeys=${JSON.stringify(subKeys)}&isFromCreate=1` });
+                return;
+            }
+
+            if (pay_sign) {
+                const payRes = await wxPay(pay_sign, order_no, subKeys);
+                console.log(payRes, 'payRes');
+                wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=1` });
+            } else if (pay_appid) {
+                const { address, items, totalPrice, fee, buyerMessage, useCoin } = this.data;
+                this.setData({
+                    modal: {
+                        isFatherControl: true,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: '确定要提交订单吗？',
+                        type: 'navigate',
+                        navigateData: {
+                            url: `/pages/peanutPay/index?order_no=${order_no}`,
+                            appId: pay_appid,
+                            target: 'miniProgram',
+                            version: 'develop',
+                            extraData: {
+                                order_no,
+                                address,
+                                items,
+                                totalPrice,
+                                totalPostage: fee.postage,
+                                orderPrice: finalPay,
+                                coupons: fee.coupon_reduce_fee,
+                                buyerMessage,
+                                coinPrice: useCoin
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (err) {
             console.log(err);
             wx.hideLoading();
-            showModal({
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
                 showCancel: false,

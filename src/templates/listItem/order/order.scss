@@ -1,0 +1,61 @@
+// 订单记录
+.order-item-wrap {
+    margin: 10rpx 0;
+    .order-item {
+        font-size: 24rpx;
+        line-height: 33rpx;
+        padding: 24rpx;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+        .order-left {
+            display: flex;
+            .bg {
+                width: 120rpx;
+                height: 120rpx;
+                position: relative;
+                .bg-content {
+                    position: absolute;
+                }
+                .bg-opacity {
+                    width: 120rpx;
+                    height: 120rpx;
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    background:rgba(0,0,0,0.4);
+                }
+                .bg-text {
+                    color: white;
+                    font-size: 28rpx;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .order-info {
+                color: #707070;
+                line-height: 30rpx;
+                // max-width: 388rpx;
+                margin-left: 26rpx;
+                display: flex;
+                flex-direction: column;
+                .order-info-item {
+                    display: flex;
+                    .order-info-item-content {
+                        flex:1;
+                        overflow:hidden;
+                        word-wrap:break-word;
+                        word-break:break-all;
+                    }
+                }
+            }
+        }
+        .order-right {
+            white-space: nowrap;
+            font-weight: bold;
+            color: $priceText;
+        }
+    }
+}

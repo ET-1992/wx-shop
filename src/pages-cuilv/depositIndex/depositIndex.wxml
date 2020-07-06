@@ -1,0 +1,100 @@
+<!-- 黄金回收-寄存箱新入口 -->
+<view class="container">
+  <!-- 轮播图 -->
+  <view class="swiper">
+    <swiper indicator-dots autoplay circular
+    wx:if="{{ sliders.length }}"
+    class="banner"
+    style="padding-bottom:0;height:400rpx">
+      <swiper-item wx:for="{{ sliders }}" wx:key="id">
+        <navigator
+          app-id="{{item.appid}}"
+          path="{{item.path}}"
+          target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+          url="{{item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+          style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+          hover-class="none"
+          bindfail="miniFail">
+        </navigator>
+        <!-- <view bind:tap="go" data-url="/pages/myCoupons/myCoupons">测试</view> -->
+        <!-- <navigator url="/pages/myCoupon/myCoupon">测试</navigator> -->
+      </swiper-item>
+    </swiper>
+  </view>
+    
+  <view class="page-loading" wx:if="{{ isLoading }}">
+    <van-loading />
+  </view>
+  <block wx:else>
+    <!-- 黄金回收 -->
+    <view class="section gold">
+      <!-- <view class="title">黄金回收</view>
+      <view class="subtitle">权威机构检测 全程监控 高效安全</view> -->
+      <!-- 金价展示数据 -->
+      <view class="data">
+        <view class="data-title">截止到当前时间</view>
+        <view class="data-panel">
+          <view class="data-left">
+            <!-- 实时金价 -->
+            <view class="data-now">{{ goldData.base_price || 0.00 }}</view>
+            <view class="data-now-title">实时金价 (元/克）</view>
+          </view>
+          <view class="data-right">
+            <!-- 最低金价 -->
+            <view class="data-right-price lowest">
+              <view class="price-title">今日最低金价(元/克)</view>
+              <view class="price-num">{{ goldData.min_price || 0.00 }}</view>
+            </view>
+            <!-- 最高金价 -->
+            <view class="data-right-price highest">
+              <view class="price-title">今日最高金价(元/克)</view>
+              <view class="price-num">{{ goldData.max_price || 0.00 }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 导航入口 -->
+      <view class="nav">
+        <!-- 估价 -->
+        <view class="nav-item" bind:tap="go" data-url="/pages-cuilv/recycleEvaluate/recycleEvaluate">
+          <button class="nav-title">在线估价</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 其它跳转 -->
+    <view class="jump-list">
+      <view class="jump-item" bindtap="go" data-url="/pages-cuilv/recycleAccount/recycleAccount">
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/myGold.svg"></image>
+        <text>我的黄金(克）</text>
+        <text class="jump-num">{{ account.deposit_balance || 0 }}</text>
+        <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+      </view>
+      <view class="jump-item" bindtap="go" data-url="/pages-cuilv/accountBalance/accountBalance">
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/accountBalance.svg"></image>
+        <text>账户余额(元）</text>
+        <text class="jump-num">{{ account.repo_balance || 0 }}</text>
+        <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+      </view>
+      <view class="jump-item" bindtap="go" data-url="/pages-cuilv/recycleList/recycleList?id=0">
+        <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/orderList.svg"></image>
+        <text>订单列表</text>
+        <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+      </view>
+      <!-- <view class="jump-item">
+        <button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'>
+          <image class="jump-icon member-itemIcon" mode="aspectFit" src="/icons/member/customerService.svg" />
+          <view class="member-itemTitle">联系客服</view>
+          <image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
+        </button>
+      </view> -->
+      <view class="jump-articles">
+        <view class="article" wx:for="{{ articles }}" wx:key="index"
+          bind:tap="go" data-url="/pages-cuilv/informationArticle/informationArticle?id={{ item.ID }}">
+            <image mode="aspectFit" class="jump-icon" src="/icons-cuilv/fastDeposit/informationArticle.svg"></image>
+            <text class="jump-title text-ellipsis-2">{{ item.title }}</text> 
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,8 @@
+<view class="container">
+    <image class="bg" src="{{ (config && config.receive_packet_bg_img) || '/icons/getCoupon/get-coupon-bg.svg'}}" 
+      mode="aspectFill"></image>
+    <button class="btn" bind:tap="onGetCoupon">
+		<image wx:if="{{ true }}" src="/icons/getCoupon/get-coupon-bt-get.svg"></image>
+		<image wx:else src="/icons/getCoupon/get-coupon-bt-got.svg"></image>
+	</button>
+</view>

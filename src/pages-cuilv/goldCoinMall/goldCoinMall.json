@@ -1,0 +1,7 @@
+{
+	"usingComponents": {
+		"van-icon": "vant-weapp/dist/icon/index",
+		"van-loading": "vant-weapp/dist/loading/index"
+	},
+	"enablePullDownRefresh": true
+}

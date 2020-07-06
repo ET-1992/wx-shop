@@ -35,7 +35,7 @@
                     </view>
                 </view>
             </view>
-            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
+            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">{{ btn.text(config) }}</view>
         </view>
     </view>
 </navigator>

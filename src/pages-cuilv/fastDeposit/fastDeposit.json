@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "寄存订单",
+	"onReachBottomDistance": 100,
+	"usingComponents": {
+		"loading": "../../components/loading/index"
+	}
+}

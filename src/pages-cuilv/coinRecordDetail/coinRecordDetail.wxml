@@ -1,0 +1,156 @@
+<!-- 参与记录-参与详情 -->
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view wx:else>
+		<!-- 商品信息 -->
+		<view class="top">
+			<template is="orderRecord" data="{{ item: activity }}"></template>
+		</view>
+		<!-- 开奖信息 -->
+		<view class="result" wx:if="{{ activity.status > 3 }}">
+			<!-- 查看计算结果 -->
+			<view class="check">
+				<view class="check-left">
+					<view class="check-item">
+						<text>获得者：</text>
+						<text class="check-res">{{ activity.win_record && activity.win_record.user && activity.win_record.user.nickname }}</text>
+					</view>
+					<view class="check-item">
+						<text>幸运购买码：</text>
+						<text class="check-res">{{ activity.win_code }}</text>
+					</view>
+				</view>
+				<view class="check-right">
+					<button class="check-btn" 
+					bind:tap="go" 
+					data-url="/pages-cuilv/computeResult/computeResult?id={{ activity.id }}"
+					>查看计算结果</button>
+				</view>
+			</view>
+			<!-- 发货信息 -->
+			<view class="send" wx:if="{{ isWinner }}">
+				<view class="send-tips">
+					<text>恭喜中奖！\n请填写收货地址，我们将尽快为您发货，请耐心等候。</text>
+				</view>
+				<view class="send-address">
+					<!-- 未填地址 -->
+					<view class="address-no" wx:if="{{ !haveAddress }}">
+						<view class="address-add" bind:tap="onAddress">
+							<image src="/icons-cuilv/goldCoinMall/addAddress.svg" class="add-icon"></image>
+							<button class="add-btn">点此填写收货地址</button>
+						</view>
+					</view>
+					<!-- 已填地址 -->
+					<view class="address-have" wx:else>
+						<view class="address-img">
+							<image src="/icons/address.png" class="address-icon"></image>
+						</view>
+						<view class="address-info">
+							<view class="info-item">
+								<text>收货人：</text>
+								<text>{{ address.userName || '' }}</text>
+							</view>
+							<view class="info-item">
+								<text>电话：</text>
+								<text>{{ address.telNumber || '' }}</text>
+							</view>
+							<view class="info-item">
+								<text>收货地址：</text>
+								<text>{{address.provinceName}}{{address.cityName}}{{address.countyName}}{{address.detailInfo}}</text>
+							</view>
+						</view>
+					</view>
+					<view class="address-btns">
+						<view class="btns-wrap">
+							<button class="address-revise"
+								wx:if="{{ activity.status === 4 && address.userName }}" 
+								bind:tap="onAddress">修改地址</button>
+							<button class="address-commit" 
+								wx:if="{{ activity.status === 4 }}" 
+								bind:tap="commitAddress">确认提交</button>
+							<button class="address-commit" 
+								wx:elif="{{ activity.status === 5 }}"
+								bind:tap="go"
+								data-url="/pages/orderDetail/orderDetail?id={{ activity && activity.win_record && activity.win_record.order_no }}"
+								>查看订单详情</button>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 幸运码 -->
+		<view class="bottom">
+			<view class="tip">您本期的幸运码：</view>
+			<view class="lucky-wrap">
+				<view class="lucky-num" wx:for="{{ codes }}" wx:key="index">
+					<text selectable="{{ true }}" class="{{ activity.win_code == item ? 'win-code' : '' }}">{{ item }}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+
+<!-- 商品信息和获奖信息 -->
+<template name="orderRecord">
+	<view class="orderRecord" bind:tap="go" data-url="/pages-cuilv/productDetail/productDetail?id={{ item.post_id }}">
+		<view class="top">
+			<view class="top-left">
+				<image class="order-img" src="{{ item.post_image_url }}" />
+			</view>
+			<view class="top-right">
+				<view class="order-name text-ellipsis-2">{{ '(第' + (item.round || '-') +  '期) ' + (item.post_title || '-') }}</view>
+				<view class="order-others">
+					<view class="top-unfinish" wx:if="{{ item.status == 1 }}">
+						<text>参与</text>
+						<text class="people-num">{{ item.quantity }}</text>
+						<text>人次</text>
+					</view>
+					<view class="top-finish" wx:elif="{{ item.status > 3 }}">
+						<text>获得者：</text>
+						<text class="winner">{{ item.win_record && item.win_record.user && item.win_record.user.nickname }}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="bottom">
+			<view class="bottom-left">
+				价值：￥{{ item.price }}
+			</view>
+			<view class="bottom-right">
+				<view class="bottom-finish" wx:if="{{ item.status == 1 }}">
+					<view class="bottom-item">已参与：{{ item.current_quantity }}</view>
+					<view class="bottom-item">剩余：{{ item.quantity - item.current_quantity }}</view>
+				</view>
+				<view class="bottom-unfinish" wx:elif="{{ item.status > 3 }}">
+					<view>获得时间：{{ tool.getTime(item.win_record && item.win_record.milliseconds) || '-' }}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+
+<wxs module="tool">
+	// 格式化毫秒时间戳
+	var getTime = function (value) {
+        var time = getDate(value);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var milliseconds = time.getMilliseconds();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        hour = hour < 10 ? "0" + hour : hour;
+        minute = minute < 10 ? "0" + minute : minute;
+        second = second < 10 ? "0" + second : second;
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second + "." + milliseconds;
+	}
+	module.exports = {
+		getTime: getTime
+	}
+</wxs>

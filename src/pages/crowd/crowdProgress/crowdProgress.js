@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { Decimal } from 'decimal.js';
 import { USER_KEY, CONFIG } from 'constants/index';
-import { showModal, showToast } from 'utils/wxp';
+import proxy from 'utils/wxProxy';
 import { wxPay } from 'utils/pageShare';
 import { go } from 'utils/util';
 const app = getApp();
@@ -44,139 +44,152 @@ Page({
 
     },
     async loadOrder(queryOption) {
+        try {
+            const { current_user, order, config } = await api.hei.fetchOrder(queryOption);
+            // -----------------处理价格显示
+            let info = {};
+            info.finalPay = Number(order.amount); // 付款价格
+            info.finalPayDispaly = Number(info.finalPay).toFixed(2);
 
-        const { current_user, order } = await api.hei.fetchOrder(queryOption);
+            let rest_amount = new Decimal(order.amount).minus(order.crowd.pay_amount).toNumber();    // 尾款
+            let rest_amount_display = rest_amount.toFixed(2);
 
-        // -----------------处理价格显示
-        let info = {};
+            let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
 
-        info.finalPay = Number(order.amount); // 付款价格
-        info.finalPayDispaly = Number(info.finalPay).toFixed(2);
+            // 默认价
+            let support_amount;
+            if (rest_amount > 0.01 && rest_amount <= 1) {
+                support_amount = new Decimal(rest_amount).mul(0.5).toNumber().toFixed(2);
+            }
+            if (rest_amount > 1) {
+                // 取1~50%之间的随机数
+                let min = 1,
+                    max = new Decimal(rest_amount).mul(0.5);
+                support_amount = (Math.random() * (max - min + 1) + min).toFixed(2);
+            } else {
+                support_amount = 0.01;
+            }
+            // -----------------End
 
-        let rest_amount = new Decimal(order.amount).minus(order.crowd.pay_amount).toNumber();    // 尾款
-        let rest_amount_display = rest_amount.toFixed(2);
-
-        let progress = new Decimal(order.crowd.pay_amount).div(order.amount).mul(100).toNumber();    // 进度条
-
-        // 默认价
-        let support_amount;
-        if (rest_amount > 0.01 && rest_amount <= 1) {
-            support_amount = new Decimal(rest_amount).mul(0.5).toNumber().toFixed(2);
+            this.setData({
+                order,
+                userInfo: current_user,
+                order_no: order.order_no,
+                items: order.items,
+                crowd: order.crowd,
+                crowd_users: order.crowd_users,
+                avatarurl: order.avatarurl,
+                openid: order.openid,
+                finalPay: info.finalPay,
+                finalPayDispaly: info.finalPayDispaly,
+                rest_amount,
+                rest_amount_display,
+                support_amount,
+                progress,
+                config,
+                isLoading: false
+            });
+        } catch (err) {
+            wx.showModal({
+                title: '温馨提示',
+                content: err.errMsg,
+                showCancel: false
+            });
         }
-        if (rest_amount > 1) {
-            // 取1~50%之间的随机数
-            let min = 1,
-                max = new Decimal(rest_amount).mul(0.5);
-            support_amount = (Math.random() * (max - min + 1) + min).toFixed(2);
-        } else {
-            support_amount = 0.01;
-        }
-        // -----------------End
-
-        this.setData({
-            order,
-            userInfo: current_user,
-            order_no: order.order_no,
-            items: order.items,
-            crowd: order.crowd,
-            crowd_users: order.crowd_users,
-            avatarurl: order.avatarurl,
-            openid: order.openid,
-            finalPay: info.finalPay,
-            finalPayDispaly: info.finalPayDispaly,
-            rest_amount,
-            rest_amount_display,
-            support_amount,
-            progress,
-            isLoading: false
-        });
     },
 
     // 退款
-    async crowdRefund(ev) {
-        const { confirm } = await showModal({
+    async crowdRefund() {
+        const { confirm } = await proxy.showModal({
             title: '温馨提醒',
             content: '确定放弃代付？退款将原路返回'
         });
         if (confirm) {
-            let { order_no } = this.data;
-            const { formId } = ev.detail;
             try {
-                const res = await api.hei.crowdRefund({
-                    order_no,
-                    form_id: formId
-                });
-                if (res.errcode === 0) {
-                    await showToast({
-                        title: '退款成功',
-                    });
-                    this.onShow();
-                }
-            } catch (e) {
+                let { order_no } = this.data;
+                await api.hei.crowdRefund({ order_no });
+                wx.showToast({ title: '退款成功', icon: 'success' });
+                this.onShow();
+            } catch (err) {
                 wx.showModal({
                     title: '温馨提醒',
-                    content: e.errMsg,
+                    content: err.errMsg,
                     showCancel: false
                 });
             }
         }
     },
     // 付尾款
-    async payTailMoney(ev) {
-        const { confirm } = await showModal({
+    async payTailMoney() {
+        const { confirm } = await proxy.showModal({
             title: '温馨提醒',
             content: '确定支付尾款？'
         });
         if (confirm) {
-            let { rest_amount, crowd } = this.data;
-            const { formId } = ev.detail;
+            let { rest_amount, order_no, crowd, config } = this.data;
+            if (config.cashier_enable) {
+                app.globalData.crowdData = {
+                    order_no,
+                    crowd_pay_no: crowd.crowd_pay_no,
+                    crowd_amount: rest_amount,
+                    from_page: 'crowd'
+                };
+                wx.navigateTo({ url: '/pages/payCashier/payCashier' });
+                return;
+            }
             try {
                 const { pay_sign } = await api.hei.crowdPay({
                     crowd_pay_no: crowd.crowd_pay_no,
-                    amount: rest_amount,
-                    form_id: formId
+                    amount: rest_amount
                 });
                 if (pay_sign) {
                     await wxPay(pay_sign);
                     setTimeout(this.onShow, 500);
                 }
-            } catch (e) {
+            } catch (err) {
                 wx.showModal({
                     title: '温馨提醒',
-                    content: e.errMsg,
+                    content: err.errMsg,
                     showCancel: false
                 });
             }
         }
     },
     // 赞助
-    async onPay(ev) {
-        let { support_amount, crowd } = this.data;
-        const { formId } = ev.detail;
+    async onPay() {
+        let { order_no, support_amount, crowd, config } = this.data;
+        if (config.cashier_enable) {
+            let crowdData = {
+                order_no,
+                crowd_pay_no: crowd.crowd_pay_no,
+                from_page: 'crowd'
+            };
+            if (Number(crowd.type) === 1) {   // 众筹
+                crowdData.crowd_amount = support_amount;
+            }
+            app.globalData.crowdData = crowdData;
+            wx.navigateTo({ url: '/pages/payCashier/payCashier' });
+            return;
+        }
         try {
             let options = {
-                crowd_pay_no: crowd.crowd_pay_no,
-                form_id: formId
+                crowd_pay_no: crowd.crowd_pay_no
             };
-            if (crowd && crowd.type === '1') {
+            if (Number(crowd.type) === 1) {
                 options.amount = support_amount;
             }
             const { pay_sign } = await api.hei.crowdPay(options);
             if (pay_sign) {
                 await wxPay(pay_sign);
-                this.setData({
-                    payModal: false
-                });
-                setTimeout(this.onShow, 500);
+                this.setData({ payModal: false }, () => { setTimeout(this.onShow, 500) });
             }
-        } catch (e) {
+        } catch (err) {
             wx.showModal({
                 title: '温馨提醒',
-                content: e.errMsg,
+                content: err.errMsg,
                 showCancel: false
             });
         }
-
     },
     // 赞助弹窗
     showPayModal() {

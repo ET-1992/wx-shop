@@ -1,0 +1,57 @@
+.container {
+	.page-empty {
+		text-align: center;
+	}
+	.list {
+		margin-top: 10rpx;
+		padding: 10rpx 20rpx;
+		background-color: #fff;
+		.item {
+			display: flex;
+			padding-bottom: 10rpx;
+			border-bottom: 1rpx solid #E0E0E0;
+			margin-bottom: 10rpx;
+			.left {
+				width: 140rpx;
+				height: 140rpx;
+				background-color: #C2C2C2;
+				.img {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					.img-tip {
+						color: white;
+						font-size: 20rpx;
+						position: absolute;
+						left: 0;
+						bottom: 0;
+						width: 100%;
+						text-align: center;
+						background:rgba(0,0,0,0.5);
+					}
+				}
+			}
+			.right {
+				font-size: 20rpx;
+				line-height: 28rpx;
+				margin: 8rpx 0 8rpx 25rpx;
+				.right-data {
+					color: #F52D2D;
+				}
+				.right-top {
+					font-size: 24rpx;
+					line-height: 40rpx;
+					font-weight: bold;
+					.user {
+						margin-left: 20rpx;
+					}
+				}
+				.right-bottom {
+					display: flex;
+					flex-direction: column;
+					justify-content: end;
+				}
+			}
+		}
+	}
+}

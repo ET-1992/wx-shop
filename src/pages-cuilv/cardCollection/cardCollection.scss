@@ -1,0 +1,179 @@
+@import '~styles/color';
+
+.container {
+	.card-loading {
+		display: flex;
+		justify-content: center;
+	}
+	.active-tab{
+		color: #F52D2D;
+	}
+	.recharge,
+	.exchange,
+	.card {
+		margin-top: 10rpx;
+		background-color: #fff;
+	}
+	// 购买
+	.recharge {
+		.recharge-main {
+			padding: 25rpx 50rpx;
+			.recharge-title {
+				font-size: 32rpx;
+			}
+			.recharge-list {
+				font-size: 28rpx;
+				padding-top: 35rpx;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+				.recharge-item {
+					background-color: #F4F4F4;;
+					width: 180rpx;
+					height: 100rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					align-content: center;
+					flex-wrap: wrap;
+					padding: 14rpx;
+					line-height: 1;
+					margin-bottom: 24rpx;
+					&.recharge-item-active {
+						background-color: $mainColor;
+						color: white;
+					}
+				}
+			}
+		}
+		.confirm {
+			width: 100%;
+			.confirm-btn {
+				line-height: 100rpx;
+				font-size: 32rpx;
+				color: white;
+				background-color: $mainColor;
+				.confirm-price {
+					display: inline-block;
+					text-align: left;
+					min-width: 100rpx;
+				}
+			}
+		}
+	}
+	// 兑换
+	.exchange {
+		padding: 40rpx 56rpx 25rpx;
+		.exchage-form {
+			font-size: 28rpx;
+			display: flex;
+			flex-direction: column;
+			.form-list {
+				.form-item {
+					display: flex;
+					margin-bottom: 30rpx;
+					align-items: center;
+					&:last-child {
+						margin-bottom: 15rpx;
+					}
+					.item-input {
+						flex: 1;
+						padding: 10rpx 24rpx;
+						border: 1rpx solid #999999;
+					}
+				}
+			}
+			.form-sweep {
+				margin-left: auto;
+			}
+		}
+		.exchage-handle {
+			display: flex;
+			justify-content: center;
+			margin-top: 35rpx;
+			.exchange-btn {
+				color: white;
+				font-size: 32rpx;
+				width: 300rpx;
+				line-height: 74rpx;
+				background-color: $mainColor;
+				border-radius: 37rpx;
+			}
+		}
+	}
+	// 卡包
+	.card {
+		padding: 0 34rpx 60rpx;
+		.card-top {
+			padding: 25rpx 0;
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 1rpx solid #C2C2C2;
+			margin-bottom: 32rpx;
+				.top-left {
+				font-size: 28rpx;
+				font-weight: bold;
+				display: flex;
+				align-items: center;
+				.top-icon {
+					margin: 0 10rpx;
+					width: 30rpx;
+					height: 30rpx;
+				}
+			}
+			.top-right {
+				color: #003F76;
+				font-size: 24rpx;
+			}
+		}
+		.card-body {
+			color: white;
+			.card-item {
+				height: 150rpx;
+				background-color: $mainColor;
+				margin-bottom: 10rpx;
+				padding: 40rpx 30rpx 10rpx 44rpx;
+				border-radius: 10rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				.item-main {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.item-amount {
+						font-size: 48rpx;
+						font-weight: bold;
+						line-height: 50rpx;
+					}
+					.item-handle {
+						display: flex;
+						.item-btn {
+							font-size: 28rpx;
+							color: #333333;
+							width: 130rpx;
+							line-height: 50rpx;
+							background-color: white;
+							border-radius: 50rpx;
+							margin-left: 25rpx;
+						}
+					}
+				}
+				.item-bottom {
+					font-size: 20rpx;
+					display: flex;
+					.botton-right {
+						flex: 1;
+						text-align: center;
+					}
+				}
+			}
+		}
+		.card-empty-tip {
+			height: 150rpx;
+			line-height: 150rpx;
+			text-align: center;
+			color: #333333;
+		}
+	}
+}

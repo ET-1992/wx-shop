@@ -1,0 +1,53 @@
+var orderStatus = [{
+    value: 101,
+    text: '等待审核'
+}, {
+    value: 1,
+    text: '等待审核'
+}, {
+    value: 2,
+    text: '审核通过'
+}, {
+    value: 3,
+    text: '审核失败'
+}, {
+    value: 4,
+    text: '待上门取件'
+}, {
+    value: 5,
+    text: '取件中'
+}, {
+    value: 6,
+    text: '已取件'
+}, {
+    value: 7,
+    text: '等待检测'
+}, {
+    value: 8,
+    text: '检测完成'
+}, {
+    value: 9,
+    text: '已确认'
+}, {
+    value: 10,
+    text: '等待打款'
+}, {
+    value: 11,
+    text: '已打款'
+}, {
+    value: 12,
+    text: '订单完成'
+}, {
+    value: 13,
+    text: '订单取消'
+}, {
+    value: 14,
+    text: '订单关闭'
+}, {
+    value: 15,
+    text: '已退回'
+}]
+
+module.exports = {
+    ORDERSTATUS: orderStatus, // 订单对应状态
+}

@@ -1,0 +1,65 @@
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view wx:elif="{{ !items.length || items.length < 1 }}" class="tips">
+  	  	<image class="emptyHint" src="/icons/bigCart.svg"></image>
+  	  	<view class="empty">心愿单空空如也~</view>
+			<view class="onGotoBuy" 
+			  style="background-color: {{ themeColor.primaryColor  }}"
+			  bind:tap="go" data-url="/pages-cuilv/goldCoinMall/goldCoinMall"> 去逛逛 </view>
+	</view>
+	<view class="list" wx:else>
+		<view class="item" wx:for="{{ items }}" wx:key="index" bind:tap="go"
+		  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.post_id }}">
+			<view class="checkbox" catch:tap="catchEvent">
+				<van-checkbox value="{{ isSelectedObject[item.id] }}" 
+				  checked-color="{{ themeColor.primaryColor || '#729153' }}" 
+				  bind:change="onHandleItemSelect"
+				  data-index="{{ index }}" data-item-id="{{ item.id }}"
+				  disabled="{{ item.activity && item.activity.status !== 1 }}" />
+			</view>
+			<view class="product">
+				<view class="img-wrap">
+					<image src="{{ item.thumbnail }}" class="img" />
+				</view>
+				<view class="info">
+					<view class="title text-ellipsis">{{ '(第' + (item.activity.round || '-') +  '期) ' + (item.title || '-') }}</view>
+					<view class="num">
+						<text>已参与：{{ item.activity.current_quantity || '0'}}</text>
+						<text class="remain-num">剩余：{{ (item.activity.quantity - item.activity.current_quantity) || '0' }}</text>
+					</view>
+					<view class="right" catch:tap="catchEvent">
+						<van-stepper value="{{ item.quantity }}" 
+						  data-post-id="{{ item.post_id }}" 
+						  data-blog-id="{{ item.source_blog_id }}" 
+						  catch:change="updateCart" />
+    	  	  	  	  	<view class="delete" 
+							data-post-id="{{ item.post_id }}" 
+							data-blog-id="{{ item.source_blog_id }}" 
+							catch:tap="onDelete">删除</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ items.length > 0 }}">
+		<view class="select-all" bind:tap="onSelectAll">
+			<van-checkbox value="{{ isAllSelected }}" checked-color="{{ themeColor.primaryColor || '#729153' }}">全选</van-checkbox>
+		</view>
+		<view class="coin-buy">
+			<view class="price">
+				<view class="price-have">
+					<text>现有{{ config.coin_name || '金彩' }}：</text>
+					<text>{{ current_user && current_user.wallet && current_user.wallet.coins || '0' }}</text>
+				</view>
+				<view class="price-need">
+					<text>合计{{ config.coin_name || '金彩' }}：</text>
+					<text class="num">{{ totalPrice }}</text>
+				</view>
+			</view>
+			<button class="normalizeBt pay" style="background-color: {{ themeColor.primaryColor  }}"
+			  bind:tap="onPay" disabled="{{ !isShouldPay }}">去结算</button>
+		</view>
+	</view>
+</view>

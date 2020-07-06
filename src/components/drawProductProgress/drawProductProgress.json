@@ -1,0 +1,7 @@
+{
+	"component": true,
+	"usingComponents": {
+		"van-progress": "@vant/weapp/dist/progress/index"
+	}
+}
+

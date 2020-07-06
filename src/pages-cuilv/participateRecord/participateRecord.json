@@ -1,0 +1,9 @@
+{
+	"navigationBarTitleText": "参与记录",
+	"usingComponents": {
+		"van-loading": "@vant/weapp/dist/loading/index",
+		"van-collapse": "@vant/weapp/dist/collapse/index",
+		"van-collapse-item": "@vant/weapp/dist/collapse-item/index",
+		"van-notice-bar": "@vant/weapp/dist/notice-bar/index"
+	}
+}

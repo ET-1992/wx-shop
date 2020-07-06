@@ -53,3 +53,18 @@ module.exports = {
 	isMultiple: isMultiple
 }
 </wxs>
+
+
+<wxs module="btn">
+var text = function (config) {
+    var name = '立即购买';
+	if(config && config.order_only) {
+		name = '立即下单'
+	};
+    return name
+}
+module.exports = {
+    text: text
+}
+</wxs>
+

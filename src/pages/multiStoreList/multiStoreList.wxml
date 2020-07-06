@@ -3,11 +3,9 @@
 	<view class="location">
 		<view class="location-text">当前定位</view>
 		<view class="location-content">
-			<div class="location-left">
-				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+			<div class="location-left {{ lastClick === 'location' ? 'location-left-selected' : '' }}">
 				<view class="left-icons">
-					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'location' }}"/>
-					<van-icon custom-class="left-icon" name="location-o" wx:else />
+					<van-icon custom-class="left-icon" name="{{ lastClick === 'location' ? 'location' : 'location-o' }}" />
 				</view>
 				<text class="left-text">{{ locationStr }}</text>
 			</div>
@@ -18,11 +16,9 @@
 	<view class="location address">
 		<view class="location-text">收货地址</view>
 		<view class="location-content">
-			<div class="location-left">
-				<!-- <image src="/icons/address.png" mode="widthFix" class="left-icon" /> -->
+			<div class="location-left {{ lastClick !== 'location' ? 'location-left-selected' : '' }}">
 				<view class="left-icons">
-					<van-icon custom-class="left-icon" name="location" wx:if="{{ lastClick === 'address' }}"/>
-					<van-icon custom-class="left-icon" name="location-o" wx:else />
+					<van-icon custom-class="left-icon" name="{{ lastClick !== 'location' ? 'location' : 'location-o' }}" />
 				</view>
 				<text class="left-text">{{ address.user(addressObj) || '请选择您的收货地址' }}</text>
 			</div>
@@ -41,11 +37,18 @@
 			<block wx:else>
 				<!-- 门店 -->
 				<van-collapse value="{{ activeNames }}" bind:change="onChange">
-					<block wx:for="{{ ['推荐门店', '不在配送范围内门店'] }}" wx:for-item="storeTitle" wx:for-index="storeName">
-						<van-collapse-item title="{{ storeTitle }}" name="{{ storeName }}">
-							<view class="store-wrap" wx:for="{{ storeList }}" bind:tap="onSeleteStore" 
-								wx:key="index" data-index="{{ index }}" 
-								wx:if="{{ storeName === 0 ? !item.isoutofrange : item.isoutofrange }}">
+					<!-- 遍历可选/不可选门店标题 -->
+					<block wx:for="{{ ['推荐门店', '以下门店超出配送范围'] }}" wx:for-item="storeTitle" wx:for-index="storeName">
+						<van-collapse-item title="{{ storeTitle }}" name="{{ storeName }}" custom-class="van-collapse-item-custom">
+							<!-- 推荐门店为空 -->
+							<block wx:if="{{ storeName === 0 && !recommendStores.length }}">
+								<view class="store-air store-item-air">
+									<text>当前{{ lastClick === 'location' ? '定位' : '收货地址' }}没有推荐门店</text>
+								</view>
+							</block>
+							<!-- 遍历可选/不可选门店内容 -->
+							<view class="store-wrap" wx:for="{{ storeName === 0 ? recommendStores : limitStores }}" bind:tap="onSeleteStore" 
+								wx:key="index" data-id="{{ item.id }}">
 								<view class="store-title">
 									<text>{{ item.name || '-' }}</text>
 									<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>

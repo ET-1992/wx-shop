@@ -1,0 +1,29 @@
+<template name="depositItem">
+    <view class="deposit-item-wrap" wx:for="{{ listData }}" wx:key="{{ index }}">
+        <view class="deposit-item">
+            <view class="deposit-left">
+                <!-- 存入 -->
+                <view wx:if="{{ item.type == 15 }}">
+                    <text class="deposit-type">存入</text>
+                    <!-- <text>￥{{ item.amount }}</text> -->
+                </view>
+                <!-- 提取 -->
+                <view wx:elif="{{ item.type == 151 }}">
+                    <text class="deposit-type">提取</text>
+                    <!-- <text>￥{{ item.amount }}</text> -->
+                    <!-- <view>
+                        <text class="bank">{{ item.bank_name + ' ' }}</text>
+                        <text class="bank-number">{{ item.bank_account_no }}</text>
+                    </view> -->
+                </view>
+                <text class="deposit-time">{{ filter.getDateTime(item.time) }}</text>
+            </view>
+            <view class="deposit-right">
+                <!-- 涉及重量 -->
+                <text class="income" wx:if="{{ item.type == 15 }}">{{ item.amount }}</text>
+                <text class="expense" wx:if="{{ item.type == 151 }}">{{ item.amount }}</text>
+            </view>
+        </view>
+    </view>
+</template>
+<wxs module="filter" src="utils/wxs/timeTranslate.wxs" />

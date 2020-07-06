@@ -1,0 +1,28 @@
+.container {
+	.nav {
+		color: black;
+		font-size: 28rpx;
+		font-weight: bold;
+		width: 100%;
+		height: 90rpx;
+		background: white;
+		margin-top: 10rpx;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		.picker-item .picker{
+			min-width: 180rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.picker-logo {
+				margin-left: 16rpx;
+				width: 0;
+				height: 0;
+				border-top: 12rpx solid black;
+				border-left: 7rpx solid transparent;
+				border-right: 7rpx solid transparent;
+			}
+		}
+	}
+}

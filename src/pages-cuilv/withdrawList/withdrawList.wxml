@@ -1,0 +1,23 @@
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<view class="page-empty" wx:elif="{{ logsList.length < 1  }}">暂无内容</view>
+	<!-- 余额提现记录 -->
+	<view class="money-get-list" wx:else>
+		<view class="moneyGetItem" wx:for="{{ logsList }}" wx:key="index">
+			<view class="moneyGetItemLeft">
+				<view class="moneyGetItemLeft-t">金额 {{ globalData.CURRENCY[globalData.currency] }}{{ item.amount / 100 }}</view>
+				<view class="moneyGetItemLeft-t" wx:if="{{ item.status === 3 }}">驳回原因：{{ item.note }}</view>
+				<view class="moneyGetItemLeft-t">{{ filter.getDateTime(item.time) }}</view>
+			</view>
+			<view class="moneyGetItemRight">
+				<text wx:if="{{ item.status === 1 }}" class="get-status">审核中</text>
+				<text wx:elif="{{ item.status === 2 }}" class="get-status">已通过</text>
+				<text wx:elif="{{ item.status === 3 }}" class="get-status reject">未通过</text>
+				<text wx:else class="get-status">---</text>
+			</view>
+		</view>
+	</view>
+</view>
+<wxs module="filter" src="utils/wxs/timeTranslate.wxs" />

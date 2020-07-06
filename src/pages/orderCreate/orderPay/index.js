@@ -29,6 +29,10 @@ Component({
         freeShippingAmount: {
             type: Number,
             value: 0
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
     data: {

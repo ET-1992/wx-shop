@@ -1,13 +1,13 @@
 import { getAgainUserForInvalid, go } from 'utils/util';
 import { wxPay } from 'utils/pageShare';
-import { showToast, showModal } from 'utils/wxp';
+import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 const app = getApp();
 
 Page({
     data: {
         isLoading: true,
-        showRechargeModal: false, // 会员充值弹窗
+        rechargeModal: false, // 会员充值弹窗
         showRenewsModal: false, // 会员续费弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
@@ -16,51 +16,50 @@ Page({
         word: '',
         memberNo: 0,
         payment: 0,
-        selectRenewal: {} // 所选择的续费项
+        selectRenewal: {}, // 所选择的续费项
+        rechargeArray: []
     },
 
-    onLoad(params) {
-        console.log(params);
+    onLoad() {
+        const config = wx.getStorageSync(CONFIG);
+        const { globalData: { themeColor }, systemInfo: { isIphoneX }} = app;
+        this.setData({
+            themeColor,
+            isIphoneX,
+            config,
+            globalData: app.globalData
+        });
     },
 
     go,
 
-    onShow() {
-        this.initPage();
-    },
-
     // 获取会员信息
-    async initPage() {
+    async onShow() {
         try {
-            // 获取开启储值卡后充值金额数组
-            const { current_user, data, config } = await api.hei.membershipCard();
-            if (config.store_card_enable) {
-                const { data } = await api.hei.rechargePrice();
-                this.setData({ rechargeArray: data });
-                console.log('rechargeArray42', data);
-            }
-            if (config.renews) {
-                this.setData({ renews: config.renews });
-            }
-            let count = config.membership && config.membership.rules && config.membership.rules.payment;
+            const { data, current_user, config } = await api.hei.membershipCard();
+            const { store_card_enable = false, membership_enable = false, renews_enable = false, membership = {}, renews = {}} = config;
+            let amount = (membership_enable && membership.rules && membership.rules.payment) || 0;
             let memberNo = (current_user.membership && current_user.membership.member_no) || '';
-            // 获取会员信息
+            let rechargeArray = [];
+            if (store_card_enable) {
+                const { data } = await api.hei.rechargePrice();
+                rechargeArray = data;
+            }
             this.setData({
-                user: current_user,
                 data,
-                memberCouponList: data.coupons,
-                isLoading: false,
-                payment: count,
-                memberNo,
                 config,
-                globalData: app.globalData
+                memberNo,
+                rechargeArray,
+                amount: Number(amount),
+                user: current_user || {},
+                renews: renews_enable ? renews : [],
+                memberCouponList: data.coupons || [],
+                isLoading: false
             });
-            console.log('config62', this.data.config);
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
             wx.showModal({
                 title: '温馨提示',
-                content: error.errMsg,
+                content: err.errMsg,
                 showCancel: false
             });
         }
@@ -92,14 +91,6 @@ Page({
         }
     },
 
-    // 发送模板消息
-    async submitFormId(e) {
-        const data = await api.hei.submitFormId({
-            form_id: e.detail.formId,
-        });
-        console.log(data);
-    },
-
     // 点击优惠券
     async onCouponClick(ev) {
         const user = await this.bindGetUserInfo(ev);
@@ -110,36 +101,25 @@ Page({
                 await this.onReceiveCoupon(id, index);
             } else if (Number(status) === 4) {
                 // 立即使用
-                wx.navigateTo({
-                    url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
-                });
-            } else { return }
+                wx.navigateTo({ url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}` });
+            }
         }
     },
 
     // 领取优惠券
     async onReceiveCoupon(id, index) {
         try {
-            const data = await api.hei.receiveCoupon({
-                coupon_id: id,
-            });
-            console.log(data);
-            const { errcode } = data;
-
-            if (!errcode) {
-                showToast({ title: '领取成功' });
-                const updateData = {};
-                const key = `memberCouponList[${index}].status`;
-                updateData[key] = 4;
-                console.log(updateData);
-                this.setData(updateData);
-            }
-        }
-        catch (err) {
-            await showModal({
+            await api.hei.receiveCoupon({ coupon_id: id });
+            wx.showToast({ title: '领取成功' });
+            let updateData = {};
+            const key = `memberCouponList[${index}].status`;
+            updateData[key] = 4;
+            this.setData(updateData);
+        } catch (err) {
+            wx.showModal({
                 title: '温馨提示',
                 content: err.errMsg,
-                showCancel: false,
+                showCancel: false
             });
         }
     },
@@ -148,9 +128,7 @@ Page({
     openRechargeModal() {
         const { rechargeArray } = this.data;
         if (rechargeArray && rechargeArray.length) {
-            this.setData({
-                showRechargeModal: true
-            });
+            this.setData({ rechargeModal: true });
         } else {
             wx.showModal({
                 title: '温馨提示',
@@ -160,93 +138,108 @@ Page({
         }
     },
 
-    // 打开续费弹窗
-    openRenewsModal() {
-        this.setData({
-            showRenewsModal: true
-        });
-    },
-
     // 关闭会员充值弹窗
     closeRechargeModal() {
         this.setData({
-            showRechargeModal: false
+            rechargeModal: false
         });
     },
 
-    // 关闭续费弹窗
-    closeRenewsModal() {
+    // 储值卡充值
+    onConfirmRecharge(ev) {
+        let type = 2;
+        let { amount } = ev.detail;
+        console.log(amount, 'recharge----');
         this.setData({
-            showRenewsModal: false
+            amount,
+            rechargeModal: false
+        }, () => {
+            this.onPay(type);
         });
     },
-
-    // 会员充值确认支付
-    onConfirmRecharge(e) {
-        this.setData({
-            amount: e.detail.amount,
-            showRechargeModal: false
-        });
-        this.buyMember();
-    },
-
-    // 会员续费确认支付
-    onConfirmRenews(e) {
-        console.log('selectRenewal164', e, e.detail);
-        this.setData({
-            selectRenewal: e.detail.selectRenewal,
-            showRenewsModal: false
-        });
-        this.memberShipRenewal();
-    },
-
     // 开通会员
-    async buyMember() {
-        const { amount, config } = this.data;
-        let params = {}; // 未开启储值卡功能的开通会员 不传参数 后台设金额
-        // 开启储值卡功能的开通会员或充值 需传金额参数
-        if (config.store_card_enable) {
-            params.amount = amount;
+    buyMember() {
+        let type = 1;
+        this.onPay(type);
+    },
+
+    async onPay(type) {
+        let { amount, config } = this.data;
+        const { cashier_enable } = config;
+        if (cashier_enable && amount > 0) {
+            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_type=${type}&from_page=member` });
+            return;
         }
-        console.log('params160', params);
         try {
-            const { pay_sign } = await api.hei.joinMembership(params);
-            console.log('付费会员pay_sign197', pay_sign);
-            if (pay_sign) { await wxPay(pay_sign) }
+            const { pay_sign } =  await api.hei.membershipMultipay({
+                amount,
+                pay_method: 'WEIXIN',
+                type
+            });
+            if (amount > 0 && pay_sign) {
+                await wxPay(pay_sign);
+            }
             this.onShow();
-        } catch (error) {
+        } catch (err) {
             wx.showModal({
                 title: '温馨提示',
-                content: error.errMsg,
+                content: err.errMsg,
                 showCancel: false
             });
         }
+
+    },
+
+    // 打开续费弹窗
+    openRenewsModal() {
+        const { showRenewsModal } = this.data;
+        this.setData({
+            showRenewsModal: !showRenewsModal
+        });
+    },
+
+    // 会员续费确认支付
+    onConfirmRenews(ev) {
+        let { selectRenewal } = ev.detail;
+        this.setData({
+            selectRenewal,
+            showRenewsModal: false
+        }, this.memberShipRenewal);
     },
 
     // 会员续费
     async memberShipRenewal() {
-        const { selectRenewal } = this.data;
-        console.log('selectRenewal', selectRenewal);
-        let params = {
-            renew_id: selectRenewal.id,
-            pay_method: 'WEIXIN'
-        };
+        const { selectRenewal, config } = this.data;
+        const { cashier_enable } = config;
+        const type = 3;
+        if (cashier_enable && selectRenewal.amount > 0) {
+            wx.navigateTo({ url: `/pages/payCashier/payCashier?renewalId=${selectRenewal.id}&member_amount=${selectRenewal.amount}&member_type=${type}&from_page=member` });
+            return;
+        }
         try {
-            const { pay_sign } = await api.hei.renewalPay(params);
-            console.log('续费会员pay_sign218', pay_sign);
-            if (pay_sign) {
-                const { isSuccess } = await wxPay(pay_sign);
-                if (isSuccess) {
-                    showToast({ title: '续费成功' });
-                    this.onShow();
-                }
+            const { pay_sign } = await api.hei.membershipMultipay({
+                renew_id: selectRenewal.id,
+                pay_method: 'WEIXIN',
+                type
+            });
+            if (pay_sign && selectRenewal.amount > 0) {
+                await wxPay(pay_sign);
             }
-        } catch (error) {
+            wx.showToast({ title: '续费成功', icon: 'success' });
+            this.onShow();
+        } catch (err) {
             wx.showModal({
                 title: '温馨提示',
-                content: error.errMsg,
+                content: err.errMsg,
                 showCancel: false
             });
         }
-    }
+    },
+    // 展示企业微信联系方式
+    onCustomService() {
+        let customServiceModal = true;
+        this.setData({
+            customServiceModal,
+        });
+    },
 });

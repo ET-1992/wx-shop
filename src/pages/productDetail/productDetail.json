@@ -17,6 +17,8 @@
     "poster": "components/poster/index",
     "van-icon": "@vant/weapp/dist/icon/index",
     "myModal": "components/myModal/myModal",
-    "van-button": "@vant/weapp/dist/button/index"
+    "van-button": "@vant/weapp/dist/button/index",
+    "companyContact": "components/companyContact/companyContact",
+    "multiStore": "components/multiStore/multiStore"
   }
 }

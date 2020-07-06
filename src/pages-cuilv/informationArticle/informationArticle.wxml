@@ -1,0 +1,20 @@
+<loading isLoading="{{ isLoading }}"/>
+<import src="utils/wxParse/wxParse.wxml"/>
+<view wx:if="{{ !isLoading }}">
+	<view class="p-single">
+		<view class="m-header" wx:if="{{(article.title || article.excerpt) && article.full!=1}}">
+			<view class="m-tt" wx:if="{{article.title}}">{{article.title}}</view>
+			<view class="m-desc" wx:if="{{article.excerpt}}">{{article.excerpt}}</view>
+			<!-- <view class="borderLine"></view>
+			<view class="u-author" wx:if="{{article.author}}">作者：{{article.author}}</view> -->
+		</view>
+
+		<view wx:if="{{ article.cubes.length }}" class="cube" wx:for="{{ article.cubes }}" >
+			<magicImg magicImgData="{{ article.cubes[index] }}" isMarginTopZero="false" />
+		</view>
+
+		<view class="peanut-wxParse {{article.full ==1 ?'':'pad-30'}}">
+			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+		</view>
+	</view>
+</view>

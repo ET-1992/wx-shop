@@ -1,13 +1,44 @@
 <loading isLoading="{{ isLoading }}"/>
 
-<view class="container" wx:if="{{ !isLoading }}">
-	<view class="statusBar">
-    	<view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}" >
-		<view class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
-		style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
-		>{{ item.name }}</view>
-    	</view>
+<view class="container {{ showNotice ? 'notice-container' : '' }}" wx:if="{{ !isLoading }}">
+	<!-- 固定面板 -->
+	<view class="fixed-bar">
+		<view class="notice-bar" wx:if="{{ showNotice }}">
+			<view class="notice-tips">
+				<view>截止至{{ tool.getCurrentDate() }}，本店</view>
+				<view> 共发出优惠券
+					<text class="notice-num">{{ receiveInfo.coupon_count || 0}}</text>张，
+					帮助用户省钱
+					<text class="notice-num">{{ receiveInfo.total_reduce_cost || 0}}</text>元
+				</view>
+			</view>
+			<view class="notice-list">
+				<block wx:if="{{ receiveInfo.records.length }}">
+					<swiper vertical autoplay class="wx-swiper" display-multiple-items="{{ 3 }}"
+						circular interval="2000">
+						<block wx:for="{{ receiveInfo.records }}" wx:key="*this">
+							<swiper-item class="record-item">
+								<view class="item-avatar">
+									<image src="{{ item.avatarurl }}" />
+								</view>
+								<view class="item-text">
+									<text>{{ item.nickname + ' ' + item.time_ago + '  领取了' + item.fix_title }}</text>
+								</view>
+							</swiper-item>
+						</block>
+					</swiper>
+				</block>
+			</view>
+		</view>
+		<view class="statusBar">
+			<view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}" >
+			<view class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}"
+			style="{{ themeColor.primaryColor ? 'border-bottom-color:' : '' }} {{ themeColor.primaryColor }}"
+			>{{ item.name }}</view>
+			</view>
+		</view>
 	</view>
+	<!-- 数据为空 -->
 	<view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
 		<image class="noHint" src="../../icons/noCoupon.svg"></image> 
 	    <view wx:if="{{ selectedStatus === 'available' }}"> 还没有优惠券 </view>
@@ -15,6 +46,7 @@
 	    <view wx:if="{{ selectedStatus === 'expired' }}"> 暂无已过期优惠券 </view>
 	    <navigator wx:if="{{ selectedStatus === 'available' }}" url="/pages/couponList/couponList" class="couponBt" style="background-color: {{ themeColor.primaryColor }}">去领券</navigator>
 	</view>
+	<!-- 优惠券列表 -->
 	<view class="couponsList" wx:if="{{ coupons[selectedStatus].length && !isLoading }}">
 		<button 
 		class="couponItemWrapper" 
@@ -38,3 +70,18 @@
   		</button>
 	</view>
 </view>
+
+<wxs module="tool">
+	// 获取最新时间
+	var getCurrentDate = function() {
+		var date = getDate();
+		var year = date.getFullYear();
+		var mouth = date.getMonth()+1;
+		var day = date.getDate();
+		var dateRes = year+'-'+mouth+'-'+day
+		return dateRes
+	}
+	module.exports = {
+		getCurrentDate: getCurrentDate,
+	};
+</wxs>

@@ -363,4 +363,70 @@
 			width: 300px;
 		}
 	}
+
+	// 金价展示
+	.gold {
+		background: white;
+		padding: $zeroMarginTop $zeroMarginTop 0;
+		.gold-price {
+			color: #999999;
+			padding: 32rpx 0;
+			display: flex;
+			.gold-price-item {
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+				justify-content: center;
+				align-items: center;
+			}
+			.price-now {
+				font-size: 24rpx;
+				line-height: 33rpx;
+				// padding: 30rpx 0;
+				border-right: 1rpx solid #E0E0E0;
+				.now-num {
+					color: #D0AA59;
+					font-size: 40rpx;
+					line-height: 56rpx;
+					display: flex;
+					.range {
+						display: flex;
+						align-items: center;
+						margin-left: 14rpx;
+						.range-img {
+							width: 12rpx;
+							height: 22rpx;
+						}
+						.range-num {
+							margin-left: 10rpx;
+							font-size: 20rpx;
+							line-height: 28rpx;
+						}
+						&.range-up {
+							color: #FF3B3B;
+						}
+						&.range-down {
+							color: #2FC170;
+						}
+					}
+				}
+			}
+			.price-today {
+				font-size: 20rpx;
+				.today-max {
+					margin-top: 20rpx;
+				}
+				.today-item {
+					display: flex;
+					flex-direction: column;
+					.today-num {
+						color: #D0AA59;
+						font-size: 32rpx;
+						line-height: 45rpx;
+						margin-top: 10rpx;
+					}
+				}
+			}
+		}
+	}
 }

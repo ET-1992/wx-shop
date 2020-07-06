@@ -1,0 +1,99 @@
+<!-- 填写订单（自主择价、直接变现） -->
+<view class="container">
+	<loading isLoading="{{ isLoading }}" />
+	<block wx:if="{{ !isLoading }}">
+		<!-- 头部价格 -->
+		<view class="head">
+			<view class="evaluate-price">
+				<view class="price">
+					<text class="num num-big">{{ evaluateFormData.goldAmount || 0 }}</text>
+					<text>元</text>
+				</view>
+				<view class="price-tip">
+					<text>您的黄金预估金额</text>
+					<image src="/icons/fastDeposit/questionMark.svg" class="icon rule-icon" bind:tap="showRule" data-type="ESTIMATE" />
+				</view>
+			</view>
+			<view class="evaluate-other">
+				<view class="gold-price">
+					<text>实时金价：</text>
+					<text class="num">{{ goldPrice || 0 }}</text>
+					<text>元/克</text>
+				</view>
+				<view class="gold-weight">
+					<text>黄金克重：</text>
+					<text class="num">{{ (evaluateFormData.sellGoldForm && evaluateFormData.sellGoldForm.weight) || 0 }}</text>
+					<text>克</text>
+				</view>
+			</view>
+		</view>
+
+		<!-- 回收方式表单 -->
+		<view class="body">
+			<view class="section">
+				<view class="section-title recycle-way">
+					<text>4. 请选择回收方式</text>
+					<image src="/icons/fastDeposit/questionMark.svg" class="icon" bind:tap="showRule" data-type="CALLWAY" />
+				</view>
+				<radio-group name="radio-group" class="section-radio-group" bindchange="recycleWayChange">
+					<label wx:for="{{ typeSetting && typeSetting.repo_type }}" wx:key="type" 
+					  class="radio-item" wx:if="{{ !(dopositId && item.type == 2) && item.enable }}">
+						<radio value="{{ item.type }}" class="radio-value"/>
+						<view class="radio-box">
+							<image src="{{ item.image || '/icons-cuilv/fastDeposit/goldTypeBg.png' }}" class="bg">
+								<image src="/icons-cuilv/fastDeposit/goldTypeBgOpacity.svg" class="bg-opacity"/>
+								<text>{{ item.title }}</text>
+								<image wx:if="{{ recycleForm.recycleWay == item.type }}" src="/icons-cuilv/fastDeposit/radio-selected.svg" class="radio-single"/>
+								<image wx:else src="/icons-cuilv/fastDeposit/radio.svg" class="radio-single"/>
+							</image>
+						</view>
+						<view class="recycle-way-tip">
+							<text wx:if="{{ recycleForm.recycleWay == item.type }}">{{ item.text }}</text>
+						</view>
+					</label>
+				</radio-group>
+			</view>
+			<view class="section">
+				<view class="section-title">
+					<text>5. 请添加寄件信息用于快递员上门取货</text>
+				</view>
+				<view class="section-address" bind:tap="getAddress">
+					<image src="/icons-cuilv/fastDeposit/add-icon.svg" class="icon" />
+					<text wx:if="{{ recycleForm.address }}"
+					>{{ recycleForm.address.provinceName + recycleForm.address.cityName + recycleForm.address.countyName + recycleForm.address.detailInfo }}</text>
+					<text wx:else>点此添加取货地址</text>
+				</view>
+			</view>
+			<!-- <view class="section" wx:if="{{ recycleForm.recycleWay == 1 }}">
+				<view class="section-title">
+					<text>6. 请填写收款的银行卡信息</text>
+				</view>
+				<view class="section-input-group">
+					<input type="text" placeholder="请输入开户行"  value="{{ recycleForm.bank.name }}"
+					  data-name="recycleForm.bank.name" bindinput="onBankInput" />
+					<input type="text" placeholder="请输入开户人"  value="{{ recycleForm.bank.person }}"
+					  data-name="recycleForm.bank.person" bindinput="onBankInput" />
+					<input type="number" placeholder="请输入银行卡号" value="{{ recycleForm.bank.number }}" 
+					  data-name="recycleForm.bank.number" bindinput="onBankInput" />
+				</view>
+			</view> -->
+		</view>
+
+		<!-- 表单按钮和服务协议 -->
+		<view class="foot">
+			<view class="form-btn">
+				<button class="btn normalizeBt" bind:tap="goBack">上一步</button>
+				<button class="btn normalizeBt submit-btn" formType="submit" bind:tap="onSubmit">提交</button>
+			</view>
+			<view class="service-agreement" wx:if="{{ popupTips && popupTips.service_agreement }}">
+				<van-checkbox value="{{ recycleForm.serviceAgree }}" checked-color="#07c160" bind:change="onServiceAgree"
+				  shape="square" checked-color="#D1AB5A">
+					<text>我已阅读并同意</text>
+				</van-checkbox>
+				<text class="agreement-title" bind:tap="showRule" data-type="AGREEMENT"
+				  data-id="{{ popupTips.service_agreement }}"
+				>{{ '《' + (popupTips.service_agreement_title || '') + '》'}}</text>
+			</view>
+		</view>
+	</block>
+</view>

@@ -199,3 +199,32 @@ radio .wx-radio-input{
 	transform:translate(-50%, -50%) scale(1);
 	-webkit-transform:translate(-50%, -50%) scale(1);
  }
+
+ // 文字多于一行省略
+.text-ellipsis-1 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+// 文字多于两行省略
+.text-ellipsis-2 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2
+}
+
+// 页面加载图标
+.page-loading {
+	display: flex;
+	justify-content: center;
+	padding: 20rpx 0;
+}
+
+// 页面无数据
+.page-empty {
+	padding: 20rpx 0;
+	color: #999;
+}

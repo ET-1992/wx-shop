@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的黄金",
+  "usingComponents": {
+		"loading": "components/loading/index"
+	}
+}

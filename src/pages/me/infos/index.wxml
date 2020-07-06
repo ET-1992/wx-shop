@@ -1,4 +1,25 @@
 <view class="infos">
+    <!-- 回购箱 -->
+    <navigator class="infoItem" url="/pages-cuilv/depositIndex/depositIndex" wx:if="{{ config.repo_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
+        <view class="itemTitle">回购箱</view>
+    </navigator>
+    <!-- 寄存订单 -->
+    <navigator class="infoItem" url="/pages-cuilv/fastDeposit/fastDeposit" wx:if="{{ config.repo_button_show }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
+        <view class="itemTitle">寄存订单</view>
+    </navigator>
+    <!-- 金币商城 -->
+    <navigator class="infoItem" url="/pages-cuilv/goldCoinMall/goldCoinMall" wx:if="{{ config.coin_mall_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/cardCollection.svg" />
+        <view class="itemTitle">{{ config.coin_name || '金彩' }}商城</view>
+    </navigator>
+    <!-- 我的卡包 -->
+    <navigator class="infoItem" url="/pages-cuilv/cardCollection/cardCollection?tab=card" wx:if="{{ config.coin_card_enable }}">
+        <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/coinMall.svg" />
+        <view class="itemTitle">我的卡包</view>
+    </navigator>
+
     <button class="normalizeBt infoItem" open-type="getUserInfo" bindgetuserinfo="toMemberPage" wx:if="{{ config.membership_enable && user.membership.is_member }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>
@@ -39,9 +60,12 @@
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </view>
+    <!-- 企业微信/微信客服 -->
     <button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
-        <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
-        <view class="itemTitle">联系客服</view>
+        <view class="contact-wrap" catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+            <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
+            <view class="itemTitle">联系客服</view>
+        </view>
     </button>
     <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
@@ -62,3 +86,9 @@
 </view>
 
 <myModal modal="{{authModal}}" />
+
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>

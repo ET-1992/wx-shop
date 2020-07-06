@@ -11,11 +11,14 @@
 
 			.location-left {
 				font-size: 28rpx;
-				color: #333;
 				flex: 1;
 				position: relative;
 				display: flex;
 				align-items: center;
+
+				&.location-left-selected {
+					color: #333;
+				}
 
 				.left-icons {
 					display: flex;
@@ -61,6 +64,13 @@
 			line-height: 30rpx;
 			color: #333;
 			text-align: center;
+			&.store-item-air {
+				margin: 30rpx;
+			}
+		}
+
+		.van-collapse-item-custom {
+			margin-top: 20rpx;
 		}
 
 		.store-wrap {
@@ -70,6 +80,9 @@
 			font-size: 22rpx;
 			line-height: 30rpx;
 			color: #333;
+			&:last-child {
+				border-bottom: none;
+			}
 			.store-title {
 				font-size: 28rpx;
 				line-height: 40rpx;

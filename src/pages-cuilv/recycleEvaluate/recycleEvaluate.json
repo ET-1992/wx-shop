@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "在线估价",
+	"usingComponents": {
+		"loading": "components/loading/index"
+	}
+}

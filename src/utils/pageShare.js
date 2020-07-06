@@ -188,3 +188,24 @@ export const wxPay = async (options = {}, order_no, subKeys = []) => {
     // });
 };
 
+// 云购订单创建
+export const createCloudOrder = (arr = []) => {
+    let orderList = [];
+    arr.forEach(item => {
+        let { product, productNum } = item;
+        let { title, activity, thumbnail, post_id, id } = product;
+        let { current_quantity, quantity, unit_price, round } = activity;
+        let order = {
+            post_id: post_id || id,  // 商品post-id
+            realQuantity: quantity,  // 商品数量
+            title,
+            round,  // 当前期数
+            unit_price,  // 商品单价（金币）
+            current_quantity,  // 已售数量
+            quantity: productNum,  // 预购买数量
+            thumbnail,
+        };
+        orderList.push(order);
+    });
+    return orderList;
+};

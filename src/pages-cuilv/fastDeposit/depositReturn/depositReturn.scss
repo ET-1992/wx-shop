@@ -1,0 +1,92 @@
+@import '~styles/color';
+
+.container {
+	padding: 20rpx;
+
+	.container-head,
+	.container-body {
+		background-color: white;
+	}
+
+	.container-head {
+		color: $infoColor;
+		font-size: 24rpx;
+		height: 212rpx;
+		padding: 0 28rpx;
+		margin-bottom: 20rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+
+		.head-top {
+			display: flex;
+
+			view {
+				flex: 1;
+			}
+		}
+
+		.head-bottom {
+			padding-bottom: 8rpx;
+		}
+
+		.num {
+			color: #D1AB5A;
+
+			&.bigger-num {
+				font-size: 36rpx;
+			}
+		}
+	}
+
+	.container-body {
+		height: 375rpx;
+		padding: 30rpx 0 46rpx;
+		display: flex;
+		flex-direction: column;
+
+
+		.form-title {
+			font-size: 28rpx;
+			line-height: 40rpx;
+			text-align: center;
+			margin-bottom: 35rpx;
+		}
+
+		.form-content {
+			flex: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			.form-item {
+				display: flex;
+
+				text,
+				input,
+				picker {
+					flex: 1;
+				}
+
+				text {
+					padding-left: 55rpx;
+				}
+			}
+		}
+	}
+
+	.container-btn {
+		margin-top: 30rpx;
+
+		button {
+			color: white;
+			font-size: 32rpx;
+			height: 90rpx;
+			border-radius: 45rpx;
+			background-color: #D0AA59;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}

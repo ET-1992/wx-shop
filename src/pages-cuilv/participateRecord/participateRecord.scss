@@ -1,0 +1,41 @@
+.container {
+	.page-empty {
+		text-align: center;
+	}
+	.list {
+		background-color: white;
+		margin-bottom: 24rpx;
+		padding: 0 35rpx;
+		.item {
+			font-size: 24rpx;
+			line-height: 41rpx;
+			color: #333333;
+			padding: 20rpx 0 15rpx;
+			.bottom {
+				margin-top: 6rpx;
+				color: #707070;
+				display: flex;
+				.join {
+					.num {
+						color: #F52D2D;
+					}
+				}
+				.time {
+					font-size: 20rpx;
+					margin-left: 64rpx;
+				}
+			}
+		}
+		.lucky-nums {
+			.nums-value {
+				display: flex;
+				flex-wrap: wrap;
+				.num-text {
+					font-family: -apple-system,Helvetica,sans-serif;
+    				font-feature-settings:"tnum" 1;
+					margin-right: 18rpx;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,160 @@
+<!-- 金币商城 -->
+<view class="container">
+	<view class="page-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<view class="header">
+			<view class="header-left">
+				<button class="normalizeBt left-avatar" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+					<image src="{{ current_user.avatarurl ? current_user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
+				</button>
+				<view class="left-avatar-ohters">
+					<view>{{ current_user.nickname || '...' }}</view>
+					<view class="left-coin" bind:tap="go" data-url="/pages/coinDetail/coinDetail">
+						<text class="left-coin-name">{{ config.coin_name || '金彩' }}：</text>
+						<text class="left-coin-value text-ellipsis-1">{{ current_user && current_user.wallet && current_user.wallet.coins || '0' }}</text>
+						<button class="normalizeBt left-btn">明细</button>
+						<van-icon name="arrow" size="20rpx"/>
+					</view>
+				</view>
+			</view>
+			<view class="header-right">
+				<button class="right-btn" style="background-color: {{ themeColor.primaryColor  }}"
+				  bind:tap="go" data-url="/pages-cuilv/joinRecord/joinRecord">参与记录</button>
+			</view>
+		</view>
+		<view class="body">
+			<!-- 金币兑换 -->
+			<view class="exchange" wx:if="{{ coinData.coin_module_enable }}">
+				<!-- 幻灯片 -->
+				<view class="exchange-banner" wx:if="{{ coinData.sliders && coinData.sliders.length }}">
+					<!-- <image class="banner-img" src="{{ coinData.banner }}" /> -->
+					<swiper
+						indicator-dots autoplay circular
+						class="banner-img"
+						indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
+						indicator-color="#fff">
+						<swiper-item wx:for="{{ coinData.sliders }}" wx:key="id">
+						<navigator
+							app-id="{{ item.appid }}"
+							path="{{ item.path }}"
+							target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+							url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+							style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+							hover-class="none"
+							bindfail="miniFail"></navigator>
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="exchange-list" wx:if="{{ coinData.products && coinData.products.length > 0 }}">
+					<view class="exchange-title">
+						<text>{{ config.coin_name || '金彩' }}兑换</text>
+						<text class="exchange-more" bind:tap="go" data-url="/pages-cuilv/coinExchange/coinExchange">更多></text>
+					</view>
+					<view class="exchange-product-list">
+						<view class="product-item" wx:for="{{ coinData.products }}" wx:key="{{ item.id }}"  
+						  bind:tap="go" data-url="/pages-cuilv/coinProductDetail/coinProductDetail?id={{ item.id }}">
+							<view class="product-img">
+								<image class="product-img-inner" src="{{ item.thumbnail }}" />
+							</view>
+							<view class="product-title text-ellipsis-2">
+								{{ item.title }}
+							</view>
+							<view class="product-price">
+								<text>{{ (item.coin_fee || item.coin_price) ? item.coin_fee + (config.coin_name || '金彩') +'+' + item.coin_price + '元' : '-' }}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 金币云购 -->
+			<view class="lucky-draw" wx:if="{{ cloudData && cloudData.luckydraw_module_enable }}">
+				<view class="draw-banner">
+					<!-- 幻灯片 -->
+					<view class="banner-img">
+						<swiper
+						indicator-dots autoplay circular
+						wx:if="{{ cloudData.sliders.length }}"
+						class="banner-img"
+						indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}"
+						indicator-color="#fff">
+						<swiper-item wx:for="{{ cloudData.sliders }}" wx:key="id">
+							<navigator
+							app-id="{{ item.appid }}"
+							path="{{ item.path }}"
+							target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
+							url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+							style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%"
+							hover-class="none"
+							bindfail="miniFail"></navigator>
+						</swiper-item>
+						</swiper>
+					</view>
+				</view>
+				<!-- 云购获奖名单 -->
+				<view class="draw-end" wx:if="{{ cloudData.activitys && cloudData.activitys.length > 0 }}">
+					<view class="draw-title">
+						<text>最新揭晓</text>
+						<text class="draw-more" bind:tap="go" data-url="/pages-cuilv/lastestResult/lastestResult">更多></text>
+					</view>
+					<view class="draw-end-list">
+						<view class="draw-end-item" wx:for="{{ cloudData.activitys }}" wx:key="{{ item.id }}"
+						  bind:tap="go" 
+						  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.post_id }}&&round={{ item.round }}">
+							<view class="item-img">
+								<view class="item-mask">
+									<image class="item-mask-img" src="/icons-cuilv/goldCoinMall/priceTimeMask.svg">
+										<text class="item-mask-tip">第{{ item.round || '0' }}期</text>
+									</image>
+								</view>
+								<image class="item-img-inner" src="{{ item.post_image_url }}" />
+							</view>
+							<view class="item-user">
+								<text>获奖者</text>
+								<image class="user-avatar" src="{{ item.win_record.user.avatarurl || '' }}"></image>
+								<view class="user-name">
+									<text>{{ item.win_record.user.nickname || '***' }}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!-- 云购进行商品 -->
+				<view class="draw-start" wx:if="{{ cloudData.products && cloudData.products.length > 0 }}">
+					<view class="draw-title">
+						<text>即将揭晓</text>
+						<text class="draw-more" bind:tap="go" data-url="/pages-cuilv/drawList/drawList">更多></text>
+					</view>
+					<view class="draw-start-list">
+						<view class="draw-start-item" wx:for="{{ cloudData.products }}" wx:key="{{ item.id }}" bind:tap="go" 
+						  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.id }}">
+							<view class="item-img">
+								<image class="item-img-inner" src="{{ item.thumbnail }}" />
+							</view>
+							<view class="item-info">
+								<view class="info-title text-ellipsis-2">{{ item.title || '-' }}</view>
+								<view class="info-others">
+									<view class="info-left">价值：￥{{ item.luckydraw.price || '0'}}</view>
+									<view class="info-right">剩余{{ (item.activity.quantity - item.activity.current_quantity) || '0' }}</view>
+								</view>
+							</view>
+							<view class="info-handle">
+								<button class="handle-go" style="background-color: {{ themeColor.primaryColor }}">立即参与</button>
+								<view class="handle-add" style="background-color: {{ themeColor.primaryColor }}"
+								  catch:tap="addCloudCart"
+				  				  data-post-id="{{ item.id }}" data-blog-id="{{ item.blog_id }}">
+									<image class="add-icon" src="/icons-cuilv/goldCoinMall/shoppingCart.svg" />
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 悬浮球 -->
+			<view class="floating">
+				<image class="floating-cart" src="/icons-cuilv/goldCoinMall/wishList.svg" bind:tap="go" data-url="/pages-cuilv/cloudCart/cloudCart"/>
+			</view>
+		</view>
+	</block>
+</view>

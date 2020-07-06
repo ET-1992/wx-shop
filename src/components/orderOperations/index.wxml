@@ -4,6 +4,7 @@
     <view class="contactBt" data-url="/pages/home/home" bind:tap="go">
       <image class="contactIcon" src="/icons/orderDetail/home.svg" mode="aspectFit"/>
     </view>
+    <!-- 企业微信/微信客服 -->
     <button
       class="normalizeBt contactBt"
       wx:if="{{ isShowContact }}"
@@ -13,8 +14,10 @@
 	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
 	  	send-message-img="{{order.items[0].thumbnail}}"
 	  	show-message-card="{{true}}"
-    ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit"/>
+    ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit" 
+      catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}" />
     </button>
+    <!-- 电话联系 -->
     <view class="contactBt" wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
       <image class="contactIcon" src="/icons/orderDetail/phone.svg" mode="aspectFit"/>
     </view>
@@ -51,8 +54,25 @@
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button class="statusBt confirmBt" wx:if="{{ statusCode === 3 }}" bindgetuserinfo="onConfirmOrder" open-type="getUserInfo">确认收货</button>
+    <button 
+      class="statusBt confirmBt" 
+      wx:if="{{ statusCode === 3 }}" 
+      bindgetuserinfo="onConfirmOrder" 
+      open-type="getUserInfo"
+    >确认收货</button>
+    <button
+      class="statusBt"
+      open-type="getUserInfo"
+      bindgetuserinfo="toPaymentVouchersPage" 
+      wx:if="{{ statusCode === 1010 || order.statusCode == 1011 }}"
+    >查看凭证</button>
   </view>
 </view>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
+
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>

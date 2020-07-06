@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "确定订单",
+	"usingComponents": {
+		"addressTwo": "../../components/addressTwo/addressTwo",
+		"van-loading": "vant-weapp/dist/loading/index"
+	}
+}

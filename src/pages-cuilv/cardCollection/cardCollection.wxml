@@ -1,0 +1,115 @@
+<!-- 金币卡-我的卡包 -->
+<view class="container">
+	<view class="card-loading" wx:if="{{ isLoading }}">
+		<van-loading />
+	</view>
+	<block wx:else>
+		<van-tabs active="{{ activeTab }}" color="#F52D2D" tab-active-class="active-tab" bind:change="onTabsChange">
+			<van-tab title="购买" name="recharge" wx:if="{{ rechargeEnable }}">
+				<!-- 购买 -->
+				<view class="recharge">
+					<view class="recharge-main">
+						<view class="recharge-title">选择{{ config.coin_name || '金彩' }}卡面值</view>
+						<view class="recharge-list">
+							<view class="recharge-item {{ itemChecked === item.code ? 'recharge-item-active' : '' }}" 
+							  style="background-color: {{ itemChecked === item.code ? themeColor.primaryColor : ''  }}"
+							  wx:for="{{ rechargeList }}" wx:key="{{ item.code }}" 
+							  bind:tap="onRechargeChange" 
+							  data-code="{{ item.code }}" data-price="{{ item.price }}" data-coin="{{ item.coin_quota }}">
+								<text>{{ item.coin_quota }}</text>
+								<text>{{ config.coin_name || '金彩' }}</text>
+							</view>
+						</view>
+					</view>
+					<view class="confirm">
+						<button class="normalizeBt confirm-btn" style="background-color: {{ themeColor.primaryColor  }}" 
+						  bind:tap="onPayment">确认支付
+						  <text class="confirm-price">￥{{ itemCheckedPrice }}</text>
+						  </button>
+					</view>
+				</view>
+			</van-tab>
+			<van-tab title="兑换" name="exchange">
+				<!-- 兑换 -->
+				<view class="exchange">
+					<view class="exchage-form">
+						<view class="form-list">
+							<view class="form-item">
+								<text class="item-name">卡号：</text>
+								<view class="item-input">
+									<input bindinput="bindKeyInput" type="number" 
+									  data-name="account" value="{{ exchangeForm.account }}"/>
+								</view>
+							</view>
+							<view class="form-item">
+								<text class="item-name">卡密：</text>
+								<view class="item-input">
+									<input bindinput="bindKeyInput" password 
+									  data-name="password" value="{{ exchangeForm.password }}"/>
+								</view>
+							</view>
+						</view>
+						<view class="form-sweep" bind:tap="onScanCode">
+							<text>扫码输入</text>
+						</view>
+					</view>
+					<view class="exchage-handle">
+						<button class="normalizeBt exchange-btn" style="background-color: {{ themeColor.primaryColor  }}"
+						  bind:tap="onSubimit">立即兑换</button>
+					</view>
+				</view>
+			</van-tab>
+			<van-tab title="卡包" name="card">
+				<!-- 卡包 -->
+				<view class="card">
+					<view class="card-top">
+						<view class="top-left">
+							<image class="top-icon" src="/icons-cuilv/goldCoinMall/myCardIcon.svg" />我的卡</view>
+						<view class="top-right" bind:tap="go" data-url="/pages-cuilv/coinRecord/coinRecord">历史记录</view>
+					</view>
+					<view class="card-body" wx:if="{{ cardList.length > 0 }}">
+						<view class="card-item" style="background-color: {{ themeColor.primaryColor  }}" wx:for="{{ cardList }}" wx:key="{{ item.id }}">
+							<view class="item-main">
+								<view class="item-amount">{{ item.coin_quota }}</view>
+								<view class="item-handle">
+									<button class="normalizeBt item-btn" bind:tap="onRecharge" 
+									data-no="{{ item.card_no }}" data-index="{{ index }}">充值</button>
+									<button class="normalizeBt item-btn" open-type="share" data-id="{{ item.id }}">赠送</button>
+								</view>
+							</view>
+							<view class="item-bottom">
+								<view class="botton-left">
+									<text>卡号：{{ item.card_no }}</text>
+								</view>
+								<view class="botton-right">
+									<text>有效期：{{ tool.getDateTime(item.expired_time) }}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="card-empty-tip" wx:else>暂无任何{{ config.coin_name || '金彩' }}卡</view>
+				</view>
+			</van-tab>
+		</van-tabs>
+	</block>
+</view>
+
+<wxs module="tool">
+	var filter = {
+    // 将时间戳转换成具体时间
+    getDateTime: function (value) {
+        //不能使用 new Date()
+        var time = getDate(value*1000);
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        month = month < 10 ? "0" + month : month;
+        date = date < 10 ? "0" + date : date;
+        return year + "-" + month + "-" + date ;
+    }
+  }
+  // 导出对外暴露的属性
+  module.exports = {
+    getDateTime: filter.getDateTime
+  }
+</wxs>

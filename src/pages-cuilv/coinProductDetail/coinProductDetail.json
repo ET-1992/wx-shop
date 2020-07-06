@@ -1,0 +1,9 @@
+{
+	"navigationBarTitleText": "商品详情",
+	"usingComponents": {
+		"van-loading": "vant-weapp/dist/loading/index",
+		"skuModal": "../../components/skuModal/skuModal",
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"productDetailShareModal": "../../components/productDetailShareModal/productDetailShareModal"
+	}
+}

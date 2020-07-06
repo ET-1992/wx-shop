@@ -1,0 +1,212 @@
+<view class="container">
+	<loading isLoading="{{ isLoading }}"/>
+	<block wx:if="{{ !isLoading }}">
+
+		<!-- 头部金价显示 -->
+		<!-- <view class="deposit-head">
+			<view class="glod-data-show">
+				<view class="now-gold-price">
+					<text class="num">{{ goldPrice }}</text>
+					<text>实时金价（元/克）</text>
+				</view>
+				<view class="keep-total-price">
+					<text class="num">{{ goldWeight }}</text>
+					<text>旧金重量（克）</text>
+				</view>
+			</view>
+			<view class="gold-btn-show">
+				<form bindsubmit="submitFormId" report-submit>
+					<button class="normalizeBt gold-btn" 
+					bind:tap="onRecycleBtn" 
+					data-type="{{ true }}"
+					form-type="submit"
+					>旧金免费估价</button>
+				</form>
+			</view>
+		</view> -->
+
+		<view class="deposit-list">
+			<!-- 筛选框 -->
+			<view class="picker-menu">
+				<!-- 全部类型 -->
+				<picker class="picker-item" value="{{typeIndex}}" range="{{typeArray}}" 
+				  bindchange="bindPickerChange" bindcancel="bingPickerCancel" data-name="typeIndex">
+					<view class="picker">
+						<text>{{ typeArray[typeIndex] }}</text>
+						<view class="picker-logo"></view>
+					</view>
+				</picker>
+				<!-- 全部时间 -->
+				<picker class="picker-item" mode="date" fields="month" value="{{dateIndex}}" 
+				  bindchange="bindPickerChange" bindcancel="bingPickerCancel" data-name="dateIndex">
+					<view class="picker">
+						<text>{{ dateIndex || '全部时间' }}</text>
+						<view class="picker-logo"></view>
+					</view>
+				</picker>
+			</view>
+			
+			<view class="special">
+				<!-- 加载提示 -->
+				<loading paddingTop="300" isLoading="{{ isSubLoading }}"></loading>
+				<!-- 空内容提示 -->
+				<view class="emptyHint" wx:if="{{ !orders.length && !isSubLoading }}">
+					<text>您还没有相关订单，</text>
+					<button class="normalizeBt emptyHint-btn" 
+					  bind:tap="go" data-url="/pages/home/home">快去下单</button>
+				</view>
+			</view>
+
+			<!-- 订单列表 -->
+			<view class="order-list">
+				<view class="order" wx:for="{{ orders }}" wx:key="index" wx:if="{{ orders.length > 0 && !isSubLoading}}">
+					<view class="item-head">
+						<view class="purchase-info">
+							<view class="order-num">
+								<text>订单编号：</text>
+								<text>{{ item.order_no }}</text>
+							</view>
+							<view class="order-time">
+								<text>寄存时间：</text>
+								<text>{{ item.time }}</text>
+							</view>
+						</view>
+						<view class="purchase-check" bind:tap="go" 
+						  data-url="{{ '/pages/orderDetail/orderDetail?id=' + item.order_no + '&deposit_order_id=' + item.id }}">查看购买信息</view>
+					</view>
+					<view class="item-body">
+	
+						<!-- ★没有发货记录 包括寄存记录和回购记录 -->
+						<view class="undelivered" wx:if="{{ !status.judge(item.status, 'depositDelivery') }}">
+							<!-- ★★寄存记录 -->
+							<view class="record" wx:if="{{ status.judge(item.status, 'deposited') }}">
+								<view class="record-table">
+									<view class="table-tr">
+										<text class="table-th">购入价格（元）</text>
+										<text class="table-td">{{ item.deposit_amount || 0 }}</text>
+									</view>
+									<view class="table-tr">
+										<text class="table-th">购入金价（元/克）</text>
+										<text class="table-td">{{ item.deposit_base_price || 0 }}</text>
+									</view>
+									<view class="table-tr">
+										<text class="table-th">寄存重量（克）</text>
+										<text class="table-td">{{ item.weight || 0 }}</text>
+									</view>
+								</view>
+								<view class="record-btn">
+									<button bindtap="go" data-url="./depositSend/depositSend?no={{ item.deposit_order_no }}">发货</button>
+									<button bindtap="go" data-url="./depositReturn/depositReturn?no={{ item.deposit_order_no }}">回购</button>
+								</view>
+							</view>
+							<!-- ★★回购记录 -->
+							<view class="record" wx:if="{{ status.judge(item.status, 'depositReturn') }}">
+								<view class="record-table">
+									<view class="table-tr">
+										<text class="table-th">回购价格（元）</text>
+										<text class="table-td">{{ item.repo_amount || 0 }}</text>
+									</view>
+									<view class="table-tr">
+										<text class="table-th">回购金价（元/克）</text>
+										<text class="table-td">{{ item.repo_base_price || 0 }}</text>
+									</view>
+									<view class="table-tr">
+										<text class="table-th">回购重量（克）</text>
+										<text class="table-td">{{ item.weight || 0 }}</text>
+									</view>
+								</view>
+								<view class="record-btn complete-btn">
+									<button class="btn-gray">已回购</button>
+								</view>
+							</view>
+						</view>
+	
+						<!-- ★发货记录 包括未发货、已发货和已完成 -->
+						<view class="deliver" wx:if="{{ status.judge(item.status, 'depositDelivery') }}">
+							<view class="deliver-info">
+								<view class="info-goods" wx:if="{{ item.product }}">
+									<view class="goods-left">
+										<image src="{{ item.product.image_url }}" mode="aspectFit"></image>
+									</view>
+									<view class="goods-middle">
+										<view>{{ item.product.title }}</view>
+										<view class="goods-weight">
+											<text>重量：</text>
+											<text>{{ item.product.weight || 0}}</text>
+										</view>
+									</view>
+									<view class="goods-right">x{{ item.product.quantity || 0}}</view>
+								</view>
+								<view class="info-express">
+									<text>收货信息：</text>
+									<text>{{ item.receiver_name || ''}}  </text>
+									<text>{{ item.receiver_phone || ''}}  </text>
+									<text>{{ item.receiver_address || ''}}</text>
+								</view>
+							</view>
+							<view class="deliver-type-btn">
+								<!-- ★★未发货 -->
+								<view wx:if="{{ item.status === 2 }}">
+									<button class="btn-gray">待发货</button>
+									<!-- <button bind:tap="confirmDelivery" data-id="{{ item.id }}">确认收货</button> -->
+								</view>
+								<!-- ★★已发货 -->
+								<view wx:if="{{ item.status === 3 }}">
+									<button class="btn-white" bind:tap="go" 
+									  data-url="{{'/pages/logistics/logistics?deposit_order_id=' + item.id + '&orderNo=' + item.order_no }}">查看物流</button>
+									<button bind:tap="confirmDelivery" data-no="{{ item.deposit_order_no }}">确认收货</button>
+								</view>
+								<!-- ★★已完成 -->
+								<view wx:if="{{ item.status === 4 }}">
+									<view class="completed-tip">已完成</view>
+									<form bindsubmit="submitFormId" report-submit>
+										<button class="btn-white" wx:if="{{ item.product && item.product.repo_enable  }}" 
+										bind:tap="onRecycleBtn" 
+										data-id="{{ item.id }}" 
+										data-weight="{{ item.product.weight }}"
+										data-no="{{ item.product.order_no }}"
+										data-img="{{ item.product.image_url }}"
+										form-type="submit"
+										>我要回收</button>
+									  </form>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<!-- 底线提示 -->
+			<view class="special" wx:if="{{ orders.length && !next_cursor }}">
+				<view class="bottomHint">这是一条底线</view>
+			</view>
+		</view>
+	</block>
+</view>
+<wxs module="status">
+	var DEPOSIT_STATUS = {
+		// 寄存记录
+		deposited: [1, 5, 6, 1001, 4005],
+		// 回购记录
+		depositReturn: [7, 8, 9, 10],
+		// 发货记录 2待发货 3已发货 4已收货
+		depositDelivery: [2, 3, 4]
+	};
+
+	// 筛选记录的类型
+	var judge = function (statusNum, statusType){
+		// 该类型记录数组
+		var statusArray = DEPOSIT_STATUS[statusType];
+
+		for (var i = 0 ; i < statusArray.length; i++) {
+			if (statusNum === statusArray[i]){
+				return true
+			} else if( i === statusArray.length - 1) {
+				return false
+			}
+		}
+	};
+	module.exports = {
+		judge: judge,
+	}
+</wxs>
