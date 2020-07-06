@@ -24,17 +24,14 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 export const CONFIG = 'CONFIG';
 
 export const PLATFFORM_ENV = 'PEAUNT';
-// export const PLATFFORM_ENV = 'MIBAI';
-// export const PLATFFORM_ENV = 'CUILV';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
-    { text: 'dev', value: 'https://hei.dev.97866.com/' },
+    { text: 'DEV', value: 'https://hei.dev.97866.com/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },
     { text: 'CUILV', value: 'https://api.jcaik.com/' },  // 翠绿
-    // { text: 'CUILV', value: 'https://hei.dev.97866.com/' },
     { text: 'AUH', value: 'https://wechat.bebridge.cn/' }  // 澳洲香港服務器
 ];
 
