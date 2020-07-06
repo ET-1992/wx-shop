@@ -26,7 +26,7 @@
 <block wx:if="{{ home_type === 'new'}}">
     <view class="container" wx:if="{{ !isLoading }}">
         <!-- 搜索框 -->
-        <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" themeColor="{{ themeColor }}" />
+        <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
         <view class="{{ module_page.search_box ? 'main': '' }}">
             <view wx:for="{{ modules }}" wx:key="key">
                 <!-- 幻灯片 -->
