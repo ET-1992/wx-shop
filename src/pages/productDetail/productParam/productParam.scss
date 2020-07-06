@@ -32,7 +32,8 @@
 }
 .overlay{
 	position: absolute;
-	bottom: 0;
+	top: 0;
+  	left: 0;
 	background: rgba(0, 0, 0, 0.7);
 	width: 100%;
 	height: 100%;
@@ -41,86 +42,79 @@
 .param-popup{
 	position: fixed;
 	bottom: 0;
+	left: 0;
 	width: 100%;
 	height: 75%;
 	z-index: 996;
 	background: #ffffff;
-	animation:popupShow 1s;
-	@keyframes popupShow
-	{
-	from {top:1000px;}
-	to {top:25%;}
-	}
-		.title{
-			width: 100%;
-			z-index: 999;
-			position: absolute;
-			left: 0;
-			right: 0;
-			text-align: center;
-			color: #000000;
-			padding:20rpx 0;
-			background: #ffffff;
-		} 
-		.ProductParamList{
-			height: 760rpx;
-			padding: 60rpx 15rpx 0 15rpx;
-			font-size: 28rpx;
-			overflow-y: scroll;
-			z-index: 998;
-			position: relative;
-			.itemList{
-				padding-top: 20rpx;
-				// &.iphoneXTrick {
-				// 	padding-top: 40rpx;
-				// 	height: 920rpx;
-				// }
-				.item{
-					display: flex;
-					padding: 25rpx 0;
-					border-bottom: 1rpx solid #DCDCDC;
-					align-items: center;
-					.name{
-						width: 130rpx;
-						font-size: 26rpx;
-						font-weight: 500;
-					}
-					.param{
-						width: 500rpx; 
-						font-size: 22rpx;
-						color: #808080;
-						margin-left: 30rpx;
-					}
-				}
-			}
-			&.iphoneXTrick {
-				// 	padding-top: 40rpx;
-				height: 920rpx;
-			}
-			.product-param-bottom{
-				z-index: 999;
-				position: fixed;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				width: 100%;
-				height: 150rpx;
-				background-color: #ffffff;
+	.title{
+		width: 100%;
+		z-index: 999;
+		text-align: center;
+		color: #000000;
+		padding:20rpx 0;
+		background: #ffffff;
+	} 
+	.ProductParamList{
+		font-size: 28rpx;
+		height:80%;
+		overflow-y: scroll;
+		.itemList{
+			padding: 30rpx 15rpx 0 15rpx;
+			.item{
+				position: relative;
 				display: flex;
+				padding: 25rpx 0;
+				/* border-bottom: 1rpx solid #DCDCDC;  cover-view不支持*/ 
 				align-items: center;
-				justify-content: center;
-				&.iphoneXTrick {
-					bottom: 40rpx;
+				.name{
+					width: 130rpx;
+					font-size: 26rpx;
+					font-weight: 500;
+					white-space:normal;
+					overflow: unset;
 				}
-				.closeBtn{
-					width: 100%;
-					height: 80rpx;
-					line-height: 80rpx;
-					color: #ffffff;
-					border-radius: 50px;
-					text-align: center;
-					background: #42a367;
+				.param{
+					width: 500rpx; 
+					font-size: 22rpx;
+					color: #808080;
+					margin-left: 30rpx;
+					// 解决cover-view默认不换行的问题
+					white-space:normal;
+					overflow: unset;
 				}
 			}
-		}	
+			.line{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 2rpx;
+				background-color: #DCDCDC;
+			}
+		}
+	}	
+	.product-param-bottom{
+		position: absolute;
+		bottom: 0;
+		z-index: 999;
+		width: 100%;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20rpx 0;
+		&.iphoneXTrick { 
+			padding: 40rpx 0;
+		}
+		.closeBtn{
+			width: 700rpx;
+			height: 80rpx;
+			line-height: 80rpx;
+			color: #ffffff;
+			border-radius: 50px;
+			text-align: center;
+			font-size: 28rpx;
+			background: #42a367;
+		}
+	}
 }

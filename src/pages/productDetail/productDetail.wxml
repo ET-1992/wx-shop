@@ -268,8 +268,8 @@
 		</view>
 
 		<!-- 产品参数 -->
-		<view class="productParamList">
-			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
+		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}">
+			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}" color="{{themeColor.primaryColor}}"/>
 		</view>
 		<!-- 多门店组件 -->
 		<multiStore multiStoreEnable="{{ multiStoreEnable }}" style="margin: 10rpx 0"/>

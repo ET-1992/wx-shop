@@ -1,5 +1,5 @@
 <view class="wrapper">
-    <view class="list" bindtap="popupShow">
+    <view class="list" bindtap="showParamModal">
         <view class="content">
             <view class="title">{{title}}</view>
             <view class="value">{{paramKeys}}</view>
@@ -13,18 +13,19 @@
 
 <!-- show="{{isShowProductParam}}" bind:close="onHideProductParam" position="bottom" custom-style="height: 70%;" -->
  <!-- 产品参数弹窗 -->
- <view class="overlay" wx:if="{{isShowProductParam}}" catchtap="onHideProductParam" catchtouchmove="preventTouchMove"></view>
- <view class="param-popup" wx:if="{{isShowProductParam}}">
-    <view class="title">产品参数</view>
-    <scroll-view class="ProductParamList {{ isIphoneX ? 'iphoneXTrick' : '' }}" scroll-y="{{true}}">
-        <view class="itemList">
-            <view class="item" wx:for="{{product.attributes}}" wx:key="item">
-                <view class="name">{{item.key}}</view>
-                <view class="param">{{item.value}}</view>
-            </view>
-        </view>
-        <cover-view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onHideProductParam" catchtouchmove="preventTouchMove">
-            <cover-view class="closeBtn">完成</cover-view>
+ <cover-view class="overlay" wx:if="{{isShowProductParam}}" catchtap="hideParamModal" catchtouchmove="catchMove"></cover-view>
+ <cover-view class="param-popup" wx:if="{{isShowProductParam}}" animation="{{animationData}}">
+    <cover-view class="title">产品参数</cover-view>
+    <cover-view class="ProductParamList">
+        <cover-view class="itemList {{ isIphoneX ? 'iphoneXTrick' : '' }}" scroll-y="{{true}}">
+            <cover-view class="item" wx:for="{{product.attributes}}" wx:key="item">
+                <cover-view class="name">{{item.key}}</cover-view>
+                <cover-view class="param">{{item.value}}</cover-view>
+                <cover-view class="line"></cover-view>
+            </cover-view>
         </cover-view>
-    </scroll-view>
-</view> 
+    </cover-view>
+    <cover-view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="hideParamModal">
+         <button type="primary" class="closeBtn" style="background-color:{{color}}"> 确定 </button>
+    </cover-view>
+</cover-view> 

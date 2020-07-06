@@ -10,8 +10,7 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/featured/featured",
-		"pages/onlineStore/onlineStore"
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
