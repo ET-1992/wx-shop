@@ -1,7 +1,7 @@
 <view class="pendingGroupon" bind:tap="onGroupon" wx:if="{{ timeLimit > 0 }}">
 	<image class="userAvatar" src="{{ groupon.user.avatarurl }}" />
 	<view class="middle">
-		<view class="userName">{{ groupon.user.nickname }}</view>
+		<view class="userName">{{ utils.hideName(groupon.user.nickname) }}</view>
 		<view class="status">正在开团中</view>
 	</view>
 
@@ -19,3 +19,19 @@
 		</view>
 	</view>
 </view>
+
+<wxs module="utils">
+    // 显示第一个字符，其余为星号
+    var hideName = function(str) {
+		if(!str) { return '-'}
+        var len = str.length-1;
+        var xing = '';
+        for (var i=0 ; i<len; i++) {
+            xing += '*';
+        }
+        return str.substring(0,1) + xing;
+    };
+    module.exports = {
+        hideName: hideName
+    }
+</wxs>
