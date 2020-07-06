@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
-import { ADDRESS_KEY, LIFT_INFO_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
+import { ADDRESS_KEY, CONFIG, PAY_STYLES, LOCATION_KEY } from 'constants/index';
 import { auth, subscribeMessage, getDistance } from 'utils/util';
 import proxy from 'utils/wxProxy';
 import { Decimal } from 'decimal.js';
@@ -83,7 +83,7 @@ Page({
             const { items, totalPostage } = currentOrder;
             let location = wx.getStorageSync(LOCATION_KEY) || false;
             let address = wx.getStorageSync(ADDRESS_KEY) || {};
-            let liftInfo = wx.getStorageSync(LIFT_INFO_KEY) || { isCanInput: true, isCanNav: true };
+            let liftInfo = { isCanInput: true, isCanNav: true };
             let storeUpdateEnable = true;
             const totalPrice = currentOrder.totalPrice || 0;
             // let totalPostage = 0;
@@ -94,8 +94,8 @@ Page({
                     // 地址清空
                     address = { userName: '', };
                 }
-                // 自提配置
-                liftInfo = { isCanInput: true, isCanNav: false };
+                // 自提点不能选择
+                liftInfo.isCanNav = false;
                 // 门店不可选配置
                 storeUpdateEnable = false;
             }
@@ -567,7 +567,6 @@ Page({
         // 自提需传数据
         if (shipping_type === 2) {
             requestData = { ...requestData, ...liftInfo };
-            wx.setStorageSync(LIFT_INFO_KEY, liftInfo);
             subKeys.push({ key: 'order_stock_up' });
         }
 

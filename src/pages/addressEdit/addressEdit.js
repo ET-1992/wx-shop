@@ -3,7 +3,7 @@ import api from 'utils/api/index';
 import { ADDRESS_KEY, LOCATION_KEY, CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 const app = getApp();
-import { checkBeyondDistance } from 'utils/util';
+import { checkBeyondDistance, auth } from 'utils/util';
 
 Page({
     data: {
@@ -314,17 +314,36 @@ Page({
     // 打开微信定位获取详细地址
     async onChooseLocation() {
         let { form } = this.data;
-        let data = await proxy.chooseLocation();
-        let { address, name, latitude, longitude } = data;
-        console.log('微信定位结果', data);
-        let locationObj = { latitude, longitude };
-        // 更改详细地址数据
-        let index = form.findIndex(item => item.key === 'addressInfo');
-        form[index].value = address + name;
-        this.setData({
-            form,
-            locationObj,
-        });
+        try {
+            const res = await auth({ scope: 'scope.userLocation', ctx: this, isFatherControl: true });
+            if (res) {
+                let data = await proxy.chooseLocation();
+                let { address, name, latitude, longitude } = data;
+                console.log('微信定位结果', data);
+                let locationObj = { latitude, longitude };
+                // 更改详细地址数据
+                let index = form.findIndex(item => item.key === 'addressInfo');
+                form[index].value = address + name;
+                this.setData({
+                    form,
+                    locationObj,
+                });
+            }
+        } catch (e) {
+            const { platform, locationAuthorized, locationEnabled } = wx.getSystemInfoSync();
+            console.log(platform, 'platform');
+            console.log(locationAuthorized, 'locationAuthorized');
+            console.log(locationEnabled, 'locationEnabled');
+            console.log(e);
+            if (platform !== 'devtools' && (!locationEnabled || !locationAuthorized)) {
+                await proxy.showModal({
+                    title: '温馨提示',
+                    content: '请检查手机定位是否开启、是否允许微信使用手机定位',
+                    showCancel: false
+                });
+                return;
+            }
+        }
     },
 
     // 前端字段转换成微信/后端字段
@@ -356,5 +375,20 @@ Page({
             }
         }
         return form;
+    },
+
+    // 授权取消
+    onAuthModalCancel() {
+        console.log('取消授权');
+        this.setData({
+            'authModal.isShowModal': false
+        });
+    },
+
+    // 授权确认
+    onAuthModalConfirm() {
+        this.setData({
+            'authModal.isShowModal': false
+        });
     },
 });
