@@ -616,6 +616,11 @@ video {
 	}
 }
 
+// 多门店部件
+.multiStore {
+	margin: 10rpx 0;
+}
+
 .areaPostageBox{
 	margin: 10rpx auto;
 	padding: 0 39rpx 0 31rpx;
@@ -880,6 +885,7 @@ button {
 	margin-bottom: 10rpx;
 }
 .detail{
+	margin-top: 10rpx;
 	background-color: #fff;
 	width: 100%;
 
