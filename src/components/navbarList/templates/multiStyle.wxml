@@ -18,7 +18,7 @@
             bind:tap="changeActive"
             style="background-color: {{ activeIndex === index ? themeColor.primaryColor : '#f1f1f1'}}; color: {{ activeIndex === index ? '#ffffff' : '' }}"
         >{{ item.text }}</view>
-        <view class="item"></view>
+        <text class="i"></text><text class="i"></text><text class="i"></text><text class="i"></text>
     </view>
   </van-popup>
 </view>

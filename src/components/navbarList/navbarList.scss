@@ -168,14 +168,18 @@
 		align-items: center;
 		justify-content: space-between;
 		box-shadow: 0 0 2rpx rgba(0, 0, 0, 0.16);
+		$width: 120rpx;
 		.item {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				width: 120rpx;
+				width: $width;
 				height: 54rpx;
 				margin-bottom: 20rpx;
 				border-radius: 40rpx;
+		}
+		>.i{
+			width: $width;
 		}
 	}
 }
