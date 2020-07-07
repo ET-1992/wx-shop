@@ -8,7 +8,7 @@ export const ADDRESS_KEY = 'address';
 export const LOCATION_KEY = 'location';
 export const AREA_KEY = 'areaKey';
 export const CART_LIST_KEY = 'cartList';
-export const IS_NEED_REFESH_USER_INFO_KEY = 'isNeedRefreshUserInfo';
+export const IS_NEED_REFESH_USER_IKUPPERNFO_KEY = 'isNeedRefreshUserInfo';
 export const OVERSEA_ADDRESS_KEY = 'selfAddressKey';
 export const USER_INFO_CREATE_TIME = 'userInfoCreateTime';
 export const CLOUD_CART_LIST_KEY = 'cloudCartList';
@@ -22,11 +22,12 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
 
-export const PLATFFORM_ENV = 'PEAUNT';
+export const PLATFFORM_ENV = 'KUPPER';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
     { text: 'DEV', value: 'https://hei.dev.97866.com/' },
+    { text: 'KUPPER', value: 'http://m.kupper.com.cn/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },
