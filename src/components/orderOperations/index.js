@@ -66,16 +66,15 @@ Component({
         async onPayOrder() {
             const { orderNo, orders, orderIndex, order, config } = this.data;
             const currentOrder = order.order_no ? order : orders[orderIndex];
-            const { status, pay_sign, pay_appid } = await api.hei.payOrder({
-                order_nos: JSON.stringify([orderNo]),
-            });
-
-            wx.hideLoading();
 
             let subKeys = [{ key: 'order_consigned' }];
-
             if (currentOrder && currentOrder.groupon && currentOrder.groupon.id) {
                 subKeys.push({ key: 'groupon_finished' });
+            }
+
+            if (config.cashier_enable) {
+                wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${orderNo}&subKeys=${JSON.stringify(subKeys)}` });
+                return;
             }
 
             if (this.data.orderPrice <= 0) {
@@ -86,63 +85,71 @@ Component({
                 return;
             }
 
-            if (config.cashier_enable) {
-                wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${orderNo}&subKeys=${JSON.stringify(subKeys)}` });
-                return;
-            }
-
-            if (pay_sign) {
-                await wxPay(pay_sign, orderNo, subKeys);
-                wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${orderNo}` });
-            } else if (pay_appid) {
-                const {
-                    receiver_name,
-                    receiver_phone,
-                    receiver_state,
-                    receiver_city,
-                    receiver_district,
-                    receiver_address,
-                    items,
-                    amount,
-                    postage,
-                    coins_fee,
-                    buyerMessage,
-                    coupon_discount_fee
-                } = currentOrder;
-                const address = {
-                    userName: receiver_name,
-                    receiver_phone: receiver_phone,
-                    provinceName: receiver_state,
-                    cityName: receiver_city,
-                    countyName: receiver_district,
-                    detailInfo: receiver_address
-                };
-                this.setData({
-                    modal: {
-                        title: '温馨提示',
-                        isShowModal: true,
-                        body: '确定要支付当前订单吗？',
-                        type: 'navigate',
-                        navigateData: {
-                            url: `/pages/peanutPay/index?order_no=${orderNo}`,
-                            appId: pay_appid,
-                            target: 'miniProgram',
-                            version: 'develop',
-                            extraData: {
-                                address,
-                                order_no: orderNo,
-                                items,
-                                totalPrice: amount,
-                                totalPostage: postage,
-                                coinPrice: coins_fee,
-                                orderPrice: amount,
-                                buyerMessage,
-                                couponPrice: coupon_discount_fee,
-                            }
-                        }
-                    }
+            try {
+                const { pay_sign, pay_appid } = await api.hei.payOrder({
+                    order_nos: JSON.stringify([orderNo]),
                 });
 
+                wx.hideLoading();
+
+                if (pay_sign) {
+                    await wxPay(pay_sign, orderNo, subKeys);
+                    wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${orderNo}` });
+                } else if (pay_appid) {
+                    const {
+                        receiver_name,
+                        receiver_phone,
+                        receiver_state,
+                        receiver_city,
+                        receiver_district,
+                        receiver_address,
+                        items,
+                        amount,
+                        postage,
+                        coins_fee,
+                        buyerMessage,
+                        coupon_discount_fee
+                    } = currentOrder;
+                    const address = {
+                        userName: receiver_name,
+                        receiver_phone: receiver_phone,
+                        provinceName: receiver_state,
+                        cityName: receiver_city,
+                        countyName: receiver_district,
+                        detailInfo: receiver_address
+                    };
+                    this.setData({
+                        modal: {
+                            title: '温馨提示',
+                            isShowModal: true,
+                            body: '确定要支付当前订单吗？',
+                            type: 'navigate',
+                            navigateData: {
+                                url: `/pages/peanutPay/index?order_no=${orderNo}`,
+                                appId: pay_appid,
+                                target: 'miniProgram',
+                                version: 'develop',
+                                extraData: {
+                                    address,
+                                    order_no: orderNo,
+                                    items,
+                                    totalPrice: amount,
+                                    totalPostage: postage,
+                                    coinPrice: coins_fee,
+                                    orderPrice: amount,
+                                    buyerMessage,
+                                    couponPrice: coupon_discount_fee,
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: err.errMsg,
+                    showCancel: false
+                });
             }
         },
 
