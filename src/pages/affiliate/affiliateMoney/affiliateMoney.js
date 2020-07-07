@@ -1,11 +1,9 @@
-import { checkPhone, bankCardAttribution, go } from 'utils/util';
-import { BANK_CARD_LIST } from 'utils/bank';
+import { checkPhone, go } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { Decimal } from 'decimal.js';
 
-// import { USER_KEY } from 'constants/index';
 const app = getApp();
 Page({
     data: {
@@ -13,18 +11,13 @@ Page({
             { name: '微信', value: 'weixin', checked: 'true' },
             { name: '银行卡', value: 'bank' }
         ],
-
         payStyle: 'weixin',
-
-        index: 0,
-
         isError: {
             phone: false,
             card: false
         },
         balance: '0',
         income_pending: '0',
-
         wechatId: '',   // 微信号
         username: '',   // 用户名
         phoneNumber: '',    // 手机号
@@ -40,17 +33,13 @@ Page({
         const isIphoneX = app.systemInfo.isIphoneX;
         const { themeColor } = app.globalData;
         this.setData({
-            // user,
             isIphoneX,
             themeColor,
-            bankNameList: BANK_CARD_LIST,
             balance,
             income_pending,
             code,
             globalData: app.globalData
         });
-
-        console.log(this.data.bankNameList);
     },
 
     onShow() {
@@ -88,36 +77,10 @@ Page({
         });
     },
 
-    getUserIdCardPhoneNumber(e) {
-        this.setData({ phoneNumber: e.detail.value });
-    },
-
-    getUserWechatId(e) {
-        this.setData({ wechatId: e.detail.value });
-    },
-
-    getUserIdCardName(e) {
-        this.setData({ username: e.detail.value });
-    },
-
-    getUserIdCardNumber(e) {
-        this.setData({
-            bankNumber: e.detail.value
-        });
-        let temp = bankCardAttribution(e.detail.value);
-        console.log(temp);
-        if (temp === 0) {
-            this.setData({ bankName: '' });
-        } else {
-            this.setData({ bankName: temp.bankName });
-        }
-    },
-
-    bindPickerChange(e) {
-        this.setData({
-            index: e.detail.value,
-            bankName: this.data.bankNameList[e.detail.value].bankName
-        });
+    getValue(ev) {
+        const { value } = ev.detail;
+        const { method } = ev.currentTarget.dataset;
+        this.setData({ [method]: value });
     },
 
     /* 银行卡提交 */

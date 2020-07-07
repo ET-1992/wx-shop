@@ -39,8 +39,9 @@
                 bindblur="check"
                 style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
                 bindfocus="reset"
-                bindinput='getUserIdCardPhoneNumber'
+                bindinput='getValue'
                 value="{{ phoneNumber }}"
+                data-method="phoneNumber"
             />
         </view>
         <view class="item">
@@ -49,8 +50,9 @@
                 class="item-input"
                 placeholder="请输入微信号"
                 type="text"
-                bindinput='getUserWechatId'
+                bindinput='getValue'
                 value="{{ wechatId }}"
+                data-method="wechatId"
             />
         </view>
     </view>
@@ -63,9 +65,10 @@
             <input
                 class="item-input"
                 placeholder="请输入姓名"
-                bindblur='getUserIdCardName'
+                bindinput='getValue'
                 type="text"
-                value="{{ username }}"
+                value="{{username}}"
+                data-method="username"
             />
         </view>
         <view
@@ -80,8 +83,9 @@
                 bindblur="check"
                 style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
                 bindfocus="reset"
-                bindinput='getUserIdCardPhoneNumber'
+                bindinput='getValue'
                 value="{{ phoneNumber }}"
+                data-method="phoneNumber"
             />
         </view>
         <view
@@ -92,16 +96,22 @@
             <input
                 class="item-input"
                 placeholder="请输入银行卡号"
-                bindblur='getUserIdCardNumber'
+                bindinput='getValue'
                 type="number"
                 value="{{ bankNumber }}"
+                data-method="bankNumber"
             />
         </view>
         <view class="item">
             <text class="item-text">开户行</text>
-            <picker bindchange="bindPickerChange" value="{{index}}" range="{{ bankNameList }}" range-key="bankName">
-                <input class="item-input" placeholder="请选择开户行" value='{{ bankName }}' disabled />
-            </picker>
+             <input
+                class="item-input"
+                placeholder="请输入开户行"
+                bindinput='getValue'
+                type="text"
+                value="{{ bankName }}"
+                data-method="bankName"
+            />
         </view>
     </view>
 </view>
