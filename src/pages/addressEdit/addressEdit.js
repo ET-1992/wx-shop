@@ -162,6 +162,7 @@ Page({
                 await this.confirmListAddress();
             }
         } catch (error) {
+            console.log('error', error);
             wx.showModal({
                 title: '温馨提示',
                 content: error.message || error.errMsg || '提交失败',
@@ -346,34 +347,50 @@ Page({
         }
     },
 
-    // 前端字段转换成微信/后端字段
+    // 表单FORM转换成微信/后端字段
     transformOthers(rule) {
         let finalForm = {},
             { form } = this.data;
-        for (let [k, v] of Object.entries(rule)) {
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    v.forEach((item, index) => { finalForm[item] = elem.value[index] });
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    finalForm[v] = elem.value;
-                }
+        for (const key in rule) {
+            if (rule.hasOwnProperty(key)) {
+                const ruleItem = rule[key];
+                form.forEach(formItem => {
+                    if (formItem.key === key) {
+                        if (Array.isArray(ruleItem)) {
+                            ruleItem.forEach((item, index) => {
+                                finalForm[item] = formItem.value[index];
+                            });
+                        } else {
+                            finalForm[ruleItem] = formItem.value;
+                        }
+                    }
+                });
             }
         }
+        console.log('form', form);
+        console.log('finalForm', finalForm);
         return finalForm;
     },
 
-    // 地址转换成前端字段
+    // 地址转换成表单FORM
     transformFrontEnd(origin, rule) {
         let { form } = this.data;
-        for (let [k, v] of Object.entries(rule)) {
-            for (let elem of form.values()) {
-                if (elem.key === k && Array.isArray(v)) {
-                    elem.value = v.map(item => origin[item]);
-                } else if (elem.key === k && !Array.isArray(v)) {
-                    elem.value = origin[v];
-                }
+        console.log('form', form);
+        for (const key in rule) {
+            if (rule.hasOwnProperty(key)) {
+                const ruleItem = rule[key];
+                form.forEach(formItem => {
+                    if (formItem.key === key) {
+                        if (Array.isArray(ruleItem)) {
+                            formItem.value = ruleItem.map(item => origin[item]);
+                        } else {
+                            formItem.value = origin[ruleItem];
+                        }
+                    }
+                });
             }
         }
+        console.log('finalForm', form);
         return form;
     },
 
