@@ -27,7 +27,7 @@ export const PLATFFORM_ENV = 'KUPPER';
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
     { text: 'DEV', value: 'https://hei.dev.97866.com/' },
-    { text: 'KUPPER', value: 'http://m.kupper.com.cn/' },
+    { text: 'KUPPER', value: 'https://m.kupper.com.cn/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },
