@@ -1,7 +1,7 @@
 {
 	"navigationBarTitleText": "即将揭晓",
 	"usingComponents": {
-		"van-loading": "vant-weapp/dist/loading/index",
+		"van-loading": "@vant/weapp/dist/loading/index",
 		"van-dropdown-menu": "@vant/weapp/dist/dropdown-menu/index",
 		"van-dropdown-item": "@vant/weapp/dist/dropdown-item/index",
 		"van-search": "@vant/weapp/dist/search/index"

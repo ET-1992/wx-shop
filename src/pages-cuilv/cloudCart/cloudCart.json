@@ -2,8 +2,8 @@
 	"navigationBarTitleText": "心愿单",
 	"enablePullDownRefresh": true,
 	"usingComponents": {
-		"van-loading": "vant-weapp/dist/loading/index",
+		"van-loading": "@vant/weapp/dist/loading/index",
 		"van-stepper": "@vant/weapp/dist/stepper/index",
-		"van-checkbox": "vant-weapp/dist/checkbox/index"
+		"van-checkbox": "@vant/weapp/dist/checkbox/index"
 	}
 }

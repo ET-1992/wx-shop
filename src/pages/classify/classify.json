@@ -5,8 +5,9 @@
 		"i-load-more": "../../components/iview-weapp/dist/load-more/index",
 		"filterList": "../../components/filterList/filterList",
 		"skuModal": "../../components/skuModal/skuModal",
-		"van-popup": "../../components/vant-weapp/dist/popup/index",
+		"van-popup": "@vant/weapp/dist/popup/index",
 		"searchBox": "../home/components/searchBox/searchBox",
-		"multiStore": "../../components/multiStore/multiStore"
+		"multiStore": "../../components/multiStore/multiStore",
+		"van-divider": "@vant/weapp/dist/divider/index"
 	  }
 }

@@ -69,7 +69,14 @@
 					<loading isLoading="{{ hasProducts }}" paddingTop="{{70}}"/>
 					<!-- <include src="/templates/homeTemplates/topImage/topImage.wxml"/> -->
 					<include src="/templates/homeTemplates/leftImage/leftImage.wxml"/>
-					<i-load-more wx:if="{{ products.length && current_page > total_pages }}" tip="到底啦" loading="{{ false }}" />
+					<!--<i-load-more wx:if="{{ products.length && current_page > total_pages }}" tip="到底啦" loading="{{ false }}" />-->
+					<van-divider
+						wx:if="{{ products.length && current_page > total_pages }}"
+						contentPosition="center"
+						customStyle="font-size: 28rpx;"
+						>
+  							到底啦
+					</van-divider>
 				</view>
 			</scroll-view>
 		</view>
