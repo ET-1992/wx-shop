@@ -24,7 +24,8 @@
         <view class="crowding">
             <view class="progress" wx:if="{{ crowd.type === '1' }}">
                 <view class="amount">目标金额<text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPayDispaly }}</text></view>
-                <i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />
+                <!--<i-progress percent="{{ progress }}" status="normal" hide-info="{{true}}" stroke-width="{{30}}" />-->
+                <van-progress percentage="{{ progress }}" stroke-width="15" show-pivot="{{false}}" color="#FD417B"/>
                 <view class="currentPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ crowd.pay_amount }}</view>
             </view>
             <button class="otherPay" wx:if="{{ crowd.status === '1' }}" style="background-color: {{ themeColor.primaryColor }};" bind:tap="showShareModal">请朋友帮忙</button>

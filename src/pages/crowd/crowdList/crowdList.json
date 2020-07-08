@@ -2,8 +2,8 @@
 	"usingComponents": {
 		"productItemSold": "../../../components/productItemSold/index",
 		"loading": "../../../components/loading/index",
-		"i-load-more": "../../../components/iview-weapp/dist/load-more/index",
 		"countDown": "../../../components/countDown/countDown",
-		"navbarList": "../../../components/navbarList/navbarList"
+		"navbarList": "../../../components/navbarList/navbarList",
+		"van-divider": "@vant/weapp/dist/divider/index"
 	}
 }

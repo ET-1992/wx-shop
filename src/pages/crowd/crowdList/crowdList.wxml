@@ -26,7 +26,14 @@
 				</navigator>
 			</view>
 		</view>
-		<i-load-more wx:if="{{ orders.length }}" tip="{{ next_cursor ? '加载中' : '到底啦' }}" loading="{{ next_cursor }}" />
+		<van-divider
+			wx:if="{{ orders.length }}"
+			contentPosition="center"
+			customStyle="font-size: 28rpx;"
+		>
+  			{{ next_cursor ? '加载中' : '到底啦' }}
+		</van-divider>
+		<!--<i-load-more wx:if="{{ orders.length }}" tip="{{ next_cursor ? '加载中' : '到底啦' }}" loading="{{ next_cursor }}" />-->
 		<view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}">暂无内容</view>
 	</view>
 </view>
