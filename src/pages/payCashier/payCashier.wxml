@@ -89,7 +89,7 @@
         }else{
             return excludeMethodsList.indexOf(method) > -1 && !!from_page
         }
-    }
+    };
     var excludeMethodsList = [
         'STORE_CARD',
         'TRANSFER_PAY',

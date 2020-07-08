@@ -208,5 +208,5 @@
 	};
 	module.exports = {
 		judge: judge,
-	}
+	};
 </wxs>

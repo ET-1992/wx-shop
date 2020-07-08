@@ -80,7 +80,7 @@
 		var day = date.getDate();
 		var dateRes = year+'-'+mouth+'-'+day
 		return dateRes
-	}
+	};
 	module.exports = {
 		getCurrentDate: getCurrentDate,
 	};

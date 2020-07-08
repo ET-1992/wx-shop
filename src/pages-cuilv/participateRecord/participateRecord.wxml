@@ -53,9 +53,9 @@ var getDateTime = function (value) {
 	minute = minute < 10 ? "0" + minute : minute;
 	second = second < 10 ? "0" + second : second;
 	return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
-}
+};
   // 导出对外暴露的属性
   module.exports = {
     getDateTime: getDateTime
-  }
+  };
 </wxs>

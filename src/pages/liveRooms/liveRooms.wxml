@@ -76,5 +76,5 @@ var getStatusBtn = function(status){
 module.exports = {
 	getStatusName: getStatusName,
 	getStatusBtn: getStatusBtn,
-}
+};
 </wxs>

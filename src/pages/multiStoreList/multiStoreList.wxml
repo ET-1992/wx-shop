@@ -77,7 +77,7 @@ var user = function(obj){
 	str += obj.detailInfo || ''
 	str += obj.room || ''
 	return str;
-}
+};
 // 店铺地址拼接
 var store = function(obj){
 	var str = '';
@@ -86,9 +86,9 @@ var store = function(obj){
 	str += obj.district || ''
 	str += obj.address|| ''
 	return str;
-}
+};
 module.exports = {
 	user: user,
 	store: store,
-}
+};
 </wxs>

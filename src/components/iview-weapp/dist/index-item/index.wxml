@@ -7,5 +7,5 @@
 <wxs module="parse">
     module.exports = {
        
-    }
+    };
 </wxs>

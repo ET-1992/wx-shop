@@ -119,7 +119,7 @@
 			className += '-multiStore';
 		}
 		return className;
-	}
+	};
 	module.exports = {
 		product: product
 	};

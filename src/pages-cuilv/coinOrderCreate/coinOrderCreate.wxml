@@ -85,7 +85,7 @@ var computeTotalPrice = function(order) {
 		totalPrice += item.unit_price * item.quantity
 	})
   return totalPrice;
-}
+};
 module.exports = {
   computeTotalPrice: computeTotalPrice
 };

@@ -241,13 +241,13 @@
         minute = minute < 10 ? "0" + minute : minute;
         second = second < 10 ? "0" + second : second;
         return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second + "." + milliseconds;
-	}
+	};
 	var getCurrentTime = function () {
 		var currentTime = getDate();
 		return getTime(currentTime);
-	}
+	};
 	module.exports = {
 		getTime: getTime,
 		getCurrentTime: getCurrentTime,
-	}
+	};
 </wxs>

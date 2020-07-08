@@ -597,20 +597,20 @@
 	</view>
 </van-popup>
 <!-- 产品参数弹窗 -->
-<van-popup show="{{isShowProductParam}}" custom-style="height:80%" position="bottom" bind:close="hideParamModal">
+<van-popup show="{{isShowProductParam}}" closeable custom-style="height:80%" position="bottom" bind:close="hideParamModal">
 	<view class="param-popup">
 		<view class="title">产品参数</view>
 		<view class="ProductParamList">
-			<scroll-view class="itemList {{ isIphoneX ? 'iphoneXTrick' : '' }}" scroll-y>
+			<view class="itemList {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 				<view class="item" wx:for="{{product.attributes}}" wx:key="item">
 					<view class="name">{{item.key}}</view>
 					<view class="param">{{item.value}}</view>
 				</view>
-			</scroll-view>
+			</view>
 		</view>
-		<view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="hideParamModal">
+		<!-- <view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="hideParamModal">
 			<button type="primary" class="closeBtn" style="background-color:{{themeColor.primaryColor}}"> 确定 </button>
-		</view>
+		</view> -->
 	</view> 
 </van-popup>
 
@@ -658,7 +658,7 @@
       i++;
     }
     return newValue;
-  }
+  };
 
   module.exports.formatValue = formatValue;
 </wxs>
@@ -670,9 +670,9 @@ var text = function (config) {
 	if(config && config.order_only) {
 		name = '立即下单'
 	};
-    return name
-}
+    return name;
+};
 module.exports = {
     text: text
-}
+};
 </wxs>

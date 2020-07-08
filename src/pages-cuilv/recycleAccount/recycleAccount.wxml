@@ -57,5 +57,5 @@ var getIncomeAmount = function (price, weight, loss){
 
 module.exports = {
     getIncomeAmount: getIncomeAmount,
-}
+};
 </wxs>

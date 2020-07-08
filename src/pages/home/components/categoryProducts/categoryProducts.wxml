@@ -33,9 +33,9 @@ var createClass = function(style){
 	}
 	var className = dictionary[style] || dictionary['default']
 	return className
-}
+};
 
 module.exports = {
 	createClass: createClass,
-}
+};
 </wxs>

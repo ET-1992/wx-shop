@@ -107,9 +107,9 @@
         date = date < 10 ? "0" + date : date;
         return year + "-" + month + "-" + date ;
     }
-  }
+  };
   // 导出对外暴露的属性
   module.exports = {
     getDateTime: filter.getDateTime
-  }
+  };
 </wxs>

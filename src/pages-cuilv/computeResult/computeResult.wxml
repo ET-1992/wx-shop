@@ -52,8 +52,8 @@
 		second = second < 10 ? "0" + second : second;
 		milliseconds = milliseconds > 100 ? milliseconds : ( milliseconds > 10 ? ( "0" + milliseconds ) : ( "00" + milliseconds ) )
         return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second + "." + milliseconds;
-	}
+	};
 	module.exports = {
 		getTime: getTime,
-	}
+	};
 </wxs>

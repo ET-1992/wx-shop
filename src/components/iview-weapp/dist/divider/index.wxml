@@ -15,5 +15,5 @@
             var height = 'height:' + height+'px;'      
             return color + size + height;
         }
-    }
+    };
 </wxs>

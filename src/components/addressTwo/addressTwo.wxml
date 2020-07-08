@@ -36,8 +36,8 @@ var user = function(obj){
 	str += obj.detailInfo || ''
 	str += obj.room || ''
 	return str;
-}
+};
 module.exports = {
 	user: user,
-}
+};
 </wxs>

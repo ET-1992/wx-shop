@@ -35,5 +35,5 @@
         setPosition : function( position ){
             return 'transform:translate(' + position.pageX + 'px,0);';
         }
-    }
+    };
 </wxs>

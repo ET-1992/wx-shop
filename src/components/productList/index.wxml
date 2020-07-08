@@ -77,8 +77,8 @@ var text = function (config) {
 		name = '立即下单'
 	};
     return name
-}
+};
 module.exports = {
     text: text
-}
+};
 </wxs>

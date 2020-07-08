@@ -1494,7 +1494,9 @@ img,
 		font-size: 28rpx;
 		.itemList{
 			padding: 0 20rpx;
-			height:770rpx;
+			/* height:770rpx; */
+			max-height: 60%;
+			visibility: scroll;
 			.item{
 				display: flex;
 				padding: 25rpx 0;
@@ -1517,9 +1519,9 @@ img,
 					border-bottom:none;
 				}
 			}
-			&.iphoneXTrick { 
+		/* 	&.iphoneXTrick { 
 				height: 940rpx;
-			}
+			} */
 		}
 	}	
 	.product-param-bottom{

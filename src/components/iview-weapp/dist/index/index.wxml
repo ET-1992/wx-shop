@@ -34,5 +34,5 @@
            }
            return 'height:'+ ( hasUnits ? height : height+'px' );
        }
-    }
+    };
 </wxs>

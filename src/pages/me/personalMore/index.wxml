@@ -54,7 +54,7 @@ var addWalletStore = function(a, b) {
 		total = '0.00'
 	}
 	return total
-}
+};
 module.exports = {
 	addWalletStore: addWalletStore
 };

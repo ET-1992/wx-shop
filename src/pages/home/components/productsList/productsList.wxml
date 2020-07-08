@@ -34,24 +34,22 @@
 </view>
 
 <wxs module="settingStyle">
-// 判断商品列表是否支持滚动
 var isScroll = function(style){
 	var pattern = '_h$';
 	var reg = getRegExp(pattern, 'img');
 	return reg.test(style)
-}
+};
 
-// 判断商品列表是否为多图模式
 var isMultiple = function(style){
 	var pattern = '^per';
 	var reg = getRegExp(pattern, 'img');
 	return reg.test(style)
-}
+};
 
 module.exports = {
 	isScroll: isScroll,
 	isMultiple: isMultiple
-}
+};
 </wxs>
 
 
@@ -62,9 +60,9 @@ var text = function (config) {
 		name = '立即下单'
 	};
     return name
-}
+};
 module.exports = {
     text: text
-}
+};
 </wxs>
 
