@@ -35,17 +35,15 @@ Component({
                 current_user = {},
                 save_button_title = '',
                 save_success_tips = '';
-            if (posterType === '1' || posterType === '2') {
-                console.log(posterData.qrcodePath[posterType]);
+            if (posterType === 'invite' || posterType === 'shareShop') {
                 requestData = {
-                    weapp_page: posterData.qrcodePath[posterType],
+                    weapp_page: posterData.path,
                     width: 150
                 };
 
                 const data = await api.hei.getShareQrcode({
                     ...requestData
                 });
-                console.log(data, 'getShareQrcodegetShareQrcodegetShareQrcode');
                 const { qrcode_url } = data;
                 options = {
                     qrcode_url

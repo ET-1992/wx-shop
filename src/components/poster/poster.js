@@ -78,7 +78,7 @@ export default class Poster {
                     ...this.initFooter()
                 ];
                 break;
-            case '1':
+            case 'invite':
                 views = [
                     ...this.initHeader(),
                     ...this.initQrcode(),
@@ -86,7 +86,7 @@ export default class Poster {
                     ...this.initFooter()
                 ];
                 break;
-            case '2':
+            case 'shareShop':
                 views = [
                     ...this.initHeader(),
                     ...this.initQrcode(),
@@ -119,11 +119,11 @@ export default class Poster {
                 height: '600rpx'
             }
         };
-        if (posterType === '1') {
+        if (posterType === 'invite') {
             imgObj.url = imgToHttps(config.affiliate_invite_friends_image);
             return [imgObj];
         }
-        if (posterType === '2') {
+        if (posterType === 'shareShop') {
             imgObj.url = imgToHttps(config.affiliate_promote_image);
             return [imgObj];
         }
@@ -356,12 +356,11 @@ export default class Poster {
     initQrcode() {
         const { qrcode_url, posterType, mainColor } = this.data;
         let _qrcode = [{
-            id: 'qr_code',
             type: 'image',
             url: imgToHttps(qrcode_url),
             css: {
                 bottom: `${posterType === 'bargain' ? 80 : 40}rpx`,
-                left: `${posterType === 'bargain' ? 60 : 45}rpx`,
+                right: `${posterType === 'bargain' ? 60 : 45}rpx`,
                 width: '150rpx',
                 height: '150rpx'
             }
@@ -372,13 +371,28 @@ export default class Poster {
                 text: '长按识别小程序码访问',
                 css: {
                     bottom: '40rpx',
-                    left: '45rpx',
+                    right: '45rpx',
                     height: '150rpx',
                     fontSize: '18rpx',
                     color: mainColor
                 }
             });
         }
+        return _qrcode;
+    }
+    shareShopOrInviteQrcode() {
+        const { qrcode_url } = this.data;
+        let _qrcode = [{
+            id: 'qr_code',
+            type: 'image',
+            url: imgToHttps(qrcode_url),
+            css: {
+                bottom: `40rpx`,
+                left: `45rpx`,
+                width: '150rpx',
+                height: '150rpx'
+            }
+        }];
         return _qrcode;
     }
 
@@ -699,6 +713,51 @@ export default class Poster {
             }
         ];
     }
+    shareShopOrInviteFooter() {
+        const { user, posterType } = this.data;
+        const _views = [];
+        let viewsText = [
+            (user && user.nickname) || '好友'
+        ];
+        switch (posterType) {
+            case 'invite':
+                viewsText = [
+                    ...viewsText,
+                    '向你发出邀请',
+                    '长按识别小程序码访问店铺'
+                ];
+                break;
+            case 'shareShop':
+                viewsText = [
+                    ...viewsText,
+                    '向你推荐这个店铺',
+                    '长按识别小程序码访问店铺'
+                ];
+                break;
+        }
+        const viewsBottom = [125, 85, 50];
+        const viewsFontSize = [24, 24, 24];
+        const viewsLeft = [85, 85, 85];
+        const viewsFontWeight = ['bold', 'normal', 'normal'];
+        const viewsMaxLines = [1, 1, 1];
+        const viewsWidth = [200, 300, 300];
+
+        for (let i = 0; i < 3; i++) {
+            _views.push({
+                type: 'text',
+                text: viewsText[i],
+                css: {
+                    bottom: `${viewsBottom[i]}rpx`,
+                    left: [`${viewsLeft[i]}rpx`, 'qr_code'],
+                    fontSize: `${viewsFontSize[i]}rpx`,
+                    maxLines: viewsMaxLines[i],
+                    fontWeight: viewsFontWeight[i],
+                    width: `${viewsWidth[i]}rpx`,
+                }
+            });
+        }
+        return _views;
+    }
     initFooter() {
         const { user, posterType } = this.data;
         const _views = [];
@@ -745,7 +804,7 @@ export default class Poster {
         }
         const viewsBottom = [125, 85, 50];
         const viewsFontSize = [24, 24, 24];
-        const viewsLeft = [85, 85, 85];
+        const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['bold', 'normal', 'normal'];
         const viewsMaxLines = [1, 1, 1];
         const viewsWidth = [200, 300, 300];

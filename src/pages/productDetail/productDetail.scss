@@ -1484,9 +1484,11 @@ img,
 		color: #000000;
 		background-color: #ffffff;
 		padding:20rpx 0;
-	}
+		background: #ffffff;
+	} 
 	.itemList{
-		padding-top: 65rpx;
+		padding: 30rpx 15rpx 0 15rpx;
+		height: 880rpx;
 		.item{
 			display: flex;
 			padding: 25rpx 0;
@@ -1496,12 +1498,17 @@ img,
 				width: 130rpx;
 				font-size: 26rpx;
 				font-weight: 500;
+				word-break:break-all;
 			}
 			.param{
-				width: 500rpx;
-				font-size: 22rpx;
+				width: 500rpx; 
+				font-size: 24rpx;
 				color: #808080;
+				word-break:break-all;
 				margin-left: 30rpx;
+			}
+			&:last-child{
+				border-bottom:none;
 			}
 		}
 	}
