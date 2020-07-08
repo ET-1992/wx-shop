@@ -24,3 +24,5 @@
 		<button class="btns delete-btn" wx:if="{{ type === 'update' }}" bind:tap="onDeleteForm">删除</button>
 	</view>
 </view>
+<!-- 授权弹窗 -->
+<myModal modal="{{ authModal }}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>

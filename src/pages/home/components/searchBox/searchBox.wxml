@@ -1,6 +1,12 @@
-<navigator class="searchBox" style="background-color: {{ themeColor.backgroundColor }}" url="/pages/search/search" hover-class="none">
-    <view class="search">
-      <image src="/icons/search.png" class="searchIcon" />
-      <text>搜索商品<text wx:if="{{ total }}">，共有{{ total }}款好物</text></text>
-    </view>
-</navigator>
+<view class="box" style="background-color: {{ themeColor.backgroundColor }}">
+  <navigator class="searchBox" url="/pages/search/search" hover-class="none">
+      <view class="search">
+        <image src="/icons/search.png" class="searchIcon" />
+        <text>搜索商品<text wx:if="{{ total }}">，共有{{ total }}款好物</text></text>
+      </view>
+  </navigator>
+  <navigator class="box-right" wx:if="{{ !onlySearchBox && config.offline_store_enable }}" url="/pages/multiStoreList/multiStoreList">
+    <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>
+    <text> ></text>
+  </navigator>
+</view>

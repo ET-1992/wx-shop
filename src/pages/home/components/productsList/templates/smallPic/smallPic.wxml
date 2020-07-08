@@ -23,7 +23,7 @@
                 </view>
                 <!-- 普通商品 -->
                 <view wx:else class="original">
-                    <view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
+                    <view wx:if="{{product.price !== product.original_price}}">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
                 </view>
                 <!-- 价格 -->
                 <view class="price">

@@ -38,7 +38,7 @@
 				<!-- 门店 -->
 				<van-collapse value="{{ activeNames }}" bind:change="onChange">
 					<!-- 遍历可选/不可选门店标题 -->
-					<block wx:for="{{ ['推荐门店', '以下门店超出配送范围'] }}" wx:for-item="storeTitle" wx:for-index="storeName">
+					<block wx:for="{{ ['推荐门店', '以下门店超出配送范围'] }}" wx:for-item="storeTitle" wx:for-index="storeName" wx:key="index">
 						<van-collapse-item title="{{ storeTitle }}" name="{{ storeName }}" custom-class="van-collapse-item-custom">
 							<!-- 推荐门店为空 -->
 							<block wx:if="{{ storeName === 0 && !recommendStores.length }}">

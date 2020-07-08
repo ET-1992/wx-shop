@@ -5,6 +5,7 @@
 		"loading": "../../components/loading/index",
 		"van-area": "@vant/weapp/dist/area/index",
 		"van-cell": "@vant/weapp/dist/cell/index",
-		"van-popup": "@vant/weapp/dist/popup/index"
+		"van-popup": "@vant/weapp/dist/popup/index",
+		"myModal": "components/myModal/myModal"
 	}
 }

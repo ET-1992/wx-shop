@@ -1,5 +1,5 @@
 import { checkPhone } from 'utils/util';
-import { BANK_CARD_LIST } from 'utils/bank';
+// import { BANK_CARD_LIST } from 'utils/bank';
 import api from 'utils/api';
 Page({
     data: {
@@ -11,7 +11,7 @@ Page({
             bank: '',
             bankNumber: ''
         },
-        banks: BANK_CARD_LIST,
+        // banks: BANK_CARD_LIST,
         goldPrice: '0',  // 实时进价
         goldWeight: '0', // 回购重量
         totalPrice: '0'  // 预估金额
@@ -31,15 +31,15 @@ Page({
             [name]: value
         });
     },
-    bindPickerChange(e) {
-        let { value } = e.detail;
-        let { banks, form } = this.data;
-        let bank = 'form.bank';
-        this.setData({
-            index: value,
-            [bank]: banks[value].bankName
-        });
-    },
+    // bindPickerChange(e) {
+    //     let { value } = e.detail;
+    //     let { banks, form } = this.data;
+    //     let bank = 'form.bank';
+    //     this.setData({
+    //         index: value,
+    //         [bank]: banks[value].bankName
+    //     });
+    // },
     showToast(title) {
         wx.showToast({ title: title, icon: 'none', image: '', duration: 1000 });
         return false;

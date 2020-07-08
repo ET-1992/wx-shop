@@ -27,12 +27,12 @@
 				</view>
 				<view class="form-item">
 					<text>开户行</text>
-					<picker bindchange="bindPickerChange" value="{{ index }}" range="{{ banks }}" range-key="bankName">
+					<!-- <picker bindchange="bindPickerChange" value="{{ index }}" range="{{ banks }}" range-key="bankName">
 						<input class="item-input" placeholder="请输入开户行" value='{{ form.bank }}' disabled />
-					</picker>
-					<!-- <input type="text" placeholder="请输入开户行"
+					</picker> -->
+					<input type="text" placeholder="请输入开户行"
 						value="{{form.bank}}" bindinput="bindinputValue" data-name="form.bank"
-					/> -->
+					/>
 				</view>
 				<view class="form-item">
 					<text>银行卡号</text>
@@ -40,7 +40,7 @@
 						value="{{form.bankNumber}}" bindinput="bindinputValue" data-name="form.bankNumber"
 					/>
 				</view>
-	
+
 			</view>
 		</view>
 		<view class="container-btn">

@@ -15,7 +15,7 @@
                     </view>
                 </view>
                 <!-- 原价 -->
-                <view  wx:if="{{ !product.membership_dedicated_enable && !product.membership_price_enable }}" class="original">
+                <view  wx:if="{{ !product.membership_dedicated_enable && !product.membership_price_enable  && product.price !== product.original_price }}" class="original">
                     原价 {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
                 </view>
 

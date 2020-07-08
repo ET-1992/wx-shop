@@ -480,7 +480,9 @@ export const pageObj = {
         wx.showLoading({
             title: '加载中'
         });
+        let globalData = app.globalData;
         this.setData({
+            globalData,
             isStoreFinish: true
         });
         let obj = { isLoading: false };

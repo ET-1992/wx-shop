@@ -1,0 +1,49 @@
+<view class="format-content-wrap">
+
+	<view wx:if="{{ type === 'audio' }}" class="audio-wrap">
+		<view class="audio-content">
+			<myAudio poster="{{ content.poster }}" src="{{ content.audio }}"  author="{{ author.name }}" title="{{ content.title }}" />
+		</view>
+		  
+		<view class="video-text">
+			<text selectable decode>{{ content.text }}</text>
+		</view>
+	</view>
+
+
+	<view wx:if="{{ type === 'video' }}" class="video-wrap">
+		<video class="video" src="{{ content.video }}" poster="{{ content.poster }}" show-mute-btn />
+		<view class="video-text">
+			<text selectable decode>{{ content.text }}</text>
+		</view>
+	</view>
+	
+	<view wx:if="{{ type === 'gallery' }}" class="gallery">
+		<view class="gallery-images">
+			<image 
+			  class="{{ content.gallery && (content.gallery.length === 1 ? 'item-col-1' : ( content.gallery.length === 2 || content.gallery.length === 4 ? 'item-col-2' : 'item-col-3') ) }}" 
+			  wx:for="{{ content.gallery }}" 
+			  wx:key="id" 
+			  src="{{ item.thumbnail }}" 
+			  mode="widthFix" 
+			  lazy-load
+			  data-index="{{ index }}" 
+			  bind:tap="previewImage" 
+			/>
+		</view>
+		<view class="gallery-text">
+			<text selectable decode>{{ content.text }}</text>
+		</view>
+	</view>
+	
+	<view wx:if="{{ type === 'image' }}">
+		<view class="images" wx:for="{{ content.images }}" wx:key="id">
+			<image src="{{ item.image }}" mode="widthFix" lazy-load data-index="{{ index }}" bind:tap="previewImage" class="format-image" />
+			<view class="images-text">
+				<text selectable decode>{{ item.text }}</text>
+			</view>
+		</view>
+	</view>
+</view>
+  
+  

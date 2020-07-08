@@ -976,5 +976,9 @@ Page({
         this.setData({
             isShowProductParam: false
         });
-    }
+    },
+    // 更新门店信息
+    updateStore() {
+        this.initPage();
+    },
 });

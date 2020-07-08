@@ -1,7 +1,6 @@
 import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
-import { BANK_CARD_LIST } from 'utils/bank';
 import wxProxy from 'utils/wxProxy';
 
 function formatNumber(n) {
@@ -167,51 +166,6 @@ export function imgToHttps(url = '') {
     const httpsHost = 'https://cdn.97866.com';
     const httpHost = 'http://cdn2.wpweixin.com';
     return url.replace(httpHost, httpsHost);
-}
-
-/* 银行 */
-export function bankCardAttribution(bankCard) {
-    let cardTypeMap = { DC: '储蓄卡', CC: '信用卡', SCC: '准贷记卡', PC: '预付费卡' };
-    function extend(target, source) {
-        let result = {};
-        let key;
-        for (key in target) {
-            if (target.hasOwnProperty(key)) {
-                result[key] = target[key];
-            }
-        }
-        for (key in source) {
-            if (source.hasOwnProperty(key)) {
-                result[key] = source[key];
-            }
-        }
-        return result;
-    }
-    function getCardTypeName(cardType) {
-        if (cardTypeMap[cardType]) {
-            return cardTypeMap[cardType];
-        }
-        return 'error';
-    }
-
-    function _getBankInfoByCardNo(cardNo) {
-        for (let i = 0, len = BANK_CARD_LIST.length; i < len; i++) {
-            let bankcard = BANK_CARD_LIST[i];
-            let patterns = bankcard.patterns;
-            for (let j = 0, jLen = patterns.length; j < jLen; j++) {
-                let pattern = patterns[j];
-                if ((new RegExp(pattern.reg)).test(cardNo)) {
-                    let info = extend(bankcard, pattern);
-                    delete info.patterns;
-                    delete info.reg;
-                    info['cardTypeName'] = getCardTypeName(info['cardType']);
-                    return info;
-                }
-            }
-        }
-        return 0;
-    }
-    return _getBankInfoByCardNo(bankCard);
 }
 
 export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {
