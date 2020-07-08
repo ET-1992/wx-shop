@@ -81,17 +81,17 @@ export default class Poster {
             case 'invite':
                 views = [
                     ...this.initHeader(),
-                    ...this.initQrcode(),
-                    ...this.inviteFriendFooter(),
-                    ...this.initFooter()
+                    ...this.shareShopOrInviteQrcode(),
+                    ...this.inviteFriend(),
+                    ...this.shareShopOrInviteFooter()
                 ];
                 break;
             case 'shareShop':
                 views = [
                     ...this.initHeader(),
-                    ...this.initQrcode(),
+                    ...this.shareShopOrInviteQrcode(),
                     ...this.shareShop(),
-                    ...this.initFooter()
+                    ...this.shareShopOrInviteFooter()
                 ];
                 break;
         }
@@ -412,7 +412,7 @@ export default class Poster {
         let _views = [];
         let statusText = '';
 
-        const viewsLeft = 80;
+        const viewsLeft = 45;
         const viewsBottom = 40;
 
         if (!hasStart) {
@@ -432,7 +432,7 @@ export default class Poster {
                 text: statusText,
                 css: {
                     bottom: viewsBottom + 120 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '22rpx',
                     fontWeight: 'bold'
                 }
@@ -442,7 +442,7 @@ export default class Poster {
                 text: `原价购买${globalData.CURRENCY[globalData.currency] + price}${price < highest_price ? '~' + highest_price : ''}`,
                 css: {
                     bottom: viewsBottom + 70 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '18rpx',
                     color: '#707070'
                 }
@@ -453,7 +453,7 @@ export default class Poster {
                 text: `${globalData.CURRENCY[globalData.currency]}`,
                 css: {
                     bottom: viewsBottom + 15 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '18rpx',
                     color: priceColor
                 }
@@ -464,7 +464,7 @@ export default class Poster {
                 text: `${miaosha_price}`,
                 css: {
                     bottom: viewsBottom + 12 + 'rpx',
-                    left: [viewsLeft + 20 + 'rpx', 'qr_code'],
+                    left: [`${viewsLeft}rpx`, 'miaosha-currency-id'],
                     fontSize: '28rpx',
                     color: priceColor
                 }
@@ -476,7 +476,7 @@ export default class Poster {
                     width: '80rpx',
                     height: '30rpx',
                     color: `linear-gradient(-135deg, #ff6034 0%, ${priceColor} 80%)`,
-                    left: [`${viewsLeft + 40}rpx`, 'qr_code'],
+                    left: [`${viewsLeft + 50}rpx`, 'miaosha-price-id'],
                     borderRadius: '5rpx'
                 }
             },
@@ -485,7 +485,7 @@ export default class Poster {
                 text: '限时价',
                 css: {
                     bottom: viewsBottom + 17 + 'rpx',
-                    left: [`${viewsLeft + 52}rpx`, 'qr_code'],
+                    left: [`${viewsLeft + 62}rpx`, 'miaosha-price-id'],
                     fontSize: '20rpx',
                     color: '#ffffff'
                 }
@@ -501,7 +501,7 @@ export default class Poster {
                     text: remainTime,
                     css: {
                         bottom: viewsBottom + 120 + 'rpx',
-                        left: [`${viewsLeft + 120}rpx`, 'qr_code'],
+                        left: [`${viewsLeft + 10}rpx`, 'miaosha-status-text-id'],
                         color: priceColor,
                         fontSize: '20rpx',
                         width: '190rpx',
@@ -527,7 +527,7 @@ export default class Poster {
         let _views = [];
         let statusText = remainSecond > 0 ? '距拼团结束' : '已结束';
 
-        const viewsLeft = 80;
+        const viewsLeft = 45;
         const viewsBottom = 40;
 
         _views = [
@@ -537,7 +537,7 @@ export default class Poster {
                 text: statusText,
                 css: {
                     bottom: viewsBottom + 120 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '22rpx',
                     fontWeight: 'bold'
                 }
@@ -547,7 +547,7 @@ export default class Poster {
                 text: `单独购买${globalData.CURRENCY[globalData.currency]}${product && product.price}`,
                 css: {
                     bottom: viewsBottom + 70 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '18rpx',
                     color: '#707070'
                 }
@@ -558,7 +558,7 @@ export default class Poster {
                 text: `${globalData.CURRENCY[globalData.currency]}`,
                 css: {
                     bottom: viewsBottom + 15 + 'rpx',
-                    left: [viewsLeft + 'rpx', 'qr_code'],
+                    left: viewsLeft + 'rpx',
                     fontSize: '18rpx',
                     color: priceColor
                 }
@@ -569,7 +569,7 @@ export default class Poster {
                 text: `${price}`,
                 css: {
                     bottom: viewsBottom + 12 + 'rpx',
-                    left: [`${viewsLeft + 20}rpx`, 'qr_code'],
+                    left: [`${viewsLeft}rpx`, 'grouponBuy-currency-id'],
                     fontSize: '28rpx',
                     color: priceColor
                 }
@@ -578,8 +578,8 @@ export default class Poster {
                 type: 'text',
                 text: `${member_limit}人团`,
                 css: {
-                    bottom: viewsBottom + 14 + 'rpx',
-                    left: [`${viewsLeft + 90}rpx`, 'qr_code'],
+                    bottom: viewsBottom + 17 + 'rpx',
+                    left: [`${viewsLeft + 62}rpx`, 'grouponBuy-price-id'],
                     fontSize: '20rpx',
                     color: priceColor
                 }
@@ -594,7 +594,7 @@ export default class Poster {
                     text: remainTime,
                     css: {
                         bottom: viewsBottom + 120 + 'rpx',
-                        left: [`${viewsLeft + 120}rpx`, 'qr_code'],
+                        left: [`${viewsLeft + 10}rpx`, 'grouponBuy-status-text-id'],
                         color: priceColor,
                         fontSize: '20rpx',
                         width: '190rpx',
@@ -617,7 +617,7 @@ export default class Poster {
                 text: '神价抢好货',
                 css: {
                     top: viewsTop + 180 + 'rpx',
-                    left: ['150rpx', 'qr_code'],
+                    left: '45rpx',
                     fontSize: '32rpx',
                     color: '#000000'
                 }
@@ -627,7 +627,7 @@ export default class Poster {
                 text: '就差你这刀',
                 css: {
                     top: viewsTop + 220 + 'rpx',
-                    left: ['150rpx', 'qr_code'],
+                    left: '45rpx',
                     fontSize: '32rpx',
                     color: '#000000'
                 }
@@ -637,7 +637,7 @@ export default class Poster {
                 text: `原价购买${globalData.CURRENCY[globalData.currency] + price}`,
                 css: {
                     bottom: viewsBottom + 60 + 'rpx',
-                    left: ['150rpx', 'qr_code'],
+                    left: '45rpx',
                     fontSize: '22rpx',
                     color: mainColor
                 }
@@ -647,7 +647,7 @@ export default class Poster {
                 text: '底价',
                 css: {
                     bottom: viewsBottom + 20 + 'rpx',
-                    left: ['150rpx', 'qr_code'],
+                    left: '45rpx',
                     fontSize: '22rpx',
                     color: mainColor
                 }
@@ -657,7 +657,7 @@ export default class Poster {
                 text: `${globalData.CURRENCY[globalData.currency]}`,
                 css: {
                     bottom: viewsBottom + 20 + 'rpx',
-                    left: ['190rpx', 'qr_code'],
+                    left: '110rpx',
                     fontSize: '18rpx',
                     color: priceColor
                 }
@@ -667,7 +667,7 @@ export default class Poster {
                 text: `${bargain_price}`,
                 css: {
                     bottom: viewsBottom + 20 + 'rpx',
-                    left: ['210rpx', 'qr_code'],
+                    left: '126rpx',
                     fontSize: '28rpx',
                     color: priceColor
                 }
@@ -675,7 +675,7 @@ export default class Poster {
         ];
     }
     // 邀请好友
-    inviteFriendFooter() {
+    inviteFriend() {
         const { mainColor, user } = this.data;
         const viewsTop = 620;
         const userName = (user && user.nickname) || '好友';
@@ -780,20 +780,6 @@ export default class Poster {
                     '邀请你给TA赞助'
                 ];
                 break;
-            case '1':
-                viewsText = [
-                    ...viewsText,
-                    '向你发出邀请',
-                    '长按识别小程序码访问店铺'
-                ];
-                break;
-            case '2':
-                viewsText = [
-                    ...viewsText,
-                    '向你推荐这个店铺',
-                    '长按识别小程序码访问店铺'
-                ];
-                break;
             default:
                 viewsText = [
                     ...viewsText,
@@ -815,7 +801,7 @@ export default class Poster {
                 text: viewsText[i],
                 css: {
                     bottom: `${viewsBottom[i]}rpx`,
-                    left: [`${viewsLeft[i]}rpx`, 'qr_code'],
+                    left: `${viewsLeft[i]}rpx`,
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
                     fontWeight: viewsFontWeight[i],

@@ -967,4 +967,14 @@ Page({
             customServiceModal,
         });
     },
+    showParamModal() {
+        this.setData({
+            isShowProductParam: true
+        });
+    },
+    hideParamModal() {
+        this.setData({
+            isShowProductParam: false
+        });
+    }
 });

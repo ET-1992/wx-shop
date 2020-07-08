@@ -268,8 +268,8 @@
 		</view>
 
 		<!-- 产品参数 -->
-		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}">
-			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}" color="{{themeColor.primaryColor}}"/>
+		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}" bindtap="showParamModal">
+			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
 		<!-- 多门店组件 -->
 		<multiStore multiStoreEnable="{{ multiStoreEnable }}" style="margin: 10rpx 0"/>
@@ -593,6 +593,23 @@
 		</view>
 		<image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
 	</view>
+</van-popup>
+<!-- 产品参数弹窗 -->
+<van-popup show="{{isShowProductParam}}" custom-style="height:80%" position="bottom" bind:close="hideParamModal">
+	<view class="param-popup">
+		<view class="title">产品参数</view>
+		<view class="ProductParamList">
+			<scroll-view class="itemList {{ isIphoneX ? 'iphoneXTrick' : '' }}" scroll-y>
+				<view class="item" wx:for="{{product.attributes}}" wx:key="item">
+					<view class="name">{{item.key}}</view>
+					<view class="param">{{item.value}}</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="hideParamModal">
+			<button type="primary" class="closeBtn" style="background-color:{{themeColor.primaryColor}}"> 确定 </button>
+		</view>
+	</view> 
 </van-popup>
 
 <!-- 企业微信客服弹窗 -->
