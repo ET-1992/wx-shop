@@ -1493,7 +1493,7 @@ img,
 	.ProductParamList{
 		font-size: 28rpx;
 		.itemList{
-			padding: 0 15rpx;
+			padding: 0 20rpx;
 			height:770rpx;
 			.item{
 				display: flex;
@@ -1524,15 +1524,16 @@ img,
 	}	
 	.product-param-bottom{
 		position: absolute;
+		bottom: 0;
 		z-index: 999;
 		width: 100%;
 		background-color: #ffffff;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 20rpx 0;
+		padding-bottom: 10rpx;
 		&.iphoneXTrick { 
-			padding: 30rpx 0;
+			padding-bottom:30rpx;
 		}
 		.closeBtn{
 			width: 700rpx;
@@ -1542,7 +1543,6 @@ img,
 			border-radius: 50px;
 			text-align: center;
 			font-size: 28rpx;
-			background: #42a367;
 		}
 	}
 }
