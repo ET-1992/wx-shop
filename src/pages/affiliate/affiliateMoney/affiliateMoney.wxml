@@ -20,9 +20,9 @@
     <view class="item">
         <text class="item-text">提现方式</text>
         <radio-group class="radio-group" bindchange="radioChange">
-            <label wx:for="{{ payStyles }}" wx:key="name">
+            <label class="label" wx:for="{{ payStyles }}" wx:key="name">
                 <radio value="{{item.value}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" />
-                <text class="payName">{{ item.name }}</text>
+                <view class="payName">{{ item.name }}</view>
             </label>
         </radio-group>
     </view>
@@ -117,9 +117,9 @@
 </view>
 
 <view class="checkbox_item">
-		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange"></van-checkbox>
+		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange">阅读并同意</van-checkbox>
 		<view class="checkbox_text">
-			阅读并同意<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
+			<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
 		</view>
 </view>
 
