@@ -30,11 +30,10 @@
 </view>
 
 <wxs module="addressModule">
-// 收获地址拼接
 var user = function(obj){
 	var str = '';
-	str += obj.detailInfo || ''
-	str += obj.room || ''
+	str += obj.detailInfo || '';
+	str += obj.room || '';
 	return str;
 };
 module.exports = {
