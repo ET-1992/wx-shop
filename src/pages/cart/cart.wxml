@@ -109,7 +109,6 @@
 
 <!-- 切换标签的类名 -->
 <wxs module="classSet">
-	// 商品
 	var product = function(liftStyles, multiStoreEnable) {
 		var className = 'scrollHeight';
 		if(liftStyles.length > 1) {
