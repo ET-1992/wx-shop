@@ -36,6 +36,7 @@ Page({
         timeLimit: 0,
         isShowActionSheet: false,
         isShowCouponList: false,
+        isShowPostageRule: false,  // 展示邮费规则
         selectedProperties: [],
         selectedSku: {},
         // skuSplitProperties: [],
@@ -226,23 +227,22 @@ Page({
                 data.posterType = 'bargain';
             }
 
-            // 默认使用上次保存的地址
-            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
-                const areaObj = wx.getStorageSync(ADDRESS_KEY);
-                console.log(areaObj, '===============');
-                if (areaObj && (areaObj.provinceName && areaObj.cityName && areaObj.countyName)) {
-                    areaObj.area = `${areaObj.provinceName !== areaObj.cityName ? areaObj.provinceName + '/' : ''}${areaObj.cityName}/${areaObj.countyName}`;
-                    data.areaObj = areaObj;
-                    this.calculatePostage(data);
-                }
-            }
-
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
                 ...data,
                 isLoading: false
             });
+
+            // 获取缓存地址的邮费信息
+            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
+                let { areaObj } = this.data;
+                if (!areaObj.userName) {
+                    areaObj = wx.getStorageSync(ADDRESS_KEY);
+                    this.setData({ areaObj });
+                    await this.calculatePostage();
+                }
+            }
 
             // 限时购倒计时
             if (product.miaosha_enable) {
@@ -905,44 +905,30 @@ Page({
         wx.navigateTo({
             url: `/pages/addressList/addressList`,
         });
-        // const res = await auth({
-        //     scope: 'scope.address',
-        //     ctx: this
-        // });
-        // if (res) {
-        //     const addressRes = await proxy.chooseAddress();
-        //     const { provinceName, cityName, countyName } = addressRes;
-        //     let areaObj = addressRes;
-        //     areaObj.area = `${provinceName !== cityName ? provinceName + '/' : ''}${cityName}/${countyName}`;
-        //     wx.setStorageSync(ADDRESS_KEY, areaObj);
-        //     this.setData({ areaObj }, () => {
-        //         this.calculatePostage();
-        //     });
-        // }
     },
 
     // 设置地址列表返回的数据
     setAddressListEvent(address) {
-        const { provinceName, cityName, countyName } = address;
-        let area = [provinceName, cityName, countyName].join('/');
         console.log('从地址列表返回的地址', address);
-        address.area = area;
+        wx.setStorageSync(ADDRESS_KEY, address);
         this.setData({ areaObj: address });
         this.calculatePostage();
     },
 
     // 切换地址计算邮费
-    async calculatePostage(data) {
-        let { product, areaObj } = data || this.data;
+    async calculatePostage() {
+        let { product, areaObj = {}} = this.data;
+        let { provinceName, cityName, countyName } = areaObj;
         try {
-            const { postage } = await api.hei.postageCalculate({
+            const { shipment_writing: postageRule } = await api.hei.postageCalculate({
                 post_id: product.id,
-                receiver_state: areaObj.provinceName,
-                receiver_city: areaObj.cityName,
-                receiver_district: areaObj.countyName
+                receiver_state: provinceName,
+                receiver_city: cityName,
+                receiver_district: countyName
             });
+            Object.assign(areaObj, { postageRule });
             this.setData({
-                'product.postage': postage
+                areaObj,
             });
         } catch (err) {
             console.log(err);
@@ -980,5 +966,15 @@ Page({
     // 更新门店信息
     updateStore() {
         this.initPage();
+    },
+
+    // 隐藏邮费规则弹窗
+    onHidePostageRule() {
+        this.setData({ isShowPostageRule: false });
+    },
+
+    // 展开邮费规则弹窗
+    onShowPostageRule() {
+        this.setData({ isShowPostageRule: true });
     },
 });
