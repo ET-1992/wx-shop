@@ -22,7 +22,7 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
 
-export const PLATFFORM_ENV = 'DEV';
+export const PLATFFORM_ENV = 'PEAUNT';
 
 export const HOST_ARRAY = [
     { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },

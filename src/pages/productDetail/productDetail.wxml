@@ -333,7 +333,13 @@
 				<magicImg magicImgData="{{ product.top }}" isMarginTopZero="false" />
 			</view>
 			<view class="peanut-wxParse">
-				<template is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+				<template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+            	<formatContent 
+					wx:if="{{ product.format && product.format_content }}" 
+					type="{{ product.format }}" 
+					content="{{ product.format_content }}" 
+					author="{{ product.author }}"
+				/>
 			</view>
 			<view wx:if="{{ product.bottom }}" class="cube">
 				<magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />

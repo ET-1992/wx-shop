@@ -1,0 +1,20 @@
+<view class="container">
+	<view class="left" bind:tap="ctr">
+		<image class="poster" src="{{ poster }}" lazy-load="false" />
+		<image class="icon" src="/icons/play.svg" wx:if="{{ audioStatus === 0 }}" />
+		<image class="icon" src="/icons/pause.svg" wx:if="{{ audioStatus !== 0 }}" />
+	</view>
+	<view class="content">
+		<view class="title">
+			{{ title || '暂无' }}
+		</view>
+		  
+		  <view class="author">
+			  {{ author || '无名' }}
+		  </view>
+			
+	</view>
+	<view class="right">
+		<view class="time">{{ timeShow || '00:00' }}</view>
+	</view>
+</view>

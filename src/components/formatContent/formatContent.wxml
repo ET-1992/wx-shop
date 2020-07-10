@@ -39,7 +39,7 @@
 	<view wx:if="{{ type === 'image' }}">
 		<view class="images" wx:for="{{ content.images }}" wx:key="id">
 			<image src="{{ item.image }}" mode="widthFix" lazy-load data-index="{{ index }}" bind:tap="previewImage" class="format-image" />
-			<view class="images-text">
+			<view wx:if="{{ item.text }}" class="images-text">
 				<text selectable decode>{{ item.text }}</text>
 			</view>
 		</view>
