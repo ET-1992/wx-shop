@@ -648,7 +648,7 @@
 
 <wxs module="productDetail">
   var formatValue = function(value, num) {
-    return value.toString().length > num ? exchange_num(num).concat('+') : value.toString()
+    return value.toString().length > num ? exchange_num(num).concat('+') : value.toString();
   };
   var exchange_num = function(num){
     var newValue = '1';
@@ -668,7 +668,7 @@
 var text = function (config) {
     var name = '立即购买';
 	if(config && config.order_only) {
-		name = '立即下单'
+		name = '立即下单';
 	};
     return name;
 };

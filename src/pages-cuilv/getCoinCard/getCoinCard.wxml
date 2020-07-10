@@ -55,9 +55,7 @@
 
 <wxs module="tool">
 	var filter = {
-    // 将时间戳转换成具体时间
     getDateTime: function (value) {
-        //不能使用 new Date()
         var time = getDate(value*1000);
         var year = time.getFullYear();
         var month = time.getMonth() + 1;
@@ -65,9 +63,8 @@
         month = month < 10 ? "0" + month : month;
         date = date < 10 ? "0" + date : date;
         return year + "-" + month + "-" + date ;
-    }
+    };
   };
-  // 导出对外暴露的属性
   module.exports = {
     getDateTime: filter.getDateTime
   };

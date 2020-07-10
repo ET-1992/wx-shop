@@ -29,13 +29,13 @@ var createClass = function(style){
 		'per_2': 'two-img', 
 		'per_3': 'three-img', 
 		'per_2_h': 'scroll-two-img', 
-		'per_3_h': 'scroll-three-img', 
-	}
-	var className = dictionary[style] || dictionary['default']
-	return className
+		'per_3_h': 'scroll-three-img'
+	};
+	var className = dictionary[style] || dictionary['default'];
+	return className;
 };
 
 module.exports = {
-	createClass: createClass,
+	createClass: createClass
 };
 </wxs>

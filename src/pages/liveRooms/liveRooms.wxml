@@ -51,17 +51,17 @@
 var arr = [
 	{status: 101, name: '进行中', btnText: '马上围观'},
 	{status: 102, name: '未开始', btnText: '先去订阅'},
-	{status: 103, name: '已结束', btnText: '去看回放'},
-]
+	{status: 103, name: '已结束', btnText: '去看回放'}
+];
 // 获取状态名字
 var getStatusName = function(status){
 	var name = '-';
 	arr.forEach(function(item){
 		if(status === item.status) {
 			name = item.name;
-		}
-	})
-	return name
+		};
+	});
+	return name;
 };
 // 获取状态按钮
 var getStatusBtn = function(status){
@@ -69,12 +69,12 @@ var getStatusBtn = function(status){
 	arr.forEach(function(item){
 		if(status === item.status) {
 			btnText = item.btnText;
-		}
-	})
-	return btnText
+		};
+	});
+	return btnText;
 };
 module.exports = {
 	getStatusName: getStatusName,
-	getStatusBtn: getStatusBtn,
+	getStatusBtn: getStatusBt
 };
 </wxs>

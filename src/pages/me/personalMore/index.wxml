@@ -51,9 +51,9 @@ var addWalletStore = function(a, b) {
 	b = parseFloat(b) || 0.00;
 	var total = a + b ;
 	if(!total) {
-		total = '0.00'
+		total = '0.00';
 	}
-	return total
+	return total;
 };
 module.exports = {
 	addWalletStore: addWalletStore

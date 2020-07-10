@@ -46,6 +46,6 @@ var splice = function(obj){
 	return str;
 };
 module.exports = {
-	splice: splice,
+	splice: splice
 };
 </wxs>

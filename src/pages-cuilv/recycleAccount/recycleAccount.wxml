@@ -48,7 +48,6 @@
 </view>
 
 <wxs module="gold_price">
-// 计算到账金额
 var getIncomeAmount = function (price, weight, loss){
     var res = price * weight * (100-loss) * 0.001 || 0;
     res = res.toFixed(2);
@@ -56,6 +55,6 @@ var getIncomeAmount = function (price, weight, loss){
 };
 
 module.exports = {
-    getIncomeAmount: getIncomeAmount,
+    getIncomeAmount: getIncomeAmount
 };
 </wxs>

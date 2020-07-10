@@ -39,7 +39,6 @@
 </view>
 <wxs module="tool">
 var getDateTime = function (value) {
-	//不能使用 new Date()
 	var time = getDate(value*1000);
 	var year = time.getFullYear();
 	var month = time.getMonth() + 1;
@@ -54,7 +53,6 @@ var getDateTime = function (value) {
 	second = second < 10 ? "0" + second : second;
 	return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
 };
-  // 导出对外暴露的属性
   module.exports = {
     getDateTime: getDateTime
   };

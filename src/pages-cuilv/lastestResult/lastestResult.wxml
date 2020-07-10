@@ -35,7 +35,6 @@
 	</view>
 </view>
 <wxs module="tool">
-	// 格式化毫秒时间戳
 	var getTime = function (value) {
         var time = getDate(value);
         var year = time.getFullYear();

@@ -72,16 +72,15 @@
 </view>
 
 <wxs module="tool">
-	// 获取最新时间
 	var getCurrentDate = function() {
 		var date = getDate();
 		var year = date.getFullYear();
 		var mouth = date.getMonth()+1;
 		var day = date.getDate();
-		var dateRes = year+'-'+mouth+'-'+day
-		return dateRes
+		var dateRes = year+'-'+mouth+'-'+day;
+		return dateRes;
 	};
 	module.exports = {
-		getCurrentDate: getCurrentDate,
+		getCurrentDate: getCurrentDate
 	};
 </wxs>

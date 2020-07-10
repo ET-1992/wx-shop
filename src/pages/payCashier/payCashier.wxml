@@ -82,12 +82,11 @@
 </van-popup>
 
 <wxs module="WXS">
-    //不可用的支付方式
     var disabledPay = function(method, from_page) {
         if(from_page === 'directPay'){
-            return method === 'TRANSFER_PAY'
+            return method === 'TRANSFER_PAY';
         }else{
-            return excludeMethodsList.indexOf(method) > -1 && !!from_page
+            return excludeMethodsList.indexOf(method) > -1 && !!from_page;
         }
     };
     var excludeMethodsList = [

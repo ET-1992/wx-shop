@@ -74,9 +74,9 @@
 var text = function (config) {
     var name = '立即购买';
 	if(config && config.order_only) {
-		name = '立即下单'
+		name = '立即下单';
 	};
-    return name
+    return name;
 };
 module.exports = {
     text: text

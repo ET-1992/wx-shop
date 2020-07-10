@@ -78,12 +78,11 @@
 	</block>
 </view>
 <wxs module="toll">
-// 计算云购总金额
 var computeTotalPrice = function(order) {
 	var totalPrice = 0;
 	order.forEach( function (item) {
-		totalPrice += item.unit_price * item.quantity
-	})
+		totalPrice += item.unit_price * item.quantity;
+	});
   return totalPrice;
 };
 module.exports = {

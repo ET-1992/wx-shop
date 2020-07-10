@@ -29,7 +29,7 @@ module.exports = {
         var noIcon = true;
         if( index < current || icon !== '' ){
             noIcon = false;
-        }
+        };
         return noIcon;
     },
     getIcoClass : function( status,ico ){
@@ -52,8 +52,7 @@ module.exports = {
         }
     },
     getClass : function( status,current,index ) {
-        //wait、process、finish、error
-        var startClass = 'i-step-'
+        var startClass = 'i-step-';
         var classes = '';
         var cindex = allStatus.indexOf( status );
         if( cindex !== -1 ){

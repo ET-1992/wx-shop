@@ -113,10 +113,10 @@
 		var className = 'scrollHeight';
 		if(liftStyles.length > 1) {
 			className = 'cartList';
-		}
+		};
 		if(multiStoreEnable) {
 			className += '-multiStore';
-		}
+		};
 		return className;
 	};
 	module.exports = {

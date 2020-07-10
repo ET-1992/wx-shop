@@ -63,5 +63,5 @@ module.exports = {
     getStep: getStep,
     whetherFinish: whetherFinish,
     whetherShowExpress: whetherShowExpress,
-    whetherHasReport: whetherHasReport,
+    whetherHasReport: whetherHasReport
 };
