@@ -46,6 +46,7 @@ Page({
 
     onShow() {
         updateTabbar({ pageKey: 'category_list' });
+        app.globalData.pageKey = 'category_list';
     },
 
 
