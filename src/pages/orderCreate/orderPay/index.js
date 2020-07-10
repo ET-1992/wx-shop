@@ -33,7 +33,12 @@ Component({
         config: {
             type: Object,
             value: {}
-        }
+        },
+        // 底部包邮提示
+        postageTip: {
+            type: String,
+            value: '',
+        },
     },
     data: {
         globalData: app.globalData
@@ -57,6 +62,11 @@ Component({
             } else {
                 this.triggerEvent('onpay', {}, { bubbles: true });
             }
-        }
+        },
+        onJumpPage() {
+            wx.switchTab({
+                url: '/pages/home/home'
+            });
+        },
     }
 });

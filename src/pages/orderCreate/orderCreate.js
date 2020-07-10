@@ -51,6 +51,7 @@ Page({
         selectedPayValue: 'WEIXIN',
         storeUpdateEnable: true,  // 门店可修改
         storeListAddress: {},  // 送货上门的门店
+        postageTip: '',  // 包邮提示
     },
 
     async onShow() {
@@ -314,6 +315,7 @@ Page({
                 payment_tips,
                 store_card,
                 store = {},
+                shipment_tips: postageTip,
             } = orderPrepareData;
 
             // 多门店模式下-默认下单门店
@@ -398,6 +400,7 @@ Page({
                 store_card,
                 liftInfo,
                 config,
+                postageTip,
             }, () => {
                 this.computedFinalPay();
             });
