@@ -86,6 +86,7 @@ Page({
             let liftInfo = { isCanInput: true, isCanNav: true };
             let storeUpdateEnable = true;
             const totalPrice = currentOrder.totalPrice || 0;
+            let shipping_type = Number(params.shipping_type);
             // let totalPostage = 0;
 
             // 多门店模式
@@ -98,6 +99,11 @@ Page({
                 liftInfo.isCanNav = false;
                 // 门店不可选配置
                 storeUpdateEnable = false;
+            }
+
+            // 送货上门清空无定位地址
+            if (shipping_type === 4 && !address.latitude) {
+                address = { userName: '', };
             }
 
             this.setData({
@@ -114,7 +120,7 @@ Page({
                 isShouldRedirect: false,
                 crowd,
                 groupon_commander_price,
-                shipping_type: Number(params.shipping_type)
+                shipping_type,
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
