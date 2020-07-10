@@ -59,12 +59,8 @@ Page({
 
     async onShow() {
         updateTabbar({ pageKey: 'product_classify' });
+        app.globalData.pageKey = 'product_classify';
 
-        // setTimeout(() => {
-        //     this.setData({
-        //         multiStoreEnable: true
-        //     });
-        // }, 6000);
         this.setData({ isStoreFinish: false });
         this.loadAllData();
     },
