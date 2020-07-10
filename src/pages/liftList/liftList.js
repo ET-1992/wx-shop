@@ -48,7 +48,7 @@ Page({
             if (!latitude || !longitude) {
                 let { confirm } = await proxy.showModal({
                     title: '温馨提示',
-                    content: '请先选择地址信息',
+                    content: '请先选择有效的收件地址',
                     showCancel: false,
                 });
                 if (confirm) {
