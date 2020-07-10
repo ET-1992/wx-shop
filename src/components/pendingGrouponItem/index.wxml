@@ -21,7 +21,6 @@
 </view>
 
 <wxs module="utils">
-    // 显示第一个字符，其余为星号
     var hideName = function(str) {
 		if(!str) { return '-';}
         var len = str.length-1;

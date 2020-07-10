@@ -45,7 +45,6 @@
 	</view>
 </view>
 <wxs module="tool">
-// 储蓄卡总值
 var addWalletStore = function(a, b) {
 	a = parseFloat(a) || 0.00;
 	b = parseFloat(b) || 0.00;

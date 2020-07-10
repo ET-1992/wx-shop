@@ -2,7 +2,7 @@ import api from 'utils/api';
 import getRemainTime from 'utils/getRemainTime';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
-import { getAgainUserForInvalid, autoNavigate } from 'utils/util';
+import { getAgainUserForInvalid, autoNavigate, subscribeMessage } from 'utils/util';
 const app = getApp();
 
 Page({
@@ -147,8 +147,11 @@ Page({
         }
     },
 
-    onShare() {
+    async onShare() {
         const { isShowShareModal } = this.data;
+        if (!isShowShareModal) {
+            await subscribeMessage([{ key: 'bargain_success' }, { key: 'bargain_failed' }]);
+        }
         this.setData({
             isShowShareModal: !isShowShareModal
         });

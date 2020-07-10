@@ -19,7 +19,7 @@ module.exports = {
         if( index < value  ){
             return prefixCls + '-current';
         };
-    };
+    }
 };
 </wxs>
 <!-- htmlmin:ignore -->
