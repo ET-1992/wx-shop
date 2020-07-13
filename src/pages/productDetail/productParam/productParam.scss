@@ -3,7 +3,8 @@
     background-color: #ffffff;
     .list{
         display: flex;
-        justify-content: space-between;
+		justify-content: space-between;
+		align-items: center;
         .content{
             display: flex;
             .title{
@@ -22,11 +23,7 @@
             display: flex;
             align-items: center;
             font-size: 24rpx;
-            width: 80rpx;
             height: 24rpx;
-            .arrow{
-                width: 24rpx;
-            }
         }
     }
 }
