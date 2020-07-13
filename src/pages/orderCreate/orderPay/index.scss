@@ -85,6 +85,7 @@
     padding: 20rpx 40rpx;
     background: #FFF9EC;
     display: flex;
+    justify-content: space-between;
 	color: #F38128;
     font-size: 24rpx;
     line-height: 31rpx;
@@ -99,13 +100,13 @@
         flex-shrink: 0;
     }
     .postage-content {
+        flex: 1;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         margin: 0 12rpx;
     }
     .postage-jump {
-        margin-left: auto;
         flex-shrink: 0;
     }
     &.postage-tip-phoneX {
