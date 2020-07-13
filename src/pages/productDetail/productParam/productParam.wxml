@@ -5,8 +5,9 @@
             <view class="value">{{paramKeys}}</view>
         </view>
         <view class="link">
-            <text>详情</text>
-            <image class="arrow" src="/icons/productDetail/arrow.svg"/>
+            <view>详情</view>
+            <!-- <image class="arrow" src="/icons/productDetail/arrow.svg"/> -->
+            <van-icon name="arrow" size="12px"/>
         </view>
     </view>
 </view>
