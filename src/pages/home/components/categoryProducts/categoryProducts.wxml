@@ -22,20 +22,19 @@
 </view>
 
 <wxs module="settingStyle">
-// 判断列表布局生成高度样式类
 var createClass = function(style){
 	var dictionary = { 
 		'default': '', 
 		'per_2': 'two-img', 
 		'per_3': 'three-img', 
 		'per_2_h': 'scroll-two-img', 
-		'per_3_h': 'scroll-three-img', 
-	}
-	var className = dictionary[style] || dictionary['default']
-	return className
+		'per_3_h': 'scroll-three-img'
+	};
+	var className = dictionary[style] || dictionary['default'];
+	return className;
 };
 
 module.exports = {
-	createClass: createClass,
+	createClass: createClass
 };
 </wxs>

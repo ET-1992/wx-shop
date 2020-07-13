@@ -185,28 +185,21 @@
 </view>
 <wxs module="status">
 	var DEPOSIT_STATUS = {
-		// 寄存记录
 		deposited: [1, 5, 6, 1001, 4005],
-		// 回购记录
 		depositReturn: [7, 8, 9, 10],
-		// 发货记录 2待发货 3已发货 4已收货
 		depositDelivery: [2, 3, 4]
 	};
-
-	// 筛选记录的类型
 	var judge = function (statusNum, statusType){
-		// 该类型记录数组
 		var statusArray = DEPOSIT_STATUS[statusType];
-
 		for (var i = 0 ; i < statusArray.length; i++) {
 			if (statusNum === statusArray[i]){
-				return true
+				return true;
 			} else if( i === statusArray.length - 1) {
-				return false
+				return false;
 			}
-		}
+		};
 	};
 	module.exports = {
-		judge: judge,
+		judge: judge
 	};
 </wxs>

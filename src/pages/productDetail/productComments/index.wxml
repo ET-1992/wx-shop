@@ -25,13 +25,12 @@
 </view>
 
 <wxs module="foo">
-    // 显示第一个字符，其余为星号
     var hideName = function(str) {
         var len = str.length-1;
         var xing = '';
         for (var i=0 ; i<len; i++) {
             xing += '*';
-        }
+        };
         return str.substring(0,1) + xing;
     };
     module.exports = {

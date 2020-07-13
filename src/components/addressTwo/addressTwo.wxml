@@ -37,6 +37,6 @@ var user = function(obj){
 	return str;
 };
 module.exports = {
-	user: user,
+	user: user
 };
 </wxs>

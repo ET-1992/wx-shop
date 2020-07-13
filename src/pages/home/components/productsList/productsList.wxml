@@ -37,13 +37,13 @@
 var isScroll = function(style){
 	var pattern = '_h$';
 	var reg = getRegExp(pattern, 'img');
-	return reg.test(style)
+	return reg.test(style);
 };
 
 var isMultiple = function(style){
 	var pattern = '^per';
 	var reg = getRegExp(pattern, 'img');
-	return reg.test(style)
+	return reg.test(style);
 };
 
 module.exports = {
@@ -57,9 +57,9 @@ module.exports = {
 var text = function (config) {
     var name = '立即购买';
 	if(config && config.order_only) {
-		name = '立即下单'
-	};
-    return name
+		name = '立即下单';
+	}
+    return name;
 };
 module.exports = {
     text: text

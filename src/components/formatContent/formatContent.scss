@@ -4,7 +4,7 @@
 	.images-text
 	{
 		word-break: break-all;
-		font-size: 32rpx;
+		font-size: 28rpx;
 		line-height: 1.5;
 		color: #596172;
 		text-align: justify;
@@ -62,11 +62,15 @@
 		}
 	}
 	.images{
-		margin-bottom: 40rpx;
+		// margin-bottom: 40rpx;
 		.format-image {
 			width: 100%;
 			display: block;
-			margin-bottom: 10rpx;
+			// margin-bottom: 10rpx;
+		}
+		.images-text{
+			padding: 20rpx;
 		}
 	}
+
 }

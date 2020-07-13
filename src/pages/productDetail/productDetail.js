@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid, auth } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid, auth, subscribeMessage } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';

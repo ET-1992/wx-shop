@@ -71,24 +71,22 @@
 <myModal modal="{{ authModal }}" bind:onCancel="onAuthModalCancel" bind:onConfirm="onAuthModalConfirm"/>
 
 <wxs module="address">
-// 收获地址拼接
 var user = function(obj){
 	var str = '';
-	str += obj.detailInfo || ''
-	str += obj.room || ''
+	str += obj.detailInfo || '';
+	str += obj.room || '';
 	return str;
 };
-// 店铺地址拼接
 var store = function(obj){
 	var str = '';
-	str += obj.state || ''
-	str += obj.city || ''
-	str += obj.district || ''
-	str += obj.address|| ''
+	str += obj.state || '';
+	str += obj.city || '';
+	str += obj.district || '';
+	str += obj.address|| '';
 	return str;
 };
 module.exports = {
 	user: user,
-	store: store,
+	store: store
 };
 </wxs>

@@ -59,7 +59,13 @@
 		</view>
 		
 		<view class="peanut-wxParse">
-			<template is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+			<template wx:if="{{ !article.format }}"  is="wxParse" data="{{wxParseData:article_content.nodes}}"/>
+			<formatContent 
+				wx:if="{{ article.format && article.format_content }}" 
+				type="{{ article.format }}" 
+				content="{{ article.format_content }}" 
+				author="{{ article.author }}"
+			/>
 		</view>
 
 		<block wx:if="{{ article.products && article.products.length }}">
