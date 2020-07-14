@@ -1,6 +1,6 @@
 @import '~styles/color';
 
-$footerHeight: 120rpx;
+$footerHeight: 190rpx;
 $iphoneXBottomGap: 40rpx;
 
 .addressBtn{
@@ -17,7 +17,7 @@ $iphoneXBottomGap: 40rpx;
 }
 
 .orderCreateWrap {
-	padding-bottom: 120rpx;
+	padding-bottom: $footerHeight;
 	overflow: auto;
 	width: 100%;
 	height: 100%;

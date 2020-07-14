@@ -271,10 +271,6 @@
 		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}" bindtap="showParamModal">
 			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
-		<!-- 多门店组件 -->
-		<view class="multiStore">
-			<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
-		</view>
 
 		<!-- 运费地区选择 -->
 		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}">
@@ -289,7 +285,25 @@
 			<view class="area-line" bind:tap="onShowPostageRule">
 				<view class="label">运费</view>
 				<view class="area-value">
-					<view class="area-text">{{ areaObj.postageRule || product.shipment_writing || '查看运费说明' }}</view>
+					<view class="area-text">
+						<text wx:if="{{ areaObj.postageRule }}">{{ areaObj.postageRule }}</text>
+						<text wx:elif="{{ product.shipment_writing }}">{{ product.shipment_writing }}</text>
+						<text wx:elif="{{ !product.hide_postage && product.product_type !== 1 }}">{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : '包邮'}}</text>
+						<text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
+						<text wx:else>查看运费说明</text>
+					</view>
+					<van-icon name="arrow"/>
+				</view>
+			</view>
+			<view class="area-line" bind:tap="go" data-url="/pages/multiStoreList/multiStoreList" wx:if="{{ globalData.currentStore && multiStoreEnable }}">
+				<view class="label">门店</view>
+				<view class="area-value">
+					<image class="area-icon" src="/icons/multiStore/store.svg" alt="" />
+					<view class="area-text">{{ globalData.currentStore.name }}</view>
+					<view class="area-right-text">
+						<text wx:if="{{ globalData.currentStore.distance_limit > 0 }}">{{ globalData.currentStore.distance_limit }}公里内</text>
+						<text>配送费{{ globalData.currentStore.delivery_fee }}元</text>
+					</view>
 					<van-icon name="arrow"/>
 				</view>
 			</view>
@@ -368,6 +382,11 @@
 					<productList product="{{ item }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
 				</view>
 			</view>
+		</view>
+
+		<!-- 多门店组件-样式隐藏 -->
+		<view class="multiStore">
+			<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
 		</view>
 	</view>
 	<!-- 底部状态栏 -->
@@ -598,7 +617,7 @@
 
 <!-- 运费规则弹窗 -->
 <van-popup show="{{ isShowPostageRule }}" position="bottom" custom-class="postage-rule-box" bind:close="onHidePostageRule">
-	<view class="postage-title">运费说明</view>
+	<view class="postage-title">快递费用说明</view>
 	<view class="postage-rule">
 		<view wx:if="{{ product.shipment_writings && product.shipment_writings.length }}">
 			<view class="postage-rule-line" wx:for="{{ product.shipment_writings }}">
@@ -606,6 +625,7 @@
 				<text>{{ item.v }}</text>
 			</view>
 		</view>
+		<view wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</view>
 		<view wx:else>暂无说明</view>
 	</view>
 </van-popup>
