@@ -325,7 +325,7 @@ Page({
             } = orderPrepareData;
 
             // 多门店模式下-默认下单门店
-            if (store && store.id) {
+            if (config.offline_store_enable && store && store.id) {
                 let {
                     id,
                     longtitude, latitude,
