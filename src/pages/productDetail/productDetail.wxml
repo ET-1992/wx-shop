@@ -289,7 +289,13 @@
 			<view class="area-line" bind:tap="onShowPostageRule">
 				<view class="label">运费</view>
 				<view class="area-value">
-					<view class="area-text">{{ areaObj.postageRule || product.shipment_writing || '查看运费说明' }}</view>
+					<view class="area-text">
+						<text wx:if="{{ areaObj.postageRule }}">{{ areaObj.postageRule }}</text>
+						<text wx:elif="{{ product.shipment_writing }}">{{ product.shipment_writing }}</text>
+						<text wx:elif="{{ !product.hide_postage && product.product_type !== 1 }}">{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : '包邮'}}</text>
+						<text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
+						<text wx:else>查看运费说明</text>
+					</view>
 					<van-icon name="arrow"/>
 				</view>
 			</view>
@@ -598,7 +604,7 @@
 
 <!-- 运费规则弹窗 -->
 <van-popup show="{{ isShowPostageRule }}" position="bottom" custom-class="postage-rule-box" bind:close="onHidePostageRule">
-	<view class="postage-title">运费说明</view>
+	<view class="postage-title">快递费用说明</view>
 	<view class="postage-rule">
 		<view wx:if="{{ product.shipment_writings && product.shipment_writings.length }}">
 			<view class="postage-rule-line" wx:for="{{ product.shipment_writings }}">
@@ -606,6 +612,7 @@
 				<text>{{ item.v }}</text>
 			</view>
 		</view>
+		<view wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</view>
 		<view wx:else>暂无说明</view>
 	</view>
 </van-popup>

@@ -7,7 +7,8 @@
     </cover-view>
     <cover-view class="orderPay  {{ isIphoneX ? 'iphoneX-style' : '' }}">
         <cover-view class="pay-text">
-            <cover-view class="pay-top" wx:if="{{freeShippingAmount}}">满{{ globalData.CURRENCY[globalData.currency] }}{{freeShippingAmount}}免邮</cover-view>
+            <!-- 上面的包邮提醒不存在才显示 -->
+            <cover-view class="pay-top" wx:if="{{ !postageTip && freeShippingAmount}}">满{{ globalData.CURRENCY[globalData.currency] }}{{freeShippingAmount}}免邮</cover-view>
             <cover-view class="pay-bottom">
                 <cover-view class="pay-total">合计：</cover-view>
                 <cover-view class="pay-price">{{ globalData.CURRENCY[globalData.currency] }}{{ finalPay }} </cover-view>
