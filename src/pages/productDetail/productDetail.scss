@@ -618,7 +618,10 @@ video {
 
 // 多门店部件
 .multiStore {
-	margin: 10rpx 0;
+	// margin: 10rpx 0;
+	width: 0;
+	height: 0;
+	opacity: 0;
 }
 
 .area-box {
@@ -645,12 +648,20 @@ video {
 			align-items: center;
 			color: #999999;
 			overflow: hidden;
+			.area-icon {
+				width: 24rpx;
+				height: 24rpx;
+				margin-bottom: -2rpx;
+			}
 			.area-text {
 				flex: 1;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				margin: 0 6rpx;
+			}
+			.area-right-text {
+				margin-right: 2rpx;
 			}
 		}
 	}

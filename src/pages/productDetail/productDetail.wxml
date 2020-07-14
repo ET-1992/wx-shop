@@ -271,10 +271,6 @@
 		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}" bindtap="showParamModal">
 			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
-		<!-- 多门店组件 -->
-		<view class="multiStore">
-			<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
-		</view>
 
 		<!-- 运费地区选择 -->
 		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}">
@@ -295,6 +291,18 @@
 						<text wx:elif="{{ !product.hide_postage && product.product_type !== 1 }}">{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : '包邮'}}</text>
 						<text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
 						<text wx:else>查看运费说明</text>
+					</view>
+					<van-icon name="arrow"/>
+				</view>
+			</view>
+			<view class="area-line" bind:tap="go" data-url="/pages/multiStoreList/multiStoreList" wx:if="{{ globalData.currentStore && multiStoreEnable }}">
+				<view class="label">门店</view>
+				<view class="area-value">
+					<image class="area-icon" src="/icons/multiStore/store.svg" alt="" />
+					<view class="area-text">{{ globalData.currentStore.name }}</view>
+					<view class="area-right-text">
+						<text wx:if="{{ globalData.currentStore.distance_limit > 0 }}">{{ globalData.currentStore.distance_limit }}公里内</text>
+						<text>配送费{{ globalData.currentStore.delivery_fee }}元</text>
 					</view>
 					<van-icon name="arrow"/>
 				</view>
@@ -531,6 +539,11 @@
 			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 		</view>
 	</block>
+</view>
+
+<!-- 多门店组件-样式隐藏 -->
+<view class="multiStore">
+	<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
 </view>
 
 <!-- 领券弹窗 -->
