@@ -10,21 +10,16 @@ import wxProxy from 'utils/wxProxy';
 // 获取应用实例
 const app = getApp(); // eslint-disable-line no-undef
 
-// export const onDefaultShareAppMessage = function() {
-// 	return {
-// 		title: this.data.page,
-// 		path: this.sharePath,
-// 	};
-// };
+// 聚合聊天分享和朋友圈
 
-export const onShareHomeAppMessage = () => {
-    return {
-        title: SHARE_TITLE,
-        path: '/pages/home/home'
-    };
-};
-// 全页面分享
-export const onDefaultShareAppMessage = function (params = {}, path_ = '', redirectObj) {
+function makeShareParams() {
+    const params = arguments[0] || {};
+    const path_ = arguments[1] || '';
+    const redirectObj = arguments[2] || '';
+    const type = arguments[3] || 'app';
+
+    console.log(params, path_, redirectObj, type, '---');
+
     const { share_title, share_image } = this.data;
     const user = wx.getStorageSync(USER_KEY);
     const config = wx.getStorageSync(CONFIG);
@@ -55,11 +50,37 @@ export const onDefaultShareAppMessage = function (params = {}, path_ = '', redir
         title: share_title,
         path,
     };
+
     if (share_image) {
         shareMsg.imageUrl = share_image;
     }
-    console.log('pageShare.js/path42', path);
+
+    if (type === 'timeline') {
+        shareMsg.query = (path.split('?') && path.split('?')[1]) || null;
+    }
+
+    console.log(shareMsg, 'shareMsg');
+
     shopShare(path);
+
+    return shareMsg;
+}
+
+
+// 分享朋友圈
+
+export const onDefaultShareAppTimeline = function () {
+    arguments[3] = 'timeline';
+    const shareMsg = makeShareParams.call(this, arguments[0], arguments[1], arguments[2], arguments[3]);
+    return shareMsg;
+};
+
+
+
+// 全页面分享
+export const onDefaultShareAppMessage = function () {
+    arguments[3] = 'app';
+    const shareMsg = makeShareParams.call(this, arguments[0], arguments[1], arguments[2], arguments[3]);
     return shareMsg;
 };
 

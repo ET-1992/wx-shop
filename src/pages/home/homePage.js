@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
-import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
@@ -418,7 +418,13 @@ export const pageObj = {
 
     // 分享按钮
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this, { goPath: '' });
+        return onDefaultShareAppMessage.call(this);
+    },
+
+
+    // 分享朋友圈按钮
+    onShareTimeline() {
+        return onDefaultShareAppTimeline.call(this);
     },
 
     reLoad() {
