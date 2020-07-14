@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { PLATFFORM_ENV } from 'constants/index';
 import { go } from 'utils/util';
 
@@ -149,4 +149,10 @@ Page({
     onShareAppMessage() {
         return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
     },
+
+
+    // 分享朋友圈按钮
+    onShareTimeline() {
+        return onDefaultShareAppTimeline.call(this);
+    }
 });

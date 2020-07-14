@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
+import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
 import { autoNavigate, go, getAgainUserForInvalid, auth, subscribeMessage } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
@@ -630,6 +630,11 @@ Page({
     onShareAppMessage() {
         this.closeShareModal();
         return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
+    },
+
+    // 分享按钮
+    onShareTimeline() {
+        return onDefaultShareAppTimeline.call(this);
     },
 
     setSwiperVideoImg() { // 调起面板时 关闭组件视频
