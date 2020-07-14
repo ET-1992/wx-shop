@@ -383,6 +383,11 @@
 				</view>
 			</view>
 		</view>
+
+		<!-- 多门店组件-样式隐藏 -->
+		<view class="multiStore">
+			<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
+		</view>
 	</view>
 	<!-- 底部状态栏 -->
 	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
@@ -539,11 +544,6 @@
 			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 		</view>
 	</block>
-</view>
-
-<!-- 多门店组件-样式隐藏 -->
-<view class="multiStore">
-	<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
 </view>
 
 <!-- 领券弹窗 -->
