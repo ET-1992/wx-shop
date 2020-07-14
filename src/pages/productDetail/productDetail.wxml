@@ -272,7 +272,7 @@
 			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
 
-		<!-- 运费地区选择 -->
+		<!-- 地区/运费/门店 -->
 		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}">
 			<view class="area-line" bind:tap="onAddress">
 				<view class="label">送至</view>
