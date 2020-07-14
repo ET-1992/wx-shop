@@ -80,3 +80,36 @@
         margin-right: 10rpx;
     }
 }
+
+.postage-tip {
+    padding: 20rpx 40rpx;
+    background: #FFF9EC;
+    display: flex;
+    justify-content: space-between;
+	color: #F38128;
+    font-size: 24rpx;
+    line-height: 31rpx;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 100rpx;
+    z-index: 10000;
+    .postage-icon {
+        width: 30rpx;
+        height: 30rpx;
+        flex-shrink: 0;
+    }
+    .postage-content {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0 12rpx;
+    }
+    .postage-jump {
+        flex-shrink: 0;
+    }
+    &.postage-tip-phoneX {
+        bottom: 140rpx;
+    }
+}

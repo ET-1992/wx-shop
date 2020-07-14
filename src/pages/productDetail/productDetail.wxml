@@ -210,11 +210,11 @@
 						</view>
 					</view>
 					<view class="right-section">
-						<view class="delivery-section" wx:if="{{ !product.hide_postage && product.product_type !== 1 }}" >
+						<!-- <view class="delivery-section" wx:if="{{ !product.hide_postage && product.product_type !== 1 }}" >
 							{{ templateTypeText[defineTypeGlobal].page_productDetail.logisticsText || '邮费' }}：
 							{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4):
 							(templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
-						</view>
+						</view> -->
 						<view class="delivery-section">已售：{{ productDetail.formatValue(product.sales, 7) }}</view>
 					</view>
 				</view>
@@ -277,11 +277,21 @@
 		</view>
 
 		<!-- 运费地区选择 -->
-		<view class="areaPostageBox" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}" bind:tap="onAddress">
-			<view class="label">送至</view>
-			<view class="value">
-				<view class="text">{{ areaObj.area || '请选择收货地址' }}</view>
-				<van-icon name="arrow" />
+		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}">
+			<view class="area-line" bind:tap="onAddress">
+				<view class="label">送至</view>
+				<view class="area-value">
+					<van-icon name="location" />
+					<view class="area-text">{{ areaObj.detailInfo || '请选择收货地址' }}</view>
+					<van-icon name="arrow"/>
+				</view>
+			</view>
+			<view class="area-line" bind:tap="onShowPostageRule">
+				<view class="label">运费</view>
+				<view class="area-value">
+					<view class="area-text">{{ areaObj.postageRule || product.shipment_writing || '查看运费说明' }}</view>
+					<van-icon name="arrow"/>
+				</view>
 			</view>
 		</view>
 
@@ -583,6 +593,20 @@
 				<view class="gap" />
 			</scroll-view>
 		</view>
+	</view>
+</van-popup>
+
+<!-- 运费规则弹窗 -->
+<van-popup show="{{ isShowPostageRule }}" position="bottom" custom-class="postage-rule-box" bind:close="onHidePostageRule">
+	<view class="postage-title">运费说明</view>
+	<view class="postage-rule">
+		<view wx:if="{{ product.shipment_writings && product.shipment_writings.length }}">
+			<view class="postage-rule-line" wx:for="{{ product.shipment_writings }}">
+				<text>{{ item.k + '：'}}</text>
+				<text>{{ item.v }}</text>
+			</view>
+		</view>
+		<view wx:else>暂无说明</view>
 	</view>
 </van-popup>
 

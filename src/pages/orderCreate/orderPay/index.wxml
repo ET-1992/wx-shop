@@ -1,4 +1,10 @@
 <form>
+    <!-- 包邮提示 -->
+    <cover-view class="postage-tip {{ isIphoneX ? 'postage-tip-phoneX' : '' }}" wx:if="{{ postageTip }}">
+        <cover-image src="/icons/postage-notice-icon.png" class="postage-icon"></cover-image>
+        <cover-view class="postage-content">{{ postageTip }}</cover-view>
+        <cover-view class="postage-jump" bind:tap="onJumpPage">再看看 ></cover-view>
+    </cover-view>
     <cover-view class="orderPay  {{ isIphoneX ? 'iphoneX-style' : '' }}">
         <cover-view class="pay-text">
             <cover-view class="pay-top" wx:if="{{freeShippingAmount}}">满{{ globalData.CURRENCY[globalData.currency] }}{{freeShippingAmount}}免邮</cover-view>
