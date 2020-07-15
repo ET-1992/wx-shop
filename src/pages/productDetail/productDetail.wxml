@@ -268,7 +268,7 @@
 		</view>
 
 		<!-- 产品参数 -->
-		<view class="productParamList" wx:if="{{product.affiliate_enable && product.attributes.length > 0}}" bindtap="showParamModal">
+		<view class="productParamList" wx:if="{{product.attributes.length > 0}}" bindtap="showParamModal">
 			<productParams product="{{product}}" isIphoneX="{{ isIphoneX }}"/>
 		</view>
 
