@@ -35,7 +35,7 @@ App({
             vip = {},
             authorizer,
             currency = 'CNY',
-            backgroundColor,
+            backgroundColor = '#729153',
             tabbarPages = {}
         } = extConfig;
         console.log('extConfig2', extConfig);

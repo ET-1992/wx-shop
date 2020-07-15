@@ -618,7 +618,7 @@ video {
 
 // 多门店部件
 .multiStore {
-	margin: 10rpx 0;
+	display: none;
 }
 
 .area-box {
@@ -630,7 +630,7 @@ video {
 		align-items: center;
 		height: 80rpx;
 		font-size: 24rpx;
-		border-bottom: 1rpx solid #D7D7D7;
+		border-bottom: 1rpx solid #ebedf0;
 		&:last-child {
 			border: none;
 		}
@@ -645,12 +645,20 @@ video {
 			align-items: center;
 			color: #999999;
 			overflow: hidden;
+			.area-icon {
+				width: 24rpx;
+				height: 24rpx;
+				margin-bottom: -2rpx;
+			}
 			.area-text {
 				flex: 1;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				margin: 0 6rpx;
+			}
+			.area-right-text {
+				margin-right: 2rpx;
 			}
 		}
 	}
@@ -755,7 +763,7 @@ video {
 
 }
 .productParamList{
-	margin-bottom: 10rpx;
+	margin: 10rpx 0;
 }
 swiper-item {
 	position: relative;

@@ -61,12 +61,12 @@
         <view class="itemTitle">分享中心</view>
     </view>
     <!-- 企业微信/微信客服 -->
-    <button class="normalizeBt infoItem" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
-        <view class="contact-wrap" catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+    <view class="infoItem" capture-catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+        <button class="normalizeBt info-item-btn" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
             <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
             <view class="itemTitle">联系客服</view>
-        </view>
-    </button>
+        </button>
+    </view>
     <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
         <view class="itemTitle">关于我们</view>

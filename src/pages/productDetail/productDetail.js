@@ -970,6 +970,10 @@ Page({
     },
     // 更新门店信息
     updateStore() {
+        this.setData({
+            globalData: app.globalData,
+        });
+        console.log('app.globalData', app.globalData);
         this.initPage();
     },
 
