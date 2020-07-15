@@ -618,11 +618,7 @@ video {
 
 // 多门店部件
 .multiStore {
-	width: 0;
-	height: 0;
-	opacity: 0;
-	font-size: 0;
-	line-height: 0;
+	display: none;
 }
 
 .area-box {
