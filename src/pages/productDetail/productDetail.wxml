@@ -273,10 +273,10 @@
 		</view>
 
 		<!-- 地区/运费/门店 -->
-		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable && product.product_type !== 1 }}">
+		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable }}">
 			<block wx:for="{{ product.shipping_types }}" wx:key="index">
 				<!-- 快递 -->
-				<block wx:if="{{ item === 1 }}">
+				<block wx:if="{{ item === 1 && product.product_type !== 1 }}">
 					<view class="area-line" bind:tap="onAddress">
 						<view class="label">送至</view>
 						<view class="area-value">
@@ -291,9 +291,9 @@
 							<view class="area-text">
 								<text wx:if="{{ areaObj.postageRule }}">{{ areaObj.postageRule }}</text>
 								<text wx:elif="{{ product.shipment_writing }}">{{ product.shipment_writing }}</text>
-								<text wx:elif="{{ !product.hide_postage && product.product_type !== 1 }}">{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) : '包邮'}}</text>
 								<text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
-								<text wx:else>查看运费说明</text>
+								<text wx:elif="{{ product.postage }}">{{ globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) }}</text>
+								<text wx:else>查看快递费用说明</text>
 							</view>
 							<van-icon name="arrow"/>
 						</view>
