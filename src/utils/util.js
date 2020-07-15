@@ -170,7 +170,7 @@ export function imgToHttps(url = '') {
 
 export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {
     const app = getApp();
-    const { categoryIndex } = app.globalData;
+    const { cartIndex } = app.globalData;
     const config =  wx.getStorageSync(CONFIG);
 
     const { tabbar } = config;
@@ -207,9 +207,9 @@ export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable 
             }
 
             // 更新购物车红点
-            if (categoryIndex !== -1 && !tabbarCartNumDisable) {
+            if (cartIndex !== -1 && !tabbarCartNumDisable) {
                 const CART_NUM  = wx.getStorageSync('CART_NUM');
-                const index = Number(categoryIndex);
+                const index = Number(cartIndex);
                 const text = CART_NUM.toString();
                 if (!text || text === '0') {
                     wx.removeTabBarBadge({

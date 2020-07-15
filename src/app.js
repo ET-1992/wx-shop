@@ -28,7 +28,7 @@ App({
         let {
             primaryColor = '#729153',
             secondaryColor = '#B1CA50',
-            categoryIndex = -1,
+            cartIndex = -1,
             partner = {},
             styleType = 'default',
             templateType = 'default',
@@ -56,7 +56,7 @@ App({
 
         this.globalData = Object.assign(this.globalData, {
             themeColor: { primaryColor, secondaryColor, backgroundColor },
-            categoryIndex,
+            cartIndex,
             partner: partner,
             tplStyle: styleType,
             defineTypeGlobal: templateType,
