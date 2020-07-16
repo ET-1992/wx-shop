@@ -314,8 +314,7 @@ Page({
 
     onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
-        const { style_type: tplStyle = 'default' } = config;
-        let multiStoreEnable = Boolean(config.offline_store_enable);
+        const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -336,11 +335,20 @@ Page({
             globalData: app.globalData,
             config,
             tplStyle,
-            multiStoreEnable,
         });
-        this.initPage();
+        // 多门店阻塞默认请求
+        !offline_store_enable && this.initPage();
+
         // 绑定运费地区监听
         app.event.on('setAddressListEvent', this.setAddressListEvent, this);
+    },
+
+    onShow() {
+        let { config } = this.data,
+            multiStoreEnable = Boolean(config && config.offline_store_enable);
+        this.setData({
+            multiStoreEnable,
+        });
     },
 
     onHide() {
