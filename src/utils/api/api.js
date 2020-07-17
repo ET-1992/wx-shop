@@ -570,7 +570,6 @@ export const apis = {
     // 具体门店
     getMultiStoreDetail: {
         path: 'api/mag.offline_store.get.json',
-        isForceToken: true
     },
     checkUserExisted: {
         path: 'api/mag.user_center.user.existed.json',

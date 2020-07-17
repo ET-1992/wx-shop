@@ -204,6 +204,8 @@ App({
     updateApp() {
         const updateManager = wx.getUpdateManager();
 
+        if (!updateManager) { return }
+
         updateManager.onCheckForUpdate(function (res) {
             // 请求完新版本信息的回调
             console.log('hasUpdate', res.hasUpdate);
