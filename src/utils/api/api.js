@@ -565,7 +565,6 @@ export const apis = {
     // 多门店列表
     getMultiStoreList: {
         path: 'api/mag.offline_store.list.json',
-        isForceToken: true
     },
     // 具体门店
     getMultiStoreDetail: {

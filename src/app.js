@@ -22,7 +22,12 @@ App({
             isIphone5: model.indexOf('iPhone 5') >= 0
         };
 
-        const extConfig = wx.getExtConfigSync() || {};
+        let extConfig = {};
+        try {
+            extConfig = wx.getExtConfigSync() || {};
+        } catch (e) {
+            console.log('e', e);
+        }
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
         let {
@@ -35,7 +40,7 @@ App({
             vip = {},
             authorizer,
             currency = 'CNY',
-            backgroundColor = '#729153',
+            backgroundColor = '#ededed',
             tabbarPages = {}
         } = extConfig;
         console.log('extConfig2', extConfig);
