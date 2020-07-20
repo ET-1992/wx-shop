@@ -61,7 +61,7 @@
 				bindtouchend="{{selectedIndex !== -1 ? 'touchend':''}}"
 				lower-threshold="{{ 300 }}"
 				>
-				<view class="content" wx:if="{{selectedIndex !== -1}}">
+				<view class="subContent-content" wx:if="{{selectedIndex !== -1}}">
 					<view class="contentTop">
            			 	<view class="title">{{categories[selectedIndex].children[subSelectedIndex - 1].name || '全部'}}</view>
             			<filterList class="filter" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />

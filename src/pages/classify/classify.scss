@@ -3,23 +3,29 @@
 @import '~templates/homeTemplates/leftImage/leftImage.scss';
 
 $nameColor: #595757;
+// 搜索框高度
+$searchHeight: 90rpx;
+// 门店组件高度
+$storeHeight: 98rpx;
+
 page{
 	height: 100%;
 }
 .multiStore {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
-	top: 90rpx;
+	top: $searchHeight;
+	z-index: 2;
 }
 .container-multiStore {
-	padding-top: 90rpx+98rpx !important;
+	padding-top: $searchHeight + $storeHeight !important;
 }
 .subContent-multiStore {
-	padding-bottom: 70rpx+90rpx+98rpx !important;
+	padding-bottom: 70rpx + $searchHeight + $storeHeight !important;
 }
 .container{
-	padding-top: 90rpx;
+	padding-top: $searchHeight;
 	height: 100%;
 	.category{
 		width:100%;
@@ -73,7 +79,7 @@ page{
 			}
 		}
 		.subCategory {
-			padding: 0 30rpx;
+			background-color: #fff;
 			width: 76%;
 			height: 100%;
 			position:fixed;
@@ -157,7 +163,7 @@ page{
 			}
 			.subTitle{
 				height: 70rpx;
-				border-bottom: 1rpx solid #C9C9C9;
+				padding: 0 30rpx;
 				white-space: nowrap;
 				.subTitleItem{
 					display: inline-block;
@@ -194,14 +200,15 @@ page{
 			}
 			.subContent{
 				height:100%;
-				padding-bottom:70rpx+90rpx;
+				padding-bottom:70rpx + $searchHeight;
 				overflow: auto;
 				.banner_image{
 					height: 200rpx;
 					width: 520rpx;
 					margin-bottom: 11rpx;
 				}
-				.content{
+				.subContent-content{
+					padding: 0 30rpx;
 					.contentTop{
 						position: fixed;
 						width: 68%;
@@ -214,6 +221,7 @@ page{
 						align-items: center;
 						justify-content: space-between;
 						z-index: 99;
+						border-top: 1rpx solid #C9C9C9;
 					}
 					.filter{
 						display: flex;
