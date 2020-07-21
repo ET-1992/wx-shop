@@ -17,7 +17,10 @@ Page({
         memberNo: 0,
         payment: 0,
         selectRenewal: {}, // 所选择的续费项
-        rechargeArray: []
+        rechargeArray: [],
+        customizePayEnable: false,
+        storeCardCode: '', // 选择的储值卡金额的code
+        isCustom: false // 是否自定义输入金额
     },
 
     onLoad() {
@@ -41,15 +44,18 @@ Page({
             let amount = (membership_enable && membership.rules && membership.rules.payment) || 0;
             let memberNo = (current_user.membership && current_user.membership.member_no) || '';
             let rechargeArray = [];
+            let customizePayEnable = false;
             if (store_card_enable) {
-                const { data } = await api.hei.rechargePrice();
+                const { data, config = {}} = await api.hei.rechargePrice();
                 rechargeArray = data;
+                customizePayEnable = config.customize_pay_enable || false;
             }
             this.setData({
                 data,
                 config,
                 memberNo,
                 rechargeArray,
+                customizePayEnable,
                 amount: Number(amount),
                 user: current_user || {},
                 renews: renews_enable ? renews : [],
@@ -148,10 +154,12 @@ Page({
     // 储值卡充值
     onConfirmRecharge(ev) {
         let type = 2;
-        let { amount } = ev.detail;
+        let { amount, storeCardCode, isCustom } = ev.detail;
         console.log(amount, 'recharge----');
         this.setData({
             amount,
+            storeCardCode,
+            isCustom,
             rechargeModal: false
         }, () => {
             this.onPay(type);
@@ -164,10 +172,14 @@ Page({
     },
 
     async onPay(type) {
-        let { amount, config } = this.data;
+        let { amount, config, storeCardCode, isCustom } = this.data;
         const { cashier_enable } = config;
-        if (cashier_enable && amount > 0) {
-            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_type=${type}&from_page=member` });
+        if (cashier_enable && amount > 0 && !isCustom) {
+            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_code=${storeCardCode}&member_type=${type}&from_page=member` });
+            return;
+        }
+        if (cashier_enable && isCustom) {
+            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_isCustom=${isCustom}&member_type=${type}&from_page=member` });
             return;
         }
         try {

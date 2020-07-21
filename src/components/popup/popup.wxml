@@ -10,7 +10,7 @@
 				</view>
 			</block>
 		</view>
-		<view class="recharge-elsePrice" wx:if="{{ user.membership.is_member }}">
+		<view class="recharge-elsePrice" wx:if="{{ user.membership.is_member && customizePayEnable }}">
 			<view class="elsePrice-text">
 				<view class="elsePrice-text-left">其他金额</view>
 				<view class="elsePrice-text-right">{{ globalData.currency_sign }}</view>

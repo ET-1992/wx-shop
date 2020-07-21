@@ -213,7 +213,7 @@ page {
 .member-rights {
 	background-color: white;
 	padding: 20rpx;
-	padding-bottom: 30rpx;
+	margin-bottom: 20rpx;
 	// 标题
 	.rights-item-title {
 		color: $titleColor;
@@ -229,7 +229,21 @@ page {
 			// height: 200rpx;
 		}
 	}
+
+	.hasMargin {
+		margin-top: 20px;
+	}
 }
+
+// 会员ad banner
+.member-ad-banner {
+	width: 100%;
+	background-color: #fff;
+	image {
+		width: 100%;
+	}
+}
+
 
 // 我的积分、会员规则、联系客服
 .jump-list {

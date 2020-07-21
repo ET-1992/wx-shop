@@ -19,12 +19,12 @@ Page({
         },
         // 映射页面表单
         form: [
-            { key: 'name', value: '', label: '姓名' },
-            { key: 'phone', value: '', label: '电话' },
+            { key: 'name', value: '', label: '姓名', required: true },
+            { key: 'phone', value: '', label: '电话', required: true },
             { key: 'address', value: [], label: '国家/地区', areacode: '' },
-            { key: 'addressInfo', value: '', label: '详细地址' },
+            { key: 'addressInfo', value: '', label: '详细地址', required: true },
             { key: 'houseNumber', value: '', label: '门牌号' },
-            { key: 'code', value: '', label: '邮政编码' },
+            // { key: 'code', value: '', label: '邮政编码' },
         ],
         // 映射后端数据
         formBackEnd: {
@@ -33,7 +33,7 @@ Page({
             'address': ['receiver_state', 'receiver_city', 'receiver_district'],
             'addressInfo': 'receiver_address',
             'houseNumber': 'room',
-            'code': 'receiver_zipcode',
+            // 'code': 'receiver_zipcode',
         },
         // 映射微信表单
         formWechat: {
@@ -42,7 +42,7 @@ Page({
             'address': ['provinceName', 'cityName', 'countyName'],
             'addressInfo': 'detailInfo',
             'houseNumber': 'room',
-            'code': 'postalCode',
+            // 'code': 'postalCode',
         },
         qqAddress: {},  // 腾讯地图逆地址解析结果
         qqLocation: {},  // 腾讯地图地址解析结果

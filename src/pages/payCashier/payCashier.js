@@ -18,6 +18,8 @@ Page({
         renewalId: '', // 所选择的续费项id
         mixPayModal: false, // 混合支付弹出层
         mixpay: [], // 混合支付信息
+        member_code: '', // 选择的储值卡金额的code
+        member_isCustom: false // 是否自定义输入金额
     },
 
     go,
@@ -197,7 +199,9 @@ Page({
                 member_amount,
                 renewalId,
                 member_type,
-                subKeys
+                subKeys,
+                member_code,
+                member_isCustom
             } = this.data;
 
             wx.showLoading({ title: '请求中...', mask: true });
@@ -221,6 +225,12 @@ Page({
                     requestData.type = member_type;
                     if (renewalId) { // 会员续费
                         requestData.renew_id = renewalId;
+                    }
+                    if (member_isCustom) { // 自定义输入金额
+                        requestData.is_custom = member_isCustom;
+                    }
+                    if (!member_isCustom) { // 选择的金额code
+                        requestData.code = member_code;
                     }
                     break;
                 default:

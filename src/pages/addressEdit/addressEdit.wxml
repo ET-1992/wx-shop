@@ -8,13 +8,13 @@
 				</block>
 				<block wx:elif="{{ form[index].key === 'addressInfo' }}">
 					<!-- 微信地图的详细地址 -->
-					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}"
+					<van-field required value="{{ form[index]['value'] }}" label="{{ item.label }}"
 					placeholder="选择地址" data-key="{{ item.key }}" 
 					bind:tap="onChooseLocation" readonly is-link type="textarea" autosize />
 				</block>
 				<block wx:else>
 					<!-- 普通文本框 -->
-					<van-field value="{{ form[index]['value'] }}" label="{{ item.label }}" 
+					<van-field required="{{item.required}}" value="{{ form[index]['value'] }}" label="{{ item.label }}" 
 					placeholder="请输入{{ item.label }}" data-key="{{ item.key }}" 
 					bind:change="onInputChange" />
 				</block>

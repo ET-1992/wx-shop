@@ -16,7 +16,8 @@ Component({
                     this.setData({
                         rechargePrice: '',
                         rechargeArray,
-                        amount: rechargeArray && rechargeArray[0] && rechargeArray[0].recharge || 0
+                        amount: rechargeArray && rechargeArray[0] && rechargeArray[0].recharge || 0,
+                        storeCardCode: rechargeArray && rechargeArray[0] && rechargeArray[0].code || ''
                     });
                 }
             }
@@ -59,11 +60,17 @@ Component({
         renews: {
             type: Object,
             value: []
+        },
+        customizePayEnable: {
+            type: Boolean,
+            value: false,
         }
     },
     data: {
         rechargePrice: '',
-        selectRenewal: {}
+        selectRenewal: {},
+        storeCardCode: '',
+        is_custom: false // 是否自定义金额
     },
     attached() {
         this.setData({
@@ -83,7 +90,8 @@ Component({
             this.setData({
                 rechargePrice: '',
                 rechargeArray,
-                amount: rechargeArray[activeIndex].recharge
+                amount: rechargeArray[activeIndex].recharge,
+                storeCardCode: rechargeArray[activeIndex].code || ''
             });
         },
 
@@ -111,12 +119,6 @@ Component({
             this.setData({ rechargeArray });
         },
 
-        /* 其他充值金额 */
-        // inputRechargePrice(e) {
-        // 	const { value } = e.detail;
-        // 	this.setData({ amount: value });
-        // },
-
         // 小数点保留2位
         onInput(e) {
             const { value } = e.detail;
@@ -124,13 +126,13 @@ Component({
             if (!(/^(\d?)+(\.\d{0,2})?$/.test(value))) {
                 amount = value.substring(0, value.length - 1);
             }
-            this.setData({ amount });
+            this.setData({ amount, is_custom: true });
             return amount;
         },
 
         /* 充值确认支付按钮事件 */
         async rechargePriceEvent() {
-            let { amount } = this.data;
+            let { amount, storeCardCode, is_custom } = this.data;
             if (Number(amount) <= 0) {
                 wx.showToast({
                     title: '请输入大于0的金额',
@@ -138,7 +140,7 @@ Component({
                 });
                 return;
             }
-            this.triggerEvent('onConfirmRecharge', { amount }, { bubbles: true });
+            this.triggerEvent('onConfirmRecharge', { amount, storeCardCode, isCustom: is_custom }, { bubbles: true });
         },
 
         /* 续费确认支付按钮事件 */

@@ -55,17 +55,22 @@
 		</view>
 	</view>
 
-	<view class="member-rights">
+	<view class="member-rights" wx:if="{{ data.coupons && data.coupons.length || data.products_banner_enable }}">
 		<!-- 会员优惠券 -->
 		<include src="/templates/couponList/tplStyleVip/tplStyleVipSmall.wxml" />
 
 		<!-- 会员专属商品 -->
-		<view class="member-goods-banner">
+		<view class="member-goods-banner {{data.coupons && data.coupons.length ? 'hasMargin' : ''}}" wx:if="{{data.products_banner_enable}}">
 			<view class="rights-item-title">
 				<text>会员专享商品</text>
 			</view>
 			<image src="{{ data.dedicated_products_banner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
 		</view>
+	</view>
+
+	<!-- 会员banner广告 -->
+	<view class="member-ad-banner" wx:if="{{ data.ad_image }}">
+		<image src="{{ data.ad_image}}" mode="widthFix" bindtap="go" data-url="{{data.ad_link}}"></image>
 	</view>
 
 	<!-- 我的积分、积分规则、联系客服 -->
@@ -95,6 +100,7 @@
 		wx:if="{{ rechargeModal }}"
 		rechargeModal="{{ rechargeModal }}"
 		rechargeArray="{{ rechargeArray }}"
+		customizePayEnable="{{ customizePayEnable }}"
 		user="{{ user }}"
 		config="{{ config }}"
 		bind:onConfirmRecharge="onConfirmRecharge"
