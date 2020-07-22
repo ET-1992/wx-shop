@@ -28,14 +28,8 @@ Component({
 
         /* 地址管理 */
         async onAddress() {
-            const res = await auth({
-                scope: 'scope.address',
-                ctx: this
-            });
-            if (res) {
-                const addressRes = await chooseAddress();
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            }
+            let url = `/pages/addressList/addressList`;
+            wx.navigateTo({ url });
         },
 
         /* 分享中心 */
