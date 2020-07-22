@@ -53,7 +53,7 @@
 </view>
 
 <!-- 底部支付按钮 -->
-<orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay" crowd="{{ crowd }}" themeColor="{{ themeColor }}" freeShippingAmount="{{free_shipping_amount}}" config="{{ config }}" postageTip="{{ postageTip }}"></orderPay>
+<orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay" crowd="{{ crowd }}" themeColor="{{ themeColor }}" freeShippingAmount="{{free_shipping_amount}}" config="{{ config }}" postageTip="{{ postageTip }}" fee="{{ fee }}"></orderPay>
 
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
 
