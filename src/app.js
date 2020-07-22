@@ -2,7 +2,7 @@ import wxProxy from 'utils/wxProxy';
 import api from 'utils/api';
 import { USER_KEY, TOKEN_KEY, EXPIRED_KEY, CURRENCY, CONFIG } from 'constants/index';
 import Event from 'utils/event';
-import { parseScene } from 'utils/util';
+import { parseScene, isExpired } from 'utils/util';
 
 App({
     onLaunch() {
@@ -136,6 +136,9 @@ App({
             api.hei.config().then((res) => {
                 console.log(res, 'appConfig');
                 const { config, current_user } = res;
+
+                // 店铺过期验证
+                isExpired(config);
 
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);

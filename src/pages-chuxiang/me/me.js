@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { updateCart, go, isExpired } from 'utils/util';
+import { updateCart, go } from 'utils/util';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { updateTabbar } from '../../utils/util';
 const app = getApp();
@@ -84,7 +84,6 @@ Page({
         this.loadOrderCount();
 
         updateTabbar({ pageKey: 'me' });
-        isExpired(config);
     },
 
     onLogin() {
