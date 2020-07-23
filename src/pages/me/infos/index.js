@@ -66,14 +66,17 @@ Component({
         },
 
         async onAddress() {
-            const res = await auth({
-                scope: 'scope.address',
-                ctx: this
+            wx.navigateTo({
+                url: '/pages/addressList/addressList'
             });
-            if (res) {
-                const addressRes = await chooseAddress();
-                wx.setStorageSync(ADDRESS_KEY, addressRes);
-            }
+            // const res = await auth({
+            //     scope: 'scope.address',
+            //     ctx: this
+            // });
+            // if (res) {
+            //     const addressRes = await chooseAddress();
+            //     wx.setStorageSync(ADDRESS_KEY, addressRes);
+            // }
         },
         /* 我的管家 */
         async openManager() {
