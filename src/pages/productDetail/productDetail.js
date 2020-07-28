@@ -931,21 +931,23 @@ Page({
     // 切换地址计算邮费
     async calculatePostage() {
         let { product, areaObj = {}} = this.data;
-        let { provinceName, cityName, countyName } = areaObj;
+        let { provinceName, cityName, countyName } = areaObj,
+            shipment_writing = '';
         try {
-            const { shipment_writing: postageRule } = await api.hei.postageCalculate({
+            const data = await api.hei.postageCalculate({
                 post_id: product.id,
                 receiver_state: provinceName,
                 receiver_city: cityName,
                 receiver_district: countyName
             });
-            Object.assign(areaObj, { postageRule });
-            this.setData({
-                areaObj,
-            });
+            ({ shipment_writing } = data);
         } catch (err) {
-            console.log(err);
+            shipment_writing = err.errMsg;
         }
+        Object.assign(areaObj, { shipment_writing });
+        this.setData({
+            areaObj,
+        });
     },
     // 图片放大
     previewImg(e) {

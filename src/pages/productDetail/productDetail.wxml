@@ -293,7 +293,7 @@
 						<view class="label">运费</view>
 						<view class="area-value">
 							<view class="area-text">
-								<text wx:if="{{ areaObj.postageRule }}">{{ areaObj.postageRule }}</text>
+								<text wx:if="{{ areaObj.shipment_writing }}">{{ areaObj.shipment_writing }}</text>
 								<text wx:elif="{{ product.shipment_writing }}">{{ product.shipment_writing }}</text>
 								<text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
 								<text wx:elif="{{ product.postage }}">{{ globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4) }}</text>
