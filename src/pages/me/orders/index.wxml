@@ -1,31 +1,36 @@
 <view class="section orders">
 	<view class="orderItems">
+		<!-- 待付款 -->
 		<navigator class="orderItem" url="/pages/orderList/orderList?status=1">
 			<view class="orderItemValue" wx:if="{{ order_counts['1'] }}">{{ order_counts['1'] }}</view>
-			<image class="statusIcon" src="/icons/me/wallet.svg" mode="widthFix"/>
-			<view class="statusText">待付款</view>
+			<image class="statusIcon" src="{{ order_icons[0].iconPath }}" mode="widthFix"/>
+			<view class="statusText">{{ order_icons[0].text }}</view>
 		</navigator>
+		<!-- 待发货 -->
 		<navigator class="orderItem" url="/pages/orderList/orderList?status=2">
 			<view class="orderItemValue" wx:if="{{ order_counts['2'] }}">{{ order_counts['2'] }}</view>
-			<image class="statusIcon" src="/icons/me/truck.svg" mode="widthFix"/>
-			<view class="statusText">待发货</view>
+			<image class="statusIcon" src="{{ order_icons[1].iconPath }}" mode="widthFix"/>
+			<view class="statusText">{{ order_icons[1].text }}</view>
 		</navigator>
+		<!-- 待收货 -->
 		<navigator class="orderItem" url="/pages/orderList/orderList?status=3">
 			<view class="orderItemValue" wx:if="{{ order_counts['3'] }}">{{ order_counts['3'] }}</view>
 			<view class="orderItemValue" wx:if="{{ order_counts['31'] }}">{{ order_counts['31'] }}</view>
 			<view class="orderItemValue" wx:if="{{ order_counts['3'] && order_counts['31'] }}">{{ order_counts['3']+order_counts['31'] }}</view>
-			<image class="statusIcon" src="/icons/me/confirm.svg" mode="widthFix"/>
-			<view class="statusText">待收货</view>
+			<image class="statusIcon" src="{{ order_icons[2].iconPath }}" mode="widthFix"/>
+			<view class="statusText">{{ order_icons[2].text }}</view>
 		</navigator>
+		<!-- 退款|售后 -->
 		<navigator class="orderItem" url="/pages/orderList/orderList?status=5">
 			<view class="orderItemValue" wx:if="{{ order_counts['5'] }}">{{ order_counts['5'] }}</view>
-			<image class="statusIcon" src="/icons/me/finish.svg" mode="widthFix"/>
-			<view class="statusText">退款|售后</view>
+			<image class="statusIcon" src="{{ order_icons[3].iconPath }}" mode="widthFix"/>
+			<view class="statusText">{{ order_icons[3].text }}</view>
 		</navigator>
+		<!-- 所有订单 -->
 		<navigator class="lastItem orderItem" url="/pages/orderList/orderList">
 			<view class="orderItemValue" wx:if="{{ order_counts['0'] }}">{{ order_counts['0'] }}</view>
-			<image class="statusIcon" src="/icons/me/orders.svg" mode="widthFix"/>
-			<view class="statusText">所有订单</view>
+			<image class="statusIcon" src="{{ order_icons[4].iconPath }}" mode="widthFix"/>
+			<view class="statusText">{{ order_icons[4].text }}</view>
 		</navigator>
 	</view>
 </view>

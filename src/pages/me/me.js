@@ -43,7 +43,8 @@ Page({
             extend_icons,
         };
         const ordersComponentData = {
-            order_counts
+            order_counts,
+            order_icons,
         };
         const personalComponentData = {
             themeColor,

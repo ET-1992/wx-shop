@@ -3,15 +3,20 @@ Component({
         ordersComponentData: {
             type: Object,
             value: {},
-            observer(newValue) {
-                this.setData({
-                    ...newValue
-                });
-            }
         },
         themeColor: {
             type: Object,
             value: {}
+        }
+    },
+    observers: {
+        'ordersComponentData': function(value) {
+            if (!value) { return }
+            let { order_counts, order_icons } = value;
+            this.setData({
+                order_counts,
+                order_icons,
+            });
         }
     }
 });
