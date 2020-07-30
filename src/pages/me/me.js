@@ -21,19 +21,26 @@ Page({
     },
 
     async loadOrderCount() {
-        const { current_user: user, config, wallet, affiliate, phone_number, about_us, shop_phone, order_counts, coupons, affiliate_enable, membership_banner } = await api.hei.myFare();
-        const { themeColor, defineTypeGlobal } = this.data;
-
-        const infosComponentData = {
-            defineTypeGlobal,
+        const { themeColor } = this.data,
+            data = await api.hei.myFare();
+        let {
+            current_user: user,
             config,
-            user,
             wallet,
             affiliate,
             phone_number,
-            about_us,
-            shop_phone,
-            crowd_pay_enable: config.crowd_pay_enable
+            order_counts,
+            coupons,
+            affiliate_enable,
+            membership_banner,
+            customize_style = {},
+        } = data;
+        let { extend_icons, order_icons } = customize_style;
+        const infosComponentData = {
+            config,
+            user,
+            affiliate,
+            extend_icons,
         };
         const ordersComponentData = {
             order_counts

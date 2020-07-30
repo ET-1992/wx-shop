@@ -13,7 +13,7 @@
 	</button>
 
 	<!-- 功能面板 -->
-	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}" themeColor="{{ themeColor }}" config="{{ config }}" />
+	<infos infosComponentData="{{ infosComponentData }}" />
 
 	<navigator
 		class="affiliate"

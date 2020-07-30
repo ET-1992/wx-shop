@@ -1,89 +1,112 @@
 <view class="infos">
-    <!-- 回购箱 -->
-    <navigator class="infoItem" url="/pages-cuilv/depositIndex/depositIndex" wx:if="{{ config.repo_enable }}">
-        <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
-        <view class="itemTitle">回购箱</view>
-    </navigator>
+    <block wx:for="{{ extend_icons }}" wx:key="index">
+        <block wx:if="{{ item.type === 'redirect' }}">
+             <!-- 普通直链 -->
+            <button class="info-btn" hover-class="btn-hover" bind:tap="onNavigated" data-key="{{ item.key }}" data-path="{{ item.pagePath }}" >
+                <template is="btnContent" data="{{ item: item }}"></template>
+            </button>
+        </block>
+        <block wx:elif="{{ item.key === 'contact' && config.contact.type === 'work_weixin' }}">
+             <!-- 企业微信客服 -->
+            <button class="info-btn" hover-class="btn-hover" bind:tap="onCustomService" >
+                <template is="btnContent" data="{{ item: item }}"></template>
+            </button>
+        </block>
+        <block wx:else>
+            <!-- 功能按钮 -->
+            <button class="info-btn" hover-class="btn-hover" 
+                data-key="{{ item.key }}" data-type="{{ item.type }}" data-auth="{{ item.auth }}"
+                data-path="{{ item.pagePath }}"
+                open-type="{{ item.key === 'contact' ? 'contact' : 'getUserInfo' }}" 
+                bindgetuserinfo="onAuthNavigated"
+                session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'
+            >
+                <template is="btnContent" data="{{ item: item }}"></template>
+            </button>
+        </block>
+    </block>
+
     <!-- 寄存订单 -->
-    <navigator class="infoItem" url="/pages-cuilv/fastDeposit/fastDeposit" wx:if="{{ config.repo_button_show }}">
+    <!-- <navigator class="infoItem" url="/pages-cuilv/fastDeposit/fastDeposit" wx:if="{{ config.repo_button_show }}">
         <image class="itemIcon" mode="widthFix" src="/icons/fastDeposit/storage-box.svg" />
         <view class="itemTitle">寄存订单</view>
-    </navigator>
+    </navigator> -->
     <!-- 金币商城 -->
-    <navigator class="infoItem" url="/pages-cuilv/goldCoinMall/goldCoinMall" wx:if="{{ config.coin_mall_enable }}">
+    <!-- <navigator class="infoItem" url="/pages-cuilv/goldCoinMall/goldCoinMall" wx:if="{{ config.coin_mall_enable }}">
         <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/cardCollection.svg" />
         <view class="itemTitle">{{ config.coin_name || '金彩' }}商城</view>
-    </navigator>
+    </navigator> -->
     <!-- 我的卡包 -->
-    <navigator class="infoItem" url="/pages-cuilv/cardCollection/cardCollection?tab=card" wx:if="{{ config.coin_card_enable }}">
+    <!-- <navigator class="infoItem" url="/pages-cuilv/cardCollection/cardCollection?tab=card" wx:if="{{ config.coin_card_enable }}">
         <image class="itemIcon" mode="widthFix" src="/icons/goldCoinMall/coinMall.svg" />
         <view class="itemTitle">我的卡包</view>
-    </navigator>
-
-    <button class="normalizeBt infoItem" open-type="getUserInfo" bindgetuserinfo="toMemberPage" wx:if="{{ config.membership_enable && user.membership.is_member }}">
+    </navigator> -->
+    <!-- <button class="normalizeBt infoItem" hover-class="btn-hover" open-type="getUserInfo" bindgetuserinfo="toMemberPage" wx:if="{{ config.membership_enable && user.membership.is_member }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/memberCenter.svg" />
         <view class="itemTitle">会员中心</view>
-    </button>
-    <view class="infoItem" bindtap="onAddress" wx:if="{{ !config.self_address }}">
+    </button> -->
+    <!-- <navigator class="infoItem" url="/pages/addressList/addressList" wx:if="{{ !config.self_address }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/address.svg" />
         <view class="itemTitle">我的地址</view>
-    </view>
-    <navigator class="infoItem" url="/pages/bargainList/bargainList" wx:if="{{ config.bargain_enable }}">
+    </navigator> -->
+    <!-- <navigator class="infoItem" url="/pages/bargainList/bargainList" wx:if="{{ config.bargain_enable }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/bargain.svg" />
         <view class="itemTitle">我的砍价</view>
-    </navigator>
-    <view class="infoItem" bindtap="openManager" wx:if="{{ defineTypeGlobal === 'magua' }}">
+    </navigator> -->
+    <!-- <view class="infoItem" bindtap="openManager" wx:if="{{ defineTypeGlobal === 'magua' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/manager.svg" />
         <view class="itemTitle">我的管家</view>
-    </view>
-    <navigator wx:if="{{ wallet && !wallet.coin_enable }}" class="infoItem" url="/pages/myCoupons/myCoupons">
+    </view> -->
+    <!-- <navigator wx:if="{{ wallet && !wallet.coin_enable }}" class="infoItem" url="/pages/myCoupons/myCoupons">
         <image class="itemIcon" mode="widthFix" src="/icons/me/yhq.svg" />
         <view class="itemTitle">优惠券</view>
-    </navigator>
-    <navigator class="infoItem" url="/pages/orderList/orderList?status=10">
+    </navigator> -->
+    <!-- <navigator class="infoItem" url="/pages/orderList/orderList?status=10">
         <image class="itemIcon" mode="widthFix" src="/icons/me/myGroup.svg" />
         <view class="itemTitle">我的拼团</view>
-    </navigator>
-    <navigator wx:if="{{ crowd_pay_enable }}" class="infoItem" url="/pages/crowd/crowdList/crowdList">
+    </navigator> -->
+    <!-- <navigator wx:if="{{ crowd_pay_enable }}" class="infoItem" url="/pages/crowd/crowdList/crowdList">
         <image class="itemIcon" mode="widthFix" src="/icons/me/crowdPay.svg" />
         <view class="itemTitle">好友代付</view>
-    </navigator>
-    <navigator class="infoItem" url="/pages/myFav/myFav">
+    </navigator> -->
+    <!-- <navigator class="infoItem" url="/pages/myFav/myFav">
         <image class="itemIcon" mode="widthFix" src="/icons/me/myfav.svg" />
         <view class="itemTitle">我的收藏</view>
-    </navigator>
-    <button class="normalizeBt infoItem" bindgetuserinfo="toAffiliatePage" open-type="getUserInfo" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
+    </navigator> -->
+    <!-- <button class="normalizeBt infoItem" bindgetuserinfo="toAffiliatePage" open-type="getUserInfo" wx:if="{{ affiliate.is_affiliate_member  && affiliate.member && affiliate.member.audit_status === '2' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
     </button>
     <view class="infoItem" bindtap="showToast" wx:if="{{ affiliate.is_affiliate_member && affiliate.member && affiliate.member.audit_status === '1' }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/shareCenter.svg" />
         <view class="itemTitle">分享中心</view>
-    </view>
+    </view> -->
     <!-- 企业微信/微信客服 -->
-    <view class="infoItem" capture-catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+    <!-- <view class="infoItem" capture-catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
         <button class="normalizeBt info-item-btn" data-name="contact" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"me"}'>
             <image class="itemIcon" mode="widthFix" src="/icons/me/contact.svg" />
             <view class="itemTitle">联系客服</view>
         </button>
-    </view>
-    <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
+    </view> -->
+    <!-- <navigator class="infoItem" url="{{ '/pages/me/aboutUs/aboutUs?phone=' + phone_number + '&image_url=' + about_us }}" wx:if="{{ about_us }}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/about.svg" />
         <view class="itemTitle">关于我们</view>
-    </navigator>
-    <!-- <view class="infoItem" wx:if="{{ shop_phone }}" bindtap="call" data-phone="{{ shop_phone }}">
-        <image class="itemIcon" mode="widthFix" src="/icons/me/shopPhone.svg" />
-        <view class="itemTitle">售后电话</view>
-    </view> -->
-    <navigator class="infoItem" url="/pages/rulePages/rulePages?key=after_sales">
+    </navigator> -->
+    <!-- <navigator class="infoItem" url="/pages/rulePages/rulePages?key=after_sales">
         <image class="itemIcon" mode="widthFix" src="/icons/me/afterService.svg" />
         <view class="itemTitle">售后说明</view>
-    </navigator>
-    <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
+    </navigator> -->
+    <!-- <navigator class="infoItem" url="/pages/idCard/idCard"  wx:if="{{config.require_user_identity_info}}">
         <image class="itemIcon" mode="widthFix" src="/icons/me/idCart.svg" />
         <view class="itemTitle">身份信息</view>
-    </navigator>
+    </navigator> -->
 </view>
+
+<!-- 按钮内容模板 -->
+<template name="btnContent">
+    <van-image image-class="info-img" width="60rpx" height="60rpx" fit="contain" src="{{ item.iconPath }}" />
+    <view class="info-title">{{ item.text }}</view>
+</template>
 
 <myModal modal="{{authModal}}" />
 
