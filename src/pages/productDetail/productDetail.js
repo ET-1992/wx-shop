@@ -931,11 +931,12 @@ Page({
     // 切换地址计算邮费
     async calculatePostage() {
         let { product, areaObj = {}} = this.data;
-        let { provinceName, cityName, countyName } = areaObj,
+        let { provinceName, cityName, countyName, id } = areaObj,
             shipment_writing = '';
         try {
             const data = await api.hei.postageCalculate({
                 post_id: product.id,
+                receiver_id: id,
                 receiver_state: provinceName,
                 receiver_city: cityName,
                 receiver_district: countyName
