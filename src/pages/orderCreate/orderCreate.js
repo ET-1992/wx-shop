@@ -219,7 +219,7 @@ Page({
             storeListAddress.distance = Number(distance) || '-';
         }
         this.setData({
-            address: address,
+            address,
             storeListAddress,
         }, () => { this.onLoadData() });
     },
@@ -266,6 +266,7 @@ Page({
             let requestData = {};
             if (address) {
                 requestData = {
+                    receiver_id: address.id || '',
                     receiver_name: address.userName || '',
                     receiver_phone: address.telNumber || '',
                     receiver_country: address.nationalCode || '',
@@ -517,6 +518,7 @@ Page({
         let method = 'createOrder';
 
         let requestData = {
+            receiver_id: address.id || '',
             receiver_name: userName || '',
             receiver_phone: telNumber || '',
             receiver_country: nationalCode || '',
