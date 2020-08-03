@@ -40,7 +40,7 @@ page {
 			justify-content: center;
 			flex-wrap: wrap;
 			min-height: 100rpx;
-			padding: 20rpx;
+			padding: 20rpx 18rpx 20rpx 17rpx;
 			&.selected {
 				font-weight: bold;
 				color: $titleColor;
