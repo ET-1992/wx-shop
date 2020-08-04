@@ -24,39 +24,43 @@ Page({
         const { themeColor } = this.data,
             data = await api.hei.myFare();
         let {
-            current_user: user,
-            config,
-            wallet,
-            affiliate,
-            phone_number,
-            order_counts,
-            coupons,
-            affiliate_enable,
-            membership_banner,
-            customize_style = {},
-        } = data;
-        let { extend_icons, order_icons } = customize_style;
+                current_user: user,
+                config,
+                wallet,
+                affiliate,
+                phone_number,
+                order_counts,
+                coupons,
+                affiliate_enable,
+                membership_banner,
+                customize_style = {},
+            } = data,
+            { extend_icons, order_icons, background_color } = customize_style;
+        // 拓展功能图标区
         const infosComponentData = {
-            config,
-            user,
-            affiliate,
-            extend_icons,
-        };
-        const ordersComponentData = {
-            order_counts,
-            order_icons,
-        };
-        const personalComponentData = {
-            themeColor,
-            user,
-            wallet,
-            coupons
-        };
-        const managerComponentData = {
-            themeColor,
-            user,
-            phoneNumber: phone_number,
-        };
+                config,
+                user,
+                affiliate,
+                extend_icons,
+            },
+            // 订单查看图标区
+            ordersComponentData = {
+                order_counts,
+                order_icons,
+            },
+            // 头部信息栏
+            personalComponentData = {
+                themeColor,
+                user,
+                wallet,
+                coupons,
+                background_color,
+            },
+            managerComponentData = {
+                themeColor,
+                user,
+                phoneNumber: phone_number,
+            };
 
         this.setData({
             affiliate_enable,
