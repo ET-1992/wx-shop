@@ -277,8 +277,9 @@
 		</view>
 
 		<!-- 地区/运费/门店 -->
-		<view class="area-box" wx:if="{{ config && !config.self_address && config.shipment_template_enable }}">
-			<block wx:for="{{ product.shipping_types }}" wx:key="index">
+		<view class="area-box">
+			<block wx:for="{{ product.shipping_types }}" wx:key="index"
+				wx:if="{{ config && !config.self_address && config.shipment_template_enable }}">
 				<!-- 快递 -->
 				<block wx:if="{{ item === 1 && product.product_type !== 1 }}">
 					<view class="area-line" bind:tap="onAddress">
