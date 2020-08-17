@@ -9,6 +9,9 @@
 		background-color: initial;
 		margin: 12rpx 8rpx;
 		padding: 12rpx 0;
+		// 兼容不支持栅格布局的环境
+		display: inline-block;
+		min-width: 22%;
 		&.btn-hover {
 			background-color: #f8f8f8;
 		}
