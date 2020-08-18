@@ -165,28 +165,27 @@ App({
         // this.checkBind();
         this.updateConfig();
 
-        const { query = {}} = options;
+        const { query = {}, referrerInfo } = options;
+
+        if (referrerInfo) {
+            this.globalData.extraData = referrerInfo.extraData;
+        }
+
+        if (query.scene) {
+            let scene = decodeURIComponent(query.scene);
+            let query_ = parseScene(scene);
+            // 合并有场景值得参数
+            Object.assign(query, query_);
+        }
+
         if (query.vendor) {
             this.globalData.vendor = query.vendor;
-        }
-        if (options.referrerInfo) {
-            this.globalData.extraData = options.referrerInfo.extraData;
         }
 
         if (query.afcode) {
             this.globalData.afcode = query.afcode;
             this.recordAffiliate(query.afcode);
         }
-
-        if (query.scene) {
-            let scene = decodeURIComponent(query.scene);
-            let query_ = parseScene(scene);
-            if (query_.afcode) {
-                this.globalData.afcode = query_.afcode;
-                this.recordAffiliate(query_.afcode);
-            }
-        }
-        // this.updateConfig();
 
         if (query.storeId) {
             // 重置当前门店
@@ -195,6 +194,8 @@ App({
             };
             this.globalData.currentStore = currentStore;
         }
+
+        console.log('query', query);
 
         try {
             await wxProxy.checkSession();
