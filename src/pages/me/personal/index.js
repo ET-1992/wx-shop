@@ -9,36 +9,35 @@ Component({
             type: Object,
             value: {},
         },
-        config: {
-            type: Object,
-            value: {}
-        },
-        themeColor: {
-            type: Object,
-            value: {}
-        }
     },
     observers: {
         'personalComponentData': function(personData) {
             if (!personData) { return }
-            let config = wx.getStorageSync(CONFIG),
+            let { themeColor, user, wallet, coupons, background_color } = personData,
+                config = wx.getStorageSync(CONFIG),
                 createTime = wx.getStorageSync(USER_INFO_CREATE_TIME),
                 updateAvatar = false;
             const twoDay = 60 * 60 * 24 * 1000 * 2;
             // 此处config.active_time等待后端开发
             let activeTime = config.active_time || twoDay,
                 currentTime = Date.now();
-            let { themeColor, user, wallet, coupons } = personData;
+
             // 提示用户主动获取头像信息
             if (createTime && (currentTime - createTime > activeTime)) {
                 updateAvatar = true;
             }
+            // 重置主题色
+            if (background_color) {
+                themeColor.primaryColor = background_color;
+            }
             this.setData({
+                config,
                 themeColor,
                 user,
                 wallet,
                 coupons,
                 updateAvatar,
+                background_color,
             });
         }
     },

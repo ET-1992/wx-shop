@@ -222,6 +222,15 @@ page{
 						justify-content: space-between;
 						z-index: 99;
 						border-top: 1rpx solid #C9C9C9;
+						&::after {
+							// 遮住下方突出的内容
+							content: '';
+							position: absolute;
+							right: -4rpx;
+							height: 70rpx;
+							width: 4rpx;
+							background-color: #fff;
+						}
 					}
 					.filter{
 						display: flex;

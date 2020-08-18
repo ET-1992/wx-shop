@@ -2,7 +2,7 @@
 <view class="container">
 	<!-- 头部面板 -->
 	<personal-more wx:if="{{ PLATFFORM_ENV === 'CUILV' }}" personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
-	<personal wx:else personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+	<personal wx:else personalComponentData="{{ personalComponentData }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
@@ -13,7 +13,7 @@
 	</button>
 
 	<!-- 功能面板 -->
-	<infos infosComponentData="{{ infosComponentData }}" user="{{ user }}" themeColor="{{ themeColor }}" config="{{ config }}" />
+	<infos infosComponentData="{{ infosComponentData }}" />
 
 	<navigator
 		class="affiliate"

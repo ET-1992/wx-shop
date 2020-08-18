@@ -39,6 +39,10 @@ Component({
             type: String,
             value: '',
         },
+        fee: {
+            type: Object,
+            value: {},
+        },
     },
     data: {
         globalData: app.globalData

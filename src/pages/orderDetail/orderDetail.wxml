@@ -37,7 +37,7 @@
     <!-- 门店列表 -->
     <storeList addresses="{{ order.store_address }}" address="{{ order }}" wx:if="{{ order.shipping_type === '4' }}" isOrderDetail="{{ order.shipping_type }}"></storeList>
     <van-popup show="{{ liftInfoModal }}" bind:close="closeLiftInfoModal" z-index="9999">
-        <van-panel title="提货码">
+        <van-panel title="提货码" catchtouchmove="preventTouchMove">
             <canvas class="liftInfoCanvas" canvas-id="liftInfoCanvasId" id="liftInfoId" />
         </van-panel>
     </van-popup>

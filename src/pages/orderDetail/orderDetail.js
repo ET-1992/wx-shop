@@ -417,7 +417,11 @@ Page({
             liftInfoModal: true
         }, async () => {
             const nodeInfo = await getNodeInfo('liftInfoId');
-            const { width, height } = nodeInfo;
+            let { width, height } = nodeInfo;
+            if (!width || !height) {
+                width = 250;
+                height = 250;
+            }
             qrcode.api.draw('D-' + order.order_code, 'liftInfoCanvasId', width, height);
         });
     },
@@ -465,5 +469,9 @@ Page({
         this.setData({
             showPosterModal: false
         });
+    },
+
+    preventTouchMove() {
+        console.log('阻止自提码弹窗触摸滑动');
     },
 });
