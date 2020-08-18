@@ -69,9 +69,9 @@
 	</view>
 
 	<!-- 会员banner广告 -->
-	<view class="member-ad-banner" wx:if="{{ data.ad_image }}">
-		<image src="{{ data.ad_image}}" mode="widthFix" bindtap="go" data-url="{{data.ad_link}}"></image>
-	</view>
+	<!-- <view class="member-ad-banner" wx:if="{{ data.ad_image }}"> -->
+		<image src="{{ data.ad_image}}" class="member-ad-banner" mode="widthFix" bindtap="go" data-url="{{data.ad_link}}" wx:if="{{ data.ad_image }}"></image>
+	<!-- </view> -->
 
 	<!-- 我的积分、积分规则、联系客服 -->
 	<view class="jump-list">
