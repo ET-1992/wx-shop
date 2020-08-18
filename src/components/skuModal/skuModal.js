@@ -1,6 +1,6 @@
 import { sku } from 'peanut-all';
 import { getAgainUserForInvalid, updateCart } from 'utils/util';
-import { CONFIG, SHIPPING_TYPE } from 'constants/index';
+import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 const app = getApp();
@@ -78,38 +78,50 @@ Component({
     methods: {
         // 初始化配送方式
         firstInit() {
-            const shippingState = wx.getStorageSync('shippingType');
-            console.log('shipping_type91', shippingState, typeof shippingState);
-            const { product } = this.data;
-            let type = product.shipping_types; // [1,2,4]
-            const liftStyles = SHIPPING_TYPE.filter(item => {
-                return type.indexOf(item.value) > -1;
-            });
-            liftStyles.forEach(item => { item.checked = false });
-            const isHasState = liftStyles.find(item => { // 判断缓存配送方式是否已开启
-                return item.value === shippingState;
-            });
-            console.log('data96', liftStyles);
-            console.log('isHasStyles101', isHasState);
-            if (liftStyles && isHasState) {
-                liftStyles.forEach((item) => {
-                    if (item.value === Number(shippingState)) {
-                        item.checked = true;
-                    }
-                });
-                console.log('shippingState106', shippingState, typeof shippingState);
-                this.setData({ liftStyles, shipping_type: shippingState });
-                this.triggerEvent('getShippingType', { shipping_type: shippingState }, { bubbles: true });
-            } else {
-                liftStyles[0].checked = true;
-                this.setData({ liftStyles, shipping_type: type[0] });
-                this.triggerEvent('getShippingType', { shipping_type: type[0] }, { bubbles: true });
-                console.log('shipping_type115', typeof type[0]);
-                wx.setStorage({
-                    key: 'shippingType',
-                    data: type[0]
-                });
+            const cashedType = wx.getStorageSync('shippingType'),
+                {
+                    product: { shipping_types: types = [] },  // 商品物流方式
+                    config: { shipping_type_name = [], }  // 店铺物流名称字典
+                } = this.data;
+
+            // 选中物流对应对象数组 添加checked属性
+            let liftStyles = [];
+            for (let lift of shipping_type_name) {
+                let type = Number(lift.value),
+                    productShippingType = types.indexOf(type) > -1;
+                if (productShippingType) {
+                    Object.assign(lift, { checked: false });
+                    liftStyles.push(lift);
+                }
             }
+
+            // 设置当前选中物流
+            let shipping_type = '';
+            for (let lift of liftStyles) {
+                if (lift.value === Number(cashedType)) {
+                    lift.checked = true;
+                    shipping_type = Number(cashedType);
+                }
+            }
+            if (!shipping_type && liftStyles[0]) {
+                // 不存在缓存则选第一个
+                liftStyles[0].checked = true;
+                shipping_type = liftStyles[0].value;
+            }
+
+            this.setData({
+                liftStyles,
+                shipping_type,
+            });
+            this.triggerEvent(
+                'getShippingType',
+                { shipping_type },
+                { bubbles: true }
+            );
+            wx.setStorage({
+                key: 'shippingType',
+                data: shipping_type
+            });
         },
 
         close() {

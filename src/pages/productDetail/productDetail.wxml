@@ -206,11 +206,14 @@
 					</block>
 				</view>
 
+				<!-- 物流图标和销售量 -->
 				<view class="info-section">
-					<view class="left-section" wx:if="{{product.product_type !== 1}}" wx:for="{{ product.shipping_types }}" wx:key="item">
+					<view class="left-section" wx:if="{{ product.product_type !== 1 && config.shipping_type_name }}" 
+						wx:for="{{ product.shipping_types }}" wx:key="item">
 						<view class="delivery-section">
-						<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
-						{{ item === 2 ? '到店自提' : (item === 4 ? '送货上门' : '快递')}}
+							<image class="type-icon" mode="aspectFit" src="/icons/productDetail/type.svg" />
+							<text wx:for="{{ config.shipping_type_name }}" wx:for-item="names" wx:key="index"
+								wx:if="{{ names.value === item }}">{{ names.text }}</text>
 						</view>
 					</view>
 					<view class="right-section">

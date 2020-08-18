@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
-import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG, SHIPPING_TYPE, CART_TYPE } from 'constants/index';
+import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
 import { updateTabbar, autoNavigate } from 'utils/util';
 
 const app = getApp();
@@ -260,10 +260,11 @@ Page({
         console.log('config72', this.data.config);
         let {
             config: {
-                shipping_types
+                shipping_types,
+                shipping_type_name = [],
             }
         } = this.data;
-        const liftStyles = CART_TYPE.filter(item => {
+        const liftStyles = shipping_type_name.filter(item => {
             return shipping_types.indexOf(item.value) > -1;
         });
         console.log('data', liftStyles);

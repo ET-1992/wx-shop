@@ -148,21 +148,21 @@ export const CURRENCY = {
 //     2: '服务'
 // };
 
-export const SHIPPING_TYPE = [
-    { text: '快递', value: 1 },
-    { text: '自提', value: 2 },
-    { text: '上门服务', value: 3 },
-    { text: '送货上门', value: 4 },
-    { text: '寄存', value: 6 }
-];
+// export const SHIPPING_TYPE = [
+//     { text: '快递', value: 1 },
+//     { text: '自提', value: 2 },
+//     { text: '上门服务', value: 3 },
+//     { text: '送货上门', value: 4 },
+//     { text: '寄存', value: 6 }
+// ];
 
-export const CART_TYPE = [
-    { text: '快递', value: 1 },
-    { text: '自提', value: 2 },
-    { text: '服务', value: 3 },
-    { text: '上门', value: 4 },
-    { text: '寄存', value: 6 }
-];
+// export const CART_TYPE = [
+//     { text: '快递', value: 1 },
+//     { text: '自提', value: 2 },
+//     { text: '服务', value: 3 },
+//     { text: '上门', value: 4 },
+//     { text: '寄存', value: 6 }
+// ];
 
 // export const PRODUCT_STATUS = [
 //     { text: '售罄', value: 'sold_out' },

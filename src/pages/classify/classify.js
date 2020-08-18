@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
-import { CONFIG, SHIPPING_TYPE, PLATFFORM_ENV } from 'constants/index';
+import { CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar, valueToText } from 'utils/util';
 const app = getApp();
 Page({
@@ -239,7 +239,8 @@ Page({
     /* 加车 */
     async addCart(e) {
         console.log('e214', e);
-        let { vendor } = app.globalData;
+        let { vendor } = app.globalData,
+            { shipping_type_name } = this.data.config;
         let { id, stock } = e.currentTarget.dataset;
         if (stock === 0) {
             await showModal({
@@ -257,7 +258,7 @@ Page({
         options.vendor = vendor;
         options.form_id = this.data.formId;
 
-        let shippingText = valueToText(SHIPPING_TYPE, Number(e.shipping_type));
+        let shippingText = valueToText(shipping_type_name, Number(e.shipping_type));
         try {
             const data = await api.hei.addCart(options);
             wx.showToast({
