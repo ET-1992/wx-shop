@@ -71,10 +71,16 @@ Component({
         now: Math.round(Date.now() / 1000),
         shipping_type: 1
     },
-    attached() {
-        const config = wx.getStorageSync(CONFIG);
+
+    async attached() {
+        let config = wx.getStorageSync(CONFIG);
+        if (!config) {
+            let data = await api.hei.config();
+            ({ config } = data);
+        }
         this.setData({ config });
     },
+
     methods: {
         // 初始化配送方式
         firstInit() {
