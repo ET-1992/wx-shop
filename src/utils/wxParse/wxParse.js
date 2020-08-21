@@ -102,8 +102,8 @@ function calMoreImageInfo(e, idx, that, bindName) {
     let keyW = key + '.width';
     let keyH = key + '.height';
     that.setData({
-        [keyW]: recal.imageWidth,
-        [keyH]: recal.imageheight,
+        [keyW]: Number(recal.imageWidth),
+        [keyH]: Number(recal.imageheight),
     });
 }
 
@@ -120,15 +120,15 @@ function wxAutoImageCal(originalWidth, originalHeight, that, bindName) {
     windowHeight = realWindowHeight;
     // 判断按照那种方式进行缩放
     // console.log("windowWidth" + windowWidth);
-    if (originalWidth > windowWidth) { // 在图片width大于手机屏幕width时候
+    if (originalWidth >= windowWidth) { // 在图片width大于手机屏幕width时候
         autoWidth = windowWidth;
         // console.log("autoWidth" + autoWidth);
         autoHeight = Math.round((autoWidth * originalHeight) / originalWidth);
         // console.log("autoHeight" + autoHeight);
-        results.imageWidth = autoWidth;
-        results.imageheight = autoHeight;
+        results.imageWidth = Number(autoWidth);
+        results.imageheight = Number(autoHeight);
     } else { // 否则展示原来的数据
-        results.imageWidth = originalWidth;
+        results.imageWidth = Number(originalWidth);
         results.imageheight = Math.round(originalHeight);
     }
     return results;
