@@ -30,10 +30,10 @@
       </van-radio-group>
   </view>
   <view class="btns">
-    <button class="btn wechat-add" bindtap="onImportAddress" wx:if="{{ !config.offline_store_enable }}">
+    <button class="btn wechat-add" bindtap="onImportAddress" wx:if="{{ config.wechat_address_enable }}">
       微信添加地址
     </button>
-    <button class="btn" data-type="add" catch:tap="onAddressEdit">
+    <button class="btn" data-type="add" catch:tap="onAddressEdit" wx:else>
       手动添加地址
     </button>
   </view>
