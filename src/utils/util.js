@@ -1,4 +1,4 @@
-import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG } from 'constants/index';
+import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import wxProxy from 'utils/wxProxy';
@@ -162,10 +162,9 @@ export function autoDrawText(opt = {}) {
     return textRow;
 }
 
+// 生成海报处理函数 花生平台写死 其他平台不动
 export function imgToHttps(url = '') {
-    const httpsHost = 'https://cdn.97866.com';
-    const httpHost = 'http://cdn2.wpweixin.com';
-    return url.replace(httpHost, httpsHost);
+    return PLATFFORM_ENV === 'PEAUNT' || PLATFFORM_ENV === 'DEV' ? 'https://cdn.97866.com' : url;
 }
 
 export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {

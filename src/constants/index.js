@@ -25,7 +25,7 @@ export const CONFIG = 'CONFIG';
 export const PLATFFORM_ENV = 'PEAUNT';
 
 export const HOST_ARRAY = [
-    { text: 'PEAUNT', value: 'https://api.wpweixin.com/' },
+    { text: 'PEAUNT', value: 'https://api.97866.com/' },
     { text: 'DEV', value: 'https://hei.dev.97866.com/' },
     { text: 'KUPPER', value: 'https://m.kupper.com.cn/' },
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
