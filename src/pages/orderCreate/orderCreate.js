@@ -240,6 +240,7 @@ Page({
 
     // 更新自提地址
     updateLiftInfo(e) {
+        console.log('updateLiftInfo', e);
         const { liftInfo = {}} = this.data;
         this.setData({
             liftInfo: { ...liftInfo, ...e.detail }

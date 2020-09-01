@@ -41,7 +41,7 @@ Page({
             isLoading: true,
             config,
             multiStoreEnable,
-            free_shipping_amount: config && config.free_shipping_amount
+            free_shipping_amount: config && config.free_shipping_amount,
         });
         this.firstInit();
         // 非多门店模式
@@ -262,7 +262,8 @@ Page({
             config: {
                 shipping_types,
                 shipping_type_name = [],
-            }
+            },
+            liftStyleIndex
         } = this.data;
         const liftStyles = shipping_type_name.filter(item => {
             return shipping_types.indexOf(item.value) > -1;
@@ -270,8 +271,7 @@ Page({
         console.log('data', liftStyles);
         this.setData({
             liftStyles,
-            shipping_type: shipping_types[0],
-            liftStyleIndex: 0
+            shipping_type: shipping_types[liftStyleIndex]
         });
     },
 
