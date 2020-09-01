@@ -45,7 +45,7 @@ Component({
         }
 
         const { isOrderDetail, liftInfo } = this.data;
-        if (!isOrderDetail || !config.offline_store_enable) {
+        if (!isOrderDetail && !config.offline_store_enable) {
             this.initLiftData();
         }
 
