@@ -83,7 +83,7 @@ Page({
 
     async onReachBottom() {
         const { current_page, total_pages } = this.data;
-        if (current_page >= total_pages) { return }
+        if (current_page > total_pages) { return }
         this.loadProducts();
     },
 
