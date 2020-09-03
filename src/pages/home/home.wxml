@@ -24,7 +24,7 @@
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
 <block wx:if="{{ home_type === 'new'}}">
-    <view class="container" wx:if="{{ !isLoading }}">
+    <view class="container" wx:if="{{ !isLoading }}" style="background-color: {{ themeColor.backgroundColor }}"> 
         <!-- 搜索框 -->
         <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" 
             themeColor="{{ themeColor }}" globalData="{{ globalData }}" 
@@ -50,7 +50,7 @@
                 <!-- 魔方 -->
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
                 <!-- 直播列表 -->
-                <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
+                <!-- <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" /> -->
                 <!-- 金价模块 -->
                 <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
             </view>

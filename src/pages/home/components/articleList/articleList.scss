@@ -2,6 +2,8 @@
 @import './templates/bigPic/bigPic';
 
 .section {
+	background-color: #ffffff;
+	border-radius: 10rpx;
 	.sectionTitle {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -18,7 +20,6 @@
 		.moreButton {
 			font-size: 28rpx;
 			color: #707070;
-			background: #fff;
 		}
 
 		.rightIcon {

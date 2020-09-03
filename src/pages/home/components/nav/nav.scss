@@ -11,15 +11,16 @@
 	flex-flow: row wrap;
 	align-items: center;
 	text-align: center;
-	padding: 0 25rpx;
+	background-color: #ffffff;
+	padding: 20rpx 0;
+	border-radius: 10rpx;
 
 	.homeCategory, 
 	.homeWrapper {
-		width: 175rpx;
+		width: 180rpx;
 		flex-direction: column;
 		.categoryItem{
 			line-height: 0;
-			
 			.categoryImg{
 				width: 100rpx;
 				height: 100rpx;
