@@ -164,7 +164,14 @@ export function autoDrawText(opt = {}) {
 
 // 生成海报处理函数 花生平台写死 其他平台不动
 export function imgToHttps(url = '') {
-    return PLATFFORM_ENV === 'PEAUNT' || PLATFFORM_ENV === 'DEV' ? 'https://cdn.97866.com' : url;
+    const app = getApp();
+    const { cdn_host, download_host } = app.globalData.config;
+
+    if (PLATFFORM_ENV === 'PEAUNT' || PLATFFORM_ENV === 'DEV') {
+        return url.replace(download_host, cdn_host);
+    } else {
+        return url;
+    }
 }
 
 export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {
