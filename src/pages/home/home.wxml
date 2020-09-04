@@ -24,7 +24,7 @@
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
 <block wx:if="{{ home_type === 'new'}}">
-    <view class="container" wx:if="{{ !isLoading }}" style="background-color: {{ themeColor.backgroundColor }}"> 
+    <view class="container" wx:if="{{ !isLoading }}" style="background-color: {{ module_page.bg_color }}; {{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }}; padding: 0 {{module_page.padding}}rpx"> 
         <!-- 搜索框 -->
         <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" 
             themeColor="{{ themeColor }}" globalData="{{ globalData }}" 

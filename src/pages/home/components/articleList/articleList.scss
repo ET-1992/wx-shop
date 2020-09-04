@@ -3,7 +3,6 @@
 
 .section {
 	background-color: #ffffff;
-	border-radius: 10rpx;
 	.sectionTitle {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -28,4 +27,12 @@
 			margin-left: 10rpx;
 		}
 	}
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 }

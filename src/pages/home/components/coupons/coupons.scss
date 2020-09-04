@@ -1,7 +1,6 @@
 .Wrapper{
 	background-color: #fff;
 	padding-bottom: 32rpx;
-	border-radius: 10rpx;
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -113,4 +112,12 @@
 			z-index: 1;
 		}
 	}
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 }
