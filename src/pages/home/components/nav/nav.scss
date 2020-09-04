@@ -1,6 +1,6 @@
 .Wrapper {
 	padding: 20rpx 0;
-	border-radius: 10rpx;
+	background: #ffffff;
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -19,7 +19,7 @@
 	
 		.homeCategory, 
 		.homeWrapper {
-			width: 180rpx;
+			width: 178rpx;
 			flex-direction: column;
 			.categoryItem{
 				line-height: 0;
@@ -76,7 +76,6 @@
 	// 		margin-right: 0;
 	// 	}
 	// }
-}
 
 // .categoryWrapper {
 // 	padding: 0 55rpx;
