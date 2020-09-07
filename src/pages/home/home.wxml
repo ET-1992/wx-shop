@@ -23,8 +23,10 @@
     <!-- 自定义弹窗 -->
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
+<!---->
 <block wx:if="{{ home_type === 'new'}}">
-    <view class="container" wx:if="{{ !isLoading }}" style="background-color: {{ module_page.bg_color }}; {{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }}; padding: 0 {{module_page.padding}}rpx"> 
+    <view class="container" wx:if="{{ !isLoading }}" 
+    style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; padding: 0 {{module_page.padding}}rpx"> 
         <!-- 搜索框 -->
         <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" 
             themeColor="{{ themeColor }}" globalData="{{ globalData }}" 
@@ -50,7 +52,7 @@
                 <!-- 魔方 -->
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
                 <!-- 直播列表 -->
-                <!-- <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" /> -->
+                <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
                 <!-- 金价模块 -->
                 <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
             </view>
