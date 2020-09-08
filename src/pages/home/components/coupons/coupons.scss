@@ -4,12 +4,13 @@
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
-		padding: 26rpx 25rpx;
+		padding: 26rpx 25rpx 0 25rpx;
 		text-align: center;
 	}
 
 	.couponsWrapper {
 		padding-left: 10rpx;
+		padding-top: 32rpx;
 		font-size: 0;
 		z-index: 9;
 
@@ -23,6 +24,7 @@
 			position: relative;
 			line-height: 1.2;
 			margin-left: 20rpx;
+			border-radius: 10rpx;
 		}
 
 		.moreCoupon{

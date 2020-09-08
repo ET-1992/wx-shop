@@ -1,5 +1,5 @@
 .Wrapper {
-	padding: 20rpx 0;
+	padding: 20rpx 10rpx;
 	background: #ffffff;
 	.title {
 		font-size: 35rpx;
@@ -19,7 +19,7 @@
 	
 		.homeCategory, 
 		.homeWrapper {
-			width: 178rpx;
+			width: 176rpx;
 			flex-direction: column;
 			.categoryItem{
 				line-height: 0;
@@ -38,7 +38,7 @@
 	
 			.categoryTitle{
 				font-size: 24rpx;
-				height: 66rpx;
+				height: 80rpx;
 				line-height: 66rpx;
 				color: #000;
 				overflow: hidden;
