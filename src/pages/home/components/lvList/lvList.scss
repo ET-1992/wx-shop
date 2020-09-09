@@ -16,7 +16,7 @@
         padding: 6rpx 26rpx;
         .live-wrap{
             padding: 20rpx 0;
-            border-bottom: 1rpx solid #d4d4d4;
+            border-bottom: 1rpx solid #F5F5F5;
             display: flex;
             &.live-wrap:last-child {
                 border: none;
@@ -29,6 +29,7 @@
                     width: 100%;
                     height: 100%;
                     background-color: #d8d8d8;
+                    border-radius: 10rpx;
                 }
             }
             .live-right {
