@@ -1,6 +1,6 @@
 .Wrapper {
-	padding: 20rpx 10rpx;
 	background: #ffffff;
+	overflow: hidden;
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -15,7 +15,7 @@
 		align-items: center;
 		text-align: center;
 		background-color: #ffffff;
-	
+		padding: 10rpx;
 	
 		.homeCategory, 
 		.homeWrapper {

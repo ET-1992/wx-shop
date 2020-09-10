@@ -5,7 +5,7 @@
 	<!-- 标题 -->
 	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
 
-     <view class="live-list">
+     <view class="live-list" wx:if="{{ content && content > 0 }}">
 			<view class="live-wrap" wx:for="{{ content }}" wx:key="index"   data-status="{{ item.status }}" data-id="{{ item.id }}" bind:tap="onClickBtn">
 				<view class="live-left">
 				<image class="live-img" src="{{ item.share_img }}" mode="aspectFill" />
@@ -34,5 +34,8 @@
 				</view>
 				</view>
 			</view>
+	</view>
+	<view class="empty" wx:else>
+		暂无直播数据
 	</view>
 </view>

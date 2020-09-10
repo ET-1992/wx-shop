@@ -1,9 +1,11 @@
 .Wrapper{
+	overflow: hidden;
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
 		padding: 26rpx 25rpx;
 		text-align: center;
+		background-color: #fff;
 	}
 	
 	.announcement {
@@ -56,12 +58,12 @@
 			}
 		}
 	}
-	.top-radius {
-		border-top-left-radius: 10rpx;
-		border-top-right-radius: 10rpx;
-	}
-	.bottom-radius {
-		border-bottom-right-radius: 10rpx;
-		border-bottom-left-radius: 10rpx;
-	}
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 }

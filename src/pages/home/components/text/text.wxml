@@ -1,4 +1,4 @@
-<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">
+<view class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
 	<block wx:if="{{ content }}">
 		<navigator
@@ -7,7 +7,7 @@
 			path="{{ content.path }}"
 			target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
 			url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
-			class="announcement {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}"
+			class="announcement"
 			bindfail="miniFail">
 			<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'announcement'}}"/>
 			<van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'notification'}}"/>

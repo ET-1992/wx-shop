@@ -2,7 +2,7 @@
 
 .Wrapper{
     background-color: #fff;
-    padding: 6rpx 0rpx;
+    overflow: hidden;
 
     .title {
         font-size: 35rpx;
@@ -64,6 +64,13 @@
                 }
             }
         }
+    }
+    .empty{
+        height: 200rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #A9A9A9;
     }
 }
 .top-radius {
