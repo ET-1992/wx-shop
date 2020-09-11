@@ -102,6 +102,9 @@ Page({
                 storeUpdateEnable = false;
             }
 
+            const receiver_name = wx.getStorageSync('receiver_name') || '';
+            const receiver_phone = wx.getStorageSync('receiver_phone') || '';
+
             // 送货上门清空无定位地址
             if (shipping_type === 4 && !address.latitude) {
                 address = { userName: '', };
@@ -112,7 +115,7 @@ Page({
                 seckill,
                 seckill_product_id,
                 address,
-                liftInfo,
+                liftInfo: { ...liftInfo, receiver_name, receiver_phone },
                 totalPrice,
                 items,
                 isGrouponBuy: isGrouponBuy || null,

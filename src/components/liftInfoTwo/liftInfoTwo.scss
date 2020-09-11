@@ -11,6 +11,13 @@ $meter: 20rpx;
 		align-items: center;
 		font-size: 28rpx;
 
+		.address {
+			font-weight: bold;
+			text {
+				color: red;
+			}
+		}
+
 		.right-arrow {
 			color: $tagColor;
 			width: 10rpx;

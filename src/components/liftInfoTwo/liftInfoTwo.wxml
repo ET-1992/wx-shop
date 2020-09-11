@@ -30,7 +30,7 @@
 		</view>
 
 		<view class="liftInfo-section" wx:else>
-			<view class="address title">选择自提点</view>
+			<view class="address title"><text>*</text>选择自提点</view>
 			<image src="/icons/right.png" class="right-arrow"></image>
 		</view>
 	</navigator>
