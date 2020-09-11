@@ -241,7 +241,12 @@ export const pageObj = {
         }
     },
 
-    onShareAppMessage: onDefaultShareAppMessage,
+    onShareAppMessage() {
+        const { categoryId } = this.data;
+        return onDefaultShareAppMessage.call(this, {
+            categoryId
+        });
+    },
 };
 
 Page(pageObj);
