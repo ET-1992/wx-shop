@@ -142,6 +142,11 @@ Page({
     // 发送微信地址
     async postAddress() {
         const address = await chooseAddress();
+        // 将省市区拼接到详细地址
+        let { provinceName, cityName, countyName, detailInfo } = address;
+        let newDetailInfo = [provinceName, cityName, countyName, detailInfo].join('');
+        Object.assign(address, { detailInfo: newDetailInfo });
+
         let locationObj = await this.parseAddress(address) || {};
         let tranData = wxReceriverPairs(address);
         tranData = Object.assign(tranData, locationObj);
@@ -151,11 +156,10 @@ Page({
     // 微信地址解析
     async parseAddress(res) {
         let { config } = this.data;
-        let { provinceName, cityName, countyName, detailInfo } = res;
-        let addressStr = [provinceName, cityName, countyName, detailInfo].join('');
+        let { cityName, detailInfo } = res;
         let data = {
             key: config.mapKey || 'XHSBZ-OOU6P-DHDDK-LEC5P-3CBJ6-VXF5H',
-            address: addressStr,
+            address: detailInfo,
             region: cityName,
         };
         let url = 'https://apis.map.qq.com/ws/geocoder/v1';
