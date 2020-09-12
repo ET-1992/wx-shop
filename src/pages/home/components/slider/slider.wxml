@@ -1,4 +1,4 @@
-<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">
+<view class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
     <!-- 标题 -->
     <view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
 
@@ -24,7 +24,7 @@
                     path="{{ item.path }}"
                     target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
                     url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
-                    style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%" 
+                    style="width: 100%;height: 100%;background-image: url({{ item.image }}); background-size: 100% 100%;" 
                     hover-class="none"
                     open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
                 ></navigator>

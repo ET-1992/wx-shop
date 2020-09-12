@@ -1,4 +1,4 @@
-<view class="Wrapper" style="margin-bottom: {{ setting.margin }}rpx">
+<view class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
 	<block wx:if="{{ content }}">
 		<navigator

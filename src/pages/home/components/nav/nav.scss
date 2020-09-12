@@ -1,54 +1,66 @@
-.title {
-	font-size: 35rpx;
-	font-weight: bold;
-	padding: 26rpx 25rpx;
-	text-align: center;
-}
-
-.categoryBox{
-	width: 100%;
-	display: flex;
-	flex-flow: row wrap;
-	align-items: center;
-	text-align: center;
-	padding: 0 25rpx;
-
-	.homeCategory, 
-	.homeWrapper {
-		width: 175rpx;
-		flex-direction: column;
-		.categoryItem{
-			line-height: 0;
-			
-			.categoryImg{
-				width: 100rpx;
-				height: 100rpx;
-				border-radius: 5rpx;
+.Wrapper {
+	background: #ffffff;
+	overflow: hidden;
+	.title {
+		font-size: 35rpx;
+		font-weight: bold;
+		padding: 26rpx 25rpx;
+		text-align: center;
+	}
+	
+	.categoryBox{
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		text-align: center;
+		background-color: #ffffff;
+		padding: 10rpx;
+	
+		.homeCategory, 
+		.homeWrapper {
+			width: 176rpx;
+			flex-direction: column;
+			.categoryItem{
+				line-height: 0;
+				.categoryImg{
+					width: 100rpx;
+					height: 100rpx;
+					border-radius: 5rpx;
+				}
+			}
+	
+			.categoryBtn{
+				background-color: transparent;
+				color: #333;
+				font-size: 24rpx;
+			}
+	
+			.categoryTitle{
+				font-size: 24rpx;
+				height: 80rpx;
+				line-height: 66rpx;
+				color: #000;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-weight: normal;
 			}
 		}
-
-		.categoryBtn{
-			background-color: transparent;
-			color: #333;
-			font-size: 24rpx;
-		}
-
-		.categoryTitle{
-			font-size: 24rpx;
-			height: 66rpx;
-			line-height: 66rpx;
-			color: #000;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			font-weight: normal;
+	
+		.homeWrapper {
+			width: 140rpx;
 		}
 	}
-
-	.homeWrapper {
-		width: 140rpx;
-	}
-
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
+}
 
 	// .homeCategory{
 
@@ -64,7 +76,6 @@
 	// 		margin-right: 0;
 	// 	}
 	// }
-}
 
 // .categoryWrapper {
 // 	padding: 0 55rpx;

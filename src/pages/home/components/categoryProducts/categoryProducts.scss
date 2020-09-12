@@ -1,7 +1,6 @@
 .container {
-	background-color: #f4f4f4;
+	background-color: #ffffff;
 	width: 100%;
-
 	.sectionTitle {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -69,7 +68,7 @@
 	.product-wrap {
 		min-width: 100%;
 		// height: 510rpx;
-		background-color: #fff;
+		/* background-color: #fff; */
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -90,4 +89,12 @@
 			color: #707070;
 		}
 	}
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 }
