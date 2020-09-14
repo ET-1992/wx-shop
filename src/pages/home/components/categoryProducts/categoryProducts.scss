@@ -11,7 +11,7 @@
 	.category-wrap {
 		width: 100%;
 		overflow: hidden;
-		padding-top: 20rpx;
+		padding:20rpx 10rpx 0;
 		display: flex;
 		justify-content: center;
 
@@ -37,6 +37,7 @@
 				overflow: hidden;
 				white-space: nowrap;
 				width: 100%;
+    			text-overflow: ellipsis;
 			}
 
 			.category-btn {
