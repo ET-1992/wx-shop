@@ -1,5 +1,4 @@
 .Wrapper{
-	background-color: #fff;
 	overflow: hidden;
 	.title {
 		font-size: 35rpx;
@@ -7,7 +6,7 @@
 		padding: 26rpx 25rpx;
 		text-align: center;
 	}
-	
+
 	button {
 		margin: 0;
 		padding: 0;
@@ -15,13 +14,13 @@
 		outline: none;
 		border-radius: 0;
 	}
-	
+
 	button::after {
 		outline: 0;
 		border-radius: 0;
 		border: 0;
 	}
-	
+
 	.searchSliders {
 		position: relative;
 		.dots {
@@ -32,7 +31,7 @@
 			display: flex;
 			justify-content: center;
 		}
-		
+
 		.dots .dot {
 			color: #fff;
 			font-size: 26rpx;
