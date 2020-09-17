@@ -7,7 +7,7 @@
 		data-index="{{ index }}" data-id="{{ item.product_category_id }}" bind:tap="onClickBtn">
 			<button class="category-btn single-line" style="color: {{ index === currentIndex && themeColor.primaryColor }}"
 			hover-class="none">{{ item.text || '-' }}</button>
-			<view class="category-info single-line" style="background-color: {{ index === currentIndex && themeColor.primaryColor }}">
+			<view class="category-info single-line" style="color: {{ index === currentIndex && themeColor.primaryColor }}">
 				{{ item.desc || '' }}
 			</view>
 		</view>

@@ -1,11 +1,11 @@
-	
-<view 
-	class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" 
-	style="margin-bottom: {{ setting.margin }}rpx">	
+
+<view
+	class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}"
+	style="margin-bottom: {{ setting.margin }}rpx">
 	<!-- 标题 -->
 	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
 
-     <view class="live-list" wx:if="{{ content && content > 0 }}">
+     <view class="live-list" wx:if="{{ content && content.length > 0 }}">
 			<view class="live-wrap" wx:for="{{ content }}" wx:key="index"   data-status="{{ item.status }}" data-id="{{ item.id }}" bind:tap="onClickBtn">
 				<view class="live-left">
 				<image class="live-img" src="{{ item.share_img }}" mode="aspectFill" />

@@ -54,7 +54,22 @@ function globalFailFnc({ res, options }) {
     }
 }
 
+// 全局API携带参数
+const globalParmasFnc = () => {
+    const app = getApp(),
+        { currentMachine, currentStore, storeKey } = app.globalData;
 
-api.config({ apis, host, globalSuccessFnc, globalFailFnc });
+    let fucObj = {},
+        machineId = currentMachine && currentMachine.id,
+        storeId = currentStore && currentStore.id;
+
+    if (machineId || storeId) {
+        let store_id = storeKey === 'machine' ? machineId : storeId;
+        Object.assign(fucObj, { store_id });
+    }
+    return fucObj;
+};
+
+api.config({ apis, host, globalSuccessFnc, globalFailFnc, globalParmasFnc });
 
 export default api;
