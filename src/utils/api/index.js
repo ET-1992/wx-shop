@@ -56,14 +56,14 @@ function globalFailFnc({ res, options }) {
 
 // 全局API携带参数
 const globalParmasFnc = () => {
-    const app = getApp(), 
+    const app = getApp(),
         { currentMachine, currentStore, storeKey } = app.globalData;
 
     let fucObj = {},
         machineId = currentMachine && currentMachine.id,
         storeId = currentStore && currentStore.id;
-    
-    if(machineId || storeId) {
+
+    if (machineId || storeId) {
         let store_id = storeKey === 'machine' ? machineId : storeId;
         Object.assign(fucObj, { store_id });
     }
