@@ -1,15 +1,17 @@
 <view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" wx:if="{{ content && content.length }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }} </view>
-	<navigator
-		wx:for="{{ content }}"
-		wx:key="id"
-		wx:for-item="article"
-		hover-class="navigator-hover"
-		url="{{ article.article_type === 'mp' ? '/pages/webPages/webPages?src='+ article.mp_url : '/pages/articleDetail/articleDetail?id='+ article.id }}"
-		>
-		<include wx:if="{{ article.mode === 1 }}" src="./templates/smallPic/smallPic.wxml"/>
-		<include wx:if="{{ article.mode === 0 }}" src="./templates/bigPic/bigPic.wxml"/>
-	</navigator>
+  <view class="content" >
+    <navigator
+      wx:for="{{ content }}"
+      wx:key="id"
+      wx:for-item="article"
+      hover-class="navigator-hover"
+      url="{{ article.article_type === 'mp' ? '/pages/webPages/webPages?src='+ article.mp_url : '/pages/articleDetail/articleDetail?id='+ article.id }}"
+      >
+      <include wx:if="{{ article.mode === 1 }}" src="./templates/smallPic/smallPic.wxml"/>
+      <include wx:if="{{ article.mode === 0 }}" src="./templates/bigPic/bigPic.wxml"/>
+    </navigator>
+  </view>
 	<view class="sectionMore" wx:if="{{ setting.more }}" bind:tap="goMore">
 		<view class="moreButton">
 			<span>更多</span>

@@ -3,14 +3,16 @@
 
 .section {
 	background-color: #ffffff;
-	padding-top: 10rpx;
+	overflow: hidden;
 	.sectionTitle {
 		font-size: 35rpx;
 		font-weight: bold;
 		padding: 26rpx 25rpx 0;
 		text-align: center;
 	}
-
+	.content{
+		padding: 0 25rpx;
+	}
 	.sectionMore {
 		height: 80rpx;
 		line-height: 80rpx;
