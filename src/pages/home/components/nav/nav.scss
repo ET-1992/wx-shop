@@ -7,7 +7,7 @@
 		padding: 26rpx 25rpx;
 		text-align: center;
 	}
-	
+
 	.categoryBox{
 		width: 100%;
 		display: flex;
@@ -16,10 +16,10 @@
 		text-align: center;
 		background-color: #ffffff;
 		padding: 0 10rpx;
-	
-		.homeCategory, 
+
+		.homeCategory,
 		.homeWrapper {
-			width: 176rpx;
+			width: 175rpx;
 			flex-direction: column;
 			.categoryItem{
 				line-height: 0;
@@ -29,13 +29,13 @@
 					border-radius: 5rpx;
 				}
 			}
-	
+
 			.categoryBtn{
 				background-color: transparent;
 				color: #333;
 				font-size: 24rpx;
 			}
-	
+
 			.categoryTitle{
 				font-size: 24rpx;
 				height: 80rpx;
@@ -47,7 +47,7 @@
 				font-weight: normal;
 			}
 		}
-	
+
 		.homeWrapper {
 			width: 140rpx;
 		}
