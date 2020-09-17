@@ -4,7 +4,7 @@
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
-		padding: 26rpx 25rpx;
+		padding: 26rpx 25rpx 0;
 		text-align: center;
 	}
 
@@ -15,7 +15,7 @@
 		align-items: center;
 		text-align: center;
 		background-color: #ffffff;
-		padding: 0 10rpx;
+		padding: 26rpx 10rpx 0;
 
 		.homeCategory,
 		.homeWrapper {
