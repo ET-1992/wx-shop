@@ -2,12 +2,13 @@
 @import './templates/bigPic/bigPic';
 
 .section {
+	background-color: #ffffff;
+	padding-top: 10rpx;
 	.sectionTitle {
 		font-size: 35rpx;
 		font-weight: bold;
-		padding: 26rpx 25rpx;
+		padding: 26rpx 25rpx 0;
 		text-align: center;
-		border-bottom: 1rpx solid #D4D4D4;
 	}
 
 	.sectionMore {
@@ -18,7 +19,6 @@
 		.moreButton {
 			font-size: 28rpx;
 			color: #707070;
-			background: #fff;
 		}
 
 		.rightIcon {
@@ -27,4 +27,12 @@
 			margin-left: 10rpx;
 		}
 	}
+}
+.top-radius {
+	border-top-left-radius: 10rpx;
+	border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+	border-bottom-right-radius: 10rpx;
+	border-bottom-left-radius: 10rpx;
 }
