@@ -10,6 +10,11 @@ Component({
             type: Boolean,
             value: false
         },
+        // 可折扣 展示优惠券和花生米
+        discountable: {
+            type: Boolean,
+            value: true,
+        },
         coins: {
             type: Number,
             value: 0

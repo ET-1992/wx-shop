@@ -468,6 +468,8 @@ Page({
         }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+        let { product_type } = product;
+        url += `&product_type=${product_type}`;
 
         let isMiaoshaBuy = false;
 

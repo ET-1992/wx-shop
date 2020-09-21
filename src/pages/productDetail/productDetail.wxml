@@ -434,9 +434,17 @@
 					</button>
 				</block>
 			</view>
+			
+			<!-- 立即兑换 -->
+			<block wx:if="{{ product.product_type === 4 }}">
+				<view class="buy" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku"
+					data-actions="{{[{ type: 'onBuy', text: '立即兑换' }]}}">
+					立即兑换
+				</view>
+			</block>
 
 			<!-- 团购 -->
-			<block wx:if="{{ product.groupon_enable && !grouponId }}">
+			<block wx:elif="{{ product.groupon_enable && !grouponId }}">
 				<view
 					class="addCart multi"
 					catchtap="onShowSku"

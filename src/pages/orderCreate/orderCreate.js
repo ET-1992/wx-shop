@@ -78,6 +78,9 @@ Page({
         try {
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
+            // 理论上this.options和params一样，但我选后者
+            let { shipping_type, product_type } = params;
+
             // 新增秒杀
             const { seckill, seckill_product_id } = this.options;
             const { currentOrder } = app.globalData;
@@ -87,7 +90,8 @@ Page({
             let liftInfo = { isCanInput: true, isCanNav: true };
             let storeUpdateEnable = true;
             const totalPrice = currentOrder.totalPrice || 0;
-            let shipping_type = Number(params.shipping_type);
+            product_type = Number(product_type);
+            shipping_type = Number(shipping_type);
             // let totalPostage = 0;
 
             // 多门店模式
@@ -125,6 +129,7 @@ Page({
                 crowd,
                 groupon_commander_price,
                 shipping_type,
+                product_type,
             }, () => {
                 if (!isGrouponBuy) {
                     app.event.on('getCouponIdEvent', this.getCouponIdEvent, this);
@@ -266,6 +271,7 @@ Page({
                 config,
                 bargain_mission_code,
                 liftInfo,
+                product_type,
             } = this.data;
             let requestData = {};
             if (address) {
@@ -310,6 +316,11 @@ Page({
                 requestData.mission_code = bargain_mission_code;
             }
 
+            if (product_type === 4) {
+                // 金币商品
+                requestData.promotion_type = 6;
+            }
+
             requestData.shipping_type = Number(shipping_type);
 
             requestData.posts = JSON.stringify(items);
@@ -322,7 +333,6 @@ Page({
                 fee,
                 use_platform_pay,
                 order_annotation,
-                product_type,
                 payment_tips,
                 store_card,
                 store = {},
@@ -380,12 +390,19 @@ Page({
 
 
             // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
-            const shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
+            let shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
             console.log(shouldGoinDisplay, '---------shouldGoinDisplay');
 
             const maxUseCoin = Number(new Decimal(fee.amount).sub(new Decimal(fee.postage)).mul(coin_in_order.percent_in_order || 0));
 
-            const useCoin = Math.min(maxUseCoin, wallet.coins);
+            let useCoin = Math.min(maxUseCoin, wallet.coins);
+
+            // 金币商品 自动抵扣花生米
+            if (product_type === 4) {
+                shouldGoinDisplay = false;
+                useCoin = fee.coins_fee;
+                Object.assign(fee, { showCoinNumber: true });
+            }
 
             if (product_type !== 1 && shipping_type === 1) {
                 this.setData({
@@ -666,6 +683,11 @@ Page({
         if (bargain_mission_code) {
             requestData.code = bargain_mission_code;
             method = 'bargainOrder';
+        }
+
+        // 金币商品
+        if (product_type === 4) {
+            method = 'createCoinOrder';
         }
 
         wx.showLoading({ title: '处理订单中', mask: true, });

@@ -53,7 +53,19 @@
             <view class="head">
                 <image src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[selectedProperties[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
                 <view class="productInfo">
-                    <view class="price">
+                    <!-- 金币商品 -->
+                    <view class="coin-product-price" wx:if="{{ product.product_type === 4 }}">
+                        <view class="coin-num">
+                            <text>{{ selectedSku.coin_fee || product.coin_fee }}</text>
+                            <text class="currency">{{ config.coin_name || '花生米' }}</text>
+                        </view>
+                        <view class="price-join-symbol">+</view>
+                        <view class="price-num">
+                            <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                            <text>{{ selectedSku.coin_price || product.coin_price }}</text>
+                        </view>
+                    </view>
+                    <view class="price" wx:else>
                         <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
                         <view class="groupon" wx:if="{{ isGrouponBuy && product.groupon_enable }}">
                             {{ product.definePrice }}
