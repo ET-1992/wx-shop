@@ -12,7 +12,8 @@ Page({
         title: 'orderCreate',
         liftInfo: {
             isCanInput: true,
-            isCanNav: true
+            isCanNav: true,
+            sl_least_fee: 0,
         },
         savePrice: 0,
         totalPrice: 0,
@@ -51,7 +52,8 @@ Page({
         selectedPayValue: 'WEIXIN',
         storeUpdateEnable: true,  // 门店可修改
         storeListAddress: {},  // 送货上门的门店
-        postageTip: '',  // 包邮提示
+        postageTip: '',  // 运费模板提示
+        sl_least_fee: '',  // 自提最低金额
     },
 
     async onShow() {
