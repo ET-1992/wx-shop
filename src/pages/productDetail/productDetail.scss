@@ -544,31 +544,36 @@ video {
 				}
 			}
 
-			.nowPrice {
-				display: flex;
+			.price-base {
+				display: inline-flex;
 				align-items: center;
-				.currentPrice{
-					color: $priceColor;
+				.nowPrice {
 					display: flex;
 					align-items: center;
-					font-size: 36rpx;
-					line-height: 1.2;
-					.currency{
-						font-size: 24rpx;
+					.currentPrice{
+						color: $priceColor;
+						display: flex;
+						align-items: center;
+						font-size: 36rpx;
+						line-height: 1.2;
+						.currency{
+							font-size: 24rpx;
+						}
+						.num{
+							font-weight: bold;
+						}
 					}
-					.num{
-						font-weight: bold;
+					view{
+						display: inline-block;
+						vertical-align: middle;
 					}
-				}
-				view{
-					display: inline-block;
-					vertical-align: middle;
-				}
-				.commander{
-					color: $priceColor;
-					font-size: 22rpx;
+					.commander{
+						color: $priceColor;
+						font-size: 22rpx;
+					}
 				}
 			}
+
 
 			// 非会员专属会员价
 			.vipPrice {
