@@ -205,7 +205,7 @@
 									<text>{{ (config.coin_name || '花生米') + '+' }}</text>
 									<text>{{ globalData.CURRENCY[globalData.currency] }}</text>
 									<text class="num">{{ product.coin_price || 0 }}</text>
-									<text>起</text>
+									<text wx:if="{{ product.is_multi_sku }}">起</text>
 								</view>
 
 								<!-- 非金币商品 -->
