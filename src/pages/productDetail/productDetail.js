@@ -65,22 +65,30 @@ Page({
         PLATFFORM_ENV,
         bargain_mission: {},
         multiStoreEnable: false,
+        productQuantity: 1,
     },
 
     go, // 跳转到规则详情页面
 
     onShowSku(ev) {
-        const { status, individual_buy } = this.data.product;
+        const { status, individual_buy, product_style_type = 1 } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
         const updateData = { isShowActionSheet: true };
         if (ev) {
             let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
+
             console.log('actions:', actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
             console.log('onShowSku isCrowd: ', isCrowd);
             console.log('onShowSku isBargainBuy: ', isBargainBuy);
+
+            // 餐饮商品
+            if (product_style_type === 2) {
+                this.createCateringProduct(actions);
+                return;
+            }
 
             // 单独设置商品留言去掉sku加车按钮
             if (individual_buy) {
@@ -527,6 +535,49 @@ Page({
         app.globalData.currentOrder = currentOrder;
 
         wx.navigateTo({ url });
+    },
+
+    // 餐饮商品选择数量
+    onProductQuantity(e) {
+        let { detail } = e;
+        this.setData({
+            productQuantity: detail,
+        });
+    },
+
+    // 创建餐饮商品订单
+    async createCateringProduct(actions) {
+        let actionType = (actions && actions[0] && actions[0].type) || '',
+            shipping_type = 2;
+        let { currentOrderItems: items } = this.selectComponent('#orderOptions').data;
+
+        try {
+            if (actionType === 'addCart') {
+                // 加车
+                let posts = JSON.stringify(items);
+                let data = await api.hei.addCart({ posts });
+                if (!data.errcode) {
+                    await proxy.showToast({ title: '成功添加' });
+                    this.showCartNumber(data.count);
+                }
+            } else if (actionType === 'onBuy') {
+                // 购买
+                let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+                app.globalData.currentOrder = {
+                    items: items
+                };
+                wx.navigateTo({ url });
+            } else {
+                throw new Error('识别操作失败');
+            }
+        } catch (e) {
+            let { message, errMsg } = e;
+            wx.showModal({
+                title: '出错提示',
+                content: errMsg || message,
+                showCancel: false,
+            });
+        }
     },
 
     onReady() {

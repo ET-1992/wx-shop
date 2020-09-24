@@ -20,6 +20,8 @@
     "van-button": "@vant/weapp/dist/button/index",
     "companyContact": "components/companyContact/companyContact",
     "multiStore": "components/multiStore/multiStore",
-    "formatContent": "components/formatContent/formatContent"
+    "formatContent": "components/formatContent/formatContent",
+    "orderOptions": "components/orderOptions/orderOptions",
+    "van-stepper": "@vant/weapp/dist/stepper/index"
   }
 }
