@@ -126,17 +126,22 @@ Page({
     },
     // 更新购物车数据
     async updateCart({ detail }) {
-        const { items, shipping_type } = this.data;
+        console.log(detail);
+        const { items = [], shipping_type } = this.data;
         const { vendor } = app.globalData;
-        const { value, postId, skuId } = detail;
-        await api.hei.updateCart({
+        const { value, postId, skuId, cartIndex: index } = detail;
+
+        let seletedItem = items[index];
+        let requestData = {
             post_id: postId,
             sku_id: skuId,
             quantity: value,
             vendor,
-            shipping_type
-        });
-        const index = items.findIndex((item) => item.post_id === postId && item.sku_id === skuId);
+            shipping_type,
+            cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+        };
+        await api.hei.updateCart(requestData);
+
         const updateData = {};
         const quantitykey = `items[${index}].quantity`;
         updateData[quantitykey] = value;
@@ -154,11 +159,15 @@ Page({
             confirmColor: '#dc143c',
         });
         if (confirm) {
-            const data = await api.hei.removeCart({
+            let seletedItem = items[index];
+            let requestData = {
                 post_id: postId,
                 sku_id: skuId,
-                shipping_type
-            });
+                shipping_type,
+                cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+            };
+
+            const data = await api.hei.removeCart(requestData);
             wx.showToast({
                 title: '成功删除',
             });

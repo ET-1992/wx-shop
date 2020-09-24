@@ -7,6 +7,7 @@
 		"van-popup": "@vant/weapp/dist/popup/index",
 		"searchBox": "../home/components/searchBox/searchBox",
 		"multiStore": "../../components/multiStore/multiStore",
-		"van-divider": "@vant/weapp/dist/divider/index"
+		"van-divider": "@vant/weapp/dist/divider/index",
+		"orderOptions": "components/orderOptions/orderOptions"
 	  }
 }

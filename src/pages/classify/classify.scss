@@ -308,4 +308,19 @@ page{
 		height: 0;
 		color: transparent;
 	}
+
+}
+// 商品属性选项弹窗按钮
+.product-options {
+	width: 94%;
+	border-radius: 6rpx;
+	.product-options-btn {
+		color: white;
+		font-size: 24rpx;
+		line-height: 70rpx;
+		width: 200rpx;
+		border: none;
+		background-color: #CCCCCC;
+		border-radius: 35rpx;
+	}
 }
