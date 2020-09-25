@@ -1,4 +1,5 @@
 import { createCurrentOrder } from 'utils/pageShare';
+const app = getApp();
 
 Component({
     options: {
@@ -15,6 +16,7 @@ Component({
         },
     },
     data: {
+        themeColor: {},
         selectedString: '',
         selectedPrice: 0,
         optionList: [],  // 选项总列表
@@ -55,6 +57,13 @@ Component({
         'quantity': function(value) {
             this.setData({ productQuantity: value });
             this.getProductPosts();
+        },
+    },
+    lifetimes: {
+        attached() {
+            let { themeColor } = app.globalData;
+            this.setData({ themeColor });
+
         },
     },
 

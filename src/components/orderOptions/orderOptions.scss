@@ -25,11 +25,12 @@
 					color: #333333;
 					background-color: #F5F7F9;
 					line-height: 65rpx;
+					padding: 0 12rpx;
 					min-width: 130rpx;
 					margin: 0 20rpx 20rpx 0;
 					&.value-btn-avtived {
 						color: white;
-						background-color: #D1483E;
+						// background-color: #D1483E;
 					}
 				}
 			}
@@ -37,8 +38,9 @@
 	}
 	.order-end {
 		display: flex;
-		justify-content: space-between;
 		.end-left {
+			flex-wrap: wrap;
+			flex: 1;
 			.left-price {
 				font-size: 28rpx;
 				line-height: 38rpx;
@@ -53,6 +55,10 @@
 					margin-right: 8rpx;
 				}
 			}
+		}
+		.end-right {
+			margin-left: 6rpx;
+			flex-wrap: nowrap;
 		}
 	}
 }
