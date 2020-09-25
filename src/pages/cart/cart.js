@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
-import { updateTabbar, autoNavigate } from 'utils/util';
+import { updateTabbar, autoNavigate, getAgainUserForInvalid } from 'utils/util';
 
 const app = getApp();
 
@@ -201,23 +201,27 @@ Page({
         }
     },
 
-    async onCreateOrder(e) {
-        console.log(e, 'e202');
+    // 跳转到预下单页
+    async onCreateOrder() {
         const { shipping_type } = this.data;
+        const { items } = this.data;
+        app.globalData.currentOrder = {
+            items,
+            totalPostage: this.data.totalPostage
+        };
+        wx.navigateTo({
+            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
+        });
+    },
+    // 用户授权之后才能下单
+    async bindGetUserInfo(e) {
+        console.log(e);
         const { encryptedData, iv } = e.detail;
-        if (encryptedData && iv) {
-            const { items, isSelectedObject } = this.data;
-            const selectdItems = items.filter((item) => isSelectedObject[item.id]);
-            app.globalData.currentOrder = {
-                items: selectdItems,
-                totalPostage: this.data.totalPostage
-            };
-            wx.navigateTo({
-                url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
-            });
-        }
-        else {
-            showModal({
+        if (iv && encryptedData) {
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.onCreateOrder();
+        } else {
+            wx.showModal({
                 title: '温馨提示',
                 content: '需授权后操作',
                 showCancel: false,
