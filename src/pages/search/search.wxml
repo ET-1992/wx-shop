@@ -51,5 +51,5 @@
     </navigator>
   </view>
   <!-- 商品列表end -->
-  <view class="noHint" wx:if="{{ !products.length && isSearch }}">无搜索结果</view>
+  <view class="noHint" wx:if="{{ !products.length && isSearch && !isLoading }}">无搜索结果</view>
 </view>

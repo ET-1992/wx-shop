@@ -20,7 +20,9 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-	
+			input {
+				width: 100%;
+			}
 			.searchIcon {
 				width: 28rpx;
 				height: 28rpx;
