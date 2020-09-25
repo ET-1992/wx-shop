@@ -16,7 +16,7 @@
 					</block>
 					<!-- 金币商品 -->
 					<view wx:elif="{{ product.product_type === 4 }}" class="ItemPrice">
-						<text>价值</text>
+						<text class="num-prefix">价值</text>
 						<text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
 					</view>
 					<block wx:else>

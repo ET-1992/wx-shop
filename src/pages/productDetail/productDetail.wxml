@@ -202,10 +202,10 @@
 								<!-- 金币商品 -->
 								<view class="currentPrice" wx:if="{{ product.product_type === 4 }}">
 									<text class="num">{{ product.coin_fee }}</text>
-									<text>{{ (config.coin_name || '花生米') + '+' }}</text>
+									<text class="num-suffix">{{ (config.coin_name || '花生米') + '+' }}</text>
 									<text>{{ globalData.CURRENCY[globalData.currency] }}</text>
 									<text class="num">{{ product.coin_price || 0 }}</text>
-									<text wx:if="{{ product.is_multi_sku }}">起</text>
+									<text class="num-suffix" wx:if="{{ product.is_multi_sku }}" decode>&nbsp;起</text>
 								</view>
 
 								<!-- 非金币商品 -->
