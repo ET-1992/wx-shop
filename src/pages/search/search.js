@@ -90,7 +90,7 @@ Page({
                 isSearch: true,
                 searchKey: key
             });
-            this.loadProducts();
+            this.onSearch({ isHistroy: false });
         }
     },
 

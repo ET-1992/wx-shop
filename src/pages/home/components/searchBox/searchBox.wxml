@@ -1,10 +1,11 @@
 <view class="box" style="background-color: {{ themeColor.backgroundColor }}">
-  <navigator class="searchBox" url="/pages/search/search" hover-class="none">
+  <view class="searchBox" hover-class="none">
       <view class="search">
-        <image src="/icons/search.png" class="searchIcon" />
-        <text>搜索商品<text wx:if="{{ total }}">，共有{{ total }}款好物</text></text>
+        <!--<image src="/icons/search.png" class="searchIcon" />
+        <text>搜索商品<text wx:if="{{ total }}">，共有{{ total }}款好物</text></text>-->
+        <input type="text" value='{{value}}' placeholder="{{ total ? '搜索商品，共有' + total + '款好物' : '搜索商品'}}" bindconfirm="runToSearch" bindinput="inputChangeHandle" />
       </view>
-  </navigator>
+  </view>
   <navigator class="box-right" wx:if="{{ !onlySearchBox && config.offline_store_enable }}" url="/pages/multiStoreList/multiStoreList">
     <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>
     <text> ></text>
