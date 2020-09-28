@@ -453,6 +453,26 @@ video {
 	}
 }
 
+.product-options {
+	margin: 0 15rpx;
+	transform: translateY(-112rpx);
+	z-index: 9999;
+	.options-content {
+		.product-title {
+			font-size: 28rpx;
+			line-height: 36rpx;
+			color: black;
+			font-weight: bold;
+			margin: 24rpx 0;
+		}
+		.product-content {
+			font-size: 24rpx;
+			color: #707070;
+			line-height: 30rpx;
+			margin: 24rpx 0 60rpx;
+		}
+	}
+}
 .info {
 	background-color: #fff;
 	padding: 20rpx 20rpx 30rpx;
@@ -524,31 +544,39 @@ video {
 				}
 			}
 
-			.nowPrice {
-				display: flex;
+			.price-base {
+				display: inline-flex;
 				align-items: center;
-				.currentPrice{
-					color: $priceColor;
+				.nowPrice {
 					display: flex;
 					align-items: center;
-					font-size: 36rpx;
-					line-height: 1.2;
-					.currency{
-						font-size: 24rpx;
+					.currentPrice{
+						color: $priceColor;
+						display: flex;
+						align-items: center;
+						font-size: 36rpx;
+						line-height: 1.2;
+						.currency{
+							font-size: 24rpx;
+						}
+						.num{
+							font-weight: bold;
+						}
+						.num-suffix {
+							font-size: 70%;
+						}
 					}
-					.num{
-						font-weight: bold;
+					view{
+						display: inline-block;
+						vertical-align: middle;
 					}
-				}
-				view{
-					display: inline-block;
-					vertical-align: middle;
-				}
-				.commander{
-					color: $priceColor;
-					font-size: 22rpx;
+					.commander{
+						color: $priceColor;
+						font-size: 22rpx;
+					}
 				}
 			}
+
 
 			// 非会员专属会员价
 			.vipPrice {

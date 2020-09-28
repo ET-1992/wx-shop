@@ -1,4 +1,4 @@
-<view class="orderCoupon" wx:if="{{!isGrouponBuy}}">
+<view class="orderCoupon" wx:if="{{ discountable }}">
   <view class="coupon">
     <view class="coupon-title">优惠劵</view>
     <view class="coupon-content {{shouldGoinDisplay ? '' : 'noCoin'}}" >

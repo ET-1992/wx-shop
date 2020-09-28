@@ -85,6 +85,7 @@ Page({
         const { value } = e.detail;
         this.setTrueLiftItem(Number(value));
         const item = address_list[Number(value)] || {};
+        let { sl_least_fee } = item;
         const liftInfo = {
             receiver_address_phone: item.phone,
             receiver_state: item.state,
@@ -94,7 +95,8 @@ Page({
             receiver_address_name: item.name,
             distance: item.distance, // 距离
             time: item.time, // 营业时间
-            remark: item.remark // 商家备注
+            remark: item.remark, // 商家备注
+            sl_least_fee,  // 自提店最低消费
         };
         app.event.emit('getLiftInfoEvent', liftInfo);
         wx.navigateBack({

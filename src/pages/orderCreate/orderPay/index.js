@@ -26,7 +26,8 @@ Component({
             type: Object,
             value: {}
         },
-        freeShippingAmount: {
+        // 免邮金额
+        shippingDebt: {
             type: Number,
             value: 0
         },
@@ -43,9 +44,49 @@ Component({
             type: Object,
             value: {},
         },
+        // 自提门店
+        liftInfo: {
+            type: Object,
+            value: {},
+        },
     },
     data: {
-        globalData: app.globalData
+        globalData: app.globalData,
+        templateRemainer: '',  // 运费模板提示
+        shippingRemainer: '',  // 包邮金额提示
+        liftingRemainer: '',  // 包邮金额提示
+    },
+    observers: {
+        // 邮费相关提示
+        'shippingDebt, postageTip, fee': function(...params) {
+            let [shippingDebt, postageTip, fee] = params,
+                { globalData, templateRemainer, shippingRemainer } = this.data;
+
+            if (fee.postage <= 0) { return }
+            if (shippingDebt) {
+                let price = globalData.CURRENCY[globalData.currency] + shippingDebt;
+                shippingRemainer = `满${price}免邮`;
+            } else if (postageTip) {
+                templateRemainer = postageTip;
+            }
+            this.setData({
+                shippingRemainer,
+                templateRemainer,
+            });
+        },
+
+        // 自提门槛提示
+        'finalPay, liftInfo': function(...params) {
+            let [finalPay, liftInfo] = params,
+                { sl_least_fee } = liftInfo,
+                liftingRemainer = '';
+
+            if (finalPay < sl_least_fee) {
+                liftingRemainer = sl_least_fee;
+                liftingRemainer += '元起可使用自提';
+            }
+            this.setData({ liftingRemainer });
+        },
     },
     methods: {
         onPay(e) {

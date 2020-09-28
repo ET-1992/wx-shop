@@ -13,6 +13,7 @@
     <text class="text">优惠券</text>
     <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponFeeDispaly }}</text>
   </view>
+  <!-- 手动扣减花生米 -->
   <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
     <text class="text">{{ config.coin_name || '花生米' }}</text>
     <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinForPay }}</text>
@@ -24,5 +25,10 @@
   <view wx:if="{{ fee.membership_reduce_fee }}">
     <text class="text">会员优惠</text>
     <text class="money">- {{ globalData.CURRENCY[globalData.currency] }}{{ membershipReduceFee}}</text>
+  </view>
+  <!-- 金币商品自动扣减 -->
+  <view wx:if="{{ fee.showCoinNumber && useCoin }}">
+    <text class="text">单位{{ config.coin_name || '花生米' }}</text>
+    <text class="money">- {{ useCoin }}</text>
   </view>
 </view>

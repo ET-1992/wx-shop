@@ -30,12 +30,18 @@
                     <view class="dedicatedPrice" wx:if="{{ product.membership_dedicated_enable }}">
                         {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
                     </view>
+                    <!-- 金币商品 -->
+                    <view class="coin-price" wx:elif="{{ product.product_type === 4 }}">
+                        <text class="num-prefix">价值</text>
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+                    </view>
                     <view class="num" wx:else>
                         {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
                     </view>
                 </view>
             </view>
-            <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">{{ btn.text(config) }}</view>
+            <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
+            <view wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">{{ btn.text(config) }}</view>
         </view>
     </view>
 </navigator>

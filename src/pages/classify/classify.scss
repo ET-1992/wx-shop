@@ -221,7 +221,7 @@ page{
 						align-items: center;
 						justify-content: space-between;
 						z-index: 99;
-						border-top: 1rpx solid #C9C9C9;
+						border-top: 1rpx solid #f5f5f5;
 						&::after {
 							// 遮住下方突出的内容
 							content: '';
@@ -307,5 +307,20 @@ page{
 		width: 0;
 		height: 0;
 		color: transparent;
+	}
+
+}
+// 商品属性选项弹窗按钮
+.product-options {
+	width: 94%;
+	border-radius: 6rpx;
+	.product-options-btn {
+		color: white;
+		font-size: 24rpx;
+		line-height: 70rpx;
+		width: 200rpx;
+		border: none;
+		background-color: #CCCCCC;
+		border-radius: 35rpx;
 	}
 }

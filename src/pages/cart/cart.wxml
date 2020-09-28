@@ -57,7 +57,7 @@
     	    	<view class="meta">
     	    	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
     	    	  	<view class="metaRight">
-    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" least="{{ item.least }}" />
+    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" cartIndex="{{ index }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" least="{{ item.least }}" />
     	    	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px"/> </view>
     	    	  	</view>
     	    	</view>
@@ -71,7 +71,7 @@
   		  	<include src="/templates/stodownload/index.wxml" />
   		</view>
     </scroll-view>
-    
+
     <!-- 为你推荐 -->
   	<view class="promote" wx:if="{{ !items.length && products.length && !isLoading }}">
   	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
@@ -103,7 +103,7 @@
 				<view class="priceMeta-text" wx:if="{{ shipping_type === 1 && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
 			</view>
   	  	</view>
-  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="onCreateOrder" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
+  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
   	</view>
 </view>
 

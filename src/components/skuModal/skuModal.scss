@@ -234,8 +234,21 @@
 			width: 400rpx;
 			font-size: 24rpx;
 
-			.stock, .price, .property {
+			.stock, .price, .property, .coin-product-price {
 				margin-bottom: 10rpx;
+			}
+
+			.coin-product-price {
+				color: #F52D2D;
+				font-size: 36rpx;
+				line-height: 40rpx;
+				display: flex;
+				word-wrap: none;
+				flex-wrap: wrap;
+				.price-join-symbol {
+					line-height: 40rpx;
+					margin: 0 4rpx;
+				}
 			}
 
 			.price {

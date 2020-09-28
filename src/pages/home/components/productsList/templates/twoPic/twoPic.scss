@@ -64,6 +64,9 @@
 					font-weight: bold;
 					align-items:center;
 					display:flex;
+					.num-prefix {
+						font-size: 75%;
+					}
 				}
 				// 会员专属
 				.vipItemPrice {

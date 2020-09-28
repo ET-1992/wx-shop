@@ -14,6 +14,10 @@ Component({
             type: Number,
             value: 0,
         },
+        cartIndex: {
+            type: Number,
+            value: 0,
+        },
         max: {
             type: Number,
             value: 0,
@@ -35,7 +39,7 @@ Component({
                     if (value < newValue) {
                         this.setData({
                             value: newValue
-                        })
+                        });
                     }
                 }
             }
@@ -47,7 +51,7 @@ Component({
             const { type } = ev.currentTarget.dataset;
 
             let { value: inputValue } = ev.detail;
-            let { value, postId, skuId, max, isDisabled, quota, least } = this.data;
+            let { value, postId, skuId, cartIndex, max, isDisabled, quota, least } = this.data;
 
             if (isDisabled) {
                 return;
@@ -113,6 +117,7 @@ Component({
                 value,
                 postId,
                 skuId,
+                cartIndex,
             };
             this.setData({ value });
             this.triggerEvent('quantityChangeEvent', updateData);

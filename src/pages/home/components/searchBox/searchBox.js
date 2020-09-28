@@ -23,6 +23,7 @@ Component({
     data: {
         config: {},
         currentStore: {},
+        value: ''
     },
     lifetimes: {
         attached: function() {
@@ -30,4 +31,15 @@ Component({
             this.setData({ config });
         },
     },
+    methods: {
+        inputChangeHandle(e) {
+            const { value } = e.detail;
+            this.setData({ value });
+        },
+        runToSearch() {
+            wx.navigateTo({
+                url: `/pages/search/search?key=${this.data.value}`
+            });
+        }
+    }
 });

@@ -1,0 +1,34 @@
+<view class="container">
+	<view class="product-title">{{ product.title || '-' }}</view>
+	<view class="product-options">
+		<view class="option-wrap" wx:for="{{ optionList }}" 
+			wx:key="index">
+			<text class="option-name">{{ item.name || '-' }}</text>
+			<!-- 属性项 -->
+			<view class="option-values">
+				<button class="value-btn {{ value === seletedList[index].value ? 'value-btn-avtived' : '' }}"
+					style="background: {{ value === seletedList[index].value ? themeColor.primaryColor : ''}}"
+					wx:for="{{ item.values }}" wx:for-item="value" 
+					wx:for-index="subIndex" wx:key="subIndex" 
+					bind:tap="onSeletedRadio" data-index="{{ index }}" 
+					data-value="{{ value }}">{{ value }}</button>
+			</view>
+		</view>
+	</view>
+	<slot name="content"></slot>
+	<view class="order-end">
+		<view class="end-left">
+			<view class="left-price">
+				<text>￥</text>
+				<text>{{ selectedPrice || '-' }}</text>
+			</view>
+			<view class="left-options">
+				<text class="left-options-title">{{ product.title || '-' }}</text>
+				<text>{{ selectedString }}</text>
+			</view>
+		</view>
+		<view class="end-right">
+			<slot name="end-right"></slot>
+		</view>
+	</view>
+</view>

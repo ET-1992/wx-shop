@@ -15,7 +15,7 @@
                     </view>
                 </view>
                 <!-- 原价 -->
-                <view  wx:if="{{ !product.membership_dedicated_enable && !product.membership_price_enable  && product.price !== product.original_price }}" class="original">
+                <view wx:if="{{ !product.membership_dedicated_enable && !product.membership_price_enable  && product.price !== product.original_price }}" class="original">
                     原价 {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
                 </view>
 
@@ -30,7 +30,8 @@
                     </block>
 
                     <block wx:else>
-                        <view>新品价</view>
+                        <view wx:if="{{ product.product_type === 4 }}">价值</view>
+                        <view wx:else>新品价</view>
                         <view class="money">
                             <view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
                             <view class="num">{{ product.price }}</view>
@@ -40,7 +41,9 @@
             </view>
         </view>
         <view class="right">
-            <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button>
+            <!-- 金币商品 -->
+            <button wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</button>
+            <button wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button>
         </view>
     </view>
 </navigator>

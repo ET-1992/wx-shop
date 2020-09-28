@@ -14,13 +14,21 @@
 							{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
 						</view>
 					</block>
-					<view class="ItemPrice" wx:else>
-						{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+					<!-- 金币商品 -->
+					<view wx:elif="{{ product.product_type === 4 }}" class="ItemPrice">
+						<text class="num-prefix">价值</text>
+						<text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
 					</view>
-					<!-- 原价 普通商品显示 -->
-					<view class="originPrice" wx:if="{{!product.membership_dedicated_enable && !product.membership_price_enable && product.price !== product.original_price}}">
-						{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
-					</view>
+					<block wx:else>
+						<!-- 普通商品 -->
+						<view class="ItemPrice">
+							{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+						</view>
+						<!-- 原价 -->
+						<view class="originPrice" wx:if="{{ !product.membership_price_enable && product.price !== product.original_price }}">
+							{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+						</view>
+					</block>
 				</view>
 				<view class="tagWrapper">
 					<!-- 会员价及标签 -->

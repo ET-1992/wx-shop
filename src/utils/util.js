@@ -167,7 +167,7 @@ export function imgToHttps(url = '') {
     const app = getApp();
     const { cdn_host, download_host } = app.globalData.config;
 
-    return download_host ? url.replace(download_host, cdn_host) : url;
+    return download_host ? url.replace(cdn_host, download_host) : url;
 }
 
 export function updateTabbar({ tabbarStyleDisable = false, tabbarCartNumDisable = false, pageKey = '' }) {

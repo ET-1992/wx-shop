@@ -806,4 +806,10 @@ export const apis = {
         path: 'api/repo/shop/rule.json',
         isForceToken: true,
     },
+    // 创建金币商品订单
+    createCoinOrder: {
+        path: 'api/mag.coin.order.create.json?v2',
+        method: 'POST',
+        isForceToken: true
+    }
 };
