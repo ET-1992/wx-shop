@@ -213,9 +213,10 @@ Page({
     // 跳转到预下单页
     async onCreateOrder() {
         const { shipping_type } = this.data;
-        const { items } = this.data;
+        const { items, isSelectedObject } = this.data;
+        const selectdItems = items.filter((item) => isSelectedObject[item.id]);
         app.globalData.currentOrder = {
-            items,
+            items: selectdItems,
             totalPostage: this.data.totalPostage
         };
         wx.navigateTo({
