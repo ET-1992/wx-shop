@@ -22,6 +22,8 @@
     "multiStore": "components/multiStore/multiStore",
     "formatContent": "components/formatContent/formatContent",
     "orderOptions": "components/orderOptions/orderOptions",
-    "van-stepper": "@vant/weapp/dist/stepper/index"
-  }
+    "van-stepper": "@vant/weapp/dist/stepper/index",
+    "navigationBar": "components/navigationBar/navigationBar"
+  },
+  "navigationStyle": "custom"
 }

@@ -66,6 +66,8 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
+        scrollTop: 0,
+        backgroundRgb: ''
     },
 
     go, // 跳转到规则详情页面
@@ -323,6 +325,7 @@ Page({
     onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
+        this.getBackgroundRgb();
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -1049,5 +1052,37 @@ Page({
     // 展开邮费规则弹窗
     onShowPostageRule() {
         this.setData({ isShowPostageRule: true });
+    },
+
+    // 页面滚动
+    onPageScroll(e) {
+        let that = this;
+        let color = '#729153';
+        if (e.scrollTop < 400) {
+            let timer;
+            let gapTime = 100;// 间隔时间
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                that.setData({
+                    scrollTop: e.scrollTop,
+                });
+            }, gapTime);
+        }
+    },
+
+    // 将颜色哈希值转换成RGB
+    getBackgroundRgb() {
+        let { backgroundColor: color = '#729153' } = app.globalData.themeColor,
+            rgb = '255,255,255';
+        if (color.length === 7) {
+            color = color.slice(1);
+            let arr = [
+                parseInt(color.slice(0, 2), 16),
+                parseInt(color.slice(2, 4), 16),
+                parseInt(color.slice(4, 6), 16),
+            ];
+            rgb = arr.join(',');
+        }
+        this.setData({ backgroundRgb: rgb });
     },
 });
