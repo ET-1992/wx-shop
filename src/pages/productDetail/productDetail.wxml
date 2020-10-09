@@ -1,10 +1,6 @@
 <!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
-<navigationBar back="{{ true }}" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : scrollTop / 400}})" color="white" extClass="navigation-bar-wrap">
-  <view slot='center' class='navigation_bar_center'  wx:if="{{scrollTop>=30}}">
-    商品详情
-  </view>
-</navigationBar>
+<productNavigationBar scrollTop="{{ scrollTop }}" />
 <!-- 多门店组件-样式隐藏 -->
 <view class="multiStore">
 	<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />

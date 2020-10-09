@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid, auth, subscribeMessage } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid, auth, throttle } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
@@ -325,7 +325,6 @@ Page({
     onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
-        this.getBackgroundRgb();
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
@@ -1055,34 +1054,14 @@ Page({
     },
 
     // 页面滚动
-    onPageScroll(e) {
-        let that = this;
-        let color = '#729153';
-        if (e.scrollTop < 400) {
-            let timer;
-            let gapTime = 100;// 间隔时间
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                that.setData({
-                    scrollTop: e.scrollTop,
-                });
-            }, gapTime);
-        }
-    },
+    onPageScroll: throttle(function(e) {
+        let { scrollTop } = e && e[0],
+            { scrollTop: oldScrollTop } = this.data;
 
-    // 将颜色哈希值转换成RGB
-    getBackgroundRgb() {
-        let { backgroundColor: color = '#729153' } = app.globalData.themeColor,
-            rgb = '255,255,255';
-        if (color.length === 7) {
-            color = color.slice(1);
-            let arr = [
-                parseInt(color.slice(0, 2), 16),
-                parseInt(color.slice(2, 4), 16),
-                parseInt(color.slice(4, 6), 16),
-            ];
-            rgb = arr.join(',');
+        if (scrollTop > 400 && oldScrollTop > 400) {
+            return;
         }
-        this.setData({ backgroundRgb: rgb });
-    },
+        this.setData({ scrollTop });
+    }, 100),
+
 });

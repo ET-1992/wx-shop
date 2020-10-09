@@ -23,7 +23,7 @@
     "formatContent": "components/formatContent/formatContent",
     "orderOptions": "components/orderOptions/orderOptions",
     "van-stepper": "@vant/weapp/dist/stepper/index",
-    "navigationBar": "components/navigationBar/navigationBar"
+    "productNavigationBar": "components/productNavigationBar/productNavigationBar"
   },
   "navigationStyle": "custom"
 }
