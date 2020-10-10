@@ -8,11 +8,6 @@ Component({
             value: 0,
         }
     },
-    observers: {
-        'scrollTop': function(value) {
-            console.log('value', value);
-        },
-    },
     data: {
         backgroundRgb: '',
     },
