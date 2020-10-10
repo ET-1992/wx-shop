@@ -1,10 +1,8 @@
 .navigation-bar-wrap {
 	position: fixed;
 	z-index: 999;
-	$height: 32px;
 	.bar-left {
-		width: 180rpx;
-		height: $height;
+		width: 100%;
 		display: flex;
 		align-items: center;
 		background-color: #fff;
@@ -26,13 +24,12 @@
 		font-size: 24rpx;
 		width: 100%;
 		font-weight: normal;
-		margin-left: 18rpx;
 		background-color: #fff;
 		border-radius: 32rpx;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		height: $height;
+		height: 100%;
 		border: 1rpx solid rgba(153, 153, 153, .5);
 		.bar-center-icon {
 			font-size: 36rpx;

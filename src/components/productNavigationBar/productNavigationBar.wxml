@@ -1,13 +1,13 @@
 <view class="navigation-bar-wrap">
-	<navigationBar back="{{ false }}" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : scrollTop / 400}})" color="white">
-	<view slot="left" class="bar-left">
-		<van-icon name="arrow-left" class="bar-left-icon" />
-		<view class="bar-left-divider"></view>
-		<van-icon name="apps-o" class="bar-left-icon" />
-	</view>
-  <view slot="center" class="bar-center" wx:if="{{scrollTop>=30}}">
-		<van-icon name="search" custom-class="bar-center-icon" />
-		<text>搜索商品</text>
-  </view>
-</navigationBar>
+  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0}})" bindback="handlerGobackClick" bindhome="handlerGohomeClick">
+    <view slot="left" class="bar-left" style="{{ barLeftStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
+      <van-icon name="arrow-left" class="bar-left-icon" />
+      <view class="bar-left-divider"></view>
+      <van-icon name="apps-o" class="bar-left-icon" />
+    </view>
+    <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
+      <van-icon name="search" custom-class="bar-center-icon" />
+      <text>搜索商品</text>
+    </view>
+  </navigationBar>
 </view>

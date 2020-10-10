@@ -9,14 +9,34 @@ Component({
         }
     },
     data: {
-        backgroundRgb: '',
+        backgroundRgb: '255,255,255',
+        barLeftStyle: '',
+        barCenterStyle: '',
     },
     lifetimes: {
         attached() {
-            this.getBackgroundRgb();
+            // this.getBackgroundRgb();
+            this.getChildComponent();
         },
     },
     methods: {
+        getChildComponent() {
+            const child = this.selectComponent('#navigationBar');
+            let { capsulePosition } = child.data,
+                { windowWidth } = getApp().globalSystemInfo;
+
+            let rightDistance = windowWidth - capsulePosition.right;
+            let navBarLeft = [
+                `width:${capsulePosition.width}px`,
+                `height:${capsulePosition.height}px`,
+                `margin-left:${rightDistance}px`
+            ].join(';');
+            let barCenterStyle = `height:${capsulePosition.height}px`;
+            this.setData({
+                barLeftStyle: navBarLeft,
+                barCenterStyle,
+            });
+        },
         // 将颜色哈希值转换成RGB
         getBackgroundRgb() {
             let { backgroundColor: color = '#729153' } = app.globalData.themeColor,
