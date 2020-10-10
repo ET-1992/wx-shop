@@ -3,7 +3,7 @@
     <view class="meta">
         <view class="top">
             <image class="icon" src="/icons/smileFace.png"></image>
-            <view class="groupNumber">已砍{{ product.bargain_finished_count || 0 }}件</view>
+            <view class="groupNumber">已砍{{ product.sales || 0 }}件</view>
         </view>
         <view class="title">{{ product.title }}</view>
         <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>

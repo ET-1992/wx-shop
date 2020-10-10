@@ -9,7 +9,7 @@
             <text class="nowPrice">{{ product.bargain_price }}</text>
         </view>
         <view class="grouponInfo">
-            <view class="groupNumber">已砍{{ product.bargain_finished_count || 0 }}件</view>
+            <view class="groupNumber">已砍{{ product.sales || 0 }}件</view>
         </view>
     </view>
 </view>

@@ -14,7 +14,7 @@
             </view>
         </view>
         <view class="footer">
-            <view class="grouponLimit">已砍{{ product.bargain_finished_count || 0 }}件</view>
+            <view class="grouponLimit">已砍{{ product.sales || 0 }}件</view>
             <form bindsubmit="submit" report-submit="true">
                 <button class="groupBt" formType="submit" style="background-color: {{ themeColor.primaryColor }}" >马上砍价</button>
             </form>

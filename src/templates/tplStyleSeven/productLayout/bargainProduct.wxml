@@ -15,7 +15,7 @@
                 </view>
                 <view class="footer-right">
                     <view class="bargainBtn" style="background-color: {{ themeColor.primaryColor }}">发起砍价</view>
-                    <view class="bargainNumber">{{ product.bargain_finished_count || 0 }}人已砍价成功</view>
+                    <view class="bargainNumber">{{ product.sales || 0 }}人已砍价成功</view>
                 </view>
             </view>
         </view>

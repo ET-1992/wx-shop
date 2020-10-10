@@ -11,7 +11,7 @@
                     <text class="group-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</text>
                     <text class="single-price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
                 </view>
-                <view class="count">已砍价{{ product.bargain_finished_count || 0 }}件</view>
+                <view class="count">已砍价{{ product.sales || 0 }}件</view>
             </view>
             <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" >去砍价</view>
         </view>
