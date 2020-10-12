@@ -1,9 +1,23 @@
 <view class="navigation-bar-wrap">
-  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0}})" bindback="handlerGobackClick" bindhome="handlerGohomeClick">
+  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0}})">
     <view slot="left" class="bar-left" style="{{ barLeftStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
-      <van-icon name="arrow-left" class="bar-left-icon" />
+      <!-- 返回 -->
+      <van-icon name="arrow-left" class="bar-left-icon" bind:tap="handlerGoback" />
       <view class="bar-left-divider"></view>
-      <van-icon name="apps-o" class="bar-left-icon" />
+      <!-- 菜单 -->
+      <van-icon name="apps-o" class="bar-left-icon" bind:tap="handlerShowMenu" />
+      <!-- 菜单内容 -->
+      <van-overlay show="{{ isShowMenu }}" bind:click="handlerShowMenu">
+        <view class="menu-wrapper">
+          <view class="menu-list">
+            <view class="menu-arrow"></view>
+            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index" data-method="{{ item.handle }}" catch:tap="handleMenuItem">
+              <van-icon name="{{ item.icon }}" size= "32rpx" custom-class="menu-icon" />
+              <text class="menu-text">{{ item.text }}</text>
+            </button>
+          </view>
+        </view>
+      </van-overlay>
     </view>
     <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
       <van-icon name="search" custom-class="bar-center-icon" />
