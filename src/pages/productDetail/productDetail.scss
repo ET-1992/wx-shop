@@ -640,7 +640,9 @@ video {
 				}
 			}
 		}
-
+		.to_left {
+			justify-content: flex-start;
+		}
 	}
 }
 
