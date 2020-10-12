@@ -63,7 +63,7 @@ Component({
 
     lifetimes: {
         attached: function() {
-            const config = wx.getStorageSync(CONFIG);
+            const config = wx.getStorageSync(CONFIG) || app.globalData.config;
             this.setData({ config });
         },
     },
@@ -73,29 +73,26 @@ Component({
             const { setting = {}, id } = this.data;
             const { orderby = '', product_category_id = '', promotion_type = '' } = setting;
             let promotionUrl = '/pages/miaoshaList/miaoshaList',
+                originalPath = '/pages/productList/productList',
                 paramsStr = `?module_id=${id}&orderby=${orderby}&categoryId=${product_category_id}`;
-            // 最终传递URL
-            let finalUrl = '';
+
             promotionUrl += paramsStr;
-            if (promotion_type === 'groupon_enable') {
-                // 拼团
-                finalUrl = promotionUrl + '&type=groupon';
-            } else if (promotion_type === 'bargain_enable') {
-                // 砍价
-                finalUrl = promotionUrl + '&type=bargain';
-            } else if (promotion_type === 'seckill_enable') {
-                // 秒杀
-                finalUrl = promotionUrl + '&type=seckill';
-            } else if (promotion_type === 'miaosha_enable') {
-                // 限时购
-                finalUrl = promotionUrl + '&type=miaosha';
-            } else {
-                // 会员/普通
-                finalUrl = '/pages/productList/productList' + paramsStr;
-                if (promotion_type) {
-                    finalUrl += `&promotionType=${promotion_type}`;
-                }
+            originalPath += paramsStr;
+
+            let pathUrl = '';
+            let pagePath = {
+                'groupon_enable': () => { pathUrl = promotionUrl + '&type=groupon' },
+                'bargain_enable': () => { pathUrl = promotionUrl + '&type=bargain' },
+                'seckill_enable': () => { pathUrl = promotionUrl + '&type=seckill' },
+                'miaosha_enable': () => { pathUrl = promotionUrl + '&type=miaosha' },
+                'membership_dedicated_enable': () => { pathUrl = originalPath + '&memberExclusive=true&promotionType=membership_dedicated_enable' },
+                'membership_price_enable': () => { pathUrl = originalPath + '&promotionType=membership_price_enable' },
+            };
+            if (promotion_type) {
+                pagePath[promotion_type].call(this);
             }
+            let finalUrl = pathUrl || originalPath;
+            console.log('跳转finalUrl', finalUrl);
             autoNavigate_({ url: finalUrl });
         }
     }
