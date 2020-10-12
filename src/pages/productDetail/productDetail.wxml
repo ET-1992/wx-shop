@@ -1,6 +1,6 @@
 <!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
-<productNavigationBar scrollTop="{{ scrollTop }}" />
+<productNavigationBar scrollTop="{{ scrollTop }}" bind:contact="onCustomService" />
 <!-- 多门店组件-样式隐藏 -->
 <view class="multiStore">
 	<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />

@@ -11,7 +11,12 @@
         <view class="menu-wrapper">
           <view class="menu-list">
             <view class="menu-arrow"></view>
-            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index" data-method="{{ item.handle }}" catch:tap="handleMenuItem">
+            <!-- 菜单功能项 -->
+            <!-- 普通客服、企业微信客服和其他路径跳转 -->
+            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index" 
+              open-type="{{ (item.handle === 'findHelp' && isContactForOpenType) ? 'contact' : '' }}"
+              data-method="{{ item.handle }}" 
+              catch:tap="{{ (item.handle !== 'findHelp' || !isContactForOpenType) ? 'handleMenuItem' : '' }}">
               <van-icon name="{{ item.icon }}" size= "32rpx" custom-class="menu-icon" />
               <text class="menu-text">{{ item.text }}</text>
             </button>

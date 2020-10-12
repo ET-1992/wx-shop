@@ -1,3 +1,4 @@
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -9,23 +10,35 @@ Component({
         }
     },
     data: {
-        backgroundRgb: '255,255,255',
-        barLeftStyle: '',
-        barCenterStyle: '',
-        isShowMenu: true,
+        backgroundRgb: '255,255,255',  // 导航栏背景色
+        barLeftStyle: '',  // 导航栏左边样式类
+        barCenterStyle: '',  // 导航栏中间样式类
+        isShowMenu: false,  // 是否展示菜单栏列表
+        isContactForOpenType: true,  // 是否为普通客服按钮
         menuList: [
             { icon: 'wap-home-o', text: '返回首页', handle: 'goHome' },
             { icon: 'shopping-cart-o', text: '购物车', handle: 'goCart' },
-            { icon: 'star-o', text: '联系客服', handle: 'goHelp' },
+            { icon: 'star-o', text: '联系客服', handle: 'findHelp' },
         ],
     },
     lifetimes: {
         attached() {
             // this.getBackgroundRgb();
+            this.getConfigData();
             this.getChildComponent();
         },
     },
     methods: {
+
+        // 获取页面配置信息
+        getConfigData() {
+            const config = wx.getStorageSync(CONFIG);
+            let workContact = config.contact && config.contact.type === 'work_weixin';
+            console.log('workContact', workContact);
+            this.setData({ isContactForOpenType: !workContact });
+        },
+
+        // 获取子组件数据
         getChildComponent() {
             const child = this.selectComponent('#navigationBar');
             let { capsulePosition } = child.data,
@@ -43,6 +56,7 @@ Component({
                 barCenterStyle,
             });
         },
+
         // 将颜色哈希值转换成RGB
         getBackgroundRgb() {
             let { backgroundColor: color = '#729153' } = app.globalData.themeColor,
@@ -79,6 +93,9 @@ Component({
             } else if (method === 'goCart') {
                 let url = '/pages/cart/cart';
                 wx.switchTab({ url });
+            } else if (method === 'findHelp') {
+                this.handlerShowMenu();
+                this.triggerEvent('contact', {});
             }
         },
     }
