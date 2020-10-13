@@ -11,10 +11,7 @@ page {
 .container {
 	padding-bottom: $footerHeight;
 	color: $titleColor;
-	overflow-x: hidden;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-
+	height: auto;
 	&.iphoneXTrick {
 	    padding-bottom: $footerHeight + $iphoneXBottomGap;
 	}
@@ -644,11 +641,6 @@ video {
 			justify-content: flex-start;
 		}
 	}
-}
-
-// 多门店部件
-.multiStore {
-	display: none;
 }
 
 .area-box {

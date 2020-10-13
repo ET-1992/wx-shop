@@ -1,15 +1,15 @@
-<!-- <loading isLoading="{{ isLoading }}" /> -->
 <import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
 <productNavigationBar scrollTop="{{ scrollTop }}" bind:contact="onCustomService" />
 <!-- 页面导航 -->
 <tabs scrollTop="{{ scrollTop }}"></tabs>
 <!-- 多门店组件-样式隐藏 -->
-<view class="multiStore">
-	<multiStore bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
-</view>
-<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}"></skeleton>
-<view wx:if="{{ !isLoading }}">
+<multiStore style="display: none" bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
+<!-- 骨架屏 -->
+<skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}" />
+
+<!-- 商品详情主内容 -->
+<scroll-view wx:else scroll-y style="height: 100vh; width: 100%" bindscroll="handlePageScroll">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view class="header" wx:if="{{ product.video || (product.images && product.images.length) }}">
 			<swiperVideoImg
@@ -592,7 +592,7 @@
 			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 		</view>
 	</block>
-</view>
+</scroll-view>
 
 <!-- 领券弹窗 -->
 <van-popup show="{{ isShowCouponList }}" position="bottom" bind:close="onHideCouponList">

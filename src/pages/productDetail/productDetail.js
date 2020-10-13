@@ -1054,14 +1054,14 @@ Page({
     },
 
     // 页面滚动
-    onPageScroll: throttle(function(e) {
-        let { scrollTop } = e && e[0],
+    handlePageScroll: throttle(function(e) {
+        let { scrollTop } = e.detail,
             { scrollTop: oldScrollTop } = this.data;
 
         if (scrollTop > 400 && oldScrollTop > 400) {
             return;
         }
         this.setData({ scrollTop });
-    }, 100),
+    }, 200),
 
 });
