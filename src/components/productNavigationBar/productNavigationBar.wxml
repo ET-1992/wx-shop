@@ -2,10 +2,10 @@
   <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0}})">
     <view slot="left" class="bar-left" style="{{ barLeftStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
       <!-- 返回 -->
-      <van-icon name="arrow-left" class="bar-left-icon" bind:tap="handlerGoback" />
+      <van-icon name="/icons/productDetail/left_arrow.svg" class="bar-left-icon bar-left-arrow-icon" bind:tap="handlerGoback" />
       <view class="bar-left-divider"></view>
       <!-- 菜单 -->
-      <van-icon name="apps-o" class="bar-left-icon" bind:tap="handlerShowMenu" />
+      <van-icon name="/icons/productDetail/hamburger.svg" class="bar-left-icon" bind:tap="handlerShowMenu" />
       <!-- 菜单内容 -->
       <van-overlay show="{{ isShowMenu }}" bind:click="handlerShowMenu">
         <view class="menu-wrapper">
@@ -25,7 +25,7 @@
       </van-overlay>
     </view>
     <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
-      <van-icon name="search" custom-class="bar-center-icon" />
+      <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
       <text>搜索商品</text>
     </view>
   </navigationBar>

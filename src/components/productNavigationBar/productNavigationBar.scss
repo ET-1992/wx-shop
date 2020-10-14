@@ -11,7 +11,12 @@
 		border: 1rpx solid rgba(153, 153, 153, .5);
 		.bar-left-icon {
 			flex: 1;
-			font-size: 38rpx;
+			font-size: 36rpx;
+			&.bar-left-arrow-icon {
+				font-size: 32rpx;
+				position: relative;
+				left: 12rpx;
+			}
 		}
 		.bar-left-divider {
 			width: 1rpx;
@@ -65,7 +70,7 @@
 		height: 100%;
 		border: 1rpx solid rgba(153, 153, 153, .5);
 		.bar-center-icon {
-			font-size: 36rpx;
+			font-size: 29rpx;
 			margin: 0 10rpx 0 22rpx;
 		}
 	}
