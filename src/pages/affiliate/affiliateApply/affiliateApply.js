@@ -222,7 +222,7 @@ Page({
                 mask: true
             });
             if (confirm) {
-                autoNavigate('/pages/affiliate/affiliateCenter/affiliateCenter');
+                autoNavigate('/pages/affiliate/affiliateCenter/affiliateCenter', 'redirectTo');
             }
         }
     },
