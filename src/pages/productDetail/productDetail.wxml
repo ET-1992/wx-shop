@@ -2,16 +2,16 @@
 <!-- 顶部程序导航 -->
 <productNavigationBar scrollTop="{{ scrollTop }}" bind:contact="onCustomService" />
 <!-- 页面导航 -->
-<tabs scrollTop="{{ scrollTop }}"></tabs>
+<tabs scrollTop="{{ scrollTop }}" bind:click="handlePageToView"></tabs>
 <!-- 多门店组件-样式隐藏 -->
 <multiStore style="display: none" bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
 <!-- 骨架屏 -->
 <skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}" />
 
 <!-- 商品详情主内容 -->
-<scroll-view wx:else scroll-y style="height: 100vh; width: 100%" bindscroll="handlePageScroll">
+<scroll-view wx:else scroll-y style="height: 100vh; width: 100%" scroll-top="{{ toScrollTop }}" scroll-with-animation bindscroll="handlePageScroll">
 	<view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-		<view class="header" wx:if="{{ product.video || (product.images && product.images.length) }}">
+		<view class="header" wx:if="{{ product.video || (product.images && product.images.length) }}" id="goods">
 			<swiperVideoImg
 			 id="swiperVideoImg"
 			 wx:if="{{product.video}}"
@@ -388,10 +388,11 @@
 				comments="{{ product.replies }}" 
 				postId="{{ product.id }}" 
 				replyCount="{{ product.reply_count }}" 
+				id="comments"
 			/>
 
 			<!-- 商品详情 -->
-			<view class="detail">
+			<view class="detail" id="detail">
 				<view class="detailTitle">
 					<text class="dot">•</text>
 					{{ templateTypeText[defineTypeGlobal].page_productDetail.titleText || '商品详情' }}
@@ -415,7 +416,7 @@
 			</view>
 
 			<!-- 为你推荐 -->
-			<view class="promote" wx:if="{{ isShowProductRelated }}">
+			<view class="promote" wx:if="{{ isShowProductRelated }}" id="recommend">
 				<view class="label">
 					<text class="dot">•</text>
 					为你推荐

@@ -27,6 +27,7 @@ Component({
         // 点击标签
         handleClickTab(e) {
             let { name } = e.detail;
+            this.triggerEvent('click', { name });
         },
     },
 });

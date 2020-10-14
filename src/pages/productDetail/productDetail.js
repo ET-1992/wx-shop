@@ -1064,4 +1064,33 @@ Page({
         this.setData({ scrollTop });
     }, 200),
 
+    // 标签页导航页面位置
+    handlePageToView(e) {
+        let { name } = e.detail;
+        this.getAllSelectorRects();
+        let { selectorRects } = this.data;
+        let toScrollTop = selectorRects && selectorRects[name] || 0;
+        this.setData({ toScrollTop });
+    },
+
+    // 获取所有导航标签的位置
+    getAllSelectorRects() {
+        let selectors = ['goods', 'comments', 'detail', 'recommend'],
+            selectorRects = {};
+        let selectorStr = selectors.reduce((acc, cur) => `${acc}#${cur},`, '');
+        wx.createSelectorQuery().selectAll(selectorStr).fields({
+            id: true,
+            rect: true,
+            scrollOffset: true,
+        }, rects => {
+            console.log('rects', rects);
+            selectorRects = rects.reduce((acc, cur) => {
+                let { id, scrollTop } = cur;
+                acc[id] = scrollTop;
+                return acc;
+            }, {});
+            this.setData({ selectorRects });
+            console.log('selectorRects', selectorRects);
+        }).exec();
+    }
 });
