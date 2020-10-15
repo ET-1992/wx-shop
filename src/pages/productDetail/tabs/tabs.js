@@ -6,6 +6,10 @@ Component({
             type: Number,
             optionalTypes: [String],
             value: 0,
+        },
+        activeTab: {
+            type: String,
+            value: 'goods'
         }
     },
     data: {

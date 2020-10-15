@@ -1,5 +1,5 @@
 <view class="container" style="top: {{ menuRect.bottom + 'px' }}" wx:if="{{ scrollTop / 400 > 0.9 }}">
-  <van-tabs active="goods" duration="{{ 0 }}" custom-class="tab-wrap" tab-active-class="active-tab" color="{{ themeColor.primaryColor }}" bind:click="handleClickTab">
+  <van-tabs active="{{ activeTab }}" duration="{{ 0 }}" custom-class="tab-wrap" tab-active-class="active-tab" color="{{ themeColor.primaryColor }}" bind:click="handleClickTab">
     <van-tab title="商品" name="goods"></van-tab>
     <van-tab title="评论" name="comments"></van-tab>
     <van-tab title="详情" name="detail"></van-tab>

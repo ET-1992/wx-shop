@@ -66,6 +66,7 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
+        currentTab: 'goods',  // 当前选中标签
         scrollTop: 0,  // 当前视图的scrollTop
         toScrollTop: 0,  // 跳转的scrollTop
         selectorsId: ['goods', 'comments', 'detail', 'recommend'],  // 标签对应的元素ID
@@ -1059,15 +1060,18 @@ Page({
     // 页面滚动
     handlePageScroll: throttle(function(e) {
         let { scrollTop } = e.detail,
-            { scrollTop: oldScrollTop } = this.data;
-
-        if (scrollTop > 400 && oldScrollTop > 400) {
-            return;
-        }
-        this.setData({ scrollTop });
+            { selectorsId, selectorsTop } = this.data;
+        // 求出当前位置对应标签
+        let currentTab = selectorsTop.reduce((acc, cur, idx) => {
+            if (cur !== null && (cur < scrollTop)) {
+                return selectorsId[idx];
+            }
+            return acc;
+        }, selectorsId[0]);
+        this.setData({ scrollTop, currentTab });
     }, 200),
 
-    // 标签页导航页面位置
+    // 根据标签导航到指定位置
     handlePageToView(e) {
         let { name } = e.detail,
             { selectorsTop, selectorsId } = this.data;
@@ -1078,7 +1082,10 @@ Page({
             index++;
         }
         let toScrollTop = arr[index];
-        this.setData({ toScrollTop });
+        this.setData({
+            toScrollTop,
+            currentTab: name,
+        });
     },
 
     // 封装元素基于视口的尺寸

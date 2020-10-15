@@ -2,7 +2,7 @@
 <!-- 顶部程序导航 -->
 <productNavigationBar id="navigation-bar" scrollTop="{{ scrollTop }}" bind:contact="onCustomService" />
 <!-- 页面导航 -->
-<tabs id="tabs" scrollTop="{{ scrollTop }}" bind:click="handlePageToView"></tabs>
+<tabs id="tabs" activeTab="{{ currentTab }}" scrollTop="{{ scrollTop }}" bind:click="handlePageToView"></tabs>
 <!-- 多门店组件-样式隐藏 -->
 <multiStore style="display: none" bind:updatestore="updateStore" multiStoreEnable="{{ multiStoreEnable }}" />
 <!-- 骨架屏 -->
