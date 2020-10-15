@@ -66,8 +66,10 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
-        scrollTop: 0,
-        backgroundRgb: ''
+        scrollTop: 0,  // 当前视图的scrollTop
+        toScrollTop: 0,  // 跳转的scrollTop
+        selectorsId: ['goods', 'comments', 'detail', 'recommend'],  // 标签对应的元素ID
+        selectorsTop: [],  // 标签对应的元素offsetTop
     },
 
     go, // 跳转到规则详情页面
@@ -289,6 +291,7 @@ Page({
             }
         }
         console.log(this.data, 'this.data');
+        this.getSelectorsTop();
     },
 
     setDefinePrice() {
@@ -1066,31 +1069,43 @@ Page({
 
     // 标签页导航页面位置
     handlePageToView(e) {
-        let { name } = e.detail;
-        this.getAllSelectorRects();
-        let { selectorRects } = this.data;
-        let toScrollTop = selectorRects && selectorRects[name] || 0;
+        let { name } = e.detail,
+            { selectorsTop, selectorsId } = this.data;
+        let index = selectorsId.indexOf(name);
+
+        let arr = [...selectorsTop, 99999];
+        while (arr[index] === null) {
+            index++;
+        }
+        let toScrollTop = arr[index];
         this.setData({ toScrollTop });
     },
 
-    // 获取所有导航标签的位置
-    getAllSelectorRects() {
-        let selectors = ['goods', 'comments', 'detail', 'recommend'],
-            selectorRects = {};
-        let selectorStr = selectors.reduce((acc, cur) => `${acc}#${cur},`, '');
-        wx.createSelectorQuery().selectAll(selectorStr).fields({
-            id: true,
-            rect: true,
-            scrollOffset: true,
-        }, rects => {
-            console.log('rects', rects);
-            selectorRects = rects.reduce((acc, cur) => {
-                let { id, scrollTop } = cur;
-                acc[id] = scrollTop;
-                return acc;
-            }, {});
-            this.setData({ selectorRects });
-            console.log('selectorRects', selectorRects);
-        }).exec();
-    }
+    // 封装元素基于视口的尺寸
+    getBoundingRect(id) {
+        return new Promise((resolve) => {
+            let selector = `#${id}`;
+            wx.createSelectorQuery().select(selector).boundingClientRect((rect) => {
+                resolve(rect);
+            }).exec();
+        });
+    },
+
+    // 获取元素的offsetTop
+    async getSelectorsTop() {
+        let { selectorsId } = this.data,
+            selectorsTop = [];
+        // let barComponent = this.selectComponent('#navigation-bar');
+        // 页面导航组件
+        let tabsComponent = this.selectComponent('#tabs');
+        let { tabsBottom = 0 } = tabsComponent.data;
+        // 导航对应位置
+        for (let i = 0; i < selectorsId.length; i++) {
+            const id = selectorsId[i];
+            let rect = await this.getBoundingRect(id);
+            let top = rect && rect.top && (rect.top - tabsBottom);
+            selectorsTop.push(top);
+        }
+        this.setData({ selectorsTop });
+    },
 });

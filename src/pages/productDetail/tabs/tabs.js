@@ -11,6 +11,7 @@ Component({
     data: {
         menuRect: {},  // 导航栏右侧信息
         themeColor: {},
+        tabsBottom: {},  // 暴露出去的视图高度
     },
     lifetimes: {
         attached() {
@@ -22,7 +23,8 @@ Component({
         getPageData() {
             let { themeColor } = app.globalData;
             let menuRect = wx.getMenuButtonBoundingClientRect();
-            this.setData({ menuRect, themeColor });
+            let tabsBottom = menuRect.bottom + 8 * 2 + 44;
+            this.setData({ menuRect, themeColor, tabsBottom });
         },
         // 点击标签
         handleClickTab(e) {
