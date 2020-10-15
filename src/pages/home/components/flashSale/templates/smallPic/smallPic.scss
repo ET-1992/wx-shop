@@ -131,6 +131,18 @@
 					margin-left: 20rpx;
 				}
 			}
+
+			.cart {
+				width: 140rpx;
+				height: 50rpx;
+				font-size: 24rpx;
+				color: #fff;
+				background: #f89452;
+				border-radius: 5rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		}
 	}
 }

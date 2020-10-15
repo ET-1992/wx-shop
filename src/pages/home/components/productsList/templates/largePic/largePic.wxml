@@ -1,7 +1,7 @@
-<navigator class="largePic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" >
-    <view class="image-wrap" wx:if="{{ product.thumbnail }}">
+<view class="largePic">
+    <navigator class="image-wrap" wx:if="{{ product.thumbnail }}" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
         <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
-    </view>
+    </navigator>
     <view class="content-wrap">
         <view class="left">
             <view class="title"> {{ product.title }}</view>
@@ -43,7 +43,8 @@
         <view class="right">
             <!-- 金币商品 -->
             <button wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</button>
-            <button wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button>
+            <!-- <button wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button> -->
+            <button wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">{{config && config.cart_text || '立即抢购'}}</button>
         </view>
     </view>
-</navigator>
+</view>

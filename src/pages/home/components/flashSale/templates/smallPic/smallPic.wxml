@@ -1,8 +1,8 @@
-<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
-    <view class="wrapper">
+<view class="smallPic">
+    <navigator class="wrapper" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
         <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
         <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
-    </view>
+    </navigator>
     <view class="meta">
         <view class="name">{{ product.title }}</view>
         <view class="timeLimit">
@@ -40,6 +40,9 @@
                     </view>
                 </view>
             </view>
+            <view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
+                {{config && config.cart_text || '立即抢购'}}
+            </view>
         </view>
     </view>
-</navigator>
+</view>

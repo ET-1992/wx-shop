@@ -35,6 +35,16 @@
 	</block>
 </view>
 
+<skuModal
+	isShowSkuModal="{{ isShowSkuModal }}"
+	product="{{ selectedProduct }}"
+	themeColor="{{ themeColor }}"
+	position="center"
+	duration="{{ 500 }}"
+	wx:if="{{ selectedProduct }}"
+	bindonAddCart="onAddCart"
+	id="skuModal" />
+
 <wxs module="settingStyle">
 var isScroll = function(style){
 	var pattern = '_h$';
@@ -53,18 +63,3 @@ module.exports = {
 	isMultiple: isMultiple
 };
 </wxs>
-
-
-<wxs module="btn">
-var text = function (config) {
-    var name = '立即购买';
-	if(config && config.order_only) {
-		name = '立即下单';
-	}
-    return name;
-};
-module.exports = {
-    text: text
-};
-</wxs>
-

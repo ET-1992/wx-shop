@@ -37,7 +37,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		padding: 10rpx 12rpx 0 12rpx;
-		height: 150rpx;
+		height: 170rpx;
 
 		.title {
 			color: #333333;
@@ -68,6 +68,11 @@
 						font-size: 75%;
 					}
 				}
+				.currency {
+					display: inline-block;
+					font-size: 22rpx;
+					margin-right: 5rpx;
+				}
 				// 会员专属
 				.vipItemPrice {
 					color: #333;
@@ -78,20 +83,6 @@
 						margin-right: 5rpx;
 					}
 				}
-				.originPrice {
-					color: #707070;
-					text-decoration: line-through;
-					font-size: 22rpx;
-					padding-left: 10rpx;
-				}
-			}
-
-			.tagWrapper {
-				display: inline-block;
-				font-size: 20rpx;
-				color: #707070;
-				font-weight: 400;
-
 				// 会员价
 				.vipTap {
 					display: flex;
@@ -99,7 +90,7 @@
 					font-weight: bold;
 
 					.vipPrice {
-						font-size: 22rpx;
+						font-size: 30rpx;
 						color: #000;
 						margin-right: 10rpx;
 					}
@@ -115,6 +106,33 @@
 						justify-content: center;
                         align-items: center;
 					}
+				}
+				.originPrice {
+					color: #707070;
+					text-decoration: line-through;
+					font-size: 22rpx;
+					padding-left: 10rpx;
+				}
+			}
+
+			.tagWrapper {
+				display: inline-block;
+				font-size: 20rpx;
+				color: #707070;
+				font-weight: 400;
+			}
+
+			.cart {
+				width: 50rpx;
+				height: 48rpx;
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.icon {
+					width: 28rpx;
+					height: 28rpx;
 				}
 			}
 		}

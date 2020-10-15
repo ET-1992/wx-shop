@@ -3,6 +3,7 @@
   "usingComponents": {
     "groupon": "../groupon/groupon",
     "bargain": "../bargain/bargain",
-    "flashSale": "../flashSale/flashSale"
+    "flashSale": "../flashSale/flashSale",
+    "skuModal": "../../../../components/skuModal/skuModal"
   }
 }

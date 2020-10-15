@@ -1,8 +1,8 @@
-<navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}"> 
-    <view class="wrap">
+<view class="bigPic"> 
+    <navigator class="wrap" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
         <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
         <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
-    </view>
+    </navigator>
     <view class="meta">
         <view class="name">{{ product.title }}</view>
         <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
@@ -38,7 +38,7 @@
                     {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price || product.seckill_price }}
                 </view>
             </view>
-            <view class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
+            <view class="btn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ product.status !== 'sold_out' }}">{{config && config.cart_text || '立即抢购'}}</view>
         </view>
     </view>
-</navigator>
+</view>
