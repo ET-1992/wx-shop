@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="组_4648" data-name="组 4648" transform="translate(-527 -176)">
+    <rect id="矩形_2186" data-name="矩形 2186" class="cls-1" width="40" height="40" transform="translate(527 176)"/>
+    <g id="组_4599" data-name="组 4599" transform="translate(528.926 180.037)">
+      <path id="路径_6635" data-name="路径 6635" class="cls-2" d="M30.277,26.874a5.12,5.12,0,0,0,5.1-5.1V5.6a5.12,5.12,0,0,0-5.1-5.1H5.6A5.157,5.157,0,0,0,.5,5.6V21.77a5.157,5.157,0,0,0,5.1,5.1H22.23l7.026,6.693Z" transform="translate(-0.5 -0.5)"/>
+      <g id="组_4207" data-name="组 4207" transform="translate(7.962 11.099)">
+        <ellipse id="椭圆_8" data-name="椭圆 8" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(0 0)"/>
+        <ellipse id="椭圆_9" data-name="椭圆 9" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(7.584 0)"/>
+        <ellipse id="椭圆_10" data-name="椭圆 10" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(15.168 0)"/>
+      </g>
+    </g>
+  </g>
+</svg>

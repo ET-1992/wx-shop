@@ -8,9 +8,9 @@
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 会员专区 -->
-	<button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
+	<!-- <button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
 		<image class="member-image" src="{{ membership_banner }}"/>
-	</button>
+	</button> -->
 
 	<!-- 功能面板 -->
 	<infos infosComponentData="{{ infosComponentData }}" />

@@ -30,6 +30,8 @@ Component({
             if (background_color) {
                 themeColor.primaryColor = background_color;
             }
+            // 获取右上角胶囊距离顶部的高度
+            let statusBarHeight = wx.getSystemInfoSync()['statusBarHeight'];
             this.setData({
                 config,
                 themeColor,
@@ -38,6 +40,7 @@ Component({
                 coupons,
                 updateAvatar,
                 background_color,
+                statusBarHeight
             });
         }
     },
@@ -52,8 +55,20 @@ Component({
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });
         },
+        toMembersPage() {
+            const { user } = this.data;
+            if (user) {
+                wx.navigateTo({
+                    url: '/pages/membership/members/members'
+                });
+            }
+        },
         // 用户签到
         async tapSignIn() {
+            const { user } = this.data;
+            if (user.is_checkined) {
+                return;
+            }
             const result = await api.hei.signIn(); // 签到
             const wallet = result.current_user.wallet;
             this.setData({ user: result.current_user });
@@ -64,6 +79,13 @@ Component({
             wx.setStorageSync(USER_KEY, result.current_user);
             this.setData({ wallet });
             this.triggerEvent('changeWalletData', wallet, { bubbles: true });
+        },
+        // 展示企业微信联系方式
+        onCustomService() {
+            let customServiceModal = true;
+            this.setData({
+                customServiceModal,
+            });
         }
     }
 });
