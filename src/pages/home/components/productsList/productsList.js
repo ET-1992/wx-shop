@@ -104,6 +104,7 @@ Component({
         /* 加车 */
         async addCart(product) {
             console.log('e214', product);
+            wx.showLoading({ title: '加车中' });
             let { vendor } = app.globalData;
             let { id, stock } = product;
             if (stock === 0) {
@@ -124,12 +125,13 @@ Component({
 
             try {
                 const data = await api.hei.addCart(options);
+                wx.hideLoading();
+                this.setData({ isShowSkuModal: false });
+                wx.setStorageSync('CART_NUM', data.count);
                 wx.showToast({
                     icon: 'success',
                     title: `已加入购物车`,
                 });
-                this.setData({ isShowSkuModal: false });
-                wx.setStorageSync('CART_NUM', data.count);
                 updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
             } catch (ev) {
                 console.log('ev', ev);

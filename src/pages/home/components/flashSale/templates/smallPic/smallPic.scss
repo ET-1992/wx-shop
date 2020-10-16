@@ -36,7 +36,7 @@
 
 	.meta {
 		padding-left: 20rpx;
-		// width: 470rpx;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 
@@ -95,6 +95,7 @@
 		.footer {
 			display: flex;
 			align-items: flex-end;
+			justify-content: space-between;
 			flex-grow: 1;
 
 			.allPrice {

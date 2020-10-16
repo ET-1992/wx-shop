@@ -1,8 +1,8 @@
-<view class="smallPic">
-    <navigator class="wrapper" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+<navigator class="smallPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+    <view class="wrapper">
         <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
         <image class="productImage" mode="apsectFit" src="{{  product.thumbnail }}" lazy-load="{{ true }}" />
-    </navigator>
+    </view>
     <view class="meta">
         <view class="name">{{ product.title }}</view>
         <view class="timeLimit">
@@ -45,4 +45,4 @@
             </view>
         </view>
     </view>
-</view>
+</navigator>
