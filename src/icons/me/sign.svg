@@ -1,43 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
   <defs>
     <style>
-      .cls-1, .cls-2, .cls-4 {
+      .cls-1 {
         fill: none;
       }
 
-      .cls-2, .cls-3, .cls-4 {
-        stroke: #fff;
-        stroke-width: 2px;
-      }
-
-      .cls-3 {
+      .cls-2 {
         fill: #fff;
-      }
-
-      .cls-3, .cls-4 {
-        stroke-linecap: round;
-      }
-
-      .cls-4 {
-        stroke-linejoin: round;
-      }
-
-      .cls-5 {
-        stroke: none;
       }
     </style>
   </defs>
-  <g id="组_4647" data-name="组 4647" transform="translate(-626 -176)">
-    <rect id="矩形_2185" data-name="矩形 2185" class="cls-1" width="40" height="40" transform="translate(626 176)"/>
-    <g id="组_4597" data-name="组 4597" transform="translate(628.667 178.607)">
-      <g id="矩形_2172" data-name="矩形 2172" class="cls-2" transform="translate(0 4.06)">
-        <rect class="cls-5" width="36" height="30.667" rx="5"/>
-        <rect class="cls-1" x="1" y="1" width="34" height="28.667" rx="4"/>
-      </g>
-      <path id="路径_7007" data-name="路径 7007" class="cls-3" d="M14911,2542.928h30.74" transform="translate(-14908.883 -2529.889)"/>
-      <path id="路径_7008" data-name="路径 7008" class="cls-3" d="M14930.294,2519.1v7.573" transform="translate(-14920.279 -2519.101)"/>
-      <path id="路径_7009" data-name="路径 7009" class="cls-3" d="M14930.294,2519.1v7.573" transform="translate(-14905.639 -2519.101)"/>
-      <path id="路径_7010" data-name="路径 7010" class="cls-4" d="M14859.428,2557.176l3.873,4.216,9.344-9.343" transform="translate(-14848.841 -2533.9)"/>
+  <g id="组_4772" data-name="组 4772" transform="translate(-224 -47)">
+    <rect id="矩形_2395" data-name="矩形 2395" class="cls-1" width="35" height="35" transform="translate(224 47)"/>
+    <g id="组_4770" data-name="组 4770" transform="translate(-10495.333 11958.631)">
+      <path id="减去_90" data-name="减去 90" class="cls-2" d="M23,24.3H4a4,4,0,0,1-4-4V7.29H27V20.3A4,4,0,0,1,23,24.3ZM9.094,13.73a1.173,1.173,0,0,0-.8.312,1.234,1.234,0,0,0-.088,1.716l2.657,3.01a1.176,1.176,0,0,0,.661.381,1.2,1.2,0,0,0,.27.031,1.174,1.174,0,0,0,.827-.341l8-7.878a1.234,1.234,0,0,0,.029-1.718,1.174,1.174,0,0,0-1.684-.03l-7.13,7.023-1.857-2.1A1.184,1.184,0,0,0,9.094,13.73ZM27,5.94H0V4A4,4,0,0,1,4,0H5.4V1.8a2.7,2.7,0,1,0,5.4,0V0h5.4V1.8a2.7,2.7,0,1,0,5.4,0V0H23a4,4,0,0,1,4,4V5.939Z" transform="translate(10723.333 -11904.931)"/>
+      <rect id="矩形_2388" data-name="矩形 2388" class="cls-2" width="3.6" height="6.3" rx="1.8" transform="translate(10729.633 -11907.631)"/>
+      <rect id="矩形_2389" data-name="矩形 2389" class="cls-2" width="3.6" height="6.3" rx="1.8" transform="translate(10740.433 -11907.631)"/>
     </g>
   </g>
 </svg>

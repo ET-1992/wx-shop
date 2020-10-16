@@ -1,33 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
   <defs>
     <style>
-      .cls-1, .cls-2 {
+      .cls-1 {
         fill: none;
       }
 
       .cls-2 {
-        stroke: #fff;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-miterlimit: 10;
-        stroke-width: 2px;
-        fill-rule: evenodd;
-      }
-
-      .cls-3 {
         fill: #fff;
       }
     </style>
   </defs>
-  <g id="组_4648" data-name="组 4648" transform="translate(-527 -176)">
-    <rect id="矩形_2186" data-name="矩形 2186" class="cls-1" width="40" height="40" transform="translate(527 176)"/>
-    <g id="组_4599" data-name="组 4599" transform="translate(528.926 180.037)">
-      <path id="路径_6635" data-name="路径 6635" class="cls-2" d="M30.277,26.874a5.12,5.12,0,0,0,5.1-5.1V5.6a5.12,5.12,0,0,0-5.1-5.1H5.6A5.157,5.157,0,0,0,.5,5.6V21.77a5.157,5.157,0,0,0,5.1,5.1H22.23l7.026,6.693Z" transform="translate(-0.5 -0.5)"/>
-      <g id="组_4207" data-name="组 4207" transform="translate(7.962 11.099)">
-        <ellipse id="椭圆_8" data-name="椭圆 8" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(0 0)"/>
-        <ellipse id="椭圆_9" data-name="椭圆 9" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(7.584 0)"/>
-        <ellipse id="椭圆_10" data-name="椭圆 10" class="cls-3" cx="1.896" cy="1.896" rx="1.896" ry="1.896" transform="translate(15.168 0)"/>
-      </g>
+  <g id="组_4769" data-name="组 4769" transform="translate(-10840 11819)">
+    <rect id="矩形_2394" data-name="矩形 2394" class="cls-1" width="35" height="35" transform="translate(10840 -11819)"/>
+    <g id="组_4768" data-name="组 4768" transform="translate(10842.261 -11814.75)">
+      <path id="减去_91" data-name="减去 91" class="cls-2" d="M24.907,28.645l0,0-6.082-5.795H4.421A4.482,4.482,0,0,1,0,18.426v-14A4.481,4.481,0,0,1,4.421,0H25.793a4.426,4.426,0,0,1,4.421,4.421v14a4.427,4.427,0,0,1-4.421,4.422l-.886,5.794ZM21.679,9.617a1.643,1.643,0,1,0,1.641,1.641A1.644,1.644,0,0,0,21.679,9.617Zm-6.572,0a1.643,1.643,0,1,0,1.645,1.641A1.643,1.643,0,0,0,15.106,9.617Zm-6.566,0a1.643,1.643,0,1,0,1.641,1.641A1.644,1.644,0,0,0,8.54,9.617Z" transform="translate(-0.001 -0.001)"/>
     </g>
   </g>
 </svg>

@@ -2,15 +2,15 @@
 <view class="container">
 	<!-- 头部面板 -->
 	<personal-more wx:if="{{ PLATFFORM_ENV === 'CUILV' }}" personalComponentData="{{ personalComponentData }}" themeColor="{{ themeColor }}" config="{{ config }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
-	<personal wx:else personalComponentData="{{ personalComponentData }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData" />
+	<personal wx:else personalComponentData="{{ personalComponentData }}" bind:consoleOpen="consoleOpen" bind:changeWalletData="changeWalletData"/>
 
 	<!-- 订单面板 -->
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 会员专区 -->
-	<!-- <button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
+	<button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
 		<image class="member-image" src="{{ membership_banner }}"/>
-	</button> -->
+	</button>
 
 	<!-- 功能面板 -->
 	<infos infosComponentData="{{ infosComponentData }}" />

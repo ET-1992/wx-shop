@@ -1,8 +1,9 @@
 @import '~styles/color';
 
 .header {
-	padding-top: 150rpx;
-	border-radius: 10rpx;
+	padding-bottom: 60rpx;
+	position: relative;
+	margin-bottom: 55rpx;
 	// background-color: #729153;
 
 	.head-signin {
@@ -95,21 +96,24 @@
 		}
 	}
 	.header-bottom {
-		height: 100rpx;
+		position: absolute;
+		bottom: -40rpx;
+		height: 80rpx;
+		width: 720rpx;
+		margin: 0 16rpx;
 		padding: 0 36rpx;
-		margin-top:30rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background-color: #333333;
-		border-top-left-radius: 20rpx;
-		border-top-right-radius: 20rpx;
+		background-color: #fff;
+		border-radius: 10rpx;
+		color: #333333;
+		font-weight: bold;
+
 		.head-tip{
 			display: flex;
 			align-items: center;
-			color: #D6BC6F;
 			font-size: 28rpx;
-			font-weight: bold;
 			.tip-image{
 				width: 60rpx;
 				height: 60rpx;
@@ -118,15 +122,9 @@
 		}
 
 		.head-btn {
-			width: 180rpx;
-			height: 50rpx;
-			color: #333333;
-			font-weight: bold;
-			font-size: 24rpx;
-			background-color: #D6BC6F;
-			border-radius: 25rpx;
+			font-size: 20rpx;
 			text-align: center;
-			line-height: 50rpx;
+			background-color: #fff;
 		}
 	}
 }

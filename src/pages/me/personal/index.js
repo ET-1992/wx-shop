@@ -45,6 +45,7 @@ Component({
         }
     },
     methods: {
+        // 点击用户头像的鉴权
         async bindGetUserInfo(e) {
             let time = Date.now();
             wx.setStorageSync(USER_INFO_CREATE_TIME, time);
@@ -52,16 +53,30 @@ Component({
             const user = await getAgainUserForInvalid({ encryptedData, iv });
             this.setData({ user, updateAvatar: false });
         },
+        // 跳转会员页的鉴权
+        async getUserBeforeToMember(e) {
+            const { encryptedData, iv } = e.detail;
+            if (iv && encryptedData) {
+                const user = await getAgainUserForInvalid({ encryptedData, iv });
+                if (user) {
+                    this.toMembersPage();
+                }
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '需授权后操作',
+                    showCancel: false,
+                });
+            }
+        },
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });
         },
+        // 跳转到会员中心
         toMembersPage() {
-            const { user } = this.data;
-            if (user) {
-                wx.navigateTo({
-                    url: '/pages/membership/members/members'
-                });
-            }
+            wx.navigateTo({
+                url: '/pages/membership/members/members'
+            });
         },
         // 用户签到
         async tapSignIn() {

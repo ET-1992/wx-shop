@@ -1,9 +1,9 @@
 .infos {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	margin: 15rpx 20rpx;
+	margin: 15rpx;
 	background-color: #fff;
-	border-radius: 5rpx;
+	border-radius: 10rpx;
 	.info-btn {
 		line-height: initial;
 		background-color: initial;

@@ -33,10 +33,10 @@
 	<view class="header-bottom" wx:if="{{ config.checkin_enable }}">
     <view class="head-tip" >
       <image class="tip-image" src="/icons/me/vip.svg" mode="aspectFit"></image>
-      <text>{{ user.membership.level_name ? user.membership.level_name : '领取会员卡，获取更多优惠'}}</text>
+      <text>{{ user.membership.level_name ? '进入会员中心，查看会员福利' : '领取会员卡，获取更多优惠'}}</text>
     </view>
 		<!-- <view class="head-signin" wx:if="{{ user.is_checkined }}">立即领取</view> -->
-		<button class="head-btn" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="toMembersPage">{{ user.membership.level_name ? '进入会员中心' : '立即领取' }}</button>
+		<button class="head-btn" bindgetuserinfo="getUserBeforeToMember" open-type="getUserInfo">{{ user.membership.level_name ? '立即查看>' : '立即领取>' }}</button>
 	</view>
 </view>
 
