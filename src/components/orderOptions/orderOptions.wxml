@@ -16,7 +16,7 @@
 		</view>
 	</view>
 	<slot name="content"></slot>
-	<view class="order-end">
+	<view class="order-end" wx:if="{{ !customBottom }}">
 		<view class="end-left">
 			<view class="left-price">
 				<text>￥</text>

@@ -66,6 +66,11 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
+        // 餐饮商品展示信息
+        cateringProduct: {
+            selectedPrice: '',
+            selectedString: '',
+        }
     },
 
     go, // 跳转到规则详情页面
@@ -545,6 +550,12 @@ Page({
         this.setData({
             productQuantity: detail,
         });
+    },
+
+    // 餐饮商品改变选项
+    onCateringProductOption(e) {
+        let { detail } = e;
+        this.setData({ cateringProduct: detail });
     },
 
     // 创建餐饮商品订单
