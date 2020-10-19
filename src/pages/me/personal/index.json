@@ -1,3 +1,6 @@
 {
-	"component": true
+  "component": true,
+  "usingComponents": {
+		"companyContact": "../../../components/companyContact/companyContact"
+	}
 }
