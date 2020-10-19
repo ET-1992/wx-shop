@@ -162,11 +162,19 @@
 		<!-- 商品下单选项 -->
 		<view class="product-options" wx:if="{{ product.product_style_type === 2 }}">
 			<orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption">
-				<view class="options-content" slot="content">
-					<view class="product-title">商品详情</view>
-					<view class="product-content">{{ product.excerpt || '-' }}</view>
-				</view>
 			</orderOptions>
+			<view class="options-content">
+				<view class="product-title">商品详情</view>
+				<view class="product-content">
+					<template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+						<formatContent 
+							wx:if="{{ product.format && product.format_content }}" 
+							type="{{ product.format }}" 
+							content="{{ product.format_content }}" 
+							author="{{ product.author }}"
+						/>
+				</view>
+			</view>
 		</view>
 
 		<block  wx:else>

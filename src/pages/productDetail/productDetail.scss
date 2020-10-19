@@ -458,12 +458,15 @@ video {
 	transform: translateY(-112rpx);
 	z-index: 9999;
 	.options-content {
+		padding: 20rpx 25rpx;
+		margin: 16rpx 0;
+		background-color: #fff;
+		border-radius: 5rpx;
 		.product-title {
 			font-size: 28rpx;
 			line-height: 36rpx;
 			color: black;
 			font-weight: bold;
-			margin: 24rpx 0;
 		}
 		.product-content {
 			font-size: 24rpx;
