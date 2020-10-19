@@ -1,4 +1,14 @@
-<view class="header" style="background-color: {{ themeColor.primaryColor }}">
+<view class="header {{ !config.membership_enable ? 'none-vip' : '' }}" style="background-color:{{ themeColor.primaryColor }}; padding-top:{{statusBarHeight + 'px'}}">
+  <view class="head-signin">
+    <view class="signin-item" bindtap="onCustomService">
+      <image class="signin-img" src="/icons/me/service.svg" mode="aspectFit"></image>
+      <text>客服</text>
+    </view>
+    <view class="signin-item" bindtap="tapSignIn">
+      <image class="signin-img" src="/icons/me/sign.svg" mode="aspectFit"></image>
+      <text>{{ user.is_checkined ? '已签到' : '签到' }}</text>
+    </view>
+  </view>
 	<view class="header-top">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ (user.avatarurl && !updateAvatar) ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
@@ -20,8 +30,18 @@
         	<view class="title">优惠券</view>
 		</navigator>
 	</view>
-	<view class="header-bottom" wx:if="{{ config.checkin_enable }}">
-		<view class="head-signin" wx:if="{{ user.is_checkined }}">已签到</view>
-		<view class="head-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}" style="color: {{ themeColor.primaryColor }}">签到</view>
+	<view class="header-bottom" wx:if="{{ config.membership_enable }}">
+    <view class="head-tip" >
+      <image class="tip-image" src="/icons/me/vip.svg" mode="aspectFit"></image>
+      <text>{{ user.membership.level_name ? '进入会员中心，查看会员福利' : '领取会员卡，获取更多优惠'}}</text>
+    </view>
+		<!-- <view class="head-signin" wx:if="{{ user.is_checkined }}">立即领取</view> -->
+		<button class="head-btn" bindgetuserinfo="getUserBeforeToMember" open-type="getUserInfo">{{ user.membership.level_name ? '立即查看>' : '立即领取>' }}</button>
 	</view>
 </view>
+
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>

@@ -30,6 +30,8 @@ Component({
             if (background_color) {
                 themeColor.primaryColor = background_color;
             }
+            // 获取右上角胶囊距离顶部的高度
+            let statusBarHeight = wx.getSystemInfoSync()['statusBarHeight'];
             this.setData({
                 config,
                 themeColor,
@@ -38,10 +40,12 @@ Component({
                 coupons,
                 updateAvatar,
                 background_color,
+                statusBarHeight
             });
         }
     },
     methods: {
+        // 点击用户头像的鉴权
         async bindGetUserInfo(e) {
             let time = Date.now();
             wx.setStorageSync(USER_INFO_CREATE_TIME, time);
@@ -49,11 +53,37 @@ Component({
             const user = await getAgainUserForInvalid({ encryptedData, iv });
             this.setData({ user, updateAvatar: false });
         },
+        // 跳转会员页的鉴权
+        async getUserBeforeToMember(e) {
+            const { encryptedData, iv } = e.detail;
+            if (iv && encryptedData) {
+                const user = await getAgainUserForInvalid({ encryptedData, iv });
+                if (user) {
+                    this.toMembersPage();
+                }
+            } else {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: '需授权后操作',
+                    showCancel: false,
+                });
+            }
+        },
         consoleOpen() {
             this.triggerEvent('consoleOpen', {}, { bubbles: true });
         },
+        // 跳转到会员中心
+        toMembersPage() {
+            wx.navigateTo({
+                url: '/pages/membership/members/members'
+            });
+        },
         // 用户签到
         async tapSignIn() {
+            const { user } = this.data;
+            if (user.is_checkined) {
+                return;
+            }
             const result = await api.hei.signIn(); // 签到
             const wallet = result.current_user.wallet;
             this.setData({ user: result.current_user });
@@ -64,6 +94,13 @@ Component({
             wx.setStorageSync(USER_KEY, result.current_user);
             this.setData({ wallet });
             this.triggerEvent('changeWalletData', wallet, { bubbles: true });
+        },
+        // 展示企业微信联系方式
+        onCustomService() {
+            let customServiceModal = true;
+            this.setData({
+                customServiceModal,
+            });
         }
     }
 });

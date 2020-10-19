@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.079" y1="0.11" x2="0.805" y2="0.902" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f0d88d"/>
+      <stop offset="1" stop-color="#b88922"/>
+    </linearGradient>
+  </defs>
+  <g id="组_4249" data-name="组 4249" transform="translate(-4823 -2266)">
+    <rect id="矩形_1815" data-name="矩形 1815" class="cls-1" width="60" height="60" transform="translate(4823 2266)"/>
+    <g id="组_4267" data-name="组 4267" transform="translate(-5165.973 3009.027)">
+      <path id="联合_21" data-name="联合 21" class="cls-2" d="M15.814,49.184H10a10,10,0,0,1-10-10V10A10,10,0,0,1,10,0H39.182a10,10,0,0,1,10,10V39.184c0,.045,0,.089,0,.134v7.866a2,2,0,0,1-2,2Z" transform="translate(9994.596 -737.311)"/>
+      <g id="组_4263" data-name="组 4263" transform="translate(10001.094 -726.07)">
+        <g id="组_4256" data-name="组 4256" transform="translate(0 0)">
+          <path id="路径_6661" data-name="路径 6661" class="cls-3" d="M497.524,567.59c-7.164,11.624-8.56,10.678-8.56,10.678-2.455-.184-7.548-14.267-7.548-14.267s-5.093,14.083-7.548,14.267c0,0-1.432.611-8.56-10.678l-.307.552a43.651,43.651,0,0,1,4.173,15.495h24.485a43.648,43.648,0,0,1,4.173-15.495Z" transform="translate(-463.033 -561.269)"/>
+          <circle id="椭圆_440" data-name="椭圆 440" class="cls-3" cx="1.872" cy="1.872" r="1.872" transform="translate(0 4.081)"/>
+          <circle id="椭圆_441" data-name="椭圆 441" class="cls-3" cx="1.872" cy="1.872" r="1.872" transform="translate(32.684 4.081)"/>
+          <circle id="椭圆_442" data-name="椭圆 442" class="cls-3" cx="2.317" cy="2.317" r="2.317" transform="translate(16.066 0)"/>
+        </g>
+        <g id="组_4258" data-name="组 4258" transform="translate(6.048 24.34)">
+          <rect id="矩形_1832" data-name="矩形 1832" class="cls-3" width="24.362" height="2.761" transform="translate(0 0)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

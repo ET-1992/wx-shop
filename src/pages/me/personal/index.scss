@@ -1,11 +1,31 @@
 @import '~styles/color';
+
 .header {
-	margin: 20rpx;
-	border-radius: 10rpx;
+	padding-bottom: 60rpx;
+	position: relative;
+	margin-bottom: 55rpx;
 	// background-color: #729153;
 
+	.head-signin {
+		display: flex;
+		align-items: center;
+		color: #fff;
+		padding: 20rpx 30rpx;
+		.signin-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 24rpx;
+			margin-right: 20rpx;
+			.signin-img{
+				width: 40rpx;
+				height: 40rpx;
+				margin-right: 6rpx;
+			}
+		}
+	}
 	.header-top {
-		padding: 30rpx;
+		padding: 30rpx 50rpx;
 		text-align: center;
 		color: #fff;
 		display: flex;
@@ -17,7 +37,7 @@
 			display: flex;
 			// flex-direction: column;
 			align-items: center;
-	
+
 			.avatar {
 				$size: 120rpx;
 				width: $size;
@@ -28,14 +48,14 @@
 				background-repeat: no-repeat;
 				background-size: cover;
 			}
-	
+
 			.head-text {
 				display: flex;
 				flex-direction: column;
 				justify-content: space-around;
 				margin-left: 16rpx;
 				margin-bottom: 10rpx;
-	
+
 				.head-user {
 					font-size: 26rpx;
 					font-weight: bold;
@@ -47,17 +67,17 @@
 					white-space: nowrap;
 					margin-bottom: 10rpx;
 				}
-	
+
 				.head-level {
 					width: 110rpx;
-					height: 28rpx;
+					height: 30rpx;
 					border-radius: 14rpx;
-					background-color: #fff;
-					color: #DE4E24;
+					background-color: #333;
+					color: #fff;
 					font-size: 20rpx;
 					text-align: center;
-					line-height: 28rpx;
-					border: 1px solid #fff;
+					line-height: 30rpx;
+					border: 1px solid #333;
 				}
 			}
 		}
@@ -76,28 +96,38 @@
 		}
 	}
 	.header-bottom {
-		height: 100rpx;
-		padding: 32rpx;
+		position: absolute;
+		bottom: -40rpx;
+		height: 80rpx;
+		width: 720rpx;
+		margin: 0 16rpx;
+		padding: 0 36rpx;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
-		border-top: 1px solid #fff;
-		
-		.head-btn,
-		.head-signin {
-			width: 150rpx;
-			height: 50rpx;
-			color: #FFFFFF;
+		background-color: #fff;
+		border-radius: 10rpx;
+		color: #333333;
+
+		.head-tip{
+			display: flex;
+			align-items: center;
 			font-size: 28rpx;
-			background-color: #D7D7D7;
-			border-radius: 25rpx;
-			text-align: center;
-			line-height: 50rpx;
+			.tip-image{
+				width: 60rpx;
+				height: 60rpx;
+				margin-right: 16rpx;
+			}
 		}
 
 		.head-btn {
-			color: #333333;
+			font-size: 22rpx;
+			text-align: center;
 			background-color: #fff;
 		}
+	}
+	&.none-vip{
+		margin-bottom: 15rpx;
+		padding-bottom: 20rpx;
 	}
 }
