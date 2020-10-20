@@ -1,5 +1,6 @@
 <view class="container">
 	<view class="product-title">{{ product.title || '-' }}</view>
+	<view class="product-subtitle">{{ product.excerpt || '-' }}</view>
 	<view class="product-options">
 		<view class="option-wrap" wx:for="{{ optionList }}" 
 			wx:key="index">
@@ -15,8 +16,7 @@
 			</view>
 		</view>
 	</view>
-	<slot name="content"></slot>
-	<view class="order-end">
+	<view class="order-end" wx:if="{{ !customBottom }}">
 		<view class="end-left">
 			<view class="left-price">
 				<text>￥</text>

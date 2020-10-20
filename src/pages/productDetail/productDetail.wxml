@@ -165,13 +165,20 @@
 		
 		<!-- 商品下单选项 -->
 		<view class="product-options" wx:if="{{ product.product_style_type === 2 }}">
-			<orderOptions product="{{ product }}" quantity="{{ productQuantity }}" id="orderOptions">
-				<view class="options-content" slot="content">
-					<view class="product-title">商品详情</view>
-					<view class="product-content">{{ product.excerpt || '-' }}</view>
-				</view>
-				<van-stepper slot="end-right"  value="{{ 1 }}" bind:change="onProductQuantity" />
+			<orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption">
 			</orderOptions>
+			<view class="options-content">
+				<view class="product-title">商品详情</view>
+				<view class="product-content">
+					<template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+						<formatContent 
+							wx:if="{{ product.format && product.format_content }}" 
+							type="{{ product.format }}" 
+							content="{{ product.format_content }}" 
+							author="{{ product.author }}"
+						/>
+				</view>
+			</view>
 		</view>
 
 		<block  wx:else>
@@ -433,7 +440,24 @@
 	<!-- 底部状态栏 -->
 	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
-		<view class="unpublishedHint" wx:if="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
+		<view class="unpublishedHint" wx:elif="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
+		<!-- 餐饮商品 数量选择 -->
+		<view class="catering-order-end" wx:elif="{{ product.product_style_type === 2 }}">
+			<view class="end-left">
+				<view class="left-price">
+					<text>￥</text>
+					<text>{{ cateringProduct.selectedPrice || '-' }}</text>
+				</view>
+				<view class="left-options">
+					<text class="left-options-title">{{ product.title || '-' }}</text>
+					<text>{{ cateringProduct.selectedString }}</text>
+				</view>
+			</view>
+			<view class="end-right">
+				<van-stepper value="{{ 1 }}" bind:change="onProductQuantity" />
+			</view>
+		</view>
+		<!-- 底部商品导航 -->
 		<view class="footerMain {{ product.status === 'unpublished' || product.status === 'sold_out' ? 'disabledBuy' : '' }}">
 			<view class="footer-left">
 				<view class="shop" data-url="/pages/home/home" bind:tap="go">
@@ -584,11 +608,11 @@
 	<!-- 代付按钮 -->
 	<block wx:if="{{ !product.seckill_enable || (hasStart && !hasEnd) }}">  <!-- 秒杀-未开始或过期隐藏 -->
 		<view
+		wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable && product.product_style_type !==2 }}"
 		class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}"
 		catchtap="onShowSku"
 		data-is-crowd
 		data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}"
-		wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable}}"
 		>
 			<image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
 		</view>

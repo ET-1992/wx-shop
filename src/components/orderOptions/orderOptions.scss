@@ -1,5 +1,5 @@
 .container {
-	padding: 20rpx 25rpx;
+	padding: 20rpx 25rpx 0rpx 25rpx;
 	background-color: #fff;
 	border-radius: 5rpx;
 	.product-title {
@@ -7,9 +7,19 @@
 		line-height: 42rpx;
 		font-weight: bold;
 	}
-	.product-options {
-		margin: 42rpx 0;
+	.product-subtitle {
 		font-size: 24rpx;
+		color: #999999;
+		width: 556rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-top: 10rpx;
+	}
+	.product-options {
+		margin: 26rpx 0 10rpx;
+		font-size: 24rpx;
+		border-radius: 5rpx;
 		.option-wrap {
 			.option-name {
 				line-height: 32rpx;
@@ -18,8 +28,8 @@
 			.option-values {
 				display: flex;
 				flex-wrap: wrap;
-				margin: 20rpx 0;
 				.value-btn {
+					border-radius: 8rpx;
 					font-size: 24rpx;
 					border: none;
 					color: #333333;
@@ -27,7 +37,7 @@
 					line-height: 65rpx;
 					padding: 0 12rpx;
 					min-width: 130rpx;
-					margin: 0 20rpx 20rpx 0;
+					margin: 20rpx 20rpx 20rpx 0;
 					&.value-btn-avtived {
 						color: white;
 						// background-color: #D1483E;
@@ -38,6 +48,10 @@
 	}
 	.order-end {
 		display: flex;
+		height: 140rpx;
+		align-items: center;
+		padding: 28rpx 0 20rpx;
+		border-top: 1rpx solid #D4D4D4;
 		.end-left {
 			flex-wrap: wrap;
 			flex: 1;
