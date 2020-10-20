@@ -1074,7 +1074,7 @@ Page({
             { selectorsId, selectorsTop } = this.data;
         // 求出当前位置对应标签
         let currentTab = selectorsTop.reduce((acc, cur, idx) => {
-            if (cur !== null && (cur < scrollTop)) {
+            if (cur !== null && (cur <= scrollTop)) {
                 return selectorsId[idx];
             }
             return acc;
@@ -1113,7 +1113,6 @@ Page({
     async getSelectorsTop() {
         let { selectorsId } = this.data,
             selectorsTop = [];
-        // let barComponent = this.selectComponent('#navigation-bar');
         // 页面导航组件
         let tabsComponent = this.selectComponent('#tabs');
         let { tabsBottom = 0 } = tabsComponent.data;
@@ -1126,4 +1125,5 @@ Page({
         }
         this.setData({ selectorsTop });
     },
+
 });
