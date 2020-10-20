@@ -1,0 +1,83 @@
+<view class="container">
+  <van-row custom-class="account">
+    <van-col custom-class="account-item" span="12">
+      <view class="account-name">余额</view>
+      <view>
+        <text class="account-symbol">￥</text>
+        10000
+      </view>
+    </van-col>
+    <van-col custom-class="account-item" span="12">
+      <view class="account-name">金币</view>
+      <view>10000</view>
+    </van-col>
+  </van-row>
+  <view class="wallet">
+    <!-- 主标签页 -->
+    <view class="wallet-tab">
+      <view class="tab-item tab-active">
+        <view class="tab-name">优惠券</view>
+        <view class="tab-num">
+          10
+          <text>张</text>
+        </view>
+      </view>
+      <view class="tab-item">
+        <view class="tab-name">礼品卡</view>
+        <view class="tab-num">
+          10
+          <text>张</text>
+        </view>
+      </view>
+      <view class="tab-item">
+        <view class="tab-name">电子卡券</view>
+        <view class="tab-num">
+          10
+          <text>张</text>
+        </view>
+      </view>
+    </view>
+    <view class="wallet-content">
+      <!-- 优惠券 -->
+      <view class="coupon" wx:if="{{ false }}">
+        <van-tabs active="{{ 0 }}" custom-class="coupon-content" bind:change="onChange">
+          <van-tab title="未使用"></van-tab>
+          <van-tab title="已使用"></van-tab>
+          <van-tab title="已过期"></van-tab>
+        </van-tabs>
+        <view class="coupon-content">
+          <van-empty description="无相关优惠券" />
+        </view>
+      </view>
+      <!-- 礼品卡 -->
+      <view class="gift-card" wx:elif="{{ true }}">
+        <van-empty description="无相关礼品卡" wx:if="{{ false }}" />
+        <view class="gift-content" wx:else>
+          <view class="gift-item" wx:for="{{ 6 }}" wx:key="index">
+            <view class="gift-detail">
+              <van-image width="200rpx" height="110rpx" radius="5rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <view class="gift-right">
+                <view class="gift-title">愉快好心情</view>
+                <view class="gift-buy-time">购买时间：2020-07-30 11:26:19</view>
+                <view class="gift-value">￥199</view>
+              </view>
+            </view>
+            <view class="gift-btns">
+              <view class="gift-status">
+                <button class="gift-btn">赠送</button>
+              </view>
+              <view class="gift-btn-detail">
+                <button class="gift-btn">订单详情</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 电子卡 -->
+      <view class="e-card" wx:elif="{{ false }}">
+        <view class="e-card-detail"></view>
+        <view class="e-card-status"></view>
+      </view>
+    </view>
+  </view>
+</view>
