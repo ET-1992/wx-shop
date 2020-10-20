@@ -164,10 +164,21 @@
 		</view>
 		
 		<!-- 商品下单选项 -->
-		<view class="product-options" wx:if="{{ product.product_style_type === 2 }}">
-			<orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption">
-			</orderOptions>
+		<block wx:if="{{ product.product_style_type === 2 }}">
+			<view class="product-options">
+				<orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption">
+				</orderOptions>
+			</view>
 			<view class="options-content">
+				<template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
+							<formatContent 
+					wx:if="{{ product.format && product.format_content }}" 
+					type="{{ product.format }}" 
+					content="{{ product.format_content }}" 
+					author="{{ product.author }}"
+				/>
+			</view>
+			<!-- <view class="options-content">
 				<view class="product-title">商品详情</view>
 				<view class="product-content">
 					<template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
@@ -178,8 +189,8 @@
 							author="{{ product.author }}"
 						/>
 				</view>
-			</view>
-		</view>
+			</view> -->
+		</block>
 
 		<block  wx:else>
 			<view class="info">

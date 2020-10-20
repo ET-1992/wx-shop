@@ -454,24 +454,22 @@ video {
 	margin: 0 15rpx;
 	transform: translateY(-112rpx);
 	z-index: 9999;
-	.options-content {
-		padding: 20rpx 25rpx;
-		margin: 16rpx 0;
-		background-color: #fff;
-		border-radius: 5rpx;
-		.product-title {
-			font-size: 28rpx;
-			line-height: 36rpx;
-			color: black;
-			font-weight: bold;
-		}
-		.product-content {
-			font-size: 24rpx;
-			color: #707070;
-			line-height: 30rpx;
-			margin: 24rpx 0 60rpx;
-		}
-	}
+	// .options-content {
+	// 	padding: 20rpx 25rpx;
+	// 	margin: 16rpx 0;
+	// 	background-color: #fff;
+	// 	border-radius: 5rpx;
+	// 	.product-title {
+	// 		font-size: 28rpx;
+	// 		line-height: 36rpx;
+	// 		color: black;
+	// 		font-weight: bold;
+	// 	}
+	// }
+}
+.options-content {
+	margin-top: 20rpx;
+	transform: translateY(-112rpx);
 }
 .info {
 	background-color: #fff;
