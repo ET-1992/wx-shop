@@ -1,4 +1,5 @@
 import { CONFIG } from 'constants/index';
+import { go } from 'utils/util';
 const app = getApp();
 
 Component({
@@ -29,6 +30,8 @@ Component({
         },
     },
     methods: {
+
+        go,
 
         // 获取页面配置信息
         getConfigData() {

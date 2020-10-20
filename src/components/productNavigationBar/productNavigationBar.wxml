@@ -24,7 +24,7 @@
         </view>
       </van-overlay>
     </view>
-    <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
+    <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})" bind:tap="go" data-url="/pages/search/search">
       <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
       <text>搜索商品</text>
     </view>
