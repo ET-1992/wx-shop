@@ -7,8 +7,17 @@
 		line-height: 42rpx;
 		font-weight: bold;
 	}
+	.product-subtitle {
+		font-size: 24rpx;
+		color: #999999;
+		width: 556rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-top: 10rpx;
+	}
 	.product-options {
-		margin: 42rpx 0 10rpx;
+		margin: 26rpx 0 10rpx;
 		font-size: 24rpx;
 		border-radius: 5rpx;
 		.option-wrap {

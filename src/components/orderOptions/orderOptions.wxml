@@ -1,5 +1,6 @@
 <view class="container">
 	<view class="product-title">{{ product.title || '-' }}</view>
+	<view class="product-subtitle">{{ product.excerpt || '-' }}</view>
 	<view class="product-options">
 		<view class="option-wrap" wx:for="{{ optionList }}" 
 			wx:key="index">
