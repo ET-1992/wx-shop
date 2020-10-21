@@ -1070,16 +1070,8 @@ Page({
 
     // 页面滚动
     handlePageScroll: throttle(function(e) {
-        let { scrollTop } = e.detail,
-            { selectorsId, selectorsTop } = this.data;
-        // 求出当前位置对应标签
-        let currentTab = selectorsTop.reduce((acc, cur, idx) => {
-            if (cur !== null && (cur <= scrollTop)) {
-                return selectorsId[idx];
-            }
-            return acc;
-        }, selectorsId[0]);
-        this.setData({ scrollTop, currentTab });
+        let { scrollTop } = e.detail;
+        this.setData({ scrollTop });
     }, 200),
 
     // 根据标签导航到指定位置
@@ -1124,6 +1116,40 @@ Page({
             selectorsTop.push(top);
         }
         this.setData({ selectorsTop });
+        console.log('selectorsTop', selectorsTop);
+
+        this.observerSeletors();
+    },
+
+    // 监听各个标签导航位置
+    async observerSeletors() {
+        let bottom = await this.getRelativeBottom();
+        this._observer = wx.createIntersectionObserver(this, { observeAll: true });
+        this._observer.relativeToViewport({ bottom }).observe('.observer-tab', (res) => {
+            let { intersectionRatio, id } = res;
+            if (intersectionRatio === 0) { return }
+            this.setData({ currentTab: id });
+        });
+    },
+
+    // 获取参考区域底部
+    getRelativeBottom() {
+        this.getTabsBottom();
+        let tabsBottom = this._tabsBottom;
+        return new Promise((resolve) => {
+            wx.createSelectorQuery().selectViewport().scrollOffset(res => {
+                let { scrollHeight = 0 } = res;
+                let bottom = tabsBottom - scrollHeight;
+                resolve(bottom);
+            }).exec();
+        });
+    },
+
+    // 获取Tabs组件上方距离
+    async getTabsBottom() {
+        let tabsComponent = this.selectComponent('#tabs');
+        let { tabsBottom = 0 } = tabsComponent.data;
+        this._tabsBottom = tabsBottom;
     },
 
 });
