@@ -15,17 +15,32 @@ Component({
         }
     },
     data: {
-        hasMore: true
+        hasMore: true,
+        commentList: [],  // 展示的评论信息
+    },
+    lifetimes: {
+        attached() {
+            let { comments } = this.data,
+                commentList = [];
+
+            commentList = comments;
+            if (comments.length > 2) {
+                commentList = comments.slice(0, 2);
+            }
+            this.setData({ commentList });
+        },
     },
     methods: {
-        async moreComments() {
-            const post_id = this.data.postId;
+        // 获取更多评论
+        async onMoreComments() {
+            const { postId: post_id } = this.data;
             try {
                 const data = await api.hei.productCommentList({ post_id });
                 this.setData({
-                    comments: data.replies,
+                    commentList: data.replies,
                     hasMore: false
                 });
+                // this.triggerEvent('moreComment');
             }
             catch (e) {
                 console.log(e);

@@ -1,7 +1,7 @@
 <view class="container">
     <view class="title"> 商品评价（{{ replyCount }}）</view>
     <view class="comments">
-        <view class="item" wx:for="{{ comments }}" wx:key="id">
+        <view class="item" wx:for="{{ commentList }}" wx:key="id">
            <view class="top">
                 <view class="user">
                     <image class="avatar" src="{{ item.user && item.user.avatarurl }}" mode="aspectFit"></image>
@@ -21,7 +21,7 @@
             </view>
         </view>
     </view>
-    <view wx:if="{{ hasMore && replyCount > 2 }}" class="moreComments" bindtap="moreComments">查看全部评价</view>
+    <view wx:if="{{ hasMore && replyCount > 2 }}" class="moreComments" bindtap="onMoreComments">查看全部评价</view>
 </view>
 
 <wxs module="foo">
