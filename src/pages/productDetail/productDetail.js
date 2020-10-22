@@ -1126,6 +1126,7 @@ Page({
         let bottom = await this.getRelativeBottom();
         this._observer = wx.createIntersectionObserver(this, { observeAll: true });
         this._observer.relativeToViewport({ bottom }).observe('.observer-tab', (res) => {
+            // console.log('observer', res);
             let { intersectionRatio, id } = res;
             if (intersectionRatio === 0) { return }
             this.setData({ currentTab: id });
