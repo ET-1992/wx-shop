@@ -12,19 +12,19 @@ Component({
         replyCount: {
             type: Number,
             value: 0
-        }
+        },
+        showPart: {
+            type: Number,
+            value: true,
+        },
     },
     data: {
-        hasMore: true,
         commentList: [],  // 展示的评论信息
     },
-    lifetimes: {
-        attached() {
-            let { comments } = this.data,
-                commentList = [];
-
-            commentList = comments;
-            if (comments.length > 2) {
+    observers: {
+        'comments, replyCount, showPart': function(comments, replyCount, showPart) {
+            let commentList = comments;
+            if (showPart && replyCount > 2) {
                 commentList = comments.slice(0, 2);
             }
             this.setData({ commentList });
@@ -34,17 +34,9 @@ Component({
         // 获取更多评论
         async onMoreComments() {
             const { postId: post_id } = this.data;
-            try {
-                const data = await api.hei.productCommentList({ post_id });
-                this.setData({
-                    commentList: data.replies,
-                    hasMore: false
-                });
-                // this.triggerEvent('moreComment');
-            }
-            catch (e) {
-                console.log(e);
-            }
+            let url = '/pages/productDetail/commentList/commentList';
+            url += `?id=${post_id}`;
+            wx.navigateTo({ url });
         },
         previewImage(ev) {
             const newImages = [];

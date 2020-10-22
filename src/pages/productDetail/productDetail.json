@@ -7,7 +7,7 @@
     "couponList": "components/couponList/index",
     "loading": "components/loading/index",
     "countDown": "components/countDown/countDown",
-    "productComments": "./productComments/index",
+    "productComments": "components/productComments/index",
     "productParams": "./productParam/productParam",
     "tabs": "./tabs/tabs",
     "magicImg": "components/magicImg/magicImg",

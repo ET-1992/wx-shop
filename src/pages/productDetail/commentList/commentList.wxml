@@ -1,0 +1,3 @@
+<view class="container">
+	<productComments comments="{{ commentList }}" replyCount="{{ commentList.length }}" showPart="{{ false }}" />
+</view>

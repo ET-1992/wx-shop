@@ -21,7 +21,7 @@
             </view>
         </view>
     </view>
-    <view wx:if="{{ hasMore && replyCount > 2 }}" class="moreComments" bindtap="onMoreComments">查看全部评价</view>
+    <view wx:if="{{ showPart && replyCount > 2 }}" class="moreComments" bindtap="onMoreComments">查看全部评价</view>
 </view>
 
 <wxs module="foo">
