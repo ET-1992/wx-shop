@@ -251,8 +251,7 @@ Page({
                 ...data,
                 isLoading: false
             }, () => {
-                this.getSelectorsTop();
-                this.observerSeletors();
+                this.handleScrollMethods();
             });
 
             // 获取缓存地址的邮费信息
@@ -1072,6 +1071,12 @@ Page({
         this.setData({ isShowPostageRule: true });
     },
 
+    handleScrollMethods() {
+        this.getTabsBottom();
+        this.getSelectorsTop();
+        this.observerSeletors();
+    },
+
     // 页面滚动
     handlePageScroll: throttle(function(e) {
         let { scrollTop } = e.detail;
@@ -1114,8 +1119,7 @@ Page({
         let { selectorsId } = this.data,
             selectorsTop = [];
         // 页面导航组件
-        let tabsComponent = this.selectComponent('#tabs');
-        let { tabsBottom = 0 } = tabsComponent.data;
+        let tabsBottom = this._tabsBottom;
         // 导航对应位置
         for (let i = 0; i < selectorsId.length; i++) {
             const id = selectorsId[i];
@@ -1142,7 +1146,6 @@ Page({
 
     // 获取参考区域底部
     getRelativeBottom() {
-        this.getTabsBottom();
         let tabsBottom = this._tabsBottom;
         return new Promise((resolve) => {
             wx.createSelectorQuery().selectViewport().scrollOffset(res => {

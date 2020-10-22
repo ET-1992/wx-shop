@@ -8,12 +8,16 @@ page {
 	position: relative;
 }
 
-.container {
-	padding-bottom: $footerHeight;
-	color: $titleColor;
-	height: auto;
-	&.iphoneXTrick {
-	    padding-bottom: $footerHeight + $iphoneXBottomGap;
+.product-main {
+	height: 100vh; 
+	width: 100%;
+	.container {
+		padding-bottom: $footerHeight;
+		color: $titleColor;
+		height: auto;
+		&.iphoneXTrick {
+			padding-bottom: $footerHeight + $iphoneXBottomGap;
+		}
 	}
 }
 
