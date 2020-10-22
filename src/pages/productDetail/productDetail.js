@@ -382,6 +382,8 @@ Page({
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
+        // 滑动监听
+        if (this._observer) this._observer.disconnect();
         // 卸载运费地区监听
         app.event.off('setAddressListEvent', this);
     },
@@ -1118,7 +1120,7 @@ Page({
         for (let i = 0; i < selectorsId.length; i++) {
             const id = selectorsId[i];
             let rect = await this.getBoundingRect(id);
-            // console.log('rect', rect);
+            console.log('rect', rect);
             let top = rect && rect.top && (rect.top - tabsBottom);
             selectorsTop.push(top);
         }
