@@ -27,7 +27,8 @@ Component({
         getPageData() {
             let { themeColor } = app.globalData;
             let menuRect = wx.getMenuButtonBoundingClientRect();
-            let tabsBottom = menuRect.bottom + 8 * 2 + 44;
+            let tabsHeight = 44 + 8 * 2;
+            let tabsBottom = menuRect.bottom + tabsHeight;
             this.setData({ menuRect, themeColor, tabsBottom });
         },
         // 点击标签

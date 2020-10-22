@@ -250,6 +250,9 @@ Page({
                 share_image: thumbnail,
                 ...data,
                 isLoading: false
+            }, () => {
+                this.getSelectorsTop();
+                this.observerSeletors();
             });
 
             // 获取缓存地址的邮费信息
@@ -297,7 +300,6 @@ Page({
             }
         }
         console.log(this.data, 'this.data');
-        this.getSelectorsTop();
     },
 
     setDefinePrice() {
@@ -1072,7 +1074,7 @@ Page({
     handlePageScroll: throttle(function(e) {
         let { scrollTop } = e.detail;
         this.setData({ scrollTop });
-    }, 200),
+    }, 100),
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
@@ -1085,6 +1087,10 @@ Page({
             index++;
         }
         let toScrollTop = arr[index];
+        if (index > 0) {
+            // 跳过外边距
+            toScrollTop += 10;
+        }
         this.setData({
             toScrollTop,
             currentTab: name,
@@ -1095,7 +1101,7 @@ Page({
     getBoundingRect(id) {
         return new Promise((resolve) => {
             let selector = `#${id}`;
-            wx.createSelectorQuery().select(selector).boundingClientRect((rect) => {
+            wx.createSelectorQuery().select(selector).fields({ size: true, rect: true, scrollOffset: true }, (rect) => {
                 resolve(rect);
             }).exec();
         });
@@ -1112,13 +1118,12 @@ Page({
         for (let i = 0; i < selectorsId.length; i++) {
             const id = selectorsId[i];
             let rect = await this.getBoundingRect(id);
+            // console.log('rect', rect);
             let top = rect && rect.top && (rect.top - tabsBottom);
             selectorsTop.push(top);
         }
         this.setData({ selectorsTop });
         console.log('selectorsTop', selectorsTop);
-
-        this.observerSeletors();
     },
 
     // 监听各个标签导航位置
