@@ -244,6 +244,12 @@ Page({
                 data.posterType = 'bargain';
             }
 
+            if (product.related && product.related.length) {
+                this.setData({
+                    isShowProductRelated: true
+                });
+            }
+
             this.setData({
                 grouponId: grouponId || '',
                 share_image: thumbnail,
@@ -276,13 +282,6 @@ Page({
             this.setDefinePrice();
             // ---------------
 
-            if (product.related && product.related.length) {
-                setTimeout(() => {
-                    this.setData({
-                        isShowProductRelated: true
-                    });
-                }, 1000);
-            }
         } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
@@ -1102,14 +1101,16 @@ Page({
     // 联动页面标签
     linkTabs() {
         let { _tabTopList = [] } = this,
-            { scrollTop, selectorsId } = this.data;
-        let currentTab = '';
+            { scrollTop, selectorsId, currentTab } = this.data;
+        let newTab = '';
         _tabTopList.forEach((item, index) => {
             if (scrollTop >= item) {
-                currentTab = selectorsId[index];
+                newTab = selectorsId[index];
             }
         });
-        this.setData({ currentTab });
+        // console.log('newTab', newTab);
+        if (currentTab === newTab) { return }
+        this.setData({ currentTab: newTab });
     },
 
     // 封装元素基于视口的尺寸
