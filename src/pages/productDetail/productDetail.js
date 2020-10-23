@@ -70,7 +70,6 @@ Page({
         scrollTop: 0,  // 当前视图的scrollTop
         toScrollTop: 0,  // 跳转的scrollTop
         selectorsId: ['goods', 'comments', 'detail', 'recommend'],  // 标签对应的元素ID
-        selectorsTop: [],  // 标签对应的元素offsetTop
         // 餐饮商品展示信息
         cateringProduct: {
             selectedPrice: '',
@@ -1074,26 +1073,25 @@ Page({
     handleScrollMethods() {
         this.getTabsBottom();
         this.getSelectorsTop();
-        this.observerSeletors();
+        // this.observerSeletors();
     },
 
     // 页面滚动
     handlePageScroll: throttle(function(e) {
         let { scrollTop } = e.detail;
+        // console.log('滚动');
         this.setData({ scrollTop });
-    }, 100),
+        this.linkTabs();
+    }, 120),
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
         let { name } = e.detail,
-            { selectorsTop, selectorsId } = this.data;
+            { _tabTopList = [] } = this,
+            { selectorsId } = this.data;
         let index = selectorsId.indexOf(name);
 
-        let arr = [...selectorsTop, 99999];
-        while (arr[index] === null) {
-            index++;
-        }
-        let toScrollTop = arr[index];
+        let toScrollTop = _tabTopList[index];
         if (index > 0) {
             // 跳过外边距
             toScrollTop += 10;
@@ -1102,6 +1100,19 @@ Page({
             toScrollTop,
             currentTab: name,
         });
+    },
+
+    // 联动页面标签
+    linkTabs() {
+        let { _tabTopList = [] } = this,
+            { scrollTop, selectorsId } = this.data;
+        let currentTab = '';
+        _tabTopList.forEach((item, index) => {
+            if (scrollTop >= item) {
+                currentTab = selectorsId[index];
+            }
+        });
+        this.setData({ currentTab });
     },
 
     // 封装元素基于视口的尺寸
@@ -1116,20 +1127,31 @@ Page({
 
     // 获取元素的offsetTop
     async getSelectorsTop() {
-        let { selectorsId } = this.data,
-            selectorsTop = [];
-        // 页面导航组件
-        let tabsBottom = this._tabsBottom;
+        let { selectorsId, product } = this.data,
+            { _tabsBottom } = this,
+            tabTopList = [0];
         // 导航对应位置
         for (let i = 0; i < selectorsId.length; i++) {
             const id = selectorsId[i];
             let rect = await this.getBoundingRect(id);
-            console.log('rect', rect);
-            let top = rect && rect.top && (rect.top - tabsBottom);
-            selectorsTop.push(top);
+            // console.log('rect', rect);
+            let height = (rect && rect.height) || 0;
+            let offsetTop = tabTopList[tabTopList.length - 1] + height;
+
+            if (i === 0) {
+                // 忽略标签固定部分高度
+                offsetTop -= _tabsBottom;
+                // 餐饮商品
+                if (product.product_style_type === 2) {
+                    const TRANSLATEY = 60;
+                    offsetTop -= TRANSLATEY;
+                }
+            }
+
+            tabTopList.push(offsetTop);
         }
-        this.setData({ selectorsTop });
-        console.log('selectorsTop', selectorsTop);
+        console.log('tabTopList', tabTopList);
+        this._tabTopList = tabTopList;
     },
 
     // 监听各个标签导航位置
