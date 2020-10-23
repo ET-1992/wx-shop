@@ -380,8 +380,6 @@ Page({
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
-        // 滑动监听
-        if (this._observer) this._observer.disconnect();
         // 卸载运费地区监听
         app.event.off('setAddressListEvent', this);
     },
@@ -1073,7 +1071,6 @@ Page({
     handleScrollMethods() {
         this.getTabsBottom();
         this.getSelectorsTop();
-        // this.observerSeletors();
     },
 
     // 页面滚动
@@ -1152,30 +1149,6 @@ Page({
         }
         console.log('tabTopList', tabTopList);
         this._tabTopList = tabTopList;
-    },
-
-    // 监听各个标签导航位置
-    async observerSeletors() {
-        let bottom = await this.getRelativeBottom();
-        this._observer = wx.createIntersectionObserver(this, { observeAll: true });
-        this._observer.relativeToViewport({ bottom }).observe('.observer-tab', (res) => {
-            // console.log('observer', res);
-            let { intersectionRatio, id } = res;
-            if (intersectionRatio === 0) { return }
-            this.setData({ currentTab: id });
-        });
-    },
-
-    // 获取参考区域底部
-    getRelativeBottom() {
-        let tabsBottom = this._tabsBottom;
-        return new Promise((resolve) => {
-            wx.createSelectorQuery().selectViewport().scrollOffset(res => {
-                let { scrollHeight = 0 } = res;
-                let bottom = tabsBottom - scrollHeight;
-                resolve(bottom);
-            }).exec();
-        });
     },
 
     // 获取Tabs组件上方距离
