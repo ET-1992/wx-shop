@@ -52,7 +52,7 @@ Component({
         changeActive(ev) {
             console.log(ev, '--ev');
             const { navbarListData } = this.data;
-            let index = ev.detail.index || ev.currentTarget.dataset.index;
+            let index = typeof (ev.detail.index) !== 'undefined' ? ev.detail.index : ev.currentTarget.dataset.index;
             let value = navbarListData[index] && navbarListData[index].value;
             this.setData({
                 activeIndex: index,
