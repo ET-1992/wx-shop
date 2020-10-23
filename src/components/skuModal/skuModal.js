@@ -14,7 +14,6 @@ Component({
             type: Object,
             value: {},
             observer(newValue, oldValue) {
-                console.log(newValue, 'newValue', oldValue, 'oldValue');
                 if (newValue.id !== (oldValue && oldValue.id)) { // 缓存
                     this.firstInit();
                     this.setSku();

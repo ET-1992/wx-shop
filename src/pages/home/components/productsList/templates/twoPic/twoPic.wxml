@@ -49,8 +49,8 @@
 				<block wx:if="{{ config && config.cart_enable }}">
 					<!-- 金币商品 -->
 					<view class="coin-product" wx:if="{{ product.product_type === 4 || product.product_style_type === 2 }}">已售:{{ product.sales }}</view>
-					<!-- 开启首页显示购物车按钮 -->
-					<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ product.product_type !== 4 && product.product_style_type !== 2}}">
+					<!-- 开启首页显示购物车按钮 排除虚拟商品-->
+					<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ (product.product_type !== 4) && (product.product_style_type !== 2) && (product.product_type !== 1)}}">
 						<image class="icon" src="/icons/cart.svg" />
 					</view>
 				</block>

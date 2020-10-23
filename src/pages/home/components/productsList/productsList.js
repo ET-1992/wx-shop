@@ -11,7 +11,6 @@ Component({
             type: Object,
             value: {},
             observer(newVal) {
-                console.log('productsList', newVal);
                 if (!newVal) { return }
                 const { content, setting, title, type, id } = newVal;
                 this.setData({
@@ -130,11 +129,12 @@ Component({
                 wx.setStorageSync('CART_NUM', data.count);
                 wx.showToast({
                     icon: 'success',
-                    title: `已加入购物车`,
+                    title: '已加入购物车',
                 });
                 updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
             } catch (ev) {
                 console.log('ev', ev);
+                wx.hideLoading();
                 if (ev.code === 'system_error') {
                     return;
                 }
