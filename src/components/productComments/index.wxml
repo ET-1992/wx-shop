@@ -3,11 +3,12 @@
     <view class="comments">
         <view class="item" wx:for="{{ commentList }}" wx:key="id">
            <view class="top">
+               <image class="avatar" src="{{ item.user && item.user.avatarurl }}" mode="aspectFit"></image>
                 <view class="user">
-                    <image class="avatar" src="{{ item.user && item.user.avatarurl }}" mode="aspectFit"></image>
                     <view class="nickname">{{ foo.hideName(item.user && item.user.nickname) }}</view>
+                    <van-rate readonly size="20rpx" color="#f66515" value="{{ item.rating }}" />
                 </view>
-                <van-rate readonly color="#f66515" value="{{ item.rating }}" />
+                <view class="time">{{ item.time }}</view>
            </view>
            <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
            <view class="images" wx:if="{{ item.images && item.images.length }}">
@@ -21,7 +22,10 @@
             </view>
         </view>
     </view>
-    <view wx:if="{{ showPart && replyCount > 2 }}" class="moreComments" bindtap="onMoreComments">查看全部评价</view>
+    <view wx:if="{{ showPart && replyCount > 2 }}" class="more-comments" bindtap="onMoreComments">
+        <text>查看全部评价</text>
+        <van-icon name="arrow" />
+    </view>
 </view>
 
 <wxs module="foo">

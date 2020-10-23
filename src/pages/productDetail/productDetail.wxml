@@ -392,7 +392,7 @@
       </block>
     </view>
     <!-- 商品评论 -->
-    <productComments wx:if="{{ config.reply_enable && product.reply_count }}" class="observer-tab" id="comments" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}" />
+    <productComments wx:if="{{ config.reply_enable && product.reply_count }}" class="comments observer-tab" id="comments" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}" />
     <!-- 商品详情 -->
     <view class="detail observer-tab" id="detail">
       <view class="detailTitle">
