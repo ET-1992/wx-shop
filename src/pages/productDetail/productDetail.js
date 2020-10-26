@@ -66,10 +66,10 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
-        currentTab: 'goods',  // 当前选中标签
+        currentTabIndex: 0,  // 当前选中标签
         scrollTop: 0,  // 当前视图的scrollTop
         toScrollTop: 0,  // 跳转的scrollTop
-        selectorsId: ['goods', 'comments', 'detail', 'recommend'],  // 标签对应的元素ID
+        tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
         cateringProduct: {
             selectedPrice: '',
@@ -244,13 +244,22 @@ Page({
                 data.posterType = 'bargain';
             }
 
+
+            let tabList = ['商品', '详情'];
+
+            // 存在推荐商品
             if (product.related && product.related.length) {
-                this.setData({
-                    isShowProductRelated: true
-                });
+                this.setData({ isShowProductRelated: true });
+                tabList.push('推荐');
+            }
+
+            // 展示评论
+            if (config.reply_enable && product.reply_count) {
+                tabList.splice(1, 0, '评论');
             }
 
             this.setData({
+                tabList,
                 grouponId: grouponId || '',
                 share_image: thumbnail,
                 ...data,
@@ -1069,7 +1078,9 @@ Page({
 
     handleScrollMethods() {
         this.getTabsBottom();
-        this.getSelectorsTop();
+        setTimeout(() => {
+            this.getSelectorsTop();
+        }, 1000);
     },
 
     // 页面滚动
@@ -1082,72 +1093,59 @@ Page({
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
-        let { name } = e.detail,
-            { _tabTopList = [] } = this,
-            { selectorsId } = this.data;
-        let index = selectorsId.indexOf(name);
-
+        let { index } = e.detail,
+            { _tabTopList = [] } = this;
+        // console.log('index', index);
         let toScrollTop = _tabTopList[index];
         if (index > 0) {
             // 跳过外边距
-            toScrollTop += 10;
+            toScrollTop += (10 * index);
         }
         this.setData({
             toScrollTop,
-            currentTab: name,
+            currentTabIndex: index,
         });
     },
 
     // 联动页面标签
     linkTabs() {
         let { _tabTopList = [] } = this,
-            { scrollTop, selectorsId, currentTab } = this.data;
+            { scrollTop, currentTabIndex } = this.data;
         let newTab = '';
         _tabTopList.forEach((item, index) => {
             if (scrollTop >= item) {
-                newTab = selectorsId[index];
+                newTab = index;
             }
         });
         // console.log('newTab', newTab);
-        if (currentTab === newTab) { return }
-        this.setData({ currentTab: newTab });
-    },
-
-    // 封装元素基于视口的尺寸
-    getBoundingRect(id) {
-        return new Promise((resolve) => {
-            let selector = `#${id}`;
-            wx.createSelectorQuery().select(selector).fields({ size: true, rect: true, scrollOffset: true }, (rect) => {
-                resolve(rect);
-            }).exec();
-        });
+        if (currentTabIndex === newTab) { return }
+        this.setData({ currentTabIndex: newTab });
     },
 
     // 获取元素的offsetTop
     async getSelectorsTop() {
-        let { selectorsId, product } = this.data,
+        let { product } = this.data,
             { _tabsBottom } = this,
             tabTopList = [0];
         // 导航对应位置
-        for (let i = 0; i < selectorsId.length; i++) {
-            const id = selectorsId[i];
-            let rect = await this.getBoundingRect(id);
-            // console.log('rect', rect);
-            let height = (rect && rect.height) || 0;
-            let offsetTop = tabTopList[tabTopList.length - 1] + height;
-
-            if (i === 0) {
-                // 忽略标签固定部分高度
-                offsetTop -= _tabsBottom;
-                // 餐饮商品
-                if (product.product_style_type === 2) {
-                    const TRANSLATEY = 60;
-                    offsetTop -= TRANSLATEY;
+        wx.createSelectorQuery().selectAll('.observer-tab').boundingClientRect(function(rects) {
+            // console.log('rects', rects);
+            for (let i = 0; i < rects.length; i++) {
+                const rect = rects[i];
+                let height = (rect && rect.height) || 0;
+                let offsetTop = tabTopList[tabTopList.length - 1] + height;
+                if (i === 0) {
+                    // 忽略标签固定部分高度
+                    offsetTop -= _tabsBottom;
+                    // 忽略餐饮商品上移高度
+                    if (product.product_style_type === 2) {
+                        const TRANSLATEY = 60;
+                        offsetTop -= TRANSLATEY;
+                    }
                 }
+                tabTopList.push(offsetTop);
             }
-
-            tabTopList.push(offsetTop);
-        }
+        }).exec();
         console.log('tabTopList', tabTopList);
         this._tabTopList = tabTopList;
     },

@@ -8,9 +8,13 @@ Component({
             value: 0,
         },
         activeTab: {
-            type: String,
-            value: 'goods'
-        }
+            type: Number,
+            value: 0,
+        },
+        tabList: {
+            type: Array,
+            value: [],
+        },
     },
     data: {
         menuRect: {},  // 导航栏右侧信息
@@ -33,8 +37,8 @@ Component({
         },
         // 点击标签
         handleClickTab(e) {
-            let { name } = e.detail;
-            this.triggerEvent('click', { name });
+            let { index } = e.detail;
+            this.triggerEvent('click', { index });
         },
     },
 });
