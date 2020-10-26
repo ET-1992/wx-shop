@@ -4,7 +4,7 @@
       <view class="account-name">余额</view>
       <view>
         <text class="account-symbol">￥</text>
-        10000
+        <text>10000</text>
       </view>
     </van-col>
     <van-col custom-class="account-item" span="12">
@@ -18,21 +18,21 @@
       <view class="tab-item tab-active">
         <view class="tab-name">优惠券</view>
         <view class="tab-num">
-          10
+          <text>10</text>
           <text>张</text>
         </view>
       </view>
       <view class="tab-item">
         <view class="tab-name">礼品卡</view>
         <view class="tab-num">
-          10
+          <text>10</text>
           <text>张</text>
         </view>
       </view>
       <view class="tab-item">
         <view class="tab-name">电子卡券</view>
         <view class="tab-num">
-          10
+          <text>10</text>
           <text>张</text>
         </view>
       </view>
@@ -50,7 +50,7 @@
         </view>
       </view>
       <!-- 礼品卡 -->
-      <view class="gift-card" wx:elif="{{ true }}">
+      <view class="gift-card" wx:elif="{{ false }}">
         <van-empty description="无相关礼品卡" wx:if="{{ false }}" />
         <view class="gift-content" wx:else>
           <view class="gift-item" wx:for="{{ 6 }}" wx:key="index">
@@ -74,9 +74,33 @@
         </view>
       </view>
       <!-- 电子卡 -->
-      <view class="e-card" wx:elif="{{ false }}">
-        <view class="e-card-detail"></view>
-        <view class="e-card-status"></view>
+      <view class="e-card" wx:elif="{{ true }}">
+        <van-empty description="无相关电子卡券" wx:if="{{ false }}" />
+        <view class="e-card-content">
+          <view class="e-card-item" wx:for="{{ 6 }}" wx:key="index">
+            <view class="e-card-detail">
+              <view class="card-detail-left">
+                <view class="detail-left-item">
+                  <text>商品信息：</text>
+                  <text>测试商品</text>
+                </view>
+                <view class="detail-left-item">
+                  <text>剩余次数：</text>
+                  <text>5</text>
+                </view>
+                <view class="detail-left-item">
+                  <text>商品有效期：</text>
+                  <text>2020.09.10 - 2020.12.22</text>
+                </view>
+              </view>
+              <van-image width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            </view>
+            <view class="e-card-status">
+              <view class="card-status left">点击右侧二维码查看凭证</view>
+              <view class="card-status-right">已过期</view>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
   </view>

@@ -68,11 +68,13 @@
 			}
 		}
 		.wallet-content {
+			// 优惠券
 			.coupon {
 				.coupon-content {
 					margin: 0 14rpx;
 				}
 			}
+			// 礼品卡
 			.gift-card {
 				.gift-content {
 					.gift-item {
@@ -114,6 +116,34 @@
 							}
 							.gift-btn-detail {
 								margin: 0 14rpx 0 auto ;
+							}
+						}
+					}
+				}
+			}
+			// 电子卡券
+			.e-card {
+				.e-card-content {
+					.e-card-item {
+						padding: 36rpx 0;
+						border-bottom: 1rpx solid #d4d4d4;
+						.e-card-detail {
+							font-size: 24rpx;
+							line-height: 34rpx;
+							display: flex;
+							justify-content: space-between;
+							.detail-left-item {
+								margin-bottom: 4rpx;
+							}
+						}
+						.e-card-status {
+							font-size: 18rpx;
+							color: #999999;
+							display: flex;
+							justify-content: space-between;
+							margin-top: 14rpx;
+							.card-status-right {
+								color: #F52D2D;
 							}
 						}
 					}
