@@ -381,6 +381,13 @@
 				"payCashier"
 			],
 			"name": "支付页"
+		},
+		{
+			"root": "pages/electronicCard",
+			"pages": [
+				"electronicCard"
+			],
+			"name": "电子卡券凭证"
 		}
 	],
 	"permission": {

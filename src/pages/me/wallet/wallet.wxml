@@ -7,8 +7,8 @@
         <text>{{ currentUser.wallet.store_card_balance || '0' }}</text>
       </view>
     </van-col>
-    <van-col custom-class="account-item" span="12">
-      <view class="account-name">金币</view>
+    <van-col custom-class="account-item" span="12" bind:tap="go" data-url="/pages/coinDetail/coinDetail">
+      <view class="account-name">{{ config.coin_name || '花生米' }}</view>
       <view>{{ currentUser.wallet.coins || '0' }}</view>
     </van-col>
   </van-row>
@@ -18,7 +18,7 @@
       <view class="tab-item {{ currentTab === index && 'tab-active'}}" wx:for="{{ walletTabs }}" wx:key="key" data-index="{{ index }}" bind:tap="onWalletTab">
         <view class="tab-name">{{ item.name }}</view>
         <view class="tab-num">
-          <text>{{ item.amount || '-' }}</text>
+          <text>{{ item.amount || '0' }}</text>
           <text>张</text>
         </view>
       </view>
@@ -44,9 +44,9 @@
       </view>
       <!-- 礼品卡 -->
       <view class="gift-card" wx:elif="{{ currentTab === 1 }}">
-        <van-empty description="无相关礼品卡" wx:if="{{ false }}" />
+        <van-empty description="无相关礼品卡" wx:if="{{ !gCard.length }}" />
         <view class="gift-content" wx:else>
-          <view class="gift-item" wx:for="{{ 6 }}" wx:key="index">
+          <view class="gift-item" wx:for="{{ gCard.length }}" wx:key="index">
             <view class="gift-detail">
               <van-image width="200rpx" height="110rpx" radius="5rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
               <view class="gift-right">
@@ -68,29 +68,36 @@
       </view>
       <!-- 电子卡 -->
       <view class="e-card" wx:elif="{{ currentTab === 2 }}">
-        <van-empty description="无相关电子卡券" wx:if="{{ false }}" />
-        <view class="e-card-content">
-          <view class="e-card-item" wx:for="{{ 6 }}" wx:key="index">
+        <van-empty description="无相关电子卡券" wx:if="{{ !eCard.length }}" />
+        <view class="e-card-content" wx:else>
+          <view class="e-card-item" wx:for="{{ eCard }}" wx:key="index" bind:tap="go" data-url="/pages/electronicCard/electronicCard?id={{ item.ticket_id }}">
             <view class="e-card-detail">
               <view class="card-detail-left">
                 <view class="detail-left-item">
                   <text>商品信息：</text>
-                  <text>测试商品</text>
+                  <text>{{ item.post_title || '-' }}</text>
                 </view>
                 <view class="detail-left-item">
                   <text>剩余次数：</text>
-                  <text>5</text>
+                  <text>{{ item.available_times || 0 }}</text>
                 </view>
                 <view class="detail-left-item">
                   <text>商品有效期：</text>
-                  <text>2020.09.10 - 2020.12.22</text>
+                  <text>{{ item.create_time + '-' + item.expired_time }}</text>
                 </view>
               </view>
-              <van-image width="100rpx" height="100rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <van-image width="100rpx" height="100rpx" src="{{ item.image_url }}" />
             </view>
             <view class="e-card-status">
-              <view class="card-status left">点击右侧二维码查看凭证</view>
-              <view class="card-status-right">已过期</view>
+              <view class="card-status left">点击查看凭证</view>
+              <view class="card-status-right">
+                <text wx:if="{{ item.status === 1 }}">使用中</text>
+                <text wx:elif="{{ item.status === 2 }}">已过期</text>
+                <text wx:elif="{{ item.status === 3 }}">已使用</text>
+                <text wx:elif="{{ item.status === 4 }}">已冻结</text>
+                <text wx:elif="{{ item.status === 5 }}">已作废</text>
+                <text wx:else>-</text>
+              </view>
             </view>
           </view>
         </view>

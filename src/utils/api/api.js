@@ -816,5 +816,15 @@ export const apis = {
     fetchMyTicketList: {
         path: 'api/ticket/list.json',
         isForceToken: true,
+    },
+    // 获取电子卡券详情
+    fetchMyTicketDetail: {
+        path: 'api/ticket/get.json',
+        isForceToken: true,
+    },
+    // 获取电子卡券详情
+    fetchMyGiftCardList: {
+        path: 'api/mag.gift_card.my.json',
+        isForceToken: true,
     }
 };

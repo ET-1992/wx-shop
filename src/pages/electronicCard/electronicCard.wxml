@@ -1,0 +1,52 @@
+<view class="container">
+  <loading isLoading="{{ isLoading }}" />
+  <view class="card-wrap" wx:if="{{ !isLoading }}">
+    <view class="card-top">
+      <view class="bar-code">
+        <van-image width="220rpx" height="220rpx" src="{{ ticket.image_url }}" bind:click="onPreviewImg" />
+      </view>
+      <view class="product">
+        <view class="card-item">
+          <text>卡券核销码：</text>
+          <text>{{ ticket.ticket_no }}</text>
+        </view>
+        <view class="card-item">
+          <text>商品信息：</text>
+          <text>{{ ticket.post_title }}</text>
+        </view>
+        <view class="card-item">
+          <text>总共次数：</text>
+          <text>{{ ticket.total_times }}</text>
+        </view>
+        <view class="card-item">
+          <text>剩余次数：</text>
+          <text>{{ ticket.available_times }}</text>
+        </view>
+        <view class="card-item">
+          <text>实付金额：</text>
+          <text>{{ '￥' + ticket.order_amount }}</text>
+        </view>
+      </view>
+      <view class="order">
+        <view class="card-item">
+          <text>订单编号：</text>
+          <text>{{ ticket.order_no }}</text>
+        </view>
+        <view class="card-item">
+          <text>商品有效期：</text>
+          <text>{{ ticket.create_time + '-' + ticket.expired_time }}</text>
+        </view>
+      </view>
+    </view>
+    <!-- 核销码 -->
+    <view class="card-bottom">
+      <view class="record-name">未核销券码：</view>
+      <view class="record-wrap">
+        <view class="card-item" wx:for="{{ ticket.records.available }}" wx:key="index">
+          <text>券码</text>
+          <text>{{ item.code }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
