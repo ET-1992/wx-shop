@@ -4,12 +4,12 @@
       <view class="account-name">余额</view>
       <view>
         <text class="account-symbol">{{ config.currency_sign || '￥' }}</text>
-        <text>10000</text>
+        <text>{{ currentUser.wallet.store_card_balance || '0' }}</text>
       </view>
     </van-col>
     <van-col custom-class="account-item" span="12">
       <view class="account-name">金币</view>
-      <view>{{ currentUser.wallet.coins || '-' }}</view>
+      <view>{{ currentUser.wallet.coins || '0' }}</view>
     </van-col>
   </van-row>
   <view class="wallet">
