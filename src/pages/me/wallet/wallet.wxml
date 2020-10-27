@@ -36,7 +36,7 @@
           <van-empty description="无相关优惠券" wx:if="{{ !coupons[couponTab].length }}" />
           <!-- 优惠券列表 -->
           <view class="coupon-list" wx:else>
-            <button class="coupon-item" wx:for="{{ coupons[couponTab] }}" wx:key="id" open-type="getUserInfo" bindgetuserinfo="onCouponClick" data-usercouponid="{{ item.user_coupon_id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
+            <button class="coupon-item" wx:for="{{ coupons[couponTab] }}" wx:key="id" open-type="getUserInfo" bindgetuserinfo="onCouponClick" data-index="{{ index }}">
               <couponList coupon="{{ item }}" status="{{ coupon.getStatus(item.status, item.stock_qty) }}" />
             </button>
           </view>
