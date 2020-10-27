@@ -1,7 +1,7 @@
 .container {
 	padding: 15rpx;
 	.account {
-		background-color: #013F56;
+		background-color: var(--primary-color, #013F56);
 		border-radius: 10rpx;
 		.account-item {
 			color: white;
@@ -58,11 +58,11 @@
 				}
 				&.tab-active {
 					.tab-name {
-						color: #013F56;
+						color: var(--primary-color, #013F56);
 					}
 					.tab-num {
 						color: white;
-						background-color: #013F56;
+						background-color: var(--primary-color, #013F56);
 					}
 				}
 			}
@@ -94,7 +94,7 @@
 								line-height: 40rpx;
 								margin-left: 25rpx;
 								.gift-buy-time {
-									font-weight: normal;;
+									font-weight: normal;
 									font-size: 20rpx;
 									line-height: 28rpx;
 									color: #707070;
@@ -109,7 +109,7 @@
 								color: #707070;
 								padding: 0 32rpx;
 								line-height: 50rpx;
-								border: 1rpx solid #013F56;
+								border: 1rpx solid var(--primary-color, #013F56);
 								background-color: #fff;
 								border-radius: 50rpx;
 							}
@@ -117,6 +117,10 @@
 								width: 200rpx;
 								display: flex;
 								justify-content: center;
+								.gift-btn {
+									color: white;
+									background-color: var(--primary-color, #013F56);
+								}
 							}
 							.gift-btn-detail {
 								margin: 0 14rpx 0 auto ;

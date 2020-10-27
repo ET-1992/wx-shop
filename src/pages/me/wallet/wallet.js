@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { CONFIG } from 'constants/index';
 
+const app = getApp();
 let walletTabs = [
     { name: '优惠券', amount: '0' },
     { name: '礼品卡', amount: '0' },
@@ -14,6 +15,7 @@ Page({
         eCard: [],  // 电子卡券
         currentUser: {},
         config: {},
+        themeColor: {},
         walletTabs: walletTabs,
         currentTab: 0, // 当前标签类型
         couponTab: 0,  // 优惠券标签类型
@@ -22,7 +24,8 @@ Page({
     onLoad(params) {
         console.log(params);
         const config = wx.getStorageSync(CONFIG);
-        this.setData({ config });
+        const { themeColor } = app.globalData;
+        this.setData({ config, themeColor });
         this.getWalletData();
     },
 

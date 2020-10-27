@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="--primary-color: {{ themeColor.primaryColor }}">
   <van-row custom-class="account">
     <van-col custom-class="account-item" span="12">
       <view class="account-name">余额</view>
@@ -27,7 +27,7 @@
     <view class="wallet-content" wx:if="{{ !isLoading }}">
       <!-- 优惠券 -->
       <view class="coupon" wx:if="{{ currentTab === 0 }}">
-        <van-tabs active="{{ 0 }}" custom-class="coupon-content" duration="{{ 0 }}" bind:change="onCouponTab">
+        <van-tabs active="{{ couponTab }}" custom-class="coupon-content" duration="{{ 0 }}" color="{{ themeColor.primaryColor }}" bind:change="onCouponTab">
           <van-tab title="未使用"></van-tab>
           <van-tab title="已使用"></van-tab>
           <van-tab title="已过期"></van-tab>
@@ -37,16 +37,7 @@
           <!-- 优惠券列表 -->
           <view class="coupon-list" wx:else>
             <button class="coupon-item" wx:for="{{ coupons[couponTab] }}" wx:key="id" open-type="getUserInfo" bindgetuserinfo="onCouponClick" data-usercouponid="{{ item.user_coupon_id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
-              <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable" />
-              <!-- 未领取 -->
-              <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" />
-              <!-- 已领取 -->
-              <couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" coupon="{{ item }}" status="nullCoupon" />
-              <!-- 已抢光 -->
-              <couponList wx:if="{{ item.status == 5 }}" coupon="{{ item }}" status="used" />
-              <!-- 已使用 -->
-              <couponList wx:if="{{ item.status == 3 }}" coupon="{{ item }}" status="expired" />
-              <!-- 已过期 -->
+              <couponList coupon="{{ item }}" status="{{ coupon.getStatus(item.status, item.stock_qty) }}" />
             </button>
           </view>
         </view>
@@ -107,3 +98,21 @@
     </view>
   </view>
 </view>
+<wxs module="coupon">
+  var getStatus = function(status, number) {
+    var statusName = 'receivable';
+    if(status === 2 && !number) {
+      statusName = 'nullCoupon';
+    } else if(status === 3) {
+      statusName = 'expired';
+    } else if(status === 4) {
+      statusName = 'received';
+    } else if(status === 5) {
+      statusName = 'used';
+    }
+    return statusName;
+  };
+  module.exports = {
+    getStatus: getStatus
+  };
+</wxs>
