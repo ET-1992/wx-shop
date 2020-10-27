@@ -3,54 +3,56 @@
     <van-col custom-class="account-item" span="12">
       <view class="account-name">余额</view>
       <view>
-        <text class="account-symbol">￥</text>
+        <text class="account-symbol">{{ config.currency_sign || '￥' }}</text>
         <text>10000</text>
       </view>
     </van-col>
     <van-col custom-class="account-item" span="12">
       <view class="account-name">金币</view>
-      <view>10000</view>
+      <view>{{ currentUser.wallet.coins || '-' }}</view>
     </van-col>
   </van-row>
   <view class="wallet">
     <!-- 主标签页 -->
     <view class="wallet-tab">
-      <view class="tab-item tab-active">
-        <view class="tab-name">优惠券</view>
+      <view class="tab-item {{ currentTab === index && 'tab-active'}}" wx:for="{{ walletTabs }}" wx:key="key" data-index="{{ index }}" bind:tap="onWalletTab">
+        <view class="tab-name">{{ item.name }}</view>
         <view class="tab-num">
-          <text>10</text>
-          <text>张</text>
-        </view>
-      </view>
-      <view class="tab-item">
-        <view class="tab-name">礼品卡</view>
-        <view class="tab-num">
-          <text>10</text>
-          <text>张</text>
-        </view>
-      </view>
-      <view class="tab-item">
-        <view class="tab-name">电子卡券</view>
-        <view class="tab-num">
-          <text>10</text>
+          <text>{{ item.amount || '-' }}</text>
           <text>张</text>
         </view>
       </view>
     </view>
-    <view class="wallet-content">
+    <loading isLoading="{{ isLoading }}" />
+    <view class="wallet-content" wx:if="{{ !isLoading }}">
       <!-- 优惠券 -->
-      <view class="coupon" wx:if="{{ false }}">
-        <van-tabs active="{{ 0 }}" custom-class="coupon-content" bind:change="onChange">
+      <view class="coupon" wx:if="{{ currentTab === 0 }}">
+        <van-tabs active="{{ 0 }}" custom-class="coupon-content" duration="{{ 0 }}" bind:change="onCouponTab">
           <van-tab title="未使用"></van-tab>
           <van-tab title="已使用"></van-tab>
           <van-tab title="已过期"></van-tab>
         </van-tabs>
         <view class="coupon-content">
-          <van-empty description="无相关优惠券" />
+          <van-empty description="无相关优惠券" wx:if="{{ !coupons[couponTab].length }}" />
+          <!-- 优惠券列表 -->
+          <view class="coupon-list" wx:else>
+            <button class="coupon-item" wx:for="{{ coupons[couponTab] }}" wx:key="id" open-type="getUserInfo" bindgetuserinfo="onCouponClick" data-usercouponid="{{ item.user_coupon_id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
+              <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable" />
+              <!-- 未领取 -->
+              <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" />
+              <!-- 已领取 -->
+              <couponList wx:if="{{ item.status == 2 && !item.stock_qty }}" coupon="{{ item }}" status="nullCoupon" />
+              <!-- 已抢光 -->
+              <couponList wx:if="{{ item.status == 5 }}" coupon="{{ item }}" status="used" />
+              <!-- 已使用 -->
+              <couponList wx:if="{{ item.status == 3 }}" coupon="{{ item }}" status="expired" />
+              <!-- 已过期 -->
+            </button>
+          </view>
         </view>
       </view>
       <!-- 礼品卡 -->
-      <view class="gift-card" wx:elif="{{ false }}">
+      <view class="gift-card" wx:elif="{{ currentTab === 1 }}">
         <van-empty description="无相关礼品卡" wx:if="{{ false }}" />
         <view class="gift-content" wx:else>
           <view class="gift-item" wx:for="{{ 6 }}" wx:key="index">
@@ -74,7 +76,7 @@
         </view>
       </view>
       <!-- 电子卡 -->
-      <view class="e-card" wx:elif="{{ true }}">
+      <view class="e-card" wx:elif="{{ currentTab === 2 }}">
         <van-empty description="无相关电子卡券" wx:if="{{ false }}" />
         <view class="e-card-content">
           <view class="e-card-item" wx:for="{{ 6 }}" wx:key="index">

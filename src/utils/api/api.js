@@ -811,5 +811,10 @@ export const apis = {
         path: 'api/mag.coin.order.create.json?v2',
         method: 'POST',
         isForceToken: true
+    },
+    // 获取电子卡券列表
+    fetchMyTicketList: {
+        path: 'api/ticket/list.json',
+        isForceToken: true,
     }
 };

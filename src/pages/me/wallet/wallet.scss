@@ -26,7 +26,7 @@
 		margin: 14rpx 0;
 		background-color: #fff;
 		padding: 20rpx;
-		min-height: 600rpx;
+		// min-height: 600rpx;
 		.wallet-tab {
 			margin: 0 4rpx;
 			display: flex;
@@ -70,8 +70,12 @@
 		.wallet-content {
 			// 优惠券
 			.coupon {
-				.coupon-content {
-					margin: 0 14rpx;
+				.coupon-list{
+					padding: 20rpx 0;
+					.coupon-item{
+						margin:25rpx auto 0;
+						width:650rpx;
+					}
 				}
 			}
 			// 礼品卡
