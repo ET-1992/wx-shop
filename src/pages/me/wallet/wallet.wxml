@@ -1,3 +1,5 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}">
   <van-row custom-class="account">
     <van-col custom-class="account-item" span="12">
@@ -83,7 +85,7 @@
                 </view>
                 <view class="detail-left-item">
                   <text>商品有效期：</text>
-                  <text>{{ item.create_time + '-' + item.expired_time }}</text>
+                  <text>{{ WXS.formatDate(item.create_time, 'yyyy.MM.dd') + '-' + WXS.formatDate(item.expired_time, 'yyyy.MM.dd') }}</text>
                 </view>
               </view>
               <van-image width="100rpx" height="100rpx" src="{{ item.image_url }}" />

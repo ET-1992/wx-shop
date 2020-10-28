@@ -38,20 +38,17 @@ var formatDate = function(second, format) {
         's+': source.getSeconds(), 
         'q+': Math.floor((source.getMonth() + 3) / 3), 
         'f+': source.getMilliseconds() 
-    }
-    var yReg = getRegExp('(y+)');
-    if(yReg.test(format)) {
-        format = format.replace(yReg, function(_, p1) {
-            console.log('p1', p1);
+    };
+    if(getRegExp('(y+)').test(format)) {
+        format = format.replace(getRegExp('(y+)'), function(_, p1) {
             return (source.getFullYear() + '').substring(4 - p1)
         });
     }
     for(var i = 0; i < oKeys.length; i++) {
         var k = oKeys[i];
-        var reg = getRegExp('(' + k + ')')
-        if (reg.test(format)) {
-            format = format.replace(reg, function(_, p1) {
-                return (p1.length === 1) ? (o[k]) : (('00' + o[k]).substring((o[k]+'').length))
+        if (getRegExp('(' + k + ')').test(format)) {
+            format = format.replace(getRegExp('(' + k + ')'), function(_, p1) {
+                return (p1.length === 1) ? o[k] : ('00' + o[k]).substring((o[k]+'').length)
             });
         }
     }
