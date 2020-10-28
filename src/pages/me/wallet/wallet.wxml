@@ -2,7 +2,7 @@
 
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}">
   <van-row custom-class="account">
-    <van-col custom-class="account-item" span="12">
+    <van-col custom-class="account-item" span="12" bind:tap="go" data-url="/pages/accountDetail/accountDetail">
       <view class="account-name">余额</view>
       <view>
         <text class="account-symbol">{{ config.currency_sign || '￥' }}</text>
@@ -48,20 +48,23 @@
       <view class="gift-card" wx:elif="{{ currentTab === 1 }}">
         <van-empty description="无相关礼品卡" wx:if="{{ !gCard.length }}" />
         <view class="gift-content" wx:else>
-          <view class="gift-item" wx:for="{{ gCard.length }}" wx:key="index">
+          <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
             <view class="gift-detail">
-              <van-image width="200rpx" height="110rpx" radius="5rpx" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+              <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.cover_thumbnail }}" />
               <view class="gift-right">
-                <view class="gift-title">愉快好心情</view>
-                <view class="gift-buy-time">购买时间：2020-07-30 11:26:19</view>
-                <view class="gift-value">￥199</view>
+                <view class="gift-title">{{ item.title || '-' }}</view>
+                <view class="gift-buy-time">
+                  <text>购买时间：</text>
+                  <text>{{ WXS.formatDate(item.time, 'yyyy-MM-dd HH:mm:ss') }}</text>
+                </view>
+                <view class="gift-value">￥{{ item.order_amount }}</view>
               </view>
             </view>
             <view class="gift-btns">
               <view class="gift-status">
                 <button class="gift-btn">赠送</button>
               </view>
-              <view class="gift-btn-detail">
+              <view class="gift-btn-detail" bind:tap="go" data-url="/pages/orderDetail/orderDetail?id={{ item.order_no }}">
                 <button class="gift-btn">订单详情</button>
               </view>
             </view>
