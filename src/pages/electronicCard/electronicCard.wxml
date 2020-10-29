@@ -5,7 +5,8 @@
   <view class="card-wrap" wx:if="{{ !isLoading }}">
     <view class="card-top">
       <view class="bar-code">
-        <van-image width="220rpx" height="220rpx" src="{{ ticket.image_url }}" bind:click="onPreviewImg" />
+        <canvas id="bar-canvas" canvas-id="canvasId" />
+        <!-- <van-image width="220rpx" height="220rpx" src="{{ ticket.image_url }}" bind:click="onPreviewImg" /> -->
       </view>
       <view class="product">
         <view class="card-item">

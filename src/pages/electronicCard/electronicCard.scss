@@ -8,6 +8,10 @@
 			.bar-code {
 				display: flex;
 				justify-content: center;
+				#bar-canvas {
+					width: 220rpx;
+					height: 220rpx;
+				}
 			}
 			.product {
 				margin: 56rpx 0 24rpx;

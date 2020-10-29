@@ -1,4 +1,6 @@
 import api from 'utils/api';
+import { getNodeInfo } from 'utils/util';
+import { qrcode } from 'peanut-all';
 
 Page({
     data: {
@@ -21,11 +23,21 @@ Page({
             ticket,
             isLoading: false,
         });
+        this.getQRCode();
     },
 
-    onPreviewImg() {
-        let { image_url } = this.data.ticket;
-        let urls = [image_url];
-        wx.previewImage({ urls });
+    // onPreviewImg() {
+    //     let { image_url } = this.data.ticket;
+    //     let urls = [image_url];
+    //     wx.previewImage({ urls });
+    // },
+
+    // 获取核销二维码
+    async getQRCode() {
+        let { ticket: { ticket_no }} = this.data;
+        let { width, height } = await getNodeInfo('bar-canvas');
+        width = width || 110;
+        height = height || 110;
+        qrcode.api.draw('D-' + ticket_no, 'canvasId', width, height);
     },
 });
