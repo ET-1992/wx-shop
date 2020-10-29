@@ -214,7 +214,6 @@
 		{
 			"root": "pages/membership/",
 			"pages": [
-				"consumptionCenter/consumptionCenter",
 				"integralList/integralList",
 				"members/members"
 			],

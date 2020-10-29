@@ -1,9 +1,0 @@
-{
-	"navigationBarTitleText": "消费记录",
-	"navigationBarBackgroundColor": "#333333",
-	"usingComponents": {
-		"navbarList": "../../../components/navbarList/navbarList",
-		"loading": "../../../components/loading/index",
-		"popup": "../../../components/popup/popup"
-	}
-}
