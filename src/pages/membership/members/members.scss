@@ -24,7 +24,7 @@ page {
 		display: flex;
 		align-items: center;
 		// height: 200rpx;
-		padding: 70rpx 44rpx 40rpx;
+		padding: 54rpx 44rpx;
 		position: relative;
 
 		.head-button {
@@ -37,7 +37,7 @@ page {
 				width: $size;
 				height: $size;
 				border-radius: 50%;
-				border: 1rpx solid #F1F1F1;
+				border: 4rpx solid #F1F1F1;
 				overflow: hidden;
 				background-repeat: no-repeat;
 				background-size: cover;
