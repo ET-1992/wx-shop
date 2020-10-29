@@ -322,6 +322,10 @@ Page({
                 // 金币商品
                 requestData.promotion_type = 6;
             }
+            if (items && items[0] && items[0].order_promotion_type) {
+                // 电子卡券 不能加车
+                requestData.promotion_type = items[0].order_promotion_type;
+            }
 
             requestData.shipping_type = Number(shipping_type);
 
@@ -690,6 +694,11 @@ Page({
         // 金币商品
         if (product_type === 4) {
             method = 'createCoinOrder';
+        }
+
+        if (items && items[0] && items[0].order_promotion_type) {
+            // 电子卡券
+            requestData.promotion_type = items[0].order_promotion_type;
         }
 
         wx.showLoading({ title: '处理订单中', mask: true, });

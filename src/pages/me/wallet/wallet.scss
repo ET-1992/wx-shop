@@ -1,7 +1,7 @@
 .container {
 	padding: 15rpx;
 	.account {
-		background-color: #013F56;
+		background-color: var(--primary-color, #013F56);
 		border-radius: 10rpx;
 		.account-item {
 			color: white;
@@ -26,7 +26,7 @@
 		margin: 14rpx 0;
 		background-color: #fff;
 		padding: 20rpx;
-		min-height: 600rpx;
+		// min-height: 600rpx;
 		.wallet-tab {
 			margin: 0 4rpx;
 			display: flex;
@@ -58,21 +58,27 @@
 				}
 				&.tab-active {
 					.tab-name {
-						color: #013F56;
+						color: var(--primary-color, #013F56);
 					}
 					.tab-num {
 						color: white;
-						background-color: #013F56;
+						background-color: var(--primary-color, #013F56);
 					}
 				}
 			}
 		}
 		.wallet-content {
+			// 优惠券
 			.coupon {
-				.coupon-content {
-					margin: 0 14rpx;
+				.coupon-list{
+					padding: 20rpx 0;
+					.coupon-item{
+						margin:25rpx auto 0;
+						width:650rpx;
+					}
 				}
 			}
+			// 礼品卡
 			.gift-card {
 				.gift-content {
 					.gift-item {
@@ -88,7 +94,7 @@
 								line-height: 40rpx;
 								margin-left: 25rpx;
 								.gift-buy-time {
-									font-weight: normal;;
+									font-weight: normal;
 									font-size: 20rpx;
 									line-height: 28rpx;
 									color: #707070;
@@ -103,7 +109,8 @@
 								color: #707070;
 								padding: 0 32rpx;
 								line-height: 50rpx;
-								border: 1rpx solid #013F56;
+								border: 1rpx solid var(--primary-color, #013F56);
+								box-sizing: border-box;
 								background-color: #fff;
 								border-radius: 50rpx;
 							}
@@ -111,9 +118,41 @@
 								width: 200rpx;
 								display: flex;
 								justify-content: center;
+								.gift-btn {
+									color: white;
+									background-color: var(--primary-color, #013F56);
+								}
 							}
 							.gift-btn-detail {
 								margin: 0 14rpx 0 auto ;
+							}
+						}
+					}
+				}
+			}
+			// 电子卡券
+			.e-card {
+				.e-card-content {
+					.e-card-item {
+						padding: 36rpx 0;
+						border-bottom: 1rpx solid #d4d4d4;
+						.e-card-detail {
+							font-size: 24rpx;
+							line-height: 34rpx;
+							display: flex;
+							justify-content: space-between;
+							.detail-left-item {
+								margin-bottom: 4rpx;
+							}
+						}
+						.e-card-status {
+							font-size: 18rpx;
+							color: #999999;
+							display: flex;
+							justify-content: space-between;
+							margin-top: 14rpx;
+							.card-status-right {
+								color: #F52D2D;
 							}
 						}
 					}

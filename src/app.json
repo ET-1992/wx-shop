@@ -381,6 +381,20 @@
 				"payCashier"
 			],
 			"name": "支付页"
+		},
+		{
+			"root": "pages/electronicCard",
+			"pages": [
+				"electronicCard"
+			],
+			"name": "电子卡券凭证"
+		},
+		{
+			"root": "pages/accountDetail",
+			"pages": [
+				"accountDetail"
+			],
+			"name": "储值卡账户明细"
 		}
 	],
 	"permission": {

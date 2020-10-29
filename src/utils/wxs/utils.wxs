@@ -26,7 +26,36 @@ function formatNumber(n) {
     x = n.toString();
     return x[1] ? x : '0' + x;
 };
+/* 正则格式化时间戳 */
+var formatDate = function(second, format) {
+    var oKeys = [ 'M+', 'd+', 'H+', 'm+', 's+', 'q+', 'f+' ];
+    var source = getDate(second *1000);
+    var o = {
+        'M+': source.getMonth() + 1, 
+        'd+': source.getDate(), 
+        'H+': source.getHours(), 
+        'm+': source.getMinutes(), 
+        's+': source.getSeconds(), 
+        'q+': Math.floor((source.getMonth() + 3) / 3), 
+        'f+': source.getMilliseconds() 
+    };
+    if(getRegExp('(y+)').test(format)) {
+        format = format.replace(getRegExp('(y+)'), function(_, p1) {
+            return (source.getFullYear() + '').substring(4 - p1)
+        });
+    }
+    for(var i = 0; i < oKeys.length; i++) {
+        var k = oKeys[i];
+        if (getRegExp('(' + k + ')').test(format)) {
+            format = format.replace(getRegExp('(' + k + ')'), function(_, p1) {
+                return (p1.length === 1) ? o[k] : ('00' + o[k]).substring((o[k]+'').length)
+            });
+        }
+    }
+    return format;
+};
 module.exports = {
     ellipsisValue: ellipsisValue,
-    formatTime: formatTime
+    formatTime: formatTime,
+    formatDate: formatDate
 };

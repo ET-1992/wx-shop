@@ -7,6 +7,8 @@
     "van-button": "@vant/weapp/dist/button/index",
     "van-empty": "@vant/weapp/dist/empty/index",
     "van-tabs": "@vant/weapp/dist/tabs/index",
-    "van-tab": "@vant/weapp/dist/tab/index"
+    "van-tab": "@vant/weapp/dist/tab/index",
+    "loading": "components/loading/index",
+    "couponList": "components/couponList/index"
   }
 }
