@@ -1,6 +1,6 @@
 <import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
-<productNavigationBar id="navigation-bar" scrollTop="{{ scrollTop }}" bind:contact="onCustomService" />
+<productNavigationBar id="navigation-bar" scrollTop="{{ scrollTop }}" bind:contact="onCustomService" maxScrollTop="400" navType="productNav"/>
 <!-- 页面导航 -->
 <tabs id="tabs" activeTab="{{ currentTabIndex }}" tabList="{{ tabList }}" scrollTop="{{ scrollTop }}" bind:click="handlePageToView"></tabs>
 <!-- 多门店组件-样式隐藏 -->

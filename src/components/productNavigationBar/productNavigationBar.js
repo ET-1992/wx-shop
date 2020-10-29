@@ -8,10 +8,33 @@ Component({
             type: Number,
             optionalTypes: [String],
             value: 0,
+        },
+        // 最大滚动值 (超出此值背景颜色变换)
+        maxScrollTop: {
+            type: Number,
+            value: 0
+        },
+        // 导航栏类型(目前只有homeNav和productNav两种)
+        navType: {
+            type: String,
+            value: ''
+        },
+        // 导航栏背景色
+        backgroundRgb: {
+            type: String,
+            value: '255,255,255'
+        },
+        // 是否显示搜索框
+        showSearchBox: {
+            type: Boolean,
+            vaule: true
+        },
+        title: {
+            type: 'String',
+            value: ''
         }
     },
     data: {
-        backgroundRgb: '255,255,255',  // 导航栏背景色
         barLeftStyle: '',  // 导航栏左边样式类
         barCenterStyle: '',  // 导航栏中间样式类
         isShowMenu: false,  // 是否展示菜单栏列表
@@ -24,10 +47,16 @@ Component({
     },
     lifetimes: {
         attached() {
-            // this.getBackgroundRgb();
             this.getConfigData();
             this.getChildComponent();
         },
+    },
+    pageLifetimes: {
+        show() {
+            this.setData({
+                globalData: app.globalData
+            });
+        }
     },
     methods: {
 
@@ -37,8 +66,13 @@ Component({
         getConfigData() {
             const config = wx.getStorageSync(CONFIG);
             let workContact = config.contact && config.contact.type === 'work_weixin';
-            console.log('workContact', workContact);
-            this.setData({ isContactForOpenType: !workContact });
+            const { themeColor } = app.globalData;
+            this.setData({
+                isContactForOpenType: !workContact,
+                globalData: app.globalData,
+                config,
+                themeColor
+            });
         },
 
         // 获取子组件数据

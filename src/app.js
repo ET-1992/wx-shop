@@ -41,7 +41,8 @@ App({
             authorizer,
             currency = 'CNY',
             backgroundColor = '#ededed',
-            tabbarPages = {}
+            tabbarPages = {},
+            navigationBarTextStyle = 'white'
         } = extConfig;
         console.log('extConfig2', extConfig);
 
@@ -60,7 +61,7 @@ App({
         };
 
         this.globalData = Object.assign(this.globalData, {
-            themeColor: { primaryColor, secondaryColor, backgroundColor },
+            themeColor: { primaryColor, secondaryColor, backgroundColor, navigationBarTextStyle },
             cartIndex,
             partner: partner,
             tplStyle: styleType,
