@@ -39,20 +39,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- 会员储值卡功能-->
-		<view class="member-bottom" wx:if="{{ user.membership && user.membership.is_member && config.store_card_enable }}">
-			<navigator url="/pages/membership/consumptionCenter/consumptionCenter" class="member-integral-text">
-				<view class="cart-price">{{ user.store_card.cash_balance }} 元</view>
-				<view class="cart-text">储蓄余额</view>
-			</navigator>
-			<navigator url="/pages/membership/consumptionCenter/consumptionCenter?activeIndex=1" class="member-integral-text">
-				<view class="cart-price">{{ user.store_card.gift_balance }} 元</view>
-				<view class="cart-text">赠送余额</view>
-			</navigator>
-			<view class="recharge" bindtap="openRechargeModal">
-				<text>充值</text>
-			</view>
-		</view>
 	</view>
 
 	<view class="member-rights" wx:if="{{ data.coupons && data.coupons.length || data.products_banner_enable }}">
@@ -94,18 +80,6 @@
 			</button>
 		</view>
 	</view>
-
-  	<!-- 会员充值弹窗 -->
-	<popup
-		wx:if="{{ rechargeModal }}"
-		rechargeModal="{{ rechargeModal }}"
-		rechargeArray="{{ rechargeArray }}"
-		customizePayEnable="{{ customizePayEnable }}"
-		user="{{ user }}"
-		config="{{ config }}"
-		bind:onConfirmRecharge="onConfirmRecharge"
-		bind:closeRechargeModal="closeRechargeModal"
-    />
 
 	<!-- 会员续费弹窗 -->
 	<popup

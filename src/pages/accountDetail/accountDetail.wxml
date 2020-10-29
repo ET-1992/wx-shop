@@ -39,4 +39,4 @@
   </view>
 </view>
 <!-- 会员充值弹窗 -->
-<popup wx:if="{{ rechargeModal }}" rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" customizePayEnable="{{ config.customizePayEnable }}" user="{{ currentUser }}" config="{{ config }}" bind:onConfirmRecharge="onConfirmRecharge" bind:closeRechargeModal="onCloseRecharge" />
+<popup wx:if="{{ rechargeModal }}" rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" customizePayEnable="{{ config.customize_pay_enable }}" user="{{ currentUser }}" config="{{ config }}" bind:onConfirmRecharge="onConfirmRecharge" bind:closeRechargeModal="onCloseRecharge" />
