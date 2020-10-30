@@ -13,7 +13,8 @@
 		"pages/featured/featured",
 		"pages/me/wallet/wallet",
 		"pages/giftCardList/giftCardList",
-		"pages/eCardList/eCardList"
+		"pages/eCardList/eCardList",
+		"pages/giveGift/giveGift"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

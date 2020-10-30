@@ -254,6 +254,21 @@
               </view>
             </view>
           </view>
+          <!-- 商品详情按钮动作 -->
+          <view class="header-info-action-wrap">
+            <view class="header-info-action" bind:tap="go" data-url="/pages/giveGift/giveGift">
+              <van-icon custom-class="header-info-action-icon" name="point-gift-o" />
+              <text class="header-info-action-text">送给TA</text>
+            </view>
+            <view class="header-info-action">
+              <van-icon custom-class="header-info-action-icon" name="good-job-o" />
+              <text class="header-info-action-text">推荐好物</text>
+            </view>
+            <view class="header-info-action">
+              <van-icon custom-class="header-info-action-icon" name="like-o" />
+              <text class="header-info-action-text">收藏商品</text>
+            </view>
+          </view>
         </view>
         <!-- 开通会员提示框 -->
         <!-- 会员专属商品提示框 -->
