@@ -1,6 +1,7 @@
-<view class="navigation-bar-wrap">
-  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0}})">
-    <view slot="left" class="bar-left" style="{{ barLeftStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})">
+<!-- 商品详情页的nav -->
+<view class="navigation-bar-wrap" style="background-color:rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})">
+  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})" wx:if="{{ navType === 'productNav' }}">
+    <view slot="left" class="bar-left" style="{{ barLeftStyle }};">
       <!-- 返回 -->
       <van-icon name="/icons/productDetail/left_arrow.svg" class="bar-left-icon bar-left-arrow-icon" bind:tap="handlerGoback" />
       <view class="bar-left-divider"></view>
@@ -13,9 +14,9 @@
             <view class="menu-arrow"></view>
             <!-- 菜单功能项 -->
             <!-- 普通客服、企业微信客服和其他路径跳转 -->
-            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index" 
+            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index"
               open-type="{{ (item.handle === 'findHelp' && isContactForOpenType) ? 'contact' : '' }}"
-              data-method="{{ item.handle }}" 
+              data-method="{{ item.handle }}"
               catch:tap="{{ (item.handle !== 'findHelp' || !isContactForOpenType) ? 'handleMenuItem' : '' }}">
               <van-icon name="{{ item.icon }}" size= "32rpx" custom-class="menu-icon" />
               <text class="menu-text">{{ item.text }}</text>
@@ -24,7 +25,33 @@
         </view>
       </van-overlay>
     </view>
-    <view slot="center" class="bar-center" style="{{ barCenterStyle }};background-color: rgba({{ backgroundRgb }},{{scrollTop / 400 > 0.9 ? 1 : 0.35}})" bind:tap="go" data-url="/pages/search/search">
+    <view slot="center" class="bar-center" style="{{ barCenterStyle }};" bind:tap="go" data-url="/pages/search/search">
+      <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
+      <text>搜索商品</text>
+    </view>
+  </navigationBar>
+
+  <!-- 首页的navbar -->
+  <navigationBar
+    id="navigationBar"
+    background="rgba({{ backgroundRgb }},{{ scrollTop / maxScrollTop }})"
+    title="{{ scrollTop / maxScrollTop > 0.9 && !showSearchBox ? title : ''  }}"
+    color="{{ themeColor.navigationBarTextStyle }}"
+    wx:if="{{ navType === 'homeNav' }}">
+
+    <navigator slot="left" class="bar-left-store" url="/pages/multiStoreList/multiStoreList" wx:if="{{ config.offline_store_enable && showSearchBox }}">
+      <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>
+      <image class="triangle" src="/icons/triangle.svg" ></image>
+    </navigator>
+    <!-- 搜索框 -->
+    <view
+      wx:if="{{ showSearchBox }}"
+      slot="center"
+      class="bar-center"
+      style="{{ barCenterStyle }};"
+      bind:tap="go"
+      data-url="/pages/search/search">
+      <!-- <image class="bar-center-icon" src="/icons/search.png"></image> -->
       <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
       <text>搜索商品</text>
     </view>

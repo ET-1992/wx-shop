@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
-import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_, colorRgb } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -47,7 +47,6 @@ export const pageObj = {
             swiperCurrent: e.detail.current
         });
     },
-
     onBannerClick(ev) {
         const { path } = ev.currentTarget.dataset;
         if (path) {
@@ -194,10 +193,8 @@ export const pageObj = {
             }, 5000);
         }
     },
-
     async onLoad({ goPath, id = '' }) {
         console.log(goPath, 'onLoad');
-
         if (goPath) {
             autoNavigate_({
                 url: decodeURIComponent(goPath)
@@ -206,14 +203,20 @@ export const pageObj = {
         const { themeColor, partner = {}, tabbarPages } = app.globalData;
         const systemInfo = wx.getSystemInfoSync();
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+        console.log(systemInfo, 'systemInfo');
+        const { statusBarHeight } = systemInfo;
         const userInfo = wx.getStorageSync(USER_KEY);
+        const { backgroundColor } = themeColor;
+        const mainBgcolor = colorRgb(backgroundColor);
         this.setData({
             themeColor,
             isIphoneX,
             userInfo,
             tabbarPages,
             id,
-            globalData: app.globalData
+            globalData: app.globalData,
+            statusBarHeight,
+            mainBgcolor
         }, this.loadHome);
     },
 
@@ -398,9 +401,14 @@ export const pageObj = {
             }
         }
     },
-
-    onPageScroll() {
+    onPageScroll(e) {
         const { home_type } = this.data;
+        let { scrollTop } = e;
+        if (scrollTop > 0 && scrollTop < 500) {
+            this.setData({
+                scrollTop
+            });
+        }
         if (home_type === 'old') {
             let modules = this.data.modules;
             if (modules && modules.length && modules[modules.length - 1].key === 'products') {
