@@ -11,7 +11,9 @@
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
 		"pages/featured/featured",
-		"pages/me/wallet/wallet"
+		"pages/me/wallet/wallet",
+		"pages/giftCardList/giftCardList",
+		"pages/eCardList/eCardList"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

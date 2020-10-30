@@ -16,7 +16,7 @@
   </view>
   <view class="main">
     <!-- 导航标签 -->
-    <van-tabs active="{{ activeIndex }}" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
+    <van-tabs active="{{ activeIndex }}" line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
       <van-tab title="充值账户"></van-tab>
       <van-tab title="赠送账户"></van-tab>
     </van-tabs>

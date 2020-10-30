@@ -1,162 +1,38 @@
 .container {
 	padding: 15rpx;
+
 	.account {
-		background-color: var(--primary-color, #013F56);
+		background-color: var(--primary-color, #013f56);
 		border-radius: 10rpx;
+		padding: 20rpx 25rpx;
 		.account-item {
-			color: white;
-			font-size: 42rpx;
-			padding: 42rpx 0;
-			height: 200rpx;
 			display: flex;
-			flex-direction: column;
 			align-items: center;
-			line-height: 60rpx;
-			.account-name {
-				margin-bottom: 12rpx;
+			.user-name {
 				font-size: 28rpx;
+				color: white;
 				line-height: 40rpx;
-			}
-			.account-symbol {
-				font-size: 22rpx;
+				margin-left: 16rpx;
 			}
 		}
 	}
-	.wallet {
-		margin: 14rpx 0;
+	.extend-wrap {
 		background-color: #fff;
-		padding: 20rpx;
-		// min-height: 600rpx;
-		.wallet-tab {
-			margin: 0 4rpx;
+		border-radius: 10rpx;
+		padding: 0 25rpx;
+		margin: 15rpx 0;
+		display: flex;
+		width: 100%;
+		flex-wrap: wrap;
+		.extend-btn {
+			width: 33%;
 			display: flex;
-			padding-bottom: 18rpx;
-			border-bottom: 1rpx solid #d4d4d4;
-			.tab-item {
-				font-size: 20rpx;
-				line-height: 30rpx;
-				flex: 1;
-				border-right: 1rpx solid #d7d7d7;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				&:last-child {
-					border: none;
-				}
-				.tab-name {
-					font-size: 28rpx;
-					line-height: 40rpx;
-					color: #333333;
-					font-weight: bold;
-					margin-bottom: 14rpx;
-				}
-				.tab-num {
-					color: #999999;
-					width: 90rpx;
-					border-radius: 30rpx;
-					text-align: center;
-				}
-				&.tab-active {
-					.tab-name {
-						color: var(--primary-color, #013F56);
-					}
-					.tab-num {
-						color: white;
-						background-color: var(--primary-color, #013F56);
-					}
-				}
-			}
-		}
-		.wallet-content {
-			// 优惠券
-			.coupon {
-				.coupon-list{
-					padding: 20rpx 0;
-					.coupon-item{
-						margin:25rpx auto 0;
-						width:650rpx;
-					}
-				}
-			}
-			// 礼品卡
-			.gift-card {
-				.gift-content {
-					.gift-item {
-						padding: 36rpx 0;
-						border-bottom: 1rpx solid #d4d4d4;
-						.gift-detail {
-							display: flex;
-							margin-bottom: 22rpx;
-							.gift-right {
-								font-size: 28rpx;
-								color: 28rpx;
-								font-weight: bold;
-								line-height: 40rpx;
-								margin-left: 25rpx;
-								.gift-buy-time {
-									font-weight: normal;
-									font-size: 20rpx;
-									line-height: 28rpx;
-									color: #707070;
-									margin: 10rpx 0 14rpx;
-								}
-							}
-						}
-						.gift-btns {
-							display: flex;
-							.gift-btn {
-								font-size: 24rpx;
-								color: #707070;
-								padding: 0 32rpx;
-								line-height: 50rpx;
-								border: 1rpx solid var(--primary-color, #013F56);
-								box-sizing: border-box;
-								background-color: #fff;
-								border-radius: 50rpx;
-							}
-							.gift-status {
-								width: 200rpx;
-								display: flex;
-								justify-content: center;
-								.gift-btn {
-									color: white;
-									background-color: var(--primary-color, #013F56);
-								}
-							}
-							.gift-btn-detail {
-								margin: 0 14rpx 0 auto ;
-							}
-						}
-					}
-				}
-			}
-			// 电子卡券
-			.e-card {
-				.e-card-content {
-					.e-card-item {
-						padding: 36rpx 0;
-						border-bottom: 1rpx solid #d4d4d4;
-						.e-card-detail {
-							font-size: 24rpx;
-							line-height: 34rpx;
-							display: flex;
-							justify-content: space-between;
-							.detail-left-item {
-								margin-bottom: 4rpx;
-							}
-						}
-						.e-card-status {
-							font-size: 18rpx;
-							color: #999999;
-							display: flex;
-							justify-content: space-between;
-							margin-top: 14rpx;
-							.card-status-right {
-								color: #F52D2D;
-							}
-						}
-					}
-				}
+			flex-direction: column;
+			align-items: center;
+			padding: 20rpx 0;
+			.extend-title {
+				color: #333333;
+				font-size: 28rpx;
 			}
 		}
 	}

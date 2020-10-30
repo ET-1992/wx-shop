@@ -1,0 +1,36 @@
+.wallet {
+	margin: 14rpx 0;
+	background-color: #fff;
+	padding: 20rpx;
+	// min-height: 600rpx;
+	.wallet-content {
+		// 电子卡券
+		.e-card {
+			.e-card-content {
+				.e-card-item {
+					padding: 36rpx 0;
+					border-bottom: 1rpx solid #d4d4d4;
+					.e-card-detail {
+						font-size: 24rpx;
+						line-height: 34rpx;
+						display: flex;
+						justify-content: space-between;
+						.detail-left-item {
+							margin-bottom: 4rpx;
+						}
+					}
+					.e-card-status {
+						font-size: 18rpx;
+						color: #999999;
+						display: flex;
+						justify-content: space-between;
+						margin-top: 14rpx;
+						.card-status-right {
+							color: #f52d2d;
+						}
+					}
+				}
+			}
+		}
+	}
+}

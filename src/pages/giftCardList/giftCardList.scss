@@ -1,0 +1,60 @@
+.wallet {
+	margin: 14rpx 0;
+	background-color: #fff;
+	padding: 20rpx;
+	// min-height: 600rpx;
+	.wallet-content {
+		// 礼品卡
+		.gift-card {
+			.gift-content {
+				.gift-item {
+					padding: 36rpx 0;
+					border-bottom: 1rpx solid #d4d4d4;
+					.gift-detail {
+						display: flex;
+						margin-bottom: 22rpx;
+						.gift-right {
+							font-size: 28rpx;
+							color: 28rpx;
+							font-weight: bold;
+							line-height: 40rpx;
+							margin-left: 25rpx;
+							.gift-buy-time {
+								font-weight: normal;
+								font-size: 20rpx;
+								line-height: 28rpx;
+								color: #707070;
+								margin: 10rpx 0 14rpx;
+							}
+						}
+					}
+					.gift-btns {
+						display: flex;
+						.gift-btn {
+							font-size: 24rpx;
+							color: #707070;
+							padding: 0 32rpx;
+							line-height: 50rpx;
+							border: 1rpx solid var(--primary-color, #013F56);
+							box-sizing: border-box;
+							background-color: #fff;
+							border-radius: 50rpx;
+						}
+						.gift-status {
+							width: 200rpx;
+							display: flex;
+							justify-content: center;
+							.gift-btn {
+								color: white;
+								background-color: var(--primary-color, #013F56);
+							}
+						}
+						.gift-btn-detail {
+							margin: 0 14rpx 0 auto ;
+						}
+					}
+				}
+			}
+		}
+	}
+}
