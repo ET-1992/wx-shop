@@ -30,7 +30,7 @@ Component({
             vaule: true
         },
         title: {
-            type: 'String',
+            type: String,
             value: ''
         }
     },
@@ -80,7 +80,6 @@ Component({
             const child = this.selectComponent('#navigationBar');
             let { capsulePosition } = child.data,
                 { windowWidth } = getApp().globalSystemInfo;
-
             let rightDistance = windowWidth - capsulePosition.right;
             let navBarLeft = [
                 `width:${capsulePosition.width}px`,
