@@ -11,12 +11,12 @@ Component({
         },
         background: {
             type: String,
-            value: 'rgba(255, 255, 255, 1)',
+            value: '255,255,255',
             observer: '_showChange'
         },
         backgroundColorTop: {
             type: String,
-            value: 'rgba(255, 255, 255, 1)',
+            value: '255, 255, 255',
             observer: '_showChangeBackgroundColorTop'
         },
         color: {
@@ -47,6 +47,29 @@ Component({
             type: String,
             value: 'black'
         },
+        scrollTop: {
+            type: Number,
+            value: 0,
+            observer: function(newVal) {
+                if (newVal > this.data.maxScrollTop) {
+                    this.animation.backgroundColor(`rgba(${this.data.background},1)`).step();
+                    this.setData({
+                        animations: this.animation.export()
+                    });
+                    this.setStyle();
+                } else {
+                    this.animation.backgroundColor(`rgba(${this.data.background},0)`).step();
+                    this.setData({
+                        animations: this.animation.export()
+                    });
+                }
+            }
+        },
+        // 最大滚动值 (超出此值背景颜色变换)
+        maxScrollTop: {
+            type: Number,
+            value: 0
+        },
         /* animated: {
         type: Boolean,
         value: true
@@ -63,6 +86,13 @@ Component({
     },
     created: function() {
         this.getSystemInfo();
+        this.animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'linear',
+            delay: 0,
+            transformOrigin: '50% 50% 0'
+        });
+        console.log(this.animation, 'this.animation');
     },
     attached: function() {
         this.setStyle(); // 设置样式
@@ -90,10 +120,9 @@ Component({
             const { back, home, title } = this.data;
             let rightDistance = windowWidth - capsulePosition.right; // 胶囊按钮右侧到屏幕右侧的边距
             let leftWidth = windowWidth - capsulePosition.left; // 胶囊按钮左侧到屏幕右侧的边距
-
             let navigationbarinnerStyle = [
                 `color: ${this.data.color}`,
-                `background: ${this.data.background}`,
+                // `background: ${this.data.background}`,
                 `height:${navBarHeight + navBarExtendHeight}px`,
                 `padding-top:${statusBarHeight}px`,
                 `padding-right:${leftWidth}px`,
