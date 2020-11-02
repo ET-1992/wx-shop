@@ -1,0 +1,18 @@
+.container {
+	position: fixed;
+	// top: 160rpx;
+	width: 100%;
+	z-index: 99;
+	.tab-wrap {
+		padding: 8px 0 4rpx;
+		background-color: #fff;
+		.tab {
+			font-size: 24rpx;
+			color: #999999;
+		}
+		.active-tab {
+			color: #333333;
+			font-weight: bold;
+		}
+	}
+}

@@ -10,6 +10,7 @@
     <include wx:elif="{{ tplStyle === 'vip_tpl_seven' }}" src="./templates/tplStyleSeven/tplStyleSeven.wxml"/>
     <include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml"/>
 
+
     <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
     <service phone="{{ phone }}" customer="{{ customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
@@ -25,13 +26,11 @@
 </block>
 <!---->
 <block wx:if="{{ home_type === 'new'}}">
-    <view class="container" wx:if="{{ !isLoading }}" 
-    style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx"> 
-        <!-- 搜索框 -->
-        <searchBox wx:if="{{ module_page.search_box }}" total="{{ module_page.search_box.total }}" 
-            themeColor="{{ themeColor }}" globalData="{{ globalData }}" 
-            onlySearchBox="{{ false }}" />
-        <view class="{{ module_page.search_box ? 'main': '' }}">
+    <view class="container" wx:if="{{ !isLoading }}"
+    style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx">
+        <!-- 新版搜索框 -->
+        <productNavigationBar id="navigation-bar" scrollTop="{{ scrollTop }}" navType="homeNav" maxScrollTop="400" backgroundRgb="{{ mainBgcolor }}" showSearchBox="{{ module_page.search_box }}" title="{{ page_title }}"/>
+        <view class="{{ module_page.search_box ? 'main': '' }}" style="padding-top: {{ module_page.search_box ? statusBarHeight + 45: statusBarHeight }}px">
             <view wx:for="{{ modules }}" wx:key="key">
                 <!-- 幻灯片 -->
                 <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" themeColor="{{ themeColor }}"/>

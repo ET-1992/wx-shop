@@ -1,0 +1,98 @@
+.container{
+    background: #fff;
+    padding: 20rpx 30rpx;
+    color: #000000;
+    .title{
+        font-size: 28rpx;
+        height: 36rpx;
+        line-height: 36rpx;
+    }
+    .comments {
+        margin: 26rpx 0;
+        .item{
+            border-bottom: 1rpx solid #D7D7D7;
+            padding-bottom: 20rpx;
+            margin-bottom: 40rpx;
+            .top{
+                display: flex;
+                height: 66rpx;
+                .avatar{
+                    width: 50rpx;
+                    height: 50rpx;
+                    border-radius: 100%;
+                }
+                .user{
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 20rpx;
+                    line-height: 1;
+                    .nickname{
+                        padding-left: 4rpx;
+                        font-size: 24rpx;
+                    }
+                }
+                .time {
+                    margin-left: auto;
+                    font-size: 20rpx;
+                    color: #333333;
+
+                }
+            }
+            .text{
+                font-size: 26rpx;
+                margin-top: 14rpx;
+            }
+            .images{
+                padding-top: 24rpx;
+                .commentImage{
+                    width: 150rpx;
+                    height: 150rpx;
+                    background: #C2C2C2;
+                    margin-right: 25rpx;
+                }
+                .commentImage:nth-child(4){
+                    margin: 0;
+                }
+            }
+            .admin_reply{
+                background: #f4f4f4;
+                padding: 15rpx 20rpx;
+                min-height: 80rpx;
+                margin-top: 30rpx;
+                
+                .dialog-box {
+                    position: relative;
+                    view {
+                        width:0; 
+                        height:0; 
+                        font-size:0; 
+                        overflow:hidden; 
+                        position:absolute;
+                        &.top{
+                          border-width:13px; 
+                          border-style:solid dashed dashed; 
+                          border-color:transparent transparent #f4f4f4 transparent; 
+                          left:0; 
+                          top:-25px;
+                        }
+                    }
+                }
+                .reply_text{
+                    font-size: 22rpx;
+                }
+            }
+        }
+        .item:last-child{
+            border:none;
+            margin: 0;
+        }
+    }
+    .more-comments{
+        color: #999999;
+        font-size: 24rpx;
+        margin-top: 34rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

@@ -47,7 +47,7 @@
 	</view>
 	<view class="foot {{ isIphoneX ? 'iphoneXTrick' : '' }}">
 		<view class="left">
-			<view class="btn row" wx:for="aaa"></view>
+			<view class="btn row" wx:for="aaa" wx:key="index"></view>
 		</view>
 		<view class="right">
 			<view class="btn row"></view>

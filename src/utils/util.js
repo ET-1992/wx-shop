@@ -519,6 +519,28 @@ export function failToBindWeb(data) {
     }
 }
 
+/* 16进制颜色转为RGB格式 */
+export function colorRgb(string) {
+    let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+    let sColor = string.toLowerCase();
+    if (sColor && reg.test(sColor)) {
+        if (sColor.length === 4) {
+            let sColorNew = '#';
+            for (let i = 1; i < 4; i += 1) {
+                sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+            }
+            sColor = sColorNew;
+        }
+        // 处理六位的颜色值
+        let sColorChange = [];
+        for (let i = 1; i < 7; i += 2) {
+            sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2), 0));
+        }
+        return sColorChange.join(',');
+    } else {
+        return sColor;
+    }
+}
 /* 函数防抖 */
 export function debounce(fn, interval) {
     let timer = null;
@@ -532,6 +554,20 @@ export function debounce(fn, interval) {
         timer = setTimeout(function() {
             fn.call(context, args);
         }, gapTime);
+    };
+}
+
+/* 函数节流 */
+export function throttle(fn, interval) {
+    let enterTime = 0;// 触发的时间
+    let gapTime = interval || 300;// 间隔时间，如果interval不传，则默认300ms
+    return function(...args) {
+        let context = this;
+        let backTime = new Date();// 第一次函数return即触发的时间
+        if (backTime - enterTime > gapTime) {
+            fn.apply(context, args);
+            enterTime = backTime;// 赋值给第一次触发的时间，这样就保存了第二次触发的时间
+        }
     };
 }
 

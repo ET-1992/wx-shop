@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "账户明细",
+  "usingComponents": {
+    "loading": "components/loading/index",
+    "popup": "components/popup/popup",
+    "van-tabs": "@vant/weapp/dist/tabs/index",
+    "van-tab": "@vant/weapp/dist/tab/index",
+    "van-image": "@vant/weapp/dist/image/index"
+  }
+}

@@ -10,7 +10,8 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/featured/featured"
+		"pages/featured/featured",
+		"pages/me/wallet/wallet"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -286,7 +287,7 @@
 			"root": "pages/productDetail/",
 			"pages": [
 				"productDetail",
-				"productComments/index"
+				"commentList/commentList"
 			],
 			"name": "商品详情页"
 		},
@@ -380,6 +381,20 @@
 				"payCashier"
 			],
 			"name": "支付页"
+		},
+		{
+			"root": "pages/electronicCard",
+			"pages": [
+				"electronicCard"
+			],
+			"name": "电子卡券凭证"
+		},
+		{
+			"root": "pages/accountDetail",
+			"pages": [
+				"accountDetail"
+			],
+			"name": "储值卡账户明细"
 		}
 	],
 	"permission": {

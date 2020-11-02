@@ -1,0 +1,9 @@
+<view class="container" style="top: {{ menuRect.bottom + 'px' }}" wx:if="{{ scrollTop / 400 > 1 }}">
+  <van-tabs active="{{ activeTab }}" duration="{{ 0 }}" custom-class="tab-wrap" tab-class="tab" tab-active-class="active-tab" color="{{ themeColor.primaryColor }}" bind:click="handleClickTab">
+    <van-tab wx:for="{{ tabList }}" wx:key="item" title="{{ item }}" />
+    <!-- <van-tab title="商品" name="goods"></van-tab>
+    <van-tab title="评论" name="comments"></van-tab>
+    <van-tab title="详情" name="detail"></van-tab>
+    <van-tab title="推荐" name="recommend"></van-tab> -->
+  </van-tabs>
+</view>

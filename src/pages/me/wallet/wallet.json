@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "我的钱包",
+  "usingComponents": {
+    "van-image": "@vant/weapp/dist/image/index",
+    "van-row": "@vant/weapp/dist/row/index",
+    "van-col": "@vant/weapp/dist/col/index",
+    "van-button": "@vant/weapp/dist/button/index",
+    "van-tabs": "@vant/weapp/dist/tabs/index",
+    "van-empty": "@vant/weapp/dist/empty/index",
+    "van-tab": "@vant/weapp/dist/tab/index",
+    "loading": "components/loading/index",
+    "couponList": "components/couponList/index"
+  }
+}

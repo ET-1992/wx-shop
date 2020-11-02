@@ -8,17 +8,25 @@ page {
 	position: relative;
 }
 
-.container {
-	padding-bottom: $footerHeight;
-	color: $titleColor;
-	overflow-x: hidden;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-
-	&.iphoneXTrick {
-	    padding-bottom: $footerHeight + $iphoneXBottomGap;
+.product-main {
+	height: 100vh; 
+	width: 100%;
+	.container {
+		padding-bottom: $footerHeight;
+		color: $titleColor;
+		height: auto;
+		&.iphoneXTrick {
+			padding-bottom: $footerHeight + $iphoneXBottomGap;
+		}
 	}
 }
+
+// .observer-tab {
+// 	margin-bottom: 10rpx;
+// 	&:last-child {
+// 		margin: 0;
+// 	}
+// }
 
 video {
 	height: 750rpx;
@@ -455,23 +463,25 @@ video {
 
 .product-options {
 	margin: 0 15rpx;
-	transform: translateY(-112rpx);
+	transform: translateY(-60px);
+	margin-bottom: -110rpx;
 	z-index: 9999;
-	.options-content {
-		.product-title {
-			font-size: 28rpx;
-			line-height: 36rpx;
-			color: black;
-			font-weight: bold;
-			margin: 24rpx 0;
-		}
-		.product-content {
-			font-size: 24rpx;
-			color: #707070;
-			line-height: 30rpx;
-			margin: 24rpx 0 60rpx;
-		}
-	}
+	// .options-content {
+	// 	padding: 20rpx 25rpx;
+	// 	margin: 16rpx 0;
+	// 	background-color: #fff;
+	// 	border-radius: 5rpx;
+	// 	.product-title {
+	// 		font-size: 28rpx;
+	// 		line-height: 36rpx;
+	// 		color: black;
+	// 		font-weight: bold;
+	// 	}
+	// }
+}
+.options-content {
+	margin-top: 20rpx;
+	transform: translateY(-112rpx);
 }
 .info {
 	background-color: #fff;
@@ -644,11 +654,6 @@ video {
 			justify-content: flex-start;
 		}
 	}
-}
-
-// 多门店部件
-.multiStore {
-	display: none;
 }
 
 .area-box {
@@ -938,6 +943,12 @@ button {
 	padding: 20rpx 0;
 	margin-bottom: 10rpx;
 }
+
+// 商品评论
+.comments {
+	margin: 10rpx 0;
+}
+
 .detail{
 	margin-top: 10rpx;
 	background-color: #fff;
@@ -1048,6 +1059,38 @@ button {
 
 	.unpublishedHint {
 		background-color: #666;
+	}
+
+	// 餐饮商品下方数量选择
+	.catering-order-end {
+		display: flex;
+		background-color: #fff;
+		padding: 0 40rpx;
+		width: 100%;
+		height: 100rpx;
+		align-items: center;
+		.end-left {
+			flex-wrap: wrap;
+			flex: 1;
+			.left-price {
+				font-size: 28rpx;
+				line-height: 38rpx;
+				color: #FF1212;
+				font-weight: bold;
+			}
+			.left-options {
+				font-size: 20rpx;
+				line-height: 28rpx;
+				color: #333333;
+				.left-options-title {
+					margin-right: 8rpx;
+				}
+			}
+		}
+		.end-right {
+			margin-left: 6rpx;
+			flex-wrap: nowrap;
+		}
 	}
 
 	.footerMain {

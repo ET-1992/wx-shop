@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="head" style="background-color: {{ themeColor.primaryColor }}">
+    <view class="head-left">
+      <van-image height="110rpx" width="110rpx" round src="{{ currentUser.avatarurl }}" />
+      <view class="user-info">
+        <view class="user-name">{{ currentUser.nickname || '-' }}</view>
+        <view class="user-account">
+          <text>余额：</text>
+          <text>{{ currentUser.wallet && currentUser.wallet.store_card_balance || 0 }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="head-right" bind:tap="onOpenRecharge">
+      <button class="head-btn" style="color: {{ themeColor.primaryColor }}">充值</button>
+    </view>
+  </view>
+  <view class="main">
+    <!-- 导航标签 -->
+    <van-tabs active="{{ activeIndex }}" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
+      <van-tab title="充值账户"></van-tab>
+      <van-tab title="赠送账户"></van-tab>
+    </van-tabs>
+    <loading isLoading="{{ isLoading }}" />
+    <view class="main-content" wx:if="{{!isLoading}}">
+      <view class="account-list" wx:for="{{ accountList }}" wx:if="{{ accountList.length }}" wx:key="index">
+        <view>
+          <view>{{ item.text }}</view>
+          <view class="time">{{ item.formatTime }}</view>
+        </view>
+        <view class="coinNum decreaseNum">
+          <view class="price" wx:if="{{ item.income }}">+ {{ item.income }} 元</view>
+          <view class="price" wx:if="{{ item.expense }}">- {{ item.expense }} 元</view>
+          <view class="price" wx:if="{{ !item.expense && !item.income }}">{{ item.income }} 元</view>
+          <view class="balance">余额: {{ item.balance }} 元</view>
+        </view>
+      </view>
+      <view class="account-empty" wx:if="{{ !accountList.length }}">暂无记录</view>
+    </view>
+  </view>
+</view>
+<!-- 会员充值弹窗 -->
+<popup wx:if="{{ rechargeModal }}" rechargeModal="{{ rechargeModal }}" rechargeArray="{{ rechargeArray }}" customizePayEnable="{{ config.customizePayEnable }}" user="{{ currentUser }}" config="{{ config }}" bind:onConfirmRecharge="onConfirmRecharge" bind:closeRechargeModal="onCloseRecharge" />

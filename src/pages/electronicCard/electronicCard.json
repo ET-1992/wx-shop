@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "电子卡券凭证",
+  "usingComponents": {
+    "van-image": "@vant/weapp/dist/image/index",
+    "loading": "components/loading/index"
+  }
+}

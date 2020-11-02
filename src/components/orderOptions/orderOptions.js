@@ -14,6 +14,10 @@ Component({
             type: Number,
             value: 1,
         },
+        customBottom: {
+            type: Boolean,
+            value: false,
+        },
     },
     data: {
         themeColor: {},
@@ -49,6 +53,8 @@ Component({
                 selectedString,
                 selectedSpecials: specialList,
             });
+            let { selectedPrice } = this.data;
+            this.triggerEvent('changeoption', { selectedString, selectedPrice });
             this.getProductPosts();
         },
         'product': function(value) {

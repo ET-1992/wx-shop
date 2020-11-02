@@ -1,0 +1,130 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+
+<view class="container" style="--primary-color: {{ themeColor.primaryColor }}">
+  <van-row custom-class="account">
+    <van-col custom-class="account-item" span="12" bind:tap="go" data-url="/pages/accountDetail/accountDetail">
+      <view class="account-name">余额</view>
+      <view>
+        <text class="account-symbol">{{ config.currency_sign || '￥' }}</text>
+        <text>{{ currentUser.wallet.store_card_balance || '0' }}</text>
+      </view>
+    </van-col>
+    <van-col custom-class="account-item" span="12" bind:tap="go" data-url="/pages/coinDetail/coinDetail">
+      <view class="account-name">{{ config.coin_name || '花生米' }}</view>
+      <view>{{ currentUser.wallet.coins || '0' }}</view>
+    </van-col>
+  </van-row>
+  <view class="wallet">
+    <!-- 主标签页 -->
+    <view class="wallet-tab">
+      <view class="tab-item {{ currentTab === index && 'tab-active'}}" wx:for="{{ walletTabs }}" wx:key="key" data-index="{{ index }}" bind:tap="onWalletTab">
+        <view class="tab-name">{{ item.name }}</view>
+        <view class="tab-num">
+          <text>{{ item.amount || '0' }}</text>
+          <text>张</text>
+        </view>
+      </view>
+    </view>
+    <loading isLoading="{{ isLoading }}" />
+    <view class="wallet-content" wx:if="{{ !isLoading }}">
+      <!-- 优惠券 -->
+      <view class="coupon" wx:if="{{ currentTab === 0 }}">
+        <van-tabs active="{{ couponTab }}" custom-class="coupon-content" duration="{{ 0 }}" color="{{ themeColor.primaryColor }}" bind:change="onCouponTab">
+          <van-tab title="未使用"></van-tab>
+          <van-tab title="已使用"></van-tab>
+          <van-tab title="已过期"></van-tab>
+        </van-tabs>
+        <view class="coupon-content">
+          <van-empty description="无相关优惠券" wx:if="{{ !coupons[couponTab].length }}" />
+          <!-- 优惠券列表 -->
+          <view class="coupon-list" wx:else>
+            <button class="coupon-item" wx:for="{{ coupons[couponTab] }}" wx:key="id" open-type="getUserInfo" bindgetuserinfo="onCouponClick" data-index="{{ index }}">
+              <couponList coupon="{{ item }}" status="{{ coupon.getStatus(item.status, item.stock_qty) }}" />
+            </button>
+          </view>
+        </view>
+      </view>
+      <!-- 礼品卡 -->
+      <view class="gift-card" wx:elif="{{ currentTab === 1 }}">
+        <van-empty description="无相关礼品卡" wx:if="{{ !gCard.length }}" />
+        <view class="gift-content" wx:else>
+          <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
+            <view class="gift-detail">
+              <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.cover_thumbnail }}" />
+              <view class="gift-right">
+                <view class="gift-title">{{ item.title || '-' }}</view>
+                <view class="gift-buy-time">
+                  <text>购买时间：</text>
+                  <text>{{ WXS.formatDate(item.time, 'yyyy-MM-dd HH:mm:ss') }}</text>
+                </view>
+                <view class="gift-value">￥{{ item.order_amount }}</view>
+              </view>
+            </view>
+            <view class="gift-btns">
+              <view class="gift-status">
+                <button class="gift-btn">赠送</button>
+              </view>
+              <view class="gift-btn-detail" bind:tap="go" data-url="/pages/orderDetail/orderDetail?id={{ item.order_no }}">
+                <button class="gift-btn">订单详情</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 电子卡 -->
+      <view class="e-card" wx:elif="{{ currentTab === 2 }}">
+        <van-empty description="无相关电子卡券" wx:if="{{ !eCard.length }}" />
+        <view class="e-card-content" wx:else>
+          <view class="e-card-item" wx:for="{{ eCard }}" wx:key="index" bind:tap="go" data-url="/pages/electronicCard/electronicCard?id={{ item.ticket_id }}">
+            <view class="e-card-detail">
+              <view class="card-detail-left">
+                <view class="detail-left-item">
+                  <text>商品信息：</text>
+                  <text>{{ item.post_title || '-' }}</text>
+                </view>
+                <view class="detail-left-item">
+                  <text>剩余次数：</text>
+                  <text>{{ item.available_times || 0 }}</text>
+                </view>
+                <view class="detail-left-item">
+                  <text>商品有效期：</text>
+                  <text>{{ WXS.formatDate(item.create_time, 'yyyy.MM.dd') + '-' + WXS.formatDate(item.expired_time, 'yyyy.MM.dd') }}</text>
+                </view>
+              </view>
+              <van-image width="100rpx" height="100rpx" src="{{ item.image_url }}" />
+            </view>
+            <view class="e-card-status">
+              <view class="card-status left">点击查看凭证</view>
+              <view class="card-status-right">
+                <text wx:if="{{ item.status === 1 }}">使用中</text>
+                <text wx:elif="{{ item.status === 2 }}">已过期</text>
+                <text wx:elif="{{ item.status === 3 }}">已使用</text>
+                <text wx:elif="{{ item.status === 4 }}">已冻结</text>
+                <text wx:elif="{{ item.status === 5 }}">已作废</text>
+                <text wx:else>-</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<wxs module="coupon">
+  var getStatus = function(status, number) {
+    var statusName = 'receivable';
+    if(status === 2 && !number) {
+      statusName = 'nullCoupon';
+    } else if(status === 3) {
+      statusName = 'expired';
+    } else if(status === 4) {
+      statusName = 'received';
+    } else if(status === 5) {
+      statusName = 'used';
+    }
+    return statusName;
+  };
+  module.exports = {
+    getStatus: getStatus
+  };
+</wxs>

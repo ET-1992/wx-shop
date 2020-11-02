@@ -7,8 +7,9 @@
     "couponList": "components/couponList/index",
     "loading": "components/loading/index",
     "countDown": "components/countDown/countDown",
-    "productComments": "./productComments/index",
+    "productComments": "components/productComments/index",
     "productParams": "./productParam/productParam",
+    "tabs": "./tabs/tabs",
     "magicImg": "components/magicImg/magicImg",
     "skuModal": "components/skuModal/skuModal",
     "van-popup": "@vant/weapp/dist/popup/index",
@@ -22,6 +23,8 @@
     "multiStore": "components/multiStore/multiStore",
     "formatContent": "components/formatContent/formatContent",
     "orderOptions": "components/orderOptions/orderOptions",
-    "van-stepper": "@vant/weapp/dist/stepper/index"
-  }
+    "van-stepper": "@vant/weapp/dist/stepper/index",
+    "productNavigationBar": "components/productNavigationBar/productNavigationBar"
+  },
+  "navigationStyle": "custom"
 }

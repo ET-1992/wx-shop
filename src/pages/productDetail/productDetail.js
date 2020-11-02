@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid, auth, subscribeMessage } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid, auth, throttle } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 import getRemainTime from 'utils/getRemainTime';
@@ -66,6 +66,15 @@ Page({
         bargain_mission: {},
         multiStoreEnable: false,
         productQuantity: 1,
+        currentTabIndex: 0,  // 当前选中标签
+        scrollTop: 0,  // 当前视图的scrollTop
+        toScrollTop: 0,  // 跳转的scrollTop
+        tabList: [],  // 页面导航标签列表
+        // 餐饮商品展示信息
+        cateringProduct: {
+            selectedPrice: '',
+            selectedString: '',
+        },
     },
 
     go, // 跳转到规则详情页面
@@ -235,11 +244,28 @@ Page({
                 data.posterType = 'bargain';
             }
 
+
+            let tabList = ['商品', '详情'];
+
+            // 存在推荐商品
+            if (product.related && product.related.length) {
+                this.setData({ isShowProductRelated: true });
+                tabList.push('推荐');
+            }
+
+            // 展示评论
+            if (config.reply_enable && product.reply_count) {
+                tabList.splice(1, 0, '评论');
+            }
+
             this.setData({
+                tabList,
                 grouponId: grouponId || '',
                 share_image: thumbnail,
                 ...data,
                 isLoading: false
+            }, () => {
+                this.handleScrollMethods();
             });
 
             // 获取缓存地址的邮费信息
@@ -265,13 +291,6 @@ Page({
             this.setDefinePrice();
             // ---------------
 
-            if (product.related && product.related.length) {
-                setTimeout(() => {
-                    this.setData({
-                        isShowProductRelated: true
-                    });
-                }, 1000);
-            }
         } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
@@ -545,6 +564,12 @@ Page({
         this.setData({
             productQuantity: detail,
         });
+    },
+
+    // 餐饮商品改变选项
+    onCateringProductOption(e) {
+        let { detail } = e;
+        this.setData({ cateringProduct: detail });
     },
 
     // 创建餐饮商品订单
@@ -1050,4 +1075,86 @@ Page({
     onShowPostageRule() {
         this.setData({ isShowPostageRule: true });
     },
+
+    handleScrollMethods() {
+        this.getTabsBottom();
+        setTimeout(() => {
+            this.getSelectorsTop();
+        }, 1000);
+    },
+
+    // 页面滚动
+    handlePageScroll: throttle(function(e) {
+        let { scrollTop } = e.detail;
+        // console.log('滚动');
+        this.setData({ scrollTop });
+        this.linkTabs();
+    }, 120),
+
+    // 根据标签导航到指定位置
+    handlePageToView(e) {
+        let { index } = e.detail,
+            { _tabTopList = [] } = this;
+        // console.log('index', index);
+        let toScrollTop = _tabTopList[index];
+        if (index > 0) {
+            // 跳过外边距
+            toScrollTop += (10 * index);
+        }
+        this.setData({
+            toScrollTop,
+            currentTabIndex: index,
+        });
+    },
+
+    // 联动页面标签
+    linkTabs() {
+        let { _tabTopList = [] } = this,
+            { scrollTop, currentTabIndex } = this.data;
+        let newTab = '';
+        _tabTopList.forEach((item, index) => {
+            if (scrollTop >= item) {
+                newTab = index;
+            }
+        });
+        // console.log('newTab', newTab);
+        if (currentTabIndex === newTab) { return }
+        this.setData({ currentTabIndex: newTab });
+    },
+
+    // 获取元素的offsetTop
+    async getSelectorsTop() {
+        let { product } = this.data,
+            { _tabsBottom } = this,
+            tabTopList = [0];
+        // 导航对应位置
+        wx.createSelectorQuery().selectAll('.observer-tab').boundingClientRect((rects) => {
+            // console.log('rects', rects);
+            for (let i = 0; i < rects.length; i++) {
+                const rect = rects[i];
+                let height = (rect && rect.height) || 0;
+                let offsetTop = tabTopList[tabTopList.length - 1] + height;
+                if (i === 0) {
+                    // 忽略标签固定部分高度
+                    offsetTop -= _tabsBottom;
+                    // 忽略餐饮商品上移高度
+                    if (product.product_style_type === 2) {
+                        const TRANSLATEY = 60;
+                        offsetTop -= TRANSLATEY;
+                    }
+                }
+                tabTopList.push(offsetTop);
+            }
+            console.log('tabTopList', tabTopList);
+            this._tabTopList = tabTopList;
+        }).exec();
+    },
+
+    // 获取Tabs组件上方距离
+    async getTabsBottom() {
+        let tabsComponent = this.selectComponent('#tabs');
+        let { tabsBottom = 0 } = tabsComponent.data;
+        this._tabsBottom = tabsBottom;
+    },
+
 });

@@ -111,6 +111,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             id: product.id,
             postage: product.postage,
             quantity,
+            order_promotion_type: product.order_promotion_type,
         };
 
         const order = {

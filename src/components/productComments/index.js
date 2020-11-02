@@ -12,24 +12,31 @@ Component({
         replyCount: {
             type: Number,
             value: 0
-        }
+        },
+        showPart: {
+            type: Number,
+            value: true,
+        },
     },
     data: {
-        hasMore: true
+        commentList: [],  // 展示的评论信息
+    },
+    observers: {
+        'comments, replyCount, showPart': function(comments, replyCount, showPart) {
+            let commentList = comments;
+            if (showPart && replyCount > 2) {
+                commentList = comments.slice(0, 2);
+            }
+            this.setData({ commentList });
+        },
     },
     methods: {
-        async moreComments() {
-            const post_id = this.data.postId;
-            try {
-                const data = await api.hei.productCommentList({ post_id });
-                this.setData({
-                    comments: data.replies,
-                    hasMore: false
-                });
-            }
-            catch (e) {
-                console.log(e);
-            }
+        // 获取更多评论
+        async onMoreComments() {
+            const { postId: post_id } = this.data;
+            let url = '/pages/productDetail/commentList/commentList';
+            url += `?id=${post_id}`;
+            wx.navigateTo({ url });
         },
         previewImage(ev) {
             const newImages = [];

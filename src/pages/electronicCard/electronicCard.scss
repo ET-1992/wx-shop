@@ -1,0 +1,43 @@
+.container {
+	padding: 15rpx;
+	.card-wrap {
+		.card-top {
+			padding: 50rpx 26rpx 26rpx 26rpx;
+			border-radius: 5rpx;
+			background-color: #fff;
+			.bar-code {
+				display: flex;
+				justify-content: center;
+			}
+			.product {
+				margin: 56rpx 0 24rpx;
+				padding-bottom: 24rpx;
+				border-bottom: 1rpx solid #E0E0E0;
+			}
+		}
+		.card-bottom {
+			padding: 30rpx 26rpx 26rpx 26rpx;
+			border-radius: 5rpx;
+			background-color: #fff;
+			margin: 15rpx 0;
+			.record-name {
+				color: #999999;
+				font-size: 20rpx;
+			}
+			.record-wrap {
+				margin: 15rpx 0;
+				.card-item {
+					margin-bottom: 10rpx;
+				}
+			}
+		}
+		.card-item {
+			font-size: 24rpx;
+			line-height: 34rpx;
+			margin-bottom: 10rpx;
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+}
