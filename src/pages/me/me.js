@@ -35,7 +35,7 @@ Page({
                 membership_banner,
                 customize_style = {},
             } = data,
-            { extend_icons, order_icons, background_color } = customize_style;
+            { extend_icons, order_icons, background_color, banner } = customize_style;
         // 拓展功能图标区
         const infosComponentData = {
                 config,
@@ -74,14 +74,16 @@ Page({
             user,
             wallet,
             logoObj: config.partner,
-            config
+            config,
+            banner
         });
     },
 
     onLoad() {
         // user用户客服对接
-        const { themeColor, partner = {}, defineTypeGlobal, vip } = app.globalData;
-        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip });
+        const { themeColor, partner = {}, defineTypeGlobal, vip, tabbarPages } = app.globalData;
+        console.log(tabbarPages, 'tabbarPages');
+        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip, tabbarPages });
     },
 
     async onShow() {
