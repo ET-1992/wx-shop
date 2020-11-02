@@ -583,7 +583,7 @@
   <view class="postage-title">快递费用说明</view>
   <view class="postage-rule">
     <view wx:if="{{ product.shipment_writings && product.shipment_writings.length }}">
-      <view class="postage-rule-line" wx:for="{{ product.shipment_writings }}">
+      <view class="postage-rule-line" wx:for="{{ product.shipment_writings }}" wx:key="index">
         <text>{{ item.k + '：'}}</text>
         <text>{{ item.v }}</text>
       </view>

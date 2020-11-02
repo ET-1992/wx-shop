@@ -12,7 +12,7 @@
            </view>
            <view class="text" wx:if="{{ item.text }}">{{ item.text }}</view>
            <view class="images" wx:if="{{ item.images && item.images.length }}">
-               <image class="commentImage" wx:for="{{ item.images }}" data-items="{{ item.images }}" data-index="{{ index }}" wx:for-item="img" src="{{ img.thumb }}" mode="aspectFill" bindtap="previewImage"></image>
+               <image class="commentImage" wx:for="{{ item.images }}" wx:key="index" data-items="{{ item.images }}" data-index="{{ index }}" wx:for-item="img" src="{{ img.thumb }}" mode="aspectFill" bindtap="previewImage"></image>
            </view>
             <view wx:if="{{ item.admin_reply && item.admin_reply.text }}" class="admin_reply">
                 <view class="dialog-box">

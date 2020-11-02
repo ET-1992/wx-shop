@@ -1128,7 +1128,7 @@ Page({
             { _tabsBottom } = this,
             tabTopList = [0];
         // 导航对应位置
-        wx.createSelectorQuery().selectAll('.observer-tab').boundingClientRect(function(rects) {
+        wx.createSelectorQuery().selectAll('.observer-tab').boundingClientRect((rects) => {
             // console.log('rects', rects);
             for (let i = 0; i < rects.length; i++) {
                 const rect = rects[i];
@@ -1145,9 +1145,9 @@ Page({
                 }
                 tabTopList.push(offsetTop);
             }
+            console.log('tabTopList', tabTopList);
+            this._tabTopList = tabTopList;
         }).exec();
-        console.log('tabTopList', tabTopList);
-        this._tabTopList = tabTopList;
     },
 
     // 获取Tabs组件上方距离
