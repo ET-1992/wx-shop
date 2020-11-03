@@ -357,7 +357,7 @@ export const pageObj = {
         this.setData({
             productListPage,
             products: newProducts,
-            productListTotalPages: data.total_pages
+            productListTotalPages: data.total_pages === 0 ? 2 : data.total_pages // 防止后端传0回来
         }, () => {
             this.data.isProductBottom = false;
         });
@@ -388,7 +388,7 @@ export const pageObj = {
         if (rect && rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             const { productListTotalPages = 2, productListPage = 1 } = this.data;
-            if (productListPage <= productListTotalPages) {
+            if (productListPage < productListTotalPages) {
                 this.loadProducts();
             } else {
                 wx.showToast({
