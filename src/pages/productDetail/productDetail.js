@@ -75,6 +75,7 @@ Page({
             selectedPrice: '',
             selectedString: '',
         },
+        showBgColor: false
     },
 
     go, // 跳转到规则详情页面
@@ -1076,20 +1077,39 @@ Page({
         this.setData({ isShowPostageRule: true });
     },
 
+    // 获取页面滚动需要数据
     handleScrollMethods() {
         this.getTabsBottom();
-        setTimeout(() => {
-            this.getSelectorsTop();
+        let intervalNum = 0;
+        // 第一秒和第五秒时获取选中节点offsetTop偏移量
+        let intervalId = setInterval(() => {
+            intervalNum++;
+            if (intervalNum === 1) {
+                this.getSelectorsTop();
+            } else if (intervalNum > 5) {
+                this.getSelectorsTop();
+                clearInterval(intervalId);
+            }
         }, 1000);
     },
 
     // 页面滚动
-    handlePageScroll: throttle(function(e) {
+    handlePageScroll: function(e) {
         let { scrollTop } = e.detail;
-        // console.log('滚动');
-        this.setData({ scrollTop });
+        const { showBgColor } = this.data;
+        this.scrollTop = scrollTop;
+        if (scrollTop > 400 && !showBgColor) {
+            this.setData({
+                showBgColor: true
+            });
+        }
+        if (scrollTop < 400 && showBgColor) {
+            this.setData({
+                showBgColor: false
+            });
+        }
         this.linkTabs();
-    }, 120),
+    },
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
@@ -1109,8 +1129,8 @@ Page({
 
     // 联动页面标签
     linkTabs() {
-        let { _tabTopList = [] } = this,
-            { scrollTop, currentTabIndex } = this.data;
+        let { _tabTopList = [], scrollTop } = this,
+            { currentTabIndex } = this.data;
         let newTab = '';
         _tabTopList.forEach((item, index) => {
             if (scrollTop >= item) {
@@ -1122,13 +1142,14 @@ Page({
         this.setData({ currentTabIndex: newTab });
     },
 
-    // 获取元素的offsetTop
+    // 获取元素的offsetTop偏移高度
     async getSelectorsTop() {
         let { product } = this.data,
             { _tabsBottom } = this,
             tabTopList = [0];
         // 导航对应位置
-        wx.createSelectorQuery().selectAll('.observer-tab').boundingClientRect((rects) => {
+        let observerTabs = wx.createSelectorQuery().selectAll('.observer-tab');
+        observerTabs.boundingClientRect((rects) => {
             // console.log('rects', rects);
             for (let i = 0; i < rects.length; i++) {
                 const rect = rects[i];

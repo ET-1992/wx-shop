@@ -1,4 +1,4 @@
-<view class="container" style="top: {{ menuRect.bottom + 'px' }}" wx:if="{{ scrollTop / 400 > 1 }}">
+<view class="container" style="top: {{ menuRect.bottom + 'px' }}" wx:if="{{ showBgColor }}">
   <van-tabs active="{{ activeTab }}" duration="{{ 0 }}" custom-class="tab-wrap" tab-class="tab" tab-active-class="active-tab" color="{{ themeColor.primaryColor }}" bind:click="handleClickTab">
     <van-tab wx:for="{{ tabList }}" wx:key="item" title="{{ item }}" />
     <!-- <van-tab title="商品" name="goods"></van-tab>

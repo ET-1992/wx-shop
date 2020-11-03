@@ -40,6 +40,7 @@ export const pageObj = {
         isShowButton: true, // 是否显示抢购、秒杀按钮
         isProductLast: false, // 判断新首页商品列表是否在最后
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
+        showBgColor: false
     },
 
     swiperChange(e) {
@@ -328,7 +329,8 @@ export const pageObj = {
             // isRefresh: true,
             // next_cursor: 0,
             hasSliders: false,
-            productListPage: 1
+            productListPage: 1,
+            productListTotalPages: 2
         });
         await this.loadHome();
         wx.stopPullDownRefresh();
@@ -357,7 +359,7 @@ export const pageObj = {
         this.setData({
             productListPage,
             products: newProducts,
-            productListTotalPages: data.total_pages
+            productListTotalPages: data.total_pages === 0 ? 2 : data.total_pages // 防止后端传0回来
         }, () => {
             this.data.isProductBottom = false;
         });
@@ -388,7 +390,7 @@ export const pageObj = {
         if (rect && rect.top && (rect.top <= windowHeight - 30) && !this.data.isProductBottom) {
             this.data.isProductBottom = true; // 判断是否触底并且执行了逻辑
             const { productListTotalPages = 2, productListPage = 1 } = this.data;
-            if (productListPage <= productListTotalPages) {
+            if (productListPage < productListTotalPages) {
                 this.loadProducts();
             } else {
                 wx.showToast({
@@ -402,13 +404,21 @@ export const pageObj = {
         }
     },
     onPageScroll(e) {
-        const { home_type } = this.data;
+        const { home_type, showBgColor = false } = this.data;
         let { scrollTop } = e;
-        if (scrollTop > 0 && scrollTop < 500) {
+        if (scrollTop > 400 && !showBgColor) {
             this.setData({
-                scrollTop
+                showBgColor: true
             });
         }
+
+        if (scrollTop < 400 && showBgColor) {
+            this.setData({
+                showBgColor: false
+            });
+        }
+
+
         if (home_type === 'old') {
             let modules = this.data.modules;
             if (modules && modules.length && modules[modules.length - 1].key === 'products') {
