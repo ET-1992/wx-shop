@@ -329,7 +329,7 @@ export const pageObj = {
             // isRefresh: true,
             // next_cursor: 0,
             hasSliders: false,
-            productListPage: 1
+            productListPage: 1,
             productListTotalPages: 2
         });
         await this.loadHome();
