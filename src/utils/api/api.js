@@ -822,9 +822,15 @@ export const apis = {
         path: 'api/ticket/get.json',
         isForceToken: true,
     },
-    // 获取电子卡券详情
+    // 获取礼品卡列表
     fetchMyGiftCardList: {
         path: 'api/mag.gift_card.my.json',
         isForceToken: true,
+    },
+    // 获取礼品卡预下单
+    getGiftPrepare: {
+        path: 'api/mag.gift_card.prepare.json',
+        isForceToken: true,
+        method: 'POST',
     }
 };

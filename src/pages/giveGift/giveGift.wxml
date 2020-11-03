@@ -4,7 +4,7 @@
   </view>
   <view class="product">
     <view class="product-main">
-      <van-image width="150rpx" height="150rpx" src="{{ product.thumbnail }}" />
+      <van-image width="150rpx" height="150rpx" src="{{ product.image_url }}" />
       <view class="product-right">
         <view class="product-title text-ellipsis-2">{{ product.title }}</view>
         <view class="product-right-bottom">
@@ -14,27 +14,34 @@
       </view>
     </view>
     <view class="product-bottom">
-      <view>商品总价  ￥99   运费  ￥5</view>
+      <view class="product-total-price">
+        <text>商品总价</text>
+        <text>{{ '￥' + totalPrice }}</text>
+      </view>
+      <view wx:if="{{ !postage }}">
+        <text>运费</text>
+        <text>{{ '￥' + postage }}</text>
+      </view>
     </view>
   </view>
   <view class="card">
     <view class="card-preview">
-      <van-image width="500rpx" height="300rpx" src="{{ product.gift_cards[currentCardIndex].cover_img }}" />
+      <van-image width="500rpx" height="300rpx" src="{{ cardList[currentCardIndex].cover_img }}" />
     </view>
     <view class="card-options">
       <view class="card-title-wrap">
         <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_card_heart.svg" />
         <view class="card-title">选择卡面</view>
       </view>
-      <van-empty description="还没有卡面呢" wx:if="{{ !product.gift_cards.length }}" />
+      <van-empty description="还没有卡面呢" wx:if="{{ !cardList.length }}" />
       <view class="card-list" wx:else bind:tap="onSelectCard">
-        <van-image width="200rpx" height="120rpx" wx:for="{{ product.gift_cards }}" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
+        <van-image width="200rpx" height="120rpx" wx:for="{{ cardList }}" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
       </view>
     </view>
   </view>
   <van-goods-action>
     <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onClickIcon" />
     <van-goods-action-icon icon="/icons/context.png" text="客服" bind:click="onClickIcon" />
-    <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥105" bind:click="onClickButton" />
+    <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥{{ totalPrice }}" bind:click="onClickButton" />
   </van-goods-action>
 </view>

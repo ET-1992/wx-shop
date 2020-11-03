@@ -558,6 +558,20 @@ Page({
         wx.navigateTo({ url });
     },
 
+    // SKU确认 立即赠送
+    onGivingGift() {
+        let { selectedSku, quantity, product } = this.data,
+            url = '/pages/giveGift/giveGift';
+        const currentOrder = createCurrentOrder({ selectedSku, quantity, product });
+        let success = (res) => {
+            res.eventChannel.emit('productDetail', { currentOrder });
+        };
+        wx.navigateTo({
+            url,
+            success,
+        });
+    },
+
     // 餐饮商品选择数量
     onProductQuantity(e) {
         let { detail } = e;
