@@ -329,6 +329,7 @@ export const pageObj = {
             // next_cursor: 0,
             hasSliders: false,
             productListPage: 1
+            productListTotalPages: 2
         });
         await this.loadHome();
         wx.stopPullDownRefresh();
