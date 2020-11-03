@@ -47,11 +47,11 @@ Component({
             type: String,
             value: 'black'
         },
-        scrollTop: {
-            type: Number,
-            value: 0,
+        showBgColor: {
+            type: Boolean,
+            value: false,
             observer: function(newVal) {
-                if (newVal > this.data.maxScrollTop) {
+                if (newVal) {
                     this.animation.backgroundColor(`rgba(${this.data.background},1)`).step();
                     this.setData({
                         animations: this.animation.export()
@@ -64,11 +64,6 @@ Component({
                     });
                 }
             }
-        },
-        // 最大滚动值 (超出此值背景颜色变换)
-        maxScrollTop: {
-            type: Number,
-            value: 0
         },
         /* animated: {
         type: Boolean,

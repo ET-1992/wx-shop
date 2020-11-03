@@ -2,11 +2,6 @@ const app = getApp();
 
 Component({
     properties: {
-        scrollTop: {
-            type: Number,
-            optionalTypes: [String],
-            value: 0,
-        },
         activeTab: {
             type: Number,
             value: 0,
@@ -15,6 +10,10 @@ Component({
             type: Array,
             value: [],
         },
+        showBgColor: {
+            type: Boolean,
+            value: false
+        }
     },
     data: {
         menuRect: {},  // 导航栏右侧信息
