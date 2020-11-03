@@ -75,6 +75,7 @@ Page({
             selectedPrice: '',
             selectedString: '',
         },
+        showBgColor: false
     },
 
     go, // 跳转到规则详情页面
@@ -1093,12 +1094,22 @@ Page({
     },
 
     // 页面滚动
-    handlePageScroll: throttle(function(e) {
+    handlePageScroll: function(e) {
         let { scrollTop } = e.detail;
-        // console.log('滚动');
-        this.setData({ scrollTop });
+        const { showBgColor } = this.data;
+        this.scrollTop = scrollTop;
+        if (scrollTop > 400 && !showBgColor) {
+            this.setData({
+                showBgColor: true
+            });
+        }
+        if (scrollTop < 400 && showBgColor) {
+            this.setData({
+                showBgColor: false
+            });
+        }
         this.linkTabs();
-    }, 120),
+    },
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
@@ -1118,8 +1129,8 @@ Page({
 
     // 联动页面标签
     linkTabs() {
-        let { _tabTopList = [] } = this,
-            { scrollTop, currentTabIndex } = this.data;
+        let { _tabTopList = [], scrollTop } = this,
+            { currentTabIndex } = this.data;
         let newTab = '';
         _tabTopList.forEach((item, index) => {
             if (scrollTop >= item) {

@@ -1,10 +1,9 @@
 <!-- style="background-color:rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})" -->
 <view class="navigation-bar-wrap">
-  <navigationBar 
+  <navigationBar
     wx:if="{{ navType === 'productNav' }}"
-    scrollTop="{{scrollTop}}"
-    maxScrollTop="{{maxScrollTop}}" 
-    id="navigationBar" 
+    showBgColor="{{showBgColor}}"
+    id="navigationBar"
     background="{{ backgroundRgb }} ">
       <view slot="left" class="bar-left" style="{{ barLeftStyle }};">
       <!-- 返回 -->
@@ -41,10 +40,9 @@
     wx:if="{{ navType === 'homeNav' }}"
     id="navigationBar"
     background="{{ backgroundRgb }}"
-    title="{{ scrollTop / maxScrollTop > 1 && !showSearchBox ? title : ''  }}"
+    title="{{ showBgColor && !showSearchBox ? title : ''  }}"
     color="{{ themeColor.navigationBarTextStyle }}"
-    scrollTop="{{scrollTop}}"
-    maxScrollTop="{{maxScrollTop}}">
+    showBgColor="{{showBgColor}}">
 
     <navigator slot="left" class="bar-left-store" url="/pages/multiStoreList/multiStoreList" wx:if="{{ config.offline_store_enable && showSearchBox }}">
       <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>

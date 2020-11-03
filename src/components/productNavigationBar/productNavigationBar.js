@@ -9,11 +9,6 @@ Component({
             optionalTypes: [String],
             value: 0,
         },
-        // 最大滚动值 (超出此值背景颜色变换)
-        maxScrollTop: {
-            type: Number,
-            value: 0
-        },
         // 导航栏类型(目前只有homeNav和productNav两种)
         navType: {
             type: String,
@@ -32,6 +27,10 @@ Component({
         title: {
             type: String,
             value: ''
+        },
+        showBgColor: {
+            type: Boolean,
+            value: false
         }
     },
     data: {

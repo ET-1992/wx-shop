@@ -40,6 +40,7 @@ export const pageObj = {
         isShowButton: true, // 是否显示抢购、秒杀按钮
         isProductLast: false, // 判断新首页商品列表是否在最后
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
+        showBgColor: false
     },
 
     swiperChange(e) {
@@ -403,13 +404,21 @@ export const pageObj = {
         }
     },
     onPageScroll(e) {
-        const { home_type } = this.data;
+        const { home_type, showBgColor = false } = this.data;
         let { scrollTop } = e;
-        if (scrollTop > 0 && scrollTop < 500) {
+        if (scrollTop > 400 && !showBgColor) {
             this.setData({
-                scrollTop
+                showBgColor: true
             });
         }
+
+        if (scrollTop < 400 && showBgColor) {
+            this.setData({
+                showBgColor: false
+            });
+        }
+
+
         if (home_type === 'old') {
             let modules = this.data.modules;
             if (modules && modules.length && modules[modules.length - 1].key === 'products') {
