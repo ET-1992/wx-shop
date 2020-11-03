@@ -1,7 +1,12 @@
-<!-- 商品详情页的nav -->
-<view class="navigation-bar-wrap" style="background-color:rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})">
-  <navigationBar id="navigationBar" background="rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})" wx:if="{{ navType === 'productNav' }}">
-    <view slot="left" class="bar-left" style="{{ barLeftStyle }};">
+<!-- style="background-color:rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})" -->
+<view class="navigation-bar-wrap">
+  <navigationBar 
+    wx:if="{{ navType === 'productNav' }}"
+    scrollTop="{{scrollTop}}"
+    maxScrollTop="{{maxScrollTop}}" 
+    id="navigationBar" 
+    background="{{ backgroundRgb }} ">
+      <view slot="left" class="bar-left" style="{{ barLeftStyle }};">
       <!-- 返回 -->
       <van-icon name="/icons/productDetail/left_arrow.svg" class="bar-left-icon bar-left-arrow-icon" bind:tap="handlerGoback" />
       <view class="bar-left-divider"></view>
@@ -33,11 +38,13 @@
 
   <!-- 首页的navbar -->
   <navigationBar
+    wx:if="{{ navType === 'homeNav' }}"
     id="navigationBar"
-    background="rgba({{ backgroundRgb }},{{ scrollTop / maxScrollTop }})"
-    title="{{ scrollTop / maxScrollTop > 0.9 && !showSearchBox ? title : ''  }}"
+    background="{{ backgroundRgb }}"
+    title="{{ scrollTop / maxScrollTop > 1 && !showSearchBox ? title : ''  }}"
     color="{{ themeColor.navigationBarTextStyle }}"
-    wx:if="{{ navType === 'homeNav' }}">
+    scrollTop="{{scrollTop}}"
+    maxScrollTop="{{maxScrollTop}}">
 
     <navigator slot="left" class="bar-left-store" url="/pages/multiStoreList/multiStoreList" wx:if="{{ config.offline_store_enable && showSearchBox }}">
       <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>

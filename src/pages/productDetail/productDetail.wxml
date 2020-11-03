@@ -8,7 +8,7 @@
 <!-- 骨架屏 -->
 <skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}" />
 <!-- 商品详情主内容 -->
-<scroll-view class="product-main" wx:else scroll-y scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
+<scroll-view class="product-main" wx:else scroll-y enable-back-to-top scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <!-- 商品内容 -->
     <view class="observer-tab" id="goods">
@@ -583,7 +583,7 @@
   <view class="postage-title">快递费用说明</view>
   <view class="postage-rule">
     <view wx:if="{{ product.shipment_writings && product.shipment_writings.length }}">
-      <view class="postage-rule-line" wx:for="{{ product.shipment_writings }}">
+      <view class="postage-rule-line" wx:for="{{ product.shipment_writings }}" wx:key="index">
         <text>{{ item.k + '：'}}</text>
         <text>{{ item.v }}</text>
       </view>
