@@ -1,3 +1,10 @@
 {
-	"navigationBarTitleText": "我要送礼"
+	"navigationBarTitleText": "我要送礼",
+	"usingComponents": {
+		"van-image": "@vant/weapp/dist/image/index",
+		"van-empty": "@vant/weapp/dist/empty/index",
+		"van-goods-action": "@vant/weapp/dist/goods-action/index",
+		"van-goods-action-icon": "@vant/weapp/dist/goods-action-icon/index",
+		"van-goods-action-button": "@vant/weapp/dist/goods-action-button/index"
+	}
 }

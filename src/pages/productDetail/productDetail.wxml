@@ -256,7 +256,7 @@
           </view>
           <!-- 商品详情按钮动作 -->
           <view class="header-info-action-wrap">
-            <view class="header-info-action" bind:tap="go" data-url="/pages/giveGift/giveGift">
+            <view class="header-info-action" bind:tap="go" data-url="/pages/giveGift/giveGift?id={{ product.id }}">
               <van-icon custom-class="header-info-action-icon" name="point-gift-o" />
               <text class="header-info-action-text">送给TA</text>
             </view>
