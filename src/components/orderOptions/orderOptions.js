@@ -1,4 +1,6 @@
 import { createCurrentOrder } from 'utils/pageShare';
+import { CONFIG } from 'constants/index';
+import api from 'utils/api';
 const app = getApp();
 
 Component({
@@ -30,6 +32,7 @@ Component({
         selectedSpecials: [],  // 选中的特殊属性
         currentOrderItems: [],  // 订单请求传递数据
         productQuantity: 1,  // 选中数量
+        shipping_type: 1,  // 选中物流方式
     },
     observers: {
         // 选中项
@@ -59,17 +62,26 @@ Component({
         },
         'product': function(value) {
             this.setDefaultOptions(value);
+            this.handleShippingTypes();
         },
         'quantity': function(value) {
             this.setData({ productQuantity: value });
             this.getProductPosts();
         },
+        'shipping_type': function() {
+            this.getProductPosts();
+        },
     },
     lifetimes: {
-        attached() {
+        async attached() {
             let { themeColor } = app.globalData;
             this.setData({ themeColor });
-
+            let config = wx.getStorageSync(CONFIG);
+            if (!config) {
+                let data = await api.hei.config();
+                ({ config } = data);
+            }
+            this.setData({ config });
         },
     },
 
@@ -174,8 +186,7 @@ Component({
 
         // 获取商品请求参数
         getProductPosts() {
-            let { selectedSku, seletedRelations, selectedSpecials, productQuantity, product } = this.data;
-            let shipping_type = 2;
+            let { selectedSku, seletedRelations, selectedSpecials, productQuantity, product, shipping_type } = this.data;
             // 特殊属性
             let specialAttributes = selectedSpecials.map(item => ({ key: item.name, value: item.value }));
             let { items = [] } = createCurrentOrder({
@@ -191,6 +202,60 @@ Component({
             });
             // console.log('currentOrderItems', items);
             this.setData({ currentOrderItems: items });
+        },
+
+        // 处理物流可选项和默认项
+        handleShippingTypes() {
+            const cashedType = wx.getStorageSync('shippingType'),
+                {
+                    product: { shipping_types: types = [] },  // 商品物流方式
+                    config: { shipping_type_name = [], }  // 店铺物流名称字典
+                } = this.data;
+
+            // 选中物流对应对象数组 添加checked属性
+            let liftStyles = [];
+            for (let lift of shipping_type_name) {
+                let type = Number(lift.value),
+                    productShippingType = types.indexOf(type) > -1;
+                if (productShippingType) {
+                    Object.assign(lift, { checked: false });
+                    liftStyles.push(lift);
+                }
+            }
+
+            // 设置当前选中物流
+            let shipping_type = '';
+            for (let lift of liftStyles) {
+                if (lift.value === Number(cashedType)) {
+                    lift.checked = true;
+                    shipping_type = Number(cashedType);
+                }
+            }
+            if (!shipping_type && liftStyles[0]) {
+                // 不存在缓存则选第一个
+                liftStyles[0].checked = true;
+                shipping_type = liftStyles[0].value;
+            }
+
+            this.setData({
+                liftStyles,
+                shipping_type,
+            });
+        },
+
+        // 选择物流方式
+        onSeletedShippingType(e) {
+            let { value } = e.currentTarget.dataset,
+                { liftStyles } = this.data;
+
+            liftStyles.forEach((item) => {
+                if (item.value === Number(value)) {
+                    item.checked = true;
+                } else {
+                    item.checked = false;
+                }
+            });
+            this.setData({ liftStyles, shipping_type: Number(value) });
         },
     },
 });

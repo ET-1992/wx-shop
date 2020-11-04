@@ -15,6 +15,16 @@
 					data-value="{{ value }}">{{ value }}</button>
 			</view>
 		</view>
+		<view class="option-wrap">
+			<text class="option-name">配送方式</text>
+			<view class="option-values">
+				<button class="value-btn {{ item.checked ? 'value-btn-avtived' : '' }}"
+					style="background: {{ item.checked ? themeColor.primaryColor : ''}}"
+					wx:for="{{ liftStyles }}" wx:key="index" 
+					bind:tap="onSeletedShippingType"
+					data-value="{{ item.value }}">{{ item.text }}</button>
+			</view>
+		</view>
 	</view>
 	<view class="order-end" wx:if="{{ !customBottom }}">
 		<view class="end-left">

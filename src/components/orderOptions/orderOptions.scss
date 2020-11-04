@@ -28,6 +28,7 @@
 			.option-values {
 				display: flex;
 				flex-wrap: wrap;
+				padding-bottom: 20rpx;
 				.value-btn {
 					border-radius: 8rpx;
 					font-size: 24rpx;
@@ -37,7 +38,7 @@
 					line-height: 65rpx;
 					padding: 0 12rpx;
 					min-width: 130rpx;
-					margin: 20rpx 20rpx 20rpx 0;
+					margin: 20rpx 20rpx 0 0;
 					&.value-btn-avtived {
 						color: white;
 						// background-color: #D1483E;
