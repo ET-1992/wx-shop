@@ -231,3 +231,38 @@ export const createCloudOrder = (arr = []) => {
     });
     return orderList;
 };
+
+// 发送创建订单的网络请求
+export const api_hei_create_order = async (post) => {
+    let method = 'createOrder';
+    let formData = handleCreateOrderPost(post);
+    const data = api.hei[method](formData);
+    return data;
+};
+
+// 处理创建订单的请求总数据
+function handleCreateOrderPost(post) {
+    let { posts, shipping_type = 1 } = post;
+    // 必传字段
+    let requiredPost = {
+        shipping_type,
+        posts: JSON.stringify(posts),
+    };
+    // 选传字段
+    let choosablePost = handleOrderChoosablePost(post);
+    return { ...requiredPost, ...choosablePost };
+}
+
+// 处理创建订单的选传字段
+function handleOrderChoosablePost(post) {
+    let { annotation, orderType } = post;
+    let choosablePost = {};
+    if (orderType === 'gift_card') {
+        const TYPE = 2;  // 礼品卡专属类型
+        Object.assign(choosablePost, {
+            type: TYPE,
+            annotation: JSON.stringify(annotation),
+        });
+    }
+    return choosablePost;
+}

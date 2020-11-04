@@ -6,10 +6,10 @@
     <view class="product-main">
       <van-image width="150rpx" height="150rpx" src="{{ product.image_url }}" />
       <view class="product-right">
-        <view class="product-title text-ellipsis-2">{{ product.title }}</view>
+        <view class="product-title text-ellipsis-2">{{ product.title || '-' }}</view>
         <view class="product-right-bottom">
-          <view class="product-sku-show">小号；灰色；</view>
-          <view class="product-buy-num">x2</view>
+          <view class="product-sku-show">{{ product.sku_property_names }}</view>
+          <view class="product-buy-num">x{{ product.quantity }}</view>
         </view>
       </view>
     </view>
@@ -18,7 +18,7 @@
         <text>商品总价</text>
         <text>{{ '￥' + totalPrice }}</text>
       </view>
-      <view wx:if="{{ !postage }}">
+      <view wx:if="{{ postage }}">
         <text>运费</text>
         <text>{{ '￥' + postage }}</text>
       </view>
@@ -42,6 +42,6 @@
   <van-goods-action>
     <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onClickIcon" />
     <van-goods-action-icon icon="/icons/context.png" text="客服" bind:click="onClickIcon" />
-    <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥{{ totalPrice }}" bind:click="onClickButton" />
+    <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥{{ totalPrice }}" bind:click="onOrderPay" />
   </van-goods-action>
 </view>

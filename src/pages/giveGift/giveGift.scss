@@ -20,10 +20,12 @@
 				.product-right-bottom {
 					font-size: 24rpx;
 					display: flex;
-					justify-content: space-between;
 					.product-sku-show {
 						font-size: 20rpx;
 						color: #999999;
+					}
+					.product-buy-num {
+						margin-left: auto;
 					}
 				}
 			}
