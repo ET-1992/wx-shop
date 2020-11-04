@@ -1,6 +1,6 @@
-<navigator class="largePic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}" >
+<navigator class="largePic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
     <view class="image-wrap" wx:if="{{ product.thumbnail }}">
-        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
+        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}"></image>
     </view>
     <view class="content-wrap">
         <view class="left">
@@ -42,8 +42,13 @@
         </view>
         <view class="right">
             <!-- 金币商品 -->
-            <button wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</button>
-            <button wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</button>
+            <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
+            <!-- 餐饮商品 -->
+            <view wx:elif="{{ product.product_style_type === 2 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
+            <!-- 虚拟商品 -->
+            <view wx:elif="{{ product.product_type === 1 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
+            <!-- 普通商品 -->
+            <view wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">{{config && config.cart_text || '立即抢购'}}</view>
         </view>
     </view>
 </navigator>

@@ -50,7 +50,7 @@
 			<view class="rights-item-title">
 				<text>会员专享商品</text>
 			</view>
-			<image src="{{ data.dedicated_products_banner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive='{{true}}'"></image>
+			<image src="{{ data.dedicated_products_banner || (config.cdn_host + '/shop/member/vipGoodsOwnBanner.svg')}}" mode="widthFix" bindtap="go" data-url="/pages/productList/productList?memberExclusive=true"></image>
 		</view>
 	</view>
 

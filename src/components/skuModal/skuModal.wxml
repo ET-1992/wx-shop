@@ -1,4 +1,4 @@
-<van-popup show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
+<van-popup round show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
     <!-- classify 页面 -->
     <view wx:if="{{ position === 'center' }}" class="modal">
         <view class="header">

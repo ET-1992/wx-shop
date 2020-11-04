@@ -12,6 +12,7 @@ Page({
         next_cursor: 0,
         page_title: '',
         share_title: '',
+        share_image: '',
         post_type_title: '',
         taxonomy_title: '',
         isLoading: true,
@@ -40,7 +41,7 @@ Page({
         wx.setNavigationBarTitle({
             title: data.page_title
         });
-        const { miaosha_banner, seckill_banner, bargain_banner, groupon_banner, total_pages, share_image, share_title } = data;
+        const { miaosha_banner = '', seckill_banner = '', bargain_banner = '', groupon_banner = '', total_pages, share_image, share_title } = data;
         this.setData({
             products: newProducts,
             isRefresh: false,

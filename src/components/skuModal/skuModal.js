@@ -14,7 +14,6 @@ Component({
             type: Object,
             value: {},
             observer(newValue, oldValue) {
-                console.log(newValue, 'newValue', oldValue, 'oldValue');
                 if (newValue.id !== (oldValue && oldValue.id)) { // 缓存
                     this.firstInit();
                     this.setSku();
@@ -180,9 +179,10 @@ Component({
                 });
                 return;
             }
+            e.id = product.id;
             e.sku_id = selectedSku.id; // 多规格
             e.shipping_type = shipping_type;
-            e.quantity = Number(product.uniqueNumber);
+            e.quantity = Number(product.uniqueNumber) || 1;
             if (selectedSku.stock === 0) {
                 await proxy.showModal({
                     title: '温馨提示',

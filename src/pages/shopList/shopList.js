@@ -52,13 +52,24 @@ export const pageObj = {
         },
         // 促销方式
         promotionType: '',
+        productsList: {
+            setting: {
+                style: 'per_2',
+                margin: 0,
+                title_display: false,
+                more: false
+            },
+            title: '',
+            id: 0,
+            type: 'product'
+        }
     },
 
     async onLoad(params) {
         let {
             categoryId = '',
-            categoryParent,
-            memberExclusive,
+            categoryParent = 0,
+            memberExclusive = false,
             orderby,
             promotionType = '',
         } = params;
@@ -187,7 +198,8 @@ export const pageObj = {
         this.setData({
             ...data,
             current_page,
-            isLoading: false
+            isLoading: false,
+            'productsList.content': data.products
         });
     },
 

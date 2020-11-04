@@ -75,6 +75,7 @@ Page({
             selectedPrice: '',
             selectedString: '',
         },
+        showBgColor: false
     },
 
     go, // 跳转到规则详情页面
@@ -1094,25 +1095,34 @@ Page({
     handleScrollMethods() {
         this.getTabsBottom();
         let intervalNum = 0;
-        // 第一秒和第五秒时获取选中节点offsetTop偏移量
+        // 第1/3/5秒获取数据
         let intervalId = setInterval(() => {
-            intervalNum++;
-            if (intervalNum === 1) {
-                this.getSelectorsTop();
-            } else if (intervalNum > 5) {
-                this.getSelectorsTop();
+            if (intervalNum++ > 5) {
                 clearInterval(intervalId);
+                return;
+            } else if (intervalNum % 2 > 0) {
+                this.getSelectorsTop();
             }
         }, 1000);
     },
 
     // 页面滚动
-    handlePageScroll: throttle(function(e) {
+    handlePageScroll: function(e) {
         let { scrollTop } = e.detail;
-        // console.log('滚动');
-        this.setData({ scrollTop });
+        const { showBgColor } = this.data;
+        this.scrollTop = scrollTop;
+        if (scrollTop > 400 && !showBgColor) {
+            this.setData({
+                showBgColor: true
+            });
+        }
+        if (scrollTop < 400 && showBgColor) {
+            this.setData({
+                showBgColor: false
+            });
+        }
         this.linkTabs();
-    }, 120),
+    },
 
     // 根据标签导航到指定位置
     handlePageToView(e) {
@@ -1132,8 +1142,8 @@ Page({
 
     // 联动页面标签
     linkTabs() {
-        let { _tabTopList = [] } = this,
-            { scrollTop, currentTabIndex } = this.data;
+        let { _tabTopList = [], scrollTop } = this,
+            { currentTabIndex } = this.data;
         let newTab = '';
         _tabTopList.forEach((item, index) => {
             if (scrollTop >= item) {
@@ -1148,15 +1158,13 @@ Page({
     // 获取元素的offsetTop偏移高度
     async getSelectorsTop() {
         let { product } = this.data,
-            { _tabsBottom } = this,
             tabTopList = [0];
-        // 导航对应位置
         let observerTabs = wx.createSelectorQuery().selectAll('.observer-tab');
         observerTabs.boundingClientRect((rects) => {
+            let { _tabsBottom, _tabTopList = [] } = this;
             // console.log('rects', rects);
             for (let i = 0; i < rects.length; i++) {
-                const rect = rects[i];
-                let height = (rect && rect.height) || 0;
+                let height = (rects[i] && rects[i].height) || 0;
                 let offsetTop = tabTopList[tabTopList.length - 1] + height;
                 if (i === 0) {
                     // 忽略标签固定部分高度
@@ -1169,8 +1177,12 @@ Page({
                 }
                 tabTopList.push(offsetTop);
             }
-            console.log('tabTopList', tabTopList);
-            this._tabTopList = tabTopList;
+            // 页面已跳转
+            if (tabTopList.length === 1) { return }
+            if (_tabTopList.toString() !== tabTopList.toString()) {
+                console.log('tabTopList', tabTopList);
+                this._tabTopList = tabTopList;
+            }
         }).exec();
     },
 

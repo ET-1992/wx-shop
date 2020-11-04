@@ -40,6 +40,9 @@
                     </view>
                 </view>
             </view>
+            <view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
+                {{config && config.cart_text || '立即抢购'}}
+            </view>
         </view>
     </view>
 </navigator>

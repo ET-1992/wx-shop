@@ -38,7 +38,7 @@
                     {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price || product.seckill_price }}
                 </view>
             </view>
-            <view class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
+            <view class="btn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ product.status !== 'sold_out' }}">{{config && config.cart_text || '立即抢购'}}</view>
         </view>
     </view>
 </navigator>

@@ -5,6 +5,7 @@
     "productList": "../../components/productList/index",
     "loading": "../../components/loading/index",
     "filterList": "../../components/filterList/filterList",
-    "navbarList": "../../components/navbarList/navbarList"
+    "navbarList": "../../components/navbarList/navbarList",
+    "productsList": "../home/components/productsList/productsList"
   }
 }

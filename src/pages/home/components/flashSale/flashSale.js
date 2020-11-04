@@ -11,8 +11,8 @@ Component({
 
                 // 兼容秒杀时间戳
                 let { seckill_end_timestamp, seckill_start_timestamp } = newVal;
-                miaosha_end_timestamp = miaosha_end_timestamp || seckill_end_timestamp
-                miaosha_start_timestamp = miaosha_start_timestamp || seckill_start_timestamp
+                miaosha_end_timestamp = miaosha_end_timestamp || seckill_end_timestamp;
+                miaosha_start_timestamp = miaosha_start_timestamp || seckill_start_timestamp;
 
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = miaosha_end_timestamp - now;
@@ -71,6 +71,10 @@ Component({
         status: {
             type: String,
             value: 'm'
+        },
+        config: {
+            type: Object,
+            value: {}
         }
     },
 
@@ -83,6 +87,14 @@ Component({
         hasStart: true,
         hasEnd: false,
         timeLimit: 0
+    },
+
+    methods: {
+        singleAddCart(e) {
+            console.log(e, 'eeeeeeeeee');
+            const { product } = e.currentTarget.dataset;
+            this.triggerEvent('singleAddCart', { product });
+        }
     },
 
     detached() {

@@ -1,11 +1,10 @@
 <!-- 整合所有单个商品 -->
-
 <!-- 拼团专区 -->
-<groupon wx:if="{{ product.promotion_type === 'groupon_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<groupon wx:if="{{ product.promotion_type === 'groupon_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}" config="{{config}}"/>
 <!-- 砍价专区 -->
-<bargain wx:elif="{{ product.promotion_type === 'bargain_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<bargain wx:elif="{{ product.promotion_type === 'bargain_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}" config="{{config}}"/>
 <!-- 限时购/秒杀 -->
-<flashSale wx:elif="{{ product.promotion_type === 'miaosha_enable' || product.promotion_type === 'seckill_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}"/>
+<flashSale wx:elif="{{ product.promotion_type === 'miaosha_enable' || product.promotion_type === 'seckill_enable' }}" product="{{ product }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" status="{{ setting.style }}" config="{{config}}" onsingleAddCart="singleAddCart"/>
 <!-- 普通、会员专属、会员价商品 -->
 <include wx:elif="{{ setting.style === 'l' }}" src="../largePic/largePic.wxml"/>
 <include wx:elif="{{ setting.style === 'm' }}" src="../bigPic/bigPic.wxml"/>
