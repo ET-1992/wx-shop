@@ -1,9 +1,15 @@
 <view class="header {{ !config.membership_enable ? 'none-vip' : '' }}" style="background-color:{{ themeColor.primaryColor }}; padding-top:{{statusBarHeight + 'px'}}">
   <view class="head-signin">
-    <view class="signin-item" bindtap="onCustomService">
-      <image class="signin-img" src="/icons/me/service.svg" mode="aspectFit"></image>
-      <text>客服</text>
-    </view>
+    <button class="signin-item" bindtap="onCustomService" wx:if="{{ config.contact && config.contact.type === 'work_weixin'  }}">
+        <image class="signin-img" src="/icons/me/service.svg" mode="aspectFit">
+        </image>
+        <text>客服</text>
+    </button>
+    <button class="signin-item" open-type="contact" wx:else>
+        <image class="signin-img" src="/icons/me/service.svg" mode="aspectFit">
+        </image>
+        <text>客服</text>
+    </button>
     <view class="signin-item" bindtap="tapSignIn">
       <image class="signin-img" src="/icons/me/sign.svg" mode="aspectFit"></image>
       <text>{{ user.is_checkined ? '已签到' : '签到' }}</text>
