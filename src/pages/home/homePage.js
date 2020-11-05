@@ -209,6 +209,7 @@ export const pageObj = {
         const userInfo = wx.getStorageSync(USER_KEY);
         const { backgroundColor } = themeColor;
         const mainBgcolor = colorRgb(backgroundColor);
+        const pageKey = this.pageKey;
         this.setData({
             themeColor,
             isIphoneX,
@@ -217,7 +218,8 @@ export const pageObj = {
             id,
             globalData: app.globalData,
             statusBarHeight,
-            mainBgcolor
+            mainBgcolor,
+            pageKey,
         }, this.loadHome);
     },
 
