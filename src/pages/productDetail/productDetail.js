@@ -589,9 +589,8 @@ Page({
 
     // 创建餐饮商品订单
     async createCateringProduct(actions) {
-        let actionType = (actions && actions[0] && actions[0].type) || '',
-            shipping_type = 2;
-        let { currentOrderItems: items } = this.selectComponent('#orderOptions').data;
+        let actionType = (actions && actions[0] && actions[0].type) || '';
+        let { currentOrderItems: items, shipping_type } = this.selectComponent('#orderOptions').data;
 
         try {
             if (actionType === 'addCart') {

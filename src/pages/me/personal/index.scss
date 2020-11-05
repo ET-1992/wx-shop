@@ -9,14 +9,16 @@
 	.head-signin {
 		display: flex;
 		align-items: center;
-		color: #fff;
 		padding: 20rpx 30rpx;
+
 		.signin-item {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			font-size: 24rpx;
 			margin-right: 20rpx;
+			background-color: transparent;
+			color: #fff;
 			.signin-img{
 				width: 40rpx;
 				height: 40rpx;

@@ -31,7 +31,7 @@ Component({
         showBgColor: {
             type: Boolean,
             value: false
-        }
+        },
     },
     data: {
         barLeftStyle: '',  // 导航栏左边样式类
