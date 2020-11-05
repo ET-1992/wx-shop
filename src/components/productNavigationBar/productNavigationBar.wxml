@@ -39,9 +39,6 @@
   <navigationBar
     wx:if="{{ navType === 'homeNav' }}"
     id="navigationBar"
-    home="{{ showHome }}"
-    iconTheme="{{ backgroundRgb === '255,255,255' ? black : white }}"
-    bind:home="onBackHome"
     background="{{ backgroundRgb }}"
     title="{{ showBgColor && !showSearchBox ? title : ''  }}"
     color="{{ themeColor.navigationBarTextStyle }}"

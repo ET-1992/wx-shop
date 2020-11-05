@@ -29,7 +29,7 @@
     <view class="container" wx:if="{{ !isLoading }}"
     style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx">
         <!-- 新版搜索框 -->
-        <productNavigationBar id="navigation-bar"  navType="homeNav"  backgroundRgb="{{ mainBgcolor }}" showSearchBox="{{ module_page.search_box }}" showHome="{{ pageKey !== 'home' }}" title="{{ page_title }}" showBgColor="{{ showBgColor }}"/>
+        <productNavigationBar id="navigation-bar"  navType="homeNav"  backgroundRgb="{{ mainBgcolor }}" showSearchBox="{{ module_page.search_box }}" title="{{ page_title }}" showBgColor="{{ showBgColor }}"/>
         <view class="{{ module_page.search_box ? 'main': '' }}" style="padding-top: {{ module_page.search_box ? statusBarHeight + 45: statusBarHeight }}px">
             <view wx:for="{{ modules }}" wx:key="key">
                 <!-- 幻灯片 -->

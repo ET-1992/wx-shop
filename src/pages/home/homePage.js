@@ -209,7 +209,6 @@ export const pageObj = {
         const userInfo = wx.getStorageSync(USER_KEY);
         const { backgroundColor } = themeColor;
         const mainBgcolor = colorRgb(backgroundColor);
-        const pageKey = this.pageKey;
         this.setData({
             themeColor,
             isIphoneX,
@@ -219,7 +218,6 @@ export const pageObj = {
             globalData: app.globalData,
             statusBarHeight,
             mainBgcolor,
-            pageKey,
         }, this.loadHome);
     },
 
@@ -438,7 +436,14 @@ export const pageObj = {
 
     // 分享按钮
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this);
+        let { config: { tabbar: { list = [] }}} = this.data,
+            redirectObj = '';
+        const tabbarIndex = list.findIndex(item => item.pagePath === this.pageKey);
+        if (tabbarIndex === -1) {
+            // 自定义页面支持返回首页
+            redirectObj = { key: '/pages/home/home' };
+        }
+        return onDefaultShareAppMessage.call(this, {}, '', redirectObj);
     },
 
 

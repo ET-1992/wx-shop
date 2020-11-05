@@ -32,11 +32,6 @@ Component({
             type: Boolean,
             value: false
         },
-        // 首页是否展示home图标
-        showHome: {
-            type: Boolean,
-            value: false,
-        }
     },
     data: {
         barLeftStyle: '',  // 导航栏左边样式类
@@ -137,12 +132,6 @@ Component({
                 this.handlerShowMenu();
                 this.triggerEvent('contact', {});
             }
-        },
-
-        // 返回首页
-        onBackHome() {
-            let e = { currentTarget: { dataset: { url: '/pages/home/home' }}};
-            this.go(e);
         },
     }
 });
