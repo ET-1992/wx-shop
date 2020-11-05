@@ -236,7 +236,24 @@ export const createCloudOrder = (arr = []) => {
 export const api_hei_create_order = async (post) => {
     let method = 'createOrder';
     let formData = handleCreateOrderPost(post);
-    const data = api.hei[method](formData);
+    const data = await api.hei[method](formData);
+    let { order_no, cart } = data;
+    if (cart && cart.count) {
+        // 更新购物车数量
+        wx.setStorageSync('CART_NUM', cart.count);
+    }
+    const config = wx.getStorageSync(CONFIG);
+    if (config.cashier_enable) {
+        let subKeys = [{ key: 'order_consigned' }];  // 订阅消息
+        let params = {
+            order_no,
+            subKeys: JSON.stringify(subKeys),
+            isFromCreate: 1,  // 下单标识
+        };
+        let url = `/pages/payCashier/payCashier`;
+        wx.redirectTo({ url: joinUrl(url, params) });
+        return;
+    }
     return data;
 };
 

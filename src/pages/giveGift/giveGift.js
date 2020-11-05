@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import proxy from 'utils/wxProxy';
 import { api_hei_create_order } from 'utils/pageShare';
 
 const app = getApp();
@@ -60,13 +61,18 @@ Page({
             card_code: cardList[currentCardIndex].code
         };
         try {
+            let { cancel } = await proxy.showModal({
+                title: '温馨提示',
+                content: '您确定要提交订单吗',
+            });
+            if (cancel) { return }
             // 传递后端字段数据到POST请求中
             let post = {
                 posts: [product],
                 annotation,
                 orderType,
             };
-            let data = await api_hei_create_order(post);
+            await api_hei_create_order(post);
         } catch (e) {
             wx.showModal({
                 title: '报错提示',
