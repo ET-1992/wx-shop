@@ -1,3 +1,5 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+
 <view class="wallet">
   <loading isLoading="{{ isLoading }}" />
   <view class="wallet-content" wx:if="{{ !isLoading }}">
@@ -7,9 +9,9 @@
       <view class="gift-content" wx:else>
         <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
           <view class="gift-detail">
-            <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.cover_thumbnail }}" />
+            <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.gift_cover_url }}" />
             <view class="gift-right">
-              <view class="gift-title">{{ item.title || '-' }}</view>
+              <view class="gift-title">{{ item.gift_title || '-' }}</view>
               <view class="gift-buy-time">
                 <text>购买时间：</text>
                 <text>{{ WXS.formatDate(item.time, 'yyyy-MM-dd HH:mm:ss') }}</text>

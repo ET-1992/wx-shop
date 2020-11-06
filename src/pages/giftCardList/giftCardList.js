@@ -23,10 +23,10 @@ Page({
         this.setData({ isLoading });
         let requeset = { cursor };
         const data = await api.hei.fetchMyGiftCardList(requeset);
-        let { cards, next_cursor } = data;
+        let { gifts, next_cursor } = data;
 
         this.setData({
-            gCard: cards,
+            gCard: gifts,
             next_cursor: next_cursor || 0,
             isLoading: false,
         });
