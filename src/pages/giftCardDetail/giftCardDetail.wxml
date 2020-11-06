@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="container-main">
+    <view class="card">
+      <van-image width="500rpx" height="300rpx" src="{{ gCard.gift_cover_url }}" />
+      <view class="card-detail" wx:for="{{ order.items }}">
+        <van-image width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
+        <view class="detail-right">
+          <view class="detail-title text-ellipsis-2">{{ item.title || '-' }}</view>
+          <view class="detail-right-bottom">
+            <view class="detail-sku">{{ item.sku_property_names }}</view>
+            <view class="detail-num">x{{ item.quantity }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="message">
+      <view class="message-title">
+        <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
+        <view class="message-title-words">写祝福语</view>
+      </view>
+      <view>
+        <textarea class="message-field" bindblur="bindTextAreaBlur" placeholder="请输入50字以内祝福语" />
+      </view>
+    </view>
+    <view class="detail-btns">
+      <view class="inline-btns" wx:if="{{ !fromShare }}">
+        <button class="btn inline-btn" style="background-color: {{ themeColor.secondaryColor }}">放入卡包</button>
+        <button class="btn inline-btn" style="background-color: {{ themeColor.primaryColor }}">赠送好友</button>
+      </view>
+      <view class="block-btns" wx:else>
+        <button class="btn block-btn" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ gCard.exchange_status === '0' }}">确认领取</button>
+        <button class="btn block-btn" style="background-color: {{ '#999999' }}" wx:else>来晚了，礼品已被领走</button>
+      </view>
+    </view>
+  </view>
+</view>

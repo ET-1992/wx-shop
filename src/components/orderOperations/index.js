@@ -182,9 +182,10 @@ Component({
         async onUseCard(e) {
             const user = await this.bindGetUserInfo(e);
             if (!user) { return }
-            wx.navigateTo({
-                url: '/pages/giftCardDetail/giftCardDetail',
-            });
+            let { orderNo } = this.data;
+            let url = '/pages/giftCardDetail/giftCardDetail';
+            url += `?order_no=${orderNo}`;
+            wx.navigateTo({ url });
         },
 
         async onCloseOrder(e) {

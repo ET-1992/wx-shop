@@ -4,7 +4,7 @@
   </view>
   <view class="product">
     <view class="product-main">
-      <van-image width="150rpx" height="150rpx" src="{{ product.image_url }}" />
+      <van-image width="150rpx" height="150rpx" src="{{ product.thumbnail || product.image_url }}" />
       <view class="product-right">
         <view class="product-title text-ellipsis-2">{{ product.title || '-' }}</view>
         <view class="product-right-bottom">
