@@ -178,6 +178,15 @@ Component({
             }
         },
 
+        // 使用礼品卡
+        async onUseCard(e) {
+            const user = await this.bindGetUserInfo(e);
+            if (!user) { return }
+            wx.navigateTo({
+                url: '/pages/giftCardDetail/giftCardDetail',
+            });
+        },
+
         async onCloseOrder(e) {
             const user = await this.bindGetUserInfo(e);
             if (user) {

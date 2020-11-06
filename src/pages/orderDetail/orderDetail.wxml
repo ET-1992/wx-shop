@@ -18,11 +18,11 @@
             自动确认
         </view>
 	</view>
-    <!-- 自提 -->
     <view wx:if="{{ order.type !== 3 }}" class="liftInfoWrap">
-        <!-- 快递 -->
-        <!-- <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type !== '2' }}"/> -->
-        <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '1' }}" isOrderDetail="{{order.shipping_type}}" />
+        <block wx:if="{{ !otherPeopleGroupon && order.type !== 2 && order.shipping_type === '1' }}">
+            <!-- 快递 -->
+            <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" isOrderDetail="{{order.shipping_type}}" />
+        </block>
         <!-- 自提 -->
         <!-- <liftInfo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" /> -->
         <liftInfoTwo liftInfo="{{ order }}" wx:if="{{ !otherPeopleGroupon && order.shipping_type === '2' }}" isOrderDetail="{{order.shipping_type}}" />

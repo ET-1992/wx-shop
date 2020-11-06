@@ -53,7 +53,8 @@ export const ORDER_STATUS_TEXT = [
     { text: '已完成', value: 4 },
     { text: '订单关闭', value: 7 },
     { text: '系统关闭', value: 8 },
-    { text: '退款成功', value: 6 }
+    { text: '退款成功', value: 6 },
+    { text: '待赠送', value: 2001 },  // 礼品卡购买成功
 ];
 
 export const BARGAIN_STATUS_TEXT = [

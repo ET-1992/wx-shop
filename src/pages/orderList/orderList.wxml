@@ -34,7 +34,7 @@
 					</view>
 				</navigator>
 				<orderOperations
-					wx:if="{{ order.statusCode === 1 || order.statusCode === 1010 || order.statusCode === 1011 || order.statusCode === 3 }}"
+					wx:if="{{ order.statusCode === 1 || order.statusCode === 1010 || order.statusCode === 1011 || order.statusCode === 3 || order.statusCode === 2001 }}"
 					statusCode="{{ order.statusCode }}"
 					orderNo="{{ order.order_no }}"
 					orderIndex="{{ orderIndex }}"
