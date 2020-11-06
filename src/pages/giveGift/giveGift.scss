@@ -61,6 +61,12 @@
 			display: flex;
 			justify-content: space-between;
 			flex-wrap: wrap;
+			.card-img {
+				opacity: .5;
+			}
+			.card-img-active {
+				opacity: 1;
+			}
 		}
 	}
 }

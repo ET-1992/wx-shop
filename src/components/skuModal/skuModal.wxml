@@ -115,7 +115,9 @@
                  <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
         </view>
-        <view class="deliveryStyle" wx:if="{{ product.product_type !== 1 }}">
+        <!-- 非虚拟商品和非送礼模式 -->
+        <view class="deliveryStyle" wx:if="{{ (product.product_type !== 1) && (actions[0].type !== 'onGivingGift') }}">
+            <!-- 存在全局快递方式 -->
             <view class="express" wx:if="{{ config.self_lifting_enable || config.home_delivery_enable || config.logistics_enable }}">
                 <view class="item-text">配送方式</view>
                 <radio-group class="radio-group" bindchange="radioChange">

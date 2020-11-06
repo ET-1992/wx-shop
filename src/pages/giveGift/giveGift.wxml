@@ -35,7 +35,7 @@
       </view>
       <van-empty description="还没有卡面呢" wx:if="{{ !cardList.length }}" />
       <view class="card-list" wx:else bind:tap="onSelectCard">
-        <van-image width="200rpx" height="120rpx" wx:for="{{ cardList }}" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
+        <van-image width="200rpx" height="120rpx" custom-class="card-img {{ index === currentCardIndex && 'card-img-active' }}" wx:for="{{ cardList }}" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
       </view>
     </view>
   </view>
