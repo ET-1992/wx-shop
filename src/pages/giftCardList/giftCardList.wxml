@@ -20,7 +20,7 @@
             </view>
           </view>
           <view class="gift-btns">
-            <view class="gift-status">
+            <view class="gift-status" bind:tap="go" data-url="/pages/giftCardDetail/giftCardDetail?order_no={{ item.order_no }}">
               <button class="gift-btn">赠送</button>
             </view>
             <view class="gift-btn-detail" bind:tap="go" data-url="/pages/orderDetail/orderDetail?id={{ item.order_no }}">

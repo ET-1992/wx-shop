@@ -10,12 +10,7 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/featured/featured",
-		"pages/me/wallet/wallet",
-		"pages/giftCardList/giftCardList",
-		"pages/eCardList/eCardList",
-		"pages/giveGift/giveGift",
-		"pages/giftCardDetail/giftCardDetail"
+		"pages/featured/featured"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -252,6 +247,13 @@
 			"name": "关于我们"
 		},
 		{
+			"root": "pages/me/wallet",
+			"pages": [
+				"wallet"
+			],
+			"name": "我的钱包"
+		},
+		{
 			"root": "pages/orderCoupons/",
 			"pages": [
 				"orderCoupons"
@@ -398,6 +400,34 @@
 				"accountDetail"
 			],
 			"name": "储值卡账户明细"
+		},
+		{
+			"root": "pages/giftCardList",
+			"pages": [
+				"giftCardList"
+			],
+			"name": "礼品卡列表"
+		},
+		{
+			"root": "pages/eCardList",
+			"pages": [
+				"eCardList"
+			],
+			"name": "电子卡列表"
+		},
+		{
+			"root": "pages/giveGift",
+			"pages": [
+				"giveGift"
+			],
+			"name": "赠送礼品卡"
+		},
+		{
+			"root": "pages/giftCardDetail",
+			"pages": [
+				"giftCardDetail"
+			],
+			"name": "查看礼品卡"
 		}
 	],
 	"permission": {

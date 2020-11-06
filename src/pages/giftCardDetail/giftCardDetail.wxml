@@ -23,7 +23,7 @@
       </view>
     </view>
     <view class="detail-btns">
-      <view class="inline-btns" wx:if="{{ !fromShare }}">
+      <view class="inline-btns" wx:if="{{ order_no }}">
         <button class="btn inline-btn" style="background-color: {{ themeColor.secondaryColor }}">放入卡包</button>
         <button class="btn inline-btn" style="background-color: {{ themeColor.primaryColor }}">赠送好友</button>
       </view>
