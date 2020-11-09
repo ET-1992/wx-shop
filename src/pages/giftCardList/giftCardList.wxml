@@ -1,33 +1,47 @@
 <wxs src="/utils/wxs/utils.wxs" module="WXS" />
-
-<view class="wallet">
+<view class="container">
+  <van-tabs active="{{ currentTab }}" line-width="60" color="{{ themeColor.primaryColor }}" bind:change="onTabChange">
+    <van-tab title="我送出的" />
+    <van-tab title="我领取的" />
+  </van-tabs>
   <loading isLoading="{{ isLoading }}" />
   <view class="wallet-content" wx:if="{{ !isLoading }}">
-    <!-- 礼品卡 -->
-    <view class="gift-card">
-      <van-empty description="无相关礼品卡" wx:if="{{ !gCard.length }}" />
-      <view class="gift-content" wx:else>
-        <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
-          <view class="gift-detail">
-            <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.gift_cover_url }}" />
-            <view class="gift-right">
-              <view class="gift-title">{{ item.gift_title || '-' }}</view>
-              <view class="gift-buy-time">
-                <text>购买时间：</text>
-                <text>{{ WXS.formatDate(item.time, 'yyyy-MM-dd HH:mm:ss') }}</text>
-              </view>
-              <view class="gift-value">￥{{ item.order_amount }}</view>
+    <van-empty description="无相关礼品卡" wx:if="{{ !gCard.length }}" />
+    <!-- 赠送的 -->
+    <view class="send-gift" wx:elif="{{ currentTab === 0 }}">
+      <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
+        <view class="gift-detail">
+          <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.gift_cover_url }}" />
+          <view class="gift-right">
+            <view class="gift-title">{{ item.gift_title || '-' }}</view>
+            <view class="gift-buy-time">
+              <text>购买时间：</text>
+              <text>{{ WXS.formatDate(item.time, 'yyyy-MM-dd HH:mm:ss') }}</text>
             </view>
-          </view>
-          <view class="gift-btns">
-            <view class="gift-status" bind:tap="go" data-url="/pages/giftCardDetail/giftCardDetail?order_no={{ item.order_no }}">
-              <button class="gift-btn">赠送</button>
-            </view>
-            <view class="gift-btn-detail" bind:tap="go" data-url="/pages/orderDetail/orderDetail?id={{ item.order_no }}">
-              <button class="gift-btn">订单详情</button>
-            </view>
+            <view class="gift-value">￥{{ item.order_amount }}</view>
           </view>
         </view>
+        <view class="gift-btns">
+          <view class="gift-status">
+            <view class="gift-reveive-status" wx:if="{{ item.receiver_nickname }}">
+              {{ '已被' + item.receiver_nickname + '领取' }}
+            </view>
+            <button class="gift-btn" wx:else bind:tap="go" data-url="/pages/giftCardDetail/giftCardDetail?order_no={{ item.order_no }}">
+              赠送
+            </button>
+          </view>
+          <view class="gift-btn-detail" bind:tap="go" data-url="/pages/orderDetail/orderDetail?id={{ item.order_no }}">
+            <button class="gift-btn">订单详情</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 领取的 -->
+    <view class="receive-gift" wx:elif="{{ currentTab === 1 }}">
+      <view class="receive-item" wx:for="{{ gCard }}" wx:key="index">
+        <van-image width="320rpx" height="180rpx" src="{{ item.gift_cover_url }}" />
+        <view class="img-shade" wx:if="{{ item.exchange_time > 0 }}">已兑换</view>
+        <view class="receive-card-title">{{ item.gift_title || '-' }}</view>
       </view>
     </view>
   </view>

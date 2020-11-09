@@ -1,6 +1,8 @@
 {
-  "navigationBarTitleText": "礼品卡",
+  "navigationBarTitleText": "我的礼品卡",
   "usingComponents": {
+    "van-tabs": "@vant/weapp/dist/tabs/index",
+    "van-tab": "@vant/weapp/dist/tab/index",
     "van-image": "@vant/weapp/dist/image/index",
     "van-empty": "@vant/weapp/dist/empty/index",
     "loading": "components/loading/index"
