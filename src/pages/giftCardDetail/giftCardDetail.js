@@ -6,7 +6,8 @@ const app = getApp();
 Page({
     data: {
         title: 'giftCardDetail',
-        gCard: {},
+        isLoading: true,
+        gift: {},
         order: {},
         themeColor: {},
         order_no: '',  // 订单号
@@ -37,8 +38,9 @@ Page({
             gift_no,
         });
         this.setData({
-            gCard: gift,
+            gift: gift,
             order,
+            isLoading: false,
             current_user,
         });
     },
@@ -63,7 +65,7 @@ Page({
     async onShareAppMessage() {
         wx.showLoading();
         let {
-            gCard: { gift_no, gift_cover_url },
+            gift: { gift_no, gift_cover_url },
             current_user: { nickname },
         } = this.data;
 

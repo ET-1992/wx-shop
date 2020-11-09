@@ -1,0 +1,81 @@
+.container {
+	.main {
+		margin-top: 10rpx;
+		padding-top: 120rpx;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background-color: #fff;
+		.card {
+			width: 500rpx;
+			.card-detail {
+				font-size: 24rpx;
+				line-height: 30rpx;
+				margin: 50rpx 0;
+				display: flex;
+				.detail-right {
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					margin-left: 22rpx;
+					.detail-right-bottom {
+						display: flex;
+						font-size: 22rpx;
+						.detail-sku {
+							color: #999999;
+						}
+						.detail-num {
+							margin-left: auto;
+						}
+					}
+				}
+			}
+		}
+		.message {
+			width: 500rpx;
+			.message-title {
+				display: flex;
+				align-items: center;
+				margin: 20rpx 0;
+				.message-title-words {
+					margin-left: 10rpx;
+					font-size: 24rpx;
+					line-height: 32rpx;
+				}
+			}
+			.message-bless {
+				position: relative;
+				.message-field {
+					font-size: 24rpx;
+					color: #000000;
+					width: 500rpx;
+					height: 150rpx;
+					border-radius: 5rpx;
+					background: #f4f4f4;
+					padding: 15rpx 20rpx;
+				}
+				.message-bless-from {
+					font-size: 26rpx;
+					color: #000000;
+					position: absolute;
+					bottom: 20rpx;
+					right: 35rpx;
+				}
+			}
+		}
+		.main-bottom {
+			display: flex;
+			justify-content: center;
+			margin: 70rpx 0;
+			.exchange-btn {
+				width: 480rpx;
+				line-height: 70rpx;
+				font-size: 28rpx;
+				color: white;
+				border-radius: 35rpx;
+				background-color: var(--primary-color);
+			}
+		}
+	}
+}

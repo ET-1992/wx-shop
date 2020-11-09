@@ -1,6 +1,7 @@
-  <loading isLoading="{{ isLoading }}" />
-<view class="container" style="--primary-color: {{ themeColor.primaryColor }}; --secondary-color: {{ themeColor.secondaryColor }}" wx:if="{{ !isLoading }}">
-  <view class="container-main">
+<loading isLoading="{{ isLoading }}" />
+<view class="container" style="--primary-color: {{ themeColor.primaryColor }}" wx:if="{{ !isLoading }}">
+  <addressTwo />
+  <view class="main">
     <view class="card">
       <van-image width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
       <view class="card-detail" wx:for="{{ order.items }}">
@@ -26,17 +27,8 @@
         </view>
       </view>
     </view>
-    <view class="detail-btns">
-      <!-- 赠送者 -->
-      <view class="inline-btns" wx:if="{{ isContributor }}">
-        <button class="btn inline-btn secondary-btn" bind:tap="onPutWallet">放入卡包</button>
-        <button class="btn inline-btn primary-btn" open-type="share">赠送好友</button>
-      </view>
-      <!-- 领取者 -->
-      <view class="block-btns" wx:else>
-        <button class="btn primary-btn" wx:if="{{ gift.exchange_status === '0' }}" bind:tap="onReceiveCard">确认领取</button>
-        <button class="btn disable-btn" wx:else>来晚了，礼品已被领走</button>
-      </view>
+    <view class="main-bottom">
+      <button class="exchange-btn">确定兑换</button>
     </view>
   </view>
 </view>

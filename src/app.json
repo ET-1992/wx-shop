@@ -428,6 +428,13 @@
 				"giftCardDetail"
 			],
 			"name": "查看礼品卡"
+		},
+		{
+			"root": "pages/giftCardExchange",
+			"pages": [
+				"giftCardExchange"
+			],
+			"name": "兑换礼品卡"
 		}
 	],
 	"permission": {

@@ -65,7 +65,7 @@
       wx:if="{{ statusCode === 2001 }}" 
       bindgetuserinfo="onUseCard" 
       open-type="getUserInfo"
-    >去使用</button>
+    >赠送</button>
     <button
       class="statusBt"
       open-type="getUserInfo"
