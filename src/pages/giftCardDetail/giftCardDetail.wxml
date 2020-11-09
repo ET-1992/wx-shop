@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="--primary-color: {{ themeColor.primaryColor }}; --secondary-color: {{ themeColor.secondaryColor }}" >
   <view class="container-main">
     <view class="card">
       <van-image width="500rpx" height="300rpx" src="{{ gCard.gift_cover_url }}" />
@@ -18,18 +18,23 @@
         <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
         <view class="message-title-words">写祝福语</view>
       </view>
-      <view>
-        <textarea class="message-field" bindblur="bindTextAreaBlur" placeholder="请输入50字以内祝福语" />
+      <view class="message-bless">
+        <textarea class="message-field" value="{{ gCard.message }}" disabled="{{ !isContributor }}" bindinput="onMessageInput" placeholder="请输入50字以内祝福语" />
+        <view class="message-bless-from" wx:if="{{ !isContributor }}">
+          <text>{{ gCard.owner_nickname || '-' }}</text>
+        </view>
       </view>
     </view>
     <view class="detail-btns">
-      <view class="inline-btns" wx:if="{{ order_no }}">
-        <button class="btn inline-btn" style="background-color: {{ themeColor.secondaryColor }}">放入卡包</button>
-        <button class="btn inline-btn" style="background-color: {{ themeColor.primaryColor }}">赠送好友</button>
+      <!-- 赠送者 -->
+      <view class="inline-btns" wx:if="{{ isContributor }}">
+        <button class="btn inline-btn secondary-btn" bind:tap="onPutWallet">放入卡包</button>
+        <button class="btn inline-btn primary-btn" open-type="share">赠送好友</button>
       </view>
+      <!-- 领取者 -->
       <view class="block-btns" wx:else>
-        <button class="btn block-btn" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{ gCard.exchange_status === '0' }}">确认领取</button>
-        <button class="btn block-btn" style="background-color: {{ '#999999' }}" wx:else>来晚了，礼品已被领走</button>
+        <button class="btn primary-btn" wx:if="{{ gCard.exchange_status === '0' }}" bind:tap="onReceiveCard">确认领取</button>
+        <button class="btn disable-btn" wx:else>来晚了，礼品已被领走</button>
       </view>
     </view>
   </view>

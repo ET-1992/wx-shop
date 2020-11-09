@@ -837,4 +837,16 @@ export const apis = {
     fetchGiftCardDetail: {
         path: 'api/mag.gift_card.get.json?v2'
     },
+    // 赠送礼品卡
+    presentGiftCard: {
+        path: 'api/mag.gift_card.send.json?v2',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 领取礼品卡
+    receiveGiftCard: {
+        path: 'api/mag.gift_card.receive.json?v2',
+        isForceToken: true,
+        method: 'POST'
+    },
 };

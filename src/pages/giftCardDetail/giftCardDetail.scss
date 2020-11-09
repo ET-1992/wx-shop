@@ -42,15 +42,24 @@
 					line-height: 32rpx;
 				}
 			}
-			.message-field {
+			.message-bless {
 				position: relative;
-				font-size: 24rpx;
-				color: #000000;
-				width: 500rpx;
-				height: 150rpx;
-				border-radius: 5rpx;
-				background: #F4F4F4;
-				padding: 15rpx 20rpx;
+				.message-field {
+					font-size: 24rpx;
+					color: #000000;
+					width: 500rpx;
+					height: 150rpx;
+					border-radius: 5rpx;
+					background: #F4F4F4;
+					padding: 15rpx 20rpx;
+				}
+				.message-bless-from {
+					font-size: 26rpx;
+					color: #000000;
+					position: absolute;
+					bottom: 20rpx;
+					right: 35rpx;
+				}
 			}
 		}
 		.detail-btns {
@@ -67,6 +76,15 @@
 				.inline-btn {
 					width: 240rpx;
 				}
+			}
+			.primary-btn {
+				background-color: var(--primary-color);
+			}
+			.secondary-btn {
+				background-color: var(--secondary-color);
+			}
+			.disable-btn {
+				border-color: #999999;
 			}
 		}
 	}
