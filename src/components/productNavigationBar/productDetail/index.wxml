@@ -1,0 +1,28 @@
+<!-- 导航栏 -->
+<navigationBar showBgColor="{{ showBgColor }}" id="navigationBar" back home iconTheme="white" homeIcon="menu" leftBackgroundColor="rgba(0,0,0,0.1)" bind:back="handlerGoback" bind:home="handlerShowMenu"></navigationBar>
+<!-- 菜单内容 -->
+<van-overlay show="{{ isShowMenu }}" bind:click="handlerShowMenu">
+  <view class="menu-wrapper">
+    <view class="menu-list">
+      <view class="menu-arrow"></view>
+      <!-- 菜单功能项 -->
+      <block wx:for="{{ menuList }}">
+        <!-- 普通客服 -->
+        <button class="menu-item" open-type="contact" wx:if="{{ !workContact && item.handle === 'findHelp' }}">
+          <template is="buttonTemplate" data="{{ item: item }}" />
+        </button>
+        <!-- 其它功能 -->
+        <button class="menu-item" data-method="{{ item.handle }}" bind:tap="handleMenuItem" wx:else>
+          <template is="buttonTemplate" data="{{ item: item }}" />
+        </button>
+      </block>
+    </view>
+  </view>
+</van-overlay>
+<!-- 按钮模板 -->
+<template name="buttonTemplate">
+    <van-icon name="{{ item.icon }}" size="32rpx" custom-class="menu-icon" />
+    <text class="menu-text">{{ item.text }}</text>
+</template>
+<!-- 企业微信客服弹窗 -->
+<companyContact show="{{ showContact }}" plugid="{{ config.contact.plugid }}" />

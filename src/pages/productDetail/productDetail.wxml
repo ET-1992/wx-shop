@@ -1,6 +1,6 @@
 <import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
-<productNavigationBar id="navigation-bar"  bind:contact="onCustomService"  navType="productNav" showBgColor="{{ showBgColor }}"/>
+<productNavigationBar id="navigation-bar" navType="productNav" showBgColor="{{ showBgColor }}"/>
 <!-- 页面导航 -->
 <tabs id="tabs" activeTab="{{ currentTabIndex }}" tabList="{{ tabList }}"  showBgColor="{{ showBgColor }}" bind:click="handlePageToView"></tabs>
 <!-- 多门店组件-样式隐藏 -->
@@ -369,7 +369,7 @@
                 <!-- 送货上门 -->
                 <view class="area-right-text" wx:if="{{ item === 4 }}">
                   <text wx:if="{{ globalData.currentStore.distance_limit > 0 }}">
-                    {{ globalData.currentStore.distance_limit }}公里内
+                    <text>{{ globalData.currentStore.distance_limit }}公里内</text>
                   </text>
                   <text>配送费{{ globalData.currentStore.delivery_fee }}元</text>
                 </view>

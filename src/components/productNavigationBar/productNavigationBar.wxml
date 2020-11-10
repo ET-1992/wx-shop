@@ -1,39 +1,5 @@
-<!-- style="background-color:rgba({{ backgroundRgb }},{{scrollTop / maxScrollTop > 0.9 ? 1 : 0}})" -->
 <view class="navigation-bar-wrap">
-  <navigationBar
-    wx:if="{{ navType === 'productNav' }}"
-    showBgColor="{{showBgColor}}"
-    id="navigationBar"
-    background="{{ backgroundRgb }} ">
-      <view slot="left" class="bar-left" style="{{ barLeftStyle }};">
-      <!-- 返回 -->
-      <van-icon name="/icons/productDetail/left_arrow.svg" class="bar-left-icon bar-left-arrow-icon" bind:tap="handlerGoback" />
-      <view class="bar-left-divider"></view>
-      <!-- 菜单 -->
-      <van-icon name="/icons/productDetail/hamburger.svg" class="bar-left-icon" bind:tap="handlerShowMenu" />
-      <!-- 菜单内容 -->
-      <van-overlay show="{{ isShowMenu }}" bind:click="handlerShowMenu">
-        <view class="menu-wrapper">
-          <view class="menu-list">
-            <view class="menu-arrow"></view>
-            <!-- 菜单功能项 -->
-            <!-- 普通客服、企业微信客服和其他路径跳转 -->
-            <button class="menu-item" wx:for="{{ menuList }}" wx:key="index"
-              open-type="{{ (item.handle === 'findHelp' && isContactForOpenType) ? 'contact' : '' }}"
-              data-method="{{ item.handle }}"
-              catch:tap="{{ (item.handle !== 'findHelp' || !isContactForOpenType) ? 'handleMenuItem' : '' }}">
-              <van-icon name="{{ item.icon }}" size= "32rpx" custom-class="menu-icon" />
-              <text class="menu-text">{{ item.text }}</text>
-            </button>
-          </view>
-        </view>
-      </van-overlay>
-    </view>
-    <view slot="center" class="bar-center" style="{{ barCenterStyle }};" bind:tap="go" data-url="/pages/search/search">
-      <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
-      <text>搜索商品</text>
-    </view>
-  </navigationBar>
+  <productDetail wx:if="{{ navType === 'productNav' }}" showBgColor="{{ showBgColor }}" />
 
   <!-- 首页的navbar -->
   <navigationBar
