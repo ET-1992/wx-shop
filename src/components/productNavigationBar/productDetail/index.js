@@ -1,4 +1,5 @@
 import { CONFIG } from 'constants/index';
+import { autoNavigate_ } from 'utils/util';
 
 Component({
     properties: {
@@ -14,6 +15,7 @@ Component({
             { icon: 'wap-home-o', text: '返回首页', handle: 'goHome' },
             { icon: 'shopping-cart-o', text: '购物车', handle: 'goCart' },
             { icon: 'star-o', text: '联系客服', handle: 'findHelp' },
+            { icon: 'search', text: '搜索商品', handle: 'goSearch' },
         ],
         config: {},
         showContact: false,  // 是否展示企业微信弹窗
@@ -42,12 +44,15 @@ Component({
             let { method } = e.currentTarget.dataset;
             if (method === 'goHome') {
                 let url = '/pages/home/home';
-                wx.switchTab({ url });
+                autoNavigate_({ url });
             } else if (method === 'goCart') {
                 let url = '/pages/cart/cart';
-                wx.switchTab({ url });
+                autoNavigate_({ url });
             } else if (method === 'findHelp') {
                 this.setData({ showContact: true });
+            } else if (method === 'goSearch') {
+                let url = '/pages/search/search';
+                autoNavigate_({ url });
             }
         },
     },

@@ -1,5 +1,5 @@
 <!-- 导航栏 -->
-<navigationBar showBgColor="{{ showBgColor }}" id="navigationBar" back home iconTheme="white" homeIcon="menu" bind:back="handlerGoback" bind:home="handlerShowMenu"></navigationBar>
+<navigationBar showBgColor="{{ showBgColor }}" id="navigationBar" back home iconTheme="white" homeIcon="menu" leftBackgroundColor="rgba(0,0,0,0.1)" bind:back="handlerGoback" bind:home="handlerShowMenu"></navigationBar>
 <!-- 菜单内容 -->
 <van-overlay show="{{ isShowMenu }}" bind:click="handlerShowMenu">
   <view class="menu-wrapper">

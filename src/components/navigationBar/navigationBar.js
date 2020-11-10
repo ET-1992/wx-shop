@@ -52,6 +52,10 @@ Component({
             type: String,
             value: ''
         },
+        leftBackgroundColor: {
+            type: String,
+            value: '',
+        },
         showBgColor: {
             type: Boolean,
             value: false,
