@@ -19,8 +19,9 @@
         <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
         <view class="message-title-words">写祝福语</view>
       </view>
+      <!-- 多行文本框 -->
       <view class="message-bless">
-        <textarea class="message-field" value="{{ gift.message }}" disabled="{{ !isContributor }}" bindinput="onMessageInput" placeholder="请输入50字以内祝福语" />
+        <textarea class="message-field" value="{{ gift.message }}" disabled="{{ !isContributor }}" bindinput="onMessageInput" placeholder="{{ isContributor ? '请输入50字以内祝福语' : '' }}" />
         <view class="message-bless-from" wx:if="{{ !isContributor }}">
           <text>{{ gift.owner_nickname || '-' }}</text>
         </view>
