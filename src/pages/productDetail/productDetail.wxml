@@ -1,6 +1,6 @@
 <import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
-<productNavigationBar id="navigation-bar"  bind:contact="onCustomService"  navType="productNav" showBgColor="{{ showBgColor }}"/>
+<productNavigationBar id="navigation-bar" navType="productNav" showBgColor="{{ showBgColor }}"/>
 <!-- 页面导航 -->
 <tabs id="tabs" activeTab="{{ currentTabIndex }}" tabList="{{ tabList }}"  showBgColor="{{ showBgColor }}" bind:click="handlePageToView"></tabs>
 <!-- 多门店组件-样式隐藏 -->

@@ -47,6 +47,11 @@ Component({
             type: String,
             value: 'black'
         },
+        // 自定义home图标
+        homeIcon: {
+            type: String,
+            value: ''
+        },
         showBgColor: {
             type: Boolean,
             value: false,
