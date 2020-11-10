@@ -354,7 +354,7 @@
                 <!-- 送货上门 -->
                 <view class="area-right-text" wx:if="{{ item === 4 }}">
                   <text wx:if="{{ globalData.currentStore.distance_limit > 0 }}">
-                    {{ globalData.currentStore.distance_limit }}公里内
+                    <text>{{ globalData.currentStore.distance_limit }}公里内</text>
                   </text>
                   <text>配送费{{ globalData.currentStore.delivery_fee }}元</text>
                 </view>
