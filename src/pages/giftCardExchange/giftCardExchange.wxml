@@ -1,10 +1,10 @@
 <loading isLoading="{{ isLoading }}" />
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}" wx:if="{{ !isLoading }}">
-  <addressTwo />
+  <addressTwo address="{{ address }}" bind:tap="go" data-url="/pages/addressList/addressList" />
   <view class="main">
     <view class="card">
       <van-image width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
-      <view class="card-detail" wx:for="{{ order.items }}">
+      <view class="card-detail" wx:for="{{ order.items }}" wx:key="index">
         <van-image width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
         <view class="detail-right">
           <view class="detail-title text-ellipsis-2">{{ item.title || '-' }}</view>
@@ -21,14 +21,16 @@
         <view class="message-title-words">写祝福语</view>
       </view>
       <view class="message-bless">
-        <textarea class="message-field" value="{{ gift.message }}" disabled="{{ !isContributor }}" bindinput="onMessageInput" placeholder="请输入50字以内祝福语" />
-        <view class="message-bless-from" wx:if="{{ !isContributor }}">
+        <view class="message-field">
+          <text>{{ gift.message }}</text>
+        </view>
+        <view class="message-bless-from">
           <text>{{ gift.owner_nickname || '-' }}</text>
         </view>
       </view>
     </view>
     <view class="main-bottom">
-      <button class="exchange-btn">确定兑换</button>
+      <button class="exchange-btn" bind:tap="onExchangeCard">确定兑换</button>
     </view>
   </view>
 </view>

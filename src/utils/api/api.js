@@ -849,4 +849,10 @@ export const apis = {
         isForceToken: true,
         method: 'POST'
     },
+    // 兑换礼品卡
+    exchangeGiftCard: {
+        path: 'api/mag.gift_card.exchange.json?v2',
+        isForceToken: true,
+        method: 'POST'
+    },
 };
