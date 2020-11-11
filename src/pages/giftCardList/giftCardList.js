@@ -7,7 +7,7 @@ Page({
         isLoading: true,
         gCard: [],  // 礼品卡
         themeColor: {},
-        currentTab: 1,
+        currentTab: 0,
     },
 
     onLoad(params) {

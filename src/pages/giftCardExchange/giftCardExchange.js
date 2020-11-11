@@ -98,7 +98,7 @@ Page({
         try {
             const { no } = this.data.gift.logistic;
             await proxy.setClipboardData({ data: String(no) });
-            wx.showToast({ title: '复制成功！', icon: 'success' });
+            wx.showToast({ title: '订单号复制成功！', icon: 'success' });
         } catch (err) {
             console.log(err);
         }
