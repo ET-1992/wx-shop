@@ -1,4 +1,4 @@
-  <loading isLoading="{{ isLoading }}" />
+<loading isLoading="{{ isLoading }}" />
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}; --secondary-color: {{ themeColor.secondaryColor }}" wx:if="{{ !isLoading }}">
   <view class="container-main">
     <view class="card">

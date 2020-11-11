@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import proxy from 'utils/wxProxy';
-import { go } from 'utils/util';
+import { go, valueToText } from 'utils/util';
+import { ORDER_STATUS_TEXT } from 'constants/index';
 
 const app = getApp();
 Page({
@@ -10,6 +11,7 @@ Page({
         isLoading: true,
         themeColor: {},
         address: {},
+        ORDER_STATUS_TEXT,
     },
 
     onLoad(params) {
@@ -37,9 +39,18 @@ Page({
         });
         let title = gift.gift_title || '兑换礼品卡';
         wx.setNavigationBarTitle({ title });
+        let { status, receiver_name, receiver_phone, receiver_address, room = '' } = order;
+        order.statusText = valueToText(ORDER_STATUS_TEXT, status);
+        let address = {
+            userName: receiver_name,
+            telNumber: receiver_phone,
+            detailInfo: receiver_address,
+            room,
+        };
         this.setData({
             gift,
             order,
+            address,
             isLoading: false,
         });
     },
@@ -80,5 +91,16 @@ Page({
         this.setData({
             address,
         });
+    },
+
+    // 拷贝订单号
+    async setClipboard() {
+        try {
+            const { no } = this.data.gift.logistic;
+            await proxy.setClipboardData({ data: String(no) });
+            wx.showToast({ title: '复制成功！', icon: 'success' });
+        } catch (err) {
+            console.log(err);
+        }
     },
 });

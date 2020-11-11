@@ -1,36 +1,55 @@
 <loading isLoading="{{ isLoading }}" />
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}" wx:if="{{ !isLoading }}">
-  <addressTwo address="{{ address }}" bind:tap="go" data-url="/pages/addressList/addressList" />
-  <view class="main">
-    <view class="card">
-      <van-image width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
-      <view class="card-detail" wx:for="{{ order.items }}" wx:key="index">
-        <van-image width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
-        <view class="detail-right">
-          <view class="detail-title text-ellipsis-2">{{ item.title || '-' }}</view>
-          <view class="detail-right-bottom">
-            <view class="detail-sku">{{ item.sku_property_names }}</view>
-            <view class="detail-num">x{{ item.quantity }}</view>
+  <view class="header" wx:if="{{ gift.exchange_status === 1 }}">
+    <view>
+      <text>订单状态：</text>
+      <text class="orderStatus">{{ order.statusText }}</text>
+    </view>
+    <view class="express" wx:if="{{ gift.logistic }}">
+      <view>
+        <text>物流公司：</text>
+        <text>{{ gift.logistic.company}}</text>
+      </view>
+      <view>
+        <text>物流单号：</text>
+        <text>{{ gift.logistic.no}}</text>
+			  <button class="btn" bind:tap="setClipboard">复制</button>
+      </view>
+    </view>
+  </view>
+  <addressTwo address="{{ address }}" isOrderDetail="{{ gift.exchange_status === 1 }}" bind:tap="{{ gift.exchange_status !== 1 ? 'go' : '' }}" data-url="/pages/addressList/addressList" />
+  <view class="main-wrap">
+    <view class="main">
+      <view class="card">
+        <van-image width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
+        <view class="card-detail" wx:for="{{ order.items }}" wx:key="index">
+          <van-image width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
+          <view class="detail-right">
+            <view class="detail-title text-ellipsis-2">{{ item.title || '-' }}</view>
+            <view class="detail-right-bottom">
+              <view class="detail-sku">{{ item.sku_property_names }}</view>
+              <view class="detail-num">x{{ item.quantity }}</view>
+            </view>
           </view>
         </view>
       </view>
-    </view>
-    <view class="message">
-      <view class="message-title">
-        <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
-        <view class="message-title-words">写祝福语</view>
-      </view>
-      <view class="message-bless">
-        <view class="message-field">
-          <text>{{ gift.message }}</text>
+      <view class="message">
+        <view class="message-title">
+          <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
+          <view class="message-title-words">写祝福语</view>
         </view>
-        <view class="message-bless-from">
-          <text>{{ gift.owner_nickname || '-' }}</text>
+        <view class="message-bless">
+          <view class="message-field">
+            <text>{{ gift.message }}</text>
+          </view>
+          <view class="message-bless-from">
+            <text>{{ gift.owner_nickname || '-' }}</text>
+          </view>
         </view>
       </view>
-    </view>
-    <view class="main-bottom">
-      <button class="exchange-btn" bind:tap="onExchangeCard">确定兑换</button>
+      <view class="main-bottom" wx:if="{{ gift.exchange_status !== 1 }}">
+        <button class="exchange-btn" bind:tap="onExchangeCard">确定兑换</button>
+      </view>
     </view>
   </view>
 </view>

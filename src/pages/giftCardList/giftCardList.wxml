@@ -40,7 +40,7 @@
     <view class="receive-gift" wx:elif="{{ currentTab === 1 }}">
       <view class="receive-item" wx:for="{{ gCard }}" wx:key="index" bind:tap="go" data-url="/pages/giftCardExchange/giftCardExchange?no={{ item.gift_no }}">
         <van-image width="320rpx" height="180rpx" src="{{ item.gift_cover_url }}" />
-        <view class="img-shade" wx:if="{{ item.exchange_time > 0 }}">已兑换</view>
+        <view class="img-shade" wx:if="{{ item.exchange_status === 1 }}">已兑换</view>
         <view class="receive-card-title">{{ item.gift_title || '-' }}</view>
       </view>
     </view>
