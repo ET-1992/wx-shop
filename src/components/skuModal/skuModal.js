@@ -234,9 +234,6 @@ Component({
             wx.previewImage({
                 urls: [src]
             });
-            this.setData({
-                isShowSkuModal: false
-            });
         },
 
         updateQuantity({ detail }) {
