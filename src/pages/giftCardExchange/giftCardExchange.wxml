@@ -36,7 +36,7 @@
       <view class="message">
         <view class="message-title">
           <van-image width="30rpx" height="30rpx" src="/icons/giftCard/gift_message.svg" />
-          <view class="message-title-words">写祝福语</view>
+          <view class="message-title-words">祝福语</view>
         </view>
         <view class="message-bless">
           <view class="message-field">
