@@ -1,5 +1,6 @@
 .Wrapper{
 	overflow: hidden;
+	transform: translateY(0);
 	.title {
 		font-size: 35rpx;
 		font-weight: bold;
@@ -41,12 +42,12 @@
 			padding: 3rpx 18rpx;
 		}
 	}
-}
-.top-radius {
-	border-top-left-radius: 10rpx;
-	border-top-right-radius: 10rpx;
-}
-.bottom-radius {
-	border-bottom-right-radius: 10rpx;
-	border-bottom-left-radius: 10rpx;
+	&.top-radius {
+		border-top-left-radius: 10rpx;
+		border-top-right-radius: 10rpx;
+	}
+	&.bottom-radius {
+		border-bottom-right-radius: 10rpx;
+		border-bottom-left-radius: 10rpx;
+	}
 }
