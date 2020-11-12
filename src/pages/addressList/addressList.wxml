@@ -17,7 +17,7 @@
           <view class="radio-middle">
             <view class="middle-top">
               <text>{{ item.receiver_name || '-' }} </text>
-              <text>{{ item.receiver_phone || '-' }}</text>
+              <text class="user-phone">{{ item.receiver_phone || '-' }}</text>
             </view>
             <view class="middle-bottom">
               <text>{{ address.splice(item) }}</text>
