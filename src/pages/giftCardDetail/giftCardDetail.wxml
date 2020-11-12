@@ -35,7 +35,7 @@
       </view>
       <!-- 领取者 -->
       <view class="block-btns" wx:else>
-        <button class="btn primary-btn" wx:if="{{ gift.exchange_status === '0' }}" bind:tap="onReceiveCard">确认领取</button>
+        <button class="btn primary-btn" wx:if="{{ gift.exchange_status === 0 }}" bind:tap="onReceiveCard">确认领取</button>
         <button class="btn disable-btn" wx:else>来晚了，礼品已被领走</button>
       </view>
     </view>
