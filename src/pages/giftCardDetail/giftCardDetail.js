@@ -101,6 +101,9 @@ Page({
                 content: '您已经成功领取礼品，是否立即使用',
             });
             if (cancel) { return }
+            wx.navigateTo({
+                url: `/pages/giftCardExchange/giftCardExchange?no=${gift_no}`
+            });
         } catch (e) {
             wx.hideLoading();
             await proxy.showModal({
@@ -108,6 +111,10 @@ Page({
                 content: e.errMsg,
                 showCancel: false,
             });
+            wx.switchTab({
+                url: '/pages/home/home'
+            });
+
         }
 
     },
