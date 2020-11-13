@@ -60,10 +60,6 @@ Component({
             this.triggerEvent('changeoption', { selectedString, selectedPrice });
             this.getProductPosts();
         },
-        'product': function(value) {
-            this.setDefaultOptions(value);
-            this.handleShippingTypes();
-        },
         'quantity': function(value) {
             this.setData({ productQuantity: value });
             this.getProductPosts();
@@ -75,24 +71,25 @@ Component({
     lifetimes: {
         async attached() {
             let { themeColor } = app.globalData;
-            this.setData({ themeColor });
             let config = wx.getStorageSync(CONFIG);
             if (!config) {
                 let data = await api.hei.config();
                 ({ config } = data);
             }
-            this.setData({ config });
+            this.setData({ config, themeColor });
+            this.setDefaultOptions();
+            this.handleShippingTypes();
         },
     },
 
     methods: {
         // 设置默认选项列表
-        setDefaultOptions(e) {
+        setDefaultOptions() {
             let {
                 properties = [],  // SKU库存
                 related_product = [],  // 关联商品
                 special_attributes = [],  // 特殊属性
-            } = e;
+            } = this.data.product;
 
             // SKU数组
             let skuList = properties.map(item => {
@@ -143,7 +140,7 @@ Component({
                 { index, value } = e.currentTarget.dataset;
 
             seletedList[index].value = value;
-            console.log('seletedList', seletedList);
+            // console.log('seletedList', seletedList);
             this.setData({
                 seletedList,
             });
