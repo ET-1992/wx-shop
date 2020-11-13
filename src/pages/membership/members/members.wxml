@@ -81,6 +81,18 @@
 		</view>
 	</view>
 
+  	<!-- 会员充值弹窗 -->
+	<popup
+		wx:if="{{ rechargeModal }}"
+		rechargeModal="{{ rechargeModal }}"
+		rechargeArray="{{ rechargeArray }}"
+		customizePayEnable="{{ customizePayEnable }}"
+		user="{{ user }}"
+		config="{{ config }}"
+		bind:onConfirmRecharge="onConfirmRecharge"
+		bind:closeRechargeModal="closeRechargeModal"
+    />
+
 	<!-- 会员续费弹窗 -->
 	<popup
 		wx:if="{{showRenewsModal}}"

@@ -175,10 +175,6 @@
             </view>
             <!-- 分享按钮 -->
             <view class="right">
-              <!-- 开启分销 -->
-              <!-- <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/shareProductDetail.svg' : '/icons/shareGoods.png' }}" bindtap="openShareModal" ></image> -->
-              <!-- 推荐好物圈 -->
-              <image class="shareIcon" mode="aspectFit" src="/icons/recommendIcons.svg" bindtap="onRecommended" data-id="{{product.id}}" data-title="{{product.title}}" data-images="{{product.images}}" wx:if="{{config.weixin_mall && product.weixin_mall_imported}}"></image>
               <!-- 开启分销 有礼 -->
               <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/affiliateGoods.svg' : '/icons/shareGoods.svg' }}" bindtap="openShareModal"></image>
             </view>
@@ -255,17 +251,17 @@
             </view>
           </view>
           <!-- 商品详情按钮动作 -->
-          <view class="header-info-action-wrap">
-            <view class="header-info-action" bind:tap="onShowSku" data-actions="{{[{ type: 'onGivingGift', text: '立即赠送' }]}}">
+          <view class="header-info-action-wrap" wx:if="{{ product.gift_enable || (config.weixin_mall && product.weixin_mall_imported)}}">
+            <view class="header-info-action" bind:tap="onShowSku" data-actions="{{[{ type: 'onGivingGift', text: '立即赠送' }]}}" wx:if="{{ product.gift_enable }}">
               <van-icon custom-class="header-info-action-icon" name="point-gift-o" />
               <text class="header-info-action-text">送给TA</text>
             </view>
-            <view class="header-info-action">
+            <view class="header-info-action" wx:if="{{config.weixin_mall && product.weixin_mall_imported}}" bindtap="onRecommended" data-id="{{product.id}}" data-title="{{product.title}}" data-images="{{product.images}}" >
               <van-icon custom-class="header-info-action-icon" name="good-job-o" />
               <text class="header-info-action-text">推荐好物</text>
             </view>
-            <view class="header-info-action">
-              <van-icon custom-class="header-info-action-icon" name="like-o" />
+            <view class="header-info-action" bind:tap="toggleFavProduct">
+              <van-icon custom-class="header-info-action-icon" name="{{ product.is_faved ? 'like' : 'like-o'}}" />
               <text class="header-info-action-text">收藏商品</text>
             </view>
           </view>
