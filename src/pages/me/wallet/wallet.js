@@ -25,10 +25,18 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync(USER_KEY);
         const { themeColor } = app.globalData;
+        if (!user.membership || !user.membership.is_member || !config.store_card_enable) {
+            // 非会员或者储值卡关闭
+            extendList.splice(0, 1);
+        }
+        if (config.coin_name) {
+            extendList[1].name = config.coin_name;
+        }
         this.setData({
             config,
             themeColor,
             currentUser: user,
+            extendList,
         });
     },
 
