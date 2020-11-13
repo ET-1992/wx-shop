@@ -42,12 +42,20 @@
       </view>
     </view>
     <!-- 核销码 -->
-    <view class="card-bottom">
+    <view class="card-bottom" wx:if="{{ ticket.records.available.length > 0 }}">
       <view class="record-name">未核销券码：</view>
       <view class="record-wrap">
-        <view class="card-item" wx:for="{{ ticket.records.available }}" wx:key="index">
-          <text>券码</text>
-          <text>{{ item.code }}</text>
+        <view class="card-item">
+          <text wx:for="{{ ticket.records.available }}" wx:key="index" user-select>{{ item.code }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="card-bottom" wx:if="{{ ticket.records.used.length > 0 }}">
+      <view class="record-name">已核销券码 / 核销时间：</view>
+      <view class="record-wrap">
+        <view class="card-item" wx:for="{{ ticket.records.used }}" wx:key="index">
+          <text user-select>{{ item.code}}</text>
+          <text>{{ WXS.formatDate(item.exchanged_time, 'yyyy.MM.dd HH:mm') }}</text>
         </view>
       </view>
     </view>

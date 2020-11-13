@@ -10,15 +10,19 @@ Page({
 
     onLoad(params) {
         console.log(params);
-        let { id } = params;
-        this._eid = id;
+        let { id = '', no = '' } = params;
+        this._eId = id;
+        this._oNo = no;
         this.getCardDetail();
     },
 
     // 获取卡券详情
     async getCardDetail() {
-        let ticket_id = this._eid;
-        let { ticket } = await api.hei.fetchMyTicketDetail({ ticket_id });
+        let { _eId, _oNo } = this;
+        let { ticket } = await api.hei.fetchMyTicketDetail({
+            ticket_id: _eId,
+            order_no: _oNo,
+        });
         this.setData({
             ticket,
             isLoading: false,

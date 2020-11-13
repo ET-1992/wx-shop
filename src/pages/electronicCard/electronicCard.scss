@@ -30,8 +30,12 @@
 			}
 			.record-wrap {
 				margin: 15rpx 0;
+				font-family: "Helvetica Neue";
 				.card-item {
 					margin-bottom: 10rpx;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
 				}
 			}
 		}
