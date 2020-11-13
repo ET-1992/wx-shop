@@ -7,7 +7,7 @@
     </van-col>
   </van-row>
   <view class="extend-wrap">
-    <buttion class="extend-btn" wx:for="{{ extendList }}" bind:tap="go" data-url="{{ item.path }}">
+    <buttion class="extend-btn" wx:for="{{ extendList }}" wx:key="index" bind:tap="go" data-url="{{ item.path }}">
       <van-image image-class="extend-img" width="66rpx" height="66rpx" fit="contain" src="{{ item.icon }}" />
       <view class="extend-title">{{ item.name }}</view>
     </buttion>

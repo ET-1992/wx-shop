@@ -17,7 +17,7 @@ Page({
         currentUser: {},
         config: {},
         themeColor: {},
-        extendList: extendList,
+        extendList: [],
     },
 
     onLoad(params) {
