@@ -42,6 +42,6 @@ Page({
         let { width, height } = await getNodeInfo('bar-canvas');
         width = width || 110;
         height = height || 110;
-        qrcode.api.draw('D-' + ticket_no, 'canvasId', width, height);
+        qrcode.api.draw('C-' + ticket_no, 'canvasId', width, height);
     },
 });
