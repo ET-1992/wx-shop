@@ -27,10 +27,13 @@ Page({
         const { themeColor } = app.globalData;
         if (!user.membership || !user.membership.is_member || !config.store_card_enable) {
             // 非会员或者储值卡关闭
-            extendList.splice(0, 1);
+            let index = extendList.findIndex(item => item.name === '账户余额');
+            extendList.splice(index, 1);
         }
         if (config.coin_name) {
-            extendList[1].name = config.coin_name;
+            // 重置金币名字
+            let index = extendList.findIndex(item => item.name === '金币');
+            extendList[index].name = config.coin_name;
         }
         this.setData({
             config,
