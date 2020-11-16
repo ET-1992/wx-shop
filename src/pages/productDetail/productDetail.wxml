@@ -253,15 +253,15 @@
           <!-- 商品详情按钮动作 -->
           <view class="header-info-action-wrap" wx:if="{{ product.gift_enable || (config.weixin_mall && product.weixin_mall_imported)}}">
             <view class="header-info-action" bind:tap="onShowSku" data-actions="{{[{ type: 'onGivingGift', text: '立即赠送' }]}}" wx:if="{{ product.gift_enable }}">
-              <van-icon custom-class="header-info-action-icon" name="point-gift-o" />
+              <van-icon custom-class="header-info-action-icon header-info-action-icon-gift" name="/icons/productDetail/gift.svg" />
               <text class="header-info-action-text">送给TA</text>
             </view>
             <view class="header-info-action" wx:if="{{config.weixin_mall && product.weixin_mall_imported}}" bindtap="onRecommended" data-id="{{product.id}}" data-title="{{product.title}}" data-images="{{product.images}}" >
-              <van-icon custom-class="header-info-action-icon" name="good-job-o" />
+              <van-icon custom-class="header-info-action-icon" name="/icons/productDetail/thumb.svg" />
               <text class="header-info-action-text">推荐好物</text>
             </view>
             <view class="header-info-action" bind:tap="toggleFavProduct">
-              <van-icon custom-class="header-info-action-icon" name="{{ product.is_faved ? 'like' : 'like-o'}}" />
+              <van-icon custom-class="header-info-action-icon" name="{{ product.is_faved ? '/icons/productDetail/heart.svg' : '/icons/productDetail/heart_active.svg'}}" />
               <text class="header-info-action-text">收藏商品</text>
             </view>
           </view>

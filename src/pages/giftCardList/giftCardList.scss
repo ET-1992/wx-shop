@@ -67,7 +67,8 @@
 				width: 320rpx;
 				height: 240rpx;
 				box-shadow: 0rpx 3rpx 6rpx rgba(0, 0, 0, 0.16);
-				border-radius: 5rpx;
+				border-radius: 10rpx;
+				overflow: hidden;
 				.receive-card-title {
 					font-size: 28rpx;
 					color: #707070;

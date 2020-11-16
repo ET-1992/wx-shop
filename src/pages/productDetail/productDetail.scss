@@ -657,21 +657,23 @@ video {
 	// 商品详情按钮动作
 	.header-info-action-wrap {
 		display: flex;
-		margin-top: 32rpx;
+		margin-top: 28rpx;
 		.header-info-action {
 			color: #707070;
 			flex: 1;
-			line-height: 28rpx;
 			display: flex;
 			align-items: center;
+			height: 32rpx;
 			justify-content: center;
 			border-right: 1rpx solid #e0e0e0;
 			.header-info-action-icon {
 				font-size: 30rpx;
+				&.header-info-action-icon-gift{
+					font-size: 26rpx;
+				}
 			}
 			.header-info-action-text {
 				font-size: 20rpx;
-				line-height: 30rpx;
 				margin-left: 4rpx;
 			}
 			&:last-child {

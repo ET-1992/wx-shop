@@ -1,5 +1,5 @@
 <wxs src="/utils/wxs/utils.wxs" module="WXS" />
-<view class="container">
+<view class="container" style="--primary-color: {{ themeColor.primaryColor }}">
   <van-tabs active="{{ currentTab }}" line-width="60" color="{{ themeColor.primaryColor }}" bind:change="onTabChange">
     <van-tab title="我送出的" />
     <van-tab title="我领取的" />
@@ -11,7 +11,7 @@
     <view class="send-gift" wx:elif="{{ currentTab === 0 }}">
       <view class="gift-item" wx:for="{{ gCard }}" wx:key="index">
         <view class="gift-detail">
-          <van-image width="200rpx" height="110rpx" radius="5rpx" src="{{ item.gift_cover_url }}" />
+          <van-image width="200rpx" height="110rpx" radius="10rpx" src="{{ item.gift_cover_url }}" />
           <view class="gift-right">
             <view class="gift-title">{{ item.gift_title || '-' }}</view>
             <view class="gift-buy-time">

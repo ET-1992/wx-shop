@@ -2,9 +2,9 @@
 <view class="container" style="--primary-color: {{ themeColor.primaryColor }}; --secondary-color: {{ themeColor.secondaryColor }}" wx:if="{{ !isLoading }}">
   <view class="container-main">
     <view class="card">
-      <van-image width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
+      <van-image radius="10rpx" width="500rpx" height="300rpx" src="{{ gift.gift_cover_url }}" />
       <view class="card-detail" wx:for="{{ order.items }}">
-        <van-image width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
+        <van-image radius="10rpx" width="100rpx" height="100rpx" src="{{ item.thumbnail || item.image_url }}" />
         <view class="detail-right">
           <view class="detail-title text-ellipsis-2">{{ item.title || '-' }}</view>
           <view class="detail-right-bottom">
