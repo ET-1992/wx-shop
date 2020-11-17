@@ -94,7 +94,7 @@ Page({
             console.log('onShowSku isCrowd: ', isCrowd);
             console.log('onShowSku isBargainBuy: ', isBargainBuy);
 
-            // 餐饮商品
+            // 简约模式
             if (product_style_type === 2) {
                 this.createCateringProduct(actions);
                 return;
@@ -589,19 +589,12 @@ Page({
 
     // 创建餐饮商品订单
     async createCateringProduct(actions) {
-        let actionType = (actions && actions[0] && actions[0].type) || '';
         let { currentOrderItems: items, shipping_type } = this.selectComponent('#orderOptions').data;
+        // 兼容拼团/砍价的单独购买
+        let index = actions.findIndex(item => item.type === 'onBuy');
 
         try {
-            if (actionType === 'addCart') {
-                // 加车
-                let posts = JSON.stringify(items);
-                let data = await api.hei.addCart({ posts });
-                if (!data.errcode) {
-                    await proxy.showToast({ title: '成功添加' });
-                    this.showCartNumber(data.count);
-                }
-            } else if (actionType === 'onBuy') {
+            if (index > -1) {
                 // 购买
                 let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
                 app.globalData.currentOrder = {
@@ -609,7 +602,13 @@ Page({
                 };
                 wx.navigateTo({ url });
             } else {
-                throw new Error('识别操作失败');
+                // 加车
+                let posts = JSON.stringify(items);
+                let data = await api.hei.addCart({ posts });
+                if (!data.errcode) {
+                    await proxy.showToast({ title: '成功添加' });
+                    this.showCartNumber(data.count);
+                }
             }
         } catch (e) {
             let { message, errMsg } = e;

@@ -44,7 +44,7 @@ Page({
         for (let item in logs) {
             // 格式化时间和状态
             let account = logs[item];
-            account.formatTime = formatTime(new Date(account.modified * 1000));
+            account.formatTime = formatTime(new Date(account.time * 1000));
             account.text = valueToText(CONSUM_TEXT, Number(account.type));
         }
         if (cursor > 0) {
