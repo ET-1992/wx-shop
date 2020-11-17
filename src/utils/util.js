@@ -507,8 +507,11 @@ export function joinUrl(url, params) {
 
     const paramsString = paramsArray.join('&');
 
-    return url + joinSymbol + paramsString;
-
+    if (paramsString) {
+        return url + joinSymbol + paramsString;
+    } else {
+        return url;
+    }
 }
 
 export function failToBindWeb(data) {
