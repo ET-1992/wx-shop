@@ -1,5 +1,4 @@
-import { sku } from 'peanut-all';
-import { getAgainUserForInvalid, updateCart } from 'utils/util';
+import { getAgainUserForInvalid } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
@@ -13,12 +12,6 @@ Component({
         product: {
             type: Object,
             value: {},
-            observer(newValue, oldValue) {
-                if (newValue.id !== (oldValue && oldValue.id)) { // 缓存
-                    this.firstInit();
-                    this.setSku();
-                }
-            }
         },
         themeColor: {
             type: Object,
@@ -64,7 +57,6 @@ Component({
     data: {
         selectedProperties: [],
         selectedSku: {},
-        disableSkuItems: {},
         skuMap: {},
         globalData: app.globalData,
         now: Math.round(Date.now() / 1000),
@@ -134,37 +126,17 @@ Component({
                 isShowSkuModal: false
             });
         },
-        onSkuItem(e) {
-            console.log(e, 'onSku');
-            const { key, skuName, propertyIndex, isDisabled } = e.currentTarget.dataset;
-            if (isDisabled) {
-                return;
-            }
-            const {
-                selectedProperties,
-                product: { properties, skus },
-                skuMap
-            } = this.data;
 
-            if (selectedProperties[propertyIndex]) {
-                selectedProperties[propertyIndex] = {
-                    key,
-                    value: selectedProperties[propertyIndex].value === skuName ? '' : skuName
-                };
-                const selectedSku = this.Sku.findSelectedSku(skus, selectedProperties) || {};
-                const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
-                    skuMap,
-                    selectedProperties
-                });
-                this.setData({
-                    selectedProperties,
-                    disableSkuItems,
-                    selectedSku
-                });
-            }
-            console.log(this.data, 'onSkuItem');
+        // 商品规格回调
+        onOptionSelect(e) {
+            let { currentOptions, selectedSku, skuMap } = e.detail;
+            this.setData({
+                selectedProperties: currentOptions,
+                selectedSku,
+                skuMap,
+            });
         },
+
         // classify 页面
         async onAddCart(e) {
             const { product, selectedSku, shipping_type } = this.data;
@@ -192,41 +164,6 @@ Component({
             }
             this.close();
             this.triggerEvent('onAddCart', e, { bubbles: true });
-        },
-        setSku() {
-            const { product } = this.data;
-            if (Object.keys(product).length === 0) {
-                return;
-            }
-            try {
-                const { skus, properties } = product;
-                this.Sku = new sku({ max: 3 });
-                const skuMap = this.Sku.getSkus(skus);
-                const defalutSelectedProperties = this.Sku.getDefaultSku(skus);
-
-                defalutSelectedProperties.forEach(item => {
-                    item.value = '';
-                });
-
-                const selectedSku = this.Sku.findSelectedSku(skus, defalutSelectedProperties) || {};
-                const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
-                    skuMap,
-                    selectedProperties: defalutSelectedProperties,
-                });
-
-                this.setData({
-                    properties,
-                    disableSkuItems,
-                    selectedProperties: defalutSelectedProperties,
-                    selectedSku,
-                    skuMap,
-                });
-
-                console.log(this.data, 'init data');
-            } catch (e) {
-                console.log(e);
-            }
         },
 
         previewImage(e) {

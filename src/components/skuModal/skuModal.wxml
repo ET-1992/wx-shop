@@ -6,15 +6,7 @@
             <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
         </view>
         <view class="content">
-            <view class="item" wx:for="{{ properties }}" wx:key="name">
-                <view class="itemTitle">{{ item.name }}</view>
-                <view class="itemContent">
-                    <view class="itemSku {{ selectedProperties[index].value === sku.name && 'active' }} {{ disableSkuItems[sku.name] && 'disable' }}" style="background:{{ selectedProperties[index].value === sku.name && 'active' ? themeColor.primaryColor : ''}}" wx:for="{{ item.items }}" wx:for-item="sku" wx:for-index="skuIndex" data-is-disabled="{{ disableSkuItems[item.name] }}" data-sku-name="{{ sku.name }}" data-key="{{ item.name }}" data-property-index="{{ index }}" catchtap="onSkuItem">
-                        <image wx:if="{{ sku.thumbnail }}" class="sku_thumbnail" src="{{ sku.thumbnail }}" mode="aspectFill" />
-                        <view class="sku_name">{{ sku.name }}</view>
-                    </view>
-                </view>
-            </view>
+            <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
             <view class="quantity">
                 <view class="title">购买数量</view>
                 <numberInput value="{{ product.uniqueNumber || 1 }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateNumber" quota="{{ product.quota }}" least="{{ product.least }}" />
@@ -96,17 +88,7 @@
                     </view>
                 </view>
             </view>
-            <view class="content {{position}}-content">
-                <view class="item" wx:for="{{ properties }}" wx:key="id">
-                    <view class="itemTitle">{{ item.name }}</view>
-                    <view class="itemContent">
-                        <view class="itemSku {{ selectedProperties[index].value === sku.name ? 'active' : '' }} {{ disableSkuItems[sku.name] ? 'disable' : '' }}" style="background: {{ selectedProperties[index].value === sku.name ? themeColor.primaryColor : ''}}" wx:for="{{ item.items }}" wx:key="id" wx:for-item="sku" wx:for-index="skuIndex" data-is-disabled="{{ disableSkuItems[sku.name] }}" data-sku-name="{{ sku.name }}" data-key="{{ item.name }}" data-property-index="{{ index }}" catchtap="onSkuItem">
-                            <image wx:if="{{ sku.thumbnail }}" class="sku_thumbnail" src="{{ sku.thumbnail }}" mode="aspectFill" />
-                            <view class="sku_name">{{ sku.name }}</view>
-                        </view>
-                    </view>
-                </view>
-            </view>
+            <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
         </scroll-view>
         <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
             <view class="title">购买数量</view>
