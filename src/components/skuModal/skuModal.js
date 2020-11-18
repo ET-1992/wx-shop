@@ -129,9 +129,9 @@ Component({
 
         // 商品规格回调
         onOptionSelect(e) {
-            let { currentOptions, selectedSku, skuMap } = e.detail;
+            let { currentSku, selectedSku, skuMap } = e.detail;
             this.setData({
-                selectedProperties: currentOptions,
+                selectedProperties: currentSku,
                 selectedSku,
                 skuMap,
             });
