@@ -561,9 +561,24 @@ Page({
 
     // SKU确认 立即赠送
     onGivingGift() {
-        let { selectedSku, quantity, product } = this.data,
+        let { selectedSku, quantity, product, isGrouponBuy, isBargainBuy } = this.data,
             url = '/pages/giveGift/giveGift';
-        const currentOrder = createCurrentOrder({ selectedSku, quantity, product });
+        let isMiaoshaBuy = false;
+
+        if (product.miaosha_enable) {
+            const now = Date.now() / 1000;
+            const hasStart = now >= product.miaosha_start_timestamp;
+            const hasEnd = now >= product.miaosha_end_timestamp;
+            isMiaoshaBuy = hasStart && !hasEnd;
+        }
+        const currentOrder = createCurrentOrder({
+            selectedSku,
+            quantity,
+            product,
+            isGrouponBuy,
+            isMiaoshaBuy,
+            isBargainBuy
+        });
         let success = (res) => {
             res.eventChannel.emit('productDetail', { currentOrder });
         };
