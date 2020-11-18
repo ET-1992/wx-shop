@@ -43,7 +43,7 @@ Component({
                 });
                 this.setSkuConfig();
 
-                console.log(this.data, 'init data');
+                console.log(this.data, 'init sku data');
             } catch (e) {
                 console.log(e);
             }
@@ -51,28 +51,35 @@ Component({
 
         // 触发选中选项
         onSelectOption(e) {
-            let { product, disableOptions, currentOptions } = this.data,
-                { propertyIndex, skuIndex } = e.currentTarget.dataset;
+            let { type, nameIndex, valueIndex } = e.mark;
+            if (isNaN(valueIndex)) {
+                return;
+            }
+            if (type !== 'sku') {
+                return;
+            }
+            let { product, disableOptions, currentOptions } = this.data;
 
             // 规格数组及子SKU数据
-            let property = product.properties[propertyIndex],
-                sku = property.items[skuIndex];
+            let property = product.properties[nameIndex],
+                sku = property.items[valueIndex];
 
             let { name: propertyName } = property,
                 { name: skuName } = sku;
 
-            if (disableOptions[skuName] || !currentOptions[propertyIndex]) {
+            if (disableOptions[skuName] || !currentOptions[nameIndex]) {
                 return;
             }
 
-            currentOptions[propertyIndex] = {
+            currentOptions[nameIndex] = {
                 key: propertyName,
-                value: currentOptions[propertyIndex].value === skuName ? '' : skuName
+                value: currentOptions[nameIndex].value === skuName ? '' : skuName
             };
 
             this.setData({
                 currentOptions,
             });
+            console.log('currentOptions', currentOptions);
             this.setSkuConfig();
         },
 

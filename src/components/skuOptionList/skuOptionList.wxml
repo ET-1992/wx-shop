@@ -1,10 +1,35 @@
-<view class="content" style="--primary-color: {{ themeColor.primaryColor }}">
-  <view class="item" wx:for="{{ product.properties }}" wx:key="id" wx:for-item="property" wx:for-index="propIndex">
-    <view class="itemTitle">{{ property.name }}</view>
-    <view class="itemContent">
-      <view class="itemSku {{ currentOptions[propIndex].value === sku.name ? 'active' : '' }} {{ disableOptions[sku.name] ? 'disable' : '' }}" wx:for="{{ property.items }}" wx:key="id" wx:for-item="sku" wx:for-index="skuIndex" data-key="{{ property.name }}" data-property-index="{{ propIndex }}" data-sku-index="{{ skuIndex }}" catchtap="onSelectOption">
-        <image wx:if="{{ sku.thumbnail }}" class="sku_thumbnail" src="{{ sku.thumbnail }}" mode="aspectFill" />
-        <view class="sku_name">{{ sku.name }}</view>
+<view class="content" style="--primary-color: {{ themeColor.primaryColor }}" catchtap="onSelectOption">
+  <!-- SKU -->
+  <view mark:type="sku">
+    <view class="item" wx:for="{{ product.properties }}" wx:key="id" wx:for-item="property" wx:for-index="propIndex" mark:nameIndex="{{ propIndex }}">
+      <view class="itemTitle">{{ property.name }}</view>
+      <view class="itemContent">
+        <view class="itemSku {{ currentOptions[propIndex].value === item.name ? 'active' : '' }} {{ disableOptions[item.name] ? 'disable' : '' }}" wx:for="{{ property.items }}" wx:key="id" mark:valueIndex="{{ index }}">
+          <image wx:if="{{ item.thumbnail }}" class="sku_thumbnail" src="{{ item.thumbnail }}" mode="aspectFill" />
+          <view class="sku_name">{{ item.name }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 规格 -->
+  <view mark:type="special">
+    <view class="item" wx:for="{{ product.special_attributes }}" wx:key="id" wx:for-item="property" wx:for-index="propIndex" mark:nameIndex="{{ propIndex }}">
+      <view class="itemTitle">{{ property.key }}</view>
+      <view class="itemContent">
+        <view class="itemSku {{ currentOptions[propIndex].value === item.name ? 'active' : '' }}" wx:for="{{ property.value }}" wx:key="id" mark:valueIndex="{{ index }}">
+          <view class="sku_name">{{ item }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 增值规格 -->
+  <view mark:type="relation">
+    <view class="item" wx:for="{{ product.related_product }}" wx:key="id" wx:for-item="property" wx:for-index="propIndex" mark:nameIndex="{{ propIndex }}">
+      <view class="itemTitle">{{ property.key }}</view>
+      <view class="itemContent">
+        <view class="itemSku {{ currentOptions[propIndex].value === item.name ? 'active' : '' }}" wx:for="{{ property.value }}" wx:key="id" mark:valueIndex="{{ index }}">
+          <view class="sku_name">{{ item.title }}</view>
+        </view>
       </view>
     </view>
   </view>
