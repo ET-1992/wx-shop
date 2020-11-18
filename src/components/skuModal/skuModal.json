@@ -4,7 +4,8 @@
     "van-popup": "@vant/weapp/dist/popup/index",
     "van-icon": "@vant/weapp/dist/icon/index",
     "numberInput": "../numberInput/index",
-    "skuOptionList": "components/skuOptionList/skuOptionList"
+    "skuOptionList": "components/skuOptionList/skuOptionList",
+    "skuLogistics": "components/skuLogistics/skuLogistics"
   }
 }
 
