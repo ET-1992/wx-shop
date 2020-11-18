@@ -1,7 +1,6 @@
 .largePic {
     display: flex;
 	flex-direction: column;
-	margin-top: 25rpx;
     .image-wrap{
         .goods_image{
             width: 100%;
@@ -128,7 +127,7 @@
 		}
 		.right{
 			margin-left: 100rpx;
-			.buyBtn{	
+			.buyBtn{
 				width: 150rpx;
 				height: 50rpx;
 				font-size: 24rpx;
