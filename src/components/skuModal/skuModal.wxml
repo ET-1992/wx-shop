@@ -88,19 +88,17 @@
             </view>
         </view>
         <skuLogistics product="{{product}}" config="{{config}}" actions="{{actions}}" bind:change="radioChange" />
-        <form catchsubmit="onFormSubmit" report-submit="true">
-            <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-                <button 
-                 class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
-                 wx:for="{{ actions }}" 
-                 wx:key="id" 
-                 data-action-type="{{ item.type }}" 
-                 form-type="submit" 
-                 bindgetuserinfo="onUserInfo" 
-                 open-type="getUserInfo" 
-                 lang="zh_CN" 
-                 style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}">{{ item.text }}</button>
-            </view>
-        </form>
+        <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+            <button 
+                class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
+                wx:for="{{ actions }}" 
+                wx:key="id" 
+                data-action-type="{{ item.type }}" 
+                form-type="submit" 
+                bindgetuserinfo="onUserInfo" 
+                open-type="getUserInfo" 
+                lang="zh_CN" 
+                style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}">{{ item.text }}</button>
+        </view>
     </view>
 </van-popup>

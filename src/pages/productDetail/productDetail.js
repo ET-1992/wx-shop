@@ -712,6 +712,7 @@ Page({
     //     return;
     // },
 
+    // SKU确认
     async onSkuConfirm(e) {
         console.log(e);
         const { actionType, selectedSku, quantity, formId } = e.detail;

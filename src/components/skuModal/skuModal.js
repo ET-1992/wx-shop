@@ -137,11 +137,6 @@ Component({
             });
         },
 
-        onFormSubmit(e) {
-            const { formId } = e.detail;
-            this.setData({ formId });
-        },
-
         async onUserInfo(e) {
             console.log('onUserInfo', e);
             const { encryptedData, iv } = e.detail;
@@ -169,11 +164,11 @@ Component({
             }
         },
 
+        // SKU确认
         onSkuConfirm(actionType) {
             this.close();
-            console.log(this.data);
-            const { selectedSku, quantity, formId } = this.data;
-            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity, formId }, { bubbles: true });
+            const { selectedSku, quantity } = this.data;
+            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity }, { bubbles: true });
         },
 
         // 物流选择回调
