@@ -79,16 +79,6 @@ Component({
             });
         },
 
-        // 商品规格回调
-        onOptionSelect(e) {
-            let { currentSku, selectedSku, skuMap } = e.detail;
-            this.setData({
-                selectedProperties: currentSku,
-                selectedSku,
-                skuMap,
-            });
-        },
-
         // classify 页面
         async onAddCart(e) {
             const { product, selectedSku, shipping_type } = this.data;
@@ -164,19 +154,31 @@ Component({
             }
         },
 
+        // 物流选择回调
+        radioChange(e) {
+            let { shipping_type } = e.detail;
+            this.setData({ shipping_type });
+            this.triggerEvent('getShippingType', { shipping_type }, { bubbles: true });
+        },
+
+        // 商品规格回调
+        onOptionSelect(e) {
+            let { currentSku, selectedSku, skuMap, currentSpecial, currentRelation } = e.detail;
+            this.setData({
+                selectedProperties: currentSku,
+                selectedSku,
+                skuMap,
+                currentSpecial,
+                currentRelation,
+            });
+        },
+
         // SKU确认
         onSkuConfirm(actionType) {
             this.close();
             const { selectedSku, quantity } = this.data;
             this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity }, { bubbles: true });
         },
-
-        // 物流选择回调
-        radioChange(e) {
-            let { shipping_type } = e.detail;
-            this.setData({ shipping_type });
-            this.triggerEvent('getShippingType', { shipping_type }, { bubbles: true });
-        }
     }
 });
 

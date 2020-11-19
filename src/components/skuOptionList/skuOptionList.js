@@ -34,11 +34,11 @@ Component({
             }
             try {
                 this._sku = new Sku({ max: 3 });
-                const skuMap = this._sku.getSkus(skus),
-                    currentSku = this._sku.getDefaultSku(skus);
+                const currentSku = this._sku.getDefaultSku(skus);
 
                 currentSku.forEach(item => { item.value = '' });
 
+                // 选中的规格/增值规格
                 let currentSpecial = special_attributes.map((key) => ({ key, value: '' }));
                 let currentRelation = related_product.map((key) => ({ key, value: '' }));
 
@@ -46,9 +46,8 @@ Component({
                     currentSku,
                     currentSpecial,
                     currentRelation,
-                    skuMap,
                 });
-                this.setSkuConfig();
+                this.notifyParent();
 
                 console.log(this.data, 'init sku data');
             } catch (e) {
@@ -58,47 +57,60 @@ Component({
 
         // 触发选中选项
         onSelectOption(e) {
-            let { type, nameIndex, valueIndex } = e.mark;
+            let { type, nameIndex, valueIndex } = e.mark,
+                { product, disableOptions } = this.data;
+
             if (isNaN(valueIndex)) {
                 return;
             }
-            let { product, disableOptions, currentSku, currentSpecial, currentRelation } = this.data;
 
-            let arr = product[type][nameIndex];
+            let dataArr = { properties: 'currentSku', special_attributes: 'currentSpecial', related_product: 'currentRelation' },
+                dataKey = dataArr[type];  // 修改的data关键字
+
+            // 三个选项数据结构不同，特殊处理
+            let propValue = '';  // 选中对象的值
+            let propArr = product[type][nameIndex];  // 选中的SKU数组/规格数组/增值规格数组
             if (type === 'properties') {
-                let value = arr.items[valueIndex].name;
-                if (disableOptions[value]) return;
-                currentSku[nameIndex].value = (currentSku[nameIndex].value === value ? '' : value);
-                this.setData({ currentSku });
-                this.setSkuConfig();
+                propValue = propArr.items[valueIndex].name;
+                if (disableOptions[propValue]) return;
             } else if (type === 'special_attributes') {
-                let value = arr.value[valueIndex];
-                currentSpecial[nameIndex].value = (currentSpecial[nameIndex].value === value ? '' : value);
-                this.setData({ currentSpecial });
+                propValue = propArr.value[valueIndex];
             } else if (type === 'related_product') {
-                let value = arr.value[valueIndex].title;
-                currentRelation[nameIndex].value = (currentRelation[nameIndex].value === value ? '' : value);
-                this.setData({ currentRelation });
+                propValue = propArr.value[valueIndex].title;
             }
 
+            // 选中/取消
+            propValue = (this.data[dataKey][nameIndex].value === propValue ? '' : propValue);
+            this.data[dataKey][nameIndex].value = propValue;
+
+            // 视图更新的数据
+            let setDataObj = { [dataKey]: this.data[dataKey] };
+            this.setData(setDataObj);
+            this.notifyParent();
         },
 
-        // 获取SKU相关数据
-        setSkuConfig() {
-            let { currentSku, product, skuMap } = this.data,
+        // 通知父组件数据
+        notifyParent() {
+            let { currentSku, currentSpecial, currentRelation, product } = this.data,
                 { skus, properties } = product;
-            console.log('currentSku', currentSku);
-            const selectedSku = this._sku.findSelectedSku(skus, currentSku) || {};
+
+            const skuMap = this._sku.getSkus(skus);
+            const selectedSku = this._sku.findSelectedSku(skus, currentSku);
             const disableOptions = this._sku.getDisableSkuItem({
                 properties,
                 skuMap,
-                selectedProperties: [],
+                selectedProperties: currentSku,
             });
-            this.setData({
-                disableOptions,
-                selectedSku
-            });
-            this.triggerEvent('select', { currentSku, selectedSku, skuMap });
+            this.setData({ disableOptions });
+
+            let detail = {
+                skuMap,
+                selectedSku,
+                currentSku,
+                currentSpecial,
+                currentRelation,
+            };
+            this.triggerEvent('select', detail);
         },
     }
 });
