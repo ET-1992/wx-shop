@@ -261,7 +261,7 @@
               <text class="header-info-action-text">推荐好物</text>
             </view>
             <view class="header-info-action" bind:tap="toggleFavProduct">
-              <van-icon custom-class="header-info-action-icon" name="{{ product.is_faved ? '/icons/productDetail/heart.svg' : '/icons/productDetail/heart_active.svg'}}" />
+              <van-icon custom-class="header-info-action-icon" name="{{ product.is_faved ? '/icons/productDetail/heart_active.svg' : '/icons/productDetail/heart.svg'}}" />
               <text class="header-info-action-text">收藏商品</text>
             </view>
           </view>
