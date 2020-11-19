@@ -407,12 +407,13 @@ Page({
         });
         this.onShowSku();
     },
+
     // 加入购物车
     async addCart() {
         console.log('addCart');
         const { vendor } = app.globalData;
         console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
-        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
+        const { user, product, product: { id, is_faved }, selectedSku, quantity, shipping_type } = this.data;
 
         // 非会员不能购买会员专属商品 加入购物车
         if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
@@ -433,7 +434,6 @@ Page({
             sku_id: selectedSku.id || 0,
             quantity,
             vendor,
-            form_id: formId,
             shipping_type
         });
         console.log('data348', data);
@@ -712,24 +712,18 @@ Page({
     //     return;
     // },
 
-    // SKU确认
+    // SKU确认 组件回调
     async onSkuConfirm(e) {
         console.log(e);
-        const { actionType, selectedSku, quantity, formId } = e.detail;
+        const { actionType, selectedSku, quantity } = e.detail;
         this.setData({
             selectedSku,
             quantity,
-            formId
         });
+        // onBuy/addCart/onGivingGift
         this[actionType]();
         this.onSkuCancel();
     },
-
-    // async submitFormId(ev) {
-    //     await api.hei.submitFormId({
-    //         form_id: ev.detail.formId,
-    //     });
-    // },
 
     async showCartNumber(count) {
         wx.setStorageSync('CART_NUM', count);

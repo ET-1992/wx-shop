@@ -79,7 +79,7 @@ Component({
             });
         },
 
-        // classify 页面
+        // 商品分类 加入购物车
         async onAddCart(e) {
             const { product, selectedSku, shipping_type } = this.data;
             console.log('product142', product);
@@ -127,31 +127,31 @@ Component({
             });
         },
 
+        // SKU表单提交
         async onUserInfo(e) {
-            console.log('onUserInfo', e);
-            const { encryptedData, iv } = e.detail;
-            const { product, selectedSku } = this.data;
-            if (iv && encryptedData) {
-                if (product.skus && product.skus.length && !selectedSku.id) {
-                    wx.showToast({
-                        title: '请选择商品规格',
-                        icon: 'none',
-                        duration: 2000,
-                        mask: false,
-                    });
-                    return;
-                }
-                const { actionType } = e.target.dataset;
-                await getAgainUserForInvalid({ encryptedData, iv });
-                this.onSkuConfirm(actionType);
-            }
-            else {
+            console.log('onUserInfo and sku confirm', e);
+            const { encryptedData, iv } = e.detail,
+                { actionType } = e.target.dataset,
+                { product, selectedSku, quantity } = this.data;
+
+            if (!iv || !encryptedData) {
                 wx.showModal({
                     title: '温馨提示',
                     content: '需授权后操作',
                     showCancel: false,
                 });
+                return;
             }
+            if (product.skus && product.skus.length && !selectedSku.id) {
+                wx.showToast({
+                    title: '请选择商品规格',
+                    icon: 'none',
+                });
+                return;
+            }
+            await getAgainUserForInvalid({ encryptedData, iv });
+            this.close();
+            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity }, { bubbles: true });
         },
 
         // 物流选择回调
@@ -173,12 +173,6 @@ Component({
             });
         },
 
-        // SKU确认
-        onSkuConfirm(actionType) {
-            this.close();
-            const { selectedSku, quantity } = this.data;
-            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity }, { bubbles: true });
-        },
     }
 });
 
