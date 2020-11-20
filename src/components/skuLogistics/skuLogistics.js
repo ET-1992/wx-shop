@@ -1,15 +1,9 @@
+import { CONFIG } from 'constants/index';
+
 const app = getApp();
 Component({
     properties: {
         product: {
-            type: Object,
-            value: {},
-            observer(newValue, oldValue) {
-                if (newValue.id === oldValue.id) { return }
-                this.firstInit();
-            }
-        },
-        config: {
             type: Object,
             value: {},
         },
@@ -24,16 +18,26 @@ Component({
             this.setData({ themeColor });
         }
     },
+    observers: {
+        'product': function(value = {}) {
+            let { id } = value;
+            if (!id || id === this._id) { return }
+            this._id = id;
+            console.log('value+oldValue', value.id);
+            this.firstInit();
+        }
+    },
     methods: {
         // 初始化配送方式
         firstInit() {
+            const config = wx.getStorageSync(CONFIG);
+
             const cashedType = wx.getStorageSync('shippingType'),
                 {
                     product: { shipping_types: types = [] },  // 商品物流方式
-                    config: { shipping_type_name = [], }  // 店铺物流名称字典
                 } = this.data;
-
-            console.log('types', types);
+            let { shipping_type_name = [] } = config;
+            // console.log('types', types);
 
             // 选中物流对应对象数组 添加checked属性
             let liftStyles = [];
@@ -61,6 +65,7 @@ Component({
             }
 
             this.setData({
+                config,
                 liftStyles,
                 shipping_type,
             });

@@ -6,10 +6,6 @@ Component({
         product: {
             type: Object,
             value: {},
-            observer(newValue, oldValue) {
-                if (newValue.id === oldValue.id) { return }
-                this.setOptionList();
-            }
         },
     },
     data: {
@@ -23,6 +19,14 @@ Component({
         attached() {
             const { themeColor } = app.globalData;
             this.setData({ themeColor });
+        }
+    },
+    observers: {
+        'product': function(value = {}) {
+            let { id } = value;
+            if (!id || id === this._id) { return }
+            this._id = id;
+            this.setOptionList();
         }
     },
     methods: {
