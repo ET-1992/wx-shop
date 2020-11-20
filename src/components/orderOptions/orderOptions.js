@@ -1,17 +1,16 @@
 import { createCurrentOrder } from 'utils/pageShare';
 import { CONFIG } from 'constants/index';
 import api from 'utils/api';
+import behaviorSku from 'utils/behavior/behaviorSku';
+
 const app = getApp();
 
 Component({
     options: {
         multipleSlots: true, // 在组件定义时的选项中启用多slot支持
     },
+    behaviors: [behaviorSku],
     properties: {
-        product: {
-            type: Object,
-            value: {},
-        },
         quantity: {
             type: Number,
             value: 1,

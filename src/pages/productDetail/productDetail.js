@@ -80,14 +80,14 @@ Page({
 
     go, // 跳转到规则详情页面
 
-    onShowSku(ev) {
+    onShowSku(e) {
         const { status, individual_buy, product_style_type = 1 } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
         const updateData = { isShowActionSheet: true };
-        if (ev) {
-            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
+        if (e) {
+            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
 
             console.log('actions:', actions);
             console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
@@ -109,12 +109,8 @@ Page({
             updateData.isCrowd = isCrowd;
             updateData.isBargainBuy = isBargainBuy;
         }
-        this.setData(updateData, () => {
-            this.setSwiperVideoImg();
-            this.setData({
-                isShowActionSheeted: true
-            });
-        });
+        this.handleCloseVideo();
+        this.setData(updateData);
     },
 
     // 倒计时初始化
@@ -756,7 +752,8 @@ Page({
         return onDefaultShareAppTimeline.call(this);
     },
 
-    setSwiperVideoImg() { // 调起面板时 关闭组件视频
+    // 关闭视频
+    handleCloseVideo() {
         const swiperVideoImg = this.selectComponent('#swiperVideoImg');
         if (swiperVideoImg && swiperVideoImg.data.type === 'video') {
             swiperVideoImg.setData({
