@@ -328,7 +328,8 @@ Page({
             product.showOriginalPrice = product.price !== product.original_price;
         }
         this.setData({
-            product,
+            'product.definePrice': product.definePrice,
+            'product.showOriginalPrice': product.showOriginalPrice,
         });
     },
 
@@ -448,7 +449,7 @@ Page({
                 if (!res.errcode) {
                     product.is_faved = 1;
                     this.setData({
-                        product
+                        'product.is_faved': product.is_faved,
                     });
                 }
             }

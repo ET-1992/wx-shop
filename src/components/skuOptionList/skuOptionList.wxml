@@ -28,7 +28,7 @@
       <view class="itemTitle">{{ property.key }}</view>
       <view class="itemContent">
         <view class="itemSku {{ currentRelation[propIndex].value === item.title ? 'active' : '' }}" wx:for="{{ property.value }}" wx:key="id" mark:valueIndex="{{ index }}">
-          <view class="sku_name">{{ item.title }}</view>
+          <view class="sku_name">{{ item.title || '-' }}</view>
         </view>
       </view>
     </view>
