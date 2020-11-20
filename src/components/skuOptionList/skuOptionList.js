@@ -39,8 +39,8 @@ Component({
                 currentSku.forEach(item => { item.value = '' });
 
                 // 选中的规格/增值规格
-                let currentSpecial = special_attributes.map((key) => ({ key, value: '' }));
-                let currentRelation = related_product.map((key) => ({ key, value: '' }));
+                let currentSpecial = special_attributes.map(({ key }) => ({ key, value: '' }));
+                let currentRelation = related_product.map(({ key }) => ({ key, value: '' }));
 
                 this.setData({
                     currentSku,

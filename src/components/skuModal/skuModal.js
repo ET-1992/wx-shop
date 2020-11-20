@@ -115,7 +115,7 @@ Component({
             console.log('onUserInfo and sku confirm', e);
             const { encryptedData, iv } = e.detail,
                 { actionType } = e.target.dataset,
-                { product, selectedSku, quantity } = this.data;
+                { currentRelation, currentSpecial, selectedSku, quantity } = this.data;
 
             if (!iv || !encryptedData) {
                 wx.showModal({
@@ -129,7 +129,13 @@ Component({
                 this.onFormConfirm();
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.close();
-                this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity }, { bubbles: true });
+                this.triggerEvent('onSkuConfirm', {
+                    actionType,
+                    selectedSku,
+                    quantity,
+                    currentSpecial,
+                    currentRelation,
+                }, { bubbles: true });
             } catch (e) {
                 console.log('resolved error', e);
             }

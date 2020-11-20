@@ -65,7 +65,7 @@ Component({
                 shipping_type,
             });
             this.triggerEvent(
-                'getShippingType',
+                'change',
                 { shipping_type },
                 { bubbles: true }
             );

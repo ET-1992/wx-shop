@@ -484,7 +484,9 @@ Page({
             isBargainBuy,
             isCrowd,
             shipping_type,
-            bargain_mission
+            bargain_mission,
+            currentSpecial,
+            currentRelation,
         } = this.data;
 
         console.log('shipping_type393', shipping_type);
@@ -551,7 +553,9 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
-            isBargainBuy
+            isBargainBuy,
+            currentSpecial,
+            currentRelation,
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -713,12 +717,17 @@ Page({
     // },
 
     // SKU确认 组件回调
-    async onSkuConfirm(e) {
-        console.log(e);
-        const { actionType, selectedSku, quantity } = e.detail;
+    async onSkuConfirm({ detail }) {
+        const {
+            actionType, selectedSku, quantity,
+            currentSpecial,
+            currentRelation,
+        } = detail;
         this.setData({
             selectedSku,
             quantity,
+            currentSpecial,
+            currentRelation,
         });
         // onBuy/addCart/onGivingGift
         this[actionType]();
