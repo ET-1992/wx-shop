@@ -41,6 +41,14 @@ module.exports = Behavior({
             });
         },
 
+        // 物流选项组件回调
+        getShippingType(e) {
+            let { shipping_type } = e.detail;
+            // console.log('shipping_type11', shipping_type);
+            this.triggerEvent('shipping-change', { shipping_type });
+            this._shipping_type = shipping_type;
+        },
+
         // 表单提交
         onFormConfirm() {
             let { product, selectedSku } = this.data;

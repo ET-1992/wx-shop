@@ -91,11 +91,13 @@ Component({
         // 通知父组件
         notifyChange() {
             let { shipping_type } = this.data;
-            let eventOption = {
-                bubbles: true,
-                composed: true,
-            };
-            this.triggerEvent('shipping-change', { shipping_type }, eventOption);
+            shipping_type = Number(shipping_type);
+            // console.log('shipping_type', shipping_type);
+            // let eventOption = {
+            //     bubbles: true,
+            //     composed: true,
+            // };
+            this.triggerEvent('shipping-change', { shipping_type });
             wx.setStorage({
                 key: 'shippingType',
                 data: shipping_type,

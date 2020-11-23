@@ -3,7 +3,7 @@
 	<view class="product-subtitle">{{ product.excerpt || '-' }}</view>
 	<view class="product-options">
 		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
-		<skuLogistics product="{{product}}" />
+		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />
 	</view>
 	<view class="order-end" wx:if="{{ !customBottom }}">
 		<view class="end-left">
