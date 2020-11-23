@@ -159,6 +159,14 @@ Component({
 
             product = e.currentTarget.dataset.product ? e.currentTarget.dataset.product : e.detail.product;
             console.log('singleAddCartproduct', product);
+
+            // 不能加车商品
+            let { individual_buy, id } = product;
+            if (individual_buy) {
+                wx.navigateTo({ url: `/pages/productDetail/productDetail?id=${id}` });
+                return;
+            }
+
             if ((product.shipping_types && product.shipping_types.length === 1)) {
                 product.shipping_type = product.shipping_types[0];
             }
