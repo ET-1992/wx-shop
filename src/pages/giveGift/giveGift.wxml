@@ -40,8 +40,10 @@
     </view>
   </view>
   <van-goods-action>
-    <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onClickIcon" />
-    <van-goods-action-icon icon="/icons/context.png" text="客服" bind:click="onClickIcon" />
+    <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onGoHome" />
+    <van-goods-action-icon icon="/icons/context.png" text="客服" open-type="{{ config.contact && config.contact.type === 'work_weixin' ? '' : 'contact' }}" bind:click="onGetContact" />
     <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥{{ totalPrice }}" bind:click="onOrderPay" />
   </van-goods-action>
 </view>
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
