@@ -65,7 +65,7 @@ Page({
     async onShareAppMessage() {
         wx.showLoading();
         let {
-            gift: { gift_no, gift_cover_url },
+            gift: { gift_no, gift_cover_url, share_img },
             current_user: { nickname },
         } = this.data;
 
@@ -74,7 +74,7 @@ Page({
             await api.hei.presentGiftCard({ gift_no, message });
             this.setData({
                 share_title: `好友${nickname}给你发来了一个礼品卡，快去领取吧`,
-                share_image: gift_cover_url,
+                share_image: share_img || gift_cover_url,
             });
             let opts = { gift_no, order_no: '' },
                 path = 'pages/giftCardDetail/giftCardDetail';
@@ -107,7 +107,7 @@ Page({
         } catch (e) {
             wx.hideLoading();
             await proxy.showModal({
-                title: '报错提示',
+                title: '温馨提示',
                 content: e.errMsg,
                 showCancel: false,
             });

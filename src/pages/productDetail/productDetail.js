@@ -454,17 +454,20 @@ Page({
 
     // 收藏商品
     async toggleFavProduct() {
-        let { product } = this.data;
+        let { is_faved, id } = this.data.product,
+            method = is_faved ? 'unFavProduct' : 'favProduct',
+            title = is_faved ? '取消收藏' : '收藏成功',
+            icon = 'success';
 
-        this.setData({
-            'product.is_faved': Number(!product.is_faved)
-        });
-
-        if (product.is_faved) {
-            await api.hei.favProduct({ post_id: product.id }); // 收藏商品
-        } else {
-            await api.hei.unFavProduct({ post_id: product.id }); // 取消商品收藏
+        try {
+            this.setData({ 'product.is_faved': !is_faved });
+            await api.hei[method]({ post_id: id });
+        } catch (e) {
+            title = '收藏操作失败';
+            icon = 'none';
+            this.setData({ 'product.is_faved': is_faved });
         }
+        wx.showToast({ title, icon });
     },
 
     // 立即购买
