@@ -163,7 +163,7 @@
       <!-- 商品下单选项 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption"></orderOptions>
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption" bind:shipping-change="getShippingType"></orderOptions>
         </view>
       </block>
       <block wx:else>
@@ -639,7 +639,7 @@
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 <myModal modal="{{authModal}}" />
-<skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:getShippingType="getShippingType" />
+<skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="{{ posterType }}" bindonClose="onClosePoster" />
 <wxs module="productDetail">
   var formatValue = function(value, num) {

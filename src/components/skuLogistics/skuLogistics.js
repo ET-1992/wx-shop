@@ -69,15 +69,7 @@ Component({
                 liftStyles,
                 shipping_type,
             });
-            this.triggerEvent(
-                'change',
-                { shipping_type },
-                { bubbles: true }
-            );
-            wx.setStorage({
-                key: 'shippingType',
-                data: shipping_type
-            });
+            this.notifyChange();
         },
 
         // 选择物流
@@ -93,12 +85,22 @@ Component({
                 }
             });
             this.setData({ liftStyles, shipping_type });
-            this.triggerEvent('change', { shipping_type });
+            this.notifyChange();
+        },
+
+        // 通知父组件
+        notifyChange() {
+            let { shipping_type } = this.data;
+            let eventOption = {
+                bubbles: true,
+                composed: true,
+            };
+            this.triggerEvent('shipping-change', { shipping_type }, eventOption);
             wx.setStorage({
                 key: 'shippingType',
-                data: shipping_type
+                data: shipping_type,
             });
-        }
+        },
     }
 });
 

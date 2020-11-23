@@ -15,7 +15,6 @@ module.exports = Behavior({
         skuMap: {},
         currentSpecial: {},  // 选中规格
         currentRelation: {},  // 选中增值规格
-        shipping_type: '1',  // 选中物流
     },
 
     created: function () {
@@ -40,13 +39,6 @@ module.exports = Behavior({
                 currentSpecial,
                 currentRelation,
             });
-        },
-
-        // 物流选择回调
-        radioChange(e) {
-            let { shipping_type } = e.detail;
-            this.setData({ shipping_type });
-            this.triggerEvent('getShippingType', { shipping_type }, { bubbles: true });
         },
 
         // 表单提交
