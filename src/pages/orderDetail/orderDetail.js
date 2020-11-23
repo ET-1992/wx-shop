@@ -86,8 +86,8 @@ Page({
         wx.setNavigationBarTitle({ title: '订单详情' });
         const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket, current_user };
-        const statusCode = Number(order.status);
-        const statusType = Number(order.type);
+        let statusCode = Number(order.status);
+        const orderType = Number(order.type);
         let address = {};
         address.userName = order.receiver_name;
         address.telNumber = order.receiver_phone;
@@ -99,11 +99,11 @@ Page({
         address.postalCode = order.receiver_zipcode;
         address.room = order.room;
 
-        order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
-        if (statusCode === 2 && statusType === 2) {
+        if (statusCode === 2 && orderType === 2) {
             // 兼容礼品卡状态不对问题
-            order.statusText = valueToText(D_ORDER_STATUS_TEXT, 2001);
+            statusCode = 2001;
         }
+        order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
 
         order.payMethodText = valueToText(PAY_STYLES, order.pay_method);
         order.statusCode = statusCode;
