@@ -11,7 +11,7 @@
                 <view class="title">购买数量</view>
                 <numberInput value="{{ product.uniqueNumber || 1 }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateNumber" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
-            <skuLogistics product="{{product}}" actions="{{actions}}" bind:change="radioChange" />
+            <skuLogistics product="{{product}}" actions="{{actions}}" />
         </view>
         <view class="footer">
             <view class="money" wx:if="{{ product.groupon_enable && isGrouponBuy }}">
@@ -87,7 +87,7 @@
                  <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
         </view>
-        <skuLogistics product="{{product}}" actions="{{actions}}" bind:change="radioChange" />
+        <skuLogistics product="{{product}}" actions="{{actions}}" />
         <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
             <button 
                 class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
