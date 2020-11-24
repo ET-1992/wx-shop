@@ -163,7 +163,7 @@
       <!-- 商品下单选项 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption" bind:shipping-change="getShippingType"></orderOptions>
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bind:option-change="onOptionChange" bind:shipping-change="getShippingType"></orderOptions>
         </view>
       </block>
       <block wx:else>
@@ -440,18 +440,19 @@
   <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
     <view class="unpublishedHint" wx:elif="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
-    <!-- 餐饮商品 数量选择 -->
+    <!-- 简约模式SKU选择 -->
     <view class="catering-order-end" wx:elif="{{ product.product_style_type === 2 }}">
       <view class="end-left">
         <view class="left-price">
           <text>￥</text>
-          <text>{{ cateringProduct.selectedPrice || '-' }}</text>
+          <text>{{ skuOptions.price || '-' }}</text>
         </view>
         <view class="left-options">
           <text class="left-options-title">{{ product.title || '-' }}</text>
-          <text>{{ cateringProduct.selectedString }}</text>
+          <text>{{ skuOptions.content }}</text>
         </view>
       </view>
+      <!-- 简约模式数量 -->
       <view class="end-right">
         <van-stepper value="{{ 1 }}" bind:change="onProductQuantity" />
       </view>

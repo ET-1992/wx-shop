@@ -71,10 +71,7 @@ Page({
         toScrollTop: 0,  // 跳转的scrollTop
         tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
-        cateringProduct: {
-            selectedPrice: '',
-            selectedString: '',
-        },
+        skuOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false
     },
 
@@ -600,10 +597,10 @@ Page({
         });
     },
 
-    // 餐饮商品改变选项
-    onCateringProductOption(e) {
-        let { detail } = e;
-        this.setData({ cateringProduct: detail });
+    // 简约模式选择规格
+    onOptionChange(e) {
+        let { detail: skuOptions } = e;
+        this.setData({ skuOptions });
     },
 
     onReady() {

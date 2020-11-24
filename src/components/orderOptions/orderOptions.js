@@ -21,8 +21,6 @@ Component({
     },
     data: {
         themeColor: {},
-        selectedString: '',
-        selectedPrice: 0,
     },
     observers: {
     },

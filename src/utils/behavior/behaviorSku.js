@@ -10,6 +10,7 @@ module.exports = Behavior({
         },
     },
     data: {
+        selectedObj: {},  // 所有选中内容和总价
         currentSku: [],  // 选中SKU
         selectedSku: {},
         skuMap: {},
@@ -31,14 +32,31 @@ module.exports = Behavior({
 
         // 商品规格回调
         onOptionSelect(e) {
-            let { currentSku, selectedSku, skuMap, currentSpecial, currentRelation } = e.detail;
+            let { currentSku, selectedSku, skuMap, currentSpecial, currentRelation } = e.detail,
+                { product, product: { related_product }} = this.data;
+
+            let price = Number(selectedSku.price || product.price);
+            if (currentRelation.length) {
+                let flatProducts = related_product.flatMap(item => item.value);
+                price = currentRelation.reduce((acc, { value }) => {
+                    let product = flatProducts.find(({ title }) => title === value);
+                    return acc + Number(product ? product.price : 0);
+                }, price);
+            }
+            let content = [...currentSku, ...currentSpecial, ...currentRelation].reduce((acc, { value }) => {
+                return value ? acc + value + ';' : acc;
+            }, '');
+            let selectedObj = { price, content };
+
             this.setData({
                 currentSku,
                 selectedSku,
                 skuMap,
                 currentSpecial,
                 currentRelation,
+                selectedObj,
             });
+            this.triggerEvent('option-change', selectedObj);
         },
 
         // 物流选项组件回调

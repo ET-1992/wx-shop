@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="product-title">{{ product.title || '-' }}</view>
-	<view class="product-subtitle">{{ product.excerpt || '-' }}</view>
+	<view class="product-subtitle">{{ product.excerpt }}</view>
 	<view class="product-options">
 		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
 		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />
