@@ -1,4 +1,3 @@
-import { createCurrentOrder } from 'utils/pageShare';
 import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 import behaviorSku from 'utils/behavior/behaviorSku';
@@ -40,5 +39,31 @@ Component({
     },
 
     methods: {
+        // 创建预下单数据
+        async onQuickCreate(actions) {
+            try {
+                this.onFormConfirm();
+                this.handleOrderCreate();
+                let { _shipping_type, _currentOrder } = this;
+                let index = actions.findIndex(item => item.type === 'onBuy');
+                if (index > -1) {
+                    app.globalData.currentOrder = _currentOrder;
+                    let url = `/pages/orderCreate/orderCreate?shipping_type=${_shipping_type}`;
+                    wx.navigateTo({ url });
+                } else {
+                    // 加车
+                    let posts = JSON.stringify(_currentOrder.items);
+                    let data = await api.hei.addCart({ posts });
+                    if (!data.errcode) {
+                        let { count } = data;
+                        wx.showToast({ title: '成功添加' });
+                        wx.setStorageSync('CART_NUM', count);
+                        return count;
+                    }
+                }
+            } catch (e) {
+                console.log('resolved error', e);
+            }
+        },
     },
 });

@@ -86,29 +86,29 @@ Page({
             return;
         }
         const updateData = { isShowActionSheet: true };
-        if (e) {
-            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
+        let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
 
-            console.log('actions:', actions);
-            console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
-            console.log('onShowSku isCrowd: ', isCrowd);
-            console.log('onShowSku isBargainBuy: ', isBargainBuy);
+        console.log('actions:', actions);
+        console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
+        console.log('onShowSku isCrowd: ', isCrowd);
+        console.log('onShowSku isBargainBuy: ', isBargainBuy);
 
-            // 简约模式
-            if (product_style_type === 2) {
-                this.createCateringProduct(actions);
-                return;
-            }
-
-            // 单独设置商品留言去掉sku加车按钮
-            if (individual_buy) {
-                actions = actions.filter(({ type }) => type !== 'addCart');
-            }
-            updateData.actions = actions;
-            updateData.isGrouponBuy = isGrouponBuy;
-            updateData.isCrowd = isCrowd;
-            updateData.isBargainBuy = isBargainBuy;
+        // 简约模式
+        if (product_style_type === 2) {
+            let component = this.selectComponent('#orderOptions');
+            // console.log('component', component);
+            component.onQuickCreate(actions).then(value => { this.showCartNumber(value) });
+            return;
         }
+
+        // 单独设置商品留言去掉sku加车按钮
+        if (individual_buy) {
+            actions = actions.filter(({ type }) => type !== 'addCart');
+        }
+        updateData.actions = actions;
+        updateData.isGrouponBuy = isGrouponBuy;
+        updateData.isCrowd = isCrowd;
+        updateData.isBargainBuy = isBargainBuy;
         this.handleCloseVideo();
         this.setData(updateData);
     },
@@ -604,39 +604,6 @@ Page({
     onCateringProductOption(e) {
         let { detail } = e;
         this.setData({ cateringProduct: detail });
-    },
-
-    // 创建餐饮商品订单
-    async createCateringProduct(actions) {
-        let { currentOrderItems: items, shipping_type } = this.selectComponent('#orderOptions').data;
-        // 兼容拼团/砍价的单独购买
-        let index = actions.findIndex(item => item.type === 'onBuy');
-
-        try {
-            if (index > -1) {
-                // 购买
-                let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
-                app.globalData.currentOrder = {
-                    items: items
-                };
-                wx.navigateTo({ url });
-            } else {
-                // 加车
-                let posts = JSON.stringify(items);
-                let data = await api.hei.addCart({ posts });
-                if (!data.errcode) {
-                    await proxy.showToast({ title: '成功添加' });
-                    this.showCartNumber(data.count);
-                }
-            }
-        } catch (e) {
-            let { message, errMsg } = e;
-            wx.showModal({
-                title: '出错提示',
-                content: errMsg || message,
-                showCancel: false,
-            });
-        }
     },
 
     onReady() {

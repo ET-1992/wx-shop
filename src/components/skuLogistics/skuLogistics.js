@@ -23,7 +23,6 @@ Component({
             let { id } = value;
             if (!id || id === this._id) { return }
             this._id = id;
-            console.log('value+oldValue', value.id);
             this.firstInit();
         }
     },

@@ -1,4 +1,4 @@
-// behaviorSku.js
+let pageShare = require('utils/pageShare');
 
 /* eslint-disable-next-line no-undef */
 module.exports = Behavior({
@@ -65,6 +65,19 @@ module.exports = Behavior({
             // 报错
             wx.showToast({ title, icon: 'none', duration: 2000 });
             throw new Error(title);
+        },
+
+        // 创建订单信息
+        handleOrderCreate() {
+            let { product, selectedSku, quantity, currentSpecial, currentRelation } = this.data;
+            let currentOrder = pageShare.createCurrentOrder({
+                product,
+                selectedSku,
+                quantity,
+                currentSpecial,
+                currentRelation,
+            });
+            this._currentOrder = currentOrder;
         },
     }
 });
