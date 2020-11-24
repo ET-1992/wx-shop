@@ -93,8 +93,6 @@
   id="skuModal" />
 
 <!-- 餐饮商品选项弹窗 -->
-<van-popup show="{{ showOrderOptions }}" custom-class	="product-options" bind:close="onHideOrderOptions">
-	<orderOptions product="{{ selectedProduct }}" id="orderOptions">
-		<button class="product-options-btn" style="background:{{ themeColor.primaryColor }}" slot="end-right" bind:tap="onAddOptionsCart">加入购物车</button>
-	</orderOptions>
+<van-popup show="{{ showOrderOptions }}" custom-class="product-options" bind:close="onHideOrderOptions">
+	<orderOptions product="{{ selectedProduct }}" hasBottom id="orderOptions" bind:add-cart="onUpdateCart" />
 </van-popup>

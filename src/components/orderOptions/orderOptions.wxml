@@ -5,19 +5,19 @@
 		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
 		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />
 	</view>
-	<view class="order-end" wx:if="{{ !customBottom }}">
+	<view class="order-end" wx:if="{{ hasBottom }}">
 		<view class="end-left">
 			<view class="left-price">
 				<text>￥</text>
-				<text>{{ selectedPrice || '-' }}</text>
+				<text>{{ selectedObj.price || '-' }}</text>
 			</view>
 			<view class="left-options">
 				<text class="left-options-title">{{ product.title || '-' }}</text>
-				<text>{{ selectedString }}</text>
+				<text>{{ selectedObj.content }}</text>
 			</view>
 		</view>
 		<view class="end-right">
-			<slot name="end-right"></slot>
+			<button class="product-options-btn" style="background:{{ themeColor.primaryColor }}" bind:tap="onAddCart">加入购物车</button>
 		</view>
 	</view>
 </view>

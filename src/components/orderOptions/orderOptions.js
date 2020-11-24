@@ -1,6 +1,8 @@
 import { CONFIG } from 'constants/index';
 import api from 'utils/api';
 import behaviorSku from 'utils/behavior/behaviorSku';
+import proxy from 'utils/wxProxy';
+import { updateTabbar } from 'utils/util';
 
 const app = getApp();
 
@@ -14,7 +16,8 @@ Component({
             type: Number,
             value: 1,
         },
-        customBottom: {
+        // 是否携带底部栏
+        hasBottom: {
             type: Boolean,
             value: false,
         },
@@ -56,12 +59,20 @@ Component({
                         let { count } = data;
                         wx.showToast({ title: '成功添加' });
                         wx.setStorageSync('CART_NUM', count);
-                        return count;
+                        updateTabbar({ tabbarStyleDisable: true });
+                        return data;
                     }
                 }
             } catch (e) {
                 console.log('resolved error', e);
             }
+        },
+
+        // 加入购物车
+        async onAddCart() {
+            let actions = [{ type: 'addCart' }];
+            let data = await this.onQuickCreate(actions);
+            this.triggerEvent('add-cart', data);
         },
     },
 });

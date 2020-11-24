@@ -163,7 +163,7 @@
       <!-- 商品下单选项 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bind:option-change="onOptionChange" bind:shipping-change="getShippingType"></orderOptions>
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType"></orderOptions>
         </view>
       </block>
       <block wx:else>

@@ -48,6 +48,15 @@
 		.end-right {
 			margin-left: 6rpx;
 			flex-wrap: nowrap;
+			.product-options-btn {
+				color: white;
+				font-size: 24rpx;
+				line-height: 70rpx;
+				width: 200rpx;
+				border: none;
+				background-color: #CCCCCC;
+				border-radius: 35rpx;
+			}
 		}
 	}
 }

@@ -77,7 +77,7 @@ Page({
 
     go, // 跳转到规则详情页面
 
-    onShowSku(e) {
+    async onShowSku(e) {
         const { status, individual_buy, product_style_type = 1 } = this.data.product;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
@@ -94,7 +94,11 @@ Page({
         if (product_style_type === 2) {
             let component = this.selectComponent('#orderOptions');
             // console.log('component', component);
-            component.onQuickCreate(actions).then(value => { this.showCartNumber(value) });
+            let data = await component.onQuickCreate(actions);
+            if (data) {
+                let { count } = data;
+                this.showCartNumber(count);
+            }
             return;
         }
 

@@ -3,7 +3,6 @@ import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
 import { CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar, valueToText } from 'utils/util';
-import proxy from 'utils/wxProxy';
 const app = getApp();
 Page({
     data: {
@@ -239,27 +238,6 @@ Page({
         console.log('e209', e.detail);
     },
 
-    // 餐饮商品选项加车
-    async onAddOptionsCart() {
-        let { currentOrderItems: items } = this.selectComponent('#orderOptions').data;
-        let posts = JSON.stringify(items);
-
-        try {
-            let data = await api.hei.addCart({ posts });
-            await proxy.showToast({ title: '成功添加' });
-            this.reloadCart(data);
-            wx.setStorageSync('CART_NUM', data.count);
-            updateTabbar({ tabbarStyleDisable: true, pageKey: 'product_classify' });
-        } catch (e) {
-            await proxy.showModal({
-                title: '报错提示',
-                content: e.errMsg,
-                showCancel: false,
-            });
-        }
-
-    },
-
     /* 加车 */
     async addCart(e) {
         console.log('e214', e);
@@ -301,6 +279,12 @@ Page({
                 content: ev.errMsg,
             });
         }
+    },
+
+    // 简约模式加入购物车回调
+    onUpdateCart(e) {
+        let { detail } = e;
+        this.reloadCart(detail);
     },
 
     // 选规格弹窗
