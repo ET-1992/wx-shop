@@ -589,12 +589,10 @@ Page({
         });
     },
 
-    // 餐饮商品选择数量
+    // 简约模式选择数量
     onProductQuantity(e) {
-        let { detail } = e;
-        this.setData({
-            productQuantity: detail,
-        });
+        let { detail: productQuantity } = e;
+        this.setData({ productQuantity });
     },
 
     // 简约模式选择规格
