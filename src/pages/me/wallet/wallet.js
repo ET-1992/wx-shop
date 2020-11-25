@@ -26,7 +26,7 @@ Page({
         const { themeColor } = app.globalData;
         let { extendList } = this.data;
         if (!user.membership || !user.membership.is_member || !config.store_card_enable) {
-            // 非会员或者储值卡关闭
+            // 关闭账户余额入口 非会员或者未开启储值卡
             let index = extendList.findIndex(item => item.name === '账户余额');
             extendList.splice(index, 1);
         }
@@ -34,6 +34,11 @@ Page({
             // 重置金币名字
             let index = extendList.findIndex(item => item.name === '金币');
             extendList[index].name = config.coin_name;
+        }
+        if (!config.gift_card_enable) {
+            // 关闭礼品卡入口
+            let index = extendList.findIndex(item => item.name === '礼品卡');
+            extendList.splice(index, 1);
         }
         this.setData({
             config,
