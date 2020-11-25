@@ -259,15 +259,17 @@ export const createCloudOrder = (arr = []) => {
 // 发送创建订单的网络请求
 export const api_hei_create_order = async (post) => {
     let method = 'createOrder';
+    let { cashier_enable } = wx.getStorageSync(CONFIG);
     let formData = handleCreateOrderPost(post);
-    const data = await api.hei[method](formData);
-    let { order_no, cart } = data;
+    let queryData = cashier_enable ? {} : { pay: '' };
+
+    const data = await api.hei[method](formData, queryData);
+    let { order_no, cart, pay_sign } = data;
     if (cart && cart.count) {
         // 更新购物车数量
         wx.setStorageSync('CART_NUM', cart.count);
     }
-    const config = wx.getStorageSync(CONFIG);
-    if (config.cashier_enable) {
+    if (cashier_enable) {
         let subKeys = [{ key: 'order_consigned' }];  // 订阅消息
         let params = {
             order_no,
@@ -277,8 +279,17 @@ export const api_hei_create_order = async (post) => {
         let url = `/pages/payCashier/payCashier`;
         wx.redirectTo({ url: joinUrl(url, params) });
         return;
+    } else if (pay_sign) {
+        const payRes = await wxPay(pay_sign, order_no);
+        console.log(payRes, 'payRes');
+        wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${order_no}&isFromCreate=1` });
+    } else {
+        wx.showModal({
+            title: '温馨提示',
+            content: '暂无可用支付途径',
+            showCancel: false,
+        });
     }
-    return data;
 };
 
 // 处理创建订单的请求总数据
