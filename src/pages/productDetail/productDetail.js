@@ -414,42 +414,20 @@ Page({
     },
 
     // 加入购物车
-    async addCart() {
-        console.log('addCart');
-        const { vendor } = app.globalData;
-        console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
-        const { user, product, product: { id, is_faved }, selectedSku, quantity, shipping_type } = this.data;
+    async addCart(data) {
+        let { product: { id, is_faved }} = this.data;
 
-        if (selectedSku.stock === 0) {
-            await proxy.showModal({
-                title: '温馨提示',
-                content: '无法购买库存为0的商品',
-            });
-            return;
-        }
+        // 更新红点
+        this.showCartNumber(data.count);
 
-        const data = await api.hei.addCart({
-            post_id: id,
-            sku_id: selectedSku.id || 0,
-            quantity,
-            vendor,
-            shipping_type
-        });
-        console.log('data348', data);
-        if (!data.errcode) {
-            await proxy.showToast({ title: '成功添加' });
-            // 更新红点
-            this.showCartNumber(data.count);
-
-            // 收藏商品
-            if (!is_faved) {
-                const res = await api.hei.favProduct({ post_id: id });
-                if (!res.errcode) {
-                    product.is_faved = 1;
-                    this.setData({
-                        'product.is_faved': product.is_faved,
-                    });
-                }
+        // 收藏商品
+        if (!is_faved) {
+            const res = await api.hei.favProduct({ post_id: id });
+            if (!res.errcode) {
+                is_faved = 1;
+                this.setData({
+                    'product.is_faved': is_faved,
+                });
             }
         }
     },
@@ -476,7 +454,6 @@ Page({
     async onBuy() {
         console.log('onBuy');
         const {
-            user,
             product,
             quantity,
             selectedSku,
@@ -679,20 +656,27 @@ Page({
 
     // SKU确认 组件回调
     async onSkuConfirm({ detail }) {
-        const {
-            actionType, selectedSku, quantity,
-            currentSpecial,
-            currentRelation,
-        } = detail;
-        this.setData({
-            selectedSku,
-            quantity,
-            currentSpecial,
-            currentRelation,
-        });
-        // onBuy/addCart/onGivingGift
-        this[actionType]();
-        this.onSkuCancel();
+        let { actionType, queryData } = detail;
+        if (actionType === 'addCart') {
+            this.addCart(queryData);
+        } else {
+
+            const {
+                selectedSku,
+                quantity,
+                currentSpecial,
+                currentRelation,
+            } = queryData;
+            this.setData({
+                selectedSku,
+                quantity,
+                currentSpecial,
+                currentRelation,
+            });
+            // onBuy/onGivingGift
+            this[actionType]();
+            this.onSkuCancel();
+        }
     },
 
     async showCartNumber(count) {

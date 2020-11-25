@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid } from 'utils/util';
+import { getAgainUserForInvalid, updateTabbar } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
@@ -75,19 +75,30 @@ Component({
             });
         },
 
-        // 商品分类 加入购物车
-        async onAddCart(e) {
-            const { product, selectedSku, shipping_type } = this.data;
+        // 加入购物车
+        async onAddCart() {
             try {
                 this.onFormConfirm();
-                e.id = product.id;
-                e.sku_id = selectedSku.id; // 多规格
-                e.shipping_type = shipping_type;
-                e.quantity = Number(product.uniqueNumber) || 1;
-                this.close();
-                this.triggerEvent('onAddCart', e, { bubbles: true });
+                let data = await this.runAddCart();
+                return data;
+                // this.triggerEvent('onAddCart', e, { bubbles: true });
             } catch (e) {
                 console.log('resolved error', e);
+            }
+        },
+
+        // 进行加车操作
+        async runAddCart() {
+            this.getCurrentOrder();
+            let { _currentOrder } = this;
+            let posts = JSON.stringify(_currentOrder.items);
+            let data = await api.hei.addCart({ posts });
+            if (!data.errcode) {
+                let { count } = data;
+                wx.showToast({ title: '成功添加' });
+                wx.setStorageSync('CART_NUM', count);
+                updateTabbar({ tabbarStyleDisable: true });
+                return data;
             }
         },
 
@@ -129,17 +140,19 @@ Component({
                 this.onFormConfirm();
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.close();
+                let queryData = {};
+                if (actionType === 'addCart') {
+                    queryData = await this.onAddCart();
+                } else {
+                    queryData = { selectedSku, quantity, currentSpecial, currentRelation };
+                }
                 this.triggerEvent('onSkuConfirm', {
                     actionType,
-                    selectedSku,
-                    quantity,
-                    currentSpecial,
-                    currentRelation,
-                }, { bubbles: true });
+                    queryData,
+                });
             } catch (e) {
                 console.log('resolved error', e);
             }
-
         },
 
     }
