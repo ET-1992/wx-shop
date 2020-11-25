@@ -75,18 +75,25 @@ Page({
         showBgColor: false
     },
 
-    go, // 跳转到规则详情页面
+    go,
 
     // 触发右下角按钮
     async onShowSku(e) {
-        let { status, individual_buy, product_style_type } = this.data.product,
+        let { product, user } = this.data,
+            { status, individual_buy, product_style_type } = product,
             { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
+        // 售罄
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
         // 单独设置商品留言去掉sku加车按钮
         if (individual_buy) {
             actions = actions.filter(({ type }) => type !== 'addCart');
+        }
+        // 专属商品
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
         }
 
         // 简约模式
@@ -95,6 +102,7 @@ Page({
             // console.log('component', component);
             let data = await component.onQuickCreate(actions);
             if (data) {
+                // 更新购物车角标
                 let { count } = data;
                 this.showCartNumber(count);
             }
@@ -412,12 +420,6 @@ Page({
         console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
         const { user, product, product: { id, is_faved }, selectedSku, quantity, shipping_type } = this.data;
 
-        // 非会员不能购买会员专属商品 加入购物车
-        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
-            this.linktoOpenMemberModal();
-            return;
-        }
-
         if (selectedSku.stock === 0) {
             await proxy.showModal({
                 title: '温馨提示',
@@ -490,12 +492,6 @@ Page({
         } = this.data;
 
         console.log('shipping_type393', shipping_type);
-
-        // 非会员不能购买会员专属商品 立即购买
-        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
-            this.linktoOpenMemberModal();
-            return;
-        }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
         let { product_type } = product;
