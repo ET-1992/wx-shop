@@ -40,28 +40,16 @@ Component({
     },
 
     methods: {
-        // 创建预下单数据
+        // 运行预下单
         async onQuickCreate(actions) {
             try {
                 this.onFormConfirm();
-                this.handleOrderCreate();
-                let { _shipping_type, _currentOrder } = this;
+                this.getCurrentOrder();
                 let index = actions.findIndex(item => item.type === 'onBuy');
                 if (index > -1) {
-                    app.globalData.currentOrder = _currentOrder;
-                    let url = `/pages/orderCreate/orderCreate?shipping_type=${_shipping_type}`;
-                    wx.navigateTo({ url });
+                    this.runOrderPrepare();
                 } else {
-                    // 加车
-                    let posts = JSON.stringify(_currentOrder.items);
-                    let data = await api.hei.addCart({ posts });
-                    if (!data.errcode) {
-                        let { count } = data;
-                        wx.showToast({ title: '成功添加' });
-                        wx.setStorageSync('CART_NUM', count);
-                        updateTabbar({ tabbarStyleDisable: true });
-                        return data;
-                    }
+                    await this.runAddCart();
                 }
             } catch (e) {
                 console.log('resolved error', e);
@@ -74,5 +62,19 @@ Component({
             let data = await this.onQuickCreate(actions);
             this.triggerEvent('add-cart', data);
         },
+
+        // 进行加车操作
+        async runAddCart() {
+            let { _currentOrder } = this;
+            let posts = JSON.stringify(_currentOrder.items);
+            let data = await api.hei.addCart({ posts });
+            if (!data.errcode) {
+                let { count } = data;
+                wx.showToast({ title: '成功添加' });
+                wx.setStorageSync('CART_NUM', count);
+                updateTabbar({ tabbarStyleDisable: true });
+                return data;
+            }
+        }
     },
 });

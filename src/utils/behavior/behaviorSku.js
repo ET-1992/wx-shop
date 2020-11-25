@@ -86,7 +86,7 @@ module.exports = Behavior({
         },
 
         // 创建订单信息
-        handleOrderCreate() {
+        getCurrentOrder() {
             let { product, selectedSku, quantity, currentSpecial, currentRelation } = this.data;
             let currentOrder = pageShare.createCurrentOrder({
                 product,
@@ -97,5 +97,14 @@ module.exports = Behavior({
             });
             this._currentOrder = currentOrder;
         },
+
+        // 运行预下单
+        runOrderPrepare() {
+            let { _shipping_type, _currentOrder } = this;
+            getApp().globalData.currentOrder = _currentOrder;
+            let url = `/pages/orderCreate/orderCreate?shipping_type=${_shipping_type}`;
+            wx.navigateTo({ url });
+        },
+
     }
 });

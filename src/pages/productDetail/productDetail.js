@@ -77,18 +77,17 @@ Page({
 
     go, // 跳转到规则详情页面
 
+    // 触发右下角按钮
     async onShowSku(e) {
-        const { status, individual_buy, product_style_type = 1 } = this.data.product;
+        let { status, individual_buy, product_style_type } = this.data.product,
+            { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
-        const updateData = { isShowActionSheet: true };
-        let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
-
-        console.log('actions:', actions);
-        console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
-        console.log('onShowSku isCrowd: ', isCrowd);
-        console.log('onShowSku isBargainBuy: ', isBargainBuy);
+        // 单独设置商品留言去掉sku加车按钮
+        if (individual_buy) {
+            actions = actions.filter(({ type }) => type !== 'addCart');
+        }
 
         // 简约模式
         if (product_style_type === 2) {
@@ -99,19 +98,19 @@ Page({
                 let { count } = data;
                 this.showCartNumber(count);
             }
-            return;
+        } else {
+            // 普通模式
+            let isShowActionSheet = true;
+            this.handleCloseVideo();
+            this.setData({
+                isShowActionSheet,
+                actions,
+                isGrouponBuy,
+                isCrowd,
+                isBargainBuy,
+            });
         }
 
-        // 单独设置商品留言去掉sku加车按钮
-        if (individual_buy) {
-            actions = actions.filter(({ type }) => type !== 'addCart');
-        }
-        updateData.actions = actions;
-        updateData.isGrouponBuy = isGrouponBuy;
-        updateData.isCrowd = isCrowd;
-        updateData.isBargainBuy = isBargainBuy;
-        this.handleCloseVideo();
-        this.setData(updateData);
     },
 
     // 倒计时初始化
