@@ -1,5 +1,5 @@
 .container {
-	padding: 20rpx 25rpx;
+	padding: 26rpx 25rpx 20rpx;
 	background-color: #fff;
 	border-radius: 5rpx;
 	.product-title {
@@ -25,7 +25,8 @@
 		display: flex;
 		height: 140rpx;
 		align-items: center;
-		padding: 28rpx 0 20rpx;
+		margin-top: 20rpx;
+		padding-top: 6rpx;
 		border-top: 1rpx solid #D4D4D4;
 		.end-left {
 			flex-wrap: wrap;
