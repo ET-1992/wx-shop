@@ -80,8 +80,8 @@ Component({
             try {
                 this.onFormConfirm();
                 let data = await this.runAddCart();
+                this.triggerEvent('addCartSuccess');
                 return data;
-                // this.triggerEvent('onAddCart', e, { bubbles: true });
             } catch (e) {
                 console.log('resolved error', e);
             }

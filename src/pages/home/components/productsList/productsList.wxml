@@ -42,7 +42,7 @@
 	position="center"
 	duration="{{ 500 }}"
 	wx:if="{{ selectedProduct }}"
-	bindonAddCart="onAddCart"
+	bind:addCartSuccess="onSkuConfirm"
 	id="skuModal" />
 
 <wxs module="settingStyle">

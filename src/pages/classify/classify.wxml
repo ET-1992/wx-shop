@@ -82,15 +82,6 @@
 		</view>
   </view>
 </view>
-<skuModal
-  isShowSkuModal="{{ isShowSkuModal }}"
-  product="{{ selectedProduct }}"
-  themeColor="{{ themeColor }}"
-  position="center"
-  duration="{{ 500 }}"
-  wx:if="{{ selectedProduct }}"
-  bindonAddCart="onAddCart"
-  id="skuModal" />
 
 <!-- 餐饮商品选项弹窗 -->
 <van-popup show="{{ showOrderOptions }}" round custom-class="product-options" bind:close="onHideOrderOptions">
