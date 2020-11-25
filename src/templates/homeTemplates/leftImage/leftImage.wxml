@@ -24,12 +24,12 @@
 						<button class="pickSku" 
 							wx:if="{{ (product.skus && product.skus.length) || (PLATFFORM_ENV === 'CUILV' && product.is_multi_sku) }}" 
 							catch:tap="onShowSkuModal" 
-							data-product="{{ product }}">
+							data-id="{{ product.id }}">
 							<view class="title" style="background:{{ themeColor.primaryColor }}">选规格</view>
 							<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 						</button>
 						<!-- 单规格 -->
-						<button class="addCart" wx:else catch:tap="onShowSkuModal" data-id="{{ product.id }}" data-stock="{{ product.stock }}"  data-product="{{ product }}">
+						<button class="addCart" wx:else catch:tap="onShowSkuModal" data-id="{{ product.id }}">
 							<view class="addBtn" style="background:{{ themeColor.primaryColor }}" hover-class="click-style"></view>
 							<!-- <view class="badge" wx:if="{{items_counts[product.id]}}"></view> -->
 						</button>
