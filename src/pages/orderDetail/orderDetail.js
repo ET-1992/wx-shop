@@ -118,6 +118,11 @@ Page({
         info.couponFeeDispaly = order.coupon_discount_fee; // 优惠券
         info.couponFee = Number(order.coupon_discount_fee);
 
+        // 优惠码
+        let discountCode = order.discount_code && order.discount_code.reduce_fee;
+        info.discountCode = Number(discountCode);
+        info.discountCodeDisplay = Number(discountCode).toFixed(2);
+
         info.coinForPayDispaly = order.coins_fee; // 金币
         info.coinForPay = Number(order.coins_fee);
 
