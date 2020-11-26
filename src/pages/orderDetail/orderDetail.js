@@ -274,14 +274,20 @@ Page({
         });
     },
 
+    // 参团页SKU购买回调
     async onSkuConfirm(e) {
         wx.showLoading({
             title: '请求中...',
             mask: true
         });
-        const { selectedSku, quantity, formId } = e.detail;
+        const { actionType, queryData } = e.detail;
 
-        await api.hei.submitFormId({ form_id: formId });
+        const {
+            selectedSku,
+            quantity,
+            currentSpecial,
+            currentRelation,
+        } = queryData;
 
         const { current_user, product, grouponId, isGrouponBuy, isCrowd, shipping_type } = this.data;
 
@@ -319,7 +325,9 @@ Page({
             selectedSku,
             quantity,
             product,
-            isGrouponBuy
+            isGrouponBuy,
+            currentSpecial,
+            currentRelation,
         });
 
         app.globalData.currentOrder = currentOrder;
