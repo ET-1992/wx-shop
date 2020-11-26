@@ -1,0 +1,72 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+<view class="container">
+	<!-- 登录 -->
+	<block wx:if="{{!(cardList && cardList.length)}}">
+		<van-tabs active="{{ activeIndex }}" line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
+			<van-tab title="{{item.title}}" wx:for="{{tabList}}" wx:key="idx"></van-tab>
+		</van-tabs>
+	
+		<view class="content" wx:if="{{ activeIndex === 0}}">
+			<view class="title">兑换券信息</view>
+			<view class="wrapper">
+				<view class="left">卡号</view>
+				<input type="number" value="{{ cardNumber }}" placeholder="请输入卡号" class="right" placeholder-class="placeholder" bindinput="onChangeCardNumber"/>
+			</view>
+			<view class="wrapper">
+				<view class="left">密码</view>
+				<input type="text" value="{{ password }}" placeholder="请输入密码" class="right" placeholder-class="placeholder" bindinput="onChangePassword"/>
+			</view>
+			<van-button custom-class="btn" color="{{ themeColor.primaryColor }}" block bind:click="onSubmitPassword">确认</van-button>
+		</view>
+	
+		<view class="content" wx:if="{{ activeIndex === 1}}">
+			<view class="title">兑换券信息</view>
+			<view class="wrapper">
+				<view class="left">手机号</view>
+				<input type="number" value="{{ phone }}" placeholder="请输入手机号" class="right" placeholder-class="placeholder" bindinput="onChangePhone"/>
+			</view>
+			<view class="wrapper">
+				<view class="left">验证码</view>
+				<view class="right">
+					<input type="number" value="{{ sms }}" placeholder="请输入验证码" placeholder-class="placeholder" bindinput="onChangeSms"/>
+					<button class="sms_btn" style="background-color: {{ themeColor.primaryColor }}" bind:tap="onClickGetSms">获取验证码</button>
+				</view>
+			</view>
+			<van-button custom-class="btn" color="{{ themeColor.primaryColor }}" block bind:click="onSubmitSms">确认</van-button>
+		</view>
+	</block>
+
+	<!-- 卡券列表 -->
+	<view class="wrapper" wx:if="{{ cardList && cardList.length }}">
+		<!-- 可用 -->
+		<view class="list" wx:if="{{availableList && availableList.length}}">
+			<view wx:for="{{ availableList }}" wx:key="index" class="item" style="background-color: {{ themeColor.primaryColor }}">
+				<view class="top">
+					<view class="amount">{{item.amount}}</view>
+					<view class="btn" bind:tap="onRecharge(item.amount)">充值</view>
+				</view>
+				<view class="bottom">
+					<view class="no">卡号：{{item.no}}</view>
+					<view class="time">有效期：{{ WXS.formatDate(item.time, 'yyyy-MM-dd') }}</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 不可用 -->
+		<view class="list" wx:if="{{unavailableList && unavailableList.length}}">
+			<view class="title">不可用</view>
+			<view wx:for="{{ unavailableList }}" wx:for-item="item" wx:key="index" class="item unavailable">
+				<view class="top">
+					<view class="amount">{{item.amount}}</view>
+					<view class="account" wx:if="{{item.status === 2}}">充值账号：{{item.user_name}}</view>
+					<view class="text" wx:if="{{item.status === 3}}">已过期</view>
+				</view>
+				<view class="bottom">
+					<view class="no">卡号：{{item.no}}</view>
+					<view class="time" wx:if="{{item.status === 2}}">使用时间：{{ WXS.formatDate(item.time, 'yyyy-MM-dd') }}</view>
+					<view class="time" wx:if="{{item.status === 3}}">有效期：{{ WXS.formatDate(item.time, 'yyyy-MM-dd') }}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
