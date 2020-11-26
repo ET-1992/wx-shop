@@ -35,7 +35,7 @@ Page({
     async onShow() {
         try {
             const { data, current_user, config } = await api.hei.membershipCard();
-            const { membership_enable = false, renews_enable = false, membership = {}, renews = {}} = config;
+            const { membership_enable = false, renew_enable = false, membership = {}, renews = {}} = config;
             let amount = (membership_enable && membership.rules && membership.rules.payment) || 0;
             let memberNo = (current_user.membership && current_user.membership.member_no) || '';
             this.setData({
@@ -44,7 +44,7 @@ Page({
                 memberNo,
                 amount: Number(amount),
                 user: current_user || {},
-                renews: renews_enable ? renews : [],
+                renews: renew_enable ? renews : [],
                 memberCouponList: data.coupons || [],
                 isLoading: false
             });
