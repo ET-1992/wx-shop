@@ -223,6 +223,7 @@ Page({
                     method = 'membershipMultipay';
                     requestData.amount = member_amount;
                     requestData.type = member_type;
+                    requestData.is_store_card = true;  // 不会自动开通会员
                     if (renewalId) { // 会员续费
                         requestData.renew_id = renewalId;
                     }

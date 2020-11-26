@@ -7,7 +7,6 @@ const app = getApp();
 Page({
     data: {
         isLoading: true,
-        rechargeModal: false, // 会员充值弹窗
         showRenewsModal: false, // 会员续费弹窗
         consoleTime: 0,
         updateAgainUserForInvalid: false, // 是否已更新头像
@@ -17,10 +16,6 @@ Page({
         memberNo: 0,
         payment: 0,
         selectRenewal: {}, // 所选择的续费项
-        rechargeArray: [],
-        customizePayEnable: false,
-        storeCardCode: '', // 选择的储值卡金额的code
-        isCustom: false // 是否自定义输入金额
     },
 
     onLoad() {
@@ -40,22 +35,13 @@ Page({
     async onShow() {
         try {
             const { data, current_user, config } = await api.hei.membershipCard();
-            const { store_card_enable = false, membership_enable = false, renews_enable = false, membership = {}, renews = {}} = config;
+            const { membership_enable = false, renews_enable = false, membership = {}, renews = {}} = config;
             let amount = (membership_enable && membership.rules && membership.rules.payment) || 0;
             let memberNo = (current_user.membership && current_user.membership.member_no) || '';
-            let rechargeArray = [];
-            let customizePayEnable = false;
-            if (store_card_enable) {
-                const { data, config = {}} = await api.hei.rechargePrice();
-                rechargeArray = data;
-                customizePayEnable = config.customize_pay_enable || false;
-            }
             this.setData({
                 data,
                 config,
                 memberNo,
-                rechargeArray,
-                customizePayEnable,
                 amount: Number(amount),
                 user: current_user || {},
                 renews: renews_enable ? renews : [],
@@ -130,41 +116,6 @@ Page({
         }
     },
 
-    // 打开会员充值弹窗
-    openRechargeModal() {
-        const { rechargeArray } = this.data;
-        if (rechargeArray && rechargeArray.length) {
-            this.setData({ rechargeModal: true });
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '暂时无法开通会员',
-                showCancel: false
-            });
-        }
-    },
-
-    // 关闭会员充值弹窗
-    closeRechargeModal() {
-        this.setData({
-            rechargeModal: false
-        });
-    },
-
-    // 储值卡充值
-    onConfirmRecharge(ev) {
-        let type = 2;
-        let { amount, storeCardCode, isCustom } = ev.detail;
-        console.log(amount, 'recharge----');
-        this.setData({
-            amount,
-            storeCardCode,
-            isCustom,
-            rechargeModal: false
-        }, () => {
-            this.onPay(type);
-        });
-    },
     // 开通会员
     buyMember() {
         let type = 1;
@@ -172,16 +123,8 @@ Page({
     },
 
     async onPay(type) {
-        let { amount, config, storeCardCode, isCustom } = this.data;
-        const { cashier_enable } = config;
-        if (cashier_enable && amount > 0 && !isCustom) {
-            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_code=${storeCardCode}&member_type=${type}&from_page=member` });
-            return;
-        }
-        if (cashier_enable && isCustom) {
-            wx.navigateTo({ url: `/pages/payCashier/payCashier?member_amount=${amount}&member_isCustom=${isCustom}&member_type=${type}&from_page=member` });
-            return;
-        }
+        let { amount, config } = this.data;
+        // const { cashier_enable } = config;
         try {
             const { pay_sign } =  await api.hei.membershipMultipay({
                 amount,
