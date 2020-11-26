@@ -25,8 +25,8 @@ Page({
         const user = wx.getStorageSync(USER_KEY);
         const { themeColor } = app.globalData;
         let { extendList } = this.data;
-        if (!user.membership || !user.membership.is_member || !config.store_card_enable) {
-            // 关闭账户余额入口 非会员或者未开启储值卡
+        if (!config.store_card_enable) {
+            // 关闭账户余额入口
             let index = extendList.findIndex(item => item.name === '账户余额');
             extendList.splice(index, 1);
         }
