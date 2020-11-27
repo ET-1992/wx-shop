@@ -84,6 +84,7 @@ Component({
                 return data;
             } catch (e) {
                 console.log('resolved error', e);
+                throw new Error(e);
             }
         },
 
@@ -92,13 +93,20 @@ Component({
             this.getCurrentOrder();
             let { _currentOrder } = this;
             let posts = JSON.stringify(_currentOrder.items);
-            let data = await api.hei.addCart({ posts });
-            if (!data.errcode) {
+            try {
+                let data = await api.hei.addCart({ posts });
                 let { count } = data;
                 wx.showToast({ title: '成功添加' });
                 wx.setStorageSync('CART_NUM', count);
                 updateTabbar({ tabbarStyleDisable: true });
                 return data;
+            } catch (e) {
+                wx.showModal({
+                    title: '报错提示',
+                    content: e.errMsg,
+                    showCancel: false,
+                });
+                throw new Error(e);
             }
         },
 

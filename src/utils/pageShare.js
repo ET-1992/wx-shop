@@ -106,6 +106,7 @@ export const createCurrentOrder = (e) => {
         isBargainBuy = false,
         currentSpecial = [],  // 选中规格
         currentRelation = [],  // 选中增值规格
+        shipping_type = '', // 物流方式
     } = e;
     try {
 
@@ -136,6 +137,7 @@ export const createCurrentOrder = (e) => {
             order_promotion_type,
             special_attributes,
             related_posts,
+            shipping_type,
         };
 
         const order = {

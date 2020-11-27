@@ -59,15 +59,14 @@ module.exports = Behavior({
             this.triggerEvent('option-change', selectedObj);
         },
 
-        // 物流选项组件回调
+        // 物流选择回调
         getShippingType(e) {
             let { shipping_type } = e.detail;
-            // console.log('shipping_type11', shipping_type);
-            this.triggerEvent('shipping-change', { shipping_type });
             this._shipping_type = shipping_type;
+            this.triggerEvent('shipping-change', { shipping_type });
         },
 
-        // 表单提交
+        // 表单提交验证
         onFormConfirm() {
             let { product, selectedSku } = this.data;
             let title = '';
@@ -88,23 +87,16 @@ module.exports = Behavior({
         // 创建订单信息
         getCurrentOrder() {
             let { product, selectedSku, quantity, currentSpecial, currentRelation } = this.data;
+            let { _shipping_type } = this;
             let currentOrder = pageShare.createCurrentOrder({
                 product,
                 selectedSku,
                 quantity,
                 currentSpecial,
                 currentRelation,
+                shipping_type: _shipping_type,
             });
             this._currentOrder = currentOrder;
         },
-
-        // 运行预下单
-        runOrderPrepare() {
-            let { _shipping_type, _currentOrder } = this;
-            getApp().globalData.currentOrder = _currentOrder;
-            let url = `/pages/orderCreate/orderCreate?shipping_type=${_shipping_type}`;
-            wx.navigateTo({ url });
-        },
-
     }
 });

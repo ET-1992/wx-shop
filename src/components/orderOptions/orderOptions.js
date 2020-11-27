@@ -56,7 +56,15 @@ Component({
             }
         },
 
-        // 加入购物车
+        // 运行预下单
+        runOrderPrepare() {
+            let { _shipping_type, _currentOrder } = this;
+            getApp().globalData.currentOrder = _currentOrder;
+            let url = `/pages/orderCreate/orderCreate?shipping_type=${_shipping_type}`;
+            wx.navigateTo({ url });
+        },
+
+        // 加入购物车 组件方法
         async onAddCart() {
             let actions = [{ type: 'addCart' }];
             let data = await this.onQuickCreate(actions);
