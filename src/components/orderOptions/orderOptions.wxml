@@ -1,6 +1,7 @@
 <view class="container">
-	<view class="product-title">{{ product.title || '-' }}</view>
-	<view class="product-subtitle">{{ product.excerpt }}</view>
+	<view class="product-title" style="text-align: {{ titleCenter ? 'center' : 'left' }}">{{ product.title || '-' }}</view>
+	<!-- <view class="product-subtitle">{{ product.excerpt }}</view> -->
+	<slot name="product-detail"></slot>
 	<view class="product-options">
 		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
 		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />

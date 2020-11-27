@@ -160,10 +160,18 @@
           <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
         </view>
       </view>
-      <!-- 商品下单选项 -->
+      <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType"></orderOptions>
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType">
+            <view slot="product-detail">
+              <view class="simple-model-subtitle">{{ product.excerpt }}</view>
+              <!-- 可领优惠券 -->
+              <view class="simple-model-coupon" bind:tap="onShowCouponList">
+                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons }}">{{ item.title || '-' }}</van-tag>
+              </view>
+            </view>
+          </orderOptions>
         </view>
       </block>
       <block wx:else>

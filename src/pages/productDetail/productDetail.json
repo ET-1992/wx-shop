@@ -25,6 +25,7 @@
     "orderOptions": "components/orderOptions/orderOptions",
     "van-stepper": "@vant/weapp/dist/stepper/index",
     "van-image": "@vant/weapp/dist/image/index",
+    "van-tag": "@vant/weapp/dist/tag/index",
     "productNavigationBar": "components/productNavigationBar/productNavigationBar"
   },
   "navigationStyle": "custom"

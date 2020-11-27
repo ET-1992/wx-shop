@@ -85,5 +85,5 @@
 
 <!-- 餐饮商品选项弹窗 -->
 <van-popup show="{{ showOrderOptions }}" round custom-style="width: 90%; max-height: 80%" bind:close="onHideOrderOptions">
-	<orderOptions product="{{ selectedProduct }}" hasBottom id="orderOptions" bind:add-cart="onUpdateCart" />
+	<orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onUpdateCart" />
 </van-popup>

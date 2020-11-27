@@ -21,6 +21,11 @@ Component({
             type: Boolean,
             value: false,
         },
+        // 标题是否居中
+        titleCenter: {
+            type: Boolean,
+            value: false,
+        }
     },
     data: {
         themeColor: {},
