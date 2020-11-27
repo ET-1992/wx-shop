@@ -122,13 +122,6 @@ Component({
             this.setData({ quantity: value });
         },
 
-        updateNumber({ detail }) {
-            const { value } = detail;
-            this.setData({ 'product.uniqueNumber': value }, () => {
-                console.log('product', this.data.product);
-            });
-        },
-
         // SKU表单提交
         async onUserInfo(e) {
             console.log('onUserInfo and sku confirm', e);

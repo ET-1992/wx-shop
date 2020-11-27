@@ -38,15 +38,15 @@
 					z-index: 1;
 					padding: 16rpx;
 				}
-			}
-			.active {
-				background-color: var(--primary-color);
-				color: #ffffff;
-				border: none;
-			}
-			.disable {
-				border-color: #ccc;
-				color: #eee;
+				&.active {
+					background-color: var(--primary-color);
+					color: #ffffff;
+					border: none;
+				}
+				&.disable {
+					border-color: #ccc;
+					color: #eee;
+				}
 			}
 		}
 	}
