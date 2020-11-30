@@ -1,4 +1,4 @@
-<van-popup round show="{{ isShowSkuModal }}" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
+<van-popup round show="{{ isShowSkuModal }}" style="--popup-round-border-radius: 20rpx" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
     <!-- classify 页面 -->
     <view wx:if="{{ position === 'center' }}" class="modal">
         <view class="header">
@@ -26,8 +26,10 @@
     </view>
     <!-- 商品详情页面 -->
     <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}" z-index="{{10000}}">
-        <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
-        <scroll-view scroll-y class="scrollSkus">
+        <view class="head-wrap">
+            <view class="head-close">
+                <van-icon name="clear" color="#dcdde0" size="20px" bind:click="close" />
+            </view>
             <view class="head">
                 <image src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
                 <view class="productInfo">
@@ -74,6 +76,8 @@
                     </view>
                 </view>
             </view>
+        </view>
+        <scroll-view scroll-y class="scrollSkus">
             <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
         </scroll-view>
         <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
