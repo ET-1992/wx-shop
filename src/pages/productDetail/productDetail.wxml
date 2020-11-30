@@ -168,7 +168,7 @@
               <view class="simple-model-subtitle">{{ product.excerpt }}</view>
               <!-- 可领优惠券 -->
               <view class="simple-model-coupon" bind:tap="onShowCouponList">
-                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons }}">{{ item.title || '-' }}</van-tag>
+                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons }}" wx:key="index">{{ item.title || '-' }}</van-tag>
               </view>
             </view>
           </orderOptions>
