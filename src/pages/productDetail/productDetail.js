@@ -529,6 +529,7 @@ Page({
             isBargainBuy,
             currentSpecial,
             currentRelation,
+            selectedOptions: this._selectedOptions,
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -660,12 +661,12 @@ Page({
         if (actionType === 'addCart') {
             this.addCart(queryData);
         } else {
-
             const {
                 selectedSku,
                 quantity,
                 currentSpecial,
                 currentRelation,
+                selectedOptions,
             } = queryData;
             this.setData({
                 selectedSku,
@@ -673,6 +674,7 @@ Page({
                 currentSpecial,
                 currentRelation,
             });
+            this._selectedOptions = selectedOptions;
             // onBuy/onGivingGift
             this[actionType]();
             this.onSkuCancel();

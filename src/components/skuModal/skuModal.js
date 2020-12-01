@@ -127,7 +127,7 @@ Component({
             console.log('onUserInfo and sku confirm', e);
             const { encryptedData, iv } = e.detail,
                 { actionType } = e.target.dataset,
-                { currentRelation, currentSpecial, selectedSku, quantity } = this.data;
+                { currentRelation, currentSpecial, selectedSku, quantity, selectedOptions } = this.data;
 
             if (!iv || !encryptedData) {
                 wx.showModal({
@@ -145,7 +145,7 @@ Component({
                 if (actionType === 'addCart') {
                     queryData = await this.onAddCart();
                 } else {
-                    queryData = { selectedSku, quantity, currentSpecial, currentRelation };
+                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions };
                 }
                 this.triggerEvent('onSkuConfirm', {
                     actionType,
