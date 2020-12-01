@@ -306,7 +306,12 @@ Page({
     checkAddressForm() {
         let { form } = this.data;
         // 表单必填验证
-        let success = form.every(item => item.key === 'houseNumber' || item.key === 'address' || item.value.length);
+        let success = form.every(item => {
+            if (item.key === 'houseNumber' || item.key === 'code' || item.key === 'address' || item.value.length) {
+                return true;
+            }
+            return false;
+        });
         if (!success) {
             throw new Error('请填写必要的信息');
         }
