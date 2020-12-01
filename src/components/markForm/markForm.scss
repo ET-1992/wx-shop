@@ -1,0 +1,40 @@
+.container {
+	padding: 20rpx;
+	background-color: #fff;
+	--cell-background-color: #f7f8fa;
+	--cell-vertical-padding: 0;
+	.form-item {
+		margin-bottom: 20rpx;
+		display: flex;
+		.form-item-left {
+			font-size: 28rpx;
+			line-height: 40rpx;
+			width: 146rpx;
+			margin-right: 22rpx;
+			flex-shrink: 0;
+			margin-right: 16rpx;
+			display: flex;
+			align-items: center;
+		}
+		.form-item-right {
+			flex: 1;
+			// 复选框
+			.checkbox-group-wrap {
+				display: flex;
+				.checkbox-wrap {
+					margin: 10rpx;
+				}
+			}
+
+			// 输入框
+			.form-field {
+				padding: 8rpx 20rpx;
+				border-radius: 5rpx;
+				background-color: #f7f8fa;
+				.input-wrap {
+					background-color: #f7f8fa;
+				}
+			}
+		}
+	}
+}
