@@ -71,7 +71,7 @@ Page({
         toScrollTop: 0,  // 跳转的scrollTop
         tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
-        skuOptions: {},  // 简约模式的规格内容/价格
+        selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false
     },
 
@@ -573,8 +573,8 @@ Page({
 
     // 简约模式选择规格
     onOptionChange(e) {
-        let { detail: skuOptions } = e;
-        this.setData({ skuOptions });
+        let { detail: selectedOptions } = e;
+        this.setData({ selectedOptions });
     },
 
     onReady() {

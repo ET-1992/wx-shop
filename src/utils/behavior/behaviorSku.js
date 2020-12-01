@@ -10,7 +10,7 @@ module.exports = Behavior({
         },
     },
     data: {
-        selectedObj: {},  // 所有选中内容和总价
+        selectedOptions: {},  // 所有选中内容和总价
         currentSku: [],  // 选中SKU
         selectedSku: {},
         skuMap: {},
@@ -46,7 +46,7 @@ module.exports = Behavior({
             let content = [...currentSku, ...currentSpecial, ...currentRelation].reduce((acc, { value }) => {
                 return value ? acc + value + ';' : acc;
             }, '');
-            let selectedObj = { price, content };
+            let selectedOptions = { price, content };
 
             this.setData({
                 currentSku,
@@ -54,9 +54,9 @@ module.exports = Behavior({
                 skuMap,
                 currentSpecial,
                 currentRelation,
-                selectedObj,
+                selectedOptions,
             });
-            this.triggerEvent('option-change', selectedObj);
+            this.triggerEvent('option-change', selectedOptions);
         },
 
         // 物流选择回调
@@ -86,7 +86,7 @@ module.exports = Behavior({
 
         // 创建订单信息
         getCurrentOrder() {
-            let { product, selectedSku, quantity, currentSpecial, currentRelation } = this.data;
+            let { product, selectedSku, quantity, currentSpecial, currentRelation, selectedOptions } = this.data;
             let { _shipping_type } = this;
             let currentOrder = pageShare.createCurrentOrder({
                 product,
@@ -95,6 +95,7 @@ module.exports = Behavior({
                 currentSpecial,
                 currentRelation,
                 shipping_type: _shipping_type,
+                selectedOptions,
             });
             this._currentOrder = currentOrder;
         },

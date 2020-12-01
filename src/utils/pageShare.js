@@ -107,6 +107,7 @@ export const createCurrentOrder = (e) => {
         currentSpecial = [],  // 选中规格
         currentRelation = [],  // 选中增值规格
         shipping_type = '', // 物流方式
+        selectedOptions = {},  // 选中的所有选项
     } = e;
     try {
 
@@ -122,8 +123,8 @@ export const createCurrentOrder = (e) => {
             // 从所有增值规格中筛选出选中项
             return currentRelation.findIndex(({ value }) => title === value) > -1;
         });
-        console.log('special_attributes', special_attributes);
-        console.log('related_posts', related_posts);
+
+        let { content: sku_property_names = '' } = selectedOptions;
 
         const item = {
             post_id: id,
@@ -138,6 +139,7 @@ export const createCurrentOrder = (e) => {
             special_attributes,
             related_posts,
             shipping_type,
+            sku_property_names,
         };
 
         const order = {
@@ -155,7 +157,7 @@ export const createCurrentOrder = (e) => {
             const selectedSkuImage = properties ? (sku_images[firstSelectedSkuPropValue] && sku_images[firstSelectedSkuPropValue].thumbnail) : null;
 
             item.sku_id = skuId;
-            item.sku_property_names = property_names;
+            item.sku_property_names = sku_property_names || property_names;
 
             if (original_price) {
                 item.original_price = original_price;

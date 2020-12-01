@@ -10,11 +10,11 @@
 		<view class="end-left">
 			<view class="left-price">
 				<text>￥</text>
-				<text>{{ selectedObj.price || '-' }}</text>
+				<text>{{ selectedOptions.price || '-' }}</text>
 			</view>
 			<view class="left-options">
 				<text class="left-options-title">{{ product.title || '-' }}</text>
-				<text>{{ selectedObj.content }}</text>
+				<text>{{ selectedOptions.content }}</text>
 			</view>
 		</view>
 		<view class="end-right">

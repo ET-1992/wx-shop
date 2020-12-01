@@ -453,11 +453,11 @@
       <view class="end-left">
         <view class="left-price">
           <text>￥</text>
-          <text>{{ skuOptions.price || '-' }}</text>
+          <text>{{ selectedOptions.price || '-' }}</text>
         </view>
         <view class="left-options">
           <text class="left-options-title">{{ product.title || '-' }}</text>
-          <text>{{ skuOptions.content }}</text>
+          <text>{{ selectedOptions.content }}</text>
         </view>
       </view>
       <!-- 简约模式数量 -->
