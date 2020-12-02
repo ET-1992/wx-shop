@@ -10,11 +10,6 @@ Component({
             type: Boolean,
             value: false
         },
-        // 可折扣 展示优惠券和花生米
-        discountable: {
-            type: Boolean,
-            value: true,
-        },
         coins: {
             type: Number,
             value: 0
@@ -35,8 +30,10 @@ Component({
             type: Object,
             value: {},
             observer(newValue) {
+                let { coupon_reduce_fee, discount_code_reduce_fee } = newValue;
                 this.setData({
-                    couponFeeDispaly: newValue.coupon_reduce_fee ? Number(newValue.coupon_reduce_fee).toFixed(2) : '0.00'
+                    coupon_reduce_fee: this.fixedNumber(coupon_reduce_fee),
+                    discount_code_reduce_fee: this.fixedNumber(discount_code_reduce_fee),
                 });
             }
         },
@@ -46,9 +43,18 @@ Component({
         }
     },
     methods: {
+
+        // 格式化浮点数金额
+        fixedNumber(value) {
+            return value ? Number(value).toFixed(2) : '0.00';
+        },
+
+        // 优惠券选择
         couponChange() {
             this.triggerEvent('getcouponid', {}, { bubbles: true });
         },
+
+        // 花生米输入
         bindInput(e) {
             let { value } = e.detail;
             value = Number(value);
@@ -58,6 +64,12 @@ Component({
             }
             this.triggerEvent('setusecoin', value, { bubbles: true });
             return value;
-        }
+        },
+
+        // 优惠码输入
+        bindCodeInput(e) {
+            let { code } = e.detail.value;
+            this.triggerEvent('code-change', { code });
+        },
     }
 });

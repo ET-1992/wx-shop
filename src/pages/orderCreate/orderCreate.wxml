@@ -31,8 +31,8 @@
   <!-- 订单留言 -->
   <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation && order_annotation.length > 0 }}" id="orderForm" isShowModal="{{ modal.isShowModal }}" />
 
-  <!-- 折扣操作 优惠券/花生米 -->
-  <orderCoupon shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" discountable="{{ !isGrouponBuy && product_type !== 4 }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId"></orderCoupon>
+  <!-- 优惠面板 -->
+  <orderCoupon wx:if="{{ !isGrouponBuy && product_type !== 4 }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId" bind:code-change="onDiscountCode"></orderCoupon>
 
   <!-- <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
       <view class="title">支付方式</view>

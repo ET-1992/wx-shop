@@ -96,22 +96,50 @@ function shopShare(path) {
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false, isBargainBuy = false }) => {
-
+export const createCurrentOrder = (e) => {
+    let {
+        product,
+        selectedSku = {},
+        quantity = 1,
+        isGrouponBuy = false,
+        isMiaoshaBuy = false,
+        isBargainBuy = false,
+        currentSpecial = [],  // 选中规格
+        currentRelation = [],  // 选中增值规格
+        shipping_type = '', // 物流方式
+        selectedOptions = {},  // 选中的所有选项
+    } = e;
     try {
 
-        console.log('selectedSku', selectedSku, product);
+        // console.log('selectedSku', selectedSku, product);
+        let { id, title, original_price, thumbnail, price, postage, order_promotion_type, related_product } = product;
+
+        // 规格
+        let special_attributes = currentSpecial;
+
+        let mapRelatedProduct = related_product.flatMap(item => item.value);
+        // 增值规格
+        let related_posts = mapRelatedProduct.filter(({ title }) => {
+            // 从所有增值规格中筛选出选中项
+            return currentRelation.findIndex(({ value }) => title === value) > -1;
+        });
+
+        let { content: sku_property_names = '' } = selectedOptions;
 
         const item = {
-            post_id: product.id,
-            title: product.title,
-            original_price: product.original_price,
-            image_url: product.thumbnail,
-            price: product.price,
-            id: product.id,
-            postage: product.postage,
+            post_id: id,
+            title,
+            original_price,
+            image_url: thumbnail,
+            price,
+            id: id,
+            postage,
             quantity,
-            order_promotion_type: product.order_promotion_type,
+            order_promotion_type,
+            special_attributes,
+            related_posts,
+            shipping_type,
+            sku_property_names,
         };
 
         const order = {
@@ -129,7 +157,7 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             const selectedSkuImage = properties ? (sku_images[firstSelectedSkuPropValue] && sku_images[firstSelectedSkuPropValue].thumbnail) : null;
 
             item.sku_id = skuId;
-            item.sku_property_names = property_names;
+            item.sku_property_names = sku_property_names || property_names;
 
             if (original_price) {
                 item.original_price = original_price;

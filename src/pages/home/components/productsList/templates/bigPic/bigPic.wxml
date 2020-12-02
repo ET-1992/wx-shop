@@ -42,8 +42,6 @@
             </view>
             <!-- 金币商品 -->
             <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
-            <!-- 餐饮商品 -->
-            <view wx:elif="{{ product.product_style_type === 2 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
             <!-- 虚拟商品 -->
             <view wx:elif="{{ product.product_type === 1 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
             <!-- 普通商品 -->

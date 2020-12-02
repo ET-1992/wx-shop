@@ -1,0 +1,56 @@
+<!-- 商品/订单留言表单 -->
+<view class="container">
+  <view class="form-content" wx:for="{{ form }}" wx:key="index">
+    <view class="form-item">
+      <view class="form-item-left">{{ item.name || '-' }}</view>
+      <view class="form-item-right">
+        <!-- 复选框 -->
+        <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
+          <van-checkbox-group value="{{ collection[item.name] }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}">
+            <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap">
+              <text>{{ option || '-' }}</text>
+            </van-checkbox>
+          </van-checkbox-group>
+        </view>
+        <!-- 日期/时间/下拉选择 -->
+        <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}">
+          <picker mode="date" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" wx:if="{{ item.type === 'date' }}">
+            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="请选择{{ item.name }}" />
+          </picker>
+          <picker mode="time" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" wx:elif="{{ item.type === 'time' }}">
+            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="请选择{{ item.name }}" />
+          </picker>
+          <picker mode="selector" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" range="{{ item.options }}" wx:else>
+            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="请选择{{ item.name }}" />
+          </picker>
+        </view>
+        <!-- 图片上传 -->
+        <view class="form-upload" wx:elif="{{ item.type === 'img' }}">
+          <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" max-count="1" data-name="{{ item.name }}" />
+        </view>
+        <!-- 输入框 -->
+        <view class="form-field" wx:else>
+          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="请输入{{ item.name }}" data-name="{{ item.name }}" bind:change="onFormChange" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- <van-popup show="{{ isPopupShow }}" position="bottom" bind:close="onPopupClose">
+  <van-datetime-picker type="date" value="{{ currentDate }}" bind:input="onInput" min-date="{{ minDate }}" formatter="{{ formatter }}" />
+</van-popup> -->
+<wxs module="markForm">
+  var changeType = function (type){
+    if(type === 'id_number') {
+      type = 'idcard';
+    } else if(type === 'phone_number' || type === 'number') {
+      type = 'number';
+    } else if(type === 'text' || type === 'email') {
+      type = 'text';
+    }
+    return type
+  };
+  module.exports = {
+    changeType: changeType,
+  };
+</wxs>
