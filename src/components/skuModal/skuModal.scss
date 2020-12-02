@@ -24,6 +24,12 @@
 				line-height: 45rpx;
 				font-weight: bold;
 			}
+			.close {
+				position: absolute !important;
+				right: 18rpx;
+				top: 18rpx;
+				z-index: 999;
+			}
 		}
 		// 购买数量
 		.quantity {
