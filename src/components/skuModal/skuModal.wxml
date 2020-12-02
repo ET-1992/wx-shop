@@ -77,17 +77,25 @@
                 </view>
             </view>
         </view>
-        <scroll-view scroll-y class="scrollSkus">
-            <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
-        </scroll-view>
-        <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
-            <view class="title">购买数量</view>
-            <view class="rightWrap">
-                <view class="least" wx:if="{{ product.least }}">（ {{ product.least }}件起购 ）</view>
-                 <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
+        <scroll-view scroll-y class="scroll-content-wrap">
+            <view class="scroll-content">
+                <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
+                <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
+                    <view class="remark-title">商品留言</view>
+                    <markForm form="{{ product.product_annotation }}" />
+                </view>
             </view>
+        </scroll-view>
+        <view class="bottom-option-wrap">
+            <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
+                <view class="title">购买数量</view>
+                <view class="rightWrap">
+                    <view class="least" wx:if="{{ product.least }}">（ {{ product.least }}件起购 ）</view>
+                     <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
+                </view>
+            </view>
+            <skuLogistics product="{{product}}" actions="{{actions}}" bind:shipping-change="getShippingType" />
         </view>
-        <skuLogistics product="{{product}}" actions="{{actions}}" bind:shipping-change="getShippingType" />
         <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
             <button 
                 class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 

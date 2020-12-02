@@ -130,12 +130,13 @@
 
 .bottomModal {
 	background-color: #fff;
-	padding: 25rpx 30rpx 130rpx;
+	padding: 25rpx 0 130rpx;
 	&.iphoneXTrick{
 		padding-bottom: 170rpx;
 	}
 
 	.head-wrap {
+		margin: 0 30rpx;
 		position: relative;
 		.head-close {
 			position: absolute !important;
@@ -204,9 +205,19 @@
 
 	}
 
-	.scrollSkus {
+	.scroll-content-wrap {
 		// min-height: 200rpx;
 		max-height: 800rpx;
+		.scroll-content {
+			padding: 0 30rpx;
+		}
+		.product-remark {
+			.remark-title {
+				color: #000000;
+				font-size: 26rpx;
+				font-weight: bold;
+			}
+		}
 	}
 
 	.title {
@@ -220,22 +231,26 @@
 		color: #ccc;
 	}
 
-	.quantity {
-		display: flex;
-		justify-content: space-between;
-		border-top: 1rpx solid #ebedf0;
-		padding: 30rpx 0;
-		align-items: center;
-		.rightWrap {
+	.bottom-option-wrap {
+		margin: 0 30rpx;
+		.quantity {
 			display: flex;
-			
-			.least {
+			justify-content: space-between;
+			border-top: 1rpx solid #ebedf0;
+			padding: 30rpx 0;
+			align-items: center;
+			.rightWrap {
 				display: flex;
-				align-items: center;
-				color: #E50000;
+				
+				.least {
+					display: flex;
+					align-items: center;
+					color: #E50000;
+				}
 			}
 		}
 	}
+
 
 	.actionSheetBtGroup {
 		margin-top: 20rpx;
