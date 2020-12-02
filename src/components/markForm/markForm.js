@@ -1,4 +1,5 @@
 import api from 'utils/api';
+import { checkPhone, checkEmail, checkIdNameNum } from 'utils/util';
 
 Component({
     properties: {
@@ -8,14 +9,13 @@ Component({
         },
     },
     data: {
-        collection: {},
-        fileList: [],
+        // collection: {},  // 收集数据键值对
     },
     methods: {
         // 表单输入
         onFormChange(e) {
             let { detail, currentTarget: { dataset: { name }, }} = e,
-                { collection, form } = this.data,
+                { form } = this.data,
                 index = form.findIndex(item => item.name === name);
 
             if (form[index].type === 'select') {
@@ -26,29 +26,25 @@ Component({
                 detail = detail.value;
             }
             form[index].value = detail;
-            collection[name] = detail;
-            this.setData({ collection, form });
-            console.log('collection', collection);
+            this.setData({ form });
         },
 
         // 文件读取完成
-        async afterRead(e) {
+        async onAfterRead(e) {
             // console.log('e', e);
             let { file } = e.detail,
                 { name } = e.currentTarget.dataset,
-                { fileList, collection } = this.data;
+                { form } = this.data,
+                index = form.findIndex(item => item.name === name);
 
             try {
                 const data = await api.hei.upload({
                     filePath: file.path
                 });
                 let { url } = JSON.parse(data);
-                console.log('url', url);
-                collection[name] = url;
-                fileList.push({ ...file, url });
+                form[index].value = [{ ...file, url }];
 
-                this.setData({ fileList, collection });
-                console.log('collection', collection);
+                this.setData({ form });
 
             } catch (e) {
                 wx.showModal({
@@ -61,10 +57,41 @@ Component({
 
         // 文件删除
         onFileDelete(e) {
-            let { index } = e.detail,
-                { fileList } = this.data;
-            fileList.splice(index, 1);
-            this.setData({ fileList });
+            let { name } = e.currentTarget.dataset,
+                { form } = this.data,
+                index = form.findIndex(item => item.name === name);
+
+            form[index].value = '';
+            this.setData({ form });
+        },
+
+        // 表单验证和收集数据
+        handleValidate() {
+            let { form } = this.data;
+            let errMsg = '',
+                collection = {};
+
+            for (const item of form) {
+                let { name, value, required, type } = item;
+                collection[name] = value;
+                if (required) {
+                    errMsg = `留言信息${name}不能为空`;
+                }
+                if (type === 'phone_number' && !checkPhone(value)) {
+                    errMsg = `请输入正确的手机格式`;
+                }
+                if (type === 'email' && !checkEmail(value)) {
+                    errMsg = `请输入正确的邮箱格式`;
+                }
+                if (type === 'id_number' && !checkIdNameNum(value)) {
+                    errMsg = `请输入18位数的身份证号码`;
+                }
+            }
+            let showError = () => {
+                wx.showToast({ title: errMsg, icon: 'none' });
+                return false;
+            };
+            return errMsg ? showError() : collection;
         },
     },
 });

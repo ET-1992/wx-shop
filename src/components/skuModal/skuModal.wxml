@@ -82,7 +82,7 @@
                 <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
                 <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
                     <view class="remark-title">商品留言</view>
-                    <markForm form="{{ product.product_annotation }}" />
+                    <markForm id="mark-form" form="{{ product.product_annotation }}" />
                 </view>
             </view>
         </scroll-view>
