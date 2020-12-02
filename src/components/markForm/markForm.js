@@ -74,8 +74,9 @@ Component({
             for (const item of form) {
                 let { name, value, required, type } = item;
                 collection[name] = value;
-                if (required) {
-                    errMsg = `留言信息${name}不能为空`;
+                if (!required) { continue }
+                if (!value) {
+                    errMsg = `请输入${name}`;
                 }
                 if (type === 'phone_number' && !checkPhone(value)) {
                     errMsg = `请输入正确的手机格式`;
@@ -89,7 +90,7 @@ Component({
             }
             let showError = () => {
                 wx.showToast({ title: errMsg, icon: 'none' });
-                return false;
+                throw new Error(errMsg);
             };
             return errMsg ? showError() : collection;
         },

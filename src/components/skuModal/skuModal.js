@@ -139,6 +139,11 @@ Component({
             }
             try {
                 this.onFormConfirm();
+                let component = this.selectComponent('#mark-form');
+                if (component) {
+                    let form = component.handleValidate();
+                    console.log('form', form);
+                }
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.close();
                 let queryData = {};
