@@ -120,7 +120,7 @@
     </view>
 
     <!-- 订单留言 -->
-    <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks.length }}" class="remarkWrap">
+    <view wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}" class="remarkWrap">
         <view wx:for="{{ order.annotation.remarks }}" wx:key="id" class="remarkWrapRow">
             <view>{{ index }}</view>
             <view wx:if="{{ orderDetail.indexOf(item, 'http:') === -1 }}">{{item}}</view>
