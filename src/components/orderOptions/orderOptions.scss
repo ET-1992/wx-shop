@@ -1,5 +1,5 @@
 .container {
-	padding: 20rpx 25rpx 0rpx 25rpx;
+	padding: 26rpx 25rpx 20rpx;
 	background-color: #fff;
 	border-radius: 5rpx;
 	.product-title {
@@ -20,38 +20,13 @@
 		margin: 26rpx 0 10rpx;
 		font-size: 24rpx;
 		border-radius: 5rpx;
-		.option-wrap {
-			.option-name {
-				line-height: 32rpx;
-				// font-weight: bold;
-			}
-			.option-values {
-				display: flex;
-				flex-wrap: wrap;
-				padding-bottom: 20rpx;
-				.value-btn {
-					border-radius: 8rpx;
-					font-size: 24rpx;
-					border: none;
-					color: #333333;
-					background-color: #F5F7F9;
-					line-height: 65rpx;
-					padding: 0 12rpx;
-					min-width: 130rpx;
-					margin: 20rpx 20rpx 0 0;
-					&.value-btn-avtived {
-						color: white;
-						// background-color: #D1483E;
-					}
-				}
-			}
-		}
 	}
 	.order-end {
 		display: flex;
 		height: 140rpx;
 		align-items: center;
-		padding: 28rpx 0 20rpx;
+		margin-top: 20rpx;
+		padding-top: 6rpx;
 		border-top: 1rpx solid #D4D4D4;
 		.end-left {
 			flex-wrap: wrap;
@@ -74,6 +49,15 @@
 		.end-right {
 			margin-left: 6rpx;
 			flex-wrap: nowrap;
+			.product-options-btn {
+				color: white;
+				font-size: 24rpx;
+				line-height: 70rpx;
+				width: 200rpx;
+				border: none;
+				background-color: #CCCCCC;
+				border-radius: 35rpx;
+			}
 		}
 	}
 }

@@ -191,12 +191,22 @@ Page({
         wx.navigateTo({ url });
     },
 
+    // 使用优惠券
     async getCouponId() {
         const { coupons } = this.data;
         wx.setStorageSync('orderCoupon', coupons);
         wx.navigateTo({
             url: '/pages/orderCoupons/orderCoupons',
         });
+    },
+
+    // 使用优惠码
+    async onDiscountCode(e) {
+        let { code } = e.detail;
+        this._discountCode = code;
+        wx.showLoading();
+        await this.onLoadData();
+        wx.hideLoading();
     },
 
     getCouponIdEvent(data) {
@@ -326,6 +336,9 @@ Page({
                 // 电子卡券 不能加车
                 requestData.promotion_type = items[0].order_promotion_type;
             }
+
+            // 优惠码
+            requestData.discount_code = this._discountCode || '';
 
             requestData.shipping_type = Number(shipping_type);
 
@@ -609,6 +622,7 @@ Page({
             requestData.coins = useCoin;
         }
 
+        requestData.discount_code = this._discountCode || '';
         requestData.shipping_type = shipping_type;
         // 自提需传数据
         if (shipping_type === 2) {

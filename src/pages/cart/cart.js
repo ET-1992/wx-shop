@@ -131,14 +131,14 @@ Page({
         const { vendor } = app.globalData;
         const { value, postId, skuId, cartIndex: index } = detail;
 
-        let seletedItem = items[index];
+        let { cart_item_id } = items[index];
         let requestData = {
             post_id: postId,
             sku_id: skuId,
             quantity: value,
             vendor,
             shipping_type,
-            cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+            cart_item_id,
         };
         await api.hei.updateCart(requestData);
 
@@ -159,12 +159,12 @@ Page({
             confirmColor: '#dc143c',
         });
         if (confirm) {
-            let seletedItem = items[index];
+            let { cart_item_id } = items[index];
             let requestData = {
                 post_id: postId,
                 sku_id: skuId,
                 shipping_type,
-                cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+                cart_item_id,
             };
 
             const data = await api.hei.removeCart(requestData);
@@ -210,19 +210,6 @@ Page({
         }
     },
 
-    // 跳转到预下单页
-    async onCreateOrder() {
-        const { shipping_type } = this.data;
-        const { items, isSelectedObject } = this.data;
-        const selectdItems = items.filter((item) => isSelectedObject[item.id]);
-        app.globalData.currentOrder = {
-            items: selectdItems,
-            totalPostage: this.data.totalPostage
-        };
-        wx.navigateTo({
-            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
-        });
-    },
     // 用户授权之后才能下单
     async bindGetUserInfo(e) {
         console.log(e);
@@ -237,6 +224,19 @@ Page({
                 showCancel: false,
             });
         }
+    },
+
+    // 跳转到预下单页
+    async onCreateOrder() {
+        const { shipping_type, items, isSelectedObject, totalPostage } = this.data;
+        const selectdItems = items.filter((item) => isSelectedObject[item.id]);
+        app.globalData.currentOrder = {
+            items: selectdItems,
+            totalPostage,
+        };
+        wx.navigateTo({
+            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
+        });
     },
 
     calculatePrice() {

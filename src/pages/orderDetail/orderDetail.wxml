@@ -180,6 +180,10 @@
             <text class="text">优惠券</text>
             <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.couponFeeDispaly }}</text>
         </view>
+        <view wx:if="{{ info.discountCode }}" class="row">
+            <text class="text">优惠码</text>
+            <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.discountCodeDisplay }}</text>
+        </view>
         <view wx:if="{{ info.coinForPay }}" class="row">
             <text class="text">{{ config.coin_name || '花生米' }}</text>
             <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ info.coinForPayDispaly }}</text>

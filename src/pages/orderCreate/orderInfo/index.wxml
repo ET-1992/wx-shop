@@ -13,6 +13,11 @@
     <text class="text">优惠券</text>
     <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponFeeDispaly }}</text>
   </view>
+  <!-- 优惠码 -->
+  <view wx:if="{{ !isGrouponBuy }}">
+    <text class="text">优惠码</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ discount_code_reduce_fee }}</text>
+  </view>
   <!-- 手动扣减花生米 -->
   <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
     <text class="text">{{ config.coin_name || '花生米' }}</text>

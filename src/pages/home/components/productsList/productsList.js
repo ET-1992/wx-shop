@@ -99,53 +99,15 @@ Component({
             autoNavigate_({ url: finalUrl });
         },
 
-        // 首页商品模块可直接加车
-        /* 加车 */
-        async addCart(product) {
-            console.log('e214', product);
-            wx.showLoading({ title: '加车中' });
-            let { vendor } = app.globalData;
-            let { id, stock } = product;
-            if (stock === 0) {
-                await showModal({
-                    title: '温馨提示',
-                    content: '商品库存为0',
-                });
-                return;
-            }
-            let options = {};
-
-            options.post_id = id;
-            options.sku_id = product.sku_id || 0; // 多规格
-            options.shipping_type = product.shipping_type;
-            options.quantity = product.quantity || 1;
-            options.vendor = vendor;
-            options.form_id = this.data.formId;
-
-            try {
-                const data = await api.hei.addCart(options);
-                wx.hideLoading();
-                this.setData({ isShowSkuModal: false });
-                wx.setStorageSync('CART_NUM', data.count);
-                wx.showToast({
-                    icon: 'success',
-                    title: '已加入购物车',
-                });
-                updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
-            } catch (ev) {
-                console.log('ev', ev);
-                wx.hideLoading();
-                if (ev.code === 'system_error') {
-                    return;
-                }
-                await showModal({
-                    title: '温馨提示',
-                    content: ev.errMsg,
-                });
-            }
+        // 加车回调
+        async onSkuConfirm({ detail }) {
+            // let { actionType, queryData } = detail;
+            console.log('onSkuConfirm');
+            this.setData({ isShowSkuModal: false });
         },
+
         // 选规格弹窗
-        isShowSkuModal(product) {
+        showSkuModal(product) {
             this.setData({
                 isShowSkuModal: true,
                 selectedProduct: product
@@ -154,27 +116,31 @@ Component({
 
         // 单规格 且 配送方式只有一种时 直接 加入购物车
         // 多规格 或 多种配送方式 显示弹窗选择 配送方式 或 规格
-        singleAddCart(e) {
+        async singleAddCart(e) {
             let product = {};
 
             product = e.currentTarget.dataset.product ? e.currentTarget.dataset.product : e.detail.product;
             console.log('singleAddCartproduct', product);
+
+            // 不能加车商品
+            let { individual_buy, id } = product;
+            if (individual_buy) {
+                wx.navigateTo({ url: `/pages/productDetail/productDetail?id=${id}` });
+                return;
+            }
+
             if ((product.shipping_types && product.shipping_types.length === 1)) {
                 product.shipping_type = product.shipping_types[0];
             }
 
             if ((product.shipping_types && product.shipping_types.length > 1) || (product.skus && product.skus.length > 0)) {
-                this.isShowSkuModal(product);
+                this.showSkuModal(product);
             } else {
-                console.log('singleAddCartproduct', product);
-                this.addCart(product);
+                // 直接购买
+                this.setData({ selectedProduct: product });
+                let component = this.selectComponent('#skuModal');
+                await component.onAddCart();
             }
         },
-
-        // skuModel 弹窗返回数据
-        onAddCart(e) {
-            console.log('e211', e);
-            this.addCart(e.detail);
-        }
     }
 });

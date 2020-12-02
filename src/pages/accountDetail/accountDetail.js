@@ -138,7 +138,8 @@ Page({
             const { pay_sign } =  await api.hei.membershipMultipay({
                 amount,
                 pay_method: 'WEIXIN',
-                type
+                type,
+                is_store_card: true,  // 不会自动开通会员
             });
             if (amount > 0 && pay_sign) {
                 await wxPay(pay_sign);

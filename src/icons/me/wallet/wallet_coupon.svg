@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="70" viewBox="0 0 70 70">
   <defs>
     <style>
       .cls-1 {
@@ -6,15 +6,43 @@
       }
 
       .cls-2 {
-        fill: #febe3a;
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-5);
       }
     </style>
+    <linearGradient id="linear-gradient" x1="0.858" y1="0.056" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e0b8ff"/>
+      <stop offset="1" stop-color="#b16ff0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ecd3fe"/>
+      <stop offset="1" stop-color="#be94e5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" y1="0" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-5" x1="28.975" y1="31.404" x2="27.492" y2="32.063" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#f7e7ff"/>
+    </linearGradient>
   </defs>
-  <g id="组_4836" data-name="组 4836" transform="translate(-580 -304)">
+  <g id="组_4909" data-name="组 4909" transform="translate(-580 -304)">
     <rect id="矩形_2406" data-name="矩形 2406" class="cls-1" width="70" height="70" transform="translate(580 304)"/>
-    <g id="组_4830" data-name="组 4830" transform="translate(-5.001 1.221)">
-      <path id="减去_108" data-name="减去 108" class="cls-2" d="M56.014,36.235h-37.9V0h37.9a4,4,0,0,1,4,4V32.234A4,4,0,0,1,56.014,36.235ZM29.771,21.109a1.278,1.278,0,1,0,0,2.557h4.951v3.212a1.278,1.278,0,0,0,2.556,0V23.666h4.546a1.278,1.278,0,0,0,0-2.557H37.278V19.35h4.546a1.278,1.278,0,0,0,0-2.557H38.951l4.079-6.637a1.278,1.278,0,1,0-2.178-1.338l-4.8,7.811-4.8-7.811a1.278,1.278,0,1,0-2.178,1.338l4.078,6.637H29.771a1.278,1.278,0,1,0,0,2.557h4.951v1.759ZM14.72,36.235H4a4.005,4.005,0,0,1-4-4V24.911a6.756,6.756,0,0,0,4.8-1.993,6.75,6.75,0,0,0,1.992-4.8A6.8,6.8,0,0,0,0,11.323V4A4,4,0,0,1,4,0H14.72Z" transform="translate(585.001 325.323)"/>
-      <path id="减去_112" data-name="减去 112" class="cls-2" d="M56.014,36.235H53.291V13.058a4,4,0,0,0-4-4H18.118V0h37.9a4,4,0,0,1,4,4V32.234A4,4,0,0,1,56.014,36.235ZM14.72,9.059H0V4A4,4,0,0,1,4,0H14.72V9.058Z" transform="translate(593.988 314)"/>
+    <g id="组_4898" data-name="组 4898" transform="translate(-57.898 -143.902)">
+      <path id="减去_128" data-name="减去 128" class="cls-2" d="M55.811,36.112H4a4,4,0,0,1-4-4V24.827a6.779,6.779,0,0,0,6.772-6.771A6.779,6.779,0,0,0,0,11.285V4A4,4,0,0,1,4,0h51.81a4,4,0,0,1,4,4V32.112A4,4,0,0,1,55.811,36.112Z" transform="translate(643 472.471)"/>
+      <path id="交叉_25" data-name="交叉 25" class="cls-3" d="M4,36.112a4,4,0,0,1-4-4V24.826a6.779,6.779,0,0,0,6.772-6.771A6.779,6.779,0,0,0,0,11.285V4A4,4,0,0,1,4,0H18.437V36.112Z" transform="translate(643 472.471)"/>
+      <path id="减去_140" data-name="减去 140" class="cls-4" d="M34.963,15.844H0l16.9-14.687a4,4,0,0,1,5.644.394L34.962,15.842Z" transform="translate(653.975 455.584)"/>
+      <path id="减去_141" data-name="减去 141" class="cls-3" d="M26.686,10.452H0L5.018,2.1A4,4,0,0,1,10.508.731L26.683,10.45Z" transform="translate(649.493 460.974)"/>
+      <path id="路径_20561" data-name="路径 20561" class="cls-5" d="M579.442,595.111a1.128,1.128,0,0,0,0-2.257h-2.536l3.6-5.86a1.128,1.128,0,0,0-1.923-1.182l-4.237,6.9-4.237-6.9a1.128,1.128,0,0,0-1.923,1.182l3.6,5.86H568.8a1.128,1.128,0,1,0,0,2.257h4.37v1.552H568.8a1.129,1.129,0,0,0,0,2.257h4.37v2.836a1.128,1.128,0,0,0,2.257,0V598.92h4.012a1.129,1.129,0,0,0,0-2.257H575.43v-1.552Z" transform="translate(106.464 -103.059)"/>
     </g>
   </g>
 </svg>

@@ -1,5 +1,7 @@
 import api from 'utils/api';
 import proxy from 'utils/wxProxy';
+import { CONFIG } from 'constants/index';
+import { autoNavigate_ } from 'utils/util';
 import { api_hei_create_order } from 'utils/pageShare';
 
 const app = getApp();
@@ -13,12 +15,14 @@ Page({
         totalPrice: '-',  // 总价
         cardList: [],  // 礼品卡列表
         postage: 0,  // 运费
+        customServiceModal: false,
     },
 
     onLoad(params) {
         console.log(params);
         let { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, config });
         // this.getProductDetail();
         // return;
         const eventChannel = this.getOpenerEventChannel();
@@ -80,5 +84,21 @@ Page({
                 showCancel: false,
             });
         }
+    },
+
+    // 返回首页
+    onGoHome() {
+        let url = '/pages/home/home';
+        let type = 'switchTab';
+        autoNavigate_({ url, type });
+    },
+
+    // 联系客服
+    onGetContact() {
+        let { config } = this.data;
+        let work_weixin = config.contact && config.contact.type === 'work_weixin';
+        console.log('config', config);
+        if (!work_weixin) { return }
+        this.setData({ customServiceModal: true });
     },
 });

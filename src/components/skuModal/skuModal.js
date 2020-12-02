@@ -1,24 +1,16 @@
-import { sku } from 'peanut-all';
-import { getAgainUserForInvalid, updateCart } from 'utils/util';
+import { getAgainUserForInvalid, updateTabbar } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
+import behaviorSku from 'utils/behavior/behaviorSku';
+
 const app = getApp();
 Component({
+    behaviors: [behaviorSku],
     properties: {
         isShowSkuModal: {
             type: Boolean,
             value: false
-        },
-        product: {
-            type: Object,
-            value: {},
-            observer(newValue, oldValue) {
-                if (newValue.id !== (oldValue && oldValue.id)) { // 缓存
-                    this.firstInit();
-                    this.setSku();
-                }
-            }
         },
         themeColor: {
             type: Object,
@@ -62,10 +54,6 @@ Component({
         }
     },
     data: {
-        selectedProperties: [],
-        selectedSku: {},
-        disableSkuItems: {},
-        skuMap: {},
         globalData: app.globalData,
         now: Math.round(Date.now() / 1000),
         shipping_type: 1
@@ -81,151 +69,44 @@ Component({
     },
 
     methods: {
-        // 初始化配送方式
-        firstInit() {
-            const cashedType = wx.getStorageSync('shippingType'),
-                {
-                    product: { shipping_types: types = [] },  // 商品物流方式
-                    config: { shipping_type_name = [], }  // 店铺物流名称字典
-                } = this.data;
-
-            // 选中物流对应对象数组 添加checked属性
-            let liftStyles = [];
-            for (let lift of shipping_type_name) {
-                let type = Number(lift.value),
-                    productShippingType = types.indexOf(type) > -1;
-                if (productShippingType) {
-                    Object.assign(lift, { checked: false });
-                    liftStyles.push(lift);
-                }
-            }
-
-            // 设置当前选中物流
-            let shipping_type = '';
-            for (let lift of liftStyles) {
-                if (lift.value === Number(cashedType)) {
-                    lift.checked = true;
-                    shipping_type = Number(cashedType);
-                }
-            }
-            if (!shipping_type && liftStyles[0]) {
-                // 不存在缓存则选第一个
-                liftStyles[0].checked = true;
-                shipping_type = liftStyles[0].value;
-            }
-
-            this.setData({
-                liftStyles,
-                shipping_type,
-            });
-            this.triggerEvent(
-                'getShippingType',
-                { shipping_type },
-                { bubbles: true }
-            );
-            wx.setStorage({
-                key: 'shippingType',
-                data: shipping_type
-            });
-        },
-
         close() {
             this.setData({
                 isShowSkuModal: false
             });
         },
-        onSkuItem(e) {
-            console.log(e, 'onSku');
-            const { key, skuName, propertyIndex, isDisabled } = e.currentTarget.dataset;
-            if (isDisabled) {
-                return;
-            }
-            const {
-                selectedProperties,
-                product: { properties, skus },
-                skuMap
-            } = this.data;
 
-            if (selectedProperties[propertyIndex]) {
-                selectedProperties[propertyIndex] = {
-                    key,
-                    value: selectedProperties[propertyIndex].value === skuName ? '' : skuName
-                };
-                const selectedSku = this.Sku.findSelectedSku(skus, selectedProperties) || {};
-                const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
-                    skuMap,
-                    selectedProperties
-                });
-                this.setData({
-                    selectedProperties,
-                    disableSkuItems,
-                    selectedSku
-                });
-            }
-            console.log(this.data, 'onSkuItem');
-        },
-        // classify 页面
-        async onAddCart(e) {
-            const { product, selectedSku, shipping_type } = this.data;
-            console.log('product142', product);
-            console.log(selectedSku, e, 'erer');
-            if (product.skus && product.skus.length && !selectedSku.id) {
-                wx.showToast({
-                    title: '请选择商品规格',
-                    icon: 'none',
-                    duration: 2000,
-                    mask: false,
-                });
-                return;
-            }
-            e.id = product.id;
-            e.sku_id = selectedSku.id; // 多规格
-            e.shipping_type = shipping_type;
-            e.quantity = Number(product.uniqueNumber) || 1;
-            if (selectedSku.stock === 0) {
-                await proxy.showModal({
-                    title: '温馨提示',
-                    content: '商品库存为0',
-                });
-                return;
-            }
-            this.close();
-            this.triggerEvent('onAddCart', e, { bubbles: true });
-        },
-        setSku() {
-            const { product } = this.data;
-            if (Object.keys(product).length === 0) {
-                return;
-            }
+        // 加入购物车
+        async onAddCart() {
             try {
-                const { skus, properties } = product;
-                this.Sku = new sku({ max: 3 });
-                const skuMap = this.Sku.getSkus(skus);
-                const defalutSelectedProperties = this.Sku.getDefaultSku(skus);
-
-                defalutSelectedProperties.forEach(item => {
-                    item.value = '';
-                });
-
-                const selectedSku = this.Sku.findSelectedSku(skus, defalutSelectedProperties) || {};
-                const disableSkuItems = this.Sku.getDisableSkuItem({
-                    properties,
-                    skuMap,
-                    selectedProperties: defalutSelectedProperties,
-                });
-
-                this.setData({
-                    properties,
-                    disableSkuItems,
-                    selectedProperties: defalutSelectedProperties,
-                    selectedSku,
-                    skuMap,
-                });
-
-                console.log(this.data, 'init data');
+                this.onFormConfirm();
+                let data = await this.runAddCart();
+                this.triggerEvent('addCartSuccess');
+                return data;
             } catch (e) {
-                console.log(e);
+                console.log('resolved error', e);
+                throw new Error(e);
+            }
+        },
+
+        // 进行加车操作
+        async runAddCart() {
+            this.getCurrentOrder();
+            let { _currentOrder } = this;
+            let posts = JSON.stringify(_currentOrder.items);
+            try {
+                let data = await api.hei.addCart({ posts });
+                let { count } = data;
+                wx.showToast({ title: '成功添加' });
+                wx.setStorageSync('CART_NUM', count);
+                updateTabbar({ tabbarStyleDisable: true });
+                return data;
+            } catch (e) {
+                wx.showModal({
+                    title: '报错提示',
+                    content: e.errMsg,
+                    showCancel: false,
+                });
+                throw new Error(e);
             }
         },
 
@@ -241,73 +122,40 @@ Component({
             this.setData({ quantity: value });
         },
 
-        updateNumber({ detail }) {
-            const { value } = detail;
-            this.setData({ 'product.uniqueNumber': value }, () => {
-                console.log('product', this.data.product);
-            });
-        },
-
-        onFormSubmit(e) {
-            const { formId } = e.detail;
-            this.setData({ formId });
-        },
-
+        // SKU表单提交
         async onUserInfo(e) {
-            console.log('onUserInfo', e);
-            const { encryptedData, iv } = e.detail;
-            const { product, selectedSku } = this.data;
-            if (iv && encryptedData) {
-                if (product.skus && product.skus.length && !selectedSku.id) {
-                    wx.showToast({
-                        title: '请选择商品规格',
-                        icon: 'none',
-                        duration: 2000,
-                        mask: false,
-                    });
-                    return;
-                }
-                const { actionType } = e.target.dataset;
-                await getAgainUserForInvalid({ encryptedData, iv });
-                this.onSkuConfirm(actionType);
-            }
-            else {
+            console.log('onUserInfo and sku confirm', e);
+            const { encryptedData, iv } = e.detail,
+                { actionType } = e.target.dataset,
+                { currentRelation, currentSpecial, selectedSku, quantity, selectedOptions } = this.data;
+
+            if (!iv || !encryptedData) {
                 wx.showModal({
                     title: '温馨提示',
                     content: '需授权后操作',
                     showCancel: false,
                 });
+                return;
+            }
+            try {
+                this.onFormConfirm();
+                await getAgainUserForInvalid({ encryptedData, iv });
+                this.close();
+                let queryData = {};
+                if (actionType === 'addCart') {
+                    queryData = await this.onAddCart();
+                } else {
+                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions };
+                }
+                this.triggerEvent('onSkuConfirm', {
+                    actionType,
+                    queryData,
+                });
+            } catch (e) {
+                console.log('resolved error', e);
             }
         },
 
-        onSkuConfirm(actionType) {
-            this.close();
-            console.log(this.data);
-            const { selectedSku, quantity, formId } = this.data;
-            this.triggerEvent('onSkuConfirm', { actionType, selectedSku, quantity, formId }, { bubbles: true });
-        },
-
-        /* radio选择改变触发 */
-        radioChange(e) {
-            const { liftStyles } = this.data;
-            const { value } = e.detail;
-            console.log('radioValue263', value, typeof value);
-            console.log('liftStyles', liftStyles);
-            liftStyles.forEach((item) => {
-                if (item.value === Number(value)) {
-                    item.checked = true;
-                } else {
-                    item.checked = false;
-                }
-            });
-            this.setData({ liftStyles, shipping_type: Number(value) });
-            console.log('liftStyles', liftStyles, 'shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
-            this.triggerEvent('getShippingType', { shipping_type: this.data.shipping_type }, { bubbles: true });
-            wx.setStorage({
-                key: 'shippingType',
-                data: this.data.shipping_type
-            });
-        }
     }
 });
 

@@ -68,7 +68,7 @@
     >赠送</button>
     <button 
       class="statusBt confirmBt" 
-      wx:if="{{ order.promotion_type === '8' }}" 
+      wx:if="{{ statusCode === 4 && order.promotion_type === '8' }}" 
       bind:tap="go"
       data-url="/pages/electronicCard/electronicCard?no={{ order.order_no }}"
     >兑换</button>

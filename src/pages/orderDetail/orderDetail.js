@@ -86,7 +86,8 @@ Page({
         wx.setNavigationBarTitle({ title: '订单详情' });
         const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket, current_user };
-        const statusCode = Number(order.status);
+        let statusCode = Number(order.status);
+
         let address = {};
         address.userName = order.receiver_name;
         address.telNumber = order.receiver_phone;
@@ -99,6 +100,7 @@ Page({
         address.room = order.room;
 
         order.statusText = valueToText(D_ORDER_STATUS_TEXT, statusCode);
+
         order.payMethodText = valueToText(PAY_STYLES, order.pay_method);
         order.statusCode = statusCode;
         order.buyer_message = order.buyer_message || '买家未留言';
@@ -115,6 +117,11 @@ Page({
 
         info.couponFeeDispaly = order.coupon_discount_fee; // 优惠券
         info.couponFee = Number(order.coupon_discount_fee);
+
+        // 优惠码
+        let discountCode = order.discount_code && order.discount_code.reduce_fee;
+        info.discountCode = Number(discountCode);
+        info.discountCodeDisplay = Number(discountCode).toFixed(2);
 
         info.coinForPayDispaly = order.coins_fee; // 金币
         info.coinForPay = Number(order.coins_fee);
@@ -272,14 +279,20 @@ Page({
         });
     },
 
+    // 参团页SKU购买回调
     async onSkuConfirm(e) {
         wx.showLoading({
             title: '请求中...',
             mask: true
         });
-        const { selectedSku, quantity, formId } = e.detail;
+        const { actionType, queryData } = e.detail;
 
-        await api.hei.submitFormId({ form_id: formId });
+        const {
+            selectedSku,
+            quantity,
+            currentSpecial,
+            currentRelation,
+        } = queryData;
 
         const { current_user, product, grouponId, isGrouponBuy, isCrowd, shipping_type } = this.data;
 
@@ -317,7 +330,9 @@ Page({
             selectedSku,
             quantity,
             product,
-            isGrouponBuy
+            isGrouponBuy,
+            currentSpecial,
+            currentRelation,
         });
 
         app.globalData.currentOrder = currentOrder;

@@ -461,23 +461,28 @@ video {
 	}
 }
 
+// 简约模式
 .product-options {
 	margin: 0 15rpx;
 	transform: translateY(-60px);
 	margin-bottom: -110rpx;
 	z-index: 9999;
-	// .options-content {
-	// 	padding: 20rpx 25rpx;
-	// 	margin: 16rpx 0;
-	// 	background-color: #fff;
-	// 	border-radius: 5rpx;
-	// 	.product-title {
-	// 		font-size: 28rpx;
-	// 		line-height: 36rpx;
-	// 		color: black;
-	// 		font-weight: bold;
-	// 	}
-	// }
+	.simple-model-subtitle {
+		font-size: 24rpx;
+		color: #999999;
+		width: 556rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-top: 10rpx;
+	}
+	.simple-model-coupon {
+		margin: 16rpx 0;
+		.simple-coupon-tag {
+			margin-right: 10rpx;
+			--tag-line-height: 20px;
+		}
+	}
 }
 .options-content {
 	margin-top: 20rpx;

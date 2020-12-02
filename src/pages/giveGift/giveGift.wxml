@@ -4,7 +4,7 @@
   </view>
   <view class="product">
     <view class="product-main">
-      <van-image width="150rpx" height="150rpx" src="{{ product.thumbnail || product.image_url }}" />
+      <van-image width="150rpx" height="150rpx" radius="10rpx" src="{{ product.thumbnail || product.image_url }}" />
       <view class="product-right">
         <view class="product-title text-ellipsis-2">{{ product.title || '-' }}</view>
         <view class="product-right-bottom">
@@ -26,7 +26,7 @@
   </view>
   <view class="card">
     <view class="card-preview">
-      <van-image width="500rpx" height="300rpx" src="{{ cardList[currentCardIndex].cover_img }}" />
+      <van-image width="500rpx" height="300rpx" radius="10rpx" src="{{ cardList[currentCardIndex].cover_img }}" />
     </view>
     <view class="card-options">
       <view class="card-title-wrap">
@@ -35,13 +35,15 @@
       </view>
       <van-empty description="还没有卡面呢" wx:if="{{ !cardList.length }}" />
       <view class="card-list" wx:else bind:tap="onSelectCard">
-        <van-image width="200rpx" height="120rpx" custom-class="card-img {{ index === currentCardIndex && 'card-img-active' }}" wx:for="{{ cardList }}" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
+        <van-image width="200rpx" height="120rpx" custom-class="card-img {{ index === currentCardIndex && 'card-img-active' }}" wx:for="{{ cardList }}" radius="10rpx" src="{{ item.cover_img }}" data-index="{{ index }}" wx:key="index" />
       </view>
     </view>
   </view>
   <van-goods-action>
-    <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onClickIcon" />
-    <van-goods-action-icon icon="/icons/context.png" text="客服" bind:click="onClickIcon" />
+    <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onGoHome" />
+    <van-goods-action-icon icon="/icons/context.png" text="客服" open-type="{{ config.contact && config.contact.type === 'work_weixin' ? '' : 'contact' }}" bind:click="onGetContact" />
     <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即支付￥{{ totalPrice }}" bind:click="onOrderPay" />
   </van-goods-action>
 </view>
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />

@@ -3,13 +3,6 @@ import { go } from 'utils/util';
 import { CONFIG, USER_KEY } from 'constants/index';
 
 const app = getApp();
-let extendList = [
-    { name: '账户余额', icon: '/icons/me/wallet/wallet_account.svg', path: '/pages/accountDetail/accountDetail' },
-    { name: '金币', icon: '/icons/me/wallet/wallet_coin.svg', path: '/pages/coinDetail/coinDetail' },
-    { name: '优惠券', icon: '/icons/me/wallet/wallet_coupon.svg', path: '/pages/myCoupons/myCoupons' },
-    { name: '礼品卡', icon: '/icons/me/wallet/wallet_gift.svg', path: '/pages/giftCardList/giftCardList' },
-    { name: '电子卡券', icon: '/icons/me/wallet/wallet_e_card.svg', path: '/pages/eCardList/eCardList' },
-];
 Page({
     data: {
         title: 'wallet',
@@ -17,7 +10,13 @@ Page({
         currentUser: {},
         config: {},
         themeColor: {},
-        extendList: [],
+        extendList: [
+            { name: '账户余额', icon: '/icons/me/wallet/wallet_account.svg', path: '/pages/accountDetail/accountDetail' },
+            { name: '金币', icon: '/icons/me/wallet/wallet_coin.svg', path: '/pages/coinDetail/coinDetail' },
+            { name: '优惠券', icon: '/icons/me/wallet/wallet_coupon.svg', path: '/pages/myCoupons/myCoupons' },
+            { name: '礼品卡', icon: '/icons/me/wallet/wallet_gift.svg', path: '/pages/giftCardList/giftCardList' },
+            { name: '电子卡券', icon: '/icons/me/wallet/wallet_e_card.svg', path: '/pages/eCardList/eCardList' },
+        ],
     },
 
     onLoad(params) {
@@ -25,8 +24,9 @@ Page({
         const config = wx.getStorageSync(CONFIG);
         const user = wx.getStorageSync(USER_KEY);
         const { themeColor } = app.globalData;
-        if (!user.membership || !user.membership.is_member || !config.store_card_enable) {
-            // 非会员或者储值卡关闭
+        let { extendList } = this.data;
+        if (!config.store_card_enable) {
+            // 关闭账户余额入口
             let index = extendList.findIndex(item => item.name === '账户余额');
             extendList.splice(index, 1);
         }
@@ -34,6 +34,11 @@ Page({
             // 重置金币名字
             let index = extendList.findIndex(item => item.name === '金币');
             extendList[index].name = config.coin_name;
+        }
+        if (!config.gift_card_enable) {
+            // 关闭礼品卡入口
+            let index = extendList.findIndex(item => item.name === '礼品卡');
+            extendList.splice(index, 1);
         }
         this.setData({
             config,
