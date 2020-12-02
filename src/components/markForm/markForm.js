@@ -58,5 +58,13 @@ Component({
                 });
             }
         },
+
+        // 文件删除
+        onFileDelete(e) {
+            let { index } = e.detail,
+                { fileList } = this.data;
+            fileList.splice(index, 1);
+            this.setData({ fileList });
+        },
     },
 });
