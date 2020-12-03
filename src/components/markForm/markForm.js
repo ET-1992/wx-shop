@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import { checkPhone, checkEmail, checkIdNameNum } from 'utils/util';
 
+const app = getApp();
 Component({
     properties: {
         form: {
@@ -13,7 +14,7 @@ Component({
         }
     },
     data: {
-        // collection: {},  // 收集数据键值对
+        themeColor: app.globalData.themeColor || {},
     },
     methods: {
         // 表单输入
@@ -76,9 +77,8 @@ Component({
 
             for (const item of form) {
                 let { name, value, required, type } = item;
-                if (!required) { continue }
                 if (!value) {
-                    errMsg = `请输入${name}`;
+                    required && (errMsg = `请输入${name}`);
                 } else if (type === 'phone_number' && !checkPhone(value)) {
                     errMsg = `请输入正确的手机格式`;
                 } else if (type === 'email' && !checkEmail(value)) {
