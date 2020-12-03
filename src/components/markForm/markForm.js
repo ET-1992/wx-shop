@@ -7,6 +7,10 @@ Component({
             type: Array,
             value: [],
         },
+        onlyShow: {
+            type: Boolean,
+            value: false,
+        }
     },
     data: {
         // collection: {},  // 收集数据键值对

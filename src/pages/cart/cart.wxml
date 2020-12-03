@@ -109,8 +109,9 @@
 </view>
 
 <!-- 商品留言弹出层 -->
-<van-popup show="{{ isShowRemark }}" round custom-style="max-height: 80%" bind:close="onCloseRemark" custom-class="product-remark-popup">
-	<markForm form="{{ currentRemark }}"></markForm>
+<van-popup show="{{ isShowRemark }}" round custom-style="max-height: 80%" bind:close="onCloseRemark" custom-class="product-remark-popup" closeable>
+	<view class="product-remark-title">商品留言</view>
+	<markForm form="{{ currentRemark }}" onlyShow></markForm>
 </van-popup>
 
 <!-- 切换标签的类名 -->

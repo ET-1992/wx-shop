@@ -309,7 +309,6 @@ Page({
             { items } = this.data;
 
         let { remarks } = items[index].product_annotation;
-        // console.log('remarks', remarks);
         this.setData({
             isShowRemark: true,
             currentRemark: remarks,
