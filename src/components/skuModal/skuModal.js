@@ -142,7 +142,7 @@ Component({
                 let component = this.selectComponent('#mark-form');
                 if (component) {
                     let form = component.handleValidate();
-                    this._remark = form;
+                    this._remarks = form;
                 }
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.close();
@@ -150,7 +150,8 @@ Component({
                 if (actionType === 'addCart') {
                     queryData = await this.onAddCart();
                 } else {
-                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions };
+                    let remarks = this._remarks;
+                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions, remarks };
                 }
                 this.triggerEvent('onSkuConfirm', {
                     actionType,

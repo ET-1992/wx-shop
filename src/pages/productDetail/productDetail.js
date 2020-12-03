@@ -530,6 +530,7 @@ Page({
             currentSpecial,
             currentRelation,
             selectedOptions: this._selectedOptions,
+            remarks: this._remarks,
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -667,6 +668,7 @@ Page({
                 currentSpecial,
                 currentRelation,
                 selectedOptions,
+                remarks,
             } = queryData;
             this.setData({
                 selectedSku,
@@ -675,6 +677,7 @@ Page({
                 currentRelation,
             });
             this._selectedOptions = selectedOptions;
+            this._remarks = remarks;
             // onBuy/onGivingGift
             this[actionType]();
             this.onSkuCancel();
