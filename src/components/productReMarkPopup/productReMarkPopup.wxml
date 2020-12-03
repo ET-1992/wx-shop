@@ -1,4 +1,4 @@
 <van-popup show="{{ show }}" round custom-style="max-height: 80%" bind:close="onCloseRemark" custom-class="product-remark-popup" closeable>
 	<view class="product-remark-title">商品留言</view>
-	<markForm form="{{ form }}" onlyShow></markForm>
+	<markForm form="{{ simpleForm }}" onlyShow></markForm>
 </van-popup>
