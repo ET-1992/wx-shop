@@ -68,7 +68,7 @@ module.exports = Behavior({
 
         // 表单提交验证
         onFormConfirm() {
-            let { product, selectedSku } = this.data;
+            let { product, selectedSku, currentSpecial, currentRelation } = this.data;
             let title = '';
             if (product.skus && product.skus.length) {
                 let { id, stock } = selectedSku;
@@ -78,6 +78,12 @@ module.exports = Behavior({
                     title = '无法购买库存为0的商品';
                 }
             }
+            let hasAllSpecial = currentSpecial.every(item => item.value);
+            let hasAllRelation = currentRelation.every(item => item.value);
+            if (!hasAllSpecial || !hasAllRelation) {
+                title = '请选择必要的商品规格';
+            }
+
             if (!title) { return }
             // 报错
             wx.showToast({ title, icon: 'none', duration: 2000 });
