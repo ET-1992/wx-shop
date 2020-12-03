@@ -7,8 +7,7 @@
     "navbarList": "../../components/navbarList/navbarList",
     "multiStore": "../../components/multiStore/multiStore",
     "van-icon": "@vant/weapp/dist/icon/index",
-    "van-popup": "@vant/weapp/dist/popup/index",
     "home-product-list": "../home/components/productsList/productsList",
-    "markForm": "components/markForm/markForm"
+    "productRemarkPopup": "components/productRemarkPopup/productRemarkPopup"
   }
 }
