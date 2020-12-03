@@ -165,10 +165,13 @@
         <view class="product-options">
           <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType">
             <view slot="product-detail">
+              <!-- 商品副标题 -->
               <view class="simple-model-subtitle">{{ product.excerpt }}</view>
-              <!-- 可领优惠券 -->
-              <view class="simple-model-coupon" bind:tap="onShowCouponList">
-                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons }}" wx:key="index">{{ item.title || '-' }}</van-tag>
+              <!-- 可领/领取优惠券 -->
+              <view class="simple-model-coupon" bind:tap="onShowCouponList" wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
+                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons.length ? receivableCoupons : receivedCoupons }}" wx:key="id">
+                  <text>{{ item.title || '-' }}</text>
+                </van-tag>
               </view>
             </view>
           </orderOptions>
@@ -293,22 +296,17 @@
           <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
             <!-- 优惠券-非拼团商品 -->
             <view wx:if="{{ !(product.groupon_enable && grouponId) }}" class="coupons" catchtap="onShowCouponList">
-              <!-- <form bindsubmit="submitFormId" report-submit="true">
-							<button formType="submit"> </button>
-						</form> -->
               <view class="couponBtn">领券</view>
-              <!-- 可领取 -->
+              <!-- 可领取 最多显示三个 -->
               <block wx:if="{{ receivableCoupons.length }}">
-                <!-- 最多显示三个 -->
                 <view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3 }}">
-                  {{ item.title }}
+                  <text>{{ item.title }}</text>
                 </view>
               </block>
-              <!-- 已领取 -->
+              <!-- 已领取 凑满三个 -->
               <block wx:if="{{ receivableCoupons.length < 3 && receivedCoupons.length }}">
-                <!-- 凑满三个 -->
                 <view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 3 - receivedCoupons.length }}">
-                  {{ item.title }}
+                  <text>{{ item.title }}</text>
                 </view>
               </block>
             </view>
