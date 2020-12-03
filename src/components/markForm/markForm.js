@@ -77,19 +77,17 @@ Component({
                 if (!required) { continue }
                 if (!value) {
                     errMsg = `请输入${name}`;
-                }
-                if (type === 'phone_number' && !checkPhone(value)) {
+                } else if (type === 'phone_number' && !checkPhone(value)) {
                     errMsg = `请输入正确的手机格式`;
-                }
-                if (type === 'email' && !checkEmail(value)) {
+                } else if (type === 'email' && !checkEmail(value)) {
                     errMsg = `请输入正确的邮箱格式`;
-                }
-                if (type === 'id_number' && !checkIdNameNum(value)) {
+                } else if (type === 'id_number' && !checkIdNameNum(value)) {
                     errMsg = `请输入18位数的身份证号码`;
                 }
             }
             let showError = () => {
                 wx.showToast({ title: errMsg, icon: 'none' });
+                console.log('error form validate', form);
                 throw new Error(errMsg);
             };
             return errMsg ? showError() : collection;

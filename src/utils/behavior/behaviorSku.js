@@ -93,7 +93,7 @@ module.exports = Behavior({
         // 创建订单信息
         getCurrentOrder() {
             let { product, selectedSku, quantity, currentSpecial, currentRelation, selectedOptions } = this.data;
-            let { _shipping_type } = this;
+            let { _shipping_type, _remark } = this;
             let currentOrder = pageShare.createCurrentOrder({
                 product,
                 selectedSku,
@@ -102,6 +102,7 @@ module.exports = Behavior({
                 currentRelation,
                 shipping_type: _shipping_type,
                 selectedOptions,
+                remark: _remark,
             });
             this._currentOrder = currentOrder;
         },

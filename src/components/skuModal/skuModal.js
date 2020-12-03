@@ -124,7 +124,7 @@ Component({
 
         // SKU表单提交
         async onUserInfo(e) {
-            console.log('onUserInfo and sku confirm', e);
+            // console.log('onUserInfo and sku confirm', e);
             const { encryptedData, iv } = e.detail,
                 { actionType } = e.target.dataset,
                 { currentRelation, currentSpecial, selectedSku, quantity, selectedOptions } = this.data;
@@ -142,7 +142,7 @@ Component({
                 let component = this.selectComponent('#mark-form');
                 if (component) {
                     let form = component.handleValidate();
-                    console.log('form', form);
+                    this._remark = form;
                 }
                 await getAgainUserForInvalid({ encryptedData, iv });
                 this.close();
