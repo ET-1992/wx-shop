@@ -350,3 +350,13 @@ page{
 .cart-multiStore {
 	padding-top: 98rpx !important;
 }
+
+.product-remark-popup {
+	width: 90%;
+	// max-height: 80%;
+	--popup-round-border-radius: 20rpx;
+	padding: 20rpx 26rpx;
+	.product-remark {
+		margin: 20rpx;
+	}
+}

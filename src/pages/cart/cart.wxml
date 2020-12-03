@@ -109,8 +109,7 @@
 </view>
 
 <!-- 商品留言弹出层 -->
-<van-popup show="{{ isShowRemark }}" bind:close="onCloseRemark">
-	<view class="a">aa</view>
+<van-popup show="{{ isShowRemark }}" round custom-style="max-height: 80%" bind:close="onCloseRemark" custom-class="product-remark-popup">
 	<markForm form="{{ currentRemark }}"></markForm>
 </van-popup>
 

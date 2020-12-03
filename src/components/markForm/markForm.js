@@ -68,12 +68,10 @@ Component({
         // 表单验证和收集数据
         handleValidate() {
             let { form } = this.data;
-            let errMsg = '',
-                collection = {};
+            let errMsg = '';
 
             for (const item of form) {
                 let { name, value, required, type } = item;
-                collection[name] = value;
                 if (!required) { continue }
                 if (!value) {
                     errMsg = `请输入${name}`;
@@ -90,7 +88,7 @@ Component({
                 console.log('error form validate', form);
                 throw new Error(errMsg);
             };
-            return errMsg ? showError() : collection;
+            return errMsg ? showError() : form;
         },
     },
 });

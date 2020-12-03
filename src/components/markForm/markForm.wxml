@@ -36,9 +36,6 @@
     </view>
   </view>
 </view>
-<!-- <van-popup show="{{ isPopupShow }}" position="bottom" bind:close="onPopupClose">
-  <van-datetime-picker type="date" value="{{ currentDate }}" bind:input="onInput" min-date="{{ minDate }}" formatter="{{ formatter }}" />
-</van-popup> -->
 <wxs module="markForm">
   var changeType = function (type){
     if(type === 'id_number') {
