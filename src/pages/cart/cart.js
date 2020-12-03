@@ -302,4 +302,22 @@ Page({
         console.log('liftStyleIndex323', index, 'shipping_type', this.data.shipping_type);
         this.loadCart();
     },
+
+    // 展示商品留言
+    onShowProductRemark(e) {
+        let { index } = e.currentTarget.dataset,
+            { items } = this.data;
+
+        let { remarks } = items[index].product_annotation;
+        // console.log('remarks', remarks);
+        this.setData({
+            isShowRemark: true,
+            currentRemark: remarks,
+        });
+    },
+
+    // 关闭商品留言
+    onCloseRemark() {
+        this.setData({ isShowRemark: false });
+    },
 });

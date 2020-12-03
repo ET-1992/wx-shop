@@ -57,6 +57,7 @@
     	    	<view class="meta">
     	    	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
     	    	  	<view class="metaRight">
+										<van-icon name="/icons/question.svg" size="36rpx" custom-class="remark-question" bind:click="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}"/>
     	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" cartIndex="{{ index }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" least="{{ item.least }}" />
     	    	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px"/> </view>
     	    	  	</view>
@@ -106,6 +107,12 @@
   	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
   	</view>
 </view>
+
+<!-- 商品留言弹出层 -->
+<van-popup show="{{ isShowRemark }}" bind:close="onCloseRemark">
+	<view class="a">aa</view>
+	<markForm form="{{ currentRemark }}"></markForm>
+</van-popup>
 
 <!-- 切换标签的类名 -->
 <wxs module="classSet">

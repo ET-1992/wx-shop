@@ -154,7 +154,10 @@ page{
 
 	.metaRight {
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
+		.remark-question {
+			margin-right: 16rpx;
+		}
 	}
 
 	.delete {
