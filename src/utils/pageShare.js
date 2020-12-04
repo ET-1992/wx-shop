@@ -118,15 +118,18 @@ export const createCurrentOrder = (e) => {
         // 规格
         let special_attributes = currentSpecial;
 
-        let mapRelatedProduct = related_product.flatMap(item => item.value);
-        // 增值规格
-        let related_posts = mapRelatedProduct.filter(({ title }) => {
-            // 从所有增值规格中筛选出选中项
-            return currentRelation.findIndex(({ value }) => title === value) > -1;
+
+        // 增值规格 全是必选项
+        let related_posts = related_product.map((item, index) => {
+            let { value } = currentRelation[index];
+            let product = item.value.find(({ title }) => title === value);
+            product.content = '';
+            return product;
         });
 
         let { content: sku_property_names = '' } = selectedOptions;
-        console.log('remarks', remarks);
+
+        // 订单级留言
         let product_annotation = remarks.length ? { remarks } : {};
 
         const item = {
