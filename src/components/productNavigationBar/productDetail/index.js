@@ -7,6 +7,14 @@ Component({
             type: Boolean,
             value: false
         },
+        background: {
+            type: String,
+            value: '255, 255, 255'
+        },
+        color: {
+            type: String,
+            value: 'rgba(0, 0, 0, 1)'
+        },
     },
     data: {
         isShowMenu: false,  // 是否展示菜单栏列表

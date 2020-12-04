@@ -1,5 +1,5 @@
 <view class="navigation-bar-wrap">
-  <productDetail wx:if="{{ navType === 'productNav' }}" showBgColor="{{ showBgColor }}" />
+  <productDetail wx:if="{{ navType === 'productNav' }}" showBgColor="{{ showBgColor }}" background="{{ backgroundRgb }}" color="{{ themeColor.navigationBarTextStyle }}" />
 
   <!-- 首页的navbar -->
   <navigationBar
