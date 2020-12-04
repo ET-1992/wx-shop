@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
-import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_, colorRgb } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -207,8 +207,6 @@ export const pageObj = {
         console.log(systemInfo, 'systemInfo');
         const { statusBarHeight } = systemInfo;
         const userInfo = wx.getStorageSync(USER_KEY);
-        const { backgroundColor } = themeColor;
-        const mainBgcolor = colorRgb(backgroundColor);
         this.setData({
             themeColor,
             isIphoneX,
@@ -217,7 +215,6 @@ export const pageObj = {
             id,
             globalData: app.globalData,
             statusBarHeight,
-            mainBgcolor,
         }, this.loadHome);
     },
 

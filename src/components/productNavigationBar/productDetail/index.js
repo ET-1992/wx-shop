@@ -1,5 +1,6 @@
 import { CONFIG } from 'constants/index';
 import { autoNavigate_ } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
 
 Component({
     properties: {
@@ -37,8 +38,13 @@ Component({
     },
     methods: {
         // 左上角返回
-        handlerGoback() {
-            wx.navigateBack();
+        async handlerGoback() {
+            try {
+                await wxProxy.navigateBack();
+            } catch (e) {
+                let url = '/pages/home/home';
+                autoNavigate_({ url });
+            }
         },
 
         // 左上角菜单

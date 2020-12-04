@@ -1,5 +1,5 @@
 import { CONFIG } from 'constants/index';
-import { go } from 'utils/util';
+import { go, colorRgb } from 'utils/util';
 const app = getApp();
 
 Component({
@@ -8,11 +8,6 @@ Component({
         navType: {
             type: String,
             value: ''
-        },
-        // 导航栏背景色
-        backgroundRgb: {
-            type: String,
-            value: '255,255,255'
         },
         // 是否显示搜索框
         showSearchBox: {
@@ -52,11 +47,13 @@ Component({
         // 获取页面配置信息
         getConfigData() {
             const config = wx.getStorageSync(CONFIG);
-            const { themeColor } = app.globalData;
+            const { themeColor, themeColor: { backgroundColor }} = app.globalData;
+            const backgroundRgb = colorRgb(backgroundColor);
             this.setData({
                 globalData: app.globalData,
                 config,
-                themeColor
+                themeColor,
+                backgroundRgb,
             });
         },
 
