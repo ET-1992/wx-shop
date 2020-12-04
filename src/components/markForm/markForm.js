@@ -13,8 +13,20 @@ Component({
             value: false,
         }
     },
+    observers: {
+        // 过滤未填写留言
+        'form, onlyShow': function(form, onlyShow) {
+            if (!form) { return }
+            let showForm = form;
+            if (onlyShow) {
+                showForm = form.filter(item => item.value);
+            }
+            this.setData({ showForm });
+        }
+    },
     data: {
         themeColor: app.globalData.themeColor || {},
+        showForm: [],
     },
     methods: {
         // 表单输入

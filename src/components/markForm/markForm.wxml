@@ -1,10 +1,10 @@
 <!-- 商品/订单留言表单 -->
 <view class="container">
-  <view class="form-content" wx:for="{{ form }}" wx:key="index">
+  <view class="form-content" wx:for="{{ showForm }}" wx:key="index">
     <view class="form-item">
       <view class="form-item-left">
         <view class="form-title">
-          <text class="form-required" wx:if="{{ item.required }}">*</text>
+          <text class="form-required" wx:if="{{ !onlyShow && item.required }}">*</text>
           <text>{{ item.name || '-' }}</text>
         </view>
       </view>
