@@ -62,10 +62,8 @@ Component({
 
         // 获取子组件数据
         getChildComponent() {
-            const child = this.selectComponent('#navigationBar');
-            if (!child || !child.data) { return }
-            let { capsulePosition } = child.data,
-                { windowWidth } = getApp().globalSystemInfo;
+            // 这里直接获取子组件有可能获取不到capsulePosition，直接在app.globalSystemInfo获取
+            let { windowWidth, capsulePosition } = getApp().globalSystemInfo;
             let rightDistance = windowWidth - capsulePosition.right;
             let navBarLeft = [
                 `width:${capsulePosition.width}px`,
