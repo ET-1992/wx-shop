@@ -503,7 +503,6 @@ Page({
             useCoin,
             shouldGoinDisplay,
             liftInfo,
-            order_annotation,
             product_type,
             selectedPayValue,
             store_card,
@@ -577,29 +576,15 @@ Page({
 
         let queryData = {}; // 接口url带的get参数
 
-        if (order_annotation && order_annotation.length > 0) {
-            const orderForm = this.selectComponent('#orderForm');
-            const { annotation, dns_obj } = orderForm.data;
-            annotation.forEach((item, index) => {
-                if (item.required && (!dns_obj[item.name] || !dns_obj[item.name].length)) {
-                    item.isError = true;
-                }
-            });
-            this.setData({
-                order_annotation: annotation
-            });
-            const error = annotation.filter((item) => {
-                return (item.isError === true);
-            });
-            if (error.length > 0) {
-                wx.showModal({
-                    title: '提示',
-                    content: '请检查留言信息，带*号为必填项',
-                    showCancel: false,
-                });
+        // 订单留言
+        let component = this.selectComponent('#mark-form');
+        if (component) {
+            try {
+                let remarks = component.handleValidate();
+                requestData.annotation = remarks ? JSON.stringify({ remarks }) : '';
+            } catch (e) {
+                console.log('e', e);
                 return;
-            } else {
-                requestData.annotation = JSON.stringify({ remarks: dns_obj });
             }
         }
 
