@@ -108,7 +108,7 @@ export const createCurrentOrder = (e) => {
         currentRelation = [],  // 选中增值规格
         shipping_type = '', // 物流方式
         selectedOptions = {},  // 选中的所有选项
-        remarks = {},  // 选中的所有选项
+        remarks = [],  // 选中的所有选项
     } = e;
     try {
 
@@ -126,6 +126,8 @@ export const createCurrentOrder = (e) => {
         });
 
         let { content: sku_property_names = '' } = selectedOptions;
+        console.log('remarks', remarks);
+        let product_annotation = remarks.length ? { remarks } : {};
 
         const item = {
             post_id: id,
@@ -141,7 +143,7 @@ export const createCurrentOrder = (e) => {
             related_posts,
             shipping_type,
             sku_property_names,
-            product_annotation: { remarks },
+            product_annotation,
         };
 
         const order = {
