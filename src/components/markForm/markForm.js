@@ -59,7 +59,7 @@ Component({
                     filePath: file.path
                 });
                 let { url } = JSON.parse(data);
-                form[index].value = [{ ...file, url }];
+                form[index].value = [{ url }];
 
                 this.setData({ form });
 
