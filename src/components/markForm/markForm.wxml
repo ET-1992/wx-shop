@@ -1,21 +1,13 @@
-<!-- 商品/订单留言表单
-  type: text          => 输入框,
-  type: textarea      => 文本框,
-  type: checkbox      => 复选框,
-  type: number        => 数字输入框,
-  type: email         => 邮件输入框,
-  type: date          => 日期选择框,
-  type: time          => 时间选择框,
-  type: select        => 下拉选择框,
-  type: id_number     => 中国大陆身份证号,
-  type: phone_number  => 中国大陆手机号码,
-  type: img           => 上传图片, 
--->
-
+<!-- 商品/订单留言表单 -->
 <view class="container">
   <view class="form-content" wx:for="{{ form }}" wx:key="index">
     <view class="form-item">
-      <view class="form-item-left">{{ item.name || '-' }}</view>
+      <view class="form-item-left">
+        <view class="form-title">
+          <text class="form-required" wx:if="{{ item.required }}">*</text>
+          <text>{{ item.name || '-' }}</text>
+        </view>
+      </view>
       <view class="form-item-right">
         <!-- 复选框 -->
         <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
@@ -43,6 +35,17 @@
     </view>
   </view>
 </view>
+<!-- type: text          => 输入框,
+  type: textarea      => 文本框,
+  type: checkbox      => 复选框,
+  type: number        => 数字输入框,
+  type: email         => 邮件输入框,
+  type: date          => 日期选择框,
+  type: time          => 时间选择框,
+  type: select        => 下拉选择框,
+  type: id_number     => 中国大陆身份证号,
+  type: phone_number  => 中国大陆手机号码,
+  type: img           => 上传图片, -->
 <wxs module="markForm">
   var changeType = function (type){
     if(type === 'id_number') {

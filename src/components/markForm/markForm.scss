@@ -10,11 +10,14 @@
 			font-size: 28rpx;
 			line-height: 40rpx;
 			width: 146rpx;
-			margin-right: 22rpx;
 			flex-shrink: 0;
 			margin-right: 16rpx;
 			display: flex;
 			align-items: center;
+			.form-required {
+				font-size: 14px;
+				color: #ee0a24;
+			}
 		}
 		.form-item-right {
 			flex: 1;
