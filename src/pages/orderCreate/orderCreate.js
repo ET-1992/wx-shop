@@ -407,6 +407,10 @@ Page({
                 }
             }
 
+            // 设置订单留言
+            if (!this.data.order_annotation) {
+                this.setData({ order_annotation });
+            }
 
             // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
             let shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
@@ -441,7 +445,6 @@ Page({
                 isHaveUseCoupon: (coupons.available && coupons.available.length > 0),
                 isPeanutPay: use_platform_pay || '',
                 isDisablePay: false,
-                order_annotation,
                 product_type,
                 payment_tips,
                 store_card,
