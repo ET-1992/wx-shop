@@ -4,6 +4,10 @@
 	<slot name="product-detail"></slot>
 	<view class="product-options">
 		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
+		<view class="product-remark" wx:if="{{ product.product_annotation.length }}">
+			<view class="remark-title">商品留言</view>
+			<markForm id="mark-form" form="{{ product.product_annotation }}"></markForm>
+		</view>
 		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />
 	</view>
 	<view class="order-end" wx:if="{{ hasBottom }}">

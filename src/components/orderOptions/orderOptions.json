@@ -2,7 +2,8 @@
 	"component": true,
 	"usingComponents": {
 		"skuOptionList": "components/skuOptionList/skuOptionList",
-    	"skuLogistics": "components/skuLogistics/skuLogistics"
+		"skuLogistics": "components/skuLogistics/skuLogistics",
+		"markForm": "components/markForm/markForm"
 	}
 }
 

@@ -20,6 +20,14 @@
 		margin: 26rpx 0 10rpx;
 		font-size: 24rpx;
 		border-radius: 5rpx;
+		.product-remark {
+			.remark-title {
+				color: #000;
+				font-size: 26rpx;
+				margin-bottom: 20rpx;
+				font-weight: 700;
+			}
+		}
 	}
 	.order-end {
 		display: flex;

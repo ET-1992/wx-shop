@@ -49,6 +49,12 @@ Component({
         async onQuickCreate(actions) {
             try {
                 this.onFormConfirm();
+                let component = this.selectComponent('#mark-form');
+                console.log('component', component);
+                if (component) {
+                    let form = component.handleValidate();
+                    this._remarks = form;
+                }
                 this.getCurrentOrder();
                 let index = actions.findIndex(item => item.type === 'onBuy');
                 if (index > -1) {
