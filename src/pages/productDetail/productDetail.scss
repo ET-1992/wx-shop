@@ -1162,6 +1162,23 @@ button {
 					line-height: 1.5;
 				}
 			}
+			/* 购物车红点 */
+			.orderItemValue {
+				width:28rpx;
+				height:28rpx;
+				border-radius:50%;
+				font-size:17rpx;
+				text-align:center;
+				line-height:28rpx;
+				background-color:#FC2732;
+				position:absolute;
+				right:12rpx;
+				top:8rpx;
+				z-index:2;
+				.cart-number {
+					color:#fff;
+				}
+			}
 
 			.icon {
 				$size: 40rpx;
@@ -1546,21 +1563,6 @@ img,
 .product-card-price{
 	color:$priceColor;
 	font-size: 36rpx;
-}
-/* 红点 */
-.orderItemValue {
-	width:28rpx;
-	height:28rpx;
-	border-radius:50%;
-	font-size:17rpx;
-	color:#fff;
-	text-align:center;
-	line-height:28rpx;
-	background-color:#FC2732;
-	position:absolute;
-	right:12rpx;
-	top:8rpx;
-	z-index:2;
 }
 
 /* 底部弹窗 */

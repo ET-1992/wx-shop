@@ -163,7 +163,7 @@
       <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType">
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType" bind:add-cart="showCartNumber">
             <view slot="product-detail">
               <!-- 商品副标题 -->
               <view class="simple-model-subtitle">{{ product.excerpt }}</view>
@@ -474,7 +474,7 @@
         <block>
           <view class="cart" data-url="/pages/cart/cart" bind:tap="go">
             <view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">
-              {{ cartNumber }}
+              <text class="cart-number">{{ cartNumber }}</text>
             </view>
             <image class="icon" src="../../icons/shopcart.png" />
             <text>购物车</text>

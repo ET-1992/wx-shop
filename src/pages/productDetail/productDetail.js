@@ -99,25 +99,21 @@ Page({
         // 简约模式
         if (product_style_type === 2) {
             let component = this.selectComponent('#orderOptions');
-            // console.log('component', component);
-            let data = await component.onQuickCreate(actions);
-            if (data) {
-                // 更新购物车角标
-                let { count } = data;
-                this.showCartNumber(count);
-            }
-        } else {
-            // 普通模式
-            let isShowActionSheet = true;
-            this.handleCloseVideo();
-            this.setData({
-                isShowActionSheet,
-                actions,
-                isGrouponBuy,
-                isCrowd,
-                isBargainBuy,
-            });
+            // 购买/加车
+            await component.onQuickCreate(actions);
+            return;
         }
+
+        // 普通模式
+        let isShowActionSheet = true;
+        this.handleCloseVideo();
+        this.setData({
+            isShowActionSheet,
+            actions,
+            isGrouponBuy,
+            isCrowd,
+            isBargainBuy,
+        });
 
     },
 
@@ -418,7 +414,8 @@ Page({
         let { product: { id, is_faved }} = this.data;
 
         // 更新红点
-        this.showCartNumber(data.count);
+        wx.setStorageSync('CART_NUM', data.count);
+        this.showCartNumber(data);
 
         // 收藏商品
         if (!is_faved) {
@@ -684,8 +681,10 @@ Page({
         }
     },
 
-    async showCartNumber(count) {
-        wx.setStorageSync('CART_NUM', count);
+    // 更新购物车数量红点
+    async showCartNumber(e) {
+        let data = e.detail || e;
+        let { count } = data;
         this.setData({
             cartNumber: Number(count)
         });

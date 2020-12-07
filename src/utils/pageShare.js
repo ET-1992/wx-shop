@@ -108,26 +108,23 @@ export const createCurrentOrder = (e) => {
         currentRelation = [],  // 选中增值规格
         shipping_type = '', // 物流方式
         selectedOptions = {},  // 选中的所有选项
-        remarks = [],  // 选中的所有选项
+        remarks = [],  // 商品级留言
     } = e;
-    try {
+    let { id, title, original_price, thumbnail, price, postage, order_promotion_type, related_product } = product;
 
-        // console.log('selectedSku', selectedSku, product);
-        let { id, title, original_price, thumbnail, price, postage, order_promotion_type, related_product } = product;
+    try {
 
         // 规格
         let special_attributes = currentSpecial;
-
-
-        // 增值规格 全是必选项
+        // 增值规格 必选项
         let related_posts = related_product.map((item, index) => {
             let { value } = currentRelation[index];
             let product = item.value.find(({ title }) => title === value);
             product.content = '';
             return product;
         });
-
-        let { content: sku_property_names = '' } = selectedOptions;
+        // 选中项SKU/规格/增值规格名称
+        let { content: sku_property_names } = selectedOptions;
 
         // 订单级留言
         let product_annotation = remarks.length ? { remarks } : {};
@@ -164,7 +161,6 @@ export const createCurrentOrder = (e) => {
             const selectedSkuImage = properties ? (sku_images[firstSelectedSkuPropValue] && sku_images[firstSelectedSkuPropValue].thumbnail) : null;
 
             item.sku_id = skuId;
-            item.sku_property_names = sku_property_names || property_names;
 
             if (original_price) {
                 item.original_price = original_price;
@@ -187,9 +183,11 @@ export const createCurrentOrder = (e) => {
             item.price = product.bargain_price;
         }
 
+        order.savePrice = (item.original_price - item.price) * quantity;
+        // 增值规格价格
+        item.price = related_posts.reduce((acc, { price }) => acc + price, item.price);
         order.items = [item];
         order.totalPrice = item.price * quantity;
-        order.savePrice = (item.original_price - item.price) * quantity;
         order.totalPostage = product.postage;
 
         console.log('createCurrentOrder order: ', order);

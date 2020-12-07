@@ -54,7 +54,7 @@ Component({
                 if (index > -1) {
                     this.runOrderPrepare();
                 } else {
-                    await this.runAddCart();
+                    this.runAddCart();
                 }
             } catch (e) {
                 console.log('resolved error', e);
@@ -72,21 +72,25 @@ Component({
         // 加入购物车 组件方法
         async onAddCart() {
             let actions = [{ type: 'addCart' }];
-            let data = await this.onQuickCreate(actions);
-            this.triggerEvent('add-cart', data);
+            this.onQuickCreate(actions);
         },
 
         // 进行加车操作
         async runAddCart() {
             let { _currentOrder } = this;
             let posts = JSON.stringify(_currentOrder.items);
-            let data = await api.hei.addCart({ posts });
-            if (!data.errcode) {
+            try {
+                let data = await api.hei.addCart({ posts });
                 let { count } = data;
                 wx.showToast({ title: '成功添加' });
                 wx.setStorageSync('CART_NUM', count);
                 updateTabbar({ tabbarStyleDisable: true });
-                return data;
+                this.triggerEvent('add-cart', data);
+            } catch (e) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: e.errMsg,
+                });
             }
         }
     },
