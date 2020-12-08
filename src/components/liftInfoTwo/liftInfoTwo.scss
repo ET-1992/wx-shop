@@ -129,17 +129,18 @@ $meter: 20rpx;
 			flex-direction: row;
 			align-items: center;
 
-			text {
+			.star {
 				color: red;
 			}
 
-			input {
+			.receiver-field {
 				width: 240rpx;
-				border: 1px solid #707070;
+				border: 1px solid #cccccc;
 				height: 20rpx;
 				box-sizing: border-box;
 				text-align: center;
 				color: #000000;
+				border-radius: 8rpx;
 				margin-left: 10rpx;
 			}
 		}
@@ -150,9 +151,10 @@ $meter: 20rpx;
 			align-items: center;
 			padding-left: 8rpx;
 
-			input {
+			.receiver-field {
 				width: 200rpx;
-				border: 1px solid #707070;
+				border: 1px solid #cccccc;
+				border-radius: 8rpx;
 				height: 20rpx;
 				box-sizing: border-box;
 				text-align: center;

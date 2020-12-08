@@ -197,7 +197,7 @@
               <view wx:if="{{ product.membership_dedicated_enable }}" class="vipHold">
                 <image src="/icons/vipLogo.svg" class="vipLogo"></image>
                 <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
-                {{ product.price }}
+                <text>{{ product.price }}</text>
               </view>
               <!-- 非会员专属 -->
               <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) }}">

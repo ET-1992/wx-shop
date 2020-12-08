@@ -42,10 +42,14 @@
 
 	<view class="receiver" wx:if="{{ liftInfo.isCanInput }}">
 		<view class="title">
-			提货人:<input type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
+			<text>提货人:</text>
+			<input class="receiver-field" type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
 		</view>
 		<view class="tel">
-			电话<text>*</text>:<input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
+			<text>电话</text>
+			<text class="star">*</text>
+			<text>:</text>
+			<input class="receiver-field" type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
 		</view>
 	</view>
 </view>
