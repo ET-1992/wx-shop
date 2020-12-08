@@ -48,24 +48,29 @@
                     <view class="price" wx:else>
                         <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
                         <view class="groupon" wx:if="{{ isGrouponBuy && product.groupon_enable }}">
-                            {{ product.definePrice }}
+                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view>
                         <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
-                            {{ product.price }}
+                            <text>{{ product.price + selectedOptions.relationPrice }}</text>
                         </view>
                         <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
-                            {{ product.definePrice }}
+                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view>
                         <!-- 秒杀 -->
                         <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
-                            {{ product.seckill_price }}
+                            <text>{{ product.seckill_price + selectedOptions.relationPrice }}</text>
                         </view>
                         <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
-                            {{ product.bargain_price }}
+                            <text>{{ product.bargain_price + selectedOptions.relationPrice }}</text>
                         </view>
-                        <view wx:elif="{{ selectedSku.id }}">{{ selectedSku.price }}</view>
+                        <view wx:elif="{{ selectedSku.id }}">
+                            <text>{{ selectedSku.price + selectedOptions.relationPrice }}</text>
+                        </view>
+                        <view wx:elif="{{ product.highest_price > product.definePrice }}">
+                            <text>{{ product.definePrice + '-' + (product.highest_price + selectedOptions.relationPrice) }}</text>
+                        </view>
                         <view wx:else>
-                            {{ (product.highest_price > product.definePrice) ? (product.definePrice + '-' + product.highest_price) : product.definePrice }}
+                            <text>{{ product.definePrice }}</text>
                         </view>
                     </view>
                     <view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">

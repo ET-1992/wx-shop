@@ -46,7 +46,9 @@ module.exports = Behavior({
             let content = [...currentSku, ...currentSpecial, ...currentRelation].reduce((acc, { value }) => {
                 return value ? acc + value + ';' : acc;
             }, '');
-            let selectedOptions = { price, content };
+            // 增值商品总价格
+            let relationPrice = (price - Number(selectedSku.price || product.price)) || 0;
+            let selectedOptions = { price, content, relationPrice };
 
             this.setData({
                 currentSku,
