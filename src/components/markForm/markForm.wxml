@@ -29,7 +29,7 @@
         </view>
         <!-- 输入框 -->
         <view class="form-field" wx:else>
-          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" />
+          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" adjust-position="{{ false }}" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" />
         </view>
       </view>
     </view>
