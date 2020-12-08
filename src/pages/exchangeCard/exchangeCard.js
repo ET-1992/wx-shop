@@ -25,10 +25,12 @@ Page({
         phone: '',
         sms: '',
         countryCode: '+86',
-        codes: [],
+        codes: {},
         available: [],
         unavailable: [],
         isShowTimer: false,
+        isCanShowPassword: false,
+        isShowCodes: false,
         count: 0
     },
 
@@ -67,36 +69,27 @@ Page({
             });
             return;
         }
+        wx.showLoading({
+            title: '加载中',
+        });
         try {
-            const { codes } = api.hei.checkExchangeNumber({
+            const { codes: { available = [], unavailable = [] }} = await api.hei.checkExchangeNumber({
                 code,
                 password
             });
             wx.setNavigationBarTitle({
                 title: '我的兑换券'
             });
-            console.log('data', codes);
-            if (codes && codes.length > 0) {
-
-                let available = codes.filter(item => {
-                    return item.status === 1;
-                });
-
-                let unavailable = codes.filter(item => {
-                    return item.status !== 1;
-                });
-
-                this.setData({
-                    available,
-                    unavailable
-                });
-            }
 
             this.setData({
-                codes
+                available,
+                unavailable,
+                isShowCodes: true
             });
+            wx.hideLoading();
         } catch (e) {
-            console.log('e.errMsg', e.errMsg);
+            wx.hideLoading();
+            console.log('e.errMsg', e);
             wx.showToast({
                 title: e.errMsg || '登录失败，请重试',
                 icon: 'none'
@@ -105,7 +98,7 @@ Page({
     },
 
     // 验证码登录
-    onSubmitSms() {
+    async onSubmitSms() {
         const { countryCode, phone, sms } = this.data;
         if (!phone) {
             wx.showToast({
@@ -121,8 +114,11 @@ Page({
             });
             return;
         }
+        wx.showLoading({
+            title: '加载中',
+        });
         try {
-            const { codes: { available = [], unavailable = [] }} = api.hei.checkExchangeNumber({
+            const { codes: { available = [], unavailable = [] }} = await api.hei.checkPhoneNumber({
                 phone: `${countryCode}${phone}`,
                 code: sms
             });
@@ -130,12 +126,25 @@ Page({
             wx.setNavigationBarTitle({
                 title: '我的兑换券'
             });
+
+            const NOW_TIME = Math.round(Date.now() / 1000);
+            console.log('NOW_TIME', NOW_TIME);
+            unavailable.forEach(item => {
+                const EXPIRED_TIME = item.expired_time;
+                const NOW_TIME = item.time;
+                const isExpired = EXPIRED_TIME - NOW_TIME;
+                item.isExpired = isExpired < 0 ? true : false;
+                return item;
+            });
             this.setData({
                 available,
-                unavailable
+                unavailable,
+                isShowCodes: true
             });
+            wx.hideLoading();
         } catch (e) {
-            console.log('e.errMsg', e.errMsg);
+            wx.hideLoading();
+            console.log('e.errMsg', e);
             wx.showToast({
                 title: e.errMsg || '登录失败，请重试',
                 icon: 'none'
@@ -153,6 +162,10 @@ Page({
             });
             return;
         }
+        wx.showToast({
+            title: '已发送验证码，请注意查收',
+            icon: 'none'
+        });
         this.setData({ isShowTimer: true, count: TIME_COUNT });
         this.timer = setInterval(() => {
             let { count } = this.data;
@@ -168,26 +181,27 @@ Page({
     },
 
     // 使用
-    async onRecharge(e) {
+    async onUseExchangeCard(e) {
+        wx.showLoading({
+            title: '使用中',
+        });
         const { password, code } = e.currentTarget.dataset;
-        console.log('password, code', password, code);
-        try {
-            // 充值
-            // const { pay_sign } = await api.hei.xxx({
-            //     amount,
-            //     pay_method: 'WEIXIN',
-            // });
-            // if (pay_sign) {
-            //     await wxPay(pay_sign);
-            // }
+        this.setData({ password, code });
 
-            // 兑换
+        try {
             await api.hei.useExchangeNumber({
                 code,
                 password
             });
+            wx.hideLoading();
+            wx.showToast({
+                title: '已使用',
+                icon: 'none'
+            });
+            this.onSubmitPassword();
         } catch (e) {
-            console.log('e.errMsg', e.errMsg);
+            wx.hideLoading();
+            console.log('e.errMsg', e);
             wx.showToast({
                 title: e.errMsg || '使用失败，请重试',
                 icon: 'none'
@@ -210,6 +224,24 @@ Page({
     onChangeSms(event) {
         const { value } = event.detail;
         this.setData({ sms: value });
+    },
+    isShowPassword() {
+        console.log('isShowPassword');
+        const { isCanShowPassword } = this.data;
+        this.setData({ isCanShowPassword: !isCanShowPassword });
+    },
+    clearNumberInput() {
+        console.log('clearNumberInput');
+        this.setData({ code: '', isShowClearIcon: false });
+    },
+
+    clearPhoneInput() {
+        console.log('clearNumberInput');
+        this.setData({ phone: '', isShowClearIcon: false });
+    },
+
+    clickShowClearIcon() {
+        this.setData({ isShowClearIcon: true });
     },
 
     detached() {
