@@ -47,7 +47,7 @@
                 <!-- 分组商品列表 -->
                 <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
                 <!-- 商品列表 -->
-                <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" />
+                <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
                 <!-- 魔方 -->
                 <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
                 <!-- 直播列表 -->
@@ -76,3 +76,7 @@
 <view class="multiStore">
     <multiStore bind:updatestore="updatestore" multiStoreEnable="{{ multiStoreEnable }}" />
 </view>
+<!-- 商品列表加车弹窗 -->
+<van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
+	<orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+</van-popup>

@@ -22,8 +22,10 @@
 	  "cube": "../home/components/cube/cube",
 	  "lvList": "../home/components/lvList/lvList",
 	  "multiStore": "components/multiStore/multiStore",
-    "gold-price": "../home/components/goldPrice/goldPrice",
-    "productNavigationBar":"../../components/productNavigationBar/productNavigationBar"
+	"gold-price": "../home/components/goldPrice/goldPrice",
+	"productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
+	"orderOptions": "components/orderOptions/orderOptions",
+	"van-popup": "@vant/weapp/dist/popup/index"
   },
   "navigationStyle": "custom"
 }

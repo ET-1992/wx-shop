@@ -40,7 +40,8 @@ export const pageObj = {
         isShowButton: true, // 是否显示抢购、秒杀按钮
         isProductLast: false, // 判断新首页商品列表是否在最后
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
-        showBgColor: false
+        showBgColor: false,
+        selectedProduct: {},  // 加车商品
     },
 
     swiperChange(e) {
@@ -518,5 +519,20 @@ export const pageObj = {
         wx.hideLoading();
     },
 
-    go
+    go,
+
+    // 商品加车
+    onAddProductCart(e) {
+        let { product } = e.detail;
+        this.setData({
+            selectedProduct: product,
+            showOrderOptions: true,
+        });
+    },
+
+    onHideOrderOptions() {
+        this.setData({
+            showOrderOptions: false
+        });
+    },
 };

@@ -60,8 +60,6 @@ Component({
             style: 'per_2',
             orderby: 'post_date'
         },
-        isShowSkuModal: false,
-        selectedProduct: {},
     },
 
     lifetimes: {
@@ -99,48 +97,17 @@ Component({
             autoNavigate_({ url: finalUrl });
         },
 
-        // 加车回调
-        async onSkuConfirm({ detail }) {
-            // let { actionType, queryData } = detail;
-            console.log('onSkuConfirm');
-            this.setData({ isShowSkuModal: false });
-        },
-
-        // 选规格弹窗
-        showSkuModal(product) {
-            this.setData({
-                isShowSkuModal: true,
-                selectedProduct: product
-            });
-        },
-
-        // 单规格 且 配送方式只有一种时 直接 加入购物车
-        // 多规格 或 多种配送方式 显示弹窗选择 配送方式 或 规格
+        // 加入购物车
         async singleAddCart(e) {
             let product = {};
-
             product = e.currentTarget.dataset.product ? e.currentTarget.dataset.product : e.detail.product;
-            console.log('singleAddCartproduct', product);
-
             // 不能加车商品
             let { individual_buy, id } = product;
             if (individual_buy) {
                 wx.navigateTo({ url: `/pages/productDetail/productDetail?id=${id}` });
                 return;
             }
-
-            if ((product.shipping_types && product.shipping_types.length === 1)) {
-                product.shipping_type = product.shipping_types[0];
-            }
-
-            if ((product.shipping_types && product.shipping_types.length > 1) || (product.skus && product.skus.length > 0)) {
-                this.showSkuModal(product);
-            } else {
-                // 直接购买
-                this.setData({ selectedProduct: product });
-                let component = this.selectComponent('#skuModal');
-                await component.onAddCart();
-            }
+            this.triggerEvent('add-cart', { product }, { bubbles: true, composed: true });
         },
     }
 });
