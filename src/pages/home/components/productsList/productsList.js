@@ -109,5 +109,7 @@ Component({
             }
             this.triggerEvent('add-cart', { product }, { bubbles: true, composed: true });
         },
+
+        go
     }
 });
