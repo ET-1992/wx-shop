@@ -42,7 +42,7 @@ Component({
                 // const currentSku = this._sku.getDefaultSku(skus);
                 // currentSku.forEach(item => { item.value = '' });
                 // SKU数组 不过滤库存为0的
-                let currentSku = properties.map(({ key }) => ({ key, value: '' }));
+                let currentSku = properties.map(({ name }) => ({ key: name, value: '' }));
 
                 // 所有规格/增值规格数组
                 let currentSpecial = special_attributes.map(({ key }) => ({ key, value: '' }));

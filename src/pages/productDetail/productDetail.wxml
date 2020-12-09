@@ -8,7 +8,7 @@
 <!-- 骨架屏 -->
 <skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}" />
 <!-- 商品详情主内容 -->
-<scroll-view class="product-main" wx:else scroll-y enable-back-to-top scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
+<scroll-view class="product-main" wx:else scroll-y="{{ scrollEnable }}" enable-back-to-top scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <!-- 商品内容 -->
     <view class="observer-tab" id="goods">
@@ -163,7 +163,7 @@
       <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType" bind:add-cart="showCartNumber">
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType" bind:add-cart="showCartNumber" bind:change-form-focus="onChangeFormFocus">
             <view slot="product-detail">
               <!-- 商品副标题 -->
               <view class="simple-model-subtitle">{{ product.excerpt }}</view>

@@ -56,7 +56,8 @@ Component({
     data: {
         globalData: app.globalData,
         now: Math.round(Date.now() / 1000),
-        shipping_type: 1
+        shipping_type: 1,
+        scrollEnable: true,
     },
 
     async attached() {
@@ -160,6 +161,13 @@ Component({
             } catch (e) {
                 console.log('resolved error', e);
             }
+        },
+
+        // 留言表单聚焦/失焦
+        onChangeFormFocus(e) {
+            let { isFocused } = e.detail;
+            let scrollEnable = !isFocused;
+            this.setData({ scrollEnable });
         },
 
     }

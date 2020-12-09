@@ -69,6 +69,7 @@ Page({
         currentTabIndex: 0,  // 当前选中标签
         scrollTop: 0,  // 当前视图的scrollTop
         toScrollTop: 0,  // 跳转的scrollTop
+        scrollEnable: true,  // 页面是否可以垂直滚动
         tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
         selectedOptions: {},  // 简约模式的规格内容/价格
@@ -1156,6 +1157,13 @@ Page({
         let tabsComponent = this.selectComponent('#tabs');
         let { tabsBottom = 0 } = tabsComponent.data;
         this._tabsBottom = tabsBottom;
+    },
+
+    // 留言表单聚焦/失焦
+    onChangeFormFocus(e) {
+        let { isFocused } = e.detail;
+        let scrollEnable = !isFocused;
+        this.setData({ scrollEnable });
     },
 
 });

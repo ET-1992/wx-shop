@@ -29,6 +29,17 @@ Component({
         showForm: [],
     },
     methods: {
+
+        // 输入框聚焦/失焦
+        onFormFocus(e) {
+            let { type } = e,
+                isFocused = false;
+            if (type === 'focus') {
+                isFocused = true;
+            }
+            this.triggerEvent('change-form-focus',
+                { isFocused }, { bubbles: true, composed: true });
+        },
         // 表单输入
         onFormChange(e) {
             let { detail, currentTarget: { dataset: { name }, }} = e,
