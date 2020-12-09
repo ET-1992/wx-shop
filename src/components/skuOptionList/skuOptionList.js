@@ -32,17 +32,19 @@ Component({
     methods: {
         // 初始化选项组合
         setOptionList() {
-            const { product, product: { skus, special_attributes, related_product }} = this.data;
+            const { product, product: { properties, skus, special_attributes, related_product }} = this.data;
             if (Object.keys(product).length === 0) {
                 return;
             }
             try {
                 this._sku = new Sku({ max: 3 });
-                const currentSku = this._sku.getDefaultSku(skus);
 
-                currentSku.forEach(item => { item.value = '' });
+                // const currentSku = this._sku.getDefaultSku(skus);
+                // currentSku.forEach(item => { item.value = '' });
+                // SKU数组 不过滤库存为0的
+                let currentSku = properties.map(({ key }) => ({ key, value: '' }));
 
-                // 选中的规格/增值规格
+                // 所有规格/增值规格数组
                 let currentSpecial = special_attributes.map(({ key }) => ({ key, value: '' }));
                 let currentRelation = related_product.map(({ key }) => ({ key, value: '' }));
 

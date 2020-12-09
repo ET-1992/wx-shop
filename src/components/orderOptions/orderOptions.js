@@ -96,6 +96,7 @@ Component({
                 wx.showModal({
                     title: '温馨提示',
                     content: e.errMsg,
+                    showCancel: false,
                 });
             }
         }
