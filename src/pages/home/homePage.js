@@ -530,6 +530,7 @@ export const pageObj = {
         });
     },
 
+    // 隐藏商品加车
     onHideOrderOptions() {
         this.setData({
             showOrderOptions: false
