@@ -107,6 +107,7 @@ module.exports = Behavior({
                 remarks: _remarks,
             });
             this._currentOrder = currentOrder;
+            this._remarks = [];
         },
     }
 });

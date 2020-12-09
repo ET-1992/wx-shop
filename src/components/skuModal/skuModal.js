@@ -108,6 +108,8 @@ Component({
                     showCancel: false,
                 });
                 throw new Error(e);
+            } finally {
+                this._currentOrder = {};
             }
         },
 
