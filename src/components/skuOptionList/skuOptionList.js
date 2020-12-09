@@ -61,6 +61,7 @@ Component({
 
         // 触发选中选项
         onSelectOption(e) {
+            console.log('2', e);
             let { type, nameIndex, valueIndex } = e.mark,
                 { product, disableOptions } = this.data;
 
@@ -70,6 +71,8 @@ Component({
 
             let dataArr = { properties: 'currentSku', special_attributes: 'currentSpecial', related_product: 'currentRelation' },
                 dataKey = dataArr[type];  // 修改的data关键字
+
+            console.log('dataKey', dataKey);
 
             // 三个选项数据结构不同，特殊处理
             let propValue = '';  // 选中对象的值
@@ -82,6 +85,8 @@ Component({
             } else if (type === 'related_product') {
                 propValue = propArr.value[valueIndex].title;
             }
+
+            console.log('this.data[dataKey][nameIndex]', this.data[dataKey], this.data[dataKey][nameIndex]);
 
             // 选中/取消
             propValue = (this.data[dataKey][nameIndex].value === propValue ? '' : propValue);

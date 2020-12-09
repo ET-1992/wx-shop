@@ -15,10 +15,14 @@
 				</view>
 			</view>
 			<!-- 限时购标签 -->
-			<view class="tagWrapper" wx:if="{{ product.seckill_enable && !(config && config.cart_enable) }}">秒杀</view>
-			<view class="tagWrapper" wx:if="{{ product.miaosha_enable && !(config && config.cart_enable)}}">限时购</view>
+			<block wx:if="{{!(config && config.cart_enable)}}">
+				<view class="tagWrapper" wx:if="{{ product.seckill_enable }}">秒杀</view>
+				<view class="tagWrapper" wx:if="{{ product.miaosha_enable }}">限时购</view>
+			</block>
+		
 			<view class="{{config && config.cart_enable ? 'show' : 'tagWrapper'}}" wx:if="{{ config && config.cart_enable }}">
-				<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
+				<!-- 排除虚拟商品 跟 售罄商品 -->
+				<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ product.product_type !== 1 && product.status !== 'sold_out' }}">
 					<image class="icon" src="/icons/cart.svg" />
 				</view>
 			</view>
