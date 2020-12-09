@@ -32,8 +32,13 @@ Component({
 
         // 输入框聚焦/失焦
         onFormFocus(e) {
-            let { type } = e,
+            let { type, currentTarget: { dataset: { name }}} = e,
+                { form } = this.data,
+                formItem = form.find(item => item.name === name),
                 isFocused = false;
+
+            // 多行文本会不断触发聚焦和失焦
+            if (formItem.type === 'textarea') { return }
             if (type === 'focus') {
                 isFocused = true;
             }
