@@ -1,4 +1,5 @@
 import getRemainTime from 'utils/getRemainTime';
+import { go } from 'utils/util';
 
 Component({
     properties: {
@@ -94,7 +95,8 @@ Component({
             console.log(e, 'eeeeeeeeee');
             const { product } = e.currentTarget.dataset;
             this.triggerEvent('singleAddCart', { product });
-        }
+        },
+        go
     },
 
     detached() {
