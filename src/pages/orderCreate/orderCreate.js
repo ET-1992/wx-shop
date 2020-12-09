@@ -524,6 +524,8 @@ Page({
             postalCode,
             nationalCode,
             detailInfo,
+            latitude,
+            longitude,
             room,
         } = address;
         const { vendor, afcode } = app.globalData;
@@ -569,6 +571,8 @@ Page({
             receiver_district: countyName || '',
             receiver_address: detailInfo || '',
             receiver_zipcode: postalCode || '',
+            longtitude: longitude || '',
+            latitude: latitude || '',
             room: room || '',
             buyer_message: buyerMessage,
             form_id: formId,
