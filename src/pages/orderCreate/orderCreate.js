@@ -209,6 +209,7 @@ Page({
         wx.hideLoading();
     },
 
+    // 选择优惠券回调
     getCouponIdEvent(data) {
         this.setData({
             user_coupon_ids: (data && data.user_coupon_id) || -1
@@ -254,7 +255,7 @@ Page({
             chooseAreaId: data[0].id,
             free_shipping_amount: data[0] && data[0].free_amount
         }, () => {
-            this.onLoadData(data[0].id);
+            this.onLoadData();
         });
     },
 
@@ -284,6 +285,7 @@ Page({
                 bargain_mission_code,
                 liftInfo,
                 product_type,
+                chooseAreaId,
             } = this.data;
             let requestData = {};
             if (address) {
@@ -315,7 +317,7 @@ Page({
 
             if (shipping_type === 4) { // 送货上门
                 // requestData.receiver_address_name = params;
-                requestData.delivery_store_id = params; // 配送地区id
+                requestData.delivery_store_id = chooseAreaId; // 配送地区id
             }
 
             if (seckill) { // 秒杀

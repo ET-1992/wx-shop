@@ -11,8 +11,8 @@
 	    <view wx:if="{{ selectedStatus === 'unavailable' }}">无不可用优惠券</view>
 	</view>
 	<view class="couponList">
-	    <view class="couponItemWrapper" wx:for="{{ coupons[selectedStatus] }}" wx:key="id" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
-	      <couponList coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{ selectedStatus === 'available' }}" isSelected="{{ coupons.recommend.id === item.id }}"/>
+	    <view class="couponItemWrapper" wx:for="{{ coupons[selectedStatus] }}" wx:key="user_coupon_id" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
+	      <couponList coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{ selectedStatus === 'available' }}" isSelected="{{ coupons.recommend.user_coupon_id === item.user_coupon_id }}"/>
 	    </view>
 	</view>
 	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
