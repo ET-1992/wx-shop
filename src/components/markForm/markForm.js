@@ -64,7 +64,7 @@ Component({
 
         // 文件读取完成
         async onAfterRead(e) {
-            // console.log('e', e);
+            console.log('e', e);
             let { file } = e.detail,
                 { name } = e.currentTarget.dataset,
                 { form } = this.data,
@@ -72,7 +72,7 @@ Component({
 
             try {
                 const data = await api.hei.upload({
-                    filePath: file.path
+                    filePath: file.url || file.path
                 });
                 let { url } = JSON.parse(data);
                 form[index].value = [{ url }];
