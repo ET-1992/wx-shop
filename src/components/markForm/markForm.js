@@ -37,8 +37,8 @@ Component({
                 formItem = form.find(item => item.name === name),
                 isFocused = false;
 
-            // 多行文本会不断触发聚焦和失焦
-            if (formItem.type === 'textarea') { return }
+            // 文本会不断触发聚焦和失焦
+            if (formItem.type === 'textarea' || formItem.type === 'text') { return }
             if (type === 'focus') {
                 isFocused = true;
             }
