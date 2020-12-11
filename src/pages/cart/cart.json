@@ -1,13 +1,18 @@
 {
   "navigationBarTitleText": "购物车",
   "usingComponents": {
-    "numberInput": "../../components/numberInput/index",
     "productList": "../../components/productList/index",
     "loading": "../../components/loading/index",
     "navbarList": "../../components/navbarList/navbarList",
     "multiStore": "../../components/multiStore/multiStore",
     "van-icon": "@vant/weapp/dist/icon/index",
     "home-product-list": "../home/components/productsList/productsList",
-    "productRemarkPopup": "components/productRemarkPopup/productRemarkPopup"
+    "productRemarkPopup": "components/productRemarkPopup/productRemarkPopup",
+    "van-cell": "@vant/weapp/dist/cell/index",
+    "van-checkbox": "@vant/weapp/dist/checkbox/index",
+    "van-card": "@vant/weapp/dist/card/index",
+    "van-image": "@vant/weapp/dist/image/index",
+    "van-stepper": "@vant/weapp/dist/stepper/index",
+    "van-tag": "@vant/weapp/dist/tag/index"
   }
 }
