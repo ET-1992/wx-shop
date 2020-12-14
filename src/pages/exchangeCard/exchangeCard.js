@@ -36,6 +36,13 @@ Page({
 
     onLoad(params) {
         console.log(params);
+        const { code = '', password = '' } = params;
+        if (code || password) {
+            this.setData({
+                code,
+                password
+            });
+        }
     },
 
     async onShow() {
@@ -182,11 +189,12 @@ Page({
 
     // 使用
     async onUseExchangeCard(e) {
+        const { available } = this.data;
         wx.showLoading({
             title: '使用中',
         });
-        const { password, code } = e.currentTarget.dataset;
-        this.setData({ password, code });
+        const { password, code, index } = e.currentTarget.dataset;
+        console.log(password, code, index, 'password, code, index');
 
         try {
             await api.hei.useExchangeNumber({
@@ -195,10 +203,11 @@ Page({
             });
             wx.hideLoading();
             wx.showToast({
-                title: '已使用',
+                title: '已使用,请注意查收',
                 icon: 'none'
             });
-            this.onSubmitPassword();
+            available[index].isUsed = true;
+            this.setData({ available });
         } catch (e) {
             wx.hideLoading();
             console.log('e.errMsg', e);

@@ -50,10 +50,11 @@
 	<view class="wrapper" wx:if="{{isShowCodes}}">
 		<!-- 可用 -->
 		<view class="list" wx:if="{{available && available.length}}">
-			<view wx:for="{{ available }}" wx:key="index" class="item" style="background-color: {{ themeColor.primaryColor }}">
+			<view wx:for="{{ available }}" wx:key="index" class="item {{item.isUsed ? 'unavailable' : '' }}" style="background-color: {{ themeColor.primaryColor }}">
 				<view class="top">
 					<view class="des_title">{{item.activity_title}}</view>
-					<view class="btn" bind:tap="onUseExchangeCard" data-code="{{item.code}}" data-password="{{item.password}}">立即使用</view>
+					<view class="btn" wx:if="{{item.isUsed}}">已使用</view>
+					<view class="btn" bind:tap="onUseExchangeCard" data-index="{{index}}" data-code="{{item.code}}" data-password="{{item.password}}" wx:else>立即使用</view>
 				</view>
 				<view class="bottom">
 					<!-- <view class="no">卡号：{{item.code}}</view> -->

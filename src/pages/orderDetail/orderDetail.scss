@@ -145,8 +145,15 @@ $footerHeight: 100rpx;
 	font-size: 24rpx;
 	height: 150rpx;
 	display: flex;
-	flex-direction: column;
+	align-items: center;
 	justify-content: space-between;
+
+	.number {
+		width: 660rpx;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
 
 	.virtualProductItem {
 		height: 40rpx;
@@ -155,6 +162,7 @@ $footerHeight: 100rpx;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		margin-top: 10rpx;
 	}
 
 	.virtualProductItemBtn {
@@ -165,6 +173,13 @@ $footerHeight: 100rpx;
 		justify-content: center;
 		align-items: center;
 		border-radius: 4rpx;
+	}
+	.virtualProductItemJump {
+		width: 120rpx;
+		height: 100%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 	}
 }
 
