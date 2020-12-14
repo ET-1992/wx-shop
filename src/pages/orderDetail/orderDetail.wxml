@@ -120,8 +120,8 @@
     </view>
 
     <!-- 订单留言 -->
-    <view class="order-remark-form" wx:if="{{ !otherPeopleGroupon && order.annotation && order.annotation.remarks }}">
-        <markForm form="{{ order.annotation.remarks }}" onlyShow></markForm>
+    <view class="order-remark-form" wx:if="{{ !otherPeopleGroupon && remarkForm.length }}">
+        <markForm form="{{ remarkForm }}" onlyShow></markForm>
     </view>
 
     <!-- 拼团头像 -->

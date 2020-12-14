@@ -155,6 +155,25 @@ Page({
             item.defineTime = formatTime(new Date(item.consign_time * 1000));
         });
 
+        // 订单留言 适配以前的键值对的格式
+        let remarkForm = [];
+        if (order.annotation && order.annotation.remarks) {
+            let { remarks } = order.annotation;
+            if (Array.isArray(remarks)) {
+                remarkForm = remarks;
+            } else {
+                for (let name in remarks) {
+                    if (!remarks.hasOwnProperty(name)) { continue }
+                    let value = remarks[name],
+                        type = 'text';
+                    if (value && value.indexOf('http') >= 0) {
+                        type = 'img';
+                    }
+                    remarkForm.push({ name, value, type, });
+                }
+            }
+        }
+
 
         // order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
         //     return logisticsForItem.indexOf(item.id) === -1;
@@ -192,6 +211,7 @@ Page({
             info,
             isLoading: false,
             config,
+            remarkForm,
             ...data
         });
     },
