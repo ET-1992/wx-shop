@@ -13,7 +13,7 @@ Page({
     async onLoad(params) {
         console.log('params', params); // {fromMemberShipPage: 'true'}
         const { themeColor } = app.globalData;
-        const config = wx.getStorageSync(CONFIG);
+        const { config } = await api.hei.config();
         const { style_type: tplStyle = 'default' } = config;
         if (params.fromMemberShipPage) { // 会员模板
             wx.setNavigationBarTitle({

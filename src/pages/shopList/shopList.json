@@ -6,7 +6,9 @@
 	  "loading": "../../components/loading/index",
 	  "filterList": "../../components/filterList/filterList",
 	  "navbarList": "../../components/navbarList/navbarList",
-	  "productsList": "../home/components/productsList/productsList"
+	  "productsList": "../home/components/productsList/productsList",
+	  "orderOptions": "components/orderOptions/orderOptions",
+	  "van-popup": "@vant/weapp/dist/popup/index"
 	}
   }
   

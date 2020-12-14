@@ -96,22 +96,54 @@ function shopShare(path) {
     }
 }
 
-export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, isGrouponBuy = false, isMiaoshaBuy = false, isBargainBuy = false }) => {
+export const createCurrentOrder = (e) => {
+    let {
+        product,
+        selectedSku = {},
+        quantity = 1,
+        isGrouponBuy = false,
+        isMiaoshaBuy = false,
+        isBargainBuy = false,
+        currentSpecial = [],  // 选中规格
+        currentRelation = [],  // 选中增值规格
+        shipping_type = '', // 物流方式
+        selectedOptions = {},  // 选中的所有选项
+        remarks = [],  // 商品级留言
+    } = e;
+    let { id, title, original_price, thumbnail, price, postage, order_promotion_type, related_product } = product;
 
     try {
 
-        console.log('selectedSku', selectedSku, product);
+        // 规格
+        let special_attributes = currentSpecial;
+        // 增值规格 必选项
+        let related_posts = related_product.map((item, index) => {
+            let { value } = currentRelation[index];
+            let product = item.value.find(({ title }) => title === value);
+            product.content = '';
+            return product;
+        });
+        // 选中项SKU/规格/增值规格名称
+        let { content: sku_property_names } = selectedOptions;
+
+        // 订单级留言
+        let product_annotation = remarks.length ? { remarks } : {};
 
         const item = {
-            post_id: product.id,
-            title: product.title,
-            original_price: product.original_price,
-            image_url: product.thumbnail,
-            price: product.price,
-            id: product.id,
-            postage: product.postage,
+            post_id: id,
+            title,
+            original_price,
+            image_url: thumbnail,
+            price,
+            id: id,
+            postage,
             quantity,
-            order_promotion_type: product.order_promotion_type,
+            order_promotion_type,
+            special_attributes,
+            related_posts,
+            shipping_type,
+            sku_property_names,
+            product_annotation,
         };
 
         const order = {
@@ -129,7 +161,6 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             const selectedSkuImage = properties ? (sku_images[firstSelectedSkuPropValue] && sku_images[firstSelectedSkuPropValue].thumbnail) : null;
 
             item.sku_id = skuId;
-            item.sku_property_names = property_names;
 
             if (original_price) {
                 item.original_price = original_price;
@@ -152,9 +183,11 @@ export const createCurrentOrder = ({ product, selectedSku = {}, quantity = 1, is
             item.price = product.bargain_price;
         }
 
+        order.savePrice = (item.original_price - item.price) * quantity;
+        // 增值规格价格
+        item.price = related_posts.reduce((acc, { price }) => acc + price, item.price);
         order.items = [item];
         order.totalPrice = item.price * quantity;
-        order.savePrice = (item.original_price - item.price) * quantity;
         order.totalPostage = product.postage;
 
         console.log('createCurrentOrder order: ', order);

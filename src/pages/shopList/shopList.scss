@@ -59,3 +59,10 @@ page{
 	border-bottom: 1rpx solid #e0e0e0;
 	z-index: 999;
 }
+
+// SKU弹窗
+.product-sku-wrap {
+    width: 90%; 
+	// 修改vant样式
+	--popup-round-border-radius: 20rpx;
+}

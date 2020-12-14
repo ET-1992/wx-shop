@@ -42,12 +42,15 @@
             </view>
             <!-- 金币商品 -->
             <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
-            <!-- 餐饮商品 -->
-            <view wx:elif="{{ product.product_style_type === 2 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
             <!-- 虚拟商品 -->
-            <view wx:elif="{{ product.product_type === 1 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
+            <view wx:elif="{{ product.product_type === 1 || product.status === 'sold_out'}}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
             <!-- 其他商品 -->
-            <view wx:else class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">{{config && config.cart_text || '立即购买'}}</view>
+            <block wx:else>
+                <!-- 开启首页显示购物车按钮 -->
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即购买'}}</view>
+                <!-- 未开启首页显示购物车按钮 -->
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即购买'}}</view>
+            </block>
         </view>
     </view>
 </navigator>

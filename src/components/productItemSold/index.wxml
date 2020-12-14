@@ -3,7 +3,13 @@
 		<navigator class="item" wx:key="id" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
 			<image src="{{ item.imageUrl }}" class="itemImage itemImage-{{ customClass }}" mode="aspectFill" lazy-load="{{ true }}" />
 			<view class="itemInfo">
-				<view class="itemName .itemName-{{ customClass }}">{{ item.title }}</view>
+				<!-- 商品标题 -->
+				<view class="itemName .itemName-{{ customClass }}">
+					<view class="name-left">{{ item.title }}</view>
+					<view class="name-right" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" data-index="{{ index }}" catch:tap="onShowProductRemark">
+						<van-icon name="/icons/question.svg" size="36rpx" />
+					</view>
+				</view>
 				<view class="propertyNames propertyNames-{{ customClass }}" wx:if="{{ item.property && customClass !== 'inviteCrowd' }}">{{ item.property }}</view>
 				<view class="itemMeta">
 					<view class="itemPrice itemPrice-{{ customClass }}" wx:if="{{ customClass !== 'inviteCrowd' }}">{{ globalData.CURRENCY[globalData.currency] }}{{ itemStyle === 1 ? item.price : groupon.price }}</view>
@@ -20,3 +26,5 @@
 		</view>
 	</block>
 </view>
+<!-- 商品留言弹出层 -->
+<productRemarkPopup show="{{ isShowRemark }}" form="{{ currentRemark }}" bind:close="onCloseRemark" />

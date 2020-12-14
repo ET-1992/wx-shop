@@ -12,6 +12,7 @@
     "addressTwo": "../../components/addressTwo/addressTwo",
     "liftInfoTwo": "../../components/liftInfoTwo/liftInfoTwo",
     "delivery": "../../components/delivery/delivery",
-    "storeList": "../../components/storeList/storeList"
+    "storeList": "../../components/storeList/storeList",
+    "markForm": "components/markForm/markForm"
   }
 }

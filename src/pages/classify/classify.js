@@ -3,7 +3,6 @@ import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import { showModal } from 'utils/wxp';
 import { CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar, valueToText } from 'utils/util';
-import proxy from 'utils/wxProxy';
 const app = getApp();
 Page({
     data: {
@@ -177,7 +176,6 @@ Page({
             items_counts,
             items,
             count,
-            isShowSkuModal: false,
             showOrderOptions: false,
         });
     },
@@ -233,96 +231,27 @@ Page({
         const { formId } = ev.detail;
         this.setData({ formId });
     },
-    // skuModel 弹窗返回数据
-    onAddCart(e) {
-        this.addCart(e.detail);
-        console.log('e209', e.detail);
-    },
 
-    // 餐饮商品选项加车
-    async onAddOptionsCart() {
-        let { currentOrderItems: items } = this.selectComponent('#orderOptions').data;
-        let posts = JSON.stringify(items);
-
-        try {
-            let data = await api.hei.addCart({ posts });
-            await proxy.showToast({ title: '成功添加' });
-            this.reloadCart(data);
-            wx.setStorageSync('CART_NUM', data.count);
-            updateTabbar({ tabbarStyleDisable: true, pageKey: 'product_classify' });
-        } catch (e) {
-            await proxy.showModal({
-                title: '报错提示',
-                content: e.errMsg,
-                showCancel: false,
-            });
-        }
-
-    },
-
-    /* 加车 */
-    async addCart(e) {
-        console.log('e214', e);
-        let { vendor } = app.globalData,
-            { shipping_type_name } = this.data.config;
-        let { id, stock } = e.currentTarget.dataset;
-        if (stock === 0) {
-            await showModal({
-                title: '温馨提示',
-                content: '商品库存为0',
-            });
-            return;
-        }
-        let options = {};
-
-        options.post_id = id;
-        options.sku_id = e.sku_id || 0; // 多规格
-        options.shipping_type = e.shipping_type;
-        options.quantity = e.quantity || 1; // 商品数量
-        options.vendor = vendor;
-        options.form_id = this.data.formId;
-
-        let shippingText = valueToText(shipping_type_name, Number(e.shipping_type));
-        try {
-            const data = await api.hei.addCart(options);
-            wx.showToast({
-                icon: 'none',
-                title: `加入${shippingText}成功`,
-            });
-            this.reloadCart(data);
-            wx.setStorageSync('CART_NUM', data.count);
-            updateTabbar({ tabbarStyleDisable: true, pageKey: 'product_classify' });
-        } catch (ev) {
-            if (ev.code === 'system_error') {
-                return;
-            }
-            await showModal({
-                title: '温馨提示',
-                content: ev.errMsg,
-            });
-        }
-    },
-
-    // 选规格弹窗
-    // leftImage模板
+    // 选规格弹窗 leftImage模板
     async onShowSkuModal(e) {
-        let { PLATFFORM_ENV } = this.data;
-        const { product } = e.currentTarget.dataset;
+        let { PLATFFORM_ENV, products } = this.data,
+            { id } = e.currentTarget.dataset;
+        let product = products.find(item => item.id === id);
+
         if (PLATFFORM_ENV === 'CUILV') {
             const { skus, sku_images, properties } = await api.hei.fetchProductSkus({ post_id: product.id });
             Object.assign(product, { skus, sku_images, properties });
         }
-        this.setData({ selectedProduct: product });
-
-        // 普通SKU商品弹窗
-        let modalKey = 'isShowSkuModal';
-        if (product.product_style_type === 2) {
-            // 餐饮商品弹窗
-            modalKey = 'showOrderOptions';
-        }
         this.setData({
-            [modalKey]: true,
+            selectedProduct: product,
+            showOrderOptions: true,
         });
+    },
+
+    // 加入购物车回调
+    onUpdateCart(e) {
+        let { detail } = e;
+        this.reloadCart(detail);
     },
 
     onHideOrderOptions() {
@@ -330,19 +259,6 @@ Page({
             showOrderOptions: false
         });
     },
-
-    // leftImage 组件 单规格且配送方式只有一种 直接 加入购物车
-    // 单规格但多种配送方式 显示弹窗选择 配送方式
-    // singleAddCart(e) {
-    //     console.log('e262', e);
-    //     const { product } = e.currentTarget.dataset;
-    //     if (product.shipping_types && (product.shipping_types.length === 1)) {
-    //         e.shipping_type = product.shipping_types[0];
-    //         this.addCart(e);
-    //     } else {
-    //         this.isShowSkuModal(e);
-    //     }
-    // },
 
     touchstart(e) {
         this.data.clineX = e.touches[0].clientX;

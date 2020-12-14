@@ -461,23 +461,28 @@ video {
 	}
 }
 
+// 简约模式
 .product-options {
 	margin: 0 15rpx;
 	transform: translateY(-60px);
 	margin-bottom: -110rpx;
 	z-index: 9999;
-	// .options-content {
-	// 	padding: 20rpx 25rpx;
-	// 	margin: 16rpx 0;
-	// 	background-color: #fff;
-	// 	border-radius: 5rpx;
-	// 	.product-title {
-	// 		font-size: 28rpx;
-	// 		line-height: 36rpx;
-	// 		color: black;
-	// 		font-weight: bold;
-	// 	}
-	// }
+	.simple-model-subtitle {
+		font-size: 24rpx;
+		color: #999999;
+		width: 556rpx;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-top: 10rpx;
+	}
+	.simple-model-coupon {
+		margin: 16rpx 0;
+		.simple-coupon-tag {
+			margin-right: 10rpx;
+			--tag-line-height: 20px;
+		}
+	}
 }
 .options-content {
 	margin-top: 20rpx;
@@ -547,6 +552,8 @@ video {
 		    .vipHold {
 				color: $titleColor;
 				font-weight: bold;
+				font-size: 36rpx;
+				line-height: 1.2;
 				.vipLogo {
 					width: 40rpx;
 					height: 25rpx;
@@ -1157,6 +1164,23 @@ button {
 					line-height: 1.5;
 				}
 			}
+			/* 购物车红点 */
+			.orderItemValue {
+				width:28rpx;
+				height:28rpx;
+				border-radius:50%;
+				font-size:17rpx;
+				text-align:center;
+				line-height:28rpx;
+				background-color:#FC2732;
+				position:absolute;
+				right:12rpx;
+				top:8rpx;
+				z-index:2;
+				.cart-number {
+					color:#fff;
+				}
+			}
 
 			.icon {
 				$size: 40rpx;
@@ -1541,21 +1565,6 @@ img,
 .product-card-price{
 	color:$priceColor;
 	font-size: 36rpx;
-}
-/* 红点 */
-.orderItemValue {
-	width:28rpx;
-	height:28rpx;
-	border-radius:50%;
-	font-size:17rpx;
-	color:#fff;
-	text-align:center;
-	line-height:28rpx;
-	background-color:#FC2732;
-	position:absolute;
-	right:12rpx;
-	top:8rpx;
-	z-index:2;
 }
 
 /* 底部弹窗 */

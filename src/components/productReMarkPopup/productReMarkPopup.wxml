@@ -1,0 +1,5 @@
+<van-popup show="{{ show }}" round custom-style="max-height: 80%" bind:close="onCloseRemark" custom-class="product-remark-popup" closeable>
+	<view class="product-remark-title">商品留言</view>
+	<van-empty description="您没有留下任何留言" wx:if="{{ !hsaFormShow }}" />
+	<markForm form="{{ form }}" onlyShow wx:else></markForm>
+</van-popup>

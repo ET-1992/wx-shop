@@ -310,17 +310,11 @@ page{
 	}
 
 }
-// 商品属性选项弹窗按钮
-.product-options {
-	width: 94%;
-	border-radius: 6rpx;
-	.product-options-btn {
-		color: white;
-		font-size: 24rpx;
-		line-height: 70rpx;
-		width: 200rpx;
-		border: none;
-		background-color: #CCCCCC;
-		border-radius: 35rpx;
-	}
+
+// SKU弹窗
+.order-sku-wrap {
+	width: 90%; 
+	// max-height: 80%;
+	// 修改vant样式
+	--popup-round-border-radius: 20rpx;
 }

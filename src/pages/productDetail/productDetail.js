@@ -69,52 +69,53 @@ Page({
         currentTabIndex: 0,  // 当前选中标签
         scrollTop: 0,  // 当前视图的scrollTop
         toScrollTop: 0,  // 跳转的scrollTop
+        scrollEnable: true,  // 页面是否可以垂直滚动
         tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
-        cateringProduct: {
-            selectedPrice: '',
-            selectedString: '',
-        },
+        selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false
     },
 
-    go, // 跳转到规则详情页面
+    go,
 
-    onShowSku(ev) {
-        const { status, individual_buy, product_style_type = 1 } = this.data.product;
+    // 触发右下角按钮
+    async onShowSku(e) {
+        let { product, user } = this.data,
+            { status, individual_buy, product_style_type } = product,
+            { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = e.currentTarget.dataset;
+        // 售罄
         if (status === 'unpublished' || status === 'sold_out') {
             return;
         }
-        const updateData = { isShowActionSheet: true };
-        if (ev) {
-            let { actions, isGrouponBuy = false, isCrowd = false, isBargainBuy = false } = ev.currentTarget.dataset;
-
-            console.log('actions:', actions);
-            console.log('onShowSku isGrouponBuy: ', isGrouponBuy);
-            console.log('onShowSku isCrowd: ', isCrowd);
-            console.log('onShowSku isBargainBuy: ', isBargainBuy);
-
-            // 简约模式
-            if (product_style_type === 2) {
-                this.createCateringProduct(actions);
-                return;
-            }
-
-            // 单独设置商品留言去掉sku加车按钮
-            if (individual_buy) {
-                actions = actions.filter(({ type }) => type !== 'addCart');
-            }
-            updateData.actions = actions;
-            updateData.isGrouponBuy = isGrouponBuy;
-            updateData.isCrowd = isCrowd;
-            updateData.isBargainBuy = isBargainBuy;
+        // 单独设置商品留言去掉sku加车按钮
+        if (individual_buy) {
+            actions = actions.filter(({ type }) => type !== 'addCart');
         }
-        this.setData(updateData, () => {
-            this.setSwiperVideoImg();
-            this.setData({
-                isShowActionSheeted: true
-            });
+        // 专属商品
+        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
+            this.linktoOpenMemberModal();
+            return;
+        }
+
+        // 简约模式
+        if (product_style_type === 2) {
+            let component = this.selectComponent('#orderOptions');
+            // 购买/加车
+            await component.onQuickCreate(actions);
+            return;
+        }
+
+        // 普通模式
+        let isShowActionSheet = true;
+        this.handleCloseVideo();
+        this.setData({
+            isShowActionSheet,
+            actions,
+            isGrouponBuy,
+            isCrowd,
+            isBargainBuy,
         });
+
     },
 
     // 倒计时初始化
@@ -328,7 +329,8 @@ Page({
             product.showOriginalPrice = product.price !== product.original_price;
         }
         this.setData({
-            product,
+            'product.definePrice': product.definePrice,
+            'product.showOriginalPrice': product.showOriginalPrice,
         });
     },
 
@@ -407,50 +409,23 @@ Page({
         });
         this.onShowSku();
     },
+
     // 加入购物车
-    async addCart() {
-        console.log('addCart');
-        const { vendor } = app.globalData;
-        console.log('shipping_type', this.data.shipping_type, typeof this.data.shipping_type);
-        const { user, product, product: { id, is_faved }, selectedSku, quantity, formId, shipping_type } = this.data;
+    async addCart(data) {
+        let { product: { id, is_faved }} = this.data;
 
-        // 非会员不能购买会员专属商品 加入购物车
-        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
-            this.linktoOpenMemberModal();
-            return;
-        }
+        // 更新红点
+        wx.setStorageSync('CART_NUM', data.count);
+        this.showCartNumber(data);
 
-        if (selectedSku.stock === 0) {
-            await proxy.showModal({
-                title: '温馨提示',
-                content: '无法购买库存为0的商品',
-            });
-            return;
-        }
-
-        const data = await api.hei.addCart({
-            post_id: id,
-            sku_id: selectedSku.id || 0,
-            quantity,
-            vendor,
-            form_id: formId,
-            shipping_type
-        });
-        console.log('data348', data);
-        if (!data.errcode) {
-            await proxy.showToast({ title: '成功添加' });
-            // 更新红点
-            this.showCartNumber(data.count);
-
-            // 收藏商品
-            if (!is_faved) {
-                const res = await api.hei.favProduct({ post_id: id });
-                if (!res.errcode) {
-                    product.is_faved = 1;
-                    this.setData({
-                        product
-                    });
-                }
+        // 收藏商品
+        if (!is_faved) {
+            const res = await api.hei.favProduct({ post_id: id });
+            if (!res.errcode) {
+                is_faved = 1;
+                this.setData({
+                    'product.is_faved': is_faved,
+                });
             }
         }
     },
@@ -477,7 +452,6 @@ Page({
     async onBuy() {
         console.log('onBuy');
         const {
-            user,
             product,
             quantity,
             selectedSku,
@@ -487,16 +461,12 @@ Page({
             isBargainBuy,
             isCrowd,
             shipping_type,
-            bargain_mission
+            bargain_mission,
+            currentSpecial,
+            currentRelation,
         } = this.data;
 
         console.log('shipping_type393', shipping_type);
-
-        // 非会员不能购买会员专属商品 立即购买
-        if (user.membership && !user.membership.is_member && product.membership_dedicated_enable) {
-            this.linktoOpenMemberModal();
-            return;
-        }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
         let { product_type } = product;
@@ -554,7 +524,11 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
-            isBargainBuy
+            isBargainBuy,
+            currentSpecial,
+            currentRelation,
+            selectedOptions: this._selectedOptions,
+            remarks: this._remarks,
         });
 
         app.globalData.currentOrder = currentOrder;
@@ -591,51 +565,16 @@ Page({
         });
     },
 
-    // 餐饮商品选择数量
+    // 简约模式选择数量
     onProductQuantity(e) {
-        let { detail } = e;
-        this.setData({
-            productQuantity: detail,
-        });
+        let { detail: productQuantity } = e;
+        this.setData({ productQuantity });
     },
 
-    // 餐饮商品改变选项
-    onCateringProductOption(e) {
-        let { detail } = e;
-        this.setData({ cateringProduct: detail });
-    },
-
-    // 创建餐饮商品订单
-    async createCateringProduct(actions) {
-        let { currentOrderItems: items, shipping_type } = this.selectComponent('#orderOptions').data;
-        // 兼容拼团/砍价的单独购买
-        let index = actions.findIndex(item => item.type === 'onBuy');
-
-        try {
-            if (index > -1) {
-                // 购买
-                let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
-                app.globalData.currentOrder = {
-                    items: items
-                };
-                wx.navigateTo({ url });
-            } else {
-                // 加车
-                let posts = JSON.stringify(items);
-                let data = await api.hei.addCart({ posts });
-                if (!data.errcode) {
-                    await proxy.showToast({ title: '成功添加' });
-                    this.showCartNumber(data.count);
-                }
-            }
-        } catch (e) {
-            let { message, errMsg } = e;
-            wx.showModal({
-                title: '出错提示',
-                content: errMsg || message,
-                showCancel: false,
-            });
-        }
+    // 简约模式选择规格
+    onOptionChange(e) {
+        let { detail: selectedOptions } = e;
+        this.setData({ selectedOptions });
     },
 
     onReady() {
@@ -715,26 +654,38 @@ Page({
     //     return;
     // },
 
-    async onSkuConfirm(e) {
-        console.log(e);
-        const { actionType, selectedSku, quantity, formId } = e.detail;
-        this.setData({
-            selectedSku,
-            quantity,
-            formId
-        });
-        this[actionType]();
-        this.onSkuCancel();
+    // SKU确认 组件回调
+    async onSkuConfirm({ detail }) {
+        let { actionType, queryData } = detail;
+        if (actionType === 'addCart') {
+            this.addCart(queryData);
+        } else {
+            const {
+                selectedSku,
+                quantity,
+                currentSpecial,
+                currentRelation,
+                selectedOptions,
+                remarks,
+            } = queryData;
+            this.setData({
+                selectedSku,
+                quantity,
+                currentSpecial,
+                currentRelation,
+            });
+            this._selectedOptions = selectedOptions;
+            this._remarks = remarks;
+            // onBuy/onGivingGift
+            this[actionType]();
+            this.onSkuCancel();
+        }
     },
 
-    // async submitFormId(ev) {
-    //     await api.hei.submitFormId({
-    //         form_id: ev.detail.formId,
-    //     });
-    // },
-
-    async showCartNumber(count) {
-        wx.setStorageSync('CART_NUM', count);
+    // 更新购物车数量红点
+    async showCartNumber(e) {
+        let data = e.detail || e;
+        let { count } = data;
         this.setData({
             cartNumber: Number(count)
         });
@@ -754,7 +705,8 @@ Page({
         return onDefaultShareAppTimeline.call(this);
     },
 
-    setSwiperVideoImg() { // 调起面板时 关闭组件视频
+    // 关闭视频
+    handleCloseVideo() {
         const swiperVideoImg = this.selectComponent('#swiperVideoImg');
         if (swiperVideoImg && swiperVideoImg.data.type === 'video') {
             swiperVideoImg.setData({
@@ -877,13 +829,11 @@ Page({
         }
     },
 
-    // 从 SKUModel 组件获取配送方式 shipping_type
+    // 物流选项组件回调
     getShippingType(e) {
-        console.log('e690', e);
-        this.setData({
-            shipping_type: e.detail.shipping_type
-        });
-        console.log('shipping_type696', this.data.shipping_type);
+        let { shipping_type } = e.detail;
+        // console.log('shipping_type696', shipping_type);
+        this.setData({ shipping_type });
     },
 
     async bindGetUserInfo(e) {
@@ -1207,6 +1157,13 @@ Page({
         let tabsComponent = this.selectComponent('#tabs');
         let { tabsBottom = 0 } = tabsComponent.data;
         this._tabsBottom = tabsBottom;
+    },
+
+    // 留言表单聚焦/失焦
+    onChangeFormFocus(e) {
+        let { isFocused } = e.detail;
+        let scrollEnable = !isFocused;
+        this.setData({ scrollEnable });
     },
 
 });

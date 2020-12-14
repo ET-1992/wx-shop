@@ -38,6 +38,7 @@
 				</block>
 			</view>
 			<view class="tagWrapper {{config && config.cart_enable ? 'show' : ''}}">
+				<!-- 未开启首页显示购物车按钮 -->
 				<block wx:if="{{ !(config && config.cart_enable) }}">
 					<!-- 会员价商品显示 -->
 					<view class="ItemPrice" wx:if="{{ product.membership_price_enable }}">
@@ -46,11 +47,11 @@
 					<!-- 普通 或 会员专属 商品显示 -->
 					<view wx:if="{{ !product.membership_price_enable }}">已售:{{ product.sales }}</view>
 				</block>
+
+				<!-- 开启首页显示购物车按钮 -->
 				<block wx:if="{{ config && config.cart_enable }}">
-					<!-- 金币商品 -->
-					<view class="coin-product" wx:if="{{ product.product_type === 4 || product.product_style_type === 2 }}">已售:{{ product.sales }}</view>
-					<!-- 开启首页显示购物车按钮 排除虚拟商品-->
-					<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ (product.product_type !== 4) && (product.product_style_type !== 2) && (product.product_type !== 1)}}">
+					<!-- 排除金币商品、虚拟商品 售罄商品 -->
+					<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ product.product_type !== 4 && product.product_type !== 1 && product.status !== 'sold_out'}}">
 						<image class="icon" src="/icons/cart.svg" />
 					</view>
 				</block>

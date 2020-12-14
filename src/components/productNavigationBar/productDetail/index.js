@@ -1,11 +1,20 @@
 import { CONFIG } from 'constants/index';
 import { autoNavigate_ } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
 
 Component({
     properties: {
         showBgColor: {
             type: Boolean,
             value: false
+        },
+        background: {
+            type: String,
+            value: '255, 255, 255'
+        },
+        color: {
+            type: String,
+            value: 'rgba(0, 0, 0, 1)'
         },
     },
     data: {
@@ -29,8 +38,13 @@ Component({
     },
     methods: {
         // 左上角返回
-        handlerGoback() {
-            wx.navigateBack();
+        async handlerGoback() {
+            try {
+                await wxProxy.navigateBack();
+            } catch (e) {
+                let url = '/pages/home/home';
+                autoNavigate_({ url });
+            }
         },
 
         // 左上角菜单

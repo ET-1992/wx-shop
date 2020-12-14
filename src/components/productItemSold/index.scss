@@ -37,7 +37,16 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
-                word-break: break-all;
+				word-break: break-all;
+				position: relative;
+				.name-left {
+					padding-right: 40rpx;
+				}
+				.name-right {
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
 			}
 			.itemName-crowd, .itemName-inviteCrowd{
 				font-size: 28rpx;

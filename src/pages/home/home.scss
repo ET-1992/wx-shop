@@ -38,3 +38,10 @@ page {
 .multiStore {
     display: none;
 }
+
+// SKU弹窗
+.product-sku-wrap {
+    width: 90%; 
+	// 修改vant样式
+	--popup-round-border-radius: 20rpx;
+}

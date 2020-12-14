@@ -62,7 +62,8 @@ export const pageObj = {
             title: '',
             id: 0,
             type: 'product'
-        }
+        },
+        selectedProduct: {},  // 加车商品
     },
 
     async onLoad(params) {
@@ -257,6 +258,22 @@ export const pageObj = {
         const { categoryId } = this.data;
         return onDefaultShareAppMessage.call(this, {
             categoryId
+        });
+    },
+
+    // 商品加车
+    onAddProductCart(e) {
+        let { product } = e.detail;
+        this.setData({
+            selectedProduct: product,
+            showOrderOptions: true,
+        });
+    },
+
+    // 隐藏商品加车
+    onHideOrderOptions() {
+        this.setData({
+            showOrderOptions: false
         });
     },
 };

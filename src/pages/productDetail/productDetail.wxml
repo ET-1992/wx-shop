@@ -8,7 +8,7 @@
 <!-- 骨架屏 -->
 <skeleton wx:if="{{ isLoading }}" isIphoneX="{{ isIphoneX }}" hasBanner="{{ false }}" themeColor="{{ themeColor }}" />
 <!-- 商品详情主内容 -->
-<scroll-view class="product-main" wx:else scroll-y enable-back-to-top scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
+<scroll-view class="product-main" wx:else scroll-y="{{ scrollEnable }}" enable-back-to-top scroll-top="{{ toScrollTop }}" bindscroll="handlePageScroll">
   <view class="container {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <!-- 商品内容 -->
     <view class="observer-tab" id="goods">
@@ -160,10 +160,21 @@
           <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
         </view>
       </view>
-      <!-- 商品下单选项 -->
+      <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
-          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" customBottom bindchangeoption="onCateringProductOption"></orderOptions>
+          <orderOptions id="orderOptions" product="{{ product }}" quantity="{{ productQuantity }}" bind:option-change="onOptionChange" bind:shipping-change="getShippingType" bind:add-cart="showCartNumber" bind:change-form-focus="onChangeFormFocus">
+            <view slot="product-detail">
+              <!-- 商品副标题 -->
+              <view class="simple-model-subtitle">{{ product.excerpt }}</view>
+              <!-- 可领/领取优惠券 -->
+              <view class="simple-model-coupon" bind:tap="onShowCouponList" wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
+                <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ receivableCoupons.length ? receivableCoupons : receivedCoupons }}" wx:key="id">
+                  <text>{{ item.title || '-' }}</text>
+                </van-tag>
+              </view>
+            </view>
+          </orderOptions>
         </view>
       </block>
       <block wx:else>
@@ -186,7 +197,7 @@
               <view wx:if="{{ product.membership_dedicated_enable }}" class="vipHold">
                 <image src="/icons/vipLogo.svg" class="vipLogo"></image>
                 <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
-                {{ product.price }}
+                <text>{{ product.price }}</text>
               </view>
               <!-- 非会员专属 -->
               <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) }}">
@@ -285,22 +296,17 @@
           <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
             <!-- 优惠券-非拼团商品 -->
             <view wx:if="{{ !(product.groupon_enable && grouponId) }}" class="coupons" catchtap="onShowCouponList">
-              <!-- <form bindsubmit="submitFormId" report-submit="true">
-							<button formType="submit"> </button>
-						</form> -->
               <view class="couponBtn">领券</view>
-              <!-- 可领取 -->
+              <!-- 可领取 最多显示三个 -->
               <block wx:if="{{ receivableCoupons.length }}">
-                <!-- 最多显示三个 -->
                 <view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3 }}">
-                  {{ item.title }}
+                  <text>{{ item.title }}</text>
                 </view>
               </block>
-              <!-- 已领取 -->
+              <!-- 已领取 凑满三个 -->
               <block wx:if="{{ receivableCoupons.length < 3 && receivedCoupons.length }}">
-                <!-- 凑满三个 -->
                 <view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 3 - receivedCoupons.length }}">
-                  {{ item.title }}
+                  <text>{{ item.title }}</text>
                 </view>
               </block>
             </view>
@@ -440,18 +446,19 @@
   <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
     <view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
     <view class="unpublishedHint" wx:elif="{{ product.status === 'unpublished' }}">商品已经下架啦~</view>
-    <!-- 餐饮商品 数量选择 -->
+    <!-- 简约模式SKU选择 -->
     <view class="catering-order-end" wx:elif="{{ product.product_style_type === 2 }}">
       <view class="end-left">
         <view class="left-price">
           <text>￥</text>
-          <text>{{ cateringProduct.selectedPrice || '-' }}</text>
+          <text>{{ selectedOptions.price || '-' }}</text>
         </view>
         <view class="left-options">
           <text class="left-options-title">{{ product.title || '-' }}</text>
-          <text>{{ cateringProduct.selectedString }}</text>
+          <text>{{ selectedOptions.content }}</text>
         </view>
       </view>
+      <!-- 简约模式数量 -->
       <view class="end-right">
         <van-stepper value="{{ 1 }}" bind:change="onProductQuantity" />
       </view>
@@ -467,7 +474,7 @@
         <block>
           <view class="cart" data-url="/pages/cart/cart" bind:tap="go">
             <view class="orderItemValue" wx:if="{{ cartNumber && cartNumber !== 0}}">
-              {{ cartNumber }}
+              <text class="cart-number">{{ cartNumber }}</text>
             </view>
             <image class="icon" src="../../icons/shopcart.png" />
             <text>购物车</text>
@@ -548,12 +555,14 @@
     </view>
   </view>
   <!-- 代付按钮 -->
-  <block wx:if="{{ !product.seckill_enable || (hasStart && !hasEnd) }}">
-    <!-- 秒杀-未开始或过期隐藏 -->
-    <view wx:if="{{ config.crowd_pay_enable && product.product_type !== 1 && !product.bargain_enable && product.product_style_type !==2 }}" class="crowdBtn {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}">
-      <image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
-    </view>
-  </block>
+  <view class="float-btn {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || (hasStart && !hasEnd)) }}">
+    <!-- 限时购/砍价/虚拟商品/简约模式不支持 -->
+    <block wx:if="{{ product.product_type !== 1 && !product.bargain_enable && product.product_style_type !==2 }}">
+      <view class="crowdBtn" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}">
+        <image src="/icons/crowd/crowdBtn.svg" mode="aspectFit" />
+      </view>
+    </block>
+  </view>
 </scroll-view>
 <!-- 领券弹窗 -->
 <van-popup show="{{ isShowCouponList }}" position="bottom" bind:close="onHideCouponList">
@@ -639,7 +648,7 @@
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 <myModal modal="{{authModal}}" />
-<skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:getShippingType="getShippingType" />
+<skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="{{ posterType }}" bindonClose="onClosePoster" />
 <wxs module="productDetail">
   var formatValue = function(value, num) {

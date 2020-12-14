@@ -17,6 +17,8 @@
     "storeList": "components/storeList/storeList",
     "skuModal": "components/skuModal/skuModal",
     "van-count-down": "@vant/weapp/dist/count-down/index",
-    "poster": "components/poster/index"
+    "poster": "components/poster/index",
+    "markForm": "components/markForm/markForm"
+
   }
 }

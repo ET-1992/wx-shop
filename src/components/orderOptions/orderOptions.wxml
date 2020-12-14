@@ -1,44 +1,28 @@
 <view class="container">
-	<view class="product-title">{{ product.title || '-' }}</view>
-	<view class="product-subtitle">{{ product.excerpt || '-' }}</view>
+	<view class="product-title" style="text-align: {{ titleCenter ? 'center' : 'left' }}">{{ product.title || '-' }}</view>
+	<!-- <view class="product-subtitle">{{ product.excerpt }}</view> -->
+	<slot name="product-detail"></slot>
 	<view class="product-options">
-		<view class="option-wrap" wx:for="{{ optionList }}" 
-			wx:key="index">
-			<text class="option-name">{{ item.name || '-' }}</text>
-			<!-- 属性项 -->
-			<view class="option-values">
-				<button class="value-btn {{ value === seletedList[index].value ? 'value-btn-avtived' : '' }}"
-					style="background: {{ value === seletedList[index].value ? themeColor.primaryColor : ''}}"
-					wx:for="{{ item.values }}" wx:for-item="value" 
-					wx:for-index="subIndex" wx:key="subIndex" 
-					bind:tap="onSeletedRadio" data-index="{{ index }}" 
-					data-value="{{ value }}">{{ value }}</button>
-			</view>
+		<skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
+		<view class="product-remark" wx:if="{{ product.product_annotation.length }}">
+			<view class="remark-title">商品留言</view>
+			<markForm id="mark-form" form="{{ product.product_annotation }}"></markForm>
 		</view>
-		<view class="option-wrap">
-			<text class="option-name">配送方式</text>
-			<view class="option-values">
-				<button class="value-btn {{ item.checked ? 'value-btn-avtived' : '' }}"
-					style="background: {{ item.checked ? themeColor.primaryColor : ''}}"
-					wx:for="{{ liftStyles }}" wx:key="index" 
-					bind:tap="onSeletedShippingType"
-					data-value="{{ item.value }}">{{ item.text }}</button>
-			</view>
-		</view>
+		<skuLogistics product="{{product}}" bind:shipping-change="getShippingType" />
 	</view>
-	<view class="order-end" wx:if="{{ !customBottom }}">
+	<view class="order-end" wx:if="{{ hasBottom }}">
 		<view class="end-left">
 			<view class="left-price">
 				<text>￥</text>
-				<text>{{ selectedPrice || '-' }}</text>
+				<text>{{ selectedOptions.price || '-' }}</text>
 			</view>
 			<view class="left-options">
 				<text class="left-options-title">{{ product.title || '-' }}</text>
-				<text>{{ selectedString }}</text>
+				<text>{{ selectedOptions.content }}</text>
 			</view>
 		</view>
 		<view class="end-right">
-			<slot name="end-right"></slot>
+			<button class="product-options-btn" style="background:{{ themeColor.primaryColor }}" bind:tap="onAddCart">加入购物车</button>
 		</view>
 	</view>
 </view>

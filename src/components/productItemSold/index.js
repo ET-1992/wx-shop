@@ -66,4 +66,22 @@ Component({
             config
         });
     },
+    methods: {
+        // 展示商品留言
+        onShowProductRemark(e) {
+            let { index } = e.currentTarget.dataset,
+                { products } = this.data;
+
+            let { remarks } = products[index].product_annotation;
+            this.setData({
+                isShowRemark: true,
+                currentRemark: remarks,
+            });
+        },
+
+        // 关闭商品留言
+        onCloseRemark() {
+            this.setData({ isShowRemark: false });
+        },
+    }
 });

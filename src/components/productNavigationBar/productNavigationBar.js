@@ -1,5 +1,5 @@
 import { CONFIG } from 'constants/index';
-import { go } from 'utils/util';
+import { go, colorRgb } from 'utils/util';
 const app = getApp();
 
 Component({
@@ -8,11 +8,6 @@ Component({
         navType: {
             type: String,
             value: ''
-        },
-        // 导航栏背景色
-        backgroundRgb: {
-            type: String,
-            value: '255,255,255'
         },
         // 是否显示搜索框
         showSearchBox: {
@@ -52,20 +47,20 @@ Component({
         // 获取页面配置信息
         getConfigData() {
             const config = wx.getStorageSync(CONFIG);
-            const { themeColor } = app.globalData;
+            const { themeColor, themeColor: { backgroundColor }} = app.globalData;
+            const backgroundRgb = colorRgb(backgroundColor);
             this.setData({
                 globalData: app.globalData,
                 config,
-                themeColor
+                themeColor,
+                backgroundRgb,
             });
         },
 
         // 获取子组件数据
         getChildComponent() {
-            const child = this.selectComponent('#navigationBar');
-            if (!child || !child.data) { return }
-            let { capsulePosition } = child.data,
-                { windowWidth } = getApp().globalSystemInfo;
+            // 这里直接获取子组件有可能获取不到capsulePosition，直接在app.globalSystemInfo获取
+            let { windowWidth, capsulePosition } = getApp().globalSystemInfo;
             let rightDistance = windowWidth - capsulePosition.right;
             let navBarLeft = [
                 `width:${capsulePosition.width}px`,

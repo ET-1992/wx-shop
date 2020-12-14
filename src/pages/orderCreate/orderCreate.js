@@ -191,6 +191,7 @@ Page({
         wx.navigateTo({ url });
     },
 
+    // 使用优惠券
     async getCouponId() {
         const { coupons } = this.data;
         wx.setStorageSync('orderCoupon', coupons);
@@ -199,6 +200,16 @@ Page({
         });
     },
 
+    // 使用优惠码
+    async onDiscountCode(e) {
+        let { code } = e.detail;
+        this._discountCode = code;
+        wx.showLoading();
+        await this.onLoadData();
+        wx.hideLoading();
+    },
+
+    // 选择优惠券回调
     getCouponIdEvent(data) {
         this.setData({
             user_coupon_ids: (data && data.user_coupon_id) || -1
@@ -244,7 +255,7 @@ Page({
             chooseAreaId: data[0].id,
             free_shipping_amount: data[0] && data[0].free_amount
         }, () => {
-            this.onLoadData(data[0].id);
+            this.onLoadData();
         });
     },
 
@@ -274,6 +285,7 @@ Page({
                 bargain_mission_code,
                 liftInfo,
                 product_type,
+                chooseAreaId,
             } = this.data;
             let requestData = {};
             if (address) {
@@ -305,7 +317,7 @@ Page({
 
             if (shipping_type === 4) { // 送货上门
                 // requestData.receiver_address_name = params;
-                requestData.delivery_store_id = params; // 配送地区id
+                requestData.delivery_store_id = chooseAreaId; // 配送地区id
             }
 
             if (seckill) { // 秒杀
@@ -326,6 +338,9 @@ Page({
                 // 电子卡券 不能加车
                 requestData.promotion_type = items[0].order_promotion_type;
             }
+
+            // 优惠码
+            requestData.discount_code = this._discountCode || '';
 
             requestData.shipping_type = Number(shipping_type);
 
@@ -394,6 +409,10 @@ Page({
                 }
             }
 
+            // 设置订单留言
+            if (!this.data.order_annotation) {
+                this.setData({ order_annotation });
+            }
 
             // 花生米是否可用：花生米开启 并且 订单总额 - 邮费 满足 order_least_cost
             let shouldGoinDisplay = coin_in_order.enable && (coin_in_order.order_least_cost <= fee.amount - fee.postage);
@@ -428,7 +447,6 @@ Page({
                 isHaveUseCoupon: (coupons.available && coupons.available.length > 0),
                 isPeanutPay: use_platform_pay || '',
                 isDisablePay: false,
-                order_annotation,
                 product_type,
                 payment_tips,
                 store_card,
@@ -490,7 +508,6 @@ Page({
             useCoin,
             shouldGoinDisplay,
             liftInfo,
-            order_annotation,
             product_type,
             selectedPayValue,
             store_card,
@@ -509,6 +526,8 @@ Page({
             postalCode,
             nationalCode,
             detailInfo,
+            latitude,
+            longitude,
             room,
         } = address;
         const { vendor, afcode } = app.globalData;
@@ -554,6 +573,8 @@ Page({
             receiver_district: countyName || '',
             receiver_address: detailInfo || '',
             receiver_zipcode: postalCode || '',
+            longtitude: longitude || '',
+            latitude: latitude || '',
             room: room || '',
             buyer_message: buyerMessage,
             form_id: formId,
@@ -564,29 +585,15 @@ Page({
 
         let queryData = {}; // 接口url带的get参数
 
-        if (order_annotation && order_annotation.length > 0) {
-            const orderForm = this.selectComponent('#orderForm');
-            const { annotation, dns_obj } = orderForm.data;
-            annotation.forEach((item, index) => {
-                if (item.required && (!dns_obj[item.name] || !dns_obj[item.name].length)) {
-                    item.isError = true;
-                }
-            });
-            this.setData({
-                order_annotation: annotation
-            });
-            const error = annotation.filter((item) => {
-                return (item.isError === true);
-            });
-            if (error.length > 0) {
-                wx.showModal({
-                    title: '提示',
-                    content: '请检查留言信息，带*号为必填项',
-                    showCancel: false,
-                });
+        // 订单留言
+        let component = this.selectComponent('#mark-form');
+        if (component) {
+            try {
+                let remarks = component.handleValidate();
+                requestData.annotation = remarks ? JSON.stringify({ remarks }) : '';
+            } catch (e) {
+                console.log('e', e);
                 return;
-            } else {
-                requestData.annotation = JSON.stringify({ remarks: dns_obj });
             }
         }
 
@@ -609,6 +616,7 @@ Page({
             requestData.coins = useCoin;
         }
 
+        requestData.discount_code = this._discountCode || '';
         requestData.shipping_type = shipping_type;
         // 自提需传数据
         if (shipping_type === 2) {

@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
-import { updateTabbar, autoNavigate, getAgainUserForInvalid } from 'utils/util';
+import { updateTabbar, autoNavigate, getAgainUserForInvalid, go } from 'utils/util';
 
 const app = getApp();
 
@@ -64,6 +64,8 @@ Page({
         await this.loadCart();
     },
 
+    go,
+
     async loadCart() {
         const { shipping_type, liftStyles } = this.data;
         console.log('shipping_type', shipping_type, typeof shipping_type, 'liftStyles', liftStyles);
@@ -75,7 +77,7 @@ Page({
         let isAllSelected = false;
         items.forEach((item) => {
             if (item.status !== 0 && item.stock !== 0) {
-                isSelectedObject[item.id] = lastSelectedArray ? lastSelectedArray[item.id] || false : false;
+                isSelectedObject[item.cart_item_id] = lastSelectedArray ? lastSelectedArray[item.cart_item_id] || false : false;
             }
         });
         isAllSelected = this.checkAllSelected(isSelectedObject);
@@ -100,10 +102,12 @@ Page({
         return Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]) && !Object.keys(isSelectedObject).filter(item => !isSelectedObject[item]).length > 0;
     },
 
-    onHandleItemSelect(e) {
-        let { itemId } = e.currentTarget.dataset;
-        let { isSelectedObject, isAllSelected } = this.data;
-        isSelectedObject[itemId] = !isSelectedObject[itemId];
+    // 选择购买商品
+    onChangeProcut(e) {
+        let { detail, currentTarget: { dataset: { cartId }}} = e,
+            { isSelectedObject, isAllSelected } = this.data;
+
+        isSelectedObject[cartId] = detail;
         isAllSelected = this.checkAllSelected(isSelectedObject);
         this.setData({
             isSelectedObject,
@@ -111,6 +115,7 @@ Page({
         });
         this.calculatePrice();
     },
+
     // 全选商品逻辑
     onSelectAll() {
         let { isSelectedObject, isAllSelected } = this.data;
@@ -124,29 +129,36 @@ Page({
         });
         this.calculatePrice();
     },
-    // 更新购物车数据
-    async updateCart({ detail }) {
-        console.log(detail);
-        const { items = [], shipping_type } = this.data;
-        const { vendor } = app.globalData;
-        const { value, postId, skuId, cartIndex: index } = detail;
 
-        let seletedItem = items[index];
+    // 更新购物车数量信息
+    async onUpdateQuantity(e) {
+        // console.log('e', e);
+        let { detail, currentTarget: { dataset: { cartId }}} = e,
+            { vendor } = app.globalData,
+            { items = [], shipping_type } = this.data;
+
+        let quantity = Number(detail);
+        let index = items.findIndex(item => item.cart_item_id === cartId);
+        let { post_id, sku_id } = items[index];
         let requestData = {
-            post_id: postId,
-            sku_id: skuId,
-            quantity: value,
+            post_id,
+            sku_id,
+            quantity,
             vendor,
             shipping_type,
-            cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+            cart_item_id: cartId,
         };
-        await api.hei.updateCart(requestData);
-
-        const updateData = {};
-        const quantitykey = `items[${index}].quantity`;
-        updateData[quantitykey] = value;
-        this.setData(updateData);
-        this.calculatePrice();
+        try {
+            await api.hei.updateCart(requestData);
+            this.setData({ [`items[${index}].quantity`]: quantity });
+            this.calculatePrice();
+        } catch (e) {
+            wx.showModal({
+                title: '温馨提示',
+                content: e.errMsg,
+                showCancel: false,
+            });
+        }
     },
     // 删除某一购物车商品逻辑
     async onDelete(e) {
@@ -159,12 +171,12 @@ Page({
             confirmColor: '#dc143c',
         });
         if (confirm) {
-            let seletedItem = items[index];
+            let { cart_item_id } = items[index];
             let requestData = {
                 post_id: postId,
                 sku_id: skuId,
                 shipping_type,
-                cart_item_id: seletedItem.id,  // 餐饮商品标识ID
+                cart_item_id,
             };
 
             const data = await api.hei.removeCart(requestData);
@@ -210,19 +222,6 @@ Page({
         }
     },
 
-    // 跳转到预下单页
-    async onCreateOrder() {
-        const { shipping_type } = this.data;
-        const { items, isSelectedObject } = this.data;
-        const selectdItems = items.filter((item) => isSelectedObject[item.id]);
-        app.globalData.currentOrder = {
-            items: selectdItems,
-            totalPostage: this.data.totalPostage
-        };
-        wx.navigateTo({
-            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
-        });
-    },
     // 用户授权之后才能下单
     async bindGetUserInfo(e) {
         console.log(e);
@@ -239,13 +238,26 @@ Page({
         }
     },
 
+    // 跳转到预下单页
+    async onCreateOrder() {
+        const { shipping_type, items, isSelectedObject, totalPostage } = this.data;
+        const selectdItems = items.filter((item) => isSelectedObject[item.cart_item_id]);
+        app.globalData.currentOrder = {
+            items: selectdItems,
+            totalPostage,
+        };
+        wx.navigateTo({
+            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
+        });
+    },
+
     calculatePrice() {
         const { items, nowTS, isSelectedObject } = this.data;
         let totalPrice = 0;
         let savePrice = 0;
         let totalPostage = 0;
         items.forEach((item) => {
-            if (isSelectedObject[item.id]) {
+            if (isSelectedObject[item.cart_item_id]) {
                 const { price, original_price, quantity, postage, miaosha_end_timestamp, miaosha_start_timestamp, miaosha_price } = item;
                 const isMiaoshaStart = nowTS >= miaosha_start_timestamp;
                 const isMiaoshaEnd = nowTS >= miaosha_end_timestamp;
@@ -260,7 +272,7 @@ Page({
         savePrice = savePrice.toFixed(2);
         totalPostage = totalPostage.toFixed(2);
 
-        let isShouldPay = items.filter((item) => isSelectedObject[item.id]) && items.filter((item) => isSelectedObject[item.id]).length > 0;
+        let isShouldPay = items.filter((item) => isSelectedObject[item.cart_item_id]) && items.filter((item) => isSelectedObject[item.cart_item_id]).length > 0;
 
         this.setData({ totalPrice, savePrice, totalPostage, isShouldPay });
     },
@@ -301,5 +313,22 @@ Page({
         });
         console.log('liftStyleIndex323', index, 'shipping_type', this.data.shipping_type);
         this.loadCart();
+    },
+
+    // 展示商品留言
+    onShowProductRemark(e) {
+        let { index } = e.currentTarget.dataset,
+            { items } = this.data;
+
+        let { remarks } = items[index].product_annotation;
+        this.setData({
+            isShowRemark: true,
+            currentRemark: remarks,
+        });
+    },
+
+    // 关闭商品留言
+    onCloseRemark() {
+        this.setData({ isShowRemark: false });
     },
 });

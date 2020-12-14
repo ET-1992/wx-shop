@@ -40,9 +40,16 @@
                     </view>
                 </view>
             </view>
-            <view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
-                {{config && config.cart_text || '立即抢购'}}
-            </view>
+
+            <!-- 虚拟商品 -->
+            <view wx:if="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="cart" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
+            <!-- 其他商品 -->
+            <block wx:else>
+                <!-- 开启首页显示购物车按钮 -->
+                <view class="cart" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即抢购'}}</view>
+                <!-- 未开启首页显示购物车按钮 -->
+                <view class="cart" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即抢购'}}</view>
+            </block>
         </view>
     </view>
 </navigator>

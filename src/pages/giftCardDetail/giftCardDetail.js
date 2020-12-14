@@ -106,9 +106,12 @@ Page({
             });
         } catch (e) {
             wx.hideLoading();
+            let { errMsg, errcode } = e;
+            // 跳过手机绑定报错
+            if (errcode === 'bind_required') { return }
             await proxy.showModal({
                 title: '温馨提示',
-                content: e.errMsg,
+                content: errMsg,
                 showCancel: false,
             });
             wx.switchTab({

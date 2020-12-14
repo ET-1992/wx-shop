@@ -1,0 +1,67 @@
+<!-- 商品/订单留言表单 -->
+<view class="container">
+  <view class="form-content" wx:for="{{ showForm }}" wx:key="index">
+    <view class="form-item">
+      <view class="form-item-left">
+        <view class="form-title">
+          <text class="form-required" wx:if="{{ !onlyShow && item.required }}">*</text>
+          <text>{{ item.name || '-' }}</text>
+        </view>
+      </view>
+      <view class="form-item-right">
+        <!-- 复选框 -->
+        <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
+          <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+            <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap" checked-color="{{ themeColor.primaryColor }}">
+              <text>{{ option || '-' }}</text>
+            </van-checkbox>
+          </van-checkbox-group>
+        </view>
+        <!-- 日期/时间/下拉选择 -->
+        <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}">
+          <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
+            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="{{ onlyShow ? '' : '请选择'+item.name }}" />
+          </picker>
+        </view>
+        <!-- 图片上传 -->
+        <view class="form-upload" wx:elif="{{ item.type === 'img' }}">
+          <van-uploader file-list="{{ item.value || [] }}" bind:after-read="onAfterRead" max-count="1" bind:delete="onFileDelete" data-name="{{ item.name }}" disabled="{{ onlyShow }}" deletable="{{ !onlyShow }}" />
+        </view>
+        <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
+        <view class="form-field" wx:elif="{{ item.type === 'text' }}">
+          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap" border="" autosize="{{ { maxHeight: 24, minHeight: 24 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+        </view>
+        <!-- 输入框 -->
+        <view class="form-field" wx:else>
+          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- type: text          => 输入框,
+  type: textarea      => 文本框,
+  type: checkbox      => 复选框,
+  type: number        => 数字输入框,
+  type: email         => 邮件输入框,
+  type: date          => 日期选择框,
+  type: time          => 时间选择框,
+  type: select        => 下拉选择框,
+  type: id_number     => 中国大陆身份证号,
+  type: phone_number  => 中国大陆手机号码,
+  type: img           => 上传图片, -->
+<wxs module="markForm">
+  var changeType = function (type){
+    if(type === 'id_number') {
+      type = 'idcard';
+    } else if(type === 'phone_number' || type === 'number') {
+      type = 'number';
+    } else if(type === 'text' || type === 'email') {
+      type = 'text';
+    }
+    return type
+  };
+  module.exports = {
+    changeType: changeType,
+  };
+</wxs>
