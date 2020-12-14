@@ -18,7 +18,7 @@
     "skuModal": "components/skuModal/skuModal",
     "van-count-down": "@vant/weapp/dist/count-down/index",
     "poster": "components/poster/index",
-    "markForm": "components/markForm/markForm"
-
+    "markForm": "components/markForm/markForm",
+    "van-icon": "@vant/weapp/dist/icon/index"
   }
 }

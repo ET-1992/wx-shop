@@ -430,6 +430,13 @@ Page({
         });
     },
 
+    toExchangeCardPage(e) {
+        const { code, password } = e.currentTarget.dataset;
+        wx.navigateTo({
+            url: `/pages/exchangeCard/exchangeCard?code=${code}&password=${password}`
+        });
+    },
+
     async setClipboardVp(e) {
         const { value } = e.currentTarget.dataset;
         console.log(e);

@@ -169,6 +169,13 @@
 			"name": "出错提示页"
 		},
 		{
+			"root": "pages/exchangeCard/",
+			"pages": [
+				"exchangeCard"
+			],
+			"name": "兑换券"
+		},
+		{
 			"root": "pages/flashList/",
 			"pages": [
 				"flashList"
