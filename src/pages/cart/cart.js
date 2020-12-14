@@ -132,6 +132,7 @@ Page({
 
     // 更新购物车数量信息
     async onUpdateQuantity(e) {
+        // console.log('e', e);
         let { detail, currentTarget: { dataset: { cartId }}} = e,
             { vendor } = app.globalData,
             { items = [], shipping_type } = this.data;
