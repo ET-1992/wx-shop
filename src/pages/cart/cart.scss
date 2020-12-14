@@ -114,8 +114,7 @@ page{
 	width: 100%;
 	background-color: #fff;
 	z-index: 2;
-	// border-top: 1px solid #eee;
-	padding-left: 20rpx;
+	padding: 0 20rpx;
 
 	.checkall{
 		font-size: 30rpx;
@@ -161,11 +160,11 @@ page{
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 100%;
-		width: 240rpx;
+		line-height: 70rpx;
+		width: 200rpx;
 		background-color: $mainColor;
 		color: #fff;
-		border-radius: 0;
+		border-radius: 10rpx;
 		font-size: 30rpx;
 		&[disabled] {
 			background-color: #ccc !important;
