@@ -52,13 +52,15 @@
 		<view class="list" wx:if="{{available && available.length}}">
 			<view wx:for="{{ available }}" wx:key="index" class="item {{item.isUsed ? 'unavailable' : '' }}" style="background-color: {{ themeColor.primaryColor }}">
 				<view class="top">
-					<view class="des_title">{{item.activity_title}}</view>
+					<view class="left">
+						<view class="des_title">{{item.activity_title}}</view>
+						<view class="rule">{{item.rule_description}}</view>
+					</view>
 					<view class="btn" wx:if="{{item.isUsed}}">已使用</view>
 					<view class="btn" bind:tap="onUseExchangeCard" data-index="{{index}}" data-code="{{item.code}}" data-password="{{item.password}}" wx:else>立即使用</view>
 				</view>
 				<view class="bottom">
-					<!-- <view class="no">卡号：{{item.code}}</view> -->
-					<view class="rule">兑换说明：{{item.rule_description}}</view>
+					<view class="no">NO.{{item.code}}</view>
 					<view class="time">有效期：{{ WXS.formatDate(item.expired_time, 'yyyy-MM-dd') }}</view>
 				</view>
 			</view>
@@ -69,15 +71,17 @@
 			<view class="title">不可用</view>
 			<view wx:for="{{ unavailable }}" wx:for-item="item" wx:key="index" class="item unavailable">
 				<view class="top">
-					<view class="des_title">{{item.activity_title}}</view>
-					<view class="text" wx:if="{{!item.isExpired}}">已使用</view>
+					<view class="left">
+						<view class="des_title">{{item.activity_title}}</view>
+						<view class="rule">{{item.rule_description}}</view>
+					</view>
+					<view class="text" wx:if="{{item.convert_time}}">{{item.convert_user && item.convert_user.nickname}}</view>
 					<view class="text" wx:else>已过期</view>
 				</view>
 				<view class="bottom">
-					<!-- <view class="no">卡号：{{item.code}}</view> -->
-					<view class="rule">兑换说明：{{item.rule_description}}</view>
-					<!-- <view class="time" wx:if="{{!item.isExpired}}">使用时间：{{ WXS.formatDate(item.create_time, 'yyyy-MM-dd') }}</view> -->
-					<view class="time">有效期：{{ WXS.formatDate(item.expired_time, 'yyyy-MM-dd') }}</view>
+					<view class="no">NO.{{item.code}}</view>
+					<view class="time" wx:if="{{item.convert_time}}">使用时间：{{ WXS.formatDate(item.convert_time, 'yyyy-MM-dd') }}</view>
+					<view class="time" wx:else>有效期：{{ WXS.formatDate(item.expired_time, 'yyyy-MM-dd') }}</view>
 				</view>
 			</view>
 		</view>
