@@ -160,6 +160,54 @@ Page({
             });
         }
     },
+
+    // 批量删除购物车
+    async onManageCart() {
+        const { isSelectedObject, shipping_type, liftStyles } = this.data;
+        let cart_item_ids = [];
+        for (const id in isSelectedObject) {
+            if (Object.hasOwnProperty.call(isSelectedObject, id)) {
+                isSelectedObject[id] && cart_item_ids.push({ id });
+            }
+        }
+        if (cart_item_ids.length === 0) {
+            wx.showToast({ title: '您还没有选择商品哦', icon: 'none' });
+            return;
+        }
+        const { cancel } = await showModal({
+            title: '温馨提示',
+            content: '确认删除选中的商品？',
+            confirmText: '删除',
+        });
+        if (cancel) { return }
+
+        wx.showLoading();
+        try {
+            const { items, shipping_type_counts, count } = await api.hei.removeCart({
+                cart_item_ids: JSON.stringify(cart_item_ids),
+                shipping_type,
+            });
+            liftStyles.forEach(item => {
+                if (item.value === shipping_type) {
+                    item.totalCounts = shipping_type_counts[shipping_type];
+                }
+            });
+            this.setData({ items, liftStyles });
+            this.calculatePrice();
+            wx.setStorageSync('CART_NUM', count);
+            updateTabbar({ tabbarStyleDisable: true, pageKey: 'cart' });
+        } catch (e) {
+            console.log('e', e);
+            wx.showModal({
+                title: '温馨提示',
+                content: e.errMsg,
+                showCancel: false,
+            });
+        } finally {
+            wx.hideLoading();
+        }
+    },
+
     // 删除某一购物车商品逻辑
     async onDelete(e) {
         const { items, isSelectedObject, shipping_type, liftStyles } = this.data;
