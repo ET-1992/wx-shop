@@ -339,6 +339,8 @@ Page({
         }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+        let { product_type } = product;
+        url += `&product_type=${product_type}`;
         if (isGrouponBuy && grouponId) {
             url = url + `&isGrouponBuy=true&grouponId=${grouponId}`;
         }
@@ -474,13 +476,11 @@ Page({
         });
     },
 
-    // 从 SKUModel 组件获取配送方式 shipping_type
+    // 物流选项组件回调
     getShippingType(e) {
-        console.log('e690', e);
-        this.setData({
-            shipping_type: e.detail.shipping_type
-        });
-        console.log('shipping_type696', this.data.shipping_type);
+        let { shipping_type } = e.detail;
+        // console.log('shipping_type696', shipping_type);
+        this.setData({ shipping_type });
     },
 
     onShowPoster() {

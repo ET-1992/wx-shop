@@ -299,5 +299,5 @@
  config="{{ config }}"
  isIphoneX="{{ isIphoneX }}"
  bind:onSkuConfirm="onSkuConfirm"
- bind:getShippingType="getShippingType"
+ bind:shipping-change="getShippingType"
 />
