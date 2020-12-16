@@ -395,19 +395,15 @@ Page({
         app.event.off('setAddressListEvent', this);
     },
 
+    // 去参团 拼团商品 非团长
     grouponListener({ detail }) {
         const { grouponId } = detail;
         this.setData({
             pendingGrouponId: grouponId,
-            actions: [
-                {
-                    type: 'onBuy',
-                    text: '立即购买',
-                },
-            ],
+            actions: [{ type: 'onBuy', text: '立即购买' }],
             isGrouponBuy: true,
+            isShowActionSheet: true,
         });
-        this.onShowSku();
     },
 
     // 加入购物车
