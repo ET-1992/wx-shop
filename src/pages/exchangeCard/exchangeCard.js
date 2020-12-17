@@ -1,6 +1,7 @@
 import { CONFIG } from 'constants/index';
 import { wxPay, onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 const TIME_COUNT = 60;
 Page({
@@ -202,12 +203,18 @@ Page({
                 password
             });
             wx.hideLoading();
-            wx.showToast({
-                title: '已使用,请注意查收',
-                icon: 'none'
-            });
+
             available[index].isUsed = true;
             this.setData({ available });
+
+            let { confirm } = await proxy.showModal({
+                title: '温馨提示',
+                content: '兑换券已使用，点击确认查看'
+            });
+
+            if (confirm) {
+                wx.navigateTo({ url: '/pages/me/wallet/wallet' });
+            }
         } catch (e) {
             wx.hideLoading();
             console.log('e.errMsg', e);

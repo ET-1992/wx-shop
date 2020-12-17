@@ -11,14 +11,14 @@
 			<view class="section">
 				<view class="left">卡号</view>
 				<view class="common_input">
-					<input type="number" value="{{ code }}" placeholder="请输入卡号" class="input" placeholder-class="placeholder" bindinput="onChangeCardNumber" bindfocus="clickShowClearIcon" />
+					<input type="text" value="{{ code }}" placeholder="请输入卡号" class="input" placeholder-class="placeholder" bindinput="onChangeCardNumber" bindfocus="clickShowClearIcon" />
 					<van-icon name="close" size="17px" color="#999" bind:click="clearNumberInput" class="icon" wx:if="{{isShowClearIcon}}"/>
 				</view>
 			</view>
 			<view class="section">
 				<view class="left">密码</view>
 				<view class="common_input">
-					<input type="number" value="{{ password }}" placeholder="请输入密码" class="input" placeholder-class="placeholder" bindinput="onChangePassword" password="{{isCanShowPassword ? false : true}}"/>
+					<input type="text" value="{{ password }}" placeholder="请输入密码" class="input" placeholder-class="placeholder" bindinput="onChangePassword" password="{{isCanShowPassword ? false : true}}"/>
 					<van-icon name="eye-o" size="18px" color="{{isCanShowPassword? '#333' : '#999'}}" bind:click="isShowPassword" class="icon"/>
 				</view>
 			</view>			
