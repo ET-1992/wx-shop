@@ -221,6 +221,8 @@ Page({
             );
 
             const { config, product } = data;
+            this.config = config;
+            this.product = product;
 
             if (product.miaosha_enable) {
                 data.posterType = 'miaosha';
@@ -229,13 +231,17 @@ Page({
                     miaosha_end_timestamp,
                     miaosha_start_timestamp
                 );
-            } else if (product.seckill_enable) {
+                await this.todayTimeLimit();
+            }
+
+            if (product.seckill_enable) {
                 // 秒杀初始化
                 const { seckill_end_timestamp, seckill_start_timestamp } = product;
                 await this.countDown(
                     seckill_end_timestamp,
                     seckill_start_timestamp,
                 );
+                await this.todayTimeLimit();
             }
 
             if (product.groupon_enable) {
@@ -249,6 +255,14 @@ Page({
 
             let tabList = ['商品', '详情'];
 
+            // 限时购倒计时
+            /* if (product.miaosha_enable) {
+                await this.todayTimeLimit();
+            } */
+            // 秒杀倒计时
+            /* if (product.seckill_enable) {
+                await this.todayTimeLimit();
+            } */
             // 存在推荐商品
             if (product.related && product.related.length) {
                 this.setData({ isShowProductRelated: true });
@@ -259,40 +273,23 @@ Page({
             if (config.reply_enable && product.reply_count) {
                 tabList.splice(1, 0, '评论');
             }
+            // 设置价格
+            this.setDefinePrice();
+
+            // 获取缓存地址的邮费信息
+            const areaObj = this.getAddressInfo();
 
             this.setData({
                 tabList,
                 grouponId: grouponId || '',
                 share_image: thumbnail,
-                ...data,
-                isLoading: false
-            }, () => {
+                product,
+                isLoading: false,
+                areaObj
+            }, async () => {
                 this.handleScrollMethods();
+                await this.calculatePostage();
             });
-
-            // 获取缓存地址的邮费信息
-            if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
-                let { areaObj } = this.data;
-                if (!areaObj.userName) {
-                    areaObj = wx.getStorageSync(ADDRESS_KEY);
-                    this.setData({ areaObj });
-                    await this.calculatePostage();
-                }
-            }
-
-            // 限时购倒计时
-            if (product.miaosha_enable) {
-                await this.todayTimeLimit();
-            }
-            // 秒杀倒计时
-            if (product.seckill_enable) {
-                await this.todayTimeLimit();
-            }
-
-            // --------------------
-            this.setDefinePrice();
-            // ---------------
-
         } catch (err) {
             if (err && (err.code === 'empty_query')) {
                 const { confirm } = await proxy.showModal({
@@ -309,10 +306,21 @@ Page({
         }
         console.log(this.data, 'this.data');
     },
-
+    getAddressInfo() {
+        // 获取缓存地址的邮费信息
+        const { config, product } = this;
+        if (config && !config.self_address && config.shipment_template_enable && product.product_type !== 1) {
+            let { areaObj } = this.data;
+            if (!areaObj.userName) {
+                areaObj = wx.getStorageSync(ADDRESS_KEY);
+            }
+            return areaObj;
+        }
+    },
     setDefinePrice() {
-        const { hasEnd, hasStart, product } = this.data;
-        product.definePrice = 0;
+        const { product } = this;
+        const { hasEnd, hasStart } = this.data;
+        /* product.definePrice = 0; */
 
         if (product.groupon_enable) {
             product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
@@ -328,10 +336,11 @@ Page({
             product.definePrice = product.price;
             product.showOriginalPrice = product.price !== product.original_price;
         }
-        this.setData({
+        return product;
+        /* this.setData({
             'product.definePrice': product.definePrice,
             'product.showOriginalPrice': product.showOriginalPrice,
-        });
+        }); */
     },
 
     currentIndex(e) {
