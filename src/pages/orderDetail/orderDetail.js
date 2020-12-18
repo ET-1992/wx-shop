@@ -168,6 +168,7 @@ Page({
                         type = 'text';
                     if (value && value.indexOf('http') >= 0) {
                         type = 'img';
+                        value = [{ url: value }];
                     }
                     remarkForm.push({ name, value, type, });
                 }
