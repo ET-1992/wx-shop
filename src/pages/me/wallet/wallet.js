@@ -16,6 +16,7 @@ Page({
             { name: '优惠券', icon: '/icons/me/wallet/wallet_coupon.svg', path: '/pages/myCoupons/myCoupons' },
             { name: '礼品卡', icon: '/icons/me/wallet/wallet_gift.svg', path: '/pages/giftCardList/giftCardList' },
             { name: '电子卡券', icon: '/icons/me/wallet/wallet_e_card.svg', path: '/pages/eCardList/eCardList' },
+            { name: '兑换券', icon: '/icons/me/wallet/wallet_exchange.svg', path: '/pages/exchangeCard/exchangeCard' },
         ],
     },
 

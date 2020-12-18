@@ -1,0 +1,146 @@
+.container {
+	.content {
+		margin: 20rpx;
+		padding: 20rpx 20rpx 30rpx;
+		font-size: 28rpx;
+		color: #000;
+		background: #fff;
+		border-radius: 10rpx;
+
+		.title {
+			margin-top: 10rpx;
+			margin-bottom: 32rpx;
+			font-size: 26rpx;
+			color: #333;
+		}
+
+		.section {
+			font-size: 28rpx;
+			color: #000;
+			padding: 0 5rpx 0;	
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+			margin-bottom: 40rpx;
+
+			.input, .sms_input {
+				flex: 2;
+				background: #F7F8FA;
+				height: 70rpx;
+				margin-left: 54rpx;
+				padding-left: 30rpx;
+				border-radius: 5rpx;
+			}
+
+			.common_input {
+				flex: 2;
+				display: flex;
+				background: #F7F8FA;
+				margin-left: 54rpx;
+
+				.icon {
+					width: 50rpx;
+					height: 70rpx;
+				}
+
+				.input {
+					margin-left: 0;
+				}
+			}
+			
+			.sms_input {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.sms_btn {
+					height: 70rpx;
+					line-height: 70rpx;
+					text-align: center;
+					font-size: 24rpx;
+					color: #fff;
+					padding: 0px 25rpx;
+					border-radius: 5rpx;
+				}
+			}
+
+			.placeholder {
+				font-size: 24rpx;
+				color: #999;
+			}
+		}
+
+		.btn {
+			margin-top: 50rpx;
+			height: 70rpx;
+		}
+	}
+
+	.wrapper {
+		margin: 15rpx;
+		border-radius: 10rpx;
+		background: #fff;
+	}
+	.list {
+		padding: 20rpx;
+		color: #fff;
+		font-size: 20rpx;
+		
+		.item {
+			position: relative;
+			margin-bottom: 15rpx;
+			padding: 20rpx 20rpx 15rpx;
+			border-radius: 10rpx;
+
+			.top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.des_title {
+					font-size: 38rpx;
+					font-weight: 600;
+					color: #fff;
+				}
+
+				.rule {
+					font-size: 24rpx;
+				}
+	
+				.btn {
+					width: 130rpx;
+					height: 50rpx;
+					line-height: 50rpx;
+					text-align: center;
+					border-radius: 25rpx;
+					color: #333;
+					font-size: 26rpx;
+					background: #fff;
+					font-weight: bold;
+				}
+
+				.text {
+					font-size: 24rpx;
+				}
+			}
+	
+			.bottom {
+				margin-top: 25rpx;
+				font-size: 20rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+		}
+
+		.title {
+			font-size: 24rpx;
+			color: #333;
+			margin: 0 0 16rpx;
+			font-weight: 500;
+		}
+
+		.unavailable {
+			background: #999;
+		}
+	}
+}

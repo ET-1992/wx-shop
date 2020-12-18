@@ -155,6 +155,26 @@ Page({
             item.defineTime = formatTime(new Date(item.consign_time * 1000));
         });
 
+        // 订单留言 适配以前的键值对的格式
+        let remarkForm = [];
+        if (order.annotation && order.annotation.remarks) {
+            let { remarks } = order.annotation;
+            if (Array.isArray(remarks)) {
+                remarkForm = remarks;
+            } else {
+                for (let name in remarks) {
+                    if (!remarks.hasOwnProperty(name)) { continue }
+                    let value = remarks[name],
+                        type = 'text';
+                    if (value && value.indexOf('http') >= 0) {
+                        type = 'img';
+                        value = [{ url: value }];
+                    }
+                    remarkForm.push({ name, value, type, });
+                }
+            }
+        }
+
 
         // order.noLogisticsForItem = order.items && order.items.filter((item) => { // 未发货items
         //     return logisticsForItem.indexOf(item.id) === -1;
@@ -192,6 +212,7 @@ Page({
             info,
             isLoading: false,
             config,
+            remarkForm,
             ...data
         });
     },
@@ -319,6 +340,8 @@ Page({
         }
 
         let url = `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`;
+        let { product_type } = product;
+        url += `&product_type=${product_type}`;
         if (isGrouponBuy && grouponId) {
             url = url + `&isGrouponBuy=true&grouponId=${grouponId}`;
         }
@@ -410,6 +433,13 @@ Page({
         });
     },
 
+    toExchangeCardPage(e) {
+        const { code, password } = e.currentTarget.dataset;
+        wx.navigateTo({
+            url: `/pages/exchangeCard/exchangeCard?code=${code}&password=${password}`
+        });
+    },
+
     async setClipboardVp(e) {
         const { value } = e.currentTarget.dataset;
         console.log(e);
@@ -447,13 +477,11 @@ Page({
         });
     },
 
-    // 从 SKUModel 组件获取配送方式 shipping_type
+    // 物流选项组件回调
     getShippingType(e) {
-        console.log('e690', e);
-        this.setData({
-            shipping_type: e.detail.shipping_type
-        });
-        console.log('shipping_type696', this.data.shipping_type);
+        let { shipping_type } = e.detail;
+        // console.log('shipping_type696', shipping_type);
+        this.setData({ shipping_type });
     },
 
     onShowPoster() {

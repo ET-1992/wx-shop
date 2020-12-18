@@ -43,6 +43,7 @@
 				display: flex;
 				flex-direction: column;
 				flex-shrink: 0;
+				align-items: flex-start;
 				.couponDesc {
 					font-size: 22rpx;
 					white-space: nowrap;

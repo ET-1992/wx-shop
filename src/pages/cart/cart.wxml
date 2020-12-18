@@ -24,49 +24,48 @@
     <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="{{ multiStoreEnable ? '98rpx' : '' }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
     <!-- 商品 -->
 	<scroll-view scroll-y="{{true}}" class="product-list {{ classSet.product(liftStyles, multiStoreEnable) }}" wx:if="{{ items.length && !isLoading }}">
-    	<view class="cartItem" wx:for="{{ items }}" wx:key="id">
-    	  	<view class="radioWrapper" data-index="{{ index }}" wx:if="{{ item.status === 0 || item.stock === 0 }}"> <view class="stock0Radio" /> </view>
-    	  	<view class="radioWrapper" catchtap="onHandleItemSelect" data-index="{{ index }}" data-item-id="{{ item.id }}" wx:else>
-    	  	  	<view class="radio {{ isSelectedObject[item.id] ? 'selected' : '' }}" style="border-color: {{ themeColor.primaryColor }}; {{ isSelectedObject[item.id] ? 'background-color: ' + themeColor.primaryColor : ''  }}">
-    	  	  	  	<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelectedObject[item.id] }}" />
-    	  	  	</view>
-    	  	</view>
-    	  	<navigator class="itemImageList" url="/pages/productDetail/productDetail?id={{ item.post_id }}" hover-class="none">
-    	  	  	<view wx:if="{{ item.status === 0 || item.stock === 0 }}" class="opacityBg stock0"></view>
-    	  	  	<image src="{{ item.thumbnail }}" class="itemImage" mode="aspectFill" />
-    	  	  	<image src="/icons/cart/stock0.svg" class="stock0" wx:if="{{ item.stock === 0 }}"></image>
-    	  	  	<image src="/icons/cart/stock00.svg" class="stock0" wx:if="{{ item.status === 0 }}"></image>
-    	  	</navigator>
-    	  	<!-- <view class="info" wx:if="{{ item.status === 0 }}">
-    	  	  	<view class="title">{{ item.title }}</view>
-    	  	  	<view class="propertyNames" wx:if="{{ item.sku_property_names }}"> {{ item.sku_property_names }} </view>
-    	  	  	<view class="meta">
-    	  	  	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
-    	  	  	  	<view class="metaRight">
-    	  	  	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" isDisabled="{{ true }}" quota="{{ item.quota }}" least="{{ item.least }}" />
-    	  	  	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px" /></view>
-    	  	  	  	</view>
-    	  	  	</view>
-    	  	</view> -->
-    	  	<view class="info">
-    	  		<navigator hover-class="none" url="/pages/productDetail/productDetail?id={{ item.post_id }}">
-    	  		  	<view class="title">{{ item.title }}</view>
-    	  		  	<view class="propertyNames" wx:if="{{ item.sku_property_names }}"> {{ item.sku_property_names }} </view>
-    	  		  	<view class="cartReduce" wx:if="{{ item.reduced > 0 }}"> <text>比加入时降{{ item.reduced }}元</text> </view>
-    	  		</navigator>
-    	    	<view class="meta">
-    	    	  	<view> <view class="price"> {{ globalData.CURRENCY[globalData.currency] }}{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }} </view> </view>
-    	    	  	<view class="metaRight">
-										<van-icon name="/icons/question.svg" size="36rpx" custom-class="remark-question" bind:click="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}"/>
-    	    	  	  	<numberInput value="{{ item.quantity }}" postId="{{ item.post_id }}" skuId="{{ item.sku_id }}" cartIndex="{{ index }}" max="{{ item.stock }}" bindquantityChangeEvent="updateCart" quota="{{ item.quota }}" least="{{ item.least }}" />
-    	    	  	  	<view class="delete" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete"><van-icon class="van-delete" name="delete" size="20px"/> </view>
-    	    	  	</view>
-    	    	</view>
-    	  	</view>
-    	</view>
-    	<view class="clearCart" bindtap="onClearCart">
-            <van-icon class="van-delete" name="delete" size="20px"/>清空购物车
-        </view>
+      <!-- 购物车商品列表 -->
+      <view class="cart-product-wrap">
+        <van-cell wx:for="{{ items }}" wx:key="cart_item_id" use-label-slot title-class="card-title">
+          <!-- 复选框按钮 -->
+          <van-checkbox slot="label" disabled="{{ item.status === 0 || item.stock === 0 }}" value="{{ isSelectedObject[item.cart_item_id] }}" checked-color="{{ themeColor.primaryColor }}" data-cart-id="{{ item.cart_item_id }}" bind:change="onChangeProcut" />
+          <view class="card-values" bind:tap="go" data-url="/pages/productDetail/productDetail?id={{ item.post_id }}">
+            <van-card custom-class="cart-prodcut-content">
+              <!-- 商品图片 -->
+              <view class="product-thumb" slot="thumb">
+                <van-image image-class="product-thumb-img" fit="cover" src="{{ item.thumbnail }}" />
+                <van-image wx:if="{{ item.stock === 0 }}" custom-class="product-thumb-masking" image-class="product-thumb-masking-img" src="/icons/cart/stock0.svg" />
+                <van-image wx:elif="{{ item.status === 0 }}" custom-class="product-thumb-masking" image-class="product-thumb-masking-img" src="/icons/cart/stock00.svg" />
+              </view>
+              <!-- 商品右上部分 -->
+              <view slot="title" class="text-ellipsis-1 product-title">{{ item.title }}</view>
+              <view slot="desc" class="text-ellipsis-2 product-desc">{{ item.sku_property_names }}</view>
+              <van-tag plain type="danger" slot="price-top" wx:if="{{ item.reduced }}">比加入时降{{ item.reduced }}元</van-tag>
+              <view slot="price-top"></view>
+              <!-- 商品右下部分 -->
+              <view slot="bottom" class="product-bottom">
+                <view class="product-price">
+                  <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                  <text>{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</text>
+                </view>
+                <van-icon name="/icons/question.svg" size="36rpx" catch:tap="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" />
+                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" async-change catch:change="onUpdateQuantity" catch:tap="noop" />
+                <!-- <view style="display: flex; align-items: center" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
+                  <van-icon class="van-delete" name="delete" size="20px"/>
+                </view> -->
+              </view>
+            </van-card>
+          </view>
+        </van-cell>
+      </view>
+    	<!-- <view class="clearCart" bindtap="onClearCart">
+				<van-icon class="van-delete" name="delete" size="20px"/>清空购物车
+			</view> -->
+			<!-- 批量删除购物车商品 -->
+    	<view class="clearCart" bindtap="onManageCart">
+				<van-icon class="van-delete" name="delete" size="20px"/>
+				<text>删除商品</text>
+			</view>
 
   		<view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
   		  	<include src="/templates/stodownload/index.wxml" />

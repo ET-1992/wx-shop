@@ -19,6 +19,12 @@ export const apis = {
         path: 'api/mag.auth.signon.json',
         method: 'POST',
     },
+    // 手机验证码
+    getCode: {
+        path: 'api/mag.platform_user.code.send.json',
+        method: 'POST',
+        isForceToken: false
+    },
     fetchHome: {
         path: 'api/mag.shop.home.json?v2'
     },
@@ -855,4 +861,22 @@ export const apis = {
         isForceToken: true,
         method: 'POST'
     },
+    // 兑换码检验手机号
+    checkPhoneNumber: {
+        path: 'api/mag.convert.activity.phone.verify.json',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 兑换码检验卡密
+    checkExchangeNumber: {
+        path: 'api/mag.convert.activity.validate.code.json',
+        isForceToken: true,
+        method: 'POST'
+    },
+    // 兑换码使用兑换码
+    useExchangeNumber: {
+        path: 'api/mag.convert.activity.convert.code.json',
+        isForceToken: true,
+        method: 'POST'
+    }
 };

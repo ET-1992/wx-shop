@@ -1,0 +1,89 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+<view class="container">
+	<!-- 登录 -->
+	<block wx:if="{{!isShowCodes}}">
+		<van-tabs active="{{ activeIndex }}" line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
+			<van-tab title="{{item.title}}" wx:for="{{tabList}}" wx:key="idx"></van-tab>
+		</van-tabs>
+	
+		<view class="content" wx:if="{{ activeIndex === 0}}">
+			<view class="title">兑换券信息</view>
+			<view class="section">
+				<view class="left">卡号</view>
+				<view class="common_input">
+					<input type="text" value="{{ code }}" placeholder="请输入卡号" class="input" placeholder-class="placeholder" bindinput="onChangeCardNumber" bindfocus="clickShowClearIcon" />
+					<van-icon name="close" size="17px" color="#999" bind:click="clearNumberInput" class="icon" wx:if="{{isShowClearIcon}}"/>
+				</view>
+			</view>
+			<view class="section">
+				<view class="left">密码</view>
+				<view class="common_input">
+					<input type="text" value="{{ password }}" placeholder="请输入密码" class="input" placeholder-class="placeholder" bindinput="onChangePassword" password="{{isCanShowPassword ? false : true}}"/>
+					<van-icon name="eye-o" size="18px" color="{{isCanShowPassword? '#333' : '#999'}}" bind:click="isShowPassword" class="icon"/>
+				</view>
+			</view>			
+			
+			<van-button custom-class="btn" color="{{ themeColor.primaryColor }}" block bind:click="onSubmitPassword">确认</van-button>
+		</view>
+	
+		<view class="content" wx:if="{{ activeIndex === 1}}">
+			<view class="title">兑换券信息</view>
+			<view class="section">
+				<view class="left">手机号</view>
+				<view class="common_input">
+					<input type="number" value="{{ phone }}" placeholder="请输入手机号" class="input" placeholder-class="placeholder" bindinput="onChangePhone" bindfocus="clickShowClearIcon" />
+					<van-icon name="close" size="17px" color="#999" bind:click="clearPhoneInput" class="icon" wx:if="{{isShowClearIcon}}"/>
+				</view>
+			</view>
+			<view class="section">
+				<view class="left">验证码</view>
+				<view class="sms_input">
+					<input type="number" value="{{ sms }}" placeholder="请输入验证码" placeholder-class="placeholder" bindinput="onChangeSms"/>
+					<button class="sms_btn" style="background-color: {{ isShowTimer ? '#ccc' : themeColor.primaryColor }}" disabled="{{ isShowTimer ? true : false }}" bind:tap="onClickGetSms">{{ isShowTimer ? count + 's后重发' : '获取验证码'}}</button>
+				</view>
+			</view>
+			<van-button custom-class="btn" color="{{ themeColor.primaryColor }}" block bind:click="onSubmitSms">确认</van-button>
+		</view>
+	</block>
+
+	<!-- 卡券列表 -->
+	<view class="wrapper" wx:if="{{isShowCodes}}">
+		<!-- 可用 -->
+		<view class="list" wx:if="{{available && available.length}}">
+			<view wx:for="{{ available }}" wx:key="index" class="item {{item.isUsed ? 'unavailable' : '' }}" style="background-color: {{ themeColor.primaryColor }}">
+				<view class="top">
+					<view class="left">
+						<view class="des_title">{{item.activity_title}}</view>
+						<view class="rule">{{item.rule_description}}</view>
+					</view>
+					<view class="btn" wx:if="{{item.isUsed}}">已使用</view>
+					<view class="btn" bind:tap="onUseExchangeCard" data-index="{{index}}" data-code="{{item.code}}" data-password="{{item.password}}" wx:else>立即使用</view>
+				</view>
+				<view class="bottom">
+					<view class="no">NO.{{item.code}}</view>
+					<view class="time">有效期：{{ WXS.formatDate(item.expired_time, 'yyyy-MM-dd') }}</view>
+				</view>
+			</view>
+		</view>
+
+		<!-- 不可用 -->
+		<view class="list" wx:if="{{unavailable && unavailable.length}}">
+			<view class="title">不可用</view>
+			<view wx:for="{{ unavailable }}" wx:for-item="item" wx:key="index" class="item unavailable">
+				<view class="top">
+					<view class="left">
+						<view class="des_title">{{item.activity_title}}</view>
+						<view class="rule">{{item.rule_description}}</view>
+					</view>
+					<view class="text" wx:if="{{item.convert_time}}">{{item.convert_user && item.convert_user.nickname}}</view>
+					<view class="text" wx:else>已过期</view>
+				</view>
+				<view class="bottom">
+					<view class="no">NO.{{item.code}}</view>
+					<view class="time" wx:if="{{item.convert_time}}">使用时间：{{ WXS.formatDate(item.convert_time, 'yyyy-MM-dd') }}</view>
+					<view class="time" wx:else>有效期：{{ WXS.formatDate(item.expired_time, 'yyyy-MM-dd') }}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
