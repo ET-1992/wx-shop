@@ -404,7 +404,7 @@ export default class Poster {
             highest_price,
             timeLimit,
             globalData,
-            flashSaleStatus,
+            miaoShaStatus,
             priceColor
         } = this.data;
         let _views = [];
@@ -413,13 +413,13 @@ export default class Poster {
         const viewsLeft = 45;
         const viewsBottom = 40;
 
-        if (flashSaleStatus === 'notStart') {
+        if (miaoShaStatus === 'notStart') {
             statusText = '距活动开始';
         }
-        if (flashSaleStatus === 'active') {
+        if (miaoShaStatus === 'active') {
             statusText = '距活动结束';
         }
-        if (flashSaleStatus === 'end') {
+        if (miaoShaStatus === 'end') {
             statusText = '活动已结束';
         }
 
@@ -491,7 +491,7 @@ export default class Poster {
         ];
 
 
-        if (flashSaleStatus === 'notStart' || flashSaleStatus === 'active') {
+        if (miaoShaStatus === 'notStart' || miaoShaStatus === 'active') {
             const { remainTime } = formatConfirmTime(timeLimit);
             _views.push(
                 {

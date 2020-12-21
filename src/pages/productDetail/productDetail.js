@@ -72,7 +72,7 @@ Page({
         // 餐饮商品展示信息
         selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false,
-        flashSaleStatus: 'notStart'
+        miaoShaStatus: 'notStart'
     },
 
     go,
@@ -115,27 +115,27 @@ Page({
             isBargainBuy,
         });
     },
-    checkFlashSaleStatus(startTime, endTime) {
+    checkMiaoShaStatus(startTime, endTime) {
         const now = Math.round(Date.now() / 1000);
-        let flashSaleStatus,
+        let status,
             timeLimit;
         if (startTime <= now && endTime >= now) {
-            flashSaleStatus = 'active';
+            status = 'active';
             timeLimit = endTime - now;
         } else if (startTime > now) {
-            flashSaleStatus = 'notStart';
+            status = 'notStart';
             timeLimit = startTime - now;
         } else {
-            flashSaleStatus = 'end';
+            status = 'end';
             timeLimit = 0;
         }
         this.setData({
             timeLimit,
-            flashSaleStatus
+            miaoShaStatus: status
         });
         return {
             timeLimit,
-            flashSaleStatus
+            status
         };
     },
     /* // 倒计时初始化
@@ -143,8 +143,8 @@ Page({
         return new Promise((resolve) => {
             const now = Math.round(Date.now() / 1000);
             let timeLimit;
-            const flashSaleStatus = this.checkFlashSaleStatus(start, end);
-            switch (flashSaleStatus) {
+            const miaoShaStatus = this.checkMiaoShaStatus(start, end);
+            switch (miaoShaStatus) {
                 case 'active':
                     timeLimit = end - now;
                     break;
@@ -157,7 +157,7 @@ Page({
             }
             this.setData({
                 timeLimit,
-                flashSaleStatus
+                miaoShaStatus
             }, resolve());
         });
     }, */
@@ -247,7 +247,7 @@ Page({
             if (product.miaosha_enable) {
                 posterType = 'miaosha';
                 const { miaosha_end_timestamp, miaosha_start_timestamp } = product;
-                await this.checkFlashSaleStatus(
+                await this.checkMiaoShaStatus(
                     miaosha_start_timestamp,
                     miaosha_end_timestamp
                 );
@@ -257,7 +257,7 @@ Page({
             if (product.seckill_enable) {
                 // 秒杀初始化
                 const { seckill_end_timestamp, seckill_start_timestamp } = product;
-                await this.checkFlashSaleStatus(
+                await this.checkMiaoShaStatus(
                     seckill_start_timestamp,
                     seckill_end_timestamp,
                 );
@@ -340,16 +340,16 @@ Page({
     },
     setDefinePrice() {
         const { product } = this;
-        const { flashSaleStatus } = this.data;
+        const { miaoShaStatus } = this.data;
         /* product.definePrice = 0; */
 
         if (product.groupon_enable) {
             product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
             product.showOriginalPrice = product.groupon_price !== product.original_price;
-        } else if (product.miaosha_enable && flashSaleStatus === 'active') {
+        } else if (product.miaosha_enable && miaoShaStatus === 'active') {
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
-        } else if (product.seckill_enable && flashSaleStatus === 'active') {
+        } else if (product.seckill_enable && miaoShaStatus === 'active') {
             // 秒杀相关价格显示
             product.definePrice = product.seckill_price;
             product.showOriginalPrice = product.seckill_price !== product.original_price;
@@ -501,7 +501,8 @@ Page({
 
         if (product.miaosha_enable) {
             const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
-            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
+            const { status } = this.checkMiaoShaStatus(miaosha_start_timestamp, miaosha_end_timestamp);
+            isMiaoshaBuy = (status === 'active');
         }
 
         if (selectedSku.stock === 0) {
@@ -567,7 +568,8 @@ Page({
 
         if (product.miaosha_enable) {
             const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
-            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
+            const { status } = this.checkMiaoShaStatus(miaosha_start_timestamp, miaosha_end_timestamp);
+            isMiaoshaBuy = (status === 'active');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,
@@ -796,7 +798,8 @@ Page({
 
         if (product.miaosha_enable) {
             const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
-            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
+            const { status } = this.checkMiaoShaStatus(miaosha_start_timestamp, miaosha_end_timestamp);
+            isMiaoshaBuy = (status === 'active');
         }
         if (selectedSku.stock === 0) {
             await proxy.showModal({
@@ -948,7 +951,7 @@ Page({
             original_price
         };
         if (miaosha_enable) {
-            const { timeLimit, flashSaleStatus } = this.data;
+            const { timeLimit, miaoShaStatus } = this.data;
             posterData = {
                 id,
                 banner: thumbnail,
@@ -958,7 +961,7 @@ Page({
                 miaosha_price,
                 highest_price,
                 timeLimit,
-                flashSaleStatus
+                miaoShaStatus
             };
         }
         if (groupon_enable) {
