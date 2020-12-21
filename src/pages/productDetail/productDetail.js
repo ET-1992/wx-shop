@@ -543,7 +543,7 @@ Page({
 
     // SKU确认 立即赠送
     onGivingGift() {
-        let { selectedSku, quantity, product, isGrouponBuy, isBargainBuy } = this.data,
+        let { selectedSku, quantity, product, isGrouponBuy, isBargainBuy, currentSpecial, currentRelation } = this.data,
             url = '/pages/giveGift/giveGift';
         let isMiaoshaBuy = false;
 
@@ -559,7 +559,11 @@ Page({
             product,
             isGrouponBuy,
             isMiaoshaBuy,
-            isBargainBuy
+            isBargainBuy,
+            currentSpecial,
+            currentRelation,
+            selectedOptions: this._selectedOptions,
+            remarks: this._remarks,
         });
         let success = (res) => {
             res.eventChannel.emit('productDetail', { currentOrder });
@@ -804,7 +808,7 @@ Page({
             quantity,
             product,
             isGrouponBuy,
-            isMiaoshaBuy
+            isMiaoshaBuy,
         });
         app.globalData.currentOrder = currentOrder;
         wx.navigateTo({ url });
