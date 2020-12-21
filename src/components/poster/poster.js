@@ -22,7 +22,7 @@ export default class Poster {
             ...this.initLine(),
             ...this.initQrcode()
         ];
-
+        console.log(posterType);
         switch (posterType) {
             // 限时购海报
             case 'miaosha':
@@ -404,24 +404,22 @@ export default class Poster {
             highest_price,
             timeLimit,
             globalData,
-            hasStart,
-            hasEnd,
+            flashSaleStatus,
             priceColor
         } = this.data;
-
         let _views = [];
         let statusText = '';
 
         const viewsLeft = 45;
         const viewsBottom = 40;
 
-        if (!hasStart) {
+        if (flashSaleStatus === 'notStart') {
             statusText = '距活动开始';
         }
-        if (hasStart && !hasEnd) {
+        if (flashSaleStatus === 'active') {
             statusText = '距活动结束';
         }
-        if (hasEnd) {
+        if (flashSaleStatus === 'end') {
             statusText = '活动已结束';
         }
 
@@ -493,7 +491,7 @@ export default class Poster {
         ];
 
 
-        if (!hasStart || (hasStart && !hasEnd)) {
+        if (flashSaleStatus === 'notStart' || flashSaleStatus === 'active') {
             const { remainTime } = formatConfirmTime(timeLimit);
             _views.push(
                 {

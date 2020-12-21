@@ -22,7 +22,7 @@
       </view>
       <!-- 限时购banner -->
       <view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{!hasEnd}}" src="/icons/productDetail/time-limited-buy.svg" />
+        <image wx:if="{{ flashSaleStatus !== 'end' }}" src="/icons/productDetail/time-limited-buy.svg" />
         <image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
         <view class="price-area">
           <view class="price">
@@ -38,9 +38,9 @@
           </view>
         </view>
         <view class="time">
-          <view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+          <view wx:if="{{ flashSaleStatus === 'active' }}" class="time-section">
             <view class="time-text">距结束还有</view>
-            <view class="time-limit" wx:if="{{ !hasEnd }}">
+            <view class="time-limit">
               <block wx:if="{{ remainTime.day > 0 }}">
                 <view class="hour">{{ remainTime.day }}</view>
                 <view class="dateTitle">天</view>
@@ -53,9 +53,9 @@
               <view class="dateTitle">秒</view>
             </view>
           </view>
-          <view wx:if="{{ !hasStart }}" class="time-section">
+          <view wx:if="{{ flashSaleStatus === 'notStart' }}" class="time-section">
             <view class="time-text">距开始还有</view>
-            <view class="time-limit" wx:if="{{ !hasEnd }}">
+            <view class="time-limit">
               <block wx:if="{{ remainTime.day > 0 }}">
                 <view class="hour">{{ remainTime.day }}</view>
                 <view class="dateTitle">天</view>
@@ -68,7 +68,7 @@
               <view class="dateTitle">秒</view>
             </view>
           </view>
-          <view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
+          <view wx:if="{{ flashSaleStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
       <!-- 今日秒杀banner -->
@@ -83,14 +83,14 @@
             </view>
           </view>
           <!-- <view class="count-only-wrap"> -->
-          <view class="count-only" wx:if="{{ !hasStart }}">限量{{ product.stock }}件</view>
-          <view class="count-only" wx:if="{{ hasStart && !hasEnd }}">仅剩{{ product.stock }}件</view>
+          <view class="count-only" wx:if="{{ flashSaleStatus === 'notStart' }}">限量{{ product.stock }}件</view>
+          <view class="count-only" wx:if="{{ flashSaleStatus === 'active' }}">仅剩{{ product.stock }}件</view>
           <!-- </view> -->
         </view>
         <view class="time">
-          <view wx:if="{{ hasStart && !hasEnd }}" class="time-section">
+          <view wx:if="{{ flashSaleStatus === 'active' }}" class="time-section">
             <view class="time-text">距结束还有</view>
-            <view class="time-limit" wx:if="{{ !hasEnd }}">
+            <view class="time-limit">
               <view class="hour">{{ remainTime.hour }}</view>
               <view class="dateTitle">时</view>
               <view class="minute">{{ remainTime.minute }}</view>
@@ -99,9 +99,9 @@
               <view class="dateTitle">秒</view>
             </view>
           </view>
-          <view wx:if="{{ !hasStart }}" class="time-section">
+          <view wx:if="{{ flashSaleStatus === 'notStart' }}" class="time-section">
             <text>距开始还有</text>
-            <view class="time-limit" wx:if="{{ !hasEnd }}">
+            <view class="time-limit">
               <view class="hour">{{ remainTime.hour }}</view>
               <view class="dateTitle">时</view>
               <view class="minute">{{ remainTime.minute }}</view>
@@ -110,7 +110,7 @@
               <view class="dateTitle">秒</view>
             </view>
           </view>
-          <view wx:if="{{ hasEnd }}" class="time-section end">已结束</view>
+          <view wx:if="{{ flashSaleStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
       <!-- 超值拼团banner -->
@@ -381,10 +381,10 @@
           </view>
         </view>
         <!-- end -->
-        <view wx:if="{{ product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
+        <view wx:if="{{ product.groupon_enable && product.active_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.active_groupons.length }}" class="activeGroupons">
           <view class="title">正在开团, 可直接参团</view>
-          <view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
-            <pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
+          <view wx:for="{{ product.active_groupons }}" wx:key="id" class="activeGrouponWrapper">
+            <activeGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
           </view>
         </view>
         <!-- 拼团流程 -->
@@ -532,12 +532,12 @@
       </block>
       <!-- 秒杀状态按钮 -->
       <block wx:elif="{{ product.seckill_enable }}">
-        <view class="{{ !hasStart ? 'miaosha-begin' : ( hasEnd ? 'miaosha-begin' : 'miaosha-buy')}}" catchtap="{{ hasStart && !hasEnd ? 'onShowSku' : '' }}" data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}">
-          <view wx:if="{{ !hasStart }}" style="background-color:#22b14c">即将开抢</view>
+        <view class="{{ flashSaleStatus === 'notStart' ? 'miaosha-begin' : ( flashSaleStatus === 'end' ? 'miaosha-begin' : 'miaosha-buy')}}" catchtap="{{ flashSaleStatus === 'active' ? 'onShowSku' : '' }}" data-actions="{{ [{ type: 'onBuy', text: '立即购买' }] }}">
+          <view wx:if="{{ flashSaleStatus === 'notStart' }}" style="background-color:#22b14c">即将开抢</view>
           <view wx:elif="{{ product.status === 'sold_out' }}" style="background-color:#999">
             已抢光
           </view>
-          <view wx:elif="{{ hasEnd }}" style="background-color:{{themeColor.primaryColor}}">
+          <view wx:elif="{{ flashSaleStatus === 'end' }}" style="background-color:{{themeColor.primaryColor}}">
             已结束
           </view>
           <view wx:else style="background-color:{{themeColor.primaryColor}}">立即购买</view>
@@ -555,7 +555,7 @@
     </view>
   </view>
   <!-- 代付按钮 -->
-  <view class="float-btn {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || (hasStart && !hasEnd)) }}">
+  <view class="float-btn {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || flashSaleStatus === 'active') }}">
     <!-- 限时购/砍价/虚拟商品/简约模式不支持 -->
     <block wx:if="{{ product.product_type !== 1 && !product.bargain_enable && product.product_style_type !==2 }}">
       <view class="crowdBtn" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}">

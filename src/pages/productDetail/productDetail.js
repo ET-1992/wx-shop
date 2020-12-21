@@ -31,8 +31,6 @@ Page({
             second: '00',
         },
         contentList: {},
-        hasStart: true,
-        hasEnd: false,
         timeLimit: 0,
         isShowActionSheet: false,
         isShowCouponList: false,
@@ -73,7 +71,8 @@ Page({
         tabList: [],  // 页面导航标签列表
         // 餐饮商品展示信息
         selectedOptions: {},  // 简约模式的规格内容/价格
-        showBgColor: false
+        showBgColor: false,
+        flashSaleStatus: 'notStart'
     },
 
     go,
@@ -115,32 +114,53 @@ Page({
             isCrowd,
             isBargainBuy,
         });
-
     },
-
-    // 倒计时初始化
+    checkFlashSaleStatus(startTime, endTime) {
+        const now = Math.round(Date.now() / 1000);
+        let flashSaleStatus,
+            timeLimit;
+        if (startTime <= now && endTime >= now) {
+            flashSaleStatus = 'active';
+            timeLimit = endTime - now;
+        } else if (startTime > now) {
+            flashSaleStatus = 'notStart';
+            timeLimit = startTime - now;
+        } else {
+            flashSaleStatus = 'end';
+            timeLimit = 0;
+        }
+        this.setData({
+            timeLimit,
+            flashSaleStatus
+        });
+        return {
+            timeLimit,
+            flashSaleStatus
+        };
+    },
+    /* // 倒计时初始化
     countDown(end, start) {
         return new Promise((resolve) => {
             const now = Math.round(Date.now() / 1000);
-            let timeLimit = end - now;
-            let hasStart = true;
-            let hasEnd = false;
-            if (now < start) {
-                hasStart = false;
-                timeLimit = start - now;
-            }
-
-            if (now > end) {
-                hasEnd = true;
-                timeLimit = 0;
+            let timeLimit;
+            const flashSaleStatus = this.checkFlashSaleStatus(start, end);
+            switch (flashSaleStatus) {
+                case 'active':
+                    timeLimit = end - now;
+                    break;
+                case 'notStart':
+                    timeLimit = start - now;
+                    break;
+                case 'end':
+                    timeLimit = 0;
+                    break;
             }
             this.setData({
                 timeLimit,
-                hasStart,
-                hasEnd
+                flashSaleStatus
             }, resolve());
         });
-    },
+    }, */
 
     // 倒计时触发
     todayTimeLimit() {
@@ -205,10 +225,14 @@ Page({
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({ pendingGrouponId: '' });
+        this.setData({ activeGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
             const { thumbnail } = data.product;
+            let { posterType } = this.data;
+            const { config, product } = data;
+            this.config = config;
+            this.product = product;
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
@@ -220,16 +244,12 @@ Page({
                 this,
             );
 
-            const { config, product } = data;
-            this.config = config;
-            this.product = product;
-
             if (product.miaosha_enable) {
-                data.posterType = 'miaosha';
+                posterType = 'miaosha';
                 const { miaosha_end_timestamp, miaosha_start_timestamp } = product;
-                await this.countDown(
-                    miaosha_end_timestamp,
-                    miaosha_start_timestamp
+                await this.checkFlashSaleStatus(
+                    miaosha_start_timestamp,
+                    miaosha_end_timestamp
                 );
                 await this.todayTimeLimit();
             }
@@ -237,19 +257,19 @@ Page({
             if (product.seckill_enable) {
                 // 秒杀初始化
                 const { seckill_end_timestamp, seckill_start_timestamp } = product;
-                await this.countDown(
-                    seckill_end_timestamp,
+                await this.checkFlashSaleStatus(
                     seckill_start_timestamp,
+                    seckill_end_timestamp,
                 );
                 await this.todayTimeLimit();
             }
 
             if (product.groupon_enable) {
-                data.posterType = 'groupon';
+                posterType = 'groupon';
             }
 
             if (product.bargain_enable) {
-                data.posterType = 'bargain';
+                posterType = 'bargain';
             }
 
 
@@ -285,7 +305,8 @@ Page({
                 share_image: thumbnail,
                 product,
                 isLoading: false,
-                areaObj
+                areaObj,
+                posterType
             }, async () => {
                 this.handleScrollMethods();
                 await this.calculatePostage();
@@ -319,16 +340,16 @@ Page({
     },
     setDefinePrice() {
         const { product } = this;
-        const { hasEnd, hasStart } = this.data;
+        const { flashSaleStatus } = this.data;
         /* product.definePrice = 0; */
 
         if (product.groupon_enable) {
             product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
             product.showOriginalPrice = product.groupon_price !== product.original_price;
-        } else if (product.miaosha_enable && !hasEnd && hasStart) {
+        } else if (product.miaosha_enable && flashSaleStatus === 'active') {
             product.definePrice = product.miaosha_price;
             product.showOriginalPrice = product.miaosha_price !== product.original_price;
-        } else if (product.seckill_enable && !hasEnd && hasStart) {
+        } else if (product.seckill_enable && flashSaleStatus === 'active') {
             // 秒杀相关价格显示
             product.definePrice = product.seckill_price;
             product.showOriginalPrice = product.seckill_price !== product.original_price;
@@ -408,7 +429,7 @@ Page({
     grouponListener({ detail }) {
         const { grouponId } = detail;
         this.setData({
-            pendingGrouponId: grouponId,
+            activeGrouponId: grouponId,
             actions: [{ type: 'onBuy', text: '立即购买' }],
             isGrouponBuy: true,
             isShowActionSheet: true,
@@ -452,7 +473,6 @@ Page({
         }
         wx.showToast({ title, icon });
     },
-
     // 立即购买
     async onBuy() {
         console.log('onBuy');
@@ -461,7 +481,7 @@ Page({
             quantity,
             selectedSku,
             grouponId,
-            pendingGrouponId,
+            activeGrouponId,
             isGrouponBuy,
             isBargainBuy,
             isCrowd,
@@ -477,13 +497,11 @@ Page({
         let { product_type } = product;
         url += `&product_type=${product_type}`;
 
-        let isMiaoshaBuy = false;
+        let isMiaoshaBuy;
 
         if (product.miaosha_enable) {
-            const now = Date.now() / 1000;
-            const hasStart = now >= product.miaosha_start_timestamp;
-            const hasEnd = now >= product.miaosha_end_timestamp;
-            isMiaoshaBuy = hasStart && !hasEnd;
+            const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
+            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
         }
 
         if (selectedSku.stock === 0) {
@@ -502,9 +520,9 @@ Page({
                 console.log('grouponId');
                 url = url + `&grouponId=${grouponId}`;
             }
-            else if (pendingGrouponId) {
-                console.log('pendingGrouponId');
-                url = url + `&grouponId=${pendingGrouponId}`;
+            else if (activeGrouponId) {
+                console.log('activeGrouponId');
+                url = url + `&grouponId=${activeGrouponId}`;
             } else {
                 url = url + '&groupon_commander_price=true';
             }
@@ -545,13 +563,11 @@ Page({
     onGivingGift() {
         let { selectedSku, quantity, product, isGrouponBuy, isBargainBuy } = this.data,
             url = '/pages/giveGift/giveGift';
-        let isMiaoshaBuy = false;
+        let isMiaoshaBuy;
 
         if (product.miaosha_enable) {
-            const now = Date.now() / 1000;
-            const hasStart = now >= product.miaosha_start_timestamp;
-            const hasEnd = now >= product.miaosha_end_timestamp;
-            isMiaoshaBuy = hasStart && !hasEnd;
+            const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
+            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
         }
         const currentOrder = createCurrentOrder({
             selectedSku,
@@ -650,7 +666,7 @@ Page({
     onSkuCancel() {
         this.setData({
             isShowActionSheet: false,
-            pendingGrouponId: ''
+            activeGrouponId: ''
         });
     },
 
@@ -768,16 +784,15 @@ Page({
             quantity,
             selectedSku,
             grouponId,
-            pendingGrouponId,
+            activeGrouponId,
             isGrouponBuy,
         } = this.data;
         let url = `/pages/orderCreate/orderCreate?crowd=${true}`;
-        let isMiaoshaBuy = false;
+        let isMiaoshaBuy;
+
         if (product.miaosha_enable) {
-            const now = Date.now() / 1000;
-            const hasStart = now >= product.miaosha_start_timestamp;
-            const hasEnd = now >= product.miaosha_end_timestamp;
-            isMiaoshaBuy = hasStart && !hasEnd;
+            const { miaosha_start_timestamp, miaosha_end_timestamp } = product;
+            isMiaoshaBuy = (this.checkFlashSaleStatus(miaosha_start_timestamp, miaosha_end_timestamp).flashSaleStatus === 'active');
         }
         if (selectedSku.stock === 0) {
             await proxy.showModal({
@@ -792,8 +807,8 @@ Page({
             if (grouponId) {
                 url = url + `&grouponId=${grouponId}`;
             }
-            else if (pendingGrouponId) {
-                url = url + `&grouponId=${pendingGrouponId}`;
+            else if (activeGrouponId) {
+                url = url + `&grouponId=${activeGrouponId}`;
             }
         } else {
             const { groupon_commander_price } = product;
@@ -929,7 +944,7 @@ Page({
             original_price
         };
         if (miaosha_enable) {
-            const { timeLimit, hasStart, hasEnd } = this.data;
+            const { timeLimit, flashSaleStatus } = this.data;
             posterData = {
                 id,
                 banner: thumbnail,
@@ -939,8 +954,7 @@ Page({
                 miaosha_price,
                 highest_price,
                 timeLimit,
-                hasStart,
-                hasEnd
+                flashSaleStatus
             };
         }
         if (groupon_enable) {
