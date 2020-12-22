@@ -1,6 +1,7 @@
 import api from 'utils/api';
 import proxy from 'utils/wxProxy';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
+import { USER_KEY } from 'constants/index';
 
 const app = getApp();
 Page({
@@ -37,6 +38,9 @@ Page({
             order_no,
             gift_no,
         });
+        if (!current_user) {
+            current_user = wx.getStorageSync(USER_KEY);
+        }
         this.setData({
             gift: gift,
             order,
@@ -66,9 +70,9 @@ Page({
         wx.showLoading();
         let {
             gift: { gift_no, gift_cover_url, share_img },
-            current_user: { nickname },
+            current_user,
         } = this.data;
-
+        let nickname = (current_user && current_user.nickname) || '';
         let message = this._message || '';
         try {
             await api.hei.presentGiftCard({ gift_no, message });
