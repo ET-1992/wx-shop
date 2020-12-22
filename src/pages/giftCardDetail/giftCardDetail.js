@@ -67,26 +67,28 @@ Page({
 
     // 赠送好友
     async onShareAppMessage() {
-        wx.showLoading();
-        let {
-            gift: { gift_no, gift_cover_url, share_img },
-            current_user,
-        } = this.data;
-        let nickname = (current_user && current_user.nickname) || '';
-        let message = this._message || '';
         try {
+            wx.showLoading();
+            let {
+                gift: { gift_no, gift_cover_url, share_img },
+                current_user,
+            } = this.data;
+            let nickname = (current_user && current_user.nickname) || '';
+            let message = this._message || '';
+
             await api.hei.presentGiftCard({ gift_no, message });
             this.setData({
                 share_title: `好友${nickname}给你发来了一个礼品卡，快去领取吧`,
                 share_image: share_img || gift_cover_url,
             });
+
             let opts = { gift_no, order_no: '' },
                 path = 'pages/giftCardDetail/giftCardDetail';
             return onDefaultShareAppMessage.call(this, opts, path);
         } catch (e) {
             proxy.showModal({
                 title: '报错提示',
-                content: e.errMsg,
+                content: e.errMsg || e,
             });
         } finally {
             wx.hideLoading();
