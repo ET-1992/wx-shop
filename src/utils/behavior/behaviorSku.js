@@ -35,19 +35,21 @@ module.exports = Behavior({
             let { currentSku, selectedSku, skuMap, currentSpecial, currentRelation } = e.detail,
                 { product, product: { related_product }} = this.data;
 
-            let price = Number(selectedSku.price || product.price);
+            let price = Number(selectedSku.price || product.price) * 100;
+            let relationPrice = 0;
             if (currentRelation.length) {
                 let flatProducts = related_product.flatMap(item => item.value);
-                price = currentRelation.reduce((acc, { value }) => {
+                relationPrice = currentRelation.reduce((acc, { value }) => {
                     let product = flatProducts.find(({ title }) => title === value);
-                    return acc + Number(product ? product.price : 0);
-                }, price);
+                    return acc + Number(product ? product.price * 100 : 0);
+                }, 0);
             }
+            price = (price + relationPrice) / 100;
+            relationPrice = relationPrice / 100;
+
             let content = [...currentSku, ...currentSpecial, ...currentRelation].reduce((acc, { value }) => {
                 return value ? acc + value + ';' : acc;
             }, '');
-            // 增值商品总价格
-            let relationPrice = (price - Number(selectedSku.price || product.price)) || 0;
             let selectedOptions = { price, content, relationPrice };
 
             this.setData({
