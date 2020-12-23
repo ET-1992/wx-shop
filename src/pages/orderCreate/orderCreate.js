@@ -617,7 +617,11 @@ Page({
         }
 
         requestData.discount_code = this._discountCode || '';
-        requestData.shipping_type = shipping_type;
+
+        if (product_type !== 1) {
+            // 非虚拟商品填写物流方式
+            requestData.shipping_type = shipping_type;
+        }
         // 自提需传数据
         if (shipping_type === 2) {
             requestData = { ...requestData, ...liftInfo };

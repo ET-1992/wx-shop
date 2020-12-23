@@ -50,22 +50,22 @@
                 </view>
                 <van-icon name="/icons/question.svg" size="36rpx" catch:tap="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" />
                 <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" async-change catch:change="onUpdateQuantity" catch:tap="noop" />
-                <!-- <view style="display: flex; align-items: center" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
+                <view style="display: flex; align-items: center" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
                   <van-icon class="van-delete" name="delete" size="20px"/>
-                </view> -->
+                </view>
               </view>
             </van-card>
           </view>
         </van-cell>
       </view>
-    	<!-- <view class="clearCart" bindtap="onClearCart">
+    	<view class="clearCart" bindtap="onClearCart">
 				<van-icon class="van-delete" name="delete" size="20px"/>清空购物车
-			</view> -->
+			</view>
 			<!-- 批量删除购物车商品 -->
-    	<view class="clearCart" bindtap="onManageCart">
+    	<!-- <view class="clearCart" bindtap="onManageCart">
 				<van-icon class="van-delete" name="delete" size="20px"/>
 				<text>删除商品</text>
-			</view>
+			</view> -->
 
   		<view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
   		  	<include src="/templates/stodownload/index.wxml" />
