@@ -225,12 +225,12 @@ Page({
     async initPage() {
         const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({ activeGrouponId: '' });
+        this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
-            const { thumbnail } = data.product;
             let { posterType } = this.data;
             const { config, product } = data;
+            const { thumbnail } = product;
             this.config = config;
             this.product = product;
             wx.setNavigationBarTitle({
@@ -429,7 +429,7 @@ Page({
     grouponListener({ detail }) {
         const { grouponId } = detail;
         this.setData({
-            activeGrouponId: grouponId,
+            pendingGrouponId: grouponId,
             actions: [{ type: 'onBuy', text: '立即购买' }],
             isGrouponBuy: true,
             isShowActionSheet: true,
@@ -481,7 +481,7 @@ Page({
             quantity,
             selectedSku,
             grouponId,
-            activeGrouponId,
+            pendingGrouponId,
             isGrouponBuy,
             isBargainBuy,
             isCrowd,
@@ -521,9 +521,9 @@ Page({
                 console.log('grouponId');
                 url = url + `&grouponId=${grouponId}`;
             }
-            else if (activeGrouponId) {
-                console.log('activeGrouponId');
-                url = url + `&grouponId=${activeGrouponId}`;
+            else if (pendingGrouponId) {
+                console.log('pendingGrouponId');
+                url = url + `&grouponId=${pendingGrouponId}`;
             } else {
                 url = url + '&groupon_commander_price=true';
             }
@@ -672,7 +672,7 @@ Page({
     onSkuCancel() {
         this.setData({
             isShowActionSheet: false,
-            activeGrouponId: ''
+            pendingGrouponId: ''
         });
     },
 
@@ -790,7 +790,7 @@ Page({
             quantity,
             selectedSku,
             grouponId,
-            activeGrouponId,
+            pendingGrouponId,
             isGrouponBuy,
         } = this.data;
         let url = `/pages/orderCreate/orderCreate?crowd=${true}`;
@@ -814,8 +814,8 @@ Page({
             if (grouponId) {
                 url = url + `&grouponId=${grouponId}`;
             }
-            else if (activeGrouponId) {
-                url = url + `&grouponId=${activeGrouponId}`;
+            else if (pendingGrouponId) {
+                url = url + `&grouponId=${pendingGrouponId}`;
             }
         } else {
             const { groupon_commander_price } = product;
