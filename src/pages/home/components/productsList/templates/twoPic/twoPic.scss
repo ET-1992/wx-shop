@@ -8,7 +8,7 @@
 	.wrapper {
 		position: relative;
 		width: 330rpx;
-		height: 340rpx;
+		height: 330rpx;
 		.mask {
 			font-size: 32rpx;
 			font-weight: bold;
@@ -53,11 +53,11 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-		
+
 			.priceWrapper{
 				display: flex;
 				align-items: center;
-		
+
 				.ItemPrice {
 					color: #FC2732;
 					font-size: 30rpx;
