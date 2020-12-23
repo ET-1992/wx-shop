@@ -178,6 +178,11 @@ Page({
         let { timeLimit } = this.data;
         const [hour, minute, second] = getRemainTime(timeLimit);
         let day = parseInt(hour / 24, 10);
+        console.log(hour, day, second, minute);
+        if (timeLimit < 0) {
+            clearInterval(this.intervalId);
+            return;
+        }
         this.setData({
             'timeLimit': timeLimit - 1,
             remainTime: {

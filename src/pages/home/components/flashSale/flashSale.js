@@ -39,11 +39,8 @@ Component({
                         const { timeLimit } = this.data;
                         const [hour, minute, second] = getRemainTime(timeLimit);
                         let day = parseInt(hour / 24, 10);
-                        if (timeLimit - 1 <= 0) {
-                            this.setData({
-                                hasEnd: true,
-                                hasStart: true
-                            });
+                        if (timeLimit < 0) {
+                            clearInterval(this.intervalId);
                             return;
                         }
                         this.setData({
