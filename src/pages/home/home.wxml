@@ -45,7 +45,7 @@
                 <!-- 内容电商 -->
                 <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
                 <!-- 分组商品列表 -->
-                <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+                <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
                 <!-- 商品列表 -->
                 <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
                 <!-- 魔方 -->
