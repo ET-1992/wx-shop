@@ -381,10 +381,10 @@
           </view>
         </view>
         <!-- end -->
-        <view wx:if="{{ product.groupon_enable && product.active_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.active_groupons.length }}" class="activeGroupons">
+        <view wx:if="{{ product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
           <view class="title">正在开团, 可直接参团</view>
-          <view wx:for="{{ product.active_groupons }}" wx:key="id" class="activeGrouponWrapper">
-            <activeGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
+          <view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
+            <pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />
           </view>
         </view>
         <!-- 拼团流程 -->
