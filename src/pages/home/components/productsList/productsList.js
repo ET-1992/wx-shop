@@ -48,6 +48,10 @@ Component({
         isLastModule: {
             type: Boolean,
             value: false,
+        },
+        isShowAddCart: { // 购物车为你推荐是否加车
+            type: Boolean,
+            value: true,
         }
     },
 

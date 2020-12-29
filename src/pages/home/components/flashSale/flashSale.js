@@ -73,6 +73,10 @@ Component({
         config: {
             type: Object,
             value: {}
+        },
+        isShowAddCart: { // 购物车为你推荐是否加车
+            type: Boolean,
+            value: true
         }
     },
 
