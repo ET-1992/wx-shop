@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
-import { updateTabbar, autoNavigate, getAgainUserForInvalid, go } from 'utils/util';
+import { updateTabbar, autoNavigate, getAgainUserForInvalid, go, debounce } from 'utils/util';
 
 const app = getApp();
 
@@ -131,7 +131,7 @@ Page({
     },
 
     // 更新购物车数量信息
-    async onUpdateQuantity(e) {
+    onUpdateQuantity: debounce(async function(e) {
         // console.log('e', e);
         let { detail, currentTarget: { dataset: { cartId }}} = e,
             { vendor } = app.globalData,
@@ -159,7 +159,7 @@ Page({
                 showCancel: false,
             });
         }
-    },
+    }, 400),
 
     // 批量删除购物车
     async onManageCart() {
