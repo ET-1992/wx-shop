@@ -56,7 +56,7 @@
 						<view class="des_title">{{item.activity_title}}</view>
 						<view class="rule">{{item.rule_description}}</view>
 					</view>
-					<view class="btn" wx:if="{{item.isUsed}}">已使用</view>
+					<view class="btn" wx:if="{{item.isUsed}}">已兑换</view>
 					<view class="btn" bind:tap="onUseExchangeCard" data-index="{{index}}" data-code="{{item.code}}" data-password="{{item.password}}" wx:else>立即使用</view>
 				</view>
 				<view class="bottom">
