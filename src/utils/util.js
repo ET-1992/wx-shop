@@ -549,13 +549,11 @@ export function debounce(fn, interval) {
     let timer = null;
     // 间隔时间，如果interval不传，则默认1000ms
     let gapTime = interval || 1000;
-    return function() {
+    return function(...args) {
         clearTimeout(timer);
         let context = this;
-        // 保存此处的arguments，因为setTimeout是全局的，arguments不是防抖函数需要的。
-        let args = arguments;
         timer = setTimeout(function() {
-            fn.call(context, args);
+            fn.apply(context, args);
         }, gapTime);
     };
 }
