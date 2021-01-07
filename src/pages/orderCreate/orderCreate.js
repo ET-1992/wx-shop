@@ -81,7 +81,7 @@ Page({
             // isCancel 仅在跳转支付后返回 标识是否取消支付
             const { grouponId, isGrouponBuy, crowd = false, groupon_commander_price = false } = this.options;
             // 理论上this.options和params一样，但我选后者
-            let { shipping_type, product_type } = params;
+            let { shipping_type = 1, product_type } = params;
 
             // 新增秒杀
             const { seckill, seckill_product_id } = this.options;
