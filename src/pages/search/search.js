@@ -62,7 +62,7 @@ Page({
         // 	Object.assign(options, saleSort);
         // }
 
-        this.setData({ isLoading: true });
+        // this.setData({ isLoading: true });
 
         const data = await api.hei.fetchProductList(options);
         const newProducts = isRefresh ? data.products : products.concat(data.products);
@@ -107,6 +107,7 @@ Page({
             isRefresh: true,
             isSearch: true,
             currentPage: 1,
+            isLoading: true
         });
         if (!isHistroy && searchKey) {
             const result = searchKeys.find((key) => searchKey === key);
