@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { SEARCH_KEY, PRODUCT_LIST_STYLE } from 'constants/index';
 import { showModal } from 'utils/wxp';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
-// const app = getApp()
+const app = getApp();
 
 // 创建页面实例对象
 Page({
@@ -10,6 +10,9 @@ Page({
     data: {
         searchKeys: [],
         searchKey: '',
+
+        globalData: app.globalData,
+        themeColor: app.globalData.themeColor,
 
         currentPage: 1,
         products: [],
