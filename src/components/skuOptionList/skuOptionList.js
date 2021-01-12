@@ -32,7 +32,7 @@ Component({
     methods: {
         // 初始化选项组合
         setOptionList() {
-            const { product, product: { properties, skus, special_attributes, related_product }} = this.data;
+            const { product, product: { properties, skus, special_attributes = [], related_product = [] }} = this.data;
             if (Object.keys(product).length === 0) {
                 return;
             }
