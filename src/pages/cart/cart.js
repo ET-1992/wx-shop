@@ -379,4 +379,8 @@ Page({
     onCloseRemark() {
         this.setData({ isShowRemark: false });
     },
+
+    noop() {
+        // nothing
+    },
 });
