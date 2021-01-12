@@ -20,6 +20,13 @@ Component({
             value: {}
         }
     },
+    lifetimes: {
+        attached() {
+            let data = wx.getMenuButtonBoundingClientRect();
+            let { bottom } = data;
+            this.setData({ menuBottom: bottom });
+        },
+    },
     methods: {
 
         go,

@@ -1,4 +1,4 @@
-<view class="header" style="background-color: {{ themeColor.primaryColor }}">
+<view class="header" style="background-color: {{ themeColor.primaryColor }}" style="margin-top: {{menuBottom}}px">
 	<view class="header-top">
 		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
