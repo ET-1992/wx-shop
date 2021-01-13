@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid } from 'utils/util';
+import { getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
 
 Component({
     properties: {
@@ -52,13 +52,14 @@ Component({
         },
 
         // 普通直链
-        onNavigated(e) {
+        async onNavigated(e) {
             let { path } = e.currentTarget.dataset,
                 err = '';
-            wx.navigateTo({
-                url: path,
-                fail: () => { err = `跳转失败${path}` }
-            });
+            try {
+                await autoNavigate_({ url: path });
+            } catch (e) {
+                err = `跳转失败${path}`;
+            }
             if (!err) { return }
             wx.showModal({
                 title: '报错提示',
