@@ -70,7 +70,7 @@
                             <text>{{ product.definePrice + '-' + (product.highest_price + selectedOptions.relationPrice) }}</text>
                         </view>
                         <view wx:else>
-                            <text>{{ product.definePrice }}</text>
+                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view>
                     </view>
                     <view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
