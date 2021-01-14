@@ -9,7 +9,8 @@ Component({
     },
     observers: {
         'infosComponentData': function(value) {
-            let { config, user, affiliate, extend_icons } = value || {};
+            if (!value) { return }
+            let { config, user, affiliate, extend_icons } = value;
             this.setData({
                 config,
                 user,

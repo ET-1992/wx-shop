@@ -15,7 +15,6 @@ Page({
         },
         consoleTime: 0,
         isLoading: true,
-        isShowConsole: false,
         infoModalTime: 0,
         PLATFFORM_ENV,
     },
@@ -83,7 +82,7 @@ Page({
         // user用户客服对接
         const { themeColor, partner = {}, defineTypeGlobal, vip, tabbarPages } = app.globalData;
         console.log(tabbarPages, 'tabbarPages');
-        this.setData({ themeColor, isShowConsole: app.openConsole, logoObj: partner, defineTypeGlobal, vip, tabbarPages });
+        this.setData({ themeColor, logoObj: partner, defineTypeGlobal, vip, tabbarPages });
     },
 
     async onShow() {
