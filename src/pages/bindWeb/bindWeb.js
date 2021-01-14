@@ -57,6 +57,9 @@ Page({
                     showCancel: false
                 });
             }
+        } else {
+            console.log('ev.detail', ev.detail);
+            wx.showToast({ title: '获取手机号失败', icon: 'none' });
         }
     },
     async submit({ phone, code }) {
