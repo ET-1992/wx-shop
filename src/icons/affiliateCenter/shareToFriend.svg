@@ -1,1 +1,17 @@
-<svg height="176" viewBox="0 0 176 176" width="176" xmlns="http://www.w3.org/2000/svg"><circle cx="88" cy="88" fill="#fdc522" r="88"/><g transform="translate(13.241 13.241)"><path d="m26.02 2a50.625 50.625 0 0 0 -7.92.415c40.016 1.246 72.528 34.057 72.528 74.344 0 38.625-29.595 70.19-67.109 74.343h2.5a74.847 74.847 0 0 0 75.029-74.759c.001-40.702-33.762-74.343-75.028-74.343z" fill="#f8931e" transform="translate(48.47 -2)"/><circle cx="74.76" cy="74.76" fill="none" r="74.76" stroke="#000" stroke-miterlimit="10" stroke-width="4"/></g><g stroke="#000" stroke-width="6"><ellipse cx="83.848" cy="69.216" fill="#fff" rx="20.932" ry="20.932" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/><path d="m3.5 87.046a32.873 32.873 0 0 1 32.846-32.846" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" transform="translate(47.502 36.03)"/><path d="m92.111 109.125h32.887" fill="none"/><path d="m108.554 92.681v32.887" fill="none"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fec422;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="组_4937" data-name="组 4937" transform="translate(-533 -922)">
+    <circle id="椭圆_530" data-name="椭圆 530" class="cls-1" cx="30" cy="30" r="30" transform="translate(533 922)"/>
+    <path id="形状_4" data-name="形状 4" class="cls-2" d="M27.766,39.064a8.406,8.406,0,1,1,.015,0ZM23.11,30.292h3.764v3.765H28.76V30.292h3.764V28.407H28.76V24.642H26.874v3.765H23.11ZM.373,37.153a1.431,1.431,0,0,1-.365-1.108,18.214,18.214,0,0,1,8.8-13.771.832.832,0,0,0,.1-1.435A11.432,11.432,0,0,1,16.775.083,11.272,11.272,0,0,1,26.811,10.225a11.412,11.412,0,0,1-4.66,10.521,9.481,9.481,0,0,0-1.6,16.877H1.435A1.435,1.435,0,0,1,.373,37.153Z" transform="translate(544.612 932.041)"/>
+  </g>
+</svg>
