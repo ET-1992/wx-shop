@@ -234,8 +234,7 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
             let { posterType } = this.data;
-            const { config, product } = data;
-            const { thumbnail } = product;
+            const { config, product, share_title, share_image } = data;
             this.config = config;
             this.product = product;
             wx.setNavigationBarTitle({
@@ -305,9 +304,10 @@ Page({
             const areaObj = this.getAddressInfo();
 
             this.setData({
+                share_title,
+                share_image,
                 tabList,
                 grouponId: grouponId || '',
-                share_image: thumbnail,
                 product,
                 isLoading: false,
                 areaObj,
