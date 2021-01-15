@@ -65,7 +65,12 @@ module.exports = Behavior({
 
         // 物流选择回调
         getShippingType(e) {
+            let { product } = this.data;
             let { shipping_type } = e.detail;
+            if (product && product.product_type === 1) {
+                // 虚拟商品
+                shipping_type = -1;
+            }
             this._shipping_type = shipping_type;
             this.triggerEvent('shipping-change', { shipping_type });
         },
