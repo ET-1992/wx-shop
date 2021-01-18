@@ -33,9 +33,16 @@ module.exports = Behavior({
         // 商品规格回调
         onOptionSelect(e) {
             let { currentSku, selectedSku, skuMap, currentSpecial, currentRelation } = e.detail,
-                { product, product: { related_product }} = this.data;
+                { product, product: { related_product, miaosha_enable }} = this.data;
 
             let price = Number(selectedSku.price || product.price) * 100;
+            if (miaosha_enable) {
+                let { miaosha_end_timestamp, miaosha_start_timestamp, miaosha_price } = product;
+                const now = Math.round(Date.now() / 1000);
+                if (now >= miaosha_start_timestamp && now < miaosha_end_timestamp) {
+                    price = Number(miaosha_price) * 100;
+                }
+            }
             let relationPrice = 0;
             if (currentRelation.length) {
                 let flatProducts = related_product.flatMap(item => item.value);
