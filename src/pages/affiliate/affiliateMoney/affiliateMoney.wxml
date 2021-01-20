@@ -117,14 +117,14 @@
 </view>
 
 <view class="checkbox_item">
-		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange">阅读并同意</van-checkbox>
+		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange" checked-color="{{ themeColor.primaryColor }}">阅读并同意</van-checkbox>
 		<view class="checkbox_text">
 			<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
 		</view>
 </view>
 
 <view class="saveBtnWrap" >
-	<view class="saveBtn" bindtap="submitChecked">申请提现</view>
+	<view class="saveBtn" bindtap="submitChecked" style="background-color: {{ themeColor.primaryColor }}">申请提现</view>
 </view>
 
 <navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2" >提现记录</navigator>

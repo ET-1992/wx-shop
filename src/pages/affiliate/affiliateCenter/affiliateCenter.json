@@ -1,6 +1,5 @@
 {
 	"navigationBarTitleText": "分享中心",
-	"navigationBarBackgroundColor": "#333333",
 	"usingComponents": {
 		"loading": "../../../components/loading/index",
 		"van-popup": "@vant/weapp/dist/popup/index",
