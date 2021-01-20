@@ -10,6 +10,7 @@ Page({
         // isShowModal: false,
         isLoading: true,
         member: {},
+        config: {},
         wallet: {},
         isShowPopup: false, // 是否开启编辑用户名弹窗
         value: '' // input框输入内容
@@ -20,7 +21,8 @@ Page({
     onLoad(params) {
         console.log(params);
         const { themeColor } = app.globalData;
-        this.setData({ themeColor });
+        const config = wx.getStorageSync(CONFIG);
+        this.setData({ themeColor, config });
     },
     async onShow() {
         const data = await api.hei.shareUserInfo();

@@ -2,7 +2,7 @@
 
 <view class="container" wx:if="{{ !isLoading }}" >
 	<!-- 个人信息 -->
-	<view class="user">
+	<view class="user" style="background-color: {{ config.customize_style && config.customize_style.background_color }}">
 		<view class="userHead">
 			<image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
 		</view>
