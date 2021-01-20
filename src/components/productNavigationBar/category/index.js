@@ -1,3 +1,5 @@
+import { go } from 'utils/util';
+
 Component({
     properties: {
         backgroundRgb: {
@@ -16,6 +18,9 @@ Component({
                 showBgColor: true,
             });
         },
+    },
+    methods: {
+        go,
     },
 
 });
