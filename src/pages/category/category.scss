@@ -18,18 +18,19 @@ page {
 		text-align: center;
 		height: 100%;
 		width: 180rpx;
-		background-color: white;
 		font-size: 26rpx;
 		color: $tagColor;
-		margin: 0 16rpx;
-
+		margin-left: 16rpx;
+		
 		.mainCategoryItem {
+			background-color: white;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-wrap: wrap;
 			min-height: 100rpx;
 			border-radius: 5rpx;
+			margin-right: 16rpx;
 			.mainCategoryItemText {
 				margin: 8rpx 0;
 				padding: 0 8rpx;
