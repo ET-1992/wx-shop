@@ -1,7 +1,8 @@
 {
 	"navigationBarTitleText": "分类",
 	"enablePullDownRefresh": true,
+	"navigationStyle": "custom",
 	"usingComponents": {
-    	"searchBox": "../home/components/searchBox/searchBox"
+		"productNavigationBar": "components/productNavigationBar/productNavigationBar"
   	}
 }

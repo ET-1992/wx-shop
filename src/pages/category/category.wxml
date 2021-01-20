@@ -1,6 +1,5 @@
-
-<searchBox themeColor="{{ themeColor }}" />
-<view class="container">
+<productNavigationBar id="navigation-bar" navType="categoryNav"  />
+<view class="container" style="padding-top: {{ navHeight }}px">
  <scroll-view class="mainCategory" scroll-y  scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
     <view
       class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}"

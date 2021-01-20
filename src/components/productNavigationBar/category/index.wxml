@@ -1,0 +1,9 @@
+<view>
+  <navigationBar background="{{ backgroundRgb }}" showBgColor="{{ showBgColor }}" id="navigationBar">
+    <view slot="center" class="bar-center" style="{{ customStyle }}" bind:tap="go" data-url="/pages/search/search">
+      <!-- <image class="bar-center-icon" src="/icons/search.png"></image> -->
+      <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
+      <text>搜索商品</text>
+    </view>
+  </navigationBar>
+</view>

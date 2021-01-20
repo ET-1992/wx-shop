@@ -1,9 +1,12 @@
 <view class="navigation-bar-wrap">
+  <!-- 商品详情 -->
   <productDetail wx:if="{{ navType === 'productNav' }}" showBgColor="{{ showBgColor }}" background="{{ backgroundRgb }}" color="{{ themeColor.navigationBarTextStyle }}" />
+  <!-- 店铺分类 -->
+  <category wx:elif="{{ navType === 'categoryNav' }}" backgroundRgb="{{ backgroundRgb }}" customStyle="{{ barCenterStyle }}"></category>
 
-  <!-- 首页的navbar -->
+  <!-- 首页 -->
   <navigationBar
-    wx:if="{{ navType === 'homeNav' }}"
+    wx:elif="{{ navType === 'homeNav' }}"
     id="navigationBar"
     background="{{ backgroundRgb }}"
     title="{{ showBgColor && !showSearchBox ? title : ''  }}"

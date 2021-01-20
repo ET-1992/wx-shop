@@ -14,10 +14,13 @@ Page({
     },
 
     async onLoad() {
-        const { tabbarPages } = app.globalData;
         try {
             const { themeColor, partner = {}, tabbarPages } = app.globalData;
-            this.setData({ isLoading: true });
+            let { navBarExtendHeight, navBarHeight } = app.globalSystemInfo;
+            this.setData({
+                isLoading: true,
+                navHeight: navBarHeight + navBarExtendHeight
+            });
             const data = await api.hei.fetchCategory();
             const { categories = [] } = data;
             categories.forEach((category) => {
@@ -35,7 +38,6 @@ Page({
                 themeColor,
                 ...data
             });
-
             this.getCategoryTop();
         }
         catch (err) {

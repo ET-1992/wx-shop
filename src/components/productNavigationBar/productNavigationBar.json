@@ -3,6 +3,7 @@
   "usingComponents": {
     "van-icon": "@vant/weapp/dist/icon/index",
     "navigationBar": "components/navigationBar/navigationBar",
-    "productDetail": "./productDetail/index"
+    "productDetail": "./productDetail/index",
+    "category": "./category/index"
   }
 }
