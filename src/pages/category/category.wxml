@@ -1,5 +1,5 @@
 <productNavigationBar id="navigation-bar" navType="categoryNav"  />
-<view class="container" style="padding-top: {{ navHeight }}px">
+<view class="container" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
  <scroll-view class="mainCategory" scroll-y  scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
     <view
       class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}"
@@ -8,7 +8,9 @@
       data-index="{{ index }}"
       bindtap="onMainCategoryItemClick"
       id="{{ 'm' + index }}"
-    >{{ item.name }}</view>
+    >
+      <text class="mainCategoryItemText">{{ item.name }}</text>
+    </view>
   </scroll-view>
   <scroll-view class="subCategory" scroll-y scroll-into-view="{{'c' + selectedIndex}}" scroll-with-animation="{{ 300 }}" bindscroll="onScroll">
     <view class="subCategory-item" wx:for="{{ categories }}" id="{{ 'c' + index }}">

@@ -17,9 +17,10 @@ Page({
         try {
             const { themeColor, partner = {}, tabbarPages } = app.globalData;
             let { navBarExtendHeight, navBarHeight } = app.globalSystemInfo;
+            let navHeight = navBarHeight + navBarExtendHeight;
             this.setData({
                 isLoading: true,
-                navHeight: navBarHeight + navBarExtendHeight
+                navHeight,
             });
             const data = await api.hei.fetchCategory();
             const { categories = [] } = data;

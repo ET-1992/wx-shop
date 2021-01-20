@@ -1,6 +1,5 @@
 {
 	"navigationBarTitleText": "分类",
-	"enablePullDownRefresh": true,
 	"navigationStyle": "custom",
 	"usingComponents": {
 		"productNavigationBar": "components/productNavigationBar/productNavigationBar"
