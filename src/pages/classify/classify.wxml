@@ -1,6 +1,6 @@
 <view class="classify-wrap" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
   <!-- 小程序导航栏 -->
-  <customNavigationBar bind:updatestore="updateStoreData" showStore="{{ multiStoreEnable }}" style="position: fixed"></customNavigationBar>
+  <customNavigationBar bind:updatestore="updateStoreData" showStore="{{ multiStoreEnable }}" style="position: fixed; z-index: 1"></customNavigationBar>
   <view class="container">
     <view class="category">
       <!-- 左边分类导航 -->
@@ -17,20 +17,22 @@
       <!-- 右边商品导航 -->
       <view class="subCategory">
         <!-- 二级分类导航 -->
-        <scroll-view class="subTitle" scroll-x scroll-into-view="sub-{{toSubCategory}}" scroll-with-animation wx:if="{{selectedIndex !== -1}}">
-          <view class="subTitleItem">
-            <view class="title {{ subSelectedIndex === 0 ? 'selected' : '' }}" data-index="{{ 0 }}" bindtap="onSubCategoryItemClick" id="sub-{{0}}">
-              <text>全部</text>
+        <view class="subCategoryTop">
+          <scroll-view class="subTitle" scroll-x scroll-into-view="sub-{{toSubCategory}}" scroll-with-animation wx:if="{{selectedIndex !== -1}}">
+            <view class="subTitleItem">
+              <view class="title {{ subSelectedIndex === 0 ? 'selected' : '' }}" data-index="{{ 0 }}" bindtap="onSubCategoryItemClick" id="sub-{{0}}">
+                <text>全部</text>
+              </view>
+              <view class="badge" wx:if="{{ counts[categories[selectedIndex].id] }}"></view>
             </view>
-            <view class="badge" wx:if="{{ counts[categories[selectedIndex].id] }}"></view>
-          </view>
-          <view class="subTitleItem" wx:for="{{ categories[selectedIndex].children }}">
-            <view class="title {{ subSelectedIndex === (index + 1) ? 'selected' : '' }}" data-index="{{(index + 1)}}" bindtap="onSubCategoryItemClick" id="sub-{{(index + 1)}}">
-              <text>{{ item.name }}</text>
+            <view class="subTitleItem" wx:for="{{ categories[selectedIndex].children }}">
+              <view class="title {{ subSelectedIndex === (index + 1) ? 'selected' : '' }}" data-index="{{(index + 1)}}" bindtap="onSubCategoryItemClick" id="sub-{{(index + 1)}}">
+                <text>{{ item.name }}</text>
+              </view>
+              <view class="badge" wx:if="{{ counts[item.id] }}"></view>
             </view>
-            <view class="badge" wx:if="{{ counts[item.id] }}"></view>
-          </view>
-        </scroll-view>
+          </scroll-view>
+        </view>
         <!-- 商品筛选 -->
         <view class="contentTop" wx:if="{{selectedIndex !== -1}}">
           <view class="title">
