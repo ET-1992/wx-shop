@@ -1,57 +1,50 @@
-@import '~styles/color';
-@import '~templates/homeTemplates/topImage/topImage.scss';
-@import '~templates/homeTemplates/leftImage/leftImage.scss';
+@import "~styles/color";
+@import "~templates/homeTemplates/topImage/topImage.scss";
+@import "~templates/homeTemplates/leftImage/leftImage.scss";
 
 $nameColor: #595757;
-// 搜索框高度
-$searchHeight: 90rpx;
-// 门店组件高度
-$storeHeight: 98rpx;
 
-page{
+.classify-wrap {
+	height: 100vh;
+	width: 100vw;
+}
+.container {
 	height: 100%;
-}
-.multiStore {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: $searchHeight;
-	z-index: 2;
-}
-.container-multiStore {
-	padding-top: $searchHeight + $storeHeight !important;
-}
-.subContent-multiStore {
-	padding-bottom: 70rpx + $searchHeight + $storeHeight !important;
-}
-.container{
-	padding-top: $searchHeight;
-	height: 100%;
-	.category{
-		width:100%;
+	.category {
+		width: 100%;
 		height: 100%;
-		display:flex;
-		flex-flow:row nowrap;
-		align-items:stretch;
-		background:#FFF;
+		display: flex;
 		.mainCategory {
 			text-align: center;
 			height: 100%;
-			width: 24%;
-			background-color: #F4F4F4;
+			width: 28%;
+			background-color: #f4f4f4;
+			// margin-left: 16rpx;
+			flex-shrink: 0;
 			.mainCategoryItem {
-				display: flex;
+				background-color: white;
 				align-items: center;
 				justify-content: center;
-				height: 95rpx;
+				min-height: 100rpx;
+				border-radius: 5rpx;
+				margin-left: 16rpx;
+				margin-right: 16rpx;
+				display: flex;
 				font-size: 30rpx;
-				color: #707070;
+				color: #999999;
 				position: relative;
-				.badge{
+				.mainCategoryItemText {
+					margin: 8rpx 0;
+					padding: 0 8rpx;
+					width: 100%;
+					box-sizing: border-box;
+					border-left: 4rpx solid transparent;
+				}
+				.badge {
 					border-radius: 100%;
 					width: 25rpx;
 					height: 25rpx;
-					background: #F52D2D;
+					background: #f52d2d;
 					color: #fff;
 					font-size: 18rpx;
 					display: flex;
@@ -62,42 +55,45 @@ page{
 					right: 13rpx;
 				}
 				&.selected {
-					font-size: 30rpx;
-					font-weight: bold;
-					color: #000000;
-					background: #fff;
+					background: #f4f4f4;
+					.mainCategoryItemText {
+						font-size: 30rpx;
+						color: #333333;
+						border-left: 4rpx solid var(--primary-color, white);
+					}
 				}
-				.tag{
+				.tag {
 					position: absolute;
 					left: 0;
 					top: 50%;
 					margin-top: -20rpx;
-					background: #79BCBE;
+					background: #79bcbe;
 					height: 40rpx;
 					width: 10rpx;
 				}
 			}
 		}
 		.subCategory {
-			background-color: #fff;
-			width: 76%;
+			background-color: #f4f4f4;
+			width: 72%;
 			height: 100%;
-			position:fixed;
-			right:0;
-			.info{
+			padding-right: 16rpx;
+			overflow: hidden;
+			position: relative;
+			.info {
 				display: flex;
 				flex-direction: column;
 				color: #333333;
-				.head{
+				.head {
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
 					padding: 32rpx 0 15rpx;
-					.title{
+					.title {
 						font-size: 32rpx;
 						font-weight: bold;
 					}
-					.time{
+					.time {
 						font-size: 20rpx;
 					}
 				}
@@ -108,14 +104,14 @@ page{
 					color: $originalPriceColor;
 					background-color: #fff;
 					text-align: left;
-					.text{
+					.text {
 						font-size: 20rpx;
 						font-weight: bold;
 						color: #333333;
 						padding-right: 20rpx;
 					}
 					.coupon {
-						background: #F52D2D;
+						background: #f52d2d;
 						color: #fff;
 						margin-right: 20rpx;
 						display: inline-block;
@@ -124,9 +120,9 @@ page{
 						border-radius: 5rpx;
 						padding: 0 10rpx;
 						font-size: 18rpx;
-						display:flex;
-						align-items:center;
-						justify-content:center;
+						display: flex;
+						align-items: center;
+						justify-content: center;
 					}
 					.nullCoupon {
 						color: #707070;
@@ -137,46 +133,49 @@ page{
 						border-radius: 5rpx;
 						padding: 0 10rpx;
 						font-size: 24rpx;
-						display:flex;
-						align-items:center;
-						justify-content:center;
+						display: flex;
+						align-items: center;
+						justify-content: center;
 					}
 				}
-				.address{
+				.address {
 					font-size: 20rpx;
 				}
-				.service{
+				.service {
 					padding-top: 28rpx;
 					padding-left: 5rpx;
-					.text{
+					.text {
 						font-size: 22rpx;
 						font-weight: bold;
 					}
-					.desc{
+					.desc {
 						font-size: 20rpx;
 						padding: 15rpx 0 14rpx;
-						.service-item{
+						.service-item {
 							padding-bottom: 10rpx;
 						}
 					}
 				}
 			}
-			.subTitle{
-				height: 70rpx;
-				padding: 0 30rpx;
+			.subTitle {
+				padding: 0 14rpx;
 				white-space: nowrap;
-				.subTitleItem{
+				margin-right: 16rpx;
+				background-color: #fff;
+				position: -webkit-sticky;
+				position: sticky;
+				.subTitleItem {
 					display: inline-block;
-					font-size: 26rpx;
-					color: #707070;
+					font-size: 24rpx;
+					color: #999999;
 					text-align: center;
-					padding:0 20rpx;
+					padding: 0 20rpx;
 					position: relative;
-					.badge{
+					.badge {
 						border-radius: 100%;
 						width: 16rpx;
 						height: 16rpx;
-						background: #F52D2D;
+						background: #f52d2d;
 						color: #fff;
 						font-size: 18rpx;
 						display: flex;
@@ -186,56 +185,53 @@ page{
 						top: 10rpx;
 						right: 10rpx;
 					}
-					.title{
-						height: 70rpx;
-						line-height: 70rpx;
+					.title {
+						line-height: 32rpx;
+						padding: 20rpx 0 18rpx 0;
 						display: inline-block;
-					}
-					.selected{
-						font-weight: bold;
-						color: #000;
-						border-bottom: 6rpx solid #79BCBE;
+						border-bottom: 4rpx solid transparent;
+						&.selected {
+							color: #333333;
+							border-color: var(--primary-color, white);
+						}
 					}
 				}
 			}
-			.subContent{
-				height:100%;
-				padding-bottom:70rpx + $searchHeight;
-				overflow: auto;
-				.banner_image{
-					height: 200rpx;
-					width: 520rpx;
-					margin-bottom: 11rpx;
+			.contentTop {
+				position: sticky;
+				position: -webkit-sticky;
+				top: 0;
+				width: 100%;
+				background: #fff;
+				padding: 18rpx 0;
+				height: 70rpx;
+				font-size: 24rpx;
+				color: #707070;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				z-index: 99;
+				border-top: 1rpx solid #f5f5f5;
+				&::after {
+					// 遮住下方突出的内容
+					content: "";
+					position: absolute;
+					right: -4rpx;
+					height: 70rpx;
+					width: 4rpx;
+					background-color: #fff;
 				}
-				.subContent-content{
-					padding: 0 30rpx;
-					.contentTop{
-						position: fixed;
-						width: 68%;
-						background: #fff;
-						padding: 18rpx 0;
-						height: 70rpx;
-						font-size: 24rpx;
-						color: #707070;
-						display: flex;
-						align-items: center;
-						justify-content: space-between;
-						z-index: 99;
-						border-top: 1rpx solid #f5f5f5;
-						&::after {
-							// 遮住下方突出的内容
-							content: '';
-							position: absolute;
-							right: -4rpx;
-							height: 70rpx;
-							width: 4rpx;
-							background-color: #fff;
-						}
-					}
-					.filter{
-						display: flex;
-						width:225rpx;
-					}
+				.filter {
+					display: flex;
+					width: 225rpx;
+				}
+				padding: 0 20rpx;
+				position: relative;
+			}
+			.subContent {
+				height: 100%;
+				background-color: #fff;
+				.subContent-content {
 				}
 			}
 			.subCategoryBanner {
@@ -247,8 +243,8 @@ page{
 				margin: 30rpx 0;
 			}
 			.categoryTitle:before,
-			.categoryTitle:after{
-				content: '';
+			.categoryTitle:after {
+				content: "";
 				width: 40rpx;
 				border-top: 1px solid $nameColor;
 				display: inline-block;
@@ -260,9 +256,8 @@ page{
 				margin-bottom: 50rpx;
 				margin-right: -80rpx;
 				text-align: left;
-				display:flex;
-				flex-wrap:wrap;
-
+				display: flex;
+				flex-wrap: wrap;
 			}
 			.subCategoryItem {
 				$size: 110rpx;
@@ -282,11 +277,11 @@ page{
 				.subCategoryName {
 					color: $nameColor;
 					font-size: 9pt;
-					overflow:hidden;
-					text-overflow:ellipsis;
-					display:-webkit-box;
-					-webkit-box-orient:vertical;
-					-webkit-line-clamp:2;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
 				}
 			}
 		}
@@ -308,12 +303,11 @@ page{
 		height: 0;
 		color: transparent;
 	}
-
 }
 
 // SKU弹窗
 .order-sku-wrap {
-	width: 90%; 
+	width: 90%;
 	// max-height: 80%;
 	// 修改vant样式
 	--popup-round-border-radius: 20rpx;

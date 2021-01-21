@@ -1,89 +1,61 @@
-<searchBox themeColor="{{ themeColor }}" />
-<!-- 多门店 -->
-<div class="multiStore">
-	<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
-</div>
-<view class="container {{ multiStoreEnable ? 'container-multiStore': '' }}">
-	<view class="category">
-		<scroll-view
-			class="mainCategory hidding-scrollbar"
-			scroll-y="{{true}}"
-			scroll-into-view="main-{{toMainCategory}}"
-			scroll-with-animation="{{true}}"
-			>
-			<view
-				class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}"
-				wx:for="{{categories}}"
-				data-index="{{index}}"
-				bindtap="onMainCategoryItemClick"
-				id="main-{{index}}"
-				>
-				<view class="title">{{item.name}}</view>
-				<view class="badge" wx:if="{{ counts[item.id] }}">{{  counts[item.id] > 99 ? '···' :  counts[item.id] }}</view>
-			</view>
-		</scroll-view>
-		<view class="subCategory">
-			<scroll-view
-				class="subTitle"
-				scroll-x="{{true}}"
-				scroll-into-view="sub-{{toSubCategory}}"
-				scroll-with-animation="{{true}}"
-				wx:if="{{selectedIndex !== -1}}"
-				>
-				<view class="subTitleItem">
-					<view
-						class="title {{ subSelectedIndex === 0 ? 'selected' : '' }}"
-						style="border-color:{{ themeColor.primaryColor }}"
-						data-index="{{ 0 }}"
-						bindtap="onSubCategoryItemClick"
-						id="sub-{{0}}"
-					>全部</view>
-					<view class="badge" wx:if="{{ counts[categories[selectedIndex].id] }}"></view>
-				</view>
-
-				<view class="subTitleItem" wx:for="{{ categories[selectedIndex].children }}" >
-					<view
-						class="title {{ subSelectedIndex === (index + 1) ? 'selected' : '' }}"
-						style="border-color:{{ themeColor.primaryColor }}"
-						data-index="{{(index + 1)}}"
-						bindtap="onSubCategoryItemClick"
-						id="sub-{{(index + 1)}}"
-					>{{ item.name }}</view>
-					<view class="badge" wx:if="{{ counts[item.id] }}"></view>
-				</view>
-			</scroll-view>
-			<scroll-view
-				class="subContent {{ multiStoreEnable ? 'subContent-multiStore': '' }}"
-				scroll-y="{{true}}"
-				bindscroll="{{selectedIndex !== -1 ? 'subContentScroll':''}}"
-				bindscrolltolower="{{selectedIndex !== -1 ? 'subScrolltolower':''}}"
-				bindtouchstart="{{selectedIndex !== -1 ? 'touchstart':''}}"
-				bindtouchend="{{selectedIndex !== -1 ? 'touchend':''}}"
-				lower-threshold="{{ 300 }}"
-				>
-				<view class="subContent-content" wx:if="{{selectedIndex !== -1}}">
-					<view class="contentTop">
-           			 	<view class="title">{{categories[selectedIndex].children[subSelectedIndex - 1].name || '全部'}}</view>
-            			<filterList class="filter" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
-					</view>
-					<loading isLoading="{{ hasProducts }}" paddingTop="{{70}}"/>
-					<!-- <include src="/templates/homeTemplates/topImage/topImage.wxml"/> -->
-					<include src="/templates/homeTemplates/leftImage/leftImage.wxml"/>
-					<!--<i-load-more wx:if="{{ products.length && current_page > total_pages }}" tip="到底啦" loading="{{ false }}" />-->
-					<van-divider
-						wx:if="{{ products.length && current_page > total_pages }}"
-						contentPosition="center"
-						customStyle="font-size: 28rpx;"
-						>
-  							到底啦
-					</van-divider>
-				</view>
-			</scroll-view>
-		</view>
+<view class="classify-wrap" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
+  <!-- 小程序导航栏 -->
+  <customNavigationBar bind:updatestore="updateStoreData" showStore="{{ multiStoreEnable }}" style="position: fixed"></customNavigationBar>
+  <view class="container">
+    <view class="category">
+      <!-- 左边分类导航 -->
+      <scroll-view class="mainCategory hidding-scrollbar" scroll-y scroll-into-view="main-{{toMainCategory}}" scroll-with-animation>
+        <view class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}" wx:for="{{categories}}" data-index="{{index}}" bindtap="onMainCategoryItemClick" id="main-{{index}}">
+          <view class="mainCategoryItemText">
+            <view class="title">{{item.name}}</view>
+            <view class="badge" wx:if="{{ counts[item.id] }}">
+              <text>{{  counts[item.id] > 99 ? '···' :  counts[item.id] }}</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 右边商品导航 -->
+      <view class="subCategory">
+        <!-- 二级分类导航 -->
+        <scroll-view class="subTitle" scroll-x scroll-into-view="sub-{{toSubCategory}}" scroll-with-animation wx:if="{{selectedIndex !== -1}}">
+          <view class="subTitleItem">
+            <view class="title {{ subSelectedIndex === 0 ? 'selected' : '' }}" data-index="{{ 0 }}" bindtap="onSubCategoryItemClick" id="sub-{{0}}">
+              <text>全部</text>
+            </view>
+            <view class="badge" wx:if="{{ counts[categories[selectedIndex].id] }}"></view>
+          </view>
+          <view class="subTitleItem" wx:for="{{ categories[selectedIndex].children }}">
+            <view class="title {{ subSelectedIndex === (index + 1) ? 'selected' : '' }}" data-index="{{(index + 1)}}" bindtap="onSubCategoryItemClick" id="sub-{{(index + 1)}}">
+              <text>{{ item.name }}</text>
+            </view>
+            <view class="badge" wx:if="{{ counts[item.id] }}"></view>
+          </view>
+        </scroll-view>
+        <!-- 商品筛选 -->
+        <view class="contentTop" wx:if="{{selectedIndex !== -1}}">
+          <view class="title">
+            <text wx:if="{{ categories[selectedIndex].children[subSelectedIndex - 1].name }}">
+              {{ categories[selectedIndex].children[subSelectedIndex - 1].name }}
+            </text>
+            <text else>全部</text>
+          </view>
+          <filterList class="filter" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
+        </view>
+        <!-- 商品列表 -->
+        <scroll-view class="subContent" scroll-y bindscroll="{{selectedIndex !== -1 ? 'subContentScroll':''}}" bindscrolltolower="{{selectedIndex !== -1 ? 'subScrolltolower':''}}" bindtouchstart="{{selectedIndex !== -1 ? 'touchstart':''}}" bindtouchend="{{selectedIndex !== -1 ? 'touchend':''}}" lower-threshold="{{ 300 }}">
+          <view class="subContent-content" wx:if="{{selectedIndex !== -1}}">
+            <loading isLoading="{{ hasProducts }}" paddingTop="{{70}}" />
+            <include src="/templates/homeTemplates/leftImage/leftImage.wxml" />
+            <van-divider wx:if="{{ products.length && current_page > total_pages }}" contentPosition="center" customStyle="font-size: 28rpx;">
+              到底啦
+            </van-divider>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
   </view>
 </view>
-
 <!-- 餐饮商品选项弹窗 -->
 <van-popup show="{{ showOrderOptions }}" round custom-class="order-sku-wrap" custom-style="max-height: 80%" bind:close="onHideOrderOptions">
-	<orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onUpdateCart" />
+  <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onUpdateCart" />
 </van-popup>

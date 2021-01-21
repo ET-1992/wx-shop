@@ -48,8 +48,11 @@ Page({
         const { isIphoneX } = app.systemInfo;
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default' } = config;
+        let { navBarExtendHeight, navBarHeight } = app.globalSystemInfo;
+        let navHeight = navBarHeight + navBarExtendHeight;
         this.setData({
             isIphoneX,
+            navHeight,
             themeColor,
             tplStyle,
             globalData: app.globalData,

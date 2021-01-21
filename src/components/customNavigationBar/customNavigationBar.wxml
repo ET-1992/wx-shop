@@ -1,0 +1,23 @@
+<view class="container">
+  <!-- 内置门店获取逻辑 -->
+  <multiStore bind:updatestore="updatestore" multiStoreEnable="{{ showStore }}" style="display: none" />
+  <navigationBar id="navigationBar" background="{{ backgroundColor }}" title="" color="" showBgColor="{{ showBackgroundColor }}">
+    <view class="bar-left" slot="left" style="height: {{ capsulePosition.height }}px">
+      <!-- 多门店 -->
+      <view class="bar-left-store" bind:tap="go" data-url="/pages/multiStoreList/multiStoreList" wx:if="{{ showStore }}">
+        <view class="store-name">
+          <text wx:if="{{ currentStore.name }}">{{currentStore.name }}</text>
+          <text wx:else>选择门店</text>
+        </view>
+        <van-icon name="/icons/triangle.svg" custom-class="triangle"></van-icon>
+      </view>
+    </view>
+    <view class="bar-center" slot="center" style="height: {{ capsulePosition.height }}px">
+      <!-- 搜索框 -->
+      <view class="bar-center-search" bind:tap="go" data-url="/pages/search/search" wx:if="{{ showSearch }}">
+        <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
+        <text>搜索商品</text>
+      </view>
+    </view>
+  </navigationBar>
+</view>

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-icon": "@vant/weapp/dist/icon/index",
+	"navigationBar": "components/navigationBar/navigationBar",
+	"multiStore": "components/multiStore/multiStore"
+  }
+}
