@@ -2,6 +2,6 @@
 	"navigationBarTitleText": "分类",
 	"navigationStyle": "custom",
 	"usingComponents": {
-		"productNavigationBar": "components/productNavigationBar/productNavigationBar"
+		"customNavigationBar": "components/customNavigationBar/customNavigationBar"
   	}
 }

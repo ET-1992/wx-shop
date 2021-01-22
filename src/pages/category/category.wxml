@@ -1,4 +1,6 @@
-<productNavigationBar id="navigation-bar" navType="categoryNav"  />
+<!-- <productNavigationBar id="navigation-bar" navType="categoryNav"  /> -->
+<customNavigationBar style="position: fixed; z-index: 2"></customNavigationBar>
+
 <view class="container" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
  <scroll-view class="mainCategory" scroll-y  scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
     <view
