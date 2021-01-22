@@ -39,7 +39,7 @@
             <text wx:if="{{ categories[selectedIndex].children[subSelectedIndex - 1].name }}">
               {{ categories[selectedIndex].children[subSelectedIndex - 1].name }}
             </text>
-            <text else>全部</text>
+            <text wx:else>全部</text>
           </view>
           <filterList class="filter" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
         </view>

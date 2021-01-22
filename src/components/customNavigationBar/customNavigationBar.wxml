@@ -14,7 +14,7 @@
     </view>
     <view class="bar-center" slot="center" style="height: {{ capsulePosition.height }}px">
       <!-- 搜索框 -->
-      <view class="bar-center-search" bind:tap="go" data-url="/pages/search/search" wx:if="{{ showSearch }}">
+      <view class="bar-center-search {{ !showStore ? 'search-content-center' : '' }}" bind:tap="go" data-url="/pages/search/search" wx:if="{{ showSearch }}">
         <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
         <text>搜索商品</text>
       </view>

@@ -35,8 +35,10 @@
 			height: 100%;
 			border-radius: 32rpx;
 			display: flex;
-			// justify-content: center;
 			align-items: center;
+			&.search-content-center {
+				justify-content: center;
+			}
 		}
 		.bar-center-icon {
 			font-size: 24rpx;
