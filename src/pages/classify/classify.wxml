@@ -1,6 +1,6 @@
 <view class="classify-wrap" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
   <!-- 小程序导航栏 -->
-  <customNavigationBar bind:updatestore="updateStoreData" showStore="{{ multiStoreEnable }}" style="position: fixed; z-index: 1"></customNavigationBar>
+  <customNavigationBar bind:updatestore="updateStoreData" showStore="{{ multiStoreEnable }}" style="position: fixed; z-index: 2"></customNavigationBar>
   <view class="container">
     <view class="category">
       <!-- 左边分类导航 -->
@@ -48,9 +48,11 @@
           <view class="subContent-content" wx:if="{{selectedIndex !== -1}}">
             <loading isLoading="{{ hasProducts }}" paddingTop="{{70}}" />
             <include src="/templates/homeTemplates/leftImage/leftImage.wxml" />
-            <van-divider wx:if="{{ products.length && current_page > total_pages }}" contentPosition="center" customStyle="font-size: 28rpx;">
-              到底啦
-            </van-divider>
+            <view wx:if="{{ products.length && current_page > total_pages }}" class="product-list-last">
+              <van-divider contentPosition="center" customStyle="font-size: 28rpx;">
+                <text>到底啦</text>
+              </van-divider>
+            </view>
           </view>
         </scroll-view>
       </view>

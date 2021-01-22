@@ -237,6 +237,9 @@ $subtitleFilterHeigth: 70rpx;
 					min-height: 100%;
 					margin-right: 16rpx;
 					padding-top: $subtitleHeight + $subtitleFilterHeigth;
+					.product-list-last {
+						overflow: hidden;
+					}
 				}
 			}
 			.subCategoryBanner {
