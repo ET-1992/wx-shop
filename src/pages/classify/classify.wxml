@@ -5,13 +5,15 @@
     <view class="category">
       <!-- 左边分类导航 -->
       <scroll-view class="mainCategory hidding-scrollbar" scroll-y scroll-into-view="main-{{toMainCategory}}" scroll-with-animation>
-        <view class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}" wx:for="{{categories}}" data-index="{{index}}" bindtap="onMainCategoryItemClick" id="main-{{index}}">
-          <view class="mainCategoryItemText">
-            <view class="title">{{item.name}}</view>
-            <view class="badge" wx:if="{{ counts[item.id] }}">
-              <text>{{  counts[item.id] > 99 ? '···' :  counts[item.id] }}</text>
+        <view class="mainCategoryInside">
+          <view class="mainCategoryItem {{ selectedIndex === index ? 'selected' : '' }}" wx:for="{{categories}}" data-index="{{index}}" bindtap="onMainCategoryItemClick" id="main-{{index}}">
+            <view class="mainCategoryItemText">
+              <view class="title">{{item.name}}</view>
+              <view class="badge" wx:if="{{ counts[item.id] }}">
+                <text>{{  counts[item.id] > 99 ? '···' :  counts[item.id] }}</text>
+              </view>
             </view>
-          </view>
+        </view>
         </view>
       </scroll-view>
       <!-- 右边商品导航 -->

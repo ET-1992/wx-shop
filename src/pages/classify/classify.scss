@@ -21,17 +21,17 @@ $subtitleFilterHeigth: 70rpx;
 			text-align: center;
 			height: 100%;
 			width: 28%;
-			background-color: #f4f4f4;
-			// margin-left: 16rpx;
 			flex-shrink: 0;
-			.mainCategoryItem {
+			.mainCategoryInside {
+				min-height: 100%;
+				margin: 0 16rpx;
 				background-color: white;
+			}
+			.mainCategoryItem {
 				align-items: center;
 				justify-content: center;
 				min-height: 100rpx;
 				border-radius: 5rpx;
-				margin-left: 16rpx;
-				margin-right: 16rpx;
 				display: flex;
 				font-size: 30rpx;
 				color: #999999;
