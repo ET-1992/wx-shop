@@ -14,7 +14,6 @@ page {
 	display: flex;
 
 	.mainCategory {
-		// padding: 50rpx 0;
 		text-align: center;
 		height: 100%;
 		width: 180rpx;
@@ -22,15 +21,18 @@ page {
 		color: $tagColor;
 		margin-left: 16rpx;
 		
-		.mainCategoryItem {
+		.mainCategoryInner {
+			min-height: 100%;
 			background-color: white;
+			margin-right: 16rpx;
+		}
+		.mainCategoryItem {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-wrap: wrap;
 			min-height: 100rpx;
 			border-radius: 5rpx;
-			margin-right: 16rpx;
 			.mainCategoryItemText {
 				margin: 8rpx 0;
 				padding: 0 8rpx;
