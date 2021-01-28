@@ -728,7 +728,6 @@ Page({
     },
     // 分享按钮
     onShareAppMessage() {
-        this.closeShareModal();
         return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
     },
 
@@ -755,7 +754,7 @@ Page({
         });
     },
 
-    /* 调起底部弹窗 */
+    // 调起分享弹窗
     async openShareModal() {
         const { current_user = {}, config } = this.data;
         if (config.affiliate_enable && current_user && !current_user.is_affiliate_member && config.affiliate_public) {
@@ -773,19 +772,12 @@ Page({
         }
         this.setData({
             isShowShareModal: true
-        }, () => {
-            this.setData({
-                showShareModaled: true
-            });
         });
     },
+    // 关闭分享弹窗
     closeShareModal() {
         this.setData({
             isShowShareModal: false
-        }, () => {
-            this.setData({
-                showShareModaled: false
-            });
         });
     },
 
@@ -926,6 +918,22 @@ Page({
         }
     },
 
+    // 触发分享面板按钮
+    onShareSheet(e) {
+        let { index, openType } = e.detail;
+        this.closeShareModal();
+        if (openType) { return }
+        switch (index) {
+            case 1:
+                this.onShowPoster();
+                break;
+            default:
+                console.warn('There is no method');
+                break;
+        }
+    },
+
+    // 分享海报
     onShowPoster() {
         const {
             product: {
@@ -992,7 +1000,6 @@ Page({
 
         this.setData({
             showPosterModal: true,
-            isShowShareModal: false,
             posterData
         });
     },

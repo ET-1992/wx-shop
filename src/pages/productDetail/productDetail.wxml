@@ -613,21 +613,13 @@
   </view>
 </van-popup>
 <!-- 分享弹窗 -->
-<van-popup show="{{ isShowShareModal }}" position="bottom" bind:close="closeShareModal">
-  <view class="actionShareModal {{ isIphoneX ? 'iphoneXTrick' : '' }}">
-    <view class="shareModalContent">
-      <button class="shareBtn" open-type="share">
-        <image src="/icons/shareFriendIcon.svg" mode="aspectFit" />
-        <view>分享给好友</view>
-      </button>
-      <view class="shareBtn" bindtap="onShowPoster">
-        <image src="/icons/sharePosterIcon.svg" mode="aspectFit" />
-        <view>分享商品海报</view>
-      </view>
-    </view>
-    <image class="close" src="/icons/closeModal.png" mode="aspectFit" catchtap="closeShareModal" />
-  </view>
-</van-popup>
+<van-share-sheet
+  show="{{ isShowShareModal }}"
+  title="立即分享给好友"
+  options="{{ [ { name: '分享给好友', icon: '/icons/shareFriendIcon.svg', openType: 'share' }, { name: '分享商品海报', icon: '/icons/sharePosterIcon.svg' } ] }}"
+  bind:select="onShareSheet"
+  bind:close="closeShareModal"
+/>
 <!-- 产品参数弹窗 -->
 <van-popup show="{{isShowProductParam}}" closeable custom-style="height:80%" position="bottom" bind:close="hideParamModal">
   <view class="param-popup">
