@@ -358,13 +358,16 @@ Page({
                 store_card,
                 store = {},
                 shipment_tips: postageTip,
+                default_store
             } = orderPrepareData;
 
             // 多门店模式下-默认下单门店
-            if (config.offline_store_enable && store && store.id) {
+            if ((config.offline_store_enable && store && store.id) || default_store) {
+                let storeData = default_store || store;
                 let {
                     id,
-                    longtitude, latitude,
+                    longtitude,
+                    latitude,
                     phone: receiver_address_phone,
                     state: receiver_state,
                     city: receiver_city,
@@ -374,7 +377,7 @@ Page({
                     time, remark,
                     times = [],
                     free_amount
-                } = store;
+                } = storeData;
                 if (shipping_type === 2) {
                     let distance = '-';
                     try {
@@ -393,7 +396,7 @@ Page({
                         receiver_address_name,
                         distance: distance,
                         time,
-                        remark,
+                        remark
                     });
                 } else if (shipping_type === 4) {
                     let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
