@@ -16,7 +16,8 @@
 		"backgroundTextStyle": "light",
 		"backgroundColor": "#f4f4f4",
 		"navigationBarBackgroundColor": "#729153",
-		"navigationBarTextStyle": "white"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": ""
 	},
 	"tabBar": {
 		"color": "#a39896",
@@ -168,6 +169,13 @@
 			"name": "出错提示页"
 		},
 		{
+			"root": "pages/exchangeCard/",
+			"pages": [
+				"exchangeCard"
+			],
+			"name": "兑换券"
+		},
+		{
 			"root": "pages/flashList/",
 			"pages": [
 				"flashList"
@@ -247,6 +255,13 @@
 			"name": "关于我们"
 		},
 		{
+			"root": "pages/me/wallet",
+			"pages": [
+				"wallet"
+			],
+			"name": "我的钱包"
+		},
+		{
 			"root": "pages/orderCoupons/",
 			"pages": [
 				"orderCoupons"
@@ -285,9 +300,23 @@
 			"root": "pages/productDetail/",
 			"pages": [
 				"productDetail",
-				"productComments/index"
+				"commentList/commentList"
 			],
 			"name": "商品详情页"
+		},
+		{
+			"root": "pages/payCashier/",
+			"pages": [
+				"payCashier"
+			],
+			"name": "支付页"
+		},
+		{
+			"root": "pages/paymentVouchers/",
+			"pages": [
+				"paymentVouchers"
+			],
+			"name": "转账页"
 		},
 		{
 			"root": "pages/refund/",
@@ -332,11 +361,88 @@
 			"name": "webPage页"
 		},
 		{
+			"root": "pages/multiStoreList",
+			"pages": [
+				"multiStoreList"
+			],
+			"name": "地址列表"
+		},
+		{
+			"root": "pages/addressEdit",
+			"pages": [
+				"addressEdit"
+			],
+			"name": "地址编辑页"
+		},
+		{
+			"root": "pages/addressList",
+			"pages": [
+				"addressList"
+			],
+			"name": "地址列表页"
+		},
+		{
 			"root": "pages/productList",
 			"pages": [
 				"productList"
 			],
 			"name": "productList页"
+		},
+		{
+			"root": "pages/payCashier/",
+			"pages": [
+				"payCashier"
+			],
+			"name": "支付页"
+		},
+		{
+			"root": "pages/electronicCard",
+			"pages": [
+				"electronicCard"
+			],
+			"name": "电子卡券凭证"
+		},
+		{
+			"root": "pages/accountDetail",
+			"pages": [
+				"accountDetail"
+			],
+			"name": "储值卡账户明细"
+		},
+		{
+			"root": "pages/giftCardList",
+			"pages": [
+				"giftCardList"
+			],
+			"name": "礼品卡列表"
+		},
+		{
+			"root": "pages/eCardList",
+			"pages": [
+				"eCardList"
+			],
+			"name": "电子卡列表"
+		},
+		{
+			"root": "pages/giveGift",
+			"pages": [
+				"giveGift"
+			],
+			"name": "赠送礼品卡"
+		},
+		{
+			"root": "pages/giftCardDetail",
+			"pages": [
+				"giftCardDetail"
+			],
+			"name": "查看礼品卡"
+		},
+		{
+			"root": "pages/giftCardExchange",
+			"pages": [
+				"giftCardExchange"
+			],
+			"name": "兑换礼品卡"
 		},
 		{
 			"root": "pages/getCoupon",
@@ -556,13 +662,6 @@
 				"drawList"
 			],
 			"name": "抽奖列表"
-		},
-		{
-			"root": "pages/payCashier/",
-			"pages": [
-				"payCashier"
-			],
-			"name": "支付页"
 		}
 	],
 	"permission": {

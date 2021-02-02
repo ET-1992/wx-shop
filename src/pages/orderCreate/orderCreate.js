@@ -183,12 +183,11 @@ Page({
             // 多门店送货上门
             let type = 'orderEdit';
             url = `../addressEdit/addressEdit?type=${type}`;
-        }
-        else {
+        } else {
             // 普通地址列表
             url = `/pages/addressList/addressList`;
         }
-        wx.navigateTo({ url });
+        wx.navigateTo({ url, fail: (e) => { console.log('e', e) } });
     },
 
     // 使用优惠券
