@@ -39,7 +39,7 @@ Page({
         const { next_cursor: cursor, activeIndex, accountList } = this.data;
         let currency = ['2', '3'][activeIndex];
         const data = await api.hei.wallet({ cursor, currency });
-        let { data: { logs }, next_cursor } = data;
+        let { data: { logs }, next_cursor, current_user } = data;
 
         for (let item in logs) {
             // 格式化时间和状态
@@ -54,6 +54,7 @@ Page({
             accountList: logs,
             next_cursor: next_cursor,
             isLoading: false,
+            currentUser: current_user,
         });
     },
 
@@ -64,7 +65,6 @@ Page({
             recharge.data[0].checked = true;
         }
         this.setData({
-            currentUser: recharge.current_user,
             rechargeArray: recharge.data
         });
     },
