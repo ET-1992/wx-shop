@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { getUserInfo, updateCart, getAgainUserForInvalid } from 'utils/util';
+import { getUserInfo, updateCart, getAgainUserForInvalid, go } from 'utils/util';
 import { USER_KEY, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar } from '../../utils/util';
 const app = getApp();
@@ -18,6 +18,8 @@ Page({
         infoModalTime: 0,
         PLATFFORM_ENV,
     },
+
+    go,
 
     async loadOrderCount() {
         const { themeColor } = this.data,

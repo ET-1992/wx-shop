@@ -11,9 +11,9 @@
 	<!-- <button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
 		<image class="member-image" src="{{ membership_banner }}"/>
   </button> -->
-  <navigator class="member-btn" url="{{ banner.path }}" open-type="{{ tabbarPages[banner.page_key] ? 'switchTab' : 'navigate' }}" wx:if="{{ banner && banner.image }}">
-    <image class="member-image" src="{{ banner.image }}"  mode="aspectFill"></image>
-  </navigator>
+  <view class="member-btn" wx:if="{{ banner && banner.image }}" bindtap="go" data-url="{{ banner.path }}">
+      <image class="member-image" src="{{ banner.image }}"  mode="aspectFill"></image>
+  </view>
 
 
 	<!-- 功能面板 -->
