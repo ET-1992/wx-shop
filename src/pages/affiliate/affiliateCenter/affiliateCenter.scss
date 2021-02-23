@@ -119,21 +119,24 @@
 		}
 		.incomeDataBody {
 			margin-top: 40rpx;
-			padding-bottom: 36rpx;
 			border-bottom: .5rpx solid #d7d7d7;
 			.monneyShow {
 				display: flex;
+				flex-wrap: wrap;
+				margin-bottom: 16rpx;
 				.showItem {
 					display: flex;
 					flex: 1;
 					flex-direction: column;
 					text-align: center;
 					align-items: center;
+					padding: 0 6rpx;
 					.showItemNum {
 						color: #000000;
 						font-size: 34rpx;
 					}
 					.showItemText {
+						white-space: nowrap;
 						font-size: 24rpx;
 					}
 				}
@@ -146,16 +149,11 @@
 					text-align: right;
 				}
 
-				.monneyShowTop {
+				.monneyShowTop, .monneyShowBottom {
 					display: flex;
 					justify-content: space-between;
 					flex: 1;
-				}
-
-				.monneyShowBottom {
-					flex: 1;
-					display: flex;
-					justify-content: space-between;
+					margin-bottom: 20rpx;
 				}
 			}
 
