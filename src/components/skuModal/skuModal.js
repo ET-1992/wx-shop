@@ -48,6 +48,7 @@ Component({
             type: Object,
             value: {}
         },
+        // 已用CSS代替env(safe-area-inset-bottom)
         isIphoneX: {
             type: Boolean,
             value: false
