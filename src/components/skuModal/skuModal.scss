@@ -129,11 +129,10 @@
 }
 
 .bottomModal {
+	$buttonHeight: 90rpx;
+	$modalPaddingBottom: $buttonHeight + 60rpx;
 	background-color: #fff;
-	padding: 25rpx 0 130rpx;
-	&.iphoneXTrick{
-		padding-bottom: 170rpx;
-	}
+	padding: 24rpx 0 $modalPaddingBottom;
 
 	.head-wrap {
 		margin: 0 30rpx;
@@ -254,7 +253,6 @@
 
 
 	.actionSheetBtGroup {
-		margin-top: 20rpx;
 		position: fixed;
 		width: 100%;
 		left: 0;
@@ -262,8 +260,8 @@
 		z-index: 100;
 		font-size: 0;
 		display: flex;
-		&.iphoneXTrick{
-			padding-bottom: 40rpx;
+		@supports (bottom: env(safe-area-inset-bottom)) {
+			bottom: env(safe-area-inset-bottom);
 		}
 
 		.confirmBt {
@@ -272,7 +270,7 @@
 			justify-content: center;
 			width: 100%;
 			border-radius: 0;
-			height: 90rpx;
+			height: $buttonHeight;
 			font-size: 28rpx;
 			background-color: $mainColor;
 			color: #fff;
