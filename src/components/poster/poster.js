@@ -18,8 +18,7 @@ export default class Poster {
         const { posterType } = this.data;
         this.posterPainter = this.initBase();
         let views = [
-            ...this.initHeader(),
-            ...this.initLine(),
+            ...this.initBanner(),
             ...this.initQrcode()
         ];
         console.log(posterType);
@@ -29,7 +28,8 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.titleViews(),
-                    ...this.miaoshaFooter()
+                    ...this.miaoshaTop(),
+                    ...this.miaoshaPrice()
                 ];
                 break;
 
@@ -37,10 +37,11 @@ export default class Poster {
             case 'bargainBuy':
             case 'bargain':
                 views = [
-                    ...this.initHeader(),
+                    ...this.initBanner(),
                     ...this.initQrcode(),
                     ...this.titleViews(),
-                    ...this.bargainFooter()
+                    ...this.bargainTop(),
+                    ...this.bargainPrice()
                 ];
                 break;
 
@@ -49,7 +50,7 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.grouponViews(),
-                    ...this.initFooter()
+                    ...this.initTop()
                 ];
                 break;
 
@@ -58,7 +59,8 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.titleViews(),
-                    ...this.grouponBuyFooter()
+                    ...this.grouponBuyTop(),
+                    ...this.grouponBuyPrice()
                 ];
                 break;
 
@@ -67,7 +69,7 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.productViews(),
-                    ...this.initFooter()
+                    ...this.initTop()
                 ];
                 break;
 
@@ -75,12 +77,12 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.articleViews(),
-                    ...this.initFooter()
+                    ...this.initTop()
                 ];
                 break;
             case 'invite':
                 views = [
-                    ...this.initHeader(),
+                    ...this.initBanner(),
                     ...this.shareShopOrInviteQrcode(),
                     ...this.inviteFriend(),
                     ...this.shareShopOrInviteFooter()
@@ -88,7 +90,7 @@ export default class Poster {
                 break;
             case 'shareShop':
                 views = [
-                    ...this.initHeader(),
+                    ...this.initBanner(),
                     ...this.shareShopOrInviteQrcode(),
                     ...this.shareShop(),
                     ...this.shareShopOrInviteFooter()
@@ -109,7 +111,7 @@ export default class Poster {
     }
 
     // 绘制banner图
-    initHeader() {
+    initBanner() {
         const { banner, product, posterType } = this.data;
         const config = wx.getStorageSync(CONFIG);
         let imgObj = {
@@ -134,8 +136,8 @@ export default class Poster {
                     url: imgToHttps(banner || `${product && product.image_url}?imageView2/1/w/540/h/540/q/70#`),
                     css: {
                         width: '450rpx',
-                        height: `${posterType === 'article' ? 360 : 450}rpx`,
-                        top: '30rpx',
+                        height: `${posterType === 'article' ? 360 : 470}rpx`,
+                        top: '220rpx',
                         left: '45rpx'
                     }
                 }
@@ -192,7 +194,7 @@ export default class Poster {
             viewsText[2] = `${globalData.CURRENCY[globalData.currency] + price}`;
         }
 
-        const viewsTop = [50, 110, 130];
+        const viewsTop = [50, 100, 110];
         const viewsFontSize = [28, 24, 26];
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['normal', 'normal', 'normal'];
@@ -206,7 +208,7 @@ export default class Poster {
                 text: viewsText[i],
                 css: {
                     width: '450rpx',
-                    top: `${450 + viewsTop[i] + i * 30}rpx`,
+                    top: `${670 + viewsTop[i] + i * 30}rpx`,
                     left: `${viewsLeft[i]}rpx`,
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
@@ -223,7 +225,7 @@ export default class Poster {
     grouponViews() {
         const { title, groupon_price, price, member_limit, globalData, priceColor } = this.data;
         const viewsLeft = 45;
-        const viewsBottom = 240;
+        const viewsBottom = 45;
         let rectWidth = 80;
         if (member_limit && (member_limit > 9) && (member_limit < 100)) {
             rectWidth = 92;
@@ -239,7 +241,7 @@ export default class Poster {
                 text: title,
                 css: {
                     width: '450rpx',
-                    top: '500rpx',
+                    bottom: '110rpx',
                     left: `${viewsLeft}rpx`,
                     fontSize: '28rpx',
                     maxLines: 2,
@@ -251,7 +253,7 @@ export default class Poster {
                 type: 'text',
                 text: `单独购买${globalData.CURRENCY[globalData.currency] + price}`,
                 css: {
-                    bottom: viewsBottom + 50 + 'rpx',
+                    bottom: viewsBottom + 40 + 'rpx',
                     left: `${viewsLeft}rpx`,
                     fontSize: '18rpx',
                     color: '#707070'
@@ -281,7 +283,7 @@ export default class Poster {
             {
                 type: 'rect',
                 css: {
-                    bottom: (viewsBottom - 4) + 'rpx',
+                    bottom: (viewsBottom - 6) + 'rpx',
                     width: `${rectWidth}rpx`,
                     height: '30rpx',
                     color: `linear-gradient(-135deg, #ff6034 0%, ${priceColor} 80%)`,
@@ -293,7 +295,7 @@ export default class Poster {
                 type: 'text',
                 text: `${member_limit && member_limit > 99 ? '99+' : member_limit}人团`,
                 css: {
-                    bottom: viewsBottom + 3 + 'rpx',
+                    bottom: viewsBottom + 'rpx',
                     left: [`${viewsLeft + 74}rpx`, 'groupon-price-id'],
                     fontSize: '20rpx',
                     color: '#ffffff'
@@ -305,13 +307,48 @@ export default class Poster {
     // 海报中间文字
     titleViews() {
         const { title, excerpt = '', product = {}, mainColor } = this.data;
-        const _views = [];
+        const titleText = title || (product && product.title);
+        const excerptText = excerpt || (product && product.excerpt);
+        console.log(titleText, excerptText);
+        const viewsTop = 40;
+        const _views = [
+            {
+                id: 'product-title-id',
+                type: 'text',
+                text: titleText,
+                css: {
+                    width: '450rpx',
+                    top: 680 + viewsTop + `rpx`,
+                    left: `45rpx`,
+                    fontSize: `28rpx`,
+                    maxLines: 2,
+                    fontWeight: `normal`,
+                    color: '#000000',
+                    lineHeight: `35rpx`
+                }
+            },
+            {
+                type: 'text',
+                text: excerptText,
+                css: {
+                    width: '450rpx',
+                    top: [`730rpx`, 'product-title-id'],
+                    left: `45rpx`,
+                    fontSize: `22rpx`,
+                    maxLines: 1,
+                    fontWeight: `normal`,
+                    color: mainColor,
+                    lineHeight: `30rpx`
+                }
+            }
+        ];
+        /* const _views = [];
         const viewsText = [
             title || (product && product.title),
             excerpt || (product && product.excerpt)
         ];
-        const viewsTop = [60, 120];
-        const viewsFontSize = [28, 24];
+        const viewsTop = [50, 100];
+        const viewsFontSize = [28, 22];
         const viewsLeft = [45, 45];
         const viewsFontWeight = ['normal', 'normal'];
         const viewsMaxLines = [2, 1];
@@ -324,7 +361,7 @@ export default class Poster {
                 text: viewsText[i],
                 css: {
                     width: '450rpx',
-                    top: `${450 + viewsTop[i] + i * 30}rpx`,
+                    top: `${670 + viewsTop[i] + i * 30}rpx`,
                     left: `${viewsLeft[i]}rpx`,
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],
@@ -333,7 +370,7 @@ export default class Poster {
                     lineHeight: `${viewsLineHeight[i]}rpx`
                 }
             });
-        }
+        } */
         return _views;
     }
 
@@ -342,7 +379,7 @@ export default class Poster {
             {
                 type: 'rect',
                 css: {
-                    bottom: '220rpx',
+                    bottom: '200rpx',
                     width: '500rpx',
                     height: '1rpx',
                     color: '#ccc',
@@ -359,7 +396,7 @@ export default class Poster {
             type: 'image',
             url: imgToHttps(qrcode_url),
             css: {
-                bottom: `${posterType === 'bargain' ? 80 : 40}rpx`,
+                top: `${posterType === 'bargain' ? 10 : 20}rpx`,
                 right: `${posterType === 'bargain' ? 60 : 45}rpx`,
                 width: '150rpx',
                 height: '150rpx'
@@ -370,7 +407,7 @@ export default class Poster {
                 type: 'text',
                 text: '长按识别小程序码访问',
                 css: {
-                    bottom: '40rpx',
+                    top: '160rpx',
                     right: '45rpx',
                     height: '150rpx',
                     fontSize: '18rpx',
@@ -397,21 +434,18 @@ export default class Poster {
     }
 
     // 限时购海报
-    miaoshaFooter() {
+    miaoshaTop() {
         const {
-            price,
-            miaosha_price,
-            highest_price,
             timeLimit,
-            globalData,
             miaoShaStatus,
-            priceColor
+            priceColor,
+            user
         } = this.data;
         let _views = [];
         let statusText = '';
 
         const viewsLeft = 45;
-        const viewsBottom = 40;
+        const viewsTop = 40;
 
         if (miaoShaStatus === 'notStart') {
             statusText = '距活动开始';
@@ -425,11 +459,10 @@ export default class Poster {
 
         _views = [
             {
-                id: 'miaosha-status-text-id',
                 type: 'text',
-                text: statusText,
+                text: (user && user.nickname) || '好友',
                 css: {
-                    bottom: viewsBottom + 120 + 'rpx',
+                    top: viewsTop + 20 + 'rpx',
                     left: viewsLeft + 'rpx',
                     fontSize: '22rpx',
                     fontWeight: 'bold'
@@ -437,57 +470,24 @@ export default class Poster {
             },
             {
                 type: 'text',
-                text: `原价购买${globalData.CURRENCY[globalData.currency] + price}${price < highest_price ? '~' + highest_price : ''}`,
+                text: '向你推荐这个商品',
                 css: {
-                    bottom: viewsBottom + 70 + 'rpx',
+                    top: viewsTop + 55 + 'rpx',
                     left: viewsLeft + 'rpx',
-                    fontSize: '18rpx',
-                    color: '#707070'
+                    fontSize: '24rpx',
                 }
             },
             {
-                id: 'miaosha-currency-id',
+                id: 'miaosha-status-text-id',
                 type: 'text',
-                text: `${globalData.CURRENCY[globalData.currency]}`,
+                text: statusText,
                 css: {
-                    bottom: viewsBottom + 15 + 'rpx',
+                    top: viewsTop + 90 + 'rpx',
                     left: viewsLeft + 'rpx',
-                    fontSize: '18rpx',
-                    color: priceColor
+                    fontSize: '22rpx',
+                    fontWeight: 'bold'
                 }
             },
-            {
-                id: 'miaosha-price-id',
-                type: 'text',
-                text: `${miaosha_price}`,
-                css: {
-                    bottom: viewsBottom + 12 + 'rpx',
-                    left: [`${viewsLeft}rpx`, 'miaosha-currency-id'],
-                    fontSize: '28rpx',
-                    color: priceColor
-                }
-            },
-            {
-                type: 'rect',
-                css: {
-                    bottom: viewsBottom + 9 + 'rpx',
-                    width: '80rpx',
-                    height: '30rpx',
-                    color: `linear-gradient(-135deg, #ff6034 0%, ${priceColor} 80%)`,
-                    left: [`${viewsLeft + 50}rpx`, 'miaosha-price-id'],
-                    borderRadius: '5rpx'
-                }
-            },
-            {
-                type: 'text',
-                text: '限时价',
-                css: {
-                    bottom: viewsBottom + 17 + 'rpx',
-                    left: [`${viewsLeft + 62}rpx`, 'miaosha-price-id'],
-                    fontSize: '20rpx',
-                    color: '#ffffff'
-                }
-            }
         ];
 
 
@@ -498,7 +498,7 @@ export default class Poster {
                     type: 'text',
                     text: remainTime,
                     css: {
-                        bottom: viewsBottom + 120 + 'rpx',
+                        top: viewsTop + 92 + 'rpx',
                         left: [`${viewsLeft + 10}rpx`, 'miaosha-status-text-id'],
                         color: priceColor,
                         fontSize: '20rpx',
@@ -510,31 +510,93 @@ export default class Poster {
         }
         return _views;
     }
-
-    // 邀请参团海报底部
-    grouponBuyFooter() {
+    // 限时购价格
+    miaoshaPrice() {
         const {
             price,
-            member_limit,
-            remainSecond,
-            product,
+            miaosha_price,
+            highest_price,
             globalData,
             priceColor
+        } = this.data;
+        const viewsLeft = 45;
+        const viewsbottom = 40;
+        return [
+            {
+                type: 'text',
+                text: `原价购买${globalData.CURRENCY[globalData.currency] + price}${price < highest_price ? '~' + highest_price : ''}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: '260rpx',
+                    fontSize: '18rpx',
+                    color: '#707070'
+                }
+            },
+            {
+                id: 'miaosha-currency-id',
+                type: 'text',
+                text: `${globalData.CURRENCY[globalData.currency]}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '18rpx',
+                    color: priceColor
+                }
+            },
+            {
+                id: 'miaosha-price-id',
+                type: 'text',
+                text: `${miaosha_price}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: [`${viewsLeft}rpx`, 'miaosha-currency-id'],
+                    fontSize: '28rpx',
+                    color: priceColor
+                }
+            },
+            {
+                type: 'rect',
+                css: {
+                    bottom: (viewsbottom - 14) + 'rpx',
+                    width: '80rpx',
+                    height: '30rpx',
+                    color: `linear-gradient(-135deg, #ff6034 0%, ${priceColor} 80%)`,
+                    left: [`${viewsLeft + 50}rpx`, 'miaosha-price-id'],
+                    borderRadius: '5rpx'
+                }
+            },
+            {
+                type: 'text',
+                text: '限时价',
+                css: {
+                    bottom: (viewsbottom - 8) + 'rpx',
+                    left: [`${viewsLeft + 62}rpx`, 'miaosha-price-id'],
+                    fontSize: '20rpx',
+                    color: '#ffffff'
+                }
+            }
+        ];
+    }
+    // 邀请参团海报底部
+    grouponBuyTop() {
+        const {
+            remainSecond,
+            priceColor,
+            user
         } = this.data;
 
         let _views = [];
         let statusText = remainSecond > 0 ? '距拼团结束' : '已结束';
 
         const viewsLeft = 45;
-        const viewsBottom = 40;
+        const viewsTop = 40;
 
         _views = [
             {
-                id: 'grouponBuy-status-text-id',
                 type: 'text',
-                text: statusText,
+                text: (user && user.nickname) || '好友',
                 css: {
-                    bottom: viewsBottom + 120 + 'rpx',
+                    top: viewsTop + 20 + 'rpx',
                     left: viewsLeft + 'rpx',
                     fontSize: '22rpx',
                     fontWeight: 'bold'
@@ -542,44 +604,22 @@ export default class Poster {
             },
             {
                 type: 'text',
-                text: `单独购买${globalData.CURRENCY[globalData.currency]}${product && product.price}`,
+                text: '向你推荐这个商品',
                 css: {
-                    bottom: viewsBottom + 70 + 'rpx',
+                    top: viewsTop + 55 + 'rpx',
                     left: viewsLeft + 'rpx',
-                    fontSize: '18rpx',
-                    color: '#707070'
+                    fontSize: '24rpx',
                 }
             },
             {
-                id: 'grouponBuy-currency-id',
+                id: 'grouponBuy-status-text-id',
                 type: 'text',
-                text: `${globalData.CURRENCY[globalData.currency]}`,
+                text: statusText,
                 css: {
-                    bottom: viewsBottom + 15 + 'rpx',
+                    top: viewsTop + 90 + 'rpx',
                     left: viewsLeft + 'rpx',
-                    fontSize: '18rpx',
-                    color: priceColor
-                }
-            },
-            {
-                id: 'grouponBuy-price-id',
-                type: 'text',
-                text: `${price}`,
-                css: {
-                    bottom: viewsBottom + 12 + 'rpx',
-                    left: [`${viewsLeft}rpx`, 'grouponBuy-currency-id'],
-                    fontSize: '28rpx',
-                    color: priceColor
-                }
-            },
-            {
-                type: 'text',
-                text: `${member_limit}人团`,
-                css: {
-                    bottom: viewsBottom + 17 + 'rpx',
-                    left: [`${viewsLeft + 62}rpx`, 'grouponBuy-price-id'],
-                    fontSize: '20rpx',
-                    color: priceColor
+                    fontSize: '22rpx',
+                    fontWeight: 'bold'
                 }
             }
         ];
@@ -591,7 +631,7 @@ export default class Poster {
                     type: 'text',
                     text: remainTime,
                     css: {
-                        bottom: viewsBottom + 120 + 'rpx',
+                        top: viewsTop + 90 + 'rpx',
                         left: [`${viewsLeft + 10}rpx`, 'grouponBuy-status-text-id'],
                         color: priceColor,
                         fontSize: '20rpx',
@@ -603,18 +643,72 @@ export default class Poster {
         }
         return _views;
     }
-
-    bargainFooter() {
-        const { price, bargain_price, globalData, mainColor, priceColor } = this.data;
+    // 邀请参团海报价格
+    grouponBuyPrice() {
+        const {
+            price,
+            member_limit,
+            product,
+            globalData,
+            priceColor
+        } = this.data;
+        const viewsLeft = 45;
         const viewsBottom = 40;
-        const viewsTop = 450;
+        return [
+            {
+                type: 'text',
+                text: `单独购买${globalData.CURRENCY[globalData.currency]}${product && product.price}`,
+                css: {
+                    bottom: viewsBottom - 6 + 'rpx',
+                    left: '260rpx',
+                    fontSize: '18rpx',
+                    color: '#707070'
+                }
+            },
+            {
+                id: 'grouponBuy-currency-id',
+                type: 'text',
+                text: `${globalData.CURRENCY[globalData.currency]}`,
+                css: {
+                    bottom: viewsBottom - 6 + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '18rpx',
+                    color: priceColor
+                }
+            },
+            {
+                id: 'grouponBuy-price-id',
+                type: 'text',
+                text: `${price}`,
+                css: {
+                    bottom: viewsBottom - 6 + 'rpx',
+                    left: [`${viewsLeft}rpx`, 'grouponBuy-currency-id'],
+                    fontSize: '28rpx',
+                    color: priceColor
+                }
+            },
+            {
+                type: 'text',
+                text: `${member_limit}人团`,
+                css: {
+                    bottom: viewsBottom - 6 + 'rpx',
+                    left: [`${viewsLeft + 62}rpx`, 'grouponBuy-price-id'],
+                    fontSize: '20rpx',
+                    color: priceColor
+                }
+            }
+        ];
+    }
+
+    bargainTop() {
+        const viewsTop = 50;
 
         return [
             {
                 type: 'text',
                 text: '神价抢好货',
                 css: {
-                    top: viewsTop + 180 + 'rpx',
+                    top: viewsTop + 'rpx',
                     left: '45rpx',
                     fontSize: '32rpx',
                     color: '#000000'
@@ -624,17 +718,24 @@ export default class Poster {
                 type: 'text',
                 text: '就差你这刀',
                 css: {
-                    top: viewsTop + 220 + 'rpx',
+                    top: viewsTop + 40 + 'rpx',
                     left: '45rpx',
                     fontSize: '32rpx',
                     color: '#000000'
                 }
-            },
+            }
+        ];
+    }
+    // 砍价价格
+    bargainPrice() {
+        const { price, bargain_price, globalData, mainColor, priceColor } = this.data;
+        const viewsbottom = 40;
+        return [
             {
                 type: 'text',
                 text: `原价购买${globalData.CURRENCY[globalData.currency] + price}`,
                 css: {
-                    bottom: viewsBottom + 60 + 'rpx',
+                    bottom: viewsbottom + 30 + 'rpx',
                     left: '45rpx',
                     fontSize: '22rpx',
                     color: mainColor
@@ -644,7 +745,7 @@ export default class Poster {
                 type: 'text',
                 text: '底价',
                 css: {
-                    bottom: viewsBottom + 20 + 'rpx',
+                    bottom: (viewsbottom - 4) + 'rpx',
                     left: '45rpx',
                     fontSize: '22rpx',
                     color: mainColor
@@ -654,7 +755,7 @@ export default class Poster {
                 type: 'text',
                 text: `${globalData.CURRENCY[globalData.currency]}`,
                 css: {
-                    bottom: viewsBottom + 20 + 'rpx',
+                    bottom: (viewsbottom - 4) + 'rpx',
                     left: '110rpx',
                     fontSize: '18rpx',
                     color: priceColor
@@ -664,7 +765,7 @@ export default class Poster {
                 type: 'text',
                 text: `${bargain_price}`,
                 css: {
-                    bottom: viewsBottom + 20 + 'rpx',
+                    bottom: (viewsbottom - 6) + 'rpx',
                     left: '126rpx',
                     fontSize: '28rpx',
                     color: priceColor
@@ -692,7 +793,6 @@ export default class Poster {
         ];
     }
 
-    // 分享店铺   ----分享店铺和邀请好友代码相同 可抽离公用代码 通过传类型判断。 可以尝试和initFooter、inviteFriendFooter、shareShop合并
     shareShop() {
         const { mainColor, user } = this.data;
         const viewsTop = 620;
@@ -756,7 +856,7 @@ export default class Poster {
         }
         return _views;
     }
-    initFooter() {
+    initTop() {
         const { user, posterType } = this.data;
         const _views = [];
         let viewsText = [
@@ -786,7 +886,7 @@ export default class Poster {
                 ];
                 break;
         }
-        const viewsBottom = [125, 85, 50];
+        const viewsTop = [50, 85, 125];
         const viewsFontSize = [24, 24, 24];
         const viewsLeft = [45, 45, 45];
         const viewsFontWeight = ['bold', 'normal', 'normal'];
@@ -798,7 +898,7 @@ export default class Poster {
                 type: 'text',
                 text: viewsText[i],
                 css: {
-                    bottom: `${viewsBottom[i]}rpx`,
+                    top: `${viewsTop[i]}rpx`,
                     left: `${viewsLeft[i]}rpx`,
                     fontSize: `${viewsFontSize[i]}rpx`,
                     maxLines: viewsMaxLines[i],

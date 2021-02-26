@@ -15,17 +15,23 @@
       <text class="store-name">{{ (globalData.currentStore && globalData.currentStore.name) || '选择门店' }}</text>
       <image class="triangle" src="/icons/triangle.svg" ></image>
     </navigator>
+
     <!-- 搜索框 -->
     <view
       wx:if="{{ showSearchBox }}"
-      slot="center"
+      slot="{{ config.offline_store_enable ? 'center' : 'left' }}"
       class="bar-center"
-      style="{{ barCenterStyle }};"
+      style="{{ barCenterStyle }}; {{ config.offline_store_enable ? '' : 'margin-left:20rpx' }};"
       bind:tap="go"
       data-url="/pages/search/search">
       <!-- <image class="bar-center-icon" src="/icons/search.png"></image> -->
       <van-icon name="/icons/product_search.svg" custom-class="bar-center-icon" />
       <text>搜索商品</text>
     </view>
+
+    <view class="title" slot="center" wx:if="{{ !config.offline_store_enable && showSearchBox }}">
+      {{ title }}
+    </view>
+
   </navigationBar>
 </view>

@@ -178,7 +178,6 @@ Page({
         let { timeLimit } = this.data;
         const [hour, minute, second] = getRemainTime(timeLimit);
         let day = parseInt(hour / 24, 10);
-        console.log(hour, day, second, minute);
         if (timeLimit < 0) {
             clearInterval(this.intervalId);
             return;
@@ -889,7 +888,6 @@ Page({
     },
 
     onRecommended(e) {
-        console.log('onRecommended731', e);
         const { id, title, images } = e.currentTarget.dataset;
         // 微信是否更新至7.0.3及以上版本
         if (wx.openBusinessView) {
