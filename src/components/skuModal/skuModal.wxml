@@ -25,7 +25,7 @@
         </view>
     </view>
     <!-- 商品详情页面 -->
-    <view wx:if="{{ position === 'bottom' }}" class="bottomModal {{ isIphoneX ? 'iphoneXTrick' : '' }}" z-index="{{10000}}">
+    <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
         <view class="head-wrap">
             <view class="head-close">
                 <van-icon name="clear" color="#dcdde0" size="20px" bind:click="close" />
@@ -70,7 +70,7 @@
                             <text>{{ product.definePrice + '-' + (product.highest_price + selectedOptions.relationPrice) }}</text>
                         </view>
                         <view wx:else>
-                            <text>{{ product.definePrice }}</text>
+                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view>
                     </view>
                     <view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
@@ -101,7 +101,7 @@
             </view>
             <skuLogistics product="{{product}}" actions="{{actions}}" bind:shipping-change="getShippingType" />
         </view>
-        <view class="actionSheetBtGroup {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+        <view class="actionSheetBtGroup">
             <button 
                 class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
                 wx:for="{{ actions }}" 

@@ -15,8 +15,8 @@ page {
 		padding-bottom: $footerHeight;
 		color: $titleColor;
 		height: auto;
-		&.iphoneXTrick {
-			padding-bottom: $footerHeight + $iphoneXBottomGap;
+		@supports (padding-bottom: env(safe-area-inset-bottom)) {
+			padding-bottom: calc(#{$footerHeight}+env(safe-area-inset-bottom));
 		}
 	}
 }
@@ -1069,14 +1069,10 @@ button {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	// padding-bottom: constant(safe-area-inset-bottom);
-	// padding-bottom: env(safe-area-inset-bottom);
-
-	&.iphoneXTrick {
-		padding-bottom: $iphoneXBottomGap;
-		background-color: #fff;
+	@supports(padding-bottom: env(safe-area-inset-bottom)) {
+		padding-bottom: env(safe-area-inset-bottom);
 	}
-	// border-top: 1px solid #eee;
+	background-color: #fff;
 
 	.soldOutHint,
 	.unpublishedHint {
@@ -1567,63 +1563,18 @@ img,
 	font-size: 36rpx;
 }
 
-/* 底部弹窗 */
-.actionShareModal{
-	background-color: #fff;
-	width: 100%;
-
-	&.iphoneXTrick {
-		padding-bottom: 40rpx;
-	}
-
-	&.show {
-		transform: translateY(0);
-	}
-
-	.close {
-		position: absolute;
-		width: 48rpx;
-		height: 48rpx;
-		top: 15rpx;
-		right: 15rpx;
-	}
-}
-.shareModalContent{
-	height: 280rpx;
-	display: flex;
-	justify-content: space-around;
-
-	.shareBtn{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-top: 67.5rpx;
-		background-color: transparent;
-
-		image{
-			width: 90rpx;
-			height: 90rpx;
-		}
-		view{
-			padding-top: 20rpx;
-			font-size: 28rpx;
-			line-height: 1.5;
-			color: #333;
-		}
-	}
-}
-
-.crowdBtn{
+.float-btn{
+	$floatBtnHeight: 154rpx;
 	position: fixed;
 	right: 25rpx;
-	bottom: 154rpx;
+	bottom: $floatBtnHeight;
 	z-index: 98;
 	image{
 		width: 90rpx;
 		height: 90rpx;
 	}
-	&.iphoneXTrick{
-		bottom: 154rpx + $iphoneXBottomGap;
+	@supports(bottom: env(safe-area-inset-bottom)) {
+		bottom: calc(#{$floatBtnHeight}+env(safe-area-inset-bottom));
 	}
 }
 

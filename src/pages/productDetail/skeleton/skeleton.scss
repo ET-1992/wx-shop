@@ -150,8 +150,8 @@ $deault-tall-height: 50rpx;
 				background: #EFEFEF;
 			}
 		}
-		&.iphoneXTrick {
-			padding-bottom: 40rpx;
+		@supports(padding-bottom: env(safe-area-inset-bottom)) {
+			padding-bottom: env(safe-area-inset-bottom);
 		}
 	}
 }

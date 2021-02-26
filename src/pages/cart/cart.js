@@ -62,6 +62,7 @@ Page({
     // 选择门店重新刷新
     async updateStoreData() {
         await this.loadCart();
+        updateTabbar({ pageKey: 'cart' });
     },
 
     go,
