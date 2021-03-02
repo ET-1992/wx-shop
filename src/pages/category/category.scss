@@ -16,7 +16,8 @@ page {
 	.mainCategory {
 		text-align: center;
 		height: 100%;
-		width: 180rpx;
+		// width: 180rpx;
+		width: 28%;
 		font-size: 26rpx;
 		color: $tagColor;
 		margin-left: 16rpx;
@@ -87,12 +88,24 @@ page {
 		}
 
 		.subCategoryItems {
-			padding: 0 20rpx;
-			margin-bottom: 50rpx;
-			margin-right: -80rpx;
-			text-align: left;
-			display:flex;
-			flex-wrap:wrap;
+			display: grid;
+			width: 100%;
+			grid-template-columns: repeat(3, 33.33%);
+			.subCategoryItem {
+				justify-self: start;
+				&:nth-child(3n+2) {
+					justify-self: center;
+				}
+				&:nth-child(3n+3) {
+					justify-self: end;
+				}
+			}
+			// padding: 0 20rpx;
+			// margin-bottom: 50rpx;
+			// margin-right: -80rpx;
+			// text-align: left;
+			// display:flex;
+			// flex-wrap:wrap;
 
 		}
 
@@ -102,7 +115,7 @@ page {
 			height: $size;
 			width: $size;
 			display: inline-block;
-			margin-right: 80rpx;
+			// margin-right: 80rpx;
 			margin-bottom: 80rpx;
 			text-align: center;
 
