@@ -616,7 +616,7 @@
 <van-share-sheet
   show="{{ isShowShareModal }}"
   title="立即分享给好友"
-  options="{{ [ { name: '分享给好友', icon: '/icons/shareFriendIcon.svg', openType: 'share' }, { name: '分享商品海报', icon: '/icons/sharePosterIcon.svg' } ] }}"
+  options="{{ [ { name: '分享给好友', icon: '/icons/shareFriendIcon.svg', openType: 'share' }, { name: '分享商品海报', icon: '/icons/sharePosterIcon.svg' },{ name: '复制分享图文', icon: '/icons/graphicIcon.svg' } ] }}"
   bind:select="onShareSheet"
   bind:close="closeShareModal"
 />

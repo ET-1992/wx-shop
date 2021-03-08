@@ -1,15 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="190" height="190" viewBox="0 0 190 190">
-  <g id="组_3528" data-name="组 3528" transform="translate(-144 -1119)">
-    <circle id="椭圆_177" data-name="椭圆 177" cx="92.5" cy="92.5" r="92.5" transform="translate(146.5 1121.5)" fill="none" stroke="#606060" stroke-miterlimit="10" stroke-width="5"/>
-    <g id="组_1379" data-name="组 1379" transform="translate(188.582 1173.972)">
-      <ellipse id="椭圆_230" data-name="椭圆 230" cx="14.61" cy="14.61" rx="14.61" ry="14.61" transform="translate(0 31.278)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <ellipse id="椭圆_231" data-name="椭圆 231" cx="12.552" cy="12.552" rx="12.552" ry="12.552" transform="translate(61.733 0)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <ellipse id="椭圆_232" data-name="椭圆 232" cx="12.552" cy="12.552" rx="12.552" ry="12.552" transform="translate(77.783 58.441)" fill="#d3d3d3" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <line id="直线_234" data-name="直线 234" y1="13.17" x2="23.459" transform="translate(33.336 22.018)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <line id="直线_235" data-name="直线 235" x1="25.31" y1="8.437" transform="translate(34.365 52.473)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <path id="路径_250" data-name="路径 250" d="M30.6,30.8" transform="translate(30.31 30.521)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <path id="路径_251" data-name="路径 251" d="M32.6,31.5" transform="translate(32.425 31.262)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
-      <line id="直线_236" data-name="直线 236" x1="6.173" y1="2.058" transform="translate(65.025 62.762)" fill="none" stroke="#606060" stroke-linecap="round" stroke-miterlimit="10" stroke-width="5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90">
+  <g id="组_4564" data-name="组 4564" transform="translate(-330 -1151)">
+    <g id="椭圆_486" data-name="椭圆 486" transform="translate(330 1151)" fill="#08b907" stroke="#d4d4d4" stroke-width="1">
+      <circle cx="45" cy="45" r="45" stroke="none"/>
+      <circle cx="45" cy="45" r="44.5" fill="none"/>
     </g>
+    <path id="形状_19" data-name="形状 19" d="M332.614,898.543a17.5,17.5,0,0,1,1.894.115c-1.7-7.834-10.172-13.656-19.841-13.656C303.856,885,295,892.288,295,901.54c0,5.34,2.947,9.725,7.87,13.127l-1.967,5.851,6.874-3.41a34.067,34.067,0,0,0,6.889.977c.617,0,1.228-.03,1.836-.078a14.311,14.311,0,0,1-.608-4.074c0-8.5,7.378-15.391,16.72-15.391Zm-10.572-5.273a2.431,2.431,0,1,1,0,4.862c-1.475,0-2.953-.976-2.953-2.434s1.478-2.428,2.953-2.428Zm-13.763,4.862c-1.475,0-2.962-.976-2.962-2.434s1.487-2.428,2.962-2.428a2.431,2.431,0,1,1,0,4.862ZM350.564,913.7c0-7.775-7.868-14.113-16.7-14.113-9.357,0-16.726,6.337-16.726,14.113s7.369,14.11,16.726,14.11a24.913,24.913,0,0,0,5.9-.974l5.4,2.921-1.479-4.859c3.948-2.93,6.889-6.813,6.889-11.2Zm-22.128-2.434a1.945,1.945,0,1,1,0-3.89,2,2,0,1,1,0,3.89Zm10.817,0a1.945,1.945,0,1,1,0-3.89,2,2,0,1,1,0,3.89Zm0,0" transform="translate(52.273 288.31)" fill="#fff"/>
   </g>
 </svg>
