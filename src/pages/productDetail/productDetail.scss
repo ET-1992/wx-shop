@@ -9,7 +9,7 @@ page {
 }
 
 .product-main {
-	height: 100vh; 
+	height: 100vh;
 	width: 100%;
 	.container {
 		padding-bottom: $footerHeight;
@@ -99,7 +99,7 @@ video {
 }
 
 // 限时购banner
-.activity-banner{
+/* .activity-banner{
 	width: 100%;
 	height: 100rpx;
 	color: #fff;
@@ -198,9 +198,10 @@ video {
 	}
 
 }
+ */
 
-// 今日秒杀banner
-.miaosha-banner {
+ // 今日秒杀banner
+/* .miaosha-banner {
 	width: 750rpx;
 	height: 100rpx;
 	color: #fff;
@@ -303,10 +304,10 @@ video {
 		}
 	}
 
-}
+} */
 
 // 超值拼团banner
-.pintuan {
+/* .pintuan {
 	width: 100%;
 	height: 100rpx;
 	color: #fff;
@@ -374,10 +375,10 @@ video {
 			padding: 0 8rpx;
 		}
 	}
-}
+} */
 
 // 砍价banner
-.bargainBanner {
+/* .bargainBanner {
 	width: 100%;
 	height: 100rpx;
 	color: #fff;
@@ -459,7 +460,7 @@ video {
 			color:rgba(255, 255, 255, 1);
 		}
 	}
-}
+} */
 
 // 简约模式
 .product-options {
@@ -1593,7 +1594,7 @@ img,
 		color: #000000;
 		padding:20rpx 0;
 		background: #ffffff;
-	} 
+	}
 	.ProductParamList{
 		font-size: 28rpx;
 		.itemList{
@@ -1613,7 +1614,7 @@ img,
 					word-break:break-all;
 				}
 				.param{
-					width: 500rpx; 
+					width: 500rpx;
 					font-size: 22rpx;
 					color: #808080;
 					margin-left: 30rpx;
@@ -1623,11 +1624,11 @@ img,
 					border-bottom:none;
 				}
 			}
-		/* 	&.iphoneXTrick { 
+		/* 	&.iphoneXTrick {
 				height: 940rpx;
 			} */
 		}
-	}	
+	}
 	.product-param-bottom{
 		position: absolute;
 		bottom: 0;
@@ -1638,7 +1639,7 @@ img,
 		align-items: center;
 		justify-content: center;
 		padding-bottom: 10rpx;
-		&.iphoneXTrick { 
+		&.iphoneXTrick {
 			padding-bottom:30rpx;
 		}
 		.closeBtn{

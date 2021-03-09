@@ -20,146 +20,10 @@
           </swiper-item>
         </swiper>
       </view>
-      <!-- 限时购banner -->
-      <view wx:if="{{ product.miaosha_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/time-limited-buy.svg" />
-        <image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
-        <view class="price-area">
-          <view class="price">
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="time-price">{{ product.miaosha_price }}</view>
-          </view>
-          <view class="price-interval">
-            <text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
-            <!-- 有最高价显示价格区间 -->
-            <text wx:if="{{ product.price < product.highest_price }}">
-              <text>~{{ product.highest_price }}</text>
-            </text>
-          </view>
-        </view>
-        <view class="time">
-          <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
-            <view class="time-text">距结束还有</view>
-            <view class="time-limit">
-              <block wx:if="{{ remainTime.day > 0 }}">
-                <view class="hour">{{ remainTime.day }}</view>
-                <view class="dateTitle">天</view>
-              </block>
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
-            </view>
-          </view>
-          <view wx:if="{{ miaoShaStatus === 'notStart' }}" class="time-section">
-            <view class="time-text">距开始还有</view>
-            <view class="time-limit">
-              <block wx:if="{{ remainTime.day > 0 }}">
-                <view class="hour">{{ remainTime.day }}</view>
-                <view class="dateTitle">天</view>
-              </block>
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
-            </view>
-          </view>
-          <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
-        </view>
-      </view>
-      <!-- 今日秒杀banner -->
-      <view wx:if="{{ product.seckill_enable }}" class="miaosha-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ config }}" src="{{ config && config.cdn_host +'/shop/mebxy/miao.png'}}" class="background-image" />
-        <view class="price-area">
-          <view class="price">
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="price-count">{{ product.seckill_price }}</view>
-            <view class="origin-price">
-              {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
-            </view>
-          </view>
-          <!-- <view class="count-only-wrap"> -->
-          <view class="count-only" wx:if="{{ miaoShaStatus === 'notStart' }}">限量{{ product.stock }}件</view>
-          <view class="count-only" wx:if="{{ miaoShaStatus === 'active' }}">仅剩{{ product.stock }}件</view>
-          <!-- </view> -->
-        </view>
-        <view class="time">
-          <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
-            <view class="time-text">距结束还有</view>
-            <view class="time-limit">
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
-            </view>
-          </view>
-          <view wx:if="{{ miaoShaStatus === 'notStart' }}" class="time-section">
-            <text>距开始还有</text>
-            <view class="time-limit">
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
-            </view>
-          </view>
-          <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
-        </view>
-      </view>
-      <!-- 超值拼团banner -->
-      <view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
-        <view class="price-area">
-          <view class="price">
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="pintuan-price">{{product.definePrice}}</view>
-          </view>
-          <view class="origin-price">
-            单独购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
-          </view>
-        </view>
-        <view class="pintuan-section">
-          <view class="pintuan-text">{{ product.groupon_member_limit + '人团' }}</view>
-          <view class="pintuan-count">已团{{ product.sales }}件</view>
-        </view>
-      </view>
-      <!-- 砍价banner -->
-      <view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{bargain_mission && bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
-        <image wx:else src="/icons/productDetail/bargain.svg" class="background-image" />
-        <view class="price-area">
-          <view class="price">
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="bargain-price">{{product.bargain_price}}</view>
-            <view class="low-price {{bargain_mission.status === 3 ? 'low-price-fail' : ''}}">
-              底价
-            </view>
-          </view>
-          <view class="origin-price">
-            直接购买{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
-          </view>
-        </view>
-        <view class="bargain-section">
-          <view class="bargain-text" wx:if="{{!bargain_mission}}">未发起</view>
-          <view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 1}}">
-            进行中
-          </view>
-          <view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 2}}">
-            砍价成功
-          </view>
-          <view class="bargain-text" wx:if="{{bargain_mission && bargain_mission.status === 3}}">
-            砍价失败
-          </view>
-          <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
-        </view>
-      </view>
+
+      <!-- 活动banner -->
+      <banner product="{{ product }}" config="{{ config }}" timeLimit="{{ timeLimit }}" miaoShaStatus="{{ miaoShaStatus }}"/>
+
       <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
         <view class="product-options">
@@ -408,8 +272,10 @@
         </view>
       </block>
     </view>
+
     <!-- 商品评论 -->
     <productComments wx:if="{{ config.reply_enable && product.reply_count }}" class="comments observer-tab" id="comments" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}" />
+
     <!-- 商品详情 -->
     <view class="detail observer-tab" id="detail">
       <view class="detailTitle">
@@ -428,6 +294,7 @@
         <magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />
       </view>
     </view>
+
     <!-- 为你推荐 -->
     <view class="promote observer-tab" wx:if="{{ isShowProductRelated }}" id="recommend">
       <view class="label">
@@ -442,6 +309,7 @@
       </view>
     </view>
   </view>
+
   <!-- 底部状态栏 -->
   <view class="footer">
     <view class="soldOutHint" wx:if="{{ product.status === 'sold_out' }}">商品已经卖光啦~</view>
@@ -554,6 +422,7 @@
       </block>
     </view>
   </view>
+
   <!-- 代付按钮 -->
   <view class="float-btn" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || miaoShaStatus === 'active') }}">
     <!-- 限时购/砍价/虚拟商品/简约模式不支持 -->
@@ -564,6 +433,7 @@
     </block>
   </view>
 </scroll-view>
+
 <!-- 领券弹窗 -->
 <van-popup show="{{ isShowCouponList }}" position="bottom" bind:close="onHideCouponList">
   <view class="actionSheet">
@@ -598,6 +468,7 @@
     </view>
   </view>
 </van-popup>
+
 <!-- 运费规则弹窗 -->
 <van-popup show="{{ isShowPostageRule }}" position="bottom" custom-class="postage-rule-box" bind:close="onHidePostageRule">
   <view class="postage-title">快递费用说明</view>
@@ -612,6 +483,7 @@
     <view wx:else>暂无说明</view>
   </view>
 </van-popup>
+
 <!-- 分享弹窗 -->
 <van-share-sheet
   show="{{ isShowShareModal }}"
@@ -632,11 +504,9 @@
         </view>
       </view>
     </view>
-    <!-- <view class="product-param-bottom {{ isIphoneX ? 'iphoneXTrick' : '' }}" catchtap="hideParamModal">
-			<button type="primary" class="closeBtn" style="background-color:{{themeColor.primaryColor}}"> 确定 </button>
-		</view> -->
   </view>
 </van-popup>
+
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 <myModal modal="{{authModal}}" />

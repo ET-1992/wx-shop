@@ -15,6 +15,7 @@
     "van-popup": "@vant/weapp/dist/popup/index",
     "productList": "components/productList/index",
     "skeleton": "./skeleton/skeleton",
+    "banner": "./banner/banner",
     "poster": "components/poster/index",
     "van-icon": "@vant/weapp/dist/icon/index",
     "myModal": "components/myModal/myModal",

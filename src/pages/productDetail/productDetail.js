@@ -115,6 +115,8 @@ Page({
             isBargainBuy,
         });
     },
+
+    // 检查秒杀或限时购的状态
     checkMiaoShaStatus(startTime, endTime) {
         const now = Math.round(Date.now() / 1000);
         let status,
@@ -137,60 +139,6 @@ Page({
             timeLimit,
             status
         };
-    },
-    /* // 倒计时初始化
-    countDown(end, start) {
-        return new Promise((resolve) => {
-            const now = Math.round(Date.now() / 1000);
-            let timeLimit;
-            const miaoShaStatus = this.checkMiaoShaStatus(start, end);
-            switch (miaoShaStatus) {
-                case 'active':
-                    timeLimit = end - now;
-                    break;
-                case 'notStart':
-                    timeLimit = start - now;
-                    break;
-                case 'end':
-                    timeLimit = 0;
-                    break;
-            }
-            this.setData({
-                timeLimit,
-                miaoShaStatus
-            }, resolve());
-        });
-    }, */
-
-    // 倒计时触发
-    todayTimeLimit() {
-        let { timeLimit } = this.data;
-        if (timeLimit && !this.intervalId) {
-            this.todayTimeLimitSet();
-            this.intervalId = setInterval(() => {
-                this.todayTimeLimitSet();
-            }, 1000);
-        }
-    },
-
-    // 倒计时设置
-    todayTimeLimitSet() {
-        let { timeLimit } = this.data;
-        const [hour, minute, second] = getRemainTime(timeLimit);
-        let day = parseInt(hour / 24, 10);
-        if (timeLimit < 0) {
-            clearInterval(this.intervalId);
-            return;
-        }
-        this.setData({
-            'timeLimit': timeLimit - 1,
-            remainTime: {
-                day: day,
-                hour: hour - day * 24,
-                minute,
-                second,
-            },
-        });
     },
 
     loadProductDetailExtra(id) {
@@ -254,7 +202,7 @@ Page({
                     miaosha_start_timestamp,
                     miaosha_end_timestamp
                 );
-                await this.todayTimeLimit();
+                /* await this.todayTimeLimit(); */
             }
 
             if (product.seckill_enable) {
@@ -264,7 +212,7 @@ Page({
                     seckill_start_timestamp,
                     seckill_end_timestamp,
                 );
-                await this.todayTimeLimit();
+                /* await this.todayTimeLimit(); */
             }
 
             if (product.groupon_enable) {
@@ -278,14 +226,6 @@ Page({
 
             let tabList = ['商品', '详情'];
 
-            // 限时购倒计时
-            /* if (product.miaosha_enable) {
-                await this.todayTimeLimit();
-            } */
-            // 秒杀倒计时
-            /* if (product.seckill_enable) {
-                await this.todayTimeLimit();
-            } */
             // 存在推荐商品
             if (product.related && product.related.length) {
                 this.setData({ isShowProductRelated: true });
@@ -415,16 +355,7 @@ Page({
         });
     },
 
-    onHide() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-        }
-    },
-
     onUnload() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId);
-        }
         // 卸载运费地区监听
         app.event.off('setAddressListEvent', this);
     },
@@ -925,6 +856,9 @@ Page({
             case 1:
                 this.onShowPoster();
                 break;
+            case 2:
+                this.onShowImgText();
+                break;
             default:
                 console.warn('There is no method');
                 break;
@@ -1001,7 +935,12 @@ Page({
             posterData
         });
     },
-
+    // 分享图文
+    /* onShowImgText() {
+        let { product: { id }} = this.data;
+        const data = api.hei.getShareImgText({ post_id: id });
+        console.log(data);
+    }, */
     onClosePoster() {
         this.setData({
             showPosterModal: false
