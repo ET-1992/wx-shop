@@ -8,7 +8,7 @@
 		padding: 26rpx 25rpx 0;
 		text-align: center;
 	}
-    
+
 	.list {
         padding: 30rpx;
         display: flex;
@@ -38,13 +38,13 @@
             .btn {
                 background-color: #fff;
             }
-            
+
             &:last-child {
                 margin-bottom: 0;
             }
 		}
     }
-    
+
     .horizontal {
         display: flex;
         justify-content: space-around;
@@ -66,7 +66,7 @@
         .link-text {
             margin-left: 10rpx;
             display: inline;
-            font-size: 20rpx;
+            font-size: 26rpx;
             color: #707070;
             word-break: break-all;
         }
