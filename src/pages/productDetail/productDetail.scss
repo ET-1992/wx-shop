@@ -1653,3 +1653,39 @@ img,
 		}
 	}
 }
+.text-img-box{
+	padding: 30rpx;
+	height:80%;
+	.title{
+		font-size: 30rpx;
+		font-weight: bold;
+		margin-bottom: 20rpx;
+	}
+	.content{
+		padding: 30rpx 20rpx;
+		font-size: 24rpx;
+		border-radius: 10rpx;
+		background-color: #ffffff;
+	}
+	.button-view{
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 30rpx;
+	}
+	.product-poster{
+		margin-top: 30rpx;
+		.poster{
+			width: 300rpx;
+		}
+	}
+	.bototm{
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 20rpx;
+		&.iphoneXTrick {
+			padding-bottom: 40rpx;
+		}
+	}
+}

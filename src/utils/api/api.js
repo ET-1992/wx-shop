@@ -297,6 +297,11 @@ export const apis = {
         method: 'POST',
         isForceToken: true
     },
+    getShareImgText: {
+        path: 'api/mag.product.share.json',
+        method: 'POST',
+        isForceToken: true
+    },
     getShopQrcode: {
         path: 'api/mag.shop.qrcode.json',
         method: 'POST',

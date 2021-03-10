@@ -11,6 +11,7 @@
                 path="{{ item.path }}"
                 target="{{ item.type === 'mini_program' ? 'miniProgram' : '' }}"
                 url="{{ item.type === 'web_view' ? '/pages/webPages/webPages?src=' + item.src : item.path }}"
+                open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}"
                 >
                 {{ item.text }}
             </navigator>

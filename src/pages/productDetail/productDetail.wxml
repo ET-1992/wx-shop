@@ -507,6 +507,33 @@
   </view>
 </van-popup>
 
+<!-- 图文模式弹窗 -->
+<van-popup custom-style="background: #f4f4f4" show="{{isShowImgTextModal}}" position="bottom" closeable custom-class="text-img-box"  bind:close="onCloseTextImgModal">
+  <view class="writing">
+    <view class="content">
+      <view class="title">推广文案</view>
+      <text >{{ short_writing }}</text>
+      <view class="button-view">
+        <van-button icon="plus" color="{{ themeColor.primaryColor  }}" size="small" bindtap="copyText">复制文本</van-button>
+      </view>
+    </view>
+  </view>
+
+  <view class="product-poster">
+      <view class="content">
+        <view class="title">商品海报</view>
+        <image class="poster" mode="widthFix" src="{{ share_image }}"></image>
+        <view class="button-view">
+          <van-button icon="plus" color="{{ themeColor.primaryColor  }}" size="small" bindtap="saveImage">保存图片</van-button>
+        </view>
+      </view>
+  </view>
+
+  <view class="bototm {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+    <van-button color="{{ themeColor.primaryColor  }}" size="large" bindtap="copyTextAndSaveImage" round custom-style="height:80rpx">复制并保存图文</van-button>
+  </view>
+</van-popup>
+
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 <myModal modal="{{authModal}}" />

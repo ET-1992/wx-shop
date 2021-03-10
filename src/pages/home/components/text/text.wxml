@@ -7,6 +7,7 @@
 			path="{{ content.path }}"
 			target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
 			url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
+      open-type="{{ tabbarPages[content.page_key] ? 'switchTab' : 'navigate' }}"
 			class="announcement"
 			bindfail="miniFail">
 			<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'announcement'}}"/>

@@ -1,10 +1,9 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid, auth, throttle } from 'utils/util';
+import { autoNavigate, go, getAgainUserForInvalid, auth, imgToHttps } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
-import getRemainTime from 'utils/getRemainTime';
 const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
@@ -35,6 +34,7 @@ Page({
         isShowActionSheet: false,
         isShowCouponList: false,
         isShowPostageRule: false,  // 展示邮费规则
+        isShowImgTextModal: false, // 图文弹窗开关
         selectedProperties: [],
         selectedSku: {},
         // skuSplitProperties: [],
@@ -936,17 +936,62 @@ Page({
         });
     },
     // 分享图文
-    /* onShowImgText() {
-        let { product: { id }} = this.data;
-        const data = api.hei.getShareImgText({ post_id: id });
-        console.log(data);
-    }, */
+    async onShowImgText() {
+        let { product: { id }, current_user: { afcode }} = this.data;
+        const { short_writing } = await api.hei.getShareImgText({ post_id: id, afcode });
+        this.setData({
+            short_writing,
+            isShowImgTextModal: true
+        });
+        this.closeShareModal();
+    },
+    /* 关闭分享图文弹窗 */
+    onCloseTextImgModal() {
+        this.setData({
+            isShowImgTextModal: false
+        });
+    },
     onClosePoster() {
         this.setData({
             showPosterModal: false
         });
     },
-
+    // 复制文本
+    copyText() {
+        const { short_writing } = this.data;
+        wx.setClipboardData({
+            data: short_writing
+        });
+    },
+    // 保存图片到本地
+    async saveImage() {
+        const { share_image } = this.data;
+        const res = await auth({
+            scope: 'scope.writePhotosAlbum',
+            ctx: this,
+            isFatherControl: true
+        });
+        if (res) {
+            wx.downloadFile({
+                url: imgToHttps(share_image),
+                success: async (res) => {
+                    await proxy.saveImageToPhotosAlbum({ filePath: res.tempFilePath });
+                    const { confirm } = await proxy.showModal({
+                        title: '温馨提示',
+                        content: '保存成功，快去分享吧',
+                        showCancel: false
+                    });
+                    if (confirm) {
+                        this.onCloseTextImgModal();
+                    }
+                }
+            });
+        }
+    },
+    async copyTextAndSaveImage() {
+        await this.copyText();
+        await this.saveImage();
+    },
     // 选择地址
     async onAddress() {
         wx.navigateTo({

@@ -1,3 +1,4 @@
+const app = getApp();
 Component({
     properties: {
         textMessage: {
@@ -28,6 +29,12 @@ Component({
             type: Object,
             value: {}
         }
+    },
+    attached() {
+        const { tabbarPages } = app.globalData;
+        this.setData({
+            tabbarPages
+        });
     },
     methods: {
         showContactModal(e) {
