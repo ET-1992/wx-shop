@@ -19,6 +19,7 @@
     "productsList": "./components/productsList/productsList",
     "categoryProducts": "./components/categoryProducts/categoryProducts",
     "cube": "./components/cube/cube",
+    "masonry": "./components/masonry/masonry",
     "lvList": "./components/lvList/lvList",
     "multiStore": "components/multiStore/multiStore",
     "gold-price": "./components/goldPrice/goldPrice",

@@ -15,6 +15,10 @@ Component({
         status: {
             type: String,
             value: 'm'
+        },
+        isMasonry: {
+            type: Boolean,
+            value: false
         }
     }
 });

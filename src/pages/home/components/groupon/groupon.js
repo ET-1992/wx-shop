@@ -37,6 +37,10 @@ Component({
         status: {
             type: String,
             value: 's'
+        },
+        isMasonry: {
+            type: Boolean,
+            value: false
         }
     },
 

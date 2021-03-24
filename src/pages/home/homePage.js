@@ -155,7 +155,7 @@ export const pageObj = {
         if (home_type === 'new') {
             // let timestamp = 0;
             let { products } = this.data;
-            if (modules[modules.length - 1].type === 'product') {
+            if (modules[modules.length - 1].type === 'product' || modules[modules.length - 1].type === 'masonry-product') {
                 const { content = [] } =  modules[modules.length - 1];
                 // timestamp = (content[content.length - 1] && content[content.length - 1].timestamp) || 0;
                 products = content;
@@ -426,7 +426,7 @@ export const pageObj = {
 
         if (home_type === 'new') {
             const { modules, module_page } = this.data;
-            if (modules[modules.length - 1].type === 'product' && module_page.infinite_loading) {
+            if ((modules[modules.length - 1].type === 'product' || modules[modules.length - 1].type === 'masonry-product') && module_page.infinite_loading) {
                 this.showProducts();
             }
         }

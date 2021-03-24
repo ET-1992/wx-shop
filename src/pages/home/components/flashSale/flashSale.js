@@ -77,6 +77,10 @@ Component({
         isShowAddCart: { // 购物车为你推荐是否加车
             type: Boolean,
             value: true
+        },
+        isMasonry: {
+            type: Boolean,
+            value: false
         }
     },
 

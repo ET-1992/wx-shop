@@ -1,0 +1,49 @@
+@import '../productsList/productsList.scss';
+
+.f-container {
+    position: relative;
+    overflow: hidden;
+    // padding: 20rpx;
+    margin: 25rpx 0;
+  }
+
+.f-layout {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .f-onefall {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .f-detector {
+    height: 1rpx;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    z-index: 9999999;
+    // background-color: red;
+  }
+
+  .adWrap {
+    //   width: 100%;
+      width: 330rpx;
+      background-color: #fff;
+      padding-bottom: 10rpx;
+      margin-bottom: 10rpx;
+      border-radius: 5rpx;
+      overflow: hidden;
+
+      .ItemImage {
+          width: 100%;
+          border-radius: 5rpx;   
+      }
+  }

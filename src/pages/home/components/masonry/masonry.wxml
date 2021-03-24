@@ -1,0 +1,61 @@
+<view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" 
+	wx:if="{{ content && content.length }}" 
+	style="margin-bottom: {{ setting.margin }}rpx">
+	<!-- 标题 -->
+	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
+	<!-- 两行 商品列表 -->
+	<block >
+		<view class="f-container">
+              <!-- 瀑布流容器 -->
+                <view class="f-layout">
+                    <!-- 单流容器 -->
+                    <view 
+                    wx:for="{{fallNum}}"
+                    wx:key="index"
+                    class="f-onefall f-l{{index}}"
+                    >
+                    <block 
+                        wx:for="{{itemArray[index]}}"
+                        wx:for-index="i"
+                        wx:key="_{{index}}{{i}}"
+                        wx:for-item="product"
+                    >
+                        <view wx:if="{{ product.item_type === 'ad' }}" class="adWrap">
+                            	<image src="{{ product.image }}" class="ItemImage" mode="widthFix" lazy-load="{{ true }}" />
+                        </view>
+                          
+                        <include src="../productsList/templates/index/index.wxml" wx:else></include>
+                    </block>
+                    </view>
+                </view>
+                <!-- 检测元素 -->
+                <view class="f-detector"></view>
+		</view>
+		<!-- 更多 -->
+		<view class="sectionMore" wx:if="{{ setting.more }}" bind:tap="goMore">
+			<view class="moreButton">
+				<text>更多</text>
+				<image class="rightIcon" src="/icons/rightIcon.png" />
+			</view>
+		</view>
+	</block>
+</view>
+
+<wxs module="settingStyle">
+var isScroll = function(style){
+	var pattern = '_h$';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style);
+};
+
+var isMultiple = function(style){
+	var pattern = '^per';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style);
+};
+
+module.exports = {
+	isScroll: isScroll,
+	isMultiple: isMultiple
+};
+</wxs>
