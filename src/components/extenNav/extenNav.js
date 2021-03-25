@@ -1,26 +1,25 @@
 const app = getApp();
 
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 Component({
     properties: {
         item: {
             type: Object,
             value: {},
-        },
-        config: {
-            type: Object,
-            value: {}
         }
     },
     options: {
         multipleSlots: true // 在组件定义时的选项中启用多slot支持
     },
-    attached() {
+    ready() {
         const userInfo = wx.getStorageSync(USER_KEY);
+        const config = wx.getStorageSync(CONFIG);
+        console.log(config, 'configconfigconfigconfigconfigconfig');
         const { tabbarPages } = app.globalData;
         this.setData({
             tabbarPages,
-            userInfo
+            userInfo,
+            config
         });
     },
     methods: {
