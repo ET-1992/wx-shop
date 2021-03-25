@@ -6,9 +6,8 @@
     <block wx:else>
         <view class="header" style="background-color: {{ themeColor.primaryColor }}">
             <view class="header-top">
-                <button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" 
-                bindgetuserinfo="bindGetUserInfo" 
-                open-type="getUserInfo">
+                <button class="head-button" style="background-color: {{ themeColor.primaryColor  }}"
+                bindtap="bindGetUserInfo" >
                     <image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
                     <view class="head-text">
                         <view class="head-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>

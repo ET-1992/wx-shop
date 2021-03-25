@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
-import { go, getAgainUserForInvalid } from 'utils/util';
+import { go, getUserProfile } from 'utils/util';
 import { CONFIG } from 'constants/index';
 
 Page({
@@ -43,14 +43,10 @@ Page({
         });
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
-        this.setData({ user });
-    },
-
     // 领取金币卡
     async receiveCard() {
+        const user = await getUserProfile();
+        this.setData({ user });
         const { confirm } = await showModal({
             title: '温馨提示',
             content: '确定领取该充值卡吗',

@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { STATUS_TEXT, USER_KEY, ORDER_STATUS_TEXT, LOGISTICS_STATUS_TEXT, MAGUA_ORDER_STATUS_TEXT, CONFIG, PAY_STYLES, PLATFFORM_ENV } from 'constants/index';
-import { formatTime, valueToText, getNodeInfo, splitUserStatus, getAgainUserForInvalid, go } from 'utils/util';
+import { formatTime, valueToText, getNodeInfo, splitUserStatus, getUserProfile, go } from 'utils/util';
 import getRemainTime from 'utils/getRemainTime';
 import templateTypeText from 'constants/templateType';
 import { qrcode } from 'peanut-all';
@@ -242,18 +242,8 @@ Page({
 
     async bindGetUserInfo(e) {
         const { isNewUserGroupon, isGrouponBuy = false, isCrowd = false } = e.currentTarget.dataset;
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.onJoin({ isNewUserGroupon, isGrouponBuy, isCrowd });
-        }
-        else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+        await getUserProfile();
+        this.onJoin({ isNewUserGroupon, isGrouponBuy, isCrowd });
     },
 
     onJoin(e) {

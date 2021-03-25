@@ -14,7 +14,7 @@
 	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
 	  	send-message-img="{{order.items[0].thumbnail}}"
 	  	show-message-card="{{true}}"
-    ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit" 
+    ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit"
       catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}" />
     </button>
     <!-- 电话联系 -->
@@ -27,7 +27,7 @@
     <button
       wx:if="{{ isShowRefund }}"
       class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindgetuserinfo="onRefund" open-type="getUserInfo"
+      bindtap="onRefund"
     >申请退款</button>
     <button
       wx:if="{{ isShowService }}"
@@ -42,40 +42,40 @@
     <button
       wx:if="{{ statusCode === 1 }}"
       class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindgetuserinfo="onCloseOrder" open-type="getUserInfo"
+      bindtap="onCloseOrder"
     >取消订单</button>
     <button
       wx:if="{{ statusCode === 1 }}"
       class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindgetuserinfo="onPay" open-type="getUserInfo"
+      bindtap="onPay"
     >去支付</button>
     <!-- <navigator
       class="statusBt"
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button 
-      class="statusBt confirmBt" 
-      wx:if="{{ statusCode === 3 }}" 
-      bindgetuserinfo="onConfirmOrder" 
-      open-type="getUserInfo"
+    <button
+      class="statusBt confirmBt"
+      wx:if="{{ statusCode === 3 }}"
+      bindtap="onConfirmOrder"
+
     >确认收货</button>
-    <button 
-      class="statusBt confirmBt" 
-      wx:if="{{ statusCode === 2001 }}" 
-      bindgetuserinfo="onUseCard" 
-      open-type="getUserInfo"
+    <button
+      class="statusBt confirmBt"
+      wx:if="{{ statusCode === 2001 }}"
+      bindtap="onUseCard"
+
     >赠送</button>
-    <button 
-      class="statusBt confirmBt" 
-      wx:if="{{ statusCode === 4 && order.promotion_type === '8' }}" 
+    <button
+      class="statusBt confirmBt"
+      wx:if="{{ statusCode === 4 && order.promotion_type === '8' }}"
       bind:tap="go"
       data-url="/pages/electronicCard/electronicCard?no={{ order.order_no }}"
     >兑换</button>
     <button
       class="statusBt"
-      open-type="getUserInfo"
-      bindgetuserinfo="toPaymentVouchersPage" 
+
+      bindtap="toPaymentVouchersPage"
       wx:if="{{ statusCode === 1010 || order.statusCode == 1011 }}"
     >查看凭证</button>
   </view>

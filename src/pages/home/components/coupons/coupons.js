@@ -1,7 +1,7 @@
 import api from 'utils/api';
 const app = getApp();
 import { showToast } from 'utils/wxp';
-import { getAgainUserForInvalid } from 'utils/util';
+import { getUserProfile } from 'utils/util';
 
 Component({
     properties: {
@@ -43,18 +43,9 @@ Component({
 
     methods: {
         async bindGetUserInfo(e) {
-            console.log(e);
-            const { encryptedData, iv } = e.detail;
-            if (iv && encryptedData) {
-                await getAgainUserForInvalid({ encryptedData, iv });
-                this.onCouponsClick(e);
-            } else {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '需授权后操作',
-                    showCancel: false,
-                });
-            }
+            await getUserProfile();
+            this.onCouponsClick(e);
+
         },
 
         async onCouponsClick(ev) {

@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { checkPhone, checkQQ, getAgainUserForInvalid, autoNavigate, go } from 'utils/util';
+import { checkPhone, checkQQ, autoNavigate, go, getUserProfile } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 
@@ -113,9 +113,8 @@ Page({
         });
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
+    async bindGetUserInfo() {
+        const user = await getUserProfile();
         if (user) {
             if (this.data.member_need_audit) {
                 this.applyModal();

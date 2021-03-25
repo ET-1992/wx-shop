@@ -1,18 +1,18 @@
 <view class="header" style="background-color: {{ themeColor.primaryColor }}" style="margin-top: {{menuBottom}}px">
 	<view class="header-top">
-		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindtap="bindGetUserInfo">
 			<image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<view class="head-text">
 				<view class="head-user">{{ !user.nickname ? '点击头像登录' : user.nickname }}</view>
-				<view class="head-level" 
+				<view class="head-level"
 				style="color: {{ themeColor.primaryColor }}"
 				>{{ user.membership.level_name ? user.membership.level_name : '普通用户'}}</view>
 			</view>
 		</button>
 		<view class="check-buttons" wx:if="{{ config.checkin_enable }}">
-			<button class="check-btn click-end" wx:if="{{ user.is_checkined }}" 
+			<button class="check-btn click-end" wx:if="{{ user.is_checkined }}"
 			  >已签到</button>
-			<button class="check-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}" 
+			<button class="check-btn" bindtap="tapSignIn" wx:if="{{ !user.is_checkined }}"
 			  style="color: {{ themeColor.primaryColor }}"
 			  >签到</button>
 		</view>

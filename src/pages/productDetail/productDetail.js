@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getAgainUserForInvalid, auth, imgToHttps } from 'utils/util';
+import { autoNavigate, go, getUserProfile, auth, imgToHttps } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 const WxParse = require('utils/wxParse/wxParse.js');
@@ -572,17 +572,8 @@ Page({
     },
 
     async bindGetCoupon(e) {
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.onCouponClick(e);
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+        await getUserProfile();
+        this.onCouponClick(e);
     },
 
     async onCouponClick(ev) {
@@ -790,18 +781,9 @@ Page({
         this.setData({ shipping_type });
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.createBargain();
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+    async bindGetUserInfo() {
+        await getUserProfile();
+        this.createBargain();
     },
 
     // 发起砍价

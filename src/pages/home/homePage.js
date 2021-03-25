@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
-import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getUserProfile, autoNavigate_ } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -261,33 +261,14 @@ export const pageObj = {
 
     // 用户授权才能领取
     async bindGetUserInfo(e) {
-        console.log(e, 'onCouponClick');
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.onCouponClick(e);
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+        await getUserProfile();
+        this.onCouponClick(e);
     },
 
     async receiveNewUserCoupon(e) {
-        console.log(e, 'receiveNewUserCoupon');
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.receiveCouponAll(e);
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+
+        await getUserProfile();
+        this.receiveCouponAll(e);
     },
 
     // 一键领取新人优惠券

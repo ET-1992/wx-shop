@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid } from 'utils/util';
+import { getUserProfile } from 'utils/util';
 Component({
     properties: {
         openManager: {
@@ -31,13 +31,11 @@ Component({
         user: {}
     },
     methods: {
-        async bindGetUserInfo(e) {
-            const { encryptedData, iv } = e.detail;
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
+        async bindGetUserInfo() {
+            const user = await getUserProfile();
             this.setData({
                 user: user
             });
-            console.log(this.data);
         },
         callManager(e) {
             wx.makePhoneCall({

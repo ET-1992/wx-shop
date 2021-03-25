@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { getUserInfo, updateCart, getAgainUserForInvalid, go } from 'utils/util';
+import { getUserInfo, updateCart, getUserProfile, go } from 'utils/util';
 import { USER_KEY, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import { updateTabbar } from '../../utils/util';
 const app = getApp();
@@ -159,20 +159,13 @@ Page({
         this.setData({ wallet: e.detail });
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            if (user) {
-                this.toMembersPage();
-            }
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
+    async bindGetUserInfo() {
+
+        const user = await getUserProfile();
+        if (user) {
+            this.toMembersPage();
         }
+
     },
 
     toMembersPage() {

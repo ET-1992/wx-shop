@@ -394,7 +394,7 @@
           <view>{{ globalData.CURRENCY[globalData.currency] }}{{ product.bargain_price }}</view>
           <view>立即购买</view>
         </view>
-        <button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" hover-class="none" class="buy multi" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{!bargain_mission ||(bargain_mission && bargain_mission.status === 3)}}">
+        <button bindtap="bindGetUserInfo" hover-class="none" class="buy multi" style="background-color: {{ themeColor.primaryColor }}" wx:if="{{!bargain_mission ||(bargain_mission && bargain_mission.status === 3)}}">
           发起砍价
         </button>
       </block>
@@ -449,7 +449,7 @@
             <image src="../../icons/noCoupon.svg"></image>
             <view>暂无可领取优惠券</view>
           </view>
-          <button wx:if="{{ receivableCoupons && receivableCoupons.length }}" class="couponItemWrapper" wx:for="{{ receivableCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" open-type="getUserInfo" bindgetuserinfo="bindGetCoupon">
+          <button wx:if="{{ receivableCoupons && receivableCoupons.length }}" class="couponItemWrapper" wx:for="{{ receivableCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" bindtap="bindGetCoupon">
             <couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable" config="{{config}}" />
             <!-- 未领取 -->
             <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
@@ -457,7 +457,7 @@
           </button>
           <block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
             <view class="couponListTitle">已领取优惠券</view>
-            <button open-type="getUserInfo" bindgetuserinfo="bindGetCoupon" class="couponItemWrapper" wx:for="{{ receivedCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
+            <button  bindtp="bindGetCoupon" class="couponItemWrapper" wx:for="{{ receivedCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
               <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
               <!-- 已领取 -->
             </button>

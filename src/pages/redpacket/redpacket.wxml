@@ -3,9 +3,9 @@
   	<view wx:if="{{ !isFinished }}">
 		<view class="coupon couponBg" wx:if="{{ redpacket.item_type == 1 && hasRecived }}" style="background-image:url({{config && config.cdn_host + '/shop/couponBg.png'}})">
 			<view class="middle">
-    		  	<view class="title"> 
+    		  	<view class="title">
 					<view class="text">分享红包</view>
-					<view class="discount">{{ redpacket.item.title || '--' }}</view> 
+					<view class="discount">{{ redpacket.item.title || '--' }}</view>
 				</view>
     		  	<view class="price"> <text>{{ globalData.CURRENCY[globalData.currency] }}</text> {{ redpacket.item.reduceValue || '--' }} </view>
     		</view>
@@ -20,7 +20,7 @@
     	  	<view class="number"> {{goldNumer || '--'}} <text>个</text> </view>
     	  	<view class="price">直接抵现{{ globalData.CURRENCY[globalData.currency] }}{{redpacket.item.amount || '--'}}</view>
     	</view>
-    	<button class="normalizeBt receiveRedpacketBg" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" wx:if="{{ !hasRecived }}"> 立即领取 </button>
+    	<button class="normalizeBt receiveRedpacketBg" bindtap="bindGetUserInfo" wx:if="{{ !hasRecived }}"> 立即领取 </button>
     	<view class="btGroup" wx:if="{{ hasRecived }}">
     	  	<button class="normalizeBt useBt" bindtap="onUse">立即使用</button>
     	  	<button class="normalizeBt shareBt" open-type="share">继续分享</button>

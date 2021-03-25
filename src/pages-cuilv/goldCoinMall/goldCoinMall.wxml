@@ -6,7 +6,7 @@
 	<block wx:else>
 		<view class="header">
 			<view class="header-left">
-				<button class="normalizeBt left-avatar" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo">
+				<button class="normalizeBt left-avatar" bindtap="bindGetUserInfo">
 					<image src="{{ current_user.avatarurl ? current_user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 				</button>
 				<view class="left-avatar-ohters">
@@ -53,7 +53,7 @@
 						<text class="exchange-more" bind:tap="go" data-url="/pages-cuilv/coinExchange/coinExchange">更多></text>
 					</view>
 					<view class="exchange-product-list">
-						<view class="product-item" wx:for="{{ coinData.products }}" wx:key="{{ item.id }}"  
+						<view class="product-item" wx:for="{{ coinData.products }}" wx:key="{{ item.id }}"
 						  bind:tap="go" data-url="/pages-cuilv/coinProductDetail/coinProductDetail?id={{ item.id }}">
 							<view class="product-img">
 								<image class="product-img-inner" src="{{ item.thumbnail }}" />
@@ -100,7 +100,7 @@
 					</view>
 					<view class="draw-end-list">
 						<view class="draw-end-item" wx:for="{{ cloudData.activitys }}" wx:key="{{ item.id }}"
-						  bind:tap="go" 
+						  bind:tap="go"
 						  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.post_id }}&&round={{ item.round }}">
 							<view class="item-img">
 								<view class="item-mask">
@@ -127,7 +127,7 @@
 						<text class="draw-more" bind:tap="go" data-url="/pages-cuilv/drawList/drawList">更多></text>
 					</view>
 					<view class="draw-start-list">
-						<view class="draw-start-item" wx:for="{{ cloudData.products }}" wx:key="{{ item.id }}" bind:tap="go" 
+						<view class="draw-start-item" wx:for="{{ cloudData.products }}" wx:key="{{ item.id }}" bind:tap="go"
 						  data-url="/pages-cuilv/productDetail/productDetail?id={{ item.id }}">
 							<view class="item-img">
 								<image class="item-img-inner" src="{{ item.thumbnail }}" />

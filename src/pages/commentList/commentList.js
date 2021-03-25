@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { go, getAgainUserForInvalid, getUserInfo, autoNavigate_ } from 'utils/util';
+import { go, getUserProfile, autoNavigate_ } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 
 Page({
@@ -33,18 +33,10 @@ Page({
 
     async bindGetUserInfo(ev) {
         const { method } = ev.currentTarget.dataset;
-        const { encryptedData, iv } = ev.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            const user = getUserInfo();
-            this.setData({ current_user: user }, this[method]);
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+
+        const user = await getUserProfile();
+        this.setData({ current_user: user }, this[method]);
+
     },
 
     async onDiggComment(ev) {

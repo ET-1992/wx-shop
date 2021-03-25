@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid, go } from 'utils/util';
+import { getUserProfile, go } from 'utils/util';
 import { USER_KEY, CONFIG } from 'constants/index';
 import api from 'utils/api';
 const app = getApp();
@@ -21,9 +21,8 @@ Page({
     go,
 
     // 点击头像登录
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        const user = await getAgainUserForInvalid({ encryptedData, iv });
+    async bindGetUserInfo() {
+        const user = await getUserProfile();
         this.setData({ user });
     },
 

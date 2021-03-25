@@ -1,4 +1,4 @@
-import { go, getAgainUserForInvalid } from 'utils/util';
+import { go, getUserProfile } from 'utils/util';
 import api from 'utils/api';
 import { CONFIG, USER_KEY } from 'constants/index';
 
@@ -57,9 +57,8 @@ Page({
         }
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        const current_user = await getAgainUserForInvalid({ encryptedData, iv });
+    async bindGetUserInfo() {
+        const current_user = await getUserProfile();
         this.setData({ current_user });
     },
 

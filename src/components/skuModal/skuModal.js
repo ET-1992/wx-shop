@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid, updateTabbar } from 'utils/util';
+import { updateTabbar, getUserProfile } from 'utils/util';
 import { CONFIG } from 'constants/index';
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
@@ -129,18 +129,10 @@ Component({
         // SKU表单提交
         async onUserInfo(e) {
             // console.log('onUserInfo and sku confirm', e);
-            const { encryptedData, iv } = e.detail,
-                { actionType } = e.target.dataset,
+
+            const { actionType } = e.target.dataset,
                 { currentRelation, currentSpecial, selectedSku, quantity, selectedOptions } = this.data;
 
-            if (!iv || !encryptedData) {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '需授权后操作',
-                    showCancel: false,
-                });
-                return;
-            }
             try {
                 this.onFormConfirm();
                 let component = this.selectComponent('#mark-form');
@@ -148,7 +140,7 @@ Component({
                     let form = component.handleValidate();
                     this._remarks = form;
                 }
-                await getAgainUserForInvalid({ encryptedData, iv });
+                await getUserProfile();
                 this.close();
                 let queryData = {};
                 if (actionType === 'addCart') {

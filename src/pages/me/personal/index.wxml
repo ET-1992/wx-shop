@@ -16,7 +16,7 @@
     </view>
   </view>
 	<view class="header-top">
-		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" bindtap="consoleOpen">
+		<button class="head-button" style="background-color: {{ themeColor.primaryColor  }}" bindtap="bindGetUserInfo">
 			<image src="{{ (user.avatarurl && !updateAvatar) ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
 			<view class="head-text">
 				<view class="head-user">
@@ -42,7 +42,7 @@
       <text>{{ user.membership.level_name ? '进入会员中心，查看会员福利' : '领取会员卡，获取更多优惠'}}</text>
     </view>
 		<!-- <view class="head-signin" wx:if="{{ user.is_checkined }}">立即领取</view> -->
-		<button class="head-btn" bindgetuserinfo="getUserBeforeToMember" open-type="getUserInfo">{{ user.membership.level_name ? '立即查看>' : '立即领取>' }}</button>
+		<button class="head-btn" bindtap="getUserBeforeToMember">{{ user.membership.level_name ? '立即查看>' : '立即领取>' }}</button>
 	</view>
 </view>
 

@@ -4,11 +4,9 @@
 	<view class="wrap" wx:if="{{ !isLoading }}">
 		<view class="header">
             <view class="header-top">
-                <button class="head-button" 
-                bindgetuserinfo="bindGetUserInfo" 
-                open-type="getUserInfo">
+                <button class="head-button" >
                     <image src="{{ user.avatarurl ? user.avatarurl : '/icons/unlogin.png' }}" mode="aspectFit" class="avatar"></image>
-				</button>
+				        </button>
 				<view class="balance">
 					<view class="balance-title">账户余额（元）</view>
 					<view class="balance-num">{{ account.repo_balance }}</view>
@@ -24,8 +22,8 @@
 				<view class="form-item">
 					<text class="form-item-text">请输入提取金额</text>
 					<view class="pick-num">
-						<input type="digit" placeholder="0.00" 
-						  value="{{ money }}" data-name="money" 
+						<input type="digit" placeholder="0.00"
+						  value="{{ money }}" data-name="money"
 						  maxlength="8"  bind:input="onInput" />
 						<text class="pick-num-unit">元</text>
 					</view>
@@ -43,19 +41,19 @@
 				<view class="form-item" wx:if="{{ payStyle === 'bank' }}">
 					<text class="form-item-text">请填写收款的银行卡信息</text>
 					<view class="pick-input">
-						<input type="text" placeholder="请输入手机号" 
+						<input type="text" placeholder="请输入手机号"
 						  value="{{ phone }}" data-name="phone" bind:input="onInput" />
 					</view>
 					<view class="pick-input">
-						<input type="text" placeholder="请输入开户行" 
+						<input type="text" placeholder="请输入开户行"
 						  value="{{ bankName }}" data-name="bankName" bind:input="onInput" />
 					</view>
 					<view class="pick-input">
-						<input type="text" placeholder="请输入开户人" 
+						<input type="text" placeholder="请输入开户人"
 						  value="{{ person }}" data-name="person" bind:input="onInput" />
 					</view>
 					<view class="pick-input">
-						<input type="number" placeholder="请输入银行卡号" 
+						<input type="number" placeholder="请输入银行卡号"
 						  value="{{ number }}" data-name="number" bind:input="onInput" />
 					</view>
 				</view>
@@ -63,11 +61,11 @@
 				<view class="form-item" wx:if="{{ payStyle === 'weixin' }}">
 					<text class="form-item-text">请填写收款的微信信息</text>
 					<view class="pick-input">
-						<input type="text" placeholder="请输入手机号" 
+						<input type="text" placeholder="请输入手机号"
 						  value="{{ phone }}" data-name="phone" bind:input="onInput" />
 					</view>
 					<view class="pick-input">
-						<input type="text" placeholder="请输入微信号" 
+						<input type="text" placeholder="请输入微信号"
 						  value="{{ weixinNum }}" data-name="weixinNum" bind:input="onInput" />
 					</view>
 				</view>

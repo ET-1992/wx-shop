@@ -1,7 +1,7 @@
 import proxy from 'utils/wxProxy';
 import api from 'utils/api';
 import { wxPay } from 'utils/pageShare';
-import { getAgainUserForInvalid, go, subscribeMessage } from 'utils/util';
+import { go, subscribeMessage, getUserProfile } from 'utils/util';
 
 const app = getApp();
 
@@ -154,7 +154,7 @@ Component({
         },
 
         async onConfirmOrder(e) {
-            const user = await this.bindGetUserInfo(e);
+            const user = await this.bindGetUserInfo();
             if (user) {
                 const { confirm } = await proxy.showModal({
                     title: '确定收货？',
@@ -179,8 +179,8 @@ Component({
         },
 
         // 使用礼品卡
-        async onUseCard(e) {
-            const user = await this.bindGetUserInfo(e);
+        async onUseCard() {
+            const user = await this.bindGetUserInfo();
             if (!user) { return }
             let { orderNo } = this.data;
             let url = '/pages/giftCardDetail/giftCardDetail';
@@ -188,8 +188,8 @@ Component({
             wx.navigateTo({ url });
         },
 
-        async onCloseOrder(e) {
-            const user = await this.bindGetUserInfo(e);
+        async onCloseOrder() {
+            const user = await this.bindGetUserInfo();
             if (user) {
                 const { order, orders, orderNo, orderIndex } = this.data;
                 console.log('order', order, 'orders', orders, 'orderIndex', orderIndex);
@@ -224,8 +224,8 @@ Component({
             }
         },
 
-        async onRefund(e) {
-            const user = await this.bindGetUserInfo(e);
+        async onRefund() {
+            const user = await this.bindGetUserInfo();
             const { orderNo } = this.data;
             if (user) {
                 wx.redirectTo({
@@ -233,31 +233,21 @@ Component({
                 });
             }
         },
-        async onPay(e) {
-            const user = await this.bindGetUserInfo(e);
+        async onPay() {
+            const user = await this.bindGetUserInfo();
             if (user) {
                 this.onPayOrder();
             }
         },
 
-        async bindGetUserInfo(e) {
-            const { encryptedData, iv } = e.detail;
-            console.log('授权');
-            if (iv && encryptedData) {
-                const user = await getAgainUserForInvalid({ encryptedData, iv });
-                return user;
-            } else {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '需授权后操作',
-                    showCancel: false,
-                });
-            }
+        async bindGetUserInfo() {
+            const user = await getUserProfile();
+            return user;
         },
 
         async toPaymentVouchersPage(e) {
             const { orderNo } = this.data;
-            const user = await this.bindGetUserInfo(e);
+            const user = await this.bindGetUserInfo();
             if (user) {
                 wx.navigateTo({
                     url: `/pages/paymentVouchers/paymentVouchers?order_no=${orderNo}`,

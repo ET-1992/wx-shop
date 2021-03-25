@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid, autoNavigate_ } from 'utils/util';
+import { getUserProfile, autoNavigate_ } from 'utils/util';
 
 Component({
     properties: {
@@ -21,20 +21,16 @@ Component({
     },
     methods: {
         // 获取授权信息
-        async bindGetUserInfo(e) {
-            const { encryptedData, iv } = e.detail;
-            if (iv && encryptedData) {
-                const user = await getAgainUserForInvalid({ encryptedData, iv });
-                this.setData({ user });
-            } else {
-                throw new Error('需授权后操作');
-            }
+        async bindGetUserInfo() {
+            const user = await getUserProfile();
+            this.setData({ user });
+
         },
 
         // 授权直链
         async onAuthNavigated(e) {
             try {
-                await this.bindGetUserInfo(e);
+                await this.bindGetUserInfo();
                 let { key } = e.currentTarget.dataset,
                     { user, affiliate } = this.data;
                 if (!user) { return }

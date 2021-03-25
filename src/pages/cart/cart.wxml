@@ -1,14 +1,5 @@
 <view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
   	<loading isLoading="{{ isLoading }}" />
-	<!-- 登录 -->
-	<view wx:if="{{ !isLogin && !isLoading }}">
-  	  	<image class="emptyHint unloginHint" src="../../icons/bigCart.svg" mode="widthFix"></image>
-  	  	<view class="empty">未登录</view>
-  	  	<button class="normalizeBt onGotoBuy onGotoLogin" style="background-color: {{ themeColor.primaryColor  }}" open-type="getUserInfo" bindgetuserinfo="onLogin">
-  	  	  	<image src="../../icons/webchat.png"></image>
-  	  	  	<text>微信用户快速登录</text>
-  	  	</button>
-	</view>
 	<!-- 多门店   -->
 	<div class="multiStore">
 		<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
@@ -103,7 +94,7 @@
 				<view class="priceMeta-text" wx:if="{{ shipping_type === 1 && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
 			</view>
   	  	</view>
-  	  	<button class="normalizeBt createOrderBt" bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
+  	  	<button class="normalizeBt createOrderBt" bindtap="bindGetUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
   	</view>
 </view>
 

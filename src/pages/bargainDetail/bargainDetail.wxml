@@ -89,7 +89,7 @@
 	<!-- 好友帮忙砍价时显示 分享链接有isOthers参数 为true时为好友界面 -->
 	<view class="bargain-isOthers" wx:if="{{isOthers}}">
 		<!-- 帮TA砍价 头像授权 砍价榜提示 -->
-		<button bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp && mission.status === 1}}">
+		<button bindtap="bindGetUserInfo" class="img-left" hover-class="none" plain="true" wx:if="{{!isHelp && mission.status === 1}}">
 			<image src="/icons/bargainDetail/helpta.svg"/>
 		</button>
 		<view class="img-left" wx:if="{{isHelp || mission.status !== 1}}">
@@ -126,7 +126,7 @@
 					查看更多
 					<image class="rightIcon" src="/icons/triangleDownActive.png"/>
 				</view>
-			</block> 
+			</block>
 		</view>
 		<!-- </scroll-view> -->
 	</view>
@@ -158,9 +158,9 @@
 		</view>
 	</van-popup>
 
-	<poster 
-		wx:if="{{ showPosterModal }}" 
-		posterData="{{ posterData }}" 
+	<poster
+		wx:if="{{ showPosterModal }}"
+		posterData="{{ posterData }}"
 		posterType="bargainBuy"
 		bindonClose="onClosePoster"
 	/>

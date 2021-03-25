@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid } from 'utils/util';
+import { getUserProfile } from 'utils/util';
 
 const app = getApp();
 
@@ -46,6 +46,7 @@ Component({
             }
         },
         async onConfirm(e) {
+            this.bindGetUserInfo();
             if (this.data.defineModal.isFatherControl) {
                 this.triggerEvent('onConfirm', {}, { bubbles: true });
             } else {
@@ -55,10 +56,8 @@ Component({
             }
         },
 
-        async bindGetUserInfo(e) {
-            console.log(e, 'eeee');
-            const { encryptedData, iv } = e.detail;
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
+        async bindGetUserInfo() {
+            const user = await getUserProfile();
             this.triggerEvent('onSaveUserInfo', { user }, { bubbles: true });
         },
 

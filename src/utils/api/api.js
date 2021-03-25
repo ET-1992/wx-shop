@@ -244,6 +244,12 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
     },
+    getUserProfile: {
+        path: 'api/mag.weapp.user.profile.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
+    },
     wallet: { // 消费记录所调接口
         path: 'api/mag.wallet.logs.json',
         isForceToken: true,

@@ -164,8 +164,7 @@
         <button
           wx:if="{{ otherPeopleGroupon }}"
           class="normalizeBt viewProduct"
-          bindgetuserinfo="bindGetUserInfo"
-          open-type="getUserInfo"
+          bindtap="bindGetUserInfo"
           data-is-groupon-buy
           data-is-new-user-groupon="{{groupon.type === 'new_user'}}"
           disabled="{{ groupon.status !== 2 }}"
@@ -231,26 +230,26 @@
         </button>
     </block>
     <!-- 寄存付款订单才显示 -->
-    <view class="checkBox viewProduct" bind:tap="go" data-url="/pages-cuilv/fastDeposit/fastDeposit" 
+    <view class="checkBox viewProduct" bind:tap="go" data-url="/pages-cuilv/fastDeposit/fastDeposit"
       style="background-color: {{ themeColor.primaryColor }}"
       wx:if="{{ order.shipping_type == 6 && order.status == 4 && PLATFFORM_ENV === 'CUILV' }}">
         <text>查看回购单</text>
     </view>
     <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{ !otherPeopleGroupon }}">
-        <orderOperations 
-            phone="{{ order.phone_number }}" 
-            isOrderDetail="{{true}}" 
-            statusCode="{{ order.statusCode }}" 
-            orderNo="{{ order.order_no }}" 
-            order="{{ order }}" 
-            isShowContact="{{ !order.isDone }}" 
-            isShowService="{{ order.isDone }}" 
-            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 2002 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method) || order.statusCode === 31}}" 
-            user="{{ current_user }}" 
+        <orderOperations
+            phone="{{ order.phone_number }}"
+            isOrderDetail="{{true}}"
+            statusCode="{{ order.statusCode }}"
+            orderNo="{{ order.order_no }}"
+            order="{{ order }}"
+            isShowContact="{{ !order.isDone }}"
+            isShowService="{{ order.isDone }}"
+            isShowRefund="{{ order.statusCode === 2 || order.statusCode === 2002 || order.statusCode === 3 || (order.statusCode === 4 && !order. pay_method) || order.statusCode === 31}}"
+            user="{{ current_user }}"
             config="{{ config }}"
-            bindconfirmOrder="onRelaodOrder" 
-            bindpayOrder="onRelaodOrder" 
-            bindcloseOrder="onRelaodOrder" 
+            bindconfirmOrder="onRelaodOrder"
+            bindpayOrder="onRelaodOrder"
+            bindcloseOrder="onRelaodOrder"
         />
     </view>
     <view class="promote" wx:if="{{ (order.status === 10 || otherPeopleGroupon ) && products.length }}">

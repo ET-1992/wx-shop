@@ -41,13 +41,12 @@
 		<view class="btn-wrap">
 			<!-- 已领取 -->
 			<button class="normalize receive-btn" wx:if="{{ hasRecived }}"
-			  bind:tap="go" 
+			  bind:tap="go"
 			  style="background-color: {{ themeColor.primaryColor  }}"
 			  data-url="/pages-cuilv/cardCollection/cardCollection?tab=card">去查看</button>
 			<!-- 未领取 -->
 			<button class="normalize receive-btn" wx:else
 			  style="background-color: {{ themeColor.primaryColor  }}"
-			  bindgetuserinfo="bindGetUserInfo" open-type="getUserInfo"
 			  bind:tap="receiveCard">立即领取</button>
 		</view>
 	</view>

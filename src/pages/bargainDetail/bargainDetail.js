@@ -2,7 +2,7 @@ import api from 'utils/api';
 import getRemainTime from 'utils/getRemainTime';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
-import { getAgainUserForInvalid, autoNavigate, subscribeMessage } from 'utils/util';
+import { getUserProfile, autoNavigate, subscribeMessage } from 'utils/util';
 const app = getApp();
 
 Page({
@@ -186,12 +186,9 @@ Page({
     },
 
     // 获取用户信息 并 助力砍价
-    async bindGetUserInfo(e) {
+    async bindGetUserInfo() {
+        await getUserProfile();
         try {
-            const { encryptedData, iv } = e.detail;
-            if (iv && encryptedData) {
-                await getAgainUserForInvalid({ encryptedData, iv });
-            }
             const { code, actors } = this.data;
             const data = await api.hei.bargainHelp({ code });
             wx.showToast({
