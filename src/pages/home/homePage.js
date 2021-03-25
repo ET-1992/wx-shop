@@ -165,6 +165,8 @@ export const pageObj = {
             });
             console.log('Home-couponArray', couponArray);
             app.globalData.couponBackgroundColor = (couponArray && couponArray[0] && couponArray[0].setting.color) || 'orange';
+
+            console.log(module_page, 'odule_page');
             this.setData({
                 products,
                 module_page,
