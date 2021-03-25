@@ -2,7 +2,7 @@
 <view class="container">
     <view class="option" wx:for="{{ options }}" wx:key="index">
 
-      <extenNav item="{{ item }}" config="{{ config }}">
+      <extenNav item="{{ item }}">
         <image class="icon" src="{{ item.icon }}" mode="aspectFit" slot="content"></image>
       </extenNav>
 
