@@ -13,7 +13,7 @@
 
     <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
     <!-- 服务 -->
-    <service phone="{{ phone }}" customer="{{ customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' />
+    <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}"/>
     <!-- </block> -->
     <!-- 新用户优惠券弹框 -->
     <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
@@ -63,7 +63,7 @@
         </view>
     </view>
     <!-- 服务 -->
-    <service phone="{{ module_page.phone_number }}" customer="{{ module_page.customer }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' config="{{ config }}" />
+    <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' config="{{ config }}"/>
     <!-- 新用户优惠券弹框 -->
     <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
     <!-- 添加到我的小程序 -->

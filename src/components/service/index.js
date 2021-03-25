@@ -1,20 +1,13 @@
+const app = getApp();
 Component({
     properties: {
-        phone: {
-            type: String,
-            value: '',
-        },
-        customer: {
-            type: Boolean,
-            value: false
-        },
-        sessionFrom: {
-            type: String,
-            value: ''
-        },
         config: {
             type: Object,
             value: {}
+        },
+        options: {
+            type: Array,
+            value: []
         }
     },
     methods: {

@@ -1,13 +1,13 @@
 
 <view class="container">
-    <view wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
-        <image src="/icons/call.svg" mode="aspectFit"></image>
+    <view class="option" wx:for="{{ options }}" wx:key="index">
+
+      <extenNav item="{{ item }}" config="{{ config }}">
+        <image class="icon" src="{{ item.icon }}" mode="aspectFit" slot="content"></image>
+      </extenNav>
+
     </view>
-    <!-- 企业微信/微信客服 -->
-    <button wx:if="{{ customer }}" class="btn" open-type="contact" session-from="{{ sessionFrom }}">
-        <image src="/icons/customer.svg" mode="aspectFit"
-            catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}"></image>
-    </button>
+
 </view>
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"

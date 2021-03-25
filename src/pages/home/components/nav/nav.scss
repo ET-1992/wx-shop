@@ -21,6 +21,8 @@
 		.homeWrapper {
 			width: 25%;
 			flex-direction: column;
+			align-items: center;
+			justify-content: center;
 			.categoryItem{
 				line-height: 0;
 				.categoryImg{
