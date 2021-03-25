@@ -3,8 +3,11 @@
 .f-container {
     position: relative;
     overflow: hidden;
-    // padding: 20rpx;
-    margin: 25rpx 0;
+    padding: 25rpx 15rpx;
+    // margin: 25rpx 0;
+    // padding-top: 25rpx;
+    // margin-bottom: 25rpx
+    
   }
 
 .f-layout {
@@ -27,7 +30,7 @@
     height: 1rpx;
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: 25rpx;
     opacity: 0;
     z-index: 9999999;
     // background-color: red;
