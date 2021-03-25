@@ -18,7 +18,6 @@ Component({
                 setting.style = 'per_2';
                 this.setData({
                     scrollLeft: 0,
-                    content,
                     setting,
                     title,
                     type,
@@ -38,8 +37,9 @@ Component({
             type: Array,
             value: [],
             observer: function (newVal, oldVal) {
-                console.log(newVal, oldVal, 'ddd');
-                this.content = this.content.concat(newVal.slice(oldVal.length, newVal.length));
+                console.log(newVal, oldVal, '000');
+                if (!newVal || !newVal.length) { return }
+                this.content = this.content && this.content.concat(newVal.slice(oldVal.length, newVal.length));
                 // console.log(this._readyData, 'this._readyData');
                 // 仅在追加时或数据异步时执行这个render
                 if (oldVal.length > 0 || this._isReadyRender) {
@@ -112,7 +112,7 @@ Component({
             for (let i = 0; i < this.data.fallNum; i++) {
                 const o = this.createIntersectionObserver();
                 o.relativeTo('.f-detector').observe(`.f-l${i}`, res => {
-                    console.log(res.intersectionRatio, this._activeFall, i, 'res');
+                    // console.log(res.intersectionRatio, this._activeFall, i, 'res');
                     // 判断渲染流
                     if (flag < this.data.fallNum) {
                         this._activeFall++;
@@ -141,7 +141,7 @@ Component({
                 this.setData({
                     [`itemArray[${this._activeFall}][${i}]`]: this.content.shift()
                 }, () => {
-                    console.log(this.data.itemArray);
+                    // console.log(this.data.itemArray);
                     // 超时处理
                     clearTimeout(this._renderTimeout);
                     this._renderTimeout = setTimeout(() => {

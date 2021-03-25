@@ -1,5 +1,4 @@
 <view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" 
-	wx:if="{{ content && content.length }}" 
 	style="margin-bottom: {{ setting.margin }}rpx">
 	<!-- 标题 -->
 	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
@@ -21,7 +20,9 @@
                         wx:for-item="product"
                     >
                         <view wx:if="{{ product.item_type === 'ad' }}" class="adWrap">
-                            	<image src="{{ product.image }}" class="ItemImage" mode="widthFix" lazy-load="{{ true }}" />
+                            <extenNav item="{{ product }}">
+                                <image src="{{ product.image }}" class="ItemImage" mode="widthFix" lazy-load="{{ true }}" slot="content" />
+                            </extenNav>
                         </view>
                           
                         <include src="../productsList/templates/index/index.wxml" wx:else></include>
