@@ -102,15 +102,14 @@
             <skuLogistics product="{{product}}" actions="{{actions}}" bind:shipping-change="getShippingType" />
         </view>
         <view class="actionSheetBtGroup">
-            <button 
-                class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" 
-                wx:for="{{ actions }}" 
-                wx:key="id" 
-                data-action-type="{{ item.type }}" 
-                form-type="submit" 
-                bindgetuserinfo="onUserInfo" 
-                open-type="getUserInfo" 
-                lang="zh_CN" 
+            <button
+                class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
+                wx:for="{{ actions }}"
+                wx:key="id"
+                data-action-type="{{ item.type }}"
+                form-type="submit"
+                bindtap="onUserInfo"
+                lang="zh_CN"
                 style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}">{{ item.text }}</button>
         </view>
     </view>

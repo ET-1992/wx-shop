@@ -1,4 +1,4 @@
-import { getAgainUserForInvalid, getUserInfo } from 'utils/util';
+import { getUserProfile, getUserInfo } from 'utils/util';
 import { USER_KEY, CONFIG, USER_INFO_CREATE_TIME } from 'constants/index';
 import api from 'utils/api';
 const app = getApp();
@@ -46,27 +46,19 @@ Component({
     },
     methods: {
         // 点击用户头像的鉴权
-        async bindGetUserInfo(e) {
+        async bindGetUserInfo() {
             let time = Date.now();
             wx.setStorageSync(USER_INFO_CREATE_TIME, time);
-            const { encryptedData, iv } = e.detail;
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
+
+            const user = await getUserProfile();
             this.setData({ user, updateAvatar: false });
+            this.consoleOpen();
         },
         // 跳转会员页的鉴权
-        async getUserBeforeToMember(e) {
-            const { encryptedData, iv } = e.detail;
-            if (iv && encryptedData) {
-                const user = await getAgainUserForInvalid({ encryptedData, iv });
-                if (user) {
-                    this.toMembersPage();
-                }
-            } else {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '需授权后操作',
-                    showCancel: false,
-                });
+        async getUserBeforeToMember() {
+            const user = await getUserProfile();
+            if (user) {
+                this.toMembersPage();
             }
         },
         consoleOpen() {

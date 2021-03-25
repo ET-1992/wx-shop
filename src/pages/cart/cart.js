@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
 import { CART_LIST_KEY, phoneStyle, PRODUCT_LAYOUT_STYLE, CONFIG } from 'constants/index';
-import { updateTabbar, autoNavigate, getAgainUserForInvalid, go, debounce } from 'utils/util';
+import { updateTabbar, autoNavigate, getUserProfile, go, debounce } from 'utils/util';
 
 const app = getApp();
 
@@ -272,19 +272,9 @@ Page({
     },
 
     // 用户授权之后才能下单
-    async bindGetUserInfo(e) {
-        console.log(e);
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.onCreateOrder();
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+    async bindGetUserInfo() {
+        await getUserProfile();
+        this.onCreateOrder();
     },
 
     // 跳转到预下单页

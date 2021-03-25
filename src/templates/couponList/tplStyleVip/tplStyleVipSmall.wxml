@@ -6,8 +6,7 @@
 		<button class="coupon"
 		wx:for="{{ memberCouponList }}"
 		wx:key="id"
-		open-type="getUserInfo"
-		bindgetuserinfo="onCouponClick"
+		bindtap="onCouponClick"
 		data-id="{{ item.id }}"
 		data-status="{{ item.status }}"
 		data-title="{{ item.title }}"
@@ -34,11 +33,11 @@
 					</view>
 					<block>
 						<!-- 待领取 -->
-						<image class="bg" src="/icons/member/vipCouponItemSmall.svg" wx:if="{{ item.status == 2 && item.stock_qty }}" /> 
+						<image class="bg" src="/icons/member/vipCouponItemSmall.svg" wx:if="{{ item.status == 2 && item.stock_qty }}" />
 						<!-- 已领取 -->
-						<image class="bg" src="/icons/member/vipCouponItemReceivedSmall.svg" wx:if="{{ item.status == 4 }}" /> 
+						<image class="bg" src="/icons/member/vipCouponItemReceivedSmall.svg" wx:if="{{ item.status == 4 }}" />
 						<!-- 已失效 -->
-						<image class="bg" src="/icons/member/vipUnableCouponSmall.svg" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" /> 
+						<image class="bg" src="/icons/member/vipUnableCouponSmall.svg" wx:if="{{ (item.status == 2 && !item.stock_qty) || item.status == 3 || item.status == 5 }}" />
 					</block>
 				</button>
 			</form>

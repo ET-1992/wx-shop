@@ -1,6 +1,6 @@
 <wxs src="/utils/wxs/utils.wxs" module="WXS" />
 
-<view class="container"> 
+<view class="container">
 	<view class="header">
 		<view class="title">{{ article.title }}</view>
 		<image class="banner" src="{{ article.thumbnail || article.banner }}" mode="widthFix" />
@@ -11,8 +11,8 @@
 				<view class="time">{{ article.modified }}</view>
 			</view>
 			<view
-				class="more" 
-				hover-class="hover" 
+				class="more"
+				hover-class="hover"
 				data-item="{{ article }}"
 				bind:tap="goPage"
 			>查看原文</view>
@@ -28,20 +28,20 @@
 
 					<view class="meta">
                     	<view class="nickname">{{ item.author.nickname || '热心网友'}}</view>
-						<view 
-							class="digg-box" 
-							wx:if="{{ article.comment_digg }}" 
+						<view
+							class="digg-box"
+							wx:if="{{ article.comment_digg }}"
 							data-index="{{ index }}"
 							data-comment-id="{{ item.id }}"
-							data-is-digged="{{ item.is_digged }}" 
+							data-is-digged="{{ item.is_digged }}"
 							bind:tap="onDiggComment"
 						>
 							<view class="text" wx:if="{{ item.digg_count }}" >{{ WXS.ellipsisValue(item.digg_count, 7) }}</view>
-							<van-icon 
-								slot="icon" 
-								class-prefix="sweet" 
-								name="digg" 
-								size="40rpx" 
+							<van-icon
+								slot="icon"
+								class-prefix="sweet"
+								name="digg"
+								size="40rpx"
 								color="{{ item.is_digged ? '#2782D7' : '#999999' }}"
 							/>
 						</view>
@@ -49,11 +49,11 @@
 
                     <view class="options" >
                         <view class="time">{{ WXS.formatTime(item.timestamp * 1000) }}</view>
-                        <view 
+                        <view
 							class="replyBt"
-							wx:if="{{ article.reply_type === 'all' }}" 
-							data-reply-parent-id="{{ item.id }}" 
-							data-reply-user="{{ item.author.nickname || '热心网友' }}" 
+							wx:if="{{ article.reply_type === 'all' }}"
+							data-reply-parent-id="{{ item.id }}"
+							data-reply-user="{{ item.author.nickname || '热心网友' }}"
 							catch:tap="onReply"
 						>回复</view>
                     </view>
@@ -69,36 +69,36 @@
 							<image wx:if="{{ article.reply_type !== 'admin_reply' }}" class="avatar" src="{{ child.author.avatar }}" />
 							<view class="right">
 								<view class="meta">
-									<view 
+									<view
 										class="nickname {{ article.reply_type === 'admin_reply' ? 'admin' : ''}}"
 										>{{ article.reply_type === 'admin_reply' ? '作者' : (child.author.nickname || '热心网友') }}</view>
-									<view 
-										class="digg-box" 
-										wx:if="{{ article.comment_digg }}" 
+									<view
+										class="digg-box"
+										wx:if="{{ article.comment_digg }}"
 										data-index="{{ index }}"
 										data-comment-id="{{ child.id }}"
 										data-child-index="{{ childIndex }}"
-										data-is-digged="{{ child.is_digged }}" 
+										data-is-digged="{{ child.is_digged }}"
 										bind:tap="onDiggComment"
 									>
 										<view class="text" wx:if="{{ child.digg_count }}" >{{ WXS.ellipsisValue(child.digg_count, 7) }}</view>
-										<van-icon 
-											slot="icon" 
-											class-prefix="sweet" 
-											name="digg" 
-											size="40rpx" 
+										<van-icon
+											slot="icon"
+											class-prefix="sweet"
+											name="digg"
+											size="40rpx"
 											color="{{ child.is_digged ? '#2782D7' : '#999999' }}"
 										/>
 									</view>
 								</view>
 								<view class="options">
 									<view class="time">{{ WXS.formatTime(child.timestamp * 1000) }}</view>
-									<view 
+									<view
 										wx:if="{{ article.reply_type === 'all' }}"
 										class="replyBt"
-										data-reply-parent-id="{{ child.id }}" 
-										data-reply-user="{{ child.author.nickname || '热心网友'}}" 
-										catch:tap="onReply" 
+										data-reply-parent-id="{{ child.id }}"
+										data-reply-user="{{ child.author.nickname || '热心网友'}}"
+										catch:tap="onReply"
 									>回复</view>
 								</view>
 								<view class="content">
@@ -113,15 +113,14 @@
             </view>
         </view>
 	</view>
-	  
+
 	<van-goods-action safe-area-inset-bottom>
-		<van-button 
-			round 
-			custom-class="button-box" 
-			style="width: 100%" 
-			color="#f4f4f4" 
-			open-type="getUserInfo" 
-			bind:getuserinfo="bindGetUserInfo"
+		<van-button
+			round
+			custom-class="button-box"
+			style="width: 100%"
+			color="#f4f4f4"
+			bind:click="bindGetUserInfo"
 			data-method="onComment"
 			disabled="{{ article.comment_status === 'closed' }}"
 		>
@@ -134,11 +133,10 @@
 		<van-goods-action-icon open-type="share">
 			<van-icon slot="icon" class-prefix="sweet" name="weixin" size="40rpx" color="#1AAD19"/>
 		</van-goods-action-icon>
-		
+
 		<van-goods-action-icon
 			icon="/icons/articleDetail/moments.svg"
-			open-type="getUserInfo"
-			bind:getuserinfo="bindGetUserInfo"
+			bind:click="bindGetUserInfo"
 			data-method="onShowPoster"
 		/>
 	</van-goods-action>
@@ -160,7 +158,7 @@
             </view>
 			<view class="comment-button-box">
 				<van-button custom-class="comment-button" bind:click="onSubmit">发布</van-button>
-			</view>  
+			</view>
 		</view>
 	</van-popup>
 

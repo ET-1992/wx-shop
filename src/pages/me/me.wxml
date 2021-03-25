@@ -8,7 +8,7 @@
 	<orders ordersComponentData="{{ ordersComponentData }}" />
 
 	<!-- 广告位 -->
-	<!-- <button class="member-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
+	<!-- <button class="member-btn"  bindtap="bindGetUserInfo" wx:if="{{ config.membership_enable && membership_banner }}">
 		<image class="member-image" src="{{ membership_banner }}"/>
   </button> -->
   <view class="member-btn" wx:if="{{ banner && banner.image }}" bindtap="go" data-url="{{ banner.path }}">

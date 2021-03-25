@@ -57,7 +57,7 @@
            			bindfail="miniFail"
 					wx:if="{{ item.type !== 'contact'}}"
 				></navigator>
-				<button 
+				<button
 					wx:if="{{ item.type === 'contact' }}"
 					bindtap="{{ item.tips ? 'onModal' : ''}}"
 					data-tips="{{ item.tips }}"
@@ -238,10 +238,9 @@
 				wx:key="id"
 				wx:if="{{ index < 2 }}">
             	<form bindsubmit="submitFormId" report-submit="true">
-            	  	<button class="couponInfoList" 
+            	  	<button class="couponInfoList"
 						formType="submit"
-						open-type="getUserInfo"
-						bindgetuserinfo="bindGetUserInfo"
+						bindtap="bindGetUserInfo"
 						data-id="{{ item.id }}"
 						data-status="{{ item.status }}"
 						data-title="{{ item.title }}"

@@ -1,7 +1,9 @@
+/* eslint-disable prefer-promise-reject-errors */
 import { TOKEN_KEY, EXPIRED_KEY, USER_KEY, USER_STATUS, CONFIG, PLATFFORM_ENV } from 'constants/index';
 import api from 'utils/api';
 import { login, checkSession, getSetting, authorize } from 'utils/wxp';
 import wxProxy from 'utils/wxProxy';
+import wxStorage from 'utils/wxStorage';
 
 function formatNumber(n) {
     let x;
@@ -40,6 +42,43 @@ export function formatConfirmTime(seconds) {
     return { remainTime: dateStr, remainSecond: seconds };
 }
 
+/* 适配微信获取用户数据新规则 并用缓存控制接口请求次数 */
+export function getUserProfile() {
+    return new Promise((resolve, reject) => {
+        const isExpired = wxStorage.isExpired(USER_KEY);
+        if (isExpired) {
+            wx.getUserProfile({
+                desc: 'getUserInfo',
+                success: async (res) => {
+                    try {
+                        const { user } = await api.hei.getUserProfile({ user: res.userInfo });
+                        wxStorage.set({ key: USER_KEY, value: user, expiredTime: 24 * 60 * 60 * 1000, mode: 'second' });
+                        resolve(user);
+                    } catch (e) {
+                        wx.showModal({
+                            title: '温馨提示',
+                            content: e.errMsg,
+                            showCancel: false
+                        });
+                        reject();
+                    }
+                },
+                fail: () => {
+                    wx.showModal({
+                        title: '温馨提示',
+                        content: '需授权后操作',
+                        showCancel: false
+                    });
+                    reject();
+                }
+            });
+        }
+        else {
+            const user = wxStorage.get(USER_KEY);
+            resolve(user);
+        }
+    });
+}
 export function getAgainTokenForInvalid() {
     return new Promise(async (resolve, reject) => {
         try {

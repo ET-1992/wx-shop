@@ -15,8 +15,7 @@
 			<button
         class="{{ user ? 'c-commentBar__btn' : 'c-commentBar__disabled' }}"
         form-type="submit"
-        bindgetuserinfo="onUserInfo"
-        open-type="getUserInfo"
+        bindtap="onUserInfo"
         lang="zh_CN"
         style="background-color: {{ user ? themeColor.primaryColor : '#fafafa'}}"
       >{{ user ? '提交' : '授权后才能评论' }}</button>

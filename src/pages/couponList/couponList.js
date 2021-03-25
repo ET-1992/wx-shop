@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-import { autoNavigate, getAgainUserForInvalid } from 'utils/util';
+import { autoNavigate, getUserProfile } from 'utils/util';
 import { CONFIG } from 'constants/index';
 const app = getApp();
 
@@ -80,17 +80,10 @@ Page({
     },
 
     async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            await getAgainUserForInvalid({ encryptedData, iv });
-            this.onCouponClick(e);
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+
+        await getUserProfile();
+        this.onCouponClick(e);
+
     },
 
     async onCouponClick(ev) {

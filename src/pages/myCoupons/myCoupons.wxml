@@ -40,7 +40,7 @@
 	</view>
 	<!-- 数据为空 -->
 	<view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length && !isLoading }}">
-		<image class="noHint" src="../../icons/noCoupon.svg"></image> 
+		<image class="noHint" src="../../icons/noCoupon.svg"></image>
 	    <view wx:if="{{ selectedStatus === 'available' }}"> 还没有优惠券 </view>
 	    <view wx:if="{{ selectedStatus === 'used' }}"> 暂无已使用优惠券 </view>
 	    <view wx:if="{{ selectedStatus === 'expired' }}"> 暂无已过期优惠券 </view>
@@ -48,14 +48,13 @@
 	</view>
 	<!-- 优惠券列表 -->
 	<view class="couponsList" wx:if="{{ coupons[selectedStatus].length && !isLoading }}">
-		<button 
-		class="couponItemWrapper" 
-		wx:for="{{ coupons[selectedStatus] }}" 
-		wx:key="id" 
-		open-type="getUserInfo"
-		bindgetuserinfo="onCouponClick"
-		data-usercouponid="{{ item.user_coupon_id }}" 
-		data-status="{{ item.status }}" 
+		<button
+		class="couponItemWrapper"
+		wx:for="{{ coupons[selectedStatus] }}"
+		wx:key="id"
+		bindtap="onCouponClick"
+		data-usercouponid="{{ item.user_coupon_id }}"
+		data-status="{{ item.status }}"
 		data-title="{{ item.title }}">
 			<couponList wx:if="{{ item.status == 2 && item.stock_qty }}" coupon="{{ item }}" status="receivable"/>
 			<!-- 未领取 -->

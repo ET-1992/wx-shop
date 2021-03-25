@@ -1,14 +1,13 @@
 <view class="s-comments">
 	<view class="s-comments__content">
 		<view class="c-commentList">
-			<button 
-			  class="c-comment" 
-			  wx:for="{{topic.replies}}" 
-			  wx:key="id" 
-			  bindgetuserinfo="bindGetUserInfo" 
-			  open-type="getUserInfo"
-			  data-openid="{{item.user.openid}}" 
-			  data-id="{{item.id}}" 
+			<button
+			  class="c-comment"
+			  wx:for="{{topic.replies}}"
+			  wx:key="id"
+			  bindtap="bindGetUserInfo"
+			  data-openid="{{item.user.openid}}"
+			  data-id="{{item.id}}"
 			  data-nickname="{{item.user.nickname}}">
 				<image src="{{item.user.avatarurl}}" class="c-comment__avatar" background-size="cover"></image>
 				<view class="c-comment__content">

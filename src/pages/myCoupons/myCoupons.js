@@ -1,5 +1,5 @@
 import api from 'utils/api';
-import { getAgainUserForInvalid } from 'utils/util';
+import { getUserProfile } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import { CONFIG } from 'constants/index';
 
@@ -75,7 +75,7 @@ Page({
     },
 
     async onCouponClick(ev) {
-        const user = await this.bindGetUserInfo(ev);
+        const user = await this.bindGetUserInfo();
         if (user) {
             const { selectedStatus } = this.data;
             const { usercouponid, title } = ev.currentTarget.dataset;
@@ -122,18 +122,9 @@ Page({
         return onDefaultShareAppMessage.call(this, opts, path);
     },
 
-    async bindGetUserInfo(e) {
-        const { encryptedData, iv } = e.detail;
-        if (iv && encryptedData) {
-            const user = await getAgainUserForInvalid({ encryptedData, iv });
-            this.setData({ user });
-            return user;
-        } else {
-            wx.showModal({
-                title: '温馨提示',
-                content: '需授权后操作',
-                showCancel: false,
-            });
-        }
+    async bindGetUserInfo() {
+        const user = await getUserProfile();
+        this.setData({ user });
+
     }
 });
