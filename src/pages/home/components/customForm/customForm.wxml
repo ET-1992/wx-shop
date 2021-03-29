@@ -1,0 +1,11 @@
+<view class="container {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
+
+    <view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
+
+	<markForm
+    form="{{ content.fields }}"
+    bind:submit="submitFormData"
+    onlyShow="{{ (content.per_user > 0 && content.times >= content.per_user) || (content.max > 0 && content.count >= content.max ) }}"
+    showSubmitBtn="{{ true }}"
+    />
+</view>

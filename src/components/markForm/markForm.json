@@ -4,6 +4,8 @@
     "van-field": "@vant/weapp/dist/field/index",
     "van-checkbox": "@vant/weapp/dist/checkbox/index",
     "van-checkbox-group": "@vant/weapp/dist/checkbox-group/index",
-    "van-uploader": "@vant/weapp/dist/uploader/index"
+    "van-uploader": "@vant/weapp/dist/uploader/index",
+    "van-radio": "@vant/weapp/dist/radio/index",
+    "van-radio-group": "@vant/weapp/dist/radio-group/index"
   }
 }

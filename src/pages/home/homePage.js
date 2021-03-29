@@ -384,6 +384,39 @@ export const pageObj = {
             }
         }
     },
+    /* 提交表单 */
+    async submitFormData(e) {
+        const { form } = e.detail;
+        console.log(form);
+        const { module_page: { id }, modules } = this.data;
+        const { content: { id: form_id }} = modules.find((module) => {
+            return module.type === 'form';
+        });
+        const index = modules.findIndex((module) => {
+            return module.type === 'form';
+        });
+        try {
+            wx.showLoading();
+            const { times, count } = await api.hei.submitFormData({ source_data: id, data: form, source_type: 'module', form_id });
+            wx.hideLoading();
+            wx.showModal({
+                title: '温馨提示',
+                content: '提交成功',
+                showCancel: false
+            });
+            this.setData({
+                ['modules[' + index + '].content.times']: times,
+                ['modules[' + index + '].content.count']: count
+            });
+        } catch (e) {
+            wx.hideLoading();
+            wx.showModal({
+                title: '温馨提示',
+                content: e.errMsg,
+                showCancel: false
+            });
+        }
+    },
     onPageScroll(e) {
         const { home_type, showBgColor = false } = this.data;
         let { scrollTop } = e;

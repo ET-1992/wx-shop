@@ -56,6 +56,8 @@
                 <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
                 <!-- 瀑布流 -->
                 <masonry wx:if="{{ item.type === 'masonry-product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+                <!-- 表单 -->
+                <customForm wx:if="{{ item.type === 'form'}}" form="{{ item }}" bind:submitFormData="submitFormData"/>
             </view>
         </view>
         <view id="loadProducts" class="logo">

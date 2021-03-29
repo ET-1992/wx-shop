@@ -1,3 +1,4 @@
+import { chooseImage } from 'utils/wxp';
 import api from 'utils/api';
 import { checkPhone, checkEmail, checkIdNameNum } from 'utils/util';
 
@@ -11,6 +12,10 @@ Component({
         onlyShow: {
             type: Boolean,
             value: false,
+        },
+        showSubmitBtn: {
+            type: Boolean,
+            value: false
         }
     },
     observers: {
@@ -61,43 +66,41 @@ Component({
             form[index].value = detail;
             this.setData({ form });
         },
-
-        // 文件读取完成
-        async onAfterRead(e) {
-            console.log('e', e);
-            let { file } = e.detail,
-                { name } = e.currentTarget.dataset,
-                { form } = this.data,
-                index = form.findIndex(item => item.name === name);
-
-            try {
-                const data = await api.hei.upload({
-                    filePath: file.url || file.path
-                });
-                let { url } = JSON.parse(data);
-                form[index].value = [{ url }];
-
-                this.setData({ form });
-
-            } catch (e) {
-                wx.showModal({
-                    title: '温馨提示',
-                    content: e.errmsg || e.errMsg,
-                    showCancel: false
-                });
-            }
-        },
-
-        // 文件删除
-        onFileDelete(e) {
+        // 文件上传
+        async onUpload(e) {
             let { name } = e.currentTarget.dataset,
                 { form } = this.data,
                 index = form.findIndex(item => item.name === name);
-
-            form[index].value = '';
-            this.setData({ form });
+            const { tempFilePaths } = await chooseImage({
+                count: 1
+            });
+            try {
+                const data = await api.hei.upload({
+                    filePath: tempFilePaths[0]
+                });
+                const { url, errcode, errmsg } = JSON.parse(data);
+                if (errcode) {
+                    wx.showModal({
+                        title: '温馨提示',
+                        content: errmsg,
+                        showCancel: false
+                    });
+                } else {
+                    form[index].value = url;
+                    this.setData({ form });
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
         },
-
+        /* 预览图片 */
+        previewImg(e) {
+            let { url } = e.currentTarget.dataset;
+            wx.previewImage({
+                urls: [url]
+            });
+        },
         // 表单验证和收集数据
         handleValidate() {
             let { form } = this.data;
@@ -117,10 +120,14 @@ Component({
             }
             let showError = () => {
                 wx.showToast({ title: errMsg, icon: 'none' });
-                console.log('error form validate', form);
                 throw new Error(errMsg);
             };
             return errMsg ? showError() : form;
         },
+
+        submit() {
+            const form = this.handleValidate();
+            this.triggerEvent('submit', { form });
+        }
     },
 });

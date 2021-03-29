@@ -889,5 +889,15 @@ export const apis = {
         path: 'api/mag.convert.activity.convert.code.json',
         isForceToken: true,
         method: 'POST'
+    },
+    getFormData: {
+        path: 'api/mag/form/get.json',
+        method: 'GET'
+    },
+    submitFormData: {
+        path: 'api/mag/form/submit.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
     }
 };

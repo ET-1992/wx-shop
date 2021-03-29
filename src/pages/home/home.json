@@ -25,7 +25,8 @@
     "gold-price": "./components/goldPrice/goldPrice",
     "productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
 		"orderOptions": "components/orderOptions/orderOptions",
-		"van-popup": "@vant/weapp/dist/popup/index"
+		"van-popup": "@vant/weapp/dist/popup/index",
+    "customForm": "./components/customForm/customForm"
   },
   "navigationStyle": "custom",
   "warning": "改完这里记得同步到 modulePage discovery featured onlineStore 页面"
