@@ -65,6 +65,13 @@ Component({
             //     title: '温馨提示',
             //     content: errMsg,
             // });
+        },
+        call(e) {
+            const { phone } = e.currentTarget.dataset;
+            wx.makePhoneCall({
+                phoneNumber: phone
+            });
+
         }
     }
 });

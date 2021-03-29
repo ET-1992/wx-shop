@@ -18,6 +18,7 @@
                 flex: 1;
                 height: 100%;
                 background-size: 100% 100%;
+								background-color: transparent;
             }
 
             .rowImgItemMargin {
@@ -38,6 +39,7 @@
             .columnImgItem {
                 flex: 1;
                 background-size: 100% 100%;
+								background-color: transparent;
             }
 
             .columnImgItemMargin {
@@ -50,6 +52,7 @@
         }
 
         .imgbg {
+						background-color:transparent
             // background-color: #c9c9c9 !important;
         }
     }

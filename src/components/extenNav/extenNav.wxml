@@ -6,17 +6,18 @@
     path="{{ item.path }}"
     target="miniProgram"
     open-type="navigate"
+    class="nav"
   >
     <slot name="content"><slot>
   </navigator>
 
   <!-- 公众号文章 -->
-  <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" >
+  <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="nav">
     <slot name="content"><slot>
   </navigator>
 
   <!-- 打电话 -->
-  <view wx:elif="{{ item.type === 'tel' }}" bindtap="call" data-phone="{{ item.phone }}">
+  <view wx:elif="{{ item.type === 'tel' }}" bindtap="call" data-phone="{{ item.phone }}" class="call">
     <slot name="content"><slot>
   </view>
 
@@ -33,7 +34,7 @@
   </button>
 
   <!-- 其他 -->
-  <navigator wx:else url="{{ item.path }}"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" >
+  <navigator wx:else url="{{ item.path }}"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" class="nav">
     <slot name="content"><slot>
   </navigator>
 </view>

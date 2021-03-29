@@ -36,8 +36,9 @@ Component({
         },
 
         call(e) {
+            const { phone } = e.currentTarget.dataset;
             wx.makePhoneCall({
-                phoneNumber: e.currentTarget.dataset.phone
+                phoneNumber: phone
             });
         }
     }
