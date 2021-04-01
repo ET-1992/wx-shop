@@ -11,8 +11,4 @@
     </view>
 
 </view>
-<!-- 企业微信客服弹窗 -->
-<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
-    show="{{ customServiceModal }}"
-    plugid="{{ config.contact.plugid }}"
-/>
+

@@ -18,7 +18,6 @@ Component({
     ready() {
         const userInfo = wx.getStorageSync(USER_KEY);
         const config = wx.getStorageSync(CONFIG);
-        // console.log(config, 'configconfigconfigconfigconfigconfig');
         const { tabbarPages } = app.globalData;
         this.setData({
             tabbarPages,
@@ -30,7 +29,27 @@ Component({
         // 展示企业微信联系方式
         onCustomService(e) {
             const { tips } = e.currentTarget.dataset;
-            this.triggerEvent('onCustomService', { tips });
+            const { config } = this.data;
+            if (config.contact && config.contact.type === 'work_weixin') {
+                let customServiceModal = true;
+                this.setData({
+                    customServiceModal,
+                });
+            } else {
+                this.setData({
+                    contactModal: {
+                        isFatherControl: false,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: tips,
+                        type: 'button',
+                        userInfo: this.data.userInfo,
+                        buttonData: {
+                            opentype: 'contact'
+                        }
+                    }
+                });
+            }
         },
         call(e) {
             const { phone } = e.currentTarget.dataset;
