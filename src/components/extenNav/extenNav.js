@@ -28,13 +28,10 @@ Component({
     },
     methods: {
         // 展示企业微信联系方式
-        onCustomService() {
-            let customServiceModal = true;
-            this.setData({
-                customServiceModal,
-            });
+        onCustomService(e) {
+            const { tips } = e.currentTarget.dataset;
+            this.triggerEvent('onCustomService', { tips });
         },
-
         call(e) {
             const { phone } = e.currentTarget.dataset;
             wx.makePhoneCall({

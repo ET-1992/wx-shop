@@ -52,7 +52,7 @@
 
         <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
         <view class="form-field" wx:elif="{{ item.type === 'text' }}">
-          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap" border="" autosize="{{ { maxHeight: 24, minHeight: 24 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap"  border="" autosize  clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
         </view>
         <!-- 输入框 -->
 

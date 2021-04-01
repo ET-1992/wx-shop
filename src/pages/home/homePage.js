@@ -509,7 +509,7 @@ export const pageObj = {
                 isFatherControl: false,
                 title: '温馨提示',
                 isShowModal: true,
-                body: e.detail.currentTarget.dataset.tips,
+                body: e.detail.detail.tips,
                 type: 'button',
                 userInfo: this.data.userInfo,
                 buttonData: {
