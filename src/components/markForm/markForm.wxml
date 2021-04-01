@@ -1,7 +1,6 @@
 <!-- 商品/订单留言表单 -->
 <view class="container">
-
-  <view class="form-content">
+  <view class="form-content" wx:if="{{showForm &&  showForm.length}}">
     <view class="form-item" wx:for="{{ showForm }}" wx:key="index">
       <view class="form-item-left">
         <view class="form-title">
