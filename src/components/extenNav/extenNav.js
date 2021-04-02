@@ -34,11 +34,12 @@ Component({
         // 展示企业微信联系方式
         onCustomService(e) {
             const { config, eventHandlingWithOuter } = this.data;
+            const { tips } = e.currentTarget.dataset;
             if (eventHandlingWithOuter) {
-                this.triggerEvent('onCustomService', e);
+                this.triggerEvent('onCustomService', { tips });
                 return;
             }
-            const { tips } = e.currentTarget.dataset;
+
 
             if (config.contact && config.contact.type === 'work_weixin') {
                 let customServiceModal = true;
