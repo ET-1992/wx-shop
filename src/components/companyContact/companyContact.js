@@ -11,6 +11,9 @@ Component({
             value: false,
         }
     },
+    options: {
+        styleIsolation: 'shared'
+    },
     methods: {
         onClose() {
             let show = false;

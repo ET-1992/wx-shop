@@ -6,6 +6,11 @@ Component({
         item: {
             type: Object,
             value: {},
+        },
+        // 是否向父组件抛出事件让父组件自行处理
+        eventHandlingWithOuter: {
+            type: Boolean,
+            value: false,
         }
     },
     data: {
@@ -13,7 +18,7 @@ Component({
         tabbarPages: {}
     },
     options: {
-        multipleSlots: true // 在组件定义时的选项中启用多slot支持
+        multipleSlots: true, // 在组件定义时的选项中启用多slot支持
     },
     ready() {
         const userInfo = wx.getStorageSync(USER_KEY);
@@ -28,8 +33,13 @@ Component({
     methods: {
         // 展示企业微信联系方式
         onCustomService(e) {
+            const { config, eventHandlingWithOuter } = this.data;
+            if (eventHandlingWithOuter) {
+                this.triggerEvent('onCustomService', e);
+                return;
+            }
             const { tips } = e.currentTarget.dataset;
-            const { config } = this.data;
+
             if (config.contact && config.contact.type === 'work_weixin') {
                 let customServiceModal = true;
                 this.setData({

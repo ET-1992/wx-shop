@@ -18,7 +18,7 @@
                 <!-- <button url="{{ item.path }}" bindtap="onBannerClick" data-path="{{ item.path }}">
                     <image src="{{ item.image }}"/>
                   </button> -->
-                  <extenNav item="{{ item }}" bind:onCustomService="showContactModal">
+                  <extenNav item="{{ item }}" eventHandlingWithOuter  bind:onCustomService="showContactModal" >
                     <image class="bannerImg" src="{{ item.image }}" mode="aspectFit" slot="content" style="width: 100%;height: 100%;"></image>
                   </extenNav>
             </swiper-item>

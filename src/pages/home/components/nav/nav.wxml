@@ -5,7 +5,7 @@
 		<!-- 图标 -->
 		<view class="{{ setting.per_row === 4 ? 'homeCategory' : 'homeWrapper' }}" wx:for="{{ content }}" wx:key="id">
 
-			<extenNav item="{{ item }}" bind:onCustomService="showContactModal">
+			<extenNav item="{{ item }}">
         <view class="categoryItem" slot="content">
           <image class="categoryImg" src="{{ item.icon }}" mode="aspectFit"></image>
         </view>

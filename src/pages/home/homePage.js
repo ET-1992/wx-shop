@@ -504,20 +504,29 @@ export const pageObj = {
     //  新首页 快捷导航 与 幻灯片 客服对话框显示
     showContactModal(e) {
         console.log('e218', e);
-        this.setData({
-            contactModal: {
-                isFatherControl: false,
-                title: '温馨提示',
-                isShowModal: true,
-                body: e.detail.detail.tips,
-                type: 'button',
-                userInfo: this.data.userInfo,
-                buttonData: {
-                    opentype: 'contact'
+        const { config, userInfo } = this.data;
+        const { tips } = e.detail.detail;
+
+        if (config.contact && config.contact.type === 'work_weixin') {
+            let customServiceModal = true;
+            this.setData({
+                customServiceModal,
+            });
+        } else {
+            this.setData({
+                contactModal: {
+                    isFatherControl: false,
+                    title: '温馨提示',
+                    isShowModal: true,
+                    body: tips,
+                    type: 'button',
+                    userInfo,
+                    buttonData: {
+                        opentype: 'contact'
+                    }
                 }
-            }
-        });
-        console.log(this.data.contactModal);
+            });
+        }
     },
 
     // 选择门店刷新页面
