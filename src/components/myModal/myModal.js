@@ -58,6 +58,7 @@ Component({
 
         async bindGetUserInfo() {
             const user = await getUserProfile();
+            console.log(user, 'user');
             this.triggerEvent('onSaveUserInfo', { user }, { bubbles: true });
         },
 

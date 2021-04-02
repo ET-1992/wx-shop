@@ -40,7 +40,6 @@ Component({
                 swiperCurrent: e.detail.current
             });
         },
-
         showContactModal(e) {
             this.triggerEvent('showContactModal', e, { bubbles: true });
         }

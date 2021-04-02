@@ -26,7 +26,8 @@
     "productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
 		"orderOptions": "components/orderOptions/orderOptions",
 		"van-popup": "@vant/weapp/dist/popup/index",
-    "customForm": "./components/customForm/customForm"
+    "customForm": "./components/customForm/customForm",
+    "companyContact": "../../components/companyContact/companyContact"
   },
   "navigationStyle": "custom",
   "warning": "改完这里记得同步到 modulePage discovery featured onlineStore 页面"

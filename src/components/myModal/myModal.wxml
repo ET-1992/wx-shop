@@ -8,6 +8,7 @@
 				class="item-button content-footer-confirm"
 				bindtap="onConfirm"
 				wx:if="{{ defineModal.type === 'button' }}"
+        open-type="{{ defineModal.buttonData.opentype }}"
 				type="default"
 				plain="{{true}}"
 				session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'

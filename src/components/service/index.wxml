@@ -3,16 +3,11 @@
     <view class="option" wx:for="{{ options }}" wx:key="index">
 
       <extenNav
-        item="{{ item }}"
-        bind:onCustomService="onCustomService">
+        item="{{ item }}">
         <image class="icon" src="{{ item.icon }}" mode="aspectFit" slot="content"></image>
       </extenNav>
 
     </view>
 
 </view>
-<!-- 企业微信客服弹窗 -->
-<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
-    show="{{ customServiceModal }}"
-    plugid="{{ config.contact.plugid }}"
-/>
+
