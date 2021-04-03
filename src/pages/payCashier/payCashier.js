@@ -258,7 +258,8 @@ Page({
             }
 
             if (pay_sign) {
-                await wxPay(pay_sign, order_no, subKeys);
+                const wxPayResult = await wxPay(pay_sign, order_no, subKeys);
+                this.setData({ wxPayResult });
                 this.returnPage();
             }
 
@@ -361,9 +362,9 @@ Page({
     },
 
     returnPage() {
-        const { from_page, order_no, isFromCreate } = this.data;
+        const { from_page, order_no, isFromCreate, wxPayResult } = this.data;
         if (from_page) {
-            if (from_page === 'directPay') {
+            if (from_page === 'directPay' && wxPayResult.isSuccess) {
                 wx.redirectTo({ url: `/pages/directPayResult/directPayResult?order_no=${order_no}` });
             } else {
                 wx.navigateBack({ delta: 1 });
