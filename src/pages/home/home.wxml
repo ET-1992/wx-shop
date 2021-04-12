@@ -33,7 +33,7 @@
         <view class="{{ module_page.search_box ? 'main': '' }}" style="padding-top: {{ module_page.search_box ? statusBarHeight + 45: statusBarHeight }}px">
             <view wx:for="{{ modules }}" wx:key="key">
                 <!-- 幻灯片 -->
-                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" themeColor="{{ themeColor }}"/>
+                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" themeColor="{{ themeColor }}" bindshowContactModal="showContactModal"/>
                 <!-- 简单文本 -->
                 <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
                 <!-- 文本列表 -->
@@ -41,7 +41,7 @@
                 <!-- 优惠券 userCoupon 有状态 -->
                 <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}" />
                 <!-- 快捷导航栏 -->
-                <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}" bindshowContactModal="showContactModal" />
+                <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}"  />
                 <!-- 内容电商 -->
                 <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
                 <!-- 分组商品列表 -->
@@ -74,6 +74,12 @@
     </view>
     <!-- 自定义弹窗 -->
     <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
+    <!-- 企业微信客服弹窗 -->
+    <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+        show="{{ customServiceModal }}"
+        plugid="{{ config.contact.plugid }}"
+    />
+
 </block>
 
 <!-- 多门店 -->

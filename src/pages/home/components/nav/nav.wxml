@@ -5,7 +5,6 @@
 		<!-- 图标 -->
 		<view class="{{ setting.per_row === 4 ? 'homeCategory' : 'homeWrapper' }}" wx:for="{{ content }}" wx:key="id">
 
-			<!-- 跳转小程序 -->
 			<extenNav item="{{ item }}">
         <view class="categoryItem" slot="content">
           <image class="categoryImg" src="{{ item.icon }}" mode="aspectFit"></image>

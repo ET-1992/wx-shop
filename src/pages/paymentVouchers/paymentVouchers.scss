@@ -15,6 +15,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			font-size: 30rpx;
 			.countTime {
 				display: flex;
 				align-items: center;
@@ -26,25 +27,15 @@
 		}
 
 		.amount {
-			.exchange-total-title {
+			.exchange-total-title, .exchange-total-value {
 				margin-top: 20rpx;
-				font-size: 32rpx;
-			}
-
-			.exchange-total-value {
-				margin-top: 20rpx;
-				font-size: 32rpx;
+				font-size: 30rpx;
 				color: #000;
 				font-weight: bold;
 			}
 
-			.exchange-detail-title {
-				font-size: 22rpx;
-				color: #000;
-			}
-
-			.exchange-detail-value {
-				font-size: 24rpx;
+			.exchange-detail-title, .exchange-detail-value {
+				font-size: 26rpx;
 				color: #000;
 			}
 		}

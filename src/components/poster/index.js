@@ -25,7 +25,7 @@ Component({
     },
     async attached() {
         try {
-            const { themeColor } = app.globalData;
+            const { themeColor, currentStore } = app.globalData;
             const { posterData, user, posterType } = this.data;
             wx.showLoading({
                 title: '绘制图片中...'
@@ -35,11 +35,12 @@ Component({
                 current_user = {},
                 save_button_title = '',
                 save_success_tips = '';
+
             if (posterType === 'invite' || posterType === 'shareShop') {
-                requestData = {
+                Object.assign(requestData, {
                     weapp_page: posterData.path,
                     width: 150
-                };
+                });
 
                 const data = await api.hei.getShareQrcode({
                     ...requestData
@@ -51,11 +52,13 @@ Component({
 
             }
             else {
-                requestData = {
+                Object.assign(requestData, {
                     weapp_page: 'pages/webPages/webPages',
                     width: 150
-                };
+                });
+
                 let scene = {};
+
                 if (user && user.afcode) {
                     scene.afcode = user.afcode;
                 }

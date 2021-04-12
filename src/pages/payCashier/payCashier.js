@@ -201,7 +201,8 @@ Page({
                 member_type,
                 subKeys,
                 member_code,
-                member_isCustom
+                member_isCustom,
+                globalData
             } = this.data;
 
             wx.showLoading({ title: '请求中...', mask: true });
@@ -257,7 +258,8 @@ Page({
             }
 
             if (pay_sign) {
-                await wxPay(pay_sign, order_no, subKeys);
+                const wxPayResult = await wxPay(pay_sign, order_no, subKeys);
+                this.setData({ wxPayResult });
                 this.returnPage();
             }
 
@@ -316,6 +318,20 @@ Page({
                 }, 200);
             }
 
+            // 货到付款
+            if (selectedPayment.pay_method === 'DELIVERY_PAY') {
+                const { confirm } = await proxy.showModal({
+                    title: '温馨提示',
+                    content: `您已经选择货到付款，请在收到货物时支付金额${globalData.currency_sign}${order.amount || 0}`,
+                    showCancel: false
+                });
+                if (confirm) {
+                    setTimeout(() => {
+                        this.returnPage();
+                    }, 200);
+                }
+            }
+
         } catch (err) {
             wx.hideLoading();
             this.handleErrMsg(err);
@@ -346,9 +362,9 @@ Page({
     },
 
     returnPage() {
-        const { from_page, order_no, isFromCreate } = this.data;
+        const { from_page, order_no, isFromCreate, wxPayResult } = this.data;
         if (from_page) {
-            if (from_page === 'directPay') {
+            if (from_page === 'directPay' && wxPayResult.isSuccess) {
                 wx.redirectTo({ url: `/pages/directPayResult/directPayResult?order_no=${order_no}` });
             } else {
                 wx.navigateBack({ delta: 1 });

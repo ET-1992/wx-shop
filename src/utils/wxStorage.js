@@ -11,7 +11,6 @@ const wxStorage = {
         const timestamp = new Date().getTime();
 
         const expiredTime = this.getExpiredTime(key);
-        console.log(timestamp, expiredTime);
         if (expiredTime && expiredTime > timestamp) {
             return false;
         }

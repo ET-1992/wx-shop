@@ -16,22 +16,21 @@
 			font-weight: bold;
 		}
 	}
+	.title{
+		font-size: 24rpx;
+		font-weight: bold;
+		color: #707070;
+		margin-bottom: 10rpx;
+	}
 	.input_money{
 		background: #fff;
 		width: 580rpx;
 		height: 115rpx;
 		border: 2rpx solid #999999;
 		border-radius: 8rpx;
+		padding: 41rpx 0 41rpx 34rpx;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		padding: 41rpx 0 41rpx 34rpx;
-
-		.title{
-			font-size: 24rpx;
-			font-weight: bold;
-			color: #707070;
-		}
 		.money{
 			display: flex;
 			align-items: center;
@@ -40,7 +39,7 @@
 			color: #000000;
 
 			.num{
-				width: 165rpx;	
+				width: 165rpx;
 				height:100rpx;
 			}
 		}

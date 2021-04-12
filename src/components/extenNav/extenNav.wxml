@@ -22,13 +22,14 @@
   </view>
 
   <!-- 客服对话框 -->
+  <!-- open-type 只有没有tips 并且是小程序客服 才会是concat-->
   <button
     class="btn"
     wx:elif="{{ item.type === 'contact' }}"
     data-tips="{{ item.tips }}"
-    open-type="contact"
+    open-type="{{ config.contact && config.contact.type === 'work_weixin' || item.tips ? '' : 'contact'}}"
     session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
-    catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}"
+    catch:tap="{{ config.contact && config.contact.type === 'work_weixin' || item.tips ? 'onCustomService' : ''}}"
   >
     <slot name="content"><slot>
   </button>
@@ -38,3 +39,12 @@
     <slot name="content"><slot>
   </navigator>
 </view>
+
+<!-- 自定义弹窗 -->
+<myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
+
+<!-- 企业微信客服弹窗 -->
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>

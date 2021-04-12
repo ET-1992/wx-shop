@@ -46,7 +46,6 @@ Component({
             }
         },
         async onConfirm(e) {
-            this.bindGetUserInfo();
             if (this.data.defineModal.isFatherControl) {
                 this.triggerEvent('onConfirm', {}, { bubbles: true });
             } else {
@@ -58,6 +57,7 @@ Component({
 
         async bindGetUserInfo() {
             const user = await getUserProfile();
+            console.log(user, 'user');
             this.triggerEvent('onSaveUserInfo', { user }, { bubbles: true });
         },
 

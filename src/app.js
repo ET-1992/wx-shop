@@ -199,6 +199,7 @@ App({
             let currentStore = {
                 id: query.storeId,
             };
+            console.log(query.storeId, '6666666666666666');
             this.globalData.currentStore = currentStore;
         }
 
