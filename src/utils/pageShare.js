@@ -3,7 +3,7 @@
 
 import api from 'utils/api';
 import { SHARE_TITLE, CONFIG, USER_KEY } from 'constants/index';
-import { showModal, showToast, requestPayment } from 'utils/wxp';
+import { showModal, showToast } from 'utils/wxp';
 import { auth, subscribeMessage, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
 
@@ -200,7 +200,7 @@ export const createCurrentOrder = (e) => {
 
 export const wxPay = async (options = {}, order_no, subKeys = []) => {
     try {
-        await wxProxy.requestPayment({
+        await wxProxy.requestOrderPayment({
             ...options
         });
 
