@@ -163,6 +163,12 @@ App({
 
     async onShow(options) {
         console.log(options, 'options');
+
+
+        const launchOptions = wx.getLaunchOptionsSync();
+        console.log(launchOptions, 'launchOptions');
+        this.globalData.launchOptions = launchOptions;
+
         // this.checkBind();
         this.updateConfig();
 

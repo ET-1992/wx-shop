@@ -57,10 +57,11 @@ function globalFailFnc({ res, options }) {
 // 全局API携带参数
 const globalParmasFnc = () => {
     const app = getApp(),
-        { currentMachine, currentStore, storeKey, pageKey } = app.globalData;
+        { currentMachine, currentStore, storeKey, pageKey, launchOptions } = app.globalData;
 
     let fucObj = {
-            page_key: pageKey
+            page_key: pageKey,
+            scene: launchOptions.scene
         },
         machineId = currentMachine && currentMachine.id,
         storeId = currentStore && currentStore.id;
