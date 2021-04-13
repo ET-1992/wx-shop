@@ -1,4 +1,3 @@
-<import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
 <productNavigationBar id="navigation-bar" navType="productNav" showBgColor="{{ showBgColor }}"/>
 <!-- 页面导航 -->
@@ -22,7 +21,7 @@
       </view>
 
       <!-- 活动banner -->
-      <banner product="{{ product }}" config="{{ config }}" timeLimit="{{ timeLimit }}" miaoShaStatus="{{ miaoShaStatus }}"/>
+      <banner product="{{ product }}" timeLimit="{{ timeLimit }}" miaoShaStatus="{{ miaoShaStatus }}"/>
 
       <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
@@ -277,23 +276,7 @@
     <productComments wx:if="{{ config.reply_enable && product.reply_count }}" class="comments observer-tab" id="comments" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}" />
 
     <!-- 商品详情 -->
-    <view class="detail observer-tab" id="detail">
-      <view class="detailTitle">
-        <text class="dot">•</text>
-        {{ templateTypeText[defineTypeGlobal].page_productDetail.titleText || '商品详情' }}
-        <text class="dot">•</text>
-      </view>
-      <view wx:if="{{ product.top }}" class="cube">
-        <magicImg magicImgData="{{ product.top }}" isMarginTopZero="false" />
-      </view>
-      <view class="peanut-wxParse">
-        <template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
-        <formatContent wx:if="{{ product.format && product.format_content }}" type="{{ product.format }}" content="{{ product.format_content }}" author="{{ product.author }}" />
-      </view>
-      <view wx:if="{{ product.bottom }}" class="cube">
-        <magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />
-      </view>
-    </view>
+    <productInfo product="{{ product }}" class="detail observer-tab" id="detail" />
 
     <!-- 为你推荐 -->
     <view class="promote observer-tab" wx:if="{{ isShowProductRelated }}" id="recommend">
@@ -536,9 +519,13 @@
 
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
+
 <myModal modal="{{authModal}}" />
+<!-- SKU -->
 <skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
+<!-- 海报 -->
 <poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="{{ posterType }}" bindonClose="onClosePoster" />
+
 <wxs module="productDetail">
   var formatValue = function(value, num) {
     return value.toString().length > num ? exchange_num(num).concat('+') : value.toString();

@@ -1,4 +1,5 @@
 import getRemainTime from 'utils/getRemainTime';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -6,10 +7,6 @@ Component({
         product: {
             type: Object,
             value: {},
-        },
-        config: {
-            type: Object,
-            value: {}
         },
         miaoShaStatus: {
             type: String,
@@ -30,10 +27,14 @@ Component({
         }
     },
     attached() {
+        const config = wx.getStorageSync(CONFIG);
         const { product } = this.data;
         if (product.miaosha_enable || product.seckill_enable) {
             this.todayTimeLimit();
         }
+        this.setData({
+            config
+        });
     },
     detached() {
         if (this.intervalId) {

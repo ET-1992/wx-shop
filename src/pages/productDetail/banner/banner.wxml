@@ -49,6 +49,7 @@
           <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
+
       <!-- 今日秒杀banner -->
       <view wx:if="{{ product.seckill_enable }}" class="miaosha-banner" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{ config }}" src="{{ config && config.cdn_host +'/shop/mebxy/miao.png'}}" class="background-image" />
@@ -91,6 +92,7 @@
           <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
+
       <!-- 超值拼团banner -->
       <view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
@@ -108,6 +110,7 @@
           <view class="pintuan-count">已团{{ product.sales }}件</view>
         </view>
       </view>
+
       <!-- 砍价banner -->
       <view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{bargain_mission && bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />

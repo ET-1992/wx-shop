@@ -4,7 +4,6 @@ import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
 import { autoNavigate, go, getUserProfile, auth, imgToHttps } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
-const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
 Page({
@@ -187,13 +186,6 @@ Page({
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
-
-            WxParse.wxParse(
-                'contentList',
-                'html',
-                data.product.content,
-                this,
-            );
 
             if (product.miaosha_enable) {
                 posterType = 'miaosha';
