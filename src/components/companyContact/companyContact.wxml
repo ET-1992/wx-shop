@@ -21,7 +21,7 @@
 		<block wx:else>
 			<!-- 联系名片 -->
 			<cell bind:startmessage="startmessage"
-				bind:completemessage="completemessage" 
+				bind:completemessage="completemessage"
 				plugid="{{ plugid }}"
 			/>
 		</block>
