@@ -9,7 +9,6 @@
 	  "service": "../../components/service/index",
 	  "logo": "../../components/logo/logo",
 	  "myNavigator": "../../components/myNavigator/myNavigator",
-
 	  "searchBox": "../home/components/searchBox/searchBox",
 	  "slide": "../home/components/slider/slider",
 	  "textMessage": "../home/components/text/text",
@@ -26,8 +25,8 @@
     "productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
     "orderOptions": "components/orderOptions/orderOptions",
     "van-popup": "@vant/weapp/dist/popup/index",
-    "customForm": "./components/customForm/customForm",
-    "masonry": "./components/masonry/masonry"
+    "customForm": "../home/components/customForm/customForm",
+    "masonry": "../home/components/masonry/masonry"
   },
   "navigationStyle": "custom"
 }
