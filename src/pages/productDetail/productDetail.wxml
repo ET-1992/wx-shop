@@ -193,7 +193,7 @@
         </view>
         <!-- 地区/运费/门店 -->
         <view class="area-box">
-          <block wx:for="{{ product.shipping_types }}" wx:key="index" wx:if="{{ config && !config.self_address && config.shipment_template_enable }}">
+          <block wx:for="{{ product.shipping_types }}" wx:key="index" wx:if="{{ config && !config.self_address }}">
             <!-- 快递 -->
             <block wx:if="{{ item === 1 && product.product_type !== 1 }}">
               <view class="area-line" bind:tap="onAddress">
@@ -208,18 +208,27 @@
                 <view class="label">运费</view>
                 <view class="area-value">
                   <view class="area-text">
-                    <text wx:if="{{ areaObj.shipment_writing }}">
-                      <text>{{ areaObj.shipment_writing }}</text>
-                    </text>
-                    <text wx:elif="{{ product.shipment_writing }}">
-                      <text>{{ product.shipment_writing }}</text>
-                    </text>
-                    <text wx:elif="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
-                    <text wx:elif="{{ product.postage }}">
-                      <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
-                      <text>{{ productDetail.formatValue(product.postage, 4) }}</text>
-                    </text>
-                    <text wx:else>查看快递费用说明</text>
+
+                     <!-- 开启运费模板才显示-->
+                    <block wx:if="{{ config.shipment_template_enable }}">
+                      <text wx:if="{{ areaObj.shipment_writing }}">
+                        <text>{{ areaObj.shipment_writing }}</text>
+                      </text>
+                      <text wx:elif="{{ product.shipment_writing }}">
+                        <text>{{ product.shipment_writing }}</text>
+                      </text>
+                    </block>
+
+                    <!-- 不开启使用默认的模板 -->
+                    <block wx:else>
+                      <text wx:if="{{ product.hide_postage }}">实际运费以提交订单页面内的金额为准</text>
+                      <text wx:elif="{{ product.postage }}">
+                        <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                        <text>{{ productDetail.formatValue(product.postage, 4) }}</text>
+                      </text>
+                      <text wx:else>查看快递费用说明</text>
+                    </block>
+
                   </view>
                   <van-icon name="arrow" />
                 </view>
