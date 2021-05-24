@@ -18,9 +18,14 @@ Component({
         timeLimit: {
             type: String,
             value: ''
+        },
+        bargain_mission: {
+            type: Object,
+            value: {}
         }
     },
     data: {
+        globalData: app.globalData,
         themeColor: app.globalData.themeColor,
         timeLimit: 0,
         remainTime: {

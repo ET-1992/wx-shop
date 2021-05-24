@@ -1,0 +1,14 @@
+
+<view class="container">
+    <view class="title">
+        {{ formData.title }}
+    </view>
+    <markForm
+        wx:if="{{ formData.fields.length }}"
+        form="{{ formData.fields }}"
+        bind:submit="submit"
+        onlyShow="{{ (formData.per_user > 0 && formData.times >= formData.per_user) || (formData.max > 0 && formData.count >= formData.max ) }}"
+        showSubmitBtn="{{ true }}"
+        />
+
+</view>

@@ -442,6 +442,13 @@
 				"giftCardExchange"
 			],
 			"name": "兑换礼品卡"
+		},
+    {
+			"root": "pages/formPage",
+			"pages": [
+				"formPage"
+			],
+			"name": "表单页"
 		}
 	],
 	"permission": {

@@ -22,7 +22,7 @@
       </view>
 
       <!-- 活动banner -->
-      <banner product="{{ product }}" config="{{ config }}" timeLimit="{{ timeLimit }}" miaoShaStatus="{{ miaoShaStatus }}"/>
+      <banner product="{{ product }}" config="{{ config }}" timeLimit="{{ timeLimit }}" miaoShaStatus="{{ miaoShaStatus }}" bargain_mission="{{ bargain_mission }}"/>
 
       <!-- 简约模式 -->
       <block wx:if="{{ product.product_style_type === 2 }}">
