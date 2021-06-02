@@ -8,7 +8,7 @@
             <view class="time-price">{{ product.miaosha_price }}</view>
           </view>
           <view class="price-interval">
-            <text>原价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+            <text>市场价{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
             <!-- 有最高价显示价格区间 -->
             <text wx:if="{{ product.price < product.highest_price }}">
               <text>~{{ product.highest_price }}</text>
