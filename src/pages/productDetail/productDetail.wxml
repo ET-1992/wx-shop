@@ -54,6 +54,14 @@
               <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/affiliateGoods.svg' : '/icons/shareGoods.svg' }}" bindtap="openShareModal"></image>
             </view>
           </view>
+
+          <!-- 抢购活动的信息 -->
+          <view class="luckydraw-info" wx:if="{{ luckydraw }}">
+            成功率为<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text> |
+            {{ luckydraw.activity.quota == 0 ? '不限次数' : '每人限参与' + luckydraw.activity.quota + '次' }} |
+            保证金{{ luckydraw.activity.coins }}金币
+          </view>
+
           <!-- 价格区间 -->
           <view class="meta">
             <view class="price">

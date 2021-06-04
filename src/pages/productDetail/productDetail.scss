@@ -540,7 +540,12 @@ video {
 			padding-right: 10rpx;
 		}
 	}
-
+	.luckydraw-info{
+		font-size: 26rpx;
+		.lucky-rate{
+			color: #FF5500;
+		}
+	}
 	.meta {
 		margin-top: 20rpx;
 		font-size: 24rpx;

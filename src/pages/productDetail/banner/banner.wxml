@@ -138,3 +138,56 @@
           <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
         </view>
       </view>
+      <!-- 抽奖banner -->
+      <view wx:if="{{ product.luckydraw_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
+        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/time-limited-buy.svg" />
+        <image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
+        <view class="price-area">
+          <view class="price">
+            抢购价
+            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+            <view class="time-price">{{ product.price }}</view>
+            起
+          </view>
+          <view class="price-interval">
+            <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
+            <!-- 有最高价显示价格区间 -->
+            <text wx:if="{{ product.price < product.highest_price }}">
+              <text>~{{ product.highest_price }}</text>
+            </text>
+          </view>
+        </view>
+        <view class="time">
+          <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
+            <view class="time-text">距结束还有</view>
+            <view class="time-limit">
+              <block wx:if="{{ remainTime.day > 0 }}">
+                <view class="hour">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+              </block>
+              <view class="hour">{{ remainTime.hour }}</view>
+              <view class="dateTitle">时</view>
+              <view class="minute">{{ remainTime.minute }}</view>
+              <view class="dateTitle">分</view>
+              <view class="second">{{ remainTime.second }}</view>
+              <view class="dateTitle">秒</view>
+            </view>
+          </view>
+          <view wx:if="{{ miaoShaStatus === 'notStart' }}" class="time-section">
+            <view class="time-text">距开始还有</view>
+            <view class="time-limit">
+              <block wx:if="{{ remainTime.day > 0 }}">
+                <view class="hour">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+              </block>
+              <view class="hour">{{ remainTime.hour }}</view>
+              <view class="dateTitle">时</view>
+              <view class="minute">{{ remainTime.minute }}</view>
+              <view class="dateTitle">分</view>
+              <view class="second">{{ remainTime.second }}</view>
+              <view class="dateTitle">秒</view>
+            </view>
+          </view>
+          <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
+        </view>
+      </view>

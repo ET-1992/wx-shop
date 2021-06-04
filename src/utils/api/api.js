@@ -288,6 +288,12 @@ export const apis = {
         method: 'GET',
         isForceToken: true
     },
+    // 收益排行
+    getRevenueRanking: {
+        path: 'api/mag.affiliate.account.ranking.json',
+        method: 'GET',
+        isForceToken: true
+    },
     getShareOrderList: {
         path: 'api/mag.affiliate.order.list.json',
         method: 'GET',

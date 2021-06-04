@@ -72,7 +72,8 @@ Page({
         // 餐饮商品展示信息
         selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false,
-        miaoShaStatus: 'notStart'
+        miaoShaStatus: 'notStart',
+        luckydraw: null // 抢购活动
     },
 
     go,
@@ -180,7 +181,7 @@ Page({
         this.setData({ pendingGrouponId: '' });
         try {
             const data = await api.hei.fetchProduct({ id });
-            let { posterType } = this.data;
+            let { posterType, luckydraw } = this.data;
             const { config, product, share_title, share_image } = data;
             this.config = config;
             this.product = product;
@@ -204,7 +205,10 @@ Page({
                 );
                 /* await this.todayTimeLimit(); */
             }
-
+            // 抢购活动
+            if (product.luckydraw_enable) {
+                luckydraw = product.luckydraw;
+            }
             if (product.seckill_enable) {
                 // 秒杀初始化
                 const { seckill_end_timestamp, seckill_start_timestamp } = product;
@@ -250,7 +254,8 @@ Page({
                 product,
                 isLoading: false,
                 areaObj,
-                posterType
+                posterType,
+                luckydraw
             }, async () => {
                 this.handleScrollMethods();
                 await this.calculatePostage();

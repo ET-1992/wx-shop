@@ -1,0 +1,63 @@
+page{
+	background-color: #FF5800;
+}
+
+.margin{
+	margin-right: 60rpx;
+}
+
+.container {
+	.top{
+		height: 500rpx;
+
+		image{
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.bottom{
+		padding: 0 26rpx;
+		.revenue-rank{
+			background-color: #fff;
+			padding: 30rpx;
+			border-radius: 20rpx;
+
+			.title{
+				display: flex;
+				justify-content: space-between;
+				color: #333;
+				font-size: 30rpx;
+				font-weight: bold;
+			}
+
+			.user-list{
+				margin-top: 50rpx;
+				font-size: 32rpx;
+				.rank{
+					font-size: 36rpx;
+				}
+				.user{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+
+					.info{
+						display: flex;
+						align-items: center;
+						.user-avatar{
+							width: 100rpx;
+							height: 100rpx;
+							border-radius: 50%;
+							margin-right: 20rpx;
+						}
+					}
+				}
+
+				.revenue{
+					color: #FF2B5C;
+				}
+			}
+		}
+	}
+}
