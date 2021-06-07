@@ -397,7 +397,7 @@ export const pageObj = {
         });
         try {
             wx.showLoading();
-            const { times, count } = await api.hei.submitFormData({ source_data: id, data: form, source_type: 'module', form_id });
+            const { times, count, submission } = await api.hei.submitFormData({ source_data: id, data: form, source_type: 'module', form_id });
             wx.hideLoading();
             wx.showModal({
                 title: '温馨提示',
@@ -406,7 +406,8 @@ export const pageObj = {
             });
             this.setData({
                 ['modules[' + index + '].content.times']: times,
-                ['modules[' + index + '].content.count']: count
+                ['modules[' + index + '].content.count']: count,
+                ['modules[' + index + '].content.fields']: submission.content
             });
         } catch (e) {
             wx.hideLoading();

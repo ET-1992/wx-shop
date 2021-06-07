@@ -125,6 +125,6 @@ Page({
     async bindGetUserInfo() {
         const user = await getUserProfile();
         this.setData({ user });
-
+        return user;
     }
 });

@@ -52,9 +52,8 @@ Component({
         },
         // 表单输入
         onFormChange(e) {
-            let { detail, currentTarget: { dataset: { name }, }} = e,
-                { form } = this.data,
-                index = form.findIndex(item => item.name === name);
+            let { detail, currentTarget: { dataset: { index }}} = e,
+                { form } = this.data;
 
             if (form[index].type === 'select') {
                 // 下拉选择
@@ -63,7 +62,9 @@ Component({
                 // 日期/时间
                 detail = detail.value;
             }
+            console.log(detail);
             form[index].value = detail;
+            console.log(form);
             this.setData({ form });
         },
         // 文件上传

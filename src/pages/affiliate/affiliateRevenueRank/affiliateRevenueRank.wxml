@@ -1,0 +1,38 @@
+<view class="container">
+	<view class="top">
+    <image src="/icons/affiliateCenter/revenueRank.svg" mode="aspectFit"></image>
+  </view>
+
+  <view class="bottom">
+    <view class="revenue-rank">
+
+      <view class="title">
+        <text>排名</text>
+        <text class="margin">用户</text>
+        <text class="margin">累计收益</text>
+      </view>
+      <!-- 用户列表 -->
+      <view class="user-list">
+        <view class="user">
+          <!-- 排名 -->
+          <view class="rank">
+            1
+          </view>
+          <!-- 用户信息 -->
+          <view class="info margin">
+            <image class="user-avatar" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi2.w.yun.hjfile.cn%2Fdoc%2F201304%2Fed240921-0b7d-49ee-8d15-f5c7343c571e_03.gif&refer=http%3A%2F%2Fi2.w.yun.hjfile.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625390162&t=f11fc1177af1ccc11a2406f28e526bf0"></image>
+            <text class="user-name">
+              渣渣
+            </text>
+          </view>
+
+          <!-- 收益 -->
+          <view class="revenue margin">
+            100元
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

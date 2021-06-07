@@ -1,0 +1,5 @@
+{
+	"usingComponents": {
+    "markForm": "../../components/markForm/markForm"
+  }
+}

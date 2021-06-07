@@ -116,8 +116,8 @@ Page({
     },
 
     async onSubmit() {
-        const { transfer_image, order_no, transfers, activeIndex, subKeys } = this.data;
-        if (!transfer_image) {
+        const { transfer_image, order_no, transfers, activeIndex, subKeys, config } = this.data;
+        if (config.required_transfer_image && !transfer_image) {
             wx.showModal({
                 title: '温馨提示',
                 content: '请上传您的支付凭证',
@@ -143,14 +143,18 @@ Page({
         });
 
         if (confirm) {
+            wx.showLoading({
+                title: '正在提交',
+                mask: true
+            });
             try {
                 let args = {
                     transfer_images: JSON.stringify([transfer_image]),
                     order_no,
                     transfer_id: transfers[activeIndex].id
                 };
-                const data = await api.hei.paymentCheck({ ...args });
-                const { errcode } = data;
+                const { errcode } = await api.hei.paymentCheck({ ...args });
+                wx.hideLoading();
                 if (errcode === 0) {
                     const { confirm } = await proxy.showModal({
                         title: '温馨提示',

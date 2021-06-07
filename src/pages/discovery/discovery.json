@@ -9,7 +9,6 @@
 	  "service": "../../components/service/index",
 	  "logo": "../../components/logo/logo",
 	  "myNavigator": "../../components/myNavigator/myNavigator",
-
 	  "searchBox": "../home/components/searchBox/searchBox",
 	  "slide": "../home/components/slider/slider",
 	  "textMessage": "../home/components/text/text",
@@ -22,10 +21,12 @@
 	  "cube": "../home/components/cube/cube",
 	  "lvList": "../home/components/lvList/lvList",
 	  "multiStore": "components/multiStore/multiStore",
-	"gold-price": "../home/components/goldPrice/goldPrice",
-	"productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
-	"orderOptions": "components/orderOptions/orderOptions",
-	"van-popup": "@vant/weapp/dist/popup/index"
+    "gold-price": "../home/components/goldPrice/goldPrice",
+    "productNavigationBar":"../../components/productNavigationBar/productNavigationBar",
+    "orderOptions": "components/orderOptions/orderOptions",
+    "van-popup": "@vant/weapp/dist/popup/index",
+    "customForm": "../home/components/customForm/customForm",
+    "masonry": "../home/components/masonry/masonry"
   },
   "navigationStyle": "custom"
 }

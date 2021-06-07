@@ -1,7 +1,6 @@
 <!-- 商品/订单留言表单 -->
 <view class="container">
-
-  <view class="form-content">
+  <view class="form-content" wx:if="{{showForm &&  showForm.length}}">
     <view class="form-item" wx:for="{{ showForm }}" wx:key="index">
       <view class="form-item-left">
         <view class="form-title">
@@ -12,7 +11,7 @@
       <view class="form-item-right">
         <!-- 复选框 -->
         <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
-          <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+          <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" data-index="{{ index }}" disabled="{{ onlyShow }}">
             <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap" checked-color="{{ themeColor.primaryColor }}">
               <text>{{ option || '-' }}</text>
             </van-checkbox>
@@ -21,7 +20,7 @@
 
         <!-- 单选框 -->
         <view class="form-radio" wx:elif="{{ item.type === 'radio' }}">
-            <van-radio-group value="{{ item.value }}" bind:change="onFormChange" class="radio-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+            <van-radio-group value="{{ item.value }}" bind:change="onFormChange" class="radio-group-wrap" data-name="{{ item.name }}" data-index="{{ index }}" disabled="{{ onlyShow }}">
                 <van-radio name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="radio-wrap" checked-color="{{ themeColor.primaryColor }}">
                     <text>{{ option || '-' }}</text>
                 </van-radio>
@@ -29,9 +28,9 @@
         </view>
 
         <!-- 日期/时间/下拉选择 -->
-        <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}">
-          <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
-            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="{{ onlyShow ? '' : '请选择'+item.name }}" />
+        <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}" >
+          <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" data-index="{{ index }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
+            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="{{ onlyShow ? '' : item.label }}" />
           </picker>
         </view>
 
@@ -52,12 +51,12 @@
 
         <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
         <view class="form-field" wx:elif="{{ item.type === 'text' }}">
-          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap"  border="" autosize  clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap"  border="" autosize  clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" data-index="{{ index }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
         </view>
         <!-- 输入框 -->
 
         <view class="form-field" wx:else>
-          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : '请输入'+item.name }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" data-index="{{ index }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
         </view>
       </view>
     </view>

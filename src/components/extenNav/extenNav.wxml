@@ -6,13 +6,14 @@
     path="{{ item.path }}"
     target="miniProgram"
     open-type="navigate"
+    hover-class="none"
     class="nav"
   >
     <slot name="content"><slot>
   </navigator>
 
   <!-- 公众号文章 -->
-  <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="nav">
+  <navigator wx:elif="{{ item.type === 'web_view' }}" url="/pages/webPages/webPages?src={{item.src}}" class="nav" hover-class="none">
     <slot name="content"><slot>
   </navigator>
 
@@ -35,7 +36,7 @@
   </button>
 
   <!-- 其他 -->
-  <navigator wx:else url="{{ item.path }}"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" class="nav">
+  <navigator wx:else url="{{ item.path }}"  open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}" hover-class="none" class="nav">
     <slot name="content"><slot>
   </navigator>
 </view>

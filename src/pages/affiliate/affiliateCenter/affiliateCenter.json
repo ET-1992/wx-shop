@@ -1,5 +1,5 @@
 {
-	"navigationBarTitleText": "分享中心",
+	"navigationBarTitleText": "收益中心",
 	"usingComponents": {
 		"loading": "../../../components/loading/index",
 		"van-popup": "@vant/weapp/dist/popup/index",

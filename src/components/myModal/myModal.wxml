@@ -6,7 +6,7 @@
 			<view class="item-button content-footer-cancel" bindtap="onCancel" wx:if="{{ defineModal.isShowCanel }}">{{ defineModal.cancelText }}</view>
 			<button
 				class="item-button content-footer-confirm"
-				bindtap="onConfirm"
+				bindtap="{{ defineModal.buttonData.opentype === 'getUserInfo' ? 'bindGetUserInfo' : 'onConfirm' }}"
 				wx:if="{{ defineModal.type === 'button' }}"
         open-type="{{ defineModal.buttonData.opentype }}"
 				type="default"

@@ -75,6 +75,7 @@
             class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
             style="background-image: url({{ magicImgData.images[index].image }})"
             url="{{ magicImgData.images[index].path }}"
+            hover-class="none"
             open-type="{{ tabbarPages[magicImgData.images[index].page_key] ? 'switchTab' : 'navigate' }}"
         ></navigator>
     </template>
@@ -129,6 +130,7 @@
          class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
          style="background-image: url({{  magicImgData.images[index].image }}); flex: {{ magicImgData.flex ? magicImgData.flex[index] : 1 }}"
          url="{{ magicImgData.images[index].path }}"
+         hover-class="none"
          open-type="{{ tabbarPages[magicImgData.images[index].page_key] ? 'switchTab' : 'navigate' }}"
         ></navigator>
 
