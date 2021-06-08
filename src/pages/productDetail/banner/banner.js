@@ -33,12 +33,21 @@ Component({
     },
     attached() {
         const config = wx.getStorageSync(CONFIG);
+        let userTypesText = '';
         const { product } = this.data;
         if (product.miaosha_enable || product.seckill_enable) {
             this.todayTimeLimit();
         }
+
+        if (product.luckydraw) {
+            let { target_user_types_text = [] } = product.luckydraw.activity;
+            userTypesText = target_user_types_text.join('、');
+            this.todayTimeLimit();
+        }
+
         this.setData({
-            config
+            config,
+            userTypesText
         });
     },
     detached() {

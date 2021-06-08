@@ -135,6 +135,7 @@ Page({
             timeLimit,
             miaoShaStatus: status
         });
+        console.log(timeLimit, status, 'dsdsdsdsd');
         return {
             timeLimit,
             status
@@ -200,6 +201,12 @@ Page({
             // 抢购活动
             if (product.luckydraw_enable) {
                 luckydraw = product.luckydraw;
+                let now_time = Math.round(Date.now() / 1000);
+                const { expired_time } = luckydraw.activity;
+                await this.checkMiaoShaStatus(
+                    now_time,
+                    expired_time
+                );
             }
             if (product.seckill_enable) {
                 // 秒杀初始化

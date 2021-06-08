@@ -141,9 +141,10 @@
           <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
         </view>
       </view>
+
       <!-- 抽奖banner -->
-      <view wx:if="{{ product.luckydraw_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/time-limited-buy.svg" />
+      <view wx:if="{{ product.luckydraw_enable }}" class="luckydraw-banner" style="background-color: {{ themeColor.primaryColor }}">
+        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/luckydraw-buy.svg" />
         <image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
         <view class="price-area">
           <view class="price">
@@ -162,7 +163,7 @@
         </view>
         <view class="time">
           <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
-            <view class="time-text">距结束还有</view>
+            <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
             <view class="time-limit">
               <block wx:if="{{ remainTime.day > 0 }}">
                 <view class="hour">{{ remainTime.day }}</view>
@@ -174,10 +175,11 @@
               <view class="dateTitle">分</view>
               <view class="second">{{ remainTime.second }}</view>
               <view class="dateTitle">秒</view>
+              后结束
             </view>
           </view>
           <view wx:if="{{ miaoShaStatus === 'notStart' }}" class="time-section">
-            <view class="time-text">距开始还有</view>
+            <view class="user-type" wx:if="{{ userTypesText }}">{{ userTypesText }}专享</view>
             <view class="time-limit">
               <block wx:if="{{ remainTime.day > 0 }}">
                 <view class="hour">{{ remainTime.day }}</view>
@@ -189,6 +191,7 @@
               <view class="dateTitle">分</view>
               <view class="second">{{ remainTime.second }}</view>
               <view class="dateTitle">秒</view>
+              后结束
             </view>
           </view>
           <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
