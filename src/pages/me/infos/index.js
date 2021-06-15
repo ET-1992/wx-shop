@@ -50,19 +50,18 @@ Component({
 
         // 普通直链
         async onNavigated(e) {
-            let { path } = e.currentTarget.dataset,
-                err = '';
+            let { path } = e.currentTarget.dataset;
+            // err = '';
             try {
                 await autoNavigate_({ url: path });
-            } catch (e) {
-                err = `跳转失败${path}`;
+            } catch (err) {
+                console.log(err);
             }
-            if (!err) { return }
-            wx.showModal({
-                title: '报错提示',
-                content: err,
-                showCancel: false,
-            });
+            // wx.showModal({
+            //     title: '报错提示',
+            //     content: err,
+            //     showCancel: false,
+            // });
         },
 
         // 展示企业微信联系方式
