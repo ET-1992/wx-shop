@@ -411,6 +411,13 @@
           <view wx:else style="background-color:{{themeColor.primaryColor}}">立即购买</view>
         </view>
       </block>
+      <!-- 抢购活动 -->
+      <block wx:elif="{{ product.luckydraw_enable }}">
+        <view class="buy" style="background-color: {{ themeColor.secondaryColor }}">
+          马上抽奖
+        </view>
+
+      </block>
       <!-- 普通商品 -->
       <block wx:else>
         <view class="addCart" catchtap="onShowSku" data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}" style="background-color: {{ themeColor.secondaryColor }}" wx:if="{{ !(product.individual_buy || product.product_type === 1) }}">
@@ -534,6 +541,17 @@
   </view>
 </van-popup>
 
+<!-- 抽奖弹窗 -->
+<van-overlay show="{{ true }}"  bind:close="onHideCouponList"  round custom-style="display:flex;align-items:center;justify-content: center;" z-index="99">
+    <view class="luckyTurntable-box">
+
+      <view class="tips">
+          点击转盘抽奖，获取购买机会
+      </view>
+      <luckyTurntable />
+    </view>
+
+</van-overlay>
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 
