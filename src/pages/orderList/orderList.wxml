@@ -14,7 +14,16 @@
 					<view class="item" wx:for="{{ order.items }}" wx:key="id">
 						<image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
 						<view class="itemInfo">
-							<view class="itemTitle">{{ item.title }}</view>
+							<view class="itemTitle">
+								<view class="title">
+									{{ item.title }}
+								</view>
+								  
+							<view class="promote-right" catch:tap="addCard" data-order="{{ order }}">
+								<image class="add-cart" src="/icons/addCart.png"/>
+								<text class="addCart-text">加车</text>
+							</view>
+							</view>
 							<view class="property">{{ item.sku_property_names }}</view>
 							<view class="itemPirceInfo">
 								<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}</view>
@@ -25,7 +34,7 @@
 					<view class="orderMeta">
 						<view class="status">{{ order.statusText }}</view>
 						<view class="count">
-							<view>共{{ order.productCount }}件商品</view>
+							<!-- <view>共{{ order.productCount }}件商品</view> -->
 							<view class="orderPrice">
 								{{ order.statusCode === 1 || order.statusCode === 7 || order.statusCode === 8 ? '需付款：' : '实付款：'}}
 								<text class="orderPriceValue">{{ globalData.CURRENCY[globalData.currency] }}{{ order.amount }}</text>

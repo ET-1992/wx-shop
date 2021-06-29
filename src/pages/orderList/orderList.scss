@@ -6,6 +6,23 @@
 	color: $originalPriceColor;
 }
 
+.promote-right {
+	display: flex;
+	align-items: center;
+
+	.add-cart {
+		width: 40rpx;
+		height: 40rpx;
+	}
+
+	.addCart-text {
+		font-size: 24rpx;
+		color: $shareColor;
+		display: inline-block;
+		margin-left: 5rpx;
+	}
+}
+
 .refundItem{
 	padding-top: 0rpx;
 }
@@ -41,8 +58,14 @@
 		font-size: 28rpx;
 		font-weight: normal;
 		color: #000000;
-		width: 519rpx;
+		// width: 519rpx;
 		line-height:32rpx;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.title {
+		width: 450rpx;
 	}
 
 	.itemInfo {
@@ -88,6 +111,7 @@
 			display: flex;
 			text-align: right;
 			align-items: flex-end;
+			justify-content: center;
 		}
 
 		.orderPrice {
