@@ -51,7 +51,7 @@
             <!-- 分享按钮 -->
             <view class="right">
               <!-- 开启分销 有礼 -->
-              <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public) ? '/icons/affiliateGoods.svg' : '/icons/shareGoods.svg' }}" bindtap="openShareModal"></image>
+              <image class="shareIcon" mode="aspectFit" src="{{ (product.affiliate_enable && config.affiliate_public && config.affiliate_share_icon ) ? config.affiliate_share_icon : '/icons/shareGoods.svg' }}" bindtap="openShareModal"></image>
             </view>
           </view>
 
@@ -127,7 +127,7 @@
 								{{ product.postage ? globalData.CURRENCY[globalData.currency] + productDetail.formatValue(product.postage, 4):
 								(templateTypeText[defineTypeGlobal].page_productDetail.nullPrice || '包邮')}}
 							</view> -->
-                <view class="delivery-section">
+                <view class="delivery-section" wx:if="{{ !product.sales_hidden }}">
                   已售：{{ productDetail.formatValue(product.sales, 7) }}
                 </view>
               </view>
