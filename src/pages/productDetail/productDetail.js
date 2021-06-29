@@ -210,6 +210,7 @@ Page({
             // 抢购活动
             if (product.luckydraw_enable) {
                 luckydraw = product.luckydraw;
+                luckydraw.activity.lucky_rate = Math.floor(Number(luckydraw.activity.lucky_rate) / 100);
                 let now_time = Math.round(Date.now() / 1000);
                 const { expired_time } = luckydraw.activity;
                 await this.checkMiaoShaStatus(
@@ -1199,8 +1200,8 @@ Page({
     showTurntablePopup() {
         this.setData({
             isShowTurntablePopup: true,
-            showDefaultTips: true,
-            showBtnList: false
+            showDefaultTips: true, // 抽奖弹窗默认文字
+            showBtnList: false // 显示底部的按钮列表
         });
     },
     // 关闭抽奖弹窗
@@ -1225,6 +1226,8 @@ Page({
         if (result) {
             luckydraw.win_record = record;
         }
+        // 抽奖次数+1
+        ++luckydraw.user_participate_count;
         // 根据结果选出对应的选项，获取name方便显示 选第一个就好
         const resultOption = lottery_options.find((item) => {
             return item.key === result;

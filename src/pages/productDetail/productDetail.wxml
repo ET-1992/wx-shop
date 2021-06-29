@@ -413,11 +413,21 @@
       </block>
       <!-- 抢购活动 -->
       <block wx:elif="{{ product.luckydraw_enable }}">
-        <view class="buy" style="background-color: {{ themeColor.secondaryColor }}" bindtap="startLottery">
-          马上抽奖
+        <view class="buy" wx:if="{{ luckydraw.user_participate_count === luckydraw.activity.quota  }}" style="background-color: {{ themeColor.secondaryColor }}" style="background-color:#F4F4F4">
+          抢购失败
         </view>
-        <view class="buy" wx:if="{{ luckydraw.win_record }}" bindtap="abandonBuy" style="background-color:#FFC75A">
-          放弃购买
+
+        <block wx:elif="{{ luckydraw.win_record }}">
+          <view class="buy multi" style="background-color: {{ themeColor.secondaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
+            剩余{{ luckydraw.win_record.expired_time_formated }}下单
+          </view>
+          <view class="buy"  bindtap="abandonBuy" style="background-color:#FFC75A">
+            放弃购买
+          </view>
+        </block>
+        
+        <view class="buy" wx:else style="background-color: {{ themeColor.secondaryColor }}" bindtap="startLottery">
+          马上抽奖
         </view>
       </block>
       <!-- 普通商品 -->

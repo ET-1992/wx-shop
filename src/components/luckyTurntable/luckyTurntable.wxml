@@ -18,7 +18,7 @@
 			</view>
 
 			<view bindtap="getLottery" class="canvas-btn {{pending ? 'disabled' : ''}}">
-          <image src="/icons/lottery-btn.png" />
+          <image src="/icons/lottery-btn.svg" />
       </view>
 		</view>
 	</view>
