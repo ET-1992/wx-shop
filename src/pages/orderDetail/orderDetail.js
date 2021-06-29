@@ -7,6 +7,8 @@ import { qrcode } from 'peanut-all';
 import { createCurrentOrder, onDefaultShareAppMessage } from 'utils/pageShare';
 import proxy from 'utils/wxProxy';
 
+let plugin = requirePlugin('logisticsPlugin');
+
 const app = getApp();
 
 const o = {
@@ -412,15 +414,19 @@ Page({
     },
 
     toLogisticsDetail(e) {
-        const { index } = e.currentTarget.dataset;
-        const { order } = this.data;
+        const { index, logisticId } = e.currentTarget.dataset;
+        const { order, weapp_waybill_tokens = {}} = this.data;
         // app.globalData.logisticsDetail = {
         //     logistics: order && order.logistics && order.logistics[index],
         //     items: order.items
         // };
-        wx.navigateTo({
-            url: `/pages/logistics/logistics?orderNo=${order.order_no}&logisticsIndex=${index}&logisticId=${order.logistics && order.logistics[index] && order.logistics[index].id}`
-        });
+        if (weapp_waybill_tokens[logisticId] && weapp_waybill_tokens[logisticId].waybill_token) {
+            plugin.openWaybillTracking({ waybillToken: weapp_waybill_tokens[logisticId].waybill_token });
+        } else {
+            wx.navigateTo({
+                url: `/pages/logistics/logistics?orderNo=${order.order_no}&logisticsIndex=${index}&logisticId=${order.logistics && order.logistics[index] && order.logistics[index].id}`
+            });
+        }
     },
 
     toExchangeCardPage(e) {

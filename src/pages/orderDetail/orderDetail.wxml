@@ -7,6 +7,12 @@
 </wxs>
 <loading isLoading="{{ isLoading }}" />
 <view class="container {{ otherPeopleGroupon ? 'otherPeopleGroupon' : ''}}" wx:if="{{ !isLoading }}">
+
+    <view bind:tap="searchDetail">
+        dssdsdss
+    </view>
+      
+
     <view class="header" wx:if="{{ order.id && order.status !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
         <view>
             订单状态：
@@ -44,7 +50,7 @@
 
     <!-- 发货订单 -->
     <view wx:for="{{ order.logistics }}" wx:key="id" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
-        <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
+        <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail" data-logisticId="{{ item.id }}">
             <view class="logistics">
                 <view class="logistics-header">
                     <view class="header-left">包裹{{ index + 1 }}</view>
