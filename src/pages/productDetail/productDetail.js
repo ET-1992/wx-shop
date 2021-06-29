@@ -34,6 +34,7 @@ Page({
         isShowCouponList: false,
         isShowPostageRule: false,  // 展示邮费规则
         isShowImgTextModal: false, // 图文弹窗开关
+        isShowTurntablePopup: false, // 转盘弹窗
         selectedProperties: [],
         selectedSku: {},
         // skuSplitProperties: [],
@@ -72,7 +73,15 @@ Page({
         selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false,
         miaoShaStatus: 'notStart',
-        luckydraw: null // 抢购活动
+        luckydraw: null, // 抢购活动
+        lottery_options: [
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' },
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' },
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' }
+        ]
     },
 
     go,
@@ -1171,5 +1180,80 @@ Page({
         let scrollEnable = !isFocused;
         this.setData({ scrollEnable });
     },
+    // 抢购活动的逻辑 -----start
+    // 开始抽奖
+    startLottery() {
+        const { luckydraw: { activity }} = this.data;
+        const { coins, consume_type } = activity;
+        const confirm = wx.showModal({
+            title: '温馨提示',
+            content: `本次抽奖将会${consume_type === 1 ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
+            success: (res) => {
+                if (res.confirm) {
+                    this.showTurntablePopup();
+                }
+            }
+        });
+    },
+    // 开启抽奖弹窗
+    showTurntablePopup() {
+        this.setData({
+            isShowTurntablePopup: true,
+            showDefaultTips: true,
+            showBtnList: false
+        });
+    },
+    // 关闭抽奖弹窗
+    onHideTurntablePopup() {
+        this.setData({
+            isShowTurntablePopup: false
+        });
+    },
+    // 转盘开始
+    getLotteryStart() {
+        this.setData({
+            showBtnList: false,
+            showDefaultTips: true
+        });
+    },
+    // 获取抽奖的结果
+    // 逻辑：抽奖次数+1 ， 根据中奖显示页面
+    getLotteryResult(e) {
+        const { result, record } = e.detail;
+        const { lottery_options, luckydraw } = this.data;
+        // result为空的record不是中奖记录
+        if (result) {
+            luckydraw.win_record = record;
+        }
+        // 根据结果选出对应的选项，获取name方便显示 选第一个就好
+        const resultOption = lottery_options.find((item) => {
+            return item.key === result;
+        });
 
+        this.setData({
+            resultOption,
+            luckydraw,
+            showBtnList: true,
+            showDefaultTips: false
+        });
+    },
+    // 放弃购买
+    abandonBuy() {
+        const { luckydraw: { win_record: { id }}} = this.data;
+        wx.showModal({
+            title: '提示',
+            content: '确认放弃购买机会吗？',
+            success: async (res) => {
+                if (res.confirm) {
+                    await api.hei.cancelBuy({ record_id: id });
+                    this.initPage();
+                    wx.showToast({
+                        title: '取消成功'
+                    });
+                    this.onHideTurntablePopup();
+                }
+            }
+        });
+    }
 });
+// 抽奖活动的逻辑 --------end

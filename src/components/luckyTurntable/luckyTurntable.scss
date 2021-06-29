@@ -15,114 +15,111 @@
   /*border: 2rpx solid #E44025;*/
   box-shadow: 0 2rpx 3rpx #333,
               0 0 2rpx #000;
-}
-.canvas-content{
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  display: block;
-  width: 500rpx;
-  height: 500rpx;
-  border-radius: inherit;
-  background-clip: padding-box;
-  background-color: #FFD700;
-}
-.canvas-element{
-  position: relative;
-  z-index: 1;
-  width: inherit;
-  height: inherit;
-  border-radius: 50%;
-}
-.canvas-list{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: inherit;
-  height: inherit;
-  z-index: 9999;
-}
-.canvas-item{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  color: #e4370e;
-  font-weight: bold;
-  text-shadow: 0 1rpx 1rpx rgba(255,255,255,.6);
-}
-.canvas-item-text{
-  position: relative;
-  display: block;
-  padding-top: 40rpx;
-  /* width: 50rpx; */
-  margin: 0 auto;
-  text-align: center;
-  transform-origin: 50% 250rpx;
+
+	image{
+		width: 100%;
+		height: 100%;
+	}
+	.canvas-content{
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		display: block;
+		width: 500rpx;
+		height: 500rpx;
+		border-radius: inherit;
+		background-clip: padding-box;
+		.canvas-list{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: inherit;
+			height: inherit;
+			z-index: 9999;
+			.canvas-item{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				color: #e4370e;
+				font-weight: bold;
+				text-shadow: 0 1rpx 1rpx rgba(255,255,255,.6);
+				.canvas-item-text{
+					position: relative;
+					display: block;
+					padding-top: 70rpx;
+					/* width: 50rpx; */
+					margin: 0 auto;
+					text-align: center;
+					transform-origin: 50% 250rpx;
+				}
+			}
+		}
+	}
+	.canvas-btn{
+		position: absolute;
+			left: 200rpx;
+			top: 186rpx;
+			z-index: 400;
+			width: 100rpx;
+			height: 120rpx;
+			border-radius: 50%;
+			color: #f4e9cc;
+			font-size: 28rpx;
+			line-height: 100rpx;
+			text-align: center;
+			/* text-shadow: 0 -1rpx 1rpx rgba(0,0,0,.6); */
+			/* box-shadow: 0 3rpx 5rpx rgba(0,0,0,.6); */
+			text-decoration: none;
+
+			.disabled{
+				pointer-events: none;
+		}
+	}
 }
 
 /* 分隔线 */
-.canvas-line{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: inherit;
-  height: inherit;
-  z-index: 99;
-}
-.canvas-litem{
-  position: absolute;
-   left: 250rpx;
-   top: 0;
-   width: 1rpx;
-   height: 250rpx;
-   background-color: rgba(228,55,14,.4);
-   overflow: hidden;
-   transform-origin: 50% 250rpx;
-}
+// .canvas-line{
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   width: inherit;
+//   height: inherit;
+//   z-index: 99;
+// }
+// .canvas-litem{
+//   position: absolute;
+//    left: 250rpx;
+//    top: 0;
+//    width: 1rpx;
+//    height: 250rpx;
+//    background-color: rgba(228,55,14,.4);
+//    overflow: hidden;
+//    transform-origin: 50% 250rpx;
+// }
 
 
-.canvas-btn{
-  position: absolute;
-  left: 200rpx;
-  top: 200rpx;
-  z-index: 400;
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  color: #F4E9CC;
-	font-size: 28rpx;
-  background-color: #E44025;
-  line-height: 100rpx;
-  text-align: center;
-  text-shadow: 0 -1rpx 1rpx rgba(0,0,0,.6);
-  box-shadow: 0 3rpx 5rpx rgba(0,0,0,.6);
-  text-decoration: none;
-}
-.canvas-btn::after{
-  position: absolute;
-  display: block;
-  content: ' ';
-	left: 20rpx;
-	top: -48rpx;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  border-width: 30rpx;
-  border-style: solid;
-  border-color: transparent;
-  border-bottom-color: #E44025;
-}
-.canvas-btn.disabled{
-    pointer-events: none;
-    background: #B07A7B;
-    color: #ccc;
-}
-.canvas-btn.disabled::after{
-  border-bottom-color: #B07A7B;
-}
+
+// .canvas-btn::after{
+//   position: absolute;
+//   display: block;
+//   content: ' ';
+// 	left: 20rpx;
+// 	top: -48rpx;
+//   width: 0;
+//   height: 0;
+//   overflow: hidden;
+//   border-width: 30rpx;
+//   border-style: solid;
+//   border-color: transparent;
+//   border-bottom-color: #E44025;
+// }
+
+// .canvas-btn.disabled::after{
+//   border-bottom-color: #B07A7B;
+// }
 
 
 .gb-run{

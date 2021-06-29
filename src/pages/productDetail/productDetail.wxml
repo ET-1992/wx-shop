@@ -413,10 +413,12 @@
       </block>
       <!-- 抢购活动 -->
       <block wx:elif="{{ product.luckydraw_enable }}">
-        <view class="buy" style="background-color: {{ themeColor.secondaryColor }}">
+        <view class="buy" style="background-color: {{ themeColor.secondaryColor }}" bindtap="startLottery">
           马上抽奖
         </view>
-
+        <view class="buy" wx:if="{{ luckydraw.win_record }}" bindtap="abandonBuy" style="background-color:#FFC75A">
+          放弃购买
+        </view>
       </block>
       <!-- 普通商品 -->
       <block wx:else>
@@ -542,16 +544,42 @@
 </van-popup>
 
 <!-- 抽奖弹窗 -->
-<van-overlay show="{{ true }}"  bind:close="onHideCouponList"  round custom-style="display:flex;align-items:center;justify-content: center;" z-index="99">
+<van-overlay
+    show="{{ isShowTurntablePopup }}"
+    custom-style="display:flex;align-items:center;justify-content: center;flex-direction: column;"
+    z-index="99"
+>
+    <view class="close-area" bindtap="onHideTurntablePopup">
+      <image class="icon" src="/icons/close.png" />
+    </view>
     <view class="luckyTurntable-box">
-
+      <!-- 提示语 -->
       <view class="tips">
-          点击转盘抽奖，获取购买机会
+          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">很遗憾没抽中，再接再厉！</text>
+          <text wx:elif="{{ !showDefaultTips && resultOption && resultOption.key }}">{{ '恭喜你获得了'+ resultOption.name }}</text>
+          <text wx:else>点击转盘抽奖，获取购买机会</text>
       </view>
-      <luckyTurntable />
+
+      <!-- 转盘 -->
+      <luckyTurntable options="{{ lottery_options }}" activity="{{ luckydraw.activity }}" bind:getLotteryStart="getLotteryStart" bind:getLotteryEnd="getLotteryResult"/>
+
     </view>
 
+    <!-- 按钮 -->
+    <view class="button-list" style="visibility: {{ showBtnList ? '' : 'hidden' }};">
+      <block wx:if="{{ resultOption.key }}">
+        <view class="btn" bindtap="abandonBuy">放弃购买</view>
+        <view class="btn-primary" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">立刻购买</view>
+      </block>
+
+      <block wx:else>
+        <view class="btn" bindtap="onHideTurntablePopup">返回活动</view>
+        <view class="btn-primary" bindtap="onHideTurntablePopup">分享给好友</view>
+      </block>
+    </view>
 </van-overlay>
+
+
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
 

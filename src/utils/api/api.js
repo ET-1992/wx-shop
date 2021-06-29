@@ -905,5 +905,17 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
         contentType: 'json'
+    },
+    // 开始抽奖
+    startLottery: {
+        path: 'api/luckydraw/activity/participate.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 放弃购买
+    cancelBuy: {
+        path: 'api/luckydraw/record/cancel.json',
+        method: 'POST',
+        isForceToken: true
     }
 };

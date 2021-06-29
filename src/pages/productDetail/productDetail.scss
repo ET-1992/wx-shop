@@ -1304,11 +1304,50 @@ img,
 		}
 	}
 }
+
+.close-area{
+	color: #fff;
+	margin-bottom: 100rpx;
+	padding: 0 50rpx;
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
+	.icon{
+		height: 50rpx;
+		width: 50rpx;
+	}
+}
 .luckyTurntable-box{
 	.tips{
 		margin-bottom: 70rpx;
 		font-size: 38rpx;
     font-weight: bold;
 		color: #FFC75A;
+		text-align: center;
+	}
+}
+.button-list{
+	margin-top: 30rpx;
+	display: flex;
+	.btn{
+		width: 200rpx;
+		height: 80rpx;
+		text-align: center;
+		line-height: 80rpx;
+		background-color: #FFF0BE;
+		border: 1rpx solid #FFC500;
+		border-radius: 40rpx;
+		color: #D7A600;
+		margin-right: 20rpx;
+	}
+	.btn-primary{
+		width: 320rpx;
+		height: 80rpx;
+		text-align: center;
+		line-height: 80rpx;
+		background: linear-gradient(180deg, #FFC75A 0%, #FF7C39 100%);
+		color: #fff;
+		font-weight: bold;
+		border-radius: 40rpx;
 	}
 }
