@@ -112,7 +112,7 @@
                         </view>
                     </block>
                 </view>
-                <view class="normalNumber">已售{{ product.sales }}件</view>
+                <view class="normalNumber" wx:if="{{ !product.sales_hidden }}">已售{{ product.sales }}件</view>
             </view>
         </view>
     </view>

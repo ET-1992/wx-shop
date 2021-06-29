@@ -16,7 +16,7 @@
       <view class="productItemPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</view>
       <view class="productItemOriginPrice"
       >{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
-      <view class="productItemSold">已售：{{ product.sales }}</view>
+      <view class="productItemSold" wx:if="{{ !product.sales_hidden }}">已售：{{ product.sales }}</view>
     </view>
   </view>
 </view>

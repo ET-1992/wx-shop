@@ -55,7 +55,7 @@
                 </view>
                 
                 <!-- 已售提示 -->
-                <view class="ItemSold" wx:else>已售: {{ product.sales }}件</view>
+                <view class="ItemSold" wx:elif="{{ !product.sales_hidden }}">已售: {{ product.sales }}件</view>
             </view>
         </view>
     </view>

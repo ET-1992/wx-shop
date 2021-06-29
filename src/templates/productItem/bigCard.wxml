@@ -16,7 +16,7 @@
         class="productItemTag"
         wx:if="{{ product.tag }}"
       >{{ product.tag }}</view>
-      <view class="productItemSold">已售：{{ product.sales }}</view>
+      <view class="productItemSold" wx:if="{{ !product.sales_hidden }}">已售：{{ product.sales }}</view>
     </view>
   </view>
 </view>
