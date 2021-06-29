@@ -31,7 +31,8 @@
               <!-- 商品右上部分 -->
               <view slot="title" class="text-ellipsis-1 product-title">{{ item.title }}</view>
               <view slot="desc" class="text-ellipsis-2 product-desc">{{ item.sku_property_names }}</view>
-              <van-tag plain type="danger" slot="price-top" wx:if="{{ item.reduced }}">比加入时降{{ item.reduced }}元</van-tag>
+			  <van-tag plain type="danger" slot="price-top" style="margin-right: 15rpx" wx:if="{{ item.reduced }}">比加入时降{{ item.reduced }}元</van-tag>
+			<van-tag plain type="danger" slot="price-top" wx:if="{{ item.quota }}">此商品限购{{ item.quota }}件</van-tag>
               <view slot="price-top"></view>
               <!-- 商品右下部分 -->
               <view slot="bottom" class="product-bottom">
@@ -40,7 +41,7 @@
                   <text>{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</text>
                 </view>
                 <van-icon name="/icons/question.svg" size="36rpx" catch:tap="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" />
-                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" catch:change="onUpdateQuantity" catch:tap="noop" />
+                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" catch:change="onUpdateQuantity" catch:tap="noop" disable-plus="{{ item.quota && (item.quantity >= item.quota) }}" />
                 <view style="display: flex; align-items: center" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
                   <van-icon class="van-delete" name="delete" size="20px"/>
                 </view>
