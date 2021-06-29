@@ -73,9 +73,15 @@
                             <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view>
                     </view>
-                    <view class="stock" wx:if="{{ templateTypeText[defineTypeGlobal].template_name !== 'magua'}}">
+                   <view>
+                    <view class="blur_stock" wx:if="{{ product.blur_stock && product.blur_stock.text }}" style="background-color: {{ product.blur_stock.color }}">
+                        {{ product.blur_stock.text }}
+                    </view>
+                    <view class="stock" wx:else>
                         剩余：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
                     </view>
+                   </view>
+                     
                     <view class="property" wx:if="{{ product.skus.length || product.special_attributes.length || product.related_product.length }}">
                         已选择：{{ selectedOptions.content || '--' }}
                     </view>
