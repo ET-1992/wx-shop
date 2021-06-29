@@ -29,21 +29,25 @@
       class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       bindtap="onRefund"
     >申请退款</button>
+
     <button
       wx:if="{{ isShowService }}"
       class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      open-type="contact"
+      open-type="{{ config.contact && config.contact.type === 'work_weixin' ? '' : 'contact'}}"
       send-message-title="{{order.items[0].title}}"
 	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
 	  	send-message-img="{{order.items[0].thumbnail}}"
 	  	show-message-card="{{true}}"
       session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
+      bindtap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}"
     >申请售后</button>
+
     <button
       wx:if="{{ statusCode === 1 }}"
       class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       bindtap="onCloseOrder"
     >取消订单</button>
+
     <button
       wx:if="{{ statusCode === 1 }}"
       class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
