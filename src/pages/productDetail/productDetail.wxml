@@ -55,7 +55,7 @@
           </view>
 
           <!-- 抢购活动的信息 -->
-          <view class="luckydraw-info" wx:if="{{ luckydraw }}">
+          <view class="luckydraw-info" wx:if="{{ product.luckydraw_enable && luckydraw && luckydraw.activity  }}">
             成功率为<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text> |
             {{ luckydraw.activity.quota == 0 ? '不限次数' : '每人限参与' + luckydraw.activity.quota + '次' }} |
             保证金{{ luckydraw.activity.coins }}金币
@@ -163,6 +163,27 @@
             <view class="tips-right">去开通 ></view>
           </view>
         </view>
+        <!-- 抢购活动 用户参与列表 -->
+        <navigator class="luckydraw-user" hover-class="none" hover-stop-propagation="false" wx:if="{{ product.luckydraw_enable && luckydraw && luckydraw.activity }}" url="{{ '/pages/activityUserList/activityUserList?activity_id=' + luckydraw.activity.id }}">
+          <!-- 左区域 -->
+          <view class="left-content">
+            <view class="head-img-list" >
+                <view class="head-img-item" wx:for="{{ luckydraw.records }}" wx:key="index">
+                  <image class="img" src="{{ item.user.avatarurl }}"></image>
+                </view>
+            </view>
+            <view class="user-count">
+                共有{{ luckydraw.participants_count }}人参与了活动
+            </view>
+          </view>
+          <!-- 右区域 -->
+          <view class="right-content">
+              <view class="link">
+                <van-icon name="arrow" size="14px"/>
+              </view>
+          </view>
+        </navigator>
+
         <view class="sevice-coupon" wx:if="{{ product }}">
           <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
             <!-- 优惠券-非拼团商品 -->
@@ -272,6 +293,13 @@
 				<view class="title">拼团流程</view>
 				<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
 			</view> -->
+        <!-- 抢购玩法 -->
+        <navigator class="luckydraw-play" wx:if="{{ product.luckydraw_enable && luckydraw && luckydraw.activity }}" url="/pages/rulePages/rulePages?key=luckydraw">
+          <text>玩法</text>
+          <view class="rule-text">
+            {{luckydraw.activity_explain}}
+          </view>
+        </navigator>
         <!-- 拼团玩法 -->
         <view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
           <image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
@@ -413,7 +441,7 @@
       </block>
       <!-- 抢购活动 -->
       <block wx:elif="{{ product.luckydraw_enable }}">
-        <view class="buy" wx:if="{{ luckydraw.user_participate_count === luckydraw.activity.quota  }}" style="background-color: {{ themeColor.secondaryColor }}" style="background-color:#F4F4F4">
+        <view class="buy" wx:if="{{ luckydraw.user_participate_count === luckydraw.activity.quota  }}" style="background-color: {{ themeColor.secondaryColor }}" style="background-color: #D4D4D4;">
           抢购失败
         </view>
 
@@ -425,7 +453,7 @@
             放弃购买
           </view>
         </block>
-        
+
         <view class="buy" wx:else style="background-color: {{ themeColor.secondaryColor }}" bindtap="startLottery">
           马上抽奖
         </view>
@@ -579,7 +607,7 @@
     <view class="button-list" style="visibility: {{ showBtnList ? '' : 'hidden' }};">
       <block wx:if="{{ resultOption.key }}">
         <view class="btn" bindtap="abandonBuy">放弃购买</view>
-        <view class="btn-primary" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">立刻购买</view>
+        <view class="btn-primary" catchtap="onShowSku"  data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">立刻购买</view>
       </block>
 
       <block wx:else>

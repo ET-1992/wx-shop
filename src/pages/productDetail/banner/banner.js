@@ -7,6 +7,15 @@ Component({
         product: {
             type: Object,
             value: {},
+            observer(newVal) {
+                const { user_participate_count } = newVal.luckydraw;
+                let { quota: lotteryQuota, quantity } = newVal.luckydraw.activity;
+                this.setData({
+                    lotteryQuota,
+                    user_participate_count,
+                    quantity
+                });
+            }
         },
         miaoShaStatus: {
             type: String,
@@ -46,8 +55,8 @@ Component({
         }
 
         this.setData({
+            userTypesText,
             config,
-            userTypesText
         });
     },
     detached() {

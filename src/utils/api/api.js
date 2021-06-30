@@ -917,5 +917,16 @@ export const apis = {
         path: 'api/luckydraw/record/cancel.json',
         method: 'POST',
         isForceToken: true
+    },
+    // 用户参与记录
+    activityUserList: {
+        path: 'api/luckydraw/activity/participants.json',
+        isForceToken: true,
+    },
+    // 抢购活动分享
+    luckydrawShareBind: {
+        path: '	api/luckydraw/share/bind.json',
+        method: 'POST',
+        isForceToken: true,
     }
 };

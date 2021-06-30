@@ -121,7 +121,7 @@ Page({
             actions,
             isGrouponBuy,
             isCrowd,
-            isBargainBuy,
+            isBargainBuy
         });
     },
 
@@ -191,7 +191,7 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
             let { posterType, luckydraw } = this.data;
-            const { config, product, share_title, share_image } = data;
+            const { config, product, share_title, share_image, current_user } = data;
             this.config = config;
             this.product = product;
             wx.setNavigationBarTitle({
@@ -212,7 +212,9 @@ Page({
                 luckydraw = product.luckydraw;
                 luckydraw.activity.lucky_rate = Math.floor(Number(luckydraw.activity.lucky_rate) / 100);
                 let now_time = Math.round(Date.now() / 1000);
-                const { expired_time } = luckydraw.activity;
+                const { expired_time, id } = luckydraw.activity;
+                app.globalData.activity_id = id; // 把当前活动的id放到全局变量 分享需要传给后端
+                app.globalData.share_code = current_user.platform_user_id;
                 await this.checkMiaoShaStatus(
                     now_time,
                     expired_time
@@ -1188,7 +1190,7 @@ Page({
         const { coins, consume_type } = activity;
         const confirm = wx.showModal({
             title: '温馨提示',
-            content: `本次抽奖将会${consume_type === 1 ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
+            content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
             success: (res) => {
                 if (res.confirm) {
                     this.showTurntablePopup();
@@ -1197,7 +1199,8 @@ Page({
         });
     },
     // 开启抽奖弹窗
-    showTurntablePopup() {
+    async showTurntablePopup() {
+        await getUserProfile();
         this.setData({
             isShowTurntablePopup: true,
             showDefaultTips: true, // 抽奖弹窗默认文字
@@ -1221,7 +1224,7 @@ Page({
     // 逻辑：抽奖次数+1 ， 根据中奖显示页面
     getLotteryResult(e) {
         const { result, record } = e.detail;
-        const { lottery_options, luckydraw } = this.data;
+        const { lottery_options, luckydraw, product } = this.data;
         // result为空的record不是中奖记录
         if (result) {
             luckydraw.win_record = record;
@@ -1236,6 +1239,7 @@ Page({
         this.setData({
             resultOption,
             luckydraw,
+            product, // 更新下product中的luckydraw 海报那里用到
             showBtnList: true,
             showDefaultTips: false
         });

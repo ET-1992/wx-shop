@@ -164,7 +164,11 @@
         <view class="time">
           <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
             <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
-            <view class="time-limit">
+            <!-- 抽奖剩余次数小于3次则显示剩余的件数 -->
+            <view class="quantity" wx:if="{{ lotteryQuota - user_participate_count < 3 }}">
+              剩余{{ quantity }}件
+            </view>
+            <view class="time-limit" wx:else>
               <block wx:if="{{ remainTime.day > 0 }}">
                 <view class="hour">{{ remainTime.day }}</view>
                 <view class="dateTitle">天</view>

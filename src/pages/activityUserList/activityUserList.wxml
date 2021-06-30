@@ -1,0 +1,23 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+<view class="container">
+  <view class="user-list">
+
+    <view class="user-item" wx:for="{{ userList }}" wx:key="index">
+
+      <view class="left-content">
+        <view class="head-image">
+          <image class="img" src="{{ item.user.avatarurl }}"/>
+        </view>
+        <view class="name">
+          {{ item.user.nickname }}
+        </view>
+      </view>
+
+      <view class="right-content">
+        {{ WXS.formatTime(item.time * 1000) }}
+      </view>
+    </view>
+
+  </view>
+  <view class="is-final" wx:if="{{ !isLoading }}">已经到底了~</view>
+</view>
