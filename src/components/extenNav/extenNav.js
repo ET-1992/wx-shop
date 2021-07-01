@@ -67,6 +67,12 @@ Component({
             wx.makePhoneCall({
                 phoneNumber: phone
             });
+        },
+        top() {
+            wx.pageScrollTo({
+                scrollTop: 0,
+                duration: 600
+            });
         }
     }
 });

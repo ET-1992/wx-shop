@@ -126,5 +126,5 @@ Page({
         updateData[`orders[${orderIndex}].status`] = 7;
         updateData[`orders[${orderIndex}].statusText`] = valueToText(D_ORDER_STATUS_TEXT, 7);
         this.setData(updateData);
-    },
+    }
 });

@@ -52,7 +52,7 @@
 					售价:{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
 				</view>
 				<!-- 普通 或 会员专属 商品显示 -->
-				<view wx:if="{{ !product.membership_price_enable }}">已售:{{ product.sales }}</view>
+				<view wx:if="{{ !product.membership_price_enable && !product.sales_hidden }}">已售:{{ product.sales }}</view>
 			</view>
 		</view>
 	</view>

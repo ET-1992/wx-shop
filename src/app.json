@@ -288,7 +288,13 @@
 			"pages": [
 				"orderDetail"
 			],
-			"name": "订单详情页"
+			"name": "订单详情页",
+			"plugins": {
+				"logisticsPlugin": {
+					"version": "2.1.5",
+					"provider": "wx9ad912bf20548d92"
+				}
+			  }
 		},
 		{
 			"root": "pages/peanutPay/",

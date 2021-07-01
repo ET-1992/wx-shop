@@ -18,7 +18,7 @@
 				data-stock="{{ product.stock }}"
 			>
 				<view class="title">{{product.title}}</view>
-				<view class="sales">已售 {{product.sales}}</view>
+				<view class="sales" wx:if="{{ !product.sales_hidden }}">已售 {{product.sales}}</view>
 				<view class="bottom">
 					<view class="price">{{ globalData.CURRENCY[globalData.currency] }}{{product.price}}</view>
 					<view class="pickSku" wx:if="{{ product.skus && product.skus.length }}"> 

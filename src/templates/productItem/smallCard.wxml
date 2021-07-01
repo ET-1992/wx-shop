@@ -24,7 +24,7 @@
       </view>
       <view
         class="productItemSold"
-        wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' }}"
+        wx:if="{{ product.groupon_enable !== '1' && product.miaosha_enable !== '1' && !product.sales_hidden }}"
       >已售：{{ product.sales }}</view>
       <view class="tagWrapper">
         <view

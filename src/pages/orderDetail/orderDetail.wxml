@@ -44,7 +44,7 @@
 
     <!-- 发货订单 -->
     <view wx:for="{{ order.logistics }}" wx:key="id" class="logisticsWrap" wx:if="{{ order.logistics && order.logistics.length && !otherPeopleGroupon }}">
-        <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail">
+        <view class="logisticsBox" data-index="{{index}}" bindtap="toLogisticsDetail" data-id="{{ item.id }}">
             <view class="logistics">
                 <view class="logistics-header">
                     <view class="header-left">包裹{{ index + 1 }}</view>

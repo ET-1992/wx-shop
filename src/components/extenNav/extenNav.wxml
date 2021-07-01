@@ -22,6 +22,11 @@
     <slot name="content"><slot>
   </view>
 
+    <!-- 回到顶部 -->
+  <view wx:elif="{{ item.type === 'top' }}" bindtap="top">
+    <slot name="content"><slot>
+  </view>
+
   <!-- 客服对话框 -->
   <!-- open-type 只有没有tips 并且是小程序客服 才会是concat-->
   <button
