@@ -28,7 +28,7 @@
     <button
       class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       bindtap="onAddCard"
-    >一键加车</button>
+    >再次加购</button>
 
     <button
       wx:if="{{ isShowRefund }}"

@@ -86,7 +86,7 @@ Page({
 
     async loadOrder(id) {
         wx.setNavigationBarTitle({ title: '订单详情' });
-        const { order, redpacket = {}, products, config, current_user = {}} = await api.hei.fetchOrder({ order_no: id });
+        const { order, redpacket = {}, products, config, current_user = {}, weapp_waybill_tokens } = await api.hei.fetchOrder({ order_no: id });
         const data = { order, redpacket, current_user };
         let statusCode = Number(order.status);
 
@@ -210,6 +210,7 @@ Page({
         }
 
         this.setData({
+            weapp_waybill_tokens,
             address,
             info,
             isLoading: false,
@@ -414,15 +415,16 @@ Page({
     },
 
     toLogisticsDetail(e) {
-        const { index, logisticId } = e.currentTarget.dataset;
+        const { index, id } = e.currentTarget.dataset;
         const { order, weapp_waybill_tokens = {}} = this.data;
         const { config: { weixin_logistics_enable }} = this.data;
         // app.globalData.logisticsDetail = {
         //     logistics: order && order.logistics && order.logistics[index],
         //     items: order.items
         // };
-        if (weapp_waybill_tokens[logisticId] && weapp_waybill_tokens[logisticId].waybill_token && weixin_logistics_enable) {
-            plugin.openWaybillTracking({ waybillToken: weapp_waybill_tokens[logisticId].waybill_token });
+        console.log(weapp_waybill_tokens, id, weixin_logistics_enable);
+        if (weapp_waybill_tokens[id] && weapp_waybill_tokens[id].waybill_token && weixin_logistics_enable) {
+            plugin.openWaybillTracking({ waybillToken: weapp_waybill_tokens[id].waybill_token });
         } else {
             wx.navigateTo({
                 url: `/pages/logistics/logistics?orderNo=${order.order_no}&logisticsIndex=${index}&logisticId=${order.logistics && order.logistics[index] && order.logistics[index].id}`
