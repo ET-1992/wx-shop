@@ -7,12 +7,6 @@
 </wxs>
 <loading isLoading="{{ isLoading }}" />
 <view class="container {{ otherPeopleGroupon ? 'otherPeopleGroupon' : ''}}" wx:if="{{ !isLoading }}">
-
-    <view bind:tap="searchDetail">
-        dssdsdss
-    </view>
-      
-
     <view class="header" wx:if="{{ order.id && order.status !== 10 }}" style="background-color: {{ themeColor.primaryColor }}">
         <view>
             订单状态：

@@ -74,8 +74,8 @@
                         </view>
                     </view>
                    <view>
-                    <view class="blur_stock" wx:if="{{ product.blur_stock && product.blur_stock.text }}" style="background-color: {{ product.blur_stock.color }}">
-                        {{ product.blur_stock.text }}
+                    <view class="blur_stock" wx:if="{{ product.blur_stock }}" style="background-color: {{ selectedOptions.stockColor ? selectedOptions.stockColor : product.stockColor }}">
+                        {{ selectedOptions.stockText ? selectedOptions.stockText : product.stockText }}
                     </view>
                     <view class="stock" wx:else>
                         剩余：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}

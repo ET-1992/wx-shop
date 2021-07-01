@@ -18,11 +18,6 @@
 								<view class="title">
 									{{ item.title }}
 								</view>
-								  
-							<view class="promote-right" catch:tap="addCard" data-order="{{ order }}">
-								<image class="add-cart" src="/icons/addCart.png"/>
-								<text class="addCart-text">加车</text>
-							</view>
 							</view>
 							<view class="property">{{ item.sku_property_names }}</view>
 							<view class="itemPirceInfo">
@@ -43,11 +38,11 @@
 					</view>
 				</navigator>
 				<orderOperations
-					wx:if="{{ order.statusCode === 1 || order.statusCode === 1010 || order.statusCode === 1011 || order.statusCode === 3 || order.statusCode === 2001 }}"
 					statusCode="{{ order.statusCode }}"
 					orderNo="{{ order.order_no }}"
 					orderIndex="{{ orderIndex }}"
 					orders="{{ orders }}"
+					order="{{ order }}"
 					config="{{ config }}"
 					bindconfirmOrder="onConfirmOrder"
 					bindpayOrder="onPayOrder"

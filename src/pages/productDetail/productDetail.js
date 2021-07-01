@@ -259,6 +259,7 @@ Page({
             }, async () => {
                 this.handleScrollMethods();
                 await this.calculatePostage();
+                this.getDefineStcok();
             });
         } catch (err) {
             if (err && (err.code === 'empty_query')) {
@@ -1172,5 +1173,32 @@ Page({
         let scrollEnable = !isFocused;
         this.setData({ scrollEnable });
     },
+
+    // 计算模糊库存
+    getDefineStcok() {
+        const { product } = this.data;
+        let { blur_stock, stock } = product;
+        let stockColor = '';
+        let stockText = '';
+
+        if (blur_stock) {
+            if (stock < blur_stock.less_stock) {
+                stockColor = blur_stock.less_stock_color;
+                stockText = blur_stock.less_stock_text;
+            } else if (stock > blur_stock.enough_stock) {
+                stockColor = blur_stock.enough_stock_color;
+                stockText = blur_stock.enough_stock_text;
+            } else {
+                stockColor = blur_stock.between_stock_color;
+                stockText = blur_stock.between_stock_text;
+            }
+
+            this.setData({
+                'product.stockColor': stockColor,
+                'product.stockText': stockText
+            });
+        }
+
+    }
 
 });

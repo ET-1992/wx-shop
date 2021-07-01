@@ -24,6 +24,12 @@
   </view>
 
   <view class="right-btn">
+
+    <button
+      class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+      bindtap="onAddCard"
+    >一键加车</button>
+
     <button
       wx:if="{{ isShowRefund }}"
       class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"

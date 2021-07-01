@@ -270,6 +270,33 @@ Component({
             });
         },
 
-        go
+        go,
+        // 一键加车逻辑
+        async onAddCard(e) {
+            try {
+                const { vendor } = app.globalData;
+                const { order } = this.data;
+                let { items = [] } = order;
+                console.log(order, 'order');
+                let params = items.map((item) => ({ post_id: item.post_id, vendor, sku_id: item.sku_id, product_annotation: item.product_annotation, related_posts: item.related_items, special_attributes: item.special_attributes, quantity: item.quantity, delivery_date: item.delivery_date, shipping_type: order.shipping_type }));
+                const data = await api.hei.addCart({ posts: JSON.stringify(params) });
+                console.log(data);
+                wx.showToast({
+                    title: '成功添加'
+                });
+            } catch (e) {
+                console.log(e);
+                // wx.showToast({
+                //     title: e.errMsg
+                // });
+                wx.showModal({
+                    title: '温馨提示',
+                    content: e.errMsg,
+                    cancelColor: '#000000',
+                    confirmText: '确定'
+                });
+
+            }
+        },
     },
 });

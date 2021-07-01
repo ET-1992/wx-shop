@@ -57,7 +57,30 @@ module.exports = Behavior({
             let content = [...currentSku, ...currentSpecial, ...currentRelation].reduce((acc, { value }) => {
                 return value ? acc + value + ';' : acc;
             }, '');
-            let selectedOptions = { price, content, relationPrice };
+
+
+            console.log(selectedSku, 'selectedSku');
+            let { blur_stock } = product;
+            let { stock } = selectedSku;
+            let stockColor = '';
+            let stockText = '';
+
+            if (blur_stock && selectedSku.id) {
+                if (stock < blur_stock.less_stock) {
+                    stockColor = blur_stock.less_stock_color;
+                    stockText = blur_stock.less_stock_text;
+                } else if (stock > blur_stock.enough_stock) {
+                    stockColor = blur_stock.enough_stock_color;
+                    stockText = blur_stock.enough_stock_text;
+                } else {
+                    stockColor = blur_stock.between_stock_color;
+                    stockText = blur_stock.between_stock_text;
+                }
+            }
+
+            console.log(stockText, stockColor, '---');
+
+            let selectedOptions = { price, content, relationPrice, stockText, stockColor };
 
             this.setData({
                 currentSku,
