@@ -68,10 +68,10 @@
 				</view>
 			</view>
 			<view class="monneyTake">
-				<view class="monneyTakeView">
+				<navigator class="monneyTakeView" url="/pages/affiliate/affiliateBalance/affiliateBalance">
 					<text class="takeViewNum">{{ wallet.affiliate_balance || 0 }}</text>
 					<text class="takeViewText">可提现余额(元）</text>
-				</view>
+				</navigator>
 				<button class="monney-take-btn" bindtap="go" data-url="/pages/affiliate/affiliateMoney/affiliateMoney?balance={{wallet.affiliate_balance}}&income_pending={{wallet.affiliate_income_pending}}&code={{member.code}}">去提现</button>
 			</view>
 		</view>

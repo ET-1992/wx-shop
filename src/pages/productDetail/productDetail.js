@@ -191,7 +191,7 @@ Page({
         try {
             const data = await api.hei.fetchProduct({ id });
             let { posterType, luckydraw } = this.data;
-            const { config, product, share_title, share_image, current_user } = data;
+            const { config, product, share_title, share_image } = data;
             this.config = config;
             this.product = product;
             wx.setNavigationBarTitle({
@@ -209,16 +209,16 @@ Page({
             }
             // 抢购活动
             if (product.luckydraw_enable) {
+                posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
                 luckydraw.activity.lucky_rate = Math.floor(Number(luckydraw.activity.lucky_rate) / 100);
                 let now_time = Math.round(Date.now() / 1000);
-                const { expired_time, id } = luckydraw.activity;
-                app.globalData.activity_id = id; // 把当前活动的id放到全局变量 分享需要传给后端
-                app.globalData.share_code = current_user.platform_user_id;
+                const { expired_time } = luckydraw.activity;
                 await this.checkMiaoShaStatus(
                     now_time,
                     expired_time
                 );
+                console.log(luckydraw);
             }
             if (product.seckill_enable) {
                 // 秒杀初始化
@@ -256,7 +256,7 @@ Page({
 
             // 获取缓存地址的邮费信息
             const areaObj = this.getAddressInfo();
-
+            console.log(luckydraw, 666);
             this.setData({
                 share_title,
                 share_image,
@@ -332,7 +332,13 @@ Page({
         wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
     },
 
-    onLoad(query) {
+    async onLoad(query) {
+        // 抢购活动 分享用户绑定
+        const { activity_id, share_code } = query;
+        console.log('抢购活动绑定');
+        if (activity_id && share_code) {
+            await api.hei.luckydrawShareBind({ activity_id, share_code });
+        }
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
         // -----------------------
@@ -665,7 +671,13 @@ Page({
     },
     // 分享按钮
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
+        const { current_user, luckydraw } = this.data;
+        const params = luckydraw ? { share_code: current_user.platform_user_id, activity_id: luckydraw.activity.id } : {};
+        return onDefaultShareAppMessage.call(
+            this,
+            params,
+            '',
+            { key: '/pages/home/home' });
     },
 
     // 分享按钮
@@ -880,8 +892,9 @@ Page({
                 groupon_member_limit,
                 bargain_enable,
                 bargain_price,
+                luckydraw_enable,
                 price,
-                highest_price
+                highest_price,
             }
         } = this.data;
         let posterData = {
@@ -925,6 +938,21 @@ Page({
                 title,
                 bargain_price,
                 price
+            };
+        }
+
+        if (luckydraw_enable) {
+            const { timeLimit, miaoShaStatus, luckydraw, current_user } = this.data;
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                price,
+                activity_price: luckydraw.activity.price,
+                timeLimit,
+                miaoShaStatus,
+                share_code: current_user.platform_user_id,
+                activity_id: luckydraw.activity.id
             };
         }
 

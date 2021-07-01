@@ -7,6 +7,7 @@
       <view class="left-content">
         <view class="head-image">
           <image class="img" src="{{ item.user.avatarurl }}"/>
+          <image wx:if="{{ item.status === 2 || item.status === 4 || item.status === 5 || item.status === 6 }}" class="win-icon" src="/icons/win.svg" />
         </view>
         <view class="name">
           {{ item.user.nickname }}
@@ -19,5 +20,9 @@
     </view>
 
   </view>
-  <view class="is-final" wx:if="{{ !isLoading }}">已经到底了~</view>
+  <view class="is-final" wx:if="{{ !isLoading && userList.length }}">已经到底了~</view>
+  <view class="none-list" wx:if="{{ !isLoading && !userList.length }}">暂无记录~</view>
 </view>
+
+
+

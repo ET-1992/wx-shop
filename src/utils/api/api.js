@@ -923,10 +923,27 @@ export const apis = {
         path: 'api/luckydraw/activity/participants.json',
         isForceToken: true,
     },
-    // 抢购活动分享
+    // 抢购活动分享绑定
     luckydrawShareBind: {
         path: '	api/luckydraw/share/bind.json',
         method: 'POST',
         isForceToken: true,
-    }
+    },
+    // 余额明细
+    featchAffiliateBalance: {
+        path: 'api/affiliate/wallet/logs.json',
+        isForceToken: true,
+    },
+    // 拿sence换key
+    setSenceKey: {
+        path: 'api/tmpdata/set.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 拿key换sence
+    getSenceValue: {
+        path: 'api/tmpdata/get.json',
+        isForceToken: true,
+    },
+
 };

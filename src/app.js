@@ -100,14 +100,14 @@ App({
         }, 500);
     },
 
-    async bindActivityShare(activity_id, user_id) {
-        setTimeout(() => {
-            console.log('抢购活动绑定');
-            api.hei.luckydrawShareBind({ share_code: user_id, activity_id }).then((res) => {
-                console.log(res);
-            });
-        }, 500);
-    },
+    // async bindActivityShare(activity_id, user_id) {
+    //     setTimeout(() => {
+    //         console.log('抢购活动绑定');
+    //         api.hei.luckydrawShareBind({ share_code: user_id, activity_id }).then((res) => {
+    //             console.log(res);
+    //         });
+    //     }, 500);
+    // },
     // 获取多门店列表
     async updateStoreList() {
         setTimeout(() => {

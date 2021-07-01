@@ -32,7 +32,15 @@ export default class Poster {
                     ...this.miaoshaPrice()
                 ];
                 break;
-
+                // 抢购活动海报
+            case 'luckydraw':
+                views = [
+                    ...views,
+                    ...this.titleViews(),
+                    ...this.miaoshaTop(),
+                    ...this.luckyDrawPrice()
+                ];
+                break;
             // 砍价商品海报
             case 'bargainBuy':
             case 'bargain':
@@ -568,6 +576,72 @@ export default class Poster {
             {
                 type: 'text',
                 text: '限时价',
+                css: {
+                    bottom: (viewsbottom - 8) + 'rpx',
+                    left: [`${viewsLeft + 62}rpx`, 'miaosha-price-id'],
+                    fontSize: '20rpx',
+                    color: '#ffffff'
+                }
+            }
+        ];
+    }
+    // 抢购活动价格
+    luckyDrawPrice() {
+        const {
+            price,
+            activity_price,
+            globalData,
+            priceColor
+        } = this.data;
+        const viewsLeft = 45;
+        const viewsbottom = 40;
+        return [
+            {
+                type: 'text',
+                text: `价值${globalData.CURRENCY[globalData.currency] + activity_price}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: '260rpx',
+                    fontSize: '18rpx',
+                    color: '#707070'
+                }
+            },
+            {
+                id: 'miaosha-currency-id',
+                type: 'text',
+                text: `${globalData.CURRENCY[globalData.currency]}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '18rpx',
+                    color: priceColor
+                }
+            },
+            {
+                id: 'miaosha-price-id',
+                type: 'text',
+                text: `${price}`,
+                css: {
+                    bottom: (viewsbottom - 10) + 'rpx',
+                    left: [`${viewsLeft}rpx`, 'miaosha-currency-id'],
+                    fontSize: '28rpx',
+                    color: priceColor
+                }
+            },
+            {
+                type: 'rect',
+                css: {
+                    bottom: (viewsbottom - 14) + 'rpx',
+                    width: '80rpx',
+                    height: '30rpx',
+                    color: `linear-gradient(-135deg, #ff6034 0%, ${priceColor} 80%)`,
+                    left: [`${viewsLeft + 50}rpx`, 'miaosha-price-id'],
+                    borderRadius: '5rpx'
+                }
+            },
+            {
+                type: 'text',
+                text: '抢购价',
                 css: {
                     bottom: (viewsbottom - 8) + 'rpx',
                     left: [`${viewsLeft + 62}rpx`, 'miaosha-price-id'],

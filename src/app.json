@@ -71,7 +71,8 @@
 				"affiliatePoster/affiliatePoster",
 				"affiliateProductList/affiliateProductList",
 				"affiliateVisitor/affiliateVisitor",
-				"affiliateRevenueRank/affiliateRevenueRank"
+				"affiliateRevenueRank/affiliateRevenueRank",
+        "affiliateBalance/affiliateBalance"
 			],
 			"name": "分销"
 		},
@@ -451,13 +452,13 @@
 			],
 			"name": "表单页"
 		},
-    {
-      "root":"pages/activityUserList",
-      "pages": [
+		{
+			"root": "pages/activityUserList",
+			"pages": [
 				"activityUserList"
 			],
-      "name": "活动用户列表"
-    }
+			"name": "活动用户列表"
+		}
 	],
 	"permission": {
 		"scope.userLocation": {

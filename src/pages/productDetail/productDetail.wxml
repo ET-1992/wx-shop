@@ -71,7 +71,7 @@
                 <text>{{ product.price }}</text>
               </view>
               <!-- 非会员专属 -->
-              <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) }}">
+              <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable || product.luckydraw_enable) }}">
                 <view class="nowPrice">
                   <!-- 金币商品 -->
                   <view class="currentPrice" wx:if="{{ product.product_type === 4 }}">
@@ -441,11 +441,8 @@
       </block>
       <!-- 抢购活动 -->
       <block wx:elif="{{ product.luckydraw_enable }}">
-        <view class="buy" wx:if="{{ luckydraw.user_participate_count === luckydraw.activity.quota  }}" style="background-color: {{ themeColor.secondaryColor }}" style="background-color: #D4D4D4;">
-          抢购失败
-        </view>
 
-        <block wx:elif="{{ luckydraw.win_record }}">
+        <block wx:if="{{ luckydraw.win_record }}">
           <view class="buy multi" style="background-color: {{ themeColor.secondaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
             剩余{{ luckydraw.win_record.expired_time_formated }}下单
           </view>
@@ -453,6 +450,10 @@
             放弃购买
           </view>
         </block>
+
+        <view class="buy" wx:elif="{{ luckydraw.user_participate_count === luckydraw.activity.quota || miaoShaStatus == 'end' }}" style="background-color: {{ themeColor.secondaryColor }}" style="background-color: #D4D4D4;">
+          抢购失败
+        </view>
 
         <view class="buy" wx:else style="background-color: {{ themeColor.secondaryColor }}" bindtap="startLottery">
           马上抽奖
@@ -612,7 +613,7 @@
 
       <block wx:else>
         <view class="btn" bindtap="onHideTurntablePopup">返回活动</view>
-        <view class="btn-primary" bindtap="onHideTurntablePopup">分享给好友</view>
+        <button class="btn-primary" open-type="share">分享给好友</button>
       </block>
     </view>
 </van-overlay>

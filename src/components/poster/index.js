@@ -91,10 +91,20 @@ Component({
                     case 'product':
                         scene.id = posterData.id;
                         break;
+                    case 'luckydraw':
+                        scene.id = posterData.id;
+                        scene.share_code = posterData.share_code;
+                        scene.activite_id = posterData.activite_id;
+                        break;
                 }
+                const sceneValue = Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&');
+
+                const { code: sceneKey } = await api.hei.setSenceKey({
+                    params: sceneValue
+                });
                 const data = await api.hei.getShopQrcode({
                     ...requestData,
-                    scene: Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&')
+                    scene: sceneKey
                 });
                 const { qrcode_url, product = {}} = data;
 
