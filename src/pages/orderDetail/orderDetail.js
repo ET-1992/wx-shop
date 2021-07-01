@@ -416,11 +416,12 @@ Page({
     toLogisticsDetail(e) {
         const { index, logisticId } = e.currentTarget.dataset;
         const { order, weapp_waybill_tokens = {}} = this.data;
+        const { config: { weixin_logistics_enable }} = this.data;
         // app.globalData.logisticsDetail = {
         //     logistics: order && order.logistics && order.logistics[index],
         //     items: order.items
         // };
-        if (weapp_waybill_tokens[logisticId] && weapp_waybill_tokens[logisticId].waybill_token) {
+        if (weapp_waybill_tokens[logisticId] && weapp_waybill_tokens[logisticId].waybill_token && weixin_logistics_enable) {
             plugin.openWaybillTracking({ waybillToken: weapp_waybill_tokens[logisticId].waybill_token });
         } else {
             wx.navigateTo({
