@@ -144,7 +144,6 @@ Page({
             timeLimit,
             miaoShaStatus: status
         });
-        console.log(timeLimit, status, 'dsdsdsdsd');
         return {
             timeLimit,
             status
@@ -213,12 +212,12 @@ Page({
                 luckydraw = product.luckydraw;
                 luckydraw.activity.lucky_rate = Math.floor(Number(luckydraw.activity.lucky_rate) / 100);
                 let now_time = Math.round(Date.now() / 1000);
-                const { expired_time } = luckydraw.activity;
+                const { activity: { expired_time }} = luckydraw;
+
                 await this.checkMiaoShaStatus(
                     now_time,
                     expired_time
                 );
-                console.log(luckydraw);
             }
             if (product.seckill_enable) {
                 // 秒杀初始化
@@ -256,7 +255,6 @@ Page({
 
             // 获取缓存地址的邮费信息
             const areaObj = this.getAddressInfo();
-            console.log(luckydraw, 666);
             this.setData({
                 share_title,
                 share_image,
@@ -1212,12 +1210,38 @@ Page({
         let scrollEnable = !isFocused;
         this.setData({ scrollEnable });
     },
+    // 计算模糊库存
+    getDefineStcok() {
+        const { product } = this.data;
+        let { blur_stock, stock } = product;
+        let stockColor = '';
+        let stockText = '';
+
+        if (blur_stock) {
+            if (stock < blur_stock.less_stock) {
+                stockColor = blur_stock.less_stock_color;
+                stockText = blur_stock.less_stock_text;
+            } else if (stock > blur_stock.enough_stock) {
+                stockColor = blur_stock.enough_stock_color;
+                stockText = blur_stock.enough_stock_text;
+            } else {
+                stockColor = blur_stock.between_stock_color;
+                stockText = blur_stock.between_stock_text;
+            }
+
+            this.setData({
+                'product.stockColor': stockColor,
+                'product.stockText': stockText
+            });
+        }
+
+    },
     // 抢购活动的逻辑 -----start
     // 开始抽奖
     startLottery() {
         const { luckydraw: { activity }} = this.data;
         const { coins, consume_type } = activity;
-        const confirm = wx.showModal({
+        wx.showModal({
             title: '温馨提示',
             content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
             success: (res) => {
@@ -1291,32 +1315,28 @@ Page({
             }
         });
     },
-    // 计算模糊库存
-    getDefineStcok() {
-        const { product } = this.data;
-        let { blur_stock, stock } = product;
-        let stockColor = '';
-        let stockText = '';
+    // 抽奖活动的逻辑 --------end;
 
-        if (blur_stock) {
-            if (stock < blur_stock.less_stock) {
-                stockColor = blur_stock.less_stock_color;
-                stockText = blur_stock.less_stock_text;
-            } else if (stock > blur_stock.enough_stock) {
-                stockColor = blur_stock.enough_stock_color;
-                stockText = blur_stock.enough_stock_text;
-            } else {
-                stockColor = blur_stock.between_stock_color;
-                stockText = blur_stock.between_stock_text;
+    // 拼团抢购的逻辑 ---------start
+
+    // 参与抢购
+    startGroupSale() {
+        const { luckydraw: { activity }} = this.data;
+        const { id: activity_id, consume_type, coins } = activity;
+        wx.showModal({
+            title: '温馨提示',
+            content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
+            success: async (res) => {
+                if (res.confirm) {
+                    await api.hei.startLottery({ activity_id });
+                    this.initPage();
+                    wx.showToast({
+                        title: '参加成功'
+                    });
+                }
             }
-
-            this.setData({
-                'product.stockColor': stockColor,
-                'product.stockText': stockText
-            });
-        }
-
+        });
     }
 
+    // 拼团抢购的逻辑 ---------end
 });
-// 抽奖活动的逻辑 --------end

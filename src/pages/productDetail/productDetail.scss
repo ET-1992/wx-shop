@@ -425,6 +425,34 @@ video {
 		display: flex;
 	}
 }
+
+.draw-code{
+  padding: 28rpx;
+	font-size: 28rpx;
+	font-weight: bold;
+	background-color: #fff;
+	.code-list{
+		display: flex;
+		flex-wrap: wrap;
+		.item{
+			width: 80rpx;
+			height: 38rpx;
+			text-align: center;
+			line-height: 38rpx;
+			background-color: rgba(255, 85, 0, 0.1);
+			border-radius: 4rpx;
+			font-size: 24rpx;
+			color: #FF5500;
+			margin-left: 20rpx;
+			margin-top: 20rpx;
+
+			&:nth-child(7n+1){
+				margin-left: 0;
+			}
+		}
+	}
+}
+
 .sevice-coupon{
 	margin: 10rpx 0 10rpx;
 	padding: 0 39rpx 0 31rpx;

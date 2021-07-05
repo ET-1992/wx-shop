@@ -144,8 +144,8 @@
 
       <!-- 抽奖banner -->
       <view wx:if="{{ product.luckydraw_enable }}" class="luckydraw-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/luckydraw-buy.svg" />
-        <image wx:else src="/icons/productDetail/luckydraw-buy-end.svg" />
+        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/luckydraw-buy.svg"/>
+        <image wx:else src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
         <view class="price-area">
           <view class="price">
             抢购价
