@@ -1,0 +1,56 @@
+<navigator class="largePic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+    <view class="image-wrap" wx:if="{{ product.thumbnail }}">
+        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}" ></image>
+    </view>
+    <view class="content-wrap">
+        <view class="left">
+            <view class="title"> {{ product.title }}</view>
+			<view class="desc"> {{ product.excerpt }}</view>
+			<!-- 时间 -->
+			<view class="timeLimit">
+				<view class="limitWrapper">
+					<view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+					<view wx:if="{{ !hasStart }}">距开始</view>
+					<view wx:if="{{ hasEnd }}">已结束</view>
+				</view>
+				<block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+					<view class="day">{{ remainTime.day }}</view>
+					<view class="dateTitle">天</view>
+				</block>
+				<view class="hour" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">{{ remainTime.hour }}</view>
+				<view class="dateTitle" wx:if="{{ !hasEnd }}">时</view>
+				<view class="minute" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">{{ remainTime.minute }}</view>
+				<view class="dateTitle" wx:if="{{ !hasEnd }}">分</view>
+				<view class="second" wx:if="{{ !hasEnd }}" style="background-color: {{ themeColor.primaryColor }}">{{ remainTime.second }}</view>
+				<view class="dateTitle" wx:if="{{ !hasEnd }}">秒</view>
+			</view>
+			<!-- 价格 -->
+            <view class="price">
+                <!-- 原价 -->
+                <view class="original">
+                    原价 {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+                </view>
+
+                <view class="now" style="color: {{ themeColor.primaryColor }}">
+					<view wx:if="{{ product.seckill_enable }}">秒杀价</view>
+					<view wx:else>限时价</view>
+					<view class="money">
+						<view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
+						<view class="num">{{ product.miaosha_price || product.seckill_price }}</view>
+					</view>
+                </view>
+            </view>
+        </view>
+		<view class="right">			
+			<!-- 虚拟商品 -->
+            <button wx:if="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">去抢购</button>
+            <!-- 其他商品 -->
+            <block wx:else>
+                <!-- 开启首页显示购物车按钮 -->
+                <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '去抢购'}}</button>
+                <!-- 未开启首页显示购物车按钮 -->
+                <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '去抢购'}}</button>
+            </block>
+        </view>
+    </view>
+</navigator>

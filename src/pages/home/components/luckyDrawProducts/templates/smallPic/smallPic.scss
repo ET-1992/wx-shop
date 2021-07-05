@@ -1,0 +1,149 @@
+.smallPic {
+	padding: 25rpx 0;
+	margin: 0 25rpx;
+	display: flex;
+	background: #fff;
+	border-bottom: 1rpx solid #f4f4f4;
+
+	.wrapper {
+		position: relative;
+		width: 200rpx;
+		height: 200rpx;
+		.mask {
+			font-size: 32rpx;
+			font-weight: bold;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+			z-index: 1;
+			border-radius: 10rpx;
+		}
+		
+		.productImage {
+			width: 200rpx;
+			height: 200rpx;
+			flex-shrink: 0;
+			border-radius: 10rpx;
+		}
+	}
+
+	.meta {
+		padding-left: 20rpx;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+
+		.name {
+			color: #333;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.timeLimit {
+			font-size: 26rpx;
+			margin-top: 30rpx;
+			margin-bottom: 30rpx;
+			display: flex;
+			align-items: flex-end;
+
+			.limitWrapper {
+				margin-right: 28rpx;
+				line-height: 26rpx;
+			}
+	
+			.hour,
+			.minute,
+			.second {
+				color: #fff;
+				width: 50rpx;
+				height: 40rpx;
+				line-height: 40rpx;
+				text-align: center;
+				background-color: #F89452;
+				margin: 0 6rpx;
+				font-size: 23rpx;
+				border-radius: 5rpx;
+			}
+	
+			.day {
+				font-size: 36rpx;
+				color: #000;
+				font-weight: bold;
+				line-height: 34rpx;
+				padding: 0 5rpx;
+				margin: 0 6rpx;
+			}
+	
+			.dateTitle {
+				font-size: 18rpx;
+				color: #333;
+			}
+		}
+
+		.footer {
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			flex-grow: 1;
+
+			.allPrice {
+				display: flex;
+				justify-content: space-around;
+				align-items: flex-end;
+
+				.flashPrice {
+					font-size: 36rpx;
+					color: #FC2732;
+					display: flex;
+					align-items: center;
+
+					.flashPriceTitle {
+						font-size: 23rpx;
+						color: #333;
+						margin-right: 10rpx;
+					}
+					.unit {
+						font-size: 23rpx;
+						color: #FF1E1E;
+					}
+					.miaoshaPrice {
+						font-size: 35rpx;
+						color: #FF1E1E;
+						font-weight: bold;
+					}
+				}
+		
+				.originalPrice {
+					text-decoration: line-through;
+					font-size: 20rpx;
+					color: #707070;
+					margin-left: 20rpx;
+				}
+			}
+
+			.cart {
+				width: 140rpx;
+				height: 50rpx;
+				font-size: 24rpx;
+				color: #fff;
+				background: #f89452;
+				border-radius: 5rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+}

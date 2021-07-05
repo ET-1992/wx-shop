@@ -332,17 +332,17 @@ Page({
     },
 
     async onLoad(query) {
-        // 抢购活动 分享用户绑定
-        const { activity_id, share_code } = query;
-        console.log('抢购活动绑定');
-        if (activity_id && share_code) {
-            await api.hei.luckydrawShareBind({ activity_id, share_code });
-        }
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
+        // 抢购活动 分享用户绑定
+        const { activity_id, share_code } = query;
+        console.log('抢购活动绑定');
+        if (activity_id && share_code && String(user.platform_user_id) !== share_code) {
+            await api.hei.luckydrawShareBind({ activity_id, share_code });
+        }
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;

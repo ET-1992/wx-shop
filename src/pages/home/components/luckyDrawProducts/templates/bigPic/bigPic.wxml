@@ -1,0 +1,53 @@
+<navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}"> 
+    <view class="wrap">
+        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+    </view>
+    <view class="meta">
+        <view class="name">{{ product.title }}</view>
+        <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+        <view class="timeLimit">
+            <view class="limitWrapper">
+                <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
+                <view wx:if="{{ !hasStart }}">距开始</view>
+                <view wx:if="{{ hasEnd }}">已结束</view>
+            </view>
+            <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
+                <view class="day">{{ remainTime.day }}</view>
+                <view class="dateTitle">天</view>
+            </block>
+            <view class="hour" wx:if="{{ !hasEnd }}">
+                {{ remainTime.hour }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">时</view>
+            <view class="minute" wx:if="{{ !hasEnd }}">
+                {{ remainTime.minute }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">分</view>
+            <view class="second" wx:if="{{ !hasEnd }}">
+                {{ remainTime.second }}
+            </view>
+            <view class="dateTitle" wx:if="{{ !hasEnd }}">秒</view>
+        </view>
+        <view class="footer">
+            <view class="allPrice">
+                <view class="originalPrice">
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.original_price }}
+                </view>
+                <view class="miaoshaPrice">
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price || product.seckill_price }}
+                </view>
+            </view>
+
+            <!-- 虚拟商品 -->
+            <view wx:if="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
+            <!-- 其他商品 -->
+            <block wx:else>
+                <!-- 开启首页显示购物车按钮 -->
+                <view class="btn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即抢购'}}</view>
+                <!-- 未开启首页显示购物车按钮 -->
+                <view class="btn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即抢购'}}</view>
+            </block>
+        </view>
+    </view>
+</navigator>
