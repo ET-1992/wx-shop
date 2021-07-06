@@ -1244,15 +1244,19 @@ Page({
     startLottery() {
         const { luckydraw: { activity }} = this.data;
         const { coins, consume_type } = activity;
-        wx.showModal({
-            title: '温馨提示',
-            content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
-            success: (res) => {
-                if (res.confirm) {
-                    this.showTurntablePopup();
+        if (coins) {
+            wx.showModal({
+                title: '温馨提示',
+                content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
+                success: (res) => {
+                    if (res.confirm) {
+                        this.showTurntablePopup();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            this.showTurntablePopup();
+        }
     },
     // 开启抽奖弹窗
     async showTurntablePopup() {
