@@ -142,43 +142,97 @@
         </view>
       </view>
 
-      <!-- 抽奖banner -->
+      <!-- 抽奖banner 4.已结束 3.已过期 2.进行中-->
       <view wx:if="{{ product.luckydraw_enable }}" class="luckydraw-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ product.luckydraw.activity.status === 4 }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
-        <image wx:else src="/icons/productDetail/luckydraw-buy.svg"/>
-        <view class="price-area">
-          <view class="price">
-            抢购价
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="time-price">{{ product.price }}</view>
-            起
-          </view>
-          <view class="price-interval">
-            <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
-          </view>
-        </view>
-        <view class="time">
-          <view wx:if="{{ product.luckydraw.activity.status !== 4  }}" class="time-section">
-            <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
-            <!-- 抽奖剩余次数小于3次则显示剩余的件数 -->
-            <view class="quantity" wx:if="{{ lotteryQuota - user_participate_count < 3 && product.luckydraw.activity.draw_type !== '2' }}">
-              剩余{{ quantity }}件
+        <!-- 转盘抽奖的banner模板 -->
+        <block wx:if="{{product.luckydraw.activity.draw_type === '1'}}">
+          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3  }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
+          <image wx:else src="/icons/productDetail/luckydraw-buy.svg"/>
+          <view class="price-area">
+            <view class="price">
+              抢购价
+              <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+              <view class="time-price">{{ product.price }}</view>
+              起
             </view>
-            <view class="time-limit" wx:else>
-              <block wx:if="{{ remainTime.day > 0 }}">
-                <view class="hour">{{ remainTime.day }}</view>
-                <view class="dateTitle">天</view>
-              </block>
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
-              后结束
+            <view class="price-interval">
+              <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
             </view>
           </view>
 
-          <view wx:else class="time-section end">已结束</view>
-        </view>
+          <view class="time">
+            <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
+              <view class="time-section end">已结束</view>
+            </block>
+            
+            <block wx:else>
+              <view class="time-section">
+                <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
+                <!-- 抽奖剩余次数小于3次则显示剩余的件数 -->
+                <view class="quantity" wx:if="{{ lotteryQuota - user_participate_count < 3 }}">
+                  剩余{{ quantity }}件
+                </view>
+                
+                <view class="time-limit" wx:else>
+                  <block wx:if="{{ remainTime.day > 0 }}">
+                    <view class="hour">{{ remainTime.day }}</view>
+                    <view class="dateTitle">天</view>
+                  </block>
+                  <view class="hour">{{ remainTime.hour }}</view>
+                  <view class="dateTitle">时</view>
+                  <view class="minute">{{ remainTime.minute }}</view>
+                  <view class="dateTitle">分</view>
+                  <view class="second">{{ remainTime.second }}</view>
+                  <view class="dateTitle">秒</view>
+                  后结束
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+        <!-- 拼团抢购的banner模板 -->
+        <block wx:if="{{product.luckydraw.activity.draw_type === '2'}}">
+          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 || (product.luckydraw.activity.status === 2 && product.luckydraw.batch.status === 2 )  }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
+          <image wx:else src="/icons/productDetail/luckydraw-buy.svg"/>
+          <view class="price-area">
+            <view class="price">
+              抢购价
+              <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+              <view class="time-price">{{ product.price }}</view>
+              起
+            </view>
+            <view class="price-interval">
+              <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
+            </view>
+          </view>
+
+          <view class="time">
+            <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
+              <view class="time-section end">已结束</view>
+            </block>
+            
+            <block wx:else>
+              <view class="time-section">
+                <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
+                <view class="is-draw" wx:if="{{ product.luckydraw.batch.status === 2 }}">
+                  已开奖
+                </view>
+                
+                <view class="time-limit" wx:else>
+                  <block wx:if="{{ remainTime.day > 0 }}">
+                    <view class="hour">{{ remainTime.day }}</view>
+                    <view class="dateTitle">天</view>
+                  </block>
+                  <view class="hour">{{ remainTime.hour }}</view>
+                  <view class="dateTitle">时</view>
+                  <view class="minute">{{ remainTime.minute }}</view>
+                  <view class="dateTitle">分</view>
+                  <view class="second">{{ remainTime.second }}</view>
+                  <view class="dateTitle">秒</view>
+                  后结束
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
       </view>

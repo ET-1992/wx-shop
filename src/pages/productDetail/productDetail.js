@@ -211,11 +211,10 @@ Page({
             if (product.luckydraw_enable) {
                 posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
-                const { activity, batch } = luckydraw;
+                const { activity, batch = {}} = luckydraw;
                 activity.lucky_rate = Math.floor(Number(activity.lucky_rate) / 100); // 计算中奖概率
 
                 let now_time = Math.round(Date.now() / 1000);
-
                 let timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
                 this.setData({
                     timeLimit,
