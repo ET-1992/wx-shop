@@ -453,6 +453,30 @@ video {
 	}
 }
 
+.draw-result{
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 10rpx 28rpx;
+	font-size: 28rpx;
+	background-color: #fff;
+	margin: 10rpx 0;
+	.tips{
+		display: flex;
+		align-items: center;
+		font-weight: bold;
+		.code{
+				width: 80rpx;
+				height: 38rpx;
+				text-align: center;
+				line-height: 38rpx;
+				background-color: rgba(255, 85, 0, 0.1);
+				border-radius: 4rpx;
+				font-size: 24rpx;
+				color: #FF5500;
+		}
+	}
+}
 .sevice-coupon{
 	margin: 10rpx 0 10rpx;
 	padding: 0 39rpx 0 31rpx;

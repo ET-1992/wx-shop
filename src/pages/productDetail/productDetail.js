@@ -188,7 +188,8 @@ Page({
         this.loadProductDetailExtra(id);
         this.setData({ pendingGrouponId: '' });
         try {
-            const data = await api.hei.fetchProduct({ id });
+            const { luckydraw_round = '' } = this.data;
+            const data = await api.hei.fetchProduct({ id, luckydraw_round });
             let { posterType, luckydraw } = this.data;
             const { config, product, share_title, share_image } = data;
             this.config = config;
@@ -210,14 +211,17 @@ Page({
             if (product.luckydraw_enable) {
                 posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
-                luckydraw.activity.lucky_rate = Math.floor(Number(luckydraw.activity.lucky_rate) / 100);
-                let now_time = Math.round(Date.now() / 1000);
-                const { activity: { expired_time }} = luckydraw;
+                const { activity, batch } = luckydraw;
+                activity.lucky_rate = Math.floor(Number(activity.lucky_rate) / 100); // 计算中奖概率
 
-                await this.checkMiaoShaStatus(
-                    now_time,
-                    expired_time
-                );
+                let now_time = Math.round(Date.now() / 1000);
+
+                let timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
+                this.setData({
+                    timeLimit,
+                    luckydraw_round: batch.round
+                });
+
             }
             if (product.seckill_enable) {
                 // 秒杀初始化
@@ -1321,7 +1325,7 @@ Page({
 
     // 参与抢购
     startGroupSale() {
-        const { luckydraw: { activity }} = this.data;
+        const { luckydraw, luckydraw: { activity }} = this.data;
         const { id: activity_id, consume_type, coins } = activity;
         wx.showModal({
             title: '温馨提示',
@@ -1337,6 +1341,5 @@ Page({
             }
         });
     }
-
     // 拼团抢购的逻辑 ---------end
 });
