@@ -11,10 +11,10 @@
 					{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
 				</view>
 				<!-- 原价 针对三图隐藏-->
-				<view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}"><text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.original_price }}
+				<view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}">价值<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ luckydraw.activity.price }}
 				</view>
 			</view>
-		
+
 			<!-- 排除虚拟商品 跟 售罄商品 购物车页面为你推荐 -->
 			<view class="{{config && config.cart_enable ? 'show' : 'tagWrapper'}}" wx:if="{{ config && config.cart_enable && !product.individual_buy && product.status !== 'sold_out' && isShowAddCart }}">
 				<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">

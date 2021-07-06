@@ -8,30 +8,27 @@ Component({
             value: {},
             observer(newVal) {
                 if (!newVal) { return }
-                let { miaosha_end_timestamp, miaosha_start_timestamp } = newVal;
+                let { luckydraw } = newVal;
 
                 // 兼容秒杀时间戳
-                let { seckill_end_timestamp, seckill_start_timestamp } = newVal;
-                miaosha_end_timestamp = miaosha_end_timestamp || seckill_end_timestamp;
-                miaosha_start_timestamp = miaosha_start_timestamp || seckill_start_timestamp;
-
+                let { expired_time } = luckydraw.activity;
                 const now = Math.round(Date.now() / 1000);
-                let timeLimit = miaosha_end_timestamp - now;
-                let hasStart = true;
-                let hasEnd = false;
-                if (now < miaosha_start_timestamp) {
+                let timeLimit = expired_time - now;
+                let { hasStart, hasEnd } = this.data;
+                if (timeLimit > 0) {
+                    hasStart = true;
+                    hasEnd = false;
+                } else {
                     hasStart = false;
-                    timeLimit = miaosha_start_timestamp - now;
-                }
-
-                if (now > miaosha_end_timestamp) {
                     hasEnd = true;
                     timeLimit = 0;
                 }
+
                 this.setData({
                     timeLimit,
                     hasStart,
-                    hasEnd
+                    hasEnd,
+                    luckydraw
                 });
 
                 if (timeLimit && !this.intervalId) {

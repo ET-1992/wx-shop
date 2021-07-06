@@ -25,7 +25,7 @@
 			z-index: 1;
 			border-radius: 10rpx;
 		}
-		
+
 		.productImage {
 			width: 200rpx;
 			height: 200rpx;
@@ -62,7 +62,7 @@
 				margin-right: 28rpx;
 				line-height: 26rpx;
 			}
-	
+
 			.hour,
 			.minute,
 			.second {
@@ -76,7 +76,7 @@
 				font-size: 23rpx;
 				border-radius: 5rpx;
 			}
-	
+
 			.day {
 				font-size: 36rpx;
 				color: #000;
@@ -85,7 +85,7 @@
 				padding: 0 5rpx;
 				margin: 0 6rpx;
 			}
-	
+
 			.dateTitle {
 				font-size: 18rpx;
 				color: #333;
@@ -124,9 +124,8 @@
 						font-weight: bold;
 					}
 				}
-		
+
 				.originalPrice {
-					text-decoration: line-through;
 					font-size: 20rpx;
 					color: #707070;
 					margin-left: 20rpx;

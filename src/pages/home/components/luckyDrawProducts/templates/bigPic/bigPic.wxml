@@ -1,4 +1,4 @@
-<navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}"> 
+<navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
     <view class="wrap">
         <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
         <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
@@ -32,22 +32,13 @@
         <view class="footer">
             <view class="allPrice">
                 <view class="originalPrice">
-                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.original_price }}
+                    价值{{ globalData.CURRENCY[globalData.currency] }}{{  luckydraw.activity.price }}
                 </view>
                 <view class="miaoshaPrice">
-                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.miaosha_price || product.seckill_price }}
+                    {{ globalData.CURRENCY[globalData.currency] }}{{  product.price }}
                 </view>
             </view>
 
-            <!-- 虚拟商品 -->
-            <view wx:if="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
-            <!-- 其他商品 -->
-            <block wx:else>
-                <!-- 开启首页显示购物车按钮 -->
-                <view class="btn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即抢购'}}</view>
-                <!-- 未开启首页显示购物车按钮 -->
-                <view class="btn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即抢购'}}</view>
-            </block>
         </view>
     </view>
 </navigator>

@@ -28,29 +28,16 @@
             <view class="price">
                 <!-- 原价 -->
                 <view class="original">
-                    原价 {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+                    价值 {{ globalData.CURRENCY[globalData.currency] }}{{ luckydraw.activity.price }}
                 </view>
 
                 <view class="now" style="color: {{ themeColor.primaryColor }}">
-					<view wx:if="{{ product.seckill_enable }}">秒杀价</view>
-					<view wx:else>限时价</view>
+					<view>抢购价</view>
 					<view class="money">
 						<view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
-						<view class="num">{{ product.miaosha_price || product.seckill_price }}</view>
+						<view class="num">{{ product.price }}</view>
 					</view>
                 </view>
             </view>
         </view>
-		<view class="right">			
-			<!-- 虚拟商品 -->
-            <button wx:if="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">去抢购</button>
-            <!-- 其他商品 -->
-            <block wx:else>
-                <!-- 开启首页显示购物车按钮 -->
-                <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '去抢购'}}</button>
-                <!-- 未开启首页显示购物车按钮 -->
-                <button class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '去抢购'}}</button>
-            </block>
-        </view>
-    </view>
 </navigator>

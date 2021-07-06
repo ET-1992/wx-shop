@@ -25,8 +25,7 @@
         <view class="footer">
             <view class="allPrice">
                 <view class="flashPrice">
-                    <view class="flashPriceTitle" wx:if="{{ product.seckill_enable }}">秒杀价</view>
-                    <view class="flashPriceTitle" wx:else>限时价</view>
+                    <view class="flashPriceTitle">抢购价</view>
                     <view class="unit">
                         {{ globalData.CURRENCY[globalData.currency] }}
                     </view>
@@ -36,7 +35,7 @@
                 </view>
                 <view>
                     <view class="originalPrice">
-                        {{ globalData.CURRENCY[globalData.currency] }}{{  product.original_price }}
+                        价值{{ globalData.CURRENCY[globalData.currency] }}{{  luckydraw.activity.price }}
                     </view>
                 </view>
             </view>
