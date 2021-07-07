@@ -935,7 +935,7 @@ export const apis = {
         isForceToken: true,
     },
     // 拿sence换key
-    setSenceKey: {
+    getSenceKey: {
         path: 'api/tmpdata/set.json',
         method: 'POST',
         isForceToken: true,
@@ -945,5 +945,14 @@ export const apis = {
         path: 'api/tmpdata/get.json',
         isForceToken: true,
     },
-
+    // 获取开奖结果
+    fetchLuckydrawResult: {
+        path: 'api/luckydraw/results.json',
+        isForceToken: true,
+    },
+    // 获取抽奖记录
+    fetchLuckydrawRecords: {
+        path: 'api/luckydraw/records.json',
+        isForceToken: true
+    }
 };

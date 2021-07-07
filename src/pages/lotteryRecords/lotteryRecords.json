@@ -1,0 +1,8 @@
+{
+	"navigationBarTitleText": "抽奖记录",
+  "usingComponents": {
+    "loading": "components/loading/index",
+    "van-tabs": "@vant/weapp/dist/tabs/index",
+    "van-tab": "@vant/weapp/dist/tab/index"
+  }
+}

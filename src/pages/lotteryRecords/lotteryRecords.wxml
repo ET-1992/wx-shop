@@ -1,0 +1,32 @@
+<view class="container">
+	<van-tabs active="{{ recordType }}"  line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
+    <van-tab title="全部" name="0"></van-tab>
+    <van-tab title="全民抢购" name="1"></van-tab>
+    <van-tab title="拼团抢购" name="2"></van-tab>
+  </van-tabs>
+
+  <view class="main-content">
+
+    <view class="records">
+      <view class="record" wx:for="{{ drawRecords }}" wx:key="id">
+        <view class="item">
+          <image class="itemImage" src="{{ item.activity_image }}" mode="aspectFill" />
+          <view class="itemInfo">
+            <view class="itemTitle">
+              <view class="title">
+                {{ item.activity_title }}
+              </view>
+            </view>
+            <view class="itemPirceInfo">
+              <view class="price">拼购价{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}起</view>
+              <view class="status">
+                  222
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>

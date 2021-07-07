@@ -178,8 +178,20 @@ video {
 	.luckydraw-info{
 		display: flex;
 		font-size: 26rpx;
+		margin-top: 10rpx;
 		.lucky-rate{
 			color: #FF5500;
+		}
+	}
+
+	.luckydraw-progress{
+		font-size: 24rpx;
+		margin-top: 20rpx;
+		display: flex;
+    align-items: center;
+		.progress{
+			width: 520rpx;
+			margin: 0 20rpx;
 		}
 	}
 	.meta {
@@ -476,6 +488,25 @@ video {
 				font-size: 24rpx;
 				color: #FF5500;
 		}
+	}
+	.result{
+		display: flex;
+	}
+}
+
+.round-tabs{
+	display: flex;
+	justify-content: space-between;
+	padding: 16rpx 32rpx;
+	font-size: 24rpx;
+	background-color: #fff;
+	margin: 10rpx 0;
+	.disabled{
+		color: #999999;
+	}
+	.next-tab,
+	.pre-tab{
+		display: flex;
 	}
 }
 .sevice-coupon{

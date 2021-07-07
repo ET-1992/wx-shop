@@ -99,7 +99,7 @@ Component({
                 }
                 const sceneValue = Object.keys(scene).map(k => (k) + '=' + (scene[k])).join('&');
 
-                const { code: sceneKey } = await api.hei.setSenceKey({
+                const { code: sceneKey } = await api.hei.getSenceKey({
                     params: sceneValue
                 });
                 const data = await api.hei.getShopQrcode({

@@ -188,9 +188,8 @@ Page({
         this.loadProductDetailExtra(id);
         this.setData({ pendingGrouponId: '' });
         try {
-            const { luckydraw_round = '' } = this.data;
+            let { posterType, luckydraw, luckydraw_round = '' } = this.data;
             const data = await api.hei.fetchProduct({ id, luckydraw_round });
-            let { posterType, luckydraw } = this.data;
             const { config, product, share_title, share_image } = data;
             this.config = config;
             this.product = product;
@@ -211,14 +210,20 @@ Page({
             if (product.luckydraw_enable) {
                 posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
-                const { activity, batch = {}} = luckydraw;
+                const { activity, batch } = luckydraw;
                 activity.lucky_rate = Math.floor(Number(activity.lucky_rate) / 100); // 计算中奖概率
+                let now_time = Math.round(Date.now() / 1000),
+                		timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
+                // 有batch则表示是拼团抢购
+                if (batch) {
+                    luckydraw_round = batch.round;
+                    batch.progress = Math.floor((batch.current / batch.total) * 100);
+                }
 
-                let now_time = Math.round(Date.now() / 1000);
-                let timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
                 this.setData({
+                    luckydraw,
                     timeLimit,
-                    luckydraw_round: batch.round
+                    luckydraw_round
                 });
 
             }
@@ -1342,6 +1347,34 @@ Page({
                     });
                 }
             }
+        });
+    },
+    // 上一期
+    preRound() {
+        let { luckydraw_round } = this.data;
+        this.setData({
+            luckydraw_round: --luckydraw_round
+        }, () => {
+            this.initPage();
+        });
+    },
+    // 下一期
+    nextRound() {
+        let { luckydraw_round, luckydraw } = this.data;
+        if (luckydraw_round < luckydraw.activity.current_quantity + 1) {
+            this.setData({
+                luckydraw_round: ++luckydraw_round
+            }, () => {
+                this.initPage();
+            });
+        }
+    },
+    newRound() {
+        let { luckydraw } = this.data;
+        this.setData({
+            luckydraw_round: luckydraw.activity.current_quantity + 1
+        }, () => {
+            this.initPage();
         });
     }
     // 拼团抢购的逻辑 ---------end

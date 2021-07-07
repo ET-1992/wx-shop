@@ -164,7 +164,7 @@
             <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
               <view class="time-section end">已结束</view>
             </block>
-            
+
             <block wx:else>
               <view class="time-section">
                 <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
@@ -172,7 +172,7 @@
                 <view class="quantity" wx:if="{{ lotteryQuota - user_participate_count < 3 }}">
                   剩余{{ quantity }}件
                 </view>
-                
+
                 <view class="time-limit" wx:else>
                   <block wx:if="{{ remainTime.day > 0 }}">
                     <view class="hour">{{ remainTime.day }}</view>
@@ -190,6 +190,7 @@
             </block>
           </view>
         </block>
+
         <!-- 拼团抢购的banner模板 -->
         <block wx:if="{{product.luckydraw.activity.draw_type === '2'}}">
           <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 || (product.luckydraw.activity.status === 2 && product.luckydraw.batch.status === 2 )  }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
@@ -210,14 +211,14 @@
             <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
               <view class="time-section end">已结束</view>
             </block>
-            
+
             <block wx:else>
               <view class="time-section">
                 <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
                 <view class="is-draw" wx:if="{{ product.luckydraw.batch.status === 2 }}">
                   已开奖
                 </view>
-                
+
                 <view class="time-limit" wx:else>
                   <block wx:if="{{ remainTime.day > 0 }}">
                     <view class="hour">{{ remainTime.day }}</view>

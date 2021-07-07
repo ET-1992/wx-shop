@@ -1,0 +1,65 @@
+.container {
+	.main-content{
+		.records{
+			.record {
+				background-color: #fff;
+				margin-top: 10rpx;
+				padding: 20rpx 20rpx 16rpx;
+				box-shadow: 0 0 1rpx rgba(0, 0, 0, 0.16);
+
+				.item {
+					display: flex;
+					padding: 20rpx 0;
+
+					.itemImage {
+						$size: 140rpx;
+						width: $size;
+						height: $size;
+						flex-shrink: 0;
+						margin-right: 15rpx;
+					}
+
+					.itemInfo {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						width: 100%;
+						padding-right: 30rpx;
+
+						.itemTitle {
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+								text-overflow: ellipsis;
+							font-size: 28rpx;
+							font-weight: normal;
+							color: #000000;
+							line-height:32rpx;
+							display: flex;
+							justify-content: space-between;
+							.title {
+								width: 450rpx;
+							}
+						}
+
+						.itemPirceInfo {
+							display: flex;
+							justify-content: space-between;
+							color: #000000;
+							height: 38rpx;
+							line-height: 38rpx;
+							.price{
+								font-size: 28rpx;
+							}
+							.number{
+								font-size: 27rpx;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
