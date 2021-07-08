@@ -189,9 +189,9 @@ video {
 		margin-top: 20rpx;
 		display: flex;
     align-items: center;
+		justify-content: space-between;
 		.progress{
 			width: 520rpx;
-			margin: 0 20rpx;
 		}
 	}
 	.meta {

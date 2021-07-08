@@ -14,19 +14,40 @@
           <view class="itemInfo">
             <view class="itemTitle">
               <view class="title">
+                <text wx:if="{{ item.draw_type === 2 }}">{{ '[第' + item.batch.round + '期]' }}</text>
                 {{ item.activity_title }}
               </view>
             </view>
             <view class="itemPirceInfo">
-              <view class="price">拼购价{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}起</view>
+              <view class="price">{{ item.draw_type === 2 ? '拼购价': '抢购价'}}<text class="txt">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}起</text></view>
               <view class="status">
-                  222
+                  <text wx:if="{{ item.status === 1 }}" >已参加，等待成团</text>
+                  <text wx:elif="{{ item.status === 2 }}">{{ item.draw_type === 2 ? '已拼中，去购买' : '已抢中，去购买' }}</text>
+                  <text wx:elif="{{ item.status === 4 }}">已兑奖</text>
+                  <text wx:elif="{{ item.status === 3 }}" class="fail">{{ item.draw_type === 2 ? '已成团，未拼中' : '未抢到' }}</text>
+                  <text wx:elif="{{ item.status === 6 }}" class="fail">放弃兑奖</text>
+                  <text wx:else class="fail">已过期</text>
               </view>
             </view>
           </view>
+
+        </view>
+        <!-- 进度 -->
+        <view class="draw-progress" wx:if="{{ item.status === 1 }}">
+          拼购进度
+          <van-progress custom-class="progress" percentage="{{ parse.computedProgress(item.batch.current,item.batch.total) || 0 }}" show-pivot="{{false}}" stroke-width="8" color="#FF7C39"/>
+          {{ item.batch.current }}/{{ item.batch.total }}
         </view>
       </view>
     </view>
-
   </view>
 </view>
+
+<wxs module="parse">
+  var computedProgress = function(current,total){
+    return Math.floor((current / total) * 100)
+  };
+  module.exports = {
+      computedProgress:computedProgress
+  };
+</wxs>

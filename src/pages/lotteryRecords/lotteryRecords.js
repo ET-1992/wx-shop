@@ -4,6 +4,7 @@ Page({
     data: {
         next_cursor: 0,
         recordType: 0,
+        globalData: app.globalData,
         themeColor: app.globalData.themeColor,
         drawRecords: []
     },

@@ -35,7 +35,7 @@
 								text-overflow: ellipsis;
 							font-size: 28rpx;
 							font-weight: normal;
-							color: #000000;
+							color: #333333;
 							line-height:32rpx;
 							display: flex;
 							justify-content: space-between;
@@ -47,16 +47,34 @@
 						.itemPirceInfo {
 							display: flex;
 							justify-content: space-between;
-							color: #000000;
+							color: #333333;
 							height: 38rpx;
 							line-height: 38rpx;
+							font-size: 28rpx;
 							.price{
-								font-size: 28rpx;
+								.txt{
+									color: #FF5500;
+									margin-left: 10rpx;
+								}
 							}
-							.number{
-								font-size: 27rpx;
+							.status{
+								color: #FF5500;
+								.fail{
+									color: #707070;
+								}
 							}
 						}
+					}
+
+				}
+				.draw-progress{
+					font-size: 24rpx;
+					margin-top: 20rpx;
+					display: flex;
+					align-items: center;
+					.progress{
+						width: 520rpx;
+						margin: 0 20rpx;
 					}
 				}
 			}
