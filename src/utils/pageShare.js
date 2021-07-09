@@ -227,7 +227,6 @@ export const wxPay = async (options = {}, order_no, subKeys = []) => {
                 content: '请尽快完成付款',
                 showCancel: false,
             });
-            return { isCancel: true };
         }
         else {
             await showModal({
@@ -235,8 +234,8 @@ export const wxPay = async (options = {}, order_no, subKeys = []) => {
                 content: '网络错误，请稍后重试',
                 showCancel: false,
             });
-            throw err;
         }
+        throw err;
     }
     // wx.redirectTo({
     // 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`

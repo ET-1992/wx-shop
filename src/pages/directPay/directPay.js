@@ -45,21 +45,22 @@ Page({
             const amount = Math.floor(new Decimal(money).mul(100));
             const { order_no, pay_sign } = await api.hei.payDirect({ vendor, amount }, { ...queryData });
 
-            if (config.cashier_enable) {
-                wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${order_no}&from_page=directPay` });
-                return;
-            }
+            // if (config.cashier_enable) {
+            //     wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${order_no}&from_page=directPay` });
+            //     return;
+            // }
 
             if (pay_sign) {
                 await wxPay(pay_sign, order_no);
                 wx.redirectTo({ url: `/pages/directPayResult/directPayResult?order_no=${order_no}` });
             }
         } catch (err) {
-            wx.showModal({
-                title: '温馨提示',
-                content: err.errMsg,
-                showCancel: false,
-            });
+            console.log(err);
+            // wx.showModal({
+            //     title: '温馨提示',
+            //     content: err.errMsg,
+            //     showCancel: false,
+            // });
         }
     },
 });
