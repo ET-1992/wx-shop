@@ -41,7 +41,7 @@
                   <text>{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</text>
                 </view>
                 <van-icon name="/icons/question.svg" size="36rpx" catch:tap="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" />
-                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" catch:change="onUpdateQuantity" catch:tap="noop" max="{{ item.quota }}" />
+                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}" data-cart-id="{{ item.cart_item_id }}" catch:change="onUpdateQuantity" catch:tap="noop" max="{{ item.quota ? item.quota : 999999 }}" />
                 <view style="display: flex; align-items: center" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
                   <van-icon class="van-delete" name="delete" size="20px"/>
                 </view>
