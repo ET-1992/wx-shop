@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="750" height="100" viewBox="0 0 750 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 32px;
+        font-family: Alibaba-PuHuiTi-H, Alibaba PuHuiTi;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.056" y1="0.568" x2="0.961" y2="0.578" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffc75a"/>
+      <stop offset="1" stop-color="#ff7c39"/>
+    </linearGradient>
+  </defs>
+  <g id="组_4961" data-name="组 4961" transform="translate(0 -831)">
+    <rect id="矩形_1961" data-name="矩形 1961" class="cls-1" width="750" height="100" transform="translate(0 831)"/>
+    <text id="拼团_抢购" data-name="拼团
+抢购" class="cls-2" transform="translate(25 876)"><tspan x="0" y="0">拼团</tspan><tspan x="0" y="35">抢购</tspan></text>
+    <path id="路径_6838" data-name="路径 6838" class="cls-3" d="M3078.891,911.869v60" transform="translate(-2965 -60)"/>
+  </g>
+</svg>

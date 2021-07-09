@@ -448,20 +448,15 @@ video {
 		display: flex;
 		flex-wrap: wrap;
 		.item{
-			width: 80rpx;
-			height: 38rpx;
+			padding: 4rpx 10rpx;
 			text-align: center;
 			line-height: 38rpx;
 			background-color: rgba(255, 85, 0, 0.1);
 			border-radius: 4rpx;
 			font-size: 24rpx;
 			color: #FF5500;
-			margin-left: 20rpx;
+			margin-right: 12rpx;
 			margin-top: 20rpx;
-
-			&:nth-child(7n+1){
-				margin-left: 0;
-			}
 		}
 	}
 }
@@ -479,8 +474,7 @@ video {
 		align-items: center;
 		font-weight: bold;
 		.code{
-				width: 80rpx;
-				height: 38rpx;
+				padding: 4rpx 10rpx;
 				text-align: center;
 				line-height: 38rpx;
 				background-color: rgba(255, 85, 0, 0.1);
@@ -638,10 +632,9 @@ button {
 // 抢购玩法
 .luckydraw-play{
 	background-color: #fff;
-	height: 70rpx;
   display: flex;
   align-items: center;
-  padding: 0 39rpx 0 31rpx;
+  padding: 12rpx 39rpx 12rpx 31rpx;
 	font-size: 26rpx;
 	.rule-text{
 		width: 580rpx;

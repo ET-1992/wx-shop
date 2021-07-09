@@ -59,12 +59,8 @@
 
           <!-- 抢购活动的信息 -->
           <view class="luckydraw-info" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}">
-            <view>成功率约<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text></view>
             <view>
-              |{{ luckydraw.activity.quota == 0 ? '不限次数' : '每人限参与' + luckydraw.activity.quota + '次' }}
-            </view>
-            <view wx:if="{{ luckydraw.activity.coins }}">
-              |{{ luckydraw.activity.consume_type === '1' ? '保证金' : '消耗' }}{{ luckydraw.activity.coins }}金币
+              成功率约<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text> | {{ luckydraw.activity.quota ? '每人限参与' + luckydraw.activity.quota + '次' : '不限次数' }} | {{ luckydraw.activity.coins + '金币/次' }}
             </view>
           </view>
 
@@ -351,7 +347,7 @@
         <navigator class="luckydraw-play" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}" url="/pages/rulePages/rulePages?key=luckydraw">
           <text>玩法</text>
           <view class="rule-text">
-            {{luckydraw.activity_explain}}
+            <text>{{luckydraw.activity_explain}}</text>
           </view>
         </navigator>
         <!-- 拼团玩法 -->
@@ -518,7 +514,7 @@
             </block>
             <!-- 进行中 未开奖-->
             <block wx:if="{{ luckydraw.batch.status === 1 }}">
-              <view class="buy" wx:if="{{ luckydraw.user_participate_count === luckydraw.activity.quota }}"  style="background-color: #D4D4D4;">抢购次数已用尽</view>
+              <view class="buy" wx:if="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}"  style="background-color: #D4D4D4;">抢购次数已用尽</view>
               <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="startGroupSale">马上参与</view>
             </block>
           </block>
@@ -544,7 +540,7 @@
               </view>
             </block>
             <!-- 抽奖次数用完 -->
-            <view class="buy" wx:elif="{{ luckydraw.user_participate_count === luckydraw.activity.quota }}" style="background-color: #D4D4D4;">
+            <view class="buy" wx:elif="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}" style="background-color: #D4D4D4;">
               抽奖次数已用尽
             </view>
             <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="startLottery">
@@ -688,9 +684,9 @@
     <view class="luckyTurntable-box">
       <!-- 提示语 -->
       <view class="tips">
-          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">很遗憾没抽中，再接再厉！</text>
-          <text wx:elif="{{ !showDefaultTips && resultOption && resultOption.key }}">{{ '恭喜你获得了'+ resultOption.name }}</text>
-          <text wx:else>点击转盘抽奖，获取购买机会</text>
+          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">很遗憾没抽中，再接再厉！+{{ resultOption.bonus }}</text>
+          <text wx:elif="{{ !showDefaultTips && resultOption && resultOption.key }}">恭喜你获得了产品抢购价</text>
+          <text wx:else>点击转盘抽奖，获取产品抢购价</text>
       </view>
 
       <!-- 转盘 -->

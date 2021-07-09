@@ -193,8 +193,8 @@
 
         <!-- 拼团抢购的banner模板 -->
         <block wx:if="{{product.luckydraw.activity.draw_type === '2'}}">
-          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 || (product.luckydraw.activity.status === 2 && product.luckydraw.batch.status === 2 )  }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
-          <image wx:else src="/icons/productDetail/luckydraw-buy.svg"/>
+          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 || (product.luckydraw.activity.status === 2 && product.luckydraw.batch.status === 2 )  }}" src="/icons/productDetail/luckydraw-buy-end1.svg" class="background-image"/>
+          <image wx:else src="/icons/productDetail/luckydraw-buy1.svg"/>
           <view class="price-area">
             <view class="price">
               抢购价

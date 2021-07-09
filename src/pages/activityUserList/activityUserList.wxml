@@ -6,7 +6,7 @@
 
       <view class="left-content">
         <view class="head-image">
-          <image class="img" src="{{ item.user.avatarurl }}"/>
+          <image class="img {{ item.status === 2 || item.status === 4 || item.status === 5 || item.status === 6  ? 'win-img' : ''}}" src="{{ item.user.avatarurl }}"/>
           <image wx:if="{{ item.status === 2 || item.status === 4 || item.status === 5 || item.status === 6 }}" class="win-icon" src="/icons/win.svg" />
         </view>
         <view class="name">

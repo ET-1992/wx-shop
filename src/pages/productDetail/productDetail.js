@@ -211,7 +211,7 @@ Page({
                 posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
                 const { activity, batch } = luckydraw;
-                activity.lucky_rate = Math.floor(Number(activity.lucky_rate) / 100); // 计算中奖概率
+                activity.lucky_rate = (Number(activity.lucky_rate) / 100).toFixed(2); // 计算中奖概率
                 let now_time = Math.round(Date.now() / 1000),
                 		timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
                 // 有batch则表示是拼团抢购
@@ -1247,21 +1247,7 @@ Page({
     // 抢购活动的逻辑 -----start
     // 开始抽奖
     startLottery() {
-        const { luckydraw: { activity }} = this.data;
-        const { coins, consume_type } = activity;
-        if (coins) {
-            wx.showModal({
-                title: '温馨提示',
-                content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
-                success: (res) => {
-                    if (res.confirm) {
-                        this.showTurntablePopup();
-                    }
-                }
-            });
-        } else {
-            this.showTurntablePopup();
-        }
+        this.showTurntablePopup();
     },
     // 开启抽奖弹窗
     async showTurntablePopup() {
@@ -1300,7 +1286,8 @@ Page({
         const resultOption = lottery_options.find((item) => {
             return item.key === result;
         });
-
+        // 失败奖励金额
+        resultOption.bonus = record.bonus;
         this.setData({
             resultOption,
             luckydraw,
@@ -1310,11 +1297,12 @@ Page({
         });
     },
     // 放弃购买
-    abandonBuy() {
-        const { luckydraw: { win_record: { id }}} = this.data;
+    async abandonBuy() {
+        const { luckydraw: { win_record: { id }, activity }} = this.data;
+        const { coins } = activity;
         wx.showModal({
             title: '提示',
-            content: '确认放弃购买机会吗？',
+            content: `确认放弃购买机会吗？你消耗了${coins}金币`,
             success: async (res) => {
                 if (res.confirm) {
                     await api.hei.cancelBuy({ record_id: id });
@@ -1332,21 +1320,13 @@ Page({
     // 拼团抢购的逻辑 ---------start
 
     // 参与抢购
-    startGroupSale() {
-        const { luckydraw, luckydraw: { activity }} = this.data;
-        const { id: activity_id, consume_type, coins } = activity;
-        wx.showModal({
-            title: '温馨提示',
-            content: `本次抽奖将会${consume_type === '1' ? '冻结' : '扣除'}${coins}金币，中奖后放弃不退回保证金`,
-            success: async (res) => {
-                if (res.confirm) {
-                    await api.hei.startLottery({ activity_id });
-                    this.initPage();
-                    wx.showToast({
-                        title: '参加成功'
-                    });
-                }
-            }
+    async startGroupSale() {
+        const { luckydraw: { activity }} = this.data;
+        const { id: activity_id } = activity;
+        await api.hei.startLottery({ activity_id });
+        this.initPage();
+        wx.showToast({
+            title: '参加成功'
         });
     },
     // 上一期
