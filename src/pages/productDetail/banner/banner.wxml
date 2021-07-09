@@ -168,8 +168,8 @@
             <block wx:else>
               <view class="time-section">
                 <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
-                <!-- 抽奖剩余次数小于3次则显示剩余的件数 -->
-                <view class="quantity" wx:if="{{ lotteryQuota - user_participate_count < 3 }}">
+
+                <view class="quantity" wx:if="{{ product.luckydraw.activity.quantity < product.luckydraw.setting.threshold }}">
                   剩余{{ quantity }}件
                 </view>
 

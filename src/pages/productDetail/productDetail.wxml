@@ -60,7 +60,12 @@
           <!-- 抢购活动的信息 -->
           <view class="luckydraw-info" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}">
             <view>
-              成功率约<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text> | {{ luckydraw.activity.quota ? '每人限参与' + luckydraw.activity.quota + '次' : '不限次数' }} | {{ luckydraw.activity.coins + '金币/次' }}
+              成功率约<text class="lucky-rate" style="color: {{ luckydraw.setting.colors.rate_text_color }};">{{ luckydraw.activity.lucky_rate }}%</text>
+              <block wx:if="{{ luckydraw.activity.quota }}">
+                | 每人限参与<text style="color: {{ luckydraw.setting.colors.quote_text_color }};">{{ luckydraw.activity.quota }}</text>次
+              </block>
+              <block wx:else>| 不限次数</block>
+              | {{ luckydraw.activity.coins + '金币/次' }}
             </view>
           </view>
 
@@ -346,7 +351,7 @@
         <!-- 抢购玩法 -->
         <navigator class="luckydraw-play" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}" url="/pages/rulePages/rulePages?key=luckydraw">
           <text>玩法</text>
-          <view class="rule-text">
+          <view class="rule-text" style="color: {{ luckydraw.setting.colors.activity_explain_color }}">
             <text>{{luckydraw.activity_explain}}</text>
           </view>
         </navigator>
