@@ -184,9 +184,9 @@ Page({
     },
 
     async initPage() {
-        const { id, grouponId, round } = this.options;
+        const { id, grouponId } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({ pendingGrouponId: '', luckydraw_round: round });
+        this.setData({ pendingGrouponId: '' });
         try {
             let { posterType, luckydraw, luckydraw_round = '' } = this.data;
             const data = await api.hei.fetchProduct({ id, luckydraw_round });
@@ -346,7 +346,7 @@ Page({
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
         // 抢购活动 分享用户绑定
-        const { activity_id, share_code } = query;
+        const { activity_id, share_code, round } = query;
         console.log('抢购活动绑定');
         if (activity_id && share_code && String(user.platform_user_id) !== share_code) {
             await api.hei.luckydrawShareBind({ activity_id, share_code });
@@ -368,6 +368,7 @@ Page({
             globalData: app.globalData,
             config,
             tplStyle,
+            luckydraw_round: round
         });
         // 多门店阻塞默认请求
         !offline_store_enable && this.initPage();
@@ -1289,7 +1290,7 @@ Page({
         // 奖励金额
         resultOption.bonus = record.bonus;
         // 抽奖失败的提示语
-        const { luckydraw_failed_tips } = luckydraw.setting;
+        const { luckydraw_failed_tips = [] } = luckydraw.setting;
         const failText = luckydraw_failed_tips[Math.floor((Math.random() * luckydraw_failed_tips.length))];
         this.setData({
             resultOption,
@@ -1306,7 +1307,7 @@ Page({
         const { coins } = activity;
         wx.showModal({
             title: '提示',
-            content: `确认放弃购买机会吗？你消耗了${coins}金币`,
+            content: `确认放弃购买机会吗？${activity.consume_type === '1' ? '您将扣除' + coins + '金币' : ''}`,
             success: async (res) => {
                 if (res.confirm) {
                     await api.hei.cancelBuy({ record_id: id });
