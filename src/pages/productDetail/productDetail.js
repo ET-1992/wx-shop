@@ -184,9 +184,9 @@ Page({
     },
 
     async initPage() {
-        const { id, grouponId } = this.options;
+        const { id, grouponId, round } = this.options;
         this.loadProductDetailExtra(id);
-        this.setData({ pendingGrouponId: '' });
+        this.setData({ pendingGrouponId: '', luckydraw_round: round });
         try {
             let { posterType, luckydraw, luckydraw_round = '' } = this.data;
             const data = await api.hei.fetchProduct({ id, luckydraw_round });
@@ -1286,14 +1286,18 @@ Page({
         const resultOption = lottery_options.find((item) => {
             return item.key === result;
         });
-        // 失败奖励金额
+        // 奖励金额
         resultOption.bonus = record.bonus;
+        // 抽奖失败的提示语
+        const { luckydraw_failed_tips } = luckydraw.setting;
+        const failText = luckydraw_failed_tips[Math.floor((Math.random() * luckydraw_failed_tips.length))];
         this.setData({
             resultOption,
             luckydraw,
             product, // 更新下product中的luckydraw 海报那里用到
             showBtnList: true,
-            showDefaultTips: false
+            showDefaultTips: false,
+            failText
         });
     },
     // 放弃购买

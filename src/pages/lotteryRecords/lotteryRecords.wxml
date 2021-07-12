@@ -1,6 +1,5 @@
 <view class="container">
-	<van-tabs active="{{ recordType }}"  line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList">
-    <van-tab title="全部" name="0"></van-tab>
+	<van-tabs active="{{ recordType }}"  line-width="60" color="{{ themeColor.primaryColor }}" bind:change="changeNavbarList" sticky="{{ true }}">
     <van-tab title="全民抢购" name="1"></van-tab>
     <van-tab title="拼团抢购" name="2"></van-tab>
   </van-tabs>
@@ -8,7 +7,7 @@
   <view class="main-content">
 
     <view class="records">
-      <view class="record" wx:for="{{ drawRecords }}" wx:key="id">
+      <navigator class="record" wx:for="{{ drawRecords }}" wx:key="id" url="{{ '/pages/productDetail/productDetail?id='+ item.post_id + '&&round=' + item.batch.round }}">
         <view class="item">
           <image class="itemImage" src="{{ item.activity_image }}" mode="aspectFill" />
           <view class="itemInfo">
@@ -26,7 +25,7 @@
                   <text wx:elif="{{ item.status === 4 }}">已兑奖</text>
                   <text wx:elif="{{ item.status === 3 }}" class="fail">{{ item.draw_type === 2 ? '已成团，未拼中' : '未抢到' }}</text>
                   <text wx:elif="{{ item.status === 6 }}" class="fail">放弃兑奖</text>
-                  <text wx:else class="fail">已过期</text>
+                  <text wx:else class="fail">已开奖</text>
               </view>
             </view>
           </view>
@@ -38,7 +37,7 @@
           <van-progress custom-class="progress" percentage="{{ parse.computedProgress(item.batch.current,item.batch.total) || 0 }}" show-pivot="{{false}}" stroke-width="8" color="#FF7C39"/>
           {{ item.batch.current }}/{{ item.batch.total }}
         </view>
-      </view>
+      </navigator>
     </view>
   </view>
 </view>

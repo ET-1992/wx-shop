@@ -188,7 +188,7 @@
                 </view>
             </view>
             <view class="user-count">
-                共有{{ luckydraw.participants_count }}人参与了活动
+                {{ luckydraw.participants_count }}人想要购买
             </view>
           </view>
           <!-- 右区域 -->
@@ -695,7 +695,7 @@
     <view class="luckyTurntable-box">
       <!-- 提示语 -->
       <view class="tips">
-          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">很遗憾没抽中，再接再厉！+{{ resultOption.bonus }}</text>
+          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">{{ failText + ' +' + resultOption.bonus }}</text>
           <text wx:elif="{{ !showDefaultTips && resultOption && resultOption.key }}">恭喜你获得了产品抢购价</text>
           <text wx:else>点击转盘抽奖，获取产品抢购价</text>
       </view>

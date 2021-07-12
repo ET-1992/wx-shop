@@ -11,11 +11,14 @@
         </view>
         <view class="name">
           {{ item.user.nickname }}
+          <view class="time" hover-class="none">
+            {{ WXS.formatTime(item.time * 1000) }}
+          </view>
         </view>
       </view>
 
       <view class="right-content">
-        {{ WXS.formatTime(item.time * 1000) }}
+        +{{ item.bonus }}
       </view>
     </view>
 

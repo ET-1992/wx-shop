@@ -2,8 +2,8 @@ import api from 'utils/api';
 const app = getApp();
 Page({
     data: {
-        next_cursor: 0,
-        recordType: 0,
+        current_paged: 1,
+        recordType: 1,
         globalData: app.globalData,
         themeColor: app.globalData.themeColor,
         drawRecords: []
@@ -13,17 +13,18 @@ Page({
         this.getRecords();
     },
     async getRecords() {
-        let { next_cursor: cursor, recordType: draw_type, drawRecords } = this.data;
-        const { next_cursor, records } = await api.hei.fetchLuckydrawRecords({
-            cursor,
+        let { current_paged, recordType: draw_type, drawRecords } = this.data;
+        const { total_paged, records } = await api.hei.fetchLuckydrawRecords({
+            paged: current_paged,
             draw_type
         });
         if (records.length > 0) {
             drawRecords = drawRecords.concat(records);
         }
         this.setData({
-            next_cursor,
-            drawRecords
+            current_paged: ++current_paged,
+            drawRecords,
+            total_paged
         });
     },
     // 改变导航标签
@@ -31,14 +32,14 @@ Page({
         const { name: recordType } = e.detail;
         this.setData({
             recordType,
-            next_cursor: 0,
+            current_paged: 1,
             drawRecords: []
         });
         this.getRecords();
     },
     onReachBottom() {
-        const { next_cursor } = this.data;
-        if (!next_cursor) {
+        const { current_paged, total_paged } = this.data;
+        if (current_paged > total_paged) {
             return;
         }
         this.getRecords();

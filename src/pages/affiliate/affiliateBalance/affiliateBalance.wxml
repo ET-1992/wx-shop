@@ -5,9 +5,9 @@
         <view>{{ item.type_name }}</view>
         <view class="time">{{ item.formatTime }}</view>
       </view>
-      <view class="coinNum decreaseNum">
+      <view class="coinNum">
         <view class="price" wx:if="{{ item.income }}">+ {{ item.income }} 元</view>
-        <view class="price" wx:if="{{ item.expense }}">- {{ item.expense }} 元</view>
+        <view class="price coinNum" wx:if="{{ item.expense }}">- {{ item.expense }} 元</view>
         <view class="price" wx:if="{{ !item.expense && !item.income }}">{{ item.income }} 元</view>
         <!-- <view class="balance">余额: {{ item.balance }} 元</view> -->
       </view>
