@@ -216,7 +216,7 @@
             </view>
           </view>
           <!-- 抢购活动 拼购号码 -->
-          <view class="draw-code" wx:if="{{ product.luckydraw_enable && luckydraw.codes.length }}">
+          <view class="draw-code" wx:if="{{ product.luckydraw_enable && luckydraw.codes.length && !luckydraw.setting.hide_result }}">
             <view>您的抢购号码：</view>
             <view class="code-list">
                 <view class="item" wx:for="{{ luckydraw.codes }}" wx:key="index">
@@ -227,8 +227,14 @@
           <!-- 本期开奖结果 -->
           <navigator class="draw-result"  wx:if="{{ product.luckydraw_enable && luckydraw.batch.win_code }}" url="{{ '/pages/lotteryResults/lotteryResults?serial_no='+luckydraw.batch.serial_no }}">
             <view class="tips">
-              本期拼购号码：
-              <view class="code">{{ luckydraw.batch.win_code }}</view>
+              <block wx:if="{{ !luckydraw.setting.hide_result }}">
+                本期拼购号码：
+                <view class="code">{{ luckydraw.batch.win_code }}</view>
+              </block>
+              <block wx:else>
+                本期拼购获得者：
+                <image class="head-img" src="{{ luckydraw.winner.avatarurl }}" />
+              </block>
             </view>
             <view class="result">
               {{ luckydraw.batch.user_is_win ? '恭喜您拼中了' : '很遗憾您没拼中' }}

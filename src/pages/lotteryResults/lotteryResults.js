@@ -13,12 +13,13 @@ Page({
         });
     },
     async getLotteryResults(serial_no) {
-        const { seeds, batch, sum, remainder } = await api.hei.fetchLuckydrawResult({ serial_no });
+        const { seeds, batch, sum, remainder, setting } = await api.hei.fetchLuckydrawResult({ serial_no });
         let result = {
             seeds,
             batch,
             sum,
-            remainder
+            remainder,
+            setting
         };
         return result;
     }

@@ -45,10 +45,11 @@ page{
 	.records{
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: space-between;
 		margin-top: 50rpx;
 		.item{
 			font-size: 26rpx;
-			padding: 20rpx 16rpx;
+			padding: 20rpx 0rpx;
 			border-bottom: 1px solid #E0E0E0;
 			&:nth-last-of-type(-n+2){
 				border:none

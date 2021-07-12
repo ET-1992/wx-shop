@@ -8,7 +8,7 @@
     </view>
   </view>
 
-  <view class="result">
+  <view class="result" wx:if="{{ !result.setting.hide_result }}">
     <view class="title" >
       <text>截止获得时间【{{ result.seeds[result.seeds.length-1].format }}】</text>
       <text>最后{{ result.seeds.length }}条全站购买时间记录</text>
