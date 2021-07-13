@@ -1326,13 +1326,22 @@ Page({
 
     // 参与抢购
     async startGroupSale() {
+
         const { luckydraw: { activity }} = this.data;
         const { id: activity_id } = activity;
+        this.setData({
+            isGroupSalePeading: true
+        });
         await api.hei.startLottery({ activity_id });
         this.initPage();
         wx.showToast({
             title: '参加成功'
         });
+        setTimeout(() => {
+            this.setData({
+                isGroupSalePeading: false
+            });
+        }, 500);
     },
     // 上一期
     preRound() {
