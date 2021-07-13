@@ -11,11 +11,11 @@ Component({
                 let { luckydraw } = newVal;
 
                 // 兼容秒杀时间戳
-                let { expired_time } = luckydraw.activity;
+                let { expired_time, status } = luckydraw.activity;
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = expired_time - now;
                 let { hasStart, hasEnd } = this.data;
-                if (timeLimit > 0) {
+                if (status === 2) {
                     hasStart = true;
                     hasEnd = false;
                 } else {

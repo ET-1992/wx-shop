@@ -9,7 +9,6 @@
         <view class="timeLimit">
             <view class="limitWrapper">
                 <view wx:if="{{ hasStart && !hasEnd }}">距结束</view>
-                <view wx:if="{{ !hasStart }}">距开始</view>
                 <view wx:if="{{ hasEnd }}">已结束</view>
             </view>
             <block wx:if="{{ !hasEnd && remainTime.day > 0 }}">
