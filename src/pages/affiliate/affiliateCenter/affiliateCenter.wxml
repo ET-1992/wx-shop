@@ -3,25 +3,34 @@
 <view class="container" wx:if="{{ !isLoading }}" >
 	<!-- 个人信息 -->
 	<view class="user" style="background-color: {{ config.customize_style && config.customize_style.background_color }}">
-		<view class="userHead">
-			<image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
-		</view>
-		<view class="userBody">
-			<view class="userData">
-				<view class="userName">{{ user.affiliate_share_name}}</view>
-				<view class="editUserNameIcon" bindtap="editUserName">
-					<image class="editIcon" mode="aspectFit" src="/icons/affiliateCenter/edit.svg"></image>
-				</view>
-			</view>
-			<view class="recommend">
-				<text class="recommendKey">推荐人</text>
-				<view class="recommendValue" wx:if="{{ member.referrer_name }}">
-					<image class="recommendAvatar" mode="aspectFit" src="{{ member.referrer_avatarurl ? member.referrer_avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
-					<text class="recommendName">{{ member.referrer_name }}</text>
-				</view>
-				<view class="recommendNo" wx:if="{{ !member.referrer_name }}">无</view>
-			</view>
-		</view>
+    <view class="user-left-area">
+      <view class="userHead">
+        <image class="userAvatar" mode="aspectFit" src="{{ user.avatarurl ? user.avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
+      </view>
+      <view class="userBody">
+        <view class="userData">
+          <view class="userName">{{ user.affiliate_share_name}}</view>
+          <view class="editUserNameIcon" bindtap="editUserName">
+            <image class="editIcon" mode="aspectFit" src="/icons/affiliateCenter/edit.svg"></image>
+          </view>
+        </view>
+        <view class="recommend">
+          <text class="recommendKey">推荐人</text>
+          <view class="recommendValue" wx:if="{{ member.referrer_name }}">
+            <image class="recommendAvatar" mode="aspectFit" src="{{ member.referrer_avatarurl ? member.referrer_avatarurl : '/icons/affiliateCenter/unlogin.png' }}"></image>
+            <text class="recommendName">{{ member.referrer_name }}</text>
+          </view>
+          <view class="recommendNo" wx:if="{{ !member.referrer_name }}">无</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="user-right-area">
+      <navigator class="btn" url="/pages/affiliate/affiliateRevenueRank/affiliateRevenueRank">
+        <image class="btnIcon" mode="aspectFit" src="/icons/affiliateCenter/crown.svg"></image>
+        收益排行
+      </navigator>
+    </view>
 	</view>
 
 	<!-- 收益相关 -->
@@ -59,10 +68,10 @@
 				</view>
 			</view>
 			<view class="monneyTake">
-				<view class="monneyTakeView">
+				<navigator class="monneyTakeView" url="/pages/affiliate/affiliateBalance/affiliateBalance">
 					<text class="takeViewNum">{{ wallet.affiliate_balance || 0 }}</text>
 					<text class="takeViewText">可提现余额(元）</text>
-				</view>
+				</navigator>
 				<button class="monney-take-btn" bindtap="go" data-url="/pages/affiliate/affiliateMoney/affiliateMoney?balance={{wallet.affiliate_balance}}&income_pending={{wallet.affiliate_income_pending}}&code={{member.code}}">去提现</button>
 			</view>
 		</view>
@@ -72,36 +81,36 @@
 		<!-- 浏览用户、购买用户、分享家、关联订单 -->
 		<view class="userInfoDisplay">
 			<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateVisitor/affiliateVisitor">
-				<text class="userInfoDisplay-num">{{ member.browse_count || 0 }}</text>	
-				<text class="userInfoDisplay-text">浏览用户</text>	
+				<text class="userInfoDisplay-num">{{ member.browse_count || 0 }}</text>
+				<text class="userInfoDisplay-text">浏览用户</text>
 			</navigator>
 			<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=2">
-				<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>	
-				<text class="userInfoDisplay-text">购买用户</text>	
+				<text class="userInfoDisplay-num">{{ member.customer_count || 0 }}</text>
+				<text class="userInfoDisplay-text">购买用户</text>
 			</navigator>
 			<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateList/affiliateList?user_type=1">
-				<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>	
-				<text class="userInfoDisplay-text">分享家</text>	
+				<text class="userInfoDisplay-num">{{ member.sub_member_count || 0 }}</text>
+				<text class="userInfoDisplay-text">分享家</text>
 			</navigator>
 			<navigator class="userInfoDisplay-item" url="/pages/affiliate/affiliateOrderList/affiliateOrderList">
-				<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>	
-				<text class="userInfoDisplay-text">关联订单</text>	
+				<text class="userInfoDisplay-num">{{ member.order_count || 0 }}</text>
+				<text class="userInfoDisplay-text">关联订单</text>
 			</navigator>
 		</view>
-	
+
 		<!-- 分享商品、推广海报和邀请好友 -->
 		<view class="footer" wx:if="{{ affiliate_enable }}">
 			<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliateProductList/affiliateProductList">
 				<image class="footer-img" src="/icons/affiliateCenter/shareProduct.svg"></image>
-				<text class="footer-text">分享商品</text>	
+				<text class="footer-text">分享商品</text>
 			</view>
 			<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=2">
-				<image class="footer-img" src="/icons/affiliateCenter/sharePoster.svg"></image>	
-				<text class="footer-text">推广海报</text>	
+				<image class="footer-img" src="/icons/affiliateCenter/sharePoster.svg"></image>
+				<text class="footer-text">推广海报</text>
 			</view>
 			<view class="footer-item" bindtap="go" data-url="/pages/affiliate/affiliatePoster/affiliatePoster?postertype=1">
-				<image class="footer-img" src="/icons/affiliateCenter/shareToFriend.svg"></image>	
-				<text class="footer-text">邀请好友</text>	
+				<image class="footer-img" src="/icons/affiliateCenter/shareToFriend.svg"></image>
+				<text class="footer-text">邀请好友</text>
 			</view>
 		</view>
 		<view class="closeFooter" wx:if="{{ !affiliate_enable }}">商家分享功能已下线</view>

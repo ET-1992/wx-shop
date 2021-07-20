@@ -905,5 +905,54 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
         contentType: 'json'
+    },
+    // 开始抽奖
+    startLottery: {
+        path: 'api/luckydraw/activity/participate.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 放弃购买
+    cancelBuy: {
+        path: 'api/luckydraw/record/cancel.json',
+        method: 'POST',
+        isForceToken: true
+    },
+    // 用户参与记录
+    activityUserList: {
+        path: 'api/luckydraw/activity/participants.json',
+        isForceToken: true,
+    },
+    // 抢购活动分享绑定
+    luckydrawShareBind: {
+        path: '	api/luckydraw/share/bind.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 余额明细
+    featchAffiliateBalance: {
+        path: 'api/affiliate/wallet/logs.json',
+        isForceToken: true,
+    },
+    // 拿sence换key
+    getSenceKey: {
+        path: 'api/tmpdata/set.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    // 拿key换sence
+    getSenceValue: {
+        path: 'api/tmpdata/get.json',
+        isForceToken: true,
+    },
+    // 获取开奖结果
+    fetchLuckydrawResult: {
+        path: 'api/luckydraw/results.json',
+        isForceToken: true,
+    },
+    // 获取抽奖记录
+    fetchLuckydrawRecords: {
+        path: 'api/luckydraw/records.json',
+        isForceToken: true
     }
 };

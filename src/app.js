@@ -100,6 +100,14 @@ App({
         }, 500);
     },
 
+    // async bindActivityShare(activity_id, user_id) {
+    //     setTimeout(() => {
+    //         console.log('抢购活动绑定');
+    //         api.hei.luckydrawShareBind({ share_code: user_id, activity_id }).then((res) => {
+    //             console.log(res);
+    //         });
+    //     }, 500);
+    // },
     // 获取多门店列表
     async updateStoreList() {
         setTimeout(() => {
@@ -141,6 +149,10 @@ App({
                 // 店铺过期验证
                 isExpired(config);
 
+                if (this.globalData.activity_id && this.globalData.share_code) {
+                    this.bindActivityShare(this.globalData.activity_id, this.globalData.share_code);
+                }
+                console.log(this.globalData.afcode);
                 if (!config.affiliate_bind_after_order && this.globalData.afcode) {
                     this.bindShare(this.globalData.afcode);
                 }

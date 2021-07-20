@@ -1,0 +1,54 @@
+page{
+	background-color: #fff;
+}
+
+.container {
+	.main-content {
+		margin: 8rpx 25rpx;
+		.account-list {
+			display: flex;
+			justify-content: space-between;
+			padding: 24rpx 0;
+			border-bottom: 1rpx solid #E0E0E0;
+			background: #FFF;
+			font-size: 28rpx;
+
+			.time {
+				font-size: 20rpx;
+				padding-top: 10rpx;
+				color: #707070;
+			}
+
+			.coinNum {
+				color: #F52D2D;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: flex-end;
+
+				.price {
+					font-weight: bold;
+					font-size: 28rpx;
+				}
+
+				.balance {
+					font-size: 20rpx;
+					color: #333;
+				}
+				.decreaseNum {
+					color: green;
+				}
+			}
+
+		}
+
+		.account-empty {
+			font-size: 28rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 45rpx 0;
+			color: #9fa0a0;
+		}
+	}
+}

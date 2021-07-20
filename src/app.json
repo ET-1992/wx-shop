@@ -71,7 +71,8 @@
 				"affiliatePoster/affiliatePoster",
 				"affiliateProductList/affiliateProductList",
 				"affiliateVisitor/affiliateVisitor",
-        		"affiliateRevenueRank/affiliateRevenueRank"
+				"affiliateRevenueRank/affiliateRevenueRank",
+				"affiliateBalance/affiliateBalance"
 			],
 			"name": "分销"
 		},
@@ -293,7 +294,7 @@
 					"version": "2.1.5",
 					"provider": "wx9ad912bf20548d92"
 				}
-			  }
+			}
 		},
 		{
 			"root": "pages/peanutPay/",
@@ -456,6 +457,27 @@
 				"formPage"
 			],
 			"name": "表单页"
+		},
+		{
+			"root": "pages/activityUserList",
+			"pages": [
+				"activityUserList"
+			],
+			"name": "活动用户列表"
+		},
+		{
+			"root": "pages/lotteryResults",
+			"pages": [
+				"lotteryResults"
+			],
+			"name": "开奖结果"
+		},
+    {
+			"root": "pages/lotteryRecords",
+			"pages": [
+				"lotteryRecords"
+			],
+			"name": "抽奖记录"
 		}
 	],
 	"permission": {

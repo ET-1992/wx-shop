@@ -4,7 +4,6 @@ import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
 import { autoNavigate, go, getUserProfile, auth, imgToHttps } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
-const WxParse = require('utils/wxParse/wxParse.js');
 const app = getApp();
 
 Page({
@@ -35,6 +34,7 @@ Page({
         isShowCouponList: false,
         isShowPostageRule: false,  // 展示邮费规则
         isShowImgTextModal: false, // 图文弹窗开关
+        isShowTurntablePopup: false, // 转盘弹窗
         selectedProperties: [],
         selectedSku: {},
         // skuSplitProperties: [],
@@ -73,7 +73,15 @@ Page({
         selectedOptions: {},  // 简约模式的规格内容/价格
         showBgColor: false,
         miaoShaStatus: 'notStart',
-        luckydraw: null // 抢购活动
+        luckydraw: null, // 抢购活动
+        lottery_options: [
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' },
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' },
+            { name: '谢谢参与', key: '' },
+            { name: '购买机会', key: 'win' }
+        ]
     },
 
     go,
@@ -113,7 +121,7 @@ Page({
             actions,
             isGrouponBuy,
             isCrowd,
-            isBargainBuy,
+            isBargainBuy
         });
     },
 
@@ -180,21 +188,14 @@ Page({
         this.loadProductDetailExtra(id);
         this.setData({ pendingGrouponId: '' });
         try {
-            const data = await api.hei.fetchProduct({ id });
-            let { posterType, luckydraw } = this.data;
+            let { posterType, luckydraw, luckydraw_round = '' } = this.data;
+            const data = await api.hei.fetchProduct({ id, luckydraw_round });
             const { config, product, share_title, share_image } = data;
             this.config = config;
             this.product = product;
             wx.setNavigationBarTitle({
                 title: this.data.magua === 'magua' ? '服务详情' : data.page_title
             });
-
-            WxParse.wxParse(
-                'contentList',
-                'html',
-                data.product.content,
-                this,
-            );
 
             if (product.miaosha_enable) {
                 posterType = 'miaosha';
@@ -207,7 +208,24 @@ Page({
             }
             // 抢购活动
             if (product.luckydraw_enable) {
+                posterType = 'luckydraw';
                 luckydraw = product.luckydraw;
+                const { activity, batch } = luckydraw;
+                activity.lucky_rate = (Number(activity.lucky_rate) / 100).toFixed(2); // 计算中奖概率
+                let now_time = Math.round(Date.now() / 1000),
+                		timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
+                // 有batch则表示是拼团抢购
+                if (batch) {
+                    luckydraw_round = batch.round;
+                    batch.progress = Math.floor((batch.current / batch.total) * 100);
+                }
+
+                this.setData({
+                    luckydraw,
+                    timeLimit,
+                    luckydraw_round
+                });
+
             }
             if (product.seckill_enable) {
                 // 秒杀初始化
@@ -245,7 +263,6 @@ Page({
 
             // 获取缓存地址的邮费信息
             const areaObj = this.getAddressInfo();
-
             this.setData({
                 share_title,
                 share_image,
@@ -322,12 +339,18 @@ Page({
         wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
     },
 
-    onLoad(query) {
+    async onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;
         // -----------------------
         const systemInfo = wx.getSystemInfoSync();
         const user = wx.getStorageSync(USER_KEY);
+        // 抢购活动 分享用户绑定
+        const { activity_id, share_code, round } = query;
+        console.log('抢购活动绑定');
+        if (activity_id && share_code && String(user.platform_user_id) !== share_code) {
+            await api.hei.luckydrawShareBind({ activity_id, share_code });
+        }
         // -------------------------  TODO
 
         const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
@@ -345,6 +368,7 @@ Page({
             globalData: app.globalData,
             config,
             tplStyle,
+            luckydraw_round: round
         });
         // 多门店阻塞默认请求
         !offline_store_enable && this.initPage();
@@ -359,6 +383,7 @@ Page({
         this.setData({
             multiStoreEnable,
         });
+        this.initPage();
     },
 
     onUnload() {
@@ -655,7 +680,13 @@ Page({
     },
     // 分享按钮
     onShareAppMessage() {
-        return onDefaultShareAppMessage.call(this, {}, '', { key: '/pages/home/home' });
+        const { current_user, luckydraw } = this.data;
+        const params = luckydraw ? { share_code: current_user.platform_user_id, activity_id: luckydraw.activity.id } : {};
+        return onDefaultShareAppMessage.call(
+            this,
+            params,
+            '',
+            { key: '/pages/home/home' });
     },
 
     // 分享按钮
@@ -870,8 +901,9 @@ Page({
                 groupon_member_limit,
                 bargain_enable,
                 bargain_price,
+                luckydraw_enable,
                 price,
-                highest_price
+                highest_price,
             }
         } = this.data;
         let posterData = {
@@ -915,6 +947,21 @@ Page({
                 title,
                 bargain_price,
                 price
+            };
+        }
+
+        if (luckydraw_enable) {
+            const { timeLimit, miaoShaStatus, luckydraw, current_user } = this.data;
+            posterData = {
+                id,
+                banner: thumbnail,
+                title,
+                price,
+                activity_price: luckydraw.activity.price,
+                timeLimit,
+                miaoShaStatus,
+                share_code: current_user.platform_user_id,
+                activity_id: luckydraw.activity.id
             };
         }
 
@@ -1173,7 +1220,6 @@ Page({
         let scrollEnable = !isFocused;
         this.setData({ scrollEnable });
     },
-
     // 计算模糊库存
     getDefineStcok() {
         const { product } = this.data;
@@ -1199,6 +1245,139 @@ Page({
             });
         }
 
-    }
+    },
+    // 抢购活动的逻辑 -----start
+    // 开始抽奖
+    startLottery() {
+        this.showTurntablePopup();
+    },
+    // 开启抽奖弹窗
+    async showTurntablePopup() {
+        await getUserProfile();
+        this.setData({
+            isShowTurntablePopup: true,
+            showDefaultTips: true, // 抽奖弹窗默认文字
+            showBtnList: false // 显示底部的按钮列表
+        });
+    },
+    // 关闭抽奖弹窗
+    onHideTurntablePopup() {
+        this.setData({
+            isShowTurntablePopup: false
+        });
+    },
+    // 转盘开始
+    getLotteryStart() {
+        this.setData({
+            showBtnList: false,
+            showDefaultTips: true
+        });
+    },
+    // 获取抽奖的结果
+    // 逻辑：抽奖次数+1 ， 根据中奖显示页面
+    getLotteryResult(e) {
+        const { result, record } = e.detail;
+        const { lottery_options, luckydraw, product } = this.data;
+        // result为空的record不是中奖记录
+        if (result) {
+            luckydraw.win_record = record;
+        }
+        // 抽奖次数+1
+        ++luckydraw.user_participate_count;
+        // 根据结果选出对应的选项，获取name方便显示 选第一个就好
+        const resultOption = lottery_options.find((item) => {
+            return item.key === result;
+        });
+        // 奖励金额
+        resultOption.bonus = record.bonus;
+        // 抽奖失败的提示语
+        const { luckydraw_failed_tips = [] } = luckydraw.setting;
+        const failText = luckydraw_failed_tips[Math.floor((Math.random() * luckydraw_failed_tips.length))];
+        this.setData({
+            resultOption,
+            luckydraw,
+            product, // 更新下product中的luckydraw 海报那里用到
+            showBtnList: true,
+            showDefaultTips: false,
+            failText
+        });
+    },
+    // 放弃购买
+    async abandonBuy() {
+        const { luckydraw: { win_record: { id }, activity }} = this.data;
+        const { coins } = activity;
+        wx.showModal({
+            title: '提示',
+            content: `确认放弃购买机会吗？${activity.consume_type === '1' ? '您将扣除' + coins + '金币' : ''}`,
+            success: async (res) => {
+                if (res.confirm) {
+                    await api.hei.cancelBuy({ record_id: id });
+                    this.initPage();
+                    wx.showToast({
+                        title: '取消成功'
+                    });
+                    this.onHideTurntablePopup();
+                }
+            }
+        });
+    },
+    // 抽奖活动的逻辑 --------end;
 
+    // 拼团抢购的逻辑 ---------start
+
+    // 参与抢购
+    async startGroupSale() {
+        try {
+            const { luckydraw: { activity }} = this.data;
+            const { id: activity_id } = activity;
+            this.setData({
+                isGroupSalePeading: true
+            });
+            await api.hei.startLottery({ activity_id });
+            this.initPage();
+            wx.showToast({
+                title: '参加成功'
+            });
+            setTimeout(() => {
+                this.setData({
+                    isGroupSalePeading: false
+                });
+            }, 500);
+        } catch (e) {
+            wx.showModal({
+                title: '提示',
+                content: e.errMsg,
+                showCancel: false
+            });
+        }
+    },
+    // 上一期
+    preRound() {
+        let { luckydraw_round } = this.data;
+        this.setData({
+            luckydraw_round: --luckydraw_round
+        }, () => {
+            this.initPage();
+        });
+    },
+    // 下一期
+    nextRound() {
+        let { luckydraw_round, luckydraw } = this.data;
+        if (luckydraw_round < luckydraw.activity.current_quantity + 1) {
+            this.setData({
+                luckydraw_round: ++luckydraw_round
+            }, () => {
+                this.initPage();
+            });
+        }
+    },
+    newRound() {
+        let { luckydraw } = this.data;
+        this.setData({
+            luckydraw_round: luckydraw.activity.current_quantity + 1
+        }, () => {
+            this.initPage();
+        });
+    }
+    // 拼团抢购的逻辑 ---------end
 });

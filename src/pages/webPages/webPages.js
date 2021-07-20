@@ -12,14 +12,17 @@ Page({
     async onLoad(parmas) {
         let { src, scene, isExpired = false } = parmas;
         if (scene) {
-            scene = decodeURIComponent(scene);
-            let query = parseScene(scene);
+            let { params: senceValue } = await api.hei.getSenceValue({ code: scene });
+            senceValue = decodeURIComponent(senceValue);
+            let query = parseScene(senceValue);
             console.log(query, 'query');
 
             // 分享商品海报
             if (query.id) {
                 wx.redirectTo({
-                    url: `/pages/productDetail/productDetail?id=${query.id}`
+                    url: query.share_code && query.activity_id
+                        ? `/pages/productDetail/productDetail?id=${query.id}share_code=${query.share_code}activity_id=${query.activity_id}`
+                        : `/pages/productDetail/productDetail?id=${query.id}`
                 });
             }
             // 扫描文章海报

@@ -49,6 +49,7 @@
           <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
+
       <!-- 今日秒杀banner -->
       <view wx:if="{{ product.seckill_enable }}" class="miaosha-banner" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{ config }}" src="{{ config && config.cdn_host +'/shop/mebxy/miao.png'}}" class="background-image" />
@@ -91,6 +92,7 @@
           <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
         </view>
       </view>
+
       <!-- 超值拼团banner -->
       <view wx:if="{{ product.groupon_enable }}" class="pintuan" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{ config }}" src="{{ config.cdn_host +'/shop/mebxy/pintuan.png'}}" class="background-image" />
@@ -108,6 +110,7 @@
           <view class="pintuan-count">已团{{ product.sales }}件</view>
         </view>
       </view>
+
       <!-- 砍价banner -->
       <view wx:if="{{ product.bargain_enable }}" class="bargainBanner" style="background-color: {{ themeColor.primaryColor }}">
         <image wx:if="{{bargain_mission && bargain_mission.status === 3}}" src="/icons/productDetail/bargainFail.svg" class="background-image" />
@@ -138,56 +141,99 @@
           <view class="bargain-count">{{ product.sales }}人已砍价成功</view>
         </view>
       </view>
-      <!-- 抽奖banner -->
-      <view wx:if="{{ product.luckydraw_enable }}" class="activity-banner" style="background-color: {{ themeColor.primaryColor }}">
-        <image wx:if="{{ miaoShaStatus !== 'end' }}" src="/icons/productDetail/time-limited-buy.svg" />
-        <image wx:else src="/icons/productDetail/time-limited-buy-end.svg" />
-        <view class="price-area">
-          <view class="price">
-            抢购价
-            <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="time-price">{{ product.price }}</view>
-            起
-          </view>
-          <view class="price-interval">
-            <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
-            <!-- 有最高价显示价格区间 -->
-            <text wx:if="{{ product.price < product.highest_price }}">
-              <text>~{{ product.highest_price }}</text>
-            </text>
-          </view>
-        </view>
-        <view class="time">
-          <view wx:if="{{ miaoShaStatus === 'active' }}" class="time-section">
-            <view class="time-text">距结束还有</view>
-            <view class="time-limit">
-              <block wx:if="{{ remainTime.day > 0 }}">
-                <view class="hour">{{ remainTime.day }}</view>
-                <view class="dateTitle">天</view>
-              </block>
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
+
+      <!-- 抽奖banner 4.已结束 3.已过期 2.进行中-->
+      <view wx:if="{{ product.luckydraw_enable }}" class="luckydraw-banner" style="background-color: {{ themeColor.primaryColor }}">
+        <!-- 转盘抽奖的banner模板 -->
+        <block wx:if="{{product.luckydraw.activity.draw_type === '1'}}">
+          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3  }}" src="/icons/productDetail/luckydraw-buy-end.svg" class="background-image"/>
+          <image wx:else src="/icons/productDetail/luckydraw-buy.svg"/>
+          <view class="price-area">
+            <view class="price">
+              抢购价
+              <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+              <view class="time-price">{{ product.price }}</view>
+              起
+            </view>
+            <view class="price-interval">
+              <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
             </view>
           </view>
-          <view wx:if="{{ miaoShaStatus === 'notStart' }}" class="time-section">
-            <view class="time-text">距开始还有</view>
-            <view class="time-limit">
-              <block wx:if="{{ remainTime.day > 0 }}">
-                <view class="hour">{{ remainTime.day }}</view>
-                <view class="dateTitle">天</view>
-              </block>
-              <view class="hour">{{ remainTime.hour }}</view>
-              <view class="dateTitle">时</view>
-              <view class="minute">{{ remainTime.minute }}</view>
-              <view class="dateTitle">分</view>
-              <view class="second">{{ remainTime.second }}</view>
-              <view class="dateTitle">秒</view>
+
+          <view class="time">
+            <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
+              <view class="time-section end">已结束</view>
+            </block>
+
+            <block wx:else>
+              <view class="time-section">
+                <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
+
+                <view class="quantity" wx:if="{{ product.luckydraw.activity.quantity < product.luckydraw.setting.threshold }}">
+                  剩余{{ quantity }}件
+                </view>
+
+                <view class="time-limit" wx:else>
+                  <block wx:if="{{ remainTime.day > 0 }}">
+                    <view class="hour">{{ remainTime.day }}</view>
+                    <view class="dateTitle">天</view>
+                  </block>
+                  <view class="hour">{{ remainTime.hour }}</view>
+                  <view class="dateTitle">时</view>
+                  <view class="minute">{{ remainTime.minute }}</view>
+                  <view class="dateTitle">分</view>
+                  <view class="second">{{ remainTime.second }}</view>
+                  <view class="dateTitle">秒</view>
+                  后结束
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+
+        <!-- 拼团抢购的banner模板 -->
+        <block wx:if="{{product.luckydraw.activity.draw_type === '2'}}">
+          <image wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 || (product.luckydraw.activity.status === 2 && product.luckydraw.batch.status === 2 )  }}" src="/icons/productDetail/luckydraw-buy-end1.svg" class="background-image"/>
+          <image wx:else src="/icons/productDetail/luckydraw-buy1.svg"/>
+          <view class="price-area">
+            <view class="price">
+              抢购价
+              <view class="price-unit">{{ globalData.CURRENCY[globalData.currency] }}</view>
+              <view class="time-price">{{ product.price }}</view>
+              起
+            </view>
+            <view class="price-interval">
+              <text>价值{{ globalData.CURRENCY[globalData.currency] }}{{ product.luckydraw.activity.price }}</text>
             </view>
           </view>
-          <view wx:if="{{ miaoShaStatus === 'end' }}" class="time-section end">已结束</view>
-        </view>
+
+          <view class="time">
+            <block wx:if="{{ product.luckydraw.activity.status === 4 || product.luckydraw.activity.status === 3 }}">
+              <view class="time-section end">已结束</view>
+            </block>
+
+            <block wx:else>
+              <view class="time-section">
+                <view class="user-type" style="visibility: {{ userTypesText ? '' : 'hidden' }};">{{ userTypesText }}专享</view>
+                <view class="is-draw" wx:if="{{ product.luckydraw.batch.status === 2 }}">
+                  已开奖
+                </view>
+
+                <view class="time-limit" wx:else>
+                  <block wx:if="{{ remainTime.day > 0 }}">
+                    <view class="hour">{{ remainTime.day }}</view>
+                    <view class="dateTitle">天</view>
+                  </block>
+                  <view class="hour">{{ remainTime.hour }}</view>
+                  <view class="dateTitle">时</view>
+                  <view class="minute">{{ remainTime.minute }}</view>
+                  <view class="dateTitle">分</view>
+                  <view class="second">{{ remainTime.second }}</view>
+                  <view class="dateTitle">秒</view>
+                  后结束
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
       </view>

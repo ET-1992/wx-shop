@@ -1,4 +1,5 @@
 import getRemainTime from 'utils/getRemainTime';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -6,10 +7,17 @@ Component({
         product: {
             type: Object,
             value: {},
-        },
-        config: {
-            type: Object,
-            value: {}
+            observer(newVal) {
+                if (newVal.luckydraw) {
+                    const { user_participate_count } = newVal.luckydraw;
+                    let { quota: lotteryQuota, quantity } = newVal.luckydraw.activity;
+                    this.setData({
+                        lotteryQuota,
+                        user_participate_count,
+                        quantity
+                    });
+                }
+            }
         },
         miaoShaStatus: {
             type: String,
@@ -35,10 +43,23 @@ Component({
         }
     },
     attached() {
+        const config = wx.getStorageSync(CONFIG);
+        let userTypesText = '';
         const { product } = this.data;
         if (product.miaosha_enable || product.seckill_enable) {
             this.todayTimeLimit();
         }
+
+        if (product.luckydraw) {
+            let { target_user_types_text = [] } = product.luckydraw.activity;
+            userTypesText = target_user_types_text.join('、');
+            this.todayTimeLimit();
+        }
+
+        this.setData({
+            userTypesText,
+            config,
+        });
     },
     detached() {
         if (this.intervalId) {
