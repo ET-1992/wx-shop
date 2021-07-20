@@ -15,6 +15,7 @@ Component({
                 const now = Math.round(Date.now() / 1000);
                 let timeLimit = expired_time - now;
                 let { hasStart, hasEnd } = this.data;
+                // 抢购模式不能单纯靠时间判断 因为有多种活动结束的情况 所以使用status判断
                 if (status === 2) {
                     hasStart = true;
                     hasEnd = false;
