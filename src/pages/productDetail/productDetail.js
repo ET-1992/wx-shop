@@ -1327,11 +1327,12 @@ Page({
 
     // 参与抢购
     async startGroupSale() {
+        await getUserProfile();
         try {
             const { luckydraw: { activity }} = this.data;
             const { id: activity_id } = activity;
             this.setData({
-                isGroupSalePeading: true
+                isGroupSalePending: true
             });
             await api.hei.startLottery({ activity_id });
             this.initPage();
@@ -1340,14 +1341,21 @@ Page({
             });
             setTimeout(() => {
                 this.setData({
-                    isGroupSalePeading: false
+                    isGroupSalePending: false
                 });
             }, 500);
         } catch (e) {
             wx.showModal({
                 title: '提示',
                 content: e.errMsg,
-                showCancel: false
+                showCancel: false,
+                success: async (res) => {
+                    if (res.confirm) {
+                        this.setData({
+                            isGroupSalePending: false
+                        });
+                    }
+                }
             });
         }
     },

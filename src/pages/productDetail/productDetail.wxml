@@ -526,7 +526,7 @@
             <!-- 进行中 未开奖-->
             <block wx:if="{{ luckydraw.batch.status === 1 }}">
               <view class="buy" wx:if="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}"  style="background-color: #D4D4D4;">抢购次数已用尽</view>
-              <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="{{ isGroupSalePeading ? '' : 'startGroupSale' }}">马上参与</view>
+              <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="{{ isGroupSalePending ? '' : 'startGroupSale' }}">马上参与</view>
             </block>
           </block>
         </block>
