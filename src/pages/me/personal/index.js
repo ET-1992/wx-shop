@@ -13,7 +13,7 @@ Component({
     observers: {
         'personalComponentData': function(personData) {
             if (!personData) { return }
-            let { themeColor, user, wallet, coupons, background_color } = personData,
+            let { themeColor, user, wallet, coupons, background_color, customize_style } = personData,
                 config = wx.getStorageSync(CONFIG),
                 createTime = wx.getStorageSync(USER_INFO_CREATE_TIME),
                 updateAvatar = false;
@@ -40,7 +40,8 @@ Component({
                 coupons,
                 updateAvatar,
                 background_color,
-                statusBarHeight
+                statusBarHeight,
+                customize_style
             });
         }
     },
