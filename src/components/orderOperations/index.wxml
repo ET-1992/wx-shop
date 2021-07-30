@@ -24,10 +24,11 @@
   </view>
 
   <view class="right-btn">
-
+    <!--再次加购 当活动类型为抢购活动时不显示 -->
     <button
       class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
       bindtap="onAddCard"
+      wx:if="{{ order.promotion_type !== '11' }}"
     >再次加购</button>
 
     <button

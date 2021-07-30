@@ -189,6 +189,7 @@ Page({
         this.setData({ pendingGrouponId: '' });
         try {
             let { posterType, luckydraw, luckydraw_round = '' } = this.data;
+            console.log(luckydraw, 'luckydraw');
             const data = await api.hei.fetchProduct({ id, luckydraw_round });
             const { config, product, share_title, share_image } = data;
             this.config = config;
@@ -1327,8 +1328,8 @@ Page({
 
     // 参与抢购
     async startGroupSale() {
-        await getUserProfile();
         try {
+            await getUserProfile();
             const { luckydraw: { activity }} = this.data;
             const { id: activity_id } = activity;
             this.setData({
@@ -1349,7 +1350,7 @@ Page({
                 title: '提示',
                 content: e.errMsg,
                 showCancel: false,
-                success: async (res) => {
+                success: (res) => {
                     if (res.confirm) {
                         this.setData({
                             isGroupSalePending: false

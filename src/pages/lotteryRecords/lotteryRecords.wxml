@@ -17,6 +17,11 @@
                 {{ item.activity_title }}
               </view>
             </view>
+
+            <view class="remain-time" wx:if="{{ item.status === 2  }}">
+              剩余{{ item.expired_time_formated }}下单
+            </view>
+
             <view class="itemPirceInfo">
               <view class="price">{{ item.draw_type === 2 ? '拼购价': '抢购价'}}<text class="txt">{{ globalData.CURRENCY[globalData.currency] }}{{ item.price }}起</text></view>
               <view class="status">
@@ -24,7 +29,7 @@
                   <text wx:elif="{{ item.status === 2 }}">{{ item.draw_type === 2 ? '已拼中，去购买' : '已抢中，去购买' }}</text>
                   <text wx:elif="{{ item.status === 4 }}">已兑奖</text>
                   <text wx:elif="{{ item.status === 3 }}" class="fail">{{ item.draw_type === 2 ? '已成团，未拼中' : '未抢到' }}</text>
-                  <text wx:elif="{{ item.status === 6 }}" class="fail">放弃兑奖</text>
+                  <text wx:elif="{{ item.status === 6 || item.status === 5 }}" class="fail">放弃兑奖</text>
                   <text wx:else class="fail">已开奖</text>
               </view>
             </view>

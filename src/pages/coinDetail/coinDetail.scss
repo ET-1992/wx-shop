@@ -117,7 +117,18 @@ page{background: #FFFFFF}
 				.des{
 					font-size: 22rpx;
 					color: #999;
-					margin-top: rpx;
+					margin: 10rpx 0;
+				}
+				.extra{
+					display: flex;
+					align-items: center;
+					font-size: 24rpx;
+					.head-img{
+						height: 40rpx;
+						width: 40rpx;
+						border-radius: 50%;
+						margin-right: 20rpx;
+					}
 				}
         .coinNum{
             height: 80rpx;

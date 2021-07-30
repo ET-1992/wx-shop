@@ -19,12 +19,12 @@
 						flex-shrink: 0;
 						margin-right: 15rpx;
 					}
-
 					.itemInfo {
 						display: flex;
 						flex-direction: column;
 						justify-content: space-between;
 						width: 100%;
+						font-size: 28rpx;
 						padding-right: 30rpx;
 
 						.itemTitle {
@@ -33,8 +33,7 @@
 							-webkit-line-clamp: 2;
 							-webkit-box-orient: vertical;
 							word-break: break-all;
-								text-overflow: ellipsis;
-							font-size: 28rpx;
+							text-overflow: ellipsis;
 							font-weight: normal;
 							color: #333333;
 							line-height:32rpx;
@@ -44,14 +43,16 @@
 								width: 450rpx;
 							}
 						}
-
+						.remain-time{
+							font-size: 24rpx;
+						}
 						.itemPirceInfo {
 							display: flex;
 							justify-content: space-between;
 							color: #333333;
 							height: 38rpx;
 							line-height: 38rpx;
-							font-size: 28rpx;
+
 							.price{
 								.txt{
 									color: #FF5500;

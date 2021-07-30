@@ -31,6 +31,10 @@
             <view>
                 <view>{{ item.type_name }}</view>
                 <view class="des">{{ item.description }}</view>
+                <view class="extra" wx:if="{{ item.extra }}">
+                  <image class="head-img" src="{{ item.extra.invitee_avatarurl }}" />
+                  <text>{{ item.extra.invitee_nickname }}</text>
+                </view>
                 <view class="time">{{item.formatTime}}</view>
             </view>
             <view wx:if="{{item.expense}}" class="coinNum decreaseNum">
