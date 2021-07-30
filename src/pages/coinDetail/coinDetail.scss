@@ -108,13 +108,17 @@ page{background: #FFFFFF}
         border-bottom: 1rpx solid #E0E0E0;
         background: #FFFFFF;
         font-size: 28rpx;
-    
+
         .time{
             font-size: 20rpx;
             padding-top: 10rpx;
             color: #707070;
         }
-       
+				.des{
+					font-size: 22rpx;
+					color: #999;
+					margin-top: rpx;
+				}
         .coinNum{
             height: 80rpx;
             line-height: 80rpx;
@@ -125,19 +129,19 @@ page{background: #FFFFFF}
                 font-size: 28rpx;
             }
         }
-        .decreaseNum{ 
+        .decreaseNum{
             color: green
         }
     }
-    
+
     .noHint {
         text-align: center;
         color: #9fa0a0;
         width: 100%;
         padding-top: 200rpx;
-        height: 100%; 
+        height: 100%;
     }
-    
+
     .bottomHint {
         text-align: center;
         color: #ccc;

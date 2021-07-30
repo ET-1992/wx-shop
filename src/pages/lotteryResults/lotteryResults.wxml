@@ -1,0 +1,31 @@
+<view class="container">
+	<view class="tips">
+    <view class="title">幸运号码方式：</view>
+    <view class="content">
+      <text>1）取该商品最后参与时间前网站所有商品100条参与时间记录（限时揭晓商品取截止时间前网站所有商品100条参与时间记录）。</text>
+      <text>2）时间按时、分、秒、毫秒依次排列组成一组数值。</text>
+      <text>3）将这100组数值之和除以商品总需参与人次后取余数，余数加上1即为“幸运号码”。</text>
+    </view>
+  </view>
+
+  <view class="result" wx:if="{{ !result.setting.hide_result }}">
+    <view class="title" >
+      <text>截止获得时间【{{ result.seeds[result.seeds.length-1].format }}】</text>
+      <text>最后{{ result.seeds.length }}条全站购买时间记录</text>
+    </view>
+
+    <view class="process">
+      <text>求和：{{ result.sum }}（以下{{ result.seeds.length }}条购买时间转换数据相加之和）</text>
+      <text>取余：{{ result.sum }}({{ result.seeds.length }}组时间和)除以{{ result.seeds.length }}(本场所需人次)，余数为{{ result.remainder }}</text>
+    </view>
+
+    <view class="final">
+      拼购号码:{{ result.remainder }}+1={{ result.remainder+1 }}
+    </view>
+  </view>
+
+  <view class="records" wx:if="{{ result.seeds.length }}">
+    <view class="item" wx:for="{{ result.seeds }}" wx:key="index">
+      {{ item.format }}
+    </view>
+</view>

@@ -1,0 +1,84 @@
+.container {
+	.main-content{
+		.records{
+			padding-bottom: 50rpx;
+			.record {
+				background-color: #fff;
+				margin-top: 10rpx;
+				padding: 20rpx 20rpx 16rpx;
+				box-shadow: 0 0 1rpx rgba(0, 0, 0, 0.16);
+
+				.item {
+					display: flex;
+					padding: 20rpx 0;
+
+					.itemImage {
+						$size: 140rpx;
+						width: $size;
+						height: $size;
+						flex-shrink: 0;
+						margin-right: 15rpx;
+					}
+
+					.itemInfo {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						width: 100%;
+						padding-right: 30rpx;
+
+						.itemTitle {
+							overflow: hidden;
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+								text-overflow: ellipsis;
+							font-size: 28rpx;
+							font-weight: normal;
+							color: #333333;
+							line-height:32rpx;
+							display: flex;
+							justify-content: space-between;
+							.title {
+								width: 450rpx;
+							}
+						}
+
+						.itemPirceInfo {
+							display: flex;
+							justify-content: space-between;
+							color: #333333;
+							height: 38rpx;
+							line-height: 38rpx;
+							font-size: 28rpx;
+							.price{
+								.txt{
+									color: #FF5500;
+									margin-left: 10rpx;
+								}
+							}
+							.status{
+								color: #FF5500;
+								.fail{
+									color: #707070;
+								}
+							}
+						}
+					}
+
+				}
+				.draw-progress{
+					font-size: 24rpx;
+					margin-top: 20rpx;
+					display: flex;
+					align-items: center;
+					.progress{
+						width: 520rpx;
+						margin: 0 20rpx;
+					}
+				}
+			}
+		}
+	}
+}

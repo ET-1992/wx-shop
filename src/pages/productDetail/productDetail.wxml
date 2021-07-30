@@ -1,4 +1,3 @@
-<import src="../../utils/wxParse/wxParse.wxml" />
 <!-- 顶部程序导航 -->
 <productNavigationBar id="navigation-bar" navType="productNav" showBgColor="{{ showBgColor }}"/>
 <!-- 页面导航 -->
@@ -45,7 +44,10 @@
         <view class="info">
           <view class="top">
             <view class="left">
-              <view class="title">{{ product.title }}</view>
+              <view class="title">
+                <!-- 抢购活动标题需要加期数 -->
+                <text wx:if="{{ product.luckydraw_enable && luckydraw.activity.draw_type === '2' }}">{{ '[第' + luckydraw_round + '期]' }}</text>
+                {{ product.title }}</view>
               <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
             </view>
             <!-- 分享按钮 -->
@@ -56,10 +58,22 @@
           </view>
 
           <!-- 抢购活动的信息 -->
-          <view class="luckydraw-info" wx:if="{{ luckydraw }}">
-            成功率为<text class="lucky-rate">{{ luckydraw.activity.lucky_rate }}%</text> |
-            {{ luckydraw.activity.quota == 0 ? '不限次数' : '每人限参与' + luckydraw.activity.quota + '次' }} |
-            保证金{{ luckydraw.activity.coins }}金币
+          <view class="luckydraw-info" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}">
+            <view>
+              成功率约<text class="lucky-rate" style="color: {{ luckydraw.setting.colors.rate_text_color }};">{{ luckydraw.activity.lucky_rate }}%</text>
+              <block wx:if="{{ luckydraw.activity.quota }}">
+                | 每人限参与<text style="color: {{ luckydraw.setting.colors.quote_text_color }};">{{ luckydraw.activity.quota }}</text>次
+              </block>
+              <block wx:else>| 不限次数</block>
+              | {{ luckydraw.activity.coins + '金币/次' }}
+            </view>
+          </view>
+
+          <!-- 抢购活动进度条 -->
+          <view class="luckydraw-progress" wx:if="{{ product.luckydraw_enable && luckydraw.activity.draw_type === '2' }}">
+            拼购进度
+            <van-progress custom-class="progress" percentage="{{ luckydraw.batch.progress || 0 }}" show-pivot="{{false}}" stroke-width="8" color="#FF7C39"/>
+            {{ luckydraw.batch.current }}/{{ luckydraw.batch.total }}
           </view>
 
           <!-- 价格区间 -->
@@ -72,7 +86,7 @@
                 <text>{{ product.price }}</text>
               </view>
               <!-- 非会员专属 -->
-              <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable) }}">
+              <view class="price-base" wx:elif="{{ !(product.groupon_enable || product.miaosha_enable || product.seckill_enable || product.bargain_enable || product.luckydraw_enable) }}">
                 <view class="nowPrice">
                   <!-- 金币商品 -->
                   <view class="currentPrice" wx:if="{{ product.product_type === 4 }}">
@@ -164,6 +178,73 @@
             <view class="tips-right">去开通 ></view>
           </view>
         </view>
+        <!-- 抢购活动 用户参与列表 -->
+        <navigator class="luckydraw-user"  wx:if="{{ product.luckydraw_enable && luckydraw.records.length }}" url="{{ '/pages/activityUserList/activityUserList?activity_id=' + luckydraw.activity.id }}">
+          <!-- 左区域 -->
+          <view class="left-content" >
+            <view class="head-img-list">
+                <view class="head-img-item" wx:for="{{ luckydraw.records }}" wx:key="index">
+                  <image class="img" src="{{ item.user.avatarurl }}"></image>
+                </view>
+            </view>
+            <view class="user-count">
+                {{ luckydraw.participants_count }}人想要购买
+            </view>
+          </view>
+          <!-- 右区域 -->
+          <view class="right-content">
+              <view class="link">
+                <van-icon name="arrow" size="14px"/>
+              </view>
+          </view>
+        </navigator>
+
+        <!-- 抢购活动内容 -->
+        <block wx:if="{{ product.luckydraw_enable && luckydraw.activity.draw_type === '2' }}">
+          <!-- 活动期数切换 -->
+          <view class="round-tabs">
+            <view class="pre-tab {{ luckydraw_round <=1 ? 'disabled' : '' }}" bindtap="{{ luckydraw_round <=1 ? '' : 'preRound' }}">
+              <van-icon name="arrow-left" />
+              上一期
+            </view>
+            <view class="next-tab {{ luckydraw_round >= luckydraw.activity.current_quantity + 1 ? 'disabled' : '' }}" bindtap="{{ luckydraw_round >= luckydraw.activity.current_quantity + 1 ? '' : 'nextRound' }}">
+              下一期
+              <van-icon name="arrow"/>
+            </view>
+            <view class="new-tab" bindtap="newRound">
+              最新一期
+            </view>
+          </view>
+          <!-- 抢购活动 拼购号码 -->
+          <view class="draw-code" wx:if="{{ product.luckydraw_enable && luckydraw.codes.length && !luckydraw.setting.hide_result }}">
+            <view>您的抢购号码：</view>
+            <view class="code-list">
+                <view class="item" wx:for="{{ luckydraw.codes }}" wx:key="index">
+                  {{ item }}
+                </view>
+            </view>
+          </view>
+          <!-- 本期开奖结果 -->
+          <navigator class="draw-result"  wx:if="{{ product.luckydraw_enable && luckydraw.batch.win_code }}" url="{{ luckydraw.setting.hide_result ? '' : '/pages/lotteryResults/lotteryResults?serial_no='+luckydraw.batch.serial_no }}">
+            <view class="tips">
+              <block wx:if="{{ !luckydraw.setting.hide_result }}">
+                本期拼购号码：
+                <view class="code">{{ luckydraw.batch.win_code }}</view>
+              </block>
+              <block wx:else>
+                本期拼购获得者：
+                <image class="head-img" src="{{ luckydraw.winner.avatarurl }}" />
+              </block>
+            </view>
+            <view class="result">
+              {{ luckydraw.batch.user_is_win ? '恭喜您拼中了' : '很遗憾您没拼中' }}
+              <van-icon name="arrow" wx:if="{{ !luckydraw.setting.hide_result }}"/>
+            </view>
+          </navigator>
+        </block>
+
+
+
         <view class="sevice-coupon" wx:if="{{ product }}">
           <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
             <!-- 优惠券-非拼团商品 -->
@@ -273,6 +354,13 @@
 				<view class="title">拼团流程</view>
 				<image class="grouponHintImage" src="../../icons/grouponHint.svg" />
 			</view> -->
+        <!-- 抢购玩法 -->
+        <navigator class="luckydraw-play" wx:if="{{ product.luckydraw_enable && luckydraw.activity }}" url="/pages/rulePages/rulePages?key=luckydraw">
+          <text>玩法</text>
+          <view class="rule-text" style="color: {{ luckydraw.setting.colors.activity_explain_color }}">
+            <text>{{luckydraw.activity_explain}}</text>
+          </view>
+        </navigator>
         <!-- 拼团玩法 -->
         <view class="group-play" wx:if="{{ product.groupon_enable && !grouponId }}">
           <image class="background-image" src="{{ config && config.cdn_host +'/shop/mebxy/pintuanwanfa.png'}}" />
@@ -294,23 +382,7 @@
     <productComments wx:if="{{ config.reply_enable && product.reply_count }}" class="comments observer-tab" id="comments" comments="{{ product.replies }}" postId="{{ product.id }}" replyCount="{{ product.reply_count }}" />
 
     <!-- 商品详情 -->
-    <view class="detail observer-tab" id="detail">
-      <view class="detailTitle">
-        <text class="dot">•</text>
-        {{ templateTypeText[defineTypeGlobal].page_productDetail.titleText || '商品详情' }}
-        <text class="dot">•</text>
-      </view>
-      <view wx:if="{{ product.top }}" class="cube">
-        <magicImg magicImgData="{{ product.top }}" isMarginTopZero="false" />
-      </view>
-      <view class="peanut-wxParse">
-        <template wx:if="{{ !product.format }}" is="wxParse" data="{{ wxParseData:contentList.nodes }}" />
-        <formatContent wx:if="{{ product.format && product.format_content }}" type="{{ product.format }}" content="{{ product.format_content }}" author="{{ product.author }}" />
-      </view>
-      <view wx:if="{{ product.bottom }}" class="cube">
-        <magicImg magicImgData="{{ product.bottom }}" isMarginTopZero="false" />
-      </view>
-    </view>
+    <productInfo product="{{ product }}" class="detail observer-tab" id="detail" />
 
     <!-- 为你推荐 -->
     <view class="promote observer-tab" wx:if="{{ isShowProductRelated }}" id="recommend">
@@ -428,6 +500,66 @@
           <view wx:else style="background-color:{{themeColor.primaryColor}}">立即购买</view>
         </view>
       </block>
+
+      <!-- 抢购活动 -->
+      <block wx:elif="{{ product.luckydraw_enable }}">
+        <!-- 集合开奖 -->
+        <block wx:if="{{ luckydraw.activity.draw_type === '2' }}">
+          <!-- 整个活动结束(过期或者商品售完) -->
+          <block wx:if="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
+            <view class="buy"   style="background-color: #D4D4D4;">活动结束</view>
+          </block>
+          <!-- 活动进行时 -->
+          <block wx:else>
+          <!-- 这里是每一期的情况 -->
+            <!-- 已经开奖的情况 -->
+            <block wx:if="{{ luckydraw.batch.status === 2 }}">
+              <block wx:if="{{ luckydraw.win_record }}">
+                <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
+                  剩余{{ luckydraw.win_record.expired_time_formated }}下单
+                </view>
+                <view class="buy"  bindtap="abandonBuy" style="background-color:#FFC75A">放弃购买</view>
+              </block>
+
+              <view class="buy" wx:else  style="background-color: #D4D4D4;">已开奖</view>
+            </block>
+            <!-- 进行中 未开奖-->
+            <block wx:if="{{ luckydraw.batch.status === 1 }}">
+              <view class="buy" wx:if="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}"  style="background-color: #D4D4D4;">抢购次数已用尽</view>
+              <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="{{ isGroupSalePending ? '' : 'startGroupSale' }}">马上参与</view>
+            </block>
+          </block>
+        </block>
+
+        <!-- 转盘抽奖 -->
+        <block wx:else>
+          <!-- 活动结束或者过期 -->
+          <block  wx:if="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
+            <view class="buy" style="background-color: #D4D4D4;">
+              抢购失败
+            </view>
+          </block>
+          <!-- 活动进行中 -->
+          <block wx:else>
+            <!-- 中奖时 -->
+            <block wx:if="{{ luckydraw.win_record }}">
+              <view class="buy"  bindtap="abandonBuy" style="background-color:{{ themeColor.secondaryColor }}">
+                放弃购买
+              </view>
+              <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
+                剩余{{ luckydraw.win_record.expired_time_formated }}下单
+              </view>
+            </block>
+            <!-- 抽奖次数用完 -->
+            <view class="buy" wx:elif="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}" style="background-color: #D4D4D4;">
+              抽奖次数已用尽
+            </view>
+            <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="startLottery">
+              马上抽奖
+            </view>
+          </block>
+        </block>
+      </block>
       <!-- 普通商品 -->
       <block wx:else>
         <view class="addCart" catchtap="onShowSku" data-actions="{{ [{ type: 'addCart', text: '加入购物车' }] }}" style="background-color: {{ themeColor.secondaryColor }}" wx:if="{{ !(product.individual_buy || product.product_type === 1) }}">
@@ -441,7 +573,7 @@
   </view>
 
   <!-- 代付按钮 -->
-  <view class="float-btn" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || miaoShaStatus === 'active') }}">
+  <view class="float-btn" wx:if="{{ config.crowd_pay_enable && (!product.seckill_enable || miaoShaStatus === 'active') && !product.luckydraw_enable }}">
     <!-- 限时购/砍价/虚拟商品/简约模式不支持 -->
     <block wx:if="{{ product.product_type !== 1 && !product.bargain_enable && product.product_style_type !==2 }}">
       <view class="crowdBtn" catchtap="onShowSku" data-is-crowd data-actions="{{ [{ type: 'onBuy', text: '找好友代付' }] }}">
@@ -551,11 +683,52 @@
   </view>
 </van-popup>
 
+<!-- 抽奖弹窗 -->
+<van-overlay
+    show="{{ isShowTurntablePopup }}"
+    custom-style="display:flex;align-items:center;justify-content: center;flex-direction: column;"
+    z-index="99"
+>
+    <view class="close-area" bindtap="onHideTurntablePopup">
+      <image class="icon" src="/icons/close.png" />
+    </view>
+    <view class="luckyTurntable-box">
+      <!-- 提示语 -->
+      <view class="tips">
+          <text wx:if="{{ !showDefaultTips && resultOption && resultOption.key === '' }}">{{ failText + ' +' + resultOption.bonus }}</text>
+          <text wx:elif="{{ !showDefaultTips && resultOption && resultOption.key }}">恭喜你获得了产品抢购价</text>
+          <text wx:else>点击转盘抽奖，获取产品抢购价</text>
+      </view>
+
+      <!-- 转盘 -->
+      <luckyTurntable options="{{ lottery_options }}" activity="{{ luckydraw.activity }}" bind:getLotteryStart="getLotteryStart" bind:getLotteryEnd="getLotteryResult"/>
+
+    </view>
+
+    <!-- 按钮 -->
+    <view class="button-list" style="visibility: {{ showBtnList ? '' : 'hidden' }};">
+      <block wx:if="{{ resultOption.key }}">
+        <view class="btn" bindtap="abandonBuy">放弃购买</view>
+        <view class="btn-primary" catchtap="onShowSku"  data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">立刻购买</view>
+      </block>
+
+      <block wx:else>
+        <view class="btn" bindtap="onHideTurntablePopup">返回活动</view>
+        <button class="btn-primary" open-type="share">分享给好友</button>
+      </block>
+    </view>
+</van-overlay>
+
+
 <!-- 企业微信客服弹窗 -->
 <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
+
 <myModal modal="{{authModal}}" />
+<!-- SKU -->
 <skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
+<!-- 海报 -->
 <poster wx:if="{{ showPosterModal }}" posterData="{{ posterData }}" user="{{ current_user }}" posterType="{{ posterType }}" bindonClose="onClosePoster" />
+
 <wxs module="productDetail">
   var formatValue = function(value, num) {
     return value.toString().length > num ? exchange_num(num).concat('+') : value.toString();

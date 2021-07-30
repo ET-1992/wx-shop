@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="110" height="130.954" viewBox="0 0 110 130.954">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff555d"/>
+      <stop offset="1" stop-color="#e12520"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient" x1="0.031" y1="0.258" x2="0.971" y2="0.529" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f64946"/>
+      <stop offset="1" stop-color="#d20c09"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.249" y1="0.045" x2="0.843" y2="0.887" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fcdc6a"/>
+      <stop offset="1" stop-color="#fcb43e"/>
+    </linearGradient>
+    <filter id="椭圆_546">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#fffab8" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-3" x1="0.249" y1="0.045" x2="0.843" y2="0.887" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff4ba"/>
+      <stop offset="1" stop-color="#ffe044"/>
+    </linearGradient>
+    <filter id="椭圆_547">
+      <feOffset dx="-2" dy="-4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-color="#bf9400" result="color-2"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color-2"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="组_4880" data-name="组 4880" transform="translate(-1853 -2561.046)">
+    <path id="联合_31" data-name="联合 31" d="M0,79A55.025,55.025,0,0,1,40.122,26.036L52.4,4.559a3,3,0,0,1,5.209,0L69.878,26.036A55.006,55.006,0,1,1,0,79Z" transform="translate(1853 2558)" fill="url(#radial-gradient)"/>
+    <circle id="椭圆_545" data-name="椭圆 545" cx="48" cy="48" r="48" transform="translate(1860 2589)" fill="url(#linear-gradient)"/>
+    <g data-type="innerShadowGroup">
+      <circle id="椭圆_546-2" data-name="椭圆 546" cx="41" cy="41" r="41" transform="translate(1867 2596)" fill="url(#linear-gradient-2)"/>
+      <g transform="matrix(1, 0, 0, 1, 1853, 2561.05)" filter="url(#椭圆_546)">
+        <circle id="椭圆_546-3" data-name="椭圆 546" cx="41" cy="41" r="41" transform="translate(14 34.95)" fill="#fff"/>
+      </g>
+    </g>
+    <g data-type="innerShadowGroup">
+      <circle id="椭圆_547-2" data-name="椭圆 547" cx="41" cy="41" r="41" transform="translate(1867 2596)" opacity="0.55" fill="url(#linear-gradient-3)"/>
+      <g transform="matrix(1, 0, 0, 1, 1853, 2561.05)" filter="url(#椭圆_547)">
+        <circle id="椭圆_547-3" data-name="椭圆 547" cx="41" cy="41" r="41" transform="translate(14 34.95)" fill="#fff" opacity="0.55"/>
+      </g>
+    </g>
+    <text id="点击_抽奖" data-name="点击
+抽奖" transform="translate(1885 2630)" fill="#f73247" font-size="20" font-family="MicrosoftYaHei-Bold, Microsoft YaHei" font-weight="700" letter-spacing="0.221em"><tspan x="0" y="0">点击</tspan><tspan x="0" y="25">抽奖</tspan></text>
+  </g>
+</svg>

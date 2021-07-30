@@ -18,64 +18,88 @@
 	border-radius: 5rpx;
 	display: flex;
 	align-items: center;
-	.userHead {
-		margin: 0 25rpx 0 35rpx; 
-		.userAvatar {
-			$size: 100rpx;
-			width: $size;
-			height: $size;
-			border-radius: 50%;
-		}
-	}
-	.userBody {
-		.userData {
-			display: flex;
-			align-items: center;
-			.userName {
-				font-size: 32rpx;
-				font-weight: bold;
-				max-width: 15em;
-				text-overflow: ellipsis; 
-				overflow: hidden; 
-				white-space: nowrap; 
-			}
-			.editUserNameIcon {
-				width: 48rpx;
-				height: 48rpx;
-				text-align: center;
-				line-height: 48rpx;
-				.editIcon {
-					$size: 20rpx;
-					width: $size;
-					height: $size;
-				}
+	justify-content: space-between;
+	.user-left-area{
+		display: flex;
+		align-items: center;
+		.userHead {
+			margin: 0 25rpx 0 35rpx;
+			.userAvatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
 			}
 		}
-		.recommend {
-			display: flex;
-			align-items: center;
-			font-size: 24rpx;
-			padding-top: 12rpx;
-			.recommendKey {
-				padding-right: 1em;
-				word-break: keep-all;
-			}
-			.recommendValue {
+		.userBody {
+			.userData {
 				display: flex;
 				align-items: center;
-				.recommendAvatar {
-					$size: 35rpx;
-					width: $size;
-					height: $size;
-					border-radius: 50%;
-				}
-				.recommendName {
-					padding-left: .5em;
+				.userName {
+					font-size: 32rpx;
+					font-weight: bold;
 					max-width: 15em;
-					text-overflow: ellipsis; 
-					overflow: hidden; 
-					white-space: nowrap; 
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
 				}
+				.editUserNameIcon {
+					width: 48rpx;
+					height: 48rpx;
+					text-align: center;
+					line-height: 48rpx;
+					.editIcon {
+						$size: 20rpx;
+						width: $size;
+						height: $size;
+					}
+				}
+			}
+			.recommend {
+				display: flex;
+				align-items: center;
+				font-size: 24rpx;
+				padding-top: 12rpx;
+				.recommendKey {
+					padding-right: 1em;
+					word-break: keep-all;
+				}
+				.recommendValue {
+					display: flex;
+					align-items: center;
+					.recommendAvatar {
+						$size: 35rpx;
+						width: $size;
+						height: $size;
+						border-radius: 50%;
+					}
+					.recommendName {
+						padding-left: .5em;
+						max-width: 15em;
+						text-overflow: ellipsis;
+						overflow: hidden;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+	}
+	.user-right-area{
+		margin-right: 44rpx;
+
+		.btn{
+			padding: 12rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #FF5500;
+			border-radius: 50rpx;
+			font-size: 28rpx;
+			color: #fff;
+			.btnIcon{
+				height: 30rpx;
+				width: 30rpx;
+				margin-right: 12rpx;
 			}
 		}
 	}
@@ -202,7 +226,7 @@
 	justify-content: center;
 	color: #000000;
 	position: relative;
-	
+
 	.shareMoneyDisplay-h {
 		font-size: 30rpx;
 		line-height: 42rpx;
@@ -232,7 +256,7 @@
 		width: 140rpx;
 		height: 55rpx;
 		border-radius: 30rpx 0 0 30rpx;
-		background-color: #FDC522; 
+		background-color: #FDC522;
 		font-size: 24rpx;
 		display: flex;
 		justify-content: center;
@@ -312,20 +336,20 @@
 		justify-content: space-around;
 		align-items: center;
 		border-bottom: .5rpx solid #d7d7d7;
-	
+
 		.userInfoDisplay-item {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-	
+
 			.userInfoDisplay-num {
 				font-size: 30rpx;
 				font-weight: bold;
 				line-height: 40rpx;
 				color: #333333;
 			}
-	
+
 			.userInfoDisplay-text {
 				font-size: 22rpx;
 				color: #707070;
@@ -333,7 +357,7 @@
 			}
 		}
 	}
-	
+
 	.footer {
 		height: 150rpx;
 		display: flex;
@@ -342,17 +366,17 @@
 		background-color: #fff;
 		// margin: 30rpx 20rpx 0 20rpx;
 		margin-top: 20rpx;
-	
+
 		.footer-item {
 			display: flex;
 			align-items: center;
-	
+
 			.footer-img {
 				width: 60rpx;
 				height: 60rpx;
 				margin-right: 15rpx;
 			}
-	
+
 			.footer-text {
 				font-size: 22rpx;
 				line-height: 40rpx;
@@ -360,7 +384,7 @@
 			}
 		}
 	}
-	
+
 	.closeFooter {
 		// margin: 30rpx 20rpx 0 20rpx;
 		margin-top: 30rpx;

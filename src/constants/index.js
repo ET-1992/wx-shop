@@ -32,7 +32,7 @@ export const HOST_ARRAY = [
     { text: 'MIBAI', value: 'https://api.mebxy.com/' },
     { text: 'CHUXIANG', value: 'https://api.chuxianghulian.com/' },
     { text: 'AU', value: 'https://au.wpweixin.com/' },
-    { text: 'CUILV', value: 'https://api.jcaik.com/' },  // 翠绿
+    { text: 'NEW-CUILV', value: 'https://api.jcaik.com/' },  // 翠绿
     { text: 'AUH', value: 'https://wechat.bebridge.cn/' }  // 澳洲香港服務器
 ];
 

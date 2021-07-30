@@ -99,7 +99,110 @@ $shareColor: #FE0000;
 	}
 
 }
+//抢购活动banner
+.luckydraw-banner{
+	width: 100%;
+	height: 100rpx;
+	color: #fff;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	position: relative;
 
+	.background-image {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.price-area {
+		position: absolute;
+		top: 14rpx;
+		left: 142rpx;
+		display: flex;
+		flex-direction: column;
+
+		.price {
+			font-size: 22rpx;
+			.price-unit {
+				display: inline-block;
+			}
+
+			.time-price {
+				display: inline-block;
+				line-height: 40rpx;
+				font-size: 46rpx;
+				font-weight: bold;
+			}
+		}
+
+		.origin-price {
+			font-size: 22rpx;
+			text-decoration: line-through;
+		}
+		.price-interval {
+			font-size: 22rpx;
+		}
+	}
+
+	.time {
+		position: absolute;
+		right: 14rpx;
+		top: 12rpx;
+		color: $shareColor;
+		text-align: right;
+
+		.time-section {
+			// min-width: 284rpx;
+			display: flex;
+			flex-direction: column;
+			align-content: flex-start;
+			font-size: 22rpx;
+			color: #fff;
+			.user-type{
+				font-size: 24rpx;
+			}
+			.quantity,.is-draw{
+				font-size: 28rpx;
+			}
+			.time-limit {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 8rpx;
+
+				.hour,
+				.minute,
+				.second {
+					width: 40rpx;
+					height: 35rpx;
+					line-height: 35rpx;
+					text-align: center;
+					background-color: $shareColor;
+					color: #fff;
+					font-weight: bold;
+					border-radius: 6rpx;
+					margin: 0 8rpx;
+				}
+				.hour{
+					min-width: 40rpx;
+					width: unset;
+					padding: 0 8rpx;
+				}
+			}
+
+		}
+
+		.end {
+			color: white;
+			transform: translateY(50%);
+			margin-top: -10rpx;
+			font-size: 30rpx;
+		}
+	}
+}
 // 今日秒杀banner
 .miaosha-banner {
 	width: 750rpx;

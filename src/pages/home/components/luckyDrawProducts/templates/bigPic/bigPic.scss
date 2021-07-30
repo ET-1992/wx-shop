@@ -1,0 +1,130 @@
+.bigPic {
+	display: flex;
+	padding: 25rpx 0;
+	margin: 0 25rpx;
+	background: #fff;
+	border-bottom: 1rpx solid #f4f4f4;
+
+	.wrap {
+		position: relative;
+		width: 330rpx;
+		height: 330rpx;
+		.mask {
+			font-size: 32rpx;
+			font-weight: bold;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+			z-index: 1;
+			border-radius: 10rpx;
+		}
+		.productImage {
+			width: 330rpx;
+			height: 330rpx;
+			border-radius: 10rpx;
+		}
+	}
+
+	.meta {
+		padding-left: 20rpx;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		.name {
+			color: #333;
+			font-size: 28rpx;
+			font-weight: bold;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.desc {
+			font-size: 24rpx;
+			color: #333;
+			margin-top: 20rpx;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.timeLimit {
+			font-size: 20rpx;
+			margin-top: 30rpx;
+			margin-bottom: 30rpx;
+			display: flex;
+			align-items: flex-end;
+			color: #333;
+
+			.limitWrapper {
+				margin-right: 15rpx;
+			}
+
+			.day,
+			.hour,
+			.minute,
+			.second {
+				margin: 0 6rpx;
+				font-size: 28rpx;
+				font-weight: bold;
+			}
+
+			// .day {
+			// 	font-size: 28rpx;
+			// 	font-weight: bold;
+			// 	margin: 0 6rpx;
+			// }
+
+			.dateTitle {
+				font-size: 16rpx;
+			}
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			flex-grow: 1;
+
+			.allPrice {
+				display: flex;
+				flex-direction: column;
+
+				.miaoshaPrice {
+					font-size: 42rpx;
+					color: #FF1E1E;
+					font-weight: bold;
+				}
+
+				.originalPrice {
+					font-size: 22rpx;
+					color: #707070;
+				}
+			}
+
+			.btn {
+				width: 150rpx;
+				height: 50rpx;
+				background-color: #F89452;
+				text-align: center;
+				line-height: 50rpx;
+				color: #fff;
+				font-size: 24rpx;
+				font-weight: 400;
+				border-radius: 5rpx;
+			}
+		}
+	}
+}

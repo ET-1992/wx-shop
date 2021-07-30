@@ -1,0 +1,31 @@
+<wxs src="/utils/wxs/utils.wxs" module="WXS" />
+<view class="container">
+  <view class="user-list">
+
+    <view class="user-item" wx:for="{{ userList }}" wx:key="index">
+
+      <view class="left-content">
+        <view class="head-image">
+          <image class="img {{ item.status === 2 || item.status === 4 || item.status === 5 || item.status === 6  ? 'win-img' : ''}}" src="{{ item.user.avatarurl }}"/>
+          <image wx:if="{{ item.status === 2 || item.status === 4 || item.status === 5 || item.status === 6 }}" class="win-icon" src="/icons/win.svg" />
+        </view>
+        <view class="name">
+          {{ item.user.nickname }}
+          <view class="time" hover-class="none">
+            {{ WXS.formatTime(item.time * 1000) }}
+          </view>
+        </view>
+      </view>
+
+      <view class="right-content">
+        +{{ item.bonus }}
+      </view>
+    </view>
+
+  </view>
+  <view class="is-final" wx:if="{{ !isLoading && userList.length }}">已经到底了~</view>
+  <view class="none-list" wx:if="{{ !isLoading && !userList.length }}">暂无记录~</view>
+</view>
+
+
+

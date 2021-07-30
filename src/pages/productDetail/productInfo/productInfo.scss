@@ -1,0 +1,30 @@
+@import "../../../utils/wxParse/wxParse.scss";
+
+.wxParse-img {
+	width: 750rpx;
+}
+.detail{
+	margin-top: 10rpx;
+	background-color: #fff;
+	width: 100%;
+
+	.detailTitle{
+		text-align: center;
+		padding: 20rpx 0;
+
+		.dot{
+			padding: 0 30rpx;
+		}
+	}
+
+	.wxParse-blockquote{
+		background-color: #fff;
+		border:none;
+	}
+
+	.cube{
+		video{
+			position: relative;
+		}
+	}
+}

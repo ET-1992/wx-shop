@@ -1,0 +1,31 @@
+<navigator class="twoPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+	<view class="wrapper">
+		<view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+		<image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" />
+	</view>
+	<view class="Info" style="{{ isMasonry && 'height: auto'  }}">
+		<view class="title">{{ product.title }}</view>
+		<view class="meta">
+			<view class="priceWrapper">
+				<view class="ItemPrice">
+					{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+				</view>
+				<!-- 原价 针对三图隐藏-->
+				<view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}">价值<text>{{ globalData.CURRENCY[globalData.currency] }}</text>{{ luckydraw.activity.price }}
+				</view>
+			</view>
+
+			<!-- 排除虚拟商品 跟 售罄商品 购物车页面为你推荐 -->
+			<view class="{{config && config.cart_enable ? 'show' : 'tagWrapper'}}" wx:if="{{ config && config.cart_enable && !product.individual_buy && product.status !== 'sold_out' && isShowAddCart }}">
+				<view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
+					<image class="icon" src="/icons/cart.svg" />
+				</view>
+			</view>
+
+			<!-- 限时购标签 -->
+			<block wx:else>
+				<view class="tagWrapper" wx:if="{{ product.luckydraw_enable }}">抢购</view>
+			</block>
+		</view>
+	</view>
+</navigator>
