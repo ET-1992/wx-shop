@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
-import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getUserProfile, autoNavigate_ } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getUserProfile, autoNavigate_, subscribeMessage } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -42,6 +42,7 @@ export const pageObj = {
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
         showBgColor: false,
         selectedProduct: {},  // 加车商品
+        subKeys: [{ key: 'coupon_expiring' }]
     },
 
     swiperChange(e) {
@@ -68,7 +69,8 @@ export const pageObj = {
                 const { coupons_home, coupons_newbie, current_user } = await api.hei.fetchShopExtra({
                     weapp_page: 'home'
                 });
-
+                const { subKeys } = this.data;
+                await subscribeMessage(subKeys);
                 /* 判断是否新人 */
                 const { isUserGetRedPacket }  = splitUserStatus(current_user && current_user.user_status);
 
@@ -240,7 +242,7 @@ export const pageObj = {
     },
     // 领取优惠券
     async onReceiveCoupon(id, index) {
-        const { userCoupon } = this.data;
+        const { userCoupon, subKeys } = this.data;
         console.log('第' + index + '个');
         console.log('qty:' + userCoupon[index].stock_qty);
         console.log(userCoupon[index]);
@@ -248,10 +250,10 @@ export const pageObj = {
             return;
         }
 
-        api.hei.receiveCoupon({
+        await api.hei.receiveCoupon({
             coupon_id: id,
         });
-
+        await subscribeMessage(subKeys);
         showToast({ title: '领取成功' });
         const updateData = {};
         const key = `userCoupon[${index}].status`;
@@ -273,6 +275,7 @@ export const pageObj = {
 
     // 一键领取新人优惠券
     async receiveCouponAll(e) {
+        const { subKeys } = this.data;
         const { couponsNewbie = [] } = e.currentTarget.dataset;
         let result = [];
         couponsNewbie.map(({ id, target_user_type }, index) => {
@@ -280,6 +283,7 @@ export const pageObj = {
         });
         const allResult = result.join(',');
         await api.hei.receiveCouponAll({ coupon_ids: allResult, });
+        await subscribeMessage(subKeys);
         showToast({ title: '领取成功' });
         this.setData({
             isNewUser: false

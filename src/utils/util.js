@@ -455,7 +455,7 @@ export async function subscribeMessage(keys = []) {
         return;
     }
 
-    // console.log(tmplIds, 'tmplIds');
+    console.log(tmplIds, 'tmplIds');
     try {
         const subRes = await wxProxy.requestSubscribeMessage({ tmplIds });
         // console.log(subRes);

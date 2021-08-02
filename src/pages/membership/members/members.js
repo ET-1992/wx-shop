@@ -1,4 +1,4 @@
-import { getUserProfile, go } from 'utils/util';
+import { getUserProfile, go, subscribeMessage } from 'utils/util';
 import { wxPay } from 'utils/pageShare';
 import { CONFIG } from 'constants/index';
 import api from 'utils/api';
@@ -91,6 +91,8 @@ Page({
     async onReceiveCoupon(id, index) {
         try {
             await api.hei.receiveCoupon({ coupon_id: id });
+            let subKeys = [{ key: 'coupon_expiring' }];
+            await subscribeMessage(subKeys);
             wx.showToast({ title: '领取成功' });
             let updateData = {};
             const key = `memberCouponList[${index}].status`;

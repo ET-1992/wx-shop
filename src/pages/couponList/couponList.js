@@ -1,6 +1,6 @@
 import api from 'utils/api';
 import { showToast, showModal } from 'utils/wxp';
-import { autoNavigate, getUserProfile } from 'utils/util';
+import { autoNavigate, getUserProfile, subscribeMessage } from 'utils/util';
 import { CONFIG } from 'constants/index';
 const app = getApp();
 
@@ -58,6 +58,8 @@ Page({
             const data = await api.hei.receiveCoupon({
                 coupon_id: id,
             });
+            let subKeys = [{ key: 'coupon_expiring' }];
+            await subscribeMessage(subKeys);
             console.log(data);
             const { errcode } = data;
 

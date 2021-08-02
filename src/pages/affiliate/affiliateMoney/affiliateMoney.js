@@ -1,4 +1,4 @@
-import { checkPhone, go } from 'utils/util';
+import { checkPhone, go, subscribeMessage } from 'utils/util';
 import { onDefaultShareAppMessage } from 'utils/pageShare';
 import api from 'utils/api';
 import { showModal } from 'utils/wxp';
@@ -141,6 +141,8 @@ Page({
                 name: username,
                 amount: new Decimal(money).mul(100).toNumber()
             });
+            let subKeys = [{ key: 'withdrawal_rejected' }, { key: 'withdrawal_approved' }];
+            await subscribeMessage(subKeys);
             this.setData({
                 isGetingMoney: false
             });
