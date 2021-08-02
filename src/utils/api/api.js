@@ -335,7 +335,7 @@ export const apis = {
         isForceToken: true
     },
     payDirect: {
-        path: 'api/mag.order.pay.direct.json?v2',
+        path: 'api/mag.order.pay.direct.json?pay&v2',
         method: 'POST',
         isForceToken: true
     },

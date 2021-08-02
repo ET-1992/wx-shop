@@ -56,6 +56,7 @@ Page({
                 wallet,
                 coupons,
                 background_color,
+                customize_style
             },
             managerComponentData = {
                 themeColor,

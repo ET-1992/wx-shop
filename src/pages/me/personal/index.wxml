@@ -27,16 +27,16 @@
 				<view class="head-level">{{ user.membership.level_name ? user.membership.level_name : '普通用户'}}</view>
 			</view>
 		</button>
-		<navigator class="welfare" url="/pages/coinDetail/coinDetail">
+		<navigator class="welfare" url="/pages/coinDetail/coinDetail" style="margin-right: {{ !customize_style.settings.coupon_show ? '80rpx' : '0rpx'}}" wx:if="{{ customize_style.settings.coins_show }}">
 			<view class="number">{{ wallet && wallet.coins || 0 }}</view>
 			<view class="title">{{ config.coin_name || '花生米' }}</view>
 		</navigator>
-		<navigator class="welfare" url="/pages/myCoupons/myCoupons">
+		<navigator class="welfare" url="/pages/myCoupons/myCoupons"  style="margin-right: {{ !customize_style.settings.coins_show ? '80rpx' : '0rpx'}}" wx:if="{{ customize_style.settings.coupon_show }}">
 			<view class="number">{{ coupons.available.length || 0 }}</view>
         	<view class="title">优惠券</view>
 		</navigator>
 	</view>
-	<view class="header-bottom" wx:if="{{ config.membership_enable }}">
+	<view class="header-bottom" wx:if="{{ config.membership_enable && customize_style.settings.membership_entrance_show }}">
     <view class="head-tip" >
       <image class="tip-image" src="/icons/me/vip.svg" mode="aspectFit"></image>
       <text>{{ user.membership.level_name ? '进入会员中心，查看会员福利' : '领取会员卡，获取更多优惠'}}</text>
