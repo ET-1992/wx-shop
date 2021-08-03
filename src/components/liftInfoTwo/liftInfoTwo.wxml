@@ -20,7 +20,7 @@
 		<view class="wrapper" wx:if="{{ liftInfo.receiver_address_name }}">
 			<view class="address-top">
         <text>自提点：{{ liftInfo.receiver_address_name || '无' }}</text>
-        <navigator url="/pages/liftList/liftList?type=2" wx:if="{{ !isOrderDetail }}" class="address-checkout">
+        <navigator url="/pages/liftList/liftList?type=2" wx:if="{{ !isOrderDetail && isCanNav }}" class="address-checkout">
           切换
         </navigator>
       </view>
