@@ -97,6 +97,8 @@ Page({
             time: item.time, // 营业时间
             remark: item.remark, // 商家备注
             sl_least_fee,  // 自提店最低消费
+            latitude: item.latitude,
+            longtitude: item.longtitude
         };
         app.event.emit('getLiftInfoEvent', liftInfo);
         wx.navigateBack({
