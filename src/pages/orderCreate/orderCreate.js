@@ -397,7 +397,9 @@ Page({
                         receiver_address_name,
                         distance: distance,
                         time,
-                        remark
+                        remark,
+                        latitude,
+                        longtitude
                     });
                 } else if (shipping_type === 4) {
                     let distance = getDistance(latitude, longtitude, address.latitude, address.longitude);
