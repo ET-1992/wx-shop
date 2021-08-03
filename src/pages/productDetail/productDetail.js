@@ -113,6 +113,11 @@ Page({
             return;
         }
 
+        if (product.groupon_enable) {
+            product.definePrice = product.groupon_commander_price ? product.groupon_commander_price : product.groupon_price;
+            product.showOriginalPrice = product.groupon_price !== product.original_price;
+        }
+
         // 普通模式
         let isShowActionSheet = true;
         this.handleCloseVideo();
@@ -121,7 +126,8 @@ Page({
             actions,
             isGrouponBuy,
             isCrowd,
-            isBargainBuy
+            isBargainBuy,
+            product
         });
     },
 
@@ -394,12 +400,15 @@ Page({
 
     // 去参团 拼团商品 非团长
     grouponListener({ detail }) {
+        const { product } = this.data;
         const { grouponId } = detail;
+        product.definePrice = product.groupon_price;
         this.setData({
             pendingGrouponId: grouponId,
             actions: [{ type: 'onBuy', text: '立即购买' }],
             isGrouponBuy: true,
             isShowActionSheet: true,
+            product
         });
     },
 
@@ -492,7 +501,7 @@ Page({
                 console.log('pendingGrouponId');
                 url = url + `&grouponId=${pendingGrouponId}`;
             } else {
-                url = url + '&groupon_commander_price=true';
+                url = url + `&groupon_commander_price=${product.groupon_commander_price ? product.groupon_commander_price : ''}`;
             }
         }
         if (isCrowd) {

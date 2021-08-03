@@ -129,7 +129,7 @@ Page({
                 totalPostage,
                 isShouldRedirect: false,
                 crowd,
-                groupon_commander_price,
+                groupon_commander_price: Boolean(groupon_commander_price),
                 shipping_type,
                 product_type,
             }, () => {
