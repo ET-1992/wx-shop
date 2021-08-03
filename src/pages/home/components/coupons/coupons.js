@@ -1,7 +1,7 @@
 import api from 'utils/api';
 const app = getApp();
 import { showToast } from 'utils/wxp';
-import { getUserProfile } from 'utils/util';
+import { getUserProfile, subscribeMessage } from 'utils/util';
 
 Component({
     properties: {
@@ -65,11 +65,11 @@ Component({
             if (!coupons[index].stock_qty) {
                 return;
             }
-
             await api.hei.receiveCoupon({
                 coupon_id: id,
             });
-
+            let subKeys = [{ key: 'coupon_expiring' }];
+            await subscribeMessage(subKeys);
             showToast({ title: '领取成功' });
 
             coupons[index].status = 4;

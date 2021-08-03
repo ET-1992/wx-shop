@@ -31,15 +31,17 @@ $meter: 20rpx;
 		padding: 30rpx 5rpx 30rpx 8rpx;
 
 		.address-top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 			font-size: 28rpx;
 			color: #000000;
-			margin-bottom: 30rpx;
-		}
-
-		.address-part,
-		.address-info,
-		.address-remark {
-			padding-left: $meter; 
+			margin-bottom: 16rpx;
+			font-weight: bold;
+			.address-checkout{
+				font-size: 24rpx;
+				color: #999999;
+			}
 		}
 
 		.address-part {
@@ -62,7 +64,6 @@ $meter: 20rpx;
 				.right-arrow {
 					width: $meter/2;
 					height: $meter;
-					display: inline-block;
 					margin-left: $meter;
 				}
 			}
@@ -70,39 +71,71 @@ $meter: 20rpx;
 
 		.address-info {
 			display: flex;
-			margin-top: 30rpx;
-			margin-bottom: 20rpx;
+			margin-bottom: 10rpx;
 			flex-wrap: wrap;
 
 			.address-section {
 				display: flex;
-				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
 				flex-wrap: wrap;
 				flex-grow: 1;
 				width: 150rpx;
+				margin-bottom: 16rpx;
 
-				.address-title {
-					font-size: 24rpx;
-					color: $tagColor;
-					margin-bottom: 5rpx;
-				}
-
-				.address-detail,
-				.address-time,
-				.address-phone {
+				.address-detail{
+					width: 550rpx;
 					font-size: 28rpx;
-					color: $titleColor;
+					color: #999;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				.address-location{
+					display: flex;
+    			align-items: center;
+					font-size: 24rpx;
+					color: #0679F6;
+					image{
+						width: 24rpx;
+						height: 24rpx;
+						margin-right: 10rpx;
+					}
+				}
+				.address-openning{
+					.address-title {
+						font-size: 24rpx;
+						color: $tagColor;
+						margin-right: 10rpx;
+						display: inline-block;
+					}
+					.address-time{
+						font-size: 24rpx;
+						color: $titleColor;
+						color: #333333;
+						display: inline-block;
+					}
+				}
+				.address-phone{
+					display: flex;
+					align-items: center;
+					font-size: 24rpx;
+					color: #0679F6;
+					image{
+						width: 24rpx;
+						height: 24rpx;
+						margin-right: 10rpx;
+					}
 				}
 			}
 
 			.address-first {
 				width: 100%;
-				margin-bottom: $meter;
 			}
 
 			.address-second {
 				border-left: 1px solid $borderColor;
-				padding-left: 35rpx; 
+				padding-left: 35rpx;
 				box-sizing: border-box;
 			}
 		}
@@ -110,7 +143,6 @@ $meter: 20rpx;
 		.address-remark {
 			font-size: 24rpx;
 			color: $shareColor;
-			font-weight: bold;
 		}
 	}
 
@@ -121,14 +153,14 @@ $meter: 20rpx;
 		// padding: 20rpx 40rpx;
 		font-size: 28rpx;
 		color: #000000;
-		border-top: 1px solid $borderColor;
+		border-bottom: 1px solid $borderColor;
 		padding: 30rpx 0;
 
 		.tel {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-
+			font-weight: bold;
 			.star {
 				color: red;
 			}
@@ -142,6 +174,7 @@ $meter: 20rpx;
 				color: #000000;
 				border-radius: 8rpx;
 				margin-left: 10rpx;
+				font-weight: normal;
 			}
 		}
 
@@ -150,6 +183,7 @@ $meter: 20rpx;
 			flex-direction: row;
 			align-items: center;
 			padding-left: 8rpx;
+			font-weight: bold;
 
 			.receiver-field {
 				width: 200rpx;
@@ -160,6 +194,7 @@ $meter: 20rpx;
 				text-align: center;
 				color: #000000;
 				margin-left: 10rpx;
+				font-weight: normal;
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 import api from 'utils/api';
 import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import { USER_KEY, CONFIG, ADDRESS_KEY, PLATFFORM_ENV } from 'constants/index';
-import { autoNavigate, go, getUserProfile, auth, imgToHttps } from 'utils/util';
+import { autoNavigate, go, getUserProfile, auth, imgToHttps, subscribeMessage } from 'utils/util';
 import  templateTypeText from 'constants/templateType';
 import proxy from 'utils/wxProxy';
 const app = getApp();
@@ -189,6 +189,7 @@ Page({
         this.setData({ pendingGrouponId: '' });
         try {
             let { posterType, luckydraw, luckydraw_round = '' } = this.data;
+            console.log(luckydraw, 'luckydraw');
             const data = await api.hei.fetchProduct({ id, luckydraw_round });
             const { config, product, share_title, share_image } = data;
             this.config = config;
@@ -586,6 +587,8 @@ Page({
                 coupon_id: id,
             });
             if (!data.errcode) {
+                let subKeys = [{ key: 'coupon_expiring' }];
+                await subscribeMessage(subKeys);
                 await proxy.showToast({ title: '领取成功' });
                 const updateData = {};
                 const key = `receivableCoupons[${index}].status`;
@@ -1292,6 +1295,7 @@ Page({
         resultOption.bonus = record.bonus;
         // 抽奖失败的提示语
         const { luckydraw_failed_tips = [] } = luckydraw.setting;
+        // 从后面返回的提示语列表中随机抽取一个
         const failText = luckydraw_failed_tips[Math.floor((Math.random() * luckydraw_failed_tips.length))];
         this.setData({
             resultOption,
@@ -1304,11 +1308,11 @@ Page({
     },
     // 放弃购买
     async abandonBuy() {
-        const { luckydraw: { win_record: { id }, activity }} = this.data;
+        const { luckydraw: { win_record: { id }, activity }, config } = this.data;
         const { coins } = activity;
         wx.showModal({
             title: '提示',
-            content: `确认放弃购买机会吗？${activity.consume_type === '1' ? '您将扣除' + coins + '金币' : ''}`,
+            content: `确认放弃购买机会吗？${activity.consume_type === '1' ? '您将扣除' + coins + (config.coin_name || '花生米') : ''}`,
             success: async (res) => {
                 if (res.confirm) {
                     await api.hei.cancelBuy({ record_id: id });
@@ -1327,8 +1331,11 @@ Page({
 
     // 参与抢购
     async startGroupSale() {
-        await getUserProfile();
         try {
+            await getUserProfile();
+            let subKeys = [{ key: 'luckydraw_unwin' }, { key: 'luckydraw_win' }];
+            await subscribeMessage(subKeys);
+
             const { luckydraw: { activity }} = this.data;
             const { id: activity_id } = activity;
             this.setData({
@@ -1349,7 +1356,7 @@ Page({
                 title: '提示',
                 content: e.errMsg,
                 showCancel: false,
-                success: async (res) => {
+                success: (res) => {
                     if (res.confirm) {
                         this.setData({
                             isGroupSalePending: false

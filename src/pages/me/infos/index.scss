@@ -29,3 +29,17 @@
 		}
 	}
 }
+.info-count{
+	width: 30rpx;
+	height: 30rpx;
+	border-radius: 50%;
+	font-size: 20rpx;
+	color: #fff;
+	text-align: center;
+	line-height: 30rpx;
+	background-color: #fc2732;
+	position: absolute;
+	right: 36rpx;
+	top: 2rpx;
+	z-index: 2;
+}

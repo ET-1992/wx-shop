@@ -4,6 +4,7 @@
              <!-- 普通直链 -->
             <button class="info-btn" hover-class="btn-hover" bind:tap="onNavigated" data-key="{{ item.key }}" data-path="{{ item.pagePath }}" >
                 <template is="btnContent" data="{{ item: item }}"></template>
+                <view class="info-count" wx:if="{{ item.count }}">{{ item.count }}</view>
             </button>
         </block>
         <block wx:elif="{{ item.key === 'contact' && config.contact.type === 'work_weixin' }}">
@@ -21,6 +22,7 @@
                 bindtap="onAuthNavigated"
                 session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'
             >
+                <view class="info-count" wx:if="{{ item.count }}">{{ item.count }}</view>
                 <template is="btnContent" data="{{ item: item }}"></template>
             </button>
         </block>

@@ -65,7 +65,7 @@
                 | 每人限参与<text style="color: {{ luckydraw.setting.colors.quote_text_color }};">{{ luckydraw.activity.quota }}</text>次
               </block>
               <block wx:else>| 不限次数</block>
-              | {{ luckydraw.activity.coins + '金币/次' }}
+              | {{ luckydraw.activity.coins + (config.coin_name || '花生米') + '/次' }}
             </view>
           </view>
 
@@ -505,59 +505,73 @@
       <block wx:elif="{{ product.luckydraw_enable }}">
         <!-- 集合开奖 -->
         <block wx:if="{{ luckydraw.activity.draw_type === '2' }}">
-          <!-- 整个活动结束(过期或者商品售完) -->
-          <block wx:if="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
-            <view class="buy"   style="background-color: #D4D4D4;">活动结束</view>
+          <!-- 中奖状态优先级最高  购买资格和剩余购买时间有关 和活动状态无关-->
+          <block wx:if="{{ luckydraw.win_record }}">
+            <!-- 待兑奖 -->
+            <block wx:if="{{ luckydraw.win_record.status === 2 }}">
+              <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
+                剩余{{ luckydraw.win_record.expired_time_formated }}下单
+              </view>
+              <view class="buy"  bindtap="abandonBuy" style="background-color:#FFC75A">放弃购买</view>
+            </block>
+            <!-- 兑奖 -->
+            <view class="buy" wx:elif="{{ luckydraw.win_record.status === 4 }}"  style="background-color: #D4D4D4;">已兑奖</view>
+            <!-- 兑奖时间过期 -->
+            <view class="buy" wx:elif="{{ luckydraw.win_record.status === 5 }}"  style="background-color: #D4D4D4;">订单过期</view>
+            <!-- 主动放弃兑奖 -->
+            <view class="buy" wx:elif="{{ luckydraw.win_record.status === 6 }}"  style="background-color: #D4D4D4;">放弃兑奖</view>
           </block>
+
+          <!-- 整个活动结束(过期或者商品售完) -->
+          <block wx:elif="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
+              <view class="buy" style="background-color: #D4D4D4;">活动结束</view>
+          </block>
+
           <!-- 活动进行时 -->
           <block wx:else>
           <!-- 这里是每一期的情况 -->
             <!-- 已经开奖的情况 -->
             <block wx:if="{{ luckydraw.batch.status === 2 }}">
-              <block wx:if="{{ luckydraw.win_record }}">
-                <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
-                  剩余{{ luckydraw.win_record.expired_time_formated }}下单
-                </view>
-                <view class="buy"  bindtap="abandonBuy" style="background-color:#FFC75A">放弃购买</view>
-              </block>
-
-              <view class="buy" wx:else  style="background-color: #D4D4D4;">已开奖</view>
+              <view class="buy" style="background-color: #D4D4D4;">已开奖</view>
             </block>
+
             <!-- 进行中 未开奖-->
             <block wx:if="{{ luckydraw.batch.status === 1 }}">
               <view class="buy" wx:if="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}"  style="background-color: #D4D4D4;">抢购次数已用尽</view>
               <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="{{ isGroupSalePending ? '' : 'startGroupSale' }}">马上参与</view>
             </block>
+
           </block>
         </block>
 
         <!-- 转盘抽奖 -->
         <block wx:else>
-          <!-- 活动结束或者过期 -->
-          <block  wx:if="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
-            <view class="buy" style="background-color: #D4D4D4;">
-              抢购失败
+          <!-- 已中奖 -->
+          <block wx:if="{{ luckydraw.win_record.status === 2 }}">
+            <view class="buy"  bindtap="abandonBuy" style="background-color:{{ themeColor.secondaryColor }}">
+              放弃购买
+            </view>
+            <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
+              剩余{{ luckydraw.win_record.expired_time_formated }}下单
             </view>
           </block>
+
+          <!-- 活动结束或者过期 -->
+          <block wx:elif="{{ luckydraw.activity.status === 4 || luckydraw.activity.status === 3 }}">
+            <view class="buy" style="background-color: #D4D4D4;">活动结束</view>
+          </block>
+
           <!-- 活动进行中 -->
           <block wx:else>
-            <!-- 中奖时 -->
-            <block wx:if="{{ luckydraw.win_record }}">
-              <view class="buy"  bindtap="abandonBuy" style="background-color:{{ themeColor.secondaryColor }}">
-                放弃购买
-              </view>
-              <view class="buy multi" style="background-color: {{ themeColor.primaryColor }}" catchtap="onShowSku" data-actions="{{[{ type: 'onBuy', text: (templateTypeText[defineTypeGlobal].page_productDetail.buyText || btn.text(config) )}]}}">
-                剩余{{ luckydraw.win_record.expired_time_formated }}下单
-              </view>
-            </block>
             <!-- 抽奖次数用完 -->
-            <view class="buy" wx:elif="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}" style="background-color: #D4D4D4;">
+            <view class="buy" wx:if="{{ luckydraw.activity.quota && luckydraw.user_participate_count === luckydraw.activity.quota }}" style="background-color: #D4D4D4;">
               抽奖次数已用尽
             </view>
             <view class="buy" wx:else style="background-color: {{ themeColor.primaryColor }}" bindtap="startLottery">
               马上抽奖
             </view>
           </block>
+
         </block>
       </block>
       <!-- 普通商品 -->

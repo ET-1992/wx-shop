@@ -47,6 +47,25 @@ Component({
             const { value } = e.detail;
             wx.setStorageSync('receiver_phone', value);
             this.triggerEvent('updateLiftInfo', { receiver_phone: value }, { bubbles: true });
+        },
+        openMap() {
+            let { latitude, longtitude, receiver_city, receiver_district, receiver_address } = this.data.liftInfo;
+            console.log(latitude, longtitude, 'dddddd');
+            latitude = Number(latitude);
+            longtitude = Number(longtitude);
+
+            wx.openLocation({
+                latitude,
+                longitude: longtitude,
+                name: `${receiver_city}${receiver_district}${receiver_address}`,
+                scale: 18
+            });
+        },
+        callPhoneNumber() {
+            const { receiver_address_phone } = this.data.liftInfo;
+            wx.makePhoneCall({
+                phoneNumber: receiver_address_phone
+            });
         }
     }
 });
