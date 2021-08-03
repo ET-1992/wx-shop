@@ -343,7 +343,7 @@
           </view>
         </view>
         <!-- end -->
-        <view wx:if="{{ product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
+        <view wx:if="{{ !product.pending_groupons_hiding && product.groupon_enable && product.pending_groupons.length && !grouponId && (expiredGroupon && expiredGroupon.length) !== product.pending_groupons.length }}" class="pendingGroupons">
           <view class="title">正在开团, 可直接参团</view>
           <view wx:for="{{ product.pending_groupons }}" wx:key="id" class="pendingGrouponWrapper">
             <pendingGrouponItem groupon="{{ item }}" bindgroupEvent="grouponListener" bind:onExpiredGroupon="onExpiredGroupon" />

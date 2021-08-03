@@ -179,11 +179,13 @@ Page({
         if (self_address) {
             // 自填地址
             url = `/pages/selfAddress/selfAddress`;
-        } else if (offline_store_enable && shipping_type === 4) {
-            // 多门店送货上门
-            let type = 'orderEdit';
-            url = `../addressEdit/addressEdit?type=${type}`;
-        } else {
+        }
+        // else if (offline_store_enable && shipping_type === 4) {
+        //     // 多门店送货上门
+        //     let type = 'orderEdit';
+        //     url = `../addressEdit/addressEdit?type=${type}`;
+        // }
+        else {
             // 普通地址列表
             url = `/pages/addressList/addressList`;
         }
