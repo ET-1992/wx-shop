@@ -37,7 +37,7 @@ export default class Poster {
                 views = [
                     ...views,
                     ...this.titleViews(),
-                    ...this.miaoshaTop(),
+                    ...this.luckyDrawTop(),
                     ...this.luckyDrawPrice()
                 ];
                 break;
@@ -584,6 +584,79 @@ export default class Poster {
                 }
             }
         ];
+    }
+    luckyDrawTop() {
+        const {
+            timeLimit,
+            luckdrawStatus,
+            priceColor,
+            user
+        } = this.data;
+        let _views = [];
+        let statusText = '';
+
+        const viewsLeft = 45;
+        const viewsTop = 40;
+
+        if (luckdrawStatus === 'active') {
+            statusText = '距活动结束';
+        }
+        if (luckdrawStatus === 'end') {
+            statusText = '活动已结束';
+        }
+
+        _views = [
+            {
+                type: 'text',
+                text: (user && user.nickname) || '好友',
+                css: {
+                    top: viewsTop + 20 + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '22rpx',
+                    fontWeight: 'bold'
+                }
+            },
+            {
+                type: 'text',
+                text: '向你推荐这个商品',
+                css: {
+                    top: viewsTop + 55 + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '24rpx',
+                }
+            },
+            {
+                id: 'miaosha-status-text-id',
+                type: 'text',
+                text: statusText,
+                css: {
+                    top: viewsTop + 90 + 'rpx',
+                    left: viewsLeft + 'rpx',
+                    fontSize: '22rpx',
+                    fontWeight: 'bold'
+                }
+            },
+        ];
+
+
+        if (luckdrawStatus === 'active') {
+            const { remainTime } = formatConfirmTime(timeLimit);
+            _views.push(
+                {
+                    type: 'text',
+                    text: remainTime,
+                    css: {
+                        top: viewsTop + 92 + 'rpx',
+                        left: [`${viewsLeft + 10}rpx`, 'miaosha-status-text-id'],
+                        color: priceColor,
+                        fontSize: '20rpx',
+                        width: '190rpx',
+                        maxLines: 1
+                    }
+                }
+            );
+        }
+        return _views;
     }
     // 抢购活动价格
     luckyDrawPrice() {

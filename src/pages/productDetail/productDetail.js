@@ -215,6 +215,7 @@ Page({
                 activity.lucky_rate = (Number(activity.lucky_rate) / 100).toFixed(2); // 计算中奖概率
                 let now_time = Math.round(Date.now() / 1000),
                 		timeLimit = activity.expired_time - now_time > 0 ? (activity.expired_time - now_time) : 0; // 算出活动剩下的时间
+                let luckdrawStatus = timeLimit > 0 ? 'active' : 'end';
                 // 有batch则表示是拼团抢购
                 if (batch) {
                     luckydraw_round = batch.round;
@@ -224,7 +225,8 @@ Page({
                 this.setData({
                     luckydraw,
                     timeLimit,
-                    luckydraw_round
+                    luckydraw_round,
+                    luckdrawStatus
                 });
 
             }
@@ -954,7 +956,7 @@ Page({
         }
 
         if (luckydraw_enable) {
-            const { timeLimit, miaoShaStatus, luckydraw, current_user } = this.data;
+            const { timeLimit, luckdrawStatus, luckydraw, current_user } = this.data;
             posterData = {
                 id,
                 banner: thumbnail,
@@ -962,7 +964,7 @@ Page({
                 price,
                 activity_price: luckydraw.activity.price,
                 timeLimit,
-                miaoShaStatus,
+                luckdrawStatus,
                 share_code: current_user.platform_user_id,
                 activity_id: luckydraw.activity.id
             };

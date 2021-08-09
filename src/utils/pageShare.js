@@ -235,7 +235,6 @@ export const wxPay = async (options = {}, order_no, subKeys = []) => {
                 showCancel: false,
             });
         }
-        throw err;
     }
     // wx.redirectTo({
     // 	url: `/pages/orderDetail/orderDetail?id=${orderNo}`
