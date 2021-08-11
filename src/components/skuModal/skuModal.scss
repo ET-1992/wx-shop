@@ -143,12 +143,12 @@
 			top: 0;
 			z-index: 999;
 		}
-	
+
 		.head {
 			margin-bottom: 24rpx;
 			display: flex;
 			padding-bottom: 20rpx;
-	
+
 			.productImage {
 				width: 180rpx;
 				height: 180rpx;
@@ -158,16 +158,16 @@
 				position: relative;
 				// box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
 			}
-	
+
 			.productInfo {
 				color: #969799;
 				width: 400rpx;
 				font-size: 24rpx;
-	
+
 				.stock, .price, .property, .coin-product-price {
 					margin-bottom: 10rpx;
 				}
-	
+
 				.coin-product-price {
 					color: #F52D2D;
 					font-size: 36rpx;
@@ -180,7 +180,7 @@
 						margin: 0 4rpx;
 					}
 				}
-	
+
 				.price {
 					color: #F52D2D;
 					font-size: 44rpx;
@@ -215,7 +215,7 @@
 
 	.scroll-content-wrap {
 		// min-height: 200rpx;
-		max-height: 800rpx;
+		max-height: 750rpx;
 		.scroll-content {
 			padding: 0 30rpx;
 		}
@@ -250,7 +250,7 @@
 			align-items: center;
 			.rightWrap {
 				display: flex;
-				
+
 				.least {
 					display: flex;
 					align-items: center;
@@ -290,5 +290,5 @@
 			background-color: $secondColor;
 		}
 	}
-	
+
 }
