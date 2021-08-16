@@ -853,5 +853,23 @@ Page({
                 selectedPayValue: value
             });
         }
-    }
+    },
+    // 改变订单商品数量
+    async onStepperChange(e) {
+        let { items, isGrouponBuy } = this.data;
+        let { index, number } = e.detail;
+        if (isGrouponBuy) {
+            wx.showModal({
+                title: '温馨提示',
+                content: '团购商品不支持此项操作',
+                showCancel: false,
+            });
+        } else {
+            wx.showLoading({ title: '加载中...' });
+            items[index].quantity = number;
+            this.setData({ items });
+            await this.onLoadData();
+            wx.hideLoading();
+        }
+    },
 });

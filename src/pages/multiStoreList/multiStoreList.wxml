@@ -47,13 +47,18 @@
 								</view>
 							</block>
 							<!-- 遍历可选/不可选门店内容 -->
-							<view class="store-wrap" wx:for="{{ storeName === 0 ? recommendStores : limitStores }}" bind:tap="onSeleteStore" 
+							<view class="store-wrap" wx:for="{{ storeName === 0 ? recommendStores : limitStores }}" bind:tap="onSeleteStore"
 								wx:key="index" data-id="{{ item.id }}">
 								<view class="store-title">
 									<text>{{ item.name || '-' }}</text>
 									<van-tag plain custom-class="store-tag" wx:if="{{ item.offline_store }}">快递仓</van-tag>
 								</view>
 								<view class="store-address">{{ address.store(item) }}</view>
+                <view class="lift-styles">
+                  <view class="lift" wx:for="{{ item.liftStyles }}" wx:key="index" wx:for-item="styleText" style="background-color: {{ themeColor.primaryColor }};">
+                      {{ styleText }}
+                  </view>
+                </view>
 								<view class="store-bottom">
 									<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
 									<button class="store-bottom-right" style="background-color: {{ themeColor.primaryColor }}">选择门店</button>

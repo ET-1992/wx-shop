@@ -16,12 +16,12 @@
   </block>
 
   <!-- 门店列表 -->
-  <storeList wx:if="{{ shipping_type === 4 }}" addresses="{{ storeListAddress }}" 
+  <storeList wx:if="{{ shipping_type === 4 }}" addresses="{{ storeListAddress }}"
     address="{{ address }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" id="storeList"
     updateEnable="{{ storeUpdateEnable }}"></storeList>
 
   <!-- 商品信息 -->
-  <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
+  <productItemSold items="{{ items }}" class="productItemSoldWrapper" showStepper bind:stepperChange="onStepperChange"/>
 
    <!-- 买家留言文本框 -->
   <view class="textareaWrapper" wx:if="{{ !order_annotation }}">

@@ -53,6 +53,10 @@ Component({
         customClass: {
             type: String,
             value: ''
+        },
+        showStepper: {
+            type: Boolean,
+            value: false,
         }
     },
     data: {
@@ -83,5 +87,11 @@ Component({
         onCloseRemark() {
             this.setData({ isShowRemark: false });
         },
+        // 步进器数量改变
+        onStepperChange(e) {
+            let { detail, currentTarget: { dataset: { index }}} = e;
+            let eventDetail = { index, number: detail };
+            this.triggerEvent('stepperChange', eventDetail);
+        }
     }
 });

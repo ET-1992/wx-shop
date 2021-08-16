@@ -28,9 +28,11 @@ Page({
     onLoad() {
         const { themeColor } = app.globalData;
         const config = wx.getStorageSync(CONFIG);
+        let { shipping_type_name = [] } = config;
         this.setData({
             themeColor,
             config,
+            shipping_type_name
         });
         app.event.on('setAddressListEvent', this.setAddressListEvent, this);
     },
@@ -143,7 +145,20 @@ Page({
 
     // 获取门店列表
     async getStoreList() {
+        const { shipping_type_name } = this.data;
         let { stores } = await api.hei.getMultiStoreList();
+        console.log(shipping_type_name);
+        stores.forEach(store => {
+            let liftStyles = [];
+            store.shipping_types.forEach((type) => {
+                const liftStyleObj = shipping_type_name.find(item => {
+                    return item.value === type;
+                });
+                liftStyles.push(liftStyleObj.text);
+            });
+            store.liftStyles = liftStyles;
+        });
+
         this.setData({
             originStoreList: stores,
         });

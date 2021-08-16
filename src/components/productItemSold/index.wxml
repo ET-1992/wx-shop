@@ -16,7 +16,8 @@
 					<view class="propertyNames propertyNames-{{ customClass }}" wx:if="{{ item.property && customClass === 'inviteCrowd' }}">{{ item.property }}</view>
 					<view class="itemCount">
 						<view class="grouponLimit" wx:if="{{ groupon.member_limit }}">{{ groupon.member_limit }}人团</view>
-						<view class="itemQuantity itemQuantity-{{ customClass }}" wx:if="{{item.quantity}}">x{{ item.quantity }}</view>
+            <van-stepper wx:elif="{{ showStepper }}" value="{{ item.quantity }}" data-index="{{ index }}" disable-input bind:change="onStepperChange" catch:tap="noop"/>
+						<view wx:else class="itemQuantity itemQuantity-{{ customClass }}">x{{ item.quantity }}</view>
 					</view>
 				</view>
 			</view>
