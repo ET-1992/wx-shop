@@ -1,19 +1,19 @@
-<view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" 
+<view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}"
 	style="margin-bottom: {{ setting.margin }}rpx">
 	<!-- 标题 -->
-	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
+	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }};color:{{ setting.title_color }}">{{ title }}</view>
 	<!-- 两行 商品列表 -->
 	<block >
 		<view class="f-container">
               <!-- 瀑布流容器 -->
                 <view class="f-layout">
                     <!-- 单流容器 -->
-                    <view 
+                    <view
                     wx:for="{{fallNum}}"
                     wx:key="index"
                     class="f-onefall f-l{{index}}"
                     >
-                    <block 
+                    <block
                         wx:for="{{itemArray[index]}}"
                         wx:for-index="i"
                         wx:key="_{{index}}{{i}}"
@@ -24,7 +24,7 @@
                                 <image src="{{ product.image }}" class="ItemImage" mode="widthFix" lazy-load="{{ true }}" slot="content" />
                             </extenNav>
                         </view>
-                          
+
                         <include src="../productsList/templates/index/index.wxml" wx:else></include>
                     </block>
                     </view>

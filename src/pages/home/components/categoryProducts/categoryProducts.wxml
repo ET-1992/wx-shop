@@ -1,9 +1,9 @@
 <view class="container {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<!-- 标题 -->
-	<view class="sectionTitle" wx:if="{{ titleDisplay }}" style="text-align:{{ setting.title_position }}">{{ title }}</view>
+	<view class="sectionTitle" wx:if="{{ titleDisplay }}" style="text-align:{{ setting.title_position }};color:{{ setting.title_color }}">{{ title }}</view>
 	<!-- 标签导航 -->
 	<view class="category-wrap">
-		<view class="category-item {{ index === currentIndex ? 'selected-item' : '' }}" wx:for="{{ categories }}" wx:key="index" 
+		<view class="category-item {{ index === currentIndex ? 'selected-item' : '' }}" wx:for="{{ categories }}" wx:key="index"
 		data-index="{{ index }}" data-id="{{ item.product_category_id }}" bind:tap="onClickBtn">
 			<button class="category-btn single-line" style="color: {{ index === currentIndex && themeColor.primaryColor }}"
 			hover-class="none">{{ item.text || '-' }}</button>
@@ -23,11 +23,11 @@
 
 <wxs module="settingStyle">
 var createClass = function(style){
-	var dictionary = { 
-		'default': '', 
-		'per_2': 'two-img', 
-		'per_3': 'three-img', 
-		'per_2_h': 'scroll-two-img', 
+	var dictionary = {
+		'default': '',
+		'per_2': 'two-img',
+		'per_3': 'three-img',
+		'per_2_h': 'scroll-two-img',
 		'per_3_h': 'scroll-three-img'
 	};
 	var className = dictionary[style] || dictionary['default'];

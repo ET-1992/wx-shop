@@ -1,5 +1,5 @@
 <view class="container" style="margin-bottom: {{ setting.margin }}rpx">
-	<view class="title" style="text-align: {{ setting.title_position }}" wx:if="{{ setting.title_display }}">{{ goldData.title }}</view>
+	<view class="title" style="text-align: {{ setting.title_position }};color:{{ setting.title_color }}" wx:if="{{ setting.title_display }}">{{ goldData.title }}</view>
 	<!-- 金价显示 -->
 	<view class="gold" wx:if="{{ gold }}">
 		<view class="gold-price">

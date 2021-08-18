@@ -1,5 +1,5 @@
 <view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" wx:if="{{ content && content.length }}" style="margin-bottom: {{ setting.margin }}rpx">
-	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }}">{{ title }} </view>
+	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }};color:{{ setting.title_color }}">{{ title }} </view>
   <view class="content" >
     <navigator
       wx:for="{{ content }}"

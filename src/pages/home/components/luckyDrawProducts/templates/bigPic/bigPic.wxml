@@ -37,7 +37,7 @@
                     {{ globalData.CURRENCY[globalData.currency] }}{{  product.price }}
                 </view>
             </view>
-
+            <view class="btn" style="background-color: {{ themeColor.primaryColor }}">立即抢购</view>
         </view>
     </view>
 </navigator>
