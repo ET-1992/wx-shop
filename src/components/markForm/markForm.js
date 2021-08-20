@@ -5,9 +5,9 @@ import { checkPhone, checkEmail, checkIdNameNum } from 'utils/util';
 const app = getApp();
 Component({
     properties: {
-        form: {
-            type: Array,
-            value: [],
+        formData: {
+            type: Object,
+            value: {}
         },
         onlyShow: {
             type: Boolean,
@@ -15,16 +15,17 @@ Component({
         },
         showSubmitBtn: {
             type: Boolean,
-            value: false
+            value: true
         }
     },
     observers: {
         // 过滤未填写留言
-        'form, onlyShow': function(form, onlyShow) {
-            if (!form) { return }
-            let showForm = form;
+        'formData, onlyShow': function(formData, onlyShow) {
+            console.log(formData, 666);
+            if (!formData.fields) { return }
+            let showForm = formData.fields;
             if (onlyShow) {
-                showForm = form.filter(item => item.value);
+                showForm = formData.fields.filter(item => item.value);
             }
             this.setData({ showForm });
         }
@@ -38,8 +39,8 @@ Component({
         // 输入框聚焦/失焦
         onFormFocus(e) {
             let { type, currentTarget: { dataset: { name }}} = e,
-                { form } = this.data,
-                formItem = form.find(item => item.name === name),
+                { formData } = this.data,
+                formItem = formData.fields.find(item => item.name === name),
                 isFocused = false;
 
             // 文本会不断触发聚焦和失焦
@@ -52,26 +53,25 @@ Component({
         },
         // 表单输入
         onFormChange(e) {
-            let { detail, currentTarget: { dataset: { index }}} = e,
-                { form } = this.data;
-
-            if (form[index].type === 'select') {
+            let { detail, currentTarget: { dataset: { name }, }} = e,
+                { formData } = this.data,
+                index = formData.fields.findIndex(item => item.name === name);
+            console.log(index);
+            if (formData.fields[index].type === 'select') {
                 // 下拉选择
-                detail = form[index].options[detail.value];
+                detail = formData.fields[index].options[detail.value];
             } else if (detail.value) {
                 // 日期/时间
                 detail = detail.value;
             }
-            console.log(detail);
-            form[index].value = detail;
-            console.log(form);
-            this.setData({ form });
+            formData.fields[index].value = detail;
+            console.log(formData);
+            this.setData({ formData });
         },
-        // 文件上传
         async onUpload(e) {
             let { name } = e.currentTarget.dataset,
-                { form } = this.data,
-                index = form.findIndex(item => item.name === name);
+                { formData } = this.data,
+                index = formData.fields.findIndex(item => item.name === name);
             const { tempFilePaths } = await chooseImage({
                 count: 1
             });
@@ -87,15 +87,49 @@ Component({
                         showCancel: false
                     });
                 } else {
-                    form[index].value = url;
-                    this.setData({ form });
+                    formData.fields[index].value = url;
+                    this.setData({ formData });
                 }
             }
             catch (err) {
                 console.log(err);
             }
         },
-        /* 预览图片 */
+        // 文件读取完成
+        async onAfterRead(e) {
+            console.log('e', e);
+            let { file } = e.detail,
+                { name } = e.currentTarget.dataset,
+                { formData } = this.data,
+                index = formData.fields.findIndex(item => item.name === name);
+
+            try {
+                const data = await api.hei.upload({
+                    filePath: file.url || file.path
+                });
+                let { url } = JSON.parse(data);
+                formData.fields[index].value = [{ url }];
+
+                this.setData({ formData });
+
+            } catch (e) {
+                wx.showModal({
+                    title: '温馨提示',
+                    content: e.errmsg || e.errMsg,
+                    showCancel: false
+                });
+            }
+        },
+
+        // 文件删除
+        onFileDelete(e) {
+            let { name } = e.currentTarget.dataset,
+                { formData } = this.data,
+                index = formData.fields.findIndex(item => item.name === name);
+
+            formData.fields[index].value = '';
+            this.setData({ formData });
+        },
         previewImg(e) {
             let { url } = e.currentTarget.dataset;
             wx.previewImage({
@@ -104,10 +138,10 @@ Component({
         },
         // 表单验证和收集数据
         handleValidate() {
-            let { form } = this.data;
+            let { formData } = this.data;
             let errMsg = '';
 
-            for (const item of form) {
+            for (const item of formData.fields) {
                 let { name, value, required, type } = item;
                 if (!value) {
                     required && (errMsg = `请输入${name}`);
@@ -123,12 +157,12 @@ Component({
                 wx.showToast({ title: errMsg, icon: 'none' });
                 throw new Error(errMsg);
             };
-            return errMsg ? showError() : form;
+            return errMsg ? showError() : formData.fields;
         },
 
         submit() {
-            const form = this.handleValidate();
-            this.triggerEvent('submit', { form });
+            const formData = this.handleValidate();
+            this.triggerEvent('submit', { form: formData });
         }
     },
 });

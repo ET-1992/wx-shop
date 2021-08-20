@@ -1,39 +1,90 @@
+.top-image{
+	image{
+		width: 100%;
+	}
+}
+.excerpt{
+	padding: 0 40rpx;
+	font-size: 28rpx;
+}
+.title{
+	padding: 20rpx 0;
+	font-size: 32rpx;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .container {
 	background-color: #fff;
-	--cell-background-color: #f7f8fa;
-	--cell-vertical-padding: 0;
-	margin: 10rpx 0; 
-
+	// --cell-background-color: #f7f8fa;
+	// --cell-vertical-padding: 0;
+	overflow: hidden;
+	.title {
+		background: #fff;
+		font-size: 35rpx;
+		font-weight: bold;
+		padding: 26rpx 25rpx;
+		text-align: center;
+	}
 	.form-content{
-		padding: 30rpx;
+		padding: 20rpx;
 		.form-item {
-			margin-bottom: 20rpx;
 			display: flex;
+			box-sizing: border-box;
+			width: 100%;
+			// padding: 10px 16px;
+			overflow: hidden;
+			color: #323233;
+			font-size: 14px;
+			line-height: 24px;
+			background-color: #fff;
+			position: relative;
+
+
+			&::after {
+				position: absolute;
+				box-sizing: border-box;
+				content: ' ';
+				pointer-events: none;
+				right: 0px;
+				bottom: 0;
+				left: 0px;
+				border-bottom: 1px solid #ebedf0;
+				-webkit-transform: scaleY(0.5);
+				transform: scaleY(0.5);
+			}
+
+
 			.form-item-left {
-				font-size: 28rpx;
+				font-size: 30rpx;
 				line-height: 40rpx;
-				min-width: 120rpx;
 				flex-shrink: 0;
 				margin-right: 16rpx;
 				display: flex;
 				align-items: center;
 				width: 30%;
-				.form-required {
-					font-size: 14px;
-					color: #ee0a24;
+				.form-title{
+					.form-required {
+						font-size: 14px;
+						color: #ee0a24;
+					}
 				}
 			}
 			.form-item-right {
 				flex: 1;
 				// 复选框
 				.checkbox-group-wrap {
+					padding: 20rpx 0;
 					display: flex;
 					flex-wrap: wrap;
 					.checkbox-wrap {
 						margin: 10rpx;
 					}
+
 				}
 				.radio-group-wrap {
+					padding: 20rpx 0;
 					display: flex;
 					flex-wrap: wrap;
 					.radio-wrap {
@@ -42,13 +93,7 @@
 				}
 				// 输入框
 				.form-field {
-					padding: 8rpx 20rpx;
-					border-radius: 5rpx;
-					background-color: #f7f8fa;
-					height: 100%;
-					.input-wrap {
-						background-color: #f7f8fa;
-					}
+
 				}
 				.type{
 					width: 120rpx;
@@ -77,6 +122,118 @@
 			background-color: rgba(30,144,255,0.8);
 			font-size: 28rpx;
 			color: #fff;
+			margin-top: 25rpx;
+		}
+	}
+}
+
+.container-new {
+	background-color: #fff;
+	// --cell-background-color: #f7f8fa;
+	// --cell-vertical-padding: 0;
+	overflow: hidden;
+	.title {
+		background: #fff;
+		font-size: 35rpx;
+		font-weight: bold;
+		padding: 26rpx 25rpx;
+		text-align: center;
+	}
+	.form-content{
+		padding: 20rpx 40rpx;
+		.form-item {
+			box-sizing: border-box;
+			width: 100%;
+			// padding: 10px 16px;
+			overflow: hidden;
+			color: #323233;
+			font-size: 14px;
+			line-height: 24px;
+			background-color: #fff;
+			position: relative;
+			margin-bottom: 50rpx;
+
+			// &::after {
+			// 	position: absolute;
+			// 	box-sizing: border-box;
+			// 	content: ' ';
+			// 	pointer-events: none;
+			// 	right: 0px;
+			// 	bottom: 0;
+			// 	left: 0px;
+			// 	border-bottom: 1px solid #ebedf0;
+			// 	-webkit-transform: scaleY(0.5);
+			// 	transform: scaleY(0.5);
+			// }
+			.label{
+				font-size: 26rpx;
+			}
+
+			.form-item-left {
+				font-size: 30rpx;
+				line-height: 40rpx;
+				flex-shrink: 0;
+				margin-right: 16rpx;
+				display: flex;
+				align-items: center;
+				.form-title{
+					.form-required {
+						font-size: 14px;
+						color: #ee0a24;
+					}
+				}
+			}
+			.form-item-right {
+				margin-top: 10rpx;
+				// 复选框
+				.checkbox-group-wrap {
+					padding: 20rpx 0;
+					display: flex;
+					flex-wrap: wrap;
+					.checkbox-wrap {
+						margin: 10rpx;
+					}
+
+				}
+				.radio-group-wrap {
+					padding: 20rpx 0;
+					display: flex;
+					flex-wrap: wrap;
+					.radio-wrap {
+						margin: 10rpx;
+					}
+				}
+				.form-upload{
+					margin-top: 20rpx;
+				}
+				.type{
+					width: 120rpx;
+					height: 120rpx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border-radius: 5rpx;
+					background-size: 100% 100%;
+				}
+				.defaultImg{
+					width: 80rpx;
+					height: 80rpx;
+				}
+				.uploadSFZ {
+					width: 100%;
+					height: 100%;
+				}
+			}
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+		.submitBtn{
+			border-radius: 20rpx;
+			background-color: rgba(30,144,255,0.8);
+			font-size: 28rpx;
+			color: #fff;
+			margin-top: 25rpx;
 		}
 	}
 }

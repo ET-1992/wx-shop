@@ -1,69 +1,188 @@
 <!-- 商品/订单留言表单 -->
-<view class="container">
-  <view class="form-content" wx:if="{{showForm &&  showForm.length}}">
-    <view class="form-item" wx:for="{{ showForm }}" wx:key="index">
-      <view class="form-item-left">
-        <view class="form-title">
-          <text class="form-required" wx:if="{{ !onlyShow && item.required }}">*</text>
-          <text>{{ item.name || '-' }}</text>
-        </view>
-      </view>
-      <view class="form-item-right">
-        <!-- 复选框 -->
-        <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
-          <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" data-index="{{ index }}" disabled="{{ onlyShow }}">
-            <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap" checked-color="{{ themeColor.primaryColor }}">
-              <text>{{ option || '-' }}</text>
-            </van-checkbox>
-          </van-checkbox-group>
-        </view>
-
-        <!-- 单选框 -->
-        <view class="form-radio" wx:elif="{{ item.type === 'radio' }}">
-            <van-radio-group value="{{ item.value }}" bind:change="onFormChange" class="radio-group-wrap" data-name="{{ item.name }}" data-index="{{ index }}" disabled="{{ onlyShow }}">
-                <van-radio name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="radio-wrap" checked-color="{{ themeColor.primaryColor }}">
-                    <text>{{ option || '-' }}</text>
-                </van-radio>
-            </van-radio-group>
-        </view>
-
-        <!-- 日期/时间/下拉选择 -->
-        <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}" >
-          <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" data-index="{{ index }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
-            <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="{{ onlyShow ? '' : item.label }}" />
-          </picker>
-        </view>
-
-        <!-- 图片上传 -->
-        <view class="form-upload" wx:elif="{{ item.type === 'img' }}">
-          <view
-            class="type"
-            style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};border:{{ item.value ? '' : '1rpx solid #C2C2C2;' }}"
-            bindtap="{{ onlyShow ? 'previewImg': 'onUpload' }}"
-            data-name="{{ item.name }}"
-            data-index="{{ index }}"
-            data-url="{{ item.value }}"
-            data-type= "{{ item.type }}">
-            <image class="{{ item.value ? 'uploadSFZ' : 'defaultImg' }}" src="{{ item.value ? item.value : '/icons/uploadIcon.svg' }}"/>
-          </view>
-          <!-- <van-uploader file-list="{{ item.value || [] }}" bind:after-read="onAfterRead" max-count="1" bind:delete="onFileDelete" data-name="{{ item.name }}" disabled="{{ onlyShow }}" deletable="{{ !onlyShow }}" /> -->
-        </view>
-
-        <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
-        <view class="form-field" wx:elif="{{ item.type === 'text' }}">
-          <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap"  border="" autosize  clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" data-index="{{ index }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
-        </view>
-        <!-- 输入框 -->
-
-        <view class="form-field" wx:else>
-          <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" data-index="{{ index }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
-        </view>
-      </view>
-    </view>
-
-    <button class="submitBtn" bindtap="submit" style="background-color:{{ themeColor.primaryColor }}" wx:if="{{ showSubmitBtn && !onlyShow }}">提交</button>
-  </view>
+<view class="top-image" wx:if="{{ formData.thumbnail }}">
+    <image mode="widthFix" src="{{ formData.thumbnail }}" />
 </view>
+
+<view class="title" wx:if="{{ formData.title }}">
+    {{ formData.title }}
+    <view wx:if="{{ formData && formData.form_status !== 1 }}" style="color: red;">
+        ---
+        <text wx:if="{{ formData.form_status === 0 }}">未开始</text>
+        <text wx:elif="{{ formData.form_status === 2 }}">已结束</text>
+        <text wx:elif="{{ formData.form_status === 3 }}">已完成</text>
+        <text wx:elif="{{ formData.form_status === 4 }}">已提交</text>
+    </view>
+</view>
+
+<view class="excerpt" wx:if="{{ formData.excerpt }}">{{ formData.excerpt }}</view>
+
+<block wx:if="{{ formData.vertical === 0 }}">
+    <view class="container">
+
+        <view class="form-content">
+          <view class="form-item" wx:for="{{ showForm }}" wx:key="index">
+            <view class="form-item-left">
+              <view class="form-title">
+                <text class="form-required" wx:if="{{ !onlyShow && item.required }}">*</text>
+                  <text>{{ item.name || '-' }}</text>
+              </view>
+            </view>
+            <view class="form-item-right">
+              <!-- 复选框 -->
+              <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
+                <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+                  <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap" checked-color="{{ themeColor.primaryColor }}" shape="square">
+                    <text>{{ option || '-' }}</text>
+                  </van-checkbox>
+                </van-checkbox-group>
+              </view>
+
+              <!-- 单选框 -->
+              <view class="form-radio" wx:elif="{{ item.type === 'radio' }}">
+                  <van-radio-group value="{{ item.value }}" bind:change="onFormChange" class="radio-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+                      <van-radio name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="radio-wrap" checked-color="{{ themeColor.primaryColor }}">
+                          <text>{{ option || '-' }}</text>
+                      </van-radio>
+                  </van-radio-group>
+              </view>
+
+              <!-- 日期/时间/下拉选择 -->
+              <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}">
+                <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
+                  <van-field value="{{ item.value }}" input-class="input-wrap" border="" readonly placeholder="{{ onlyShow ? '' : '请选择'+item.name }}" />
+                </picker>
+              </view>
+
+              <!-- 图片上传 -->
+              <view class="form-upload" wx:elif="{{ item.type === 'img' }}">
+                  <view
+                      class="type"
+                      style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};border:{{ item.value ? '' : '1rpx solid #C2C2C2;' }}"
+                      bindtap="{{ onlyShow ? 'previewImg': 'onUpload' }}"
+                      data-name="{{ item.name }}"
+                      data-index="{{ index }}"
+                      data-url="{{ item.value }}"
+                      data-type= "{{ item.type }}">
+                      <image class="{{ item.value ? 'uploadSFZ' : 'defaultImg' }}" src="{{ item.value ? item.value : '/icons/uploadIcon.svg' }}"/>
+                  </view>
+                <!-- <van-uploader file-list="{{ item.value || [] }}" bind:after-read="onAfterRead" max-count="1" bind:delete="onFileDelete" data-name="{{ item.name }}" disabled="{{ onlyShow }}" deletable="{{ !onlyShow }}" /> -->
+              </view>
+
+              <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
+              <view class="form-field" wx:elif="{{ item.type === 'text' }}">
+                  <van-field value="{{ item.value }}" type="textarea" input-class="input-wrap" border=""  clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" autosize readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+              </view>
+              <!-- 输入框 -->
+
+              <view class="form-field" wx:else>
+                <van-field value="{{ item.value }}" type="{{ markForm.changeType(item.type) }}" input-class="input-wrap" border="" autosize="{{ { maxHeight: 80, minHeight: 80 } }}" clearable placeholder="{{ onlyShow ? '' : item.label }}" data-name="{{ item.name }}" readonly="{{ onlyShow }}" bind:change="onFormChange" bind:focus="onFormFocus" bind:blur="onFormFocus" />
+              </view>
+            </view>
+          </view>
+
+          <button class="submitBtn" bindtap="submit" style="background-color:{{ themeColor.primaryColor }}" wx:if="{{ showSubmitBtn && !onlyShow }}">提交</button>
+        </view>
+      </view>
+</block>
+
+<block wx:if="{{ formData.vertical === 1 }}">
+    <view class="container-new">
+
+        <view class="form-content">
+          <view class="form-item" wx:for="{{ showForm }}" wx:key="index">
+            <view class="form-item-left">
+              <view class="form-title">
+                  <text>{{ item.name || '-' }}</text>
+                  <text class="form-required" wx:if="{{ !onlyShow && item.required }}">*</text>
+              </view>
+            </view>
+            <view class="label" wx:if="{{ item.label }}">
+                {{ item.label }}
+            </view>
+            <view class="form-item-right">
+              <!-- 复选框 -->
+              <view class="form-checkbox" wx:if="{{ item.type === 'checkbox' }}">
+                <van-checkbox-group value="{{ item.value }}" bind:change="onFormChange" class="checkbox-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+                  <van-checkbox name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="checkbox-wrap" checked-color="{{ themeColor.primaryColor }}" shape="square">
+                    <text>{{ option || '-' }}</text>
+                  </van-checkbox>
+                </van-checkbox-group>
+              </view>
+
+              <!-- 单选框 -->
+              <view class="form-radio" wx:elif="{{ item.type === 'radio' }}">
+                  <van-radio-group value="{{ item.value }}" bind:change="onFormChange" class="radio-group-wrap" data-name="{{ item.name }}" disabled="{{ onlyShow }}">
+                      <van-radio name="{{ option }}" wx:for="{{ item.options }}" wx:key="index" wx:for-item="option" custom-class="radio-wrap" checked-color="{{ themeColor.primaryColor }}">
+                          <text>{{ option || '-' }}</text>
+                      </van-radio>
+                  </van-radio-group>
+              </view>
+
+              <!-- 日期/时间/下拉选择 -->
+              <view class="form-field" wx:elif="{{ item.type === 'date' || item.type === 'time' || item.type === 'select' }}">
+                <picker mode="{{ item.type === 'select' ? 'selector' : item.type }}" value="{{ item.value }}" bindchange="onFormChange" data-name="{{ item.name }}" range="{{ item.options }}" disabled="{{ onlyShow }}">
+                  <van-field
+                      custom-style="border: #dfdfdf solid 1rpx;padding:10rpx 6rpx;background-color: #fafafa;"
+                      value="{{ item.value }}"
+                      input-class="input-wrap"
+                      readonly
+                      placeholder="{{ onlyShow ? '' : '请选择'+item.name }}"
+                      border="{{ false }}"/>
+                </picker>
+              </view>
+
+              <!-- 图片上传 -->
+              <view class="form-upload" wx:elif="{{ item.type === 'img' }}">
+                  <view
+                      class="type"
+                      style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};border:{{ item.value ? '' : '1rpx solid #C2C2C2;' }}"
+                      bindtap="{{ onlyShow ? 'previewImg': 'onUpload' }}"
+                      data-name="{{ item.name }}"
+                      data-index="{{ index }}"
+                      data-url="{{ item.value }}"
+                      data-type= "{{ item.type }}">
+                      <image class="{{ item.value ? 'uploadSFZ' : 'defaultImg' }}" src="{{ item.value ? item.value : '/icons/uploadIcon.svg' }}"/>
+                  </view>
+                <!-- <van-uploader file-list="{{ item.value || [] }}" bind:after-read="onAfterRead" max-count="1" bind:delete="onFileDelete" data-name="{{ item.name }}" disabled="{{ onlyShow }}" deletable="{{ !onlyShow }}" /> -->
+              </view>
+
+              <!-- 单行输入框 text类型微信有bug 在height固定时安卓手机聚焦后焦点上漂 -->
+              <view class="form-field" wx:elif="{{ item.type === 'text' }}">
+                  <van-field
+                      custom-style="border: #dfdfdf solid 1rpx;padding:10rpx 6rpx"
+                      value="{{ item.value }}" type="textarea"
+                      input-class="input-wrap"
+                      clearable
+                      border="{{ false }}"
+                      data-name="{{ item.name }}"
+                      autosize readonly="{{ onlyShow }}"
+                      bind:change="onFormChange"
+                      bind:focus="onFormFocus"
+                      bind:blur="onFormFocus" />
+              </view>
+              <!-- 输入框 -->
+
+              <view class="form-field" wx:else>
+                <van-field
+                  custom-style="border: #dfdfdf solid 1rpx;padding:20rpx 6rpx"
+                  value="{{ item.value }}"
+                  type="{{ markForm.changeType(item.type) }}"
+                  input-class="input-wrap"  autosize="{{ { maxHeight: 80, minHeight: 80 } }}"
+                  clearable
+                  border="{{ false }}"
+                  data-name="{{ item.name }}"
+                  readonly="{{ onlyShow }}"
+                  bind:change="onFormChange"
+                  bind:focus="onFormFocus"
+                  bind:blur="onFormFocus"/>
+              </view>
+            </view>
+          </view>
+
+          <button class="submitBtn" bindtap="submit" style="background-color:{{ themeColor.primaryColor }}" wx:if="{{ showSubmitBtn && !onlyShow }}">提交</button>
+        </view>
+    </view>
+</block>
 <!-- type: text          => 输入框,
   type: textarea      => 文本框,
   type: checkbox      => 复选框,

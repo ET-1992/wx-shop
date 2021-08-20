@@ -5,13 +5,15 @@ Page({
     async onLoad(param) {
         const { id = '' } = param;
         const formData = await api.hei.getFormData({ id });
+
         this.setData({
             formData,
-            id
+            id,
         });
     },
 
     async submit(e) {
+        console.log(e.detail);
         const { form } = e.detail;
         const { id: form_id } = this.data;
         try {

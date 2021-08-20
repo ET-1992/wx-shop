@@ -1,14 +1,22 @@
 
 <view class="container">
+    <!-- <view class="top-image">
+        <image mode="widthFix" src="{{ formData.thumbnail }}" />
+    </view>
     <view class="title">
         {{ formData.title }}
-    </view>
+        <view wx:if="{{ formData && formData.form_status !== 1 }}" style="color: red;">
+            ---
+            <text wx:if="{{ formData.form_status === 0 }}">未开始</text>
+            <text wx:elif="{{ formData.form_status === 2 }}">已结束</text>
+            <text wx:elif="{{ formData.form_status === 3 }}">已完成</text>
+            <text wx:elif="{{ formData.form_status === 4 }}">已提交</text>
+        </view>
+    </view> -->
+    <!-- <view class="excerpt">{{ formData.excerpt }}</view> -->
     <markForm
         wx:if="{{ formData.fields.length }}"
-        form="{{ formData.fields }}"
+        formData="{{ formData }}"
         bind:submit="submit"
-        onlyShow="{{ (formData.per_user > 0 && formData.times >= formData.per_user) || (formData.max > 0 && formData.count >= formData.max ) }}"
-        showSubmitBtn="{{ true }}"
-        />
-
+        onlyShow="{{ (formData.per_user > 0 && formData.times >= formData.per_user) || (formData.max > 0 && formData.count >= formData.max ) }}" />
 </view>

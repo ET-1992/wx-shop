@@ -6,6 +6,7 @@
     "van-checkbox-group": "@vant/weapp/dist/checkbox-group/index",
     "van-uploader": "@vant/weapp/dist/uploader/index",
     "van-radio": "@vant/weapp/dist/radio/index",
-    "van-radio-group": "@vant/weapp/dist/radio-group/index"
+    "van-radio-group": "@vant/weapp/dist/radio-group/index",
+    "van-cell-group": "@vant/weapp/dist/cell-group/index"
   }
 }

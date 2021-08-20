@@ -227,6 +227,7 @@ export const wxPay = async (options = {}, order_no, subKeys = []) => {
                 content: '请尽快完成付款',
                 showCancel: false,
             });
+            return { isCancel: true };
         }
         else {
             await showModal({

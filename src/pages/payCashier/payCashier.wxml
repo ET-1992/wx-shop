@@ -1,7 +1,7 @@
 <van-loading type="spinner" custom-class="van-loading-class" wx:if="{{ isLoading }}"/>
 <view class="container" wx:if="{{ !isLoading }}">
     <view class="innerWrap" wx:if="{{order.statusCode === 1 || !!from_page}}">
-        
+
         <view class="header">
             <view class="amount">
                 <view class="currency">￥</view>
@@ -13,7 +13,7 @@
                 <van-count-down time="{{ order.timeLimit }}" bind:finish="onReload"/>
             </view>
         </view>
-        
+
         <view class="payments_wrap" wx:if="{{payments.length}}">
             <radio-group class="radio-group">
 				<van-cell-group>
@@ -25,20 +25,20 @@
                      clickable="{{ !WXS.disabledPay(item.pay_method, from_page) }}"
                      label="{{ WXS.disabledPay(item.pay_method, from_page) ? '该方式暂时不可用' : '' }}"
                      bind:tap="onChangeRadio"
-                    >   
+                    >
 						<image slot="icon" class="cell-slot-icon" src="{{ item.icon_url }}" mode="widthFix" />
                         <!-- 左侧标题 -->
                         <view slot="title" class="cell-title-class">
                             <text class="van-cell-text">{{ item.text }}</text>
-                            <image slot="icon" 
+                            <image slot="icon"
                                 wx:if="{{ item.pay_method === 'BALANCE_MIXPAY' }}"
-                                class="cell-title-slot-icon" 
-                                src="/icons/fastDeposit/questionMark.svg" 
-                                mode="widthFix" 
+                                class="cell-title-slot-icon"
+                                src="/icons/fastDeposit/questionMark.svg"
+                                mode="widthFix"
                                 catch:tap="onClickTitleIcon" />
                         </view>
-						<radio 
-                            value="{{ item.pay_method }}" 
+						<radio
+                            value="{{ item.pay_method }}"
                             color="{{ globalData.themeColor.primaryColor }}"
                             checked="{{ item.pay_method === selectedPayment.pay_method }}"
                             disabled="{{ WXS.disabledPay(item.pay_method, from_page) }}"
@@ -46,9 +46,9 @@
 					</van-cell>
 				</van-cell-group>
         	</radio-group>
-        	<van-button 
-                custom-class="submit {{ isIphoneX ? 'iphoneXTrick' : '' }}" 
-                color="{{ selectedPayment.bg_color }}" 
+        	<van-button
+                custom-class="submit {{ isIphoneX ? 'iphoneXTrick' : '' }}"
+                color="{{ selectedPayment.bg_color }}"
                 bind:click="onPay"
                 disabled="{{ WXS.disabledPay(selectedPayment.pay_method, from_page) }}"
             >{{ selectedPayment.text }}</van-button>
@@ -84,7 +84,7 @@
 <wxs module="WXS">
     var disabledPay = function(method, from_page) {
         if(from_page === 'directPay'){
-            return method === 'TRANSFER_PAY';
+            return method === 'TRANSFER_PAY' || method === 'DELIVERY_PAY';
         }else{
             return excludeMethodsList.indexOf(method) > -1 && !!from_page;
         }
