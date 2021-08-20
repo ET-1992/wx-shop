@@ -55,9 +55,7 @@
 								</view>
 								<view class="store-address">{{ address.store(item) }}</view>
                 <view class="lift-styles">
-                  <view class="lift" wx:for="{{ item.liftStyles }}" wx:key="index" wx:for-item="styleText" style="background-color: {{ themeColor.primaryColor }};">
-                      {{ styleText }}
-                  </view>
+                  <van-tag  custom-class="lift" plain wx:for="{{ item.liftStyles }}" wx:key="index" wx:for-item="styleText">{{ styleText }}</van-tag>
                 </view>
 								<view class="store-bottom">
 									<view class="store-bottom-left">距离{{ item.distance || '-' }}km</view>
