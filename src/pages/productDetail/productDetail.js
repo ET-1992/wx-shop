@@ -344,10 +344,6 @@ Page({
         this.setData({ current: e.detail.current });
     },
 
-    wxParseTagATap(e) {
-        wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
-    },
-
     async onLoad(query) {
         const config = wx.getStorageSync(CONFIG);
         const { style_type: tplStyle = 'default', offline_store_enable = false } = config;

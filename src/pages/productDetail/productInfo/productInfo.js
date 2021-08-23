@@ -22,5 +22,10 @@ Component({
         );
 
         this.setData({ defineTypeGlobal });
+    },
+    methods: {
+        wxParseTagATap(e) {
+            wx.navigateTo({ url: '/' + e.currentTarget.dataset.src });
+        },
     }
 });

@@ -1,6 +1,7 @@
 {
 	"component": true,
   "usingComponents": {
-    "magicImg": "components/magicImg/magicImg"
+    "magicImg": "components/magicImg/magicImg",
+    "formatContent": "components/formatContent/formatContent"
   }
 }
