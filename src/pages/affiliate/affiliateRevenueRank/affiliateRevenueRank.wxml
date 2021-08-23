@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="top">
-    <image src="/icons/affiliateCenter/revenueRank.svg" mode="aspectFit"></image>
+    <image src="{{config && config.cdn_host + '/shop/icons/affiliateCenter/revenueRank.svg'}}" mode="aspectFit"></image>
   </view>
 
   <view class="bottom">

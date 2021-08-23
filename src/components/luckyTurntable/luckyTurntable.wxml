@@ -4,7 +4,7 @@
 		<view class="canvas-container">
 
 			<view  animation="{{animationData}}" class="canvas-content" >
-        <image src="/icons/turntable.svg"></image>
+        <image src="{{ config && config.cdn_host + '/shop/icons/turntable.svg' }}"></image>
 
 				<!-- <view class="canvas-line">
 					<view class="canvas-litem" wx:for="{{awardsList}}" wx:key="unique" style="transform: rotate({{item.lineTurn}});"></view>
@@ -18,7 +18,7 @@
 			</view>
 
 			<view bindtap="getLottery" class="canvas-btn {{pending ? 'disabled' : ''}}">
-          <image src="/icons/lottery-btn.svg" />
+          <image src="{{ config && config.cdn_host + '/shop/icons/lottery-btn.svg' }}" />
       </view>
 		</view>
 	</view>

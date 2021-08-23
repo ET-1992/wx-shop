@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="750" height="100" viewBox="0 0 750 100">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.056" y1="0.568" x2="0.961" y2="0.578" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#ffc75a"/>
-      <stop offset="1" stop-color="#ff7c39"/>
-    </linearGradient>
-  </defs>
-  <rect id="矩形_1961" data-name="矩形 1961" width="750" height="100" fill="url(#linear-gradient)"/>
-</svg>

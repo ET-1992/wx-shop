@@ -1,5 +1,6 @@
 import api from 'utils/api';
 const app = getApp();
+import { CONFIG } from 'constants/index';
 Page({
     data: {
         title: 'affiliateRevenueRank',
@@ -11,9 +12,11 @@ Page({
     },
 
     async initPage() {
+        const config = wx.getStorageSync(CONFIG);
         const { accounts } = await api.hei.getRevenueRanking();
         this.setData({
-            accounts
+            accounts,
+            config
         });
     }
 });

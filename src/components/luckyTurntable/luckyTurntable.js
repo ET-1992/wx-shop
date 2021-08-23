@@ -1,5 +1,6 @@
 let app = getApp();
 import api from 'utils/api';
+import { CONFIG } from 'constants/index';
 Component({
     properties: {
         options: {
@@ -20,6 +21,7 @@ Component({
         animationData: {},
     },
     attached() {
+        const config = wx.getStorageSync(CONFIG);
         const { options } = this.data;
         // 绘制转盘
         let len = options.length,
@@ -29,7 +31,8 @@ Component({
             options[i].turn = i * turnNum + 'turn';
         }
         this.setData({
-            options
+            options,
+            config
         });
     },
     methods: {
