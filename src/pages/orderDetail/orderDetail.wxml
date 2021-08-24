@@ -127,7 +127,7 @@
 
     <!-- 订单留言 -->
     <view class="order-remark-form" wx:if="{{ !otherPeopleGroupon && remarkForm.length }}">
-        <markForm form="{{ remarkForm }}" onlyShow></markForm>
+        <markForm formFields="{{ remarkForm }}" onlyShow></markForm>
     </view>
 
     <!-- 拼团头像 -->

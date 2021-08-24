@@ -81,7 +81,7 @@
                         剩余：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
                     </view>
                    </view>
-                     
+
                     <view class="property" wx:if="{{ product.skus.length || product.special_attributes.length || product.related_product.length }}">
                         已选择：{{ selectedOptions.content || '--' }}
                     </view>
@@ -93,7 +93,7 @@
                 <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
                 <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
                     <view class="remark-title">商品留言</view>
-                    <markForm id="mark-form" form="{{ product.product_annotation }}" bind:change-form-focus="onChangeFormFocus"></markForm>
+                    <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view>
             </view>
         </scroll-view>

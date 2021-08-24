@@ -16,18 +16,30 @@ Component({
         showSubmitBtn: {
             type: Boolean,
             value: true
+        },
+        formFields: {
+            type: Array,
+            value: []
         }
     },
     observers: {
         // 过滤未填写留言
         'formData, onlyShow': function(formData, onlyShow) {
-            console.log(formData, 666);
             if (!formData.fields) { return }
             let showForm = formData.fields;
             if (onlyShow) {
                 showForm = formData.fields.filter(item => item.value);
             }
             this.setData({ showForm });
+        },
+        'formFields': function(newVal) {
+            if (newVal && newVal.length) {
+                const { formData } = this.data;
+                formData.fields = newVal;
+                this.setData({
+                    formData
+                });
+            }
         }
     },
     data: {
@@ -75,6 +87,7 @@ Component({
             const { tempFilePaths } = await chooseImage({
                 count: 1
             });
+            console.log(tempFilePaths, 345);
             try {
                 const data = await api.hei.upload({
                     filePath: tempFilePaths[0]
@@ -88,6 +101,7 @@ Component({
                     });
                 } else {
                     formData.fields[index].value = url;
+                    console.log(formData.fields);
                     this.setData({ formData });
                 }
             }
