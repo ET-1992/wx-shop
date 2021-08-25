@@ -557,6 +557,7 @@ export const pageObj = {
         this.setData({
             selectedProduct: product,
             showOrderOptions: true,
+            count: 1
         });
     },
 

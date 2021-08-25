@@ -88,5 +88,5 @@
 </view>
 <!-- 商品列表加车弹窗 -->
 <van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
-	<orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+	<orderOptions quantity="{{ count }}" product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
 </van-popup>

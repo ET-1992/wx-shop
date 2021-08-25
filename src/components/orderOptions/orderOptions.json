@@ -3,7 +3,8 @@
 	"usingComponents": {
 		"skuOptionList": "components/skuOptionList/skuOptionList",
 		"skuLogistics": "components/skuLogistics/skuLogistics",
-		"markForm": "components/markForm/markForm"
+		"markForm": "components/markForm/markForm",
+    "numberInput": "components/numberInput/index"
 	}
 }
 

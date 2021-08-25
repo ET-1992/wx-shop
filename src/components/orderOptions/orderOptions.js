@@ -102,6 +102,10 @@ Component({
             } finally {
                 this._currentOrder = {};
             }
-        }
+        },
+        updateQuantity({ detail }) {
+            const { value } = detail;
+            this.setData({ quantity: value });
+        },
     },
 });
