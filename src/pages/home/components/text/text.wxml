@@ -1,43 +1,19 @@
 <view class="Wrapper {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}" style="margin-bottom: {{ setting.margin }}rpx">
 	<view class="title" style="text-align: {{ setting.title_position }};color:{{ setting.title_color }}" wx:if="{{ setting.title_display }}">{{ title }}</view>
-	<block wx:if="{{ content }}">
-		<navigator
-			wx:if="{{ content.type !== 'contact' }}"
-			app-id="{{ content.appid }}"
-			path="{{ content.path }}"
-			target="{{ content.type === 'mini_program' ? 'miniProgram' : '' }}"
-			url="{{ content.type === 'web_view' ? '/pages/webPages/webPages?src=' + content.src : content.path }}"
-      open-type="{{ tabbarPages[content.page_key] ? 'switchTab' : 'navigate' }}"
-			class="announcement"
-			bindfail="miniFail">
-			<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" color="{{ setting.color }}" wx:if="{{ setting.icon === 'announcement'}}"/>
-			<van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" color="{{ setting.color }}" wx:if="{{ setting.icon === 'notification'}}"/>
-			<view class="marqueeWrapper">
-				<view class="content {{ setting.effect === 'scroll' ? 'marque' : ''}}" style="color:{{ setting.color }}" >
-					{{content.text}}<text class="content-space"></text>
-					{{content.text}}<text class="content-space"></text>
-					{{content.text}}<text class="content-space"></text>
-				</view>
-			</view>
-		</navigator>
 
-		<button class="announcement btn"
-			wx:if="{{ content.type === 'contact' }}"
-			bindtap="{{ content.tips ? 'showContactModal' : ''}}"
-			data-tips="{{ content.tips }}"
-			open-type="{{ !content.tips ? 'contact' : ''}}"
-			session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
-			hover-class="none"
-			>
-			<van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'announcement'}}"/>
-			<van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" wx:if="{{ setting.icon === 'notification'}}"/>
-			<view class="marqueeWrapper">
-				<view class="content {{ setting.effect === 'scroll' ? 'marque' : ''}}">
-					{{content.text}}<text class="content-space"></text>
-					{{content.text}}<text class="content-space"></text>
-					{{content.text}}<text class="content-space"></text>
-				</view>
-			</view>
-		</button>
+  <block wx:if="{{ content }}">
+    <extenNav item="{{ content }}">
+      <view class="announcement" slot="content">
+        <van-icon name="volume-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" color="{{ setting.color }}" wx:if="{{ setting.icon === 'announcement'}}"/>
+        <van-icon name="info-o" size="20px" custom-style="margin: 0 14rpx 0 30rpx;" color="{{ setting.color }}" wx:if="{{ setting.icon === 'notification'}}"/>
+        <view class="marqueeWrapper">
+          <view class="content {{ setting.effect === 'scroll' ? 'marque' : ''}}" style="color:{{ setting.color }}" >
+            {{content.text}}<text class="content-space"></text>
+            {{content.text}}<text class="content-space"></text>
+            {{content.text}}<text class="content-space"></text>
+          </view>
+			  </view>
+      </view>
+    </extenNav>
 	</block>
 </view>

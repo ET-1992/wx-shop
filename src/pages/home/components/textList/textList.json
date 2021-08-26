@@ -1,7 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "van-icon": "@vant/weapp/dist/icon/index"
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "extenNav": "components/extenNav/extenNav"
   }
 }
 

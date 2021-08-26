@@ -4,7 +4,11 @@
         <view class="list-item" wx:for="{{ content }}" wx:key="index">
             <image class="item-icon-img" mode="aspectFit" src="/icons/instructions.png" wx:if="{{ setting.icon === 'yes' }}"></image>
             <image class="item-icon-img" mode="aspectFit" src="/icons/love.png" wx:if="{{ setting.icon === 'heart'}}"></image>
-            <navigator
+
+            <extenNav item="{{ item }}">
+                <text class="link-text" style="color:{{ item.color }}" slot="content">{{ item.text }}</text>
+            </extenNav>
+            <!-- <navigator
                 wx:if="{{ item.type !== 'contact' }}"
                 class="link-text"
                 app-id="{{ item.appid }}"
@@ -15,8 +19,8 @@
                 style="color:{{ item.color }}"
                 >
                 {{ item.text }}
-            </navigator>
-            <button
+            </navigator> -->
+            <!-- <button
                 wx:if="{{ item.type === 'contact' }}"
                 class="link-text btn"
                 bindtap="{{ item.tips ? 'showContactModal' : ''}}"
@@ -25,7 +29,7 @@
                 session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
                 hover-class="none"
                 style="color:{{ item.color }}"
-            >{{ item.text }}</button>
+            >{{ item.text }}</button> -->
         </view>
     </view>
 </view>

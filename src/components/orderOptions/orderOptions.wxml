@@ -8,7 +8,7 @@
 			<view class="remark-title">商品留言</view>
 			<markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}"></markForm>
 		</view>
-    <view class="quantity">
+    <view class="quantity" wx:if="{{ product.product_type !== 1 }}">
       <view class="quantity-title">购买数量</view>
       <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
     </view>

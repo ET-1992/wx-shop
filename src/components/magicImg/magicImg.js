@@ -1,4 +1,4 @@
-import { USER_KEY } from 'constants/index';
+import { USER_KEY, CONFIG } from 'constants/index';
 
 const app = getApp();
 
@@ -33,30 +33,43 @@ Component({
             value: 'default',
         }
     },
-    attached() {
+    ready() {
         const { tabbarPages } = app.globalData;
         const userInfo = wx.getStorageSync(USER_KEY);
+        const config = wx.getStorageSync(CONFIG);
+
+        console.log(config, 99);
         this.setData({
             userInfo,
-            tabbarPages
+            tabbarPages,
+            config
         });
     },
     methods: {
         onModal(e) {
-            this.setData({
-                contactModal: {
-                    isFatherControl: false,
-                    title: '温馨提示',
-                    isShowModal: true,
-                    body: e.currentTarget.dataset.tips,
-                    type: 'button',
-                    userInfo: this.data.userInfo,
-                    buttonData: {
-                        opentype: 'contact'
+            const { config, userInfo } = this.data;
+            const { tips } = e.currentTarget.dataset;
+
+            if (config.contact && config.contact.type === 'work_weixin') {
+                let customServiceModal = true;
+                this.setData({
+                    customServiceModal,
+                });
+            } else {
+                this.setData({
+                    contactModal: {
+                        isFatherControl: false,
+                        title: '温馨提示',
+                        isShowModal: true,
+                        body: tips,
+                        type: 'button',
+                        userInfo,
+                        buttonData: {
+                            opentype: 'contact'
+                        }
                     }
-                }
-            });
-            console.log(this.data.contactModal);
+                });
+            }
         },
         miniFail(e) {
             console.log(e);

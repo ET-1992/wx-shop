@@ -8,3 +8,9 @@
 
 <!-- 自定义弹窗 -->
 <myModal modal="{{contactModal}}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
+
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    show="{{ customServiceModal }}"
+    plugid="{{ config.contact.plugid }}"
+/>
+

@@ -36,7 +36,7 @@ Component({
             const { config, eventHandlingWithOuter } = this.data;
             const { tips } = e.currentTarget.dataset;
             if (eventHandlingWithOuter) {
-                this.triggerEvent('onCustomService', { tips });
+                this.triggerEvent('onCustomService', e);
                 return;
             }
 
