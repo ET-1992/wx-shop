@@ -4,6 +4,7 @@
         "groupon": "../groupon/groupon",
         "bargain": "../bargain/bargain",
         "extenNav": "components/extenNav/extenNav",
-        "flashSale": "../flashSale/flashSale"
+        "flashSale": "../flashSale/flashSale",
+        "luckyDrawProducts": "../luckyDrawProducts/luckyDrawProducts"
     }
   }
