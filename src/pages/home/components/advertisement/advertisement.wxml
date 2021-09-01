@@ -1,0 +1,7 @@
+<view class="container">
+	<extenNav item="{{ content }}">
+    <view class="item" slot="content">
+      <image class="asdImg" src="{{ content.src }}" mode="widthFix"></image>
+    </view>
+  </extenNav>
+</view>

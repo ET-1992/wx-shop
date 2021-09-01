@@ -41,7 +41,25 @@ export function formatConfirmTime(seconds) {
     }, '');
     return { remainTime: dateStr, remainSecond: seconds };
 }
-
+export function formatTimer(val, hours) {
+    if (val) {
+        const dateTimer = new Date(val * 1000);
+        const y = dateTimer.getFullYear();
+        let M = dateTimer.getMonth() + 1;
+        let d = dateTimer.getDate();
+        let h = dateTimer.getHours();
+        let m = dateTimer.getMinutes();
+        M = M >= 10 ? M : '0' + M;
+        d = d >= 10 ? d : '0' + d;
+        h = h >= 10 ? h : '0' + h;
+        m = m >= 10 ? m : '0' + m;
+        if (hours) {
+            return y + '-' + M + '-' + d + ' ' + h + ':' + m;
+        } else {
+            return y + '-' + M + '-' + d;
+        }
+    }
+}
 /* 适配微信获取用户数据新规则 并用缓存控制接口请求次数 */
 export function getUserProfile() {
     return new Promise((resolve, reject) => {

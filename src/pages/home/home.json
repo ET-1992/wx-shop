@@ -27,6 +27,7 @@
 		"orderOptions": "components/orderOptions/orderOptions",
 		"van-popup": "@vant/weapp/dist/popup/index",
     "customForm": "./components/customForm/customForm",
+    "advertisement":"./components/advertisement/advertisement",
     "companyContact": "../../components/companyContact/companyContact"
   },
   "navigationStyle": "custom",

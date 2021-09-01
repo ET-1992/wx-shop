@@ -2,7 +2,7 @@ import api from 'utils/api';
 import { USER_KEY, CONFIG } from 'constants/index';
 import { showToast } from 'utils/wxp';
 import { onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
-import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getUserProfile, autoNavigate_, subscribeMessage } from 'utils/util';
+import { updateTabbar, parseScene, splitUserStatus, autoNavigate, go, getUserProfile, autoNavigate_, subscribeMessage, formatTimer } from 'utils/util';
 
 // 获取应用实例
 const app = getApp();
@@ -42,7 +42,8 @@ export const pageObj = {
         isStoreFinish: false,  // 判断店铺多门店ID是否已获取
         showBgColor: false,
         selectedProduct: {},  // 加车商品
-        subKeys: [{ key: 'coupon_expiring' }]
+        subKeys: [{ key: 'coupon_expiring' }],
+        isShowAds: false
     },
 
     swiperChange(e) {
@@ -118,7 +119,41 @@ export const pageObj = {
                 title: page_title,
             });
         }
+        if (module_page && module_page.advertisement && module_page.advertisement.enable && module_page.advertisement.should_show) {
+            let today = formatTimer(Date.now() / 1000);
+            // 判断是否同个页面
+            const isSameHomePage = this.isSameHomePageId(module_page.id);
 
+            if (!isSameHomePage) {
+                wx.setStorageSync('homePageId', module_page.id);
+            }
+
+            // 后台设置弹出广告每天一次频率
+            if (module_page.advertisement.frequency === 'daily') {
+                // 需要弹出广告的条件：
+                // 同个首页页面ID 但 今天没弹出过
+                // 不同首页页面ID 不管缓存今天有没有弹出 都要弹
+                const isShowToday = this.isTodayShowAds(today);
+                if (isSameHomePage && !isShowToday || !isSameHomePage) {
+                    // 弹窗 更新缓存 今天弹过
+                    let showAdsDate = {};
+                    showAdsDate[today] = true;
+                    wx.setStorageSync('showAdsDate', showAdsDate);
+
+                    this.setData({
+                        isShowAds: true
+                    });
+                }
+            }
+
+            if (module_page.advertisement.frequency === 'once') {
+                this.setData({
+                    isShowAds: true
+                });
+            }
+
+
+        }
         if (home_type === 'old') {
             const data = old_data;
             const { current_user = {}, coupons = [], coupons_home = [], coupons_newbie = [] } = data;
@@ -181,9 +216,18 @@ export const pageObj = {
                 config
             });
         }
-
     },
+    isSameHomePageId(pageId) {
 
+        const currentHomePageId = wx.getStorageSync('homePageId') || '';
+
+        return pageId === currentHomePageId;
+    },
+    isTodayShowAds(date) {
+        const showAdsDate = wx.getStorageSync('showAdsDate') || {};
+
+        return showAdsDate[date];
+    },
     // 计时 当second为5时，指引消失
     addGuideSecond() {
         const isShowGuide = wx.getStorageSync('ISSHOWGUIDE');
