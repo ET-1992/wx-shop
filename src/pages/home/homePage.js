@@ -611,4 +611,10 @@ export const pageObj = {
             showOrderOptions: false
         });
     },
+    // 关闭首页弹窗
+    closeAdvertisement() {
+        this.setData({
+            isShowAds: false
+        });
+    }
 };

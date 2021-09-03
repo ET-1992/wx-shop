@@ -92,4 +92,4 @@
 </van-popup>
 
 <!-- 开屏广告 -->
-<advertisement content = "{{ module_page.advertisement.image }}" wx:if="{{ isShowAds }}"/>
+<advertisement content = "{{ module_page.advertisement.image }}" wx:if="{{ isShowAds }}" bind:onClose="closeAdvertisement"/>

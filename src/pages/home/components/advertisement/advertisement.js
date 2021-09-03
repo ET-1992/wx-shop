@@ -4,6 +4,11 @@ Component({
             type: Object,
             value: {},
         }
+    },
+    methods: {
+        onClose() {
+            this.triggerEvent('onClose');
+        }
     }
 });
 
