@@ -139,17 +139,21 @@ export const pageObj = {
                     let showAdsDate = {};
                     showAdsDate[today] = true;
                     wx.setStorageSync('showAdsDate', showAdsDate);
+                    setTimeout(() => {
+                        this.setData({
+                            isShowAds: true
+                        });
+                    }, 2000);
 
-                    this.setData({
-                        isShowAds: true
-                    });
                 }
             }
 
             if (module_page.advertisement.frequency === 'once') {
-                this.setData({
-                    isShowAds: true
-                });
+                setTimeout(() => {
+                    this.setData({
+                        isShowAds: true
+                    });
+                }, 2000);
             }
 
 

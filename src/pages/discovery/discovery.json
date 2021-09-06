@@ -26,7 +26,8 @@
     "orderOptions": "components/orderOptions/orderOptions",
     "van-popup": "@vant/weapp/dist/popup/index",
     "customForm": "../home/components/customForm/customForm",
-    "masonry": "../home/components/masonry/masonry"
+    "masonry": "../home/components/masonry/masonry",
+    "advertisement":"../home/components/advertisement/advertisement"
   },
   "navigationStyle": "custom"
 }
