@@ -17,7 +17,7 @@
         </view>
       </view>
 
-      <view class="right-content">
+      <view class="right-content" wx:if="{{ item.bonus != 0 }}">
         +{{ item.bonus }}
       </view>
     </view>
