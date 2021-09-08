@@ -1259,6 +1259,10 @@ Page({
     // 抢购活动的逻辑 -----start
     // 开始抽奖
     startLottery() {
+        let { product: { status }} = this.data;
+        if (status === 'unpublished' || status === 'sold_out') {
+            return;
+        }
         this.showTurntablePopup();
     },
     // 开启抽奖弹窗
@@ -1278,6 +1282,10 @@ Page({
     },
     // 转盘开始
     getLotteryStart() {
+        let { product: { status }} = this.data;
+        if (status === 'unpublished' || status === 'sold_out') {
+            return;
+        }
         this.setData({
             showBtnList: false,
             showDefaultTips: true
