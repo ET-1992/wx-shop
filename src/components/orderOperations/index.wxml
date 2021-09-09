@@ -15,7 +15,7 @@
 	  	send-message-img="{{order.items[0].thumbnail}}"
 	  	show-message-card="{{true}}"
     ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit"
-      catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}" />
+      catch:tap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}" />
     </button>
     <!-- 电话联系 -->
     <view class="contactBt" wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
@@ -40,13 +40,13 @@
     <button
       wx:if="{{ isShowService }}"
       class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      open-type="{{ config.contact && config.contact.type === 'work_weixin' ? '' : 'contact'}}"
+      open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact'}}"
       send-message-title="{{order.items[0].title}}"
 	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
 	  	send-message-img="{{order.items[0].thumbnail}}"
 	  	show-message-card="{{true}}"
       session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
-      bindtap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}"
+      bindtap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}"
     >申请售后</button>
 
     <button

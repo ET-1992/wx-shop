@@ -32,6 +32,7 @@ Component({
     lifetimes: {
         attached() {
             const config = wx.getStorageSync(CONFIG);
+
             let workContact = config.contact && config.contact.type === 'work_weixin';
             this.setData({ workContact, config });
         }
@@ -56,6 +57,7 @@ Component({
         // 点击菜单功能
         handleMenuItem(e) {
             let { method } = e.currentTarget.dataset;
+            const { config } = this.data;
             if (method === 'goHome') {
                 let url = '/pages/home/home';
                 autoNavigate_({ url });
@@ -63,7 +65,18 @@ Component({
                 let url = '/pages/cart/cart';
                 autoNavigate_({ url });
             } else if (method === 'findHelp') {
-                this.setData({ showContact: true });
+                if (config.contact && config.contact.type === 'work_weixin') {
+                    let showContact = true;
+                    this.setData({
+                        showContact,
+                    });
+                } else {
+                    const { corp_id: corpId, url } = config.contact;
+                    wx.openCustomerServiceChat({
+                        extInfo: { url },
+                        corpId
+                    });
+                }
             } else if (method === 'goSearch') {
                 let url = '/pages/search/search';
                 autoNavigate_({ url });

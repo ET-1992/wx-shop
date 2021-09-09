@@ -26,13 +26,6 @@ Component({
         this.setData({
             tabbarPages
         });
-    },
-    methods: {
-        showContactModal(e) {
-            this.triggerEvent('showContactModal', e, {
-                bubbles: true
-            });
-        }
     }
 });
 

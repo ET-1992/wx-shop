@@ -558,7 +558,7 @@ export const pageObj = {
     showContactModal(e) {
         console.log('e218', e);
         const { config, userInfo } = this.data;
-        const { tips } = e.detail.currentTarget.dataset;
+        const { tips } = e.detail;
 
         if (config.contact && config.contact.type === 'work_weixin') {
             let customServiceModal = true;

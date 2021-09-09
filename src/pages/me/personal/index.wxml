@@ -1,6 +1,6 @@
 <view class="header {{ !config.membership_enable ? 'none-vip' : '' }}" style="background-color:{{ themeColor.primaryColor }}; padding-top:{{statusBarHeight + 'px'}}">
   <view class="head-signin">
-    <button class="signin-item" bindtap="onCustomService" wx:if="{{ config.contact && config.contact.type === 'work_weixin'  }}">
+    <button class="signin-item" bindtap="onCustomService" wx:if="{{ config.contact && config.contact.type !== 'weapp'  }}">
         <image class="signin-img" src="/icons/me/service.svg" mode="aspectFit">
         </image>
         <text>客服</text>

@@ -40,13 +40,20 @@ Component({
                 return;
             }
 
-
             if (config.contact && config.contact.type === 'work_weixin') {
                 let customServiceModal = true;
                 this.setData({
                     customServiceModal,
                 });
-            } else {
+            }
+            else if (config.contact && config.contact.type === 'weixin_custom_service') {
+                const { corp_id: corpId, url } = config.contact;
+                wx.openCustomerServiceChat({
+                    extInfo: { url },
+                    corpId
+                });
+            }
+            else {
                 this.setData({
                     contactModal: {
                         isFatherControl: false,

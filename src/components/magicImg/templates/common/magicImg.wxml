@@ -43,8 +43,8 @@
     <template name="columnImgItem">
         <button
             wx:if="{{ magicImgData.images[index].type === 'contact'}}"
-            bindtap="{{ config.contact && config.contact.type === 'work_weixin' || magicImgData.images[index].tips ? 'onModal' : ''}}"
-            open-type="{{ config.contact && config.contact.type === 'work_weixin' || magicImgData.images[index].tips ? '' : 'contact'}}"
+            bindtap="{{ config.contact && config.contact.type !== 'weapp' || magicImgData.images[index].tips ? 'onModal' : ''}}"
+            open-type="{{ config.contact && config.contact.type !== 'weapp' || magicImgData.images[index].tips ? '' : 'contact'}}"
             data-tips="{{ magicImgData.images[index].tips }}"
             session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'
             class="columnImgItem {{ magicImgData.spacing ? 'columnImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"
@@ -84,8 +84,8 @@
     <template name="rowImgItem">
         <button
             wx:if="{{ magicImgData.images[index].type === 'contact' }}"
-            bindtap="{{ config.contact && config.contact.type === 'work_weixin' || magicImgData.images[index].tips ? 'onModal' : ''}}"
-            open-type="{{ config.contact && config.contact.type === 'work_weixin' || magicImgData.images[index].tips ? '' : 'contact'}}"
+            bindtap="{{ config.contact && config.contact.type !== 'weapp' || magicImgData.images[index].tips ? 'onModal' : ''}}"
+            open-type="{{ config.contact && config.contact.type !== 'weapp' || magicImgData.images[index].tips ? '' : 'contact'}}"
             data-tips="{{ magicImgData.images[index].tips }}"
             session-from='{"nickName":"{{userInfo.nickname}}", "avatarUrl":"{{userInfo.avatarurl}}"}'
             class="rowImgItem {{ magicImgData.spacing ? 'rowImgItemMargin' : '' }} {{  magicImgData.images[index].image ? '' : 'imgbg' }}"

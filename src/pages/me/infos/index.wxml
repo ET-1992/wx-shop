@@ -7,7 +7,7 @@
                 <view class="info-count" wx:if="{{ item.count }}">{{ item.count }}</view>
             </button>
         </block>
-        <block wx:elif="{{ item.key === 'contact' && config.contact.type === 'work_weixin' }}">
+        <block wx:elif="{{ item.key === 'contact' && config.contact.type !== 'weapp' }}">
              <!-- 企业微信客服 -->
             <button class="info-btn" hover-class="btn-hover" bind:tap="onCustomService" >
                 <template is="btnContent" data="{{ item: item }}"></template>

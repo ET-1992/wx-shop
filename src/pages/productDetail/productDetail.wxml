@@ -437,7 +437,7 @@
             <text>购物车</text>
           </view>
           <button open-type="contact" send-message-title="{{product.title}}" send-message-path="/pages/productDetail/productDetail?id={{product.id}}" send-message-img="{{product.thumbnail}}" show-message-card="{{true}}" class="normalizeBt cart" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"product", "productId":"{{product.id}}"}'>
-            <view class="cart-contact" catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+            <view class="cart-contact" catch:tap="{{ config.contact && config.contact.type !== 'work_weixin' ? 'onCustomService' : ''}}">
               <image class="icon" src="../../icons/context.png" />
               <text>客服</text>
             </view>

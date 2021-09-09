@@ -41,7 +41,8 @@ Component({
             });
         },
         showContactModal(e) {
-            this.triggerEvent('showContactModal', e, { bubbles: true });
+            const { tips } = e.detail.currentTarget.dataset;
+            this.triggerEvent('showContactModal', { tips });
         }
     }
 });

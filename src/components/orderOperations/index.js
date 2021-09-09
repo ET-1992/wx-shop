@@ -264,10 +264,19 @@ Component({
 
         // 展示企业微信联系方式
         onCustomService() {
-            let customServiceModal = true;
-            this.setData({
-                customServiceModal,
-            });
+            const { config } = this.data;
+            if (config.contact && config.contact.type === 'work_weixin') {
+                let customServiceModal = true;
+                this.setData({
+                    customServiceModal,
+                });
+            } else {
+                const { corp_id: corpId, url } = config.contact;
+                wx.openCustomerServiceChat({
+                    extInfo: { url },
+                    corpId
+                });
+            }
         },
 
         go,

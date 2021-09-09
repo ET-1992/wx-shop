@@ -6,10 +6,10 @@
 			<view class="header-text">客服联系方式：</view>
 		</view>
 		<view class="content">
-			<view class="item left" capture-catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+			<view class="item left" capture-catch:tap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}">
 				<image class="item-img" src="/icons/me/afterContact.svg" mode="widthFix" />
 				<button
-				class="rule-concat" 
+				class="rule-concat"
 				data-name="contact"
 				open-type="contact"
 				session-from='{"nickName":"{{ current_user.nickname }}", "avatarUrl":"{{ current_user.avatarurl }}", "from":"me"}'>点击联系在线客服</button>

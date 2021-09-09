@@ -96,9 +96,19 @@ Page({
     // 联系客服
     onGetContact() {
         let { config } = this.data;
-        let work_weixin = config.contact && config.contact.type === 'work_weixin';
-        console.log('config', config);
-        if (!work_weixin) { return }
-        this.setData({ customServiceModal: true });
+        if (config.contact && config.contact.type === 'weapp') { return }
+
+        else if (config.contact && config.contact.type === 'work_weixin') {
+            let customServiceModal = true;
+            this.setData({
+                customServiceModal,
+            });
+        } else {
+            const { corp_id: corpId, url } = config.contact;
+            wx.openCustomerServiceChat({
+                extInfo: { url },
+                corpId
+            });
+        }
     },
 });

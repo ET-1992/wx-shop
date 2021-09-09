@@ -71,7 +71,7 @@
 			<image mode="aspectFit" class="jump-arrow" src="/icons/member/right.png"></image>
 		</view>
 		<!-- 企业微信/微信客服 -->
-		<view class="jump-item jump-contact" capture-catch:tap="{{ config.contact && config.contact.type === 'work_weixin' ? 'onCustomService' : ''}}">
+		<view class="jump-item jump-contact" capture-catch:tap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}">
 			<button class="member-concat" data-name="contact" open-type="contact" session-from='{"nickName":"{{ user.nickname }}", "avatarUrl":"{{ user.avatarurl }}", "from":"me"}'>
 				<image class="jump-icon member-itemIcon" mode="aspectFit" src="/icons/member/customerService.svg" />
 				<view class="member-itemTitle">联系客服</view>

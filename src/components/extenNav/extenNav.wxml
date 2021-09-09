@@ -33,9 +33,9 @@
     class="btn"
     wx:elif="{{ item.type === 'contact' }}"
     data-tips="{{ item.tips }}"
-    open-type="{{ config.contact && config.contact.type === 'work_weixin' || item.tips ? '' : 'contact'}}"
+    open-type="{{ config.contact && config.contact.type !== 'weapp' || item.tips ? '' : 'contact'}}"
     session-from='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}'
-    catch:tap="{{ config.contact && config.contact.type === 'work_weixin' || item.tips ? 'onCustomService' : ''}}"
+    catch:tap="{{ config.contact && config.contact.type !== 'weapp' || item.tips ? 'onCustomService' : ''}}"
   >
     <slot name="content"><slot>
   </button>
