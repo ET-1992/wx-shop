@@ -565,6 +565,23 @@ export const pageObj = {
             this.setData({
                 customServiceModal,
             });
+        }
+        else if (config.contact && config.contact.type === 'weixin_custom_service') {
+            const { corp_id: corpId, url } = config.contact;
+            // 低版本会报错 用try/catch兼容
+            try {
+                wx.openCustomerServiceChat({
+                    extInfo: { url },
+                    corpId
+                });
+            } catch (e) {
+                wx.showModal({
+                    title: '提示',
+                    content: `微信版本过低，请更新微信或添加客服微信：${config.shop_phone}`,
+                    showCancel: false,
+                });
+            }
+
         } else {
             this.setData({
                 contactModal: {

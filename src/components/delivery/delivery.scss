@@ -1,6 +1,5 @@
 @import '~styles/color';
 .container {
-	padding: 0 30rpx;
 	background-color: #fff;
 
 	.address {
@@ -16,7 +15,7 @@
 	}
 
 	.wrapper {
-		padding: 30rpx 5rpx 8rpx;
+		padding: 30rpx;
 
 		// .address-info,
 		// .address-remark {
@@ -101,7 +100,7 @@
 					text-align: center;
 					// font-size: 26rpx;
 				}
-				
+
 				// .right {
 				// 	display: inline-block;
 				// 	font-size: 24rpx;

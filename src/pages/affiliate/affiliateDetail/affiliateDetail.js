@@ -1,4 +1,4 @@
-import { getNodeInfo, formatTime } from 'utils/util';
+import { getNodeInfo, formatTime, formatTimer } from 'utils/util';
 import api from 'utils/api';
 import { SHARE_STATUS_TEXT } from 'constants/index';
 
@@ -14,8 +14,8 @@ Page({
         showMoneyLogItems: [],
         getMoneyLogItems: [],
         isLoading: true,
-        startDate: '2019-01-01',
-        endDate: '2020-01-01'
+        startDate: formatTimer(Date.now() / 1000 - 24 * 60 * 60 * 30),
+        endDate: formatTimer(Date.now() / 1000)
     },
 
     onLoad(options) {
@@ -94,7 +94,8 @@ Page({
             this.setData({
                 showMoneyLogItems,
                 showMoneyLogCursor,
-                isLoading: false
+                isLoading: false,
+                startDate
             });
         } else if (isActive === 2) {
             const getMoneyLogData = await api.hei.getMoneyLog({ cursor: getMoneyLogCursor });

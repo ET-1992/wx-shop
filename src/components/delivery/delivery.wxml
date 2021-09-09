@@ -47,7 +47,11 @@
 				</picker>
 				<view class="address-orderTime" wx:if="{{ isOrderDetail }}">{{ address.receiver_delivery_time || '无' }}</view>
 			</view> -->
-
 		</view>
+
 	</view>
+  <!-- <view class="delivery-time" wx:if="{{ address.userName || address.receiver_name }}">
+    <van-cell title="预计送达" icon="clock-o" is-link />
+  </view> -->
+
 </view>

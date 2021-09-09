@@ -35,9 +35,9 @@
                 <!-- 幻灯片 -->
                 <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" themeColor="{{ themeColor }}" bindshowContactModal="showContactModal"/>
                 <!-- 简单文本 -->
-                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
+                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}"  />
                 <!-- 文本列表 -->
-                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}" bindshowContactModal="showContactModal" />
+                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}"/>
                 <!-- 优惠券 userCoupon 有状态 -->
                 <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}" />
                 <!-- 快捷导航栏 -->

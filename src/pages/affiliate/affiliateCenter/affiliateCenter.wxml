@@ -25,7 +25,7 @@
       </view>
     </view>
 
-    <view class="user-right-area" wx:if="{{ config.affiliate.show_rank }}">
+    <view class="user-right-area" wx:if="{{ config.show_ranking }}">
       <navigator class="btn" url="/pages/affiliate/affiliateRevenueRank/affiliateRevenueRank">
         <image class="btnIcon" mode="aspectFit" src="/icons/affiliateCenter/crown.svg"></image>
         收益排行
