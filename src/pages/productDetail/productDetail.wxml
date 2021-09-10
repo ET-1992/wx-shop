@@ -65,7 +65,7 @@
                 | 每人限参与<text style="color: {{ luckydraw.setting.colors.quote_text_color }};">{{ luckydraw.activity.quota }}</text>次
               </block>
               <block wx:else>| 不限次数</block>
-              | {{ luckydraw.activity.coins + (config.coin_name || '花生米') + '/次' }}
+              | <text style="color: {{ luckydraw.setting.colors.consume_text_color }};">{{ luckydraw.activity.consume_type === '1' ? '冻结' : '消耗' }}</text>{{ luckydraw.activity.coins + (config.coin_name || '花生米') + '/次' }}
             </view>
           </view>
 
