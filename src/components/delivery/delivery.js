@@ -52,7 +52,10 @@ Component({
         },
         onAddress() {
             this.triggerEvent('onAddress', {}, { bubbles: true });
-        }
+        },
+        // showTimeSelectModal() {
+        //     console.log(this.data.deliveryAddress);
+        // }
     }
 });
 

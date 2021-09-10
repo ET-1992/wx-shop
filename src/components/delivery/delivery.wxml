@@ -50,7 +50,8 @@
 		</view>
 
 	</view>
-  <!-- <view class="delivery-time" wx:if="{{ address.userName || address.receiver_name }}">
+
+  <!-- <view class="delivery-time" wx:if="{{ address.userName || address.receiver_name }}" bindtap="showTimeSelectModal">
     <van-cell title="预计送达" icon="clock-o" is-link />
   </view> -->
 

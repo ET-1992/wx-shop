@@ -178,9 +178,12 @@ App({
             this.globalData.extraData = referrerInfo.extraData;
         }
 
+
         if (query.scene) {
-            let scene = decodeURIComponent(query.scene);
-            let query_ = parseScene(scene);
+            console.log(query.scene, 'query.scene');
+            let { params: senceValue } = await api.hei.getSenceValue({ code: query.scene });
+            senceValue = decodeURIComponent(senceValue);
+            let query_ = parseScene(senceValue);
             // 合并有场景值得参数
             Object.assign(query, query_);
         }

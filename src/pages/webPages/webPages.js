@@ -15,7 +15,6 @@ Page({
             let { params: senceValue } = await api.hei.getSenceValue({ code: scene });
             senceValue = decodeURIComponent(senceValue);
             let query = parseScene(senceValue);
-            console.log(query, 'query');
 
             // 分享商品海报
             if (query.id) {
