@@ -346,7 +346,7 @@ Page({
                     content: '储值卡余额不足，请先充值'
                 });
                 if (confirm) {
-                    autoNavigate_({ url: '/pages/membership/members/members' });
+                    autoNavigate_({ url: '/pages/accountDetail/accountDetail' });
                 }
             }
                 break;
