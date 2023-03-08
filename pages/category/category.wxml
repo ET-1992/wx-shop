@@ -1,0 +1,25 @@
+<!-- 导航栏 -->
+<customNavigationBar style="position: fixed; z-index: 2"></customNavigationBar>
+<view class="container" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
+  <!-- 左边区域 -->
+  <scroll-view class="mainCategory" scroll-y scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
+    <view class="mainCategoryInner">
+      <view class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}" wx:for="{{ categories }}" wx:key="id" data-index="{{ index }}" bindtap="onMainCategoryItemClick" id="{{ 'm' + index }}">
+        <text class="mainCategoryItemText">{{ item.name }}</text>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 右边区域 -->
+  <scroll-view class="subCategory" scroll-y scroll-into-view="{{'c' + selectedIndex}}" scroll-with-animation="{{ 300 }}" bindscroll="onScroll">
+    <view class="subCategory-item" wx:for="{{ categories }}" id="{{ 'c' + index }}">
+      <image class="subCategoryBanner" src="{{ item.banner }}" mode="aspectFill" wx:if="{{ item.banner }}" />
+      <view class="categoryTitle">{{ item.name }}</view>
+      <view class="subCategoryItems">
+        <navigator class="subCategoryItem" wx:for="{{ item.children }}" wx:key="id" url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) }}" open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}">
+          <image class="subCategoryItemThumb" src="{{ item.thumbnail }}" mode="aspectFit" />
+          <view class="subCategoryName">{{ item.name }}</view>
+        </navigator>
+      </view>
+    </view>
+  </scroll-view>
+</view>

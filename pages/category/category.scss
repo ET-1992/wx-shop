@@ -1,0 +1,138 @@
+@import '~styles/color';
+
+$nameColor: #595757;
+
+page {
+	height: 100%;
+	width: 100vw;
+	// background: #fff;
+}
+
+.container {
+	padding-top: 90rpx;
+	height: 100%;
+	display: flex;
+
+	.mainCategory {
+		text-align: center;
+		height: 100%;
+		// width: 180rpx;
+		width: 28%;
+		font-size: 26rpx;
+		color: $tagColor;
+		margin-left: 16rpx;
+		
+		.mainCategoryInner {
+			min-height: 100%;
+			background-color: white;
+			margin-right: 16rpx;
+		}
+		.mainCategoryItem {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			min-height: 100rpx;
+			border-radius: 5rpx;
+			.mainCategoryItemText {
+				margin: 8rpx 0;
+				padding: 0 8rpx;
+				width: 100%;
+				box-sizing: border-box;
+				border-left: 4rpx solid transparent;
+			}
+			&.selected {
+				background-color: #F4F4F4;
+				.mainCategoryItemText {
+					color: $titleColor;
+					border-left: 4rpx solid var(--primary-color, white);
+				}
+			}
+		}
+	}
+
+	.subCategory {
+		flex: auto;
+		text-align: center;
+		height: 100%;
+		
+		.subCategory-item {
+			margin-right: 16rpx;
+			background-color: #fff;
+			padding: 25rpx;
+			border-radius: 5rpx;
+		}
+
+		.subCategory-item:last-child{
+			padding-bottom: 300rpx;
+		}
+
+		.subCategoryBanner {
+			width: 100%;
+			height: 195rpx;
+		}
+
+		.categoryTitle {
+			font-size: 10pt;
+			margin: 30rpx 0;
+		}
+
+		.categoryTitle:before, .categoryTitle:after {
+			content: '';
+			width: 40rpx;
+			border-top: 1px solid #707070;
+			opacity: .5;
+			display: inline-block;
+			height: 8rpx;
+			margin: 0 10rpx;
+		}
+
+		.subCategoryItems {
+			display: grid;
+			width: 100%;
+			grid-template-columns: repeat(3, 33.33%);
+			.subCategoryItem {
+				justify-self: start;
+				&:nth-child(3n+2) {
+					justify-self: center;
+				}
+				&:nth-child(3n+3) {
+					justify-self: end;
+				}
+			}
+			// padding: 0 20rpx;
+			// margin-bottom: 50rpx;
+			// margin-right: -80rpx;
+			// text-align: left;
+			// display:flex;
+			// flex-wrap:wrap;
+
+		}
+
+		.subCategoryItem {
+			$size: 110rpx;
+
+			height: $size;
+			width: $size;
+			display: inline-block;
+			// margin-right: 80rpx;
+			margin-bottom: 80rpx;
+			text-align: center;
+
+			.subCategoryItemThumb {
+				height: $size;
+				width: $size;
+			}
+
+			.subCategoryName {
+				color: $nameColor;
+				font-size: 9pt;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				display:-webkit-box;
+				-webkit-box-orient:vertical;
+				-webkit-line-clamp:2;
+			}
+		}
+	}
+}
