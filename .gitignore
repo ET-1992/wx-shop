@@ -14,3 +14,4 @@ jsconfig.json
 .vscode
 .cache-loader
 .git
+miniprogram_npm
