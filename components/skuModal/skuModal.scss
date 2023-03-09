@@ -1,0 +1,294 @@
+@import '../../styles/color.scss';
+.modal {
+	width: 650rpx;
+	background: #ffffff;
+	border-radius: 10rpx;
+	max-height: 1000rpx;
+		.header {
+			height: 90rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #000000;
+			font-size: 32rpx;
+			margin-bottom: 20rpx;
+			position: relative;
+
+			.headerText {
+				width: 280rpx;
+				overflow: hidden;
+				white-space: nowrap;
+				-webkit-line-clamp: 1;
+				text-overflow: ellipsis;
+				height: 45rpx;
+				line-height: 45rpx;
+				font-weight: bold;
+			}
+			.close {
+				position: absolute !important;
+				right: 18rpx;
+				top: 18rpx;
+				z-index: 999;
+			}
+		}
+		// 购买数量
+		.quantity {
+			padding-bottom: 25rpx;
+			.title {
+				margin-bottom: 20rpx;
+				font-size: 28rpx;
+				color: rgba(51, 51, 51, 1);
+				font-weight: bold;
+			}
+		}
+
+		.footer {
+			height: 90rpx;
+			background: #F4F4F4;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 50rpx;
+
+			.money {
+				color: #F52D2D;
+				font-size: 36rpx;
+			}
+
+			.addCart {
+				background: $mainColor;
+				border-radius: 25rpx;
+				width: 200rpx;
+				height: 50rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #ffffff;
+				font-size: 24rpx;
+				line-height: 33rpx;
+			}
+		}
+}
+
+.content {
+	padding: 0 50rpx;
+	background: #ffffff;
+	margin-bottom: 30rpx;
+
+	.item {
+		margin-bottom: 10rpx;
+
+		.itemTitle {
+			color: #000000;
+			font-size: 26rpx;
+			margin-bottom: 20rpx;
+			font-weight: bold;
+		}
+
+		.itemContent {
+			.itemSku {
+				position: relative;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+    		min-width: 80rpx;
+    		margin: 0 24rpx 24rpx 0;
+    		overflow: hidden;
+				color: #323233;
+				background: #f7f8fa;
+    		font-size: 26rpx;
+    		line-height: 32rpx;
+    		vertical-align: middle;
+    		border-radius: 8rpx;
+				.sku_thumbnail{
+					z-index: 1;
+					width: 48rpx;
+					height: 48rpx;
+					margin: 8rpx 0 8rpx 8rpx;
+					border-radius: 4rpx;
+				}
+				.sku_name{
+					z-index: 1;
+					padding: 16rpx;
+				}
+			}
+			.active {
+				background: $mainColor;
+				color: #ffffff;
+				border: none;
+			}
+			.disable {
+				border-color:#ccc;
+				color:#eee;
+			}
+		}
+	}
+	&.bottom-content{
+		padding:0
+	}
+}
+
+.bottomModal {
+	$buttonHeight: 90rpx;
+	$modalPaddingBottom: $buttonHeight + 60rpx;
+	background-color: #fff;
+	padding: 24rpx 0 $modalPaddingBottom;
+
+	.head-wrap {
+		margin: 0 30rpx;
+		position: relative;
+		.head-close {
+			position: absolute !important;
+			right: -10rpx;
+			top: 0;
+			z-index: 999;
+		}
+
+		.head {
+			margin-bottom: 24rpx;
+			display: flex;
+			padding-bottom: 20rpx;
+
+			.productImage {
+				width: 180rpx;
+				height: 180rpx;
+				// border: 1px solid #fff;
+				border-radius: 10rpx;
+				margin-right: 40rpx;
+				position: relative;
+				// box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
+			}
+
+			.productInfo {
+				color: #969799;
+				width: 400rpx;
+				font-size: 24rpx;
+
+				.stock, .price, .property, .coin-product-price {
+					margin-bottom: 10rpx;
+				}
+
+				.coin-product-price {
+					color: #F52D2D;
+					font-size: 36rpx;
+					line-height: 40rpx;
+					display: flex;
+					word-wrap: none;
+					flex-wrap: wrap;
+					.price-join-symbol {
+						line-height: 40rpx;
+						margin: 0 4rpx;
+					}
+				}
+
+				.price {
+					color: #F52D2D;
+					font-size: 44rpx;
+					display: flex;
+					align-items: center;
+					.currency{
+						font-size: 24rpx;
+						font-weight: normal;
+					}
+					.groupon{
+						display: flex;
+						align-items: center;
+						.commander{
+							font-size: 24rpx;
+							padding-left: 10rpx;
+						}
+					}
+				}
+
+				.blur_stock {
+					padding: 5rpx 10rpx;
+					color: #fff;
+					font-size: 23rpx;
+					margin-bottom: 10rpx;
+					display: inline-block;
+					border-radius: 6rpx;
+				}
+			}
+		}
+
+	}
+
+	.scroll-content-wrap {
+		// min-height: 200rpx;
+		max-height: 750rpx;
+		.scroll-content {
+			padding: 0 30rpx;
+		}
+		.product-remark {
+			.remark-title {
+				color: #000;
+				font-size: 26rpx;
+				margin-bottom: 20rpx;
+				font-weight: 700;
+			}
+		}
+	}
+
+	.title {
+		font-size: 28rpx;
+		font-weight: bold;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.titleHint {
+		font-size: 16rpx;
+		color: #ccc;
+	}
+
+	.bottom-option-wrap {
+		margin: 0 30rpx;
+		.quantity {
+			display: flex;
+			justify-content: space-between;
+			border-top: 1rpx solid #ebedf0;
+			padding: 30rpx 0;
+			align-items: center;
+			.rightWrap {
+				display: flex;
+
+				.least {
+					display: flex;
+					align-items: center;
+					color: #E50000;
+				}
+			}
+		}
+	}
+
+
+	.actionSheetBtGroup {
+		position: fixed;
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		z-index: 100;
+		font-size: 0;
+		display: flex;
+		@supports (bottom: env(safe-area-inset-bottom)) {
+			bottom: env(safe-area-inset-bottom);
+		}
+
+		.confirmBt {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			border-radius: 0;
+			height: $buttonHeight;
+			font-size: 28rpx;
+			background-color: $mainColor;
+			color: #fff;
+			background-size: cover;
+		}
+
+		.secondaryBt {
+			background-color: $secondColor;
+		}
+	}
+
+}

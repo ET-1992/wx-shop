@@ -39,9 +39,11 @@
     </view>
     <view class="box_5">
       <view class="block_2"></view>
-      <text lines="1" class="text_14">商品详情</text>
+      <text lines="1" class="text_14">商品详情11</text>
       <view class="block_3"></view>
     </view>
   </view>
   <image src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng17bdddebe6cc5ae8afccb8e83aaa04f1ba5f9ea7c13ff6976f1c9a2b5cb8c3c0" class="image_1"></image>
 </view>
+<!-- SKU -->
+<skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />

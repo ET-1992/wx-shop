@@ -1,0 +1,20 @@
+.quantity {
+  display: flex;
+}
+
+.quantity .value, .quantity .bt {
+  border-radius: 5rpx;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #f7f8fa;
+  box-sizing: border-box;
+  min-height: 40rpx;
+  text-align: center;
+  font-size: 40rpx;
+}
+
+.quantity .value {
+  margin: 0 6rpx;
+  font-size: 28rpx;
+}

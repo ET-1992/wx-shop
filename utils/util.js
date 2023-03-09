@@ -6,11 +6,11 @@ import {
   USER_STATUS,
   CONFIG,
   PLATFFORM_ENV,
-} from "constants/index";
-import api from "utils/api";
-import { login, checkSession, getSetting, authorize } from "utils/wxp";
-import wxProxy from "utils/wxProxy";
-import wxStorage from "utils/wxStorage";
+} from "../constants/index";
+import api from "./api/index";
+import { login, checkSession, getSetting, authorize } from "./wxp";
+import wxProxy from "./wxProxy";
+import wxStorage from "./wxStorage";
 
 function formatNumber(n) {
   let x;
