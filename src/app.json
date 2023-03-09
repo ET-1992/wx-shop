@@ -10,7 +10,8 @@
 		"pages/shopList/shopList",
 		"pages/discovery/discovery",
 		"pages/webBar/webBar",
-		"pages/featured/featured"
+		"pages/featured/featured",
+		"pages/productDetail2/productDetail2"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -472,7 +473,7 @@
 			],
 			"name": "开奖结果"
 		},
-    {
+		{
 			"root": "pages/lotteryRecords",
 			"pages": [
 				"lotteryRecords"
