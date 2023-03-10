@@ -1,3 +1,6 @@
 {
-	"navigationBarTitleText": "productDetail2"
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "skuModal": "components/skuModal/skuModal"
+  }
 }
