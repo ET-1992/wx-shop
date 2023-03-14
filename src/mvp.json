@@ -11,12 +11,13 @@
     "pages/discovery/discovery",
     "pages/webBar/webBar",
     "pages/featured/featured",
-    "pages-mvp/productDetail/productDetail"
+    "pages-mvp/productDetail/productDetail",
+    "pages-mvp/shippingAddress/shippingAddress"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "backgroundColor": "#f4f4f4",
-    "navigationBarBackgroundColor": "#729153",
+    "navigationBarBackgroundColor": "#D8D8D8",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": ""
   },

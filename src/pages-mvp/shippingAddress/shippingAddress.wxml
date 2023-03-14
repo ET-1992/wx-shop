@@ -1,0 +1,30 @@
+<view class='page'>
+  <van-radio-group value="{{ checked }}" bind:change="onChange">
+    <view class='box_1' wx:for="{{shippingAdress}}" wx:key="id" wx:for-item="shipping" wx:for-index="id">
+      <view class="name-phone">{{shipping.username}}</view>
+      <view class="name-phone">{{shipping.adress}}</view>
+      <van-icon class="delete" name="cross" size="32rpx" color="#B0B3BF" />
+      <van-icon class="check" wx:if="{{shipping.defaultCheck}}" name="success" size="36rpx" color="#FE4F06" />
+      <button size="default" wx:if="{{!shipping.defaultCheck}}" class="def-btn use-btn">使用</button>
+      <view class="line" />
+      <view class="box_2">
+        <van-radio name="{{shipping.id}}" icon-size="36rpx" checked-color="#FE4F06"
+          class="{{shipping.defaultCheck?'radio':'radio default-radio'}}">
+          {{shipping.defaultCheck?'已选默认':'默认'}}
+        </van-radio>
+        <button size="default" class="def-btn edit-btn">修改</button>
+      </view>
+    </view>
+  </van-radio-group>
+  <button size="default" class="add-btn">
+    <van-icon name="add" class="add-icon" />
+    添加收回地址
+  </button>
+  <button size="default" class="add-btn wx-btn">
+    <van-icon name="wechat" class="add-icon" />
+    微信导入地址
+  </button>
+
+
+
+</view>

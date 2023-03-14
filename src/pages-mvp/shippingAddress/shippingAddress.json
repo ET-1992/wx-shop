@@ -1,0 +1,9 @@
+{
+    "navigationBarTitleText": "收货地址",
+    "usingComponents": {
+      "van-radio-group": "@vant/weapp/dist/radio-group/index",
+      "van-radio": "@vant/weapp/dist/radio/index",
+      "van-icon": "@vant/weapp/dist/icon/index",
+      "van-button": "@vant/weapp/dist/button/index"
+    }
+  }

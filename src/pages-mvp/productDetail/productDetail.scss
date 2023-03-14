@@ -7,20 +7,20 @@
   display: flex;
   flex-direction: column;
 }
-/* .box_2 {
-  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng1cc757736269cdff10f7b05c031f455f7b6c47e0744d11fdda11759a5486739e)
-    100% no-repeat;
-  background-size: 100% 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 690rpx 20rpx 20rpx 650rpx;
-} */
+.box_1 {
+  width: 750rpx;
+  height: 750rpx;
+  position: relative;
+}
 .text-wrapper_2 {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
   background-color: rgba(0, 0, 0, 0.25);
   border-radius: 20rpx;
   display: flex;
   flex-direction: column;
-  padding: 6rpx 24rpx 6rpx 22rpx;
+  padding: 6rpx 22rpx;
 }
 .text_2 {
   overflow-wrap: break-word;
@@ -32,18 +32,29 @@
   white-space: nowrap;
   line-height: 28rpx;
 }
-.box_3 {
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 16rpx;
-  align-self: center;
-  margin-top: 24rpx;
+.box_2 {
+  width: 100%;
+  height: 160rpx;
+  background: url(../../icons-mvp/timeBg.png) 100%;
   display: flex;
-  flex-direction: column;
-  padding: 16rpx 28rpx 28rpx 28rpx;
+  justify-content: space-between;
+  padding: 28rpx 20rpx;
+}
+
+.text-wrapper-6 {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 40rpx;
+}
+.box_3 {
+  margin: 24rpx 20rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 16rpx 28rpx 16rpx;
 }
 .text-wrapper_3 {
-  margin-right: 234rpx;
-  flex-direction: row;
   display: flex;
 }
 .text_3 {
@@ -166,9 +177,9 @@
   line-height: 34rpx;
 }
 .box_4 {
-  display: flex;
-  flex-direction: column;
-  padding: 24rpx 20rpx 34rpx 20rpx;
+  margin: 0rpx 20rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
 }
 .text-wrapper_5 {
   background-color: rgba(255, 255, 255, 1);
@@ -187,6 +198,7 @@
   text-align: left;
   white-space: nowrap;
   line-height: 40rpx;
+  margin-right: 32rpx;
 }
 .paragraph_1 {
   overflow-wrap: break-word;
@@ -224,6 +236,7 @@
   text-align: right;
   white-space: nowrap;
   line-height: 40rpx;
+  margin: 0 14rpx;
 }
 .block_3 {
   background-color: rgba(176, 179, 191, 1);
@@ -237,4 +250,25 @@
   width: 750rpx;
   height: 2660rpx;
   margin-top: -2rpx;
+}
+.box_6 {
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 168rpx;
+  background: #FFFFFF;
+  box-shadow: 0rpx -2rpx 0rpx 0rpx #F1F1F3;
+}
+
+.def-btn {
+  width: 710rpx;
+  height: 88rpx;
+  background: #FE4F06;
+  border-radius: 8rpx;
+  margin: 6rpx 20rpx 74rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 88rpx;
 }
