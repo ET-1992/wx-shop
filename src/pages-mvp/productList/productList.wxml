@@ -1,0 +1,12 @@
+<view>
+  //商品列表的组件 直接改样式
+  <filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
+  <view class="container">
+    <view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
+      //这里写商品列表
+    </view>
+    <view class="noHint" wx:if="{{ !products.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+      暂无商品
+    </view>
+  </view>
+</view>

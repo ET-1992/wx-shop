@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "商品列表",
+  "usingComponents": {
+    "loading": "../../components/loading/index",
+    "filterList": "../../components/filterList/filterList"
+  }
+}
