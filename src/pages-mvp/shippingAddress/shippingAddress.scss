@@ -1,110 +1,191 @@
-.page {
-  width: 750rpx;
-  background: #F4F6FA;
-}
+@import '~styles/color';
 
-.box_1 {
-  position: relative;
-  width: 750rpx;
-  padding: 32rpx 24rpx 20rpx;
-  background: #FFFFFF;
-  margin-bottom: 16rpx;
-}
-
-.name-phone {
-  width: 73%;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #111111;
-  padding-bottom: 8rpx;
-}
-
-.delete {
-  position: absolute;
-  right: 24rpx;
-  top: 16rpx;
-}
-
-.check {
-  position: absolute;
-  right: 102rpx;
-  top: 82rpx;
-}
-
-.line {
-  width: 100%;
-  height: 1rpx;
-  background: #EBEDF0;
-  margin: 18rpx 0;
-}
-
-.radio {
-  .van-radio__label {
+.container {
+  padding-bottom: env(safe-area-inset-bottom);
+  
+  .address-air {
+    width: 100%;
+    height: 100%;
+    text-align: center;
     font-size: 28rpx;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #FE4F06;
+    color: $originalPriceColor;
+    padding-top: 220rpx;
   }
-}
 
-.default-radio {
-  .van-radio__label {
-    color: #666666;
+  .address {
+    .radio-wrap {
+      background-color: #fff;
+      display: block;
+      position: relative;
+      padding: 32rpx 24rpx 20rpx;
+      margin-bottom: 16rpx;
+      .radio-icon {
+        padding: 24rpx;
+      }
+      // 选择框位置
+      .van-radio__icon-wrap{
+        position: absolute;
+        left: 24rpx;
+        bottom: 25rpx;
+      }
+      .van-radio__label{
+        padding-left: 0;
+      }
+      .radio-label {
+        width: 100%;
+      }
+      .name-phone {
+        width: 80%;
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #111111;
+        padding-bottom: 8rpx;
+      }
+
+      .delete {
+        position: absolute;
+        right: 24rpx;
+        top: 16rpx;
+      }
+
+      .check {
+        position: absolute;
+        right: 102rpx;
+        top: 82rpx;
+      }
+
+      .line {
+        width: 100%;
+        height: 1rpx;
+        background: #EBEDF0;
+        margin: 18rpx 0;
+      }
+      .use-btn {
+        position: absolute;
+        top: 76rpx;
+        right: 24rpx;
+        width: 104rpx;
+        height: 60rpx;
+        background: #FFFFFF;
+        border-radius: 8rpx;
+        line-height: 60rpx;
+        border: 2rpx solid #9F9F9F;
+      }
+
+      .def-btn {
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #666666;
+      }
+      .radio-right {
+        position: absolute;
+        right: 102rpx;
+        top: 82rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .radio-bottom{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 52rpx;
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #666666;
+        .edit-btn {
+            width: 92rpx;
+            height: 48rpx;
+            background: #FFFFFF;
+            border-radius: 8rpx;
+            border: 2rpx solid #9F9F9F;
+            line-height: 48rpx;
+          }
+          .select{
+            color: #FE4F06;
+          }
+      }
+    }
   }
-}
+  .modal{
+    position: relative;
+    .modal-delete {
+      position: absolute;
+      top: -32rpx;
+      right: -32rpx;
+    }
+    .modal-dialog {
+      .van-dialog__header {
+        padding: 18rpx 0;
+      }
+      .modal-section {
+        display: flex;
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #111111;
+        margin: 24rpx;
+    
+        .modal-user {
+          margin-right: 60rpx;
+        }
+    
+        .modal-address {
+          margin-right: 32rpx;
+        }
+    
+        .add-input {
+          width: 70%;
+        }
+    
+        .modal-input {
+          color: #B0B3BF;
+          font-size: 28rpx;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+        }
+      }
+      .modal-default {
+        justify-content: space-between;
+        align-items: center;
+        }
+      .modal-Button{
+        height: 88rpx;
+        background: #FE4F06;
+        border-radius: 8rpx;
+        margin: 24rpx;
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 88rpx;
+      }
+    }   
+        
+  }
 
-.box_2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+ 
+  .btns {
 
-.edit-btn {
-  width: 92rpx;
-  height: 48rpx;
-  background: #FFFFFF;
-  border-radius: 8rpx;
-  border: 2rpx solid #9F9F9F;
-  line-height: 48rpx;
-}
-
-.add-btn {
-  background: #FE4F06;
-  border-radius: 8rpx;
-  margin: 24rpx;
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #FFFFFF;
-}
-
-.use-btn {
-  position: absolute;
-  top: 76rpx;
-  right: 24rpx;
-  width: 104rpx;
-  height: 60rpx;
-  background: #FFFFFF;
-  border-radius: 8rpx;
-  line-height: 60rpx;
-  border: 2rpx solid #9F9F9F;
-}
-
-.def-btn {
-  font-size: 28rpx;
-  font-family: PingFangSC-Regular, PingFang SC;
-  font-weight: 400;
-  color: #666666;
-}
-
-.wx-btn {
-  border-radius: 8rpx;
-  border: 2rpx solid #FE4F06;
-  background-color: #FFFFFF;
-  color: #FE4F06;
-}
-
-.add-icon {
-  margin-right: 8rpx;
+    .btn {
+      border-radius: 8rpx;
+      color: #FE4F06;
+      line-height: 76rpx;
+      margin: 24rpx;
+      font-size: 28rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      border: 2rpx solid #FE4F06;
+    }
+    .wechat-add{
+      background: #FE4F06;
+      color: white;
+    }
+    .btn-icon{
+      margin-right: 8rpx;
+    }
+  }
 }

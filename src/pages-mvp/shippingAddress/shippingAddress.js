@@ -96,7 +96,7 @@ Page({
     'receiver_state': '广东省',
     'receiver_weixin': '',
     'receiver_zipcode': '510080',
-    'receiver_areacode': 440111,
+    'receiver_areacode': 440112,
     'longtitude': '113.296934',
     'latitude': '23.209797',
     'room': '',
@@ -142,7 +142,7 @@ Page({
     'receiver_state': '广东省',
     'receiver_weixin': '',
     'receiver_zipcode': '510080',
-    'receiver_areacode': 440111,
+    'receiver_areacode': 440113,
     'longtitude': '113.296934',
     'latitude': '23.209797',
     'room': '',
@@ -188,18 +188,32 @@ Page({
     'receiver_state': '黑龙江省',
     'receiver_weixin': '',
     'receiver_zipcode': '161000',
-    'receiver_areacode': 230202,
+    'receiver_areacode': 230201,
     'longtitude': '123.95763',
     'latitude': '47.31742',
     'room': '',
     'time': 1590720756
   }
 ],  // 地址列表
-        isLoading: true,
-        radioSelected: '',  // 地址选中项
+        isLoading: false,
+        radioSelected: 230202,  // 地址选中项
         seletedId: '',  // 进入时地址选中项ID
+        show: false,  // 弹窗
     },
 
+  // 添加地址
+  onAddressEdit() {
+    this.setData({ ...this.data, show: true });
+  },
+  // 导入地址
+  onImportAddress() {
+    
+  },
+
+  // 获取弹窗信息
+  formSubmit(e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value);
+  },
     onLoad(params) {
         console.log(params);
         let { id: seletedId = '' } = params;
