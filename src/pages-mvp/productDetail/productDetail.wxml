@@ -1,57 +1,63 @@
 <view class="page">
-  <view class="box_1">
+  <view class="shop-swiper">
     <swiper autoplay="{{autoplay}}" class="swiper" wx:if="{{!product.video}}" bindchange="currentIndex" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
       <swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
         <image src="{{ image }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
       </swiper-item>
     </swiper>
-    <view class="text-wrapper_2">
-      <text lines="1" class="text_2">1/6</text>
+    <view class="swiper-pageNum">
+      <text lines="1" class="number">1/6</text>
     </view>
   </view>
-  <view class="box_2">
-    <view class="text-wrapper-6">
-      <text lines="1" class="text_15">您的手气也太好了吧</text>
-      <view class="text_16">现在下单<text></text></view>
+  <view class="shop-time">
+    <view class="time-text">
+      <text lines="1" >您的手气也太好了吧</text>
+      <view class="order">现在下单<text class="order-box">立减<text class="order-number">10</text>元</text></view>
     </view>
-    <view class="text-wrapper-7"></view>
-  
-  </view>
-  <view class="box_3">
-    <view class="text-wrapper_3">
-      <text lines="1" class="text_3">券后</text>
-      <text lines="1" class="text_4">￥</text>
-      <text lines="1" class="text_5">399</text>
-      <text lines="1" class="text_6">起</text>
-      <text lines="1" class="text_7">原价￥499起</text>
-    </view>
-    <view lines="1" class="text_8">无线吸拖吸尘器，26000Pa大吸力，吸尘/拖地/除螨</view>
-    <text lines="1" class="text_9">50min持久长续航·软绒滚筒地刷，防缠毛发·多锥气旋技术，过滤微尘</text>
-    <view class="block_1"></view>
-    <view class="text-wrapper_4">
-      <text lines="1" class="text_10">快递：包邮</text>
-      <text lines="1" class="text_11">销售：100</text>
-      <text lines="1" class="text_12">库存：100</text>
+    <view class="countdown">
+      <view style="margin-bottom: 12rpx;">优惠结束倒计时</view>
+      <van-count-down use-slot class="countdown-time" time="{{ time }}"  bind:change="countdownChange">
+        <text class="item">{{ timeData.hours }}</text>:
+        <text class="item">{{ timeData.minutes }}</text>:
+        <text class="item" style="margin-right: 0;">{{ timeData.seconds }}</text>
+      </van-count-down>
     </view>
   </view>
-  <view class="box_4">
-    <view class="text-wrapper_5">
-      <view lines="1" class="text_13">服务</view>
-      <view lines="2" class="paragraph_1">
+  <view class="shop-detail">
+    <view class="shop-price">
+      <view class="coupon">券后￥
+        <text lines="1" class="coupon-price">399</text>
+        起
+      </view>
+      <text lines="1" class="original-price">原价￥499起</text>
+    </view>
+    <view lines="1" class="shop-desc">无线吸拖吸尘器，26000Pa大吸力，吸尘/拖地/除螨</view>
+    <text lines="1" class="shop-desc desc-size">50min持久长续航·软绒滚筒地刷，防缠毛发·多锥气旋技术，过滤微尘</text>
+    <view class="line"></view>
+    <view class="free-shipping">
+      <text lines="1" class="shipping-text">快递：包邮</text>
+      <text lines="1" class="shipping-text">销售：100</text>
+      <text lines="1" class="shipping-text">库存：100</text>
+    </view>
+  </view>
+  <view class="shop-discount">
+    <view class="shop-serve">
+      <view lines="1" class="serve-title">服务</view>
+      <view lines="2" class="serve-content">
         <view class="" selectable="false" space="false" decode="false">
           ·全场满800减60元，满1000减80元，满2000减200元；
         </view>
         <view class="" selectable="false" space="false" decode="false">·满289元享8折</view>
       </view>
     </view>
-    <view class="box_5">
-      <view class="block_2"></view>
-      <text lines="1" class="text_14">商品详情</text>
-      <view class="block_3"></view>
-    </view>
   </view>
-  <image src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng17bdddebe6cc5ae8afccb8e83aaa04f1ba5f9ea7c13ff6976f1c9a2b5cb8c3c0" class="image_1"></image>
-  <view class="box_6" bindtap="handleClick">
+  <view class="shop-text">
+      <view class="text-line"></view>
+      <text lines="1" class="content">商品详情</text>
+      <view class="text-line"></view>
+    </view>
+  <image src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng17bdddebe6cc5ae8afccb8e83aaa04f1ba5f9ea7c13ff6976f1c9a2b5cb8c3c0" class="shop-image"></image>
+  <view class="shop-button" bindtap="handleClick">
     <button size="default" class="def-btn">点我下单</button>
   </view>
 

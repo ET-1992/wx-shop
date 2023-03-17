@@ -76,7 +76,10 @@ Component({
                 isShowSkuModal: false
             });
         },
-
+        // 跳转到优惠卷页面
+        handleTo(e) {
+            console.log(1231231, e);
+        },
         // 加入购物车
         async onAddCart() {
             try {

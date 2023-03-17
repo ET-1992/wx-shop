@@ -1,23 +1,13 @@
 {
   "pages": [
-    "pages/home/home",
-    "pages/me/me",
-    "pages/cart/cart",
-    "pages/category/category",
-    "pages/classify/classify",
-    "pages/articleList/articleList",
-    "pages/modulePage/modulePage",
-    "pages/shopList/shopList",
-    "pages/discovery/discovery",
-    "pages/webBar/webBar",
-    "pages/featured/featured",
     "pages-mvp/productDetail/productDetail",
     "pages-mvp/shippingAddress/shippingAddress"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "backgroundColor": "#f4f4f4",
-    "navigationBarBackgroundColor": "#D8D8D8",
+    "navigationBarBackgroundColor": "#F8F8F8",
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": ""
   },

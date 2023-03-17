@@ -6,7 +6,8 @@
     "numberInput": "components/numberInput/index",
     "skuOptionList": "components/skuOptionList/skuOptionList",
     "skuLogistics": "components/skuLogistics/skuLogistics",
-    "markForm": "components/markForm/markForm"
+    "markForm": "components/markForm/markForm",
+     "van-stepper": "@vant/weapp/dist/stepper/index"
   }
 }
 

@@ -154,6 +154,9 @@ Page({
     'highest_price': 213,
     'discount': 0.06,
     'is_multi_sku': true,
+    'definePrice': 123, // 价格
+    'coupons_price': 222, // 优惠价格
+    'product_type': 1, // 购买数量加减隐藏
     'properties': [
         {
             'name': '颜色',
@@ -201,20 +204,6 @@ Page({
                 },
                 {
                     'name': 'L'
-                }
-            ]
-        },
-        {
-            'name': '其他',
-            'items': [
-                {
-                    'name': '1'
-                },
-                {
-                    'name': '2'
-                },
-                {
-                    'name': '3'
                 }
             ]
         }
@@ -1390,17 +1379,30 @@ Page({
             'property_names': '颜色:天蓝色;尺寸:L;其他:3;',
             'properties_json': '[{"k":"颜色","v":"天蓝色"},{"k":"尺寸","v":"L"},{"k":"其他","v":"3"}]'
         }
-    ]
+    ],
+    isGrouponBuy: true
 },
     actions: [
       {
         type: 'onBuy',
-        text: '立即购买',
+        text: '立即支付¥399',
       },
     ],
-    isShowSkuModal: true,
+    isShowSkuModal: false,
+    isBargainBuy: false, // 购买数量加减隐藏
+    time: 30 * 60 * 60 * 1000, // 倒计时
+    timeData: {},
   },
 
+    countdownChange(e) {
+        this.setData({
+        timeData: e.detail,
+        });
+    },
+    
+  handleClick() {
+      this.setData({ isShowSkuModal: true });
+  },
   async initPage() {
     // console.log('000');
     // const { id } = this.options;
