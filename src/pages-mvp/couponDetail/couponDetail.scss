@@ -1,0 +1,46 @@
+.coupon-detail{
+  .coupon-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36rpx 24rpx 38rpx 48rpx;
+    background: #FFFFFF;
+    color: #B0B3BF;
+    .coupon{
+      display: flex;
+      flex-direction: column;
+      font-size: 24rpx;
+      font-weight: 400;
+      font-family: PingFangSC-Regular, PingFang SC;
+    }
+    .coupon-num{
+      .price{
+        color: #FE4F06;
+        font-size: 24rpx;
+        .num{
+         font-size: 38rpx;
+         font-weight: 500;
+        font-family: PingFangSC-Medium, PingFang SC;
+
+        }
+      }
+    }
+    .coupon-desc{
+      width: 50%;
+      .desc{
+        font-size: 28rpx;
+        font-weight: 400;
+        color: #111111;
+        padding-bottom: 8rpx;
+      }
+      
+    }
+    .coupon-isUse{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FE4F06;
+    }
+   
+  }
+}

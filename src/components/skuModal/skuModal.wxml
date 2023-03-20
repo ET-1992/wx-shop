@@ -32,7 +32,7 @@
         <view class="head-address">
             <view class="address-left">
                 <van-icon name="location-o" size="48rpx" color="#B0B3BF"/>
-                <text class="address-text">{{'添加地址'}}</text>
+                <text class="{{product.shippingaddress?'shipping-address':'address-text'}}">{{product.shippingaddress?product.shippingaddress :'添加地址'}}</text>
             </view>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF"/>
         </view>
@@ -101,8 +101,9 @@
                     <view class="property" wx:if="{{ product.skus.length || product.special_attributes.length || product.related_product.length }}">
                         已选择：{{ selectedOptions.content || '--' }}
                     </view>
+                    <!-- 步进器 -->
                     <view class="stepper">
-                        <van-stepper input-class="stepper-input" plus-class="stepper-plus" value="{{ 1 }}" bind:change="" />
+                        <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" />
                     </view>
                 </view>
             </view>

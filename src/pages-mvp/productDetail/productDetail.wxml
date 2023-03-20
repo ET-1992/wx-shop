@@ -1,8 +1,8 @@
 <view class="page">
   <view class="shop-swiper">
     <swiper autoplay="{{autoplay}}" class="swiper" wx:if="{{!product.video}}" bindchange="currentIndex" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
-      <swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
-        <image src="{{ image }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
+      <swiper-item class="swiper-box" wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
+        <image class="swiper-img" src="{{ image }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
       </swiper-item>
     </swiper>
     <view class="swiper-pageNum">
@@ -10,17 +10,20 @@
     </view>
   </view>
   <view class="shop-time">
-    <view class="time-text">
-      <text lines="1" >您的手气也太好了吧</text>
-      <view class="order">现在下单<text class="order-box">立减<text class="order-number">10</text>元</text></view>
-    </view>
-    <view class="countdown">
-      <view style="margin-bottom: 12rpx;">优惠结束倒计时</view>
-      <van-count-down use-slot class="countdown-time" time="{{ time }}"  bind:change="countdownChange">
-        <text class="item">{{ timeData.hours }}</text>:
-        <text class="item">{{ timeData.minutes }}</text>:
-        <text class="item" style="margin-right: 0;">{{ timeData.seconds }}</text>
-      </van-count-down>
+    <image class="time-img" src="../../icons/mvp/time-bg.png"/>
+    <view class="time">
+      <view class="time-text">
+        <text lines="1" >您的手气也太好了吧</text>
+        <view class="order">现在下单<text class="order-box">立减<text class="order-number">10</text>元</text></view>
+      </view>
+      <view class="countdown">
+        <view style="margin-bottom: 12rpx;">优惠结束倒计时</view>
+        <van-count-down use-slot class="countdown-time" time="{{ time }}"  bind:change="countdownChange">
+          <text class="item">{{ timeData.hours }}</text>:
+          <text class="item">{{ timeData.minutes }}</text>:
+          <text class="item" style="margin-right: 0;">{{ timeData.seconds }}</text>
+        </van-count-down>
+      </view>
     </view>
   </view>
   <view class="shop-detail">
@@ -61,6 +64,13 @@
     <button size="default" class="def-btn">点我下单</button>
   </view>
 
+  <!-- 优惠卷弹窗 -->
+  <van-overlay show="{{ showOverlay }}" >
+    <view class="overlay">
+      <image class="overlay-img" src="" />
+      <van-icon class="overlay-close" name="close" size="64rpx" color="#ffffff" catch:tap="onClickHide" />
+    </view>
+  </van-overlay>
 </view>
 <!-- SKU -->
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />

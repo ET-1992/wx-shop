@@ -1,0 +1,20 @@
+<view class="coupon-detail">
+  <view wx:for="couponList" >
+    <view class="coupon-list"  >
+      <view class="coupon coupon-num">
+        <view class="price">
+          ¥<text class="num">100</text>
+        </view>
+        <text class="">商品劵</text>
+      </view>
+      <view class="coupon coupon-desc">
+        <text class="desc">订单满400可用</text>
+        <text>有效期：2023.03.23</text>
+      </view>
+      <view class="coupon coupon-isUse">
+        已使用
+      </view>
+    </view>
+  </view> 
+  <van-empty class="custom-image" wx:if="{{ !couponList.length }}" image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无" /> 
+</view>

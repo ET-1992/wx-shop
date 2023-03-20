@@ -157,15 +157,17 @@ Page({
     'definePrice': 123, // 价格
     'coupons_price': 222, // 优惠价格
     'product_type': 1, // 购买数量加减隐藏
+          'shopNum': 1, // 步进器
+    'shippingaddress': '广西壮族自治区桂林市萨地区七星区斜阳大道460号广西壮族自治区桂林市萨地区七星区斜阳大道460号广西壮族自治区桂林市萨地区七星区斜阳大道460号', // 收货地址
     'properties': [
         {
             'name': '颜色',
             'items': [
                 {
                     'name': '红色',
-                    'image': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/format/webp#',
-                    'large': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/thumbnail/!750x750r/gravity/Center/crop/750x750/format/webp#',
-                    'thumbnail': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/thumbnail/!360x360r/gravity/Center/crop/360x360/format/webp#'
+                    // 'image': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/format/webp#',
+                    // 'large': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/thumbnail/!750x750r/gravity/Center/crop/750x750/format/webp#',
+                    // 'thumbnail': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/thumbnail/!360x360r/gravity/Center/crop/360x360/format/webp#'
                 },
                 {
                     'name': '绿色',
@@ -1392,14 +1394,18 @@ Page({
     isBargainBuy: false, // 购买数量加减隐藏
     time: 30 * 60 * 60 * 1000, // 倒计时
     timeData: {},
+    showOverlay: true
   },
 
-    countdownChange(e) {
-        this.setData({
-        timeData: e.detail,
-        });
-    },
+  countdownChange(e) {
+    this.setData({
+      timeData: e.detail,
+    });
+  },
     
+  onClickHide() {
+    this.setData({ showOverlay: false });
+  },
   handleClick() {
       this.setData({ isShowSkuModal: true });
   },

@@ -132,7 +132,7 @@
 	$buttonHeight: 88rpx;
 	$modalPaddingBottom: $buttonHeight + 60rpx;
 	background-color: #F4F6FA;
-	margin: 18rpx 0 $modalPaddingBottom;
+	margin: 18rpx 0 ;
 
 	.head-title {
 		font-size: 32rpx;
@@ -160,9 +160,19 @@
 				font-weight: 400;
 				color: #111111;
 				text-align: center;
+			}
+			.shipping-address{
+				margin-left: 16rpx;
+				width: 542rpx;
+				font-size: 28rpx;
+				font-family: PingFangSC-Regular, PingFang SC;
+				font-weight: 400;
+				color: #111111;
 				overflow: hidden; // 溢出隐藏
 				text-overflow: ellipsis; // 溢出用省略号显示
-				white-space: nowrap;
+				display: -webkit-box; 
+				-webkit-box-orient: vertical; 
+				-webkit-line-clamp: 2;
 			}
 		}
 		
@@ -219,13 +229,10 @@
 						border-radius: 4rpx;
 						padding: 14rpx 20rpx;
 					}
-					.van-stepper__minus{
-						background-color: #E0E0E0;
-							border-radius: 4rpx;
-							padding: 14rpx 20rpx;
-					}
-					.van-stepper__minus--disabled{
-						background: #F4F4F4 !important;
+					.stepper-minus{
+						background: #F4F4F4;
+						border-radius: 4rpx;
+						padding: 14rpx 20rpx;
 					}
 				}
 				.coin-product-price {
