@@ -1,20 +1,26 @@
 <view class="coupon-detail">
-  <view wx:for="couponList" >
+  <view wx:for="{{couponList}}" >
     <view class="coupon-list"  >
       <view class="coupon coupon-num">
-        <view class="price">
-          ¥<text class="num">100</text>
+        <view class="price" wx:if="{{item.price}}">
+          ¥<text class="num">{{item.price}}</text>
         </view>
+        <view class="discount" wx:if="{{!item.price}}">{{item.discount}}折</view>
         <text class="">商品劵</text>
       </view>
       <view class="coupon coupon-desc">
-        <text class="desc">订单满400可用</text>
-        <text>有效期：2023.03.23</text>
+        <text class="desc">{{item.discount_desc}}</text>
+        <text>有效期：{{item.validity_period}}</text>
       </view>
-      <view class="coupon coupon-isUse">
-        已使用
+      <view class="coupon coupon-isUse" wx:if="{{item.isUse || !item.isThreshold}}">
+        <text wx:if="{{item.isUse}}">已使用</text>
+        <text class="isThreshold" wx:if="{{!item.isThreshold}}">未达到门槛</text>
+      </view>
+      <view class="btn" wx:if="{{!item.isUse && item.isThreshold}}">
+        <button class="use-btn">使用</button>
       </view>
     </view>
   </view> 
+  <button class="confirm-btn">确认</button>
   <van-empty class="custom-image" wx:if="{{ !couponList.length }}" image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无" /> 
 </view>
