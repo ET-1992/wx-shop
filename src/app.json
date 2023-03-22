@@ -1,495 +1,501 @@
 {
-	"pages": [
-		"pages/home/home",
-		"pages/me/me",
-		"pages/cart/cart",
-		"pages/category/category",
-		"pages/classify/classify",
-		"pages/articleList/articleList",
-		"pages/modulePage/modulePage",
-		"pages/shopList/shopList",
-		"pages/discovery/discovery",
-		"pages/webBar/webBar",
-		"pages/featured/featured",
-		"pages/productDetail2/productDetail2"
-	],
-	"window": {
-		"backgroundTextStyle": "light",
-		"backgroundColor": "#f4f4f4",
-		"navigationBarBackgroundColor": "#729153",
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": ""
-	},
-	"tabBar": {
-		"color": "#a39896",
-		"backgroundColor": "#fff",
-		"borderStyle": "black",
-		"selectedColor": "#45424e",
-		"list": [
-			{
-				"pagePath": "pages/home/home",
-				"iconPath": "icons/default/home.png",
-				"text": "首页",
-				"selectedIconPath": "icons/default/home-selected.png"
-			},
-			{
-				"pagePath": "pages/category/category",
-				"iconPath": "icons/default/category_list.png",
-				"text": "分类",
-				"selectedIconPath": "icons/default/category_list-selected.png"
-			},
-			{
-				"pagePath": "pages/shopList/shopList",
-				"iconPath": "icons/default/article_list.png",
-				"text": "商城",
-				"selectedIconPath": "icons/default/article_list-selected.png"
-			},
-			{
-				"pagePath": "pages/cart/cart",
-				"iconPath": "icons/default/cart.png",
-				"text": "购物车",
-				"selectedIconPath": "icons/default/cart-selected.png"
-			},
-			{
-				"pagePath": "pages/me/me",
-				"iconPath": "icons/default/me.png",
-				"text": "我",
-				"selectedIconPath": "icons/default/me-selected.png"
-			}
-		]
-	},
-	"subPackages": [
-		{
-			"root": "pages/affiliate/",
-			"pages": [
-				"affiliateApply/affiliateApply",
-				"affiliateCenter/affiliateCenter",
-				"affiliateDetail/affiliateDetail",
-				"affiliateFinishUserInfo/affiliateFinishUserInfo",
-				"affiliateList/affiliateList",
-				"affiliateMoney/affiliateMoney",
-				"affiliateOrderList/affiliateOrderList",
-				"affiliatePoster/affiliatePoster",
-				"affiliateProductList/affiliateProductList",
-				"affiliateVisitor/affiliateVisitor",
-				"affiliateRevenueRank/affiliateRevenueRank",
-				"affiliateBalance/affiliateBalance"
-			],
-			"name": "分销"
-		},
-		{
-			"root": "pages/articleDetail/",
-			"pages": [
-				"articleDetail"
-			],
-			"name": "文章详情页"
-		},
-		{
-			"root": "pages/bindWeb/",
-			"pages": [
-				"bindWeb"
-			],
-			"name": "绑定手机"
-		},
-		{
-			"root": "pages/bargainList/",
-			"pages": [
-				"bargainList"
-			],
-			"name": "砍价列表"
-		},
-		{
-			"root": "pages/bargainDetail/",
-			"pages": [
-				"bargainDetail"
-			],
-			"name": "砍价详情"
-		},
-		{
-			"root": "pages/comment/",
-			"pages": [
-				"comment"
-			],
-			"name": "评论"
-		},
-		{
-			"root": "pages/commentList/",
-			"pages": [
-				"commentList"
-			],
-			"name": "评论列表"
-		},
-		{
-			"root": "pages/couponList/",
-			"pages": [
-				"couponList"
-			],
-			"name": "优惠券列表"
-		},
-		{
-			"root": "pages/coinDetail/",
-			"pages": [
-				"coinDetail"
-			],
-			"name": "花生米详情"
-		},
-		{
-			"root": "pages/couponProducts/",
-			"pages": [
-				"couponProducts"
-			],
-			"name": "优惠商品页"
-		},
-		{
-			"root": "pages/crowd/",
-			"pages": [
-				"crowdList/crowdList",
-				"crowdProgress/crowdProgress",
-				"inviteCrowd/inviteCrowd",
-				"richList/index"
-			],
-			"name": "代付"
-		},
-		{
-			"root": "pages/directPay/",
-			"pages": [
-				"directPay"
-			],
-			"name": "扫码支付"
-		},
-		{
-			"root": "pages/directPayResult/",
-			"pages": [
-				"directPayResult"
-			],
-			"name": "扫码支付结果页"
-		},
-		{
-			"root": "pages/errorPage/",
-			"pages": [
-				"errorPage"
-			],
-			"name": "出错提示页"
-		},
-		{
-			"root": "pages/exchangeCard/",
-			"pages": [
-				"exchangeCard"
-			],
-			"name": "兑换券"
-		},
-		{
-			"root": "pages/flashList/",
-			"pages": [
-				"flashList"
-			],
-			"name": "秒杀页"
-		},
-		{
-			"root": "pages/grouponList/",
-			"pages": [
-				"grouponList"
-			],
-			"name": "拼团页"
-		},
-		{
-			"root": "pages/idCard/",
-			"pages": [
-				"idCard"
-			],
-			"name": "实名认证页"
-		},
-		{
-			"root": "pages/loadProduct/",
-			"pages": [
-				"loadProduct"
-			],
-			"name": "商品列表更多页面"
-		},
-		{
-			"root": "pages/liftList/",
-			"pages": [
-				"liftList"
-			],
-			"name": "自提点列表页"
-		},
-		{
-			"root": "pages/logistics/",
-			"pages": [
-				"logistics"
-			],
-			"name": "物流页"
-		},
-		{
-			"root": "pages/membership/",
-			"pages": [
-				"integralList/integralList",
-				"members/members"
-			],
-			"name": "会员"
-		},
-		{
-			"root": "pages/myFav/",
-			"pages": [
-				"myFav"
-			],
-			"name": "收藏页"
-		},
-		{
-			"root": "pages/myCoupons/",
-			"pages": [
-				"myCoupons"
-			],
-			"name": "我的优惠券页"
-		},
-		{
-			"root": "pages/miaoshaList/",
-			"pages": [
-				"miaoshaList"
-			],
-			"name": "拼团/秒杀/限时购/砍价列表"
-		},
-		{
-			"root": "pages/me/aboutUs",
-			"pages": [
-				"aboutUs"
-			],
-			"name": "关于我们"
-		},
-		{
-			"root": "pages/me/wallet",
-			"pages": [
-				"wallet"
-			],
-			"name": "我的钱包"
-		},
-		{
-			"root": "pages/orderCoupons/",
-			"pages": [
-				"orderCoupons"
-			],
-			"name": "订单优惠券页"
-		},
-		{
-			"root": "pages/orderCreate/",
-			"pages": [
-				"orderCreate"
-			],
-			"name": "下单页"
-		},
-		{
-			"root": "pages/orderList/",
-			"pages": [
-				"orderList"
-			],
-			"name": "订单列表页"
-		},
-		{
-			"root": "pages/orderDetail/",
-			"pages": [
-				"orderDetail"
-			],
-			"name": "订单详情页",
-			"plugins": {
-				"logisticsPlugin": {
-					"version": "2.1.5",
-					"provider": "wx9ad912bf20548d92"
-				}
-			}
-		},
-		{
-			"root": "pages/peanutPay/",
-			"pages": [
-				"index"
-			],
-			"name": "订单支付页"
-		},
-		{
-			"root": "pages/productDetail/",
-			"pages": [
-				"productDetail",
-				"commentList/commentList"
-			],
-			"name": "商品详情页"
-		},
-		{
-			"root": "pages/payCashier/",
-			"pages": [
-				"payCashier"
-			],
-			"name": "支付页"
-		},
-		{
-			"root": "pages/paymentVouchers/",
-			"pages": [
-				"paymentVouchers"
-			],
-			"name": "转账页"
-		},
-		{
-			"root": "pages/refund/",
-			"pages": [
-				"refund"
-			],
-			"name": "退款页"
-		},
-		{
-			"root": "pages/rulePages/",
-			"pages": [
-				"rulePages"
-			],
-			"name": "规则页"
-		},
-		{
-			"root": "pages/redpacket/",
-			"pages": [
-				"redpacket"
-			],
-			"name": "分享红包页"
-		},
-		{
-			"root": "pages/search/",
-			"pages": [
-				"search"
-			],
-			"name": "搜索页"
-		},
-		{
-			"root": "pages/selfAddress/",
-			"pages": [
-				"selfAddress"
-			],
-			"name": "自提地址页"
-		},
-		{
-			"root": "pages/webPages",
-			"pages": [
-				"webPages"
-			],
-			"name": "webPage页"
-		},
-		{
-			"root": "pages/multiStoreList",
-			"pages": [
-				"multiStoreList"
-			],
-			"name": "地址列表"
-		},
-		{
-			"root": "pages/addressEdit",
-			"pages": [
-				"addressEdit"
-			],
-			"name": "地址编辑页"
-		},
-		{
-			"root": "pages/addressList",
-			"pages": [
-				"addressList"
-			],
-			"name": "地址列表页"
-		},
-		{
-			"root": "pages/productList",
-			"pages": [
-				"productList"
-			],
-			"name": "productList页"
-		},
-		{
-			"root": "pages/payCashier/",
-			"pages": [
-				"payCashier"
-			],
-			"name": "支付页"
-		},
-		{
-			"root": "pages/electronicCard",
-			"pages": [
-				"electronicCard"
-			],
-			"name": "电子卡券凭证"
-		},
-		{
-			"root": "pages/accountDetail",
-			"pages": [
-				"accountDetail"
-			],
-			"name": "储值卡账户明细"
-		},
-		{
-			"root": "pages/giftCardList",
-			"pages": [
-				"giftCardList"
-			],
-			"name": "礼品卡列表"
-		},
-		{
-			"root": "pages/eCardList",
-			"pages": [
-				"eCardList"
-			],
-			"name": "电子卡列表"
-		},
-		{
-			"root": "pages/giveGift",
-			"pages": [
-				"giveGift"
-			],
-			"name": "赠送礼品卡"
-		},
-		{
-			"root": "pages/giftCardDetail",
-			"pages": [
-				"giftCardDetail"
-			],
-			"name": "查看礼品卡"
-		},
-		{
-			"root": "pages/giftCardExchange",
-			"pages": [
-				"giftCardExchange"
-			],
-			"name": "兑换礼品卡"
-		},
-		{
-			"root": "pages/formPage",
-			"pages": [
-				"formPage"
-			],
-			"name": "表单页"
-		},
-		{
-			"root": "pages/activityUserList",
-			"pages": [
-				"activityUserList"
-			],
-			"name": "活动用户列表"
-		},
-		{
-			"root": "pages/lotteryResults",
-			"pages": [
-				"lotteryResults"
-			],
-			"name": "开奖结果"
-		},
-		{
-			"root": "pages/lotteryRecords",
-			"pages": [
-				"lotteryRecords"
-			],
-			"name": "抽奖记录"
-		}
-	],
-	"permission": {
-		"scope.userLocation": {
-			"desc": "你的位置信息将用于小程序位置接口的效果展示"
-		}
-	},
-	"plugins": {
-		"contactPlugin": {
-			"version": "1.3.0",
-			"provider": "wx104a1a20c3f81ec2"
-		}
-	}
+  "pages": [
+    "pages/home/home",
+    "pages/me/me",
+    "pages/cart/cart",
+    "pages/category/category",
+    "pages/classify/classify",
+    "pages/articleList/articleList",
+    "pages/modulePage/modulePage",
+    "pages/shopList/shopList",
+    "pages/discovery/discovery",
+    "pages/webBar/webBar",
+    "pages/featured/featured",
+    "pages/productDetail2/productDetail2"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f4f4f4",
+    "navigationBarBackgroundColor": "#729153",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": ""
+  },
+  "tabBar": {
+    "color": "#a39896",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "selectedColor": "#45424e",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "icons/default/home.png",
+        "text": "首页",
+        "selectedIconPath": "icons/default/home-selected.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "icons/default/category_list.png",
+        "text": "分类",
+        "selectedIconPath": "icons/default/category_list-selected.png"
+      },
+      {
+        "pagePath": "pages/shopList/shopList",
+        "iconPath": "icons/default/article_list.png",
+        "text": "商城",
+        "selectedIconPath": "icons/default/article_list-selected.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "iconPath": "icons/default/cart.png",
+        "text": "购物车",
+        "selectedIconPath": "icons/default/cart-selected.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "icons/default/me.png",
+        "text": "我",
+        "selectedIconPath": "icons/default/me-selected.png"
+      }
+    ]
+  },
+  "subPackages": [
+    {
+      "root": "pages/affiliate/",
+      "pages": [
+        "affiliateApply/affiliateApply",
+        "affiliateCenter/affiliateCenter",
+        "affiliateDetail/affiliateDetail",
+        "affiliateFinishUserInfo/affiliateFinishUserInfo",
+        "affiliateList/affiliateList",
+        "affiliateMoney/affiliateMoney",
+        "affiliateOrderList/affiliateOrderList",
+        "affiliatePoster/affiliatePoster",
+        "affiliateProductList/affiliateProductList",
+        "affiliateVisitor/affiliateVisitor",
+        "affiliateRevenueRank/affiliateRevenueRank",
+        "affiliateBalance/affiliateBalance"
+      ],
+      "name": "分销"
+    },
+    {
+      "root": "pages/articleDetail/",
+      "pages": [
+        "articleDetail"
+      ],
+      "name": "文章详情页"
+    },
+    {
+      "root": "pages/bindWeb/",
+      "pages": [
+        "bindWeb"
+      ],
+      "name": "绑定手机"
+    },
+    {
+      "root": "pages/bargainList/",
+      "pages": [
+        "bargainList"
+      ],
+      "name": "砍价列表"
+    },
+    {
+      "root": "pages/bargainDetail/",
+      "pages": [
+        "bargainDetail"
+      ],
+      "name": "砍价详情"
+    },
+    {
+      "root": "pages/comment/",
+      "pages": [
+        "comment"
+      ],
+      "name": "评论"
+    },
+    {
+      "root": "pages/commentList/",
+      "pages": [
+        "commentList"
+      ],
+      "name": "评论列表"
+    },
+    {
+      "root": "pages/couponList/",
+      "pages": [
+        "couponList"
+      ],
+      "name": "优惠券列表"
+    },
+    {
+      "root": "pages/coinDetail/",
+      "pages": [
+        "coinDetail"
+      ],
+      "name": "花生米详情"
+    },
+    {
+      "root": "pages/couponProducts/",
+      "pages": [
+        "couponProducts"
+      ],
+      "name": "优惠商品页"
+    },
+    {
+      "root": "pages/crowd/",
+      "pages": [
+        "crowdList/crowdList",
+        "crowdProgress/crowdProgress",
+        "inviteCrowd/inviteCrowd",
+        "richList/index"
+      ],
+      "name": "代付"
+    },
+    {
+      "root": "pages/directPay/",
+      "pages": [
+        "directPay"
+      ],
+      "name": "扫码支付"
+    },
+    {
+      "root": "pages/directPayResult/",
+      "pages": [
+        "directPayResult"
+      ],
+      "name": "扫码支付结果页"
+    },
+    {
+      "root": "pages/errorPage/",
+      "pages": [
+        "errorPage"
+      ],
+      "name": "出错提示页"
+    },
+    {
+      "root": "pages/exchangeCard/",
+      "pages": [
+        "exchangeCard"
+      ],
+      "name": "兑换券"
+    },
+    {
+      "root": "pages/flashList/",
+      "pages": [
+        "flashList"
+      ],
+      "name": "秒杀页"
+    },
+    {
+      "root": "pages/grouponList/",
+      "pages": [
+        "grouponList"
+      ],
+      "name": "拼团页"
+    },
+    {
+      "root": "pages/idCard/",
+      "pages": [
+        "idCard"
+      ],
+      "name": "实名认证页"
+    },
+    {
+      "root": "pages/loadProduct/",
+      "pages": [
+        "loadProduct"
+      ],
+      "name": "商品列表更多页面"
+    },
+    {
+      "root": "pages/liftList/",
+      "pages": [
+        "liftList"
+      ],
+      "name": "自提点列表页"
+    },
+    {
+      "root": "pages/logistics/",
+      "pages": [
+        "logistics"
+      ],
+      "name": "物流页"
+    },
+    {
+      "root": "pages/membership/",
+      "pages": [
+        "integralList/integralList",
+        "members/members"
+      ],
+      "name": "会员"
+    },
+    {
+      "root": "pages/myFav/",
+      "pages": [
+        "myFav"
+      ],
+      "name": "收藏页"
+    },
+    {
+      "root": "pages/myCoupons/",
+      "pages": [
+        "myCoupons"
+      ],
+      "name": "我的优惠券页"
+    },
+    {
+      "root": "pages/miaoshaList/",
+      "pages": [
+        "miaoshaList"
+      ],
+      "name": "拼团/秒杀/限时购/砍价列表"
+    },
+    {
+      "root": "pages/me/aboutUs",
+      "pages": [
+        "aboutUs"
+      ],
+      "name": "关于我们"
+    },
+    {
+      "root": "pages/me/wallet",
+      "pages": [
+        "wallet"
+      ],
+      "name": "我的钱包"
+    },
+    {
+      "root": "pages/orderCoupons/",
+      "pages": [
+        "orderCoupons"
+      ],
+      "name": "订单优惠券页"
+    },
+    {
+      "root": "pages/orderCreate/",
+      "pages": [
+        "orderCreate"
+      ],
+      "name": "下单页"
+    },
+    {
+      "root": "pages/orderList/",
+      "pages": [
+        "orderList"
+      ],
+      "name": "订单列表页"
+    },
+    {
+      "root": "pages/orderDetail/",
+      "pages": [
+        "orderDetail"
+      ],
+      "name": "订单详情页",
+      "plugins": {
+        "logisticsPlugin": {
+          "version": "2.1.5",
+          "provider": "wx9ad912bf20548d92"
+        }
+      }
+    },
+    {
+      "root": "pages/peanutPay/",
+      "pages": [
+        "index"
+      ],
+      "name": "订单支付页"
+    },
+    {
+      "root": "pages/productDetail/",
+      "pages": [
+        "productDetail",
+        "commentList/commentList"
+      ],
+      "name": "商品详情页"
+    },
+    {
+      "root": "pages/payCashier/",
+      "pages": [
+        "payCashier"
+      ],
+      "name": "支付页"
+    },
+    {
+      "root": "pages/paymentVouchers/",
+      "pages": [
+        "paymentVouchers"
+      ],
+      "name": "转账页"
+    },
+    {
+      "root": "pages/refund/",
+      "pages": [
+        "refund"
+      ],
+      "name": "退款页"
+    },
+    {
+      "root": "pages/rulePages/",
+      "pages": [
+        "rulePages"
+      ],
+      "name": "规则页"
+    },
+    {
+      "root": "pages/redpacket/",
+      "pages": [
+        "redpacket"
+      ],
+      "name": "分享红包页"
+    },
+    {
+      "root": "pages/search/",
+      "pages": [
+        "search"
+      ],
+      "name": "搜索页"
+    },
+    {
+      "root": "pages/selfAddress/",
+      "pages": [
+        "selfAddress"
+      ],
+      "name": "自提地址页"
+    },
+    {
+      "root": "pages/webPages",
+      "pages": [
+        "webPages"
+      ],
+      "name": "webPage页"
+    },
+    {
+      "root": "pages/multiStoreList",
+      "pages": [
+        "multiStoreList"
+      ],
+      "name": "地址列表"
+    },
+    {
+      "root": "pages/addressEdit",
+      "pages": [
+        "addressEdit"
+      ],
+      "name": "地址编辑页"
+    },
+    {
+      "root": "pages/addressList",
+      "pages": [
+        "addressList"
+      ],
+      "name": "地址列表页"
+    },
+    {
+      "root": "pages/productList",
+      "pages": [
+        "productList"
+      ],
+      "name": "productList页"
+    },
+    {
+      "root": "pages/payCashier/",
+      "pages": [
+        "payCashier"
+      ],
+      "name": "支付页"
+    },
+    {
+      "root": "pages/electronicCard",
+      "pages": [
+        "electronicCard"
+      ],
+      "name": "电子卡券凭证"
+    },
+    {
+      "root": "pages/accountDetail",
+      "pages": [
+        "accountDetail"
+      ],
+      "name": "储值卡账户明细"
+    },
+    {
+      "root": "pages/giftCardList",
+      "pages": [
+        "giftCardList"
+      ],
+      "name": "礼品卡列表"
+    },
+    {
+      "root": "pages/eCardList",
+      "pages": [
+        "eCardList"
+      ],
+      "name": "电子卡列表"
+    },
+    {
+      "root": "pages/giveGift",
+      "pages": [
+        "giveGift"
+      ],
+      "name": "赠送礼品卡"
+    },
+    {
+      "root": "pages/giftCardDetail",
+      "pages": [
+        "giftCardDetail"
+      ],
+      "name": "查看礼品卡"
+    },
+    {
+      "root": "pages/giftCardExchange",
+      "pages": [
+        "giftCardExchange"
+      ],
+      "name": "兑换礼品卡"
+    },
+    {
+      "root": "pages/formPage",
+      "pages": [
+        "formPage"
+      ],
+      "name": "表单页"
+    },
+    {
+      "root": "pages/activityUserList",
+      "pages": [
+        "activityUserList"
+      ],
+      "name": "活动用户列表"
+    },
+    {
+      "root": "pages/lotteryResults",
+      "pages": [
+        "lotteryResults"
+      ],
+      "name": "开奖结果"
+    },
+    {
+      "root": "pages/lotteryRecords",
+      "pages": [
+        "lotteryRecords"
+      ],
+      "name": "抽奖记录"
+    }
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "chooseAddress"
+  ],
+  "plugins": {
+    "contactPlugin": {
+      "version": "1.3.0",
+      "provider": "wx104a1a20c3f81ec2"
+    }
+  }
 }

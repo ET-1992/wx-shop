@@ -1,6 +1,6 @@
 <van-popup round show="{{ isShowSkuModal }}" style="--popup-round-border-radius: 20rpx" position="{{ position }}" bind:close="close" duration="{{ duration }}" z-index="{{10000}}">
-    <!-- classify 页面 -->
-    <view wx:if="{{ position === 'center' }}" class="modal">
+  <!-- classify 页面 -->
+  <!-- <view wx:if="{{ position === 'center' }}" class="modal">
         <view class="header">
             <view class="headerText">{{ product.title }}</view>
             <van-icon name="clear" custom-class="close" color="#dcdde0" size="20px" bind:click="close" />
@@ -23,29 +23,29 @@
                 加入购物车
             </button>
         </view>
-    </view>
-    <!-- 商品详情页面 -->
-    <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
-        <!-- 顶部title -->
-        <view class="head-title">确认订单</view>
-        <view class="modal-line" />
-        <view class="head-address">
+    </view> -->
+  <!-- 商品详情页面 -->
+  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
+    <!-- 顶部title -->
+    <view class="head-title">确认订单</view>
+    <view class="modal-line"></view>
+    <!-- <view class="head-address">
             <view class="address-left">
                 <van-icon name="location-o" size="48rpx" color="#B0B3BF"/>
                 <text class="{{product.shippingaddress?'shipping-address':'address-text'}}">{{product.shippingaddress?product.shippingaddress :'添加地址'}}</text>
             </view>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF"/>
-        </view>
-
-        <view class="head-wrap">
-            <!-- <view class="head-close">
+        </view> -->
+    <address></address>
+    <view class="head-wrap">
+      <!-- <view class="head-close">
                 <van-icon name="clear" color="#dcdde0" size="20px" bind:click="close" />
             </view> -->
-            <view class="head">
-                <image src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
-                <view class="productInfo">
-                    <!-- 金币商品 -->
-                    <view class="coin-product-price" wx:if="{{ product.product_type === 4 }}">
+      <view class="head">
+        <image src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" data-src="{{ product.sku_images[currentSku[0].value].thumbnail || product.thumbnail || product.images[0] }}" class="productImage" mode="aspectFill" catchtap="previewImage" />
+        <view class="productInfo">
+          <!-- 金币商品 -->
+          <!-- <view class="coin-product-price" wx:if="{{ product.product_type === 4 }}">
                         <view class="coin-num">
                             <text>{{ selectedSku.coin_fee || product.coin_fee }}</text>
                             <text class="currency">{{ config.coin_name || '花生米' }}</text>
@@ -55,21 +55,21 @@
                             <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
                             <text>{{ selectedSku.coin_price || product.coin_price }}</text>
                         </view>
-                    </view>
-                    <view class="price" wx:else>
-                        <text>劵后</text>
-                        <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
-                        <view class="groupon">
-                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
-                        </view>
-                        <!-- <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
+                    </view> -->
+          <view class="price">
+            <text>劵后</text>
+            <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
+            <view class="groupon">
+              <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
+            </view>
+            <!-- <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
                             <text>{{ product.price + selectedOptions.relationPrice }}</text>
                         </view>
                         <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
                             <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
                         </view> -->
-                        <!-- 秒杀 -->
-                        <!-- <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
+            <!-- 秒杀 -->
+            <!-- <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
                             <text>{{ product.seckill_price + selectedOptions.relationPrice }}</text>
                         </view>
                         <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
@@ -81,53 +81,51 @@
                         <view wx:elif="{{ product.highest_price > product.definePrice }}">
                             <text>{{ product.definePrice + '-' + (product.highest_price + selectedOptions.relationPrice) }}</text>
                         </view> -->
-                        <view  >
-                            <!-- <text>{{ product.definePrice + selectedOptions.relationPrice }}</text> -->
-                            <text class="price-last">
-                                劵前¥
-                                <text class="">{{ product.definePrice + selectedOptions.relationPrice }}</text>
-                            </text>
-                        </view>
-                    </view>
-                   <view>
-                    <!-- <view class="blur_stock" wx:if="{{ product.blur_stock }}" style="background-color: {{ selectedOptions.stockColor ? selectedOptions.stockColor : product.stockColor }}">
+            <view>
+              <!-- <text>{{ product.definePrice + selectedOptions.relationPrice }}</text> -->
+              <text class="price-last">
+                劵前¥
+                <text class="">{{ product.definePrice + selectedOptions.relationPrice }}</text>
+              </text>
+            </view>
+          </view>
+          <view>
+            <!-- <view class="blur_stock" wx:if="{{ product.blur_stock }}" style="background-color: {{ selectedOptions.stockColor ? selectedOptions.stockColor : product.stockColor }}">
                         {{ selectedOptions.stockText ? selectedOptions.stockText : product.stockText }}
                     </view>
                     <view class="stock" wx:else>
                         剩余：{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}
                     </view>
                    </view> -->
-
-                    <view class="property" wx:if="{{ product.skus.length || product.special_attributes.length || product.related_product.length }}">
-                        已选择：{{ selectedOptions.content || '--' }}
-                    </view>
-                    <!-- 步进器 -->
-                    <view class="stepper">
-                        <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" />
-                    </view>
-                </view>
+            <view class="property" wx:if="{{ product.skus.length || product.special_attributes.length || product.related_product.length }}">
+              已选择：{{ selectedOptions.content || '--' }}
             </view>
+            <!-- 步进器 -->
+            <view class="stepper">
+              <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" />
+            </view>
+          </view>
         </view>
-     
-        <scroll-view scroll-y="{{ scrollEnable }}" class="scroll-content-wrap">
-            <!-- 商家优惠劵 -->
-            <view class="merchant-Coupons" bind:top="handleTo">
-                <view class="Coupons-left">优惠</view>
-                <view class="Coupons-right">
-                    商家券
-                    <text class="Coupons-num">-{{product.coupons_price}}元</text>
-                    <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
-                </view>
-            </view>
-            <view class="scroll-content">
-                <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
-                <!-- <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
+      </view>
+      <scroll-view scroll-y="{{ scrollEnable }}" class="scroll-content-wrap">
+        <!-- 商家优惠劵 -->
+        <view class="merchant-Coupons" bind:tap="handleTo">
+          <view class="Coupons-left">优惠</view>
+          <view class="Coupons-right">
+            商家券
+            <text class="Coupons-num">-{{product.coupons_price}}元</text>
+            <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
+          </view>
+        </view>
+        <view class="scroll-content">
+          <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
+          <!-- <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
                     <view class="remark-title">留言</view>
                     <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view> -->
-            </view>
-        </scroll-view>
-        <view class="bottom-option-wrap">
+        </view>
+      </scroll-view>
+      <!-- <view class="bottom-option-wrap">
             <view class="quantity" wx:if="{{ product.product_type !== 1 && !isBargainBuy}}">
                 <view class="title">购买数量</view>
                 <view class="rightWrap">
@@ -136,17 +134,12 @@
                 </view>
             </view>
             <skuLogistics product="{{product}}" actions="{{actions}}" bind:shipping-change="getShippingType" />
-        </view>
-        <view class="actionSheetBtGroup">
-            <button
-                class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}"
-                wx:for="{{ actions }}"
-                wx:key="id"
-                data-action-type="{{ item.type }}"
-                form-type="submit"
-                bindtap="onUserInfo"
-                lang="zh_CN"
-                style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}">{{ item.text }}</button>
-        </view>
+        </view> -->
+      <view class="actionSheetBtGroup">
+        <button class="confirmBt {{ index + 1 === actions.length ? '' : 'secondaryBt' }}" wx:for="{{ actions }}" wx:key="id" data-action-type="{{ item.type }}" form-type="submit" bindtap="onUserInfo" lang="zh_CN" style="{{isCrowd ? ('background-image:url(' + config.cdn_host + '/shop/addCrowdBg.png);') : 'background-color:'}}{{ index + 1 === actions.length ? themeColor.primaryColor : themeColor.secondaryColor }}">
+          {{ item.text }}
+        </button>
+      </view>
     </view>
+  </view>
 </van-popup>

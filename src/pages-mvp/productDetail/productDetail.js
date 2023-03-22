@@ -1402,7 +1402,7 @@ Page({
       timeData: e.detail,
     });
   },
-    
+
   onClickHide() {
     this.setData({ showOverlay: false });
   },
@@ -1410,25 +1410,21 @@ Page({
       this.setData({ isShowSkuModal: true });
   },
   async initPage() {
-    // console.log('000');
-    // const { id } = this.options;
-    // console.log(id, 'ii1');
-    // const data = await api.hei.fetchProduct({ id });
-    // console.log(data, 'data');
-    // const { config, share_title, share_image } = data;
-    // this.config = config;
-    // wx.setNavigationBarTitle({
-    //   title: data.page_title,
-    // });
-    // this.setData({ product, isShowSkuModal: true });
+    console.log('000');
+    const { id } = this.options;
+    console.log(id, 'ii1');
+    const { config, share_title, share_image, page_title, product }  = await api.hei.fetchProduct({ id });
+    this.config = config;
+    wx.setNavigationBarTitle({
+      title: page_title,
+    });
+    this.setData({ product, isShowSkuModal: true });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('===');
-    console.log('091');
     this.initPage();
   },
 
