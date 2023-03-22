@@ -4,7 +4,6 @@
     "pages-mvp/couponDetail/couponDetail",
     "pages-mvp/productDetail/productDetail",
     "pages-mvp/shippingAddress/shippingAddress"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -23,5 +22,11 @@
       "version": "1.3.0",
       "provider": "wx104a1a20c3f81ec2"
     }
-  }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "chooseAddress"
+  ]
 }

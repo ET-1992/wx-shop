@@ -133,6 +133,7 @@
 	$modalPaddingBottom: $buttonHeight + 60rpx;
 	background-color: #F4F6FA;
 	margin: 18rpx 0 ;
+  padding-bottom: 88rpx;
 
 	.head-title {
 		font-size: 32rpx;
@@ -183,6 +184,7 @@
 	}
 	.head-wrap {
 		// padding: 24rpx 24rpx 0;
+    margin-top: 16rpx;
 		position: relative;
 		background-color: #ffffff;
 		.head-close {
@@ -293,8 +295,8 @@
 
 
 	.scroll-content-wrap {
-		// min-height: 200rpx;
-		max-height: 750rpx;
+		min-height: 200rpx;
+		max-height: 500rpx;
 		background-color: #ffffff;
 			// 优惠劵样式
 		.merchant-Coupons{

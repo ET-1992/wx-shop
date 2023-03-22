@@ -1,18 +1,18 @@
-	<view class="container">
-		<image class="address-icon" src="/icons/address.png" mode="aspectFit"></image>
-
-		<view wx:if="{{ !address.userName }}" class="address">
-        	{{ templateTypeText[defineTypeGlobal].com_address.addAddress || '添加地址' }}
-     	</view>
-		<view class="address" wx:if="{{ address.userName }}">
-			<view class="address-top">
-				<text style="margin-right: 30rpx">{{  templateTypeText[defineTypeGlobal].com_address.receiver || '收货人' }}：{{ address.userName }}</text>
-				<text>{{ address.telNumber }}</text>
-			</view>
-			<view class="address-bottom">
-				<text wx:if="{{ selfAddress }}">{{ templateTypeText[defineTypeGlobal].com_address.address || '收货地址' }}：{{ address.detailInfo }}</text>
-				<text wx:if="{{ !selfAddress }}">{{ templateTypeText[defineTypeGlobal].com_address.address || '收货地址' }}：{{ address.provinceName }}{{ address.cityName }}{{ address.countyName }}{{ address.detailInfo }}</text>
-			</view>
-		</view>
-		<image src="/icons/right.png" class="right-arrow"></image>
-	</view>
+<view class="container" bind:tap="onChooseAddress">
+  <image class="address-icon" src="/icons/address.svg" mode="aspectFit"></image>
+  <view wx:if="{{ !address.userName }}" class="address">添加地址</view>
+  <view class="address" wx:if="{{ address.userName }}">
+    <view class="address-top">
+      <text style="margin-right: 30rpx">
+        {{  templateTypeText[defineTypeGlobal].com_address.receiver || '收货人' }}：{{ address.userName }}
+      </text>
+      <text>{{ address.telNumber }}</text>
+    </view>
+    <view class="address-bottom">
+      <text>
+        {{ templateTypeText[defineTypeGlobal].com_address.address || '收货地址' }}：{{ address.provinceName }}{{ address.cityName }}{{ address.countyName }}{{ address.detailInfo }}
+      </text>
+    </view>
+  </view>
+  <image src="/icons/right.png" class="right-arrow"></image>
+</view>

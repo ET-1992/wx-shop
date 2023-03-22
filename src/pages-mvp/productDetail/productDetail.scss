@@ -10,7 +10,7 @@
     position: relative;
     width: 750rpx;
     height: 750rpx;
-    .swiper-img{
+    .swiper, .swiper-img{
       width: 750rpx;
       height: 750rpx;
     }
@@ -142,8 +142,31 @@
       }
     }
 
+  .service{
+		padding: 24rpx 0;
+		display: flex;
+		justify-content: flex-start;
+
+		.desc{
+			width: 600rpx;
+			.service-item{
+				font-size: 24rpx;
+				display: block;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				padding-bottom: 15rpx;
+			}
+		}
+
+		.text{
+			font-size: 24rpx;
+			color: #000000;
+			padding-right: 28rpx;
+		}
+	}
+
     .shop-desc {
-      height: 88rpx;
       overflow-wrap: break-word;
       color: rgba(17, 17, 17, 1);
       font-size: 32rpx;
@@ -229,7 +252,7 @@
   .shop-text {
     align-self: center;
     justify-content: center;
-    margin-top: 48rpx;
+    margin: 48rpx 0;
     flex-direction: row;
     display: flex;
     .text-line {
@@ -253,20 +276,17 @@
     }
   }
 
-  .shop-image {
-    margin-top: -2rpx;
-  }
+  // .shop-image {
+  //   margin-top: -2rpx;
+  // }
   .shop-button{
     position: fixed;
     width: 750rpx;
     bottom: 0;
     background: #FFFFFF;
-    width: 100%;
-    margin: 0 20rpx;
+    padding: 0 20rpx;
+    padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
     box-shadow: 0rpx -2rpx 0rpx 0rpx #F1F1F3;
-    @supports (bottom: env(safe-area-inset-bottom)) {
-        bottom: env(safe-area-inset-bottom);
-      }
     .def-btn {
       width: 710rpx;
       height: 88rpx;
@@ -293,6 +313,13 @@
     }
     .overlay-close{
       margin-top: 60rpx;
+    }
+  }
+
+
+  .shop-detail-content {
+    .shop-detail-image {
+      width: 750rpx;
     }
   }
   

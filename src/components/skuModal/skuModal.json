@@ -1,13 +1,13 @@
 {
   "component": true,
-  "usingComponents":{
+  "usingComponents": {
     "van-popup": "@vant/weapp/dist/popup/index",
     "van-icon": "@vant/weapp/dist/icon/index",
     "numberInput": "components/numberInput/index",
     "skuOptionList": "components/skuOptionList/skuOptionList",
     "skuLogistics": "components/skuLogistics/skuLogistics",
     "markForm": "components/markForm/markForm",
-     "van-stepper": "@vant/weapp/dist/stepper/index"
+    "van-stepper": "@vant/weapp/dist/stepper/index",
+    "address": "components/address/address"
   }
 }
-
