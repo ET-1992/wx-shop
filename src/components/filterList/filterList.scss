@@ -4,14 +4,22 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 88rpx;
+	font-size: 28rpx;
+	font-family: PingFangSC-Regular, PingFang SC;
+	font-weight: 400;
+	color: #676971;
+	background-color: #ffffff;
 }
-
+.item-color{
+	color: #FE4F06;
+}
 .indicators {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	justify-content: center;
-	margin-left: 14rpx;
+	margin-left: 10rpx;
 }
 
 .triangleIcon {

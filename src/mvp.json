@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages-mvp/productList/productList",
+    "pages-mvp/couponDetail/couponDetail",
     "pages-mvp/productDetail/productDetail",
     "pages-mvp/shippingAddress/shippingAddress"
     
@@ -8,7 +10,7 @@
     "backgroundTextStyle": "light",
     "backgroundColor": "#f4f4f4",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": ""
   },
   "permission": {

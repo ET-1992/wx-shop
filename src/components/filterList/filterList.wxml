@@ -1,4 +1,4 @@
-<view wx:for="{{ filterListData }}" wx:key="index" class="item" catch:tap="changeActive" data-index="{{ index }}">
+<view wx:for="{{ filterListData }}" wx:key="index" class="{{filterData.filterIndex===index?'item item-color':'item'}}" catch:tap="changeActive" data-index="{{ index }}">
   <view>{{ item.name }}</view>
   <view class="indicators" wx:if="{{ !item.hideOption }}">
     <image class="triangleIcon triangleIconUp" src="/icons/triangleUp.png" wx:if="{{isActive[index] !== 'Up' }}" />

@@ -1,8 +1,10 @@
 {
-  "enablePullDownRefresh": true,
-  "navigationBarTitleText": "商品列表",
+  "navigationBarTitleText": "全部",
   "usingComponents": {
     "loading": "../../components/loading/index",
-    "filterList": "../../components/filterList/filterList"
-  }
+    "filterList": "../../components/filterList/filterList",
+    "van-grid": "@vant/weapp/dist/grid/index",
+    "van-grid-item": "@vant/weapp/dist/grid-item/index"
+  },
+  "enablePullDownRefresh": true
 }

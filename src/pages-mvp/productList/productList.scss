@@ -1,0 +1,66 @@
+.product-list{
+  .filterList{
+    display: flex;
+    width: 100%;
+    position: fixed;
+    top: 0;
+  }
+  .container{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    .listWrapper{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0 20rpx;
+      .list{
+        display: flex;
+        flex-direction: column;
+        width: 49%;
+        padding: 16rpx 0;
+        .list-detail{
+          .list-img {
+            width: 100%;
+            height: 348rpx;
+            border-radius: 16rpx;
+            border: 1rpx solid #F4F6FA;
+            }
+          .list-title{
+            padding: 12rpx 8rpx;
+            font-size: 30rpx;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: #111111;
+          }
+          .price-total{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 8rpx;
+            .price{
+              font-size: 28rpx;
+              font-family: PingFangSC-Medium, PingFang SC;
+              font-weight: 500;
+              color: #FE4F06;
+              .price-num{
+                font-size: 36rpx;
+                margin-left: 4rpx;
+              }
+            }
+            .total{
+              font-size: 24rpx;
+              font-family: PingFangSC-Regular, PingFang SC;
+              font-weight: 400;
+              color: #676971;
+            }
+          }
+        }
+        
+      }
+      
+      
+    }
+   
+  }
+}

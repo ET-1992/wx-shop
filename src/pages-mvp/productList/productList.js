@@ -37,7 +37,7 @@ Page({
     'icon': '',
     'title': '进口牡丹花郁金香鲜花玫瑰花礼盒北京同城花店速递上海广州花全国',
     'excerpt': '',
-    'thumbnail': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/371/2021/05/1620989259-34c700c7b93f4903ffd4cca426cf2ee5.jpg?imageMogr2/auto-orient/thumbnail/!540x540r/gravity/Center/crop/540x540/quality/70|watermark/1/image/aHR0cDovL2NkbjIud3B3ZWl4aW4uY29tL3dwLWNvbnRlbnQvdXBsb2Fkcy9zaXRlcy8zNzEvMjAyMi8wMS8xNjQyMDU4NDQ3LUdyb3VwLTEyOS5wbmc=/dx/0/dy/0/ws/1#',
+    'thumbnail': 'http://cdn2.wpweixin.com/wp-content/uploads/sites/6749/2023/03/1678087530-8989ed0a6d4eea3d70b47b6103b8828d.jpg?imageMogr2/auto-orient/thumbnail/!360x360r/gravity/Center/crop/360x360/format/webp#',
     'user_id': 34445,
     'timestamp': 1637573525,
     'time': '1年前',
@@ -121,7 +121,7 @@ Page({
       'between_stock_color': '#ffc300'
     },
     'sales_hidden': 1,
-    'sales': 1,
+    'sales': 11232,
     'tax_free': 0,
     'tax_included': 0,
     'tax_rate': 0,
@@ -705,7 +705,7 @@ Page({
       'between_stock_color': '#ffc300'
     },
     'sales_hidden': 1,
-    'sales': 2,
+    'sales': 53434,
     'tax_free': 0,
     'tax_included': 0,
     'tax_rate': 0,
@@ -3073,7 +3073,16 @@ Page({
   }
 ]
   },
-
+  // 切换tab
+   changeFilterList(e) {
+        this.setData({
+            filterData: e.detail,
+            current_page: 0,
+            isLoading: true,
+            members: []
+        }, this.filterShareList);
+        console.log(this.data);
+    },
   async initPage() {
     // console.log('000');
     // const { id } = this.options;
