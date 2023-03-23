@@ -954,5 +954,19 @@ export const apis = {
     fetchLuckydrawRecords: {
         path: 'api/luckydraw/records.json',
         isForceToken: true
+    },
+    // MVP下单
+    orderCreate: {
+      path: '/api/order/create.json?test=1',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
+    },
+
+    orderPay: {
+      path: '/api/order/pay.json?test=1',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
     }
 };
