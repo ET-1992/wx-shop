@@ -144,18 +144,28 @@ Component({
                     this._remarks = form;
                 }
                 await getUserProfile();
-                this.close();
                 let queryData = {};
+                let addressComponent = this.selectComponent('#address');
+                const { address } = addressComponent.data;
+                  if (!address.telNumber) {
+                   wx.showToast({ title: '配送地址不能为空', icon: 'none', duration: 2000 });
+                  return;
+                }
+
+                const { product } = this.data;
+
                 if (actionType === 'addCart') {
                     queryData = await this.onAddCart();
                 } else {
                     let remarks = this._remarks;
-                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions, remarks };
+                    queryData = { selectedSku, quantity, currentSpecial, currentRelation, selectedOptions, remarks, address, product };
                 }
                 this.triggerEvent('onSkuConfirm', {
                     actionType,
-                    queryData,
+                    queryData
                 });
+
+                this.close();
             } catch (e) {
                 console.log('resolved error', e);
             }

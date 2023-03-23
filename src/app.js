@@ -170,7 +170,7 @@ App({
         this.globalData.launchOptions = launchOptions;
 
         // this.checkBind();
-        this.updateConfig();
+        // this.updateConfig();
 
         const { query = {}, referrerInfo } = options;
 

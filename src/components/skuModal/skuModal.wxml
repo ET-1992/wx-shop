@@ -36,7 +36,7 @@
             </view>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF"/>
         </view> -->
-    <address></address>
+    <address id="address"></address>
     <view class="head-wrap">
       <!-- <view class="head-close">
                 <van-icon name="clear" color="#dcdde0" size="20px" bind:click="close" />
