@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages-mvp/orderList/orderList",
     "pages-mvp/category/category",
     "pages-mvp/productList/productList",
     "pages-mvp/couponDetail/couponDetail",
