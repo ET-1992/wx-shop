@@ -1,34 +1,23 @@
-<view class="container" >
+<!-- 导航栏 -->
+<view class="container" style="padding-top: {{ navHeight + 8 }}px; padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
   <!-- 左边区域 -->
-  <scroll-view class="mainCategory"  scroll-y scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
+  <scroll-view class="mainCategory" scroll-y scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
     <view class="mainCategoryInner">
       <view class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}" wx:for="{{ categories }}" wx:key="id" data-index="{{ index }}" bindtap="onMainCategoryItemClick" id="{{ 'm' + index }}">
         <text class="mainCategoryItemText">{{ item.name }}</text>
-        <text class="select-border" wx:if="{{showIndex === index }}" />
       </view>
     </view>
   </scroll-view>
   <!-- 右边区域 -->
   <scroll-view class="subCategory" scroll-y scroll-into-view="{{'c' + selectedIndex}}" scroll-with-animation="{{ 300 }}" bindscroll="onScroll">
     <view class="subCategory-item" wx:for="{{ categories }}" id="{{ 'c' + index }}">
-      <swiper autoplay="{{autoplay}}" class="swiper"  current="{{swiperCurrent}}" indicator-dots  indicator-color="#D3D0CF" indicator-active-color="#FFFFFF" circular>
-        <view wx:for="{{item.banner}}">
-          <swiper-item class="swiper-box" >
-            <image class="subCategoryBanner" src="{{ item }}" mode="aspectFill" />
-          </swiper-item>
-        </view>
-      </swiper>
-     
-      <view class="subCategoryItems" wx:for="{{ item.children }}">
-          <view class="subCategoryTitle">{{item.title}}</view>
-          <view class="subCategoryContext" >
-            <navigator class="subCategoryItem" wx:for="{{item.children}}" wx:key="id"
-              url="{{  }}"
-              >
-              <image class="subCategoryItemThumb" src="{{ item.thumbnail }}" mode="aspectFit" />
-              <view class="subCategoryName">{{ item.name }}</view>
-            </navigator>
-          </view>
+      <image class="subCategoryBanner" src="{{ item.banner }}" mode="aspectFill" wx:if="{{ item.banner }}" />
+      <view class="categoryTitle">{{ item.name }}</view>
+      <view class="subCategoryItems">
+        <navigator class="subCategoryItem" wx:for="{{ item.children }}" wx:key="id" url="{{ '/pages/productList/productList?categoryId=' + item.id + '&categoryParent=' + (item.parent || item.id) }}" open-type="{{ tabbarPages[item.page_key] ? 'switchTab' : 'navigate' }}">
+          <image class="subCategoryItemThumb" src="{{ item.thumbnail }}" mode="aspectFit" />
+          <view class="subCategoryName">{{ item.name }}</view>
+        </navigator>
       </view>
     </view>
   </scroll-view>

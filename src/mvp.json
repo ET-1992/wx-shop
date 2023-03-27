@@ -5,7 +5,8 @@
     "pages-mvp/productList/productList",
     "pages-mvp/couponDetail/couponDetail",
     "pages-mvp/productDetail/productDetail",
-    "pages-mvp/shippingAddress/shippingAddress"
+    "pages-mvp/shippingAddress/shippingAddress",
+    "pages-mvp/orderList/orderList"
   ],
   "window": {
     "backgroundTextStyle": "light",
