@@ -87,7 +87,7 @@ Component({
         },
         productLayoutStyle: {
             type: String,
-            value: '',
+            value: 'topImage',
         },
         tplStyle: {
             type: String,
@@ -141,6 +141,7 @@ Component({
     // }
     lifetimes: {
         attached: function() {
+          console.log('---111');
             const config = wx.getStorageSync(CONFIG);
             this.setData({ config });
         },

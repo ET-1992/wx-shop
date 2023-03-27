@@ -1,24 +1,21 @@
-<view class="product-list">
-  <!-- 商品列表的组件 直接改样式 -->
-  <filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
-  <view class="container">
-    <view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
-      <!-- //这里写商品列表 -->
-      <view class="list" wx:for="{{products}}" wx:key="index" data-index="{{ index }}">
-        <view class="list-detail">
-          <image class="list-img" src="{{item.thumbnail}}"></image>
-          <view class="list-title">{{item.title}}</view>
-          <view class="price-total">
-            <view class="price">
-              ¥<text class="price-num">{{item.price}}</text>
-            </view>
-            <view class="total"><text>{{item.sales}}+</text>人付款</view>
-          </view>
-        </view>
+<!-- <loading isLoading="{{ isInit }}"/> -->
+<view class="wrap">
+  <!-- 非会员商品 -->
+  <block>
+    <!-- <navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" /> -->
+    <filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
+    <view class="container">
+      <!-- <loading isLoading="{{ isLoading }}"/> -->
+      <view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
+        <productsList productsList="{{productsList}}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+      </view>
+      <view class="noHint" wx:if="{{ !products.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+        暂无商品
       </view>
     </view>
-    <view class="noHint" wx:if="{{ !products.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
-      暂无商品
-    </view>
-  </view>
+  </block>
 </view>
+<!-- 商品列表加车弹窗 -->
+<!-- <van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
+  <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+</van-popup> -->
