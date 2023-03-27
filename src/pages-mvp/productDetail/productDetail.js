@@ -2,6 +2,8 @@
 
 import api from 'utils/api';
 import { autoTransformAddress } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
+
 const app = getApp();
 
 
@@ -60,13 +62,18 @@ Page({
     const { quantity, selectedSku: { id }, address, product } = queryData;
     const orderQuery = {
       posts: [{ post_id: product.id, sku_id: id, quantity }],
-      pay_method: 'WEIXIN_V3',
+      pay_method: 'WEIXIN',
       receiver: autoTransformAddress(address)
     };
     console.log(orderQuery);
     const { order_no } = await api.hei.orderCreate(orderQuery);
-    const res = await api.hei.orderPay({ order_nos: [order_no], 'pay_method': 'WEIXIN_V3' });
-    console.log(res, '--');
+    const { pay_interact_data } = await api.hei.orderPay({ order_nos: [order_no], 'pay_method': 'WEIXIN' });
+    console.log(pay_interact_data, '--');
+    const { pay_sign } = pay_interact_data;
+    await wxProxy.requestPayment(pay_sign);
+    wx.showToast({
+      title: '支付成功',
+    });
   },
 
   /**
