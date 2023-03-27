@@ -29,7 +29,7 @@
 				<block wx:else>
 					<!-- 普通商品 -->
 					<view class="ItemPrice">
-						{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+						<text class="price-rmb">{{ globalData.CURRENCY[globalData.currency] }}</text>{{ product.price }}
 					</view>
 					<!-- 原价 针对三图隐藏-->
 					<view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}" wx:if="{{ !product.membership_price_enable && product.price !== product.original_price }}">

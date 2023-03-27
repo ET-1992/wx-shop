@@ -1,140 +1,155 @@
 .twoPic {
-	width: 330rpx;
-	background-color: #fff;
-	padding-bottom: 10rpx;
-	margin-bottom: 10rpx;
-	border-radius: 5rpx;
+  width: 348rpx;
+  background-color: #fff;
+  padding-bottom: 10rpx;
+  margin-bottom: 22rpx;
+  border-radius: 5rpx;
 
-	.wrapper {
-		position: relative;
-		width: 330rpx;
-		height: 330rpx;
-		.mask {
-			font-size: 32rpx;
-			font-weight: bold;
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: 0;
-			right: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: rgba(0, 0, 0, 0.4);
-			color: #fff;
-			z-index: 1;
-			border-radius: 10rpx;
-		}
-		.ItemImage {
-			width: 100%;
-			height: 100%;
-			border-radius: 10rpx;
-		}
-	}
+  .wrapper {
+    position: relative;
+    width: 348rpx;
+    height: 348rpx;
+    border-radius: 16rpx;
+    border: 1rpx solid #f4f6fa;
+    .mask {
+      font-size: 32rpx;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      z-index: 1;
+      border-radius: 16rpx;
+    }
+    .ItemImage {
+      width: 100%;
+      height: 100%;
+      border-radius: 16rpx;
+    }
+  }
 
-	.Info {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		padding: 10rpx 12rpx 0 12rpx;
-		height: 140rpx;
+  .Info {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    padding: 12rpx 8rpx 0 8rpx;
+    height: 140rpx;
 
-		.title {
-			color: #333333;
-			font-size: 28rpx;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
+    .title {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 30rpx;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #111111;
+    }
 
-		.meta {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-			.priceWrapper{
-				display: flex;
-				align-items: center;
+      .priceWrapper {
+        display: flex;
+        align-items: center;
 
-				.ItemPrice {
-					color: #FC2732;
-					font-size: 30rpx;
-					font-weight: bold;
-					align-items:center;
-					display:flex;
-					.num-prefix {
-						font-size: 75%;
-					}
-				}
-				.currency {
-					display: inline-block;
-					font-size: 22rpx;
-					margin-right: 5rpx;
-				}
-				// 会员专属
-				.vipItemPrice {
-					color: #333;
+        .ItemPrice {
+          font-weight: bold;
+          align-items: center;
+          display: flex;
+          font-size: 36rpx;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #fe4f06;
+          .price-rmb {
+            font-size: 28rpx;
+            font-family: PingFangSC-Medium, PingFang SC;
+          }
+          .num-prefix {
+            font-size: 75%;
+          }
+        }
+        .currency {
+          display: inline-block;
+          font-size: 22rpx;
+          margin-right: 5rpx;
+        }
+        // 会员专属
+        .vipItemPrice {
+          color: #333;
 
-					.vipLogo {
-						width: 40rpx;
-						height: 25rpx;
-						margin-right: 5rpx;
-					}
-				}
-				// 会员价
-				.vipTap {
-					display: flex;
-					align-items: center;
-					font-weight: bold;
+          .vipLogo {
+            width: 40rpx;
+            height: 25rpx;
+            margin-right: 5rpx;
+          }
+        }
+        // 会员价
+        .vipTap {
+          display: flex;
+          align-items: center;
+          font-weight: bold;
 
-					.vipPrice {
-						font-size: 30rpx;
-						color: #000;
-						margin-right: 10rpx;
-					}
+          .vipPrice {
+            font-size: 30rpx;
+            color: #000;
+            margin-right: 10rpx;
+          }
 
-					.vipPriceTip {
-                        width: 50rpx;
-                        height: 25rpx;
-						color: #fff;
-                        font-size: 18rpx;
-                        background:linear-gradient(95deg, rgba(248, 85, 82, 1) 0%, rgba(248, 148, 82, 1) 100%);
-                        border-radius: 5rpx;
-						display: flex;
-						justify-content: center;
-                        align-items: center;
-					}
-				}
-				.originPrice {
-					color: #707070;
-					text-decoration: line-through;
-					font-size: 22rpx;
-					padding-left: 10rpx;
-				}
-			}
+          .vipPriceTip {
+            width: 50rpx;
+            height: 25rpx;
+            color: #fff;
+            font-size: 18rpx;
+            background: linear-gradient(
+              95deg,
+              rgba(248, 85, 82, 1) 0%,
+              rgba(248, 148, 82, 1) 100%
+            );
+            border-radius: 5rpx;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        .originPrice {
+          color: #707070;
+          text-decoration: line-through;
+          font-size: 22rpx;
+          padding-left: 10rpx;
+        }
+      }
 
-			.tagWrapper {
-				display: inline-block;
-				font-size: 20rpx;
-				color: #707070;
-				font-weight: 400;
-			}
+      .tagWrapper {
+        display: inline-block;
+        font-size: 24rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #676971;
+      }
 
-			.cart {
-				width: 50rpx;
-				height: 48rpx;
-				border-radius: 50%;
-				display: flex;
-				justify-content: center;
-				align-items: center;
+      .cart {
+        width: 50rpx;
+        height: 48rpx;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-				.icon {
-					width: 28rpx;
-					height: 28rpx;
-				}
-			}
-		}
-	}
+        .icon {
+          width: 28rpx;
+          height: 28rpx;
+        }
+      }
+    }
+  }
 }

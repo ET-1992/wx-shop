@@ -1,68 +1,67 @@
 @import "~styles/color";
 
-page{
-	background: #fff;
-	height: 100%;
+page {
+  background: #fff;
+  height: 100%;
 }
-.wrap{
-	height: 100%;
+.wrap {
+  height: 100%;
 }
-.container{
-	padding-top: 160rpx;
+.container {
+  padding-top: 88rpx;
 }
 .noHint {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	font-size: 28rpx;
-	color: $originalPriceColor;
-	padding-top: 220rpx;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: $originalPriceColor;
+  padding-top: 220rpx;
 }
 
 .listWrapper {
-	height: 100%;
+  height: 100%;
 }
 
-.m-attrList{
-	padding:0;
-	margin: 0;
+.m-attrList {
+  padding: 0;
+  margin: 0;
 }
-.m-attrList img{
-	width: 750rpx;
+.m-attrList img {
+  width: 750rpx;
 }
-.productContainer{
-	display: flex;
-	padding: 21rpx 30rpx;
-	flex-wrap: wrap;
-	justify-content: space-between;
+.productContainer {
+  display: flex;
+  padding: 16rpx 20rpx;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-::-webkit-scrollbar  
-{  
-    width: 0;  
-    height: 0; 
-    color: transparent;  
-} 
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
 
-.filterList{
-	display:flex;
-	align-items:center;
-	justify-content:space-around;
-	position:fixed;
-	// top:90rpx;
-	width:100%;
-	height:70rpx;
-	color:#333;
-	font-size:24rpx;
-	background:#fff;
-	border-top: 1rpx solid #e0e0e0;
-	border-bottom: 1rpx solid #e0e0e0;
-	z-index: 999;
+.filterList {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  // top:90rpx;
+  width: 100%;
+  height: 70rpx;
+  color: #333;
+  font-size: 24rpx;
+  background: #fff;
+  border-top: 1rpx solid #e0e0e0;
+  border-bottom: 1rpx solid #e0e0e0;
+  z-index: 999;
 }
 
 // SKU弹窗
 .product-sku-wrap {
-    width: 90%; 
-	// 修改vant样式
-	--popup-round-border-radius: 20rpx;
+  width: 90%;
+  // 修改vant样式
+  --popup-round-border-radius: 20rpx;
 }
