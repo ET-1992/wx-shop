@@ -1,0 +1,55 @@
+.my {
+  height: 100vh;
+  background-color: #f4f6fa;
+  .my-header {
+    width: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32rpx;
+    .my-msg {
+      display: flex;
+      align-items: center;
+
+      .img {
+        width: 128rpx;
+        height: 128rpx;
+        border-radius: 50%;
+        margin-right: 24rpx;
+      }
+    }
+  }
+  .my-order {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16rpx;
+    margin: 24rpx 20rpx;
+    padding: 24rpx;
+    width: 710rpx;
+    .order {
+      font-size: 32rpx;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #111111;
+    }
+    .my-grid {
+      .van-info {
+        background-color: #fe4f06;
+      }
+      .title {
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #303133;
+      }
+      .img {
+        width: 46rpx;
+        height: 49rpx;
+        border-radius: 14rpx 6rpx 14rpx 6rpx;
+        border: 4rpx solid #111111;
+        margin: 0 16rpx 16rpx;
+      }
+    }
+  }
+}
