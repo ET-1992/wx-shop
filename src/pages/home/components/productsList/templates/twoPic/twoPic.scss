@@ -39,10 +39,10 @@
     flex-direction: column;
     // justify-content: space-between;
     padding: 12rpx 8rpx 0 8rpx;
-    height: 140rpx;
 
     .title {
       display: -webkit-box;
+      height: 80rpx;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       overflow: hidden;
@@ -51,6 +51,7 @@
       font-family: PingFangSC-Semibold, PingFang SC;
       font-weight: 600;
       color: #111111;
+      margin-bottom: 12rpx;
     }
 
     .meta {

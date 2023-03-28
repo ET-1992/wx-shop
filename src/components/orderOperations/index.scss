@@ -1,61 +1,62 @@
 @import "~styles/color";
 
 .container {
-	margin-top:15rpx;
-	text-align:right;
-	border-top:2rpx solid #eee;
-	padding-top:15rpx;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  // margin-top: 15rpx;
+  text-align: right;
+  border-top: 2rpx solid #eee;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-	&.iphoneXTrick {
-		padding-bottom: 20rpx;
-	}
+  &.iphoneXTrick {
+    padding-bottom: 20rpx;
+  }
 
-	.left-btn{
-		display: flex;
-		align-items: center;
-		.contactBt {
-			display: flex;
-			align-items: center;
-			border: none;
-			background-color: transparent;
-			margin-left: 10rpx;
-		}
-		.contactBt::after {
-			display: none;
-		}
-		.contactIcon {
-			$size: 70rpx;
+  .left-btn {
+    display: flex;
+    align-items: center;
+    .contactBt {
+      display: flex;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      margin-left: 10rpx;
+    }
+    .contactBt::after {
+      display: none;
+    }
+    .contactIcon {
+      $size: 70rpx;
 
-			height: $size;
-			width: $size;
-		}
-	}
+      height: $size;
+      width: $size;
+    }
+  }
 
-	.right-btn{
-		display: flex;
-		align-items: center;
-		padding: 6rpx 0;
-		.statusBt {
-			border: 2rpx solid rgba(112, 112, 112, 1);
-			border-radius: 10rpx;
-			font-size: 24rpx;
-			margin-left: 20rpx;
-			display: inline-block;
-			color: $titleColor;
-			height: 50rpx;
-			line-height: 50rpx;
-			width: 120rpx;
-			background-color: #fff;
-			text-align:center;
-		}
+  .right-btn {
+    display: flex;
+    align-items: center;
+    padding: 6rpx 0;
+    .statusBt {
+      border: 2rpx solid rgba(112, 112, 112, 1);
+      border-radius: 10rpx;
+      font-size: 28rpx;
+      margin-left: 20rpx;
+      display: inline-block;
+      color: $titleColor;
+      height: 64rpx;
+      line-height: 64rpx;
+      width: 144rpx;
+      background-color: #fff;
+      text-align: center;
+    }
 
-		.confirmBt, .payBt {
-			background-color: $priceColor;
-			border: 1rpx solid $priceColor;
-			color: #fff;
-		}
-	}
+    .confirmBt,
+    .payBt {
+      background-color: #fe4f06;
+      border: 1rpx solid $priceColor;
+      color: #fff;
+    }
+  }
 }

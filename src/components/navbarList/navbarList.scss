@@ -141,13 +141,30 @@
     right: 0;
     height: auto;
     z-index: 999;
-    border-bottom: 2rpx solid #eee;
+    // border-bottom: 2rpx solid #eee;
     .multi-tabs {
       width: calc(100% - 80rpx);
       z-index: 999;
+      text-align: center;
     }
     .multi-nav > view {
-      background-color: #fff;
+      background-color: #f4f6fa;
+      font-size: 28rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #111111;
+    }
+    .multi-active > view {
+      font-size: 36rpx;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #fe4f06;
+      flex-basis: 1;
+    }
+    .van-tabs__nav--line {
+      .van-tabs__line {
+        background-color: #f4f6fa;
+      }
     }
 
     .multi-popup {
@@ -157,7 +174,7 @@
       position: absolute;
       height: 100%;
       width: 80rpx;
-      background: #fff;
+      background: #f4f6fa;
       top: 0;
       right: 0;
       z-index: 1000;
