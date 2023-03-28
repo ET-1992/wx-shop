@@ -1,0 +1,7 @@
+{
+	"navigationBarTitleText": "待付款",
+  "usingComponents": {
+    "orderDetail": "../../components/orderDetail/orderDetail",
+    "van-count-down": "@vant/weapp/dist/count-down/index"
+  }
+}

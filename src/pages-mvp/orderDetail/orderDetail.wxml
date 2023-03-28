@@ -1,0 +1,13 @@
+<view class="orderDetail">
+  <view class="countDown">
+    剩余
+    <van-count-down class="count" use-slot time="{{ time }}" bind:change="countdownChange">
+      <text class="item">{{ timeData.hours }}</text>:
+      <text class="item">{{ timeData.minutes }}</text>:
+      <text class="item">{{ timeData.seconds }}</text>
+    </van-count-down>
+    自动关闭
+  </view>
+  <orderDetail/>
+  <button class="pay-btn">去支付</button>
+</view>

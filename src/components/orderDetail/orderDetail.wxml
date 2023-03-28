@@ -1,0 +1,57 @@
+<view class="order-detail">
+  <view class="order">
+    <view class="order-content">
+      <image class="order-img"/>
+      <view class="order-text">
+        <view class="title">无线吸拖吸尘器，26000Pa大吸力…</view>  
+        <view class="content">
+          <text class="category">白色/型号一</text>
+          <text>x1</text>
+        </view>
+      </view>
+    </view>
+    <view class="btn">
+      <button class="base-btn">售后电话</button>
+      <button class="base-btn">联系商家</button>
+    </view>
+  </view>
+  <view class="order">
+    <view class="price">
+      <text class="price-title">商品总价：</text>
+      <text>￥100.00</text>
+    </view>
+    <view class="price">
+      <text class="price-title">商品总价：</text>
+      <text>￥100.00</text>
+    </view>
+    <view class="pay">实付<text class="rmb">¥8000</text></view>
+  </view>
+
+   <view class="order">
+    <view class="price address">
+      <text class="price-title address-title">收货地址：</text>
+      <text>水獭先生_  15555555555广州市天河区棠东街道棠东社区棠东园13栋3121房</text>
+    </view>
+    <view class="price address">
+      <text class="price-title">收货地址：</text>
+      <text>￥100.00</text>
+    </view>
+     <view class="price address">
+      <text class="price-title">收货地址：</text>
+      <text>￥100.00</text>
+    </view> 
+    <view class="price address" wx:if="{{open}}">
+      <text class="price-title">收货地址：</text>
+      <text>￥100.00</text>
+    </view> 
+    <view class="price address"wx:if="{{open}}">
+      <text class="price-title">收货地址：</text>
+      <text>￥100.00</text>
+    </view> 
+    <view class="price address" wx:if="{{open}}">
+      <text class="price-title">收货地址：</text>
+      <text>￥100.00</text>
+    </view>
+    <view class="more" bindtap="onClick">查看更多<van-icon class="icon" name="arrow-down" wx:if="{{!open}}" /><van-icon class="icon" name="arrow-up" wx:if="{{open}}"/></view>
+  </view>
+</view>

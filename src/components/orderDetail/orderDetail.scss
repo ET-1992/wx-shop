@@ -1,0 +1,113 @@
+.order-detail {
+  padding: 0 16px;
+  background-color: #f4f6fa;
+  .order {
+    margin-top: 16rpx;
+    background-color: #ffffff;
+    border-radius: 16rpx;
+    padding: 28rpx;
+    .order-content {
+      display: flex;
+      .order-img {
+        width: 168rpx;
+        height: 168rpx;
+        border-radius: 8rpx;
+        border: 2rpx solid #f2f2f2;
+        margin-right: 20rpx;
+      }
+      .order-text {
+        .title {
+          font-size: 28rpx;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #111111;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .content {
+          display: flex;
+          justify-content: space-between;
+          font-size: 24rpx;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #b0b3bf;
+          .category {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+          }
+        }
+      }
+    }
+    .btn {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16rpx;
+      .base-btn {
+        width: 144rpx;
+        height: 64rpx;
+        background: #ffffff;
+        border-radius: 8rpx;
+        border: 1rpx solid #808080;
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #111111;
+        line-height: 64rpx;
+        margin-left: 16rpx;
+      }
+    }
+    .price {
+      display: flex;
+      justify-content: space-between;
+      font-size: 28rpx;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #111111;
+      margin-bottom: 16rpx;
+      .price-title {
+        font-weight: 400;
+        color: #676971;
+      }
+    }
+    .pay {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 28rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #111111;
+      margin-top: 16rpx;
+      .rmb {
+        font-size: 28rpx;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #fe4f06;
+      }
+    }
+
+    .address {
+      display: flex;
+      justify-content: flex-start;
+      .address-title {
+        width: 45%;
+      }
+    }
+
+    .more {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #676971;
+      .icon {
+        margin-right: 8rpx;
+      }
+    }
+  }
+}
