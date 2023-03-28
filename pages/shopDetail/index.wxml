@@ -1,0 +1,55 @@
+<!-- pages/shopDetail/index.wxml -->
+<view class="page">
+  <view class="box_2">
+    <swiper indicator-dots autoplay="{{autoplay}}" class="swiper" wx:if="{{!product.video}}" bindchange="currentIndex" indicator-active-color="{{ themeColor.primaryColor ? themeColor.primaryColor : '#729153' }}" indicator-color="#fff">
+      <swiper-item wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
+        <image src="{{ image }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
+      </swiper-item>
+    </swiper>
+    <!-- <view class="text-wrapper_2">
+      <text lines="1" class="text_2">1/6</text>
+    </view> -->
+  </view>
+  <view class="box_3">
+    <view class="text-wrapper_3">
+      <text lines="1" class="text_3">券后</text>
+      <text lines="1" class="text_4">￥</text>
+      <text lines="1" class="text_5">399</text>
+      <text lines="1" class="text_6">起</text>
+      <text lines="1" class="text_7">原价￥499起</text>
+    </view>
+    <text lines="1" class="text_8">无线吸拖吸尘器，26000Pa大吸力，吸尘/拖地/除螨</text>
+    <text lines="1" class="text_9">50min持久长续航·软绒滚筒地刷，防缠毛发·多锥气旋技术，过滤微尘</text>
+    <view class="block_1"></view>
+    <view class="text-wrapper_4">
+      <text lines="1" class="text_10">快递：包邮</text>
+      <text lines="1" class="text_11">销售：100</text>
+      <text lines="1" class="text_12">库存：100</text>
+    </view>
+  </view>
+  <view class="box_4">
+    <view class="text-wrapper_5">
+      <view lines="1" class="text_13">服务</view>
+      <view lines="2" class="paragraph_1">
+        <view class="" selectable="false" space="false" decode="false">
+          ·全场满800减60元，满1000减80元，满2000减200元；
+        </view>
+        <view class="" selectable="false" space="false" decode="false">·满289元享8折</view>
+      </view>
+    </view>
+    <view class="box_5">
+      <view class="block_2"></view>
+      <text lines="1" class="text_14">商品详情</text>
+      <view class="block_3"></view>
+    </view>
+  </view>
+  <image src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng17bdddebe6cc5ae8afccb8e83aaa04f1ba5f9ea7c13ff6976f1c9a2b5cb8c3c0" class="image_1"></image>
+</view>
+<!-- SKU -->
+<!-- <skuModal isShowSkuModal="{{ isShowActionSheet }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" /> -->
+<view>
+  <view>立即支付¥399</view>
+</view>
+<view>
+  <van-popup show="{{ show }}" bind:close="onClose"></van-popup>
+</view>

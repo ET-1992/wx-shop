@@ -1,101 +1,53 @@
 <view class="container" style="{{ isOrderDetail ? 'border:none' : 'justify-content: flex-end;'}}">
-
   <view class="left-btn" wx:if="{{ isOrderDetail }}">
     <view class="contactBt" data-url="/pages/home/home" bind:tap="go">
-      <image class="contactIcon" src="/icons/orderDetail/home.svg" mode="aspectFit"/>
+      <image class="contactIcon" src="/icons/orderDetail/home.svg" mode="aspectFit" />
     </view>
     <!-- 企业微信/微信客服 -->
-    <button
-      class="normalizeBt contactBt"
-      wx:if="{{ isShowContact }}"
-      open-type="contact"
-      session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
-      send-message-title="{{order.items[0].title}}"
-	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
-	  	send-message-img="{{order.items[0].thumbnail}}"
-	  	show-message-card="{{true}}"
-    ><image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit"
-      catch:tap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}" />
+    <button class="normalizeBt contactBt" wx:if="{{ isShowContact }}" open-type="contact" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}' send-message-title="{{order.items[0].title}}" send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}" send-message-img="{{order.items[0].thumbnail}}" show-message-card="{{true}}">
+      <image class="contactIcon" src="/icons/orderDetail/contact.svg" mode="aspectFit" catch:tap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}" />
     </button>
     <!-- 电话联系 -->
     <view class="contactBt" wx:if="{{ phone }}" bindtap="call" data-phone="{{ phone }}">
-      <image class="contactIcon" src="/icons/orderDetail/phone.svg" mode="aspectFit"/>
+      <image class="contactIcon" src="/icons/orderDetail/phone.svg" mode="aspectFit" />
     </view>
   </view>
-
   <view class="right-btn">
-    <!--再次加购 当活动类型为抢购活动时不显示 -->
-    <button
-      class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onAddCard"
-      wx:if="{{ !order.luckydraw }}"
-    >再次加购</button>
-
-    <button
-      wx:if="{{ isShowRefund }}"
-      class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onRefund"
-    >申请退款</button>
-
-    <button
-      wx:if="{{ isShowService }}"
-      class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact'}}"
-      send-message-title="{{order.items[0].title}}"
-	  	send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}"
-	  	send-message-img="{{order.items[0].thumbnail}}"
-	  	show-message-card="{{true}}"
-      session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}'
-      bindtap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}"
-    >申请售后</button>
-
-    <button
-      wx:if="{{ statusCode === 1 }}"
-      class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onCloseOrder"
-    >取消订单</button>
-
-    <button
-      wx:if="{{ statusCode === 1 }}"
-      class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}"
-      bindtap="onPay"
-    >去支付</button>
+    <!-- 再次加购 当活动类型为抢购活动时不显示 -->
+    <!-- <button class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}" bindtap="onAddCard" wx:if="{{ !order.luckydraw }}">
+      再次加购
+    </button> -->
+    <button wx:if="{{ isShowRefund }}" class="statusBt refundBt {{ isIphoneX ? 'iphoneXTrick' : '' }}" bindtap="onRefund">
+      申请退款
+    </button>
+    <button wx:if="{{ isShowService }}" class="normalizeBt statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}" open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact'}}" send-message-title="{{order.items[0].title}}" send-message-path="/pages/productDetail/productDetail?id={{order.items[0].post_id}}" send-message-img="{{order.items[0].thumbnail}}" show-message-card="{{true}}" session-from='{"nickName":"{{user.nickname}}", "avatarUrl":"{{user.avatarurl}}", "from":"order", "orderId":"{{order.id}}"}' bindtap="{{ config.contact && config.contact.type !== 'weapp' ? 'onCustomService' : ''}}">
+      申请售后
+    </button>
+    <button wx:if="{{ statusCode === 1000 }}" class="statusBt {{ isIphoneX ? 'iphoneXTrick' : '' }}" bindtap="onCloseOrder">
+      取消订单
+    </button>
+    <button wx:if="{{ statusCode === 1000 }}" class="statusBt payBt {{ isIphoneX ? 'iphoneXTrick' : '' }}" bindtap="onPay">
+      去支付
+    </button>
     <!-- <navigator
       class="statusBt"
       url="/pages/logistics/logistics?orderNo={{orderNo}}"
       wx:if="{{ statusCode > 2 && statusCode < 4 }}"
     >查看物流</navigator> -->
-    <button
-      class="statusBt confirmBt"
-      wx:if="{{ statusCode === 3 }}"
-      bindtap="onConfirmOrder"
-
-    >确认收货</button>
-    <button
-      class="statusBt confirmBt"
-      wx:if="{{ statusCode === 2001 }}"
-      bindtap="onUseCard"
-
-    >赠送</button>
-    <button
-      class="statusBt confirmBt"
-      wx:if="{{ statusCode === 4 && order.promotion_type === '8' }}"
-      bind:tap="go"
-      data-url="/pages/electronicCard/electronicCard?no={{ order.order_no }}"
-    >兑换</button>
-    <button
-      class="statusBt"
-
-      bindtap="toPaymentVouchersPage"
-      wx:if="{{ statusCode === 1010 || order.statusCode == 1011 }}"
-    >查看凭证</button>
+    <button class="statusBt confirmBt" wx:if="{{ statusCode === 3000 }}" bindtap="onConfirmOrder">
+      确认收货
+    </button>
+    <button class="statusBt confirmBt" wx:if="{{ statusCode === 2001 }}" bindtap="onUseCard">
+      赠送
+    </button>
+    <button class="statusBt confirmBt" wx:if="{{ statusCode === 4000 && order.promotion_type === '8' }}" bind:tap="go" data-url="/pages/electronicCard/electronicCard?no={{ order.order_no }}">
+      兑换
+    </button>
+    <button class="statusBt" bindtap="toPaymentVouchersPage" wx:if="{{ statusCode === 1010 || order.statusCode == 1011 }}">
+      查看凭证
+    </button>
   </view>
 </view>
-
 <myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
-
 <!-- 企业微信客服弹窗 -->
-<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
-    show="{{ customServiceModal }}"
-    plugid="{{ config.contact.plugid }}"
-/>
+<companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}" show="{{ customServiceModal }}" plugid="{{ config.contact.plugid }}" />
