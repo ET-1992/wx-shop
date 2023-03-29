@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages-mvp/orderList/orderList",
-    "pages-mvp/personalInformation/personalInformation",
     "pages/home/home",
     "pages-mvp/me/me",
     "pages-mvp/completePayment/completePayment",
@@ -10,7 +8,9 @@
     "pages-mvp/category/category",
     "pages-mvp/couponDetail/couponDetail",
     "pages-mvp/productDetail/productDetail",
-    "pages-mvp/shippingAddress/shippingAddress"
+    "pages-mvp/shippingAddress/shippingAddress",
+    "pages-mvp/orderList/orderList",
+    "pages-mvp/personalInformation/personalInformation",
   ],
   "window": {
     "backgroundTextStyle": "light",
