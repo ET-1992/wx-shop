@@ -1,95 +1,89 @@
 <loading isLoading="{{ isLoading }}" />
 <block wx:if="{{ home_type === 'old'}}">
-    <!-- 模板皮肤 -->
-    <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml"/>
-    <include wx:elif="{{ tplStyle === 'vip_tpl_seven' }}" src="./templates/tplStyleSeven/tplStyleSeven.wxml"/>
-    <include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml"/>
-
-
-    <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
-    <!-- 服务 -->
-    <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}"/>
-    <!-- </block> -->
-    <!-- 新用户优惠券弹框 -->
-    <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
-    <!-- 添加到小程序指引 -->
-    <view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
-        <image class="home-guide_img" src="/icons/guide.svg" />
-    </view>
-    <!-- 自定义弹窗 -->
-    <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
+  <!-- 模板皮肤 -->
+  <include wx:if="{{ tplStyle === 'default' }}" src="./templates/default/default.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_two' }}" src="./templates/tplStyleTwo/tplStyleTwo.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_three' }}" src="./templates/tplStyleThree/tplStyleThree.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_four' }}" src="./templates/tplStyleFour/tplStyleFour.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_five' }}" src="./templates/tplStyleFive/tplStyleFive.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_six' }}" src="./templates/tplStyleSix/tplStyleSix.wxml" />
+  <include wx:elif="{{ tplStyle === 'vip_tpl_seven' }}" src="./templates/tplStyleSeven/tplStyleSeven.wxml" />
+  <include wx:else src="./templates/tplStyleSix/tplStyleSix.wxml" />
+  <!-- <block wx:if="{{ tplStyle !== 'default' }}"> -->
+  <!-- 服务 -->
+  <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}" />
+  <!-- </block> -->
+  <!-- 新用户优惠券弹框 -->
+  <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
+  <!-- 添加到小程序指引 -->
+  <view class="home-guide" wx:if="{{ guide_status && add_to_my_weapp }}">
+    <image class="home-guide_img" src="/icons/guide.svg" />
+  </view>
+  <!-- 自定义弹窗 -->
+  <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
-<!---->
+<!--  -->
 <block wx:if="{{ home_type === 'new'}}">
-    <view class="container" wx:if="{{ !isLoading }}"
-    style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx">
-        <!-- 新版搜索框 -->
-        <productNavigationBar id="navigation-bar"  navType="homeNav" showSearchBox="{{ module_page.search_box }}" title="{{ page_title }}" showBgColor="{{ showBgColor }}"/>
-        <view class="{{ module_page.search_box ? 'main': '' }}" style="padding-top: {{ module_page.search_box ? statusBarHeight + 45: statusBarHeight }}px">
-            <view wx:for="{{ modules }}" wx:key="key">
-                <!-- 幻灯片 -->
-                <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" themeColor="{{ themeColor }}" bindshowContactModal="showContactModal"/>
-                <!-- 简单文本 -->
-                <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}"  />
-                <!-- 文本列表 -->
-                <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}"/>
-                <!-- 优惠券 userCoupon 有状态 -->
-                <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}" />
-                <!-- 快捷导航栏 -->
-                <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}"  />
-                <!-- 内容电商 -->
-                <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
-                <!-- 分组商品列表 -->
-                <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
-                <!-- 商品列表 -->
-                <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
-                <!-- 魔方 -->
-                <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
-                <!-- 直播列表 -->
-                <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
-                <!-- 金价模块 -->
-                <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
-                <!-- 瀑布流 -->
-                <masonry wx:if="{{ item.type === 'masonry-product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
-                <!-- 表单 -->
-                <customForm wx:if="{{ item.type === 'form'}}" form="{{ item }}" bind:submitFormData="submitFormData"/>
-            </view>
-        </view>
-        <view id="loadProducts" class="logo">
-            <logo logoObj="{{ logoObj }}" />
-        </view>
+  <view class="container" wx:if="{{ !isLoading }}" style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx">
+    <!-- 新版搜索框 -->
+    <productNavigationBar id="navigation-bar" navType="homeNav" showSearchBox="{{ module_page.search_box }}" title="{{ page_title }}" showBgColor="{{ showBgColor }}" />
+    <view class="{{ module_page.search_box ? 'main': '' }}" style="padding-top: {{ module_page.search_box ? statusBarHeight + 45: statusBarHeight }}px">
+      <view wx:for="{{ modules }}" wx:key="key">
+        <!-- 幻灯片 -->
+        <slide wx:if="{{ item.type === 'slider' }}" slide="{{ item }}" userInfo="{{ userInfo }}" themeColor="{{ themeColor }}" bindshowContactModal="showContactModal" />
+        <!-- 简单文本 -->
+        <textMessage wx:if="{{ item.type === 'text' }}" textMessage="{{ item }}" second="{{ second }}" size="{{ size }}" userInfo="{{ userInfo }}" />
+        <!-- 文本列表 -->
+        <textList wx:if="{{ item.type === 'text-list' }}" textList="{{ item }}" userInfo="{{ userInfo }}" />
+        <!-- 优惠券 userCoupon 有状态 -->
+        <coupons wx:if="{{ item.type === 'coupon' }}" coupon="{{ item }}" config="{{ config }}" globalData="{{ globalData }}" bindonsubmitFormId="submitFormId" userCoupon="{{ userCoupon }}" />
+        <!-- 快捷导航栏 -->
+        <nav wx:if="{{ item.type === 'nav' }}" nav="{{ item }}" config="{{ config }}" />
+        <!-- 内容电商 -->
+        <articleList wx:if="{{ item.type === 'article' }}" articleList="{{ item }}" themeColor="{{ themeColor }}" />
+        <!-- 分组商品列表 -->
+        <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+        <!-- 商品列表 -->
+        <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+        <!-- 魔方 -->
+        <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
+        <!-- 直播列表 -->
+        <lvList wx:if="{{ item.type === 'weapp_lvrm'}}" lvObj="{{ item }}" />
+        <!-- 金价模块 -->
+        <gold-price wx:if="{{ item.type === 'gold_data'}}" goldData="{{ item }}" />
+        <!-- 瀑布流 -->
+        <masonry wx:if="{{ item.type === 'masonry-product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+        <!-- 表单 -->
+        <customForm wx:if="{{ item.type === 'form'}}" form="{{ item }}" bind:submitFormData="submitFormData" />
+      </view>
     </view>
-    <!-- 服务 -->
-    <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' config="{{ config }}"/>
-    <!-- 新用户优惠券弹框 -->
-    <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
-    <!-- 添加到我的小程序 -->
-    <view class="home-guide" wx:if="{{ guide_status && module_page && module_page.add_to_favorites }}">
-        <image class="home-guide_img" src="/icons/guide.svg" />
-    </view>
-    <!-- 自定义弹窗 -->
-    <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
-    <!-- 企业微信客服弹窗 -->
-    <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
+    <!-- <view id="loadProducts" class="logo">
+      <logo logoObj="{{ logoObj }}" />
+    </view> -->
+  </view>
+  <!-- 服务 -->
+  <!-- <service wx:if="{{ module_page.icons.length }}" options="{{ module_page.icons }}" sessionFrom='{"nickName":"{{ userInfo.nickname }}", "avatarUrl":"{{ userInfo.avatarurl }}", "from":"home"}' config="{{ config }}" /> -->
+  <!-- 新用户优惠券弹框 -->
+  <include wx:if="{{ isNewUser && coupons_newbie && coupons_newbie.length > 0 }}" src="./templates/newUserCoupon/newUserCoupon.wxml" />
+  <!-- 添加到我的小程序 -->
+  <view class="home-guide" wx:if="{{ guide_status && module_page && module_page.add_to_favorites }}">
+    <image class="home-guide_img" src="/icons/guide.svg" />
+  </view>
+  <!-- 自定义弹窗 -->
+  <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
+  <!-- 企业微信客服弹窗 -->
+  <!-- <companyContact wx:if="{{ config.contact && config.contact.type === 'work_weixin' }}"
         show="{{ customServiceModal }}"
         plugid="{{ config.contact.plugid }}"
-    />
-
+    /> -->
 </block>
-
 <!-- 多门店 -->
-<view class="multiStore">
-    <multiStore bind:updatestore="updatestore" multiStoreEnable="{{ multiStoreEnable }}" />
-</view>
+<!-- <view class="multiStore">
+  <multiStore bind:updatestore="updatestore" multiStoreEnable="{{ multiStoreEnable }}" />
+</view> -->
 <!-- 商品列表加车弹窗 -->
 <van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
-	<orderOptions quantity="{{ count }}" product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+  <orderOptions quantity="{{ count }}" product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
 </van-popup>
-
 <!-- 开屏广告 -->
-<advertisement content = "{{ module_page.advertisement.image }}" wx:if="{{ isShowAds }}" bind:onClose="closeAdvertisement"/>
+<advertisement content="{{ module_page.advertisement.image }}" wx:if="{{ isShowAds }}" bind:onClose="closeAdvertisement" />

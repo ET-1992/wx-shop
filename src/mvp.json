@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/home/home",
     "pages-mvp/me/me",
     "pages-mvp/completePayment/completePayment",
     "pages-mvp/orderDetail/orderDetail",
@@ -17,13 +18,38 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": ""
   },
+  "tabBar": {
+    "color": "#909399",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "selectedColor": "#FE4F06",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "icons/mvp/home.png",
+        "text": "首页",
+        "selectedIconPath": "icons/mvp/home-s.png"
+      },
+      {
+        "pagePath": "pages-mvp/category/category",
+        "iconPath": "icons/mvp/category.png",
+        "text": "分类",
+        "selectedIconPath": "icons/mvp/category-s.png"
+      },
+      {
+        "pagePath": "pages-mvp/me/me",
+        "iconPath": "icons/mvp/me.png",
+        "text": "我",
+        "selectedIconPath": "icons/mvp/me-s.png"
+      }
+    ]
+  },
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "plugins": {
-  },
+  "plugins": {},
   "requiredPrivateInfos": [
     "getLocation",
     "onLocationChange",

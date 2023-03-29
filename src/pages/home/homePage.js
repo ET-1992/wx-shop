@@ -100,7 +100,7 @@ export const pageObj = {
 
         // const data = await api.hei.fetchHome();
         const newHomeData = await api.hei.newHome({ id, key: pageKey });
-        let { home_type = 'old', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config = {}} = newHomeData;
+        let { home_type = 'new', old_data = {}, modules = [], module_page = {}, share_image, share_title, page_title, config = {}} = newHomeData;
 
         let multiStoreEnable = Boolean(config.offline_store_enable);
 

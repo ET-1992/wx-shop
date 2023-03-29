@@ -57,10 +57,10 @@
                         </view>
                     </view> -->
           <view class="price">
-            <text>劵后</text>
+            <text>券后</text>
             <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
             <view class="groupon">
-              <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
+              <text>{{ selectedOptions.price }}</text>
             </view>
             <!-- <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
                             <text>{{ product.price + selectedOptions.relationPrice }}</text>
@@ -84,8 +84,8 @@
             <view>
               <!-- <text>{{ product.definePrice + selectedOptions.relationPrice }}</text> -->
               <text class="price-last">
-                劵前¥
-                <text class="">{{ product.definePrice + selectedOptions.relationPrice }}</text>
+                券前¥
+                <text class="">{{ selectedOptions.price }}</text>
               </text>
             </view>
           </view>
@@ -113,7 +113,7 @@
           <view class="Coupons-left">优惠</view>
           <view class="Coupons-right">
             商家券
-            <text class="Coupons-num">-{{product.coupons_price}}元</text>
+            <text class="Coupons-num">-{{product.coupons_price || 0}}元</text>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
           </view>
         </view>

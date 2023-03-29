@@ -143,7 +143,7 @@ Component({
                     let form = component.handleValidate();
                     this._remarks = form;
                 }
-                await getUserProfile();
+                // await getUserProfile();
                 let queryData = {};
                 let addressComponent = this.selectComponent('#address');
                 const { address } = addressComponent.data;

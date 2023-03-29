@@ -15,7 +15,7 @@ Page({
     actions: [
       {
         type: 'onBuy',
-        text: '立即支付¥399',
+        text: '立即支付',
       },
     ],
     isShowSkuModal: false,
@@ -57,23 +57,43 @@ Page({
   },
 
   async onSkuConfirm(e) {
-    console.log(e, 'onSkuConfirm');
-    const { queryData, actionType } = e.detail;
-    const { quantity, selectedSku: { id }, address, product } = queryData;
-    const orderQuery = {
-      posts: [{ post_id: product.id, sku_id: id, quantity }],
-      pay_method: 'WEIXIN',
-      receiver: autoTransformAddress(address)
-    };
-    console.log(orderQuery);
-    const { order_no } = await api.hei.orderCreate(orderQuery);
-    const { pay_interact_data } = await api.hei.orderPay({ order_nos: [order_no], 'pay_method': 'WEIXIN' });
-    console.log(pay_interact_data, '--');
-    const { pay_sign } = pay_interact_data;
-    await wxProxy.requestPayment(pay_sign);
-    wx.showToast({
-      title: '支付成功',
-    });
+    try {
+        console.log(e, 'onSkuConfirm');
+        const { queryData, actionType } = e.detail;
+        const { quantity, selectedSku: { id }, address, product } = queryData;
+        const orderQuery = {
+          posts: [{ post_id: product.id, sku_id: id, quantity }],
+          pay_method: 'WEIXIN',
+          receiver: autoTransformAddress(address)
+        };
+        console.log(orderQuery);
+        const { order_no } = await api.hei.orderCreate(orderQuery);
+        const { pay_interact_data } = await api.hei.orderPay({ order_nos: [order_no], 'pay_method': 'WEIXIN' });
+        console.log(pay_interact_data, '--');
+        const { pay_sign } = pay_interact_data;
+        await wxProxy.requestPayment(pay_sign);
+        wx.showToast({
+          title: '支付成功',
+        });
+    } catch (e) {
+      console.log('requestPayment err', e);
+        const { errMsg } = e;
+        if (errMsg.indexOf('cancel') >= 0) {
+            await wxProxy.showModal({
+                title: '支付取消',
+                content: '请尽快完成付款',
+                showCancel: false,
+            });
+            return { isCancel: true };
+        }
+        else {
+            await wxProxy.showModal({
+                title: '支付失败',
+                content: '网络错误，请稍后重试',
+                showCancel: false,
+            });
+        }
+    }
   },
 
   /**
