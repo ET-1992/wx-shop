@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages-mvp/orderList/orderList",
+    "pages-mvp/personalInformation/personalInformation",
     "pages/home/home",
     "pages-mvp/me/me",
     "pages-mvp/completePayment/completePayment",
     "pages-mvp/orderDetail/orderDetail",
-    "pages-mvp/orderList/orderList",
     "pages-mvp/productList/productList",
     "pages-mvp/category/category",
     "pages-mvp/couponDetail/couponDetail",

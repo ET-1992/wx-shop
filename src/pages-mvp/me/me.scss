@@ -34,6 +34,30 @@
       color: #111111;
     }
     .my-grid {
+      .order-gird {
+        position: relative;
+        .dot {
+          position: absolute;
+          right: 44rpx;
+          top: 16rpx;
+          width: 16rpx;
+          height: 16rpx;
+          background: #fe4f06;
+          border-radius: 8rpx;
+        }
+        .dot-num {
+          position: absolute;
+          top: 16rpx;
+          right: 30rpx;
+          background: #fe4f06;
+          padding: 0 8rpx;
+          border-radius: 50%;
+          color: #ffffff;
+          font-size: 24rpx;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+        }
+      }
       .van-info {
         background-color: #fe4f06;
       }

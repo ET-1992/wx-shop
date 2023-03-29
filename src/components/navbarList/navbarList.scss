@@ -159,11 +159,13 @@
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
       color: #fe4f06;
-      flex-basis: 1;
     }
-    .van-tabs__nav--line {
-      .van-tabs__line {
-        background-color: #f4f6fa;
+    .multi-active {
+      flex-basis: 1 !important;
+      .van-tabs__nav--line {
+        .van-tabs__line {
+          background-color: #f4f6fa !important;
+        }
       }
     }
 

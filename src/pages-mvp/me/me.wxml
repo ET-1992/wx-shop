@@ -9,29 +9,33 @@
   <view class="my-order">
     <view class="order">我的订单</view>
     <van-grid custom-class="my-grid"  column-num="4" border="{{false}}">
-      <van-grid-item use-slot  text="全部订单" dot >
+      <van-grid-item use-slot  text="全部订单" dot  class="order-gird">
         <image class="img"
           src="../../icons/mvp/allOrder.png"
         />
         <text class="title">全部订单</text>
+        <text class="dot"/>
       </van-grid-item>
-      <van-grid-item use-slot  badge="99+" >
+      <van-grid-item use-slot class="order-gird">
         <image class="img"
           src="../../icons/mvp/unpaid.png"
         />
         <text class="title">待付款</text>
+        <text class="dot-num">6</text>
       </van-grid-item>
-      <van-grid-item use-slot  badge="99+" >
+      <van-grid-item use-slot  class="order-gird">
         <image class="img"
           src="../../icons/mvp/notShipped.png"
         />
         <text class="title">待发货</text>
+        <text class="dot-num">20</text>
       </van-grid-item>
-      <van-grid-item use-slot   badge="99+" >
+      <van-grid-item use-slot class="order-gird">
         <image class="img"
           src="../../icons/mvp/shipped.png"
         />
         <text class="title">已发货</text>
+        <text class="dot-num">99+</text>
       </van-grid-item>
 
     </van-grid>
