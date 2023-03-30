@@ -232,7 +232,25 @@
     // flex-grow: 1;
     // margin: 16rpx 0 10rpx 0;
     padding-bottom: 0;
+    .pay {
+      display: flex;
+      justify-content: space-between;
+      font-size: 24rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #b0b3bf;
+      margin-top: 8rpx;
 
+      .desc {
+        width: 80%;
+        height: 64rpx;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
     .name {
       display: -webkit-box;
       -webkit-box-orient: vertical;
@@ -244,20 +262,6 @@
       font-weight: 500;
       color: #111111;
       line-height: 40rpx;
-    }
-
-    .desc {
-      height: 64rpx;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 8rpx;
-      font-size: 24rpx;
-      font-family: PingFangSC-Regular, PingFang SC;
-      font-weight: 400;
-      color: #b0b3bf;
     }
 
     .grouponInfo {
@@ -292,15 +296,21 @@
     }
 
     .singleBuy {
-      // display: flex;
-      // justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
       font-size: 28rpx;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
       color: #111111;
       margin-top: 14rpx;
       .price {
-        text-decoration: line-through;
+        // text-decoration: line-through;
+      }
+      .status {
+        font-size: 28rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #fe4f06;
       }
     }
 

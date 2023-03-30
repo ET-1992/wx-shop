@@ -2,10 +2,14 @@
   <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill" lazy-load="{{ true }}" />
   <view class="meta">
     <view class="name">{{ product.title }}</view>
-    <view class="desc">{{ product.sku_property_names }}</view>
+    <view class="pay">
+      <view class="desc">{{ product.sku_property_names }}</view>
+      <view class="num">x{{2}}</view>
+    </view>
     <view class="singleBuy">
-      支付：
+      <!-- 支付： -->
       <text class="price">{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+      <text class="status">{{statusText}}</text>
     </view>
     <view class="footer">
       <!-- <view class="groupNumber">已团{{ product.sales || 0 }}件</view>
