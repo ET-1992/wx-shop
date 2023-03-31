@@ -1,24 +1,21 @@
 <view class="multiStyle">
   <view class="multi-header">
-    <van-tabs custom-class="multi-tabs" active="{{ activeIndex }}" color="{{ themeColor.primaryColor }}" nav-class="multi-nav" border="{{ false }}" bind:click="changeActive" tab-active-class="multi-active">
-      <van-tab  wx:for="{{ navbarListData }}" wx:key="item" title="{{ item.text }}" ></van-tab>
+    <van-tabs custom-class="multi-tabs" active="{{ activeIndex }}" nav-class="multi-nav" border="{{ false }}" bind:click="changeActive" tab-active-class="multi-active">
+      <van-tab wx:for="{{ navbarListData }}" wx:key="item" title="{{ item.text }}"></van-tab>
     </van-tabs>
     <div class="multi-popup" bindtap="onShowPopup">
       <van-icon custom-class="{{ isShowPopup ? 'arrow' : 'reverse-arrow' }}" name="arrow-up" />
     </div>
   </view>
-
-  <van-popup show="{{ isShowPopup }}" position="top" custom-style="top: 44px" overlay-style="top: 44px" bind:close="onShowPopup" >
+  <van-popup show="{{ isShowPopup }}" position="top" custom-style="top: 44px" overlay-style="top: 44px" bind:close="onShowPopup">
     <view class="popup-box">
-        <view
-            wx:for="{{ navbarListData }}"
-            wx:key="item"
-            class="item {{ activeIndex === index ? 'active' : '' }}"
-            data-index="{{ index }}"
-            bind:tap="changeActive"
-            style="background-color: {{ activeIndex === index ? '#FE4F06' : '#f1f1f1'}}; color: {{ activeIndex === index ? '#ffffff' : '' }}"
-        >{{ item.text }}</view>
-        <text class="i"></text><text class="i"></text><text class="i"></text><text class="i"></text>
+      <view wx:for="{{ navbarListData }}" wx:key="item" class="item {{ activeIndex === index ? 'active' : '' }}" data-index="{{ index }}" bind:tap="changeActive" style="background-color: {{ activeIndex === index ? '#FE4F06' : '#f1f1f1'}}; color: {{ activeIndex === index ? '#ffffff' : '' }}">
+        {{ item.text }}
+      </view>
+      <text class="i"></text>
+      <text class="i"></text>
+      <text class="i"></text>
+      <text class="i"></text>
     </view>
   </van-popup>
 </view>

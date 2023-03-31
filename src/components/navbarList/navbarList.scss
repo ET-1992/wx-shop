@@ -26,7 +26,7 @@
     position: relative;
 
     &.selected {
-      border-bottom: 4rpx solid #729153;
+      // border-bottom: 4rpx solid #729153;
       color: #000000;
     }
   }
@@ -69,7 +69,7 @@
     display: inline-block;
 
     &.selected {
-      border-bottom: 6rpx solid #729153;
+      // border-bottom: 6rpx solid #729153;
       color: #000000;
     }
   }
@@ -143,7 +143,7 @@
     z-index: 999;
     // border-bottom: 2rpx solid #eee;
     .multi-tabs {
-      width: calc(100% - 80rpx);
+      width: calc(100% - 1rpx);
       z-index: 999;
       text-align: center;
     }

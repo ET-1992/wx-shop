@@ -189,6 +189,7 @@ export const pageObj = {
         this.data.fetchProductListStatus = 'Pending';
 
         const data = await api.hei.fetchProductList(options);
+        data.categories = data.product_categories;
         current_page++;
 
         this.data.fetchProductListStatus = 'Success';
