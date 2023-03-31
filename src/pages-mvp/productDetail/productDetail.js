@@ -61,10 +61,12 @@ Page({
         console.log(e, 'onSkuConfirm');
         const { queryData, actionType } = e.detail;
         const { quantity, selectedSku: { id }, address, product } = queryData;
+        const { buyer_message = '测试' } = this.data;
         const orderQuery = {
           posts: [{ post_id: product.id, sku_id: id, quantity }],
           pay_method: 'WEIXIN',
-          receiver: autoTransformAddress(address)
+          receiver: autoTransformAddress(address),
+          buyer_message
         };
         console.log(orderQuery);
         const { order_no } = await api.hei.orderCreate(orderQuery);

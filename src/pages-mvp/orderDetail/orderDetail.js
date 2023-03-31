@@ -1,8 +1,9 @@
 // pages/shopDetail/index.js
 
-import api from "utils/api";
-import { autoTransformAddress } from "utils/util";
-import wxProxy from "utils/wxProxy";
+import api from 'utils/api';
+import { autoTransformAddress, formatTime, valueToText } from 'utils/util';
+import { ORDER_STATUS_TEXT } from 'constants/index';
+import wxProxy from 'utils/wxProxy';
 
 const app = getApp();
 
@@ -26,9 +27,46 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.initPage(options);
+  onLoad: async function (options) {
+    const { id } = this.options;
+    const { order, ...others } = await api.hei.fetchOrder({ order_no: id });
+        order.statusCode = Number(order.status);
+        order.statusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
+        order.buyer_message = order.buyer_message || '买家未留言';
+        order.createDate = formatTime(new Date(order.time * 1000));
+        order.payDate = formatTime(new Date(order.paytime * 1000));
+        order.consignDate = formatTime(new Date(order.consign_time * 1000));
+        order.refundDate = formatTime(new Date(order.refund_time * 1000));
+        order.total_fee = (order.total_fee - 0).toFixed(2);
+        order.discount_fee = (order.discount_fee - 0).toFixed(2);
+
+        if (order.statusCode === 4000 || order.statusCode === 6000 || order.statusCode === 7000 || order.statusCode === 8000) {
+            order.isDone = true;
+        }
+
+        wx.setNavigationBarTitle({
+          title: order.statusText
+        });
+
+
+    this.setData({
+      order,
+      ...others
+    });
   },
+
+    toLogisticsDetail(e) {
+        // const { index, id } = e.currentTarget.dataset;
+        const { order, weapp_waybill_tokens = {}} = this.data;
+        // const { config: { weixin_logistics_enable }} = this.data;
+        // app.globalData.logisticsDetail = {
+        //     logistics: order && order.logistics && order.logistics[index],
+        //     items: order.items
+        // };
+         wx.navigateTo({
+                url: `/pages/logistics/logistics?orderNo=${order.order_no}`
+            });
+    },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

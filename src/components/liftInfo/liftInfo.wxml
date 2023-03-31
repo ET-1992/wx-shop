@@ -1,36 +1,40 @@
 <navigator class="container" url="{{ liftInfo.isCanNav ? '/pages/liftList/liftList' : '' }}">
-    <block wx:if="{{ liftInfo.receiver_address_name }}">
-        <view class="title">自提地址</view>
-        <view class="liftInfo">
-				<view class="liftInfoTop">
-					{{ liftInfo.receiver_address_name }}
-				</view>
-				<view class="liftInfoCenter">
-					<image src="/icons/address.png"	mode="widthFix" class="icon" />
-					<view class="text">{{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}</view>
-				</view>
-				<view class="liftInfoBottom" wx:if="{{ liftInfo.receiver_address_phone }}">
-					<image src="/icons/phone.png" mode="widthFix" class="icon" />
-					<view class="text">{{ liftInfo.receiver_address_phone }}</view>
-				</view>
-		</view>
-    </block>
-    <view wx:else class="address title">
-        选择自提点
+  <block wx:if="{{ liftInfo.receiver_address_name }}">
+    <view class="title">自提地址</view>
+    <view class="liftInfo">
+      <view class="liftInfoTop">{{ liftInfo.receiver_address_name }}</view>
+      <view class="liftInfoCenter">
+        <image src="/icons/address.png" mode="widthFix" class="icon" />
+        <view class="text">
+          {{ liftInfo.receiver_state + liftInfo.receiver_city + liftInfo.receiver_district + liftInfo.receiver_address }}
+        </view>
+      </view>
+      <view class="liftInfoBottom" wx:if="{{ liftInfo.receiver_address_phone }}">
+        <image src="/icons/phone.png" mode="widthFix" class="icon" />
+        <view class="text">{{ liftInfo.receiver_address_phone }}</view>
+      </view>
     </view>
-    <image src="/icons/right.png" class="right-arrow"></image>
+  </block>
+  <view wx:else class="address title">选择自提点</view>
+  <image src="/icons/right.png" class="right-arrow"></image>
 </navigator>
-
 <view class="receiver" wx:if="{{ !liftInfo.isCanInput }}">
-    <view class="title">提货人：{{ liftInfo.receiver_name }}</view>
-    <view class="tel" style="padding-right: 50rpx">电话<text>*</text>：{{ liftInfo.receiver_phone }}</view>
+  <view class="title">提货人：{{ liftInfo.receiver_name }}</view>
+  <view class="tel" style="padding-right: 50rpx">
+    电话
+    <text>*</text>
+    ：{{ liftInfo.receiver_phone }}
+  </view>
 </view>
-
 <view class="receiver" wx:if="{{ liftInfo.isCanInput }}">
-    <view class="title">
-        提货人：<input type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
-    </view>
-    <view class="tel">
-        电话<text>*</text>：<input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
-    </view>
+  <view class="title">
+    提货人：
+    <input type="text" bindblur="updateLiftInfoName" value="{{ liftInfo.receiver_name }}" />
+  </view>
+  <view class="tel">
+    电话
+    <text>*</text>
+    ：
+    <input type="number" bindblur="updateLiftInfoPhone" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" value="{{ liftInfo.receiver_phone }}" />
+  </view>
 </view>

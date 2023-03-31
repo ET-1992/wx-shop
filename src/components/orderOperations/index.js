@@ -72,10 +72,10 @@ Component({
                 subKeys.push({ key: 'groupon_finished' });
             }
 
-            if (config.cashier_enable) {
-                wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${orderNo}&subKeys=${JSON.stringify(subKeys)}` });
-                return;
-            }
+            // if (config.cashier_enable) {
+            //     wx.navigateTo({ url: `/pages/payCashier/payCashier?order_no=${orderNo}&subKeys=${JSON.stringify(subKeys)}` });
+            //     return;
+            // }
 
             if (this.data.orderPrice <= 0) {
                 await subscribeMessage(subKeys);
@@ -86,14 +86,21 @@ Component({
             }
 
             try {
-                const { pay_sign, pay_appid } = await api.hei.payOrder({
+                const { pay_interact_data = {}} = await api.hei.orderPay({
                     order_nos: JSON.stringify([orderNo]),
+                     'pay_method': 'WEIXIN'
                 });
+
+                const { pay_sign, pay_appid } = pay_interact_data;
 
                 wx.hideLoading();
 
                 if (pay_sign) {
-                    await wxPay(pay_sign, orderNo, subKeys);
+                    // await wxPay(pay_sign, orderNo, subKeys);
+                     await proxy.requestPayment(pay_sign);
+                    wx.showToast({
+                      title: '支付成功',
+                    });
                     wx.redirectTo({ url: `/pages/orderDetail/orderDetail?id=${orderNo}` });
                 } else if (pay_appid) {
                     const {
@@ -225,13 +232,11 @@ Component({
         },
 
         async onRefund() {
-            const user = await this.bindGetUserInfo();
+            // const user = await this.bindGetUserInfo();
             const { orderNo } = this.data;
-            if (user) {
-                wx.redirectTo({
+            wx.redirectTo({
                     url: `/pages/refund/refund?id=${orderNo}`,
                 });
-            }
         },
         async onPay() {
             const user = await this.bindGetUserInfo();
