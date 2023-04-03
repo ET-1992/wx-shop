@@ -55,7 +55,7 @@
         <text class="price-title">下单时间：</text>
         <text>{{ order.createDate }}</text>
       </view>
-      <view class="price address">
+      <view class="price address" wx:if="{{  order.payDate }}">
         <text class="price-title">支付时间：</text>
         <text>{{ order.payDate }}</text>
       </view>
@@ -63,13 +63,13 @@
         <text class="price-title">支付方式：</text>
         <text>{{ '微信支付' }}</text>
       </view>
-      <view class="price address">
+      <view class="price address" wx:if="{{  order.inventory_record }}">
         <text class="price-title">物流公司：</text>
-        <text>￥100.00</text>
+        <text>{{ order.inventory_record[0].logistic_company }}</text>
       </view>
-      <view class="price address">
+      <view class="price address" wx:if="{{   order.inventory_record }}">
         <text class="price-title">物流编号：</text>
-        <text>￥100.00</text>
+        <text>{{ order.inventory_record[0].order_no }}</text>
       </view>
       <!-- <view class="more" bindtap="toLogisticsDetail">
         点击查看物流信息

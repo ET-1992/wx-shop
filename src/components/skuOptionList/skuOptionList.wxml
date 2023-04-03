@@ -10,7 +10,7 @@
         </view>
       </view>
     </view>
-    <view class="modal-line" />
+    <!-- <view class="modal-line" />
     <view class="pay">
       <text>支付方式</text>
       <text class="pay-right">微信支付</text>
@@ -24,7 +24,7 @@
     <view class="message">
       <view>留言</view>
       <textarea class="msg" value="" placeholder="给商家留言" auto-height adjust-position placeholder-style="color:'#B0B3BF';marginTop:4rpx"></textarea>
-    </view>
+    </view> -->
   </view>
   <!-- 规格 -->
   <view mark:type="special_attributes">

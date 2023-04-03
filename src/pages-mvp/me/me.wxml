@@ -1,10 +1,10 @@
 <view class="my">
   <view class="my-header">
-    <view class="my-msg">
-      <image class="img" src="../../icons/mvp/default.png" />
-      <text class="name">{{ 111 }}</text>
+    <view class="my-msg" bind:tap="goPersonal">
+      <image class="img" src="{{ user.avatarurl  || '../../icons/mvp/default.png' }}" />
+      <text class="name">{{ user.nickname || "点击登录" }}</text>
     </view>
-    <!-- <van-icon name="arrow" /> -->
+    <van-icon name="arrow" />
   </view>
   <view class="my-order">
     <view class="order">我的订单</view>

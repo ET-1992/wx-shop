@@ -109,20 +109,35 @@
       </view>
       <scroll-view scroll-y="{{ scrollEnable }}" class="scroll-content-wrap">
         <!-- 商家优惠劵 -->
-        <view class="merchant-Coupons" bind:tap="handleTo">
+        <!-- <view class="merchant-Coupons" bind:tap="handleTo">
           <view class="Coupons-left">优惠</view>
           <view class="Coupons-right">
             商家券
             <text class="Coupons-num">-{{product.coupons_price || 0}}元</text>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
           </view>
-        </view>
+        </view> -->
         <view class="scroll-content">
           <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
           <!-- <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
                     <view class="remark-title">留言</view>
                     <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view> -->
+          <view class="modal-line" />
+          <view class="pay">
+            <text>支付方式</text>
+            <text class="pay-right">微信支付</text>
+          </view>
+          <view class="modal-line" />
+          <view class="pay">
+            <text>运费</text>
+            <text class="pay-right">免费</text>
+          </view>
+          <!-- <view class="modal-line" /> -->
+          <!-- <view class="message">
+            <view>留言</view>
+            <textarea class="msg" value="" placeholder="给商家留言" auto-height adjust-position placeholder-style="color:'#B0B3BF';marginTop:4rpx"></textarea>
+          </view> -->
         </view>
       </scroll-view>
       <!-- <view class="bottom-option-wrap">

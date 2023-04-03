@@ -11,7 +11,9 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    user: {}
+  },
 
   async initPage() {},
 
@@ -34,6 +36,18 @@ Page({
       success(res) {
       }
     });
+  },
+
+  goPersonal() {
+    // wx.navigateTo({
+    //   url: '/pages-mvp/personalInformation/personalInformation',
+    //   success: (result) => {
+
+    //   },
+    //   fail: () => {},
+    //   complete: () => {}
+    // });
+
   },
 
   /**
