@@ -53,6 +53,11 @@ Component({
       type: Boolean,
       value: false,
     },
+
+    message: {
+      type: String,
+      value: ''
+    }
   },
   data: {
     globalData: app.globalData,
@@ -140,6 +145,7 @@ Component({
           selectedSku,
           quantity,
           selectedOptions,
+          message
         } = this.data;
 
       try {
@@ -177,6 +183,7 @@ Component({
             remarks,
             address,
             product,
+            message
           };
         }
         this.triggerEvent('onSkuConfirm', {
@@ -191,10 +198,9 @@ Component({
     },
 
     // 留言表单聚焦/失焦
-    onChangeFormFocus(e) {
-      console.log('---', e);
-      let scrollEnable = false;
-      this.setData({ scrollEnable });
+    onChangeMessage(event) {
+      console.log('---', event);
+      this.setData({ message: event.detail });
     },
   },
 });

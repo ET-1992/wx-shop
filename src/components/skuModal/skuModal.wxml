@@ -102,7 +102,8 @@
             </view>
             <!-- 步进器 -->
             <view class="stepper">
-              <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" />
+              <!-- <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" /> -->
+              <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
           </view>
         </view>
@@ -138,7 +139,7 @@
             <van-field value="免费" label="运费" input-align="right" disabled border="{{ false }}" />
           </van-cell-group> -->
           <van-cell-group>
-            <van-field value="{{ 1234 }}" label="留言" type="textarea" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
+            <van-field value="{{ message }}" label="留言" type="textarea" bind:change="onChangeMessage" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
           </van-cell-group>
         </view>
       </scroll-view>

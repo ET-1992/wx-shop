@@ -1,11 +1,11 @@
 <!-- 导航栏 -->
-<view class="container" style=" padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
+<!-- <customNavigationBar style="position: fixed; z-index: 2"></customNavigationBar> -->
+<view class="container" style="padding-bottom: 8px; --primary-color: {{ themeColor.primaryColor }}">
   <!-- 左边区域 -->
   <scroll-view class="mainCategory" scroll-y scroll-with-animation="{{ 300 }}" scroll-into-view="{{'m' + showIndex}}">
     <view class="mainCategoryInner">
       <view class="mainCategoryItem {{ showIndex === index ? 'selected' : '' }}" wx:for="{{ categories }}" wx:key="id" data-index="{{ index }}" bindtap="onMainCategoryItemClick" id="{{ 'm' + index }}">
         <text class="mainCategoryItemText">{{ item.name }}</text>
-        <text class="line" wx:if="{{showIndex === index}}" />
       </view>
     </view>
   </scroll-view>

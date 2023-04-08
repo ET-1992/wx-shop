@@ -246,8 +246,8 @@ Component({
         },
 
         async bindGetUserInfo() {
-            const user = await getUserProfile();
-            return user;
+            // const user = await getUserProfile();
+            return true;
         },
 
         async toPaymentVouchersPage(e) {
