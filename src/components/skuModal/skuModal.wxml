@@ -25,7 +25,7 @@
         </view>
     </view> -->
   <!-- 商品详情页面 -->
-  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
+  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}" style="paddingBottom: {{   }}">
     <!-- 顶部title -->
     <view class="head-title">确认订单</view>
     <view class="modal-line"></view>
@@ -133,11 +133,13 @@
             <text>运费</text>
             <text class="pay-right">免费</text>
           </view>
-          <!-- <view class="modal-line" /> -->
-          <!-- <view class="message">
-            <view>留言</view>
-            <textarea class="msg" value="" placeholder="给商家留言" auto-height adjust-position placeholder-style="color:'#B0B3BF';marginTop:4rpx"></textarea>
-          </view> -->
+          <view class="modal-line" />
+          <!-- <van-cell-group>
+            <van-field value="免费" label="运费" input-align="right" disabled border="{{ false }}" />
+          </van-cell-group> -->
+          <van-cell-group>
+            <van-field value="{{ 1234 }}" label="留言" type="textarea" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
+          </van-cell-group>
         </view>
       </scroll-view>
       <!-- <view class="bottom-option-wrap">

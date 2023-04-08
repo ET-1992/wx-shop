@@ -376,7 +376,7 @@
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: #111111;
-        padding: 22rpx 24rpx;
+        padding: 22rpx 30rpx;
 
         .pay-right {
           font-size: 28rpx;
@@ -384,22 +384,28 @@
         }
       }
 
-      .message {
-        display: flex;
-        padding: 22rpx 24rpx;
-        font-size: 30rpx;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #111111;
+      // .message {
+      //   display: flex;
+      //   padding: 22rpx 24rpx;
+      //   font-size: 30rpx;
+      //   font-family: PingFangSC-Regular, PingFang SC;
+      //   font-weight: 400;
+      //   color: #111111;
 
-        .msg {
-          height: 192rpx;
-          margin-left: 32rpx;
-          padding-top: 6rpx;
-          font-size: 28rpx;
-          font-family: PingFangSC-Regular, PingFang SC;
-          font-weight: 400;
-        }
+      //   .msg {
+      //     // height: 192rpx;
+      //     margin-left: 32rpx;
+      //     // margin-top: 6rpx;
+      //     font-size: 28rpx;
+      //     font-family: PingFangSC-Regular, PingFang SC;
+      //     font-weight: 400;
+      //   }
+      // }
+      .message-label {
+        font-size: 30rpx;
+        color: #111111;
+        font-weight: 400;
+        font-family: PingFangSC-Regular,PingFang SC;
       }
 
       .fixHegiht {
