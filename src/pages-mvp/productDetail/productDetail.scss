@@ -2,9 +2,10 @@
   background-color: rgba(244, 246, 250, 1);
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  height: 100vh;
 
   .shop-swiper {
     position: relative;

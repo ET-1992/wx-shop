@@ -1,5 +1,5 @@
 <view class="orderDetail">
-  <view class="countDown">
+  <!-- <view class="countDown">
     剩余
     <van-count-down class="count" use-slot time="{{ time }}" bind:change="countdownChange">
       <text class="item">{{ timeData.hours }}</text>:
@@ -7,7 +7,79 @@
       <text class="item">{{ timeData.seconds }}</text>
     </van-count-down>
     自动关闭
+  </view> -->
+  <view class="order-detail">
+    <view class="order">
+      <view class="item" wx:for="{{ order.items }}" wx:key="id">
+        <productList product="{{ item }}" productLayoutStyle="leftImage" />
+      </view>
+      <!-- <view class="btn">
+        <button class="base-btn">售后电话</button>
+        <button class="base-btn">联系商家</button>
+      </view> -->
+    </view>
+    <view class="order">
+      <view class="price">
+        <text class="price-title">商品总价：</text>
+        <text>￥{{ order.products_amount }}</text>
+      </view>
+      <view class="price">
+        <text class="price-title">运费</text>
+        <text>￥{{ order.postage }}</text>
+      </view>
+      <view class="price">
+        <text class="price-title">优惠金额</text>
+        <text>￥{{ order.discount_fee }}</text>
+      </view>
+      <view class="pay">
+        实付
+        <text class="rmb">¥{{ order.amount }}</text>
+      </view>
+    </view>
+    <view class="order">
+      <view class="price address">
+        <text class="price-title address-title">收货地址：</text>
+        <text>
+          {{ order.receiver_name }}  {{ order.receiver_phone }}  {{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
+        </text>
+      </view>
+      <view class="price address">
+        <text class="price-title">买家留言：</text>
+        <text>{{ order.buyer_message || '-' }}</text>
+      </view>
+      <view class="price address">
+        <text class="price-title">订单编号：</text>
+        <text>{{ order.order_no }}</text>
+      </view>
+      <view class="price address">
+        <text class="price-title">下单时间：</text>
+        <text>{{ order.createDate }}</text>
+      </view>
+      <view class="price address" wx:if="{{  order.payDate }}">
+        <text class="price-title">支付时间：</text>
+        <text>{{ order.payDate }}</text>
+      </view>
+      <view class="price address">
+        <text class="price-title">支付方式：</text>
+        <text>{{ '微信支付' }}</text>
+      </view>
+      <view class="price address" wx:if="{{  order.inventory_record }}">
+        <text class="price-title">物流公司：</text>
+        <text>{{ order.inventory_record[0].logistic_company }}</text>
+      </view>
+      <view class="price address" wx:if="{{   order.inventory_record }}">
+        <text class="price-title">物流编号：</text>
+        <text>{{ order.inventory_record[0].order_no }}</text>
+      </view>
+      <!-- <view class="more" bindtap="toLogisticsDetail">
+        点击查看物流信息
+        <van-icon class="icon" name="arrow-down" wx:if="{{!open}}" />
+        <van-icon class="icon" name="arrow-up" wx:if="{{open}}" />
+      </view> -->
+    </view>
   </view>
-  <orderDetail/>
-  <button class="pay-btn">去支付</button>
+  <!-- <button class="pay-btn">去支付</button> -->
+  <view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}" wx:if="{{  order.id }}">
+    <orderOperations phone="{{ order.phone_number }}" isOrderDetail="{{true}}" statusCode="{{ order.statusCode }}" orderNo="{{ order.order_no }}" order="{{ order }}" isShowContact="{{ !order.isDone }}" isShowService="{{ order.isDone }}" isShowRefund="{{ order.statusCode === 2000 || order.statusCode === 2002 || order.statusCode === 3000 || (order.statusCode === 4000 && !order. pay_method) || order.statusCode === 3100}}" user="{{ current_user }}" config="{{ config }}" bindconfirmOrder="onRelaodOrder" bindpayOrder="onRelaodOrder" bindcloseOrder="onRelaodOrder" />
+  </view>
 </view>

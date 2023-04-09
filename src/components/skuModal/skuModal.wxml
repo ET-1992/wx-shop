@@ -25,7 +25,7 @@
         </view>
     </view> -->
   <!-- 商品详情页面 -->
-  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
+  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}" style="paddingBottom: {{   }}">
     <!-- 顶部title -->
     <view class="head-title">确认订单</view>
     <view class="modal-line"></view>
@@ -102,27 +102,45 @@
             </view>
             <!-- 步进器 -->
             <view class="stepper">
-              <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" />
+              <!-- <van-stepper input-class="stepper-input" plus-class="stepper-plus" minus-class="{{ product.shopNum===1?'stepper-minus':'stepper-plus'}}" value="{{ product.shopNum}}" bind:change="" /> -->
+              <numberInput value="{{ quantity }}" postId="{{ product.id }}" skuId="{{ selectedSku.id }}" max="{{ !selectedSku.stock && selectedSku.stock !== 0 ? product.stock : selectedSku.stock }}" bindquantityChangeEvent="updateQuantity" quota="{{ product.quota }}" least="{{ product.least }}" />
             </view>
           </view>
         </view>
       </view>
       <scroll-view scroll-y="{{ scrollEnable }}" class="scroll-content-wrap">
         <!-- 商家优惠劵 -->
-        <view class="merchant-Coupons" bind:tap="handleTo">
+        <!-- <view class="merchant-Coupons" bind:tap="handleTo">
           <view class="Coupons-left">优惠</view>
           <view class="Coupons-right">
             商家券
             <text class="Coupons-num">-{{product.coupons_price || 0}}元</text>
             <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
           </view>
-        </view>
+        </view> -->
         <view class="scroll-content">
           <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
           <!-- <view class="product-remark" wx:if="{{ product.product_annotation.length }}">
                     <view class="remark-title">留言</view>
                     <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view> -->
+          <view class="modal-line" />
+          <view class="pay">
+            <text>支付方式</text>
+            <text class="pay-right">微信支付</text>
+          </view>
+          <view class="modal-line" />
+          <view class="pay">
+            <text>运费</text>
+            <text class="pay-right">免费</text>
+          </view>
+          <view class="modal-line" />
+          <!-- <van-cell-group>
+            <van-field value="免费" label="运费" input-align="right" disabled border="{{ false }}" />
+          </van-cell-group> -->
+          <van-cell-group>
+            <van-field value="{{ message }}" label="留言" type="textarea" bind:change="onChangeMessage" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
+          </van-cell-group>
         </view>
       </scroll-view>
       <!-- <view class="bottom-option-wrap">

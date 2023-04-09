@@ -1,28 +1,32 @@
 <view class="person-info">
   <view wx:if="{{!switchPage}}">
     <view class="info">
-      <view class="avatar">
-        <text class="title">头像</text>
-        <view class="avatar-arrow">
-          <image class="img" src="../../icons/mvp/default.png"/>
-          <van-icon name="arrow" />
+      <button open-type="chooseAvatar">
+        <view class="avatar">
+          <text class="title">头像</text>
+          <view class="avatar-arrow">
+            <image class="img" src="../../icons/mvp/default.png" />
+            <van-icon name="arrow" />
+          </view>
         </view>
-      </view>
-      <view class="line"/>
-      <view class="avatar nickName" bindtap="handleSwitchPage">
-        <text class="title">昵称</text>
-        <view class="avatar-arrow">
-          <text class="name">{{name}}</text>
-          <van-icon name="arrow" />
+      </button>
+      <view class="line" />
+      <button open-type="">
+        <view class="avatar nickName" bindtap="handleSwitchPage">
+          <text class="title">昵称</text>
+          <view class="avatar-arrow">
+            <text class="name">{{name}}</text>
+            <van-icon name="arrow" />
+          </view>
         </view>
-      </view>
+      </button>
     </view>
     <button class="btn">
-      <van-icon name="wechat" style="margin-right: 8rpx;"/>
+      <van-icon name="wechat" style="margin-right: 8rpx;" />
       微信获取信息
     </button>
   </view>
   <view class="info-input" wx:if="{{switchPage}}">
-    <input class="weui-input" value='{{name}}' auto-focus placeholder="请输入昵称" bindconfirm="bindconfirm"/>
+    <input class="weui-input" value='{{name}}' auto-focus placeholder="请输入昵称" bindconfirm="bindconfirm" />
   </view>
 </view>

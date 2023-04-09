@@ -165,7 +165,7 @@ Page({
                         title: '提交成功',
                     });
                     wx.redirectTo({
-                        url: `/pages/orderDetail/orderDetail?id=${order_no}`
+                        url: `/pages-mvp/orderDetail/orderDetail?id=${order_no}`
                     });
                 }
                 else {

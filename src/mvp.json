@@ -10,7 +10,9 @@
     "pages-mvp/productDetail/productDetail",
     "pages-mvp/shippingAddress/shippingAddress",
     "pages-mvp/orderList/orderList",
-    "pages-mvp/personalInformation/personalInformation"
+    "pages-mvp/personalInformation/personalInformation",
+    "pages/logistics/logistics",
+    "pages/refund/refund"
   ],
   "window": {
     "backgroundTextStyle": "light",
