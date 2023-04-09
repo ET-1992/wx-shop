@@ -11,7 +11,8 @@
     position: relative;
     width: 750rpx;
     height: 750rpx;
-    .swiper, .swiper-img{
+    .swiper,
+    .swiper-img {
       width: 750rpx;
       height: 750rpx;
     }
@@ -37,14 +38,13 @@
     }
   }
 
-
   .shop-time {
     position: relative;
-    .time-img{
+    .time-img {
       width: 100%;
       height: 160rpx;
     }
-    .time{
+    .time {
       position: absolute;
       top: 0;
       display: flex;
@@ -52,62 +52,59 @@
       padding: 28rpx 20rpx;
       width: 100%;
       height: 160rpx;
-        .time-text {
+      .time-text {
         font-size: 28rpx;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
-        color: #FFFFFF;
+        color: #ffffff;
         line-height: 40rpx;
-        .order{
+        .order {
           margin-top: 8rpx;
-          .order-box{
+          .order-box {
             width: 188rpx;
-            background: #FFFFFF;
+            background: #ffffff;
             border-radius: 28rpx;
-            color: #FE4F06;
+            color: #fe4f06;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
             padding: 8rpx 24rpx;
             margin-left: 12rpx;
-            .order-number{
+            .order-number {
               font-size: 40rpx;
             }
           }
         }
       }
-    .countdown{
-      display: block;
-      font-size: 24rpx;
-      font-family: PingFangSC-Regular, PingFang SC;
-      font-weight: 400;
-      color: #FFFFFF;
-      text-align: end;
-      .countdown-time{
-        .van-count-down{
-          color: #ffffff;
-        }
-        .item {
+      .countdown {
+        display: block;
+        font-size: 24rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #ffffff;
+        text-align: end;
+        .countdown-time {
+          .van-count-down {
+            color: #ffffff;
+          }
+          .item {
             display: inline-block;
-            color: #FE4F06;
+            color: #fe4f06;
             font-size: 24rpx;
             text-align: center;
-            background: #FFFFFF;
+            background: #ffffff;
             border-radius: 8rpx;
             width: 40rpx;
             height: 40rpx;
             margin: 0 10rpx;
           }
+        }
       }
-     
-    }  
     }
-  
   }
 
- 
   .shop-detail {
     margin: 24rpx 20rpx;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16rpx;
     padding: 16rpx 28rpx 16rpx;
     .shop-price {
@@ -143,29 +140,29 @@
       }
     }
 
-  .service{
-		padding: 24rpx 0;
-		display: flex;
-		justify-content: flex-start;
+    .service {
+      padding: 24rpx 0;
+      display: flex;
+      justify-content: flex-start;
 
-		.desc{
-			width: 600rpx;
-			.service-item{
-				font-size: 24rpx;
-				display: block;
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				padding-bottom: 15rpx;
-			}
-		}
+      .desc {
+        width: 600rpx;
+        .service-item {
+          font-size: 24rpx;
+          display: block;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding-bottom: 15rpx;
+        }
+      }
 
-		.text{
-			font-size: 24rpx;
-			color: #000000;
-			padding-right: 28rpx;
-		}
-	}
+      .text {
+        font-size: 24rpx;
+        color: #000000;
+        padding-right: 28rpx;
+      }
+    }
 
     .shop-desc {
       overflow-wrap: break-word;
@@ -207,15 +204,12 @@
         white-space: nowrap;
         line-height: 34rpx;
       }
-      
     }
-  
-   
   }
 
   .shop-discount {
     margin: 0rpx 20rpx;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 16rpx;
     .shop-serve {
       background-color: rgba(255, 255, 255, 1);
@@ -280,23 +274,23 @@
   // .shop-image {
   //   margin-top: -2rpx;
   // }
-  .shop-button{
+  .shop-button {
     position: fixed;
     width: 750rpx;
     bottom: 0;
-    background: #FFFFFF;
+    background: #ffffff;
     padding: 0 20rpx;
     padding-bottom: calc(30rpx + env(safe-area-inset-bottom));
-    box-shadow: 0rpx -2rpx 0rpx 0rpx #F1F1F3;
+    box-shadow: 0rpx -2rpx 0rpx 0rpx #f1f1f3;
     .def-btn {
       width: 710rpx;
       height: 88rpx;
-      background: #FE4F06;
+      background: #fe4f06;
       border-radius: 8rpx;
       font-size: 28rpx;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
-      color: #FFFFFF;
+      color: #ffffff;
       line-height: 88rpx;
     }
   }
@@ -304,26 +298,168 @@
     display: flex;
     align-items: center;
     // justify-content: center;
-    flex-direction:column;
+    flex-direction: column;
     margin-top: 320rpx;
     height: 100%;
-    .overlay-img{
+    .overlay-img {
       width: 526rpx;
       height: 388rpx;
-      background-color: #FE4F06;
+      background-color: #fe4f06;
     }
-    .overlay-close{
+    .overlay-close {
       margin-top: 60rpx;
     }
   }
-
 
   .shop-detail-content {
     .shop-detail-image {
       width: 750rpx;
     }
   }
-  
- 
 }
+.text-modal {
+  .modal {
+    padding: 48rpx;
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #111111;
+    .price {
+      color: #fe4f06;
+    }
+  }
+  .van-button {
+    background-color: #fe4f06;
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+  }
+  .van-hairline--right {
+    .van-button {
+      background-color: #fff;
+    }
+  }
+}
+.countdown-modal {
+  border: 6rpx solid #debda1;
+  .modal-content {
+    width: 100%;
+    position: relative;
+    .modal-img {
+      height: 160rpx;
+      width: 100%;
+    }
+    .text {
+      position: absolute;
+      top: 28rpx;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      font-size: 48rpx;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #ffffff;
+      height: 90rpx;
+      width: 350rpx;
+      .num {
+        font-size: 65rpx;
+        padding: 0 20rpx;
+      }
+    }
+    .modal-countdown {
+      width: 100%;
+      border: 6rpx solid #debda1;
+      border-bottom-right-radius: 32rpx;
+      border-bottom-left-radius: 32rpx;
+      border-top: 0;
+      margin-top: -13rpx;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32rpx 0;
+      .countdown-time {
+        margin-bottom: 48rpx;
+        .van-count-down {
+          color: #fe4f06;
+        }
+        .item {
+          display: inline-block;
+          color: #ffffff;
+          font-size: 24rpx;
+          text-align: center;
+          border-radius: 8rpx;
+          width: 40rpx;
+          height: 40rpx;
+          margin: 0 10rpx;
+          background-color: #fe4f06;
+        }
+        .time-text {
+          font-size: 28rpx;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #111111;
+          width: 40rpx;
+          height: 40rpx;
+          line-height: 40rpx;
+        }
+      }
 
+      .btn {
+        width: 472rpx;
+        height: 88rpx;
+        background: linear-gradient(
+          180deg,
+          #ffad9b 0%,
+          #ff362e 51%,
+          #ff5757 100%
+        );
+        border-radius: 44rpx;
+        border: 6rpx solid #debda1;
+        font-size: 32rpx;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #ffffff;
+        line-height: 76rpx;
+        text-align: center;
+      }
+      .showCountDown {
+        margin: 64rpx 0;
+      }
+    }
+  }
+}
+.def-img {
+  .modal-img {
+    width: 526rpx;
+    height: 388rpx;
+    position: relative;
+    background-color: var(--overlay-background-color, rgba(0, 0, 0, 0.7));
+    .img-bg {
+      width: 100%;
+      height: 100%;
+    }
+    .price {
+      position: absolute;
+      top: 90rpx;
+      left: 190rpx;
+      width: 156rpx;
+      height: 134rpx;
+      font-size: 40rpx;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #f01a0b;
+      line-height: 56rpx;
+      .num {
+        font-size: 96rpx;
+        margin-left: 10rpx;
+      }
+    }
+    .img-btn {
+      width: 462rpx;
+      height: 92rpx;
+      position: absolute;
+      bottom: 32rpx;
+      left: 0;
+      margin: 0 32rpx;
+    }
+  }
+}

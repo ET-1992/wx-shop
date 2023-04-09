@@ -94,3 +94,59 @@
 </view>
 <!-- SKU -->
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
+<!-- 文字弹窗 -->
+<van-dialog
+  use-slot
+  title=""
+  show="{{ textModal }}"
+  show-cancel-button
+  confirm-button-open-type="getUserInfo"
+  cancel-button-color="#606266"
+  confirm-button-color="#ffffff"
+  class="text-modal"
+>
+  <view class="modal">您有一张<text class="price">5元</text>的商家优惠券还未使用，点击确定立即使用</view>
+</van-dialog>
+
+<!-- 倒计时弹窗 -->
+<van-dialog
+  use-slot
+  title=""
+  show="{{ countdownModal }}"
+  class="countdown-modal"
+  show-confirm-button="{{false}}"
+  close-on-click-overlay
+>
+<view class="modal-content">
+  <image class="modal-img" src='../../icons/mvp/modal-bg.png'/>
+  <view class="text">限时立减<text class="num">10</text>元</view>
+  <view class="modal-countdown">
+    <van-count-down wx:if="{{showCountDown}}" use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
+         <text class="time-text">剩余</text> 
+         <text class="item">{{ timeData.hours }}</text>
+          :
+          <text class="item">{{ timeData.minutes }}</text>
+          :
+          <text class="item">{{ timeData.seconds }}</text>
+          <text class="time-text">结束</text> 
+        </van-count-down>
+    <button class="btn {{!showCountDown?'showCountDown':''}}">立即下单</button>
+  </view>
+</view>
+</van-dialog>
+
+<van-dialog
+  use-slot
+  title=""
+  show="{{ true }}"
+  custom-class="def-img"
+  show-confirm-button="{{false}}"
+  close-on-click-overlay
+  customStyle="width: 526rpx; border:none"
+>
+<view class="modal-img">
+  <image class="img-bg" src='../../icons/mvp/def-modal.png'/>
+  <view class="price">¥ <text class="num">40</text></view>
+  <image class="img-btn" src='../../icons/mvp/def-btn.png'/>
+</view>
+</van-dialog>
