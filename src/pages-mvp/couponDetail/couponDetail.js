@@ -21,7 +21,7 @@ Page({
     'isUse': true, // 是否使用
     'isThreshold': true, // s是否达到门槛
     'validity_period': '2023-3-3' // 有效期
-    
+
   },
   {
     'id': 1064,
@@ -51,5 +51,8 @@ Page({
 ]
     },
 
+    async onLoad(options) {
+     const data =  await api.hei.fetchCouponList();
+    },
 
 });

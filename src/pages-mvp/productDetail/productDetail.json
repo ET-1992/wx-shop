@@ -5,6 +5,10 @@
     "van-count-down": "@vant/weapp/dist/count-down/index",
     "van-overlay": "@vant/weapp/dist/overlay/index",
     "van-icon": "@vant/weapp/dist/icon/index",
-    "van-dialog": "@vant/weapp/dist/dialog/index"
-  }
+    "van-dialog": "@vant/weapp/dist/dialog/index",
+    "send-coupon": "plugin://sendCoupon/send-coupon",
+    "van-popup": "@vant/weapp/dist/popup/index",
+    "van-nav-bar": "@vant/weapp/dist/nav-bar/index"
+  },
+  "navigationStyle": "custom"
 }

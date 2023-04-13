@@ -1,3 +1,4 @@
+<van-nav-bar title="商品详情" left-text="返回" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view class="page" style="--primaryColor:  #FE4F06">
   <view class="shop-swiper">
     <swiper autoplay="{{autoplay}}" class="swiper" bindchange="currentIndex" indicator-dots="{{true}}" indicator-active-color="{{ '#FE4F06'}}" indicator-color="#fff">
@@ -36,10 +37,10 @@
     </view>
   </view> -->
   <view class="shop-detail">
-    <view class="shop-price">
+    <view class="shop-price" wx:if="{{ product.coupons_price }}">
       <view class="coupon">
         券后￥
-        <text lines="1" class="coupon-price">{{ product.price }}</text>
+        <text lines="1" class="coupon-price">{{ product.price -  product.coupons_price }}</text>
         起
       </view>
       <text lines="1" class="original-price">原价￥{{product.price }}起</text>
@@ -81,7 +82,7 @@
   <view class="shop-detail-content">
     <image class="shop-detail-image" src="{{ item }}" mode="widthFix" lazy-load="false" binderror="" bindload="" wx:for="{{  product.content }}" />
   </view>
-  <view class="shop-button" bindtap="handleClick">
+  <view class="shop-button" bindtap="onShowSkuModal">
     <button size="default" class="def-btn">点我下单</button>
   </view>
   <!-- 优惠卷弹窗 -->
@@ -95,58 +96,67 @@
 <!-- SKU -->
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <!-- 文字弹窗 -->
-<van-dialog
-  use-slot
-  title=""
-  show="{{ textModal }}"
-  show-cancel-button
-  confirm-button-open-type="getUserInfo"
-  cancel-button-color="#606266"
-  confirm-button-color="#ffffff"
-  class="text-modal"
->
-  <view class="modal">您有一张<text class="price">5元</text>的商家优惠券还未使用，点击确定立即使用</view>
+<van-dialog use-slot title="" show="{{ showModalType === 'text' }}" show-cancel-button confirm-button-open-type="getUserInfo" cancel-button-color="#606266" confirm-button-color="#ffffff" class="text-modal">
+  <view class="modal">
+    <!-- 您有一张
+    <text class="price">5元</text>
+    的商家优惠券还未使用，点击确定立即使用 -->
+    {{ promotion.data.text_show_content }}
+  </view>
 </van-dialog>
-
 <!-- 倒计时弹窗 -->
-<van-dialog
-  use-slot
-  title=""
-  show="{{ countdownModal }}"
-  class="countdown-modal"
-  show-confirm-button="{{false}}"
-  close-on-click-overlay
->
-<view class="modal-content">
-  <image class="modal-img" src='../../icons/mvp/modal-bg.png'/>
-  <view class="text">限时立减<text class="num">10</text>元</view>
-  <view class="modal-countdown">
-    <van-count-down wx:if="{{showCountDown}}" use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
-         <text class="time-text">剩余</text> 
-         <text class="item">{{ timeData.hours }}</text>
-          :
-          <text class="item">{{ timeData.minutes }}</text>
-          :
-          <text class="item">{{ timeData.seconds }}</text>
-          <text class="time-text">结束</text> 
-        </van-count-down>
-    <button class="btn {{!showCountDown?'showCountDown':''}}">立即下单</button>
+<van-dialog use-slot title="" show="{{ showModalType === 'dialog' }}" class="countdown-modal" show-confirm-button="{{false}}" close-on-click-overlay>
+  <view class="modal-content">
+    <image class="modal-img" src='../../icons/mvp/modal-bg.png' />
+    <view class="text">
+      限时立减
+      <text class="num">{{ promotion.data.discount_amount }}</text>
+      元
+    </view>
+    <view class="modal-countdown">
+      <van-count-down wx:if="{{showCountDown}}" use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
+        <text class="time-text">剩余</text>
+        <text class="item">{{ timeData.hours }}</text>
+        :
+        <text class="item">{{ timeData.minutes }}</text>
+        :
+        <text class="item">{{ timeData.seconds }}</text>
+        <text class="time-text">结束</text>
+      </van-count-down>
+      <button class="btn {{!showCountDown?'showCountDown':''}}" bind:tap="onCloseModal">
+        立即下单
+      </button>
+    </view>
+  </view>
+</van-dialog>
+<!-- 海报弹窗 -->
+<view class="poster-modal" wx:if="{{ showModalType === 'poster' }}">
+  <view class="countdown">
+    <text class="text">30秒后失效</text>
+    <van-count-down use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
+      <text class="item">{{ timeData.hours }}</text>
+      :
+      <text class="item">{{ timeData.minutes }}</text>
+      :
+      <text class="item">{{ timeData.seconds }}</text>
+    </van-count-down>
+  </view>
+  <image class="img" src="{{ promotion.data.poster_image }}" />
+  <button class="btn" bind:tap="onCloseModal">领券下单</button>
+</view>
+<!-- 优惠卷 -->
+<!-- <van-popup show="{{ true }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions"> -->
+<!-- <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" /> -->
+<view class="def-img" wx:if="{{ showModalType === 'coupon' }}">
+  <view class="modal-img">
+    <image class="img-bg" src='../../icons/mvp/def-modal.png' />
+    <view class="price">
+      ¥
+      <text class="num">40</text>
+    </view>
+    <send-coupon bind:sendcoupon="getcoupon" bind:userconfirm="userconfirm" send_coupon_params="{{promotion.weixin_coupon_args.send_coupon_params}}" sign="{{promotion.weixin_coupon_args.sign}}" send_coupon_merchant="{{promotion.weixin_coupon_args.send_coupon_merchant}}" suggest_immediate_use="{{promotion.suggest_immediate_use}}">
+      <image class="img-btn" src='../../icons/mvp/def-btn.png' />
+    </send-coupon>
   </view>
 </view>
-</van-dialog>
-
-<van-dialog
-  use-slot
-  title=""
-  show="{{ true }}"
-  custom-class="def-img"
-  show-confirm-button="{{false}}"
-  close-on-click-overlay
-  customStyle="width: 526rpx; border:none"
->
-<view class="modal-img">
-  <image class="img-bg" src='../../icons/mvp/def-modal.png'/>
-  <view class="price">¥ <text class="num">40</text></view>
-  <image class="img-btn" src='../../icons/mvp/def-btn.png'/>
-</view>
-</van-dialog>
+<!-- </van-popup> -->

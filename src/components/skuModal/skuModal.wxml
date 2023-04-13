@@ -56,11 +56,11 @@
                             <text>{{ selectedSku.coin_price || product.coin_price }}</text>
                         </view>
                     </view> -->
-          <view class="price">
+          <view class="price" wx:if="{{ product.coupons_price }}">
             <text>券后</text>
             <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
             <view class="groupon">
-              <text>{{ selectedOptions.price }}</text>
+              <text>{{ selectedOptions.price - product.coupons_price }}</text>
             </view>
             <!-- <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
                             <text>{{ product.price + selectedOptions.relationPrice }}</text>
@@ -110,14 +110,14 @@
       </view>
       <scroll-view scroll-y="{{ scrollEnable }}" class="scroll-content-wrap">
         <!-- 商家优惠劵 -->
-        <!-- <view class="merchant-Coupons" bind:tap="handleTo">
+        <view class="merchant-Coupons" wx:if="{{ product.coupons_price }}">
           <view class="Coupons-left">优惠</view>
           <view class="Coupons-right">
             商家券
             <text class="Coupons-num">-{{product.coupons_price || 0}}元</text>
-            <van-icon name="arrow" size='32rpx' color="#B0B3BF" />
+            <!-- <van-icon name="arrow" size='32rpx' color="#B0B3BF" /> -->
           </view>
-        </view> -->
+        </view>
         <view class="scroll-content">
           <skuOptionList product="{{ product }}" bind:select="onOptionSelect" />
           <!-- <view class="product-remark" wx:if="{{ product.product_annotation.length }}">

@@ -428,11 +428,29 @@
   }
 }
 .def-img {
+
+  // position: fixed;
+  // top: 250rpx;
+  // transform: translate(-50%, 0);
+  // left: 50%;
+
+  width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10000;
   .modal-img {
     width: 526rpx;
     height: 388rpx;
     position: relative;
-    background-color: var(--overlay-background-color, rgba(0, 0, 0, 0.7));
+    // background-color: var(--overlay-background-color, rgba(0, 0, 0, 0.7));
     .img-bg {
       width: 100%;
       height: 100%;
@@ -461,5 +479,68 @@
       left: 0;
       margin: 0 32rpx;
     }
+  }
+}
+
+
+.poster-modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000000;
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 64rpx;
+    background: rgba(0, 0, 0, 0.8);
+    font-size: 24rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    .countdown-time {
+      margin-left: 18rpx;
+      .van-count-down {
+        color: #ffffff;
+      }
+      .item {
+        display: inline-block;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 8rpx;
+        width: 40rpx;
+        height: 40rpx;
+        font-size: 24rpx;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .img {
+    width: 100%;
+    height: 100vh;
+  }
+  .btn {
+    position: fixed;
+    margin: 0 48rpx;
+    bottom: 150rpx;
+    @supports (bottom: env(safe-area-inset-bottom)) {
+      bottom: env(safe-area-inset-bottom);
+    }
+    width: 654rpx;
+    height: 88rpx;
+    background: linear-gradient(180deg, #fff1ee 3%, #ffbf84 100%);
+    box-shadow: 0rpx 0rpx 16rpx 0rpx rgba(55, 55, 55, 0.3),
+      0rpx 2rpx 8rpx 0rpx rgba(28, 28, 28, 0.2);
+    border-radius: 44rpx;
   }
 }

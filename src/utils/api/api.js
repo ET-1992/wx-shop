@@ -140,11 +140,11 @@ export const apis = {
         path: 'api/mag.groupon.get.json',
         isForceToken: true,
     },
-    fetchCouponList: {
-        path: 'api/mag.coupon.list.json',
-        method: 'GET',
-        isForceToken: true,
-    },
+    // fetchCouponList: {
+    //     path: 'api/mag.coupon.list.json',
+    //     method: 'GET',
+    //     isForceToken: true,
+    // },
     fetchMyCouponList: {
         path: 'api/mag.coupon.my.json?v2',
         method: 'POST',
@@ -968,5 +968,33 @@ export const apis = {
       isForceToken: true,
       method: 'POST',
       contentType: 'json'
-    }
+    },
+
+    productExtra: {
+      path: '/api/product/extra.json',
+      isForceToken: true,
+      method: 'GET',
+      contentType: 'json'
+    },
+
+    fetchCouponList: {
+      path: '/api/coupon/my/list.json',
+      isForceToken: true,
+      method: 'GET',
+      contentType: 'json'
+    },
+
+    getRecoverProject: {
+      path: '/api/recover_project/promotion.json',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
+    },
+
+    orderRefresh: {
+      path: '/api/order/refresh.json',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
+    },
 };

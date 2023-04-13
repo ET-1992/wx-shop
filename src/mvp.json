@@ -7,7 +7,7 @@
     "pages-mvp/productList/productList",
     "pages-mvp/category/category",
     "pages-mvp/couponDetail/couponDetail",
-     "pages-mvp/productDetail/productDetail",
+    "pages-mvp/productDetail/productDetail",
     "pages-mvp/posterModal/posterModal",
     "pages-mvp/shippingAddress/shippingAddress",
     "pages-mvp/orderList/orderList",
@@ -53,7 +53,12 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "plugins": {},
+  "plugins": {
+    "sendCoupon": {
+      "version": "latest",
+      "provider": "wxf3f436ba9bd4be7b"
+    }
+  },
   "requiredPrivateInfos": [
     "getLocation",
     "onLocationChange",

@@ -496,6 +496,10 @@
     "contactPlugin": {
       "version": "1.3.0",
       "provider": "wx104a1a20c3f81ec2"
+    },
+    "sendCoupon": {
+      "version": "latest",
+      "provider": "wxf3f436ba9bd4be7b"
     }
   }
 }

@@ -7,6 +7,11 @@ import behaviorSku from 'utils/behavior/behaviorSku';
 const app = getApp();
 Component({
   behaviors: [behaviorSku],
+  observers: {
+    'product': function(e, e1) {
+        console.log(e, e1, '==');
+    },
+  },
   properties: {
     isShowSkuModal: {
       type: Boolean,
@@ -57,6 +62,10 @@ Component({
     message: {
       type: String,
       value: ''
+    },
+    product: {
+      type: Object,
+      value: {}
     }
   },
   data: {
