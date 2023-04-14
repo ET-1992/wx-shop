@@ -1,5 +1,5 @@
-import getRemainTime from "utils/getRemainTime";
-import { CONFIG } from "constants/index";
+import getRemainTime from 'utils/getRemainTime';
+import { CONFIG } from 'constants/index';
 const app = getApp();
 
 Component({
@@ -8,7 +8,7 @@ Component({
       type: Object,
       value: {},
     },
-    statusText: "",
+    statusText: '',
     article: {
       type: Object,
       value: {},
@@ -89,11 +89,11 @@ Component({
     },
     productLayoutStyle: {
       type: String,
-      value: "topImage",
+      value: 'topImage',
     },
     tplStyle: {
       type: String,
-      value: "default",
+      value: 'default',
     },
     nextCursor: {
       type: Number,
@@ -107,7 +107,7 @@ Component({
     // 商品促销类型
     type: {
       type: String,
-      value: "miaosha",
+      value: 'miaosha',
     },
     // 会员专属商品的市场价
     marketPrice: {
@@ -123,9 +123,9 @@ Component({
   data: {
     nowTS: Date.now() / 1000,
     remainTime: {
-      hour: "00",
-      minute: "00",
-      second: "00",
+      hour: '00',
+      minute: '00',
+      second: '00',
     },
     hasStart: true,
     hasEnd: false,
@@ -143,7 +143,7 @@ Component({
   // }
   lifetimes: {
     attached: function () {
-      console.log("---111");
+      console.log('---111');
       const config = wx.getStorageSync(CONFIG);
       this.setData({ config });
     },

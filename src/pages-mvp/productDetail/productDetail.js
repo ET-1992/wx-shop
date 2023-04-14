@@ -1,7 +1,7 @@
 // pages/shopDetail/index.js
 
 import api from 'utils/api';
-import { autoTransformAddress } from 'utils/util';
+import { autoTransformAddress, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
 
 const app = getApp();
@@ -55,6 +55,26 @@ Page({
     if (promotion && promotion.type) {
       showModalType = promotion.type === 'discount_code' ? promotion.data.style_type : promotion.type;
 
+      if (showModalType === 'page') {
+
+        const params = {
+          key: promotion.data.key,
+          project,
+          cid,
+          product_id: id,
+          type: promotion.action_type
+        };
+        wx.navigateTo({
+          url: joinUrl('/pages-mvp/promotionList/promotionList', params),
+          success: (result) => {
+
+          },
+          fail: () => {},
+          complete: () => {}
+        });
+
+      }
+
       this.setData({
         promotion,
         showModalType
@@ -66,14 +86,21 @@ Page({
   },
 
   async onClickLeft() {
-   const ak =  await this.showModal({ type: 'recover_promotion' });
-   if (ak) {
-    await this.loadProductExtra();
-   } else {
-    wx.switchTab({
-      url: '/pages/home/home'
-    });
-   }
+    const { project } = this.options;
+    if (project) {
+      const ak =  await this.showModal({ type: 'recover_promotion' });
+      if (ak) {
+       await this.loadProductExtra();
+      } else {
+       wx.switchTab({
+         url: '/pages/home/home'
+       });
+      }
+    } else {
+      wx.navigateBack({
+        delta: 1
+      });
+    }
   },
 
   onCloseModal() {
@@ -176,7 +203,7 @@ Page({
         buyer_message: message,
         project,
         cid,
-        promotion: best_promotion
+        promotions: best_promotion
       };
       console.log(orderQuery);
       const { order_no } = await api.hei.orderCreate(orderQuery);
@@ -193,6 +220,9 @@ Page({
       });
     } catch (e) {
       console.log('requestPayment err', e);
+      wx.showToast({
+        title: '支付取消',
+      });
       // const { errMsg } = e;
       // if (errMsg.indexOf('cancel') >= 0) {
       //   await wxProxy.showModal({

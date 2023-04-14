@@ -997,4 +997,11 @@ export const apis = {
       method: 'POST',
       contentType: 'json'
     },
+
+    getPromotionList: {
+      path: '/api/recover_project/promotion/detail.json',
+      isForceToken: true,
+      method: 'GET',
+      contentType: 'json'
+    },
 };

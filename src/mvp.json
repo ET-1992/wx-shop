@@ -13,7 +13,8 @@
     "pages-mvp/orderList/orderList",
     "pages-mvp/personalInformation/personalInformation",
     "pages/logistics/logistics",
-    "pages/refund/refund"
+    "pages/refund/refund",
+    "pages-mvp/promotionList/promotionList"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -25,7 +25,7 @@
         </view>
     </view> -->
   <!-- 商品详情页面 -->
-  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}" style="paddingBottom: {{   }}">
+  <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
     <!-- 顶部title -->
     <view class="head-title">确认订单</view>
     <view class="modal-line"></view>
@@ -56,37 +56,20 @@
                             <text>{{ selectedSku.coin_price || product.coin_price }}</text>
                         </view>
                     </view> -->
-          <view class="price" wx:if="{{ product.coupons_price }}">
-            <text>券后</text>
-            <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
-            <view class="groupon">
-              <text>{{ selectedOptions.price - product.coupons_price }}</text>
+          <view class="price">
+            <view style="display: flex">
+              <view wx:if="{{ product.coupons_price }}">券后</view>
+              <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
+              <view class="groupon">
+                <text>{{ selectedOptions.price - product.coupons_price }}</text>
+              </view>
             </view>
-            <!-- <view wx:elif="{{ product.groupon_enable && !isGrouponBuy && !selectedSku.id }}">
-                            <text>{{ product.price + selectedOptions.relationPrice }}</text>
-                        </view>
-                        <view wx:elif="{{ !(now > product.miaosha_end_timestamp) && (now > product.miaosha_start_timestamp) && product.miaosha_enable }}">
-                            <text>{{ product.definePrice + selectedOptions.relationPrice }}</text>
-                        </view> -->
-            <!-- 秒杀 -->
-            <!-- <view wx:elif="{{ (now < product.seckill_end_timestamp) && (now > product.seckill_start_timestamp) && product.seckill_enable }}">
-                            <text>{{ product.seckill_price + selectedOptions.relationPrice }}</text>
-                        </view>
-                        <view wx:elif="{{ product.bargain_enable && isBargainBuy }}">
-                            <text>{{ product.bargain_price + selectedOptions.relationPrice }}</text>
-                        </view>
-                        <view wx:elif="{{ selectedSku.id }}">
-                            <text>{{ selectedSku.price + selectedOptions.relationPrice }}</text>
-                        </view>
-                        <view wx:elif="{{ product.highest_price > product.definePrice }}">
-                            <text>{{ product.definePrice + '-' + (product.highest_price + selectedOptions.relationPrice) }}</text>
-                        </view> -->
             <view>
               <!-- <text>{{ product.definePrice + selectedOptions.relationPrice }}</text> -->
-              <text class="price-last">
+              <view class="price-last" wx:if="{{ product.coupons_price }}">
                 券前¥
                 <text class="">{{ selectedOptions.price }}</text>
-              </text>
+              </view>
             </view>
           </view>
           <view>

@@ -1,4 +1,4 @@
-<van-nav-bar title="商品详情" left-text="返回" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<van-nav-bar title="商品详情" left-text="返回" fixed="{{ true }}" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view class="page" style="--primaryColor:  #FE4F06">
   <view class="shop-swiper">
     <swiper autoplay="{{autoplay}}" class="swiper" bindchange="currentIndex" indicator-dots="{{true}}" indicator-active-color="{{ '#FE4F06'}}" indicator-color="#fff">
@@ -131,7 +131,7 @@
 </van-dialog>
 <!-- 海报弹窗 -->
 <view class="poster-modal" wx:if="{{ showModalType === 'poster' }}">
-  <view class="countdown">
+  <!-- <view class="countdown">
     <text class="text">30秒后失效</text>
     <van-count-down use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
       <text class="item">{{ timeData.hours }}</text>
@@ -140,7 +140,7 @@
       :
       <text class="item">{{ timeData.seconds }}</text>
     </van-count-down>
-  </view>
+  </view> -->
   <image class="img" src="{{ promotion.data.poster_image }}" />
   <button class="btn" bind:tap="onCloseModal">领券下单</button>
 </view>
@@ -152,7 +152,7 @@
     <image class="img-bg" src='../../icons/mvp/def-modal.png' />
     <view class="price">
       ¥
-      <text class="num">40</text>
+      <text class="num">{{ promotion.data.coupon.discount_amount }}</text>
     </view>
     <send-coupon bind:sendcoupon="getcoupon" bind:userconfirm="userconfirm" send_coupon_params="{{promotion.weixin_coupon_args.send_coupon_params}}" sign="{{promotion.weixin_coupon_args.sign}}" send_coupon_merchant="{{promotion.weixin_coupon_args.send_coupon_merchant}}" suggest_immediate_use="{{promotion.suggest_immediate_use}}">
       <image class="img-btn" src='../../icons/mvp/def-btn.png' />

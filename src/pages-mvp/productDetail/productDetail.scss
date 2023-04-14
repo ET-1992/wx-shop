@@ -5,7 +5,6 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-  height: 100vh;
 
   .shop-swiper {
     position: relative;
@@ -312,8 +311,10 @@
   }
 
   .shop-detail-content {
+    overflow: hidden;
+    padding-bottom: 80rpx;
     .shop-detail-image {
-      width: 750rpx;
+      width: 100%;
     }
   }
 }
@@ -532,10 +533,7 @@
   .btn {
     position: fixed;
     margin: 0 48rpx;
-    bottom: 150rpx;
-    @supports (bottom: env(safe-area-inset-bottom)) {
-      bottom: env(safe-area-inset-bottom);
-    }
+    bottom: calc(150rpx + env(safe-area-inset-bottom));
     width: 654rpx;
     height: 88rpx;
     background: linear-gradient(180deg, #fff1ee 3%, #ffbf84 100%);
