@@ -1,8 +1,8 @@
 // pages/shopDetail/index.js
 
-import api from "utils/api";
-import { autoTransformAddress } from "utils/util";
-import wxProxy from "utils/wxProxy";
+import api from 'utils/api';
+import { autoTransformAddress } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
 
 const app = getApp();
 
@@ -11,22 +11,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: "12312",
-    switchPage: false,
+    avatar: '../../icons/mvp/default.png'
   },
 
   async initPage() {},
 
-  handleSwitchPage() {
-    this.setData({ switchPage: !this.data.switchPage });
-  },
-
   bindconfirm(value) {
     // console.log(value?.detail.value, 98788);
-    this.setData({
-      switchPage: !this.data.switchPage,
-      // name: value?.detail?.value,
-    });
+  },
+
+  onConfirm() {
+
+  },
+
+  async onChooseAvatar(e) {
+    console.log(e, 'eee');
+  const { avatarUrl } = e.detail;
+
+  const data = await api.hei.upload({
+    filePath: avatarUrl
+  });
+  console.log(data, '----');
+  this.setData({
+    avatar: avatarUrl
+  });
   },
 
   /**
