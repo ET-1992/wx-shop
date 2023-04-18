@@ -104,8 +104,17 @@ Page({
   },
 
   onCloseModal() {
+    const { paying, orderNo, pay_sign } = this;
     this.setData({
       showModalType: ''
+    }, () => {
+      if (paying) {
+        this.wxPay(pay_sign, orderNo);
+      } else {
+        this.setData({
+          isShowSkuModal: true
+        });
+      }
     });
   },
 
@@ -214,15 +223,16 @@ Page({
       });
       console.log(pay_interact_data, '--');
       const { pay_sign } = pay_interact_data;
-      await wxProxy.requestPayment(pay_sign);
-      wx.showToast({
-        title: '支付成功',
-      });
+      this.wxPay(pay_sign, orderNo);
+      // await wxProxy.requestPayment(pay_sign);
+      // wx.showToast({
+      //   title: '支付成功',
+      // });
     } catch (e) {
-      console.log('requestPayment err', e);
-      wx.showToast({
-        title: '支付取消',
-      });
+      // console.log('requestPayment err', e);
+      // wx.showToast({
+      //   title: '支付取消',
+      // });
       // const { errMsg } = e;
       // if (errMsg.indexOf('cancel') >= 0) {
       //   await wxProxy.showModal({
@@ -239,9 +249,35 @@ Page({
       //   });
       // }
       // await this.loadProductExtra();
-      await this.showModal({ type: 'pay_fail_promotion' });
-      await api.hei.orderRefresh({ 'order_no': orderNo });
-      await this.loadProductExtra();
+      // await this.showModal({ type: 'pay_fail_promotion' });
+      // await api.hei.orderRefresh({ 'order_no': orderNo });
+      // await this.loadProductExtra();
+    }
+  },
+
+  async wxPay(pay_sign, orderNo) {
+    const { project, cid } = this.options;
+    try {
+      await wxProxy.requestPayment(pay_sign);
+      wx.showToast({
+        title: '支付成功',
+      });
+    } catch (e) {
+      console.log('requestPayment err', e);
+      wx.showToast({
+        title: '支付取消',
+      });
+      if (project) {
+        const fk = await this.showModal({ type: 'pay_fail_promotion' });
+        if (fk) {
+          this.paying = true;
+          this.pay_sign = pay_sign;
+          this.orderNo = orderNo;
+          await api.hei.orderRefresh({ 'order_no': orderNo });
+        } else {
+          this.paying = false;
+        }
+      }
     }
   },
 
