@@ -2,6 +2,7 @@
   "navigationBarTitleText": "商品详情",
   "usingComponents": {
     "skuModal": "components/skuModal/skuModal",
+    "countDown": "components/countDown/countDown",
     "van-count-down": "@vant/weapp/dist/count-down/index",
     "van-overlay": "@vant/weapp/dist/overlay/index",
     "van-icon": "@vant/weapp/dist/icon/index",

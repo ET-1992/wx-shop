@@ -32,7 +32,7 @@ Page({
     const { order, ...others } = await api.hei.fetchOrder({ order_no: id });
         order.statusCode = Number(order.status);
         order.statusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
-        order.buyer_message = order.buyer_message || '买家未留言';
+        order.buyer_message = order.buyer_message || '——';
         order.createDate = formatTime(new Date(order.time * 1000));
         order.payDate = formatTime(new Date(order.paytime * 1000));
         order.consignDate = formatTime(new Date(order.consign_time * 1000));

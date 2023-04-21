@@ -1,10 +1,37 @@
-.page {
-  background-color: rgba(244, 246, 250, 1);
+// .product-main {
+// 	height: 100vh;
+// 	width: 100%;
+// 	.container {
+// 		padding-bottom: $footerHeight;
+// 		color: $titleColor;
+// 		height: auto;
+// 		@supports (padding-bottom: env(safe-area-inset-bottom)) {
+// 			padding-bottom: calc(#{$footerHeight}+env(safe-area-inset-bottom));
+// 		}
+// 	}
+// }
+
+page {
+  overflow: hidden;
   position: relative;
-  width: 100%;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
+}
+
+
+.product-main  {
+  background-color: rgba(244, 246, 250, 1);
+  // position: relative;
+  // width: 100%;
+  height: 100vh;
+	width: 100%;
+  // overflow: auto;
+  // display: flex;
+  // flex-direction: column;
+  --primaryColor: #FE4F06;
+
+  .page {
+    height: auto;
+    overflow:hidden;
+  }
 
   .shop-swiper {
     position: relative;
@@ -81,6 +108,7 @@
         font-weight: 400;
         color: #ffffff;
         text-align: end;
+
         .countdown-time {
           .van-count-down {
             color: #ffffff;
@@ -312,7 +340,7 @@
 
   .shop-detail-content {
     overflow: hidden;
-    padding-bottom: 80rpx;
+    margin-bottom:  calc(80rpx+env(safe-area-inset-bottom));
     .shop-detail-image {
       width: 100%;
     }
@@ -378,7 +406,7 @@
       align-items: center;
       padding: 32rpx 0;
       .countdown-time {
-        margin-bottom: 48rpx;
+        // margin-bottom: 48rpx;
         .van-count-down {
           color: #fe4f06;
         }
@@ -541,4 +569,11 @@
       0rpx 2rpx 8rpx 0rpx rgba(28, 28, 28, 0.2);
     border-radius: 44rpx;
   }
+}
+
+
+.vant-count-down {
+  --count-down-text-color:  #ffffff;
+  --count-down-font-size:  24rpx;
+  --count-down-line-height: 30rpx;
 }

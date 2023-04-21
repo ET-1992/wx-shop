@@ -1,16 +1,18 @@
-<van-nav-bar title="商品详情" left-text="返回" fixed="{{ true }}" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
-<view class="page" style="--primaryColor:  #FE4F06">
-  <view class="shop-swiper">
-    <swiper autoplay="{{autoplay}}" class="swiper" bindchange="currentIndex" indicator-dots="{{true}}" indicator-active-color="{{ '#FE4F06'}}" indicator-color="#fff">
-      <swiper-item class="swiper-box" wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
-        <image class="swiper-img" src="{{ image.large }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
-      </swiper-item>
-    </swiper>
-    <!-- <view class="swiper-pageNum">
+<!-- <page-meta page-style="overflow: {{ isShowSkuModal ? 'hidden' : 'auto' }}"> -->
+<scroll-view class="product-main" scroll-y="{{ true }}" enable-back-to-top>
+  <van-nav-bar title="商品详情" left-text="返回" fixed="{{ true }}" placeholder="{{ true }}" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+  <view class="page">
+    <view class="shop-swiper">
+      <swiper autoplay="{{autoplay}}" class="swiper" bindchange="currentIndex" indicator-dots="{{true}}" indicator-active-color="{{ '#FE4F06'}}" indicator-color="#fff">
+        <swiper-item class="swiper-box" wx:for="{{ product.images }}" wx:key="id" wx:for-item="image">
+          <image class="swiper-img" src="{{ image.large }}" mode="aspectFill" data-index="{{index}}" bindtap="previewImg" />
+        </swiper-item>
+      </swiper>
+      <!-- <view class="swiper-pageNum">
       <text lines="1" class="number">1/6</text>
     </view> -->
-  </view>
-  <!-- <view class="shop-time">
+    </view>
+    <!-- <view class="shop-time">
     <image class="time-img" src="../../icons/mvp/time-bg.png" />
     <view class="time">
       <view class="time-text">
@@ -36,25 +38,25 @@
       </view>
     </view>
   </view> -->
-  <view class="shop-detail">
-    <view class="shop-price" wx:if="{{ product.coupons_price }}">
-      <view class="coupon">
-        券后￥
-        <text lines="1" class="coupon-price">{{ product.price -  product.coupons_price }}</text>
-        起
+    <view class="shop-detail">
+      <view class="shop-price" wx:if="{{ product.coupons_price }}">
+        <view class="coupon">
+          券后￥
+          <text lines="1" class="coupon-price">{{ product.price -  product.coupons_price }}</text>
+          起
+        </view>
+        <text lines="1" class="original-price">原价￥{{product.price }}起</text>
       </view>
-      <text lines="1" class="original-price">原价￥{{product.price }}起</text>
+      <view lines="1" class="shop-desc">{{  product.title }}</view>
+      <text lines="1" class="desc-size">{{  product.excerpt }}</text>
+      <view class="line"></view>
+      <view class="free-shipping">
+        <text lines="1" class="shipping-text">快递：包邮</text>
+        <text lines="1" class="shipping-text">销售：{{ product.sales }}</text>
+        <text lines="1" class="shipping-text">库存：{{ product.stock }}</text>
+      </view>
     </view>
-    <view lines="1" class="shop-desc">{{  product.title }}</view>
-    <text lines="1" class="desc-size">{{  product.excerpt }}</text>
-    <view class="line"></view>
-    <view class="free-shipping">
-      <text lines="1" class="shipping-text">快递：包邮</text>
-      <text lines="1" class="shipping-text">销售：{{ product.sales }}</text>
-      <text lines="1" class="shipping-text">库存：{{ product.stock }}</text>
-    </view>
-  </view>
-  <!-- <view class="shop-discount">
+    <!-- <view class="shop-discount">
     <view class="shop-serve">
       <view lines="1" class="serve-title">服务</view>
       <view lines="2" class="serve-content">
@@ -65,34 +67,36 @@
       </view>
     </view>
   </view> -->
-  <!-- 服务说明 -->
-  <view wx:if="{{ product.service_instructions && product.service_instructions.length }}" class="service">
-    <view class="text">服务</view>
-    <view class="desc">
-      <view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="item">
-        • {{ item }}
+    <!-- 服务说明 -->
+    <view wx:if="{{ product.service_instructions && product.service_instructions.length }}" class="service">
+      <view class="text">服务</view>
+      <view class="desc">
+        <view class="service-item" wx:for="{{ product.service_instructions }}" wx:key="item">
+          • {{ item }}
+        </view>
       </view>
     </view>
-  </view>
-  <view class="shop-text">
-    <view class="text-line"></view>
-    <text lines="1" class="content">商品详情</text>
-    <view class="text-line"></view>
-  </view>
-  <view class="shop-detail-content">
-    <image class="shop-detail-image" src="{{ item }}" mode="widthFix" lazy-load="false" binderror="" bindload="" wx:for="{{  product.content }}" />
-  </view>
-  <view class="shop-button" bindtap="onShowSkuModal">
-    <button size="default" class="def-btn">点我下单</button>
-  </view>
-  <!-- 优惠卷弹窗 -->
-  <!-- <van-overlay show="{{ showOverlay }}">
+    <view class="shop-text">
+      <view class="text-line"></view>
+      <text lines="1" class="content">商品详情</text>
+      <view class="text-line"></view>
+    </view>
+    <view class="shop-detail-content">
+      <image class="shop-detail-image" src="{{ item }}" mode="widthFix" lazy-load="false" binderror="" bindload="" wx:for="{{  product.content }}" />
+    </view>
+    <view class="shop-button" bindtap="onShowSkuModal">
+      <button size="default" class="def-btn">点我下单</button>
+    </view>
+    <!-- 优惠卷弹窗 -->
+    <!-- <van-overlay show="{{ showOverlay }}">
     <view class="overlay">
       <image class="overlay-img" src="" />
       <van-icon class="overlay-close" name="close" size="64rpx" color="#ffffff" catch:tap="onClickHide" />
     </view>
   </van-overlay> -->
-</view>
+  </view>
+</scroll-view>
+<!-- </page-meta> -->
 <!-- SKU -->
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <!-- 文字弹窗 -->
@@ -114,7 +118,7 @@
       元
     </view>
     <view class="modal-countdown">
-      <van-count-down wx:if="{{showCountDown}}" use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
+      <van-count-down wx:if="{{ promotion.data.countdown }}" use-slot class="countdown-time" time="{{  promotion.data.countdown * 1000 }}" bind:change="countdownChange">
         <text class="time-text">剩余</text>
         <text class="item">{{ timeData.hours }}</text>
         :
@@ -131,16 +135,19 @@
 </van-dialog>
 <!-- 海报弹窗 -->
 <view class="poster-modal" wx:if="{{ showModalType === 'poster' }}">
-  <!-- <view class="countdown">
-    <text class="text">30秒后失效</text>
-    <van-count-down use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
+  <view class="countdown" wx:if="{{  promotion.data.countdown }}">
+    <!-- <text class="text">30秒后失效</text> -->
+    <!-- <countDown formatTime="{{  promotion.data.countdown }}" />后失效 -->
+    <van-count-down time="{{  promotion.data.countdown * 1000  }}" class="vant-count-down" />
+    后失效
+    <!-- <van-count-down use-slot class="countdown-time" time="{{ time }}" bind:change="countdownChange">
       <text class="item">{{ timeData.hours }}</text>
       :
       <text class="item">{{ timeData.minutes }}</text>
       :
       <text class="item">{{ timeData.seconds }}</text>
-    </van-count-down>
-  </view> -->
+    </van-count-down> -->
+  </view>
   <image class="img" src="{{ promotion.data.poster_image }}" />
   <button class="btn" bind:tap="onCloseModal">领券下单</button>
 </view>

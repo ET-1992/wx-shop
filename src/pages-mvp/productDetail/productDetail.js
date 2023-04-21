@@ -21,8 +21,6 @@ Page({
     // isBargainBuy: false, // 购买数量加减隐藏
     time: 30 * 60 * 60 * 1000, // 倒计时
     timeData: {},
-    countdownModal: false,
-    showCountDown: false,
     showModalType: 'colse',
     best_promotion: [],
     product: {}
@@ -38,6 +36,9 @@ Page({
     console.log('getcoupon', params);
     console.log('detail', params.detail);
     this.onCloseModal();
+    wx.showToast({
+      title: '领取成功',
+    });
     // this.loadProductExtra();
   },
 
