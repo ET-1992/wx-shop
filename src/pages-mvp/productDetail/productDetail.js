@@ -230,10 +230,10 @@ Page({
       //   title: '支付成功',
       // });
     } catch (e) {
-      // console.log('requestPayment err', e);
-      // wx.showToast({
-      //   title: '支付取消',
-      // });
+      console.log('requestPayment err', e);
+      wx.showToast({
+        title: e.errMsg || '支付取消',
+      });
       // const { errMsg } = e;
       // if (errMsg.indexOf('cancel') >= 0) {
       //   await wxProxy.showModal({
