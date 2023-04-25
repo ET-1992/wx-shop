@@ -76,6 +76,16 @@ Page({
 
       }
 
+      if (showModalType === 'dialog') {
+        if (promotion.data.product_first_img) {
+          const { images = [] } = this.data.product;
+          images.unshift({ large: promotion.data.product_first_img });
+          this.setData({
+            'product.images': images
+          });
+        }
+      }
+
       this.setData({
         promotion,
         showModalType
@@ -231,8 +241,10 @@ Page({
       // });
     } catch (e) {
       console.log('requestPayment err', e);
-      wx.showToast({
-        title: e.errMsg || '支付取消',
+      wx.showModal({
+        content: e.errMsg || '支付取消',
+        title: '支付取消',
+        showCancel: false
       });
       // const { errMsg } = e;
       // if (errMsg.indexOf('cancel') >= 0) {
@@ -274,6 +286,7 @@ Page({
           this.paying = true;
           this.pay_sign = pay_sign;
           this.orderNo = orderNo;
+          this.loadProductExtra();
           await api.hei.orderRefresh({ 'order_no': orderNo });
         } else {
           this.paying = false;

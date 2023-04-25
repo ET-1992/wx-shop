@@ -34,7 +34,7 @@ Page({
         order.statusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
         order.buyer_message = order.buyer_message || '——';
         order.createDate = formatTime(new Date(order.time * 1000));
-        order.payDate = formatTime(new Date(order.paytime * 1000));
+        order.payDate = order.paytime && formatTime(new Date(order.paytime * 1000));
         order.consignDate = formatTime(new Date(order.consign_time * 1000));
         order.refundDate = formatTime(new Date(order.refund_time * 1000));
         order.total_fee = (order.total_fee - 0).toFixed(2);

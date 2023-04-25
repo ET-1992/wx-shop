@@ -72,6 +72,7 @@
       .price-title {
         font-weight: 400;
         color: #676971;
+        width: 240rpx;
       }
     }
     .pay {
@@ -92,10 +93,7 @@
 
     .address {
       display: flex;
-      justify-content: flex-start;
-      .address-title {
-        width: 45%;
-      }
+      // justify-content: flex-start;
     }
 
     .more {

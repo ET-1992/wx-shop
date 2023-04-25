@@ -111,13 +111,13 @@
 <!-- 倒计时弹窗 -->
 <van-dialog use-slot title="" show="{{ showModalType === 'dialog' }}" class="countdown-modal" show-confirm-button="{{false}}" close-on-click-overlay>
   <view class="modal-content">
-    <image class="modal-img" src='../../icons/mvp/modal-bg.png' />
-    <view class="text">
+    <image class="modal-img" mode="widthFix" src="{{ promotion.data.dialog_image ? promotion.data.dialog_image : '../../icons/mvp/modal-bg.png' }}" />
+    <view class="text" wx:if="{{ !promotion.data.dialog_image  }}">
       限时立减
       <text class="num">{{ promotion.data.discount_amount }}</text>
       元
     </view>
-    <view class="modal-countdown">
+    <view class="modal-countdown" style="border: none">
       <van-count-down wx:if="{{ promotion.data.countdown }}" use-slot class="countdown-time" time="{{  promotion.data.countdown * 1000 }}" bind:change="countdownChange">
         <text class="time-text">剩余</text>
         <text class="item">{{ timeData.hours }}</text>
@@ -127,9 +127,7 @@
         <text class="item">{{ timeData.seconds }}</text>
         <text class="time-text">结束</text>
       </van-count-down>
-      <button class="btn {{!showCountDown?'showCountDown':''}}" bind:tap="onCloseModal">
-        立即下单
-      </button>
+      <button class="btn" bind:tap="onCloseModal">立即下单</button>
     </view>
   </view>
 </van-dialog>
