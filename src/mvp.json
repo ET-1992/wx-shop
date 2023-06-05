@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages-mvp/hotelpage/hotelDetail/hotelDetail",
     "pages/home/home",
     "pages-mvp/me/me",
     "pages-mvp/completePayment/completePayment",
@@ -55,10 +56,7 @@
     }
   },
   "plugins": {
-    "sendCoupon": {
-      "version": "latest",
-      "provider": "wxf3f436ba9bd4be7b"
-    }
+    
   },
   "requiredPrivateInfos": [
     "getLocation",

@@ -1,0 +1,142 @@
+<view class="container">
+  <view class="nav-box" wx:if="{{showTitle}}" style="height: {{navButtonHeight + 5 + navTop}}px;"/>
+  <view class="nav" style="height:{{navButtonHeight + 10}}px; top:{{navTop - 5}}px; background: {{showTitle ? '#fff' : '' }}" >
+    <view style="display: flex; align-items: flex-start;">
+      <view class="back" style="background: {{showTitle ? '#fff' : '' }}"><van-icon name="arrow-left" /></view>
+      <view wx:if="{{showTitle}}" style="margin-left: 5px; font-size: 12px;">小城市</view>
+    </view>
+    <view class="back" style="margin-right: {{navWidth + 15}}px; background: {{showTitle ? '#fff' : '' }}"><van-icon name="like-o" /></view>
+  </view>
+  <view class="swiper">
+    <swiper style="width: 100%; height: 190px;" autoplay>
+      <swiper-item>
+        <view style="background-color: aqua; width: 100%; height: 190px;"></view>
+      </swiper-item>
+      <swiper-item>
+        <view style="background-color: blue; width: 100%; height: 190px;"></view>
+      </swiper-item>
+      <swiper-item>
+        <view style="background-color: aqua; width: 100%; height: 190px;"></view>
+      </swiper-item>
+    </swiper>
+    <view class="card_address">
+      <view class="title">汉庭广州</view>
+      <view class="desc">
+        <text class="">经济型 | 2022年开业</text>
+        <view style="font-size: 14px;">设施/详情
+          <van-icon name="arrow" /></view>
+      </view>
+      <view class="address">
+        <view class="address_detail">中山大道车陂北街大岗二项3好（车杯碟铁站4号线D出口步行400m）</view>
+        <view class="address-right">
+          <view class="" style="text-align: center;">
+            <view class="img-dt" ><van-icon name="location" /></view>
+            <view>地图</view>
+          </view>
+          <view class="" style="margin-left: 30px;">
+            <view class="img-dt" ><van-icon name="phone" /></view>
+            <view>电话</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="hotel">
+    <view class="hotel-time" bind:tap="handleCalendar">
+      <view>
+        {{calendarDate[0]}}
+        <text class="time-title">{{weekTime[0]}}入住</text>
+      </view>
+      <view class="time-num">{{num_of_days}}晚</view>
+      <view>
+        {{calendarDate[1]}}
+        <text class="time-title">{{weekTime[1]}}离店</text>
+      </view>
+      <view><van-icon name="arrow" /></view>
+    </view>
+    <view wx:for="{{hotel}}" wx:key="index" wx:for-index="index">
+      <view class="hotel-order">
+        <view class="hotel-order-img">
+        </view>
+        <view class="hotel-order-desc" bind:tap="onclick" data-item="{{index}}">
+          <view class="hotel-order-icon"><van-icon name="arrow-up" size="10px" color="#b4b4b8"/></view>
+          <view class="hotel-order-title">{{item.name}}</view>
+          <view class="hotel-order-msg">
+            <text class="hotel-order-detail">{{item.desc}}</text>
+            <text class="hotel-order-price">
+              <text class="hotel-order-detail order-num">￥389均价</text>￥<text class="order-price">{{item.price}}</text>起
+            </text>
+          </view>
+        </view>
+      </view>
+      <view class="hotel-msg" wx:if="{{showHotelMsg === item}}">
+        <view class="hotel-msg-left">
+          <view>星会员价</view>
+          <view class="msg-dsy">1倍积分 | 延迟退房 | 免费离店寄存</view>
+          <view class="msg-desc">不含早餐</view>
+          <view class="msg-desc">6月16日 18：00前可免费取消</view>
+        </view>
+        <view class="hotel-msg-right">
+          <view class="msg-right-price">
+            ￥<text class="msg-right-num">381</text>
+            <view class="mes-right-ys">已省￥8</view>
+          </view>
+          <view class="msg-order">订</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="hotel">
+    <view class="equipment-service">
+      <view class="equip-ser-title">设备&服务</view>
+      <view class="equip-ser-base" wx:for="{{equipmentService}}" wx:key="item.title" wx:for-item="item">
+        <view class="equip-ser-base-left">
+          <view class="equip-ser-base-img"></view>
+          <text>基础设施</text>
+        </view>
+        <view class="equip-ser-base-right">
+          <view class="equip-ser-base-con" wx:for="{{item.msgArr}}" wx:key="msgitem" wx:for-item="msgitem"><van-icon name="passed" />{{msgitem}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="hotel">
+    <view class="equipment-service">
+      <view class="hotel-comment">
+        <view class="equip-ser-title">住客评价</view>
+          <view>
+            <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+            <text style="color: #dac9a7; font-size: 14px; margin: 0 10px 0 5px;">{{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}</text>
+          </view>
+      </view>
+      <view wx:for="{{hotelComment}}" wx:for-item="item">
+        <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">{{item.time}}入住的{{item.identity}}</view>
+        <view>{{item.comment}}</view>
+        <view class="line" />
+      </view>
+    </view>
+  </view>
+  <view class="hotel">
+    <view class="equipment-service">
+      <view class="equip-ser-title">附近酒店</view>
+      <view wx:for="{{hotelData}}">
+        <view class="hotel-contant">
+          <view class="hotel-contant-img"><img/></view>
+          <view class="hotel-contant-msg">
+            <view class="hotel-contant-title">大方舍得放手的时代发gs粉丝分身乏术分身乏术分身乏术生的方法</view>
+            <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+            <text style="color: #dac9a7; font-size: 14px; margin: 0 10px 0 5px;">{{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}</text>
+            <text style="color: #6a6a6e;font-size: 14px; ">1212条评价</text>
+            <view class="hotel-address">距当前酒店111m</view>
+            <text class="hotel-auth" style="margin-right: 4px;">华住会权益</text><text class="hotel-auth">免费停车</text>
+            <view class="hotel-price">¥<text style="font-size: 16px;">1213</text>起</view>
+          </view>
+        </view>
+        <view class="line"/>
+      </view>
+    </view>
+  </view>
+
+  <van-calendar show="{{ showCalendar }}" type="range" bind:close="onClose" bind:confirm="onConfirm" show-confirm="{{ false }}" />
+</view>

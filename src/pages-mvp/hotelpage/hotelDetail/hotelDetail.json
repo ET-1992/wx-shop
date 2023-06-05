@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "van-calendar": "@vant/weapp/dist/calendar/index",
+    "van-rate": "@vant/weapp/dist/rate/index"
+  },
+  "navigationStyle": "custom"
+}
