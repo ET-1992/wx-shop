@@ -39,13 +39,15 @@
     </view>
   </view> -->
     <view class="shop-detail">
-      <view class="shop-price" wx:if="{{ product.coupons_price }}">
+      <view class="shop-price">
         <view class="coupon">
           券后￥
           <text lines="1" class="coupon-price">{{ product.price -  product.coupons_price }}</text>
           起
         </view>
-        <text lines="1" class="original-price">原价￥{{product.price }}起</text>
+        <text lines="1" class="original-price" wx:if="{{ product.coupons_price }}">
+          原价￥{{product.price }}起
+        </text>
       </view>
       <view lines="1" class="shop-desc">{{  product.title }}</view>
       <text lines="1" class="desc-size">{{  product.excerpt }}</text>

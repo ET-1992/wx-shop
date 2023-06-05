@@ -115,11 +115,18 @@ Page({
   },
 
   onCloseModal() {
-    const { paying, orderNo, pay_sign } = this;
+    const { paying, orderNo } = this;
     this.setData({
       showModalType: ''
-    }, () => {
+    }, async () => {
       if (paying) {
+        const { pay_interact_data } = await api.hei.orderPay({
+          order_nos: [orderNo],
+          pay_method: 'WEIXIN',
+        });
+        console.log(pay_interact_data, '--');
+        const { pay_sign } = pay_interact_data;
+
         this.wxPay(pay_sign, orderNo);
       } else {
         this.setData({
@@ -242,7 +249,7 @@ Page({
     } catch (e) {
       console.log('requestPayment err', e);
       wx.showModal({
-        content: e.errMsg || '支付取消',
+        content: e.errMsg || '请尽快完成付款',
         title: '支付取消',
         showCancel: false
       });
