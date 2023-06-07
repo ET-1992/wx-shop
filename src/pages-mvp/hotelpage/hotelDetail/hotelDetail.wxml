@@ -3,31 +3,38 @@
   <view class="nav" style="height:{{navButtonHeight + 10}}px; top:{{navTop - 5}}px; background: {{showTitle ? '#fff' : '' }}" >
     <view style="display: flex; align-items: flex-start;">
       <view class="back" style="background: {{showTitle ? '#fff' : '' }}"><van-icon name="arrow-left" /></view>
-      <view wx:if="{{showTitle}}" style="margin-left: 5px; font-size: 12px;">小城市</view>
+      <view wx:if="{{showTitle}}" style="margin-left: 5px; font-size: 12px">{{title}}</view>
     </view>
     <view class="back" style="margin-right: {{navWidth + 15}}px; background: {{showTitle ? '#fff' : '' }}"><van-icon name="like-o" /></view>
   </view>
   <view class="swiper">
-    <swiper style="width: 100%; height: 190px;" autoplay>
-      <swiper-item>
-        <view style="background-color: aqua; width: 100%; height: 190px;"></view>
-      </swiper-item>
-      <swiper-item>
-        <view style="background-color: blue; width: 100%; height: 190px;"></view>
-      </swiper-item>
-      <swiper-item>
-        <view style="background-color: aqua; width: 100%; height: 190px;"></view>
-      </swiper-item>
+    <swiper class='swiper-con' style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;" autoplay>
+      <block wx:for="{{swiperImage}}">
+        <swiper-item>
+          <view style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;">
+            <image src="{{item.thumbnail}}"></image>
+          </view>
+          <view class="swiper-total">1/20</view>
+          <view class="comment">
+            <view style="color: #f5c082; font-size: 20px; margin: 0 10px 0 5px;">{{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}</view>
+            <view>
+              <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+              <view>11212评价 <van-icon name="arrow" /></view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
     </swiper>
-    <view class="card_address">
-      <view class="title">汉庭广州</view>
+  </view>
+   <view class="card_address">
+    <view class="title">{{title}}</view>
       <view class="desc">
         <text class="">经济型 | 2022年开业</text>
-        <view style="font-size: 14px;">设施/详情
+        <view style="font-size: 14px; color: #111">设施/详情
           <van-icon name="arrow" /></view>
       </view>
       <view class="address">
-        <view class="address_detail">中山大道车陂北街大岗二项3好（车杯碟铁站4号线D出口步行400m）</view>
+      <view class="address_detail">{{hotel_address}}</view>
         <view class="address-right">
           <view class="" style="text-align: center;">
             <view class="img-dt" ><van-icon name="location" /></view>
@@ -40,31 +47,30 @@
         </view>
       </view>
     </view>
-  </view>
   <view class="hotel">
     <view class="hotel-time" bind:tap="handleCalendar">
       <view>
-        {{calendarDate[0]}}
+        <text style="font-weight: 600">{{calendarDate[0]}}</text>
         <text class="time-title">{{weekTime[0]}}入住</text>
       </view>
       <view class="time-num">{{num_of_days}}晚</view>
       <view>
-        {{calendarDate[1]}}
+        <text style="font-weight: 600">{{calendarDate[1]}}</text>
         <text class="time-title">{{weekTime[1]}}离店</text>
       </view>
       <view><van-icon name="arrow" /></view>
     </view>
-    <view wx:for="{{hotel}}" wx:key="index" wx:for-index="index">
+    <view wx:for="{{skus}}" wx:key="index" wx:for-index="index">
       <view class="hotel-order">
         <view class="hotel-order-img">
         </view>
         <view class="hotel-order-desc" bind:tap="onclick" data-item="{{index}}">
           <view class="hotel-order-icon"><van-icon name="arrow-up" size="10px" color="#b4b4b8"/></view>
-          <view class="hotel-order-title">{{item.name}}</view>
+          <view class="hotel-order-title">{{item.property_names}}</view>
           <view class="hotel-order-msg">
-            <text class="hotel-order-detail">{{item.desc}}</text>
+            <text class="hotel-order-detail"><text wx:for="{{item.facility}}" wx:for-item="facility" style="margin-right: 4px">{{facility.value}}</text></text>
             <text class="hotel-order-price">
-              <text class="hotel-order-detail order-num">￥389均价</text>￥<text class="order-price">{{item.price}}</text>起
+              <text class="hotel-order-detail order-num">￥{{item.cost}}均价</text>￥<text class="order-price">{{item.price}}</text>起
             </text>
           </view>
         </view>
@@ -89,13 +95,13 @@
   <view class="hotel">
     <view class="equipment-service">
       <view class="equip-ser-title">设备&服务</view>
-      <view class="equip-ser-base" wx:for="{{equipmentService}}" wx:key="item.title" wx:for-item="item">
+      <view class="equip-ser-base" wx:for="{{facility}}" wx:key="item.title" wx:for-item="item">
         <view class="equip-ser-base-left">
           <view class="equip-ser-base-img"></view>
-          <text>基础设施</text>
+          <text>{{item.title}}</text>
         </view>
         <view class="equip-ser-base-right">
-          <view class="equip-ser-base-con" wx:for="{{item.msgArr}}" wx:key="msgitem" wx:for-item="msgitem"><van-icon name="passed" />{{msgitem}}
+          <view class="equip-ser-base-con" wx:for="{{item.options}}" wx:key="msgitem" wx:for-item="msgitem"><van-icon name="passed" style="margin-right: 4px"/>{{msgitem}}
           </view>
         </view>
       </view>
@@ -115,6 +121,7 @@
         <view>{{item.comment}}</view>
         <view class="line" />
       </view>
+      <view class='all-comment'>全部评价</view>
     </view>
   </view>
   <view class="hotel">

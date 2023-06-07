@@ -17,34 +17,17 @@ Page({
     navButtonHeight: 0, // 胶囊的高度
     navWidth: 0,
     showCalendar: false,
+    title: " ", // 酒店名称
+    swiperImage: [], // 轮播图
+    hotel_address: "", // 酒店地址
+    hotel_phone: "", // 酒店电话
+    facility: [], // 酒店设施
+    skus: [], // 房间类型
     calendarDate: ["6月6日", "6月7日"],
     num_of_days: 1,
     weekTime: ["周六", "周日"],
     showTitle: false,
-    hotel: [
-      { id: 1, name: "大床房", price: 333, desc: "16m 有床 大床 1.8m" },
-      { id: 2, name: "双人床房", price: 333, desc: "16m 有床 大床 1.8m" },
-      { id: 3, name: "大床大通铺房", price: 333, desc: "16m 有床 大床 1.8m" },
-    ],
     showHotelMsg: null,
-    equipmentService: [
-      {
-        title: "基础设施",
-        msgArr: [
-          "大厅上网",
-          "复印机",
-          "777",
-          "大厅上网",
-          "复印机",
-          "777",
-          "大厅上网",
-          "复印机",
-          "777",
-        ],
-      },
-      { title: "基础设施", msgArr: ["大厅上网", "复印机", "777"] },
-      { title: "基础设施", msgArr: ["大厅上网", "复印机", "777"] },
-    ],
     rateData: 2.5,
     hotelData: [1, 2, 3],
     hotelComment: [
@@ -52,9 +35,6 @@ Page({
       { comment: "很好11", time: "2023年6月1日", identity: "星会员" },
       { comment: "很好666", time: "2023年6月1日", identity: "铂金会员" },
     ],
-  },
-  async initPage() {
-    console.log();
   },
 
   onPageScroll: function (e) {
@@ -109,6 +89,22 @@ Page({
     });
   },
 
+  async initPage() {
+    const that = this;
+    wx.request({
+      url: "https://test.shop.directbooking.cn/api/hotel/get.json?id=3",
+      data: {},
+      header: {
+        "content-type": "application/json",
+      },
+      success(res) {
+        console.log(res.data, 9999);
+        const data = res.data.hotel;
+        that.setData({ ...data });
+      },
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -128,6 +124,7 @@ Page({
         console.log(err);
       },
     });
+    this.initPage();
     console.log(this.data, 666);
   },
 
