@@ -4,7 +4,7 @@
 // import { autoTransformAddress, formatTime, valueToText } from "utils/util";
 // import { ORDER_STATUS_TEXT } from "constants/index";
 // import wxProxy from "utils/wxProxy";
-import api from 'utils/api';
+import api from "utils/api";
 
 const app = getApp();
 
@@ -18,23 +18,23 @@ Page({
     navButtonHeight: 0, // 胶囊的高度
     navWidth: 0,
     showCalendar: false,
-    title: ' ', // 酒店名称
+    title: " ", // 酒店名称
     swiperImage: [], // 轮播图
-    hotel_address: '', // 酒店地址
-    hotel_phone: '', // 酒店电话
+    hotel_address: "", // 酒店地址
+    hotel_phone: "", // 酒店电话
     facility: [], // 酒店设施
     skus: [], // 房间类型
-    calendarDate: ['6月6日', '6月7日'],
+    calendarDate: ["6月6日", "6月7日"],
     num_of_days: 1,
-    weekTime: ['周六', '周日'],
+    weekTime: ["周六", "周日"],
     showTitle: false,
     showHotelMsg: null,
     rateData: 2.5,
     hotelData: [1, 2, 3],
     hotelComment: [
-      { comment: '很好', time: '2023年6月1日', identity: '铂金会员' },
-      { comment: '很好11', time: '2023年6月1日', identity: '星会员' },
-      { comment: '很好666', time: '2023年6月1日', identity: '铂金会员' },
+      { comment: "很好", time: "2023年6月1日", identity: "铂金会员" },
+      { comment: "很好11", time: "2023年6月1日", identity: "星会员" },
+      { comment: "很好666", time: "2023年6月1日", identity: "铂金会员" },
     ],
   },
 
@@ -73,8 +73,8 @@ Page({
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // 计算今天是周几
-    const time1 = '周' + '日一二三四五六'.charAt(new Date(start).getDay());
-    const time2 = '周' + '日一二三四五六'.charAt(new Date(end).getDay());
+    const time1 = "周" + "日一二三四五六".charAt(new Date(start).getDay());
+    const time2 = "周" + "日一二三四五六".charAt(new Date(end).getDay());
 
     this.setData({
       showCalendar: false,
@@ -87,6 +87,32 @@ Page({
   handleRate(event) {
     this.setData({
       rateData: event.detail,
+    });
+  },
+
+  openMap() {
+    let { latitude, longtitude, hotel_address } = this.data;
+    console.log(latitude, longtitude, "dddddd");
+    latitude = Number(latitude);
+    longtitude = Number(longtitude);
+
+    wx.openLocation({
+      latitude,
+      longitude: longtitude,
+      name: `${hotel_address}`,
+      scale: 18,
+    });
+  },
+
+  handleCall(e) {
+    wx.makePhoneCall({
+      phoneNumber: this.data.hotel_phone,
+      success: function () {
+        console.log("sucs");
+      },
+      fail: function () {
+        console.log(111);
+      },
     });
   },
 
@@ -106,9 +132,9 @@ Page({
     // });
 
     const { hotel } = await api.hei.getHotelList({
-      id: 3
+      id: 3,
     });
-    console.log(hotel, '----');
+    console.log(hotel, "----");
     this.setData({ ...hotel });
   },
 

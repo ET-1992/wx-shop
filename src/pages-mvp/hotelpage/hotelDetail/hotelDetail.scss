@@ -252,6 +252,17 @@
           width: 22%;
           padding: 0 15px;
           font-size: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .equip-ser-base-img {
+            width: 20px;
+            height: 20px;
+            .img {
+              width: 20px;
+              height: 20px;
+            }
+          }
         }
 
         .equip-ser-base-right {

@@ -36,11 +36,11 @@
       <view class="address">
       <view class="address_detail">{{hotel_address}}</view>
         <view class="address-right">
-          <view class="" style="text-align: center;">
+          <view class="" style="text-align: center;" bind:tap="openMap">
             <view class="img-dt" ><van-icon name="location" /></view>
             <view>地图</view>
           </view>
-          <view class="" style="margin-left: 30px;">
+          <view class="" style="margin-left: 30px;" bind:tap="handleCall">
             <view class="img-dt" ><van-icon name="phone" /></view>
             <view>电话</view>
           </view>
@@ -97,8 +97,8 @@
       <view class="equip-ser-title">设备&服务</view>
       <view class="equip-ser-base" wx:for="{{facility}}" wx:key="item.title" wx:for-item="item">
         <view class="equip-ser-base-left">
-          <view class="equip-ser-base-img"></view>
-          <text>{{item.title}}</text>
+          <view class="equip-ser-base-img"><image class='img' src="{{item.icon}}"/></view>
+          <text style="font-weight: 600">{{item.title}}</text>
         </view>
         <view class="equip-ser-base-right">
           <view class="equip-ser-base-con" wx:for="{{item.options}}" wx:key="msgitem" wx:for-item="msgitem"><van-icon name="passed" style="margin-right: 4px"/>{{msgitem}}
@@ -126,10 +126,11 @@
   </view>
   <view class="hotel">
     <view class="equipment-service">
-      <view class="equip-ser-title">附近酒店</view>
-      <view wx:for="{{hotelData}}">
-        <view class="hotel-contant">
-          <view class="hotel-contant-img"><img/></view>
+      <view class="equip-ser-title">酒店特色</view>
+      <view wx:for="{{content}}">
+        <image src='{{item}}'></image>
+        <view class="hotel-contant" style="display: none">
+          <view class="hotel-contant-img"></view>
           <view class="hotel-contant-msg">
             <view class="hotel-contant-title">大方舍得放手的时代发gs粉丝分身乏术分身乏术分身乏术生的方法</view>
             <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
@@ -140,10 +141,9 @@
             <view class="hotel-price">¥<text style="font-size: 16px;">1213</text>起</view>
           </view>
         </view>
-        <view class="line"/>
+        <view class="line"/> 
       </view>
     </view>
   </view>
-
   <van-calendar show="{{ showCalendar }}" type="range" bind:close="onClose" bind:confirm="onConfirm" show-confirm="{{ false }}" />
 </view>
