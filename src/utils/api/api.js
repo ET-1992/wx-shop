@@ -1004,4 +1004,11 @@ export const apis = {
       method: 'GET',
       contentType: 'json'
     },
+
+    getHotelList: {
+      path: '/api/hotel/get.json',
+      isForceToken: true,
+      method: 'GET',
+      contentType: 'json'
+    }
 };

@@ -33,7 +33,8 @@ export const HOST_ARRAY = [
   { text: 'AU', value: 'https://au.wpweixin.com/' },
   { text: 'NEW-CUILV', value: 'https://api.jcaik.com/' }, // 翠绿
   { text: 'AUH', value: 'https://wechat.bebridge.cn/' }, // 澳洲香港服務器
-  { text: 'MVP', value: 'https://test.wpweixin.com/' },
+  { text: 'MVP', value: 'https://test.shop.directbooking.cn/' },
+  // { text: 'MVP', value: 'https://test.wpweixin.com/' },
 ];
 
 // export const STATUS_TEXT = ['', '未付款', '等待发货', '已发货', '已收货', '退款中', '退款成功', '订单关闭', '系统关闭'];
