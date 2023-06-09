@@ -1,20 +1,12 @@
 <view class="container">
-  <view class="nav-box" wx:if="{{showTitle}}" style="height: {{navButtonHeight + 5 + navTop}}px;"/>
-  <view class="nav" style="height:{{navButtonHeight + 10}}px; top:{{navTop - 5}}px; background: {{showTitle ? '#fff' : '' }}" >
-    <view style="display: flex; align-items: flex-start;">
-      <view class="back" style="background: {{showTitle ? '#fff' : '' }}"><van-icon name="arrow-left" /></view>
-      <view wx:if="{{showTitle}}" style="margin-left: 5px; font-size: 12px">{{title}}</view>
-    </view>
-    <view class="back" style="margin-right: {{navWidth + 15}}px; background: {{showTitle ? '#fff' : '' }}"><van-icon name="like-o" /></view>
-  </view>
   <view class="swiper">
     <swiper class='swiper-con' style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;" autoplay>
-      <block wx:for="{{swiperImage}}">
+      <block wx:for="{{images}}" wx:for-item="item" wx:for-index="index">
         <swiper-item>
           <view style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;">
-            <image src="{{item.thumbnail}}"></image>
+            <image class='img' src="{{item.thumbnail}}"></image>
           </view>
-          <view class="swiper-total">1/20</view>
+          <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
             <view style="color: #f5c082; font-size: 20px; margin: 0 10px 0 5px;">{{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}</view>
             <view>
@@ -29,7 +21,7 @@
    <view class="card_address">
     <view class="title">{{title}}</view>
       <view class="desc">
-        <text class="">经济型 | 2022年开业</text>
+      <text class="">{{excerpt}}</text>
         <view style="font-size: 14px; color: #111">设施/详情
           <van-icon name="arrow" /></view>
       </view>
@@ -65,7 +57,6 @@
         <view class="hotel-order-img">
         </view>
         <view class="hotel-order-desc" bind:tap="onclick" data-item="{{index}}">
-          <view class="hotel-order-icon"><van-icon name="arrow-up" size="10px" color="#b4b4b8"/></view>
           <view class="hotel-order-title">{{item.property_names}}</view>
           <view class="hotel-order-msg">
             <text class="hotel-order-detail"><text wx:for="{{item.facility}}" wx:for-item="facility" style="margin-right: 4px">{{facility.value}}</text></text>
@@ -73,21 +64,6 @@
               <text class="hotel-order-detail order-num">￥{{item.cost}}均价</text>￥<text class="order-price">{{item.price}}</text>起
             </text>
           </view>
-        </view>
-      </view>
-      <view class="hotel-msg" wx:if="{{showHotelMsg === item}}">
-        <view class="hotel-msg-left">
-          <view>星会员价</view>
-          <view class="msg-dsy">1倍积分 | 延迟退房 | 免费离店寄存</view>
-          <view class="msg-desc">不含早餐</view>
-          <view class="msg-desc">6月16日 18：00前可免费取消</view>
-        </view>
-        <view class="hotel-msg-right">
-          <view class="msg-right-price">
-            ￥<text class="msg-right-num">381</text>
-            <view class="mes-right-ys">已省￥8</view>
-          </view>
-          <view class="msg-order">订</view>
         </view>
       </view>
     </view>
@@ -128,7 +104,7 @@
     <view class="equipment-service">
       <view class="equip-ser-title">酒店特色</view>
       <view wx:for="{{content}}">
-        <image src='{{item}}'></image>
+        <image class='img' src='{{item}}'></image>
         <view class="hotel-contant" style="display: none">
           <view class="hotel-contant-img"></view>
           <view class="hotel-contant-msg">
@@ -145,5 +121,5 @@
       </view>
     </view>
   </view>
-  <van-calendar show="{{ showCalendar }}" type="range" bind:close="onClose" bind:confirm="onConfirm" show-confirm="{{ false }}" />
+  <van-calendar  default-date show="{{ showCalendar }}" type="range" bind:close="onClose" bind:confirm="onConfirm" show-confirm="{{ false }}" />
 </view>

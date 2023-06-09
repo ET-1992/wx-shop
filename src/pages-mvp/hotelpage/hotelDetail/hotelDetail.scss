@@ -1,32 +1,7 @@
 .container {
-  position: relative;
   background-color: #f2f4fa;
   @supports (bottom: env(safe-area-inset-bottom)) {
     bottom: env(safe-area-inset-bottom);
-  }
-  .nav-box {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 111;
-    background-color: #fff;
-  }
-  .nav {
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding-left: 20px;
-    z-index: 999;
-    .back {
-      border-radius: 50%;
-      background-color: #d5d7d8;
-      width: 32px;
-      height: 32px;
-      text-align: center;
-      line-height: 32px;
-    }
   }
   .swiper {
     position: relative;
@@ -39,6 +14,7 @@
       font-size: 12px;
       padding: 2px;
       color: #fff;
+      z-index: 111;
     }
     .comment {
       position: absolute;
@@ -50,8 +26,13 @@
       align-items: center;
       font-size: 12px;
       color: #fff;
+      z-index: 111;
     }
     .swiper-con {
+      .img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
   .card_address {
@@ -139,98 +120,33 @@
       }
 
       .hotel-order-desc {
-        position: relative;
         width: 73%;
         margin-top: 8px;
         margin-left: 8px;
         .hotel-order-title {
           font-weight: 600;
         }
-        .hotel-order-icon {
-          position: absolute;
-          right: 0;
-          top: -10px;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          border: 1px solid #b4b4b8;
-          text-align: center;
-          line-height: 12px;
-        }
-
         .hotel-order-msg {
           display: flex;
           justify-content: space-between;
           align-items: center;
-        }
+          .hotel-order-detail {
+            font-size: 12px;
+            color: #939398;
+          }
 
-        .hotel-order-detail {
-          font-size: 12px;
-          color: #939398;
-        }
+          .order-num {
+            text-decoration: line-through;
+          }
 
-        .order-num {
-          text-decoration: line-through;
-        }
+          .hotel-order-price {
+            font-size: 12px;
+            color: #ff5500;
+          }
 
-        .hotel-order-price {
-          font-size: 12px;
-          color: #ff5500;
-        }
-
-        .order-price {
-          font-size: 16px;
-        }
-      }
-    }
-
-    .hotel-msg {
-      padding: 18px;
-      background-color: #f4f6fc;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ededed;
-
-      .hotel-msg-left {
-        width: 55%;
-
-        .msg-dsy {
-          font-size: 12px;
-          border: 1px solid #d6d6d6;
-          margin-top: 4px;
-        }
-
-        .msg-desc {
-          color: #6a6a6e;
-          margin-top: 4px;
-          font-size: 12px;
-        }
-      }
-
-      .hotel-msg-right {
-        display: flex;
-        align-items: center;
-
-        .msg-order {
-          color: #fff;
-          background-color: #ff5500;
-          padding: 14px;
-          margin-left: 5px;
-          border-radius: 4px;
-        }
-
-        .msg-right-price {
-          color: #ff5500;
-          font-size: 12px;
-        }
-
-        .msg-right-num {
-          font-size: 16px;
-        }
-
-        .mes-right-ys {
-          color: #898a8f;
+          .order-price {
+            font-size: 16px;
+          }
         }
       }
     }
@@ -242,6 +158,10 @@
         margin-bottom: 20px;
         font-size: 18px;
         font-weight: 600;
+      }
+      .img {
+        width: 100%;
+        height: 300px;
       }
 
       .equip-ser-base {

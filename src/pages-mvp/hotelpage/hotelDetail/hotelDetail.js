@@ -19,14 +19,13 @@ Page({
     navWidth: 0,
     showCalendar: false,
     title: " ", // 酒店名称
-    swiperImage: [], // 轮播图
     hotel_address: "", // 酒店地址
     hotel_phone: "", // 酒店电话
     facility: [], // 酒店设施
     skus: [], // 房间类型
-    calendarDate: ["6月6日", "6月7日"],
+    calendarDate: [],
     num_of_days: 1,
-    weekTime: ["周六", "周日"],
+    weekTime: [],
     showTitle: false,
     showHotelMsg: null,
     rateData: 2.5,
@@ -46,11 +45,6 @@ Page({
     }
   },
 
-  // 点击展开订房按钮
-  onclick(e) {
-    console.log(e, 666);
-  },
-
   // 弹出日期选择
   handleCalendar() {
     this.setData({ showCalendar: !this.data.showCalendar });
@@ -61,7 +55,7 @@ Page({
   },
 
   // 时间确定
-  onConfirm(event) {
+  async onConfirm(event) {
     const [start, end] = event.detail;
     function formatDate(date) {
       const calendarDate = new Date(date);
@@ -76,14 +70,30 @@ Page({
     const time1 = "周" + "日一二三四五六".charAt(new Date(start).getDay());
     const time2 = "周" + "日一二三四五六".charAt(new Date(end).getDay());
 
+    const hotel_range_start_date =
+      start.getFullYear() +
+      "-" +
+      (start.getMonth() + 1) +
+      "-" +
+      start.getDate();
+    const hotel_range_end_date =
+      end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate();
+    console.log(hotel_range_end_date, hotel_range_start_date);
+    const { hotel } = await api.hei.getHotelList({
+      id: 3,
+      hotel_range_start_date,
+      hotel_range_end_date,
+    });
     this.setData({
       showCalendar: false,
       calendarDate: [formatDate(start), formatDate(end)],
       num_of_days: diffDays,
       weekTime: [time1, time2],
+      ...hotel,
     });
   },
 
+  // 评分
   handleRate(event) {
     this.setData({
       rateData: event.detail,
@@ -92,7 +102,6 @@ Page({
 
   openMap() {
     let { latitude, longtitude, hotel_address } = this.data;
-    console.log(latitude, longtitude, "dddddd");
     latitude = Number(latitude);
     longtitude = Number(longtitude);
 
@@ -117,25 +126,43 @@ Page({
   },
 
   async initPage() {
-    // const that = this;
-    // wx.request({
-    //   url: 'https://test.shop.directbooking.cn/api/hotel/get.json?id=3',
-    //   data: {},
-    //   header: {
-    //     'content-type': 'application/json',
-    //   },
-    //   success(res) {
-    //     console.log(res.data, 9999);
-    //     const data = res.data.hotel;
-    //     that.setData({ ...data });
-    //   },
-    // });
+    // 今日
+    const date = new Date();
+    const start_date = date.getMonth() + 1 + "月" + date.getDate() + "日";
+    // 明天
+    const date1 = new Date();
+    date1.setTime(date1.getTime() + 24 * 60 * 60 * 1000);
+    const end_date = date1.getMonth() + 1 + "月" + date1.getDate() + "日";
+    console.log(start_date, end_date);
+    // 计算今天是周几
+    const time1 = "周" + "日一二三四五六".charAt(new Date(date).getDay());
+    const time2 = "周" + "日一二三四五六".charAt(new Date(date1).getDay());
+    console.log(time1, time2, 8888);
 
+    // 计算相差天数
+    const now = new Date(date);
+    const date2 = new Date(date1);
+    const diffTime = Math.abs(date2 - now);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    // 详情数据
     const { hotel } = await api.hei.getHotelList({
       id: 3,
+      hotel_range_start_date:
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
+      hotel_range_end_date:
+        date1.getFullYear() +
+        "-" +
+        (date1.getMonth() + 1) +
+        "-" +
+        date1.getDate(),
     });
-    console.log(hotel, "----");
-    this.setData({ ...hotel });
+    this.setData({
+      ...hotel,
+      calendarDate: [start_date, end_date],
+      weekTime: [time1, time2],
+      num_of_days: diffDays,
+    });
   },
 
   /**
