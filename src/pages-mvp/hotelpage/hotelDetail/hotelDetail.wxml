@@ -92,12 +92,12 @@
             <text style="color: #dac9a7; font-size: 14px; margin: 0 10px 0 5px;">{{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}</text>
           </view>
       </view>
-      <view wx:for="{{hotelComment}}" wx:for-item="item">
-        <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">{{item.time}}入住的{{item.identity}}</view>
-        <view>{{item.comment}}</view>
+      <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index" wx:if="{{index > 2 || hiddenComments}}">
+        <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">{{item.date}}入住的{{item.identity}}</view>
+        <view>{{item.content}}</view>
         <view class="line" />
       </view>
-      <view class='all-comment'>全部评价</view>
+      <view class='all-comment' bind:tap="handleHidden">全部评价</view>
     </view>
   </view>
   <view class="hotel">

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "订单",
+  "navigationBarBackgroundColor": "#f0f0f0",
+  "usingComponents": {
+    "van-button": "@vant/weapp/dist/button/index",
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "van-popup": "@vant/weapp/dist/popup/index",
+    "van-field": "@vant/weapp/dist/field/index"
+  }
+}

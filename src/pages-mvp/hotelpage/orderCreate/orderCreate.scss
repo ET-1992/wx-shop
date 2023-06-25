@@ -1,0 +1,83 @@
+.order-detail{
+  background-color: #f0f0f0;
+  height: 100vh;
+  padding: 10px;
+  padding-bottom: constant(safe-area-inset-bottom); 
+  padding-bottom: env(safe-area-inset-bottom); 
+  padding-bottom: 100px;
+}
+.order-com {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px 18px;
+  margin-bottom: 10px;
+}
+.order-desc{
+  margin-bottom: 10px;
+  .desc-name{
+    margin: 5px 0;
+  }
+  .desc-detail{
+    font-size: 12px;
+    color: #99999e;
+  }
+  .line{
+    height: 1px;
+    background-color: #ececec;
+    margin: 10px 0;
+  }
+  .cancel{
+  font-size: 12px;
+}
+}
+.order-swiper{
+  height: 20px;
+}
+
+
+
+
+
+.order-from-title{
+  padding: 10px
+}
+
+.order-button{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-bottom: constant(safe-area-inset-bottom); 
+  padding-bottom: env(safe-area-inset-bottom); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding-top: 10px;
+  z-index: 11;
+  .btn{
+    margin-right: 20px;
+  }
+  .order-btn{
+    padding: 10px
+  }
+  .btn-desc{
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin-left: 20px;
+  }
+}
+
+
+.popup-title{
+  margin: 16px;
+  text-align: center;
+}
+.popup-desc{
+  padding: 20px;
+  .popup-text{
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+}

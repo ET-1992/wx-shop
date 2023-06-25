@@ -1,0 +1,124 @@
+<view class="order-detail">
+    <view class="order-desc order-com">
+      <view>
+        <text>06月25日</text>今天<text>1晚</text>06月26日 明天
+      </view>
+      <view class="desc-name">
+        大床房
+      </view>
+      <view class="desc-detail">
+        最多2人入住
+      </view>
+      <view class="line"/>
+      <view class="cancel">
+        <van-icon name="warning-o" />入住及取消政策：6月24日 18：00前可免费取消，18：00后不可取消
+      </view>
+    </view>
+    <swiper class="order-swiper order-com" autoplay vertical bind:tap="handlePopup">
+      <swiper-item>
+        <view>dfsdfsdfsdfsdf</view>
+      </swiper-item>
+      <swiper-item>
+        <view>ery234235454345</view>
+      </swiper-item>
+    </swiper>
+    <view class="order-com">
+      <view class="order-from-title">本人入住</view>
+      <van-cell-group>
+        <van-field
+          value="{{ num }}"
+          is-link
+          readonly
+          label="房间数"
+          placeholder="请选择房间数"
+          bind:tap=""
+        />
+        <van-field
+          value="{{ username }}"
+          clearable
+          label="住客姓名"
+          placeholder="请填写住客姓名"
+        />
+        <van-field
+          value="{{ phone }}"
+          clearable
+          label="联系电话"
+          placeholder="请填写联系人手机号"
+          error-message="手机号格式错误"
+        />
+        <van-field
+          value="{{ fieldValue }}"
+          is-link
+          readonly
+          label="预计到店"
+          placeholder="请选择到店时间"
+          bind:tap=""
+        />
+        <van-field
+          value="{{ remark }}"
+          clearable
+          label="备注"
+          placeholder="请填写您的备注（选填）"
+          border="{{ false }}"
+        />
+      </van-cell-group>
+    </view>
+
+    <view class="order-com">
+      <van-cell-group>
+        <van-field
+          value="会员本人入住13：00退房"
+          is-link
+          readonly
+          label="延迟退房"
+          bind:tap=""
+        />
+        <van-field
+          value="累计1间夜"
+          is-link
+          readonly
+          label="间夜累计"
+          bind:tap=""
+          border="{{false}}"
+        />
+      </van-cell-group>
+      
+    </view>
+    <view class="order-com">
+      <van-cell-group>
+        <van-field
+          value="暂无可用优惠券"
+          is-link
+          readonly
+          label="优惠券"
+          bind:tap=""
+          border="{{false}}"
+        />
+      </van-cell-group>
+      
+    </view>
+
+    <view class="order-button">
+      <view class="btn-desc">
+        <view>订单金额￥300</view>
+        <view>明细</view>
+      </view>
+      <van-button class="btn" size="18" color="#f35440" custom-class="order-btn">提交订单</van-button>
+    </view>
+
+    <van-popup
+      show="{{ showToast }}"
+      closeable
+      position="bottom"
+      custom-style="height: 30%"
+      bind:close="onClose"
+      safe-area-inset-bottom
+    >
+      <view class="popup-title">会员提示</view>
+      <view class="popup-desc">
+        <view class="popup-text">豆腐干豆腐干梵蒂冈地方的</view>
+        <view class="popup-text">豆腐干豆腐干梵蒂冈地方的</view>
+        <view class="popup-text">豆腐干豆腐干梵蒂冈地方的</view>
+      </view>
+    </van-popup>
+</view>

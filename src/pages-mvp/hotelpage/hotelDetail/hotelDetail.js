@@ -30,11 +30,7 @@ Page({
     showHotelMsg: null,
     rateData: 2.5,
     hotelData: [1, 2, 3],
-    hotelComment: [
-      { comment: "很好", time: "2023年6月1日", identity: "铂金会员" },
-      { comment: "很好11", time: "2023年6月1日", identity: "星会员" },
-      { comment: "很好666", time: "2023年6月1日", identity: "铂金会员" },
-    ],
+    hiddenComments: false,
   },
 
   onPageScroll: function (e) {
@@ -123,6 +119,11 @@ Page({
         console.log(111);
       },
     });
+  },
+
+  handleHidden() {
+    const hiddenComments = !this.data.hiddenComments;
+    this.setData({ hiddenComments });
   },
 
   async initPage() {

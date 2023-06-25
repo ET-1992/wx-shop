@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages-mvp/hotelpage/orderCreate/orderCreate",
     "pages-mvp/hotelpage/hotelDetail/hotelDetail",
     "pages/home/home",
     "pages-mvp/me/me",
