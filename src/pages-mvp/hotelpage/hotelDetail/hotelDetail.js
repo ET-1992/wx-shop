@@ -4,7 +4,7 @@
 // import { autoTransformAddress, formatTime, valueToText } from "utils/util";
 // import { ORDER_STATUS_TEXT } from "constants/index";
 // import wxProxy from "utils/wxProxy";
-import api from "utils/api";
+import api from 'utils/api';
 
 const app = getApp();
 
@@ -18,9 +18,9 @@ Page({
     navButtonHeight: 0, // 胶囊的高度
     navWidth: 0,
     showCalendar: false,
-    title: " ", // 酒店名称
-    hotel_address: "", // 酒店地址
-    hotel_phone: "", // 酒店电话
+    title: ' ', // 酒店名称
+    hotel_address: '', // 酒店地址
+    hotel_phone: '', // 酒店电话
     facility: [], // 酒店设施
     skus: [], // 房间类型
     calendarDate: [],
@@ -63,17 +63,17 @@ Page({
     const diffTime = Math.abs(date2 - date1);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     // 计算今天是周几
-    const time1 = "周" + "日一二三四五六".charAt(new Date(start).getDay());
-    const time2 = "周" + "日一二三四五六".charAt(new Date(end).getDay());
+    const time1 = '周' + '日一二三四五六'.charAt(new Date(start).getDay());
+    const time2 = '周' + '日一二三四五六'.charAt(new Date(end).getDay());
 
     const hotel_range_start_date =
       start.getFullYear() +
-      "-" +
+      '-' +
       (start.getMonth() + 1) +
-      "-" +
+      '-' +
       start.getDate();
     const hotel_range_end_date =
-      end.getFullYear() + "-" + (end.getMonth() + 1) + "-" + end.getDate();
+      end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate();
     console.log(hotel_range_end_date, hotel_range_start_date);
     const { hotel } = await api.hei.getHotelList({
       id: 3,
@@ -113,7 +113,7 @@ Page({
     wx.makePhoneCall({
       phoneNumber: this.data.hotel_phone,
       success: function () {
-        console.log("sucs");
+        console.log('sucs');
       },
       fail: function () {
         console.log(111);
@@ -129,15 +129,15 @@ Page({
   async initPage() {
     // 今日
     const date = new Date();
-    const start_date = date.getMonth() + 1 + "月" + date.getDate() + "日";
+    const start_date = date.getMonth() + 1 + '月' + date.getDate() + '日';
     // 明天
     const date1 = new Date();
     date1.setTime(date1.getTime() + 24 * 60 * 60 * 1000);
-    const end_date = date1.getMonth() + 1 + "月" + date1.getDate() + "日";
+    const end_date = date1.getMonth() + 1 + '月' + date1.getDate() + '日';
     console.log(start_date, end_date);
     // 计算今天是周几
-    const time1 = "周" + "日一二三四五六".charAt(new Date(date).getDay());
-    const time2 = "周" + "日一二三四五六".charAt(new Date(date1).getDay());
+    const time1 = '周' + '日一二三四五六'.charAt(new Date(date).getDay());
+    const time2 = '周' + '日一二三四五六'.charAt(new Date(date1).getDay());
     console.log(time1, time2, 8888);
 
     // 计算相差天数
@@ -150,12 +150,12 @@ Page({
     const { hotel } = await api.hei.getHotelList({
       id: 3,
       hotel_range_start_date:
-        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
+        date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
       hotel_range_end_date:
         date1.getFullYear() +
-        "-" +
+        '-' +
         (date1.getMonth() + 1) +
-        "-" +
+        '-' +
         date1.getDate(),
     });
     this.setData({
@@ -187,6 +187,34 @@ Page({
     });
     this.initPage();
     console.log(this.data, 666);
+  },
+
+  onClickSku(e) {
+    console.log(e, '---');
+    const { item } = e.currentTarget.dataset;
+    const { id, calendarDate } = this.data;
+    app.order = {
+      posts: [{
+        post_id: id,
+        quantity: 1,
+        sku_id: item.id,
+        date_start: calendarDate[0],
+        date_end: calendarDate[1]
+      }],
+      date_start: calendarDate[0],
+      date_end: calendarDate[1]
+    };
+    console.log(app.order, '---');
+
+    wx.navigateTo({
+      url: '/pages-mvp/hotelpage/orderCreate/orderCreate',
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+
   },
 
   /**
