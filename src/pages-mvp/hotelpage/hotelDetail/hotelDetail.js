@@ -192,20 +192,21 @@ Page({
   onClickSku(e) {
     console.log(e, '---');
     const { item } = e.currentTarget.dataset;
-    const { id, calendarDate } = this.data;
+    const { id, calendarDate, weekTime } = this.data;
     app.order = {
+      showDate: calendarDate,
+      weekTime,
       posts: [{
         post_id: id,
         quantity: 1,
         sku_id: item.id,
-        date_start: calendarDate[0],
-        date_end: calendarDate[1]
+        date_start: item.hotel_range_data[0].date,
+        date_end: item.hotel_range_data[1].date
       }],
-      date_start: calendarDate[0],
-      date_end: calendarDate[1]
+        date_start: item.hotel_range_data[0].date,
+        date_end: item.hotel_range_data[1].date
     };
     console.log(app.order, '---');
-
     wx.navigateTo({
       url: '/pages-mvp/hotelpage/orderCreate/orderCreate',
       success: (result) => {

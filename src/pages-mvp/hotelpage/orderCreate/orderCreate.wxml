@@ -1,20 +1,28 @@
 <view class="order-detail">
   <view class="order-desc order-com">
-    <view>
-      <text>06月25日</text>今天<text>1晚</text>06月26日 明天
+    <view class="hotel-time">
+      <view style="font-weight: 600; padding-right: 10px">
+        <text style="padding-right: 10px">{{showDate[0]}}</text>
+        {{weekTime[0]}}
+      </view>
+      <view class="time-num">{{order.amounts.amount}}晚</view>
+      <view style="font-weight: 600">
+        <text style="padding-right: 10px">{{showDate[1]}}</text>
+        {{weekTime[1]}}
+      </view>
     </view>
-    <view class="desc-name">
+    <view class="desc-name" style="font-weight: 600">
       大床房
     </view>
-    <view class="desc-detail">
+    <!-- <view class="desc-detail">
       最多2人入住
     </view>
     <view class="line" />
     <view class="cancel">
       <van-icon name="warning-o" />入住及取消政策：6月24日 18：00前可免费取消，18：00后不可取消
-    </view>
+    </view> -->
   </view>
-  <swiper class="order-swiper order-com" autoplay vertical bind:tap="handlePopup">
+  <!-- <swiper class="order-swiper order-com" autoplay vertical bind:tap="handlePopup">
     <block>
       <swiper-item class="swiper">
         <view>dfsdfsdfsdfsdf</view>
@@ -23,21 +31,11 @@
         <view>ery234235454345</view>
       </swiper-item>
     </block>
-  </swiper>
+  </swiper> -->
   <form bindsubmit="bindsubmit">
     <view class="order-com">
       <view class="order-from-title">本人入住</view>
       <van-cell-group>
-        <van-field
-          class="order-cell"
-          value="{{ roomValue.value }}"
-          name="roomValue"
-          is-link
-          readonly
-          label="房间数"
-          placeholder="请选择房间数"
-          bind:tap="handleRoom"
-        />
         <van-field
           class="order-cell"
           value="{{ username }}"
@@ -80,7 +78,7 @@
         />
       </van-cell-group>
     </view>
-    <view class="order-com">
+    <!-- <view class="order-com" >
         <van-field
           class="order-cell"
           value="会员本人入住13：00退房"
@@ -98,8 +96,7 @@
           bind:tap=""
           border="{{false}}"
         />
-
-    </view>
+    </view> -->
     <view class="order-com">
         <van-field
           class="order-cell"
@@ -114,7 +111,7 @@
     </view>
 
     <view class="order-button">
-      <view>订单金额￥300</view>
+      <view>订单金额￥{{order.amounts.total_fee}}</view>
       <view class="btn-desc">
         <view>明细<van-icon name="arrow-down" /></view>
         <van-button class="btn" size="18" color="#f35440" custom-class="order-btn" form-type="submit">提交订单</van-button>

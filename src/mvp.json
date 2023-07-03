@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages-mvp/hotelpage/orderCreate/orderCreate",
     "pages-mvp/hotelpage/hotelDetail/hotelDetail",
+    "pages-mvp/hotelpage/orderCreate/orderCreate",
     "pages/home/home",
     "pages-mvp/me/me",
     "pages-mvp/completePayment/completePayment",
@@ -56,9 +56,7 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "plugins": {
-    
-  },
+  "plugins": {},
   "requiredPrivateInfos": [
     "getLocation",
     "onLocationChange",

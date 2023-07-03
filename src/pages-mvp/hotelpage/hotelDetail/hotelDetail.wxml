@@ -8,15 +8,12 @@
           </view>
           <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
-            <view style="color: #f5c082; font-size: 20px; margin: 0 10px 0 5px;">
-              {{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}
-            </view>
             <view>
-              <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
-              <view>
+              <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+              <!-- <view>
                 11212评价
                 <van-icon name="arrow" />
-              </view>
+              </view> -->
             </view>
           </view>
         </swiper-item>
@@ -65,7 +62,7 @@
         <van-icon name="arrow" />
       </view>
     </view>
-    <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" bind:tap="onClickSku" data-item="{{ item }}">
+    <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" data-item="{{ item }}">
       <view class="hotel-order">
         <view class="hotel-order-img"></view>
         <view class="hotel-order-desc" data-item="{{index}}">
@@ -82,6 +79,9 @@
               <text class="order-price">{{item.price}}</text>
               起
             </text>
+          </view>
+          <view class="btn">
+            <van-button custom-class="order-btn" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">订</van-button>
           </view>
         </view>
       </view>
@@ -111,20 +111,17 @@
       <view class="hotel-comment">
         <view class="equip-ser-title">住客评价</view>
         <view>
-          <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
-          <text style="color: #dac9a7; font-size: 14px; margin: 0 10px 0 5px;">
-            {{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}
-          </text>
+          <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
         </view>
       </view>
-      <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index" wx:if="{{index > 2 || hiddenComments}}">
+      <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index">
         <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">
-          {{item.date}}入住的{{item.identity}}
+          {{item.date}}
         </view>
         <view>{{item.content}}</view>
         <view class="line" />
       </view>
-      <view class='all-comment' bind:tap="handleHidden">全部评价</view>
+      <!-- <view class='all-comment' bind:tap="handleHidden">全部评价</view> -->
     </view>
   </view>
   <view class="hotel">
@@ -136,10 +133,7 @@
           <view class="hotel-contant-img"></view>
           <view class="hotel-contant-msg">
             <view class="hotel-contant-title">大方舍得放手的时代发gs粉丝分身乏术分身乏术分身乏术生的方法</view>
-            <van-rate size="16px" value="{{ rateData }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
-            <text style="color: #dac9a7; font-size: 14px; margin: 0 10px 0 5px;">
-              {{ rateData > 4 ? '棒' : rateData > 3 ? '好' : '差'}}
-            </text>
+            <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
             <text style="color: #6a6a6e;font-size: 14px; ">1212条评价</text>
             <view class="hotel-address">距当前酒店111m</view>
             <text class="hotel-auth" style="margin-right: 4px;">华住会权益</text>

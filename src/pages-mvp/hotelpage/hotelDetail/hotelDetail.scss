@@ -148,6 +148,18 @@
             font-size: 16px;
           }
         }
+        .btn{
+          display: flex;
+          justify-content: flex-end;
+          .order-btn{
+            height: 32px;
+            font-size: 16px;
+            padding: 10px;
+            background-color: red;
+            color: #fff;
+          }
+        }
+        
       }
     }
 
