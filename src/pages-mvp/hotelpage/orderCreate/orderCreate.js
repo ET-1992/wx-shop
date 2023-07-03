@@ -4,7 +4,6 @@
 // import { autoTransformAddress, formatTime, valueToText } from "utils/util";
 // import { ORDER_STATUS_TEXT } from "constants/index";
 // import wxProxy from "utils/wxProxy";
-import api from "utils/api";
 
 const app = getApp();
 

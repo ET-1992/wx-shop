@@ -1010,5 +1010,19 @@ export const apis = {
       isForceToken: true,
       method: 'GET',
       contentType: 'json'
+    },
+
+    orderPrepareHotel: {
+      path: '/api/hotel/order/prepare.json',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
+    },
+
+    orderCreateHotel: {
+      path: '/api/hotel/order/create.json',
+      isForceToken: true,
+      method: 'POST',
+      contentType: 'json'
     }
 };
