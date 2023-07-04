@@ -1,6 +1,7 @@
 // pages/shopDetail/index.js
 
 import api from 'utils/api';
+import wxProxy from 'utils/wxProxy';
 // import { autoTransformAddress, formatTime, valueToText } from "utils/util";
 // import { ORDER_STATUS_TEXT } from "constants/index";
 // import wxProxy from "utils/wxProxy";
@@ -55,10 +56,40 @@ Page({
     e.stopPropagation();
   },
 
-  bindsubmit(event) {
-    const { username, phone } = event.detail.value;
+  async bindsubmit(event) {
+    const { username, phone, remark, time } = event.detail.value;
     console.log(event.detail.value);
     this.setData({ tips: { username: username ? '' : '请输入真实姓名', phone: phone && /^1[3-9]\d{9}$/.test(phone) ? '' : '请输入正确电话号码' }});
+
+    const { tips } = this.data;
+
+    const { date_start, date_end, posts } = app.order;
+
+    if (tips.username || tips.phone) {
+      return;
+    }
+
+    const { order, order_no } = await api.hei.orderCreateHotel({
+      posts: posts,
+      'receiver': {
+        'receiver_name': username,
+        'receiver_phone': phone,
+        'predict_receive_time': '2023-07-01 13:00'
+    },
+    'buyer_message': remark
+    });
+
+    const { pay_interact_data } = await api.hei.orderPay({
+      order_nos: [order_no],
+      pay_method: 'WEIXIN',
+    });
+    console.log(pay_interact_data, '--');
+    const { pay_sign } = pay_interact_data;
+
+    await wxProxy.requestPayment(pay_sign);
+    wx.showToast({
+      title: '支付成功',
+    });
 
   },
 
@@ -70,7 +101,7 @@ Page({
     try {
       console.log(app.order, '++00');
 
-      const { posts, date_start, date_end, showDate, weekTime} = app.order;
+      const { posts, date_start, date_end, showDate, weekTime } = app.order;
 
       const orderData = await api.hei.orderPrepareHotel({
         posts
