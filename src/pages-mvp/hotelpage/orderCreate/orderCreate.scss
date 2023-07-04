@@ -19,6 +19,9 @@
       left: 0;
       right: 0
     }
+    .van-cell--required:before{
+      left: -5px
+    }
   }
 }
 .order-desc{
@@ -96,13 +99,20 @@
     .btn{
       margin-left: 10px;
     }
+    .btn-detail{
+      color: #6a6a6e;
+      font-size: 14px
+    }
   }
 }
 
 
 .popup-title{
-  margin: 16px;
+  padding: 16px;
   text-align: center;
+  .popup-time{
+    font-size: 12px;
+  }
 }
 .popup-desc{
   padding: 20px;
@@ -116,3 +126,25 @@
     margin-bottom: 5px;
   }
 }
+.order-popup{
+  .van-popup__close-icon--top-right {
+    top: 28px !important
+  }
+   .online{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 20px 10px;
+    .online-order{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .desc{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fdfaf6;
+    padding: 20px 15px;
+  }
+}
+

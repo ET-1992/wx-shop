@@ -6,6 +6,7 @@
     "van-icon": "@vant/weapp/dist/icon/index",
     "van-popup": "@vant/weapp/dist/popup/index",
     "van-field": "@vant/weapp/dist/field/index",
-    "van-picker": "@vant/weapp/dist/picker/index"
+    "van-picker": "@vant/weapp/dist/picker/index",
+    "van-datetime-picker": "@vant/weapp/dist/datetime-picker/index"
   }
 }

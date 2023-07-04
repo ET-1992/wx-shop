@@ -15,15 +15,16 @@ Page({
   data: {
     showSwiper: false,
     showRoom: false,
+    showOrder: false,
     roomColumns: ['1间', '2间'],
     roomValue: { value: '1间', index: 0 },
     showTime: false,
-    timeColumns: ['12:00前', '13:00前', '14:00前', '15:00前'],
-    timeValue: { value: '12:00前', index: 0 },
     tips: {
       phone: '',
       username: ''
-    }
+    },
+    currentDate: new Date().getTime(),
+    minDate: new Date().getTime(),
   },
 
   handlePopup() {
@@ -42,18 +43,39 @@ Page({
   handleTime() {
     this.setData({ showTime: !this.data.showTime });
   },
-  onSelectTime(event) {
-    const { value, index } = event.detail;
-    console.log(value, index);
-    this.setData({ timeValue: { value, index }, showTime: false });
-  },
 
   onClose() {
-    this.setData({ showSwiper: false, showRoom: false, showTime: false });
+    this.setData({ showSwiper: false, showRoom: false, showTime: false, showOrder: false });
   },
 
   stop_scroll_chaining(e) {
     e.stopPropagation();
+  },
+
+  handleOrder() {
+    this.setData({ showOrder: !this.data.showOrder });
+  },
+
+  add0(m) {
+    return m < 10 ? '0' + m : m
+  },
+  timestamp(timestamp) {
+      const time = new Date(timestamp);
+      const year = time.getFullYear();
+      const month = time.getMonth()+1;
+      const date = time.getDate();
+      const hours = time.getHours();
+      const minutes = time.getMinutes();
+    return year + '-' + this.add0(month) + '-' + this.add0(date) + ' ' + this.add0(hours) + ':' + this.add0(minutes);
+  },
+
+  onInput(event) {
+    console.log(event.detail);
+    this.setData({
+      predict_receive_time: this.timestamp(event.detail),
+      currentDate: event.detail,
+      showTime: false
+    });
   },
 
   async bindsubmit(event) {
@@ -74,7 +96,7 @@ Page({
       'receiver': {
         'receiver_name': username,
         'receiver_phone': phone,
-        'predict_receive_time': '2023-07-01 13:00'
+        predict_receive_time: time
     },
     'buyer_message': remark
     });
@@ -101,20 +123,22 @@ Page({
     try {
       console.log(app.order, '++00');
 
-      const { posts, date_start, date_end, showDate, weekTime } = app.order;
+      const { posts, date_start, date_end, showDate, weekTime, num_of_days } = app.order;
 
       const orderData = await api.hei.orderPrepareHotel({
         posts
       });
 
-    console.log(orderData, '---');
+      console.log(orderData, '---', this.timestamp(new Date()), 6666);
 
       this.setData({
         weekTime,
         showDate,
+        num_of_days,
         order: orderData,
         date_start,
-        date_end
+        date_end,
+        predict_receive_time: this.timestamp(new Date())
       });
 
     } catch (e) {

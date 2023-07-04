@@ -192,10 +192,11 @@ Page({
   onClickSku(e) {
     console.log(e, '---');
     const { item } = e.currentTarget.dataset;
-    const { id, calendarDate, weekTime } = this.data;
+    const { id, calendarDate, weekTime, num_of_days } = this.data;
     app.order = {
       showDate: calendarDate,
       weekTime,
+      num_of_days,
       posts: [{
         post_id: id,
         quantity: 1,

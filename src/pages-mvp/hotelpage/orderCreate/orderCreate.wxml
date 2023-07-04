@@ -5,7 +5,7 @@
         <text style="padding-right: 10px">{{showDate[0]}}</text>
         {{weekTime[0]}}
       </view>
-      <view class="time-num">{{order.amounts.amount}}晚</view>
+      <view class="time-num">{{num_of_days}}晚</view>
       <view style="font-weight: 600">
         <text style="padding-right: 10px">{{showDate[1]}}</text>
         {{weekTime[1]}}
@@ -41,6 +41,7 @@
           value="{{ username }}"
           name="username"
           clearable
+          required
           label="住客姓名"
           placeholder="请填写住客姓名"
           error-message="{{tips.username}}"
@@ -50,13 +51,14 @@
           value="{{ phone }}"
           name="phone"
           clearable
+          required
           label="联系电话"
           placeholder="请填写联系人手机号"
           error-message="{{tips.phone}}"
         />
         <van-field
           class="order-cell"
-          value="{{ timeValue.value }}"
+          value="{{ predict_receive_time }}"
           name="time"
           is-link
           readonly
@@ -110,10 +112,10 @@
 
     </view>
 
-    <view class="order-button">
-      <view>订单金额￥{{order.amounts.total_fee}}</view>
+    <view class="order-button" style="z-index: {{showOrder ? 1111 : 1}}">
+      <view>订单金额<text style="color: #e15f4a">￥</text><text style="color: #e15f4a; font-size: 22px; font-weight: 600">{{order.amounts.amount}}</text></view>
       <view class="btn-desc">
-        <view>明细<van-icon name="arrow-down" /></view>
+        <view class="btn-detail" bind:tap="handleOrder">明细<van-icon name="{{showOrder ? 'arrow-down' : 'arrow-up'}}" /></view>
         <van-button class="btn" size="18" color="#f35440" custom-class="order-btn" form-type="submit">提交订单</van-button>
       </view>
     </view>
@@ -156,13 +158,44 @@
     safe-area-inset-bottom
     catch:touchmove="stop_scroll_chaining"
   >
-    <van-picker
-      show-toolbar
-      title="到店时间"
-      columns="{{ timeColumns }}"
-      default-index="{{timeValue.index}}"
-      bind:cancel="onClose"
-      bind:confirm="onSelectTime"
+
+    <van-datetime-picker
+      type="datetime"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      bind:confirm="onInput"
     />
   </van-popup>
+  <van-popup
+    show="{{ showOrder }}"
+    position="bottom"
+    bind:close="onClose"
+    closeable
+    safe-area-inset-bottom
+    custom-style="height: 60%;  background: #f6f7fb"
+    catch:touchmove="stop_scroll_chaining"
+    class="order-popup"
+  >
+    <view class="popup-title" style=" background: #fff">
+      <view style="font-weight: 600">费用明细</view>
+      <view class="popup-time">{{showDate[0]}}-{{showDate[1]}} 共{{order.amounts.amount}}晚</view>
+    </view>
+    <view style=" background: #fff; color: #6a6a6e; padding: 5px 10px">大床房</view>
+    <view class="online">
+      <view class="online-order">
+        <text style="font-weight: 600">在线支付</text>
+        <view style="color: #e15f4a; font-size: 14px">¥<text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text></view>
+      </view>
+      <view class="online-order" style="padding-top: 30px">
+        <text style="font-weight: 600; font-size: 16px">房费</text>
+        <view style="color: #e15f4a; font-size: 14px; padding-right: 10px">¥<text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text></view>
+      </view>
+      <view class="desc">
+        <text style="font-size: 12px; color: #6a6a6e">{{showDate[0]}}(1间)</text>
+        <text style="font-size: 12px; color: #6a6a6e">¥{{order.amounts.amount}}</text>
+      </view>
+    </view>
+
+  </van-popup>
+ 
 </view>
