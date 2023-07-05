@@ -12,7 +12,7 @@
       </view>
     </view>
     <view class="desc-name" style="font-weight: 600">
-      大床房
+      {{property_names}}
     </view>
     <!-- <view class="desc-detail">
       最多2人入住
@@ -38,7 +38,7 @@
       <van-cell-group>
         <van-field
           class="order-cell"
-          value="{{ username }}"
+          value="{{ username || '' }}"
           name="username"
           clearable
           required
@@ -48,7 +48,7 @@
         />
         <van-field
           class="order-cell"
-          value="{{ phone }}"
+          value="{{ phone || '' }}"
           name="phone"
           clearable
           required
@@ -58,7 +58,7 @@
         />
         <van-field
           class="order-cell"
-          value="{{ predict_receive_time }}"
+          value="{{ predict_receive_time || '' }}"
           name="time"
           is-link
           readonly
@@ -68,7 +68,7 @@
         />
         <van-field
           class="order-cell"
-          value="{{ remark }}"
+          value="{{ remark || '' }}"
           name="remark"
           type="textarea"
           autosize
@@ -180,7 +180,7 @@
       <view style="font-weight: 600">费用明细</view>
       <view class="popup-time">{{showDate[0]}}-{{showDate[1]}} 共{{order.amounts.amount}}晚</view>
     </view>
-    <view style=" background: #fff; color: #6a6a6e; padding: 5px 10px">大床房</view>
+    <view style=" background: #fff; color: #6a6a6e; padding: 5px 10px">{{property_names}}</view>
     <view class="online">
       <view class="online-order">
         <text style="font-weight: 600">在线支付</text>

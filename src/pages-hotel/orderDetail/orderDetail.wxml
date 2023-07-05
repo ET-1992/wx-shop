@@ -9,24 +9,24 @@
     自动关闭
   </view> -->
   <view class="order-detail">
-    <view class="order">
+    <!-- <view class="order">
       <view class="item" wx:for="{{ order.items }}" wx:key="id">
         <productList product="{{ item }}" productLayoutStyle="leftImage" />
       </view>
-      <!-- <view class="btn">
+      <view class="btn">
         <button class="base-btn">售后电话</button>
         <button class="base-btn">联系商家</button>
-      </view> -->
-    </view>
+      </view>
+    </view> -->
     <view class="order">
       <view class="price">
         <text class="price-title">商品总价：</text>
         <text>￥{{ order.products_amount }}</text>
       </view>
-      <view class="price">
+      <!-- <view class="price">
         <text class="price-title">运费</text>
         <text>￥{{ order.postage }}</text>
-      </view>
+      </view> -->
       <view class="price">
         <text class="price-title">优惠金额</text>
         <text>￥{{ order.discount_fee }}</text>
@@ -38,7 +38,7 @@
     </view>
     <view class="order">
       <view class="price address">
-        <text class="price-title address-title">收货地址：</text>
+        <text class="price-title address-title">客户电话：</text>
         <text>
           {{ order.receiver_name }}  {{ order.receiver_phone }}  {{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
         </text>

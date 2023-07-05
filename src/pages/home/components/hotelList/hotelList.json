@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "van-rate": "@vant/weapp/dist/rate/index",
     "groupon": "../groupon/groupon",
     "bargain": "../bargain/bargain",
     "flashSale": "../flashSale/flashSale",

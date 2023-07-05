@@ -6,6 +6,10 @@
     <view class="meta">
         <view class="top">
             <view class="title">{{ product.title }}</view>
+            <view>
+                <van-rate size="16px" value="{{ product.comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7"/>
+            </view>
+            <view class="desc" wx:if="{{ product.hotel_address }}">{{ product.hotel_address }}</view>
             <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
         </view>
         <view class="bottom">
@@ -22,9 +26,9 @@
                     </view>
                 </view>
                 <!-- 普通商品 -->
-                <view wx:else class="original">
+                <!-- <view wx:else class="original">
                     <view wx:if="{{product.price !== product.original_price}}">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
-                </view>
+                </view> -->
                 <!-- 价格 -->
                 <view class="price">
                     <view class="dedicatedPrice" wx:if="{{ product.membership_dedicated_enable }}">
@@ -36,7 +40,8 @@
                         <text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
                     </view>
                     <view class="num" wx:else>
-                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+                        <text style="font-weight: 400; font-size: 14px">{{ globalData.CURRENCY[globalData.currency] }}
+                        </text>{{ product.price }}<text style="font-weight: 400; font-size: 14px">起</text>
                     </view>
                 </view>
             </view>
@@ -47,9 +52,9 @@
             <!-- 其他商品 -->
             <block wx:else>
                 <!-- 开启首页显示购物车按钮 -->
-                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即购买'}}</view>
+                <!-- <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即购买'}}</view> -->
                 <!-- 未开启首页显示购物车按钮 -->
-                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即购买'}}</view>
+                <!-- <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即购买'}}</view> -->
             </block>
         </view>
     </view>

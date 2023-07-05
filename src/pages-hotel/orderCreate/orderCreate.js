@@ -123,7 +123,7 @@ Page({
     try {
       console.log(app.order, '++00');
 
-      const { posts, date_start, date_end, showDate, weekTime, num_of_days } = app.order;
+      const { posts, date_start, date_end, showDate, weekTime, num_of_days, property_names } = app.order;
 
       const orderData = await api.hei.orderPrepareHotel({
         posts
@@ -135,6 +135,7 @@ Page({
         weekTime,
         showDate,
         num_of_days,
+        property_names,
         order: orderData,
         date_start,
         date_end,

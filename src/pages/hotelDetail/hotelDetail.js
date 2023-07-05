@@ -53,46 +53,17 @@ Page({
   // 时间确定
   async onConfirm(event) {
     const [start, end] = event.detail;
-    function formatDate(date) {
-      const calendarDate = new Date(date);
-      return `${calendarDate.getMonth() + 1}月${calendarDate.getDate()}日`;
-    }
-    // 计算相差天数
-    const date1 = new Date(start);
-    const date2 = new Date(end);
-    const diffTime = Math.abs(date2 - date1);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    // 计算今天是周几
-    const time1 = '周' + '日一二三四五六'.charAt(new Date(start).getDay());
-    const time2 = '周' + '日一二三四五六'.charAt(new Date(end).getDay());
 
-    const hotel_range_start_date =
-      start.getFullYear() +
-      '-' +
-      (start.getMonth() + 1) +
-      '-' +
-      start.getDate();
-    const hotel_range_end_date =
-      end.getFullYear() + '-' + (end.getMonth() + 1) + '-' + end.getDate();
-    console.log(hotel_range_end_date, hotel_range_start_date);
     const { hotel } = await api.hei.getHotelList({
       id: 3,
-      hotel_range_start_date,
-      hotel_range_end_date,
+      hotel_range_start_date: this.timestamp(new Date(start), 'YYYY'),
+      hotel_range_end_date: this.timestamp(new Date(end), 'YYYY'),
     });
     this.setData({
       showCalendar: false,
-      calendarDate: [formatDate(start), formatDate(end)],
-      num_of_days: diffDays,
-      weekTime: [time1, time2],
+      calendarDate: [this.timestamp(new Date(start), ''), this.timestamp(new Date(end), '')],
+      ...this.weekstamp(new Date(start), new Date(end)),
       ...hotel,
-    });
-  },
-
-  // 评分
-  handleRate(event) {
-    this.setData({
-      rateData: event.detail,
     });
   },
 
@@ -126,43 +97,49 @@ Page({
     this.setData({ hiddenComments });
   },
 
-  async initPage() {
-    // 今日
-    const date = new Date();
-    const start_date = date.getMonth() + 1 + '月' + date.getDate() + '日';
-    // 明天
-    const date1 = new Date();
-    date1.setTime(date1.getTime() + 24 * 60 * 60 * 1000);
-    const end_date = date1.getMonth() + 1 + '月' + date1.getDate() + '日';
-    console.log(start_date, end_date);
-    // 计算今天是周几
-    const time1 = '周' + '日一二三四五六'.charAt(new Date(date).getDay());
-    const time2 = '周' + '日一二三四五六'.charAt(new Date(date1).getDay());
-    console.log(time1, time2, 8888);
+  add0(m) {
+    return m < 10 ? '0' + m : m
+  },
+  // 日期转化
+  timestamp(timestamp, type) {
+      const time = new Date(timestamp);
+      const year = time.getFullYear();
+      const month = time.getMonth()+1;
+      const date = time.getDate();
+    return type === 'YYYY' ? year + '-' + this.add0(month) + '-' + this.add0(date) : this.add0(month) + '月' + this.add0(date) + '日';
+  },
 
-    // 计算相差天数
-    const now = new Date(date);
-    const date2 = new Date(date1);
+  // 周几或天数
+  weekstamp(start_date, end_date) {
+    // 计算今天是周几
+    const start_week = '周' + '日一二三四五六'.charAt(new Date(start_date).getDay());
+    const end_week = '周' + '日一二三四五六'.charAt(new Date(end_date).getDay());
+
+      // 计算相差天数
+    const now = new Date(start_date);
+    const date2 = new Date(end_date);
     const diffTime = Math.abs(date2 - now);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return { weekTime: [start_week, end_week], num_of_days: diffDays }
+  },
+
+  async initPage() {
+    // 今日
+    const start_date = new Date();
+    // 明天
+    const end_date = new Date();
+    end_date.setTime(end_date.getTime() + 24 * 60 * 60 * 1000);
 
     // 详情数据
     const { hotel } = await api.hei.getHotelList({
       id: 3,
-      hotel_range_start_date:
-        date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-      hotel_range_end_date:
-        date1.getFullYear() +
-        '-' +
-        (date1.getMonth() + 1) +
-        '-' +
-        date1.getDate(),
+      hotel_range_start_date: this.timestamp(start_date, 'YYYY'),
+      hotel_range_end_date: this.timestamp(end_date, 'YYYY')
     });
     this.setData({
       ...hotel,
-      calendarDate: [start_date, end_date],
-      weekTime: [time1, time2],
-      num_of_days: diffDays,
+      calendarDate: [this.timestamp(start_date, ''), this.timestamp(end_date, '')],
+      ...this.weekstamp(start_date, end_date)
     });
   },
 
@@ -197,6 +174,7 @@ Page({
       showDate: calendarDate,
       weekTime,
       num_of_days,
+      property_names: item.property_names,
       posts: [{
         post_id: id,
         quantity: 1,

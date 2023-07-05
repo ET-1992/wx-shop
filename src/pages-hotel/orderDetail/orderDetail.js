@@ -29,7 +29,7 @@ Page({
    */
   onLoad: async function (options) {
     const { id } = this.options;
-    const { order, ...others } = await api.hei.fetchOrder({ order_no: id });
+    const { order, ...others } = await api.hei.fetchOrder({ order_no: "O2023070514183790705715" });
         order.statusCode = Number(order.status);
         order.statusText = valueToText(ORDER_STATUS_TEXT, Number(order.status));
         order.buyer_message = order.buyer_message || '——';

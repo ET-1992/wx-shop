@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/hotelDetail/hotelDetail",
+    "pages-hotel/orderDetail/orderDetail",
     "pages/home/home",
+    "pages/hotelDetail/hotelDetail",
     "pages-hotel/me/me",
     "pages-hotel/orderCreate/orderCreate",
-    "pages-hotel/orderDetail/orderDetail",
     "pages-hotel/completePayment/completePayment",
     "pages-hotel/productList/productList",
     "pages-hotel/category/category",

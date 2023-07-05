@@ -9,7 +9,7 @@
           <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
             <view>
-              <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+              <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7"/>
               <!-- <view>
                 11212评价
                 <van-icon name="arrow" />
@@ -70,7 +70,7 @@
           <view class="hotel-order-msg">
             <text class="hotel-order-detail">
               <text wx:for="{{item.facility}}" wx:for-item="facility" style="margin-right: 4px">
-                {{facility.value}}
+                {{facility.key}}：{{facility.value}}
               </text>
             </text>
             <text class="hotel-order-price">
@@ -111,7 +111,7 @@
       <view class="hotel-comment">
         <view class="equip-ser-title">住客评价</view>
         <view>
-          <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+          <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
         </view>
       </view>
       <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index">
@@ -133,7 +133,7 @@
           <view class="hotel-contant-img"></view>
           <view class="hotel-contant-msg">
             <view class="hotel-contant-title">大方舍得放手的时代发gs粉丝分身乏术分身乏术分身乏术生的方法</view>
-            <van-rate size="16px" value="{{ comment_count }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+            <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
             <text style="color: #6a6a6e;font-size: 14px; ">1212条评价</text>
             <view class="hotel-address">距当前酒店111m</view>
             <text class="hotel-auth" style="margin-right: 4px;">华住会权益</text>
