@@ -1,0 +1,55 @@
+<view class="section {{ setting.border_top_radius ? 'top-radius' : '' }}  {{ setting.border_bottom_radius ? 'bottom-radius' : '' }}"
+	wx:if="{{ content && content.length }}"
+	style="margin-bottom: {{ setting.margin }}rpx">
+	<!-- 标题 -->
+	<view class="sectionTitle" wx:if="{{ setting.title_display }}" style="text-align:{{ setting.title_position }};color:{{ setting.title_color }}">{{ title }}</view>
+	<!-- 滑动 商品列表 -->
+	<scroll-view scroll-x="true" style="width: 100%" wx:if="{{ settingStyle.isScroll(setting.style) }}" scrollLeft="{{ scrollLeft }}" scroll-with-animation>
+		<view class="swiperProductContainer">
+			<view class="swiperProduct" wx:for="{{ content }}" wx:for-item="product" wx:key="id">
+				<include src="./templates/index/index.wxml"></include>
+			</view>
+			<!-- 更多 -->
+			<view class="swiperMore" wx:if="{{ setting.more }}" bind:tap="goMore">
+				<view class="swiperButton">
+					<text class="swiperButtonText">查看更多</text>
+					<image class="swiperButtonIcon" src="/icons/rightIcon.png" />
+				</view>
+			</view>
+		</view>
+	</scroll-view>
+	<!-- 多行 商品列表 -->
+	<block wx:else>
+		<view class="{{ settingStyle.isMultiple(setting.style) ? 'productContainer' : ''}}">
+			<block wx:for="{{ content }}" wx:for-item="product" wx:key="id">
+				<include src="./templates/index/index.wxml"></include>
+			</block>
+		</view>
+		<!-- 更多 -->
+		<view class="sectionMore" wx:if="{{ setting.more }}" bind:tap="goMore">
+			<view class="moreButton">
+				<text>更多</text>
+				<image class="rightIcon" src="/icons/rightIcon.png" />
+			</view>
+		</view>
+	</block>
+</view>
+
+<wxs module="settingStyle">
+var isScroll = function(style){
+	var pattern = '_h$';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style);
+};
+
+var isMultiple = function(style){
+	var pattern = '^per';
+	var reg = getRegExp(pattern, 'img');
+	return reg.test(style);
+};
+
+module.exports = {
+	isScroll: isScroll,
+	isMultiple: isMultiple
+};
+</wxs>

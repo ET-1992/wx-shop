@@ -1,0 +1,58 @@
+<navigator class="largePic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
+    <view class="image-wrap" wx:if="{{ product.thumbnail }}">
+        <image class="goods_image" mode="aspectFill" src="{{ product.thumbnail }}"></image>
+    </view>
+    <view class="content-wrap">
+        <view class="left">
+            <view class="title"> {{ product.title }}</view>
+            <view class="desc"> {{ product.excerpt }}</view>
+            <view class="price">
+                <!-- 非会员专属会员价 -->
+                <view class="member-price" wx:if="{{ product.membership_price_enable }}">
+                    <view class="member-price-tip">VIP</view>
+                    <view class="member-price-number">
+                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}
+                    </view>
+                </view>
+                <!-- 原价 -->
+                <view wx:if="{{ !product.membership_dedicated_enable && !product.membership_price_enable  && product.price !== product.original_price }}" class="original">
+                    原价 {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+                </view>
+
+                <view class="now" style="color: {{ themeColor.primaryColor }}">
+                    <!-- 专属商品价格 -->
+                    <block wx:if="{{  product.membership_dedicated_enable }}">
+                        <image src="/icons/vipLogo-medium.svg" class="member-logo"></image>
+                        <view class="dedicatedPrice">
+                            <view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
+                            <view class="num">{{ product.price }}</view>
+                        </view>
+                    </block>
+
+                    <block wx:else>
+                        <view wx:if="{{ product.product_type === 4 }}">价值</view>
+                        <view wx:else>新品价</view>
+                        <view class="money">
+                            <view class="mark">{{ globalData.CURRENCY[globalData.currency] }}</view>
+                            <view class="num">{{ product.price }}</view>
+                       </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+        <view class="right">
+            <!-- 金币商品 -->
+            <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
+            <!-- 虚拟商品 -->
+            <view wx:elif="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即下单</view>
+            <!-- 其他商品 -->
+            <block wx:else>
+                <!-- 开启首页显示购物车按钮 -->
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即抢购'}}</view>
+
+                <!-- 未开启首页显示购物车按钮 -->
+                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即抢购'}}</view>
+            </block>
+        </view>
+    </view>
+</navigator>

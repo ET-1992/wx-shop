@@ -23,7 +23,7 @@
   <myModal modal="{{ contactModal }}" bindonCancel="onCancel" bindonConfirm="onConfirm" />
 </block>
 <!--  -->
-<block wx:if="{{ home_type === 'new'}}">
+<block>
   <view class="container" wx:if="{{ !isLoading }}" style="{{ module_page.bg_img ? 'background:url(' + module_page.bg_img +')' : '' }} no-repeat; background-color: {{ module_page.bg_color }}; background-size: contain; padding: 0 {{module_page.padding}}rpx">
     <!-- 新版搜索框 -->
     <productNavigationBar id="navigation-bar" navType="homeNav" showSearchBox="{{ module_page.search_box }}" title="{{ page_title }}" showBgColor="{{ showBgColor }}" />
@@ -45,6 +45,8 @@
         <categoryProducts wx:if="{{ item.type === 'category_product'}}" categoryProducts="{{ item }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
         <!-- 商品列表 -->
         <productsList wx:if="{{ item.type === 'product'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+        <!-- 酒店列表 -->
+        <hotelList wx:if="{{ item.type === 'hotel'}}" productsList="{{ item }}" themeColor="{{ themeColor }}" products="{{ products }}" isLastModule="{{ modules[modules.length - 1].id === item.id }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
         <!-- 魔方 -->
         <cube wx:if="{{ item.type === 'cube'}}" cube="{{ item }}" />
         <!-- 直播列表 -->

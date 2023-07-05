@@ -1,0 +1,21 @@
+<!-- <loading isLoading="{{ isInit }}"/> -->
+<view class="wrap">
+  <!-- 非会员商品 -->
+  <block>
+    <!-- <navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" /> -->
+    <filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" />
+    <view class="container">
+      <!-- <loading isLoading="{{ isLoading }}"/> -->
+      <view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" wx:if="{{ products.length && !isLoading }}">
+        <productsList productsList="{{productsList}}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" bind:add-cart="onAddProductCart" />
+      </view>
+      <view class="noHint" wx:if="{{ !products.length && !isLoading }}" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+        暂无商品
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 商品列表加车弹窗 -->
+<!-- <van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
+  <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+</van-popup> -->

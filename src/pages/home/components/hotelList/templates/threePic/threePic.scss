@@ -1,0 +1,22 @@
+.threePic {
+	.twoPic {
+		width: 220rpx;
+
+		.wrapper {
+			width: 220rpx;
+			height: 220rpx;
+		}
+
+		.tagWrapper {
+			display: none !important;
+		}
+
+		.hidden {
+			display: none !important;
+		}
+
+		.show {
+			display: block !important;
+		}
+	}
+}

@@ -1,0 +1,29 @@
+<!-- <loading isLoading="{{ isLoading }}"/> -->
+<view class="page" wx:if="{{ !isLoading }}">
+  <!-- <view class="poster">
+    <image class="" src="" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror="" bindload="" />
+  </view> -->
+  <image src="{{ promotion_detail.page_banner }}" mode="aspectFill" class="banner" bind:tap="goBack"></image>
+  <view class="promote">
+    <view class="label">
+      <text class="dot">•</text>
+      为你推荐
+      <text class="dot">•</text>
+    </view>
+  </view>
+  <!-- 非会员商品 -->
+  <block>
+    <!-- <navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="scrollStyle" bindchangeNavbarList="changeNavbarList" /> -->
+    <!-- <filterList class="filterList" filterListData="{{ filterListData }}" filterData="{{ filterData }}" bindchangeFilterList="changeFilterList" /> -->
+    <view class="container">
+      <!-- <loading isLoading="{{ isLoading }}"/> -->
+      <view class="listWrapper" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd">
+        <productsList productsList="{{productsList}}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" />
+      </view>
+    </view>
+  </block>
+</view>
+<!-- 商品列表加车弹窗 -->
+<!-- <van-popup show="{{ showOrderOptions }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions">
+  <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" />
+</van-popup> -->

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的订单",
+  "usingComponents": {
+    "orderOperations": "../../components/orderOperations/index",
+    "navbarList": "../../components/navbarList/navbarList",
+    "productList": "../../components/productList/index"
+  }
+}

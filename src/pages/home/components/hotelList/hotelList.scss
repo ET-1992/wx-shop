@@ -1,0 +1,85 @@
+@import "./templates/bigPic/bigPic";
+@import "./templates/twoPic/twoPic";
+@import "./templates/smallPic/smallPic";
+@import "./templates/largePic/largePic";
+@import "./templates/threePic/threePic";
+
+.section {
+  background-color: #ffffff;
+  .sectionTitle {
+    font-size: 35rpx;
+    font-weight: bold;
+    padding: 26rpx 25rpx 0;
+    text-align: center;
+  }
+
+  // 可滑动商品列表块
+  .swiperProductContainer {
+    width: 100%;
+    display: flex;
+    padding: 25rpx;
+    flex-wrap: nowrap;
+    .swiperProduct {
+      padding-right: 25rpx;
+      zoom: 0.9;
+    }
+    .swiperMore {
+      width: 95rpx;
+      display: flex;
+      color: #999999;
+      background-color: #fff;
+      margin-bottom: 10rpx;
+      .swiperButton {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 60rpx;
+        .swiperButtonText {
+          font-size: 24rpx;
+          letter-spacing: 10rpx;
+          writing-mode: vertical-lr;
+          margin-bottom: 10rpx;
+        }
+        .swiperButtonIcon {
+          width: 25rpx;
+          height: 25rpx;
+          border: 1rpx solid #999999;
+          border-radius: 50%;
+          padding: 5rpx 5rpx 5rpx 2rpx;
+        }
+      }
+    }
+  }
+  .productContainer {
+    display: flex;
+    padding: 25rpx;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .sectionMore {
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center;
+
+    .moreButton {
+      font-size: 28rpx;
+      color: #707070;
+    }
+
+    .rightIcon {
+      width: 20rpx;
+      height: 20rpx;
+      margin-left: 10rpx;
+    }
+  }
+}
+.top-radius {
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+}
+.bottom-radius {
+  border-bottom-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+}

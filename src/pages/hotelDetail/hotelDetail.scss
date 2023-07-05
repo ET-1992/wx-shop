@@ -1,0 +1,272 @@
+.container {
+  background-color: #f2f4fa;
+  @supports (bottom: env(safe-area-inset-bottom)) {
+    bottom: env(safe-area-inset-bottom);
+  }
+  .swiper {
+    position: relative;
+    .swiper-total {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background-color: #5b605f;
+      border-radius: 2px;
+      font-size: 12px;
+      padding: 2px;
+      color: #fff;
+      z-index: 111;
+    }
+    .comment {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #5b605f;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: #fff;
+      z-index: 111;
+    }
+    .swiper-con {
+      .img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .card_address {
+    margin: 10px 10px 0;
+    background-color: #fff;
+    padding: 14px;
+    padding-right: 20px;
+    border-radius: 5px;
+    .title {
+      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .desc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #6a6a6e;
+    }
+    .address {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      .address_detail {
+        width: 70%;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .address-right {
+        display: flex;
+        font-size: 12px;
+      }
+      .img-dt {
+        background-color: #e7e9ed;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .hotel {
+    margin-top: 10px;
+    background-color: #fff;
+    padding-top: 18px;
+    padding-bottom: 18px;
+
+    .hotel-time {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f7f8ff;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 16px;
+      margin: 0 18px;
+
+      .time-title {
+        font-size: 12px;
+        color: #939398;
+      }
+
+      .time-num {
+        font-size: 12px;
+        background-color: #f7f8ff;
+        border: 1px solid #d8d8d8;
+        border-radius: 45%;
+        padding: 2px 5px;
+      }
+    }
+
+    .hotel-order {
+      display: flex;
+      padding: 18px;
+      border-bottom: 1px solid #ededed;
+
+      .hotel-order-img {
+        background-color: #939398;
+        border-radius: 4px;
+        width: 88px;
+        height: 88px;
+      }
+
+      .hotel-order-desc {
+        width: 73%;
+        margin-top: 8px;
+        margin-left: 8px;
+        .hotel-order-title {
+          font-weight: 600;
+        }
+        .hotel-order-msg {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .hotel-order-detail {
+            font-size: 12px;
+            color: #939398;
+          }
+
+          .order-num {
+            text-decoration: line-through;
+          }
+
+          .hotel-order-price {
+            font-size: 12px;
+            color: #ff5500;
+          }
+
+          .order-price {
+            font-size: 16px;
+          }
+        }
+        .btn{
+          display: flex;
+          justify-content: flex-end;
+          .order-btn{
+            height: 32px;
+            font-size: 16px;
+            padding: 10px;
+            background-color: red;
+            color: #fff;
+          }
+        }
+        
+      }
+    }
+
+    .equipment-service {
+      margin: 0 18px;
+      background-color: #fff;
+      .equip-ser-title {
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .img {
+        width: 100%;
+        height: 300px;
+      }
+
+      .equip-ser-base {
+        display: flex;
+        font-size: 12px;
+
+        .equip-ser-base-left {
+          width: 22%;
+          padding: 0 15px;
+          font-size: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .equip-ser-base-img {
+            width: 20px;
+            height: 20px;
+            .img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+
+        .equip-ser-base-right {
+          display: grid;
+          width: 80%;
+          grid-template-columns: 1fr 1fr;
+          font-size: 12px;
+
+          .equip-ser-base-con {
+            margin-bottom: 5px;
+            width: 50%;
+          }
+        }
+      }
+      .hotel-comment {
+        display: flex;
+        justify-content: space-between;
+      }
+      .all-comment {
+        width: 160px;
+        height: 36px;
+        border: 1px solid #cccccc;
+        text-align: center;
+        line-height: 36px;
+        margin: 18px auto 0;
+      }
+      .hotel-contant {
+        display: flex;
+        margin-top: 15px;
+        .hotel-contant-img {
+          width: 35%;
+          height: 150px;
+          background-color: #6a6a6e;
+          border-radius: 4px;
+        }
+        .hotel-contant-msg {
+          width: 65%;
+          margin-left: 10px;
+          .hotel-contant-title {
+            font-size: 18px;
+            word-break: break-all;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* 这里是超出几行省略 */
+            overflow: hidden;
+          }
+          .hotel-address {
+            color: #6a6a6e;
+            font-size: 14px;
+          }
+          .hotel-auth {
+            border: 1px solid #6a6a6e;
+            border-radius: 2px;
+            font-size: 13px;
+            padding: 1px 4px;
+            color: #6a6a6e;
+          }
+          .hotel-price {
+            font-size: 12px;
+            color: #ff5500;
+            text-align: end;
+            margin-top: 10px;
+          }
+        }
+      }
+      .line {
+        width: 100%;
+        height: 1px;
+        background-color: #eeeef3;
+        margin: 15px 0;
+      }
+    }
+  }
+}

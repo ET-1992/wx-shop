@@ -1,0 +1,61 @@
+<navigator class="twoPic" url="{{ '/pages-mvp/productDetail/productDetail?id=' + product.id }}">
+  <view class="wrapper">
+    <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+    <image src="{{ product.thumbnail }}" class="ItemImage" mode="aspectFill" lazy-load="{{ true }}" />
+  </view>
+  <view class="Info" style="{{ isMasonry && 'height: auto'  }}">
+    <view class="title">{{ product.title }}</view>
+    <view class="meta">
+      <view class="priceWrapper">
+        <!-- 会员专属 -->
+        <block wx:if="{{ product.membership_dedicated_enable }}">
+          <view class="ItemPrice vipItemPrice">
+            <image src="/icons/vipLogo.svg" class="vipLogo {{config && config.cart_enable ? 'hidden' : ''}}"></image>
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+          </view>
+        </block>
+        <!-- 会员价及标签 -->
+        <view class="vipTap" wx:elif="{{ product.membership_price_enable }}">
+          <view class="vipPriceTip {{config && config.cart_enable ? 'hidden' : ''}}">VIP</view>
+          <view class="vipPrice">
+            <view class="currency">{{ globalData.CURRENCY[globalData.currency] }}</view>
+            {{ product.membership_price }}
+          </view>
+        </view>
+        <!-- 金币商品 -->
+        <view wx:elif="{{ product.product_type === 4 }}" class="ItemPrice">
+          <text class="num-prefix">价值</text>
+          <text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+        </view>
+        <block wx:else>
+          <!-- 普通商品 -->
+          <view class="ItemPrice">
+            <text class="price-rmb">{{ globalData.CURRENCY[globalData.currency] }}</text>
+            {{ product.price }}
+          </view>
+          <!-- 原价 针对三图隐藏 -->
+          <view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}" wx:if="{{ !product.membership_price_enable && product.price !== product.original_price }}">
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+          </view>
+        </block>
+      </view>
+      <!-- 开启首页显示购物车按钮 排除不可加车商品 -->
+      <view class="{{ config && config.cart_enable ? 'show' : 'tagWrapper' }}" wx:if="{{ config && config.cart_enable && !product.individual_buy && product.status !== 'sold_out' && isShowAddCart }}">
+        <view class="cart" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}">
+          <image class="icon" src="/icons/cart.svg" />
+        </view>
+      </view>
+      <!-- 未开启首页显示购物车按钮 为你推荐列表不显示 -->
+      <view class="tagWrapper" wx:else>
+        <!-- 会员价商品显示 -->
+        <view class="ItemPrice" wx:if="{{ product.membership_price_enable }}">
+          售价:{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+        </view>
+        <!-- 普通 或 会员专属 商品显示 -->
+        <view wx:if="{{ !product.membership_price_enable && !product.sales_hidden }}">
+          已售:{{ product.sales }}
+        </view>
+      </view>
+    </view>
+  </view>
+</navigator>

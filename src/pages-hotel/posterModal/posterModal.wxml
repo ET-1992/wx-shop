@@ -1,0 +1,19 @@
+<view class="poster-modal">
+  <view class="countdown">
+    <text class="text">30秒后失效</text>
+    <van-count-down
+      use-slot
+      class="countdown-time"
+      time="{{ time }}"
+      bind:change="countdownChange"
+    >
+      <text class="item">{{ timeData.hours }}</text>
+      :
+      <text class="item">{{ timeData.minutes }}</text>
+      :
+      <text class="item">{{ timeData.seconds }}</text>
+    </van-count-down>
+  </view>
+  <image class="img" src="../../icons/mvp/modal-bg.png"/>
+  <button class="btn">领劵下单</button>
+</view>

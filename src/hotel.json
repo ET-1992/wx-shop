@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/hotelDetail/hotelDetail",
+    "pages/home/home",
+    "pages-hotel/me/me",
+    "pages-hotel/orderCreate/orderCreate",
+    "pages-hotel/orderDetail/orderDetail",
+    "pages-hotel/completePayment/completePayment",
+    "pages-hotel/productList/productList",
+    "pages-hotel/category/category",
+    "pages-hotel/couponDetail/couponDetail",
+    "pages-hotel/posterModal/posterModal",
+    "pages-hotel/shippingAddress/shippingAddress",
+    "pages-hotel/orderList/orderList",
+    "pages-hotel/personalInformation/personalInformation",
+    "pages/logistics/logistics",
+    "pages/refund/refund",
+    "pages-hotel/promotionList/promotionList"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f4f4f4",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": ""
+  },
+  "tabBar": {
+    "color": "#909399",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "selectedColor": "#FE4F06",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "icons/mvp/home.png",
+        "text": "首页",
+        "selectedIconPath": "icons/mvp/home-s.png"
+      },
+      {
+        "pagePath": "pages-hotel/category/category",
+        "iconPath": "icons/mvp/category.png",
+        "text": "分类",
+        "selectedIconPath": "icons/mvp/category-s.png"
+      },
+      {
+        "pagePath": "pages-hotel/me/me",
+        "iconPath": "icons/mvp/me.png",
+        "text": "我",
+        "selectedIconPath": "icons/mvp/me-s.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "plugins": {},
+  "requiredPrivateInfos": [
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdateBackground",
+    "chooseAddress"
+  ]
+}
