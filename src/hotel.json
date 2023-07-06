@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/hotelDetail/hotelDetail",
     "pages-hotel/orderDetail/orderDetail",
+    "pages/hotelDetail/hotelDetail",
     "pages/home/home",
     "pages-hotel/me/me",
     "pages-hotel/orderCreate/orderCreate",

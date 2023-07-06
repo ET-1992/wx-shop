@@ -172,7 +172,7 @@
     bind:close="onClose"
     closeable
     safe-area-inset-bottom
-    custom-style="height: 60%;  background: #f6f7fb"
+    custom-style="height: 70%; background: #f6f7fb"
     catch:touchmove="stop_scroll_chaining"
     class="order-popup"
   >
@@ -191,8 +191,10 @@
         <view style="color: #e15f4a; font-size: 14px; padding-right: 10px">¥<text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text></view>
       </view>
       <view class="desc">
-        <text style="font-size: 12px; color: #6a6a6e">{{showDate[0]}}(1间)</text>
-        <text style="font-size: 12px; color: #6a6a6e">¥{{order.amounts.amount}}</text>
+        <view class="desc-price" wx:for="{{order.amounts.date_amount}}" >
+          <text style="font-size: 12px; color: #6a6a6e">{{item.date}}({{item.quantity}}间)</text>
+          <text style="font-size: 12px; color: #6a6a6e">¥{{item.price}}</text>
+        </view>
       </view>
     </view>
 

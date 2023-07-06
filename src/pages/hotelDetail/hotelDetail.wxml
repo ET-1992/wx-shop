@@ -4,7 +4,7 @@
       <block wx:for="{{images}}" wx:for-item="item" wx:for-index="index">
         <swiper-item>
           <view style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;">
-            <image class='img' src="{{item.thumbnail}}"></image>
+            <image class='img' src="{{item.thumbnail}}"/>
           </view>
           <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
@@ -64,7 +64,9 @@
     </view>
     <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" data-item="{{ item }}">
       <view class="hotel-order">
-        <view class="hotel-order-img"></view>
+        <view class="hotel-order-img">
+          <image class='img' src="{{item.thumbnail}}"/>
+        </view>
         <view class="hotel-order-desc" data-item="{{index}}">
           <view class="hotel-order-title">{{item.property_names}}</view>
           <view class="hotel-order-msg">

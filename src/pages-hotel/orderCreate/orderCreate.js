@@ -59,20 +59,21 @@ Page({
   add0(m) {
     return m < 10 ? '0' + m : m
   },
-  timestamp(timestamp) {
+  timestamp(timestamp, type) {
       const time = new Date(timestamp);
       const year = time.getFullYear();
       const month = time.getMonth()+1;
       const date = time.getDate();
       const hours = time.getHours();
       const minutes = time.getMinutes();
-    return year + '-' + this.add0(month) + '-' + this.add0(date) + ' ' + this.add0(hours) + ':' + this.add0(minutes);
+    return type === 'YYYY' ? year + '-' + this.add0(month) + '-' + this.add0(date) + ' ' + this.add0(hours) + ':' +
+      this.add0(minutes) : this.add0(month) + '月' + this.add0(date) + '日';
   },
 
   onInput(event) {
     console.log(event.detail);
     this.setData({
-      predict_receive_time: this.timestamp(event.detail),
+      predict_receive_time: this.timestamp(event.detail, 'YYYY'),
       currentDate: event.detail,
       showTime: false
     });
@@ -129,8 +130,12 @@ Page({
         posts
       });
 
-      console.log(orderData, '---', this.timestamp(new Date()), 6666);
+      orderData.amounts.date_amount.forEach((val) => {
+        val.date = this.timestamp(new Date(val.date), '')
+      })
 
+      console.log(orderData, '99999');
+      
       this.setData({
         weekTime,
         showDate,
@@ -139,7 +144,7 @@ Page({
         order: orderData,
         date_start,
         date_end,
-        predict_receive_time: this.timestamp(new Date())
+        predict_receive_time: this.timestamp(new Date(), 'YYYY')
       });
 
     } catch (e) {

@@ -127,6 +127,8 @@
   }
 }
 .order-popup{
+   padding-bottom: constant(safe-area-inset-bottom); 
+  padding-bottom: env(safe-area-inset-bottom); 
   .van-popup__close-icon--top-right {
     top: 28px !important
   }
@@ -141,10 +143,12 @@
     }
   }
   .desc{
-    display: flex;
-    justify-content: space-between;
     background-color: #fdfaf6;
     padding: 20px 15px;
+    .desc-price{
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
