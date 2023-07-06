@@ -61,6 +61,8 @@ Page({
     });
     this.setData({
       showCalendar: false,
+      date_start: this.timestamp(new Date(start), 'YYYY'),
+      date_end: this.timestamp(new Date(end), 'YYYY'),
       calendarDate: [this.timestamp(new Date(start), ''), this.timestamp(new Date(end), '')],
       ...this.weekstamp(new Date(start), new Date(end)),
       ...hotel,
@@ -138,6 +140,8 @@ Page({
     });
     this.setData({
       ...hotel,
+      date_start: this.timestamp(start_date, 'YYYY'),
+      date_end: this.timestamp(end_date, 'YYYY'),
       calendarDate: [this.timestamp(start_date, ''), this.timestamp(end_date, '')],
       ...this.weekstamp(start_date, end_date)
     });
@@ -169,7 +173,7 @@ Page({
   onClickSku(e) {
     console.log(e, '---');
     const { item } = e.currentTarget.dataset;
-    const { id, calendarDate, weekTime, num_of_days } = this.data;
+    const { id, calendarDate, weekTime, num_of_days, date_start, date_end } = this.data;
     app.order = {
       showDate: calendarDate,
       weekTime,
@@ -179,11 +183,11 @@ Page({
         post_id: id,
         quantity: 1,
         sku_id: item.id,
-        date_start: item.hotel_range_data[0].date,
-        date_end: item.hotel_range_data[1].date
+        date_start,
+        date_end
       }],
-        date_start: item.hotel_range_data[0].date,
-        date_end: item.hotel_range_data[1].date
+        date_start,
+        date_end
     };
     console.log(app.order, '---');
     wx.navigateTo({
