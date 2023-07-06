@@ -9,15 +9,30 @@
     自动关闭
   </view> -->
   <view class="order-detail">
-    <!-- <view class="order">
+    <view class="order">
       <view class="item" wx:for="{{ order.items }}" wx:key="id">
-        <productList product="{{ item }}" productLayoutStyle="leftImage" />
+        <!-- <productList product="{{ item }}" productLayoutStyle="leftImage"/> -->
+        <view class="order-desc">
+          <image class="img" src="{{item.image_url}}"/>
+          
+          <view class="right">
+            <view class="name">{{item.title}}</view>
+            <view class="desc">
+              <view class="desc-left">{{item.sku_property_names}}</view>
+              <view class="desc-right">{{item.date}}</view>
+            </view>
+            <view class="singleBy">
+              <text>¥{{item.price}}</text>
+            </view>
+
+          </view>
+        </view>
       </view>
       <view class="btn">
         <button class="base-btn">售后电话</button>
         <button class="base-btn">联系商家</button>
       </view>
-    </view> -->
+    </view>
     <view class="order">
       <view class="price">
         <text class="price-title">商品总价：</text>
@@ -38,9 +53,15 @@
     </view>
     <view class="order">
       <view class="price address">
+        <text class="price-title address-title">客户名称：</text>
+        <text>
+          {{ order.receiver_name }}
+        </text>
+      </view>
+      <view class="price address">
         <text class="price-title address-title">客户电话：</text>
         <text>
-          {{ order.receiver_name }}  {{ order.receiver_phone }}  {{ order.receiver_state + order.receiver_city + order.receiver_district + order.receiver_address }}
+          {{ order.receiver_phone }} 
         </text>
       </view>
       <view class="price address">

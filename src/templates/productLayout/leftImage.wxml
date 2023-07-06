@@ -3,8 +3,8 @@
   <view class="meta">
     <view class="name">{{ product.title }}</view>
     <view class="pay">
-      <view class="desc">{{ product.sku_property_names }}</view>
-      <view class="num">x{{product.quantity}}</view>
+      <view class="desc" style="width: 60%">{{ product.sku_property_names }}</view>
+      <view class="num" style="font-weight: 600; color: black">{{product.date}}</view>
     </view>
     <view class="singleBuy">
       <!-- 支付： -->

@@ -1,8 +1,9 @@
 {
   "pages": [
-    "pages-hotel/orderDetail/orderDetail",
+    "pages-hotel/orderList/orderList",
     "pages/hotelDetail/hotelDetail",
     "pages/home/home",
+    "pages-hotel/orderDetail/orderDetail",
     "pages-hotel/me/me",
     "pages-hotel/orderCreate/orderCreate",
     "pages-hotel/completePayment/completePayment",
@@ -11,7 +12,6 @@
     "pages-hotel/couponDetail/couponDetail",
     "pages-hotel/posterModal/posterModal",
     "pages-hotel/shippingAddress/shippingAddress",
-    "pages-hotel/orderList/orderList",
     "pages-hotel/personalInformation/personalInformation",
     "pages/logistics/logistics",
     "pages/refund/refund",
