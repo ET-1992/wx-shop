@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "详情",
   "usingComponents": {
     "van-icon": "@vant/weapp/dist/icon/index",
     "van-calendar": "@vant/weapp/dist/calendar/index",

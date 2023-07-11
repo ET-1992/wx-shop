@@ -25,9 +25,9 @@ const dataStatus = [
   { text: '待付款', value: 1000 },
   // { text: "审核中", value: 1010 }, // 转账支付审核中
   // { text: "待成团", value: 10 },
-  { text: '待发货', value: 2000 },
+  // { text: '待发货', value: 2000 },
   // { text: "待发货", value: 2002 }, // 已打单
-  { text: '已发货', value: 3000 },
+  // { text: '已发货', value: 3000 },
   // { text: '已部分发货', value: 3001 },
   // { text: "审核驳回", value: 1011 }, // 转账支付审核驳回
   { text: '退款中', value: 5000 },

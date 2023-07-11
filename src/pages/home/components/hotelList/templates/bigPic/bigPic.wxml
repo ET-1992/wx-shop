@@ -1,58 +1,66 @@
-<navigator class="bigPic" url="{{ '/pages/productDetail/productDetail?id=' + product.id }}">
-    <view class="wrap">
-        <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
-        <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill"/>
+<navigator class="bigPic" url="{{ '/pages/hotelDetail/hotelDetail?id=' + product.id }}">
+  <view class="wrap">
+    <view class="mask" wx:if="{{ product.status === 'sold_out' }}">已售罄</view>
+    <image class="productImage" src="{{ product.thumbnail }}" mode="aspectFill" />
+  </view>
+  <view class="meta">
+    <view class="top">
+      <view class="title">{{ product.title }}</view>
+      <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
     </view>
-    <view class="meta">
-        <view class="top">
-            <view class="title">{{ product.title }}</view>
-            <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+    <view class="bottom">
+      <view class="bottom-left">
+        <!-- 会员专属 -->
+        <block wx:if="{{ product.membership_dedicated_enable }}">
+          <image src="/icons/vipLogo-large.svg" class="member-logo"></image>
+        </block>
+        <!-- vip -->
+        <view class="member-price" wx:elif="{{  product.membership_price_enable }}">
+          <view class="member-price-tip">VIP</view>
+          <view class="member-price-number">
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}
+          </view>
         </view>
-        <view class="bottom">
-            <view class="bottom-left">
-                <!-- 会员专属 -->
-                <block wx:if="{{ product.membership_dedicated_enable }}">
-                    <image src="/icons/vipLogo-large.svg" class="member-logo"></image>
-                </block>
-                <!-- vip -->
-                <view class="member-price" wx:elif="{{  product.membership_price_enable }}">
-                    <view class="member-price-tip">VIP</view>
-                    <view class="member-price-number">
-                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.membership_price }}
-                    </view>
-                </view>
-                <!-- 普通商品 -->
-                <view wx:else class="original">
-                    <view wx:if="{{product.price !== product.original_price}}">{{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}</view>
-                </view>
-                <!-- 价格 -->
-                <view class="price">
-                    <view class="dedicatedPrice" wx:if="{{ product.membership_dedicated_enable }}">
-                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
-                    </view>
-                    <!-- 金币商品 -->
-                    <view class="coin-price" wx:elif="{{ product.product_type === 4 }}">
-                        <text class="num-prefix">价值</text>
-                        <text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
-                    </view>
-                    <view class="num" wx:else>
-                        {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
-                    </view>
-                </view>
-            </view>
-
-            <!-- 金币商品 -->
-            <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即兑换</view>
-            <!-- 虚拟商品 -->
-            <view wx:elif="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">立即购买</view>
-
-            <!-- 其他商品 -->
-            <block wx:else>
-                <!-- 开启首页显示购物车按钮 -->
-                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}"  catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">{{config && config.cart_text || '立即购买'}}</view>
-                <!-- 未开启首页显示购物车按钮 -->
-                <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>{{config && config.cart_text || '立即购买'}}</view>
-            </block>
+        <!-- 普通商品 -->
+        <view wx:else class="original">
+          <view wx:if="{{product.price !== product.original_price}}">
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
+          </view>
         </view>
+        <!-- 价格 -->
+        <view class="price">
+          <view class="dedicatedPrice" wx:if="{{ product.membership_dedicated_enable }}">
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+          </view>
+          <!-- 金币商品 -->
+          <view class="coin-price" wx:elif="{{ product.product_type === 4 }}">
+            <text class="num-prefix">价值</text>
+            <text>{{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}</text>
+          </view>
+          <view class="num" wx:else>
+            {{ globalData.CURRENCY[globalData.currency] }}{{ product.price }}
+          </view>
+        </view>
+      </view>
+      <!-- 金币商品 -->
+      <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">
+        立即兑换
+      </view>
+      <!-- 虚拟商品 -->
+      <view wx:elif="{{ product.product_type === 1 || product.status === 'sold_out' }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">
+        立即购买
+      </view>
+      <!-- 其他商品 -->
+      <block wx:else>
+        <!-- 开启首页显示购物车按钮 -->
+        <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" catch:tap="singleAddCart" data-id="{{ product.id }}" data-stock="{{ product.stock }}" data-product="{{ product }}" wx:if="{{ config && config.cart_enable }}">
+          {{config && config.cart_text || '立即购买'}}
+        </view>
+        <!-- 未开启首页显示购物车按钮 -->
+        <view class="buyBtn" style="background-color: {{ themeColor.primaryColor }}" wx:else>
+          {{config && config.cart_text || '立即购买'}}
+        </view>
+      </block>
     </view>
+  </view>
 </navigator>

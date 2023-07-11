@@ -4,6 +4,7 @@
 // import { autoTransformAddress, formatTime, valueToText } from "utils/util";
 // import { ORDER_STATUS_TEXT } from "constants/index";
 // import wxProxy from "utils/wxProxy";
+import { createCurrentOrder, onDefaultShareAppMessage, onDefaultShareAppTimeline } from 'utils/pageShare';
 import api from 'utils/api';
 
 const app = getApp();
@@ -100,13 +101,13 @@ Page({
   },
 
   add0(m) {
-    return m < 10 ? '0' + m : m
+    return m < 10 ? '0' + m : m;
   },
   // 日期转化
   timestamp(timestamp, type) {
       const time = new Date(timestamp);
       const year = time.getFullYear();
-      const month = time.getMonth()+1;
+      const month = time.getMonth() + 1;
       const date = time.getDate();
     return type === 'YYYY' ? year + '-' + this.add0(month) + '-' + this.add0(date) : this.add0(month) + '月' + this.add0(date) + '日';
   },
@@ -122,7 +123,7 @@ Page({
     const date2 = new Date(end_date);
     const diffTime = Math.abs(date2 - now);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return { weekTime: [start_week, end_week], num_of_days: diffDays }
+    return { weekTime: [start_week, end_week], num_of_days: diffDays };
   },
 
   async initPage() {
@@ -133,13 +134,18 @@ Page({
     end_date.setTime(end_date.getTime() + 24 * 60 * 60 * 1000);
 
     // 详情数据
-    const { hotel } = await api.hei.getHotelList({
+    const { hotel, page_title, share_title, share_image } = await api.hei.getHotelList({
       id: 3,
       hotel_range_start_date: this.timestamp(start_date, 'YYYY'),
       hotel_range_end_date: this.timestamp(end_date, 'YYYY')
     });
+    wx.setNavigationBarTitle({
+      title: page_title
+  });
     this.setData({
       ...hotel,
+      share_title,
+      share_image,
       date_start: this.timestamp(start_date, 'YYYY'),
       date_end: this.timestamp(end_date, 'YYYY'),
       calendarDate: [this.timestamp(start_date, ''), this.timestamp(end_date, '')],
@@ -234,5 +240,5 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: onDefaultShareAppMessage
 });

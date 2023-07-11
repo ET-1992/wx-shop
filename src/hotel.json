@@ -37,15 +37,9 @@
         "selectedIconPath": "icons/mvp/home-s.png"
       },
       {
-        "pagePath": "pages-hotel/category/category",
-        "iconPath": "icons/mvp/category.png",
-        "text": "分类",
-        "selectedIconPath": "icons/mvp/category-s.png"
-      },
-      {
         "pagePath": "pages-hotel/me/me",
         "iconPath": "icons/mvp/me.png",
-        "text": "我",
+        "text": "个人中心",
         "selectedIconPath": "icons/mvp/me-s.png"
       }
     ]

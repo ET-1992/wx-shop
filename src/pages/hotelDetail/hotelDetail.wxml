@@ -4,12 +4,12 @@
       <block wx:for="{{images}}" wx:for-item="item" wx:for-index="index">
         <swiper-item>
           <view style="width: 100%; height: {{navButtonHeight + 5 + navTop + 130}}px;">
-            <image class='img' src="{{item.thumbnail}}"/>
+            <image class='img' src="{{item.thumbnail}}" />
           </view>
           <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
             <view>
-              <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7"/>
+              <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
               <!-- <view>
                 11212评价
                 <van-icon name="arrow" />
@@ -26,7 +26,7 @@
       <text class="">{{excerpt}}</text>
       <view style="font-size: 14px; color: #111">
         设施/详情
-        <van-icon name="arrow" />
+        <!-- <van-icon name="arrow" /> -->
       </view>
     </view>
     <view class="address">
@@ -65,29 +65,30 @@
     <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" data-item="{{ item }}">
       <view class="hotel-order">
         <view class="hotel-order-img">
-          <image class='img' src="{{item.thumbnail}}"/>
+          <image class='img' src="{{item.thumbnail}}" />
         </view>
         <view class="hotel-order-desc" data-item="{{index}}">
           <view class="hotel-order-title">{{item.property_names}}</view>
           <view class="hotel-order-msg">
-              <text class="hotel-order-detail">
-                <text wx:for="{{item.facility}}" wx:for-item="facility" wx:if="{{ index < 2 }}" style="margin-right: 4px">
-                  {{facility.key}}：{{facility.value}}
-                </text>
+            <text class="hotel-order-detail">
+              <text wx:for="{{item.facility}}" wx:for-item="facility" wx:if="{{ index < 2 }}" style="margin-right: 4px">
+                {{facility.key}}：{{facility.value}}
               </text>
+            </text>
           </view>
-           <view class="hotel-btn">
-              <view class="hotel-order-price">
-                <view class="hotel-order-detail order-num">￥{{item.cost}}均价</view>
-                ￥
-                <text class="order-price">{{item.price}}</text>
-                起
-              </view>
-              <view class="btn">
-                <van-button custom-class="order-btn" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">订</van-button>
-              </view>
+          <view class="hotel-btn">
+            <view class="hotel-order-price">
+              <view class="hotel-order-detail order-num">￥{{item.cost}}均价</view>
+              ￥
+              <text class="order-price">{{item.price}}</text>
+              起
             </view>
-          
+            <view class="btn">
+              <van-button custom-class="order-btn" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">
+                订
+              </van-button>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -120,9 +121,7 @@
         </view>
       </view>
       <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index">
-        <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">
-          {{item.date}}
-        </view>
+        <view style="color: #6a6a6e; font-size: 14px;margin-bottom: 10px;">{{item.date}}</view>
         <view>{{item.content}}</view>
         <view class="line" />
       </view>
