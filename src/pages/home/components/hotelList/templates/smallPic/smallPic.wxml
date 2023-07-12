@@ -10,7 +10,7 @@
         <van-rate size="16px" value="{{ product.comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
       </view>
       <!-- <view class="desc" wx:if="{{ product.hotel_address }}">{{ product.hotel_address }}</view> -->
-      <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>
+      <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}飞碟个电饭锅电饭锅电饭锅电饭锅电饭锅电饭锅电饭锅大姑大姑大姑的风格大姑大姑的法国队个电饭锅电饭锅电饭锅的地方给大姑的</view>
     </view>
     <view class="bottom">
       <view class="bottom-left">
