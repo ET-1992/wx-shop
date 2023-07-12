@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages-hotel/orderList/orderList",
     "pages/hotelDetail/hotelDetail",
-    "pages/home/home",
     "pages-hotel/orderDetail/orderDetail",
+    "pages-hotel/orderList/orderList",
+    "pages/home/home",
     "pages-hotel/me/me",
     "pages-hotel/orderCreate/orderCreate",
     "pages-hotel/completePayment/completePayment",

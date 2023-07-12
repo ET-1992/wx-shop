@@ -163,6 +163,7 @@
       type="datetime"
       value="{{ currentDate }}"
       min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
       bind:confirm="onInput"
     />
   </van-popup>

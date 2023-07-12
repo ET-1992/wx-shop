@@ -68,13 +68,15 @@
           <image class='img' src="{{item.thumbnail}}" />
         </view>
         <view class="hotel-order-desc" data-item="{{index}}">
-          <view class="hotel-order-title">{{item.property_names}}</view>
-          <view class="hotel-order-msg">
+          <view style="width: 57%">
+            <view class="hotel-order-title">{{item.property_names}}</view>
+            <view class="hotel-order-msg">
             <text class="hotel-order-detail">
               <text wx:for="{{item.facility}}" wx:for-item="facility" wx:if="{{ index < 2 }}" style="margin-right: 4px">
                 {{facility.key}}：{{facility.value}}
               </text>
             </text>
+          </view>
           </view>
           <view class="hotel-btn">
             <view class="hotel-order-price">

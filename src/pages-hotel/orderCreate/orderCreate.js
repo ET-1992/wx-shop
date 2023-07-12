@@ -144,7 +144,8 @@ Page({
         order: orderData,
         date_start,
         date_end,
-        predict_receive_time: this.timestamp(new Date(), 'YYYY')
+        predict_receive_time: this.timestamp(new Date(), 'YYYY'),
+        maxDate: new Date(date_end).getTime()
       });
 
     } catch (e) {
