@@ -157,6 +157,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+      success: (result) => {
+
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+
     const { height, top, width } = wx.getMenuButtonBoundingClientRect();
     wx.getSystemInfo({
       success: (res) => {
@@ -174,6 +184,7 @@ Page({
     });
     this.initPage();
     console.log(this.data, 666);
+    wx.hideLoading();
   },
 
   onClickSku(e) {

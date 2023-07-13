@@ -57,12 +57,12 @@ Page({
   },
 
   add0(m) {
-    return m < 10 ? '0' + m : m
+    return m < 10 ? '0' + m : m;
   },
   timestamp(timestamp, type) {
       const time = new Date(timestamp);
       const year = time.getFullYear();
-      const month = time.getMonth()+1;
+      const month = time.getMonth() + 1;
       const date = time.getDate();
       const hours = time.getHours();
       const minutes = time.getMinutes();
@@ -80,6 +80,7 @@ Page({
   },
 
   async bindsubmit(event) {
+    try {
     const { username, phone, remark, time } = event.detail.value;
     console.log(event.detail.value);
     this.setData({ tips: { username: username ? '' : '请输入真实姓名', phone: phone && /^1[3-9]\d{9}$/.test(phone) ? '' : '请输入正确电话号码' }});
@@ -114,6 +115,22 @@ Page({
       title: '支付成功',
     });
 
+    wx.navigateTo({
+      url: `/pages-hotel/orderDetail/orderDetail?id=${order_no}`,
+    });
+  } catch (e) {
+    wx.showModal({
+      title: '异常错误',
+      content: e.errMsg,
+      showCancel: true,
+      cancelText: '取消',
+      cancelColor: '#000000',
+      confirmText: '确定',
+      confirmColor: '#3CC51F'
+    });
+
+  }
+
   },
 
   /**
@@ -131,11 +148,11 @@ Page({
       });
 
       orderData.amounts.date_amount.forEach((val) => {
-        val.date = this.timestamp(new Date(val.date), '')
-      })
+        val.date = this.timestamp(new Date(val.date), '');
+      });
 
       console.log(orderData, '99999');
-      
+
       this.setData({
         weekTime,
         showDate,
