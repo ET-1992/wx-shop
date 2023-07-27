@@ -127,6 +127,7 @@ Page({
   },
 
   async initPage() {
+    const { id } = this.options;
     // 今日
     const start_date = new Date();
     // 明天
@@ -135,7 +136,7 @@ Page({
 
     // 详情数据
     const { hotel, page_title, share_title, share_image } = await api.hei.getHotelList({
-      id: 3,
+      id,
       hotel_range_start_date: this.timestamp(start_date, 'YYYY'),
       hotel_range_end_date: this.timestamp(end_date, 'YYYY')
     });

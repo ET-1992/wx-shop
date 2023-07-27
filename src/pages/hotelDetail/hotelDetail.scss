@@ -52,6 +52,18 @@
       align-items: center;
       font-size: 12px;
       color: #6a6a6e;
+
+      .excerpt {
+        display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 3;
+				overflow: hidden;
+				text-overflow: ellipsis;
+      }
+
+      .text {
+        margin-left: 20rpx;
+      }
     }
     .address {
       display: flex;
@@ -125,10 +137,11 @@
 
       .hotel-order-desc {
         width: 73%;
-        margin-top: 8px;
+        // margin-top: 8px;
         margin-left: 8px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         .hotel-order-title {
           font-weight: 600;
         }
@@ -169,7 +182,7 @@
             text-decoration: line-through;
           }
           .order-price {
-            font-size: 16px;
+            font-size: 14px;
           }
           .btn{
             margin-left: 10px;
@@ -183,6 +196,11 @@
               border-radius: 4px;
             }
           }
+        }
+
+        .description {
+          font-size: 11px;
+          color: #939398;
         }
         
       }
