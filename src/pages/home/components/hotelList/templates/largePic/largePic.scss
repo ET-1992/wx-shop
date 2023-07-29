@@ -17,14 +17,15 @@
 				flex-direction: column;
 				color: #333;
 				width: 440rpx;
+        justify-content: space-between;
 			.title{
 				font-size: 17px;
 				font-weight: bold;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 1;
+				// -webkit-line-clamp: 1;
 				overflow: hidden;
-				text-overflow: ellipsis;
+				// text-overflow: ellipsis;
 			}
 			.desc{
 				font-size: 14px;
@@ -32,7 +33,7 @@
 				// margin-bottom: 15rpx;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 4;
+				-webkit-line-clamp: 3;
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
@@ -102,7 +103,8 @@
 			flex-direction: column;
 			// justify-content: flex-end;
 			// align-items: center;
-			margin-left: 110rpx;
+			margin-left: 10rpx;
+      justify-content: space-between;
 
 			.money, .dedicatedPrice{
 				color: #FF1E1E;
