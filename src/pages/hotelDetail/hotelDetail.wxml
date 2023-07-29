@@ -71,7 +71,6 @@
           <!-- <view style="width: 57%"> -->
             <view class="hotel-order-title">{{item.property_names}}</view>
             <view class="hotel-order-msg">
-<<<<<<< HEAD
            
           </view>
           <!-- </view> -->
@@ -80,22 +79,6 @@
               <text wx:for="{{item.facility}}" class="order-desc" wx:for-item="facility" wx:if="{{ index < 2 }}" style="margin-right: 4px">
                 {{facility.key}}：{{facility.value}}
               </text>
-=======
-              <text class="hotel-order-detail">
-                <text wx:for="{{item.facility}}" wx:for-item="facility" wx:if="{{ index < 2 }}" style="margin-right: 4px">
-                  {{facility.key}}：{{facility.value}}
-                </text>
-              </text>
-            </view>
-            <view class="description">{{ item.description }}</view>
-          </view>
-          <view class="hotel-btn">
-            <view class="hotel-order-price">
-              <view class="hotel-order-detail order-num">￥{{item.stp}}均价</view>
-              ￥
-              <text class="order-price">{{item.price}}</text>
-              起
->>>>>>> e33368a1e133db99e0581eb8981f7247e015a250
             </view>
             <view style="margin-left: 5px" class="order-btn">
               <view class="hotel-order-price">
