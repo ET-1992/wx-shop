@@ -32,6 +32,7 @@ Page({
     rateData: 2.5,
     hotelData: [1, 2, 3],
     hiddenComments: false,
+    showPopup:false
   },
 
   onPageScroll: function (e) {
@@ -48,7 +49,7 @@ Page({
   },
   // 关闭
   onClose() {
-    this.setData({ showCalendar: false });
+    this.setData({ showCalendar: false,  showPopup: false});
   },
 
   // 时间确定
@@ -151,6 +152,16 @@ Page({
       calendarDate: [this.timestamp(start_date, ''), this.timestamp(end_date, '')],
       ...this.weekstamp(start_date, end_date)
     });
+  },
+
+  onClickPopup(e) {
+    const { item } = e.currentTarget.dataset;
+    console.log(item, 'item');
+    this.setData({ showPopup: !this.data.showPopup, popupData: item })
+  },
+
+  stop_scroll_chaining(e) {
+    e.stopPropagation();
   },
 
   /**

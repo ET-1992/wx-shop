@@ -3,6 +3,7 @@
     "van-icon": "@vant/weapp/dist/icon/index",
     "van-calendar": "@vant/weapp/dist/calendar/index",
     "van-rate": "@vant/weapp/dist/rate/index",
-    "van-button": "@vant/weapp/dist/button/index"
+    "van-button": "@vant/weapp/dist/button/index",
+    "van-popup": "@vant/weapp/dist/popup/index"
   }
 }

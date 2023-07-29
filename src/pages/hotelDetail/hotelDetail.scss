@@ -116,7 +116,7 @@
         background-color: #939398;
         border-radius: 4px;
         width: 88px;
-        height: 90px;
+        height: 110px;
         .img{
           width: 100%;
           height: 100%;
@@ -127,34 +127,32 @@
         width: 73%;
         margin-top: 8px;
         margin-left: 8px;
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
         .hotel-order-title {
           font-weight: 600;
         }
-        .hotel-order-msg {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2; 
-          overflow:hidden;
-          -webkit-box-orient: vertical;
-          word-wrap:break-word;
-          .hotel-order-detail {
-            font-size: 12px;
-            color: #939398;
+         
+        .hotel-order-detail {
+          width: 70%;
+          .order-desc{
+            display: -webkit-box;
+            -webkit-line-clamp: 2; 
+            overflow:hidden;
+            -webkit-box-orient: vertical;
           }
+         
+          font-size: 12px;
+          color: #939398;
+        }
 
-          .order-num {
-            text-decoration: line-through;
-          }
+        .order-num {
+          text-decoration: line-through;
         }
         .hotel-btn{
           display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
+          // flex-direction: column;
           align-self: flex-end;
            .hotel-order-price {
             font-size: 12px;
@@ -168,11 +166,18 @@
           .order-num {
             text-decoration: line-through;
           }
+          .order-btn{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
           .order-price {
             font-size: 16px;
           }
           .btn{
-            margin-left: 10px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
             .order-btn{
               height: 40px;
               line-height: 40px;
@@ -295,4 +300,43 @@
       }
     }
   }
+  .popup{
+    
+    .van-popup__close-icon {
+      font-size: 25px !important;
+    }
+    .popup-title{
+      margin: 16px auto;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+    }
+    .swiper-con{
+      position: relative;
+      height: 160px;
+      margin: 0 16px;
+      border-radius: 5px;
+      .img{
+        height: 160px;
+        width: 100%;
+        border-radius: 5px;
+
+      }
+      .swiper-total{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #5b605f;
+        color: #ffffff;
+      }
+    }
+    .desc{
+      margin: 16px 16px 0;
+      .desc-detail{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+  
 }
