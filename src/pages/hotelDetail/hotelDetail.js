@@ -32,7 +32,8 @@ Page({
     rateData: 2.5,
     hotelData: [1, 2, 3],
     hiddenComments: false,
-    showPopup:false
+    showPopup: false,
+    hotelIndex: null
   },
 
   onPageScroll: function (e) {
@@ -228,6 +229,12 @@ Page({
       complete: () => {}
     });
 
+  },
+
+  onClickDing(e) {
+    const { item } = e.currentTarget.dataset;
+    console.log(item);
+    this.setData({ hotelIndex: item.id })
   },
 
   /**
