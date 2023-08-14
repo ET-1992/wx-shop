@@ -12,7 +12,8 @@
       </view>
     </view>
     <view class="desc-name" style="font-weight: 600">
-      {{property_names}}
+      <view>{{property_names}}</view>
+      {{ releated.title }}
     </view>
     <!-- <view class="desc-detail">
       最多2人入住
@@ -36,48 +37,10 @@
     <view class="order-com">
       <view class="order-from-title">本人入住</view>
       <van-cell-group>
-        <van-field
-          class="order-cell"
-          value="{{ username || '' }}"
-          name="username"
-          clearable
-          required
-          label="住客姓名"
-          placeholder="请填写住客姓名"
-          error-message="{{tips.username}}"
-        />
-        <van-field
-          class="order-cell"
-          value="{{ phone || '' }}"
-          name="phone"
-          clearable
-          required
-          label="联系电话"
-          placeholder="请填写联系人手机号"
-          error-message="{{tips.phone}}"
-        />
-        <van-field
-          class="order-cell"
-          value="{{ predict_receive_time || '' }}"
-          name="time"
-          is-link
-          readonly
-          label="预计到店"
-          placeholder="请选择到店时间"
-          bind:tap="handleTime"
-        />
-        <van-field
-          class="order-cell"
-          value="{{ remark || '' }}"
-          name="remark"
-          type="textarea"
-          autosize
-          show-word-limit
-          maxlength="150"
-          label="备注"
-          placeholder="请填写您的备注（选填）"
-          border="{{ false }}"
-        />
+        <van-field class="order-cell" value="{{ username || '' }}" name="username" clearable required label="住客姓名" placeholder="请填写住客姓名" error-message="{{tips.username}}" />
+        <van-field class="order-cell" value="{{ phone || '' }}" name="phone" clearable required label="联系电话" placeholder="请填写联系人手机号" error-message="{{tips.phone}}" />
+        <van-field class="order-cell" value="{{ predict_receive_time || '' }}" name="time" is-link readonly label="预计到店" placeholder="请选择到店时间" bind:tap="handleTime" />
+        <van-field class="order-cell" value="{{ remark || '' }}" name="remark" type="textarea" autosize show-word-limit maxlength="150" label="备注" placeholder="请填写您的备注（选填）" border="{{ false }}" />
       </van-cell-group>
     </view>
     <!-- <view class="order-com" >
@@ -100,34 +63,28 @@
         />
     </view> -->
     <view class="order-com">
-        <van-field
-          class="order-cell"
-          value="暂无可用优惠券"
-          is-link
-          readonly
-          label="优惠券"
-          bind:tap=""
-          border="{{false}}"
-        />
-
+      <van-field class="order-cell" value="暂无可用优惠券" is-link readonly label="优惠券" bind:tap="" border="{{false}}" />
     </view>
-
     <view class="order-button" style="z-index: {{showOrder ? 1111 : 1}}">
-      <view>订单金额<text style="color: #e15f4a">￥</text><text style="color: #e15f4a; font-size: 22px; font-weight: 600">{{order.amounts.amount}}</text></view>
+      <view>
+        订单金额
+        <text style="color: #e15f4a">￥</text>
+        <text style="color: #e15f4a; font-size: 22px; font-weight: 600">
+          {{order.amounts.amount}}
+        </text>
+      </view>
       <view class="btn-desc">
-        <view class="btn-detail" bind:tap="handleOrder">明细<van-icon name="{{showOrder ? 'arrow-down' : 'arrow-up'}}" /></view>
-        <van-button class="btn" size="18" color="#f35440" custom-class="order-btn" form-type="submit">提交订单</van-button>
+        <view class="btn-detail" bind:tap="handleOrder">
+          明细
+          <van-icon name="{{showOrder ? 'arrow-down' : 'arrow-up'}}" />
+        </view>
+        <van-button class="btn" size="18" color="#f35440" custom-class="order-btn" form-type="submit">
+          提交订单
+        </van-button>
       </view>
     </view>
   </form>
-  <van-popup
-    show="{{ showSwiper }}"
-    closeable
-    position="bottom"
-    custom-style="height: 30%"
-    bind:close="onClose"
-    safe-area-inset-bottom
-  >
+  <van-popup show="{{ showSwiper }}" closeable position="bottom" custom-style="height: 30%" bind:close="onClose" safe-area-inset-bottom>
     <view class="popup-title">会员提示</view>
     <view class="popup-desc">
       <view class="popup-text">豆腐干豆腐干梵蒂冈地方的</view>
@@ -135,48 +92,13 @@
       <view class="popup-text">豆腐干豆腐干梵蒂冈地方的</view>
     </view>
   </van-popup>
-
-  <van-popup
-    show="{{ showRoom }}"
-    position="bottom"
-    bind:close="onClose"
-    safe-area-inset-bottom
-  >
-    <van-picker
-      show-toolbar
-      title="选择房间数"
-      default-index="{{roomValue.index}}"
-      columns="{{ roomColumns}}"
-      bind:cancel="onClose"
-      bind:confirm="onSelectRoom"
-    />
+  <van-popup show="{{ showRoom }}" position="bottom" bind:close="onClose" safe-area-inset-bottom>
+    <van-picker show-toolbar title="选择房间数" default-index="{{roomValue.index}}" columns="{{ roomColumns}}" bind:cancel="onClose" bind:confirm="onSelectRoom" />
   </van-popup>
-   <van-popup
-    show="{{ showTime }}"
-    position="bottom"
-    bind:close="onClose"
-    safe-area-inset-bottom
-    catch:touchmove="stop_scroll_chaining"
-  >
-
-    <van-datetime-picker
-      type="datetime"
-      value="{{ currentDate }}"
-      min-date="{{ minDate }}"
-      max-date="{{ maxDate }}"
-      bind:confirm="onInput"
-    />
+  <van-popup show="{{ showTime }}" position="bottom" bind:close="onClose" safe-area-inset-bottom catch:touchmove="stop_scroll_chaining">
+    <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" bind:confirm="onInput" />
   </van-popup>
-  <van-popup
-    show="{{ showOrder }}"
-    position="bottom"
-    bind:close="onClose"
-    closeable
-    safe-area-inset-bottom
-    custom-style="height: 70%; background: #f6f7fb"
-    catch:touchmove="stop_scroll_chaining"
-    class="order-popup"
-  >
+  <van-popup show="{{ showOrder }}" position="bottom" bind:close="onClose" closeable safe-area-inset-bottom custom-style="height: 70%; background: #f6f7fb" catch:touchmove="stop_scroll_chaining" class="order-popup">
     <view class="popup-title" style=" background: #fff">
       <view style="font-weight: 600">费用明细</view>
       <view class="popup-time">{{showDate[0]}}-{{showDate[1]}} 共{{order.amounts.amount}}晚</view>
@@ -185,20 +107,24 @@
     <view class="online">
       <view class="online-order">
         <text style="font-weight: 600">在线支付</text>
-        <view style="color: #e15f4a; font-size: 14px">¥<text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text></view>
+        <view style="color: #e15f4a; font-size: 14px">
+          ¥
+          <text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text>
+        </view>
       </view>
       <view class="online-order" style="padding-top: 30px">
         <text style="font-weight: 600; font-size: 16px">房费</text>
-        <view style="color: #e15f4a; font-size: 14px; padding-right: 10px">¥<text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text></view>
+        <view style="color: #e15f4a; font-size: 14px; padding-right: 10px">
+          ¥
+          <text style="font-weight: 600; font-size: 18px">{{order.amounts.amount}}</text>
+        </view>
       </view>
       <view class="desc">
-        <view class="desc-price" wx:for="{{order.amounts.date_amount}}" >
+        <view class="desc-price" wx:for="{{order.amounts.date_amount}}">
           <text style="font-size: 12px; color: #6a6a6e">{{item.date}}({{item.quantity}}间)</text>
           <text style="font-size: 12px; color: #6a6a6e">¥{{item.price}}</text>
         </view>
       </view>
     </view>
-
   </van-popup>
- 
 </view>
