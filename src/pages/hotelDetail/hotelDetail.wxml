@@ -95,17 +95,22 @@
             </view>
           </view>
         </view>
+        <wxs src="./hotelDetail.wxs" module="arr" ></wxs>
+        <view class="icon" wx:if="{{item.related_products.length}}">
+          <van-icon name="arrow-up" wx:if="{{arr(hotelIndex, item.id)}}" />
+          <van-icon name="arrow-down" wx:if="{{!arr(hotelIndex, item.id)}}"/>
+        </view>
       </view>
-      <view class="hotel-order-ding" wx:if="{{item.related_products.length && hotelIndex == item.id}}">
+      <view class="hotel-order-ding" wx:if="{{arr(hotelIndex, item.id)}}" wx:for="{{item.related_products}}" data-item="{{related_products}}">
         <view class="left">
-          <view>{{item.related_products[0].title}}</view>
-          <view>{{item.related_products[0].excerpt}}</view>
+          <view>{{related_products.title}}</view>
+          <view>{{related_products.excerpt}}</view>
         </view>
         <view class="right">
            <view class="hotel-order-price">
               <view class="hotel-order-detail order-num" style="width: 44px;">￥{{item.cost}}均价</view>
               ￥
-              <text class="order-price">{{item.related_products[0].price}}</text>
+              <text class="order-price">{{related_products.price}}</text>
               起
             </view>
             <view class="btn">

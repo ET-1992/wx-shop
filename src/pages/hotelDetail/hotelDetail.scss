@@ -123,7 +123,13 @@
       display: flex;
       padding: 18px;
       border-bottom: 1px solid #ededed;
-      
+      position: relative;
+      .icon{
+        position: absolute;
+        top: 18px;
+        right: 18px
+
+      }
       .hotel-order-img {
         background-color: #939398;
         border-radius: 4px;
@@ -216,7 +222,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid #fff;
       .right{
+        display: flex;
+        flex-direction: column;
+        align-self: flex-end;
            .hotel-order-price {
             font-size: 12px;
             color: #ff5500;

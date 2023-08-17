@@ -33,7 +33,7 @@ Page({
     hotelData: [1, 2, 3],
     hiddenComments: false,
     showPopup: false,
-    hotelIndex: null
+    hotelIndex: []
   },
 
   onPageScroll: function (e) {
@@ -233,8 +233,16 @@ Page({
 
   onClickDing(e) {
     const { item } = e.currentTarget.dataset;
-    console.log(item);
-    this.setData({ hotelIndex: item.id })
+    // console.log(item);
+    let arr = this.data.hotelIndex || [];
+    if (arr.includes(item.id)) {
+      const index = arr.findIndex((val) => val === item.id)
+      arr.splice(index, 1)
+    } else {
+      arr.push(item.id)
+    }
+    console.log(arr, '0000');
+    this.setData({ hotelIndex:  arr})
   },
 
   /**
