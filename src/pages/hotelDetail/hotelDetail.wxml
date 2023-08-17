@@ -69,10 +69,8 @@
         </view>
         <view class="hotel-order-desc" data-item="{{ item }}" bind:tap="onClickDing">
           <!-- <view style="width: 57%"> -->
-            <view class="hotel-order-title">{{item.property_names}}</view>
-            <view class="hotel-order-msg">
-           
-          </view>
+          <view class="hotel-order-title">{{item.property_names}}</view>
+          <view class="hotel-order-msg"></view>
           <!-- </view> -->
           <view class="hotel-btn">
             <view class="hotel-order-detail">
@@ -80,17 +78,17 @@
                 {{facility.key}}：{{facility.value}}
               </text>
             </view>
-            <view style="margin-left: 5px" class="order-btn">
+            <view style="margin-left: 5px" class="order-btn" data-index="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">
               <view class="hotel-order-price">
-                <view class="hotel-order-detail order-num" style="width: 44px;">￥{{item.cost}}均价</view>
+                <view class="hotel-order-detail order-num" style="width: 44px;">
+                  ￥{{item.cost}}均价
+                </view>
                 ￥
                 <text class="order-price">{{item.price}}</text>
                 起
               </view>
-              <view class="btn" wx:if="{{!item.related_products.length}}">
-                <van-button custom-class="order-btn" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">
-                  订
-                </van-button>
+              <view class="btn" wx:if="{{!item.booking_policy.length}}">
+                <van-button custom-class="order-btn">订</van-button>
               </view>
             </view>
           </view>
@@ -120,7 +118,6 @@
             </view>
         </view>
       </view>
-
     </view>
   </view>
   <view class="hotel" wx:if="{{ facility.length }}">
@@ -184,18 +181,7 @@
     </view>
   </view>
   <van-calendar default-date show="{{ showCalendar }}" type="range" bind:close="onClose" bind:confirm="onConfirm" show-confirm="{{ false }}" />
-
-  <van-popup
-    show="{{ showPopup }}"
-    position="bottom"
-    bind:close="onClose"
-    closeable
-    safe-area-inset-bottom
-    custom-style="height: 60%"
-    catch:touchmove="stop_scroll_chaining"
-    class="popup"
-    round
-  >
+  <van-popup show="{{ showPopup }}" position="bottom" bind:close="onClose" closeable safe-area-inset-bottom custom-style="height: 60%" catch:touchmove="stop_scroll_chaining" class="popup" round>
     <view class="popup-title">房型</view>
     <swiper class='swiper-con' autoplay>
       <block>
@@ -208,14 +194,16 @@
       </block>
     </swiper>
     <view class="desc" style="display: flex">
-      <view class="desc-detail" wx:for="{{ popupData.facility }}"  wx:for-item="facility">
-         <text><text style="color: #c6c6c9; margin-right: 10px">{{facility.key}}</text>{{facility.value}}</text>
+      <view class="desc-detail" wx:for="{{ popupData.facility }}" wx:for-item="facility">
+        <text>
+          <text style="color: #c6c6c9; margin-right: 10px">{{facility.key}}</text>
+          {{facility.value}}
+        </text>
       </view>
     </view>
     <view class="desc">
       <view style="font-weight: 600">备注</view>
       <view style="color: #6c6c70; margin-top: 10px">{{ popupData.description }}</view>
     </view>
-  
   </van-popup>
 </view>

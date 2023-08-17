@@ -50,7 +50,7 @@ Page({
   },
   // 关闭
   onClose() {
-    this.setData({ showCalendar: false,  showPopup: false});
+    this.setData({ showCalendar: false, showPopup: false });
   },
 
   // 时间确定
@@ -159,7 +159,7 @@ Page({
   onClickPopup(e) {
     const { item } = e.currentTarget.dataset;
     console.log(item, 'item');
-    this.setData({ showPopup: !this.data.showPopup, popupData: item })
+    this.setData({ showPopup: !this.data.showPopup, popupData: item });
   },
 
   stop_scroll_chaining(e) {
@@ -201,8 +201,8 @@ Page({
   },
 
   onClickSku(e) {
-    console.log(e, '---');
-    const { item } = e.currentTarget.dataset;
+    console.log(e, '-+-');
+    const { item, releated = {}} = e.currentTarget.dataset;
     const { id, calendarDate, weekTime, num_of_days, date_start, date_end } = this.data;
     app.order = {
       showDate: calendarDate,
@@ -214,10 +214,12 @@ Page({
         quantity: 1,
         sku_id: item.id,
         date_start,
-        date_end
+        date_end,
+        policy_key: releated.key,
       }],
         date_start,
-        date_end
+        date_end,
+        releated
     };
     console.log(app.order, '---');
     wx.navigateTo({
