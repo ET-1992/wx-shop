@@ -7,7 +7,7 @@
     <view class="top">
       <view class="title">{{ product.title }}</view>
       <view class="rate">
-        <van-rate size="16px" value="{{ product.comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
+        <van-rate size="16px" value="{{ product.rating }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
       </view>
       <!-- <view class="desc" wx:if="{{ product.hotel_address }}">{{ product.hotel_address }}</view> -->
       <view class="desc" wx:if="{{ product.excerpt }}">{{ product.excerpt }}</view>

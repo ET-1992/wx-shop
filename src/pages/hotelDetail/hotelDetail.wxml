@@ -9,7 +9,7 @@
           <view class="swiper-total">{{index+1}}/{{images.length}}</view>
           <view class="comment">
             <view>
-              <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
+              <van-rate size="16px" value="{{ rating }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
               <!-- <view>
                 11212评价
                 <van-icon name="arrow" />
@@ -62,12 +62,12 @@
         <van-icon name="arrow" />
       </view>
     </view>
-    <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" data-item="{{ item }}">
+    <view wx:for="{{skus}}" wx:key="index" wx:for-index="index" data-item="{{ item }}" bind:tap="onClickDing">
       <view class="hotel-order">
-        <view class="hotel-order-img" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickPopup">
+        <view class="hotel-order-img" data-item="{{index}}" data-item="{{ item }}" catch:tap="onClickPopup">
           <image class='img' src="{{item.thumbnail}}" />
         </view>
-        <view class="hotel-order-desc" data-item="{{ item }}" bind:tap="onClickDing">
+        <view class="hotel-order-desc" data-item="{{ item }}">
           <!-- <view style="width: 57%"> -->
           <view class="hotel-order-title">{{item.property_names}}</view>
           <view class="hotel-order-msg"></view>
@@ -78,14 +78,14 @@
                 {{facility.key}}：{{facility.value}}
               </text>
             </view>
-            <view style="margin-left: 5px" class="order-btn" data-index="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">
+            <view style="margin-left: 5px" class="order-btn" data-index="{{index}}" data-item="{{ item }}" bind:tap="{{ !item.booking_policy.length ? 'onClickSku' : '' }}">
               <view class="hotel-order-price">
-                <view class="hotel-order-detail order-num" style="width: 44px;">
-                  ￥{{item.cost}}均价
+                <view class="hotel-order-detail order-num">￥{{item.stp}}均价</view>
+                <view>
+                  ￥
+                  <text class="order-price">{{item.price}}</text>
+                  起
                 </view>
-                ￥
-                <text class="order-price">{{item.price}}</text>
-                起
               </view>
               <view class="btn" wx:if="{{!item.booking_policy.length}}">
                 <van-button custom-class="order-btn">订</van-button>
@@ -93,29 +93,29 @@
             </view>
           </view>
         </view>
-        <wxs src="./hotelDetail.wxs" module="arr" ></wxs>
-        <view class="icon" wx:if="{{item.related_products.length}}">
-          <van-icon name="arrow-up" wx:if="{{arr(hotelIndex, item.id)}}" />
-          <van-icon name="arrow-down" wx:if="{{!arr(hotelIndex, item.id)}}"/>
+        <wxs src="./hotelDetail.wxs" module="arr"></wxs>
+        <view class="icon" wx:if="{{item.booking_policy.length}}">
+          <van-icon name="arrow-up" wx:if="{{!arr(hotelIndex, item.id)}}" />
+          <van-icon name="arrow-down" wx:if="{{arr(hotelIndex, item.id)}}" />
         </view>
       </view>
-      <view class="hotel-order-ding" wx:if="{{arr(hotelIndex, item.id)}}" wx:for="{{item.related_products}}" data-item="{{related_products}}">
+      <view class="hotel-order-ding" wx:if="{{arr(hotelIndex, item.id)}}" wx:for="{{item.booking_policy}}" wx:for-item="related_products" data-item="{{related_products}}">
         <view class="left">
-          <view>{{related_products.title}}</view>
-          <view>{{related_products.excerpt}}</view>
+          <view class="title">{{related_products.title}}</view>
+          <view class="description">{{related_products.description}}</view>
         </view>
         <view class="right">
-           <view class="hotel-order-price">
-              <view class="hotel-order-detail order-num" style="width: 44px;">￥{{item.cost}}均价</view>
-              ￥
-              <text class="order-price">{{related_products.price}}</text>
-              起
-            </view>
-            <view class="btn">
-              <van-button custom-class="order-btn" data-item="{{index}}" data-item="{{ item }}" bind:tap="onClickSku">
-                订
-              </van-button>
-            </view>
+          <view class="hotel-order-price">
+            <view class="hotel-order-detail order-num">￥{{item.stp}}均价</view>
+            ￥
+            <text class="order-price">{{item.price + related_products.price}}</text>
+            起
+          </view>
+          <view class="btn">
+            <van-button custom-class="order-btn" data-index="{{index}}" data-item="{{ item }}" data-releated="{{ related_products }}" bind:tap="onClickSku">
+              订
+            </van-button>
+          </view>
         </view>
       </view>
     </view>
@@ -139,12 +139,12 @@
       </view>
     </view>
   </view>
-  <view class="hotel" wx:="{{ comments.length }}">
+  <view class="hotel" wx:if="{{ comments.length }}">
     <view class="equipment-service">
       <view class="hotel-comment">
         <view class="equip-ser-title">住客评价</view>
         <view>
-          <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+          <van-rate size="16px" value="{{ rating }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
         </view>
       </view>
       <view wx:for="{{comments}}" wx:for-item="item" wx:for-index="index">
@@ -164,7 +164,7 @@
           <view class="hotel-contant-img"></view>
           <view class="hotel-contant-msg">
             <view class="hotel-contant-title">大方舍得放手的时代发gs粉丝分身乏术分身乏术分身乏术生的方法</view>
-            <van-rate size="16px" value="{{ comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
+            <van-rate size="16px" value="{{ 5 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" bind:change="handleRate" />
             <text style="color: #6a6a6e;font-size: 14px; ">1212条评价</text>
             <view class="hotel-address">距当前酒店111m</view>
             <text class="hotel-auth" style="margin-right: 4px;">华住会权益</text>
@@ -193,17 +193,17 @@
         </swiper-item>
       </block>
     </swiper>
-    <view class="desc" style="display: flex">
-      <view class="desc-detail" wx:for="{{ popupData.facility }}" wx:for-item="facility">
-        <text>
+    <view class="desc-wrap">
+      <view class="desc-1">
+        <view class="desc-detail" wx:for="{{ popupData.facility }}" wx:for-item="facility">
           <text style="color: #c6c6c9; margin-right: 10px">{{facility.key}}</text>
           {{facility.value}}
-        </text>
+        </view>
       </view>
-    </view>
-    <view class="desc">
-      <view style="font-weight: 600">备注</view>
-      <view style="color: #6c6c70; margin-top: 10px">{{ popupData.description }}</view>
+      <view class="desc-2">
+        <view style="font-weight: 600; margin-bottom: 20rpx">备注</view>
+        <view style="color: #6c6c70;">{{ popupData.description }}</view>
+      </view>
     </view>
   </van-popup>
 </view>

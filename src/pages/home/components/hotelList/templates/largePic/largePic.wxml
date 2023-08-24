@@ -50,7 +50,7 @@
         </view>
       </view>
       <view>
-        <van-rate size="16px" value="{{ product.comment_count/2 }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
+        <van-rate size="16px" value="{{ product.rating }}" allow-half void-icon="star" void-color="#eee" color="#dac9a7" />
       </view>
       <!-- 金币商品 -->
       <view wx:if="{{ product.product_type === 4 }}" class="buyBtn" style="background-color: {{ themeColor.primaryColor }}">
