@@ -56,9 +56,10 @@ Page({
   // 时间确定
   async onConfirm(event) {
     const [start, end] = event.detail;
+    const { id } = this.options;
 
     const { hotel } = await api.hei.getHotelList({
-      id: 3,
+      id,
       hotel_range_start_date: this.timestamp(new Date(start), 'YYYY'),
       hotel_range_end_date: this.timestamp(new Date(end), 'YYYY'),
     });
@@ -238,13 +239,13 @@ Page({
     // console.log(item);
     let arr = this.data.hotelIndex || [];
     if (arr.includes(item.id)) {
-      const index = arr.findIndex((val) => val === item.id)
-      arr.splice(index, 1)
+      const index = arr.findIndex((val) => val === item.id);
+      arr.splice(index, 1);
     } else {
-      arr.push(item.id)
+      arr.push(item.id);
     }
     console.log(arr, '0000');
-    this.setData({ hotelIndex:  arr})
+    this.setData({ hotelIndex: arr });
   },
 
   /**

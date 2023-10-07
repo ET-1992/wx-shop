@@ -101,7 +101,9 @@
   <van-popup show="{{ showOrder }}" position="bottom" bind:close="onClose" closeable safe-area-inset-bottom custom-style="height: 70%; background: #f6f7fb" catch:touchmove="stop_scroll_chaining" class="order-popup">
     <view class="popup-title" style=" background: #fff">
       <view style="font-weight: 600">费用明细</view>
-      <view class="popup-time">{{showDate[0]}}-{{showDate[1]}} 共{{order.amounts.amount}}晚</view>
+      <view class="popup-time">
+        {{showDate[0]}}-{{showDate[1]}} 共{{order.amounts.date_amount.length}}晚
+      </view>
     </view>
     <view style=" background: #fff; color: #6a6a6e; padding: 5px 10px">{{property_names}}</view>
     <view class="online">
