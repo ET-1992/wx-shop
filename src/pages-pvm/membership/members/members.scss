@@ -1,0 +1,282 @@
+@import '~styles/color';
+@import '~templates/couponList/tplStyleVip/tplStyleVipSmall';
+
+page {
+	background-color: transparent;
+	height: 100%;
+}
+
+.container {
+	background-color: #F4F4F4;
+}
+
+// 用户信息及开通会员
+.member-header {
+	text-align: center;
+	background-color: $vipBlack;
+	color: $vipGolden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+
+	.member-top {
+		display: flex;
+		align-items: center;
+		// height: 200rpx;
+		padding: 54rpx 44rpx;
+		position: relative;
+
+		.head-button {
+			display: flex;
+			align-items: center;
+			background-color: transparent;
+
+			.avatar {
+				$size: 100rpx;
+				width: $size;
+				height: $size;
+				border-radius: 50%;
+				border: 4rpx solid #F1F1F1;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+		}
+
+		.member-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			margin-left: 30rpx;
+
+			.member-user-wrap {
+				display: flex;
+				align-items: center;
+	
+				.member-user {
+					font-size: 28rpx;
+					font-weight: bold;
+					color: $vipGolden;
+					line-height: 1.8;
+					max-width: 200rpx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+	
+				.member-level {
+					height: 35rpx;
+					width: 110rpx;
+					border-radius: 30rpx;
+					background-color: $vipGolden;
+					color: $vipBlack;
+					font-size: 22rpx;
+					text-align: center;
+					line-height: 35rpx;
+					margin-left: 25rpx;
+				}
+	
+			}
+			.no-member-level {
+				width: 100rpx;
+				height: 35rpx;
+				border-radius: 30rpx;
+				font-size: 20rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				margin-top: 10rpx;
+			}
+
+			.integral-text {
+				display: flex;
+				align-items: center;
+				font-size: 26rpx;
+				color: $vipGolden;
+				margin-top: 10rpx;
+	
+				.cart-arrow {
+					width: 26rpx;
+					height: 16rpx;
+				}
+			}
+		}
+
+		.member_no {
+			position: absolute;
+			right: 40rpx;
+			top: 12rpx;
+			font-size: 20rpx;
+			color: #D6BC6F;
+		}
+
+		.renewal {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin-left: auto;
+
+			.renewal-btn {
+				width: 130rpx;
+				height: 50rpx;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				font-size: 28rpx;
+				border-radius: 30rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-weight: bold;
+			}
+			.renewal-tip {
+				font-size: 24rpx;
+				color: $vipGolden;
+				margin-top: 10rpx;
+			}
+		}
+
+		.head-openVip {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			margin-left: auto;
+
+			.openVip-btn {
+				width: 210rpx;
+				height: 50rpx;
+				background-color: $vipGolden;
+				color: $vipBlack;
+				font-size: 28rpx;
+				border-radius: 30rpx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.openVip-tip {
+				margin-top: 10rpx;
+				font-size: 24rpx;
+				color: $vipGolden;
+			}
+		}
+
+	}
+
+	.member-bottom {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 30rpx 20rpx 30rpx 30rpx;
+		color: $vipGolden;
+		border-top: 1px solid $vipGolden;
+		box-sizing: content-box;
+		margin: 0 20rpx;
+
+		.member-integral-text {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			font-size: 24rpx;
+
+			.cart-price {
+				font-size: 30rpx;
+				font-weight: bold;
+			}
+
+			.cart-text {
+				font-size: 24rpx;
+			}
+		}
+
+		.recharge {
+			width: 130rpx;
+			height: 50rpx;
+			background-color: $vipGolden;
+			border-radius: 50rpx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $vipBlack;
+			font-size: 28rpx;
+			font-weight: bold;
+		}
+	}
+}
+
+.noMemberCard {
+	height: 220rpx;
+}
+
+.member-rights {
+	background-color: white;
+	padding: 20rpx;
+	margin-bottom: 20rpx;
+	// 标题
+	.rights-item-title {
+		color: $titleColor;
+		font-size: 28rpx;
+		padding-bottom: 20rpx;
+	}
+
+	// 会员专属商品banner
+	.member-goods-banner {
+		width: 100%;
+		image {
+			width: 710rpx;
+			// height: 200rpx;
+		}
+	}
+
+	.hasMargin {
+		margin-top: 10px;
+	}
+}
+
+// 会员ad banner
+.member-ad-banner {
+	width: 100%;
+}
+
+
+// 我的积分、会员规则、联系客服
+.jump-list {
+	margin-top: 10rpx;
+	background-color: white;
+	font-size: 28rpx;
+
+	.jump-item {
+		width: 750rpx;
+		height: 80rpx;
+		display: flex;
+		align-items: center;
+		padding: 0 20rpx;
+
+		.jump-icon {
+			width: 50rpx;
+			height: 50rpx;
+			padding-right: 15rpx;
+		}
+
+		.jump-arrow {
+			width: 10rpx;
+			height: 20rpx;
+			margin-left: auto;
+		}
+	}
+
+	.member-concat {
+		background-color: transparent;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+
+		.member-itemTitle {
+			font-size: 28rpx;
+			color: #333;
+		}
+	}
+}

@@ -43,7 +43,7 @@ Page({
             multiStoreEnable,
             free_shipping_amount: config && config.free_shipping_amount,
         });
-        this.firstInit();
+        // this.firstInit();
         // 非多门店模式
         if (!multiStoreEnable) {
             await this.loadCart();

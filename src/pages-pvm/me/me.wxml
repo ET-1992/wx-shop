@@ -1,0 +1,62 @@
+<view class="my">
+  <view class="my-header">
+    <view class="my-msg" bind:tap="goPersonal">
+      <image class="img" src="{{ user.avatarurl  || '../../icons/mvp/default.png' }}" />
+      <text class="name">{{ user.nickname || "匿名" }}</text>
+    </view>
+    <!-- <van-icon name="arrow" /> -->
+  </view>
+  <view class="my-order">
+    <view class="order">我的订单</view>
+    <van-grid custom-class="my-grid" column-num="4" border="{{false}}">
+      <navigator class="orderItem" url="/pages-hotel/orderList/orderList">
+        <van-grid-item use-slot text="全部订单" dot class="order-gird">
+          <image class="img" src="../../icons/mvp/allOrder.png" />
+          <text class="title">全部订单</text>
+          <!-- <text class="dot" /> -->
+        </van-grid-item>
+      </navigator>
+      <navigator class="orderItem" url="/pages-hotel/orderList/orderList?status=1000">
+        <van-grid-item use-slot class="order-gird">
+          <image class="img" src="../../icons/mvp/unpaid.png" />
+          <text class="title">待付款</text>
+          <!-- <text class="dot-num">6</text> -->
+        </van-grid-item>
+      </navigator>
+      <navigator class="orderItem" url="/pages-hotel/orderList/orderList?status=4000">
+        <van-grid-item use-slot class="order-gird">
+          <image class="img" src="../../icons/mvp/notShipped.png" />
+          <text class="title">已完成</text>
+          <!-- <text class="dot-num">20</text> -->
+        </van-grid-item>
+      </navigator>
+      <navigator class="orderItem" url="/pages-hotel/orderList/orderList?status=5000">
+        <van-grid-item use-slot class="order-gird">
+          <image class="img" src="../../icons/mvp/shipped.png" />
+          <text class="title">退款中</text>
+          <!-- <text class="dot-num">99+</text> -->
+        </van-grid-item>
+      </navigator>
+    </van-grid>
+  </view>
+  <view class="my-order" style="padding-top: 0;padding-bottom: 0; ">
+    <van-grid custom-class="my-grid" column-num="4" border="{{false}}">
+      <van-grid-item use-slot dot>
+        <image class="img" src="../../icons/mvp/voucher.png" />
+        <text class="title">优惠券</text>
+      </van-grid-item>
+      <van-grid-item use-slot badge="99+">
+        <image class="img" src="../../icons/mvp/phone.png" />
+        <text class="title">售后电话</text>
+      </van-grid-item>
+      <van-grid-item use-slot badge="99+" bind:tap="chooseAddress">
+        <image class="img" src="../../icons/mvp/address.png" />
+        <text class="title">收货地址</text>
+      </van-grid-item>
+      <van-grid-item use-slot badge="99+">
+        <image class="img" src="../../icons/mvp/us.png" />
+        <text class="title">关于我们</text>
+      </van-grid-item>
+    </van-grid>
+  </view>
+</view>

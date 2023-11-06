@@ -136,7 +136,7 @@ App({
         setTimeout(() => {
             api.hei.config().then((res) => {
                 console.log(res, 'appConfig');
-                const { config, current_user } = res;
+                const { config={}, current_user } = res;
 
                 // 店铺过期验证
                 isExpired(config);

@@ -21,7 +21,7 @@ export const CATEGORY_LIST_STYLE = ['smallCard', 'text', 'textCard', 'bigCard'];
 
 export const CONFIG = 'CONFIG';
 
-export const PLATFFORM_ENV = 'MVP';
+export const PLATFFORM_ENV = 'PVM';
 
 export const HOST_ARRAY = [
   { text: 'PEAUNT', value: 'https://api.97866.com/' },
@@ -34,6 +34,7 @@ export const HOST_ARRAY = [
   { text: 'NEW-CUILV', value: 'https://api.jcaik.com/' }, // 翠绿
   { text: 'AUH', value: 'https://wechat.bebridge.cn/' }, // 澳洲香港服務器
   { text: 'MVP', value: 'https://test.shop.directbooking.cn/' },
+  { text: 'PVM', value: 'https://test.wpweixin.com/' },
   // { text: 'MVP', value: 'https://test.wpweixin.com/' },
 ];
 

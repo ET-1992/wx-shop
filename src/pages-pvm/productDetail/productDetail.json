@@ -1,0 +1,32 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "numberInput": "components/numberInput/index",
+    "pendingGrouponItem": "components/pendingGrouponItem/index",
+    "swiperVideoImg": "components/swiperVideoImg/swiperVideoImg",
+    "productDetailShareModal": "components/productDetailShareModal/productDetailShareModal",
+    "couponList": "components/couponList/index",
+    "loading": "components/loading/index",
+    "countDown": "components/countDown/countDown",
+    "productComments": "components/productComments/index",
+    "skuModal": "components/skuModal/skuModal",
+    "van-popup": "@vant/weapp/dist/popup/index",
+    "productList": "components/productList/index",
+    "poster": "components/poster/index",
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "myModal": "components/myModal/myModal",
+    "van-button": "@vant/weapp/dist/button/index",
+    "multiStore": "components/multiStore/multiStore",
+    "formatContent": "components/formatContent/formatContent",
+    "orderOptions": "components/orderOptions/orderOptions",
+    "van-stepper": "@vant/weapp/dist/stepper/index",
+    "van-image": "@vant/weapp/dist/image/index",
+    "van-tag": "@vant/weapp/dist/tag/index",
+    "van-share-sheet": "@vant/weapp/dist/share-sheet/index",
+    "van-progress": "@vant/weapp/dist/progress/index",
+    "productNavigationBar": "components/productNavigationBar/productNavigationBar",
+    "van-overlay": "@vant/weapp/dist/overlay/index",
+    "luckyTurntable": "components/luckyTurntable/luckyTurntable"
+  },
+  "navigationStyle": "custom"
+}
