@@ -46,6 +46,7 @@ export const apis = {
         path: 'api/mag.cart.get.json',
         isForceToken: true,
     },
+    
     addCart: {
         path: 'api/mag.cart.add.json',
         method: 'POST',
@@ -1024,5 +1025,11 @@ export const apis = {
       isForceToken: true,
       method: 'POST',
       contentType: 'json'
-    }
+    },
+
+    //pvm新添加接口
+    fetchPvmCartList: {
+        path: 'api/cart/get.json',
+        isForceToken: true,
+    },
 };

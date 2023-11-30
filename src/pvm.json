@@ -1,13 +1,26 @@
 {
   "pages": [
-    "pages-pvm/productDetail/productDetail",
-    "pages/me/me",
-    "pages-pvm/category/category",
+    "pages-pvm/hotelpage/hotelDetail/hotelDetail",
+    "pages-pvm/hotelpage/orderCreate/orderCreate",
     "pages/home/home",
+    "pages/cart/cart",
+    "pages-pvm/me/me",
+    "pages-pvm/completePayment/completePayment",
+    "pages-pvm/orderDetail/orderDetail",
+    "pages-pvm/productList/productList",
+    "pages-pvm/category/category",
+    "pages-pvm/couponDetail/couponDetail",
+    "pages-pvm/productDetail/productDetail",
+    "pages-pvm/posterModal/posterModal",
+    "pages-pvm/shippingAddress/shippingAddress",
     "pages-pvm/orderList/orderList",
-    "pages-pvm/membership/integralList/integralList",
-    "pages-pvm/membership/members/members",
-    "pages/cart/cart"
+    "pages-pvm/personalInformation/personalInformation",
+    "pages/logistics/logistics",
+    "pages/refund/refund",
+    "pages-pvm/promotionList/promotionList",
+    "pages-pvm/myMedal/myMedal",
+    "pages-pvm/medalDetail/medalDetail",
+    "pages-pvm/pointsDetails/pointsDetails"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -24,15 +37,15 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "iconPath": "icons/mvp/home.png",
+        "iconPath": "icons/pvm/home.png",
         "text": "首页",
-        "selectedIconPath": "icons/mvp/home-s.png"
+        "selectedIconPath": "icons/pvm/home-s.png"
       },
       {
         "pagePath": "pages-pvm/category/category",
-        "iconPath": "icons/mvp/category.png",
+        "iconPath": "icons/pvm/category.png",
         "text": "分类",
-        "selectedIconPath": "icons/mvp/category-s.png"
+        "selectedIconPath": "icons/pvm/category-s.png"
       },
       {
         "pagePath": "pages/cart/cart",
@@ -41,10 +54,10 @@
         "selectedIconPath": "icons/default/cart-selected.png"
       },
       {
-        "pagePath": "pages/me/me",
-        "iconPath": "icons/mvp/me.png",
+        "pagePath": "pages-pvm/me/me",
+        "iconPath": "icons/pvm/me.png",
         "text": "我",
-        "selectedIconPath": "icons/mvp/me-s.png"
+        "selectedIconPath": "icons/pvm/me-s.png"
       }
     ]
   },

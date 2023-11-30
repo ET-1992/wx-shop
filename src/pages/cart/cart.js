@@ -72,7 +72,7 @@ Page({
         console.log('shipping_type', shipping_type, typeof shipping_type, 'liftStyles', liftStyles);
         // this.checkPhoneModel();
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
-        const { count, items, shipping_type_counts, products } = await api.hei.fetchCartList({ shipping_type });
+        const { count, items, shipping_type_counts, products } = await api.hei.fetchPvmCartList({ shipping_type });
         wx.setStorageSync('CART_NUM', count);
         let isSelectedObject = {};
         let isAllSelected = false;

@@ -358,3 +358,11 @@ export const DEPOSIT_STATUS = {
   TYPE_DEPOSIT_INCOME: 15, // 寄存收入
   TYPE_DEPOSIT_WITHDRAWAL: 151, // 寄存提取
 };
+
+
+export const POINTS_TYPE = [
+  { text: '全部', value: null },
+  { text: '自购积分', value: 1 },
+  { text: '推荐奖励', value: 2 },
+  { text: '签到积分', value: 3 },
+]

@@ -1,0 +1,47 @@
+.pointsLsit{
+    background-color: #fff;
+    .listBox{
+        padding:25rpx 35rpx; 
+        .row{
+            margin-bottom: 20rpx;
+            display: flex;
+            justify-content: space-between;
+            .cash{
+                color: #404040;
+                font-family: ".PingFang SC";
+                font-size: 28rpx;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+            .value {
+                color: #999999;
+                text-align: right;
+                font-family: ".PingFang SC";
+                font-size: 24rpx;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            .text{
+                color: #404040;
+                font-family: ".PingFang SC";
+                font-size: 24rpx;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            .heightLight{
+                color: #b88922;
+                font-family: ".PingFang SC";
+                font-size: 24rpx;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+        .bottom0{
+            margin-bottom: 0;
+        }
+    }
+}

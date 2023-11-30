@@ -1,7 +1,5 @@
 {
 	"navigationBarTitleText": "分类",
-	"navigationStyle": "custom",
 	"usingComponents": {
-		"customNavigationBar": "components/customNavigationBar/customNavigationBar"
   	}
 }

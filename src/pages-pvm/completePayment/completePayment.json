@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "已完成",
+  "usingComponents": {
+    "orderDetail": "../../components/orderDetail/orderDetail"
+  }
+}

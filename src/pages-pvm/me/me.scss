@@ -1,9 +1,9 @@
 .my {
   height: 100vh;
-  background-color: #f4f6fa;
+  background-color: #F2F1EF;
   .my-header {
     width: 100%;
-    background: #ffffff;
+    background: #e4e1da;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,6 +18,9 @@
         border-radius: 50%;
         margin-right: 24rpx;
       }
+    }
+    .sign-box{
+
     }
   }
   .my-order {
@@ -45,6 +48,14 @@
           background: #fe4f06;
           border-radius: 8rpx;
         }
+        .title{
+          color: #000000;
+          font-family: ".PingFang SC";
+          font-size: 24rpx;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
         .dot-num {
           position: absolute;
           top: 16rpx;
@@ -71,6 +82,35 @@
         width: 64rpx;
         height: 64rpx;
         margin-bottom: 8rpx;
+      }
+    }
+    .control-grid{
+      .title{
+        color: #000000;
+        font-family: ".PingFang SC";
+        font-size: 22rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+    .data-grid{
+      .title{
+        color: #000000;
+        font-family: ".PingFang SC";
+        font-size: 24rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 5rpx;
+      }
+      .value{
+        color: #000000;
+        font-family: ".PingFang SC";
+        font-size: 36rpx;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
       }
     }
   }

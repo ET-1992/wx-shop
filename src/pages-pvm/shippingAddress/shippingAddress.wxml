@@ -1,0 +1,71 @@
+<view class="container">
+  <loading isLoading="{{ isLoading }}" wx:if="{{ isLoading }}" />
+  <view class="address-air" wx:elif="{{ !addressList.length }}">
+    这里是空的
+  </view>
+  <view class="address">
+    <van-radio-group class="radio-group" value="{{ radioSelected }}"  wx:for="{{ addressList }}" bindchange="radioChange">
+      <van-radio icon-class="radio-icon" label-class="radio-label" class="radio-wrap" checked-color="#FE4F06"
+        wx:key="index" name="{{ item.receiver_areacode }}">
+        <view class="name-phone">{{item.receiver_name || '-'}}，{{item.receiver_phone || '-'}}</view>
+        <view class="name-phone">{{address.splice(item)}}</view>
+        <van-icon class="delete" name="cross" size="32rpx" color="#B0B3BF" />
+        <van-icon class="radio-right" name="success" size="36rpx" color="#FE4F06" wx:if="{{item.receiver_areacode===radioSelected}}"/>
+        <button  class="def-btn use-btn" size="default" wx:if="{{item.receiver_areacode!==radioSelected}}">使用</button>
+        <view class="line"/>
+        <view class="radio-bottom">
+          <view class="{{item.receiver_areacode===radioSelected?'select':''}}">{{item.receiver_areacode===radioSelected?'已选默认':'默认'}}</view>
+          <button class="def-btn edit-btn" size="default" >修改</button>
+        </view>
+      </van-radio>
+    </van-radio-group>
+  </view>
+  <view class="btns">
+    <button class="btn wechat-add" bind:tap="onAddressEdit">
+      <van-icon class="btn-icon" name="add" size="32rpx"/>
+      添加收获地址
+    </button>
+    <button class="btn" data-type="add" catch:tap="onImportAddress" >
+      <van-icon class="btn-icon" name="wechat" />
+      微信导入地址
+    </button>
+  </view>
+  <view class="modal">
+  <van-dialog class="modal-dialog" use-slot title="添加收货地址" show="{{ show }}" show-confirm-button="{{false}}">
+    <van-icon class="modal-delete" name="clear" size="64rpx" color="#E0E0E0" />
+    <form catchsubmit="formSubmit" report-submit="true">
+      <view class="modal-section">
+        <view class="modal-user">收货人</view>
+        <input class="add-input" placeholder-class="modal-input" name="receiver_name" placeholder="收货人姓名" />
+      </view>
+      <view class="modal-section">
+        <view class="modal-user">手机号</view>
+        <input class="add-input" placeholder-class="modal-input" name="receiver_phone" placeholder="收货人手机号" />
+      </view>
+      <view class="modal-section">
+        <view class="modal-address">收货地址</view>
+        <input class="add-input" placeholder-class="modal-input" name="receiver_address" placeholder="省、市、区、街道、小区" />
+      </view>
+      <view class="modal-section modal-default">
+        <view class="default-address">设为默认收货地址</view>
+        <switch name="receiver_default" />
+      </view>
+      <button formType="submit" class="modal-Button">
+        保存
+      </button>
+    </form>
+  </van-dialog>
+  </view>
+</view>
+
+
+<wxs module="address">
+  var splice = function(obj){
+  var str = obj.receiver_address || '';
+  str += obj.room || '';
+  return str;
+  };
+  module.exports = {
+  splice: splice
+  };
+</wxs>

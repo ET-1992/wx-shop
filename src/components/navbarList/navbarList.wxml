@@ -3,3 +3,4 @@
 <include wx:if="{{ template === 'fixedStyle' }}" src="./templates/fixedStyle.wxml"/>
 <include wx:if="{{ template === 'cartStyle' }}" src="./templates/cartStyle.wxml"/>
 <include wx:if="{{ template === 'multiStyle' }}" src="./templates/multiStyle.wxml"/>
+<include wx:if="{{ template === 'bottomStyle' }}" src="./templates/bottomStyle.wxml"/>

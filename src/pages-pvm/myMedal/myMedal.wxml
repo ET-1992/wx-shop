@@ -1,0 +1,43 @@
+<view class="myMedal">
+    <view></view>
+    <view class="medal-box">
+        <view class="header">荣誉勋章A (3)</view>
+        <view class="item-box">
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+        </view>
+    </view>
+    <view class="medal-box">
+        <view class="header">荣誉勋章A (3)</view>
+        <view class="item-box">
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+        </view>
+    </view>
+</view>

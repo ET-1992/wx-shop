@@ -147,7 +147,7 @@ App({
                 if (config.offline_store_enable) {
                     this.updateStoreList();
                 }
-                this.bindWebConfirm(config);
+                // this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync(USER_KEY, current_user || '');
                 // wx.showTabBar();

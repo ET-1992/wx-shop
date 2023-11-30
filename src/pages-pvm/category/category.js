@@ -15,16 +15,16 @@ Page({
 
     async onLoad() {
         try {
-            const { themeColor, partner = {}, tabbarPages } = app.globalData;
-            let { navBarExtendHeight, navBarHeight } = app.globalSystemInfo;
-            let navHeight = navBarHeight + navBarExtendHeight;
-            this.setData({
-                isLoading: true,
-                navHeight,
-            });
+            // const { themeColor, partner = {}, tabbarPages } = app.globalData;
+            // let { navBarExtendHeight, navBarHeight } = app.globalSystemInfo;
+            // let navHeight = navBarHeight + navBarExtendHeight;
+            // this.setData({
+            //     isLoading: true,
+            //     navHeight,
+            // });
             const data = await api.hei.fetchCategory();
-            const categories = data.product_categories;
-            console.log(categories, 'categories');
+            data.categories = data.product_categories;
+            const { categories = [] } = data;
             categories.forEach((category) => {
                 const { children = [] } = category;
                 children.unshift({
@@ -36,9 +36,6 @@ Page({
 
             this.setData({
                 isLoading: false,
-                tabbarPages,
-                themeColor,
-                categories,
                 ...data
             });
             this.getCategoryTop();

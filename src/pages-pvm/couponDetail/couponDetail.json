@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "优惠详情",
+  "usingComponents": {
+     "van-empty": "@vant/weapp/dist/empty/index"
+  }
+}

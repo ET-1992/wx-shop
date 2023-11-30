@@ -1,0 +1,150 @@
+.order-detail{
+  background-color: #f0f0f0;
+  padding: 10px;
+  padding-bottom: constant(safe-area-inset-bottom); 
+  padding-bottom: env(safe-area-inset-bottom); 
+  padding-bottom: 100px;
+}
+.order-com {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px 18px;
+  margin-bottom: 10px;
+  .order-cell{
+    .van-cell{
+      padding-left: 0;
+      padding-right: 0
+    }
+    .van-cell:after{
+      left: 0;
+      right: 0
+    }
+    .van-cell--required:before{
+      left: -5px
+    }
+  }
+}
+.order-desc{
+  margin-bottom: 10px;
+  .hotel-time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+
+    .time-title {
+      font-size: 12px;
+      color: #939398;
+    }
+
+    .time-num {
+      font-size: 12px;
+      background-color: #f7f8ff;
+      border: 1px solid #d8d8d8;
+      border-radius: 45%;
+      padding: 2px 5px;
+      margin-right: 10px;
+    }
+  }
+  .desc-name{
+    margin: 5px 0;
+  }
+  .desc-detail{
+    font-size: 12px;
+    color: #99999e;
+  }
+  .line{
+    height: 1px;
+    background-color: #ececec;
+    margin: 10px 0;
+  }
+  .cancel{
+    font-size: 12px;
+  }
+}
+.order-swiper{
+  // height: 20px;
+  height: 50px;
+  .swiper{
+    display: flex;
+    align-items: center;
+  }
+}
+
+.order-from-title{
+  padding: 10px 0;
+  font-weight: 600
+}
+
+.order-button{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 10px;
+  padding-bottom: constant(safe-area-inset-bottom); 
+  padding-bottom: env(safe-area-inset-bottom); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding-top: 10px;
+  z-index: 11;
+  
+  .order-btn{
+    padding: 10px
+  }
+  .btn-desc{
+    display: flex;
+    align-items: center;
+    .btn{
+      margin-left: 10px;
+    }
+    .btn-detail{
+      color: #6a6a6e;
+      font-size: 14px
+    }
+  }
+}
+
+
+.popup-title{
+  padding: 16px;
+  text-align: center;
+  .popup-time{
+    font-size: 12px;
+  }
+}
+.popup-desc{
+  padding: 20px;
+  .popup-text{
+    font-size: 14px;
+    padding-bottom: 5px;
+  }
+  .line{
+    height: 1px;
+    background-color:#ebedf0;
+    margin-bottom: 5px;
+  }
+}
+.order-popup{
+  .van-popup__close-icon--top-right {
+    top: 28px !important
+  }
+   .online{
+    background-color: #fff;
+    margin-top: 10px;
+    padding: 20px 10px;
+    .online-order{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .desc{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fdfaf6;
+    padding: 20px 15px;
+  }
+}
+

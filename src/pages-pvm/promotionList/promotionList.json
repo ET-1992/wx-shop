@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "全部",
+  "usingComponents": {
+    "loading": "../../components/loading/index",
+    "filterList": "../../components/filterList/filterList",
+    "productsList": "../../pages/home/components/productsList/productsList",
+    "van-grid": "@vant/weapp/dist/grid/index",
+    "van-grid-item": "@vant/weapp/dist/grid-item/index"
+  },
+  "enablePullDownRefresh": true
+}

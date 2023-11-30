@@ -1,0 +1,65 @@
+.myMedal {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20rpx;
+
+    .medal-box {
+        width: 720rpx;
+        flex-shrink: 0;
+        border-radius: 20rpx;
+        background: #FFF;
+        margin-bottom: 20rpx;
+
+        .header {
+            color: #404040;
+            font-family: ".PingFang SC";
+            font-size: 28rpx;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            padding: 25rpx;
+        }
+
+        .item-box {
+            margin: 25rpx 39rpx;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .item-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-right: 53rpx;
+
+                .img {
+                    background: #000;
+                    width: 120rpx;
+                    height: 145rpx;
+                    margin-bottom: 9rpx;
+                }
+
+                .state {
+                    color: #000000;
+                    font-family: ".PingFang SC";
+                    font-size: 24rpx;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    margin-bottom: 2rpx;
+                }
+
+                .date {
+                    color: #999999;
+                    font-family: ".PingFang SC";
+                    font-size: 20rpx;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+        }
+    }
+}

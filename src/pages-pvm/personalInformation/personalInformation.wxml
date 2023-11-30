@@ -1,0 +1,31 @@
+<view class="person-info">
+  <view wx:if="{{!switchPage}}">
+    <view class="info">
+      <button open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <view class="avatar">
+          <text class="title">头像</text>
+          <view class="avatar-arrow">
+            <image class="img" src="{{ avatar }}" />
+            <!-- <van-icon name="arrow" /> -->
+          </view>
+        </view>
+      </button>
+      <view class="line" />
+      <button open-type="">
+        <view class="avatar nickName" bindtap="handleSwitchPage">
+          <text class="title">昵称</text>
+          <view class="avatar-arrow">
+            <input class="input" type="nickname" value='{{name}}' placeholder="请输入昵称" bindinput="bindinput" />
+          </view>
+        </view>
+      </button>
+    </view>
+    <button class="btn" bind:tap="onConfirm">
+      <van-icon name="wechat" style="margin-right: 8rpx;" />
+      确认修改
+    </button>
+  </view>
+  <!-- <view class="info-input" wx:if="{{switchPage}}">
+    <input class="weui-input" value='{{name}}' auto-focus placeholder="请输入昵称" bindconfirm="bindconfirm" />
+  </view> -->
+</view>

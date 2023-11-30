@@ -1,0 +1,61 @@
+.person-info {
+  height: 100vh;
+  background-color: #f4f6fa;
+  .info {
+    background-color: #ffffff;
+    .avatar {
+      width: 100%;
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16rpx 32rpx;
+      font-size: 32rpx;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #000000;
+      .avatar-arrow {
+        display: flex;
+        align-items: center;
+        .img {
+          width: 128rpx;
+          height: 128rpx;
+          border-radius: 50%;
+          margin-right: 24rpx;
+        }
+        .name {
+          margin-right: 24rpx;
+        }
+
+        .input {
+          text-align: end;
+        }
+      }
+    }
+    .nickName {
+      padding: 34rpx 32rpx;
+    }
+    .line {
+      width: 686rpx;
+      height: 2rpx;
+      background: #ebedf0;
+      margin: 0 32rpx;
+    }
+  }
+  .btn {
+    width: 686rpx;
+    height: 88rpx;
+    background: #fe4f06;
+    border-radius: 8rpx;
+    margin: 48rpx 32rpx;
+    font-size: 28rpx;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 88rpx;
+  }
+  .info-input {
+    background-color: #ffffff;
+    padding: 34rpx 32rpx;
+  }
+}
