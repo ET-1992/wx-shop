@@ -3,7 +3,7 @@
     "pages-pvm/hotelpage/hotelDetail/hotelDetail",
     "pages-pvm/hotelpage/orderCreate/orderCreate",
     "pages/home/home",
-    "pages/cart/cart",
+    "pages-pvm/cart/cart",
     "pages-pvm/me/me",
     "pages-pvm/completePayment/completePayment",
     "pages-pvm/orderDetail/orderDetail",
@@ -20,7 +20,8 @@
     "pages-pvm/promotionList/promotionList",
     "pages-pvm/myMedal/myMedal",
     "pages-pvm/medalDetail/medalDetail",
-    "pages-pvm/pointsDetails/pointsDetails"
+    "pages-pvm/pointsDetails/pointsDetails",
+    "pages-pvm/pointsOrders/pointsOrders"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -48,7 +49,7 @@
         "selectedIconPath": "icons/pvm/category-s.png"
       },
       {
-        "pagePath": "pages/cart/cart",
+        "pagePath": "pages-pvm/cart/cart",
         "iconPath": "icons/default/cart.png",
         "text": "购物车",
         "selectedIconPath": "icons/default/cart-selected.png"

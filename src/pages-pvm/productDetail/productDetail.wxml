@@ -61,6 +61,12 @@
       </view>
     </view>
     <!-- todo 优惠券 -->
+    <!-- 优惠卷 -->
+    <view class="simple-model-coupon" bind:tap="onShowCouponList">
+      <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ coupons }}" wx:key="id">
+        <text>{{ item.title || '-' }}</text>
+      </van-tag>
+    </view>
     <!-- <view class="shop-discount">
     <view class="shop-serve">
       <view lines="1" class="serve-title">服务</view>
@@ -92,9 +98,9 @@
     </view>
     <van-goods-action>
       <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onGoHome" />
-      <van-goods-action-icon icon="/icons/cartSelected.png" text="购物车" bind:click="onGoHome" />
+      <van-goods-action-icon icon="/icons/cartSelected.png" text="购物车" bind:click="onGoCart" />
       <van-goods-action-icon icon="/icons/context.png" text="客服" open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact' }}" bind:click="onGetContact" />
-      <van-goods-action-button color="{{ themeColor.primaryColor }}" text="加入购物车" bind:click="onOrderPay" />
+      <van-goods-action-button color="{{ themeColor.primaryColor }}" text="加入购物车" bind:click="onShowToCartSkuModal" />
       <van-goods-action-button class="def-btn" color="{{ themeColor.primaryColor }}" text="立即购买" bind:click="onShowSkuModal" />
     </van-goods-action>
     <!-- <view class="shop-button" bindtap="onShowSkuModal">
@@ -111,6 +117,7 @@
 </scroll-view>
 <!-- </page-meta> -->
 <!-- SKU -->
+<skuModal isShowSkuModal="{{  isShowToCardSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ toCartActions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="addCart" bind:shipping-change="getShippingType" />
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <!-- 文字弹窗 -->
 <van-dialog use-slot title="" show="{{ showModalType === 'text' }}" show-cancel-button confirm-button-open-type="getUserInfo" cancel-button-color="#606266" confirm-button-color="#ffffff" class="text-modal" bind:close="onCloseModal">
@@ -163,6 +170,11 @@
   <button class="btn" bind:tap="onCloseModal">领券下单</button>
 </view>
 <!-- 优惠卷 -->
+<!-- <view class="simple-model-coupon" bind:tap="onShowCouponList">
+  <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ coupons }}" wx:key="id">
+    <text>{{ item.title || '-' }}</text>
+  </van-tag>
+</view> -->
 <!-- <van-popup show="{{ true }}" round custom-class="product-sku-wrap" custom-style="max-height: 70%" z-index="10000" bind:close="onHideOrderOptions"> -->
 <!-- <orderOptions product="{{ selectedProduct }}" hasBottom titleCenter id="orderOptions" bind:add-cart="onHideOrderOptions" /> -->
 <view class="def-img" wx:if="{{ showModalType === 'coupon' }}">
@@ -177,4 +189,38 @@
     </send-coupon>
   </view>
 </view>
+<!-- 领券弹窗 -->
+<van-popup show="{{ isShowCouponList }}" position="bottom" bind:close="onHideCouponList">
+  <view class="actionSheet">
+    <view class="actionSheetContent couponActionSheet {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+      <view class="close" catchtap="onHideCouponList">
+        <image src="../../icons/clear.png" />
+      </view>
+      <scroll-view class="couponList" scroll-y>
+        <view class="title">优惠券</view>
+        <view class="availableCoupon">
+          <view class="couponListTitle" wx:if="{{ coupons.length }}">可领取优惠券</view>
+          <view class="noCoupon" wx:else>
+            <image src="../../icons/noCoupon.svg"></image>
+            <view>暂无可领取优惠券</view>
+          </view>
+          <button wx:if="{{ coupons && coupons.length }}" class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" bindtap="bindGetCoupon">
+            <couponList wx:if="{{ item.status == 2 }}" coupon="{{ item }}" status="receivable" config="{{config}}" />
+            <!-- 未领取 -->
+            <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
+            <!-- 已领取 -->
+          </button>
+          <block wx:if="{{ coupons && coupons.length}}">
+            <view class="couponListTitle">已领取优惠券</view>
+            <button  bindtp="bindGetCoupon" class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
+              <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
+              <!-- 已领取 -->
+            </button>
+          </block>
+        </view>
+        <view class="gap" />
+      </scroll-view>
+    </view>
+  </view>
+</van-popup>
 <!-- </van-popup> -->

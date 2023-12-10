@@ -1,19 +1,12 @@
-.pointsLsit {
-    .page-empty{
-        text-align: center;
-    }
-    .listBox {
-        background-color: #fff;
-
-        padding: 25rpx 35rpx;
-        margin-bottom: 10rpx;
-
-        .row {
+.pointsLsit{
+    background-color: #fff;
+    .listBox{
+        padding:25rpx 35rpx; 
+        .row{
             margin-bottom: 20rpx;
             display: flex;
             justify-content: space-between;
-
-            .cash {
+            .cash{
                 color: #404040;
                 font-family: ".PingFang SC";
                 font-size: 28rpx;
@@ -21,7 +14,6 @@
                 font-weight: 600;
                 line-height: normal;
             }
-
             .value {
                 color: #999999;
                 text-align: right;
@@ -31,8 +23,7 @@
                 font-weight: 400;
                 line-height: normal;
             }
-
-            .text {
+            .text{
                 color: #404040;
                 font-family: ".PingFang SC";
                 font-size: 24rpx;
@@ -40,8 +31,7 @@
                 font-weight: 400;
                 line-height: normal;
             }
-
-            .heightLight {
+            .heightLight{
                 color: #b88922;
                 font-family: ".PingFang SC";
                 font-size: 24rpx;
@@ -50,8 +40,7 @@
                 line-height: normal;
             }
         }
-
-        .bottom0 {
+        .bottom0{
             margin-bottom: 0;
         }
     }

@@ -2,24 +2,24 @@
     <view class="detailBox">
         <view class="header">
             <view class="leftTitle">
-                <view class="number">5000</view>
+                <view class="number">{{medal.amount}}</view>
                 <view class="text">积分</view>
             </view>
             <view class="rightTitle">
                 <view class="text">时长</view>
-                <view class="number">30</view>
+                <view class="number">{{medal.lock_day}}</view>
                 <view class="text">天</view>
             </view>
         </view>
-        <view class="title">荣誉勋章a</view>
+        <view class="title">{{medal.title}}</view>
         <view class="content">
-            勋章本质上是定期的积分质押，但不设收益，购买时锁定积分，获得一枚未解锁的勋章，到期即解锁勋章，解锁积分，并发送邮件通知管理员。共设置4款勋章，分别有对应的质押时间和需要质押的积分数量。
+           {{medal.desc}}
         </view>
     </view>
     <van-goods-action>
         <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onGoHome" />
         <van-goods-action-icon icon="/icons/cartSelected.png" text="购物车" bind:click="onGoHome" />
         <van-goods-action-icon icon="/icons/context.png" text="客服" open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact' }}" bind:click="onGetContact" />
-        <van-goods-action-button color="{{ themeColor.primaryColor }}" text="立即兑换" bind:click="onOrderPay" />
+        <van-goods-action-button disabled="{{medal.user}}" color="{{ themeColor.primaryColor }}" text="立即兑换" bind:click="payMedal" />
     </van-goods-action>
 </view>

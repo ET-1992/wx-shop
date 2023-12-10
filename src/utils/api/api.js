@@ -1032,4 +1032,41 @@ export const apis = {
         path: 'api/cart/get.json',
         isForceToken: true,
     },
+    pvmAddCart:{
+        path: 'api/cart/add.json',
+        isForceToken: true, 
+        method: 'POST',
+        contentType: 'json'
+    },
+    pvmRemoveCart: {
+        path: 'api/cart/remove.json',
+        method: 'POST',
+        isForceToken: true,
+        contentType: 'json'
+    },
+    pvmClearCart: {
+        path: 'api/cart/clear.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    pvmUpdateCart: {
+        path: 'api/cart/update.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    pvmMedalList:{
+        path: 'api/medal/list.json',
+        method: 'GET',
+        isForceToken: true,
+    },
+    pvmExchangeMedal:{
+        path: 'api/medal/exchange.json',
+        method: 'POST',
+        isForceToken: true,
+    },
+    pvmWalletLog:{
+        path: 'api/wallet/log.json',
+        method: 'GET',
+        isForceToken: true,
+    }
 };

@@ -8,13 +8,49 @@ import { POINTS_TYPE } from 'constants/index';
 const app = getApp();
 
 Page({
-    data:{
-        navbarListData:POINTS_TYPE,
-        activeIndex:1,
-        themeColor:''
+    data: {
+        navbarListData: POINTS_TYPE,
+        activeIndex: 0,
+        themeColor: '',
+        logs: []
+    },
+    /**
+ * 生命周期函数--监听页面加载
+ */
+    onLoad: async function (options) {
+        await this.getPointsList();
     },
 
-    changeNavbarList(){
 
+    async changeNavbarList(e) {
+        console.log(e.detail)
+        let type = e.detail.value
+        await this.getPointsList(type)
+    },
+    async getPointsList(type = '') {
+        try {
+            let param = {
+                type: type,
+                wallet_type: 'membership_exp'
+            }
+            let response = await api.hei.pvmWalletLog(param)
+            if (response.errcode == 0) {
+                let { types, logs } = response
+                let navbarListData = []
+                for (let key in types) {
+                    let configType = {
+                        text: types[key],
+                        value: key
+                    }
+                    navbarListData.push(configType)
+                }
+                this.setData({
+                    navbarListData,
+                    logs: logs
+                })
+            }
+        } catch (e) {
+
+        }
     }
 })

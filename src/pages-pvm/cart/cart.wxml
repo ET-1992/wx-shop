@@ -1,0 +1,120 @@
+<view class="container {{ isIphone5 ? 'iphone5-style' : '' }}">
+  	<loading isLoading="{{ isLoading }}" />
+	<!-- 多门店   -->
+	<div class="multiStore">
+		<multiStore bind:updatestore="updateStoreData" multiStoreEnable="{{ multiStoreEnable }}" />
+	</div>
+    <!-- 购物车为空 -->
+  	<view wx:if="{{ !items.length && !isLoading && isLogin }}" class="{{ multiStoreEnable ? 'cart-multiStore' : '' }}">
+  	  	<image class="emptyHint" src="../../icons/bigCart.svg"></image>
+  	  	<view class="empty">购物车空空如也~</view>
+  	  	<view class="onGotoBuy" bind:tap="navigateToHome" style="background-color: {{ themeColor.primaryColor  }}"> 去逛逛 </view>
+	</view>
+	<!-- 购物车有商品 -->
+    <!-- 导航 -->
+    <navbarList navbarListData="{{ liftStyles }}" activeIndex="{{ liftStyleIndex }}" themeColor="{{ themeColor }}" top="{{ multiStoreEnable ? '98rpx' : '' }}" template="cartStyle" bindchangeNavbarList="changeNavbarList" />
+    <!-- 商品 -->
+	<scroll-view scroll-y="{{true}}" class="product-list {{ classSet.product(liftStyles, multiStoreEnable) }}" wx:if="{{ items.length && !isLoading }}">
+      <!-- 购物车商品列表 -->
+      <view class="cart-product-wrap">
+        <van-cell wx:for="{{ items }}" wx:key="cart_item_id" use-label-slot title-class="card-title">
+          <!-- 复选框按钮 -->
+          <van-checkbox slot="label" disabled="{{ item.status === 0 || item.stock === 0 }}" value="{{ isSelectedObject[item.cart_item_id] }}" checked-color="{{ themeColor.primaryColor }}" data-cart-id="{{ item.cart_item_id }}" bind:change="onChangeProcut" />
+          <view class="card-values" bind:tap="go" data-url="/pages/productDetail/productDetail?id={{ item.post_id }}">
+            <van-card custom-class="cart-prodcut-content">
+              <!-- 商品图片 -->
+              <view class="product-thumb" slot="thumb">
+                <van-image image-class="product-thumb-img" fit="cover" src="{{ item.image_url }}" />
+                <van-image wx:if="{{ item.stock === 0 }}" custom-class="product-thumb-masking" image-class="product-thumb-masking-img" src="/icons/cart/stock0.svg" />
+                <van-image wx:elif="{{ item.status === 0 }}" custom-class="product-thumb-masking" image-class="product-thumb-masking-img" src="/icons/cart/stock00.svg" />
+              </view>
+              <!-- 商品右上部分 -->
+              <view slot="title" class="text-ellipsis-1 product-title">{{ item.title }}</view>
+              <view slot="desc" class="text-ellipsis-2 product-desc">{{ item.sku_property_names }}</view>
+			  <van-tag plain type="danger" slot="price-top" style="margin-right: 15rpx" wx:if="{{ item.reduced }}">比加入时降{{ item.reduced }}元</van-tag>
+			<van-tag plain type="danger" slot="price-top" wx:if="{{ item.quota }}">此商品限购{{ item.quota }}件</van-tag>
+              <view slot="price-top"></view>
+              <!-- 商品右下部分 -->
+              <view slot="bottom" class="product-bottom">
+                <view class="product-price">
+                  <text>{{ globalData.CURRENCY[globalData.currency] }}</text>
+                  <text>{{ (item.miaosha_end_timestamp >= nowTS && nowTS >= item.miaosha_start_timestamp) ? item.miaosha_price : item.price }}</text>
+                </view>
+                <van-icon name="/icons/question.svg" size="36rpx" catch:tap="onShowProductRemark" data-index="{{ index }}" wx:if="{{ item.product_annotation && item.product_annotation.remarks}}" />
+                <van-stepper slot="num" custom-class="product-stepper" value="{{ item.quantity }}"  data-id="{{item.id}}" data-cart-id="{{ item.cart_item_id }}" catch:change="onUpdateQuantity" catch:tap="noop" max="{{ item.quota ? item.quota : 999999 }}" />
+                <view style="display: flex; align-items: center"  data-id="{{item.id}}" data-post-id="{{ item.post_id }}" data-sku-id="{{ item.sku_id }}" data-index="{{ index }}" catchtap="onDelete">
+                  <van-icon class="van-delete" name="delete" size="20px"/>
+                </view>
+              </view>
+            </van-card>
+          </view>
+        </van-cell>
+      </view>
+    	<view class="clearCart" bindtap="onClearCart">
+				<van-icon class="van-delete" name="delete" size="20px"/>清空购物车
+			</view>
+			<!-- 批量删除购物车商品 -->
+    	<!-- <view class="clearCart" bindtap="onManageCart">
+				<van-icon class="van-delete" name="delete" size="20px"/>
+				<text>删除商品</text>
+			</view> -->
+
+  		<view wx:if="{{ items.length && !isLoading && config.weixin_mall }}" class="stodownloadWrap">
+  		  	<include src="/templates/stodownload/index.wxml" />
+  		</view>
+    </scroll-view>
+
+    <!-- 为你推荐 -->
+  	<view class="promote" wx:if="{{ !items.length && products.length && !isLoading }}">
+  	  	<view class="label"> <text class="dot">•</text> 为你推荐 <text class="dot">•</text> </view>
+		<home-product-list products="{{ products }}" themeColor="{{ themeColor }}" globalData="{{ globalData }}" isLastModule isShowAddCart="{{false}}"/>
+  	  	<!-- <view class="relateShop">
+  	  	  	<view class="relateShopItem" wx:if="{{products.length}}" wx:for="{{ products }}" wx:key="id" wx:for-item="product" wx:for-index="productIndex" hover-class="navigator-hover">
+  	  	  	  	<productList product="{{ product }}" tplStyle="default" productLayoutStyle="articleImage" themeColor="{{ themeColor }}" />
+  	  	  	</view>
+  	  	</view> -->
+  	</view>
+
+  	<view class="footer" wx:if="{{ items.length && !isLoading }}">
+  	  	<view class="radio {{ isAllSelected ? 'selected' : '' }}" bindtap="onSelectAll" style="border-color: {{ themeColor.primaryColor }}; {{ isAllSelected ? 'background-color: ' + themeColor.primaryColor : ''  }}">
+  	  	  	<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isAllSelected }}" />
+  	  	</view>
+  	  	<view class="checkall" bindtap="onSelectAll">全选</view>
+  	  	<view class="priceCount">
+			<view class="amount">
+				<view class="amount-left">
+					合计：
+					<view class="totalPrice">{{ globalData.CURRENCY[globalData.currency] }}{{ totalPrice }} </view>
+				</view>
+				<!-- <view class="amount-right">已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</view> -->
+			</view>
+			<view class="priceMeta">
+				<!-- <text class="postage"
+				>运费：{{ globalData.CURRENCY[globalData.currency] }}{{ totalPostage }}</text> -->
+				<view>已节省：{{ globalData.CURRENCY[globalData.currency] }}{{ savePrice }}</view>
+				<view class="priceMeta-text" wx:if="{{ shipping_type === 1 && free_shipping_amount }}">满{{ globalData.CURRENCY[globalData.currency] }}{{free_shipping_amount}}包邮</view>
+			</view>
+  	  	</view>
+  	  	<button class="normalizeBt createOrderBt" bindtap="bindGetUserInfo" lang="zh_CN" disabled="{{ !isShouldPay }}" style="background-color: {{ themeColor.primaryColor }}"> {{ config.order_only ? '去下单' : '去结算' }} </button>
+  	</view>
+</view>
+
+<!-- 商品留言弹出层 -->
+<productRemarkPopup show="{{ isShowRemark }}" form="{{ currentRemark }}" bind:close="onCloseRemark" />
+
+<!-- 切换标签的类名 -->
+<wxs module="classSet">
+	var product = function(liftStyles, multiStoreEnable) {
+		var className = 'scrollHeight';
+		if(liftStyles.length > 1) {
+			className = 'cartList';
+		};
+		if(multiStoreEnable) {
+			className += '-multiStore';
+		};
+		return className;
+	};
+	module.exports = {
+		product: product
+	};
+</wxs>

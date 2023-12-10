@@ -7,11 +7,14 @@ import { POINTS_TYPE } from 'constants/index';
 
 const app = getApp();
 
-Component({
-    properties: {
-        data: {
-            type: Array,
-            value: [],
-        },
+Page({
+    data:{
+        navbarListData:POINTS_TYPE,
+        activeIndex:1,
+        themeColor:''
     },
+
+    changeNavbarList(){
+
+    }
 })

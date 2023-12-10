@@ -1,6 +1,26 @@
 <view class="myMedal">
     <view></view>
-    <view class="medal-box">
+    <view class="medal-box" wx:for="{{medal_group}}"  wx:for-item="item">
+        <view class="header">{{item.title}}</view>
+        <view class="item-box">
+            <view class-="item-content" wx:for="{{item.medal}}" wx:for-item="mdealItem" bindtap="jumpDetail" data-medal="{{ mdealItem }}">
+                <image class="img" src="{{mdealItem.user?mdealItem.icon:mdealItem.unlock_icon}}"></image>
+                <view class="state">{{mdealItem.user?'已获得':'未解锁'}}</view>
+                <view class="date" wx:if="{{mdealItem.user}}">{{filter.getDate(mdealItem.user.time)}}</view>
+            </view>
+            <!-- <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view>
+            <view class-="item-content">
+                <view class="img"></view>
+                <view class="state">已获得</view>
+                <view class="date">2023-09-20</view>
+            </view> -->
+        </view>
+    </view>
+    <!-- <view class="medal-box">
         <view class="header">荣誉勋章A (3)</view>
         <view class="item-box">
             <view class-="item-content">
@@ -19,25 +39,6 @@
                 <view class="date">2023-09-20</view>
             </view>
         </view>
-    </view>
-    <view class="medal-box">
-        <view class="header">荣誉勋章A (3)</view>
-        <view class="item-box">
-            <view class-="item-content">
-                <view class="img"></view>
-                <view class="state">已获得</view>
-                <view class="date">2023-09-20</view>
-            </view>
-            <view class-="item-content">
-                <view class="img"></view>
-                <view class="state">已获得</view>
-                <view class="date">2023-09-20</view>
-            </view>
-            <view class-="item-content">
-                <view class="img"></view>
-                <view class="state">已获得</view>
-                <view class="date">2023-09-20</view>
-            </view>
-        </view>
-    </view>
+    </view> -->
 </view>
+<wxs src="utils/wxs/timeTranslate.wxs" module="filter" />

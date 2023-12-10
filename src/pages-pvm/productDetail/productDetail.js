@@ -3,6 +3,7 @@
 import api from 'utils/api';
 import { autoTransformAddress, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
+import { autoNavigate_ } from 'utils/util';
 
 const app = getApp();
 
@@ -11,6 +12,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    toCartActions: [
+      {
+        type: 'onBuy',
+        text: '加入购物车',
+      },
+    ],
     actions: [
       {
         type: 'onBuy',
@@ -18,6 +25,7 @@ Page({
       },
     ],
     isShowSkuModal: false,
+    isShowToCardSkuModal: false,
     // isBargainBuy: false, // 购买数量加减隐藏
     time: 30 * 60 * 60 * 1000, // 倒计时
     timeData: {},
@@ -25,6 +33,16 @@ Page({
     best_promotion: [],
     product: {},
     showBgColor: false,
+    coupons:[],
+    isShowCouponList:false,
+    tplStyle:'coupon'
+  },
+
+  onShowCouponList(){
+    console.log('onShowCoupons');
+    this.setData({
+        isShowCouponList: true
+    });
   },
 
   countdownChange(e) {
@@ -33,7 +51,13 @@ Page({
     });
   },
 
-  getcoupon: function(params) {
+  onHideCouponList() {
+    this.setData({
+        isShowCouponList: false
+    });
+},
+
+  getcoupon: function (params) {
     console.log('getcoupon', params);
     console.log('detail', params.detail);
     this.onCloseModal();
@@ -71,8 +95,8 @@ Page({
           success: (result) => {
 
           },
-          fail: () => {},
-          complete: () => {}
+          fail: () => { },
+          complete: () => { }
         });
 
       }
@@ -100,13 +124,13 @@ Page({
   async onClickLeft() {
     const { project } = this.options;
     if (project) {
-      const ak =  await this.showModal({ type: 'recover_promotion' });
+      const ak = await this.showModal({ type: 'recover_promotion' });
       if (ak) {
-       await this.loadProductExtra();
+        await this.loadProductExtra();
       } else {
-       wx.switchTab({
-         url: '/pages/home/home'
-       });
+        wx.switchTab({
+          url: '/pages/home/home'
+        });
       }
     } else {
       wx.navigateBack({
@@ -142,6 +166,11 @@ Page({
       isShowSkuModal: true
     });
   },
+  onShowToCartSkuModal() {
+    this.setData({
+      isShowToCardSkuModal: true
+    });
+  },
 
   async initPage() {
     const { id } = this.options || {};
@@ -149,7 +178,8 @@ Page({
       const { config, share_title, share_image, page_title, product } =
         await api.hei.fetchProduct({ id });
       this.config = config;
-
+      app.globalData.couponBackgroundColor = 'orange'
+      // console.log('configxxx',config)
       product.coupons_price = 0;
 
       wx.setNavigationBarTitle({
@@ -171,12 +201,12 @@ Page({
     let showModalType;
     const { project, cid, id } = this.options;
     const { product } = this.data;
-    const { recover_project, best_promotion } = await api.hei.productExtra({
+    const { recover_project, best_promotion, coupons } = await api.hei.productExtra({
       project,
       id,
       cid
     });
-
+    console.log('coupons', coupons)
     if (recover_project) {
       const { promotion, max_promotion_price, ...rest } = recover_project;
 
@@ -194,9 +224,9 @@ Page({
 
       if (max_promotion_price) {
 
-      this.setData({
-        'product.coupons_price': max_promotion_price
-      });
+        this.setData({
+          'product.coupons_price': max_promotion_price
+        });
       }
     }
 
@@ -204,6 +234,12 @@ Page({
 
       this.setData({
         best_promotion
+      });
+    }
+
+    if (coupons) {
+      this.setData({
+        coupons
       });
     }
 
@@ -303,38 +339,98 @@ Page({
     }
   },
 
+  async addCart(e) {
+    // console.log('ssss')
+    // const { id } = this.options || {};
+    // let product = {
+    //   "id": id,
+    //   "sku_id": 0,
+    //   "quantity": 1,
+    //   "shipping_type": 1
+    // }
+    // let products = [product]
+    try {
+      const { project, cid } = this.options;
+      const { queryData, actionType } = e.detail;
+      const {
+        quantity,
+        product
+      } = queryData;
+      console.log('product', product)
+      console.log('queryData', queryData)
+
+      let products = [{
+        "id": product.id,
+        "sku_id": 0,
+        "quantity": quantity,
+        "shipping_type": 1
+      }]
+      console.log('queryData', queryData)
+      let response = await api.hei.pvmAddCart({
+        products
+      })
+      if (response.errcode == '0') {
+        wx.showModal({
+          content: '加入购物车成功',
+          title: '操作成功',
+          showCancel: false
+        });
+      }
+
+    } catch (e) {
+      console.log('error', e)
+      wx.showModal({
+        content: e.errMsg || '加入购物车失败',
+        title: '操作失败',
+        showCancel: false
+      });
+    }
+  },
+  // 返回首页
+  onGoHome() {
+    let url = '/pages/home/home';
+    let type = 'switchTab';
+    autoNavigate_({ url, type });
+  },
+  // 返回购物车
+  onGoCart() {
+    let url = '/pages-pvm/cart/cart';
+    let type = 'switchTab';
+    autoNavigate_({ url, type });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () { },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {},
+  onHide: function () { },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () { },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () { },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {},
+  onReachBottom: function () { },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: function () { },
 });

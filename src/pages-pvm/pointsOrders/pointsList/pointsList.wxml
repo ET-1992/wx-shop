@@ -1,21 +1,19 @@
 <view class="pointsLsit">
-    <view class="page-empty" wx:if="{{ data.length < 1 }}">暂无数据</view>
-    <view class="listBox" wx:for="{{data}}">
+    <view class="listBox">
         <view class="row">
             <view class="cash">用户提现</view>
             <view class="value heightLight">.-87180</view>
         </view>
         <view class="row">
             <view class="text">订单编号</view>
-            <view class="text">{{item.relate_order_no}}</view>
+            <view class="text">0</view>
         </view>
         <view class="row">
             <view class="text">变动后的余额</view>
-            <view class="text">{{item.after_balance}}</view>
+            <view class="text">0</view>
         </view>
         <view class="row bottom0">
-            <view class="text">{{filter.getDateTime(item.time)}}</view>
+            <view class="text">2023-10-05 20-03-25</view>
         </view>
     </view>
 </view>
-<wxs module="filter" src="utils/wxs/timeTranslate.wxs" />
