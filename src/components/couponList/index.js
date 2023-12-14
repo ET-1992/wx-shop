@@ -32,10 +32,22 @@ Component({
     lifetimes: {
         attached() {
             const { fromMemberShipPage } = this.data;
-            const config = wx.getStorageSync(CONFIG);
+            let config = wx.getStorageSync(CONFIG);
+            const cdn_host = wx.getStorageSync('cdn_host');
+            let color = app.globalData.couponBackgroundColor;
+            if(cdn_host){
+                config = {
+                    cdn_host,
+                    style_type:'newCoupon'
+                };
+                // color = 'orange'
+            }
             const { style_type = 'default' } = config;
-            const color = app.globalData.couponBackgroundColor;
             let tplStyle = color ? 'coupon' : style_type;
+            if(cdn_host){
+                color = 'orange'
+            }
+            console.log('tplStyle',tplStyle)
             if (fromMemberShipPage) {
                 tplStyle = 'vip_tpl';
             }

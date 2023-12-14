@@ -107,6 +107,10 @@
                     <view class="remark-title">留言</view>
                     <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view> -->
+          <view class="pay" bindtap="goCouponList">
+            <text>优惠券</text>
+            <!-- <text class="pay-right">微信支付</text> -->
+          </view>
           <view class="modal-line" />
           <view class="pay">
             <text>支付方式</text>

@@ -205,6 +205,11 @@ Component({
         console.log('resolved error', e);
       }
     },
+    goCouponList(){
+      wx.navigateTo({
+        url: `/pages-pvm/couponDetail/couponDetail`,
+      });
+    },
 
     // 留言表单聚焦/失焦
     onChangeMessage(event) {

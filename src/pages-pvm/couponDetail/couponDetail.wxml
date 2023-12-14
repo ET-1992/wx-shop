@@ -1,6 +1,6 @@
 <view class="coupon-detail">
-  <view wx:for="{{couponList}}" >
-    <view class="coupon-list"  >
+  <view wx:for="{{couponList}}" wx:key="index" >
+    <view class="coupon-list {{item.checked?'heightLight':''}}"  >
       <view class="coupon coupon-num">
         <view class="price" wx:if="{{item.price}}">
           ¥<text class="num">{{item.price}}</text>
@@ -12,15 +12,15 @@
         <text class="desc">{{item.discount_desc}}</text>
         <text>有效期：{{item.validity_period}}</text>
       </view>
-      <view class="coupon coupon-isUse" wx:if="{{item.isUse || !item.isThreshold}}">
+      <!-- <view class="coupon coupon-isUse" wx:if="{{item.isUse || !item.isThreshold}}">
         <text wx:if="{{item.isUse}}">已使用</text>
         <text class="isThreshold" wx:if="{{!item.isThreshold}}">未达到门槛</text>
-      </view>
-      <view class="btn" wx:if="{{!item.isUse && item.isThreshold}}">
-        <button class="use-btn">使用</button>
+      </view> -->
+      <view class="btn">
+        <button class="use-btn" data-id="{{item.id}}" data-item="{{item}}" data-index="{{index}}" bindtap="userCoupon">使用</button>
       </view>
     </view>
   </view> 
-  <button class="confirm-btn">确认</button>
+  <button class="confirm-btn" bindtap="confirmCoupon">确认</button>
   <van-empty class="custom-image" wx:if="{{ !couponList.length }}" image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无" /> 
 </view>

@@ -18,7 +18,7 @@ var filter = {
         second = second < 10 ? '0' + second : second;
         return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
     },
-    getDate: function (value) {
+    getDateDay: function (value) {
         // 不能使用 new Date()
         // eslint-disable-next-line no-undef
         var time = getDate(value * 1000);
@@ -39,5 +39,5 @@ var filter = {
 // 导出对外暴露的属性
 module.exports = {
     getDateTime: filter.getDateTime,
-    getDate: filter.getDate
+    getDateDay: filter.getDateDay
 };

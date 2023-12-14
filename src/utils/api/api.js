@@ -1068,5 +1068,10 @@ export const apis = {
         path: 'api/wallet/log.json',
         method: 'GET',
         isForceToken: true,
+    },
+    pvmReceiveCoupon:{
+        path: 'api/coupon/receive.json',
+        method: 'POST',
+        isForceToken: true,
     }
 };

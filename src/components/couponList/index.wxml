@@ -8,3 +8,6 @@
 <include wx:if="{{ tplStyle === 'vip_tpl' && config }}" src="/templates/couponList/tplStyleVip/tplStyleVip.wxml" />
 <!-- 新首页优惠券模板 -->
 <include wx:if="{{ tplStyle === 'coupon' && config }}" src="/templates/couponList/coupon/coupon.wxml" />
+
+<!-- pvm项目的优惠券 -->
+<include wx:if="{{ tplStyle === 'newCoupon' && config }}" src="/templates/couponList/newCoupon/newCoupon.wxml" />

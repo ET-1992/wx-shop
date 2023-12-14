@@ -3,8 +3,8 @@
 import api from 'utils/api';
 import { autoTransformAddress, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
-import { autoNavigate_ } from 'utils/util';
-
+import { autoNavigate_,subscribeMessage} from 'utils/util';
+import proxy from 'utils/wxProxy';
 const app = getApp();
 
 Page({
@@ -33,15 +33,16 @@ Page({
     best_promotion: [],
     product: {},
     showBgColor: false,
-    coupons:[],
-    isShowCouponList:false,
-    tplStyle:'coupon'
+    coupons: [],
+    isShowCouponList: false,
+    tplStyle: 'newCoupon',
+    config: {}
   },
 
-  onShowCouponList(){
+  onShowCouponList() {
     console.log('onShowCoupons');
     this.setData({
-        isShowCouponList: true
+      isShowCouponList: true
     });
   },
 
@@ -53,9 +54,9 @@ Page({
 
   onHideCouponList() {
     this.setData({
-        isShowCouponList: false
+      isShowCouponList: false
     });
-},
+  },
 
   getcoupon: function (params) {
     console.log('getcoupon', params);
@@ -175,13 +176,16 @@ Page({
   async initPage() {
     const { id } = this.options || {};
     if (id) {
-      const { config, share_title, share_image, page_title, product } =
+      const { share_title, share_image, page_title, product } =
         await api.hei.fetchProduct({ id });
-      this.config = config;
-      app.globalData.couponBackgroundColor = 'orange'
-      // console.log('configxxx',config)
+      let cdn_host = wx.getStorageSync('cdn_host');
+      let config = {
+        cdn_host,
+        style_type: 'newCoupon'
+      }
+      // app.globalData.couponBackgroundColor = 'orange'
       product.coupons_price = 0;
-
+      console.log('configsss', config)
       wx.setNavigationBarTitle({
         title: page_title,
       });
@@ -193,6 +197,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    app.event.on('getCouponData', this.getCouponData, this);
     await this.initPage(options);
     await this.loadProductExtra();
   },
@@ -201,11 +206,12 @@ Page({
     let showModalType;
     const { project, cid, id } = this.options;
     const { product } = this.data;
-    const { recover_project, best_promotion, coupons } = await api.hei.productExtra({
+    const { recover_project, coupons } = await api.hei.productExtra({
       project,
       id,
       cid
     });
+
     console.log('coupons', coupons)
     if (recover_project) {
       const { promotion, max_promotion_price, ...rest } = recover_project;
@@ -228,13 +234,6 @@ Page({
           'product.coupons_price': max_promotion_price
         });
       }
-    }
-
-    if (best_promotion) {
-
-      this.setData({
-        best_promotion
-      });
     }
 
     if (coupons) {
@@ -398,7 +397,50 @@ Page({
     let type = 'switchTab';
     autoNavigate_({ url, type });
   },
+  async bindGetCoupon(e) {
+    this.onCouponClick(e);
+  },
 
+  async onCouponClick(ev) {
+    const { id, index, status, title } = ev.currentTarget.dataset;
+    if (Number(status) === 2) {
+      await this.onReceiveCoupon(id, index);
+    }
+    else {
+      wx.navigateTo({
+        url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
+      });
+    }
+  },
+  async onReceiveCoupon(id, index) {
+    try {
+      const data = await api.hei.pvmReceiveCoupon({
+        id: id,
+      });
+      if (!data.errcode) {
+        let subKeys = [{ key: 'coupon_expiring' }];
+        await subscribeMessage(subKeys);
+        await proxy.showToast({ title: '领取成功' });
+        const updateData = {};
+        const key = `receivableCoupons[${index}].status`;
+        updateData[key] = 4;
+        this.setData(updateData);
+      }
+    }
+    catch (err) {
+      await proxy.showModal({
+        title: '温馨提示',
+        content: err.errMsg,
+        showCancel: false,
+      });
+    }
+  },
+  getCouponData(data){
+    console.log('获取优惠券数据',data)
+    this.setData({
+      best_promotion:data
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -417,7 +459,9 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () { },
+  onUnload: function () {
+    app.event.off('getCouponData')
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
