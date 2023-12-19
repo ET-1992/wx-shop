@@ -32,7 +32,7 @@
           <text class="title">待收货</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=3000">
+      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=6000">
         <van-grid-item use-slot class="order-gird">
           <image class="img" src="../../icons/mvp/shipped.png" />
           <text class="title">退换售后</text>
