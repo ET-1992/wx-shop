@@ -139,7 +139,7 @@
 </scroll-view>
 <!-- </page-meta> -->
 <!-- SKU -->
-<skuModal isShowSkuModal="{{  isShowToCardSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ toCartActions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="addCart" bind:shipping-change="getShippingType" />
+<skuModal isShowSkuModal="{{  isShowToCardSkuModal }}" showAddress="{{false}}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ toCartActions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="addCart" bind:shipping-change="getShippingType" />
 <skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <!-- 文字弹窗 -->
 <van-dialog use-slot title="" show="{{ showModalType === 'text' }}" show-cancel-button confirm-button-open-type="getUserInfo" cancel-button-color="#606266" confirm-button-color="#ffffff" class="text-modal" bind:close="onCloseModal">

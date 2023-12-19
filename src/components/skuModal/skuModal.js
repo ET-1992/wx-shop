@@ -13,6 +13,10 @@ Component({
     },
   },
   properties: {
+    showAddress:{
+      type: Boolean,
+      value: true,
+    },
     isShowSkuModal: {
       type: Boolean,
       value: false,
@@ -167,14 +171,18 @@ Component({
         // await getUserProfile();
         let queryData = {};
         let addressComponent = this.selectComponent('#address');
-        const { address } = addressComponent.data;
-        if (!address.telNumber) {
-          wx.showToast({
-            title: '配送地址不能为空',
-            icon: 'none',
-            duration: 2000,
-          });
-          return;
+        let address = {}
+        
+        if(this.showAddress){
+          address = addressComponent.data.address
+          if (!address.telNumber) {
+            wx.showToast({
+              title: '配送地址不能为空',
+              icon: 'none',
+              duration: 2000,
+            });
+            return;
+          }
         }
 
         const { product } = this.data;

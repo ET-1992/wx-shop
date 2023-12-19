@@ -4,7 +4,7 @@
     <view class="emptyHint" wx:if="{{ !orders.length && !isRefresh }}">暂无内容</view>
     <view class="orderItem {{newIndex==1?'refundItem' : ''}}">
       <view class="order" wx:for="{{ orders }}" wx:key="id" wx:for-item="order" wx:for-index="orderIndex">
-        <navigator url="/pages-mvp/orderDetail/orderDetail?id={{ order.order_no }}">
+        <navigator url="/pages-pvm/orderDetail/orderDetail?id={{ order.order_no }}">
           <view class="item" wx:for="{{ order.items }}" wx:key="id">
             <!-- <image class="itemImage" src="{{ item.thumbnail }}" mode="aspectFill" />
             <view class="itemInfo">

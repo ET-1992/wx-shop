@@ -278,6 +278,7 @@ Page({
       console.log(e, 'onSkuConfirm');
       const { project, cid } = this.options;
       const { queryData, actionType } = e.detail;
+      console.log('queryData', queryData);
       const { best_promotion } = this.data;
       const {
         quantity,
@@ -380,6 +381,7 @@ Page({
       const { queryData, actionType } = e.detail;
       const {
         quantity,
+        selectedSku: { id },
         product
       } = queryData;
       console.log('product', product);
@@ -387,7 +389,7 @@ Page({
 
       let products = [{
         'id': product.id,
-        'sku_id': 0,
+        'sku_id': id,
         'quantity': quantity,
         'shipping_type': 1
       }];
