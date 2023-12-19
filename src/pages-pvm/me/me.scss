@@ -1,6 +1,7 @@
 .my {
   height: 100vh;
   background-color: #F2F1EF;
+
   .my-header {
     width: 100%;
     background: #e4e1da;
@@ -8,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 32rpx;
+
     .my-msg {
       display: flex;
       align-items: center;
@@ -19,10 +21,28 @@
         margin-right: 24rpx;
       }
     }
-    .sign-box{
 
+    .signBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 220rpx;
+      height: 65rpx;
+      flex-shrink: 0;
+      border-radius: 34rpx;
+      background: #FFF;
+
+      .text {
+        color: #000000;
+        font-family: ".PingFang SC";
+        font-size: 24rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
     }
   }
+
   .my-order {
     width: 100%;
     background: #ffffff;
@@ -30,15 +50,18 @@
     margin: 24rpx 20rpx;
     padding: 24rpx;
     width: 710rpx;
+
     .order {
       font-size: 32rpx;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
       color: #111111;
     }
+
     .my-grid {
       .order-gird {
         position: relative;
+
         .dot {
           position: absolute;
           right: 44rpx;
@@ -48,7 +71,8 @@
           background: #fe4f06;
           border-radius: 8rpx;
         }
-        .title{
+
+        .title {
           color: #000000;
           font-family: ".PingFang SC";
           font-size: 24rpx;
@@ -56,6 +80,7 @@
           font-weight: 400;
           line-height: normal;
         }
+
         .dot-num {
           position: absolute;
           top: 16rpx;
@@ -69,23 +94,27 @@
           font-weight: 400;
         }
       }
+
       .van-info {
         background-color: #fe4f06;
       }
+
       .title {
         font-size: 28rpx;
         font-family: PingFangSC-Regular, PingFang SC;
         font-weight: 400;
         color: #303133;
       }
+
       .img {
         width: 64rpx;
         height: 64rpx;
         margin-bottom: 8rpx;
       }
     }
-    .control-grid{
-      .title{
+
+    .control-grid {
+      .title {
         color: #000000;
         font-family: ".PingFang SC";
         font-size: 22rpx;
@@ -94,8 +123,9 @@
         line-height: normal;
       }
     }
-    .data-grid{
-      .title{
+
+    .data-grid {
+      .title {
         color: #000000;
         font-family: ".PingFang SC";
         font-size: 24rpx;
@@ -104,7 +134,8 @@
         line-height: normal;
         margin-bottom: 5rpx;
       }
-      .value{
+
+      .value {
         color: #000000;
         font-family: ".PingFang SC";
         font-size: 36rpx;
