@@ -1,0 +1,18 @@
+<view class="signDetail">
+  <view class="header">
+    <view class="title">明天签到得2积分</view>
+    <view class="signRing">提醒我签到</view>
+  </view>
+  <view class="center">
+    <view class="stepBox">
+      <view class="stepItem" wx:for="{{weekly}}">
+        <view class="signCheck"></view>
+        <view class="text">{{item.day}}天</view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom">
+    <view></view>
+    <view class="bottomText">已连续签到31天</view>
+  </view>
+</view>

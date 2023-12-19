@@ -1073,5 +1073,10 @@ export const apis = {
         path: 'api/coupon/receive.json',
         method: 'POST',
         isForceToken: true,
+    },
+    pvmSignDetail:{
+        path: 'api/checkin/option.json',
+        method: 'GET',
+        isForceToken: true,
     }
 };

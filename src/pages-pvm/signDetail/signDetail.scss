@@ -1,0 +1,81 @@
+.signDetail {
+  background-color: #ffffff;
+  padding-bottom: 58rpx;
+  .header {
+    padding: 26rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      color: #000000;
+      font-family: ".PingFang SC";
+      font-size: 32rpx;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .signRing {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 190rpx;
+      height: 40rpx;
+      flex-shrink: 0;
+      border-radius: 34rpx;
+      background: #DDB583;
+      color: #ffffff;
+      font-family: ".PingFang SC";
+      font-size: 24rpx;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  .center {
+    padding: 0 25rpx;
+    margin-bottom: 50rpx;
+    .stepBox{
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      .stepItem{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .signCheck{
+          width: 70rpx;
+          height: 70rpx;
+          flex-shrink: 0;
+          border-radius: 70rpx;
+          background: #E4E1D8;
+          margin-bottom: 10rpx;
+        }
+        .text{
+          color: #999999;
+          font-family: ".PingFang SC";
+          font-size: 20rpx;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+    .bottomText{
+      color: #000000;
+      font-family: ".PingFang SC";
+      font-size: 28rpx;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
