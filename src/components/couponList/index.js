@@ -21,40 +21,32 @@ Component({
         fromMemberShipPage: {
             type: Boolean,
             value: false,
-        }
+        },
+        config: {
+          type: Object,
+          value: {},
+      },
     },
     data: {
         globalData: app.globalData,
-        config: null,
-        color: '',
+        color: 'orange',
         PLATFFORM_ENV,
     },
     lifetimes: {
         attached() {
-            const { fromMemberShipPage } = this.data;
-            let config = wx.getStorageSync(CONFIG);
-            const cdn_host = wx.getStorageSync('cdn_host');
+            const { fromMemberShipPage, config } = this.data;
+            // let config = wx.getStorageSync(CONFIG);
+            // const cdn_host = wx.getStorageSync('cdn_host');
             let color = app.globalData.couponBackgroundColor;
-            if(cdn_host){
-                config = {
-                    cdn_host,
-                    style_type:'newCoupon'
-                };
-                // color = 'orange'
-            }
             const { style_type = 'default' } = config;
-            let tplStyle = color ? 'coupon' : style_type;
-            if(cdn_host){
-                color = 'orange'
-            }
-            console.log('tplStyle',tplStyle)
-            if (fromMemberShipPage) {
-                tplStyle = 'vip_tpl';
-            }
+
+            // if (fromMemberShipPage) {
+            //     tplStyle = 'vip_tpl';
+            // }
             this.setData({
                 config,
                 color,
-                tplStyle
+                tplStyle: config.style_type
             });
         }
     },

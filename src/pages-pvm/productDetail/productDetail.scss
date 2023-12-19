@@ -299,6 +299,84 @@ page {
     }
   }
 
+  .sevice-coupon{
+    margin: 10rpx 0 10rpx;
+    padding: 0 39rpx 0 31rpx;
+    background-color: #fff;
+  
+    // 优惠券/服务分割线
+    .sevice-coupon-line {
+      height: 0;
+      border-bottom: 1rpx solid #D7D7D7;
+    }
+    .coupons {
+      padding: 24rpx 0;
+      color: $originalPriceColor;
+      font-size: 24rpx;
+      // border-bottom: 1rpx solid #D7D7D7;
+  
+      button {
+        color: $originalPriceColor;
+        font-size: 18rpx;
+        background-color: #fff;
+        text-align: left;
+      }
+  
+      .couponBtn{
+        font-size: 24rpx;
+        color: #000000;
+        padding-right: 30rpx;
+        display:inline-block;
+        line-height: 32rpx;
+      }
+  
+      .coupon {
+        background: #F52D2D;
+        color: #fff;
+        margin-right: 20rpx;
+        display: inline-block;
+        min-width: 100rpx;
+        height: 32rpx;
+        line-height: 32rpx;
+        border-radius: 5rpx;
+        text-align: center;
+        padding: 0 10rpx;
+      }
+  
+      .rightIcon {
+        width: 16rpx;
+        height: 26rpx;
+        float: right;
+        margin-top: 6rpx;
+      }
+    }
+  
+    .service{
+      padding: 24rpx 0;
+      display: flex;
+      justify-content: flex-start;
+  
+      .desc{
+        width: 600rpx;
+        .service-item{
+          font-size: 24rpx;
+          display: block;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding-bottom: 15rpx;
+        }
+      }
+  
+      .text{
+        font-size: 24rpx;
+        color: #000000;
+        padding-right: 28rpx;
+      }
+    }
+  
+  }
+
   // .shop-image {
   //   margin-top: -2rpx;
   // }

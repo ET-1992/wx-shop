@@ -3,7 +3,7 @@
 import api from 'utils/api';
 import { autoTransformAddress, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
-import { autoNavigate_,subscribeMessage} from 'utils/util';
+import { autoNavigate_, subscribeMessage } from 'utils/util';
 import proxy from 'utils/wxProxy';
 const app = getApp();
 
@@ -36,7 +36,9 @@ Page({
     coupons: [],
     isShowCouponList: false,
     tplStyle: 'newCoupon',
-    config: {}
+    config: {},
+    receivableCoupons: [],
+    receivedCoupons: [],
   },
 
   onShowCouponList() {
@@ -182,10 +184,10 @@ Page({
       let config = {
         cdn_host,
         style_type: 'newCoupon'
-      }
+      };
       // app.globalData.couponBackgroundColor = 'orange'
       product.coupons_price = 0;
-      console.log('configsss', config)
+      console.log('configsss', config);
       wx.setNavigationBarTitle({
         title: page_title,
       });
@@ -212,7 +214,32 @@ Page({
       cid
     });
 
-    console.log('coupons', coupons)
+
+
+    const { receivableCoupons, receivedCoupons } = coupons && coupons.reduce(
+      (classifyCoupons, coupon) => {
+          const { receivableCoupons, receivedCoupons } = classifyCoupons;
+
+          // coupon.fomatedTitle = coupon.title.split('-')[1];
+          if (Number(coupon.status) === 2) {
+              receivableCoupons.push(coupon);
+          }
+          else if (Number(coupon.status) === 4) {
+              receivedCoupons.push(coupon);
+          }
+          return classifyCoupons;
+      },
+      { receivableCoupons: [], receivedCoupons: [] },
+  );
+
+  this.setData({
+    receivableCoupons,
+    receivedCoupons,
+});
+
+
+
+    console.log('coupons', coupons);
     if (recover_project) {
       const { promotion, max_promotion_price, ...rest } = recover_project;
 
@@ -355,19 +382,19 @@ Page({
         quantity,
         product
       } = queryData;
-      console.log('product', product)
-      console.log('queryData', queryData)
+      console.log('product', product);
+      console.log('queryData', queryData);
 
       let products = [{
-        "id": product.id,
-        "sku_id": 0,
-        "quantity": quantity,
-        "shipping_type": 1
-      }]
-      console.log('queryData', queryData)
+        'id': product.id,
+        'sku_id': 0,
+        'quantity': quantity,
+        'shipping_type': 1
+      }];
+      console.log('queryData', queryData);
       let response = await api.hei.pvmAddCart({
         products
-      })
+      });
       if (response.errcode == '0') {
         wx.showModal({
           content: '加入购物车成功',
@@ -377,7 +404,7 @@ Page({
       }
 
     } catch (e) {
-      console.log('error', e)
+      console.log('error', e);
       wx.showModal({
         content: e.errMsg || '加入购物车失败',
         title: '操作失败',
@@ -435,11 +462,11 @@ Page({
       });
     }
   },
-  getCouponData(data){
-    console.log('获取优惠券数据',data)
+  getCouponData(data) {
+    console.log('获取优惠券数据', data);
     this.setData({
-      best_promotion:data
-    })
+      best_promotion: data
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -460,7 +487,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    app.event.off('getCouponData')
+    app.event.off('getCouponData');
   },
 
   /**

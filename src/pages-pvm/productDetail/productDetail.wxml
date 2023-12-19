@@ -62,10 +62,32 @@
     </view>
     <!-- todo 优惠券 -->
     <!-- 优惠卷 -->
-    <view class="simple-model-coupon" bind:tap="onShowCouponList">
+    <!-- <view class="simple-model-coupon" bind:tap="onShowCouponList">
       <van-tag custom-class="simple-coupon-tag" color="#FFF0F2" text-color="#D1483E" wx:for="{{ coupons }}" wx:key="id">
         <text>{{ item.title || '-' }}</text>
       </van-tag>
+    </view> -->
+    <view class="sevice-coupon" wx:if="{{ product }}">
+      <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
+        <!-- 优惠券-非拼团商品 -->
+        <view wx:if="{{ !(product.groupon_enable && grouponId) }}" class="coupons" catchtap="onShowCouponList">
+          <view class="couponBtn">领券</view>
+          <!-- 可领取 最多显示三个 -->
+          <block wx:if="{{ receivableCoupons.length }}">
+            <view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3 }}">
+              <text>{{ item.title }}</text>
+            </view>
+          </block>
+          <!-- 已领取 凑满三个 -->
+          <block wx:if="{{ receivableCoupons.length < 3 && receivedCoupons.length }}">
+            <view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 3 - receivedCoupons.length }}">
+              <text>{{ item.title }}</text>
+            </view>
+          </block>
+        </view>
+        <!-- 分割线 -->
+        <view class="sevice-coupon-line" wx:if="{{ product.service_instructions && product.service_instructions.length }}"></view>
+      </block>
     </view>
     <!-- <view class="shop-discount">
     <view class="shop-serve">
@@ -199,20 +221,20 @@
       <scroll-view class="couponList" scroll-y>
         <view class="title">优惠券</view>
         <view class="availableCoupon">
-          <view class="couponListTitle" wx:if="{{ coupons.length }}">可领取优惠券</view>
+          <view class="couponListTitle" wx:if="{{ receivableCoupons.length }}">可领取优惠券</view>
           <view class="noCoupon" wx:else>
             <image src="../../icons/noCoupon.svg"></image>
             <view>暂无可领取优惠券</view>
           </view>
-          <button wx:if="{{ coupons && coupons.length }}" class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" bindtap="bindGetCoupon">
-            <couponList wx:if="{{ item.status == 2 }}" coupon="{{ item }}" status="receivable" config="{{config}}" />
+          <button wx:if="{{ receivableCoupons && receivableCoupons.length }}" class="couponItemWrapper" wx:for="{{ receivableCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}" data-index="{{ index }}" bindtap="bindGetCoupon">
+            <couponList wx:if="{{ item.status == 2  }}" coupon="{{ item }}" status="receivable" config="{{config}}" />
             <!-- 未领取 -->
             <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
             <!-- 已领取 -->
           </button>
-          <block wx:if="{{ coupons && coupons.length}}">
+          <block wx:if="{{ receivedCoupons && receivedCoupons.length}}">
             <view class="couponListTitle">已领取优惠券</view>
-            <button  bindtp="bindGetCoupon" class="couponItemWrapper" wx:for="{{ coupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
+            <button bindtp="bindGetCoupon" class="couponItemWrapper" wx:for="{{ receivedCoupons }}" wx:key="id" data-id="{{ item.id }}" data-status="{{ item.status }}" data-title="{{ item.title }}">
               <couponList wx:if="{{ item.status == 4 }}" coupon="{{ item }}" status="received" config="{{config}}" />
               <!-- 已领取 -->
             </button>
