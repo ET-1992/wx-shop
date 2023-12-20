@@ -1,26 +1,23 @@
-<view class="coupon-detail">
-  <view wx:for="{{couponList}}" wx:key="index" >
-    <view class="coupon-list {{item.checked?'heightLight':''}}"  >
-      <view class="coupon coupon-num">
-        <view class="price" wx:if="{{item.price}}">
-          ¥<text class="num">{{item.price}}</text>
-        </view>
-        <view class="discount" wx:if="{{!item.price}}">{{item.discount}}折</view>
-        <text class="">商品劵</text>
-      </view>
-      <view class="coupon coupon-desc">
-        <text class="desc">{{item.discount_desc}}</text>
-        <text>有效期：{{item.validity_period}}</text>
-      </view>
-      <!-- <view class="coupon coupon-isUse" wx:if="{{item.isUse || !item.isThreshold}}">
-        <text wx:if="{{item.isUse}}">已使用</text>
-        <text class="isThreshold" wx:if="{{!item.isThreshold}}">未达到门槛</text>
-      </view> -->
-      <view class="btn">
-        <button class="use-btn" data-id="{{item.id}}" data-item="{{item}}" data-index="{{index}}" bindtap="userCoupon">使用</button>
-      </view>
-    </view>
-  </view> 
-  <button class="confirm-btn" bindtap="confirmCoupon">确认</button>
-  <van-empty class="custom-image" wx:if="{{ !couponList.length }}" image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无" /> 
+<view class="container">
+  	<!-- <view class="statusBar" style="background-color: {{ themeColor.primaryColor }}">
+    	<view class="statusItem" wx:for="{{ status }}" wx:key="name" bindtap="onStautsItemClick" data-value="{{ item.value }}">
+    	  	<view class="statusItemName {{ selectedStatus === item.value ? 'selected' : '' }}">
+    	    	{{ item.name }}
+    	  	</view>
+    	</view>
+  	</view> -->
+	<!-- <view class="emptyHint" wx:if="{{ !coupons[selectedStatus].length }}">
+	    <view wx:if="{{ selectedStatus === 'available' }}">暂无可使用优惠券</view>
+	    <view wx:if="{{ selectedStatus === 'unavailable' }}">无不可用优惠券</view>
+	</view> -->
+	<view class="couponList">
+	    <view class="couponItemWrapper" wx:for="{{ coupons }}" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
+	      <couponList coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{true}}" status="receivable" isSelected="{{ selectId === item.id }}" config="{{config}}"/>
+	    </view>
+	</view>
+	<view class="footer {{ isIphoneX ? 'iphoneXTrick' : '' }}">
+	    <button class="normalizeBt cofirmBt" bindtap="onComfirm" wx:if="{{ selectedStatus === 'available' && coupons.available.length }}" style="background-color: {{ themeColor.primaryColor }}">
+	    	确认
+	    </button>
+	</view>
 </view>

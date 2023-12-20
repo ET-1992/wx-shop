@@ -10,5 +10,6 @@
     "van-stepper": "@vant/weapp/dist/stepper/index",
     "address": "components/address/address",
     "van-field": "@vant/weapp/dist/field/index"
+    
   }
 }

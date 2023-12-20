@@ -1,98 +1,87 @@
-.coupon-detail{
-  .coupon-list{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 36rpx 24rpx 38rpx 48rpx;
-    background: #FFFFFF;
-    color: #B0B3BF;
-    margin-bottom: 16rpx;
-    // border: 1rpx solid #FE4F06;
-    .coupon{
-      display: flex;
-      flex-direction: column;
-      font-size: 24rpx;
-      font-weight: 400;
-      font-family: PingFangSC-Regular, PingFang SC;
-      .isThreshold{
-        color: #B0B3BF;
-      }
-    }
-    .coupon-num{
-      width: 18%;
-      .price{
-        color: #FE4F06;
-        font-size: 24rpx;
-        .num{
-         font-size: 38rpx;
-         font-weight: 500;
-        font-family: PingFangSC-Medium, PingFang SC;
+@import '~styles/color';
 
-        }
-      }
-      .discount{
-        padding-left: 10rpx;
-        font-size: 32rpx;
-        font-family: PingFangSC-Medium, PingFang SC;
-        font-weight: 500;
-        color: #FE4F06;
-      }
-    }
-    .coupon-desc{
-      width: 50%;
-      .desc{
-        font-size: 28rpx;
-        font-weight: 400;
-        color: #111111;
-        padding-bottom: 8rpx;
-      }
-      
-    }
-    .coupon-isUse{
-      width: 20%;
-      text-align: end;
-      display: flex;
-      justify-content: center;
-      color: #FE4F06;
-    }
-    .btn{
-      width: 20%;
-      display: flex;
-      flex-direction: row-reverse;
-      .use-btn{
-        width: 104rpx;
-        height: 60rpx;
-        background: #FFFFFF;
-        border-radius: 8rpx;
-        border: 2rpx solid #9F9F9F;
-        font-size: 28rpx;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #666666;
-        line-height: 60rpx;
-      }
-    }
-    
-   
-  }
-  .heightLight{
-    border: 1rpx solid #FE4F06;
-  }
-  .confirm-btn{
-    position: fixed;
-    bottom: 0;
-    @supports (bottom: env(safe-area-inset-bottom)) {
-        bottom: env(safe-area-inset-bottom);
-      }
-    width: 702rpx;
-    height: 88rpx;
-    background: #FE4F06;
-    border-radius: 8rpx;
-    font-size: 28rpx;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #FFFFFF;
-    line-height: 88rpx;
-    margin: 0 24rpx;
-  }
+$footerHeight: 100rpx;
+
+.container {
+	padding-bottom: $footerHeight + 40rpx;
 }
+
+.statusBar {
+	$height: 80rpx;
+	background-color: $mainColor;
+	color: #fff;
+	font-size: 10pt;
+	height: $height;
+	z-index: 10000;
+
+	.statusItem {
+		width: 50%;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.statusItemName {
+		margin: 0 auto;
+		height: $height;
+		line-height: $height;
+		display: inline-block;
+
+		&.selected {
+			border-bottom: 4px solid #fff;
+		}
+	}
+}
+
+.emptyHint {
+	padding-top: 320rpx;
+	color: #ccc;
+	font-size: 12pt;
+	text-align: center;
+
+	// .couponBt {
+	// 	width: 600rpx;
+	// 	background-color: $mainColor;
+	// 	color: #fff;
+	// 	margin: 40rpx auto 0 auto;
+	// 	padding: 20rpx 0;
+	// }
+}
+
+.couponList {
+	padding: 40rpx 25rpx;
+	.couponItemWrapper{
+		margin:25rpx auto 0;
+		width:650rpx;
+	}
+}
+
+.footer {
+	// height: $footerHeight;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	// background: #eee;
+	z-index: 2;
+	border-top: 1px solid #eee;
+	padding: 20rpx 0;
+
+	&.iphoneXTrick {
+		padding-bottom: 60rpx;
+	}
+
+	.cofirmBt {
+		width: 650rpx;
+		height: 90rpx;
+		line-height: 90rpx;
+		font-size: 30rpx;
+		color: #fff;
+		background-color: $couponMainColor;
+		border-radius: 10rpx;
+	}
+}
+
+

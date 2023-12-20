@@ -70,7 +70,11 @@ Component({
     product: {
       type: Object,
       value: {}
-    }
+    },
+    coupon:{
+      type:Array,
+      value:[]
+    },
   },
   data: {
     globalData: app.globalData,
@@ -214,8 +218,9 @@ Component({
       }
     },
     goCouponList(){
+      const { product } = this.data;
       wx.navigateTo({
-        url: `/pages-pvm/couponDetail/couponDetail`,
+        url: `/pages-pvm/couponDetail/couponDetail?id=${product.id}`,
       });
     },
 

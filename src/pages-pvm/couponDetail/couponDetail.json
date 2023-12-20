@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "优惠详情",
   "usingComponents": {
-     "van-empty": "@vant/weapp/dist/empty/index"
+     "van-empty": "@vant/weapp/dist/empty/index",
+     "couponList":"components/couponList/index"
   }
 }

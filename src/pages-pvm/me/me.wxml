@@ -20,7 +20,7 @@
           <text class="title">待付款</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/order?status=2000">
+      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=2000">
         <van-grid-item use-slot class="order-gird">
           <image class="img" src="../../icons/mvp/notShipped.png" />
           <text class="title">待发货</text>
@@ -32,10 +32,10 @@
           <text class="title">待收货</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=6000">
+      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=5000">
         <van-grid-item use-slot class="order-gird">
           <image class="img" src="../../icons/mvp/shipped.png" />
-          <text class="title">退换售后</text>
+          <text class="title">退款中</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList">

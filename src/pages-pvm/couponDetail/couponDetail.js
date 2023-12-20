@@ -1,80 +1,78 @@
-import { auth, wxReceriverPairs } from 'utils/util';
-import { chooseAddress } from 'utils/wxp';
-import { ADDRESS_KEY, CONFIG } from 'constants/index';
-import proxy from 'utils/wxProxy';
 import api from 'utils/api';
-
 const app = getApp();
+import { CONFIG } from 'constants/index';
 
+// 创建页面实例对象
 Page({
+  // 页面的初始数据
   data: {
-    config: {},
-    couponList: [
-      // {
-      //   'id': 98447,
-      //   'platform_user_id': 1531454,
-      //   'appid': 'wx205da4d5cad1c388',
-      //   'openid': 'oSLQA0TljgATZeKQzGsUOYhv07aA',
-      //   'price': 100,
-      //   'discount': '',
-      //   'discount_desc': '订单满400可用',
-      //   'isUse': true, // 是否使用
-      //   'isThreshold': true, // s是否达到门槛
-      //   'validity_period': '2023-3-3', // 有效期
-      //   checked:false
-
-      // },
-      // {
-      //   'id': 1064,
-      //   'platform_user_id': 1531454,
-      //   'appid': 'wx205da4d5cad1c388',
-      //   'openid': 'oSLQA0TljgATZeKQzGsUOYhv07aA',
-      //   'price': 0,
-      //   'discount': '8',
-      //   'discount_desc': '满2件可享8折',
-      //   'isUse': false, // 是否使用
-      //   'isThreshold': false,
-      //   'validity_period': '2023-4-5',
-      //   checked:false
-
-      // },
-      // {
-      //   'id': 1064,
-      //   'platform_user_id': 1531454,
-      //   'appid': 'wx205da4d5cad1c388',
-      //   'openid': 'oSLQA0TljgATZeKQzGsUOYhv07aA',
-      //   'price': 50,
-      //   'discount': '',
-      //   'discount_desc': '订单满400可用',
-      //   'isUse': false, // 是否使用
-      //   'isThreshold': true,
-      //   'validity_period': '2023-6',
-      //   checked:false
-      // }
+    status: [
+      { name: '可使用优惠券', value: 'available' },
+      { name: '不可用优惠券', value: 'unavailable' },
     ],
-    userCouponList: []
+    selectedStatus: 'available',
+    coupons: [],
+    config: {},
+    tplStyle: 'newCoupon',
+    selectId: ''
   },
 
-  async onLoad(options) {
+  // 生命周期函数--监听页面加载
+  async onLoad({ id }) {
+    console.log('id', id)
+    const { themeColor } = app.globalData;
+    // const coupons = wx.getStorageSync('orderCoupon');
     try {
-      const data = await api.hei.fetchCouponList();
-      const { list } = data
+      let params = {
+        post_id: id,
+        status: 1
+      }
+      const { list } = await api.hei.fetchCouponList(params);
+      console.log('list', list)
+      let coupons = list
+      const systemInfo = wx.getSystemInfoSync();
+      const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
+      let cdn_host = wx.getStorageSync('cdn_host');
+      console.log('cdn_host', cdn_host)
+      let config = {
+        cdn_host,
+        style_type: 'newCoupon'
+      };
+      console.log()
       this.setData({
-        couponList: list
-      })
+        coupons,
+        isIphoneX,
+        themeColor,
+        config
+      });
     } catch (e) {
-
+      console.log('eeeeee', e)
     }
+
   },
 
-  confirmCoupon() {
-    // couponList[]
-    let { couponList } = this.data
-    let userCouponList = []
+  onStautsItemClick(ev) {
+    const { value } = ev.currentTarget.dataset;
+    if (value === this.data.selectedStatus) { return }
+    this.setData({
+      selectedStatus: value,
+      // activeIndex: this.getIndex(value),
+      isRefresh: true,
+    });
+  },
 
-    couponList.forEach(item => {
-      if(item.checked){
-        let params = { "type": "coupon", "id": item.id }
+  onCouponClick(ev) {
+    console.log(ev)
+    let { coupons, selectId } = this.data
+    const { coupon } = ev.currentTarget.dataset;
+    selectId = coupon.id
+    this.setData({
+      selectId
+    });
+    let userCouponList = []
+    coupons.forEach(item => {
+      if (selectId == item.id) {
+        let params = { "type": "coupon", "id": item.id, title:item.title,coupon:item }
         userCouponList.push(params)
       }
     })
@@ -83,26 +81,21 @@ Page({
     })
     app.event.emit('getCouponData', userCouponList);
     wx.navigateBack();
+    // const { coupons } = this.data;
+    // if (coupons.recommend === coupons.available[index]) {
+    //   coupons.recommend = {};
+    // } else {
+    //   coupons.recommend = coupons.available[index];
+    // }
   },
 
-  userCoupon(e) {
-    console.log(e.currentTarget.dataset)
-    let { id, index } = e.currentTarget.dataset
-    console.log('id', id)
-    console.log('index', index)
-    let { couponList } = this.data
-    couponList[index].checked = !couponList[index].checked
-    this.setData({
-      couponList
-    })
-    // couponList[]
-    // let params = {"type":"coupon", "id": 14}
-    // let userCouponList = []
-    // userCouponList.push(params)
-    // this.setData({
-    //   userCouponList
-    // })
-    // app.event.emit('getCouponData', userCouponList);
-  }
-
+  onComfirm() {
+    const { coupons } = this.data;
+    // app.globalData.currentOrder.coupons = coupons;
+    app.event.emit('getCouponIdEvent', coupons.recommend);
+    console.log(app.globalData.currentOrder);
+    wx.navigateBack({
+      delta: 1
+    });
+  },
 });

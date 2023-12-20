@@ -14,7 +14,7 @@ Page({
   data: {
     toCartActions: [
       {
-        type: 'onBuy',
+        type: 'addCartPvm',
         text: '加入购物车',
       },
     ],

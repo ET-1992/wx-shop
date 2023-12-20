@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/home/home",
     "pages-pvm/hotelpage/hotelDetail/hotelDetail",
     "pages-pvm/hotelpage/orderCreate/orderCreate",
-    "pages/home/home",
+
     "pages-pvm/cart/cart",
     "pages-pvm/me/me",
     "pages-pvm/completePayment/completePayment",

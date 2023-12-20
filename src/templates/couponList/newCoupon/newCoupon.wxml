@@ -4,10 +4,11 @@
 			<view class="left">
 				<view class="reduce">
 					<text class="yuan" wx:if="{{ coupon.type == 1 }}">{{ globalData.CURRENCY[globalData.currency] }}</text>
-					<text class="reduceCost">{{ coupon.discount_percent }}</text>
+					<text class="reduceCost" wx:if="{{coupon.type == 2}}">{{ coupon.discount_percent }}</text>
 					<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
+					<text class="reduceCost" wx:if="{{coupon.type == 1}}">{{ coupon.discount_amount }}</text>
 				</view>
-				<view class="couponTitle">满{{ coupon.least_cost }}元使用</view>
+				<!-- <view class="couponTitle">满{{ co	upon.least_cost }}元使用</view> -->
 			</view>
 			<view class="center">
 				<view
@@ -18,10 +19,11 @@
 					class="couponDesc"
 				> • {{ desc }}</view>
 				<text wx:if="{{ coupon.date_type === '2' && coupon.status === 2}}">领券当日起{{ coupon.fixed_term }}日内可用</text>
-				<text wx:else>有效期：{{ filter.getDateDay(coupon.enable_start_time) }}-{{  filter.getDateDay(coupon.enable_end_time) }}</text>
+				<text wx:else>有效期：{{ filter.getDateDay(coupon.enable_start_date) }}-{{  filter.getDateDay(coupon.enable_end_date) }}</text>
 			</view>
 
-			<view class="right {{ canChoice ? 'rightCenter' : '' }}">
+			<view  class="right {{ canChoice ? 'rightCenter' : '' }}">
+				<view wx:if="{{!canChoice}}">
 				<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
 					<!-- 已领取 -->
 					<block  wx:if="{{ status === 'received' }}">
@@ -45,6 +47,7 @@
 					<view class="btn" wx:if="{{ status === 'expired' }}">已过期</view>
 					<view class="btn" wx:if="{{ status === 'nullCoupon' }}">已抢光</view>
 				</block>
+				</view>
 				<view class="radio {{ isSelected ? 'selected' : '' }}" wx:if="{{ canChoice }}" >
 					<image src="/icons/selected.png" mode="aspectFit" class="radioIcon" wx:if="{{ isSelected }}" />
 				</view>
