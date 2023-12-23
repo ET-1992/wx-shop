@@ -5,7 +5,7 @@
       <text class="name">{{ user.nickname || "点击登录" }}</text>
     </view>
     <view class="signBtn" bind:tap="goSign">
-      <view></view>
+      <van-icon class="bell" name="bell" />
       <view class="text">签到有礼</view>
       <view></view>
     </view>

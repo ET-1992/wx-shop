@@ -46,7 +46,7 @@ export const apis = {
         path: 'api/mag.cart.get.json',
         isForceToken: true,
     },
-    
+
     addCart: {
         path: 'api/mag.cart.add.json',
         method: 'POST',
@@ -1027,14 +1027,14 @@ export const apis = {
       contentType: 'json'
     },
 
-    //pvm新添加接口
+    // pvm新添加接口
     fetchPvmCartList: {
         path: 'api/cart/get.json',
         isForceToken: true,
     },
-    pvmAddCart:{
+    pvmAddCart: {
         path: 'api/cart/add.json',
-        isForceToken: true, 
+        isForceToken: true,
         method: 'POST',
         contentType: 'json'
     },
@@ -1054,32 +1054,32 @@ export const apis = {
         method: 'POST',
         isForceToken: true,
     },
-    pvmMedalList:{
+    pvmMedalList: {
         path: 'api/medal/list.json',
         method: 'GET',
         isForceToken: true,
     },
-    pvmExchangeMedal:{
+    pvmExchangeMedal: {
         path: 'api/medal/exchange.json',
         method: 'POST',
         isForceToken: true,
     },
-    pvmWalletLog:{
+    pvmWalletLog: {
         path: 'api/wallet/log.json',
         method: 'GET',
         isForceToken: true,
     },
-    pvmReceiveCoupon:{
+    pvmReceiveCoupon: {
         path: 'api/coupon/receive.json',
         method: 'POST',
         isForceToken: true,
     },
-    pvmSignDetail:{
+    pvmSignDetail: {
         path: 'api/checkin/option.json',
         method: 'GET',
         isForceToken: true,
     },
-    pvmSign:{
+    pvmSign: {
         path: 'api/checkin/action.json',
         method: 'POST',
         isForceToken: true,
