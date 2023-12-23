@@ -68,7 +68,7 @@ Page({
     go,
 
     async loadCart() {
-        const { shipping_type=1, liftStyles=[] } = this.data;
+        const { shipping_type = 1, liftStyles = [] } = this.data;
         console.log('shipping_type', shipping_type, typeof shipping_type, 'liftStyles', liftStyles);
         // this.checkPhoneModel();
         const lastSelectedArray = wx.getStorageSync(CART_LIST_KEY);
@@ -212,9 +212,9 @@ Page({
     // 删除某一购物车商品逻辑
     async onDelete(e) {
         const { items, isSelectedObject, shipping_type, liftStyles } = this.data;
-        console.log('items',items)
-        const { id,postId, skuId, index, itemId } = e.currentTarget.dataset;
-        console.log('e.currentTarget.dataset',e.currentTarget.dataset)
+        console.log('items', items);
+        const { id, postId, skuId, index, itemId } = e.currentTarget.dataset;
+        console.log('e.currentTarget.dataset', e.currentTarget.dataset);
         const { confirm } = await showModal({
             title: '温馨提示',
             content: '确认删除商品？',
@@ -229,9 +229,9 @@ Page({
             //     shipping_type,
             //     cart_item_id,
             // };
-            let ids = [id]
+            let ids = [id];
             let requestData = {
-                ids:ids
+                ids: ids
                 // post_id: postId,
                 // sku_id: skuId,
                 // shipping_type,

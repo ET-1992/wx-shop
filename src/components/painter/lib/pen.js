@@ -86,13 +86,13 @@ export default class Painter {
       this.ctx.globalAlpha = 0;
       this.ctx.fillStyle = 'white';
       this.ctx.beginPath();
-      this.ctx.arc(-width / 2 + r, -height / 2 + r, r, 1 * Math.PI, 1.5 * Math.PI);
+      this.ctx.arc(-width / 2 + r, -height / 2 + r, r, Number(Math.PI), 1.5 * Math.PI);
       this.ctx.lineTo(width / 2 - r, -height / 2);
       this.ctx.arc(width / 2 - r, -height / 2 + r, r, 1.5 * Math.PI, 2 * Math.PI);
       this.ctx.lineTo(width / 2, height / 2 - r);
       this.ctx.arc(width / 2 - r, height / 2 - r, r, 0, 0.5 * Math.PI);
       this.ctx.lineTo(-width / 2 + r, height / 2);
-      this.ctx.arc(-width / 2 + r, height / 2 - r, r, 0.5 * Math.PI, 1 * Math.PI);
+      this.ctx.arc(-width / 2 + r, height / 2 - r, r, 0.5 * Math.PI, Number(Math.PI));
       this.ctx.closePath();
       this.ctx.fill();
       // 在 ios 的 6.6.6 版本上 clip 有 bug，禁掉此类型上的 clip，也就意味着，在此版本微信的 ios 设备下无法使用 border 属性
@@ -132,13 +132,13 @@ export default class Painter {
     this.ctx.lineWidth = lineWidth;
     this.ctx.strokeStyle = (borderColor || 'black');
     this.ctx.beginPath();
-    this.ctx.arc(-width / 2 + r, -height / 2 + r, r + lineWidth / 2, 1 * Math.PI, 1.5 * Math.PI);
+    this.ctx.arc(-width / 2 + r, -height / 2 + r, r + lineWidth / 2, Number(Math.PI), 1.5 * Math.PI);
     this.ctx.lineTo(width / 2 - r, -height / 2 - lineWidth / 2);
     this.ctx.arc(width / 2 - r, -height / 2 + r, r + lineWidth / 2, 1.5 * Math.PI, 2 * Math.PI);
     this.ctx.lineTo(width / 2 + lineWidth / 2, height / 2 - r);
     this.ctx.arc(width / 2 - r, height / 2 - r, r + lineWidth / 2, 0, 0.5 * Math.PI);
     this.ctx.lineTo(-width / 2 + r, height / 2 + lineWidth / 2);
-    this.ctx.arc(-width / 2 + r, height / 2 - r, r + lineWidth / 2, 0.5 * Math.PI, 1 * Math.PI);
+    this.ctx.arc(-width / 2 + r, height / 2 - r, r + lineWidth / 2, 0.5 * Math.PI, Number(Math.PI));
     this.ctx.closePath();
     this.ctx.stroke();
     this.ctx.restore();
@@ -239,7 +239,7 @@ export default class Painter {
     } else {
       x = 0;
     }
-    //const y = view.css && view.css.bottom ? this.style.height - height - view.css.bottom.toPx(true) : (view.css && view.css.top ? view.css.top.toPx(true) : 0);
+    // const y = view.css && view.css.bottom ? this.style.height - height - view.css.bottom.toPx(true) : (view.css && view.css.top ? view.css.top.toPx(true) : 0);
     let y;
     if (view.css && view.css.bottom) {
       y = this.style.height - height - view.css.bottom.toPx(true);
@@ -252,7 +252,7 @@ export default class Painter {
           y = tops[0].toPx(true) + this.globalHeight[tops[1]] * (tops[2] || 1);
         }
       } else {
-        y = 0
+        y = 0;
       }
     }
 
@@ -328,7 +328,7 @@ export default class Painter {
     }
     const width = rawWidth + pd[1] + pd[3];
     const height = rawHeight + pd[0] + pd[2];
-    this._doClip(view.css.borderRadius, width, height)
+    this._doClip(view.css.borderRadius, width, height);
     if (GD.api.isGradient(background)) {
       GD.api.doGradient(background, width, height, this.ctx);
     } else {
@@ -510,16 +510,16 @@ export default class Painter {
     } else {
       this.ctx.fillStyle = view.css.color;
     }
-    const borderRadius = view.css.borderRadius
+    const borderRadius = view.css.borderRadius;
     const r = borderRadius ? Math.min(borderRadius.toPx(), width / 2, height / 2) : 0;
     this.ctx.beginPath();
-    this.ctx.arc(-width / 2 + r, -height / 2 + r, r, 1 * Math.PI, 1.5 * Math.PI); //左上角圆弧
+    this.ctx.arc(-width / 2 + r, -height / 2 + r, r, Number(Math.PI), 1.5 * Math.PI); // 左上角圆弧
     this.ctx.lineTo(width / 2 - r, -height / 2);
     this.ctx.arc(width / 2 - r, -height / 2 + r, r, 1.5 * Math.PI, 2 * Math.PI); // 右上角圆弧
     this.ctx.lineTo(width / 2, height / 2 - r);
     this.ctx.arc(width / 2 - r, height / 2 - r, r, 0, 0.5 * Math.PI); // 右下角圆弧
     this.ctx.lineTo(-width / 2 + r, height / 2);
-    this.ctx.arc(-width / 2 + r, height / 2 - r, r, 0.5 * Math.PI, 1 * Math.PI); // 左下角圆弧
+    this.ctx.arc(-width / 2 + r, height / 2 - r, r, 0.5 * Math.PI, Number(Math.PI)); // 左下角圆弧
     this.ctx.closePath();
     this.ctx.fill();
     this.ctx.restore();

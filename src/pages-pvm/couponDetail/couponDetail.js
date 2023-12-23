@@ -19,26 +19,26 @@ Page({
 
   // 生命周期函数--监听页面加载
   async onLoad({ id }) {
-    console.log('id', id)
+    console.log('id', id);
     const { themeColor } = app.globalData;
     // const coupons = wx.getStorageSync('orderCoupon');
     try {
       let params = {
         post_id: id,
         status: 1
-      }
+      };
       const { list } = await api.hei.fetchCouponList(params);
-      console.log('list', list)
-      let coupons = list
+      console.log('list', list);
+      let coupons = list;
       const systemInfo = wx.getSystemInfoSync();
       const isIphoneX = systemInfo.model.indexOf('iPhone X') >= 0;
       let cdn_host = wx.getStorageSync('cdn_host');
-      console.log('cdn_host', cdn_host)
+      console.log('cdn_host', cdn_host);
       let config = {
         cdn_host,
         style_type: 'newCoupon'
       };
-      console.log()
+      console.log();
       this.setData({
         coupons,
         isIphoneX,
@@ -46,7 +46,7 @@ Page({
         config
       });
     } catch (e) {
-      console.log('eeeeee', e)
+      console.log('eeeeee', e);
     }
 
   },
@@ -62,23 +62,23 @@ Page({
   },
 
   onCouponClick(ev) {
-    console.log(ev)
-    let { coupons, selectId } = this.data
+    console.log(ev);
+    let { coupons, selectId } = this.data;
     const { coupon } = ev.currentTarget.dataset;
-    selectId = coupon.id
+    selectId = coupon.id;
     this.setData({
       selectId
     });
-    let userCouponList = []
+    let userCouponList = [];
     coupons.forEach(item => {
       if (selectId == item.id) {
-        let params = { "type": "coupon", "id": item.id, title:item.title,coupon:item }
-        userCouponList.push(params)
+        let params = { 'type': 'coupon', 'id': item.id, title: item.title, coupon: item };
+        userCouponList.push(params);
       }
-    })
+    });
     this.setData({
       userCouponList
-    })
+    });
     app.event.emit('getCouponData', userCouponList);
     wx.navigateBack();
     // const { coupons } = this.data;

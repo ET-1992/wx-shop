@@ -15,18 +15,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: async function (options) {
-        await this.getMedalList()
+        await this.getMedalList();
         // app.event.on('setMedalData', medal);
     },
     async getMedalList() {
         try {
-            let response = await api.hei.pvmMedalList({})
-            console.log('responsexxx', response)
+            let response = await api.hei.pvmMedalList({});
+            console.log('responsexxx', response);
             if (response.errcode == 0) {
-                let { medal_group } = response
+                let { medal_group } = response;
                 this.setData({
                     medal_group
-                })
+                });
             } else {
 
             }
@@ -37,12 +37,12 @@ Page({
     },
 
     jumpDetail(e) {
-        let { medal } = e.currentTarget.dataset
+        let { medal } = e.currentTarget.dataset;
         // let params = { ...medal }
         // console.log(' app.event', app.event)
-        wx.setStorageSync('medal',medal)
+        wx.setStorageSync('medal', medal);
         wx.navigateTo({
             url: joinUrl('/pages-pvm/medalDetail/medalDetail', {}),
-        })
+        });
     }
-})
+});

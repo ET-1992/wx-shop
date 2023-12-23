@@ -18,27 +18,27 @@ Page({
         const medal = wx.getStorageSync('medal');
         this.setData({
             medal
-        })
+        });
     },
     getMedalData(data) {
         this.setData({
             medal: data
-        })
+        });
     },
     async payMedal() {
-        console.log('payMedal')
+        console.log('payMedal');
         try {
             let param = {
                 medal_id: this.data.medal.id
-            }
-            console.log('param', param)
-            let response = await api.hei.pvmExchangeMedal(param)
+            };
+            console.log('param', param);
+            let response = await api.hei.pvmExchangeMedal(param);
             wx.showToast({
                 title: '兑换成功',
             });
             wx.navigateTo({
                 url: joinUrl('/pages-pvm/myMedal/myMedal', {}),
-            })
+            });
         } catch (e) {
             // console.log('requestPayment err', e);
             wx.showModal({
@@ -52,4 +52,4 @@ Page({
     onUnload() {
         app.event.off('getMedalData', this);
     },
-})
+});

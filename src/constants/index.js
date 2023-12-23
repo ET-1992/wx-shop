@@ -365,4 +365,4 @@ export const POINTS_TYPE = [
   { text: '自购积分', value: 1 },
   { text: '推荐奖励', value: 2 },
   { text: '签到积分', value: 3 },
-]
+];

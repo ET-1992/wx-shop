@@ -16,12 +16,12 @@ Page({
   },
 
   async initPage() {
-    try{
-      let {weekly} = await api.hei.pvmSignDetail()
+    try {
+      let { weekly } = await api.hei.pvmSignDetail();
       this.setData({
         weekly
-      })
-    }catch(e){
+      });
+    } catch (e) {
 
     }
   },
@@ -30,7 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.initPage()
+    this.initPage();
   },
 
   /**

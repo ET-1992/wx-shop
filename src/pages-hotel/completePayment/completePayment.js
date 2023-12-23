@@ -1,8 +1,8 @@
 // pages/shopDetail/index.js
 
-import api from "utils/api";
-import { autoTransformAddress } from "utils/util";
-import wxProxy from "utils/wxProxy";
+import api from 'utils/api';
+import { autoTransformAddress } from 'utils/util';
+import wxProxy from 'utils/wxProxy';
 
 const app = getApp();
 

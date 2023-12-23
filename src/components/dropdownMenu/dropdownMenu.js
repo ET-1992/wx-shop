@@ -23,10 +23,10 @@ Component({
 				[name]: value,
 			});
 			console.log('picker发送选择改变，携带值为', value);
-			let pickerChangeDetail = { name, value }
-			this.triggerEvent('pickerChange', pickerChangeDetail)
+			let pickerChangeDetail = { name, value };
+			this.triggerEvent('pickerChange', pickerChangeDetail);
 		},
-		
+
 		// 重置类型或者时间picker框
 		onPickerCancel: function (e) {
 			let { name } = e.currentTarget.dataset;
@@ -39,8 +39,8 @@ Component({
 			this.setData({
 				[name]: value,
 			});
-			let pickerChangeDetail = { name, value }
-			this.triggerEvent('pickerChange', pickerChangeDetail)
+			let pickerChangeDetail = { name, value };
+			this.triggerEvent('pickerChange', pickerChangeDetail);
 		},
 	},
 });

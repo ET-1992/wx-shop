@@ -8,5 +8,5 @@ import { POINTS_TYPE } from 'constants/index';
 const app = getApp();
 
 Component({
-    
-})
+
+});

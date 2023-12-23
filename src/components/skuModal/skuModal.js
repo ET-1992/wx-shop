@@ -13,7 +13,7 @@ Component({
     },
   },
   properties: {
-    showAddress:{
+    showAddress: {
       type: Boolean,
       value: true,
     },
@@ -71,9 +71,9 @@ Component({
       type: Object,
       value: {}
     },
-    coupon:{
-      type:Array,
-      value:[]
+    coupon: {
+      type: Array,
+      value: []
     },
   },
   data: {
@@ -175,10 +175,10 @@ Component({
         // await getUserProfile();
         let queryData = {};
         let addressComponent = this.selectComponent('#address');
-        let address = {}
-        
-        if(this.showAddress){
-          address = addressComponent.data.address
+        let address = {};
+
+        if (this.showAddress) {
+          address = addressComponent.data.address;
           if (!address.telNumber) {
             wx.showToast({
               title: '配送地址不能为空',
@@ -217,7 +217,7 @@ Component({
         console.log('resolved error', e);
       }
     },
-    goCouponList(){
+    goCouponList() {
       const { product } = this.data;
       wx.navigateTo({
         url: `/pages-pvm/couponDetail/couponDetail?id=${product.id}`,

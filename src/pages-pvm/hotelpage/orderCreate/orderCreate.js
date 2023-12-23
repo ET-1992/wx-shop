@@ -57,12 +57,12 @@ Page({
   },
 
   add0(m) {
-    return m < 10 ? '0' + m : m
+    return m < 10 ? '0' + m : m;
   },
   timestamp(timestamp) {
       const time = new Date(timestamp);
       const year = time.getFullYear();
-      const month = time.getMonth()+1;
+      const month = time.getMonth() + 1;
       const date = time.getDate();
       const hours = time.getHours();
       const minutes = time.getMinutes();

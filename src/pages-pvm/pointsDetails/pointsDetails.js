@@ -23,34 +23,34 @@ Page({
 
 
     async changeNavbarList(e) {
-        console.log(e.detail)
-        let type = e.detail.value
-        await this.getPointsList(type)
+        console.log(e.detail);
+        let type = e.detail.value;
+        await this.getPointsList(type);
     },
     async getPointsList(type = '') {
         try {
             let param = {
                 type: type,
                 wallet_type: 'membership_exp'
-            }
-            let response = await api.hei.pvmWalletLog(param)
+            };
+            let response = await api.hei.pvmWalletLog(param);
             if (response.errcode == 0) {
-                let { types, logs } = response
-                let navbarListData = []
+                let { types, logs } = response;
+                let navbarListData = [];
                 for (let key in types) {
                     let configType = {
                         text: types[key],
                         value: key
-                    }
-                    navbarListData.push(configType)
+                    };
+                    navbarListData.push(configType);
                 }
                 this.setData({
                     navbarListData,
                     logs: logs
-                })
+                });
             }
         } catch (e) {
 
         }
     }
-})
+});

@@ -8,13 +8,13 @@ import { POINTS_TYPE } from 'constants/index';
 const app = getApp();
 
 Page({
-    data:{
-        navbarListData:POINTS_TYPE,
-        activeIndex:1,
-        themeColor:''
+    data: {
+        navbarListData: POINTS_TYPE,
+        activeIndex: 1,
+        themeColor: ''
     },
 
-    changeNavbarList(){
+    changeNavbarList() {
 
     }
-})
+});
