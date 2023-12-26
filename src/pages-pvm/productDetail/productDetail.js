@@ -39,7 +39,9 @@ Page({
     config: {},
     receivableCoupons: [],
     receivedCoupons: [],
+    themeColor: {}
   },
+
 
   onShowCouponList() {
     console.log('onShowCoupons');
@@ -199,6 +201,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    const { themeColor } = app.globalData;
+    this.setData({ themeColor });
     app.event.on('getCouponData', this.getCouponData, this);
     await this.initPage(options);
     await this.loadProductExtra();

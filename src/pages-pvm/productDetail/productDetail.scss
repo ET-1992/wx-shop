@@ -17,21 +17,20 @@ page {
   position: relative;
 }
 
-
-.product-main  {
+.product-main {
   background-color: rgba(244, 246, 250, 1);
   // position: relative;
   // width: 100%;
   height: 100vh;
-	width: 100%;
+  width: 100%;
   // overflow: auto;
   // display: flex;
   // flex-direction: column;
-  --primaryColor: #DDB583;
+  --primaryColor: #ddb583;
 
   .page {
     height: auto;
-    overflow:hidden;
+    overflow: hidden;
   }
 
   .shop-swiper {
@@ -91,7 +90,7 @@ page {
             width: 188rpx;
             background: #ffffff;
             border-radius: 28rpx;
-            color: #DDB583;
+            color: #ddb583;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
             padding: 8rpx 24rpx;
@@ -116,7 +115,7 @@ page {
           }
           .item {
             display: inline-block;
-            color: #DDB583;
+            color: #ddb583;
             font-size: 24rpx;
             text-align: center;
             background: #ffffff;
@@ -140,7 +139,7 @@ page {
       align-items: baseline;
       .coupon {
         overflow-wrap: break-word;
-        color: rgba(254, 79, 6, 1);
+        color: #DDB583;
         font-size: 30rpx;
         font-family: PingFangSC-Regular;
         font-weight: normal;
@@ -299,66 +298,125 @@ page {
     }
   }
 
-  .sevice-coupon{
-    margin: 10rpx 0 10rpx;
-    padding: 0 39rpx 0 31rpx;
+  .sevice-coupon {
+    display: flex;
+    justify-content: space-between;
+    margin: 15rpx;
+    padding: 30rpx 20rpx;
     background-color: #fff;
-  
+    width: 720rpx;
+    height: 120rpx;
+    flex-shrink: 0;
+    border-radius: 20rpx;
+    background: #fff;
+    .rightPage {
+      display: flex;
+      align-items: center;
+      .text {
+        color: #999999;
+        font-family: ".PingFang SC";
+        font-size: 20rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+
     // 优惠券/服务分割线
     .sevice-coupon-line {
       height: 0;
-      border-bottom: 1rpx solid #D7D7D7;
+      border-bottom: 1rpx solid #d7d7d7;
     }
     .coupons {
-      padding: 24rpx 0;
-      color: $originalPriceColor;
-      font-size: 24rpx;
-      // border-bottom: 1rpx solid #D7D7D7;
-  
+      display: flex;
+      align-items: center;
+      width: auto;
+      height: 100%;
+      // padding: 24rpx 0;
+      // color: $originalPriceColor;
+      // font-size: 24rpx;
+      // // border-bottom: 1rpx solid #D7D7D7;
+
       button {
-        color: $originalPriceColor;
-        font-size: 18rpx;
-        background-color: #fff;
-        text-align: left;
+        // color: $originalPriceColor;
+        // font-size: 18rpx;
+        // background-color: #fff;
+        // text-align: left;
       }
-  
-      .couponBtn{
-        font-size: 24rpx;
-        color: #000000;
-        padding-right: 30rpx;
-        display:inline-block;
-        line-height: 32rpx;
+
+      .couponBtn {
+        // font-size: 24rpx;
+        // color: #000000;
+        // padding-right: 30rpx;
+        // display:inline-block;
+        // line-height: 32rpx;
       }
-  
+
       .coupon {
-        background: #F52D2D;
-        color: #fff;
-        margin-right: 20rpx;
-        display: inline-block;
-        min-width: 100rpx;
-        height: 32rpx;
-        line-height: 32rpx;
-        border-radius: 5rpx;
-        text-align: center;
-        padding: 0 10rpx;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 250rpx;
+        height: 80rpx;
+        flex-shrink: 0;
+        border-radius: 10rpx;
+        border: 1rpx solid #c38e3d4d;
+        background: #c38e3d1a;
+        margin-right: 10rpx;
+        .leftCou {
+          margin-left: 20rpx;
+          .money {
+          }
+          .fullText {
+            font-size: 18rpx;
+          }
+        }
+        .line {
+          width: 0;
+          height: 32rpx;
+          flex-shrink: 0;
+          stroke-width: 1rpx;
+          stroke: #c38e3d;
+        }
+        .rightBtn {
+          margin-right: 15rpx;
+          font-size: 20rpx;
+        }
+        .styleFont {
+          color: #c38e3d;
+          font-family: ".PingFang SC";
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+        // background: #F52D2D;
+        // color: #fff;
+        // margin-right: 20rpx;
+        // display: inline-block;
+        // min-width: 100rpx;
+        // height: 32rpx;
+        // line-height: 32rpx;
+        // border-radius: 5rpx;
+        // text-align: center;
+        // padding: 0 10rpx;
       }
-  
+
       .rightIcon {
-        width: 16rpx;
-        height: 26rpx;
-        float: right;
-        margin-top: 6rpx;
+        // width: 16rpx;
+        // height: 26rpx;
+        // float: right;
+        // margin-top: 6rpx;
       }
     }
-  
-    .service{
+
+    .service {
       padding: 24rpx 0;
       display: flex;
       justify-content: flex-start;
-  
-      .desc{
+
+      .desc {
         width: 600rpx;
-        .service-item{
+        .service-item {
           font-size: 24rpx;
           display: block;
           overflow: hidden;
@@ -367,14 +425,13 @@ page {
           padding-bottom: 15rpx;
         }
       }
-  
-      .text{
+
+      .text {
         font-size: 24rpx;
         color: #000000;
         padding-right: 28rpx;
       }
     }
-  
   }
 
   // .shop-image {
@@ -391,7 +448,7 @@ page {
     .def-btn {
       width: 710rpx;
       height: 88rpx;
-      background: #DDB583;
+      background: #ddb583;
       border-radius: 8rpx;
       font-size: 28rpx;
       font-family: PingFangSC-Regular, PingFang SC;
@@ -410,7 +467,7 @@ page {
     .overlay-img {
       width: 526rpx;
       height: 388rpx;
-      background-color: #DDB583;
+      background-color: #ddb583;
     }
     .overlay-close {
       margin-top: 60rpx;
@@ -419,7 +476,7 @@ page {
 
   .shop-detail-content {
     overflow: hidden;
-    margin-bottom:  calc(80rpx+env(safe-area-inset-bottom));
+    margin-bottom: calc(80rpx+env(safe-area-inset-bottom));
     .shop-detail-image {
       width: 100%;
     }
@@ -433,11 +490,11 @@ page {
     font-weight: 400;
     color: #111111;
     .price {
-      color: #DDB583;
+      color: #ddb583;
     }
   }
   .van-button {
-    background-color: #DDB583;
+    background-color: #ddb583;
     font-size: 32rpx;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
@@ -486,7 +543,7 @@ page {
       .countdown-time {
         margin-top: 32rpx;
         .van-count-down {
-          color: #DDB583;
+          color: #ddb583;
         }
         .item {
           display: inline-block;
@@ -497,7 +554,7 @@ page {
           width: 40rpx;
           height: 40rpx;
           margin: 0 10rpx;
-          background-color: #DDB583;
+          background-color: #ddb583;
         }
         .time-text {
           font-size: 28rpx;
@@ -527,7 +584,7 @@ page {
         color: #ffffff;
         line-height: 76rpx;
         text-align: center;
-        margin: 64rpx 0 ;
+        margin: 64rpx 0;
       }
       // .showCountDown {
       //   margin: 64rpx 0;
@@ -543,243 +600,243 @@ page {
   }
 }
 .actionSheetContent {
-	$buttonHeight: 90rpx;
-	background-color: #fff;
-	padding: 20rpx 62rpx $buttonHeight + 40rpx;
+  $buttonHeight: 90rpx;
+  background-color: #fff;
+  padding: 20rpx 62rpx $buttonHeight + 40rpx;
 
-	&.iphoneXTrick {
-		padding-bottom: $buttonHeight + 40rpx + $iphoneXBottomGap;
-	}
+  &.iphoneXTrick {
+    padding-bottom: $buttonHeight + 40rpx + $iphoneXBottomGap;
+  }
 
-	&.show {
-		transform: translateY(0);
-	}
+  &.show {
+    transform: translateY(0);
+  }
 
-	.head {
-		margin-bottom: 24rpx;
-		display: flex;
-		// .skuDescribe {
-		// 	margin-bottom: 24rpx;
-		// 	display: flex;
-		// }
-		.productImage {
-			$size: 180rpx;
+  .head {
+    margin-bottom: 24rpx;
+    display: flex;
+    // .skuDescribe {
+    // 	margin-bottom: 24rpx;
+    // 	display: flex;
+    // }
+    .productImage {
+      $size: 180rpx;
 
-			width: $size;
-			height: $size;
-			border: 1px solid #fff;
-			margin-right: 40rpx;
-			position: relative;
-			box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
-		}
+      width: $size;
+      height: $size;
+      border: 1px solid #fff;
+      margin-right: 40rpx;
+      position: relative;
+      box-shadow: 1rpx 0rpx 10rpx rgba(0, 0, 0, 0.1);
+    }
 
-		.productInfo {
-			color: $originalPriceColor;
-			// display: flex;
-			// flex-direction: column;
-			// justify-content: flex-end;
-			width: 500rpx;
+    .productInfo {
+      color: $originalPriceColor;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: flex-end;
+      width: 500rpx;
 
-			.stock, .price, .property {
-				margin-bottom: 5rpx;
-			}
+      .stock,
+      .price,
+      .property {
+        margin-bottom: 5rpx;
+      }
 
-			.price {
-				color: #F52D2D;
-				font-size: 36rpx;
-				font-weight: bold;
-			}
-		}
-	}
+      .price {
+        color: #f52d2d;
+        font-size: 36rpx;
+        font-weight: bold;
+      }
+    }
+  }
 
-	.skuGroup {
-		padding: 24rpx 0;
-	}
+  .skuGroup {
+    padding: 24rpx 0;
+  }
 
-	.sku {
-		margin-bottom: 20rpx;
-	}
+  .sku {
+    margin-bottom: 20rpx;
+  }
 
-	.title {
-		margin-bottom: 20rpx;
-		font-size: 28rpx;
-	}
+  .title {
+    margin-bottom: 20rpx;
+    font-size: 28rpx;
+  }
 
-	.titleHint {
-		font-size: 8pt;
-		color: #ccc;
-	}
+  .titleHint {
+    font-size: 8pt;
+    color: #ccc;
+  }
 
-	.skuItem {
-		display: inline-block;
-		padding: 0rpx 32rpx;
-		margin-right: 20rpx;
-		margin-bottom: 20rpx;
-		border: 1px solid #999;
-		font-size: 28rpx;
-		height: 60rpx;
-		line-height: 60rpx;
-		color: $titleColor;
+  .skuItem {
+    display: inline-block;
+    padding: 0rpx 32rpx;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
+    border: 1px solid #999;
+    font-size: 28rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    color: $titleColor;
 
-		&.selected {
-			background-color: $mainColor;
-			color: #fff;
-			border: 1px solid $mainColor;
-		}
+    &.selected {
+      background-color: $mainColor;
+      color: #fff;
+      border: 1px solid $mainColor;
+    }
 
-		&.disabled {
-			border-color: #ccc;
-			color: #eee;
-		}
-	}
+    &.disabled {
+      border-color: #ccc;
+      color: #eee;
+    }
+  }
 
+  .quantity {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ddd;
+    padding-top: 40rpx;
+    align-items: center;
+  }
 
-	.quantity {
-		display: flex;
-		justify-content: space-between;
-		border-top: 1px solid #ddd;
-		padding-top: 40rpx;
-		align-items: center;
-	}
+  .actionSheetBtGroup {
+    margin-top: 20rpx;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    font-size: 0;
+    display: flex;
 
-	.actionSheetBtGroup {
-		margin-top: 20rpx;
-		position: fixed;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		z-index: 100;
-		font-size: 0;
-		display: flex;
+    &.iphoneXTrick {
+      bottom: 40rpx;
+    }
 
-		&.iphoneXTrick {
-			bottom: 40rpx;
-		}
+    .confirmBt {
+      width: 100%;
+      display: inline-block;
+      border-radius: 0;
+      height: $buttonHeight;
+      line-height: $buttonHeight;
+      font-size: 10pt;
+      background-color: $mainColor;
+      color: #fff;
+      background-size: cover;
+    }
 
-		.confirmBt {
-			width: 100%;
-			display: inline-block;
-			border-radius: 0;
-			height: $buttonHeight;
-			line-height: $buttonHeight;
-			font-size: 10pt;
-			background-color: $mainColor;
-			color: #fff;
-			background-size: cover;
-		}
+    .confirmBt[disabled] {
+      background-color: #ccc !important;
+    }
 
-		.confirmBt[disabled] {
-			background-color: #ccc !important;
-		}
+    .secondaryBt {
+      background-color: $secondColor;
+    }
+  }
 
-		.secondaryBt {
-			background-color: $secondColor;
-		}
-	}
-
-	.close{
-		position: absolute;
-		right: 10rpx;
-		top: 0;
-		padding: 25rpx;
-		image{
-			width: 30rpx;
-			height: 30rpx;
-		}
-		z-index: 999;
-	}
+  .close {
+    position: absolute;
+    right: 10rpx;
+    top: 0;
+    padding: 25rpx;
+    image {
+      width: 30rpx;
+      height: 30rpx;
+    }
+    z-index: 999;
+  }
 }
 
 .couponActionSheet {
-	padding: 0;
-	background-color: $backgroundColor;
+  padding: 0;
+  background-color: $backgroundColor;
 
-	&.iphoneXTrick {
-		padding-bottom: 40rpx;
-	}
+  &.iphoneXTrick {
+    padding-bottom: 40rpx;
+  }
 
-	.couponList {
-		height: 800rpx;
-		padding: 20rpx 0;
+  .couponList {
+    height: 800rpx;
+    padding: 20rpx 0;
 
-		.couponItemWrapper{
-			margin:25rpx auto 0;
-			width:650rpx;
-		}
+    .couponItemWrapper {
+      margin: 25rpx auto 0;
+      width: 650rpx;
+    }
 
-		.noCoupon {
-			image{
-				width: 165rpx;
-				height: 118rpx;
-				margin: 100rpx auto 0;
-				display: block;
-			}
-			view{
-				color:#707070;
-				font-size: 24rpx;
-				height:80%;
-				text-align:center;
-				width:100%;
-				padding: 30rpx 0;
-			}
-		}
-		.noCouponHint{
-			image{
-				width: 165rpx;
-				height: 118rpx;
-				margin: 0 auto;
-				display: block;
-			}
-			view{
-				color:#707070;
-				font-size: 24rpx;
-				height:80%;
-				text-align:center;
-				width:100%;
-				padding: 30rpx 0;
-			}
-		}
-	}
+    .noCoupon {
+      image {
+        width: 165rpx;
+        height: 118rpx;
+        margin: 100rpx auto 0;
+        display: block;
+      }
+      view {
+        color: #707070;
+        font-size: 24rpx;
+        height: 80%;
+        text-align: center;
+        width: 100%;
+        padding: 30rpx 0;
+      }
+    }
+    .noCouponHint {
+      image {
+        width: 165rpx;
+        height: 118rpx;
+        margin: 0 auto;
+        display: block;
+      }
+      view {
+        color: #707070;
+        font-size: 24rpx;
+        height: 80%;
+        text-align: center;
+        width: 100%;
+        padding: 30rpx 0;
+      }
+    }
+  }
 
-	.title {
-		text-align: center;
-		color:#000000;
-		margin-bottom: 20rpx;
-		font-size: 28rpx;
-		// margin-top: 20rpx;
-	}
+  .title {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20rpx;
+    font-size: 28rpx;
+    // margin-top: 20rpx;
+  }
 
-	.couponListTitle {
-		font-size: 24rpx;
-		color: #000000;
-		margin-top: 40rpx;
-		margin-bottom: 20rpx;
-		padding: 0 25rpx;
-	}
+  .couponListTitle {
+    font-size: 24rpx;
+    color: #000000;
+    margin-top: 40rpx;
+    margin-bottom: 20rpx;
+    padding: 0 25rpx;
+  }
 
-	.gap {
-		height: 40rpx;
-	}
+  .gap {
+    height: 40rpx;
+  }
 }
 .def-img {
-
   // position: fixed;
   // top: 250rpx;
   // transform: translate(-50%, 0);
   // left: 50%;
 
   width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.6);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 10000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
   .modal-img {
     width: 526rpx;
     height: 388rpx;
@@ -815,7 +872,6 @@ page {
     }
   }
 }
-
 
 .poster-modal {
   width: 100%;
@@ -876,9 +932,8 @@ page {
   }
 }
 
-
 .vant-count-down {
-  --count-down-text-color:  #ffffff;
-  --count-down-font-size:  24rpx;
+  --count-down-text-color: #ffffff;
+  --count-down-font-size: 24rpx;
   --count-down-line-height: 30rpx;
 }

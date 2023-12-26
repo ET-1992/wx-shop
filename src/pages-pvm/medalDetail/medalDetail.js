@@ -8,10 +8,13 @@ const app = getApp();
 
 Page({
     data: {
-        medal: {}
+        medal: {},
+        themeColor: {}
     },
 
     onLoad(params) {
+        const { themeColor } = app.globalData;
+        this.setData({ themeColor });
         // console.log('params',params)
         // app.event.on('getMedalData', this.getMedalData, this);
         // console.log('ssssss')

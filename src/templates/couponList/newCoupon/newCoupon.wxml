@@ -8,7 +8,7 @@
 					<text class="discount" wx:if="{{ coupon.type == 2 }}">折</text>
 					<text class="reduceCost" wx:if="{{coupon.type == 1}}">{{ coupon.discount_amount }}</text>
 				</view>
-				<!-- <view class="couponTitle">满{{ co	upon.least_cost }}元使用</view> -->
+				<view class="couponTitle">满{{ coupon.transaction_minimum }}元使用</view>
 			</view>
 			<view class="center">
 				<view

@@ -74,7 +74,7 @@ App({
             tabbarPages,
             ...storeObj,
         });
-
+        console.log('this.globalData', this.globalData);
         this.vip = vip;
     },
 

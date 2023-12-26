@@ -95,6 +95,7 @@ Page({
     async onLoad({ status }) {
         const state = Number(status) || null;
         const { themeColor } = app.globalData;
+        console.log('themeColorgege', themeColor);
         const { navbarListData } = this.data;
         let index = navbarListData.findIndex((item) => {
             return item.value === state;

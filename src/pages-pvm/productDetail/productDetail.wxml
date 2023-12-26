@@ -73,22 +73,40 @@
       <block wx:if="{{ receivableCoupons.length || receivedCoupons.length }}">
         <!-- 优惠券-非拼团商品 -->
         <view wx:if="{{ !(product.groupon_enable && grouponId) }}" class="coupons" catchtap="onShowCouponList">
-          <view class="couponBtn">领券</view>
+          <!-- <view class="couponBtn">领券</view> -->
           <!-- 可领取 最多显示三个 -->
           <block wx:if="{{ receivableCoupons.length }}">
-            <view class="coupon" wx:for="{{ receivableCoupons }}" wx:key="id" wx:if="{{ index < 3 }}">
-              <text>{{ item.title }}</text>
+            <view class="coupon" wx:for="{{ receivableCoupons }}" wx:for-item="item" wx:key="id" wx:if="{{ index < 2 }}">
+              <view class="leftCou">
+                <view>
+                  <text class="money styleFont" wx:if="{{ item.type == 1 }}">
+                    {{ globalData.CURRENCY[globalData.currency] }}
+                  </text>
+                  <text class="money styleFont" wx:if="{{ item.type == 2 }}">{{ item.discount_percent }}</text>
+                  <text class="money styleFont" wx:if="{{ item.type == 2 }}">折</text>
+                  <text class="money styleFont" wx:if="{{ item.type == 1 }}">{{ item.discount_amount }}</text>
+                </view>
+                <view class="fullText styleFont">满{{item.transaction_minimum}}元使用</view>
+              </view>
+              <!-- 分割线 -->
+              <view class="line"></view>
+              <view class="rightBtn styleFont">领取</view>
+              <!-- <text>{{ item.title }}</text> -->
             </view>
           </block>
           <!-- 已领取 凑满三个 -->
           <block wx:if="{{ receivableCoupons.length < 3 && receivedCoupons.length }}">
-            <view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 3 - receivedCoupons.length }}">
-              <text>{{ item.title }}</text>
+            <view class="coupon" wx:for="{{ receivedCoupons }}" wx:key="id" wx:if="{{ index < 2 - receivedCoupons.length }}">
+              <!-- <text>{{ item.title }}</text> -->
             </view>
           </block>
         </view>
         <!-- 分割线 -->
-        <view class="sevice-coupon-line" wx:if="{{ product.service_instructions && product.service_instructions.length }}"></view>
+        <view class="rightPage" catchtap="onShowCouponList">
+          <text class="text">共{{5}}张</text>
+          <van-icon name="arrow" size="24rpx" color="#999" />
+        </view>
+        <!-- <view class="sevice-coupon-line" wx:if="{{ product.service_instructions && product.service_instructions.length }}"></view> -->
       </block>
     </view>
     <!-- <view class="shop-discount">
@@ -124,7 +142,7 @@
       <van-goods-action-icon icon="/icons/store.png" text="店铺" bind:click="onGoHome" />
       <van-goods-action-icon icon="/icons/cartSelected.png" text="购物车" bind:click="onGoCart" />
       <van-goods-action-icon icon="/icons/context.png" text="客服" open-type="{{ config.contact && config.contact.type !== 'weapp' ? '' : 'contact' }}" bind:click="onGetContact" />
-      <van-goods-action-button color="{{ themeColor.primaryColor }}" text="加入购物车" bind:click="onShowToCartSkuModal" />
+      <van-goods-action-button color="{{ themeColor.secondaryColor }}" text="加入购物车" bind:click="onShowToCartSkuModal" />
       <van-goods-action-button class="def-btn" color="{{ themeColor.primaryColor }}" text="立即购买" bind:click="onShowSkuModal" />
     </van-goods-action>
     <!-- <view class="shop-button" bindtap="onShowSkuModal">
