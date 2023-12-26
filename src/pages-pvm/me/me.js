@@ -39,17 +39,16 @@ Page({
 
   async goSign() {
     try {
-      let response = await api.hei.pvmSign({});
-      console.log('response', response);
-      wx.navigateTo({
-        url: '/pages-pvm/signDetail/signDetail',
-        success: (result) => {},
-        fail: () => {},
-        complete: () => {},
-      });
+      const response = await api.hei.pvmSign({});
     } catch (e) {
       console.log('eee', e);
     }
+    wx.navigateTo({
+      url: '/pages-pvm/signDetail/signDetail',
+      success: (result) => {},
+      fail: () => {},
+      complete: () => {},
+    });
     // wx.navigateTo({
     //   url: '/pages-pvm/signDetail/signDetail',
     //   success: (result) => {

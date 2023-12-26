@@ -32,16 +32,21 @@
       border-radius: 34rpx;
       background: #FFF;
       .bell{
+        width: 40rpx;
+        height: 38.67rpx;
         margin-right: 4rpx;
+        margin-right: 12rpx;
       }
 
       .text {
         color: #000000;
         font-family: ".PingFang SC";
+        height: 21rpx;
         font-size: 24rpx;
         font-style: normal;
         font-weight: 400;
-        line-height: normal;
+        line-height:  24rpx;
+        margin-right: 8.49rpx;
       }
     }
   }

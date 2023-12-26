@@ -5,9 +5,10 @@
       <text class="name">{{ user.nickname || "点击登录" }}</text>
     </view>
     <view class="signBtn" bind:tap="goSign">
-      <van-icon class="bell" name="bell" />
-      <view class="text">签到有礼</view>
-      <view></view>
+      <!-- <van-icon class="bell" name="bell" /> -->
+      <image class="bell" src="../../icons/pvm/sign.png" />
+      <text class="text">签到有礼</text>
+      <van-icon name="arrow" color="#999999" size="10" />
     </view>
     <!-- <van-icon name="arrow" /> -->
   </view>
@@ -16,31 +17,31 @@
     <van-grid custom-class="my-grid" column-num="5" border="{{false}}">
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item use-slot class="order-gird">
-          <image class="img" src="../../icons/mvp/unpaid.png" />
+          <image class="img" src="../../icons/pvm/obligation.png" />
           <text class="title">待付款</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=2000">
         <van-grid-item use-slot class="order-gird">
-          <image class="img" src="../../icons/mvp/notShipped.png" />
+          <image class="img" src="../../icons/pvm/beShipped.png" />
           <text class="title">待发货</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=3000">
         <van-grid-item use-slot class="order-gird">
-          <image class="img" src="../../icons/mvp/shipped.png" />
+          <image class="img" src="../../icons/pvm/beReceived.png" />
           <text class="title">待收货</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=5000">
         <van-grid-item use-slot class="order-gird">
-          <image class="img" src="../../icons/mvp/shipped.png" />
+          <image class="img" src="../../icons/pvm/refunding.png" />
           <text class="title">退款中</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList">
         <van-grid-item use-slot text="全部订单" dot class="order-gird">
-          <image class="img" src="../../icons/mvp/allOrder.png" />
+          <image class="img" src="../../icons/pvm/all.png" />
           <text class="title">全部订单</text>
         </van-grid-item>
       </navigator>
@@ -52,49 +53,53 @@
         <text class="title">优惠券</text>
         <text class="value">3</text>
       </van-grid-item>
-      <van-grid-item class="data-grid" use-slot dot>
-        <text class="title">积分</text>
-        <text class="value">3</text>
-      </van-grid-item>
+      <navigator url="/pages-pvm/pointsDetails/pointsDetails">
+        <van-grid-item class="data-grid" use-slot dot>
+          <text class="title">积分</text>
+          <text class="value">3</text>
+        </van-grid-item>
+      </navigator>
       <van-grid-item class="data-grid" use-slot dot>
         <text class="title">小区人数</text>
         <text class="value">3</text>
       </van-grid-item>
-      <van-grid-item class="data-grid" use-slot dot>
-        <text class="title">勋章</text>
-        <text class="value">3</text>
-      </van-grid-item>
+      <navigator url="/pages-pvm/myMedal/myMedal">
+        <van-grid-item class="data-grid" use-slot dot>
+          <text class="title">勋章</text>
+          <text class="value">3</text>
+        </van-grid-item>
+      </navigator>
     </van-grid>
   </view>
   <view class="my-order" style="padding-top: 0;padding-bottom: 0; ">
     <van-grid custom-class="my-grid" column-num="5" border="{{false}}">
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item class="control-grid" use-slot badge="99+">
-          <image class="img" src="../../icons/mvp/voucher.png" />
+          <image class="img" src="../../icons/pvm/local.png" />
           <text class="title">地址管理</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item class="control-grid" use-slot badge="99+">
-          <image class="img" src="../../icons/mvp/phone.png" />
+          <image class="img" src="../../icons/pvm/center.png" />
           <text class="title">会员中心</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item class="control-grid" use-slot badge="99+">
-          <image class="img" src="../../icons/mvp/address.png" />
+          <image class="img" src="../../icons/pvm/customer.png" />
           <text class="title">联系客服</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item class="control-grid" use-slot badge="99+">
-          <image class="img" src="../../icons/mvp/us.png" />
+          <image class="img" src="../../icons/pvm/help.png" />
           <text class="title">使用帮助</text>
         </van-grid-item>
       </navigator>
       <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
         <van-grid-item class="control-grid" use-slot badge="99+">
-          <image class="img" src="../../icons/mvp/us.png" />
+          <image class="img" src="../../icons/pvm/info.png" />
           <text class="title">关于我们</text>
         </van-grid-item>
       </navigator>
