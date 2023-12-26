@@ -3,7 +3,6 @@
     "pages/home/home",
     "pages-pvm/hotelpage/hotelDetail/hotelDetail",
     "pages-pvm/hotelpage/orderCreate/orderCreate",
-
     "pages-pvm/cart/cart",
     "pages-pvm/me/me",
     "pages-pvm/completePayment/completePayment",
@@ -36,7 +35,7 @@
     "color": "#909399",
     "backgroundColor": "#fff",
     "borderStyle": "white",
-    "selectedColor": "#FE4F06",
+    "selectedColor": "#DDB583",
     "list": [
       {
         "pagePath": "pages/home/home",
