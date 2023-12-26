@@ -39,7 +39,8 @@ Page({
     config: {},
     receivableCoupons: [],
     receivedCoupons: [],
-    themeColor: {}
+    themeColor: {},
+    isLoading: true,
   },
 
 
@@ -202,10 +203,15 @@ Page({
    */
   onLoad: async function (options) {
     const { themeColor } = app.globalData;
-    this.setData({ themeColor });
+    // this.setData({ themeColor, isLoading: true });
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+    });
     app.event.on('getCouponData', this.getCouponData, this);
     await this.initPage(options);
     await this.loadProductExtra();
+    wx.hideLoading();
   },
 
   async loadProductExtra() {
