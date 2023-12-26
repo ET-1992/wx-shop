@@ -31,8 +31,8 @@ App({
         console.log(extConfig, 'extConfig');
         // vip已去掉  styleType  templateType partner authorizer走config
         let {
-            primaryColor = '#FE4F06',
-            secondaryColor = '#B1CA50',
+            primaryColor = '#DDB583',
+            secondaryColor = '#000000',
             cartIndex = -1,
             partner = {},
             styleType = 'default',
