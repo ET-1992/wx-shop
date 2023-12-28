@@ -177,8 +177,26 @@ Component({
         let addressComponent = this.selectComponent('#address');
         let address = {};
 
-        if (this.showAddress) {
+        // if (this.showAddress) {
+        //   address = addressComponent.data.address;
+        //   console.log('address', address);
+        //   if (!address.telNumber) {
+        //     wx.showToast({
+        //       title: '配送地址不能为空',
+        //       icon: 'none',
+        //       duration: 2000,
+        //     });
+        //     return;
+        //   }
+        // }
+
+        const { product } = this.data;
+
+        if (actionType === 'addCart') {
+          queryData = await this.onAddCart();
+        } else {
           address = addressComponent.data.address;
+          console.log('address', address);
           if (!address.telNumber) {
             wx.showToast({
               title: '配送地址不能为空',
@@ -187,13 +205,8 @@ Component({
             });
             return;
           }
-        }
 
-        const { product } = this.data;
 
-        if (actionType === 'addCart') {
-          queryData = await this.onAddCart();
-        } else {
           let remarks = this._remarks;
           queryData = {
             selectedSku,

@@ -82,9 +82,13 @@
                   <text class="money styleFont" wx:if="{{ item.type == 1 }}">
                     {{ globalData.CURRENCY[globalData.currency] }}
                   </text>
-                  <text class="money styleFont" wx:if="{{ item.type == 2 }}">{{ item.discount_percent }}</text>
+                  <text class="money styleFont" wx:if="{{ item.type == 2 }}">
+                    {{ item.discount_percent }}
+                  </text>
                   <text class="money styleFont" wx:if="{{ item.type == 2 }}">折</text>
-                  <text class="money styleFont" wx:if="{{ item.type == 1 }}">{{ item.discount_amount }}</text>
+                  <text class="money styleFont" wx:if="{{ item.type == 1 }}">
+                    {{ item.discount_amount }}
+                  </text>
                 </view>
                 <view class="fullText styleFont">满{{item.transaction_minimum}}元使用</view>
               </view>
@@ -160,7 +164,7 @@
 <!-- </page-meta> -->
 <!-- SKU -->
 <skuModal isShowSkuModal="{{  isShowToCardSkuModal }}" showAddress="{{false}}" product="{{ product }}" themeColor="{{ themeColor }}" position="bottom" actions="{{ toCartActions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="addCart" bind:shipping-change="getShippingType" />
-<skuModal isShowSkuModal="{{  isShowSkuModal }}" product="{{ product }}" themeColor="{{ themeColor }}" coupon="{{best_promotion}}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
+<skuModal isShowSkuModal="{{  isShowSkuModal }}" showAddress="{{ true}}" product="{{ product }}" themeColor="{{ themeColor }}" coupon="{{best_promotion}}" position="bottom" actions="{{ actions }}" quantity="{{ product.least || 1 }}" isCrowd="{{ isCrowd }}" isGrouponBuy="{{ isGrouponBuy }}" isBargainBuy="{{isBargainBuy}}" config="{{ config }}" isIphoneX="{{ isIphoneX }}" bind:onSkuConfirm="onSkuConfirm" bind:shipping-change="getShippingType" />
 <!-- 文字弹窗 -->
 <van-dialog use-slot title="" show="{{ showModalType === 'text' }}" show-cancel-button confirm-button-open-type="getUserInfo" cancel-button-color="#606266" confirm-button-color="#ffffff" class="text-modal" bind:close="onCloseModal">
   <view class="modal">
