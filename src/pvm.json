@@ -22,7 +22,9 @@
     "pages-pvm/medalDetail/medalDetail",
     "pages-pvm/pointsDetails/pointsDetails",
     "pages-pvm/pointsOrders/pointsOrders",
-    "pages-pvm/signDetail/signDetail"
+    "pages-pvm/signDetail/signDetail",
+    "pages/addressList/addressList",
+    "pages/me/aboutUs"
   ],
   "window": {
     "backgroundTextStyle": "light",

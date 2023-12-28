@@ -66,38 +66,38 @@
       <navigator url="/pages-pvm/myMedal/myMedal">
         <van-grid-item class="data-grid" use-slot dot>
           <text class="title">勋章</text>
-          <text class="value">3</text>
+          <text class="value">2</text>
         </van-grid-item>
       </navigator>
     </van-grid>
   </view>
   <view class="my-order" style="padding-top: 0;padding-bottom: 0; ">
     <van-grid custom-class="my-grid" column-num="5" border="{{false}}">
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
+      <navigator class="orderItem" url="/pages/addressList/addressList">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/local.png" />
           <text class="title">地址管理</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
+      <navigator class="orderItem" url="">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/center.png" />
           <text class="title">会员中心</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
+      <navigator class="orderItem" url="">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/customer.png" />
           <text class="title">联系客服</text>
         </van-grid-item>
       </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
+      <view class="orderItem">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/help.png" />
           <text class="title">使用帮助</text>
         </van-grid-item>
-      </navigator>
-      <navigator class="orderItem" url="/pages-pvm/orderList/orderList?status=1000">
+      </view>
+      <navigator class="orderItem" url="/pages/me/aboutUs">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/info.png" />
           <text class="title">关于我们</text>

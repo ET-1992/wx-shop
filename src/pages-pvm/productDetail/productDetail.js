@@ -203,7 +203,7 @@ Page({
    */
   onLoad: async function (options) {
     const { themeColor } = app.globalData;
-    // this.setData({ themeColor, isLoading: true });
+    this.setData({ themeColor });
     wx.showLoading({
       title: '加载中',
       mask: true,

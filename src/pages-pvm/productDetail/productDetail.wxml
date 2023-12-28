@@ -1,9 +1,6 @@
 <!-- <page-meta page-style="overflow: {{ isShowSkuModal ? 'hidden' : 'auto' }}"> -->
 <!-- 顶部程序导航 -->
 <productNavigationBar id="navigation-bar" navType="productNav" showBgColor="{{ showBgColor }}" />
-  	<view class="page-loading" wx:if="{{ true }}">
-		<van-loading />
-	</view>
 <scroll-view class="product-main" scroll-y="{{ true }}" enable-back-to-top>
   <!-- <van-nav-bar title="商品详情" left-text="返回" fixed="{{ true }}" placeholder="{{ true }}" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" /> -->
   <view class="page">
