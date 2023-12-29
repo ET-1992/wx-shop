@@ -1083,5 +1083,16 @@ export const apis = {
         path: 'api/checkin/action.json',
         method: 'POST',
         isForceToken: true,
-    }
+    },
+    pvmUpdate: {
+        path: '/api/user/update.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    pvmUpload: {
+        path: '/api/media/upload.json',
+        isForceToken: true,
+        method: 'POST',
+        requestType: 'uploadFile',
+    },
 };

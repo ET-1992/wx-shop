@@ -11,7 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avatar: '../../icons/mvp/default.png'
+    avatar: '../../icons/pvm/default.png',
+    url: '',
+    nikeName: '',
+    name: '',
   },
 
   async initPage() {},
@@ -20,21 +23,35 @@ Page({
     // console.log(value?.detail.value, 98788);
   },
 
-  onConfirm() {
+  bindinput(e) {
+    const { value } = e.detail;
+    this.setData({
+      name: e.detail.value
+    });
+  },
 
+  async onConfirm() {
+    const { url, name } = this.data;
+    const data = await api.hei.pvmUpdate({
+      nickname: name,
+      avatarurl: url,
+    });
+    wx.navigateBack();
   },
 
   async onChooseAvatar(e) {
     console.log(e, 'eee');
-  const { avatarUrl } = e.detail;
+    const { avatarUrl } = e.detail;
 
-  const data = await api.hei.upload({
-    filePath: avatarUrl
-  });
-  console.log(data, '----');
-  this.setData({
-    avatar: avatarUrl
-  });
+    const data = await api.hei.pvmUpload({
+      filePath: avatarUrl,
+    });
+    const urlData = JSON.parse(data);
+    console.log(urlData.url);
+    this.setData({
+      avatar: avatarUrl,
+      url: urlData.url,
+    });
   },
 
   /**
