@@ -5,6 +5,7 @@
     <view class="signRing">提醒我签到</view>
   </view>
   <view class="center">
+    <loading isLoading="{{ isLoading }}" />
     <view class="stepBox">
       <view class="stepItem" wx:for="{{weekly}}">
         <view class="signCheck">

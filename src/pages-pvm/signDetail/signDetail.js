@@ -12,17 +12,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    weekly: []
+    weekly: [],
+    isLoading: false
   },
 
   async initPage() {
     try {
+      this.setData({
+        isLoading: true,
+      });
       let { weekly } = await api.hei.pvmSignDetail();
       weekly.forEach(item => {
         item.days = item.date.substring(8, 10);
       });
       this.setData({
-        weekly
+        weekly,
+        isLoading: false
       });
     } catch (e) {
 

@@ -15,16 +15,16 @@ Page({
     config: {},
     tplStyle: 'newCoupon',
     selectId: '',
-    onlyShow:false
+    onlyShow: false
   },
 
   // 生命周期函数--监听页面加载
-  async onLoad({ id,onlyShow }) {
+  async onLoad({ id, onlyShow }) {
     console.log('id', id);
-    if(onlyShow){
+    if (onlyShow) {
       this.setData({
         onlyShow
-      })
+      });
     }
     const { themeColor } = app.globalData;
     // const coupons = wx.getStorageSync('orderCoupon');
@@ -33,6 +33,7 @@ Page({
         post_id: id,
         status: 1
       };
+      wx.showLoading();
       const { list } = await api.hei.fetchCouponList(params);
       console.log('list', list);
       let coupons = list;
@@ -45,6 +46,7 @@ Page({
         style_type: 'newCoupon'
       };
       console.log();
+      wx.hideLoading();
       this.setData({
         coupons,
         isIphoneX,

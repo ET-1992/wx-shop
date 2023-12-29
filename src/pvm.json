@@ -14,7 +14,6 @@
     "pages-pvm/posterModal/posterModal",
     "pages-pvm/shippingAddress/shippingAddress",
     "pages-pvm/orderList/orderList",
-    "pages-pvm/personalInformation/personalInformation",
     "pages/logistics/logistics",
     "pages/refund/refund",
     "pages-pvm/promotionList/promotionList",
@@ -22,11 +21,7 @@
     "pages-pvm/medalDetail/medalDetail",
     "pages-pvm/pointsDetails/pointsDetails",
     "pages-pvm/pointsOrders/pointsOrders",
-    "pages-pvm/signDetail/signDetail",
-    "pages/addressList/addressList",
-    "pages-pvm/aboutUs/aboutUs",
-    "pages-pvm/help/help",
-    "pages-pvm/personalInformation/personalInformation"
+    "pages-pvm/signDetail/signDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -35,6 +30,36 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": ""
   },
+  "subPackages": [
+    {
+      "root": "pages-pvm/personalInformation/",
+      "pages": [
+        "personalInformation"
+      ],
+      "name": "个人信息"
+    },
+    {
+      "root": "pages-pvm/help/",
+      "pages": [
+        "help"
+      ],
+      "name": "帮助信息"
+    },
+    {
+      "root": "pages-pvm/aboutUs/",
+      "pages": [
+        "aboutUs"
+      ],
+      "name": "关于我们"
+    },
+    {
+      "root": "pages/addressList/",
+      "pages": [
+        "addressList"
+      ],
+      "name": "地址信息"
+    }
+  ],
   "tabBar": {
     "color": "#909399",
     "backgroundColor": "#fff",

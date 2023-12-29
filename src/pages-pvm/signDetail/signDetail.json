@@ -3,6 +3,7 @@
   "usingComponents": {
     "van-icon": "@vant/weapp/dist/icon/index",
     "van-grid": "@vant/weapp/dist/grid/index",
-    "van-grid-item": "@vant/weapp/dist/grid-item/index"
+    "van-grid-item": "@vant/weapp/dist/grid-item/index",
+		"loading": "components/loading/index"
   }
 }
