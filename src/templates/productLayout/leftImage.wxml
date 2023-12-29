@@ -4,7 +4,8 @@
     <view class="name">{{ product.title }}</view>
     <view class="pay">
       <view class="desc" style="width: 60%">{{ product.sku_property_names }}</view>
-      <view class="num" style="font-weight: 600; color: black">{{product.date}}</view>
+      <view class="num" wx:if="{{!projectName=='pvm'}}" style="font-weight: 600; color: black">{{product.date}}</view>
+      <view class="num" wx:if="{{projectName=='pvm'}}" style="font-weight: 600; color: black">x{{product.quantity}}</view>
     </view>
     <view class="singleBuy">
       <!-- 支付： -->

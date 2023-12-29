@@ -9,7 +9,7 @@ const app = getApp();
 
 Page({
     data: {
-        navbarListData: POINTS_TYPE,
+        navbarListData: [],
         activeIndex: 0,
         themeColor: '',
         logs: []

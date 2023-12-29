@@ -1101,4 +1101,9 @@ export const apis = {
         method: 'POST',
         requestType: 'uploadFile',
     },
+    current: {
+        path: '/api/account/current.json',
+        isForceToken: true,
+        method: 'POST',
+    }
 };

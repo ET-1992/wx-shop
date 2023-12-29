@@ -13,7 +13,7 @@
             2
           </view>
         </view>
-        <view class="text">{{item.day}}天</view>
+        <view class="text">{{item.days}}天</view>
       </view>
     </view>
   </view>

@@ -49,24 +49,26 @@
   </view>
   <view class="my-order">
     <van-grid custom-class="my-grid" column-num="4" border="{{false}}">
+      <navigator url="/pages-pvm/couponDetail/couponDetail">
       <van-grid-item class="data-grid" use-slot dot>
         <text class="title">优惠券</text>
-        <text class="value">3</text>
+        <text class="value">{{couponNum}}</text>
       </van-grid-item>
+      </navigator>
       <navigator url="/pages-pvm/pointsDetails/pointsDetails">
         <van-grid-item class="data-grid" use-slot dot>
           <text class="title">积分</text>
-          <text class="value">3</text>
+          <text class="value">0</text>
         </van-grid-item>
       </navigator>
       <van-grid-item class="data-grid" use-slot dot>
         <text class="title">小区人数</text>
-        <text class="value">3</text>
+        <text class="value">0</text>
       </van-grid-item>
       <navigator url="/pages-pvm/myMedal/myMedal">
         <van-grid-item class="data-grid" use-slot dot>
           <text class="title">勋章</text>
-          <text class="value">2</text>
+          <text class="value">{{medalNum}}</text>
         </van-grid-item>
       </navigator>
     </van-grid>

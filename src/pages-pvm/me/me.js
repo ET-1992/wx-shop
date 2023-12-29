@@ -13,6 +13,8 @@ Page({
    */
   data: {
     user: {},
+    couponNum: 0,
+    medalNum: 0
   },
 
   // async initPage() { },
@@ -21,11 +23,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const userInfo = wx.getStorageSync(USER_KEY);
-    console.log(userInfo, 'user');
-    this.setData({
-      user: userInfo
-    });
+    // const userInfo = wx.getStorageSync(USER_KEY);
+    // console.log(userInfo, 'user');
+    // this.setData({
+    //   user: userInfo
+    // });
   },
 
   /**
@@ -70,11 +72,32 @@ Page({
       complete: () => {}
     });
   },
+  async getCurrent() {
+    try {
+      const response = await api.hei.current();
+      if (!response.errcode) {
+        let couponNum = response.coupon.counter.available;
+        let medalNum = response.medal.counter.total;
+        let user = response.current_user;
+        this.setData({
+          couponNum,
+          medalNum,
+          user
+        });
+      }
+
+    } catch (e) {
+
+    }
+
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    this.getCurrent();
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

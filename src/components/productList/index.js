@@ -4,6 +4,10 @@ const app = getApp();
 
 Component({
   properties: {
+    projectName: {
+      type: String,
+      value: ''
+    },
     product: {
       type: Object,
       value: {},

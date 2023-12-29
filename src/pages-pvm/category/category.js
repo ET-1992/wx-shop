@@ -22,6 +22,9 @@ Page({
             //     isLoading: true,
             //     navHeight,
             // });
+            wx.showLoading({
+                title: '加载中',
+            });
             const data = await api.hei.fetchCategory();
             data.categories = data.product_categories;
             const { categories = [] } = data;
@@ -33,7 +36,7 @@ Page({
                     name: '全部'
                 });
             });
-
+            wx.hideLoading();
             this.setData({
                 isLoading: false,
                 ...data

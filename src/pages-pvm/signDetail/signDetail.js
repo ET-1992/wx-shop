@@ -18,6 +18,9 @@ Page({
   async initPage() {
     try {
       let { weekly } = await api.hei.pvmSignDetail();
+      weekly.forEach(item => {
+        item.days = item.date.substring(8, 10);
+      });
       this.setData({
         weekly
       });

@@ -19,7 +19,7 @@
                 <view class="number">x{{ item.quantity }}</view>
               </view>
             </view> -->
-            <productList product="{{ item }}" statusText="{{order.statusText }}" productLayoutStyle="leftImage" />
+            <productList projectName="pvm" product="{{ item }}" statusText="{{order.statusText }}" productLayoutStyle="leftImage" />
           </view>
           <view class="orderMeta">
             <view class="status">
