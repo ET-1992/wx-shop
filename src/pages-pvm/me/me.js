@@ -23,6 +23,9 @@ Page({
   onLoad: function (options) {
     const userInfo = wx.getStorageSync(USER_KEY);
     console.log(userInfo, 'user');
+    this.setData({
+      user: userInfo
+    });
   },
 
   /**
@@ -59,13 +62,13 @@ Page({
     // });
   },
   goPersonal() {
-    // wx.navigateTo({
-    //   url: '/pages-mvp/personalInformation/personalInformation',
-    //   success: (result) => {
-    //   },
-    //   fail: () => {},
-    //   complete: () => {}
-    // });
+    wx.navigateTo({
+      url: '/pages-pvm/personalInformation/personalInformation',
+      success: (result) => {
+      },
+      fail: () => {},
+      complete: () => {}
+    });
   },
 
   /**

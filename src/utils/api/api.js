@@ -1090,4 +1090,15 @@ export const apis = {
       isForceToken: true,
       contentType: 'json'
   },
+    pvmUpdate: {
+        path: '/api/user/update.json',
+        isForceToken: true,
+        method: 'POST',
+    },
+    pvmUpload: {
+        path: '/api/media/upload.json',
+        isForceToken: true,
+        method: 'POST',
+        requestType: 'uploadFile',
+    },
 };

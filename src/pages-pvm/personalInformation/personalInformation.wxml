@@ -11,14 +11,12 @@
         </view>
       </button>
       <view class="line" />
-      <button open-type="">
-        <view class="avatar nickName" bindtap="handleSwitchPage">
+        <view class="avatar nickName">
           <text class="title">昵称</text>
           <view class="avatar-arrow">
             <input class="input" type="nickname" value='{{name}}' placeholder="请输入昵称" bindinput="bindinput" />
           </view>
         </view>
-      </button>
     </view>
     <button class="btn" bind:tap="onConfirm">
       <van-icon name="wechat" style="margin-right: 8rpx;" />
