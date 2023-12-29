@@ -577,7 +577,7 @@ Page({
         });
 
         wx.redirectTo({
-          url: `/pages-pvm/orderDetail/orderDetail?id=${orderNo}`
+          url: `/pages-pvm/orderDetail/orderDetail?id=${order_no}`
         });
       } catch (err) {
         console.log(err);

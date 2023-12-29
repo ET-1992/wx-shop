@@ -16,17 +16,18 @@
     padding: 20rpx 0;
     .pay-text{
         .pay-price {
-            color: #F52D2D;
+            color: #DDB583;
             font-size: 28rpx;
             font-weight: bold;
         }
+        margin-right: 10rpx;
     }
 }
 
 .pay-button {
     width: 240rpx;
     height: 100rpx;
-    background: #F52D2D;
+    background: #DDB583;
     color: #fff;
     font-size: 31rpx;
     display: flex;
@@ -53,7 +54,7 @@
         justify-content: flex-end;
         padding-right: 10rpx;
         .pay-price {
-            color: #F52D2D;
+            color: #DDB583;
             font-weight: bold;
         }
     }
