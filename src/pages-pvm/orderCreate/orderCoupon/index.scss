@@ -1,0 +1,72 @@
+.orderCoupon {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18rpx 40rpx;
+    background-color: #fff;
+
+    .discount {
+        margin-bottom: 30rpx;
+        &:last-child {
+            margin: 0;
+        }
+        .title {
+            font-size: 26rpx;
+            line-height: 32rpx;
+        }
+        .content{
+            font-size: 26rpx;
+            line-height: 42rpx;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .coupon-rec {
+                width: 160rpx;
+                height: 30rpx;
+                border-radius: 16rpx;
+                color: #fff;
+                font-size: 18rpx;
+                display: inline-block;
+                background-color: #F52D2D;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 36rpx;
+            }
+            // 优惠码
+            .discount-code-form {
+                flex: 1;
+                .discount-code {
+                    display: flex;
+                    flex: 1;
+                    align-items: center;
+                    flex-wrap: nowrap;
+                }
+            }
+            // 输入框
+            .field{
+                border:1px solid #ccc;
+                width:100rpx;
+                height: 20rpx;
+                box-sizing:border-box;
+                text-align:center;
+                color:#F52D2D;
+                border-radius:8rpx;
+                margin: 0 6rpx;
+                &.code-number{
+                    min-width: 160rpx;
+                    margin: 0 36rpx;
+                }
+            }
+            // 按钮
+            .confirm-btn {
+                font-size: 26rpx;
+                line-height: 32rpx;
+                background-color: transparent;
+                // color: #707070;
+            }
+        }
+    }
+
+}

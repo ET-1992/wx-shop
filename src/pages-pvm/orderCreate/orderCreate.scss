@@ -1,0 +1,340 @@
+@import '~styles/color';
+
+$footerHeight: 190rpx;
+$iphoneXBottomGap: 40rpx;
+
+.addressBtn{
+	text-align: left;
+}
+
+.container {
+	padding-top: 20rpx;
+	padding-bottom: $footerHeight + 100rpx;
+
+	&.iphoneXTrick {
+		margin-bottom: $footerHeight + 20rpx + $iphoneXBottomGap;
+	}
+}
+
+.orderCreateWrap {
+	padding-bottom: $footerHeight;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+
+	.express{
+		background: #fff;
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		font-size: 28rpx;
+		padding: 0 20rpx;
+		line-height: 100rpx;
+
+		.item-text {
+			font-size: 28rpx;
+			color: #000000;
+			min-width: 160rpx;
+			padding-left: 10rpx;
+			padding-top: 10rpx;
+		}
+
+		.radio-group {
+			display: flex;
+			width: 100%;
+
+			label {
+				display: flex;
+				align-items: center;
+
+				.title {
+					font-size: 28rpx;
+					color: #000000;
+					padding: 8rpx 40rpx 0 10rpx;
+				}
+
+				&:last-child .title {
+					padding-right: 0;
+				}
+
+			}
+
+		}
+
+		/*  重写 radio 样式  */
+		/* 未选中的 背景样式 */
+		radio .wx-radio-input{
+			border-radius: 50%;/* 圆角 */
+			width: 36rpx;
+			height: 36rpx;
+ 		}
+ 		/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+ 		radio .wx-radio-input.wx-radio-input-checked{
+			border: none;
+			background: $mainColor;
+			width: 40rpx;
+			height: 40rpx;
+ 		}
+ 		/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+ 		radio .wx-radio-input.wx-radio-input-checked::before{
+			border-radius: 50%;/* 圆角 */
+			width: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+			height: 40rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+			line-height: 40rpx;
+			text-align: center;
+			font-size: 30rpx; /* 对勾大小 30rpx */
+			color:#fff; /* 对勾颜色 白色 */
+			background: transparent;
+			transform:translate(-50%, -50%) scale(1);
+			-webkit-transform:translate(-50%, -50%) scale(1);
+ 		}
+	}
+	&.iphoneXTrick {
+		padding-bottom: $footerHeight + $iphoneXBottomGap;
+	}
+}
+
+.textareaWrapper {
+	width: 100%;
+	// padding: 0 20rpx;
+	margin: 10rpx 0;
+	.textarea {
+		padding: 20rpx;
+		width: 100%;
+		background-color: #fff;
+		height: 180rpx;
+		font-size: 24rpx;
+		line-height: 30rpx;
+	}
+}
+
+.productItemSoldWrapper {
+	margin: 10rpx 0;
+	display: block;
+}
+
+// .addressWrapper {
+// 	margin-bottom: 20rpx;
+// }
+
+.address {
+	padding: 20rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20rpx;
+	background-color: #fff;
+	font-size: 10pt;
+
+	.addressIcon {
+		width: 38rpx;
+		height: 38rpx;
+		flex-shrink: 0;
+		margin-right: 10rpx;
+	}
+	.addressValue {
+		flex-grow: 1;
+	}
+
+	.addressInfo {
+		font-size: 10pt;
+		padding: 0 10rpx;
+	}
+
+	.phone {
+		float: right;
+	}
+
+	.rightIcon {
+		height: 26rpx;
+		width: 16rpx;
+		margin-left: 10rpx;
+		flex-shrink: 0;
+	}
+}
+
+.priceInfo {
+	padding: 0 20rpx;
+	background-color: #fff;
+
+	.priceInfoItem {
+		border-bottom: 1px solid #eee;
+		padding: 20rpx 0;
+		display: flex;
+		justify-content: space-between;
+		font-size: 10pt;
+	}
+
+	.priceInfoItem:last-child {
+		border: none;
+	}
+
+	.priceInfoItemValue {
+		color: $priceColor;
+		display: flex;
+		align-items: center;
+	}
+
+	.recommendCouponHint {
+		color: $couponMainColor;
+		border: 1px solid $couponMainColor;
+		padding: 4rpx 10rpx;
+		display: inline-block;
+		font-size: 8pt;
+		margin-left: 20rpx;
+	}
+
+	.rightIcon {
+		height: 26rpx;
+		width: 16rpx;
+		margin-left: 10rpx;
+		flex-shrink: 0;
+	}
+
+}
+
+
+.footer {
+	height: $footerHeight;
+	background-color: #fff;
+	display: flex;
+	border-top: 1px solid #eee;
+	line-height: $footerHeight;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+
+	.totalPrice {
+		padding: 0 20rpx;
+		flex-grow: 1;
+		text-align: right;
+	}
+
+	.totalPriceTitle {
+		font-size: 10pt;
+	}
+
+	.totalPriceValue {
+		color: $priceColor;
+	}
+
+	.payBt {
+		height: $footerHeight;
+		border-radius: 0;
+		font-size: 12pt;
+		width: 220rpx;
+		background-color: $mainColor;
+		color: #fff;
+		text-align: center;
+		line-height: $footerHeight;
+	}
+
+	&.iphoneXTrick {
+		height: $footerHeight + $iphoneXBottomGap;
+		padding-bottom: $iphoneXBottomGap;
+		background-color: #fff;
+	}
+}
+
+.textarea-placeholder {
+	color: $originalPriceColor;
+}
+
+.pickerBox{
+	display: flex;
+	width: 100%;
+	height: 100rpx;
+	background: #fff;
+	align-items: center;
+
+	.title{
+		font-size: 28rpx;
+		margin-left: 40rpx;
+
+	}
+
+	.date, .time{
+		display:flex;
+		align-items:center;
+		justify-content: center;
+		justify-content: space-between;
+		padding: 10rpx 20rpx;
+		height: 59rpx;
+		border: 1rpx solid #707070;
+		
+		view{
+			line-height: 0;
+			font-size: 32rpx;
+			color: #000000;
+		}
+	}
+
+	.date{
+		width: 284rpx;
+		margin-left: 24rpx;
+	}
+
+	.time{
+		width: 175rpx;
+		margin-left: 20rpx;
+	}
+
+	.arrow{
+		width: 18rpx;
+	}
+}
+.payment_tips{
+	padding: 20rpx 40rpx;
+	background: #FFF9EC;
+	color: #FB3838;
+	font-size: 24rpx;
+	margin-bottom: 10rpx;
+}
+
+.pickPayStyle{
+	margin-top: 10rpx;
+	display: flex;
+	align-items: center;
+	height: 100rpx;
+	background: #fff;
+	padding-left: 40rpx;
+	font-size: 28rpx;
+	.text{
+		color: #333333;
+	}
+	.radio-group{
+		height: 100%;
+		padding-left: 64rpx;
+		display: flex;
+		flex: 1;
+		justify-content: space-around;
+		.radio{
+			display: flex;
+			align-items: center;
+			text{
+				color: #000000;
+			}
+			.circle{
+				display: inline-block;
+				width: 20rpx;
+				height: 20rpx;
+				margin-left: 20rpx;
+				border-radius: 50%;
+				border: 1px solid #333333;
+				padding: 4rpx;
+			}
+			.checked{
+				background-color: #000000;
+				background-clip: content-box;
+			}
+		}
+	}
+}
+
+// 订单留言
+.order-mark-form {
+	// padding: 20rpx 30rpx;
+	// margin: 10rpx 0;
+	background-color: #fff;
+}

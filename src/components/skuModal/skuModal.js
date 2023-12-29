@@ -164,7 +164,6 @@ Component({
           selectedOptions,
           message
         } = this.data;
-
       try {
         this.onFormConfirm();
         let component = this.selectComponent('#mark-form');
@@ -194,7 +193,7 @@ Component({
 
         if (actionType === 'addCart') {
           queryData = await this.onAddCart();
-        } else {
+        } else if (actionType === 'onBuy') {
           address = addressComponent.data.address;
           console.log('address', address);
           if (!address.telNumber) {
@@ -205,6 +204,7 @@ Component({
             });
             return;
           }
+        }
 
 
           let remarks = this._remarks;
@@ -219,7 +219,7 @@ Component({
             product,
             message
           };
-        }
+
         this.triggerEvent('onSkuConfirm', {
           actionType,
           queryData,

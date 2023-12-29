@@ -1,0 +1,47 @@
+<view class="orderCreateWrap {{ !crowd && isIphoneX ? 'iphoneXTrick' : ''}}">
+  <!-- 支付提示 -->
+  <view wx:if="{{ payment_tips }}" class="payment_tips">{{ payment_tips }}</view>
+  <!-- 配送方式 -->
+  <block wx:if="{{ product_type !== 1 }}">
+    <!-- 自提 -->
+    <!-- <liftInfoTwo liftInfo="{{ liftInfo }}" homeDeliveryEnable="{{ home_delivery_enable }}" wx:if="{{ shipping_type === 2 }}" bindupdateLiftInfo="updateLiftInfo" /> -->
+    <!-- <liftInfo liftInfo="{{ liftInfo }}" wx:if="{{ liftStyle == 'lift' && selfLiftEnable }}" bindupdateLiftInfo="updateLiftInfo"/> -->
+    <!-- 快递 -->
+    <!-- <addressTwo address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" bindtap="onAddress" class="addressWrapper" wx:if="{{ shipping_type === 1 }}" /> -->
+    <address address="{{ address }}" defineTypeGlobal="{{ defineTypeGlobal }}" class="addressWrapper" id="address" />
+    <!-- 送货上门 -->
+    <!-- <delivery address="{{ address }}" wx:if="{{ shipping_type === 4 }}" homeDeliveryTimes="{{ homeDeliveryTimes }}" bindonAddress="onAddress" id="delivery" /> -->
+  </block>
+  <!-- 商品信息 -->
+  <productItemSold items="{{ items }}" class="productItemSoldWrapper" />
+  <!-- 买家留言文本框 -->
+  <view class="textareaWrapper" wx:if="{{ !order_annotation }}">
+    <textarea wx:if="{{!authModal.isShowModal && !modal.isShowModal}}" class="textarea" maxlength="{{ 30 }}" bindinput="onInput" placeholder="买家留言" placeholder-class="textarea-placeholder" />
+  </view>
+  <!-- 订单留言 -->
+  <!-- <orderForm annotation="{{ order_annotation }}" wx:if="{{ order_annotation && order_annotation.length > 0 }}" id="orderForm" isShowModal="{{ modal.isShowModal }}" /> -->
+  <view class="order-mark-form" wx:if="{{ order_annotation && order_annotation.length > 0 }}">
+    <!-- <markForm id="mark-form" formFields="{{ order_annotation }}" showSubmitBtn="{{ false }}"></markForm> -->
+  </view>
+  <!-- 优惠面板 -->
+  <!-- <orderCoupon wx:if="{{ !isGrouponBuy && product_type !== 4 }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" maxUseCoin="{{ maxUseCoin }}" coins="{{ wallet.coins }}" useCoin="{{ useCoin }}" fee="{{ fee }}" isHaveUseCoupon="{{ isHaveUseCoupon }}" config="{{ config }}" bindsetusecoin="setUseCoin" bindgetcouponid="getCouponId" bind:code-change="onDiscountCode"></orderCoupon> -->
+  <!-- <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
+      <view class="title">支付方式</view>
+      <view class="radio-group">
+        <view class="radio" wx:for="{{ PAY_STYLES }}" bind:tap="pickPayStyle" data-value="{{item.value}}">
+          <text class="text">{{item.text}}</text>
+          <text class="circle {{ selectedPayValue === item.value ? 'checked' : ''}}"></text>
+        </view>
+      </view>
+  </view>
+
+  <view class="pickPayStyle" wx:if="{{ store_card && store_card.store_card_enable && !crowd && !isGrouponBuy }}">
+    <view class="title">您当前的储值卡余额为：{{ store_card.balance }}元</view>
+  </view> -->
+  <!-- 订单金额具体信息 -->
+  <orderInfo defineTypeGlobal="{{ defineTypeGlobal }}" fee="{{ fee }}" useCoin="{{ useCoin }}" shouldGoinDisplay="{{ shouldGoinDisplay }}" isGrouponBuy="{{ isGrouponBuy }}" totalPostage="{{ totalPostage }}" isGrouponCommanderPrice="{{ groupon_commander_price }}" config="{{ config }}"></orderInfo>
+</view>
+<!-- 底部支付按钮 -->
+<orderPay finalPay="{{ finalPay }}" isIphoneX="{{ isIphoneX }}" isPeanutPay="{{ isPeanutPay }}" isDisablePay="{{ isDisablePay }}" bindonpay="onPay" crowd="{{ crowd }}" themeColor="{{ themeColor }}" shippingDebt="{{free_shipping_amount}}" liftInfo="{{liftInfo}}" config="{{ config }}" postageTip="{{ postageTip }}" fee="{{ fee }}"></orderPay>
+<myModal modal="{{modal}}" bindonCancel="onCancel" bindonConfirm="onConfirm"></myModal>
+<myModal modal="{{authModal}}" bindonCancel="onAddressCancel" bindonConfirm="onAddressConfirm"></myModal>

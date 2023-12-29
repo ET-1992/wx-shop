@@ -10,9 +10,10 @@
   </view> -->
   <view class="order-detail">
     <view class="order">
-      <view class="item" wx:for="{{ order.items }}" wx:key="id">
-        <productList product="{{ item }}" productLayoutStyle="leftImage" />
-      </view>
+      <!-- <view class="item" wx:for="{{ order.items }}" wx:key="id">
+        <productItemSold product="{{ item }}" productLayoutStyle="leftImage" />
+      </view> -->
+      <productItemSold items="{{  order.items  }}" class="productItemSoldWrapper" />
       <!-- <view class="btn">
         <button class="base-btn">售后电话</button>
         <button class="base-btn">联系商家</button>
@@ -23,16 +24,16 @@
         <text class="price-title">商品总价：</text>
         <text>￥{{ order.products_amount }}</text>
       </view>
-      <view class="price">
+      <!-- <view class="price">
         <text class="price-title">运费</text>
         <text>￥{{ order.postage }}</text>
-      </view>
+      </view> -->
       <view class="price">
         <text class="price-title">优惠金额</text>
         <text>￥{{ order.discount_fee }}</text>
       </view>
       <view class="pay">
-        实付
+        实付金额：
         <text class="rmb">¥{{ order.amount }}</text>
       </view>
     </view>

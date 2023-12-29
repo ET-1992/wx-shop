@@ -283,21 +283,29 @@ Page({
 
     // 用户授权之后才能下单
     async bindGetUserInfo() {
-        await getUserProfile();
+      console.log('11');
+        // await getUserProfile();
         this.onCreateOrder();
     },
 
     // 跳转到预下单页
     async onCreateOrder() {
+      console.log('1');
         const { shipping_type, items, isSelectedObject, totalPostage } = this.data;
         const selectdItems = items.filter((item) => isSelectedObject[item.cart_item_id]);
         app.globalData.currentOrder = {
             items: selectdItems,
             totalPostage,
         };
+
+        console.log('1');
+
+
         wx.navigateTo({
-            url: `/pages/orderCreate/orderCreate?shipping_type=${shipping_type}`,
+            url: `/pages-pvm/orderCreate/orderCreate`,
         });
+        console.log('2');
+
     },
 
     calculatePrice() {

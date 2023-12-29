@@ -1,0 +1,115 @@
+.orderPay {
+    width: 100%;
+    // height: 100rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+    justify-content: space-between;
+    position: fixed;
+	left: 0;
+    bottom: 0;
+    z-index: 10000;
+}
+.orderPay-crowd {
+    position: relative;
+    padding: 20rpx 0;
+    .pay-text{
+        .pay-price {
+            color: #F52D2D;
+            font-size: 28rpx;
+            font-weight: bold;
+        }
+    }
+}
+
+.pay-button {
+    width: 240rpx;
+    height: 100rpx;
+    background: #F52D2D;
+    color: #fff;
+    font-size: 31rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 100rpx;
+}
+
+.pay-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1;
+    padding-right: 40rpx;
+    .pay-top {
+        text-align: right;
+        color: #D2906B;
+        font-size: 24rpx;
+    }
+    .pay-bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        padding-right: 10rpx;
+        .pay-price {
+            color: #F52D2D;
+            font-weight: bold;
+        }
+    }
+}
+
+.iphoneX-style{
+    padding-bottom: 40rpx;
+}
+
+.crowBtn{
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    margin: 20rpx 0;
+
+    .crowd-button {
+        width: 200rpx;
+        height: 70rpx;
+        font-size: 25rpx;
+        border-radius:40rpx;
+        background: #729153;
+        line-height: 70rpx;
+        text-align: center;
+        margin-right: 10rpx;
+    }
+}
+
+.postage-tip {
+    padding: 20rpx 40rpx;
+    background: #FFF9EC;
+    display: flex;
+    justify-content: space-between;
+	color: #F38128;
+    font-size: 24rpx;
+    line-height: 31rpx;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 100rpx;
+    z-index: 10000;
+    .postage-icon {
+        width: 30rpx;
+        height: 30rpx;
+        flex-shrink: 0;
+    }
+    .postage-content {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 0 12rpx;
+    }
+    .postage-jump {
+        flex-shrink: 0;
+    }
+    &.postage-tip-phoneX {
+        bottom: 140rpx;
+    }
+}

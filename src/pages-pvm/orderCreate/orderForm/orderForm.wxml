@@ -1,0 +1,86 @@
+<view class="container">
+	<view class="wrapper" wx:for="{{ annotation }}" wx:key="item">
+		<!-- 身份证号码 -->
+		<view class="item" wx:if="{{ item.type === 'id_number' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type" >
+				<input class="input_480" type="idcard" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindinput="saveData" bindfocus="resetError"  bindblur="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" placeholder="输入身份证号码" placeholder-class="input-placeholder"/>
+			</view>
+		</view>
+		<!-- 邮件 -->
+		<view class="item" wx:if="{{ item.type === 'text' || item.type === 'email' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type"><input class="input_300" type="text" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindinput="saveData" bindfocus="resetError"  bindblur="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}" placeholder="输入文本" placeholder-class="input-placeholder"/></view>
+		</view>
+		<!-- 数字输入框 -->
+		<view class="item" wx:if="{{ item.type === 'number' || item.type === 'phone_number' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type"><input class="input_300" type="number" value="{{ item.value }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}" bindblur="checkError" bindinput="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" placeholder="输入数字" placeholder-class="input-placeholder"/></view>
+		</view>
+		<!-- 文本输入框 -->
+		<view class="item" wx:if="{{ item.type === 'textarea' }}">
+			<view class="text" wx:if="{{ item.name }}">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<textarea wx:if="{{ !isShowModal }}" value="{{ item.value }}" type="text" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }};width: {{ item.name ? '480rpx' : '100%' }}" bindinput="saveData" bindfocus="resetError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type = "{{ item.type }}" placeholder="输入多行文本" placeholder-class="input-placeholder" />
+				<view wx:if="{{ isShowModal }}" type="text" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }};width: {{ item.name ? '480rpx' : '100%' }};" class="textareafix"/>
+			</view>
+		</view>
+		<!-- 上传图片 -->
+		<view class="item" wx:if="{{ item.type === 'img' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<image class="uploadSFZ" bindtap="onUpload" src="{{ item.value ? item.value : '/icons/uploadIcon.svg' }}" style="border-color: {{ item.isError ? '#FF0000' : '#C2C2C2' }};border: {{ uploadImg ? '1rpx solid #C2C2C2' : none }}" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}"></image>
+			</view>
+		</view>
+		<!-- 日期选择框 -->
+		<view class="item" wx:if="{{ item.type === 'date' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<picker mode="date" bindchange="checkError" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerDate" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+					<view class="input-placeholder" wx:if="{{ !item.value }}">选择日期</view>
+					<view wx:if="{{ item.value }}">{{ item.value }}</view>
+				</picker>
+			</view>
+		</view>
+		<!-- 时间选择框 -->
+		<view class="item" wx:if="{{ item.type === 'time' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<picker mode="time" bindchange="checkError" value="{{ item.value }}"  data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerTime" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+					<view class="input-placeholder" wx:if="{{ !item.value }}">选择时间</view>
+					<view wx:if="{{ item.value }}">{{ item.value }}</view>
+				</picker>
+			</view>
+		</view>
+		<!-- 下拉选择框 -->
+		<view class="item" wx:if="{{ item.type === 'select' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				<picker mode="selector" bindchange="checkError" value="{{ item.value }}" range="{{ item.options }}" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" class="picker pickerSelect" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+					<view class="input-placeholder" wx:if="{{ !item.value }}">请选择</view>
+					<view wx:if="{{ item.value }}">{{ item.value }}</view>
+				</picker>
+			</view>
+		</view>
+		<!-- 复选框 -->
+		<view class="item" wx:if="{{ item.type === 'checkbox' }}">
+			<view class="text">{{ item.name }}<text class="required">{{ item.required ? '*' : '' }}</text></view>
+			<view class="type">
+				  <checkbox-group bindchange="checkError" data-annotationname="{{ item.name }}" data-index="{{ index }}" data-type= "{{ item.type }}" style="border-color: {{ item.isError ? '#FF0000' : '#c2c2c2' }}">
+				  	   <label class="checkbox" wx:for="{{ item.options }}" wx:for-item="boxItem" wx:for-index="boxIndex">
+							<checkbox value="{{ boxItem }}" checked="{{ orderForm.indexOf(item.value, boxItem) }}" />{{ boxItem }}
+						</label>
+				  </checkbox-group>
+			</view>
+		</view>
+	</view>
+</view>
+
+
+<wxs module="orderForm">
+  var indexOf = function(array, value) {
+    return array.indexOf(value) > -1;
+  };
+
+  module.exports.indexOf = indexOf;
+</wxs>

@@ -1083,5 +1083,11 @@ export const apis = {
         path: 'api/checkin/action.json',
         method: 'POST',
         isForceToken: true,
-    }
+    },
+    pvmOrderPrepare: {
+      path: 'api/mag.order.prepare.json',
+      method: 'POST',
+      isForceToken: true,
+      contentType: 'json'
+  },
 };

@@ -4,6 +4,6 @@
     "orderOperations": "../../components/orderOperations/index",
     "orderDetail": "../../components/orderDetail/orderDetail",
     "van-count-down": "@vant/weapp/dist/count-down/index",
-    "productList": "../../components/productList/index"
+    "productItemSold": "components/productItemSold/index"
   }
 }

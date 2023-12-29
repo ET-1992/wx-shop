@@ -1,0 +1,45 @@
+<view class="orderInfo">
+  <!-- 克重 -->
+  <view wx:if="{{ fee.total_weight }}">
+    <text class="text">总计克重（g）</text>
+    <text class="money">{{ fee.total_weight }}</text>
+  </view>
+  <view>
+    <text class="text">商品金额</text>
+    <text class="money">
+      {{ globalData.CURRENCY[globalData.currency] }}{{ totalPriceDispaly }}
+      <text wx:if="{{isGrouponCommanderPrice}}">(团长优惠)</text>
+    </text>
+  </view>
+  <view wx:if="{{ !isGrouponBuy }}">
+    <text class="text">优惠券</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ couponFeeDispaly }}</text>
+  </view>
+  <!-- 优惠码 -->
+  <!-- <view wx:if="{{ !isGrouponBuy }}">
+    <text class="text">优惠码</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ discount_code_reduce_fee }}</text>
+  </view> -->
+  <!-- 手动扣减花生米 -->
+  <view wx:if="{{ shouldGoinDisplay && !isGrouponBuy }}">
+    <text class="text">{{ config.coin_name || '花生米' }}</text>
+    <text class="money">-{{ globalData.CURRENCY[globalData.currency] }}{{ coinForPay }}</text>
+  </view>
+  <!-- <view>
+    <text class="text">
+      {{ templateTypeText[defineTypeGlobal].page_orderCreate_orderInfo.postageText || '运费' }}
+    </text>
+    <text class="money">+{{ globalData.CURRENCY[globalData.currency] }}{{ postageDispaly}}</text>
+  </view> -->
+  <view wx:if="{{ fee.membership_reduce_fee }}">
+    <text class="text">会员优惠</text>
+    <text class="money">
+      - {{ globalData.CURRENCY[globalData.currency] }}{{ membershipReduceFee}}
+    </text>
+  </view>
+  <!-- 金币商品自动扣减 -->
+  <view wx:if="{{ fee.showCoinNumber && useCoin }}">
+    <text class="text">单位{{ config.coin_name || '花生米' }}</text>
+    <text class="money">- {{ useCoin }}</text>
+  </view>
+</view>
