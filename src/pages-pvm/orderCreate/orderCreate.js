@@ -572,8 +572,9 @@ Page({
 
 
         // await wxProxy.requestPayment(pay_sign);
-        proxy.showToast({
-          title: '支付成功',
+        proxy.showModal({
+          title: '提示',
+          content: '支付成功',
         });
 
         wx.redirectTo({
