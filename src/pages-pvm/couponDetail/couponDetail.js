@@ -14,12 +14,18 @@ Page({
     coupons: [],
     config: {},
     tplStyle: 'newCoupon',
-    selectId: ''
+    selectId: '',
+    onlyShow:false
   },
 
   // 生命周期函数--监听页面加载
-  async onLoad({ id }) {
+  async onLoad({ id,onlyShow }) {
     console.log('id', id);
+    if(onlyShow){
+      this.setData({
+        onlyShow
+      })
+    }
     const { themeColor } = app.globalData;
     // const coupons = wx.getStorageSync('orderCoupon');
     try {

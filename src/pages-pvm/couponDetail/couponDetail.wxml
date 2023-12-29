@@ -11,7 +11,10 @@
 	    <view wx:if="{{ selectedStatus === 'unavailable' }}">无不可用优惠券</view>
 	</view> -->
 	<view class="couponList">
-	    <view class="couponItemWrapper" wx:for="{{ coupons }}" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
+		<view wx:if="{{onlyShow}}" class="couponItemWrapper" wx:for="{{ coupons }}" data-coupon="{{ item }}" data-index="{{ index }}">
+	      <couponList onlyShow="{{onlyShow}}" coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{false}}" status="receivable" isSelected="{{ selectId === item.id }}" config="{{config}}"/>
+	    </view>
+	    <view wx:if="{{!onlyShow}}" class="couponItemWrapper" wx:for="{{ coupons }}" bindtap="onCouponClick" data-coupon="{{ item }}" data-index="{{ index }}">
 	      <couponList coupon="{{ item }}" status="{{ selectedStatus }}" canChoice="{{true}}" status="receivable" isSelected="{{ selectId === item.id }}" config="{{config}}"/>
 	    </view>
 	</view>

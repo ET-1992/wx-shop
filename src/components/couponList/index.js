@@ -2,6 +2,10 @@ import { CONFIG, PLATFFORM_ENV } from 'constants/index';
 const app = getApp();
 Component({
     properties: {
+        onlyShow:{
+            type:Boolean,
+            value:false
+        },
         coupon: {
             type: Object,
             value: {},

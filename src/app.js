@@ -136,7 +136,7 @@ App({
         setTimeout(() => {
             api.hei.config().then((res) => {
                 console.log(res, 'appConfig');
-                const { config = {}, cdn_host, current_user } = res;
+                const { config = {}, cdn_host, current_user, shop_about_us_img, shop_help_img } = res;
 
                 // 店铺过期验证
                 isExpired(config);
@@ -150,6 +150,8 @@ App({
                 // this.bindWebConfirm(config);
                 wx.setStorageSync(CONFIG, config);
                 wx.setStorageSync('cdn_host', cdn_host);
+                wx.setStorageSync('about', shop_about_us_img);
+                wx.setStorageSync('help', shop_help_img);
                 wx.setStorageSync(USER_KEY, current_user || '');
                 // wx.showTabBar();
             });

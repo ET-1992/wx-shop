@@ -22,7 +22,7 @@
 				<text wx:else>有效期：{{ filter.getDateDay(coupon.enable_start_date) }}-{{  filter.getDateDay(coupon.enable_end_date) }}</text>
 			</view>
 
-			<view  class="right {{ canChoice ? 'rightCenter' : '' }}">
+			<view wx:if="{{!onlyShow}}"  class="right {{ canChoice ? 'rightCenter' : '' }}">
 				<view wx:if="{{!canChoice}}">
 				<block wx:if="{{ !(status === 'available' || status === 'unavailable') }}">
 					<!-- 已领取 -->

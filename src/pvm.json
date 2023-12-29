@@ -24,7 +24,8 @@
     "pages-pvm/pointsOrders/pointsOrders",
     "pages-pvm/signDetail/signDetail",
     "pages/addressList/addressList",
-    "pages/me/aboutUs",
+    "pages-pvm/aboutUs/aboutUs",
+    "pages-pvm/help/help",
     "pages-pvm/personalInformation/personalInformation"
   ],
   "window": {

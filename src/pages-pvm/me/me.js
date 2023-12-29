@@ -14,7 +14,8 @@ Page({
   data: {
     user: {},
     couponNum: 0,
-    medalNum: 0
+    medalNum: 0,
+    is_check: false,
   },
 
   // async initPage() { },
@@ -43,10 +44,13 @@ Page({
   },
 
   async goSign() {
-    try {
-      const response = await api.hei.pvmSign({});
-    } catch (e) {
-      console.log('eee', e);
+    const { is_check } = this.data;
+    if (!is_check) {
+      try {
+        const response = await api.hei.pvmSign({});
+      } catch (e) {
+        console.log('eee', e);
+      }
     }
     wx.navigateTo({
       url: '/pages-pvm/signDetail/signDetail',
@@ -79,10 +83,12 @@ Page({
         let couponNum = response.coupon.counter.available;
         let medalNum = response.medal.counter.total;
         let user = response.current_user;
+        let is_check = response.checkin.is_check;       
         this.setData({
           couponNum,
           medalNum,
-          user
+          user,
+          is_check
         });
       }
 
