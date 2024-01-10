@@ -50,10 +50,10 @@
   <view class="my-order">
     <van-grid custom-class="my-grid" column-num="4" border="{{false}}">
       <navigator url="/pages-pvm/couponDetail/couponDetail?onlyShow=true">
-      <van-grid-item class="data-grid" use-slot dot>
-        <text class="title">优惠券</text>
-        <text class="value">{{couponNum}}</text>
-      </van-grid-item>
+        <van-grid-item class="data-grid" use-slot dot>
+          <text class="title">优惠券</text>
+          <text class="value">{{couponNum}}</text>
+        </van-grid-item>
       </navigator>
       <navigator url="/pages-pvm/pointsDetails/pointsDetails">
         <van-grid-item class="data-grid" use-slot dot>
@@ -61,10 +61,12 @@
           <text class="value">0</text>
         </van-grid-item>
       </navigator>
-      <van-grid-item class="data-grid" use-slot dot>
-        <text class="title">小区人数</text>
-        <text class="value">0</text>
-      </van-grid-item>
+      <navigator url="/pages-pvm/myNeighborhood/myNeighborhood">
+        <van-grid-item class="data-grid" use-slot dot>
+          <text class="title">小区人数</text>
+          <text class="value">{{neighborhoodNum}}</text>
+        </van-grid-item>
+      </navigator>
       <navigator url="/pages-pvm/myMedal/myMedal">
         <van-grid-item class="data-grid" use-slot dot>
           <text class="title">勋章</text>
@@ -76,10 +78,10 @@
   <view class="my-order" style="padding-top: 0;padding-bottom: 0; ">
     <van-grid custom-class="my-grid" column-num="5" border="{{false}}">
       <!-- <navigator class="orderItem" url="/pages/addressList/addressList"> -->
-        <van-grid-item class="control-grid" use-slot badge="99+" bind:tap="chooseAddress">
-          <image class="img" src="../../icons/pvm/local.png" />
-          <text class="title">地址管理</text>
-        </van-grid-item>
+      <van-grid-item class="control-grid" use-slot badge="99+" bind:tap="chooseAddress">
+        <image class="img" src="../../icons/pvm/local.png" />
+        <text class="title">地址管理</text>
+      </van-grid-item>
       <!-- </navigator> -->
       <navigator class="orderItem" url="">
         <van-grid-item class="control-grid" use-slot badge="99+">

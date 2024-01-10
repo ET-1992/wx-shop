@@ -1,0 +1,121 @@
+.myNeighborhood {
+  width: 100%;
+  height: 100%;
+  .headerBox {
+    margin: 20rpx 15rpx;
+    display: flex;
+    justify-content: space-between;
+    width: 720rpx;
+    height: 160rpx;
+    flex-shrink: 0;
+    border-radius: 20rpx;
+    background: #ddb583;
+    padding: 0 119rpx;
+    .items {
+      margin-top: 25rpx;
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      .title {
+        color: #ffffff;
+        font-family: ".PingFang SC";
+        font-size: 32rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .num {
+        color: #ffffff;
+        font-family: ".PingFang SC";
+        font-size: 40rpx;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+  .listBox {
+    width: 100%;
+    background-color: #fff;
+    .header {
+      display: flex;
+      flex-direction: row;
+      height: 95rpx;
+      .user {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        .text{
+          margin-left: 120rpx;
+          color: #404040;
+          font-family: ".PingFang SC";
+          font-size: 24rpx;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+        }
+      }
+      .point {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        color: #404040;
+        font-family: ".PingFang SC";
+        font-size: 28rpx;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+    .listContent {
+      display: flex;
+      flex-direction: column;
+      .listItem {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 25rpx;
+        .left {
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          .img {
+            width: 60rpx;
+            height: 60rpx;
+            border-radius: 50%;
+            flex-shrink: 0;
+            fill: #d9d9d9;
+            background: #d9d9d9;
+            margin-left: 40rpx;
+            margin-right: 20rpx;
+          }
+          .info {
+            .name {
+              color: #404040;
+              font-family: ".PingFang SC";
+              font-size: 28rpx;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+            .date {
+              color: #999999;
+              font-family: ".PingFang SC";
+              font-size: 20rpx;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+          }
+        }
+        .right {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50%;
+        }
+      }
+    }
+  }
+}

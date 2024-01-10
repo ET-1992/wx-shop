@@ -1105,5 +1105,21 @@ export const apis = {
         path: '/api/account/current.json',
         isForceToken: true,
         method: 'POST',
-    }
+    },
+    memberList: {
+        path: '/api/affiliate/member/get.json',
+        isForceToken: true,
+        method: 'GET',
+    },
+    memberOrder: {
+        path: '/api/affiliate/order/list.json',
+        isForceToken: true,
+        method: 'GET',
+    },
+    childMemberList: {
+        path: '/api/affiliate/submember/list.json',
+        isForceToken: true,
+        method: 'GET',
+    },
 };
+

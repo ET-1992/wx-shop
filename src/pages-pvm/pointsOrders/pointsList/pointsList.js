@@ -8,5 +8,10 @@ import { POINTS_TYPE } from 'constants/index';
 const app = getApp();
 
 Component({
-
+    properties: {
+        data: {
+            type: Array,
+            value: [],
+        },
+    },
 });

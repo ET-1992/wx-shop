@@ -1,0 +1,43 @@
+<view class="myNeighborhood">
+    <view class="headerBox">
+        <view class="items">
+            <view class="title">小区人数</view>
+            <view class="num">{{people}}</view>
+        </view>
+        <view class="items">
+            <view class="title">小区积分</view>
+            <view class="num">{{points}}</view>
+        </view>
+    </view>
+    <view class="listBox">
+        <view class="header">
+            <view class="user">
+                <view class="text">用户</view>
+            </view>
+            <view class="point">累计积分</view>
+        </view>
+        <view class="listContent">
+            <view class="listItem" wx:for="{{ list }}" wx:key="id" wx:for-item="item">
+                <view class="left">
+                    <image class="img" src="{{item.account.avatarurl}}"></image>
+                    <view class="info">
+                        <view class="name">{{item.account.display_name}}</view>
+                        <view class="date">{{filter.getDateDay(item.bind_time)}}</view>
+                    </view>
+                </view>
+                <view class="right">{{item.commission}}</view>
+            </view>
+            <!-- <view class="listItem">
+                <view class="left">
+                    <view class="img"></view>
+                    <view class="info">
+                        <view class="name">张三</view>
+                        <view class="date">2012-03-03</view>
+                    </view>
+                </view>
+                <view class="right">19</view>
+            </view> -->
+        </view>
+    </view>
+</view>
+<wxs src="utils/wxs/timeTranslate.wxs" module="filter" />

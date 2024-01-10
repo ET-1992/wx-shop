@@ -1,6 +1,8 @@
 .pointsDetails {
     background-color: #F2F1EF;;
     .content{
+        display: flex;
+        justify-content: center;
         margin-top: 90rpx;
     }
 }

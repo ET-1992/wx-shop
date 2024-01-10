@@ -16,6 +16,7 @@ Page({
     couponNum: 0,
     medalNum: 0,
     is_check: false,
+    neighborhoodNum: 0,
   },
 
   // async initPage() { },
@@ -83,12 +84,17 @@ Page({
         let couponNum = response.coupon.counter.available;
         let medalNum = response.medal.counter.total;
         let user = response.current_user;
-        let is_check = response.checkin.is_check;       
+        let is_check = response.checkin.is_check;
+        let neighborhoodNum = 0;
+        if (response.affiliate.member) {
+          neighborhoodNum = response.affiliate.member.customer_count;
+        }
         this.setData({
           couponNum,
           medalNum,
           user,
-          is_check
+          is_check,
+          neighborhoodNum
         });
       }
 

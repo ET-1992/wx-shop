@@ -1,47 +1,93 @@
-.pointsLsit{
-    background-color: #fff;
-    .listBox{
-        padding:25rpx 35rpx; 
-        .row{
-            margin-bottom: 20rpx;
-            display: flex;
-            justify-content: space-between;
-            .cash{
-                color: #404040;
-                font-family: ".PingFang SC";
-                font-size: 28rpx;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-            }
-            .value {
-                color: #999999;
-                text-align: right;
-                font-family: ".PingFang SC";
-                font-size: 24rpx;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }
-            .text{
-                color: #404040;
-                font-family: ".PingFang SC";
-                font-size: 24rpx;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }
-            .heightLight{
-                color: #b88922;
-                font-family: ".PingFang SC";
-                font-size: 24rpx;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-            }
-        }
-        .bottom0{
-            margin-bottom: 0;
-        }
+.pointsLsit {
+  //   background-color: #fff;
+  .listBox {
+    width: 730rpx;
+    height: 233rpx;
+    flex-shrink: 0;
+    border-radius: 20rpx;
+    background: #fff;
+    margin-bottom: 10rpx;
+    .header {
+      height: 63rpx;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20rpx 0 15rpx 0;
+      .orderNum {
+        margin-left: 20rpx;
+        color: #404040;
+        font-family: ".PingFang SC";
+        font-size: 20rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .orderStatus {
+        margin-right: 34rpx;
+        color: #b88922;
+        font-family: ".PingFang SC";
+        font-size: 24rpx;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
     }
+    .productBox {
+        display: flex;
+        flex-direction: row;
+      .procuctImg {
+        margin-left: 20rpx;
+        margin-right: 10rpx;
+        width: 150rpx;
+        height: 150rpx;
+        flex-shrink: 0;
+        border-radius: 10rpx;
+        background: #d9d9d9;
+      }
+      .productInfo {
+        .title {
+            margin-bottom: 8rpx;
+          width: 530rpx;
+          color: #404040;
+          font-family: ".PingFang SC";
+          font-size: 28rpx;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+        .date {
+          color: #999999;
+          font-family: ".PingFang SC";
+          font-size: 20rpx;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+        .bottom {
+            margin-top: 6rpx;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+          .money {
+            color: #b88922;
+            font-family: ".PingFang SC";
+            font-size: 28rpx;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+          }
+          .point {
+            color: #b88922;
+            font-family: ".PingFang SC";
+            font-size: 24rpx;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+        }
+      }
+    }
+  }
 }
