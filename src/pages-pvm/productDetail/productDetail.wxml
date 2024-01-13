@@ -61,6 +61,7 @@
         <text lines="1" class="shipping-text">销售：{{ product.sales }}</text>
         <text lines="1" class="shipping-text">库存：{{ product.stock }}</text>
       </view>
+      <image wx:if="{{isShowShare}}" class="share" src="/icons/pvm/share.png" bind:tap="shareProduct"></image>
     </view>
     <!-- todo 优惠券 -->
     <!-- 优惠卷 -->

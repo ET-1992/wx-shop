@@ -5,6 +5,7 @@ import { autoTransformAddress, joinUrl } from 'utils/util';
 import wxProxy from 'utils/wxProxy';
 import { autoNavigate_, subscribeMessage } from 'utils/util';
 import proxy from 'utils/wxProxy';
+import { onDefaultShareAppMessage } from 'utils/pageShare';
 const app = getApp();
 
 Page({
@@ -41,6 +42,8 @@ Page({
     receivedCoupons: [],
     themeColor: {},
     isLoading: true,
+    isShowShare: false,
+    globalData: app.globalData
   },
 
 
@@ -218,13 +221,20 @@ Page({
     let showModalType;
     const { project, cid, id } = this.options;
     const { product } = this.data;
-    const { recover_project, coupons } = await api.hei.productExtra({
+    const { recover_project, coupons, affiliate } = await api.hei.productExtra({
       project,
       id,
       cid
     });
 
-
+    if (affiliate.afcode) {
+      let isShowShare = true;
+      let afcode = affiliate.afcode
+      this.setData({
+        afcode,
+        isShowShare
+      });
+    }
 
     const { receivableCoupons, receivedCoupons } = coupons && coupons.reduce(
       (classifyCoupons, coupon) => {
@@ -280,6 +290,15 @@ Page({
     }
 
     console.log(recover_project, '---');
+  },
+
+  shareProduct() {
+    const opts = {
+      afcode: (this.data.afcode) || ''
+  };
+  let pages = getCurrentPages();
+  console.log('pages',pages)
+  // return onDefaultShareAppMessage.call(this, opts, path);
   },
 
   async onSkuConfirm(e) {
@@ -515,5 +534,10 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () { },
+  onShareAppMessage() {
+    const opts = {
+        afcode: (this.data.afcode) || ''
+    };
+    // return onDefaultShareAppMessage.call(this, opts, path);
+}
 });

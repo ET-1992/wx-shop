@@ -137,10 +137,18 @@ page {
   }
 
   .shop-detail {
+    position: relative;
     margin: 24rpx 20rpx;
     background: #ffffff;
     border-radius: 16rpx;
     padding: 16rpx 28rpx 16rpx;
+    .share {
+      position: absolute;
+      top: 60rpx;
+      right: 35rpx;
+      width: 40rpx;
+      height: 72rpx;
+    }
     .shop-price {
       display: flex;
       align-items: baseline;
