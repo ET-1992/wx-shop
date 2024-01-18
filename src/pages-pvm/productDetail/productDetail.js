@@ -205,7 +205,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
+    const { afcode } = options;
+    console.log('options', options);
     const { themeColor } = app.globalData;
+    console.log('afcode', afcode);
+    if (afcode) {
+      app.globalData.afcode = afcode;
+    }
     this.setData({ themeColor });
     wx.showLoading({
       title: '加载中',
@@ -324,6 +330,7 @@ Page({
         project,
         cid,
         promotions: best_promotion,
+        afcode: app.globalData.afcode
       };
       console.log(orderQuery);
       const { order_no } = await api.hei.orderCreate(orderQuery);

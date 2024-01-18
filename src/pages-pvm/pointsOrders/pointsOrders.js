@@ -8,8 +8,8 @@ const app = getApp();
 
 Page({
   data: {
-    navbarListData: POINTS_TYPE,
-    activeIndex: 1,
+    navbarListData: [],
+    activeIndex: 0,
     themeColor: '',
     orderList: [],
   },
@@ -21,19 +21,32 @@ Page({
     this.getOrderList();
   },
 
-  changeNavbarList() {},
-  async getOrderList() {
+  async changeNavbarList(e) {
+    console.log(e.detail);
+    let type = e.detail.value;
+    await this.getOrderList(type);
+  },
+  async getOrderList(type) {
     try {
-      let { errcode, errmsg, orders } = await api.hei.memberOrder();
+      let { errcode, errmsg, orders, status } = await api.hei.memberOrder(type);
       console.log('errcode', errcode);
       if (errcode === 0) {
         let orderList = orders;
-        orderList.forEach(item => {
+        orderList.forEach((item) => {
           item.statusText = valueToText(ORDER_STATUS_TEXT, item.order_status);
         });
+        let navbarListData = [];
+        for (let key in status) {
+          let configType = {
+            text: status[key],
+            value: key,
+          };
+          navbarListData.push(configType);
+        }
         console.log('orderList', orderList);
         this.setData({
-          orderList
+          orderList,
+          navbarListData,
         });
       }
     } catch (e) {

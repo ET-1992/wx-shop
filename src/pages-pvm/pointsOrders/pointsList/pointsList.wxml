@@ -7,7 +7,7 @@
         <view class="productBox">
             <image class="procuctImg" src="{{item.image_url}}"></image>
             <view class="productInfo">
-                <view class="title">hape开心农场游戏盒 绕珠百宝箱复杂串...</view>
+                <view class="title">{{item.order_title}}</view>
                 <view class="date">付款时间：{{filter.getDateTime(item.order_paytime)}}</view>
                 <view class="date">结算时间：{{filter.getDateTime(item.commission_settle_time)}}</view>
                 <view class="bottom">
