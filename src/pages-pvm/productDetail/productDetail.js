@@ -43,14 +43,13 @@ Page({
     themeColor: {},
     isLoading: true,
     isShowShare: false,
-    globalData: app.globalData
+    globalData: app.globalData,
   },
-
 
   onShowCouponList() {
     console.log('onShowCoupons');
     this.setData({
-      isShowCouponList: true
+      isShowCouponList: true,
     });
   },
 
@@ -62,7 +61,7 @@ Page({
 
   onHideCouponList() {
     this.setData({
-      isShowCouponList: false
+      isShowCouponList: false,
     });
   },
 
@@ -76,7 +75,6 @@ Page({
     // this.loadProductExtra();
   },
 
-
   async showModal({ type }) {
     let showModalType;
     const { project, cid, id } = this.options;
@@ -84,30 +82,29 @@ Page({
       project,
       cid,
       product_id: id,
-      type
+      type,
     });
 
     if (promotion && promotion.type) {
-      showModalType = promotion.type === 'discount_code' ? promotion.data.style_type : promotion.type;
+      showModalType =
+        promotion.type === 'discount_code'
+          ? promotion.data.style_type
+          : promotion.type;
 
       if (showModalType === 'page') {
-
         const params = {
           key: promotion.data.key,
           project,
           cid,
           product_id: id,
-          type: promotion.action_type
+          type: promotion.action_type,
         };
         wx.navigateTo({
           url: joinUrl('/pages-mvp/promotionList/promotionList', params),
-          success: (result) => {
-
-          },
-          fail: () => { },
-          complete: () => { }
+          success: (result) => {},
+          fail: () => {},
+          complete: () => {},
         });
-
       }
 
       if (showModalType === 'dialog') {
@@ -115,14 +112,14 @@ Page({
           const { images = [] } = this.data.product;
           images.unshift({ large: promotion.data.product_first_img });
           this.setData({
-            'product.images': images
+            'product.images': images,
           });
         }
       }
 
       this.setData({
         promotion,
-        showModalType
+        showModalType,
       });
       return true;
     } else {
@@ -138,46 +135,49 @@ Page({
         await this.loadProductExtra();
       } else {
         wx.switchTab({
-          url: '/pages/home/home'
+          url: '/pages/home/home',
         });
       }
     } else {
       wx.navigateBack({
-        delta: 1
+        delta: 1,
       });
     }
   },
 
   onCloseModal() {
     const { paying, orderNo } = this;
-    this.setData({
-      showModalType: ''
-    }, async () => {
-      if (paying) {
-        const { pay_interact_data } = await api.hei.orderPay({
-          order_nos: [orderNo],
-          pay_method: 'WEIXIN',
-        });
-        console.log(pay_interact_data, '--');
-        const { pay_sign } = pay_interact_data;
+    this.setData(
+      {
+        showModalType: '',
+      },
+      async () => {
+        if (paying) {
+          const { pay_interact_data } = await api.hei.orderPay({
+            order_nos: [orderNo],
+            pay_method: 'WEIXIN',
+          });
+          console.log(pay_interact_data, '--');
+          const { pay_sign } = pay_interact_data;
 
-        this.wxPay(pay_sign, orderNo);
-      } else {
-        this.setData({
-          isShowSkuModal: true
-        });
+          this.wxPay(pay_sign, orderNo);
+        } else {
+          this.setData({
+            isShowSkuModal: true,
+          });
+        }
       }
-    });
+    );
   },
 
   onShowSkuModal() {
     this.setData({
-      isShowSkuModal: true
+      isShowSkuModal: true,
     });
   },
   onShowToCartSkuModal() {
     this.setData({
-      isShowToCardSkuModal: true
+      isShowToCardSkuModal: true,
     });
   },
 
@@ -189,7 +189,7 @@ Page({
       let cdn_host = wx.getStorageSync('cdn_host');
       let config = {
         cdn_host,
-        style_type: 'newCoupon'
+        style_type: 'newCoupon',
       };
       // app.globalData.couponBackgroundColor = 'orange'
       product.coupons_price = 0;
@@ -224,40 +224,39 @@ Page({
     const { recover_project, coupons, affiliate } = await api.hei.productExtra({
       project,
       id,
-      cid
+      cid,
     });
 
     if (affiliate.afcode) {
       let isShowShare = true;
-      let afcode = affiliate.afcode
+      let afcode = affiliate.afcode;
       this.setData({
         afcode,
-        isShowShare
+        isShowShare,
       });
     }
 
-    const { receivableCoupons, receivedCoupons } = coupons && coupons.reduce(
-      (classifyCoupons, coupon) => {
+    const { receivableCoupons, receivedCoupons } =
+      coupons &&
+      coupons.reduce(
+        (classifyCoupons, coupon) => {
           const { receivableCoupons, receivedCoupons } = classifyCoupons;
 
           // coupon.fomatedTitle = coupon.title.split('-')[1];
           if (Number(coupon.status) === 2) {
-              receivableCoupons.push(coupon);
-          }
-          else if (Number(coupon.status) === 4) {
-              receivedCoupons.push(coupon);
+            receivableCoupons.push(coupon);
+          } else if (Number(coupon.status) === 4) {
+            receivedCoupons.push(coupon);
           }
           return classifyCoupons;
-      },
-      { receivableCoupons: [], receivedCoupons: [] },
-  );
+        },
+        { receivableCoupons: [], receivedCoupons: [] }
+      );
 
-  this.setData({
-    receivableCoupons,
-    receivedCoupons,
-});
-
-
+    this.setData({
+      receivableCoupons,
+      receivedCoupons,
+    });
 
     console.log('coupons', coupons);
     if (recover_project) {
@@ -267,25 +266,27 @@ Page({
       console.log(product, 'product1');
 
       if (promotion) {
-        showModalType = promotion.type === 'discount_code' ? promotion.data.style_type : promotion.type;
+        showModalType =
+          promotion.type === 'discount_code'
+            ? promotion.data.style_type
+            : promotion.type;
 
         this.setData({
           promotion,
-          showModalType
+          showModalType,
         });
       }
 
       if (max_promotion_price) {
-
         this.setData({
-          'product.coupons_price': max_promotion_price
+          'product.coupons_price': max_promotion_price,
         });
       }
     }
 
     if (coupons) {
       this.setData({
-        coupons
+        coupons,
       });
     }
 
@@ -294,11 +295,10 @@ Page({
 
   shareProduct() {
     const opts = {
-      afcode: (this.data.afcode) || ''
-  };
-  let pages = getCurrentPages();
-  console.log('pages',pages)
-  // return onDefaultShareAppMessage.call(this, opts, path);
+      afcode: this.data.afcode || '',
+    };
+    let path = '/pages-pvm/productList/productList';
+    return onDefaultShareAppMessage.call(this, opts, path);
   },
 
   async onSkuConfirm(e) {
@@ -314,7 +314,7 @@ Page({
         selectedSku: { id },
         address,
         product,
-        message
+        message,
       } = queryData;
       const orderQuery = {
         posts: [{ post_id: product.id, sku_id: id, quantity }],
@@ -323,7 +323,7 @@ Page({
         buyer_message: message,
         project,
         cid,
-        promotions: best_promotion
+        promotions: best_promotion,
       };
       console.log(orderQuery);
       const { order_no } = await api.hei.orderCreate(orderQuery);
@@ -344,7 +344,7 @@ Page({
       wx.showModal({
         content: e.errMsg || '请尽快完成付款',
         title: '支付取消',
-        showCancel: false
+        showCancel: false,
       });
       // const { errMsg } = e;
       // if (errMsg.indexOf('cancel') >= 0) {
@@ -387,7 +387,7 @@ Page({
           this.pay_sign = pay_sign;
           this.orderNo = orderNo;
           this.loadProductExtra();
-          await api.hei.orderRefresh({ 'order_no': orderNo });
+          await api.hei.orderRefresh({ order_no: orderNo });
         } else {
           this.paying = false;
         }
@@ -411,35 +411,36 @@ Page({
       const {
         quantity,
         selectedSku: { id },
-        product
+        product,
       } = queryData;
       console.log('product', product);
       console.log('queryData', queryData);
 
-      let products = [{
-        'id': product.id,
-        'sku_id': id,
-        'quantity': quantity,
-        'shipping_type': 1
-      }];
+      let products = [
+        {
+          id: product.id,
+          sku_id: id,
+          quantity: quantity,
+          shipping_type: 1,
+        },
+      ];
       console.log('queryData', queryData);
       let response = await api.hei.pvmAddCart({
-        products
+        products,
       });
-      if (response.errcode == '0') {
+      if (response.errcode === '0') {
         wx.showModal({
           content: '加入购物车成功',
           title: '操作成功',
-          showCancel: false
+          showCancel: false,
         });
       }
-
     } catch (e) {
       console.log('error', e);
       wx.showModal({
         content: e.errMsg || '加入购物车失败',
         title: '操作失败',
-        showCancel: false
+        showCancel: false,
       });
     }
   },
@@ -463,8 +464,7 @@ Page({
     const { id, index, status, title } = ev.currentTarget.dataset;
     if (Number(status) === 2) {
       await this.onReceiveCoupon(id, index);
-    }
-    else {
+    } else {
       wx.navigateTo({
         url: `/pages/couponProducts/couponProducts?couponId=${id}&couponTitle=${title}`,
       });
@@ -484,8 +484,7 @@ Page({
         updateData[key] = 4;
         this.setData(updateData);
       }
-    }
-    catch (err) {
+    } catch (err) {
       await proxy.showModal({
         title: '温馨提示',
         content: err.errMsg,
@@ -496,23 +495,23 @@ Page({
   getCouponData(data) {
     console.log('获取优惠券数据', data);
     this.setData({
-      best_promotion: data
+      best_promotion: data,
     });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () { },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () { },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
@@ -524,20 +523,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () { },
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () { },
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
     const opts = {
-        afcode: (this.data.afcode) || ''
+      afcode: this.data.afcode || '',
     };
-    // return onDefaultShareAppMessage.call(this, opts, path);
-}
+    let path = '/pages-pvm/productList/productList';
+    return onDefaultShareAppMessage.call(this, opts, path);
+  },
 });
