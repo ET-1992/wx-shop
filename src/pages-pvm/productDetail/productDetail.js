@@ -233,7 +233,7 @@ Page({
       cid,
     });
 
-    if (affiliate.afcode) {
+    if (affiliate && affiliate.afcode) {
       let isShowShare = true;
       let afcode = affiliate.afcode;
       this.setData({
