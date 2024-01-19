@@ -28,14 +28,22 @@ Page({
   },
   async getOrderList(type) {
     try {
-      let { errcode, errmsg, orders, status } = await api.hei.memberOrder(type);
+      wx.showLoading({
+        title: '加载中',
+    });
+      let params = {
+      };
+      if (type) {
+        params.status = type;
+      }
+      let { errcode, errmsg, orders, status } = await api.hei.memberOrder(params);
       console.log('errcode', errcode);
       if (errcode === 0) {
         let orderList = orders;
         orderList.forEach((item) => {
           item.statusText = valueToText(ORDER_STATUS_TEXT, item.order_status);
         });
-        let navbarListData = [];
+        let navbarListData = [{ text: '全部', value: '' }];
         for (let key in status) {
           let configType = {
             text: status[key],
@@ -44,6 +52,7 @@ Page({
           navbarListData.push(configType);
         }
         console.log('orderList', orderList);
+        wx.hideLoading();
         this.setData({
           orderList,
           navbarListData,

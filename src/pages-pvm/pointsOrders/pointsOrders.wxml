@@ -1,7 +1,6 @@
 <view class="pointsDetails">
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="bottomStyle" bindchangeNavbarList="changeNavbarList" />
     <view class="content">
-        <loading isLoading="{{ isLoading }}"/>
         <pointsList data="{{orderList}}"></pointsList>
     </view>
 </view>

@@ -1,7 +1,6 @@
 <view class="pointsDetails">
 	<navbarList navbarListData="{{ navbarListData }}" activeIndex="{{ activeIndex }}" themeColor="{{ themeColor }}" template="bottomStyle" bindchangeNavbarList="changeNavbarList" />
     <view wx:if="{{navbarListData.length>0}}" class="content">
-        <loading isLoading="{{ isLoading }}"/>
         <pointsList data="{{logs}}" ></pointsList>
     </view>
 </view>

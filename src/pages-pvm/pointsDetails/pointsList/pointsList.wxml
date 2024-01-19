@@ -2,10 +2,12 @@
     <view class="page-empty" wx:if="{{ data.length < 1 }}">暂无数据</view>
     <view class="listBox" wx:for="{{data}}">
         <view class="row">
-            <view class="cash">用户提现</view>
-            <view class="value heightLight">.-87180</view>
+            <view class="cash">{{item.type_title}}</view>
+            <view class="value heightLight" wx:if="{{item.amount}}">
+                {{item.after_balance-item.before_balance>=0?'+':''}}{{item.amount}}
+            </view>
         </view>
-        <view class="row">
+        <view class="row" wx:if="{{item.relate_order_no}}">
             <view class="text">订单编号</view>
             <view class="text">{{item.relate_order_no}}</view>
         </view>

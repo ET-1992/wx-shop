@@ -1110,11 +1110,13 @@ export const apis = {
         path: '/api/affiliate/member/get.json',
         isForceToken: true,
         method: 'GET',
+        contentType: 'json'
     },
     memberOrder: {
         path: '/api/affiliate/order/list.json',
         isForceToken: true,
         method: 'GET',
+        contentType: 'json'
     },
     childMemberList: {
         path: '/api/affiliate/submember/list.json',
