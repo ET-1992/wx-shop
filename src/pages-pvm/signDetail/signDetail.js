@@ -13,7 +13,8 @@ Page({
    */
   data: {
     weekly: [],
-    isLoading: false
+    isLoading: false,
+    nextPoints: 0
   },
 
   async initPage() {
@@ -21,11 +22,13 @@ Page({
       this.setData({
         isLoading: true,
       });
-      let { weekly } = await api.hei.pvmSignDetail();
+      let { weekly, next } = await api.hei.pvmSignDetail();
       weekly.forEach(item => {
         item.days = item.date.substring(8, 10);
       });
+      let nextPoints = next.rule.amount;
       this.setData({
+        nextPoints,
         weekly,
         isLoading: false
       });

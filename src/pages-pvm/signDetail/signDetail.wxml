@@ -1,7 +1,7 @@
 <van-popup position="top" show="{{ true }}">
 <view class="signDetail">
   <view class="header">
-    <view class="title">明天签到得2积分</view>
+    <view class="title">明天签到得{{nextPoints}}积分</view>
     <view class="signRing">提醒我签到</view>
   </view>
   <view class="center">
@@ -11,7 +11,7 @@
         <view class="signCheck">
           <van-icon wx:if="{{item.data.income}}" class="checked" name="checked" size="58rpx" color="#E2C17C"></van-icon>
           <view wx:else class="num">
-            2
+            {{nextPoints}}
           </view>
         </view>
         <view class="text">{{item.days}}天</view>
