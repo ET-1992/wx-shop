@@ -332,15 +332,24 @@ Page({
         afcode: app.globalData.afcode
       };
       console.log(orderQuery);
-      const { order_no } = await api.hei.orderCreate(orderQuery);
+      const { order_no, status } = await api.hei.orderCreate(orderQuery);
       orderNo = order_no;
-      const { pay_interact_data } = await api.hei.orderPay({
-        order_nos: [order_no],
-        pay_method: 'WEIXIN',
-      });
-      console.log(pay_interact_data, '--');
-      const { pay_sign } = pay_interact_data;
-      this.wxPay(pay_sign, orderNo);
+      if (status === '1000') {
+        const { pay_interact_data } = await api.hei.orderPay({
+          order_nos: [order_no],
+          pay_method: 'WEIXIN',
+        });
+        console.log(pay_interact_data, '--');
+        const { pay_sign } = pay_interact_data;
+        this.wxPay(pay_sign, orderNo);
+      }
+
+      if (status === '2000') {
+        wx.showToast({
+          title: '支付成功',
+        });
+      }
+
       // await wxProxy.requestPayment(pay_sign);
       // wx.showToast({
       //   title: '支付成功',
