@@ -303,8 +303,7 @@ Page({
     const opts = {
       afcode: this.data.afcode || '',
     };
-    let path = '/pages-pvm/productList/productList';
-    return onDefaultShareAppMessage.call(this, opts, path);
+    return onDefaultShareAppMessage.call(this, opts);
   },
 
   async onSkuConfirm(e) {
@@ -542,9 +541,9 @@ Page({
    */
   onShareAppMessage() {
     const opts = {
-      afcode: this.data.afcode || '',
+      afcode: this.data.afcode,
     };
     let path = '/pages-pvm/productList/productList';
-    return onDefaultShareAppMessage.call(this, opts, path);
+    return onDefaultShareAppMessage.call(this, opts);
   },
 });

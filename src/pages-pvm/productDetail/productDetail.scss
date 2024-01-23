@@ -148,6 +148,12 @@ page {
       right: 35rpx;
       width: 40rpx;
       height: 72rpx;
+      background-color: #ffffff;
+
+      image {
+        width: 100%;
+        height: 100%;
+      }
     }
     .shop-price {
       display: flex;
