@@ -22,7 +22,8 @@
     "pages-pvm/pointsDetails/pointsDetails",
     "pages-pvm/pointsOrders/pointsOrders",
     "pages-pvm/signDetail/signDetail",
-    "pages-pvm/myNeighborhood/myNeighborhood"
+    "pages-pvm/myNeighborhood/myNeighborhood",
+    "pages-pvm/memberCenter/memberCenter"
   ],
   "window": {
     "backgroundTextStyle": "light",

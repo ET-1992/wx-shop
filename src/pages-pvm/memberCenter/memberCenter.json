@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "会员中心",
+  "usingComponents": {
+    "van-icon": "@vant/weapp/dist/icon/index",
+    "van-grid": "@vant/weapp/dist/grid/index",
+    "van-grid-item": "@vant/weapp/dist/grid-item/index",
+		"loading": "components/loading/index",
+    "van-dialog": "@vant/weapp/dist/dialog/index",
+    "van-field": "@vant/weapp/dist/field/index"
+  }
+}

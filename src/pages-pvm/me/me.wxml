@@ -83,7 +83,7 @@
         <text class="title">地址管理</text>
       </van-grid-item>
       <!-- </navigator> -->
-      <navigator class="orderItem" url="">
+      <navigator class="orderItem" url="/pages-pvm/memberCenter/memberCenter">
         <van-grid-item class="control-grid" use-slot badge="99+">
           <image class="img" src="../../icons/pvm/center.png" />
           <text class="title">会员中心</text>
