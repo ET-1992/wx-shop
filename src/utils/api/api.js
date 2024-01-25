@@ -1129,6 +1129,7 @@ export const apis = {
     path: '/api/wallet/withdraw.json',
     isForceToken: true,
     method: 'POST',
+    contentType: 'json',
   },
 
   // 充值
@@ -1137,4 +1138,17 @@ export const apis = {
     isForceToken: true,
     method: 'POST',
   },
+  // 钱包信息
+  walletGet: {
+    path: '/api/wallet/get.json',
+    isForceToken: true,
+  },
+  // 钱包订单支付
+  walletPay: {
+    path: '/api/wallet/order/pay.json',
+    isForceToken: true,
+    method: 'POST',
+    contentType: 'json',
+  },
+
 };

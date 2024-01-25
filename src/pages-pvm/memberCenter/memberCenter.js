@@ -13,6 +13,7 @@ Page({
    */
   data: {
     showRecharge: false,
+    showCash: false,
     membership: {
       expire_day: 0,
     },
@@ -20,12 +21,40 @@ Page({
     amountData: {},
     current_user: {},
     rechargeAmount: 0,
+    order_annotation: [],
+    modal: {
+      isShowModal: true,
+    }, // 弹窗数据
+    cashData: {},
+    pointsForMoney: 0,
   },
   goRecharge() {
     this.setData({
       showRecharge: true,
     });
   },
+  onClose() {
+    this.setData({
+      showRecharge: false,
+    });
+  },
+
+  async walletGet() {
+    let params = {
+      wallet_type: 'cash',
+    };
+    try {
+      let { errcode, cash } = await api.hei.walletGet(params);
+      if (errcode === 0) {
+        let cashData = cash;
+        this.setData({
+          cashData,
+          order_annotation: cashData.setting.cash_withdraw_form,
+        });
+      }
+    } catch (e) {}
+  },
+  // 充值
   async recharge() {
     let { rechargeAmount } = this.data;
     let params = {
@@ -33,17 +62,114 @@ Page({
       wallet_type: 'cash',
     };
     try {
-      let { errcode } = await api.hei.recharge(params);
+      let { errcode, order } = await api.hei.recharge(params);
       if (errcode === 0) {
-        
+        let { status, order_no } = order;
+        // console.log('order_no', order_no);
+        // console.log('status', status);
+        if (status === 1000) {
+          const { pay_interact_data } = await api.hei.walletPay({
+            order_no: order_no,
+            pay_method: 'WEIXIN',
+          });
+          console.log(pay_interact_data, '--');
+          const { pay_sign } = pay_interact_data;
+          this.wxPay(pay_sign, order_no);
+        }
+        if (status === 2000) {
+          wx.showToast({
+            title: '支付成功',
+          });
+        }
       }
     } catch (e) {
-
+      console.log('requestPayment err', e);
+      wx.showModal({
+        content: e.errMsg || '请尽快完成付款',
+        title: '支付取消',
+        showCancel: false,
+      });
     }
-
   },
 
-  getCash() {},
+  async wxPay(pay_sign, orderNo) {
+    const { project, cid } = this.options;
+    try {
+      await wxProxy.requestPayment(pay_sign);
+      wx.showToast({
+        title: '支付成功',
+      });
+    } catch (e) {
+      console.log('requestPayment err', e);
+      wx.showToast({
+        title: '支付取消',
+      });
+      if (project) {
+        const fk = await this.showModal({ type: 'pay_fail_promotion' });
+        if (fk) {
+          this.paying = true;
+          this.pay_sign = pay_sign;
+          this.orderNo = orderNo;
+          this.loadProductExtra();
+          await api.hei.orderRefresh({ order_no: orderNo });
+        } else {
+          this.paying = false;
+        }
+      }
+    }
+  },
+
+  getCash() {
+    this.setData({
+      showCash: true,
+    });
+  },
+  getMoney() {
+    let component = this.selectComponent('#mark-form');
+    let { pointsForMoney } = this.data;
+    console.log('component', component);
+    if (!pointsForMoney) {
+      wx.showToast({ title: '请输入积分', icon: 'none' });
+      return;
+    }
+    let form = [];
+    if (component) {
+      form = component.handleValidate();
+      console.log('form', form);
+    }
+    if (form.length > 0) {
+      this.withdraw(form);
+    }
+    // console.log('resolved error', e);
+  },
+  cashOnClose(){
+    this.setData({
+      showCash: false,
+    });
+  },
+  async withdraw(form) {
+    let { pointsForMoney } = this.data;
+    let params = {
+      wallet_type: 'cash',
+      number: pointsForMoney,
+      form: form,
+    };
+    try {
+      let { errcode, errmsg } = await api.hei.withdraw(params);
+      if (errcode === 0) {
+        wx.showToast({ title: '提现成功', icon: 'none' });
+      } else {
+        wx.showToast({ title: errmsg, icon: 'none' });
+      }
+    } catch (e) {
+      console.log(e.errmsg);
+      wx.showModal({
+        title: '温馨提示',
+        content: e.errMsg,
+        showCancel: false,
+      });
+    }
+  },
 
   goDetail() {
     wx.navigateTo({
@@ -96,6 +222,7 @@ Page({
   onLoad: function (options) {
     this.getCurrent();
     this.getMemberList();
+    this.walletGet();
   },
 
   /**

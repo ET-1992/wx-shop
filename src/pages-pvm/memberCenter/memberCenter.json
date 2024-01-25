@@ -6,6 +6,9 @@
     "van-grid-item": "@vant/weapp/dist/grid-item/index",
 		"loading": "components/loading/index",
     "van-dialog": "@vant/weapp/dist/dialog/index",
-    "van-field": "@vant/weapp/dist/field/index"
+    "van-field": "@vant/weapp/dist/field/index",
+		"markForm": "components/markForm/markForm",
+		"van-popup": "@vant/weapp/dist/popup/index",
+    "van-button": "@vant/weapp/dist/button/index"
   }
 }

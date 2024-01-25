@@ -199,20 +199,44 @@
       }
     }
   }
-  .rechargeBox{
+  .rechargePopup{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
+    height: 40%;
+    .rechargeBox{
+      padding: 20rpx;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .inputBox{
+        margin-bottom: 20rpx;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .tips{
+        margin-bottom: 20rpx;
+      }
+    }
+  }
+
+  .cashPopup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    height: 40%;
     .inputBox{
-      margin-bottom: 20rpx;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .tips{
-      margin-bottom: 20rpx;
-    }
   }
-  .cashDialog{}
+}
+.confirmBtn{
+  width: 300rpx
 }
