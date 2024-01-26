@@ -27,7 +27,7 @@
   <!-- 商品详情页面 -->
   <view wx:if="{{ position === 'bottom' }}" class="bottomModal" z-index="{{10000}}">
     <!-- 顶部title -->
-    <view class="head-title">确认订单</view>
+    <view class="head-title">{{  actions[0].type=='onBuy' ? '立即购买': '加入购物车'}}</view>
     <view class="modal-line"></view>
     <!-- <view class="head-address">
             <view class="address-left">
@@ -108,28 +108,30 @@
                     <markForm id="mark-form" formFields="{{ product.product_annotation }}" showSubmitBtn="{{false}}" bind:change-form-focus="onChangeFormFocus"></markForm>
                 </view> -->
           <view wx:if="{{actions[0].type=='onBuy'}}">
-          <view class="pay" bindtap="goCouponList">
-            <text>优惠券</text>
-            <text wx:if="{{coupon.length>0}}" class="pay-right">{{coupon.length>0?coupon[0].title:''}}</text>
-            <van-icon wx:else name="arrow" size='32rpx' color="#B0B3BF"  />
-          </view>
-          <view class="modal-line" />
-          <view class="pay">
-            <text>支付方式</text>
-            <text class="pay-right">微信支付</text>
-          </view>
-          <view class="modal-line" />
-          <view class="pay">
-            <text>运费</text>
-            <text class="pay-right">免费</text>
-          </view>
-          <view class="modal-line" />
-          <!-- <van-cell-group>
+            <view class="pay" bindtap="goCouponList">
+              <text>优惠券</text>
+              <text wx:if="{{coupon.length>0}}" class="pay-right">
+                {{coupon.length>0?coupon[0].title:''}}
+              </text>
+              <van-icon wx:else name="arrow" size='32rpx' color="#B0B3BF" />
+            </view>
+            <view class="modal-line" />
+            <view class="pay">
+              <text>支付方式</text>
+              <text class="pay-right">微信支付</text>
+            </view>
+            <view class="modal-line" />
+            <view class="pay">
+              <text>运费</text>
+              <text class="pay-right">免费</text>
+            </view>
+            <view class="modal-line" />
+            <!-- <van-cell-group>
             <van-field value="免费" label="运费" input-align="right" disabled border="{{ false }}" />
           </van-cell-group> -->
-          <van-cell-group>
-            <van-field value="{{ message }}" label="留言" type="textarea" bind:change="onChangeMessage" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
-          </van-cell-group>
+            <van-cell-group>
+              <van-field value="{{ message }}" label="留言" type="textarea" bind:change="onChangeMessage" placeholder="请输入留言" autosize border="{{ false }}" label-class="message-label" />
+            </van-cell-group>
           </view>
         </view>
       </scroll-view>
