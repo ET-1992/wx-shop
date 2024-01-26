@@ -1,82 +1,91 @@
 <view class="memberCenter">
-    <view class="header">
-        <view class="infoRow">
-            <view class="user">
-                <image class="userImg" src="{{current_user.avatarurl || '../../icons/mvp/default.png'}}"></image>
-                <view class="nikeName">{{current_user.nickname}}</view>
-            </view>
-            <view wx:if="{{membership.expire_day}}" class="date">
-                {{membership.expire_day?filter.getDateDay(membership.expire_day):''}} 到期
-            </view>
-        </view>
-        <view class="pointsRow">
-            <view class="detail" bindtap="goDetail">
-                <view class="usePoints">可用积分</view>
-                <view class="num">{{membership.membership_exp.balance}}</view>
-                <view class="text">
-                    明细
-                    <van-icon name="arrow" />
-                </view>
-            </view>
-            <view class="buttonBox">
-                <view class="btn recharge" bindtap="goRecharge">充值</view>
-                <view class="btn cash" bindtap="getCash">提现</view>
-            </view>
-        </view>
+  <view class="header">
+    <view class="infoRow">
+      <view class="user">
+        <image class="userImg" src="{{current_user.avatarurl || '../../icons/mvp/default.png'}}"></image>
+        <view class="nikeName">{{current_user.nickname}}</view>
+      </view>
+      <view wx:if="{{membership.expire_day}}" class="date">
+        {{membership.expire_day?filter.getDateDay(membership.expire_day):''}} 到期
+      </view>
     </view>
-    <view class="information">
-        <view class="up">
-            <view class="bigBox">
-                <view class="num">{{amountData.commission.today}}</view>
-                <view class="text">今日获得奖励</view>
-            </view>
-            <view class="bigBox">
-                <view class="num">{{amountData.commission.total}}</view>
-                <view class="text">累计获得奖励</view>
-            </view>
+    <view class="pointsRow">
+      <view class="detail" bindtap="goDetail">
+        <view class="usePoints">可用积分</view>
+        <view class="num">{{membership.membership_exp.balance}}</view>
+        <view class="text">
+          明细
+          <van-icon name="arrow" />
         </view>
-        <view class="bottom">
-            <view class="mediumBox">
-                <view class="num">{{amountData.account_amount_total}}</view>
-                <view class="text">个人消费积分</view>
-            </view>
-            <view class="line"></view>
-            <view class="mediumBox">
-                <view class="num">{{memberData.sub_commission}}</view>
-                <view class="text">小区消费积分</view>
-            </view>
-            <view class="line"></view>
-            <view class="mediumBox">
-                <view class="num">{{memberData.sub_member_count}}</view>
-                <view class="text">小区人数</view>
-            </view>
-            <view class="line"></view>
-            <view class="mediumBox">
-                <view class="num">{{memberData.order_count}}</view>
-                <view class="text">积分订单</view>
-            </view>
-        </view>
+      </view>
+      <view class="buttonBox">
+        <view class="btn recharge" bindtap="goRecharge">充值</view>
+        <view class="btn cash" bindtap="getCash">提现</view>
+      </view>
     </view>
-    <van-popup show="{{ showRecharge }}" custom-class="rechargePopup" round closeable bind:close="onClose">
-        <view class="rechargeBox">
-            <view class="inputBox">
-                <view>充值金额</view>
-                <van-field model:value="{{rechargeAmount}}" input-align="center" placeholder="请输入金额"></van-field>
-                <view>元</view>
-            </view>
-            <view class="tips">1元等于{{cashData.setting.cash_recharge_proportion}}积分</view>
-            <van-button custom-class="confirmBtn" color="#ddb583" bind:click="recharge">确定</van-button>
-        </view>
-    </van-popup>
-    <!-- 提现 -->
-    <van-popup show="{{ showCash }}" custom-class="cashPopup" round closeable bind:close="cashOnClose">
-        <view class="inputBox">
-            <view>提现</view>
-            <van-field model:value="{{pointsForMoney}}" input-align="center" placeholder="请输入"></van-field>
-            <view>积分</view>
-        </view>
-        <markForm style="width:100%" id="mark-form" formFields="{{ order_annotation }}" showSubmitBtn="{{false}}"></markForm>
-         <van-button custom-class="confirmBtn" color="#ddb583" bind:click="getMoney">确定</van-button>
-    </van-popup>
+  </view>
+  <view class="header-image" wx:if="{{memberData.member_image}}">
+    <image src="{{memberData.member_image}}" mode="aspectFit" lazy-load="false" binderror="" bindload="" />
+  </view>
+  <view class="information">
+    <view class="up">
+      <view class="bigBox">
+        <view class="num">{{amountData.commission.today}}</view>
+        <view class="text">今日获得奖励</view>
+      </view>
+      <view class="bigBox">
+        <view class="num">{{amountData.commission.total}}</view>
+        <view class="text">累计获得奖励</view>
+      </view>
+    </view>
+    <view class="bottom">
+      <view class="mediumBox">
+        <view class="num">{{amountData.account_amount_total}}</view>
+        <view class="text">个人消费积分</view>
+      </view>
+      <view class="line"></view>
+      <view class="mediumBox">
+        <view class="num">{{memberData.sub_commission}}</view>
+        <view class="text">小区消费积分</view>
+      </view>
+      <view class="line"></view>
+      <view class="mediumBox">
+        <view class="num">{{memberData.sub_member_count}}</view>
+        <view class="text">小区人数</view>
+      </view>
+      <view class="line"></view>
+      <view class="mediumBox">
+        <view class="num">{{memberData.order_count}}</view>
+        <view class="text">积分订单</view>
+      </view>
+    </view>
+  </view>
+  <van-popup show="{{ showRecharge }}" custom-class="rechargePopup" round closeable bind:close="onClose">
+    <view class="modal-title">请输入充值金额</view>
+    <view class="rechargeBox">
+      <view class="inputBox">
+        <view class="label">充值金额:</view>
+        <van-field model:value="{{rechargeAmount}}" input-class='inputClass' input-align="center" placeholder="请输入金额"></van-field>
+        <view>元</view>
+      </view>
+      <view class="tips">（1元等于{{cashData.setting.cash_recharge_proportion}}积分）</view>
+      <van-button custom-class="confirmBtn" size='small' color="#ddb583" bind:click="recharge">
+        确定
+      </van-button>
+    </view>
+  </van-popup>
+  <!-- 提现 -->
+  <van-popup show="{{ showCash }}" custom-class="cashPopup" round closeable bind:close="cashOnClose">
+    <view class="modal-title">请输入提现积分</view>
+    <view class="inputBox">
+      <view>提现：</view>
+      <van-field model:value="{{pointsForMoney}}" input-class='inputClass' input-align="center" placeholder="请输入"></van-field>
+      <view>积分</view>
+    </view>
+    <markForm style="width:100%" id="mark-form" formFields="{{ order_annotation }}" showSubmitBtn="{{false}}"></markForm>
+    <van-button custom-class="confirmBtn" size='small' color="#ddb583" bind:click="getMoney">
+      确定
+    </van-button>
+  </van-popup>
 </view>
 <wxs src="utils/wxs/timeTranslate.wxs" module="filter" />

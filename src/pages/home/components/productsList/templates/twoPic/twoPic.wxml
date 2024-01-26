@@ -34,9 +34,9 @@
             {{ product.price }}
           </view>
           <!-- 原价 针对三图隐藏 -->
-          <view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}" wx:if="{{ !product.membership_price_enable && product.price !== product.original_price }}">
+          <!-- <view class="originPrice {{config && config.cart_enable ? 'hidden' : ''}}" wx:if="{{ !product.membership_price_enable && product.price !== product.original_price }}">
             {{ globalData.CURRENCY[globalData.currency] }}{{ product.original_price }}
-          </view>
+          </view> -->
         </block>
       </view>
       <!-- 开启首页显示购物车按钮 排除不可加车商品 -->

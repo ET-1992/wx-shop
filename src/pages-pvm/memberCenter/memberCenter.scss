@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   .header {
-    margin-bottom: 321rpx;
+    // margin-bottom: 321rpx;
     width: 100%;
     height: 256rpx;
     background-color: #ddb583;
@@ -116,6 +116,15 @@
       }
     }
   }
+
+  .header-image {
+    height: 330rpx;
+    width: 100%;
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
   .information {
     width: 720rpx;
     height: 320rpx;
@@ -201,24 +210,47 @@
   }
   .rechargePopup{
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 80%;
-    height: 40%;
+    height: 500rpx;
+    .modal-title {
+      margin-top: 40rpx;
+      margin-bottom: 40rpx;
+      font-family: ".PingFang SC";
+      font-size: 30rpx;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
     .rechargeBox{
-      padding: 20rpx;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      color: #000000;
+      font-family: ".PingFang SC";
+      font-size: 28rpx;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+
       .inputBox{
         margin-bottom: 20rpx;
         display: flex;
+        padding: 20rpx 50rpx;
         justify-content: center;
         align-items: center;
+
+        .label {
+          width: 35%;
+        }
       }
       .tips{
-        margin-bottom: 20rpx;
+        margin-bottom: 30rpx;
+        color: #ddb583;
+        font-size: 24rpx;
       }
     }
   }
@@ -230,6 +262,20 @@
     flex-direction: column;
     width: 80%;
     height: 40%;
+    font-family: ".PingFang SC";
+    font-size: 28rpx;
+    font-style: normal;
+    height: 550rpx;
+
+    .modal-title {
+      margin-bottom: 20rpx;
+      margin-top: 10rpx;
+      font-weight: 600;
+      line-height: normal;
+      font-size: 30rpx;
+    }
+
+
     .inputBox{
       display: flex;
       justify-content: center;
@@ -237,6 +283,9 @@
     }
   }
 }
+
 .confirmBtn{
-  width: 300rpx
+  margin-top: 40rpx;
+  width: 200rpx;
+  height: 20rpx;
 }

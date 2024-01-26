@@ -1,130 +1,78 @@
+2
 <view class="container top">
-    <view class="item">
-        <text class="item-text">可提现金额</text>
-        <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ balance }}</text>
-    </view>
-    <view class="item">
-        <text class="item-text">未结算收益</text>
-        <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ income_pending }}</text>
-    </view>
-
+  <view class="item">
+    <text class="item-text">可提现金额</text>
+    <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ balance }}</text>
+  </view>
+  <view class="item">
+    <text class="item-text">未结算收益</text>
+    <text class="amount">{{ globalData.CURRENCY[globalData.currency] }}{{ income_pending }}</text>
+  </view>
 </view>
 <view class="container middle">
-    <view class="item">
-        <text class="item-text">本次提现</text>
-        <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
-        <input class="input" type="digit" focus bindinput="saveMoneyValue" placeholder="0.00" value="{{money}}"/>
-    </view>
+  <view class="item">
+    <text class="item-text">本次提现</text>
+    <text class="price">{{ globalData.CURRENCY[globalData.currency] }}</text>
+    <input class="input" type="digit" focus bindinput="saveMoneyValue" placeholder="0.00" value="{{money}}" />
+  </view>
 </view>
 <view class="container">
+  <view class="item">
+    <text class="item-text">提现方式</text>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="label" wx:for="{{ payStyles }}" wx:key="name">
+        <radio value="{{item.value}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" />
+        <view class="payName">{{ item.name }}</view>
+      </label>
+    </radio-group>
+  </view>
+  <view wx:if="{{ payStyle == 'weixin' }}">
+    <view class="item" style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);">
+      <text class="item-text">手机号</text>
+      <input class="item-input" placeholder="请输入手机号" type="number" bindblur="check" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" bindfocus="reset" bindinput='getValue' value="{{ phoneNumber }}" data-method="phoneNumber" />
+    </view>
     <view class="item">
-        <text class="item-text">提现方式</text>
-        <radio-group class="radio-group" bindchange="radioChange">
-            <label class="label" wx:for="{{ payStyles }}" wx:key="name">
-                <radio value="{{item.value}}" checked="{{item.checked}}" color="{{ themeColor.primaryColor }}" />
-                <view class="payName">{{ item.name }}</view>
-            </label>
-        </radio-group>
+      <text class="item-text">微信号</text>
+      <input class="item-input" placeholder="请输入微信号" type="text" bindinput='getValue' value="{{ wechatId }}" data-method="wechatId" />
     </view>
-    <view wx:if="{{ payStyle == 'weixin' }}">
-        <view
-            class="item"
-            style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);"
-        >
-            <text class="item-text">手机号</text>
-            <input
-                class="item-input"
-                placeholder="请输入手机号"
-                type="number"
-                bindblur="check"
-                style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
-                bindfocus="reset"
-                bindinput='getValue'
-                value="{{ phoneNumber }}"
-                data-method="phoneNumber"
-            />
-        </view>
-        <view class="item">
-            <text class="item-text">微信号</text>
-            <input
-                class="item-input"
-                placeholder="请输入微信号"
-                type="text"
-                bindinput='getValue'
-                value="{{ wechatId }}"
-                data-method="wechatId"
-            />
-        </view>
+  </view>
+  <view wx:else>
+    <view class="item" style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);">
+      <text class="item-text">姓名</text>
+      <input class="item-input" placeholder="请输入姓名" bindinput='getValue' type="text" value="{{username}}" data-method="username" />
     </view>
-    <view wx:else>
-        <view
-            class="item"
-            style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);"
-        >
-            <text class="item-text">姓名</text>
-            <input
-                class="item-input"
-                placeholder="请输入姓名"
-                bindinput='getValue'
-                type="text"
-                value="{{username}}"
-                data-method="username"
-            />
-        </view>
-        <view
-            class="item"
-            style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);"
-        >
-            <text class="item-text">手机号</text>
-            <input
-                class="item-input"
-                placeholder="请输入手机号"
-                type="number"
-                bindblur="check"
-                style="color: {{ isError.phone ? '#FF0000' : '#000000' }}"
-                bindfocus="reset"
-                bindinput='getValue'
-                value="{{ phoneNumber }}"
-                data-method="phoneNumber"
-            />
-        </view>
-        <view
-            class="item"
-            style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);"
-        >
-            <text class="item-text">银行卡号</text>
-            <input
-                class="item-input"
-                placeholder="请输入银行卡号"
-                bindinput='getValue'
-                type="number"
-                value="{{ bankNumber }}"
-                data-method="bankNumber"
-            />
-        </view>
-        <view class="item">
-            <text class="item-text">开户行</text>
-             <input
-                class="item-input"
-                placeholder="请输入开户行"
-                bindinput='getValue'
-                type="text"
-                value="{{ bankName }}"
-                data-method="bankName"
-            />
-        </view>
+    <view class="item" style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);">
+      <text class="item-text">手机号</text>
+      <input class="item-input" placeholder="请输入手机号" type="number" bindblur="check" style="color: {{ isError.phone ? '#FF0000' : '#000000' }}" bindfocus="reset" bindinput='getValue' value="{{ phoneNumber }}" data-method="phoneNumber" />
     </view>
+    <view class="item" style="border-bottom: 1rpx solid rgba(201, 201, 201, 0.6);">
+      <text class="item-text">银行卡号</text>
+      <input class="item-input" placeholder="请输入银行卡号" bindinput='getValue' type="number" value="{{ bankNumber }}" data-method="bankNumber" />
+    </view>
+    <view class="item">
+      <text class="item-text">开户行</text>
+      <input class="item-input" placeholder="请输入开户行" bindinput='getValue' type="text" value="{{ bankName }}" data-method="bankName" />
+    </view>
+  </view>
 </view>
-
 <view class="checkbox_item">
-		<van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange" checked-color="{{ themeColor.primaryColor }}">阅读并同意</van-checkbox>
-		<view class="checkbox_text">
-			<text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">《用户服务协议》</text><text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">《隐私政策》</text>
-		</view>
+  <van-checkbox value="{{ checked }}" icon-size="18px" bind:change="onChange" checked-color="{{ themeColor.primaryColor }}">
+    阅读并同意
+  </van-checkbox>
+  <view class="checkbox_text">
+    <text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=affiliate_contract">
+      《用户服务协议》
+    </text>
+    <text class="rule" bindtap="go" data-url="/pages/rulePages/rulePages?key=privacy_policy">
+      《隐私政策》
+    </text>
+  </view>
 </view>
-
-<view class="saveBtnWrap" >
-	<view class="saveBtn" bindtap="submitChecked" style="background-color: {{ themeColor.primaryColor }}">申请提现</view>
+<view class="saveBtnWrap">
+  <view class="saveBtn" bindtap="submitChecked" style="background-color: {{ themeColor.primaryColor }}">
+    申请提现
+  </view>
 </view>
-
-<navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2" >提现记录</navigator>
+<navigator class="footer" url="/pages/affiliate/affiliateDetail/affiliateDetail?isActive=2">
+  提现记录
+</navigator>
